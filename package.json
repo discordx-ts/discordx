@@ -2,12 +2,33 @@
   "name": "discord.ts",
   "version": "1.0.0",
   "description": "Create your Discord bot using TypeScript and decorators",
-  "main": "src/DiscordTS.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "private": false,
+  "files": [
+    "*"
+  ],
+  "bugs": {
+    "url": "https://github.com/OwenCalvin/DiscordTS/issue",
+    "email": "contact@owencalvin.com"
+  },
   "scripts": {
     "start": "ts-node src/Main.ts"
   },
   "author": "Owen Calvin",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OwenCalvin/DiscordTS"
+  },
+  "keywords": [
+    "typescript",
+    "discord",
+    "library",
+    "framework",
+    "tool",
+    "decorators"
+  ],
   "dependencies": {
     "discord.js": "^11.4.2",
     "glob": "^7.1.4"

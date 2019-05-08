@@ -1,21 +1,23 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "es2016",
     "noImplicitAny": false,
     "sourceMap": true,
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
     "lib": [
-      "dom",
-      "es7",
+      "es2016",
       "esnext.asynciterable"
     ],
     "moduleResolution": "node"
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "tests"
   ]
 }
