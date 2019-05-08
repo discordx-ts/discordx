@@ -1,5 +1,5 @@
 {
-  "name": "discord",
+  "name": "discord-ts",
   "version": "1.0.0",
   "description": "Create your Discord bot using TypeScript and decorators",
   "main": "index.js",
