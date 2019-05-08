@@ -1,6 +1,6 @@
-import { DiscordEvent } from "src/Types";
+import { DiscordEvent } from ".";
 
 export interface IOn {
   event: DiscordEvent | string;
-  method: (...params: any) => void;
+  method: (...params: any[]) => void;
 }
