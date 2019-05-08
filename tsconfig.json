@@ -13,16 +13,7 @@
       "es7",
       "esnext.asynciterable"
     ],
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "@logic": ["src/logic/index"],
-      "@types": ["src/types/index"],
-      "@decorators": ["src/decorators/index"],
-      "@app": ["app/index"],
-      "@main": ["src/Main"],
-      "@root": ["."]
-    }
+    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules"
