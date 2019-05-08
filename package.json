@@ -1,0 +1,22 @@
+{
+  "name": "discord.ts",
+  "version": "1.0.0",
+  "description": "Create your Discord bot using TypeScript and decorators",
+  "main": "src/DiscordTS.ts",
+  "scripts": {
+    "start": "ts-node src/Main.ts"
+  },
+  "author": "Owen Calvin",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "glob": "^7.1.4"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/node": "^11.9.4",
+    "ts-node": "^8.0.2",
+    "tslib": "^1.9.3",
+    "typescript": "^3.3.3"
+  }
+}

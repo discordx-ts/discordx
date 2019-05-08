@@ -1,0 +1,189 @@
+{
+  "rules": {
+    "prefer-const": true,
+    "no-var-keyword": true,
+    "object-literal-shorthand": true,
+    "object-shorthand-properties-first": true,
+    "unified-signatures": false,
+    "adjacent-overload-signatures": true,
+    "member-access": [true, "no-public"],
+    "no-empty": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "public-static-field",
+          "public-instance-field",
+          "protected-static-field",
+          "protected-instance-field",
+          "private-static-field",
+          "private-instance-field",
+
+          "public-constructor",
+          "private-constructor",
+          "protected-constructor",
+
+          "public-static-method",
+          "public-instance-method",
+          "private-static-method",
+          "private-instance-method",
+          "protected-static-method",
+          "protected-instance-method"
+        ]
+      }
+    ],
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ],
+    "prefer-array-literal": true,
+    "quotemark": [
+      true,
+      "double",
+      "avoid-escape",
+      "avoid-template",
+      "jsx-double"
+    ],
+    "prefer-template": true,
+    "no-eval": true,
+    "no-function-constructor-with-string-args": true,
+    "space-before-function-paren": [
+      true,
+      {
+        "anonymous": "always",
+        "named": "never"
+      }
+    ],
+    "no-parameter-reassignment": true,
+    "ter-prefer-arrow-callback": [
+      true
+    ],
+    "arrow-parens": false,
+    "ter-arrow-parens": [
+      true,
+      "as-needed",
+      {
+        "requireForBlockBody": true
+      }
+    ],
+    "no-duplicate-imports": true,
+    "one-variable-per-declaration": [
+      true,
+      "ignore-for-loop"
+    ],
+    "no-increment-decrement": true,
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "no-boolean-literal-compare": true,
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "brace-style": [
+      true,
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "no-else-after-return": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "ter-indent": [
+      true,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-preblock",
+      "check-separator"
+    ],
+    "eofline": true,
+    "space-in-parens": [
+      true,
+      "never"
+    ],
+    "array-bracket-spacing": [
+      true,
+      "never"
+    ],
+    "object-curly-spacing": [
+      true,
+      "always"
+    ],
+    "max-line-length": [
+      true,
+      150
+    ],
+    "block-spacing": [
+      true,
+      "always"
+    ],
+    "ter-computed-property-spacing": [
+      true,
+      "always"
+    ],
+    "ter-func-call-spacing": [
+      true,
+      "always"
+    ],
+    "no-trailing-whitespace": [
+      true,
+      "always"
+    ],
+    "no-consecutive-blank-lines": [
+      true,
+      "always"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "never",
+        "singleline": "never",
+        "esSpecCompliant": true
+      }
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "no-construct": true,
+    "radix": true,
+    "function-name": [
+      true,
+      {
+        "function-regex": {},
+        "method-regex": {},
+        "private-method-regex": {},
+        "protected-method-regex": {},
+        "static-method-regex": {}
+      }
+    ],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ],
+    "class-name": true,
+    "no-this-assignment": [
+      true,
+      "allow-destructuring"
+    ],
+    "import-name": true
+  }
+}

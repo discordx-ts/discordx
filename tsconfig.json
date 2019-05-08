@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "outDir": "build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "lib": [
+      "dom",
+      "es7",
+      "esnext.asynciterable"
+    ],
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@logic": ["src/logic/index"],
+      "@types": ["src/types/index"],
+      "@decorators": ["src/decorators/index"],
+      "@app": ["app/index"],
+      "@main": ["src/Main"],
+      "@root": ["."]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
