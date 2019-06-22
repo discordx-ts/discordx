@@ -9,9 +9,9 @@
       "request": "launch",
       "name": "Debug TS",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/src/Main.ts"],
+      "args": ["${workspaceRoot}/examples/simple/AppDiscord.ts"],
       "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only", "-r", "tsconfig-paths/register"],
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "openOnSessionStart"
     }
   ]
