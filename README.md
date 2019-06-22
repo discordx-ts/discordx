@@ -153,3 +153,6 @@ on(event: 'warn', listener: (info: string) => void);
 on(event: 'webhookUpdate', listener: (channel: TextChannel) => void);
 on(event: string, listener: Function);
 ```
+
+## Examples
+An example is provided in the [`/examples` folder](https://github.com/OwenCalvin/DiscordTS/tree/master/examples) !
