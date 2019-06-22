@@ -8,10 +8,45 @@ Use `npm`or `yarn` to install DiscordTS with the peer dependecies (`discord.js` 
 ```sh
 npm i @typeit/discord discord.js @types/discord.js
 ```
-```sh
-yarn add @typeit/discord discord.js @types/discord.js
-```
 > You can install `@types/discord.js` as a dev dependency
+
+you must install `reflect-metadata` to enable the decorators and to import it at your entry point
+```sh
+npm i reflect-metadata
+```
+```typescript
+import "reflect-metadata";
+
+// start ...
+```
+
+Your tsconfig.json should looks like that:
+```json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "outDir": "build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "node_modules",
+    "tests",
+    "examples"
+  ]
+}
+```
 
 ## Getting started
 So with start with an empty class (abstract is not necessary but it's more type-safe)
