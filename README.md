@@ -138,6 +138,8 @@ abstract class MyDiscordApp {
 }
 ```
 
+(Works for `@Once(event: string)` too)
+
 ```typescript
 on(event: 'channelCreate', listener: (channel: Channel) => void);
 on(event: 'channelDelete', listener: (channel: Channel) => void);
