@@ -1,16 +1,16 @@
 # DiscordTS
-Create you discord bot with decorators !  
-This modules is built on `discord.js`, so the internal behaviour (methods, properties, ...) is the same.
+Create your discord bot using TypeScript and decorators !  
+This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
 
 ## Installation
 
-Use `npm`or `yarn` to install DiscordTS with the peer dependecies (`discord.js` and `@types/discord.js`):
+Use `npm` or `yarn` to install DiscordTS with the peer dependecies (`discord.js` and `@types/discord.js`):
 ```sh
 npm i @typeit/discord discord.js @types/discord.js
 ```
 > You can install `@types/discord.js` as a dev dependency
 
-you must install `reflect-metadata` to enable the decorators and to import it at your entry point
+you must install `reflect-metadata` to for the decorators and import it at your entry point
 ```sh
 npm i reflect-metadata
 ```
@@ -49,7 +49,7 @@ Your tsconfig.json should looks like that:
 ```
 
 ## Getting started
-So with start with an empty class (abstract is not necessary but it's more type-safe)
+So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialize)
 ```typescript
 abstract class MyDiscordApp {
 }
@@ -60,16 +60,15 @@ Then you must declare it as a Discord app class with the `@Discord` decorator:
 ```typescript
 import { Discord } from "@typeit/discord";
 
-@Discord
+@Discord // Decorate the class
 abstract class MyDiscordApp {
 }
 ```
 
-We can now declare methods that are executed when a Discord event is triggered:
-
-Then you must declare it as a Discord app class with the `@Discord` decorator.  
-Our methods must be decorated by the `@On(event: string)` or `@Once(event: string)` decorator.  
-When the event is triggered, the method is called and we receive values (in arguments) related to the event, here we receive the message instance (details below):
+We can now declare methods that are executed when a Discord event is triggered.  
+Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.  
+When the event is triggered, the method is called and we receive values (in arguments) related to the event.
+Here, we receive the message instance (details below):
 
 ```typescript
 import { Discord, On } from "@typeit/discord";
@@ -85,7 +84,7 @@ abstract class MyDiscordApp {
 
 ## Start your application
 To start your application you must use the DiscordTS client (not the client that is provided by discord.ts !).  
-It works as the same way as the discord.js Client (same methods, properties, ...) but the `login` method is overrided and you can set the `silent` property don't log anything in the console.
+It works as the same way as the discord.js's Client (same methods, properties, ...) but the `login` method is overrided and you can set the `silent` property to don't log anything in the console.
 ```typescript
 import { Client } from "@typeit/discord";
 
@@ -124,14 +123,14 @@ abstract class MyDiscordApp {
 ## Events and payload
 Here you have the details about the payloads that are injected into the method related to a specific event.
 Be aware that the types must be imported from discord.js (except for `Client`).
-In this example for the event `"channelUpdate"` you reveive two payloads from the event:
+In this example for the event `"channelUpdate"` we reveive two payloads from the event:
 ```typescript
 @Discord
 abstract class MyDiscordApp {
   @On("channelUpdate")
   private onChannelUpdate(
-    oldChannel: Channel,
-    newChannel: Channel
+    oldChannel: Channel,  // first one
+    newChannel: Channel   // second one
   ) {
     // ...
   }
