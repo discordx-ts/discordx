@@ -21,7 +21,7 @@ export class AppDiscord {
   }
 
   @On("message")
-  async yo(message: Message, client: Client) {
+  async onMessage(message: Message, client: Client) {
     if (AppDiscord._client.user.id !== message.author.id) {
       if (message.content[0] === this._prefix) {
         const cmd = message.content.replace(this._prefix, "").toLowerCase();
