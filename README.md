@@ -83,7 +83,7 @@ abstract class MyDiscordApp {
 ```
 
 ## Start your application
-In order to start your application, you must use the DiscordTS client (not the client that is provided by discord.ts!).  
+In order to start your application, you must use the DiscordTS `Client` (not the client that is provided by discord.js!).  
 It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property in order to not log anything in the console.
 ```typescript
 import { Client } from "@typeit/discord";
