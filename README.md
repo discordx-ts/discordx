@@ -1,5 +1,5 @@
 # DiscordTS
-Create your discord bot using TypeScript and decorators !  
+Create your discord bot using TypeScript and decorators!  
 This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
 
 ## Installation
@@ -10,7 +10,7 @@ npm i @typeit/discord discord.js @types/discord.js
 ```
 > You can install `@types/discord.js` as a dev dependency
 
-you must install `reflect-metadata` to for the decorators and import it at your entry point
+you must install `reflect-metadata` for the decorators and import it at your entry point
 ```sh
 npm i reflect-metadata
 ```
@@ -20,7 +20,7 @@ import "reflect-metadata";
 // start ...
 ```
 
-Your tsconfig.json should looks like that:
+Your tsconfig.json should looks like that :
 ```json
 {
   "compilerOptions": {
@@ -49,13 +49,13 @@ Your tsconfig.json should looks like that:
 ```
 
 ## Getting started
-So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialize)
+So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized)
 ```typescript
 abstract class MyDiscordApp {
 }
 ```
 
-Then you must declare it as a Discord app class with the `@Discord` decorator:
+Then you must declare it as a Discord app class with the `@Discord` decorator :
 
 ```typescript
 import { Discord } from "@typeit/discord";
@@ -65,10 +65,10 @@ abstract class MyDiscordApp {
 }
 ```
 
-We can now declare methods that are executed when a Discord event is triggered.  
+We can now declare methods that will be executed whenever a Discord event is triggered.  
 Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.  
 When the event is triggered, the method is called and we receive values (in arguments) related to the event.
-Here, we receive the message instance (details below):
+Here, we receive the message instance (details below) :
 
 ```typescript
 import { Discord, On } from "@typeit/discord";
@@ -83,8 +83,8 @@ abstract class MyDiscordApp {
 ```
 
 ## Start your application
-To start your application you must use the DiscordTS client (not the client that is provided by discord.ts !).  
-It works as the same way as the discord.js's Client (same methods, properties, ...) but the `login` method is overrided and you can set the `silent` property to don't log anything in the console.
+In order to start your application, you must use the DiscordTS client (not the client that is provided by discord.ts!).  
+It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property in order to not log anything in the console.
 ```typescript
 import { Client } from "@typeit/discord";
 
@@ -100,7 +100,7 @@ start();
 ```
 
 ## Client payload injection
-You also receive, always as the last payload, the client instance:
+You also receive, always as the last payload, the client instance :
 ```typescript
 import {
   Discord,
@@ -123,7 +123,7 @@ abstract class MyDiscordApp {
 ## Events and payload
 Here you have the details about the payloads that are injected into the method related to a specific event.
 Be aware that the types must be imported from discord.js (except for `Client`).
-In this example for the event `"channelUpdate"` we reveive two payloads from the event:
+In this example of the event `"channelUpdate"` we receive two payloads from the event :
 ```typescript
 @Discord
 abstract class MyDiscordApp {
