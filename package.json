@@ -12,9 +12,6 @@
     "url": "https://github.com/OwenCalvin/DiscordTS/issue",
     "email": "owen.gombas@gmail.com"
   },
-  "scripts": {
-    "start": "ts-node src/Main.ts"
-  },
   "author": "Owen Calvin",
   "license": "MIT",
   "repository": {
