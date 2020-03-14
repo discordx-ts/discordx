@@ -9,7 +9,7 @@ import {
 import {
   Message
 } from "discord.js";
-import { NotBot } from "./NotBot";
+import { NotBot } from "./guards/NotBot";
 
 // Decorate the class with the @Discord decorator
 @Discord
@@ -32,7 +32,7 @@ export class AppDiscord {
   // When the "message" event is triggered, this method is called with a specific payload (related to the event)
   @On("message")
   @Guard(NotBot())
-  @Guard(Prefix("yo"))
+  @Guard(Prefix("!"))
   async onMessage(message: Message) {
     // Your logic...
     switch (message.content) {
