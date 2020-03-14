@@ -9,7 +9,7 @@ import {
 import {
   Message
 } from "discord.js";
-import { NotBot } from './NotBot';
+import { NotBot } from "./NotBot";
 
 // Decorate the class with the @Discord decorator
 @Discord
