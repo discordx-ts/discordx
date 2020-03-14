@@ -3,7 +3,6 @@ Create your discord bot using TypeScript and decorators!
 This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
 
 ## Installation
-
 Use `npm` or `yarn` to install DiscordTS with the peer dependecies (`discord.js` and `@types/discord.js`):
 ```sh
 npm i @typeit/discord discord.js @types/discord.js
