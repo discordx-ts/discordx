@@ -120,23 +120,6 @@ abstract class MyDiscordApp {
 }
 ```
 
-## Events and payload
-Here you have the details about the payloads that are injected into the method related to a specific event.
-Be aware that the types must be imported from discord.js (except for `Client`).
-In this example of the event `"channelUpdate"` we receive two payloads from the event :
-```typescript
-@Discord
-abstract class MyDiscordApp {
-  @On("channelUpdate")
-  private onChannelUpdate(
-    oldChannel: Channel,  // first one
-    newChannel: Channel   // second one
-  ) {
-    // ...
-  }
-}
-```
-
 ## Guards
 You can use functions that are executed before your event to determine if it's executed. For example if you want to apply a prefix to the messages you can simply use the `@Guard` decorator:
 (The `Prefix` function is provided by the `@typeit/discord` package, you can import it)
@@ -183,6 +166,23 @@ export function Prefix(text: string, replace: boolean = true) {
     }
     return startWith;
   };
+}
+```
+
+## Events and payload
+Here you have the details about the payloads that are injected into the method related to a specific event.
+Be aware that the types must be imported from discord.js (except for `Client`).
+In this example of the event `"channelUpdate"` we receive two payloads from the event :
+```typescript
+@Discord
+abstract class MyDiscordApp {
+  @On("channelUpdate")
+  private onChannelUpdate(
+    oldChannel: Channel,  // first one
+    newChannel: Channel   // second one
+  ) {
+    // ...
+  }
 }
 ```
 
