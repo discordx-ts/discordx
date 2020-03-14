@@ -1,6 +1,8 @@
 import {
   DiscordEvent,
-  IInstance
+  IInstance,
+  IDecorator,
+  IGuard
 } from ".";
 
 export interface IOn {
@@ -8,4 +10,6 @@ export interface IOn {
   method: (...params: any[]) => void;
   linkedInstance?: IInstance;
   once: boolean;
+  guards: IDecorator<IGuard>[];
+  guardFn?: (...params: any[]) => Promise<any>;
 }

@@ -21,19 +21,25 @@ export class Client extends ClientJS {
     this.loadClasses();
 
     MetadataStorage.Instance.Build();
-    MetadataStorage.Instance.Ons.map((on) => {
-      const fn = (...params: any[]) => {
-        if (on.params.linkedInstance && on.params.linkedInstance.instance) {
-          on.params.method.bind(on.params.linkedInstance.instance)(...params, this);
-        } else {
-          on.params.method(...params, this);
+    MetadataStorage.Instance.Ons.map(async (on) => {
+      const fn = async (...params: any[]) => {
+        const execute = await on.params.guardFn(this, ...params);
+
+        if (execute) {
+          if (on.params.linkedInstance && on.params.linkedInstance.instance) {
+            on.params.method.bind(on.params.linkedInstance.instance)(...params, this);
+          } else {
+            on.params.method(...params, this);
+          }
         }
       };
+
       if (on.params.once) {
         this.once(on.params.event, fn);
       } else {
         this.on(on.params.event, fn);
       }
+
       if (!this.silent) {
         console.log(`${on.params.event}: ${on.class.name}.${on.key}`);
       }

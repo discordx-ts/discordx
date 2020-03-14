@@ -137,8 +137,56 @@ abstract class MyDiscordApp {
 }
 ```
 
-(Works for `@Once(event: string)` too)
+## Guards
+You can use functions that are executed before your event to determine if it's executed. For example if you want to apply a prefix to the messages you can simply use the `@Guard` decorator:
+(The `Prefix` function is provided by the `@typeit/discord` package, you can import it)
+```typescript
+import {
+  Discord,
+  On,
+  Client,
+  Guard,
+  Prefix
+} from "../../src";
+import {
+  Message
+} from "discord.js";
 
+// Decorate the class with the @Discord decorator
+@Discord
+export class AppDiscord {
+  @On("message")
+  @Guard(Prefix("!"))
+  async onMessage(message: Message) {
+    switch (message.content.toLowerCase()) {
+      case "hello":
+        message.reply("Hello!");
+        break;
+      default:
+        message.reply("Command not found");
+        break;
+    }
+  }
+}
+```
+
+### The guard Function
+A guard function looks like this, that's a function that returns a function:
+```typescript
+import { Message } from "discord.js";
+
+export function Prefix(text: string, replace: boolean = true) {
+  return (message: Message) => {
+    const startWith = message.content.startsWith(text);
+    if (replace) {
+      message.content = message.content.replace(text, "");
+    }
+    return startWith;
+  };
+}
+```
+
+(Works for `@Once(event: string)` too)
 ```typescript
 on(event: 'channelCreate', listener: (channel: Channel) => void);
 on(event: 'channelDelete', listener: (channel: Channel) => void);

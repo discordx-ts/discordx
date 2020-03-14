@@ -11,6 +11,7 @@ export function On(event: DiscordEvent | string) {
       class: target.constructor,
       key,
       params: {
+        guards: [],
         event,
         once: false,
         method: descriptor.value

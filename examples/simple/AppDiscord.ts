@@ -1,12 +1,15 @@
 import {
   Discord,
   On,
-  Client // Use the Client that are provided by @typeit/discord
+  Client, // Use the Client that are provided by @typeit/discord
+  Guard,
+  Prefix
 } from "../../src";
 // You must import the types from @types/discord.js
 import {
   Message
 } from "discord.js";
+import { NotBot } from './NotBot';
 
 // Decorate the class with the @Discord decorator
 @Discord
@@ -21,27 +24,24 @@ export class AppDiscord {
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
     this._client.login(
-      "YOUR_TOKEN",
+      "Njg4NDY2MTk0MDA5MDMwNzAy.Xm0uUw.7M9_kmTvEjouIYMCnHshHTXS3E8",
       `${__dirname}/*Discord.ts` // glob string to load the classes
     );
   }
 
   // When the "message" event is triggered, this method is called with a specific payload (related to the event)
   @On("message")
-  async onMessage(message: Message, client: Client) {
+  @Guard(NotBot())
+  @Guard(Prefix("yo"))
+  async onMessage(message: Message) {
     // Your logic...
-    if (AppDiscord._client.user.id !== message.author.id) {
-      if (message.content[0] === this._prefix) {
-        const cmd = message.content.replace(this._prefix, "").toLowerCase();
-        switch (cmd) {
-          case "hello":
-            message.reply(this._sayHelloMessage);
-            break;
-          default:
-            message.reply(this._commandNotFoundMessage);
-            break;
-        }
-      }
+    switch (message.content) {
+      case "hello":
+        message.reply(this._sayHelloMessage);
+        break;
+      default:
+        message.reply(this._commandNotFoundMessage);
+        break;
     }
   }
 }

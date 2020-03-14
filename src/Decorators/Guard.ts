@@ -1,19 +1,15 @@
 import {
   MetadataStorage,
-  DiscordEvent
+  GuardFunction
 } from "..";
 
-export function Once(event: DiscordEvent);
-export function Once(event: string);
-export function Once(event: DiscordEvent | string) {
+export function Guard(fn: GuardFunction) {
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
-    MetadataStorage.Instance.AddOn({
+    MetadataStorage.Instance.AddGuard({
       class: target.constructor,
       key,
       params: {
-        guards: [],
-        event,
-        once: true,
+        fn,
         method: descriptor.value
       }
     });
