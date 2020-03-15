@@ -129,10 +129,13 @@ import {
   Client,
   Guard,
   Prefix
-} from "../../src";
+} from "@typeit/discord";
 import {
   Message
 } from "discord.js";
+import {
+  NotBot
+} from "./NotBot";
 
 @Discord
 abstract class AppDiscord {
