@@ -138,7 +138,7 @@ import {
 export class AppDiscord {
   @On("message")
   @Guard(
-    NotBot // You can use multiple guard functions, they are excuted in the order!
+    NotBot, // You can use multiple guard functions, they are excuted in the same order!
     Prefix("!")
   )
   async onMessage(message: Message) {
