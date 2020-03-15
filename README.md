@@ -138,7 +138,7 @@ import {
 export class AppDiscord {
   @On("message")
   @Guard(
-    NotBot // You use multiple the guard function, they are excuted in the order!
+    NotBot // You can use multiple guard functions, they are excuted in the order!
     Prefix("!")
   )
   async onMessage(message: Message) {
@@ -165,7 +165,7 @@ export function NotBot(message: Message, client: Client) {
 }
 ```
 
-If you must indicate parameters for a guard function (like for the `Prefix` guard) you can simple use the "function that returns a function" pattern like this:
+If you have to indicate parameters for a guard function (like for the `Prefix` guard) you can simple use the "function that returns a function" pattern like this:
 ```typescript
 import { Client } from "typeit/discord";
 import { Message } from "discord.js";
