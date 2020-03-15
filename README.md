@@ -158,7 +158,9 @@ abstract class AppDiscord {
 ```
 
 ### The guard functions
-Here is a simple example of a guard function (payload and client are injected like for events):
+Here is a simple example of a guard function (payload and client are injected like for events)
+- If the function returns false: the next guards and the event function aren't executed  
+- If the function returns true: it continues the executions of the next guards  
 ```typescript
 import { Client } from "typeit/discord";
 import { Message } from "discord.js";
