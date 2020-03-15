@@ -3,11 +3,10 @@ Create your discord bot using TypeScript and decorators!
 This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
 
 ## Installation
-Use `npm` or `yarn` to install DiscordTS with the peer dependecies (`discord.js` and `@types/discord.js`):
+Use `npm` or `yarn` to install DiscordTS with the peer dependecies (`discord.js`):
 ```sh
-npm i @typeit/discord discord.js @types/discord.js
+npm i @typeit/discord discord.js
 ```
-> You can install `@types/discord.js` as a dev dependency
 
 you must install `reflect-metadata` for the decorators and import it at your entry point
 ```sh
@@ -50,7 +49,7 @@ Your tsconfig.json should looks like that :
 ## Getting started
 So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized)
 ```typescript
-abstract class MyDiscordApp {
+abstract class AppDiscord {
 }
 ```
 
@@ -60,7 +59,7 @@ Then you must declare it as a Discord app class with the `@Discord` decorator :
 import { Discord } from "@typeit/discord";
 
 @Discord // Decorate the class
-abstract class MyDiscordApp {
+abstract class AppDiscord {
 }
 ```
 
@@ -73,7 +72,7 @@ Here, we receive the message instance (details below) :
 import { Discord, On } from "@typeit/discord";
 
 @Discord
-abstract class MyDiscordApp {
+abstract class AppDiscord {
   @On("message")
   private onMessage(message: Message) {
     // ...
@@ -85,13 +84,14 @@ abstract class MyDiscordApp {
 In order to start your application, you must use the DiscordTS `Client` (not the client that is provided by discord.js!).  
 It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property in order to not log anything in the console.
 ```typescript
+// Use the Client that are provided by @typeit/discord NOT discord.js
 import { Client } from "@typeit/discord";
 
 function start() {
   const client = new Client();
   client.login(
     "YOUR_TOKEN",
-    `${__dirname}/*Discord.ts`
+    `${__dirname}/*Discord.ts` // glob string to load the classes
   );
 }
 
@@ -108,7 +108,7 @@ import {
 } from "@typeit/discord";
 
 @Discord
-abstract class MyDiscordApp {
+abstract class AppDiscord {
   @On("message")
   private onMessage(
     message: Message,
@@ -135,7 +135,7 @@ import {
 } from "discord.js";
 
 @Discord
-export class AppDiscord {
+abstract class AppDiscord {
   @On("message")
   @Guard(
     NotBot, // You can use multiple guard functions, they are excuted in the same order!
@@ -187,7 +187,7 @@ Be aware that the types must be imported from discord.js (except for `Client`).
 In this example of the event `"channelUpdate"` we receive two payloads from the event :
 ```typescript
 @Discord
-abstract class MyDiscordApp {
+abstract class AppDiscord {
   @On("channelUpdate")
   private onChannelUpdate(
     oldChannel: Channel,  // first one

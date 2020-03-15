@@ -1,23 +1,25 @@
 import {
   Discord,
   On,
-  Client, // Use the Client that are provided by @typeit/discord
+  Client, // Use the Client that is provided by @typeit/discord NOT discord.js
   Guard,
   Prefix
 } from "../../src";
-// You must import the types from @types/discord.js
+// You must import the types from discord.js
 import {
   Message
 } from "discord.js";
 import { NotBot } from "./guards/NotBot";
 
+enum Answers {
+  hello = "Hello!",
+  notFound = "command not found..."
+}
+
 // Decorate the class with the @Discord decorator
 @Discord
 export class AppDiscord {
   private static _client: Client;
-  private _prefix: string = "!";
-  private _sayHelloMessage: string = "hello !";
-  private _commandNotFoundMessage: string = "command not found...";
 
   static start() {
     this._client = new Client();
@@ -36,13 +38,12 @@ export class AppDiscord {
     Prefix("!")
   )
   async onMessage(message: Message) {
-    // Your logic...
     switch (message.content) {
       case "hello":
-        message.reply(this._sayHelloMessage);
+        message.reply(Answers.hello);
         break;
       default:
-        message.reply(this._commandNotFoundMessage);
+        message.reply(Answers.notFound);
         break;
     }
   }
