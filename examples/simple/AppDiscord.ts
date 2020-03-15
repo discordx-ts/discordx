@@ -31,8 +31,10 @@ export class AppDiscord {
 
   // When the "message" event is triggered, this method is called with a specific payload (related to the event)
   @On("message")
-  @Guard(NotBot())
-  @Guard(Prefix("!"))
+  @Guard(
+    NotBot,
+    Prefix("!")
+  )
   async onMessage(message: Message) {
     // Your logic...
     switch (message.content) {

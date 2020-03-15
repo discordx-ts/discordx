@@ -1,1 +1,3 @@
-export type GuardFunction = (...params: any[]) => Promise<boolean> | boolean | Promise<undefined> | undefined;
+export type GuardFunction =
+  ((...params: any[]) => Promise<boolean> | boolean | Promise<undefined> | undefined);
+

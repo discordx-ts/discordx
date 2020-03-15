@@ -134,11 +134,13 @@ import {
   Message
 } from "discord.js";
 
-// Decorate the class with the @Discord decorator
 @Discord
 export class AppDiscord {
   @On("message")
-  @Guard(Prefix("!"))
+  @Guard(
+    NotBot // You use multiple the guard function, they are excuted in the order!
+    Prefix("!")
+  )
   async onMessage(message: Message) {
     switch (message.content.toLowerCase()) {
       case "hello":
@@ -152,13 +154,24 @@ export class AppDiscord {
 }
 ```
 
-### The guard Function
-A guard function looks like this, that's a function that returns a function:
+### The guard functions
+Here is a simple example of a guard function (payload and client are injected like for events):
 ```typescript
+import { Client } from "typeit/discord";
+import { Message } from "discord.js";
+
+export function NotBot(message: Message, client: Client) {
+  return client.user.id !== message.author.id;
+}
+```
+
+If you must indicate parameters for a guard function (like for the `Prefix` guard) you can simple use the "function that returns a function" pattern like this:
+```typescript
+import { Client } from "typeit/discord";
 import { Message } from "discord.js";
 
 export function Prefix(text: string, replace: boolean = true) {
-  return (message: Message) => {
+  return (message: Message, client: Client) => {
     const startWith = message.content.startsWith(text);
     if (replace) {
       message.content = message.content.replace(text, "");
