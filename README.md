@@ -1,5 +1,5 @@
 # discord.ts (typeit/discord)
-Create your discord bot using TypeScript and decorators!  
+Create your discord bot by using TypeScript and decorators!  
 This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.  
 
 **[Join the Discord](https://discord.gg/VDjwu8E)**
@@ -20,7 +20,7 @@ import "reflect-metadata";
 // start ...
 ```
 
-Your tsconfig.json should looks like that :
+Your tsconfig.json should look like this:
 ```json
 {
   "compilerOptions": {
@@ -47,7 +47,7 @@ Your tsconfig.json should looks like that :
 ```
 
 ## Getting started
-So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized)
+So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized).
 ```typescript
 abstract class AppDiscord {
 }
@@ -65,7 +65,7 @@ abstract class AppDiscord {
 
 We can now declare methods that will be executed whenever a Discord event is triggered.  
 Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.  
-When the event is triggered, the method is called and we receive values (in arguments) related to the event.
+When the event is triggered, the method is called and we receive the values (in arguments) related to the event.
 Here, we receive the message instance (details below) :
 
 ```typescript
@@ -82,7 +82,7 @@ abstract class AppDiscord {
 
 ## Start your application
 In order to start your application, you must use the DiscordTS `Client` (not the client that is provided by discord.js!).  
-It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property (in the `Client` initialization) in order to not log anything in the console.
+It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property (into `Client` initialization) in order to not log anything in the console.
 ```typescript
 // Use the Client that are provided by @typeit/discord NOT discord.js
 import { Client } from "@typeit/discord";
@@ -99,7 +99,7 @@ start();
 ```
 
 ## Client payload injection
-You also receive, always as the last payload, the client instance :
+You will also receive the client instance always as the last payload:
 ```typescript
 import {
   Discord,
@@ -123,7 +123,7 @@ abstract class AppDiscord {
 ## Commands
 You can simply use the `@Command` and `@CommandNotFound` decorators to implement a command system in your app.  
 
-When you use the `@Command` or the `@CommandNotFound` decorator you should type your first parameters as a `CommandMessage`. It provides the command parameters, the prefix, and the command (specified [here](https://github.com/OwenCalvin/discord.ts/blob/master/src/Types/CommandMessage.ts)).  
+When you use the `@Command` or the `@CommandNotFound` decorator, you should type your first parameters as a `CommandMessage`. It provides the command parameters, the prefix, and the command (specified [here](https://github.com/OwenCalvin/discord.ts/blob/master/src/Types/CommandMessage.ts)).  
 
 ```typescript
 import {
@@ -155,9 +155,9 @@ abstract class AppDiscord {
 ```
 
 ### The prefix and commandCaseSensitive params
-You can specify the `prefix` and the `commandCaseSensitive` on the `@Discord` and `@Command` params (you can specify only the prefix for `@CommandNotFound`). The params on the `@Command` will override those of `@Discord`.  
+You can specify the `prefix` and the `commandCaseSensitive` on the `@Discord` and `@Command` params (you can specify only the prefix of `@CommandNotFound`). The params on the `@Command` will override those of `@Discord`.  
 
-**But if you use different prefixes or case sensitivity, I recommend to implement multiple classes decorated by the `@Discord` parameter using different prefixes/case sensitivity. like for the [multipleDiscordInstances example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/multipleDiscordInstances)**  
+**If you use different prefixes or case sensitivity, I recommend implementing multiple classes decorated by the `@Discord` parameter using different prefixes/case sensitivity, like the [multipleDiscordInstances example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/multipleDiscordInstances).**  
 
 But here is an example for the different params:
 ```typescript
@@ -207,7 +207,7 @@ abstract class AppDiscord {
 If you are forced to change the prefix during the execution or if it's loaded from a file when your app start, you can use two methods (it returns `true` if the params changed):
 - `Client.setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean`  
 - `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: IDiscordParams): boolean`  
-> I recommend to not specify the prefix inside the decorator if you use one of these two methods, because it wouldn't be consistent)
+>I recommend not specifying the prefix inside the decorator if you use one of these two methods because it wouldn't be consistent
 
 ```typescript
 import {
@@ -239,9 +239,10 @@ abstract class AppDiscord {
 ```
 
 ## Guards
-(Guards works also with `@Command` and `@CommandNotFound`)
-You can use functions that are executed before your event to determine if it's executed. For example if you want to apply a prefix to the messages you can simply use the `@Guard` decorator:
-(The `Prefix` function is provided by the `@typeit/discord` package, you can import it)
+> (Guards works also with `@Command` and `@CommandNotFound`)  
+
+You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator:
+(The `Prefix` function is provided by the `@typeit/discord` package, where you can import it)
 ```typescript
 import {
   Discord,
@@ -278,7 +279,7 @@ abstract class AppDiscord {
 ```
 
 ### The guard functions
-Here is a simple example of a guard function (payload and client are injected like for events)
+Here is a simple example of a guard function (the payload and the client instance are injected like for events)
 - If the function returns `false`: the next guards and the event function aren't executed  
 - If the function returns `true`: it continues the executions of the next guards  
 ```typescript
@@ -309,7 +310,7 @@ export function Prefix(text: string, replace: boolean = true) {
 ## Events and payload
 Here you have the details about the payloads that are injected into the method related to a specific event.
 Be aware that the types must be imported from discord.js (except for `Client`).
-In this example of the event `"channelUpdate"` we receive two payloads from the event :
+In this example of the event `"channelUpdate"`, we receive two payloads from the event :
 ```typescript
 @Discord()
 abstract class AppDiscord {
