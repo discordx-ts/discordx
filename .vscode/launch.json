@@ -7,9 +7,19 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug TS",
+      "name": "Debug simple example",
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/simple/AppDiscord.ts"],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug multiple discord instances example",
+      "protocol": "inspector",
+      "args": ["${workspaceRoot}/examples/multipleDiscordInstances/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "openOnSessionStart"

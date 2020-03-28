@@ -2,13 +2,16 @@ import {
   DiscordEvent,
   IInstance,
   IDecorator,
-  IGuard
+  IGuard,
+  ICommandParams
 } from ".";
 
-export interface IOn {
+export interface IOn extends ICommandParams {
+  commandName?: string;
   event: DiscordEvent | string;
   method: (...params: any[]) => void;
-  linkedInstance?: IInstance;
+  compiledMethod?: (...params: any[]) => void;
+  linkedInstance?: IDecorator<IInstance>;
   once: boolean;
   guards: IDecorator<IGuard>[];
   guardFn?: (...params: any[]) => Promise<any>;

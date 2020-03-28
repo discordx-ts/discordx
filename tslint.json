@@ -44,7 +44,7 @@
       "avoid-template",
       "jsx-double"
     ],
-    "prefer-template": true,
+    "prefer-template": false,
     "no-eval": true,
     "no-function-constructor-with-string-args": true,
     "space-before-function-paren": [

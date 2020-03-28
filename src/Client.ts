@@ -2,12 +2,17 @@ import { Client as ClientJS } from "discord.js";
 import * as Glob from "glob";
 import {
   MetadataStorage,
-  LoadClass
+  LoadClass,
+  IDiscordParams,
+  ICommandParams
 } from ".";
+import { IClientOptions } from "./Types/ClientOptions";
 
 export class Client extends ClientJS {
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
+  private _loadedOnEvents: string[] = [];
+  private _loadedOnceEvents: string[] = [];
 
   get silent() {
     return this._silent;
@@ -16,32 +21,65 @@ export class Client extends ClientJS {
     this._silent = value;
   }
 
+  constructor(options?: IClientOptions) {
+    super(options);
+
+    this.silent = options ? options.silent : false;
+  }
+
+  static setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean {
+    return MetadataStorage.Instance.setDiscordParams(discordInstance, params);
+  }
+
+  static setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: ICommandParams): boolean {
+    return MetadataStorage.Instance.setCommandParams(discordInstance, instanceMethod, params);
+  }
+
   login(token: string, ...loadClasses: LoadClass[]) {
     this._loadClasses = loadClasses;
     this.loadClasses();
 
-    MetadataStorage.Instance.Build();
+    MetadataStorage.Instance.Build(this);
     MetadataStorage.Instance.Ons.map(async (on) => {
-      const fn = async (...params: any[]) => {
-        const execute = await on.params.guardFn(this, ...params);
-
-        if (execute) {
-          if (on.params.linkedInstance && on.params.linkedInstance.instance) {
-            on.params.method.bind(on.params.linkedInstance.instance)(...params, this);
-          } else {
-            on.params.method(...params, this);
-          }
-        }
-      };
-
-      if (on.params.once) {
-        this.once(on.params.event, fn);
-      } else {
-        this.on(on.params.event, fn);
+      if (
+        on.params.once &&
+        this._loadedOnceEvents.indexOf(on.params.event) === -1
+      ) {
+        this.once(
+          on.params.event,
+          MetadataStorage.Instance.compileOnForEvent(
+            on.params.event,
+            this,
+            true
+          )
+        );
+        this._loadedOnceEvents.push(on.params.event);
+      } else if (this._loadedOnEvents.indexOf(on.params.event) === -1) {
+        this.on(
+          on.params.event,
+          MetadataStorage.Instance.compileOnForEvent(
+            on.params.event,
+            this
+          )
+        );
+        this._loadedOnEvents.push(on.params.event);
       }
 
       if (!this.silent) {
-        console.log(`${on.params.event}: ${on.class.name}.${on.key}`);
+        let eventName = on.params.event;
+        if (on.params.commandName !== undefined) {
+          const prefix = on.params.prefix || on.params.linkedInstance.params.prefix;
+          let commandName = on.params.commandName;
+          if (!on.params.commandCaseSensitive && !on.params.linkedInstance.params.commandCaseSensitive) {
+            commandName = commandName.toLowerCase();
+          }
+          if (on.params.commandName === "") {
+            eventName += ` (Command not found "${prefix}")`;
+          } else {
+            eventName += ` (Command "${prefix}${on.params.commandName}")`;
+          }
+        }
+        console.log(`${eventName}: ${on.class.name}.${on.key}`);
       }
     });
 

@@ -2,9 +2,12 @@ import {
   IOn,
   IDecorator,
   IInstance,
-  IGuard
+  IGuard,
+  Client
 } from "..";
-import { Client } from "discord.js";
+import { Prefix } from "../Guards";
+import { CommandMessage } from "../Types/CommandMessage";
+import { IDiscordParams, ICommandParams } from "../Types";
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -31,16 +34,24 @@ export class MetadataStorage {
     this._guards.push(guard);
   }
 
-  AddInstance(classType: IDecorator<any>) {
+  AddInstance(classType: IDecorator<IInstance>) {
     this._instances.push({
       ...classType,
       params: {
-        instance: new classType.class()
+        instance: new classType.class(),
+        ...classType.params
       }
     });
   }
 
-  Build() {
+  Build(client: Client) {
+    const commands = this._ons.reduce((prev, on) => {
+      if (on.params.commandName !== undefined ) {
+        prev.push(on.params.commandName);
+      }
+      return prev;
+    }, []);
+
     this._ons.map((on) => {
       on.params.guards = this._guards.reverse().filter((guard) => {
         return (
@@ -63,9 +74,117 @@ export class MetadataStorage {
 
       const instance = this._instances.find((instance) => instance.class === on.class);
       if (instance) {
-        on.params.linkedInstance = instance.params;
+        on.params.linkedInstance = instance;
       }
+
+      on.params.compiledMethod = async (...params: any[]) => {
+        let command: IDecorator<IOn> = on;
+        let execute = true;
+
+        if (on.params.event === "message") {
+          if (on.params.commandName !== undefined) {
+            execute = false;
+            const message = params[0] as CommandMessage;
+            const prefix = on.params.prefix || on.params.linkedInstance.params.prefix;
+            if (Prefix(prefix)(message)) {
+              if (message.author.id !== client.user.id) {
+                const params = message.content.split(" ");
+
+                let testedCommand = params[0].replace(prefix, "");
+                const originalCommand = testedCommand;
+
+                message.prefix = prefix;
+                message.command = testedCommand;
+                message.commandWithPrefix = prefix + testedCommand;
+                message.originalCommand = originalCommand;
+                message.originalCommandWithPrefix = prefix + originalCommand;
+                message.params = params;
+                message.params.splice(0, 1);
+
+                if (
+                  !on.params.linkedInstance.params.commandCaseSensitive &&
+                  !on.params.commandCaseSensitive
+                ) {
+                  testedCommand = testedCommand.toLowerCase();
+                }
+
+                if (commands.indexOf(originalCommand) === -1) {
+                  testedCommand = "";
+                }
+
+                if (testedCommand === on.params.commandName) {
+                  execute = true;
+                  command = on;
+                }
+              }
+            }
+          }
+        }
+
+        if (execute) {
+          const executeMain = await command.params.guardFn(client, ...params);
+          if (executeMain) {
+            return await this.executeBindedOn(command, params, client);
+          }
+        }
+      };
     });
+  }
+
+  setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean {
+    const discord = this._instances.find((instance) => instance.params.instance === discordInstance);
+
+    if (discord) {
+      discord.params = {
+        ...discord.params,
+        ...params
+      };
+      return true;
+    }
+
+    return false;
+  }
+
+  setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: ICommandParams): boolean {
+    const on = this._ons.find((on) => (
+      on.params.linkedInstance.params.instance === discordInstance &&
+      on.params.method === instanceMethod
+    ));
+
+    if (on) {
+      on.params = {
+        ...on.params,
+        ...params
+      };
+      return true;
+    }
+
+    return false;
+  }
+
+  executeBindedOn(on: IDecorator<IOn>, params: any[], client: Client) {
+    if (on.params.linkedInstance && on.params.linkedInstance.params.instance) {
+      return on.params.method.bind(on.params.linkedInstance.params.instance)(...params, client);
+    } else {
+      return on.params.method(...params, client);
+    }
+  }
+
+  compileOnForEvent(
+    event: string,
+    client: Client,
+    once: boolean = false
+  ) {
+    const ons = this._ons.filter(on => (
+      on.params.event === event &&
+      on.params.once === once
+    ));
+
+    return async (...params: any[]) => {
+      for (const on of ons) {
+        await on.params.compiledMethod(...params, client);
+      }
+    };
   }
 
   private getReadonlyArray<Type>(array: Type[]) {

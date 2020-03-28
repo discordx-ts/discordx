@@ -1,6 +1,8 @@
 # discord.ts (typeit/discord)
 Create your discord bot using TypeScript and decorators!  
-This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
+This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.  
+
+**[Join the Discord](https://discord.gg/VDjwu8E)**
 
 ## Installation
 Use `npm` or `yarn` to install `typeit/discord` with the peer dependecies (`discord.js`):
@@ -56,7 +58,7 @@ Then you must declare it as a Discord app class with the `@Discord` decorator :
 ```typescript
 import { Discord } from "@typeit/discord";
 
-@Discord // Decorate the class
+@Discord() // Decorate the class
 abstract class AppDiscord {
 }
 ```
@@ -69,7 +71,7 @@ Here, we receive the message instance (details below) :
 ```typescript
 import { Discord, On } from "@typeit/discord";
 
-@Discord
+@Discord()
 abstract class AppDiscord {
   @On("message")
   private onMessage(message: Message) {
@@ -80,7 +82,7 @@ abstract class AppDiscord {
 
 ## Start your application
 In order to start your application, you must use the DiscordTS `Client` (not the client that is provided by discord.js!).  
-It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property in order to not log anything in the console.
+It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property (in the `Client` initialization) in order to not log anything in the console.
 ```typescript
 // Use the Client that are provided by @typeit/discord NOT discord.js
 import { Client } from "@typeit/discord";
@@ -104,8 +106,9 @@ import {
   On,
   Client
 } from "@typeit/discord";
+import { Message } from "discord.js";
 
-@Discord
+@Discord()
 abstract class AppDiscord {
   @On("message")
   private onMessage(
@@ -117,7 +120,96 @@ abstract class AppDiscord {
 }
 ```
 
+## Commands
+You can simply use the `@Command` and `@CommandNotFound` decorators to implement a command system in your app.  
+```typescript
+import {
+  Discord,
+  On,
+  Client,
+  Command,
+  CommandMessage
+} from "@typeit/discord";
+
+@Discord({ prefix: "!" })
+abstract class AppDiscord {
+  @Command("hello")
+  private hello(
+    message: CommandMessage,
+    client: Client
+  ) {
+    // ...
+  }
+
+  @CommandNotFound()
+  private notFound(
+    message: CommandMessage,
+    client: Client
+  ) {
+    // ...
+  }
+}
+```
+
+When you use the `@Command` or the `@CommandNotFound` decorator you should type your first parameters as a `CommandMessage`. It provides the command parameters, the prefix, and the command (specified [here](https://github.com/OwenCalvin/discord.ts/blob/master/src/Types/CommandMessage.ts)).
+
+### The prefix and commandCaseSensitive params
+You can specify the `prefix` and the `commandCaseSensitive` on the `@Discord` and `@Command` params (you can specify only the prefix for `@CommandNotFound`). The params on the `@Command` will override those of `@Discord`.  
+
+**But if you use different prefixes or case sensitivity, I recommend to implement multiple classes decorated by the `@Discord` parameter using different prefixes/case sensitivity. like for the [multipleDiscordInstances example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/multipleDiscordInstances)**  
+
+But here is an example for the different params:
+```typescript
+import {
+  Discord,
+  On,
+  Client,
+  Command,
+  CommandMessage
+} from "@typeit/discord";
+
+@Discord({ prefix: "!", commandCaseSensitive: true })
+abstract class AppDiscord {
+  // Executed using the !HELLO command
+  @Command("HELLO")
+  private hello(message: CommandMessage) {
+    // ...
+  }
+
+  // Executed if a command with the prefix "!" isn't found
+  @CommandNotFound()
+  private notFound(message: CommandMessage) {
+    // ...
+  }
+
+  // Executed using the .helloDot command
+  @Command("helloDot", { prefix: "." }) 
+  private helloDot(message: CommandMessage) {
+    // ...
+  }
+
+  // Executed if a command with the prefix "." isn't found
+  @CommandNotFound({ prefix: "." })
+  private notFoundDor(message: CommandMessage) {
+    // ...
+  }
+
+  // Executed using 0ab, 0Ab, 0aB or 0AB
+  @Command("ab", { prefix: "0" }) 
+  private ab(message: CommandMessage) {
+    // ...
+  }
+}
+```
+
+## Set the params (prefix and case sensitivity) programmaticaly
+If you are forced to change the prefix during the execution or if it's loaded from a file when your app start, you can use two methods (it returns `true` if the params changed):
+- `Client.setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean`  
+- `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: IDiscordParams): boolean`  
+>>> I recommend to not specify the prefix inside the decorator if you use one of these two methods, because it wouldn't be consistent)
+
 ## Guards
+(Guards works also with `@Command` and `@CommandNotFound`)
 You can use functions that are executed before your event to determine if it's executed. For example if you want to apply a prefix to the messages you can simply use the `@Guard` decorator:
 (The `Prefix` function is provided by the `@typeit/discord` package, you can import it)
 ```typescript
@@ -135,7 +227,7 @@ import {
   NotBot
 } from "./NotBot";
 
-@Discord
+@Discord()
 abstract class AppDiscord {
   @On("message")
   @Guard(
@@ -189,7 +281,7 @@ Here you have the details about the payloads that are injected into the method r
 Be aware that the types must be imported from discord.js (except for `Client`).
 In this example of the event `"channelUpdate"` we receive two payloads from the event :
 ```typescript
-@Discord
+@Discord()
 abstract class AppDiscord {
   @On("channelUpdate")
   private onChannelUpdate(
@@ -255,6 +347,10 @@ on(event: string, listener: Function);
 
 ## Examples
 An example is provided in the [`/examples` folder](https://github.com/OwenCalvin/DiscordTS/tree/master/examples) !
+
+## Migration v1 to v2
+You should just add parenthesis after the `@Discord` decorator, everywhere in your app.  
+`@Discord class X` should now be `@Discord() class X`.
 
 ## See also
 - [discord.js](https://discord.js.org/#/)
