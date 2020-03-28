@@ -206,7 +206,7 @@ abstract class AppDiscord {
 If you are forced to change the prefix during the execution or if it's loaded from a file when your app start, you can use two methods (it returns `true` if the params changed):
 - `Client.setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean`  
 - `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: IDiscordParams): boolean`  
->>> I recommend to not specify the prefix inside the decorator if you use one of these two methods, because it wouldn't be consistent)
+> I recommend to not specify the prefix inside the decorator if you use one of these two methods, because it wouldn't be consistent)
 
 ## Guards
 (Guards works also with `@Command` and `@CommandNotFound`)
