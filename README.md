@@ -122,6 +122,9 @@ abstract class AppDiscord {
 
 ## Commands
 You can simply use the `@Command` and `@CommandNotFound` decorators to implement a command system in your app.  
+
+When you use the `@Command` or the `@CommandNotFound` decorator you should type your first parameters as a `CommandMessage`. It provides the command parameters, the prefix, and the command (specified [here](https://github.com/OwenCalvin/discord.ts/blob/master/src/Types/CommandMessage.ts)).  
+
 ```typescript
 import {
   Discord,
@@ -150,8 +153,6 @@ abstract class AppDiscord {
   }
 }
 ```
-
-When you use the `@Command` or the `@CommandNotFound` decorator you should type your first parameters as a `CommandMessage`. It provides the command parameters, the prefix, and the command (specified [here](https://github.com/OwenCalvin/discord.ts/blob/master/src/Types/CommandMessage.ts)).
 
 ### The prefix and commandCaseSensitive params
 You can specify the `prefix` and the `commandCaseSensitive` on the `@Discord` and `@Command` params (you can specify only the prefix for `@CommandNotFound`). The params on the `@Command` will override those of `@Discord`.  
