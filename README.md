@@ -208,6 +208,35 @@ If you are forced to change the prefix during the execution or if it's loaded fr
 - `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: IDiscordParams): boolean`  
 > I recommend to not specify the prefix inside the decorator if you use one of these two methods, because it wouldn't be consistent)
 
+```typescript
+import {
+  Discord,
+  On,
+  Client,
+  Command,
+  CommandMessage
+} from "@typeit/discord";
+
+@Discord({ prefix: "!" })
+abstract class AppDiscord {
+  @Command("prefix")
+  private prefix(message: CommandMessage) {
+    // Will change the prefix of all the @Command methods of this @Discord instance
+    Client.setDiscordParams(this, {
+      prefix: message.params[0]
+    });
+  }
+
+  @Command("changeMyPrefix")
+  private changeMyPrefix( message: CommandMessage) {
+    // Will change the prefix of the changeMyPrefix method
+    Client.setCommandParams(this, this.changeMyPrefix, {
+      prefix: message.params[0]
+    });
+  }
+}
+```
+
 ## Guards
 (Guards works also with `@Command` and `@CommandNotFound`)
 You can use functions that are executed before your event to determine if it's executed. For example if you want to apply a prefix to the messages you can simply use the `@Guard` decorator:
