@@ -35,6 +35,14 @@ export class Client extends ClientJS {
     return MetadataStorage.Instance.setCommandParams(discordInstance, instanceMethod, params);
   }
 
+  static getCommandsIntrospection(forPrefix?: string) {
+    return MetadataStorage.Instance.getCommandsIntrospection(forPrefix);
+  }
+
+  static getCommands<InfoType = any>(forPrefix?: string) {
+    return MetadataStorage.Instance.getCommands<InfoType>(forPrefix);
+  }
+
   login(token: string, ...loadClasses: LoadClass[]) {
     this._loadClasses = loadClasses;
     this.loadClasses();

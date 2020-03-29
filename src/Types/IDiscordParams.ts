@@ -1,4 +1,4 @@
-import { ICommandParams } from "..";
-
-export interface IDiscordParams extends ICommandParams {
+export interface IDiscordParams {
+  prefix?: string;
+  commandCaseSensitive?: boolean;
 }

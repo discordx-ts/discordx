@@ -15,6 +15,8 @@ export class Main {
       "YOUR_TOKEN",
       `${__dirname}/Discords/*.ts` // glob string to load the classes
     );
+
+    console.log(Client.getCommands());
   }
 }
 

@@ -6,6 +6,7 @@ export * from "./LoadClass";
 export * from "./IGuard";
 export * from "./ICommandParams";
 export * from "./CommandMessage";
+export * from "./ICommandInfos";
 export * from "./ICommandNotFoundParams";
 export * from "./IDiscordParams";
 export * from "./GuardFunction";

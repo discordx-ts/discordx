@@ -36,6 +36,8 @@ export class AppDiscord {
       "YOUR_TOKEN",
       `${__dirname}/*Discord.ts` // glob string to load the classes
     );
+
+    console.log(Client.getCommands());
   }
 
   // When the "message" event is triggered, this method is called with a specific payload (related to the event)
@@ -61,7 +63,10 @@ export class AppDiscord {
   // The onMessage method but with @Command() decorator
 
   @Guard(Say("hello"))
-  @Command("hello")
+  @Command("hello", {
+    description: "asdkjad",
+    infos: { infoA: "my info" }
+  })
   hello(command: CommandMessage) {
     command.reply(Answers.hello);
   }

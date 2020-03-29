@@ -17,6 +17,7 @@ export function Command(commandName: string, params?: ICommandParams) {
         event: "message",
         once: false,
         method: descriptor.value,
+        ...params,
         commandCaseSensitive: definedParams.commandCaseSensitive || false,
         prefix: definedParams.prefix
       }

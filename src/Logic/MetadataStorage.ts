@@ -7,7 +7,7 @@ import {
 } from "..";
 import { Prefix } from "../Guards";
 import { CommandMessage } from "../Types/CommandMessage";
-import { IDiscordParams, ICommandParams } from "../Types";
+import { IDiscordParams, ICommandParams, ICommandInfos } from "../Types";
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -145,6 +145,33 @@ export class MetadataStorage {
     return false;
   }
 
+  getCommands<InfoType = any>(forPrefix?: string) {
+    return this.getCommandsIntrospection(forPrefix).map<ICommandInfos<InfoType>>((command) => {
+      return {
+        prefix: command.prefix || command.linkedInstance.params.prefix,
+        commandName: command.commandName,
+        description: command.description,
+        infos: command.infos
+      };
+    });
+  }
+
+  getCommandsIntrospection(forPrefix?: string) {
+    return this._ons.reduce<IOn[]>((prev, on) => {
+      if (on.params.commandName) {
+        if (forPrefix) {
+          const prefix = on.params.prefix || on.params.linkedInstance.params.prefix;
+          if (forPrefix === prefix) {
+            prev.push(on.params);
+          }
+        } else {
+          prev.push(on.params);
+        }
+      }
+      return prev;
+    }, []);
+  }
+
   setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: ICommandParams): boolean {
     const on = this._ons.find((on) => (
       on.params.linkedInstance.params.instance === discordInstance &&
@@ -162,14 +189,6 @@ export class MetadataStorage {
     return false;
   }
 
-  executeBindedOn(on: IDecorator<IOn>, params: any[], client: Client) {
-    if (on.params.linkedInstance && on.params.linkedInstance.params.instance) {
-      return on.params.method.bind(on.params.linkedInstance.params.instance)(...params, client);
-    } else {
-      return on.params.method(...params, client);
-    }
-  }
-
   compileOnForEvent(
     event: string,
     client: Client,
@@ -185,6 +204,14 @@ export class MetadataStorage {
         await on.params.compiledMethod(...params, client);
       }
     };
+  }
+
+  private executeBindedOn(on: IDecorator<IOn>, params: any[], client: Client) {
+    if (on.params.linkedInstance && on.params.linkedInstance.params.instance) {
+      return on.params.method.bind(on.params.linkedInstance.params.instance)(...params, client);
+    } else {
+      return on.params.method(...params, client);
+    }
   }
 
   private getReadonlyArray<Type>(array: Type[]) {

@@ -154,8 +154,9 @@ abstract class AppDiscord {
 }
 ```
 
-### The prefix and commandCaseSensitive params
+### The command parameters
 You can specify the `prefix` and the `commandCaseSensitive` on the `@Discord` and `@Command` params (you can specify only the prefix of `@CommandNotFound`). The params on the `@Command` will override those of `@Discord`.  
+The `@Command` decorator also have a `description` parameter and an `infos` one. The description one is useful if you have an help command to display the command description. The `infos` one can store anything you want.
 
 **If you use different prefixes or case sensitivity, I recommend implementing multiple classes decorated by the `@Discord` parameter using different prefixes/case sensitivity, like the [multipleDiscordInstances example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/multipleDiscordInstances).**  
 
@@ -191,7 +192,7 @@ abstract class AppDiscord {
 
   // Executed if a command with the prefix "." isn't found
   @CommandNotFound({ prefix: "." })
-  private notFoundDor(message: CommandMessage) {
+  private notFoundDot(message: CommandMessage) {
     // ...
   }
 
@@ -203,10 +204,61 @@ abstract class AppDiscord {
 }
 ```
 
-## Set the params (prefix and case sensitivity) programmaticaly
+## Retrieve the commands
+You can simply get all the commands and their details using `Client.getCommands<InfoType>(forPrefix?: string): ICommandInfos[]`.
+> If you specify no prefix for the `forPrefix` parameter, you will receive the details of all the commands.
+
+```typescript
+import {
+  Discord,
+  On,
+  Client,
+  Command,
+  CommandMessage
+} from "@typeit/discord";
+
+interface Infos {
+  requiredRole: string;
+}
+
+@Discord({ prefix: "!" })
+abstract class AppDiscord {
+  @Command("hello", {
+    description: "The command simply say hello",
+    infos: { requiredRole: "master" }
+  })
+  private hello(
+    message: CommandMessage,
+    client: Client
+  ) {
+    // ...
+  }
+
+  @Command("help")
+  private hello(
+    message: CommandMessage,
+    client: Client
+  ) {
+    // You receive all the commands prefixed by "!"
+    const commands = Client.getCommands<Infos>("!");
+
+    // ...
+  }
+
+  @CommandNotFound()
+  private notFound(
+    message: CommandMessage,
+    client: Client
+  ) {
+    // ...
+  }
+}
+```
+
+## Set commands paramaters programmaticaly
 If you are forced to change the prefix during the execution or if it's loaded from a file when your app start, you can use two methods (it returns `true` if the params changed):
 - `Client.setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean`  
-- `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: IDiscordParams): boolean`  
+- `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: ICommandParams): boolean`  
 >I recommend not specifying the prefix inside the decorator if you use one of these two methods because it wouldn't be consistent
 
 ```typescript
@@ -229,7 +281,7 @@ abstract class AppDiscord {
   }
 
   @Command("changeMyPrefix")
-  private changeMyPrefix( message: CommandMessage) {
+  private changeMyPrefix(message: CommandMessage) {
     // Will change the prefix of the changeMyPrefix method
     Client.setCommandParams(this, this.changeMyPrefix, {
       prefix: message.params[0]
