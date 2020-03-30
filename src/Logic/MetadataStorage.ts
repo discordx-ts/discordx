@@ -91,6 +91,7 @@ export class MetadataStorage {
                 const params = message.content.split(" ");
 
                 let testedCommand = params[0].replace(prefix, "");
+                let commandName = on.params.commandName;
                 const originalCommand = testedCommand;
 
                 message.prefix = prefix;
@@ -106,13 +107,14 @@ export class MetadataStorage {
                   !on.params.commandCaseSensitive
                 ) {
                   testedCommand = testedCommand.toLowerCase();
+                  commandName = commandName.toLowerCase();
                 }
 
                 if (commands.indexOf(originalCommand) === -1) {
                   testedCommand = "";
                 }
 
-                if (testedCommand === on.params.commandName) {
+                if (testedCommand === commandName) {
                   execute = true;
                   command = on;
                 }
