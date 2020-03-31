@@ -45,8 +45,8 @@ export class MetadataStorage {
   }
 
   Build(client: Client) {
-    const commands = this._ons.reduce((prev, on) => {
-      if (on.params.commandName !== undefined ) {
+    const commands = this._ons.reduce<string[]>((prev, on) => {
+      if (on.params.commandName) {
         prev.push(on.params.commandName);
       }
       return prev;
@@ -90,7 +90,7 @@ export class MetadataStorage {
               if (message.author.id !== client.user.id) {
                 const params = message.content.split(" ");
 
-                let allCommands = commands;
+                let allCommands = [...commands];
                 let testedCommand = params[0].replace(prefix, "");
                 let commandName = on.params.commandName;
                 const originalCommand = testedCommand;
@@ -105,11 +105,12 @@ export class MetadataStorage {
 
                 if (
                   !on.params.linkedInstance.params.commandCaseSensitive &&
-                  !on.params.commandCaseSensitive
+                  !on.params.commandCaseSensitive &&
+                  on.params.commandCaseSensitive !== undefined
                 ) {
                   testedCommand = testedCommand.toLowerCase();
                   commandName = commandName.toLowerCase();
-                  allCommands = allCommands.map(String.prototype.toLowerCase);
+                  allCommands = allCommands.map((command) => command.toLowerCase());
                 }
 
                 if (allCommands.indexOf(testedCommand) === -1) {
