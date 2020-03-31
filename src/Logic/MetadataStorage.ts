@@ -108,6 +108,11 @@ export class MetadataStorage {
                 ) {
                   testedCommand = testedCommand.toLowerCase();
                   commandName = commandName.toLowerCase();
+
+                  const index = commands.indexOf(testedCommand);
+                  if (index > -1) {
+                    commands[index] = commands[index].toLowerCase();
+                  }
                 }
 
                 if (commands.indexOf(originalCommand) === -1) {
