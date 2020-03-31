@@ -93,6 +93,7 @@ export class MetadataStorage {
                 let testedCommand = params[0].replace(prefix, "");
                 let commandName = on.params.commandName;
                 const originalCommand = testedCommand;
+                let allCommands = commands;
 
                 message.prefix = prefix;
                 message.command = testedCommand;
@@ -108,14 +109,10 @@ export class MetadataStorage {
                 ) {
                   testedCommand = testedCommand.toLowerCase();
                   commandName = commandName.toLowerCase();
-
-                  const index = commands.indexOf(testedCommand);
-                  if (index > -1) {
-                    commands[index] = commands[index].toLowerCase();
-                  }
+                  allCommands = allCommands.map(String.prototype.toLowerCase);
                 }
 
-                if (commands.indexOf(testedCommand) === -1) {
+                if (allCommands.indexOf(testedCommand) === -1) {
                   testedCommand = "";
                 }
 
