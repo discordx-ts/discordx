@@ -93,6 +93,7 @@ export class MetadataStorage {
                 let testedCommand = params[0].replace(prefix, "");
                 let commandName = on.params.commandName;
                 const originalCommand = testedCommand;
+                let allCommands = commands;
 
                 message.prefix = prefix;
                 message.command = testedCommand;
@@ -102,7 +103,6 @@ export class MetadataStorage {
                 message.params = params;
                 message.params.splice(0, 1);
 
-                let allCommands = commands;
                 if (
                   !on.params.linkedInstance.params.commandCaseSensitive &&
                   !on.params.commandCaseSensitive
