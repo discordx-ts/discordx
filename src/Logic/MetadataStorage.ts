@@ -102,15 +102,17 @@ export class MetadataStorage {
                 message.params = params;
                 message.params.splice(0, 1);
 
+                let allCommands = commands;
                 if (
                   !on.params.linkedInstance.params.commandCaseSensitive &&
                   !on.params.commandCaseSensitive
                 ) {
                   testedCommand = testedCommand.toLowerCase();
                   commandName = commandName.toLowerCase();
+                  allCommands = allCommands.map(String.prototype.toLowerCase);
                 }
 
-                if (commands.indexOf(originalCommand) === -1) {
+                if (allCommands.indexOf(testedCommand) === -1) {
                   testedCommand = "";
                 }
 
