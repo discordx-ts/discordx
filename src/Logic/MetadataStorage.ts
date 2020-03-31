@@ -128,11 +128,15 @@ export class MetadataStorage {
                       execute = true;
                     }
                   }
-
-                  if (testedCommand === commandName) {
-                    execute = true;
-                    command = on;
+                } else {
+                  if (lowerCommands.indexOf(testedCommand.toLowerCase()) === -1) {
+                    testedCommand = "";
                   }
+                }
+
+                if (testedCommand === commandName) {
+                  execute = true;
+                  command = on;
                 }
               }
             }
