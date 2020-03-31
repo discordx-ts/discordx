@@ -90,10 +90,10 @@ export class MetadataStorage {
               if (message.author.id !== client.user.id) {
                 const params = message.content.split(" ");
 
+                let allCommands = commands;
                 let testedCommand = params[0].replace(prefix, "");
                 let commandName = on.params.commandName;
                 const originalCommand = testedCommand;
-                let allCommands = commands;
 
                 message.prefix = prefix;
                 message.command = testedCommand;
