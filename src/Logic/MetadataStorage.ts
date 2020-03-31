@@ -115,7 +115,7 @@ export class MetadataStorage {
                   }
                 }
 
-                if (commands.indexOf(originalCommand) === -1) {
+                if (commands.indexOf(testedCommand) === -1) {
                   testedCommand = "";
                 }
 
