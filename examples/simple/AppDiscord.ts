@@ -87,7 +87,7 @@ export class AppDiscord {
   }
 
   @Guard(Say("hello comma"))
-  @Command("hello", { prefix: "," })
+  @Command("heLLo", { prefix: "," })
   helloComma(command: CommandMessage) {
     command.reply(Answers.hello + " comma");
   }

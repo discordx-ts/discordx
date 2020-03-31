@@ -90,36 +90,49 @@ export class MetadataStorage {
               if (message.author.id !== client.user.id) {
                 const params = message.content.split(" ");
 
-                let allCommands = [...commands];
                 let testedCommand = params[0].replace(prefix, "");
                 let commandName = on.params.commandName;
-                const originalCommand = testedCommand;
+                let allCommands = commands;
+                const lowerCommands = allCommands.map((command) => command.toLowerCase());
+                const notFoundFn = this._ons.find((cmd) => {
+                  return (
+                    (cmd.params.prefix || cmd.params.linkedInstance.params.prefix) === prefix &&
+                    cmd.params.commandName === ""
+                  );
+                });
 
-                message.prefix = prefix;
-                message.command = testedCommand;
-                message.commandWithPrefix = prefix + testedCommand;
-                message.originalCommand = originalCommand;
-                message.originalCommandWithPrefix = prefix + originalCommand;
-                message.params = params;
-                message.params.splice(0, 1);
+                if (testedCommand.toLowerCase() === commandName.toLowerCase()) {
+                  const originalCommand = testedCommand;
 
-                if (
-                  !on.params.linkedInstance.params.commandCaseSensitive &&
-                  !on.params.commandCaseSensitive &&
-                  on.params.commandCaseSensitive !== undefined
-                ) {
-                  testedCommand = testedCommand.toLowerCase();
-                  commandName = commandName.toLowerCase();
-                  allCommands = allCommands.map((command) => command.toLowerCase());
-                }
+                  message.prefix = prefix;
+                  message.command = testedCommand;
+                  message.commandWithPrefix = prefix + testedCommand;
+                  message.originalCommand = originalCommand;
+                  message.originalCommandWithPrefix = prefix + originalCommand;
+                  message.params = params;
+                  message.params.splice(0, 1);
 
-                if (allCommands.indexOf(testedCommand) === -1) {
-                  testedCommand = "";
-                }
+                  if (
+                    !on.params.linkedInstance.params.commandCaseSensitive &&
+                    !on.params.commandCaseSensitive &&
+                    on.params.commandCaseSensitive !== undefined
+                  ) {
+                    testedCommand = testedCommand.toLowerCase();
+                    commandName = commandName.toLowerCase();
+                    allCommands = lowerCommands;
+                  }
 
-                if (testedCommand === commandName) {
-                  execute = true;
-                  command = on;
+                  if (allCommands.indexOf(testedCommand) === -1) {
+                    if (notFoundFn) {
+                      command = notFoundFn;
+                      execute = true;
+                    }
+                  }
+
+                  if (testedCommand === commandName) {
+                    execute = true;
+                    command = on;
+                  }
                 }
               }
             }
