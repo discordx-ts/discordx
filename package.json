@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "glob": "^7.1.4",
-    "discord.js": "^11.6.3"
+    "discord.js": "^12.2.0"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",

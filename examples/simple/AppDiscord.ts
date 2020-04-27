@@ -6,7 +6,6 @@ import {
   Prefix,
   Command,
   CommandNotFound,
-  MetadataStorage,
   CommandMessage
 } from "../../src";
 // You must import the types from discord.js
@@ -89,8 +88,8 @@ export class AppDiscord {
 
   @Guard(Say("hello comma"))
   @Command("heLLo", {
-    prefix: async (params: CommandMessage, client: Client) => {
-      if (params.guild.name === "dev") {
+    prefix: async (message: Message, client: Client) => {
+      if (message.guild.name === "dev") {
         return ",";
       }
       return "-";
