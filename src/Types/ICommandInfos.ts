@@ -1,5 +1,7 @@
+import { PrefixType } from ".";
+
 export interface ICommandInfos<InfoType = any> {
-  prefix: string;
+  prefix: PrefixType;
   commandName: string;
   description: string;
   infos: InfoType;

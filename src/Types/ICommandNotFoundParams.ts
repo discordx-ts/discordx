@@ -1,3 +1,5 @@
+import { PrefixType } from ".";
+
 export interface ICommandNotFoundParams {
-  prefix?: string;
+  prefix?: PrefixType;
 }

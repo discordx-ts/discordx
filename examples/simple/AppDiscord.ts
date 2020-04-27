@@ -65,6 +65,7 @@ export class AppDiscord {
   @Guard(Say("hello"))
   @Command("hello", {
     description: "asdkjad",
+    commandCaseSensitive: true,
     infos: { infoA: "my info" }
   })
   hello(command: CommandMessage) {
@@ -83,11 +84,18 @@ export class AppDiscord {
   @Guard(Say("command not found"))
   @CommandNotFound()
   notFound(command: CommandMessage) {
-    command.reply(Answers.notFound);
+    command.reply(Answers.notFound + ".");
   }
 
   @Guard(Say("hello comma"))
-  @Command("heLLo", { prefix: "," })
+  @Command("heLLo", {
+    prefix: async (params: CommandMessage, client: Client) => {
+      if (params.guild.name === "dev") {
+        return ",";
+      }
+      return "-";
+    }
+  })
   helloComma(command: CommandMessage) {
     command.reply(Answers.hello + " comma");
   }

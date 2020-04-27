@@ -204,6 +204,27 @@ abstract class AppDiscord {
 }
 ```
 
+### Dynamic prefix
+If you have different prefix for different servers you can use dynamic prefixes using functions like this:
+```typescript
+// If the message has been sent in the guild with the name MyGuildName the prefix "." will be considered otherwise the prefix "$" will trigger the action.
+async function prefixBehaviour(message: Message, client: Client) {
+  if (message.guild.name === "MyGuildName") {
+    return ".";
+  }
+  return "$";
+}
+
+@Discord({ prefix: prefixBehaviour })
+abstract class AppDiscord {
+  @Command("HELLO")
+  private hello(message: CommandMessage) {
+    // ...
+  }
+}
+```
+
+
 ## Retrieve the commands
 You can simply get all the commands and their details using `Client.getCommands<InfoType>(forPrefix?: string): ICommandInfos[]`.
 > If you specify no prefix for the `forPrefix` parameter, you will receive the details of all the commands.

@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { PrefixType } from ".";
 
 export interface CommandMessage extends Message {
   params: string[];
@@ -6,5 +7,5 @@ export interface CommandMessage extends Message {
   commandWithPrefix: string;
   originalCommand: string;
   originalCommandWithPrefix: string;
-  prefix: string;
+  prefix: PrefixType;
 }

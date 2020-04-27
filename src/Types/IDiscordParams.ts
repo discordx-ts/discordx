@@ -1,4 +1,6 @@
+import { PrefixType } from ".";
+
 export interface IDiscordParams {
-  prefix?: string;
+  prefix?: PrefixType;
   commandCaseSensitive?: boolean;
 }

@@ -11,3 +11,4 @@ export * from "./ICommandNotFoundParams";
 export * from "./IDiscordParams";
 export * from "./GuardFunction";
 export * from "./IInstance";
+export * from "./PrefixType";

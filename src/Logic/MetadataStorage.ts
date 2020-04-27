@@ -3,11 +3,13 @@ import {
   IDecorator,
   IInstance,
   IGuard,
-  Client
+  Client,
+  Prefix,
+  CommandMessage,
+  IDiscordParams,
+  ICommandParams,
+  ICommandInfos
 } from "..";
-import { Prefix } from "../Guards";
-import { CommandMessage } from "../Types/CommandMessage";
-import { IDiscordParams, ICommandParams, ICommandInfos } from "../Types";
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -85,7 +87,10 @@ export class MetadataStorage {
           if (on.params.commandName !== undefined) {
             execute = false;
             const message = params[0] as CommandMessage;
-            const prefix = on.params.prefix || on.params.linkedInstance.params.prefix;
+            let prefix = on.params.prefix || on.params.linkedInstance.params.prefix;
+            if (typeof prefix === "function") {
+              prefix = await prefix(message, client);
+            }
             if (Prefix(prefix)(message)) {
               if (message.author.id !== client.user.id) {
                 const params = message.content.split(" ");
