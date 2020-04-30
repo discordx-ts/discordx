@@ -324,6 +324,11 @@ commands
 You should use the `importCommands` parameter for the `@Discord` decorator.
 Here, all of the commands will be injected into this Discord class instance.
 ```typescript
+import {
+  Discord,
+  CommandNotFound
+} from "@typeit/discord";
+
 @Discord({
   prefix: "!", // The Discord parameters will be applied to the imported commands
   importCommands: [
@@ -335,6 +340,22 @@ export class DiscordApp {
   @CommandNotFound({ prefix: "!" })
   notFoundA(commad: CommandMessage) {
     commad.reply("Command not found");
+  }
+}
+```
+
+The command class should look like that:
+```typescript
+import {
+  ClassCommand,
+  Command,
+  CommandMessage
+} from "@typeit/discord";
+
+export abstract class Bye implements ClassCommand {
+  @Command()
+  async execute(command: CommandMessage) {
+    command.reply("Bye!");
   }
 }
 ```
