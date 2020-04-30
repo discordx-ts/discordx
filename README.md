@@ -3,7 +3,11 @@
   <img src="https://i.imgur.com/afS1H2x.png" width="150px">
   <br/>
   <br/>
-  <h1 align="center"><b>discord.ts</b> (@typeit/discord)</h1>
+  <h1 align="center">
+    <p>
+      discord.ts (@typeit/discord)
+    </p>
+  </h1>
   <p align="center">
     Create your discord bot by using TypeScript and decorators!  
   </p>
@@ -18,7 +22,7 @@ This module is built on `discord.js`, so the internal behavior (methods, propert
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
 ## Installation
-Use `npm` or `yarn` to install `typeit/discord` with the peer dependecies (`discord.js`)
+Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `typeit/discord` with the peer dependecies (`discord.js`)
 you must install `reflect-metadata` for the decorators and import it at your entry point:
 ```sh
 npm i @typeit/discord discord.js reflect-metadata
