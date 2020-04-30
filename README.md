@@ -311,8 +311,8 @@ import {
 @Discord({
   prefix: "!", // The Discord parameters will be applied to the imported commands
   importCommands: [
-    Path.join(__dirname, "..", "commands", "*.ts"),
-    Bye
+    Path.join(__dirname,  "commands", "*.ts")
+    // You can also specify the class directly here if you don't want to use a glob
   ]
 })
 export class DiscordApp {
