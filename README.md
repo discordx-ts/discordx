@@ -225,7 +225,7 @@ abstract class AppDiscord {
 ```
 
 
-## Retrieve the commands
+### Retrieve the commands
 You can simply get all the commands and their details using `Client.getCommands<InfoType>(forPrefix?: string): ICommandInfos[]`.
 > If you specify no prefix for the `forPrefix` parameter, you will receive the details of all the commands.
 
@@ -276,7 +276,40 @@ abstract class AppDiscord {
 }
 ```
 
-## Set commands paramaters programmaticaly
+### Command directory pattern
+If you have a directory pattern that looks like this:
+```shell
+Main.ts
+DiscordApp.ts
+commands
+- Ping.ts
+- Hello.ts
+- Blabla.ts
+```
+You should use the `importCommands` parameter for the `@Discord` decorator.
+Here, all of the commands will be injected into this Discord class instance.
+```typescript
+import {
+  Discord,
+  CommandNotFound
+} from "@typeit/discord";
+
+@Discord({
+  prefix: "!", // The Discord parameters will be applied to the imported commands
+  importCommands: [
+    Path.join(__dirname, "..", "commands", "*.ts"),
+    Bye
+  ]
+})
+export class DiscordApp {
+  @CommandNotFound({ prefix: "!" })
+  notFoundA(commad: CommandMessage) {
+    commad.reply("Command not found");
+  }
+}
+```
+
+### Set commands paramaters programmaticaly
 If you are forced to change the prefix during the execution or if it's loaded from a file when your app start, you can use two methods (it returns `true` if the params changed):
 - `Client.setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean`  
 - `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: ICommandParams): boolean`  
@@ -307,39 +340,6 @@ abstract class AppDiscord {
     Client.setCommandParams(this, this.changeMyPrefix, {
       prefix: message.params[0]
     });
-  }
-}
-```
-
-### Command directory pattern
-If you have a directory pattern that looks like this:
-```shell
-Main.ts
-DiscordApp.ts
-commands
-- Ping.ts
-- Hello.ts
-- Blabla.ts
-```
-You should use the `importCommands` parameter for the `@Discord` decorator.
-Here, all of the commands will be injected into this Discord class instance.
-```typescript
-import {
-  Discord,
-  CommandNotFound
-} from "@typeit/discord";
-
-@Discord({
-  prefix: "!", // The Discord parameters will be applied to the imported commands
-  importCommands: [
-    Path.join(__dirname, "..", "commands", "*.ts"),
-    Bye
-  ]
-})
-export class DiscordApp {
-  @CommandNotFound({ prefix: "!" })
-  notFoundA(commad: CommandMessage) {
-    commad.reply("Command not found");
   }
 }
 ```
