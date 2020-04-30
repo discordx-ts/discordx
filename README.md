@@ -8,7 +8,6 @@
     Create your discord bot by using TypeScript and decorators!  
   </p>
   <br/>
-  <br/>
 </p>
 
 ## Introduction
