@@ -1,6 +1,6 @@
-<center>
-  <img src="https://i.imgur.com/Y1DpTf4.png" width="150px">
-</center>
+<p align="center">
+  <img src="https://i.imgur.com/afS1H2x.png" width="150px">
+</p>
 
 # discord.ts (typeit/discord)
 Create your discord bot by using TypeScript and decorators!  
@@ -8,6 +8,7 @@ This module is built on `discord.js`, so the internal behavior (methods, propert
 
 ## Need help ?
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
+You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
 ## Installation
 Use `npm` or `yarn` to install `typeit/discord` with the peer dependecies (`discord.js`)
@@ -435,6 +436,7 @@ export function Prefix(text: string, replace: boolean = true) {
 Here you have the details about the payloads that are injected into the method related to a specific event.
 Be aware that the types must be imported from discord.js (except for `Client`).
 In this example of the event `"channelUpdate"`, we receive two payloads from the event :
+> it works for `@Once(event: DiscordEvent)` too
 ```typescript
 @Discord()
 abstract class AppDiscord {
@@ -448,57 +450,58 @@ abstract class AppDiscord {
 }
 ```
 
-(Works for `@Once(event: string)` too)
-```typescript
-on(event: 'channelCreate', listener: (channel: Channel) => void);
-on(event: 'channelDelete', listener: (channel: Channel) => void);
-on(event: 'channelPinsUpdate', listener: (channel: Channel, time: Date) => void);
-on(event: 'channelUpdate', listener: (oldChannel: Channel, newChannel: Channel) => void);
-on(event: 'clientUserGuildSettingsUpdate', listener: (clientUserGuildSettings: ClientUserGuildSettings) => void);
-on(event: 'clientUserSettingsUpdate', listener: (clientUserSettings: ClientUserSettings) => void);
-on(event: 'debug', listener: (info: string) => void);
-on(event: 'disconnect', listener: (event: any) => void);
-on(event: 'emojiCreate', listener: (emoji: Emoji) => void);
-on(event: 'emojiDelete', listener: (emoji: Emoji) => void);
-on(event: 'emojiUpdate', listener: (oldEmoji: Emoji, newEmoji: Emoji) => void);
-on(event: 'error', listener: (error: Error) => void);
-on(event: 'guildBanAdd', listener: (guild: Guild, user: User) => void);
-on(event: 'guildBanRemove', listener: (guild: Guild, user: User) => void);
-on(event: 'guildCreate', listener: (guild: Guild) => void);
-on(event: 'guildDelete', listener: (guild: Guild) => void);
-on(event: 'guildMemberAdd', listener: (member: GuildMember) => void);
-on(event: 'guildMemberAvailable', listener: (member: GuildMember) => void);
-on(event: 'guildMemberRemove', listener: (member: GuildMember) => void);
-on(event: 'guildMembersChunk', listener: (members: GuildMember[], guild: Guild) => void);
-on(event: 'guildMemberSpeaking', listener: (member: GuildMember, speaking: boolean) => void);
-on(event: 'guildMemberUpdate', listener: (oldMember: GuildMember, newMember: GuildMember) => void);
-on(event: 'guildUnavailable', listener: (guild: Guild) => void);
-on(event: 'guildUpdate', listener: (oldGuild: Guild, newGuild: Guild) => void);
-on(event: 'guildIntegrationsUpdate', listener: (guild: Guild) => void);
-on(event: 'message', listener: (message: Message) => void);
-on(event: 'messageDelete', listener: (message: Message) => void);
-on(event: 'messageDeleteBulk', listener: (messages: Collection<Snowflake, Message>) => void);
-on(event: 'messageReactionAdd', listener: (messageReaction: MessageReaction, user: User) => void);
-on(event: 'messageReactionRemove', listener: (messageReaction: MessageReaction, user: User) => void);
-on(event: 'messageReactionRemoveAll', listener: (message: Message) => void);
-on(event: 'messageUpdate', listener: (oldMessage: Message, newMessage: Message) => void);
-on(event: 'presenceUpdate', listener: (oldMember: GuildMember, newMember: GuildMember) => void);
-on(event: 'rateLimit', listener: (rateLimit: RateLimitInfo) => void);
-on(event: 'ready', listener: () => void);
-on(event: 'reconnecting', listener: () => void);
-on(event: 'resume', listener: (replayed: number) => void);
-on(event: 'roleCreate', listener: (role: Role) => void);
-on(event: 'roleDelete', listener: (role: Role) => void);
-on(event: 'roleUpdate', listener: (oldRole: Role, newRole: Role) => void);
-on(event: 'typingStart', listener: (channel: Channel, user: User) => void);
-on(event: 'typingStop', listener: (channel: Channel, user: User) => void);
-on(event: 'userNoteUpdate', listener: (user: UserResolvable, oldNote: string, newNote: string) => void);
-on(event: 'userUpdate', listener: (oldUser: User, newUser: User) => void);
-on(event: 'voiceStateUpdate', listener: (oldMember: GuildMember, newMember: GuildMember) => void);
-on(event: 'warn', listener: (info: string) => void);
-on(event: 'webhookUpdate', listener: (channel: TextChannel) => void);
-on(event: string, listener: Function);
-```
+Here is all the `DiscordEvents` and their parameters
+> Example for the first one:  
+> `@On("`**channelCreate**`")`  
+> `onChannelCreate(`**channel: Channel**`) { }`
+
+- **channelCreate**: `(channel: Channel) `
+- **channelDelete**: `(channel: Channel)`
+- **channelPinsUpdate**: `(channel: Channel, time: Date)`
+- **channelUpdate**: `(oldChannel: Channel, newChannel: Channel);`
+- **clientUserGuildSettingsUpdate**: `(clientUserGuildSettings: ClientUserGuildSettings)`
+- **clientUserSettingsUpdate**: `(clientUserSettings: ClientUserSettings)`
+- **debug**: `(info: string)`
+- **disconnect**: `(event: any)`
+- **emojiCreate**: `(emoji: Emoji)`
+- **emojiDelete**: `(emoji: Emoji)`
+- **emojiUpdate**: `(oldEmoji: Emoji, newEmoji: Emoji)`
+- **error**: `(error: Error)`
+- **guildBanAdd**: `(guild: Guild, user: User)`
+- **guildBanRemove**: `(guild: Guild, user: User)`
+- **guildCreate**: `(guild: Guild)`
+- **guildDelete**: `(guild: Guild)`
+- **guildMemberAdd**: `(member: GuildMember)`
+- **guildMemberAvailable**: `(member: GuildMember)`
+- **guildMemberRemove**: `(member: GuildMember)`
+- **guildMembersChunk**: `(members: GuildMember[], guild: Guild)`
+- **guildMemberSpeaking**: `(member: GuildMember, speaking: boolean)`
+- **guildMemberUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
+- **guildUnavailable**: `(guild: Guild)`
+- **guildUpdate**: `(oldGuild: Guild, newGuild: Guild)`
+- **guildIntegrationsUpdate**: `(guild: Guild)`
+- **message**: `(message: Message)`
+- **messageDelete**: `(message: Message)`
+- **messageDeleteBulk**: `(messages: Collection<Snowflake, Message>)`
+- **messageReactionAdd**: `(messageReaction: MessageReaction, user: User)`
+- **messageReactionRemove**: `(messageReaction: MessageReaction, user: User)`
+- **messageReactionRemoveAll**: `(message: Message)`
+- **messageUpdate**: `(oldMessage: Message, newMessage: Message)`
+- **presenceUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
+- **rateLimit**: `(rateLimit: RateLimitInfo)`
+- **ready**: `()`
+- **reconnecting**: `()`
+- **resume**: `(replayed: number)`
+- **roleCreate**: `(role: Role)`
+- **roleDelete**: `(role: Role)`
+- **roleUpdate**: `(oldRole: Role, newRole: Role)`
+- **typingStart**: `(channel: Channel, user: User)`
+- **typingStop**: `(channel: Channel, user: User)`
+- **userNoteUpdate**: `(user: UserResolvable, oldNote: string, newNote: string)`
+- **userUpdate**: `(oldUser: User, newUser: User)`
+- **voiceStateUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
+- **warn**: `(info: string)`
+- **webhookUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
 
 ## Examples
 An example is provided in the [`/examples` folder](https://github.com/OwenCalvin/DiscordTS/tree/master/examples) !
