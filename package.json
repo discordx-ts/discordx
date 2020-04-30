@@ -1,6 +1,6 @@
 {
   "name": "@typeit/discord",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "Create your discord bot by using TypeScript and decorators!",
   "main": "index.js",
   "types": "index.d.ts",
@@ -30,14 +30,14 @@
     "decorators"
   ],
   "dependencies": {
-    "glob": "^7.1.4",
-    "discord.js": "^12.2.0"
+    "discord.js": "^12.2.0",
+    "glob": "^7.1.6"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
-    "@types/node": "^11.9.4",
-    "ts-node": "^8.8.1",
-    "tslib": "^1.9.3",
+    "@types/node": "^11.15.12",
+    "ts-node": "^8.9.1",
+    "tslib": "^1.11.1",
     "typescript": "^3.8.3"
   }
 }

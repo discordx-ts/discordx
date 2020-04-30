@@ -8,7 +8,7 @@ import {
 
 export interface IOn extends ICommandParams {
   commandName?: string;
-  event: DiscordEvent | string;
+  event: DiscordEvent;
   method: (...params: any[]) => void;
   compiledMethod?: (...params: any[]) => void;
   linkedInstance?: IDecorator<IInstance>;

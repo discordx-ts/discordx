@@ -43,6 +43,11 @@ export class Client extends ClientJS {
     return MetadataStorage.Instance.getCommands<InfoType>(forPrefix);
   }
 
+  /**
+   * Start your bot
+   * @param token The bot token
+   * @param loadClasses A list of glob path or classes
+   */
   login(token: string, ...loadClasses: LoadClass[]) {
     this._loadClasses = loadClasses;
     this.loadClasses();
@@ -54,7 +59,7 @@ export class Client extends ClientJS {
         this._loadedOnceEvents.indexOf(on.params.event) === -1
       ) {
         this.once(
-          on.params.event,
+          "warn",
           MetadataStorage.Instance.compileOnForEvent(
             on.params.event,
             this,
