@@ -6,11 +6,13 @@
   <h1 align="center"><b>discord.ts</b> (@typeit/discord)</h1>
   <p align="center">
     Create your discord bot by using TypeScript and decorators!  
-    This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
   </p>
   <br/>
   <br/>
 </p>
+
+## Introduction
+This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
 
 ## Need help ?
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
