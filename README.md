@@ -4,7 +4,7 @@
   <br/>
   <br/>
   <h1 align="center">
-    <p>
+    <p  align="center">
       discord.ts (@typeit/discord)
     </p>
   </h1>
