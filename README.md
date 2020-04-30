@@ -17,11 +17,11 @@
 ## Introduction
 This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
 
-## Need help ?
+## ☎️ Need help ?
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
-## Installation
+## 💾 Installation
 Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `typeit/discord` with the peer dependecies (`discord.js`)
 you must install `reflect-metadata` for the decorators and import it at your entry point:
 ```sh
@@ -60,7 +60,7 @@ Your tsconfig.json should look like this:
 }
 ```
 
-## Getting started
+## 🚀 Getting started
 So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized).
 ```typescript
 abstract class AppDiscord {
@@ -134,7 +134,7 @@ abstract class AppDiscord {
 }
 ```
 
-## Commands
+## 📟 Commands
 You can simply use the `@Command` and `@CommandNotFound` decorators to implement a command system in your app.  
 
 When you use the `@Command` or the `@CommandNotFound` decorator, you should type your first parameters as a `CommandMessage`. It provides the command parameters, the prefix, and the command (specified [here](https://github.com/OwenCalvin/discord.ts/blob/master/src/Types/CommandMessage.ts)).  
@@ -374,7 +374,7 @@ export abstract class Bye implements ClassCommand {
 }
 ```
 
-## Guards
+## ⚔️ Guards
 > Guards works also with `@Command` and `@CommandNotFound`   
 
 You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator:
@@ -443,7 +443,7 @@ export function Prefix(text: string, replace: boolean = true) {
 }
 ```
 
-## Events and payload
+## 💡 Events and payload
 Here you have the details about the payloads that are injected into the method related to a specific event.
 Be aware that the types must be imported from discord.js (except for `Client`).
 In this example of the event `"channelUpdate"`, we receive two payloads from the event :
