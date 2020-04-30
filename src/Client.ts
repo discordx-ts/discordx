@@ -24,7 +24,9 @@ export class Client extends ClientJS {
   constructor(options?: IClientOptions) {
     super(options);
 
-    this.silent = options ? options.silent : false;
+    if (options) {
+      this.silent = options.silent;
+    }
   }
 
   static setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean {
@@ -81,18 +83,20 @@ export class Client extends ClientJS {
       if (!this.silent) {
         let eventName = on.params.event;
         if (on.params.commandName !== undefined) {
-          const prefix = on.params.prefix || on.params.linkedInstance.params.prefix;
-          let commandName = on.params.commandName;
-          if (!on.params.commandCaseSensitive && !on.params.linkedInstance.params.commandCaseSensitive) {
-            commandName = commandName.toLowerCase();
-          }
-          if (on.params.commandName === "") {
-            eventName += ` (Command not found "${prefix}")`;
-          } else {
-            eventName += ` (Command "${prefix}${on.params.commandName}")`;
+          const prefix = MetadataStorage.Instance.getPrefix(on.params);
+          if (prefix) {
+            let commandName = on.params.commandName;
+            if (!on.params.commandCaseSensitive && !on.params.linkedInstance.params.commandCaseSensitive) {
+              commandName = commandName.toLowerCase();
+            }
+            if (on.params.commandName === "") {
+              eventName += ` (Command not found "${prefix}")`;
+            } else {
+              eventName += ` (Command "${prefix}${on.params.commandName}")`;
+            }
           }
         }
-        console.log(`${eventName}: ${on.class.name}.${on.key}`);
+        console.log(`${eventName}: ${on.params.from.name}.${on.key}`);
       }
     });
 

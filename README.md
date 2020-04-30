@@ -311,6 +311,34 @@ abstract class AppDiscord {
 }
 ```
 
+### Command directory pattern
+If you have a directory pattern that looks like this:
+```shell
+Main.ts
+DiscordApp.ts
+commands
+- Ping.ts
+- Hello.ts
+- Blabla.ts
+```
+You should use the `importCommands` parameter for the `@Discord` decorator.
+Here, all of the commands will be injected into this Discord class instance.
+```typescript
+@Discord({
+  prefix: "!", // The Discord parameters will be applied to the imported commands
+  importCommands: [
+    Path.join(__dirname, "..", "commands", "*.ts"),
+    Bye
+  ]
+})
+export class DiscordApp {
+  @CommandNotFound({ prefix: "!" })
+  notFoundA(commad: CommandMessage) {
+    commad.reply("Command not found");
+  }
+}
+```
+
 ## Guards
 > Guards works also with `@Command` and `@CommandNotFound`   
 

@@ -23,6 +23,16 @@
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug commandsDir",
+      "protocol": "inspector",
+      "args": ["${workspaceRoot}/examples/commandsDir/Main.ts"],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "internalConsoleOptions": "openOnSessionStart"
     }
   ]
 }

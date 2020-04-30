@@ -12,12 +12,14 @@ export function CommandNotFound(params?: ICommandNotFoundParams) {
       class: target.constructor,
       key,
       params: {
+        from: target.constructor,
         commandName: "",
         prefix: definedParams.prefix,
         guards: [],
         event: "message",
         once: false,
-        method: descriptor.value
+        method: descriptor.value,
+        originalParams: definedParams
       }
     });
   };

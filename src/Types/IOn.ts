@@ -15,4 +15,6 @@ export interface IOn extends ICommandParams {
   once: boolean;
   guards: IDecorator<IGuard>[];
   guardFn?: (...params: any[]) => Promise<any>;
+  from: Function;
+  originalParams: Partial<IOn>;
 }

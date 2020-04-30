@@ -57,7 +57,7 @@ export class MetadataStorage {
     this._ons.map((on) => {
       on.params.guards = this._guards.reverse().filter((guard) => {
         return (
-          guard.class === on.class &&
+          guard.class === on.params.from &&
           guard.params.method === on.params.method
         );
       }, []);
@@ -172,14 +172,23 @@ export class MetadataStorage {
     return false;
   }
 
+  getPrefix(command: IOn) {
+    if (command.prefix || command.linkedInstance) {
+      return command.prefix || command.linkedInstance.params.prefix;
+    }
+  }
+
   getCommands<InfoType = any>(forPrefix?: string) {
     return this.getCommandsIntrospection(forPrefix).map<ICommandInfos<InfoType>>((command) => {
-      return {
-        prefix: command.prefix || command.linkedInstance.params.prefix,
-        commandName: command.commandName,
-        description: command.description,
-        infos: command.infos
-      };
+      const prefix = this.getPrefix(command);
+      if (prefix) {
+        return {
+          prefix,
+          commandName: command.commandName,
+          description: command.description,
+          infos: command.infos
+        };
+      }
     });
   }
 
@@ -200,10 +209,18 @@ export class MetadataStorage {
   }
 
   setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: ICommandParams): boolean {
-    const on = this._ons.find((on) => (
-      on.params.linkedInstance.params.instance === discordInstance &&
-      on.params.method === instanceMethod
-    ));
+    const on = this._ons.find((on) => {
+      let cond = on.class === discordInstance;
+
+      if (on.params.linkedInstance) {
+        cond = on.params.linkedInstance.params.instance === discordInstance;
+      }
+
+      return (
+        cond &&
+        on.params.method === instanceMethod
+      );
+    });
 
     if (on) {
       on.params = {
