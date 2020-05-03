@@ -291,6 +291,7 @@ abstract class AppDiscord {
 ```
 
 ### Command directory pattern
+> [Example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/commandsDir)
 If you have a directory pattern that looks like this:
 ```shell
 Main.ts
@@ -315,10 +316,22 @@ import {
     // You can also specify the class directly here if you don't want to use a glob
   ]
 })
-export class DiscordApp {
+export abstract class DiscordApp {
   @CommandNotFound({ prefix: "!" })
   notFoundA(commad: CommandMessage) {
     commad.reply("Command not found");
+  }
+}
+```
+
+Here is an example of what your command file should look like:
+```typescript
+import { ClassCommand, Command, CommandMessage } from "@typeit/discord";
+
+export abstract class Bye implements ClassCommand {
+  @Command("bye")
+  async execute(command: CommandMessage) {
+    command.reply("Bye!");
   }
 }
 ```
