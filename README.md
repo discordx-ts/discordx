@@ -474,58 +474,61 @@ abstract class AppDiscord {
 }
 ```
 
-Here is all the `DiscordEvents` and their parameters
+Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.0)
 > Example for the first one:  
 > `@On("`**channelCreate**`")`  
 > `onChannelCreate(`**channel: Channel**`) { }`
 
-- **channelCreate**: `(channel: Channel) `
-- **channelDelete**: `(channel: Channel)`
-- **channelPinsUpdate**: `(channel: Channel, time: Date)`
-- **channelUpdate**: `(oldChannel: Channel, newChannel: Channel);`
-- **clientUserGuildSettingsUpdate**: `(clientUserGuildSettings: ClientUserGuildSettings)`
-- **clientUserSettingsUpdate**: `(clientUserSettings: ClientUserSettings)`
-- **debug**: `(info: string)`
-- **disconnect**: `(event: any)`
-- **emojiCreate**: `(emoji: Emoji)`
-- **emojiDelete**: `(emoji: Emoji)`
-- **emojiUpdate**: `(oldEmoji: Emoji, newEmoji: Emoji)`
-- **error**: `(error: Error)`
-- **guildBanAdd**: `(guild: Guild, user: User)`
-- **guildBanRemove**: `(guild: Guild, user: User)`
-- **guildCreate**: `(guild: Guild)`
-- **guildDelete**: `(guild: Guild)`
-- **guildMemberAdd**: `(member: GuildMember)`
-- **guildMemberAvailable**: `(member: GuildMember)`
-- **guildMemberRemove**: `(member: GuildMember)`
-- **guildMembersChunk**: `(members: GuildMember[], guild: Guild)`
-- **guildMemberSpeaking**: `(member: GuildMember, speaking: boolean)`
-- **guildMemberUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
-- **guildUnavailable**: `(guild: Guild)`
-- **guildUpdate**: `(oldGuild: Guild, newGuild: Guild)`
-- **guildIntegrationsUpdate**: `(guild: Guild)`
-- **message**: `(message: Message)`
-- **messageDelete**: `(message: Message)`
-- **messageDeleteBulk**: `(messages: Collection<Snowflake, Message>)`
-- **messageReactionAdd**: `(messageReaction: MessageReaction, user: User)`
-- **messageReactionRemove**: `(messageReaction: MessageReaction, user: User)`
-- **messageReactionRemoveAll**: `(message: Message)`
-- **messageUpdate**: `(oldMessage: Message, newMessage: Message)`
-- **presenceUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
-- **rateLimit**: `(rateLimit: RateLimitInfo)`
+- **channelCreate**: `(Channel)`
+- **channelDelete**: `(Channel | PartialDMChannel)`
+- **channelPinsUpdate**: `(Channel | PartialDMChannel, Date)`
+- **channelUpdate**: `(Channel, Channel)`
+- **debug**: `(string)`
+- **warn**: `(string)`
+- **disconnect**: `(any, number)`
+- **emojiCreate**: `(GuildEmoji)`
+- **emojiDelete**: `(GuildEmoji)`
+- **emojiUpdate**: `(GuildEmoji, GuildEmoji)`
+- **error**: `(Error)`
+- **guildBanAdd**: `(Guild, User | PartialUser)`
+- **guildBanRemove**: `(Guild, User | PartialUser)`
+- **guildCreate**: `(Guild)`
+- **guildDelete**: `(Guild)`
+- **guildUnavailable**: `(Guild)`
+- **guildIntegrationsUpdate**: `(Guild)`
+- **guildMemberAdd**: `(GuildMember | PartialGuildMember)`
+- **guildMemberAvailable**: `(GuildMember | PartialGuildMember)`
+- **guildMemberRemove**: `(GuildMember | PartialGuildMember)`
+- **guildMembersChunk**: `(Collection<Snowflake, GuildMember | - Pa**rtialGuildMember>, Guild)`
+- **guildMemberSpeaking**: `(GuildMember | PartialGuildMember, - Re**adonly<Speaking>)`
+- **guildMemberUpdate**: `(GuildMember | PartialGuildMember, GuildMember | PartialGuildMember)`
+- **guildUpdate**: `(Guild, Guild)`
+- **inviteCreate**: `(Invite)`
+- **inviteDelete**: `(Invite)`
+- **message**: `(Message)`
+- **messageDelete**: `(Message | PartialMessage)`
+- **messageReactionRemoveAll**: `(Message | PartialMessage)`
+- **messageReactionRemoveEmoji**: `(MessageReaction)`
+- **messageDeleteBulk**: `(Collection<Snowflake, Message | PartialMessage>)`
+- **messageReactionAdd**: `(MessageReaction, User | PartialUser)`
+- **messageReactionRemove**: `(MessageReaction, User | PartialUser)`
+- **messageUpdate**: `(Message | PartialMessage, Message | PartialMessage)`
+- **presenceUpdate**: `(Presence | undefined, Presence)`
+- **rateLimit**: `(RateLimitData)`
 - **ready**: `()`
-- **reconnecting**: `()`
-- **resume**: `(replayed: number)`
-- **roleCreate**: `(role: Role)`
-- **roleDelete**: `(role: Role)`
-- **roleUpdate**: `(oldRole: Role, newRole: Role)`
-- **typingStart**: `(channel: Channel, user: User)`
-- **typingStop**: `(channel: Channel, user: User)`
-- **userNoteUpdate**: `(user: UserResolvable, oldNote: string, newNote: string)`
-- **userUpdate**: `(oldUser: User, newUser: User)`
-- **voiceStateUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
-- **warn**: `(info: string)`
-- **webhookUpdate**: `(oldMember: GuildMember, newMember: GuildMember)`
+- **invalidated**: `()`
+- **roleCreate**: `(Role)`
+- **roleDelete**: `(Role)`
+- **roleUpdate**: `(Role, Role)`
+- **typingStart**: `(Channel | PartialDMChannel, User | PartialUser)`
+- **userUpdate**: `(User | PartialUser, User | PartialUser)`
+- **voiceStateUpdate**: `(VoiceState, VoiceState)`
+- **webhookUpdate**: `(TextChannel)`
+- **shardDisconnect**: `(CloseEvent, number)`
+- **shardError**: `(Error, number)`
+- **shardReady**: `(number)`
+- **shardReconnecting**: `(number)`
+- **shardResume**: `(number, number)`
 
 ## Examples
 An example is provided in the [`/examples` folder](https://github.com/OwenCalvin/DiscordTS/tree/master/examples) !
