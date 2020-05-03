@@ -1,7 +1,6 @@
 import {
   MetadataStorage,
-  IDiscordParams,
-  ClassCommand
+  IDiscordParams
 } from "..";
 import * as Glob from "glob";
 
@@ -21,9 +20,8 @@ export function Discord(params: IDiscordParams);
 export function Discord(params?: IDiscordParams) {
   const definedParams = params || {};
   return (target: Object) => {
-    if (params.importCommands) {
-      params.importCommands.map((cmd) => {
-
+    if (definedParams.importCommands) {
+      definedParams.importCommands.map((cmd) => {
         if (typeof cmd === "string") {
           const files = Glob.sync(cmd);
           files.map((file) => {
