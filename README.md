@@ -499,8 +499,8 @@ Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.
 - **guildMemberAdd**: `(GuildMember | PartialGuildMember)`
 - **guildMemberAvailable**: `(GuildMember | PartialGuildMember)`
 - **guildMemberRemove**: `(GuildMember | PartialGuildMember)`
-- **guildMembersChunk**: `(Collection<Snowflake, GuildMember | - Pa**rtialGuildMember>, Guild)`
-- **guildMemberSpeaking**: `(GuildMember | PartialGuildMember, - Re**adonly<Speaking>)`
+- **guildMembersChunk**: `(Collection<Snowflake, GuildMember | PartialGuildMember>, Guild)`
+- **guildMemberSpeaking**: `(GuildMember | PartialGuildMember, Readonly<Speaking>)`
 - **guildMemberUpdate**: `(GuildMember | PartialGuildMember, GuildMember | PartialGuildMember)`
 - **guildUpdate**: `(Guild, Guild)`
 - **inviteCreate**: `(Invite)`
