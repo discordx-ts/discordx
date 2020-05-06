@@ -1,10 +1,12 @@
-import { Discord, On, Client } from "../../../src";
-import { Message } from "discord.js";
+import { Discord, On, Client, ArgsOf } from "../../../src";
 
 @Discord()
 export abstract class AppDiscord {
   @On("message")
-  onMessage(message: Message, client: Client) {
+  onMessage(
+    [message]: ArgsOf<"message">,
+    client: Client
+  ) {
     console.log(message.content);
   }
 }

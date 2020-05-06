@@ -34,7 +34,7 @@ export class Client extends ClientJS {
 
     if (options) {
       this.silent = options.silent;
-      this.payloadInjection = options.payloadInjection || "spread";
+      this.payloadInjection = options.payloadInjection || "first";
     }
   }
 

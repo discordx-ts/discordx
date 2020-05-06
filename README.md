@@ -113,10 +113,10 @@ start();
 ```
 
 ### Client payload injection
-There is two ways of payload injection, "spread" (default) or "first", the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-payload-injection)
+There is two ways to inject payload into your methods, `"first"` (default) or `"spread"`, the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-payload-injection)
 
-**Using the "first" way**  
-You will also receive the client instance always as the last payload:
+**Using the "first" way (default)**  
+You will also receive the client instance always as the second payload:
 ```typescript
 import {
   Discord,
@@ -137,7 +137,7 @@ abstract class AppDiscord {
 }
 ```
 
-**Using the "spread" way (default)**  
+**Using the "spread" way**  
 You will also receive the client instance always as the last payload:
 ```typescript
 import {
@@ -503,11 +503,26 @@ abstract class AppDiscord {
 ```
 
 ### "spread" or "first" payload injection
-> [Example for the first argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)  
+> [Example for the spread argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/spread-arg-injection)  
+> Notice that there is no impacts for the `@Command` decorators  
 
-You might notice a problem... The typings of the arguments for each events in the methods aren't automatic. That's a TypeScript limitation, you can't type the arguments of a method inside a class automatically, so we implemented a different injection policy to solve this issue ("first"):  
+Using `"first"` payloadInjection policy, you don't have to care about the typing of your arguments. But if you have a reason to don't care about that, the `"spread"` policy exists, notice that you must type your payload manually:  
 
-**By default an event looks like this**:
+**By default (`"first"`) an event look like this**:
+```typescript
+// ...
+
+@On("channelUpdate")
+private onChannelUpdate(
+  // Types the args automatically based on the event
+  [oldChannel, newChannel]: ArgsOf<"channelUpdate">,
+  client: Client
+) {
+  console.log(oldChannel.id, newChannel.id)
+}
+```
+
+**With the "spread" payloadInjection policy, it will look like this:**:
 ```typescript
 // ...
 
@@ -521,25 +536,12 @@ private onChannelUpdate(
 }
 ```
 
-**With the "first" payloadInjection policy, it will looks like this:**:
-```typescript
-@On("channelUpdate")
-private onChannelUpdate(
-  // Types the args automatically based on the event
-  [oldChannel, newChannel]: ArgsOf<"channelUpdate">,
-  client: Client
-) {
-  console.log(oldChannel.id, newChannel.id)
-}
-```
-
-To enable the "first" payload injection you must specify an extra argument in your `Client` construction
+To enable the `"spread"` payload injection you must specify an extra argument in your `Client` construction
 ```typescript
 const client = new Client({
-  payloadInjection: "first"
+  payloadInjection: "spread"
 })
 ```
-> [Full example here](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)  
 
 ### The argument list
 Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.0)
@@ -600,6 +602,14 @@ An example is provided in the [`/examples` folder](https://github.com/OwenCalvin
 ## Migration v1 to v2
 You should just add parenthesis after the `@Discord` decorator, everywhere in your app.  
 `@Discord class X` should now be `@Discord() class X`.
+
+## Migration v2 to v3
+Now the payloadInjection policy is by default `"first"`, convert each events of your app or change your `payloadInjection` policy to `"spread"` inside the `Client` constructor:  
+```typescript
+const client = new Client({
+  payloadInjection: "spread"
+})
+```
 
 ## See also
 - [discord.js](https://discord.js.org/#/)
