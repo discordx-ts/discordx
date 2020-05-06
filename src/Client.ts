@@ -4,9 +4,9 @@ import {
   MetadataStorage,
   LoadClass,
   IDiscordParams,
-  ICommandParams
+  ICommandParams,
+  IClientOptions
 } from ".";
-import { IClientOptions } from "./Types/ClientOptions";
 
 export class Client extends ClientJS {
   private _silent: boolean;
@@ -31,6 +31,8 @@ export class Client extends ClientJS {
 
   constructor(options?: IClientOptions) {
     super(options);
+    this._payloadInjection = "first";
+    this._silent = false;
 
     if (options) {
       this.silent = options.silent;
@@ -70,7 +72,7 @@ export class Client extends ClientJS {
         this._loadedOnceEvents.indexOf(on.params.event) === -1
       ) {
         this.once(
-          "warn",
+          on.params.event,
           MetadataStorage.Instance.compileOnForEvent(
             on.params.event,
             this,

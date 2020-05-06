@@ -14,3 +14,4 @@ export * from "./IInstance";
 export * from "./PrefixType";
 export * from "./ClassCommand";
 export * from "./ArgsOf";
+export * from "./IClientOptions";

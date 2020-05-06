@@ -83,12 +83,12 @@ When the event is triggered, the method is called and we receive the values (in 
 Here, we receive the message instance (details below) :
 
 ```typescript
-import { Discord, On } from "@typeit/discord";
+import { Discord, On, ArgsOf } from "@typeit/discord";
 
 @Discord()
 abstract class AppDiscord {
   @On("message")
-  private onMessage(message: Message) {
+  private onMessage([message]: ArgsOf<"message">) {
     // ...
   }
 }
@@ -115,7 +115,7 @@ start();
 ### Client payload injection
 There is two ways to inject payload into your methods, `"first"` (default) or `"spread"`, the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-payload-injection)
 
-**Using the "first" way (default)**  
+**Using the "first" way (default, recommended)**  
 You will also receive the client instance always as the second payload:
 ```typescript
 import {
@@ -417,8 +417,8 @@ export abstract class Bye implements ClassCommand {
 ## ⚔️ Guards
 > Guards works also with `@Command` and `@CommandNotFound`   
 
-You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator:
-(The `Prefix` function is provided by the `@typeit/discord` package, where you can import it)
+You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator:  
+
 ```typescript
 import {
   Discord,
@@ -441,7 +441,7 @@ abstract class AppDiscord {
     NotBot, // You can use multiple guard functions, they are excuted in the same order!
     Prefix("!")
   )
-  async onMessage(message: Message) {
+  async onMessage([message]: ArgsOf<"message">) {
     switch (message.content.toLowerCase()) {
       case "hello":
         message.reply("Hello!");
@@ -455,25 +455,31 @@ abstract class AppDiscord {
 ```
 
 ### The guard functions
+> Notice that the guard function is impacted by your payloadInjection policy  
+
 Here is a simple example of a guard function (the payload and the client instance are injected like for events)
 - If the function returns `false`: the next guards and the event function aren't executed  
 - If the function returns `true`: it continues the executions of the next guards  
 ```typescript
-import { Client } from "typeit/discord";
-import { Message } from "discord.js";
+import { Client, ArgsOf } from "typeit/discord";
 
-export function NotBot(message: Message, client: Client) {
+export function NotBot(
+  [message]: ArgsOf<"message">,
+  client: Client
+) {
   return client.user.id !== message.author.id;
 }
 ```
 
-If you have to indicate parameters for a guard function (like for the `Prefix` guard) you can simple use the "function that returns a function" pattern like this:
+If you have to indicate parameters for a guard function you can simple use the "function that returns a function" pattern like this:
 ```typescript
-import { Client } from "typeit/discord";
-import { Message } from "discord.js";
+import { Client, ArgsOf } from "typeit/discord";
 
 export function Prefix(text: string, replace: boolean = true) {
-  return (message: Message, client: Client) => {
+  return (
+    [message]: ArgsOf<"message">,
+    client: Client
+  ) => {
     const startWith = message.content.startsWith(text);
     if (replace) {
       message.content = message.content.replace(text, "");
@@ -485,22 +491,7 @@ export function Prefix(text: string, replace: boolean = true) {
 
 ## 💡 Events and payload
 Here you have the details about the payloads that are injected into the method related to a specific event.
-Be aware that the types must be imported from discord.js (except for `Client`).
-In this example of the event `"channelUpdate"`, we receive two payloads from the event :
 **`@Once(event: DiscordEvent)` exists too, it executes the method only one time**
-
-```typescript
-@Discord()
-abstract class AppDiscord {
-  @On("channelUpdate")
-  private onChannelUpdate(
-    oldChannel: Channel,  // first one
-    newChannel: Channel   // second one
-  ) {
-    // ...
-  }
-}
-```
 
 ### "spread" or "first" payload injection
 > [Example for the spread argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/spread-arg-injection)  
@@ -523,6 +514,8 @@ private onChannelUpdate(
 ```
 
 **With the "spread" payloadInjection policy, it will look like this:**:
+Be aware that the types must be imported from discord.js.
+In this example of the event `"channelUpdate"`, we receive two payloads from the event:  
 ```typescript
 // ...
 

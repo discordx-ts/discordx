@@ -1,6 +1,10 @@
+import { ArgsOf } from "../../../src";
+
 export function Say(text: string) {
-  return () => {
-    console.log(text);
+  return (
+    [message]: ArgsOf<"commandMessage">
+  ) => {
+    console.log(message.prefix, text);
     return true;
   };
 }

@@ -1,4 +1,4 @@
-import { CommandNotFound, Discord, CommandMessage } from "../../../src";
+import { CommandNotFound, Discord, CommandMessage, On, ArgsOf, Client } from "../../../src";
 import * as Path from "path";
 import { Bye } from "../commands/Bye";
 
@@ -10,6 +10,14 @@ import { Bye } from "../commands/Bye";
   ]
 })
 export class DiscordApp {
+  @On("message")
+  onMessage(
+    [message]: ArgsOf<"message">,
+    client: Client
+  ) {
+    console.log(message);
+  }
+
   @CommandNotFound({ prefix: "!" })
   notFoundA(command: CommandMessage) {
     command.reply("Command not found");

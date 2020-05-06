@@ -37,9 +37,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "First arg injection",
+      "name": "Spread arg injection",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/first-arg-injection/Main.ts"],
+      "args": ["${workspaceRoot}/examples/spread-arg-injection/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "openOnSessionStart"
