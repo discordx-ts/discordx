@@ -1,4 +1,4 @@
-export interface IDecorator<Type> {
+export interface Decorator<Type> {
   class: any;
   key: string;
   params: Type;

@@ -1,5 +1,5 @@
 import { ClientEvents } from "discord.js";
-import { CommandMessage } from "./CommandMessage";
+import { CommandMessage } from "../..";
 
 type DiscordEvents = ClientEvents & { commandMessage: [CommandMessage] };
 

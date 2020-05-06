@@ -1,9 +1,9 @@
 import {
   MetadataStorage,
-  DiscordEvent
+  DiscordEvents
 } from "..";
 
-export function On(event: DiscordEvent) {
+export function On(event: DiscordEvents) {
   return (target: Object, key: string, descriptor?: PropertyDescriptor): void => {
     MetadataStorage.Instance.AddOn({
       class: target.constructor,

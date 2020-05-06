@@ -1,11 +1,11 @@
 import {
   MetadataStorage,
-  ICommandNotFoundParams
+  CommandNotFoundParams
 } from "..";
 
 export function CommandNotFound();
-export function CommandNotFound(params: ICommandNotFoundParams);
-export function CommandNotFound(params?: ICommandNotFoundParams) {
+export function CommandNotFound(params: CommandNotFoundParams);
+export function CommandNotFound(params?: CommandNotFoundParams) {
   const definedParams = params || {};
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
     MetadataStorage.Instance.AddOn({

@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { PrefixType } from ".";
+import { PrefixType } from "..";
 
 export interface CommandMessage extends Message {
   params: string[];

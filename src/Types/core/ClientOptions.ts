@@ -1,6 +1,6 @@
-import { ClientOptions } from "discord.js";
+import { ClientOptions as DiscordJSClientOptions } from "discord.js";
 
-export interface IClientOptions extends ClientOptions {
+export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * Do not log anything in the console
    */

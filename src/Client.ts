@@ -3,9 +3,9 @@ import * as Glob from "glob";
 import {
   MetadataStorage,
   LoadClass,
-  IDiscordParams,
-  ICommandParams,
-  IClientOptions
+  DiscordParams,
+  CommandParams,
+  ClientOptions
 } from ".";
 
 export class Client extends ClientJS {
@@ -29,7 +29,7 @@ export class Client extends ClientJS {
     this._payloadInjection = value;
   }
 
-  constructor(options?: IClientOptions) {
+  constructor(options?: ClientOptions) {
     super(options);
     this._payloadInjection = "first";
     this._silent = false;
@@ -40,11 +40,11 @@ export class Client extends ClientJS {
     }
   }
 
-  static setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean {
+  static setDiscordParams(discordInstance: InstanceType<any>, params: DiscordParams): boolean {
     return MetadataStorage.Instance.setDiscordParams(discordInstance, params);
   }
 
-  static setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: ICommandParams): boolean {
+  static setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: CommandParams): boolean {
     return MetadataStorage.Instance.setCommandParams(discordInstance, instanceMethod, params);
   }
 

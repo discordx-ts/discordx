@@ -1,21 +1,21 @@
 import {
-  IOn,
-  IDecorator,
-  IInstance,
-  IGuard,
+  DOn,
+  Decorator,
+  DInstance,
+  DGuard,
   Client,
   CommandMessage,
-  IDiscordParams,
-  ICommandParams,
-  ICommandInfos
+  DiscordParams,
+  CommandParams,
+  CommandInfos
 } from "..";
 import { Message } from "discord.js";
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
-  private _ons: IDecorator<IOn>[] = [];
-  private _guards: IDecorator<IGuard>[] = [];
-  private _instances: IDecorator<IInstance>[] = [];
+  private _ons: Decorator<DOn>[] = [];
+  private _guards: Decorator<DGuard>[] = [];
+  private _instances: Decorator<DInstance>[] = [];
 
   static get Instance() {
     if (!this._instance) {
@@ -28,15 +28,15 @@ export class MetadataStorage {
     return this.getReadonlyArray(this._ons);
   }
 
-  AddOn(on: IDecorator<IOn>) {
+  AddOn(on: Decorator<DOn>) {
     this._ons.push(on);
   }
 
-  AddGuard(guard: IDecorator<IGuard>) {
+  AddGuard(guard: Decorator<DGuard>) {
     this._guards.push(guard);
   }
 
-  AddInstance(classType: IDecorator<IInstance>) {
+  AddInstance(classType: Decorator<DInstance>) {
     this._instances.push({
       ...classType,
       params: {
@@ -83,7 +83,7 @@ export class MetadataStorage {
       }
 
       on.params.compiledMethod = async (params: any[]) => {
-        let command: IDecorator<IOn> = on;
+        let command: Decorator<DOn> = on;
         let execute = true;
 
         if (on.params.event === "message") {
@@ -161,7 +161,7 @@ export class MetadataStorage {
     });
   }
 
-  setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean {
+  setDiscordParams(discordInstance: InstanceType<any>, params: DiscordParams): boolean {
     const discord = this._instances.find((instance) => instance.params.instance === discordInstance);
 
     if (discord) {
@@ -175,14 +175,14 @@ export class MetadataStorage {
     return false;
   }
 
-  getPrefix(command: IOn) {
+  getPrefix(command: DOn) {
     if (command.prefix || command.linkedInstance) {
       return command.prefix || command.linkedInstance.params.prefix;
     }
   }
 
   getCommands<InfoType = any>(forPrefix?: string) {
-    return this.getCommandsIntrospection(forPrefix).map<ICommandInfos<InfoType>>((command) => {
+    return this.getCommandsIntrospection(forPrefix).map<CommandInfos<InfoType>>((command) => {
       const prefix = this.getPrefix(command);
       if (prefix) {
         return {
@@ -196,7 +196,7 @@ export class MetadataStorage {
   }
 
   getCommandsIntrospection(forPrefix?: string) {
-    return this._ons.reduce<IOn[]>((prev, on) => {
+    return this._ons.reduce<DOn[]>((prev, on) => {
       if (on.params.commandName) {
         if (forPrefix) {
           const prefix = on.params.prefix || on.params.linkedInstance.params.prefix;
@@ -211,7 +211,7 @@ export class MetadataStorage {
     }, []);
   }
 
-  setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: ICommandParams): boolean {
+  setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: CommandParams): boolean {
     const on = this._ons.find((on) => {
       let cond = on.class === discordInstance;
 
@@ -256,14 +256,14 @@ export class MetadataStorage {
     };
   }
 
-  private getParams(on: IDecorator<IOn>, params: any[], client: Client, middleware: boolean = false) {
+  private getParams(on: Decorator<DOn>, params: any[], client: Client, middleware: boolean = false) {
     if (on.params.commandName !== undefined && !middleware) {
       return params;
     }
     return client.payloadInjection === "first" ? [params] : params;
   }
 
-  private executeBindedOn(on: IDecorator<IOn>, params: any[], client: Client) {
+  private executeBindedOn(on: Decorator<DOn>, params: any[], client: Client) {
     const newParams = this.getParams(on, params, client);
 
     if (on.params.linkedInstance && on.params.linkedInstance.params.instance) {

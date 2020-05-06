@@ -1,20 +1,20 @@
 import {
   MetadataStorage,
-  ICommandParams
+  CommandParams
 } from "..";
 
 export function Command();
 export function Command(commandName: string);
-export function Command(params: ICommandParams);
-export function Command(commandName: string, params: ICommandParams);
-export function Command(commandNameOrParams?: string | ICommandParams, params?: ICommandParams) {
+export function Command(params: CommandParams);
+export function Command(commandName: string, params: CommandParams);
+export function Command(commandNameOrParams?: string | CommandParams, params?: CommandParams) {
   const isCommandName = typeof commandNameOrParams === "string";
   let definedParams = params || {};
   let definedCommandName: string;
 
   if (!isCommandName) {
     if (commandNameOrParams) {
-      definedParams = commandNameOrParams as ICommandParams;
+      definedParams = commandNameOrParams as CommandParams;
     } else {
       definedParams = {};
     }

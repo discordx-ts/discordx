@@ -1,6 +1,6 @@
 import {
   MetadataStorage,
-  IDiscordParams
+  DiscordParams
 } from "..";
 import * as Glob from "glob";
 
@@ -16,8 +16,8 @@ function importCommand(classType: Function, target: Object) {
 }
 
 export function Discord();
-export function Discord(params: IDiscordParams);
-export function Discord(params?: IDiscordParams) {
+export function Discord(params: DiscordParams);
+export function Discord(params?: DiscordParams) {
   const definedParams = params || {};
   return (target: Object) => {
     if (definedParams.importCommands) {
