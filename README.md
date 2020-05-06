@@ -455,6 +455,8 @@ abstract class AppDiscord {
 ```
 
 ### The guard functions
+> Notice that the guard function is impacted by your payloadInjection policy  
+
 Here is a simple example of a guard function (the payload and the client instance are injected like for events)
 - If the function returns `false`: the next guards and the event function aren't executed  
 - If the function returns `true`: it continues the executions of the next guards  
@@ -462,7 +464,10 @@ Here is a simple example of a guard function (the payload and the client instanc
 import { Client } from "typeit/discord";
 import { Message } from "discord.js";
 
-export function NotBot(message: Message, client: Client) {
+export function NotBot(
+  message: Message,
+  client: Client
+) {
   return client.user.id !== message.author.id;
 }
 ```

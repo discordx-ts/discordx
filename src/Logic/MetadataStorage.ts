@@ -62,11 +62,14 @@ export class MetadataStorage {
         );
       }, []);
 
-      on.params.guardFn = async (client: Client, ...params: any) => {
+      on.params.guardFn = async (client: Client, params: any) => {
         let res = true;
         for (const fn of on.params.guards) {
           if (res) {
-            res = await fn.params.fn(...params, client);
+            res = await fn.params.fn(
+              ...this.getParams(on, params, client, true),
+              client
+            );
           } else {
             break;
           }
@@ -79,7 +82,7 @@ export class MetadataStorage {
         on.params.linkedInstance = instance;
       }
 
-      on.params.compiledMethod = async (...params: any[]) => {
+      on.params.compiledMethod = async (params: any[]) => {
         let command: IDecorator<IOn> = on;
         let execute = true;
 
@@ -149,7 +152,7 @@ export class MetadataStorage {
         }
 
         if (execute) {
-          const executeMain = await command.params.guardFn(client, ...params);
+          const executeMain = await command.params.guardFn(client, params);
           if (executeMain) {
             return await this.executeBindedOn(command, params, client);
           }
@@ -244,18 +247,35 @@ export class MetadataStorage {
     ));
 
     return async (...params: any[]) => {
-      const newParams = client.payloadInjection === "first" ? [params] : params;
       for (const on of ons) {
-        await on.params.compiledMethod(...newParams, client);
+        await on.params.compiledMethod(
+          params,
+          client
+        );
       }
     };
   }
 
+  private getParams(on: IDecorator<IOn>, params: any[], client: Client, middleware: boolean = false) {
+    if (on.params.commandName !== undefined && !middleware) {
+      return params;
+    }
+    return client.payloadInjection === "first" ? [params] : params;
+  }
+
   private executeBindedOn(on: IDecorator<IOn>, params: any[], client: Client) {
+    const newParams = this.getParams(on, params, client);
+
     if (on.params.linkedInstance && on.params.linkedInstance.params.instance) {
-      return on.params.method.bind(on.params.linkedInstance.params.instance)(...params, client);
+      return on.params.method.bind(on.params.linkedInstance.params.instance)(
+        ...newParams,
+        client
+      );
     } else {
-      return on.params.method(...params, client);
+      return on.params.method(
+        ...newParams,
+        client
+      );
     }
   }
 

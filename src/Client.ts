@@ -70,7 +70,7 @@ export class Client extends ClientJS {
         this._loadedOnceEvents.indexOf(on.params.event) === -1
       ) {
         this.once(
-          "warn",
+          on.params.event,
           MetadataStorage.Instance.compileOnForEvent(
             on.params.event,
             this,
