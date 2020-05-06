@@ -115,7 +115,7 @@ start();
 ### Client payload injection
 There is two ways of payload injection, "spread" (default) or "first", the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-payload-injection)
 
-**Using the "first" way**
+**Using the "first" way**  
 You will also receive the client instance always as the last payload:
 ```typescript
 import {
@@ -137,7 +137,7 @@ abstract class AppDiscord {
 }
 ```
 
-**Using the "spread" way (default)**
+**Using the "spread" way (default)**  
 You will also receive the client instance always as the last payload:
 ```typescript
 import {
@@ -504,6 +504,7 @@ abstract class AppDiscord {
 
 ### "spread" or "first" payload injection
 > [Example for the first argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)  
+
 You might notice a problem... The typings of the arguments for each events in the methods aren't automatic. That's a TypeScript limitation, you can't type the arguments of a method inside a class automatically, so we implemented a different injection policy to solve this issue ("first"):  
 
 **By default an event looks like this**:
