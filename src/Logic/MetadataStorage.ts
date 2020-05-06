@@ -244,7 +244,7 @@ export class MetadataStorage {
     ));
 
     return async (...params: any[]) => {
-      const newParams = client.argsInjection === "first" ? [params] : params;
+      const newParams = client.payloadInjection === "first" ? [params] : params;
       for (const on of ons) {
         await on.params.compiledMethod(...newParams, client);
       }

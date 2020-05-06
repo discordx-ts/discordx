@@ -6,7 +6,7 @@ import {
 export class Main {
   static start() {
     const client = new Client({
-      argsInjection: "first" // Set the injection policy to first (default: "spread")
+      payloadInjection: "first" // Set the injection policy to first (default: "spread")
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

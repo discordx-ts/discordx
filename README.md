@@ -94,7 +94,7 @@ abstract class AppDiscord {
 }
 ```
 
-## Start your application
+### Start your application
 In order to start your application, you must use the DiscordTS `Client` (not the client that is provided by discord.js!).  
 It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property (into `Client` initialization) in order to not log anything in the console.
 ```typescript
@@ -112,7 +112,32 @@ function start() {
 start();
 ```
 
-## Client payload injection
+### Client payload injection
+There is two ways of payload injection, "spread" (default) or "first", the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-arguments-injection)
+
+**Using the "first" way**
+You will also receive the client instance always as the last payload:
+```typescript
+import {
+  Discord,
+  On,
+  Client,
+  ArgsOf
+} from "@typeit/discord";
+
+@Discord()
+abstract class AppDiscord {
+  @On("message")
+  private onMessage(
+    [message]: ArgsOf<"message">, // Type message automatically
+    client: Client // Client instance injected here
+  ) {
+    // ...
+  }
+}
+```
+
+**Using the "spread" way (default)**
 You will also receive the client instance always as the last payload:
 ```typescript
 import {
@@ -126,7 +151,7 @@ import { Message } from "discord.js";
 abstract class AppDiscord {
   @On("message")
   private onMessage(
-    message: Message,
+    message: Message, // You must manually type the message
     client: Client // Client instance injected here
   ) {
     // ...
@@ -510,7 +535,7 @@ private onChannelUpdate(
 To enable the first arg injection you must specify an extra argument in your `Client` construction
 ```typescript
 const client = new Client({
-  argsInjection: "first"
+  payloadInjection: "first"
 })
 ```
 > [Full example here](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)

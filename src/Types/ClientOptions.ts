@@ -10,5 +10,5 @@ export interface IClientOptions extends ClientOptions {
    * "first" injecte the params of a @On event as an array in the first argument
    * "spread" injects the params using the spread operator
    */
-  argsInjection?: "spread" | "first";
+  payloadInjection?: "spread" | "first";
 }
