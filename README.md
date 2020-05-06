@@ -513,9 +513,9 @@ private onChannelUpdate(
 }
 ```
 
-**With the "spread" payloadInjection policy, it will look like this:**:
-Be aware that the types must be imported from discord.js.
-In this example of the event `"channelUpdate"`, we receive two payloads from the event:  
+**With the "spread" payloadInjection policy, it will look like this:**   
+Be aware that the types must be imported from discord.js.  
+In this example the `"channelUpdate"`'s method receive two arguments from the event:  
 ```typescript
 // ...
 
