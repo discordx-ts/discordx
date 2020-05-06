@@ -4,7 +4,6 @@ import {
   On,
   Client, // Use the Client that is provided by @typeit/discord NOT discord.js
   Guard,
-  Prefix,
   Command,
   CommandNotFound,
   CommandMessage
@@ -20,6 +19,19 @@ enum Answers {
   hello = "Hello",
   notFound = "Command not found...",
   prefix = "Prefix changed"
+}
+
+export function Prefix(text: string, replace: boolean = true) {
+  return (
+    message: Message,
+    client: Client
+  ) => {
+    const startWith = message.content.startsWith(text);
+    if (replace) {
+      message.content = message.content.replace(text, "");
+    }
+    return startWith;
+  };
 }
 
 // Decorate the class with the @Discord() decorator
