@@ -31,6 +31,8 @@ export class Client extends ClientJS {
 
   constructor(options?: IClientOptions) {
     super(options);
+    this._payloadInjection = "spread";
+    this._silent = false;
 
     if (options) {
       this.silent = options.silent;
