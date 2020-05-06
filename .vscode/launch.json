@@ -7,9 +7,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug simple example",
+      "name": "Simple",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/simple/AppDiscord.ts"],
+      "args": ["${workspaceRoot}/examples/simple/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "openOnSessionStart"
@@ -17,9 +17,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug multiple discord instances example",
+      "name": "Multiple discord instances",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/multipleDiscordInstances/Main.ts"],
+      "args": ["${workspaceRoot}/examples/multiple-discord-instances/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "openOnSessionStart"
@@ -27,9 +27,29 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug commandsDir",
+      "name": "Commands dir",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/commandsDir/Main.ts"],
+      "args": ["${workspaceRoot}/examples/commands-dir/Main.ts"],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "First arg injection",
+      "protocol": "inspector",
+      "args": ["${workspaceRoot}/examples/first-arg-injection/Main.ts"],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Various",
+      "protocol": "inspector",
+      "args": ["${workspaceRoot}/examples/misc/AppDiscord.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "openOnSessionStart"

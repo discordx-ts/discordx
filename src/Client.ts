@@ -10,6 +10,7 @@ import { IClientOptions } from "./Types/ClientOptions";
 
 export class Client extends ClientJS {
   private _silent: boolean;
+  private _argsInjection: "spread" | "first";
   private _loadClasses: LoadClass[] = [];
   private _loadedOnEvents: string[] = [];
   private _loadedOnceEvents: string[] = [];
@@ -21,11 +22,19 @@ export class Client extends ClientJS {
     this._silent = value;
   }
 
+  get argsInjection() {
+    return this._argsInjection;
+  }
+  set argsInjection(value: "spread" | "first") {
+    this._argsInjection = value;
+  }
+
   constructor(options?: IClientOptions) {
     super(options);
 
     if (options) {
       this.silent = options.silent;
+      this.argsInjection = options.argsInjection || "spread";
     }
   }
 

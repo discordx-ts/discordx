@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Client } from "../../src";
 
 export class Main {

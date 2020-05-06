@@ -172,7 +172,7 @@ abstract class AppDiscord {
 You can specify the `prefix` and the `commandCaseSensitive` on the `@Discord` and `@Command` params (you can specify only the prefix of `@CommandNotFound`). The params on the `@Command` will override those of `@Discord`.  
 The `@Command` decorator also have a `description` parameter and an `infos` one. The description one is useful if you have an help command to display the command description. The `infos` one can store anything you want.
 
-**If you use different prefixes or case sensitivity, I recommend implementing multiple classes decorated by the `@Discord` parameter using different prefixes/case sensitivity, like the [multipleDiscordInstances example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/multipleDiscordInstances).**  
+**If you use different prefixes or case sensitivity, I recommend implementing multiple classes decorated by the `@Discord` parameter using different prefixes/case sensitivity, like the [multiple-discord-instances example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/multiple-discord-instances).**  
 
 But here is an example for the different params:
 ```typescript
@@ -291,7 +291,8 @@ abstract class AppDiscord {
 ```
 
 ### Command directory pattern
-> [Example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/commandsDir)
+> [Example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/commands-dir)  
+
 If you have a directory pattern that looks like this:
 ```shell
 Main.ts
@@ -301,6 +302,7 @@ commands
 - Hello.ts
 - Blabla.ts
 ```
+
 You should use the `importCommands` parameter for the `@Discord` decorator.
 Here, all of the commands will be injected into this Discord class instance.
 ```typescript
@@ -460,7 +462,8 @@ export function Prefix(text: string, replace: boolean = true) {
 Here you have the details about the payloads that are injected into the method related to a specific event.
 Be aware that the types must be imported from discord.js (except for `Client`).
 In this example of the event `"channelUpdate"`, we receive two payloads from the event :
-> it works for `@Once(event: DiscordEvent)` too
+**`@Once(event: DiscordEvent)` exists too, it executes the method only one time**
+
 ```typescript
 @Discord()
 abstract class AppDiscord {
@@ -474,11 +477,46 @@ abstract class AppDiscord {
 }
 ```
 
-Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.0)
-> Example for the first one:  
-> `@On("`**channelCreate**`")`  
-> `onChannelCreate(`**channel: Channel**`) { }`
+### "spread" or "first" arguments injection
+> [Example for the first argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)
+You might notice a problem... The typings of the arguments for each events in the methods aren't automatic. That's TypeScript limitation, you cant type the arguments of a method inside a class automatically, so we implemented a different injection policy to solve this issue:  
 
+**Currently an event looks like this**:
+```typescript
+// ...
+
+@On("channelUpdate")
+private onChannelUpdate(
+  oldChannel: Channel,  // Must type the first arg and the second one manually
+  newChannel: Channel,
+  client: Client
+) {
+  console.log(oldChannel.id, newChannel.id)
+}
+```
+
+**With the first param injection, it will looks like this:**:
+```typescript
+@On("channelUpdate")
+private onChannelUpdate(
+  // Types the args automatically based on the event
+  [oldChannel, newChannel]: ArgsOf<"channelUpdate">,
+  client: Client
+) {
+  console.log(oldChannel.id, newChannel.id)
+}
+```
+
+To enable the first arg injection you must specify an extra argument in your `Client` construction
+```typescript
+const client = new Client({
+  argsInjection: "first"
+})
+```
+> [Full example here](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)
+
+### The argument list
+Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.0)
 - **channelCreate**: `(Channel)`
 - **channelDelete**: `(Channel | PartialDMChannel)`
 - **channelPinsUpdate**: `(Channel | PartialDMChannel, Date)`

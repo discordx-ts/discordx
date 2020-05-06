@@ -11,7 +11,7 @@ import { Bye } from "../commands/Bye";
 })
 export class DiscordApp {
   @CommandNotFound({ prefix: "!" })
-  notFoundA(commad: CommandMessage) {
-    commad.reply("Command not found");
+  notFoundA(command: CommandMessage) {
+    command.reply("Command not found");
   }
 }

@@ -13,3 +13,4 @@ export * from "./GuardFunction";
 export * from "./IInstance";
 export * from "./PrefixType";
 export * from "./ClassCommand";
+export * from "./ArgsOf";
