@@ -113,7 +113,7 @@ start();
 ```
 
 ### Client payload injection
-There is two ways of payload injection, "spread" (default) or "first", the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-arguments-injection)
+There is two ways of payload injection, "spread" (default) or "first", the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-payload-injection)
 
 **Using the "first" way**
 You will also receive the client instance always as the last payload:
@@ -532,7 +532,7 @@ private onChannelUpdate(
 }
 ```
 
-To enable the first arg injection you must specify an extra argument in your `Client` construction
+To enable the "first" payload injection you must specify an extra argument in your `Client` construction
 ```typescript
 const client = new Client({
   payloadInjection: "first"
