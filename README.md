@@ -478,7 +478,7 @@ abstract class AppDiscord {
 ```
 
 ### "spread" or "first" arguments injection
-> [Example for the first argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)
+> [Example for the first argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)  
 You might notice a problem... The typings of the arguments for each events in the methods aren't automatic. That's TypeScript limitation, you cant type the arguments of a method inside a class automatically, so we implemented a different injection policy to solve this issue:  
 
 **Currently an event looks like this**:
