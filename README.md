@@ -590,14 +590,14 @@ Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.
 - **shardResume**: `(number, number)`
 
 ## Examples
-An example is provided in the [`/examples` folder](https://github.com/OwenCalvin/DiscordTS/tree/master/examples) !
+Some examples are provided in the [`/examples` folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples) !
 
 ## Migration v1 to v2
 You should just add parenthesis after the `@Discord` decorator, everywhere in your app.  
 `@Discord class X` should now be `@Discord() class X`.
 
 ## Migration v2 to v3
-Now the payloadInjection policy is by default `"first"`, convert each events of your app or change your `payloadInjection` policy to `"spread"` inside the `Client` constructor:  
+Now the `payloadInjection` policy is by default `"first"`, convert each events of your app or change your `payloadInjection` policy to `"spread"` inside the `Client` constructor:  
 ```typescript
 const client = new Client({
   payloadInjection: "spread"
