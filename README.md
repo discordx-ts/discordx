@@ -538,7 +538,7 @@ const client = new Client({
   payloadInjection: "first"
 })
 ```
-> [Full example here](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)
+> [Full example here](https://github.com/OwenCalvin/discord.ts/tree/master/examples/first-arg-injection)  
 
 ### The argument list
 Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.0)
