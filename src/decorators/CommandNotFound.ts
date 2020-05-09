@@ -8,7 +8,7 @@ export function CommandNotFound(params: CommandNotFoundParams);
 export function CommandNotFound(params?: CommandNotFoundParams) {
   const definedParams = params || {};
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
-    MetadataStorage.Instance.AddOn({
+    MetadataStorage.instance.addOn({
       class: target.constructor,
       key,
       params: {

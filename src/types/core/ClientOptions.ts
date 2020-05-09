@@ -1,4 +1,5 @@
 import { ClientOptions as DiscordJSClientOptions } from "discord.js";
+import { LoadClass } from "./LoadClass";
 
 export interface ClientOptions extends DiscordJSClientOptions {
   /**
@@ -11,4 +12,9 @@ export interface ClientOptions extends DiscordJSClientOptions {
    * "spread" injects the params using the spread operator
    */
   payloadInjection?: "spread" | "first";
+
+  /**
+   * The classes to load for your discord bot
+   */
+  classes: LoadClass[];
 }

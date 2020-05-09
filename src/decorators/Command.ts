@@ -25,7 +25,7 @@ export function Command(commandNameOrParams?: string | CommandParams, params?: C
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
     const method = descriptor.value;
 
-    MetadataStorage.Instance.AddOn({
+    MetadataStorage.instance.addOn({
       class: target.constructor,
       key,
       params: {

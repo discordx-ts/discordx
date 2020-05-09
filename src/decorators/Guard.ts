@@ -6,7 +6,7 @@ import {
 export function Guard(...fns: GuardFunction[]) {
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
     fns.reverse().map((fn) => {
-      MetadataStorage.Instance.AddGuard({
+      MetadataStorage.instance.addGuard({
         class: target.constructor,
         key,
         params: {

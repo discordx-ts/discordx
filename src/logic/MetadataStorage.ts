@@ -17,26 +17,30 @@ export class MetadataStorage {
   private _guards: Decorator<DGuard>[] = [];
   private _instances: Decorator<DInstance>[] = [];
 
-  static get Instance() {
+  static get instance() {
     if (!this._instance) {
       this._instance = new MetadataStorage();
     }
     return this._instance;
   }
 
-  get Ons() {
+  static clear() {
+    this._instance = new MetadataStorage();
+  }
+
+  get ons() {
     return this.getReadonlyArray(this._ons);
   }
 
-  AddOn(on: Decorator<DOn>) {
+  addOn(on: Decorator<DOn>) {
     this._ons.push(on);
   }
 
-  AddGuard(guard: Decorator<DGuard>) {
+  addGuard(guard: Decorator<DGuard>) {
     this._guards.push(guard);
   }
 
-  AddInstance(classType: Decorator<DInstance>) {
+  addInstance(classType: Decorator<DInstance>) {
     this._instances.push({
       ...classType,
       params: {
@@ -46,7 +50,7 @@ export class MetadataStorage {
     });
   }
 
-  Build(client: Client) {
+  build(client: Client) {
     const commands = this._ons.reduce<string[]>((prev, on) => {
       if (on.params.commandName) {
         prev.push(on.params.commandName);
@@ -189,7 +193,8 @@ export class MetadataStorage {
           prefix,
           commandName: command.commandName,
           description: command.description,
-          infos: command.infos
+          infos: command.infos,
+          caseSensitive: command.commandCaseSensitive || false
         };
       }
     });
@@ -247,12 +252,15 @@ export class MetadataStorage {
     ));
 
     return async (...params: any[]) => {
+      const results: any = [];
       for (const on of ons) {
-        await on.params.compiledMethod(
+        const res = await on.params.compiledMethod(
           params,
           client
         );
+        results.push(res);
       }
+      return results;
     };
   }
 

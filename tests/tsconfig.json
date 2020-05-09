@@ -15,11 +15,5 @@
       "esnext.asynciterable"
     ],
     "moduleResolution": "node"
-  },
-  "exclude": [
-    "node_modules",
-    "tests",
-    "examples",
-    "**/*.spec.ts"
-  ]
+  }
 }

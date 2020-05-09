@@ -5,7 +5,8 @@ import {
   LoadClass,
   DiscordParams,
   CommandParams,
-  ClientOptions
+  ClientOptions,
+  DiscordEvents
 } from ".";
 
 export class Client extends ClientJS {
@@ -33,27 +34,29 @@ export class Client extends ClientJS {
     super(options);
     this._payloadInjection = "first";
     this._silent = false;
+    this._loadClasses = [];
 
     if (options) {
       this.silent = options.silent;
       this.payloadInjection = options.payloadInjection || "first";
+      this._loadClasses = options.classes;
     }
   }
 
   static setDiscordParams(discordInstance: InstanceType<any>, params: DiscordParams): boolean {
-    return MetadataStorage.Instance.setDiscordParams(discordInstance, params);
+    return MetadataStorage.instance.setDiscordParams(discordInstance, params);
   }
 
   static setCommandParams(discordInstance: InstanceType<any>, instanceMethod: Function, params: CommandParams): boolean {
-    return MetadataStorage.Instance.setCommandParams(discordInstance, instanceMethod, params);
+    return MetadataStorage.instance.setCommandParams(discordInstance, instanceMethod, params);
   }
 
   static getCommandsIntrospection(forPrefix?: string) {
-    return MetadataStorage.Instance.getCommandsIntrospection(forPrefix);
+    return MetadataStorage.instance.getCommandsIntrospection(forPrefix);
   }
 
   static getCommands<InfoType = any>(forPrefix?: string) {
-    return MetadataStorage.Instance.getCommands<InfoType>(forPrefix);
+    return MetadataStorage.instance.getCommands<InfoType>(forPrefix);
   }
 
   /**
@@ -62,18 +65,20 @@ export class Client extends ClientJS {
    * @param loadClasses A list of glob path or classes
    */
   login(token: string, ...loadClasses: LoadClass[]) {
-    this._loadClasses = loadClasses;
-    this.loadClasses();
+    if (loadClasses.length > 0) {
+      this._loadClasses = loadClasses;
+    }
 
-    MetadataStorage.Instance.Build(this);
-    MetadataStorage.Instance.Ons.map(async (on) => {
+    this.build();
+
+    MetadataStorage.instance.ons.map(async (on) => {
       if (
         on.params.once &&
         this._loadedOnceEvents.indexOf(on.params.event) === -1
       ) {
         this.once(
           on.params.event,
-          MetadataStorage.Instance.compileOnForEvent(
+          MetadataStorage.instance.compileOnForEvent(
             on.params.event,
             this,
             true
@@ -83,7 +88,7 @@ export class Client extends ClientJS {
       } else if (this._loadedOnEvents.indexOf(on.params.event) === -1) {
         this.on(
           on.params.event,
-          MetadataStorage.Instance.compileOnForEvent(
+          MetadataStorage.instance.compileOnForEvent(
             on.params.event,
             this
           )
@@ -94,7 +99,7 @@ export class Client extends ClientJS {
       if (!this.silent) {
         let eventName = on.params.event;
         if (on.params.commandName !== undefined) {
-          const prefix = MetadataStorage.Instance.getPrefix(on.params);
+          const prefix = MetadataStorage.instance.getPrefix(on.params);
           if (prefix) {
             let commandName = on.params.commandName;
             if (!on.params.commandCaseSensitive && !on.params.linkedInstance.params.commandCaseSensitive) {
@@ -112,6 +117,18 @@ export class Client extends ClientJS {
     });
 
     return super.login(token);
+  }
+
+  build() {
+    this.loadClasses();
+    MetadataStorage.instance.build(this);
+  }
+
+  trigger (event: DiscordEvents, ...params: any): Promise<any[]> {
+    return MetadataStorage.instance.compileOnForEvent(
+      event,
+      this
+    )(...params);
   }
 
   private loadClasses() {

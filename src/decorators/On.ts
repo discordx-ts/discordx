@@ -5,7 +5,7 @@ import {
 
 export function On(event: DiscordEvents) {
   return (target: Object, key: string, descriptor?: PropertyDescriptor): void => {
-    MetadataStorage.Instance.AddOn({
+    MetadataStorage.instance.addOn({
       class: target.constructor,
       key,
       params: {

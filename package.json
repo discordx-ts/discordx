@@ -5,18 +5,21 @@
   "main": "index.js",
   "types": "index.d.ts",
   "private": false,
+  "scripts": {
+    "test": "jest --detectOpenHandles"
+  },
   "files": [
     "*"
   ],
   "bugs": {
-    "url": "https://github.com/OwenCalvin/DiscordTS/issue",
+    "url": "https://github.com/OwenCalvin/discord.ts/issue",
     "email": "owen.gombas@gmail.com"
   },
   "author": "Owen Calvin",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OwenCalvin/DiscordTS"
+    "url": "https://github.com/OwenCalvin/discord.ts"
   },
   "keywords": [
     "typescript",
@@ -35,8 +38,11 @@
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
+    "@types/jest": "^25.2.1",
     "@types/node": "^11.15.12",
+    "jest": "^26.0.1",
     "reflect-metadata": "^0.1.13",
+    "ts-jest": "^25.5.0",
     "ts-node": "^8.9.1",
     "tslib": "^1.11.1",
     "typescript": "^3.8.3"

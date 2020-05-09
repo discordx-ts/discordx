@@ -5,4 +5,5 @@ export interface CommandInfos<InfoType = any> {
   commandName: string;
   description: string;
   infos: InfoType;
+  caseSensitive: boolean;
 }

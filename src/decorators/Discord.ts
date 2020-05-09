@@ -5,7 +5,7 @@ import {
 import * as Glob from "glob";
 
 function importCommand(classType: Function, target: Object) {
-  const ons = MetadataStorage.Instance.Ons.filter((on) => {
+  const ons = MetadataStorage.instance.ons.filter((on) => {
     return on.class === classType;
   });
   ons.map((on) => {
@@ -41,7 +41,7 @@ export function Discord(params?: DiscordParams) {
       });
     }
 
-    MetadataStorage.Instance.AddInstance({
+    MetadataStorage.instance.addInstance({
       class: target,
       key: target.constructor.name,
       params: {
