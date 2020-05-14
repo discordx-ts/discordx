@@ -12,7 +12,7 @@
       "args": ["${workspaceRoot}/examples/simple/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",
@@ -22,7 +22,7 @@
       "args": ["${workspaceRoot}/examples/multiple-discord-instances/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",
@@ -32,7 +32,7 @@
       "args": ["${workspaceRoot}/examples/commands-dir/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",
@@ -42,7 +42,7 @@
       "args": ["${workspaceRoot}/examples/spread-arg-injection/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",
@@ -52,7 +52,22 @@
       "args": ["${workspaceRoot}/examples/misc/AppDiscord.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Debug tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "--runInBand",
+        "--config",
+        "${workspaceRoot}/jest.config.js"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229
     }
   ]
 }

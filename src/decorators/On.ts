@@ -1,21 +1,29 @@
 import {
   MetadataStorage,
-  DiscordEvents
+  DiscordEvents,
+  DOn
 } from "..";
 
+/**
+ * Trigger a discord event
+ * @link https://github.com/OwenCalvin/discord.ts#client-payload-injection
+ * @param event The discord event to trigger
+ */
 export function On(event: DiscordEvents) {
   return (target: Object, key: string, descriptor?: PropertyDescriptor): void => {
-    MetadataStorage.instance.addOn({
-      class: target.constructor,
-      key,
-      params: {
-        from: target.constructor,
-        guards: [],
+    const on = (
+      DOn
+      .createOn(
         event,
-        once: false,
-        method: descriptor.value,
-        originalParams: {}
-      }
-    });
+        false
+      )
+      .decorate(
+        target.constructor,
+        key,
+        descriptor.value
+      )
+    );
+
+    MetadataStorage.instance.addOn(on);
   };
 }

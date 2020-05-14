@@ -1,19 +1,22 @@
 import {
   MetadataStorage,
-  GuardFunction
+  GuardFunction,
+  DGuard
 } from "..";
 
 export function Guard(...fns: GuardFunction[]) {
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
-    fns.reverse().map((fn) => {
-      MetadataStorage.instance.addGuard({
-        class: target.constructor,
-        key,
-        params: {
-          fn,
-          method: descriptor.value
-        }
-      });
+    fns.map((fn) => {
+      const guard = (
+        DGuard
+        .createGuard(fn)
+        .decorate(
+          target.constructor,
+          key,
+          descriptor.value
+        )
+      );
+      MetadataStorage.instance.addGuard(guard);
     });
   };
 }

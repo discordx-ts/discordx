@@ -1,6 +1,6 @@
 {
   "rules": {
-    "prefer-const": true,
+    "prefer-const": false,
     "no-var-keyword": true,
     "object-literal-shorthand": true,
     "object-shorthand-properties-first": true,
@@ -180,10 +180,7 @@
       "allow-pascal-case"
     ],
     "class-name": true,
-    "no-this-assignment": [
-      true,
-      "allow-destructuring"
-    ],
+    "no-this-assignment": false,
     "import-name": true
   }
 }

@@ -1,26 +1,22 @@
 import {
   MetadataStorage,
-  CommandNotFoundParams
+  DCommandNotFound
 } from "..";
 
 export function CommandNotFound();
-export function CommandNotFound(params: CommandNotFoundParams);
-export function CommandNotFound(params?: CommandNotFoundParams) {
-  const definedParams = params || {};
+export function CommandNotFound();
+export function CommandNotFound() {
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
-    MetadataStorage.instance.addOn({
-      class: target.constructor,
-      key,
-      params: {
-        from: target.constructor,
-        commandName: "",
-        prefix: definedParams.prefix,
-        guards: [],
-        event: "message",
-        once: false,
-        method: descriptor.value,
-        originalParams: definedParams
-      }
-    });
+    const commandNotFound = (
+      DCommandNotFound
+      .createCommandNotFound()
+      .decorate(
+        target.constructor,
+        key,
+        descriptor.value
+      )
+    );
+
+    MetadataStorage.instance.addCommandNotFound(commandNotFound);
   };
 }

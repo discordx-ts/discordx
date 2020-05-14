@@ -1,17 +1,18 @@
 import {
   MetadataStorage,
-  DiscordParams
+  DiscordParams,
+  DDiscord
 } from "..";
 import * as Glob from "glob";
 
-function importCommand(classType: Function, target: Object) {
-  const ons = MetadataStorage.instance.ons.filter((on) => {
-    return on.class === classType;
+function importCommand(classType: Function, target: Function) {
+  const ons = MetadataStorage.instance.events.filter((on) => {
+    return on.classRef === classType;
   });
+
   ons.map((on) => {
-    on.class = target;
-    on.params.commandName = on.params.originalParams.commandName || classType.name;
-    on.params.from = classType;
+    on.classRef = target;
+    on.from = classType;
   });
 }
 
@@ -19,7 +20,8 @@ export function Discord();
 export function Discord(params: DiscordParams);
 export function Discord(params?: DiscordParams) {
   const definedParams = params || {};
-  return (target: Object) => {
+
+  return (target: Function) => {
     if (definedParams.importCommands) {
       definedParams.importCommands.map((cmd) => {
         if (typeof cmd === "string") {
@@ -41,13 +43,21 @@ export function Discord(params?: DiscordParams) {
       });
     }
 
-    MetadataStorage.instance.addInstance({
-      class: target,
-      key: target.constructor.name,
-      params: {
-        prefix: definedParams.prefix || "",
-        commandCaseSensitive: definedParams.commandCaseSensitive || false
-      }
-    });
+    const instance = (
+      DDiscord
+      .createDiscord(
+        definedParams.commandName,
+        definedParams.message,
+        definedParams.prefix,
+        definedParams.argsRules,
+        definedParams.argsSeparator
+      )
+      .decorate(
+        target,
+        target.constructor.name
+      )
+    );
+
+    MetadataStorage.instance.addDiscord(instance);
   };
 }

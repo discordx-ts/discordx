@@ -1,7 +1,5 @@
-import { PrefixType } from "../..";
+import { CommandParams } from "../..";
 
-export interface DiscordParams {
-  prefix?: PrefixType;
-  commandCaseSensitive?: boolean;
+export interface DiscordParams extends CommandParams {
   importCommands?: (string | Function)[];
 }

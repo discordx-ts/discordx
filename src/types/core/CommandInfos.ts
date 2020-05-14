@@ -1,9 +1,13 @@
-import { PrefixType } from "..";
+import {
+  PrefixType,
+  CommandName
+} from "..";
 
 export interface CommandInfos<InfoType = any> {
   prefix: PrefixType;
-  commandName: string;
+  commandName: CommandName;
   description: string;
   infos: InfoType;
   caseSensitive: boolean;
+  argsSeparator: string;
 }

@@ -1,7 +1,12 @@
-import { CommandNotFoundParams } from "./CommandNotFoundParams";
+import {
+  Expression
+} from "../..";
 
-export interface CommandParams extends CommandNotFoundParams {
-  commandCaseSensitive?: boolean;
-  description?: string;
+export interface CommandParams {
+  prefix?: Expression;
+  message?: Expression;
+  commandName?: Expression;
+  argsRules?: Expression[];
+  argsSeparator?: Expression;
   infos?: any;
 }

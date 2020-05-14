@@ -1,14 +1,14 @@
-import { Discord, On, Client, Guard } from "../src";
+import { Discord, On, Client, Guard, GuardFunction } from "../src";
 
-function guard1([message]: [string]) {
+const guard1: GuardFunction = ([message]: [string]) => {
   const initialMessage = message;
   // tslint:disable-next-line: no-parameter-reassignment
   message += "0";
-  return initialMessage.includes("hello");
-}
-function guard2([message]: [string]) {
+};
+
+const guard2: GuardFunction = ([message]: [string]) => {
   return message === "hello0";
-}
+};
 
 @Discord()
 abstract class Bot {

@@ -1,11 +1,19 @@
 import { Message } from "discord.js";
-import { PrefixType } from "..";
+import {
+  Commandable
+} from "../core/Commandable";
 
-export interface CommandMessage extends Message {
-  params: string[];
-  command: string;
-  commandWithPrefix: string;
-  originalCommand: string;
-  originalCommandWithPrefix: string;
-  prefix: PrefixType;
+export class CommandMessage extends Message {
+  args: string[];
+
+  static create(
+    message: Message,
+    rules: Commandable
+  ) {
+    const command = message as CommandMessage;
+
+    command.args = message.content.split(rules.argsSeparator.regex);
+
+    return command;
+  }
 }
