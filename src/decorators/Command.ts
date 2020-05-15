@@ -18,8 +18,8 @@ export function Command(params?: CommandParams) {
       DCommand
       .createCommand(
         definedParams.commandName || key,
-        definedParams.message,
         definedParams.prefix,
+        definedParams.message,
         definedParams.argsRules,
         definedParams.argsSeparator,
         definedParams.infos

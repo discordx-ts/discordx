@@ -1,9 +1,10 @@
-import { RuleBuilder } from "../..";
+import { Expression } from "../..";
 
-export interface Commandable {
-  message: RuleBuilder;
-  commandName: RuleBuilder;
-  prefix: RuleBuilder;
-  argsRules: RuleBuilder[];
-  argsSeparator: RuleBuilder;
+export interface Commandable<Type = Expression> {
+  message: Type;
+  prefix: Type;
+  argsRules: Type[];
+  argsSeparator: Type;
+  commandName?: Type;
+  originalRules: Partial<Commandable>;
 }

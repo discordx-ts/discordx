@@ -69,7 +69,7 @@ describe("Create commands", () => {
     expect(resHello3Wrong).toEqual(["notfound"]);
 
     const resHello3 = await triggerAndFilter("!hello3");
-    expect(resHello3).toEqual(["!hello3"]);
+    expect(resHello3).toEqual(["!hello33"]);
   });
 
   it("Should get the correct command description", () => {

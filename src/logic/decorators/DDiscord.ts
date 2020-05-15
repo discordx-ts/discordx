@@ -2,52 +2,57 @@ import { Decorator } from "./Decorator";
 import {
   DCommandNotFound,
   Commandable,
-  RuleBuilder,
   Expression,
-  CommandableFactory
+  Rule,
+  RuleBuilder
 } from "../..";
 
 export class DDiscord extends Decorator implements Commandable {
-  protected _message: RuleBuilder;
-  protected _commandName: RuleBuilder;
-  protected _prefix: RuleBuilder;
-  protected _argsRules: RuleBuilder[];
-  protected _argsSeparator: RuleBuilder;
+  protected _message: Expression;
+  protected _commandName: Expression;
+  protected _prefix: Expression;
+  protected _argsRules: Expression[];
+  protected _argsSeparator: Expression;
   protected _commandNotFound?: DCommandNotFound;
   protected _instance?: Function;
+  protected _originalRules: Partial<Commandable> = {};
+
+  get originalRules() {
+    return this._originalRules;
+  }
 
   get commandName() {
     return this._commandName;
   }
-  set commandName(value: RuleBuilder) {
+  set commandName(value) {
     this._commandName = value;
   }
 
   get prefix() {
     return this._prefix;
   }
-  set prefix(value: RuleBuilder) {
+  set prefix(value) {
     this._prefix = value;
   }
 
   get message() {
     return this._message;
   }
-  set message(value: RuleBuilder) {
+  set message(value) {
     this._message = value;
   }
 
   get argsRules() {
     return this._argsRules;
   }
-  set argsRules(value: RuleBuilder[]) {
+  set argsRules(value) {
     this._argsRules = value;
   }
 
   get argsSeparator() {
     return this._argsSeparator;
   }
-  set argsSeparator(value: RuleBuilder) {
+  set argsSeparator(value) {
     this._argsSeparator = value;
   }
 
@@ -63,7 +68,6 @@ export class DDiscord extends Decorator implements Commandable {
   }
 
   static createDiscord(
-    commandName?: Expression,
     message?: Expression,
     prefix?: Expression,
     argsRules: Expression[] = [],
@@ -71,14 +75,17 @@ export class DDiscord extends Decorator implements Commandable {
   ) {
     const discord = new DDiscord();
 
-    CommandableFactory.create(
-      discord,
-      commandName,
+    discord._originalRules = {
       prefix,
-      message,
       argsRules,
-      argsSeparator
-    );
+      argsSeparator,
+      message
+    };
+
+    discord._prefix = Rule(prefix);
+    discord._message = Rule(message);
+    discord._argsSeparator = Rule(argsSeparator);
+    discord._argsRules = RuleBuilder.fromArray(argsRules);
 
     return discord;
   }

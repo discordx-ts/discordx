@@ -1,7 +1,8 @@
 import { Message } from "discord.js";
 import {
-  Commandable
-} from "../core/Commandable";
+  Commandable,
+  Rule
+} from "../..";
 
 export class CommandMessage extends Message {
   args: string[];
@@ -12,7 +13,7 @@ export class CommandMessage extends Message {
   ) {
     const command = message as CommandMessage;
 
-    command.args = message.content.split(rules.argsSeparator.regex);
+    command.args = message.content.split(Rule(rules.argsSeparator).regex);
 
     return command;
   }

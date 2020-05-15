@@ -46,7 +46,6 @@ export function Discord(params?: DiscordParams) {
     const instance = (
       DDiscord
       .createDiscord(
-        definedParams.commandName,
         definedParams.message,
         definedParams.prefix,
         definedParams.argsRules,
