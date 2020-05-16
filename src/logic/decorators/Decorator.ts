@@ -1,8 +1,10 @@
+import { DecoratorUtils } from "..";
+
 export class Decorator {
   protected _classRef: Function;
   protected _from: Function;
   protected _key: string;
-  protected _method?: Function;
+  protected _method: Function;
 
   get classRef() {
     return this._classRef;
@@ -35,6 +37,24 @@ export class Decorator {
   }
 
   static create(...params: any[]) {
+  }
+
+  decorateUnknown(
+    classRef: Function,
+    key?: string,
+    method?: PropertyDescriptor
+  ) {
+    const decorateAClass = DecoratorUtils.decorateAClass(method);
+
+    const finalClassRef = decorateAClass ? classRef : classRef.constructor;
+    const finalKey = decorateAClass ? finalClassRef.name : key;
+    const finalMethod = decorateAClass ? finalClassRef : method?.value;
+
+    return this.decorate(
+      finalClassRef,
+      finalKey,
+      finalMethod
+    );
   }
 
   decorate(

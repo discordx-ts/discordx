@@ -1,13 +1,20 @@
 import { Discord, On, Client, Guard, GuardFunction } from "../src";
 
-const guard1: GuardFunction = ([message]: [string]) => {
-  const initialMessage = message;
-  // tslint:disable-next-line: no-parameter-reassignment
-  message += "0";
+const guard1: GuardFunction<{message: string, original: string}> = async ([message]: [string], client, next, mwDatas) => {
+  mwDatas.original = message;
+  if (message.includes("hello")) {
+    mwDatas.message = message + "0";
+    await next();
+  }
 };
 
-const guard2: GuardFunction = ([message]: [string]) => {
-  return message === "hello0";
+const guard2: GuardFunction = async ([message]: [string], client, next, mwDatas) => {
+  if (mwDatas.original === "hello0") {
+    mwDatas.message += "1";
+    await next();
+  } else {
+    mwDatas.message += "2";
+  }
 };
 
 @Discord()
@@ -24,13 +31,17 @@ abstract class Bot {
 
   @On("messageDelete")
   @Guard(guard1, guard2)
-  private onMessageDelete([message]: [string]) {
-    return message;
+  private onMessageDelete([message]: [string], client: Client, guardParams: any) {
+    guardParams.message += "3";
   }
 }
 
 const client = new Client();
-client.build();
+
+beforeAll(async () => {
+  await client.build();
+});
+
 
 describe("Create on event", () => {
   it("Should create and execute two messages events", async () => {
@@ -40,12 +51,15 @@ describe("Create on event", () => {
 
   it("Should pass through guard", async () => {
     const res = await client.trigger("messageDelete", "test");
-    expect(res).toEqual([undefined]);
+    expect(res[0].original).toEqual("test");
+    expect(res[0].message).toEqual(undefined);
 
     const res2 = await client.trigger("messageDelete", "hello");
-    expect(res2).toEqual([undefined]);
+    expect(res2[0].original).toEqual("hello");
+    expect(res2[0].message).toEqual("hello02");
 
     const res3 = await client.trigger("messageDelete", "hello0");
-    expect(res3).toEqual(["hello0"]);
+    expect(res3[0].original).toEqual("hello0");
+    expect(res3[0].message).toEqual("hello0013");
   });
 });

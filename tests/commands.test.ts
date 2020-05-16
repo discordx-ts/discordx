@@ -7,23 +7,19 @@ import {
   Rule
 } from "../src";
 
-@Discord({ prefix: "!" })
+@Discord("!")
 abstract class BotCommandExclamation {
   @Command()
   hello(command: CommandMessage) {
     return command.content;
   }
 
-  @Command({
-    commandName: "hello2"
-  })
+  @Command("hello2")
   hello2(command: CommandMessage) {
     return command.content + "2";
   }
 
-  @Command({
-    commandName: Rule("hello3").startWith("!").spaceOrEnd().caseSensitive()
-  })
+  @Command(Rule("hello3").spaceOrEnd().caseSensitive())
   hello3(command: CommandMessage) {
     return command.content + "3";
   }
@@ -45,7 +41,10 @@ function createCommandMessage(content: string) {
 
 const client = new Client();
 client.user = { id: "_" } as any;
-client.build();
+
+beforeAll(async () => {
+  await client.build();
+});
 
 async function triggerAndFilter(message: string) {
   return (await client.trigger("message", createCommandMessage(message)));

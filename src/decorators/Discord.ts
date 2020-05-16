@@ -1,9 +1,13 @@
+import * as Glob from "glob";
 import {
   MetadataStorage,
   DiscordParams,
-  DDiscord
+  DDiscord,
+  RuleBuilder,
+  Expression,
+  DiscordParamsLimited,
+  Rule
 } from "..";
-import * as Glob from "glob";
 
 function importCommand(classType: Function, target: Function) {
   const ons = MetadataStorage.instance.events.filter((on) => {
@@ -17,13 +21,17 @@ function importCommand(classType: Function, target: Function) {
 }
 
 export function Discord();
+export function Discord(prefix: Expression);
 export function Discord(params: DiscordParams);
-export function Discord(params?: DiscordParams) {
-  const definedParams = params || {};
+export function Discord(prefix: Expression, params: DiscordParamsLimited);
+export function Discord(prefixOrParams?: DiscordParams | Expression, params?: DiscordParams) {
+  const isPrefix = RuleBuilder.isSimpleExpression(prefixOrParams);
+  const finalParams = isPrefix ? params : prefixOrParams as DiscordParams;
+  const finalPrefix = isPrefix ? prefixOrParams as Expression : finalParams?.prefix;
 
   return (target: Function) => {
-    if (definedParams.importCommands) {
-      definedParams.importCommands.map((cmd) => {
+    if (finalParams?.importCommands) {
+      finalParams?.importCommands.map((cmd) => {
         if (typeof cmd === "string") {
           const files = Glob.sync(cmd);
           files.map((file) => {
@@ -45,15 +53,16 @@ export function Discord(params?: DiscordParams) {
 
     const instance = (
       DDiscord
-      .createDiscord(
-        definedParams.message,
-        definedParams.prefix,
-        definedParams.argsRules,
-        definedParams.argsSeparator
-      )
+      .createDiscord([
+        () => ({
+          separator: "",
+          rules: [Rule().startWith(finalPrefix)]
+        })
+      ])
       .decorate(
         target,
-        target.constructor.name
+        target.constructor.name,
+        target
       )
     );
 

@@ -1,10 +1,6 @@
-import { Expression } from "../..";
+import { Expression, InfosType, ArgsRules } from "../..";
 
-export interface Commandable<Type = Expression> {
-  message: Type;
-  prefix: Type;
-  argsRules: Type[];
-  argsSeparator: Type;
-  commandName?: Type;
-  originalRules: Partial<Commandable>;
+export interface Commandable<Type extends Expression = Expression> {
+  argsRules: ArgsRules<Type>[];
+  infos: InfosType;
 }

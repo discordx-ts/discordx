@@ -1,29 +1,36 @@
 import {
   MetadataStorage,
-  CommandParams,
-  CommandName,
   DCommand,
-  Expression
+  Expression,
+  RuleBuilder,
+  ArgsRules,
+  FlatArgsRulesFunction,
+  Rule
 } from "..";
 
 export function Command();
-export function Command(params: CommandParams);
-export function Command(params?: CommandParams) {
-  let definedParams = params || {};
-
-  return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
+export function Command(commandName: Expression);
+export function Command(commandNameOrFn: FlatArgsRulesFunction);
+export function Command(commandNameOrFn?: Expression | FlatArgsRulesFunction) {
+  return async (target: Object, key: string, descriptor: PropertyDescriptor) => {
+    let argsRule: ArgsRules;
     const method = descriptor.value;
+    const isCommandName = RuleBuilder.isSimpleExpression(commandNameOrFn);
+
+    if (isCommandName || !commandNameOrFn) {
+      const expr = commandNameOrFn as Expression || key;
+      const isRuleBuilder = expr instanceof RuleBuilder;
+      argsRule = () => ({
+        separator: "",
+        rules: [isRuleBuilder ? expr : Rule(expr).end()]
+      });
+    } else {
+      argsRule = commandNameOrFn as FlatArgsRulesFunction;
+    }
 
     const command = (
       DCommand
-      .createCommand(
-        definedParams.commandName || key,
-        definedParams.prefix,
-        definedParams.message,
-        definedParams.argsRules,
-        definedParams.argsSeparator,
-        definedParams.infos
-      )
+      .createCommand([argsRule])
       .decorate(
         target.constructor,
         key,

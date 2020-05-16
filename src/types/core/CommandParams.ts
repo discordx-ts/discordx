@@ -1,12 +1,8 @@
 import {
-  Expression
+  Expression,
+  CommandParamsLimited
 } from "../..";
 
-export interface CommandParams {
-  prefix?: Expression;
-  message?: Expression;
+export interface CommandParams extends CommandParamsLimited {
   commandName?: Expression;
-  argsRules?: Expression[];
-  argsSeparator?: Expression;
-  infos?: any;
 }

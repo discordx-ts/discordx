@@ -16,6 +16,12 @@ export * from "./core/Next";
 export * from "./core/MainMethod";
 export * from "./core/ExpressionParams";
 export * from "./core/Commandable";
+export * from "./core/CommandParamsLimited";
+export * from "./core/DiscordParamsLimited";
+export * from "./core/ArgsRules";
+export * from "./core/TypeOrPromise";
+export * from "./core/DecoratorParamFunction";
 
 export * from "./public/CommandMessage";
+export * from "./public/InfosType";
 export * from "./public/ArgsOf";

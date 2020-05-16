@@ -1,46 +1,25 @@
 import {
-  CommandParams,
   Expression,
-  Decorator,
-  RuleBuilder,
-  Rule,
   Commandable,
-  CommandableFactory
+  InfosType,
+  ArgsRules
 } from "../../";
 import { DOn } from "./DOn";
 
-export class DCommand extends DOn implements Commandable<RuleBuilder> {
-  protected _message: RuleBuilder;
-  protected _commandName: RuleBuilder;
-  protected _prefix: RuleBuilder;
-  protected _argsRules: RuleBuilder[];
-  protected _argsSeparator: RuleBuilder;
-  protected _infos?: any;
+export class DCommand extends DOn implements Commandable<Expression> {
+  protected _argsRules: ArgsRules[];
   protected _originalRules: Partial<Commandable> = {};
+  protected _infos: InfosType = {};
 
   get originalRules() {
     return this._originalRules;
   }
 
-  get commandName() {
-    return this._commandName;
+  get infos() {
+    return this._infos;
   }
-  set commandName(value) {
-    this._commandName = value;
-  }
-
-  get prefix() {
-    return this._prefix;
-  }
-  set prefix(value) {
-    this._prefix = value;
-  }
-
-  get message() {
-    return this._message;
-  }
-  set message(value) {
-    this._message = value;
+  set infos(value) {
+    this._infos = value;
   }
 
   get argsRules() {
@@ -50,42 +29,12 @@ export class DCommand extends DOn implements Commandable<RuleBuilder> {
     this._argsRules = value;
   }
 
-  get argsSeparator() {
-    return this._argsSeparator;
-  }
-  set argsSeparator(value) {
-    this._argsSeparator = value;
-  }
-
-  get infos() {
-    return this.infos;
-  }
-
   static createCommand(
-    commandName: Expression,
-    prefix?: Expression,
-    message?: Expression,
-    argsRules: Expression[] = [],
-    argsSeparator: Expression = " ",
-    infos?: any
+    initialArgsRule: ArgsRules[]
   ) {
     const command = new DCommand();
+    command._argsRules = initialArgsRule;
 
-    command._originalRules = {
-      prefix,
-      argsRules,
-      argsSeparator,
-      message,
-      commandName
-    };
-
-    command._prefix = Rule(prefix);
-    command._message = Rule(message);
-    command._commandName = Rule(commandName);
-    command._argsSeparator = Rule(argsSeparator);
-    command._argsRules = RuleBuilder.fromArray(argsRules);
-
-    command._infos = infos;
     command._event = "message";
     command._once = false;
 

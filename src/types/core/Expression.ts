@@ -1,3 +1,8 @@
-import { RuleBuilder } from "../..";
+import {
+  RuleBuilder,
+  CommandMessage,
+  TypeOrPromise
+} from "../..";
 
-export type Expression = string | RegExp | RuleBuilder;
+export type SimpleExpression = string | RegExp | RuleBuilder;
+export type Expression = SimpleExpression;

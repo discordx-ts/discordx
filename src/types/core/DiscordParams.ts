@@ -1,5 +1,8 @@
-import { CommandParams } from "../..";
+import {
+  DiscordParamsLimited,
+  Expression
+} from "../..";
 
-export interface DiscordParams extends CommandParams {
-  importCommands?: (string | Function)[];
+export interface DiscordParams extends DiscordParamsLimited {
+  prefix?: Expression;
 }

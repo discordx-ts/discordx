@@ -9,8 +9,13 @@ import {
   DCommandNotFound,
   ArgsOf,
   DiscordEvents,
-  RuleBuilder
+  RuleBuilder,
+  Modifier,
+  DecoratorUtils,
+  Rule,
+  SimpleArgsRules
 } from "../..";
+import { Expression, ArgsRules } from '../../types';
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -19,6 +24,7 @@ export class MetadataStorage {
   private _commandNotFounds: DCommandNotFound[] = [];
   private _guards: DGuard[] = [];
   private _discords: DDiscord[] = [];
+  private _modifiers: Modifier<any>[] = [];
 
   static get instance() {
     if (!this._instance) {
@@ -33,6 +39,10 @@ export class MetadataStorage {
 
   get events() {
     return this._events as ReadonlyArray<DOn>;
+  }
+
+  addModifier(modifier: Modifier<any>) {
+    this._modifiers.push(modifier);
   }
 
   addOn(on: DOn) {
@@ -57,7 +67,7 @@ export class MetadataStorage {
     this._discords.push(discord);
   }
 
-  build(client: Client) {
+  async build(client: Client) {
     // Link the events with their instances
     this._events.map((on) => {
       const instance = this._discords.find((instance) => {
@@ -66,23 +76,17 @@ export class MetadataStorage {
       on.linkedInstance = instance;
     });
 
+    await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
+
     this._events.map((on) => {
       if (!on.linkedInstance) {
         console.log(on, "The class isn't decorated by @Discord");
         return;
       }
 
-      on.guards = this.getGuardsForOn(on);
+      on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
       on.compileGuardFn(client);
-    });
-  }
-
-  getGuardsForOn(on: DOn) {
-    return this._guards.reverse().filter((guard) => {
-      return (
-        guard.classRef === on.classRef &&
-        guard.method === on.method
-      );
     });
   }
 
@@ -99,20 +103,62 @@ export class MetadataStorage {
       let isCommand = false;
       let notFoundOn;
 
-      const onCommands = this.events.filter((on) => {
+      const onCommands = (await Promise.all(this.events.map(async (on) => {
         if (isMessage && on instanceof DCommand) {
           isCommand = true;
+          let pass = false;
 
           const message = params[0] as Message;
-          const rules = RuleBuilder.mergeRules(
-            on,
-            on.linkedInstance
+          const commandMessage = CommandMessage.create(message);
+
+          // Flatten all the @Discord rules
+          const computedDiscordRules = (await Promise.all(
+            on.linkedInstance.argsRules.map(async (ar) => await ar(commandMessage))
+          )).reduce<SimpleArgsRules[]>((prev, cdr) => {
+            if (Array.isArray(cdr)) {
+              return [
+                ...prev,
+                ...cdr
+              ];
+            } else {
+              prev.push(cdr);
+            }
+            return prev;
+          }, []).reduce((prev, cor) => {
+            return [
+              ...prev,
+              ...RuleBuilder.fromArray(cor.rules)
+            ];
+          }, []);
+
+          // Call all the rules callbacks
+          const computedOnRules = await Promise.all(
+            on.argsRules.map(async (ar) => {
+              if (typeof ar === "function") {
+                return await ar(commandMessage);
+              }
+              return ar;
+            })
           );
 
-          const pass = RuleBuilder.validate(
-            message.content.split(on.argsSeparator.regex),
-            rules.argsRules
-          );
+          // Flatten the rules for the methods and merge it to the @Discord rules
+          const flatOnRules = computedOnRules.reduce<SimpleArgsRules<RuleBuilder>[]>((prev, cor) => {
+            if (Array.isArray(cor)) {
+              cor.map((cor) => this.transformRules(computedDiscordRules, cor));
+              return [
+                ...prev,
+                ...(cor as any as SimpleArgsRules<RuleBuilder>[])
+              ];
+            } else {
+              this.transformRules(computedDiscordRules, cor);
+              prev.push(cor as any as SimpleArgsRules<RuleBuilder>);
+            }
+            return prev;
+          }, []);
+
+          pass = flatOnRules.some((rule) => {
+            return rule.rules[0].regex.test(message.content);
+          });
 
           if (!pass) {
             notFoundOn = on.linkedInstance.commandNotFound;
@@ -120,9 +166,12 @@ export class MetadataStorage {
             paramsToInject = message;
           }
 
-          return pass;
+          if (pass) {
+            return on;
+          }
         }
-      });
+        return undefined;
+      }))).filter(c => c);
 
       if (isCommand) {
         if (onCommands.length > 0) {
@@ -143,5 +192,16 @@ export class MetadataStorage {
       }
       return responses;
     };
+  }
+
+  transformRules(toMerge: RuleBuilder[], argsRules: SimpleArgsRules) {
+    argsRules.rules = [
+      ...toMerge,
+      ...RuleBuilder.fromArray(argsRules.rules)
+    ];
+    argsRules.rules = [
+      RuleBuilder.join(Rule(argsRules.separator), ...(argsRules.rules as RuleBuilder[]))
+    ];
+    return argsRules;
   }
 }

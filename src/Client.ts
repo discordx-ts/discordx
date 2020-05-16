@@ -72,9 +72,9 @@ export class Client extends ClientJS {
     return super.login(token);
   }
 
-  build() {
+  async build() {
     this.loadClasses();
-    MetadataStorage.instance.build(this);
+    await MetadataStorage.instance.build(this);
   }
 
   trigger (event: DiscordEvents, params: any, once: boolean = false): Promise<any[]> {

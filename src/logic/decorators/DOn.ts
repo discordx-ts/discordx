@@ -81,12 +81,24 @@ export class DOn extends Decorator {
 
   // TOTEST: next function & next function params
   compileGuardFn(client: Client) {
-    const next = async (params: any, client: Client, index: number, paramsToNext: any[]) => {
-      const nextFn = (...paramsToNext: any[]) => next(params, client, index + 1, paramsToNext);
-      return this._compiledGuards[index](params, client, nextFn, ...paramsToNext);
+    const next = async (params: any, client: Client, index: number, paramsToNext: any) => {
+      const nextFn = () => next(params, client, index + 1, paramsToNext);
+      const guardToExecute = this._compiledGuards[index];
+      let res: any;
+
+      if (index >= this._compiledGuards.length - 1) {
+        res = await guardToExecute(params, client, paramsToNext);
+      } else {
+        res = await guardToExecute(params, client, nextFn, paramsToNext);
+      }
+
+      if (res) {
+        return res;
+      }
+      return paramsToNext;
     };
 
-    this._guardsFunction = (params: any, client: Client) => next(params, client, 0, [{}]);
+    this._guardsFunction = (params: any, client: Client) => next(params, client, 0, {});
   }
 
   // TOTEST: guard class binding

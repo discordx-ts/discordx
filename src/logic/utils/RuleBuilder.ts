@@ -1,10 +1,10 @@
 import {
   Expression,
-  Commandable,
-  CommandableFactory
+  ArgsRules,
+  SimpleExpression
 } from "../..";
 
-export function Rule(from?: Expression, forceFromQueryBuilder?: boolean) {
+export function Rule(from?: SimpleExpression, forceFromQueryBuilder?: boolean) {
   return new RuleBuilder(from, forceFromQueryBuilder);
 }
 
@@ -44,33 +44,58 @@ export class RuleBuilder {
     return new RegExp(this._source, this._flags);
   }
 
-  constructor(from?: Expression, forceFromQueryBuilder?: boolean) {
+  constructor(from?: SimpleExpression, forceFromQueryBuilder?: boolean) {
     this.fromExpression(from, forceFromQueryBuilder);
   }
 
-  static validate(texts: string[], rules: RuleBuilder[]) {
-    const res = texts.every((text, index) => {
-      return rules[index]?.regex.test(text);
-    });
-    return res;
+  static validate(text: string, rules: ArgsRules[]) {
+    console.log(text, rules);
+    return true;
   }
 
-  static fromArray(exprs: Expression[]): RuleBuilder[] {
+  static fromArray(exprs: SimpleExpression[]): RuleBuilder[] {
     return exprs.map((expr) => Rule(expr));
   }
 
-  static joinSources(...exprs: Expression[]) {
-    return RuleBuilder.fromArray(exprs).map(rb => rb.source).join("");
+  static fromArgsRuleArray<Type extends SimpleExpression = SimpleExpression>(argsRules: ArgsRules<Type>[]): ArgsRules<RuleBuilder>[] {
+    return [];
   }
 
-  static joinFlags(...exprs: Expression[]) {
+  static joinSources(joinChar: Expression, ...exprs: SimpleExpression[]) {
+    return RuleBuilder.fromArray(exprs).map(rb => rb.source).join(Rule(joinChar).source);
+  }
+
+  static joinFlags(...exprs: SimpleExpression[]) {
     const flags = RuleBuilder.fromArray(exprs).map(rb => rb.flags);
     return flags.filter((f, i) => flags.indexOf(f) === i).join("");
+  }
+
+  static join(joinChar: RuleBuilder, ...exprs: SimpleExpression[]) {
+    const source = this.joinSources(joinChar, ...exprs);
+    let flags = this.joinFlags(...exprs);
+
+    // flags: "ig", "ig", "i" => remove "g" because one of them doesn't have the "g" flag
+    exprs.map((expr) => {
+      const rule = Rule(expr);
+      if (!rule.flags.includes(flags)) {
+        flags = rule.flags.replace(RegExp(flags, "g"), "");
+      }
+    });
+
+    return Rule(source).setFlags(flags);
+  }
+
+  static isSimpleExpression(obj: any) {
+    const exprType = this.typeOfExpression(obj);
+    return [String, RuleBuilder, RegExp].includes(exprType as any);
   }
 
   static typeOfExpression(expr: Expression) {
     if (typeof expr === "string") {
       return String;
+    }
+    if (typeof expr === "function") {
+      return Function;
     }
     if (expr instanceof RegExp) {
       return RegExp;
@@ -80,7 +105,7 @@ export class RuleBuilder {
     }
   }
 
-  static or(...exprs: Expression[]) {
+  static or(...exprs: SimpleExpression[]) {
     let source = "(";
 
     exprs.map((expr, index) => {
@@ -94,64 +119,6 @@ export class RuleBuilder {
     source += ")";
 
     return source;
-  }
-
-  static mergeRules(rules: Commandable, rulesToMerge: Commandable) {
-    let newPrefix = Rule();
-    let typeOfPrefix = RuleBuilder.typeOfExpression(rules.originalRules.prefix);
-    const typeOfCommandName = RuleBuilder.typeOfExpression(rules.originalRules.commandName);
-
-    const res: Commandable<RuleBuilder> = {
-      prefix: Rule(rules.prefix),
-      argsSeparator: Rule(rules.argsSeparator),
-      message: Rule(rules.message),
-      commandName: Rule(rules.commandName),
-      argsRules: rules.argsRules.map((rule) => Rule(rule)),
-      originalRules: rules.originalRules
-    };
-
-    if (!res.prefix.source) {
-      typeOfPrefix = RuleBuilder.typeOfExpression(rulesToMerge.originalRules.prefix);
-      res.prefix = Rule(rulesToMerge.prefix);
-    }
-
-    if (!res.argsSeparator.source) {
-      res.argsSeparator = Rule(rulesToMerge.argsSeparator);
-    }
-
-    if (
-      res.commandName
-    ) {
-      newPrefix = newPrefix.add(res.commandName);
-      if (typeOfCommandName === String) {
-        newPrefix.spaceOrEnd();
-      }
-      if (typeOfCommandName === RuleBuilder) {
-        newPrefix.setFlags(res.commandName.flags);
-      }
-    }
-
-    if (
-      res.prefix &&
-      typeOfPrefix === String &&
-      typeOfCommandName === String
-    ) {
-      newPrefix = newPrefix.startWith(res.prefix);
-    }
-
-    res.prefix = newPrefix;
-
-    if (newPrefix.source) {
-      res.argsRules[0] = newPrefix;
-    }
-
-    res.argsRules.map((rule, index) => {
-      if (!rule.source) {
-        res.argsRules[index] = Rule(rulesToMerge.argsRules[index]);
-      }
-    });
-
-    return res;
   }
 
   /**
@@ -169,8 +136,8 @@ export class RuleBuilder {
    * Add expressions to the end of your rule
    * @param exprs Expressions to add
    */
-  add(...exprs: Expression[]) {
-    const source = RuleBuilder.joinSources(...exprs);
+  add(...exprs: SimpleExpression[]) {
+    const source = RuleBuilder.joinSources("", ...exprs);
     this.setFlags(RuleBuilder.joinFlags(this, ...exprs));
     this._source += source;
     return this;
@@ -214,7 +181,7 @@ export class RuleBuilder {
    * Add "^" before your expression => ^prefix
    * @param prefix The string must start with this
    */
-  startWith(prefix: Expression) {
+  startWith(prefix: SimpleExpression) {
     this.addBefore(`^${Rule(prefix).source}`);
     return this;
   }
@@ -232,8 +199,8 @@ export class RuleBuilder {
    * Rule("c").before("a", "b") returns "abc"
    * @param exprs The expressions that you want to add before
    */
-  before(...exprs: Expression[]) {
-    this.addBefore(RuleBuilder.joinSources(...exprs));
+  before(...exprs: SimpleExpression[]) {
+    this.addBefore(RuleBuilder.joinSources("", ...exprs));
     this.setFlags(RuleBuilder.joinFlags(this, ...exprs));
     return this;
   }
@@ -250,7 +217,7 @@ export class RuleBuilder {
    * Rule().or("\\s{1,}", "$") returns "(\s{1,}|$)"
    * @param exprs The expressions to make an or with
    */
-  addOr(...exprs: Expression[]) {
+  addOr(...exprs: SimpleExpression[]) {
     this.add(RuleBuilder.or(...exprs));
     return this;
   }
@@ -260,8 +227,8 @@ export class RuleBuilder {
    * Rule("b").addBefore("a") returns "ab"
    * @param exprs The expressions to add before
    */
-  addBefore(...exprs: Expression[]) {
-    const source = RuleBuilder.joinSources(...exprs);
+  addBefore(...exprs: SimpleExpression[]) {
+    const source = RuleBuilder.joinSources("", ...exprs);
     this._source = `${source}${this._source}`;
     return this;
   }
@@ -312,7 +279,7 @@ export class RuleBuilder {
     return this;
   }
 
-  fromExpression(expr?: Expression, forceFromQueryBuilder?: boolean) {
+  fromExpression(expr?: SimpleExpression, forceFromQueryBuilder?: boolean) {
     if (expr) {
       switch (RuleBuilder.typeOfExpression(expr)) {
         case String:
