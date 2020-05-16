@@ -147,6 +147,12 @@ describe("Create commands", () => {
     const resByeLo = await triggerAndFilter("!bye");
     expect(resByeLo).toEqual(["!bye"]);
 
+    const resByeRuleNotFound = await triggerAndFilter("!testme");
+    expect(resByeRuleNotFound).toEqual(["notfound"]);
+
+    const resByeRule = await triggerAndFilter("!test me");
+    expect(resByeRule).toEqual(["!test me"]);
+
     const resByeUp = await triggerAndFilter("!bYe");
     expect(resByeUp).toEqual(["notfound"]);
   });

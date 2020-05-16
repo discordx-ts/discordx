@@ -1,3 +1,4 @@
+import { join } from "path";
 import {
   Discord,
   Client,
@@ -7,7 +8,9 @@ import {
   RuleBuilder
 } from "../src";
 
-@Discord(/-mdb\s{1,}/i)
+@Discord(/-mdb\s{1,}/i, {
+  import: join(__dirname, "commands", "*.ts")
+})
 @Rules("", ["!", "test"])
 abstract class BotCommandRules {
   @Command()
@@ -20,6 +23,16 @@ abstract class BotCommandRules {
   @Rules(async (command) => [
     { separator: " ", rules: [command.content] }
   ])
+  hello(command: CommandMessage) {
+    return command.content;
+  }
+}
+
+@Discord(/-mdb\s{1,}/i, {
+  import: join(__dirname, "commands", "*.ts")
+})
+abstract class BotCommandRules2 {
+  @Command()
   hello(command: CommandMessage) {
     return command.content;
   }

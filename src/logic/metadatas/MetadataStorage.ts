@@ -16,7 +16,6 @@ import {
   SimpleArgsRules,
   DIService
 } from "../..";
-import { Expression, ArgsRules } from '../../types';
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -217,11 +216,11 @@ export class MetadataStorage {
 
   private transformRules(toMerge: RuleBuilder[], argsRules: SimpleArgsRules) {
     argsRules.rules = [
-      ...toMerge,
-      ...RuleBuilder.fromArray(argsRules.rules)
-    ];
-    argsRules.rules = [
-      RuleBuilder.join(Rule(argsRules.separator), ...(argsRules.rules as RuleBuilder[]))
+      RuleBuilder.join(
+        Rule(""),
+        RuleBuilder.join(Rule(""), ...toMerge),
+        RuleBuilder.join(Rule(argsRules.separator), ...(argsRules.rules as RuleBuilder[]))
+      )
     ];
     return argsRules;
   }

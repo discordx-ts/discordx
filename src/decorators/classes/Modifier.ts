@@ -15,7 +15,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
   }
 
   static async applyFromModifierListToList(modifiers: Modifier<any>[], originals: Decorator[]) {
-    await Promise.all(modifiers.map(async (modifier) => {
+    return await Promise.all(modifiers.map(async (modifier) => {
       const linked = DecoratorUtils.getLinkedObjects(modifier, originals);
       await Promise.all(linked.map(async (linkedOriginal) => {
         return await modifier.applyModifications(linkedOriginal);
