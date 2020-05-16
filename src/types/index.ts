@@ -21,6 +21,9 @@ export * from "./core/DiscordParamsLimited";
 export * from "./core/ArgsRules";
 export * from "./core/TypeOrPromise";
 export * from "./core/DecoratorParamFunction";
+export * from "./core/CommandNotFoundInfos";
+export * from "./core/EventsInfos";
+export * from "./core/DiscordInfos";
 
 export * from "./public/CommandMessage";
 export * from "./public/InfosType";

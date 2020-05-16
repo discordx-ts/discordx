@@ -22,6 +22,7 @@ export function Infos<Type = any>(
       .createModifier<DCommand | DDiscord>(
         async (original) => {
           original.infos = {
+            ...original.infos,
             ...(await normalizedInfos(original as any))
           };
         }

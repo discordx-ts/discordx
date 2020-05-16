@@ -1,13 +1,15 @@
 import {
-  PrefixType,
-  CommandName
-} from "..";
+  InfosType,
+  RuleBuilder,
+  ArgsRules,
+  Expression,
+  FlatArgsRulesFunction
+} from "../..";
 
 export interface CommandInfos<InfoType = any> {
-  prefix: PrefixType;
-  commandName: CommandName;
+  prefix: Expression | FlatArgsRulesFunction;
+  commandName: Expression | FlatArgsRulesFunction;
   description: string;
-  infos: InfoType;
-  caseSensitive: boolean;
-  argsSeparator: string;
+  infos: InfosType<InfoType>;
+  argsRules: ArgsRules<RuleBuilder>[];
 }

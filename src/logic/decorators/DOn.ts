@@ -80,16 +80,16 @@ export class DOn extends Decorator {
   }
 
   // TOTEST: next function & next function params
-  compileGuardFn(client: Client) {
+  compileGuardFn() {
     const next = async (params: any, client: Client, index: number, paramsToNext: any) => {
       const nextFn = () => next(params, client, index + 1, paramsToNext);
       const guardToExecute = this._compiledGuards[index];
       let res: any;
 
       if (index >= this._compiledGuards.length - 1) {
-        res = await guardToExecute(params, client, paramsToNext);
+        res = await guardToExecute(params, client, this, paramsToNext);
       } else {
-        res = await guardToExecute(params, client, nextFn, paramsToNext);
+        res = await guardToExecute(params, client, this, nextFn, paramsToNext);
       }
 
       if (res) {

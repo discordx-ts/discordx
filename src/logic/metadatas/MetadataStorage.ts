@@ -15,7 +15,6 @@ import {
   Rule,
   SimpleArgsRules
 } from "../..";
-import { Expression, ArgsRules } from '../../types';
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -38,7 +37,19 @@ export class MetadataStorage {
   }
 
   get events() {
-    return this._events as ReadonlyArray<DOn>;
+    return this._events as readonly DOn[];
+  }
+
+  get discords() {
+    return this._discords as readonly DDiscord[];
+  }
+
+  get commands() {
+    return this._commands as readonly DCommand[];
+  }
+
+  get commandsNotFound() {
+    return this._commandNotFounds as readonly DCommandNotFound[];
   }
 
   addModifier(modifier: Modifier<any>) {
@@ -77,16 +88,17 @@ export class MetadataStorage {
     });
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._commandNotFounds);
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
 
     this._events.map((on) => {
       if (!on.linkedInstance) {
-        console.log(on, "The class isn't decorated by @Discord");
+        console.error(on, "The class isn't decorated by @Discord");
         return;
       }
 
       on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
-      on.compileGuardFn(client);
+      on.compileGuardFn();
     });
   }
 
@@ -156,10 +168,12 @@ export class MetadataStorage {
             return prev;
           }, []);
 
+          // Test if the message match any of the rules
           pass = flatOnRules.some((rule) => {
             return rule.rules[0].regex.test(message.content);
           });
 
+          // If it doesn't pass any of the rules => execute the commandNotFound
           if (!pass) {
             notFoundOn = on.linkedInstance.commandNotFound;
           } else {

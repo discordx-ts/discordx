@@ -6,7 +6,8 @@ import {
   Rule,
   RuleBuilder,
   ArgsRules,
-  InfosType
+  InfosType,
+  FlatArgsRulesFunction
 } from "../..";
 
 export class DDiscord extends Decorator implements Commandable<Expression> {
@@ -15,9 +16,18 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
   protected _instance?: Function;
   protected _originalRules: Partial<Commandable> = {};
   protected _infos: InfosType = {};
+  protected _prefix: Expression | FlatArgsRulesFunction;
 
   get originalRules() {
     return this._originalRules;
+  }
+
+  get description() {
+    return this._infos.description;
+  }
+
+  get prefix() {
+    return this._prefix;
   }
 
   get infos() {
@@ -46,10 +56,14 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
   }
 
   static createDiscord(
-    initialArgsRules: ArgsRules[]
+    initialArgsRules: ArgsRules[],
+    prefix: Expression | FlatArgsRulesFunction
   ) {
     const discord = new DDiscord();
+
     discord._argsRules = initialArgsRules;
+    discord._prefix = prefix;
+
     return discord;
   }
 

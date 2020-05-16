@@ -3,10 +3,9 @@ import {
   MetadataStorage,
   DiscordParams,
   DDiscord,
-  RuleBuilder,
   Expression,
   DiscordParamsLimited,
-  Rule
+  FlatArgsRulesFunction
 } from "..";
 
 function importCommand(classType: Function, target: Function) {
@@ -21,13 +20,10 @@ function importCommand(classType: Function, target: Function) {
 }
 
 export function Discord();
-export function Discord(prefix: Expression);
-export function Discord(params: DiscordParams);
-export function Discord(prefix: Expression, params: DiscordParamsLimited);
-export function Discord(prefixOrParams?: DiscordParams | Expression, params?: DiscordParams) {
-  const isPrefix = RuleBuilder.isSimpleExpression(prefixOrParams);
-  const finalParams = isPrefix ? params : prefixOrParams as DiscordParams;
-  const finalPrefix = isPrefix ? prefixOrParams as Expression : finalParams?.prefix;
+export function Discord(prefix: Expression | FlatArgsRulesFunction);
+export function Discord(prefix: Expression | FlatArgsRulesFunction, params: DiscordParamsLimited);
+export function Discord(prefix?: Expression | FlatArgsRulesFunction, params?: DiscordParams) {
+  const finalParams = params  || {};
 
   return (target: Function) => {
     if (finalParams?.importCommands) {
@@ -51,14 +47,23 @@ export function Discord(prefixOrParams?: DiscordParams | Expression, params?: Di
       });
     }
 
+    let finalArgsRule: FlatArgsRulesFunction;
+
+    if (typeof prefix === "function") {
+      finalArgsRule = prefix;
+    } else {
+      finalArgsRule = () => ({
+        separator: "",
+        rules: [prefix]
+      });
+    }
+
     const instance = (
       DDiscord
-      .createDiscord([
-        () => ({
-          separator: "",
-          rules: [Rule().startWith(finalPrefix)]
-        })
-      ])
+      .createDiscord(
+        [finalArgsRule],
+        prefix
+      )
       .decorate(
         target,
         target.constructor.name,

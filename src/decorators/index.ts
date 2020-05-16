@@ -5,3 +5,5 @@ export * from "./Discord";
 export * from "./Command";
 export * from "./CommandNotFound";
 export * from "./Rules";
+export * from "./Infos";
+export * from "./Description";

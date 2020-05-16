@@ -16,8 +16,13 @@ export function Command(commandNameOrFn?: Expression | FlatArgsRulesFunction) {
     let argsRule: ArgsRules;
     const method = descriptor.value;
     const isCommandName = RuleBuilder.isSimpleExpression(commandNameOrFn);
+    let finalCommandName = commandNameOrFn;
 
     if (isCommandName || !commandNameOrFn) {
+      if (!commandNameOrFn) {
+        finalCommandName = key;
+      }
+
       const expr = commandNameOrFn as Expression || key;
       const isRuleBuilder = expr instanceof RuleBuilder;
       argsRule = () => ({
@@ -30,7 +35,10 @@ export function Command(commandNameOrFn?: Expression | FlatArgsRulesFunction) {
 
     const command = (
       DCommand
-      .createCommand([argsRule])
+      .createCommand(
+        [argsRule],
+        finalCommandName
+      )
       .decorate(
         target.constructor,
         key,
