@@ -5,10 +5,14 @@ import {
   DDiscord,
   Expression,
   DiscordParamsLimited,
-  FlatArgsRulesFunction
-} from "..";
+  FlatArgsRulesFunction,
+  DIService
+} from "../..";
+import { Rule, RuleBuilder } from '../../logic';
 
 function importCommand(classType: Function, target: Function) {
+  DIService.instance.addService(target);
+
   const ons = MetadataStorage.instance.events.filter((on) => {
     return on.classRef === classType;
   });
@@ -26,8 +30,13 @@ export function Discord(prefix?: Expression | FlatArgsRulesFunction, params?: Di
   const finalParams = params  || {};
 
   return (target: Function) => {
-    if (finalParams?.importCommands) {
-      finalParams?.importCommands.map((cmd) => {
+    if (finalParams?.import) {
+      let importCommands = finalParams?.import || [];
+      if (!Array.isArray(importCommands)) {
+        importCommands = [importCommands];
+      }
+
+      importCommands.map((cmd) => {
         if (typeof cmd === "string") {
           const files = Glob.sync(cmd);
           files.map((file) => {
@@ -52,9 +61,10 @@ export function Discord(prefix?: Expression | FlatArgsRulesFunction, params?: Di
     if (typeof prefix === "function") {
       finalArgsRule = prefix;
     } else {
+      const isRuleBuilder = prefix instanceof RuleBuilder;
       finalArgsRule = () => ({
         separator: "",
-        rules: [prefix]
+        rules: [isRuleBuilder ? prefix : Rule().startWith(prefix)]
       });
     }
 

@@ -3,8 +3,6 @@ import {
   DCommandNotFound,
   Commandable,
   Expression,
-  Rule,
-  RuleBuilder,
   ArgsRules,
   InfosType,
   FlatArgsRulesFunction
@@ -65,9 +63,5 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
     discord._prefix = prefix;
 
     return discord;
-  }
-
-  update() {
-    this._instance = new (this.classRef as any)();
   }
 }

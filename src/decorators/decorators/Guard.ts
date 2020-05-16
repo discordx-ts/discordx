@@ -2,7 +2,7 @@ import {
   MetadataStorage,
   GuardFunction,
   DGuard
-} from "..";
+} from "../..";
 
 export function Guard(...fns: GuardFunction[]) {
   return (target: Object, key: string, descriptor: PropertyDescriptor): void => {

@@ -1,9 +1,8 @@
-import { ClassCommand, Command, CommandMessage, Guard } from "../../src";
+import { Command, CommandMessage, Rule } from "../../src";
 
-export abstract class Bye implements ClassCommand {
-  @Command("bye")
-  @Guard()
-  async execute(command: CommandMessage) {
-    return command;
+export abstract class Bye {
+  @Command(Rule("bye").caseSensitive())
+  bye(command: CommandMessage) {
+    return command.content;
   }
 }

@@ -49,7 +49,7 @@ export class Client extends ClientJS {
         argsRules: c.argsRules as any as ArgsRules<RuleBuilder>[],
         infos: c.infos as InfosType<Type>,
         commandName: c.commandName,
-        prefix: c.linkedInstance.prefix,
+        prefix: c.linkedDiscord.prefix,
         description: c.infos.description
       };
     });
@@ -63,7 +63,7 @@ export class Client extends ClientJS {
       return {
         event: event.event,
         once: event.once,
-        linkedInstance: event.linkedInstance
+        linkedInstance: event.linkedDiscord
       };
     });
   }
@@ -90,7 +90,7 @@ export class Client extends ClientJS {
     return MetadataStorage.instance.commandsNotFound.map<CommandNotFoundInfos<Type>>((c) => {
       return {
         infos: c.infos as InfosType<Type>,
-        prefix: c.linkedInstance.prefix,
+        prefix: c.linkedDiscord.prefix,
         description: c.infos.description
       };
     });
@@ -142,7 +142,7 @@ export class Client extends ClientJS {
    */
   async build() {
     this.loadClasses();
-    await MetadataStorage.instance.build(this);
+    await MetadataStorage.instance.build();
   }
 
   /**

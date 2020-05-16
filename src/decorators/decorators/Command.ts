@@ -6,7 +6,7 @@ import {
   ArgsRules,
   FlatArgsRulesFunction,
   Rule
-} from "..";
+} from "../..";
 
 export function Command();
 export function Command(commandName: Expression);
@@ -27,7 +27,7 @@ export function Command(commandNameOrFn?: Expression | FlatArgsRulesFunction) {
       const isRuleBuilder = expr instanceof RuleBuilder;
       argsRule = () => ({
         separator: "",
-        rules: [isRuleBuilder ? expr : Rule(expr).end()]
+        rules: [isRuleBuilder ? expr : Rule(expr).spaceOrEnd()]
       });
     } else {
       argsRule = commandNameOrFn as FlatArgsRulesFunction;

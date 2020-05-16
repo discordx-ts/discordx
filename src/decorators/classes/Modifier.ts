@@ -1,5 +1,5 @@
 import { Decorator } from "./Decorator";
-import { DecoratorUtils } from "../utils/DecoratorUtils";
+import { DecoratorUtils } from "../../logic/utils/DecoratorUtils";
 
 export type ModifyFunction<ToModify extends Decorator> = (
   original: ToModify

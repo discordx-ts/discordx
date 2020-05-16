@@ -1,7 +1,7 @@
 import {
   MetadataStorage,
   DCommandNotFound
-} from "..";
+} from "../..";
 
 export function CommandNotFound();
 export function CommandNotFound();

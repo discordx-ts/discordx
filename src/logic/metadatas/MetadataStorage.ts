@@ -13,8 +13,10 @@ import {
   Modifier,
   DecoratorUtils,
   Rule,
-  SimpleArgsRules
+  SimpleArgsRules,
+  DIService
 } from "../..";
+import { Expression, ArgsRules } from '../../types';
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -72,19 +74,21 @@ export class MetadataStorage {
 
   addGuard(guard: DGuard) {
     this._guards.push(guard);
+    DIService.instance.addService(guard.classRef);
   }
 
   addDiscord(discord: DDiscord) {
     this._discords.push(discord);
+    DIService.instance.addService(discord.classRef);
   }
 
-  async build(client: Client) {
+  async build() {
     // Link the events with their instances
     this._events.map((on) => {
-      const instance = this._discords.find((instance) => {
-        return instance.classRef === on.from;
+      const discord = this._discords.find((instance) => {
+        return instance.classRef === on.classRef;
       });
-      on.linkedInstance = instance;
+      on.linkedDiscord = discord;
     });
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
@@ -92,7 +96,7 @@ export class MetadataStorage {
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
 
     this._events.map((on) => {
-      if (!on.linkedInstance) {
+      if (!on.linkedDiscord) {
         console.error(on, "The class isn't decorated by @Discord");
         return;
       }
@@ -125,7 +129,7 @@ export class MetadataStorage {
 
           // Flatten all the @Discord rules
           const computedDiscordRules = (await Promise.all(
-            on.linkedInstance.argsRules.map(async (ar) => await ar(commandMessage))
+            on.linkedDiscord.argsRules.map(async (ar) => await ar(commandMessage))
           )).reduce<SimpleArgsRules[]>((prev, cdr) => {
             if (Array.isArray(cdr)) {
               return [
@@ -169,19 +173,20 @@ export class MetadataStorage {
           }, []);
 
           // Test if the message match any of the rules
-          pass = flatOnRules.some((rule) => {
-            return rule.rules[0].regex.test(message.content);
-          });
-
-          // If it doesn't pass any of the rules => execute the commandNotFound
-          if (!pass) {
-            notFoundOn = on.linkedInstance.commandNotFound;
-          } else {
-            paramsToInject = message;
-          }
+          pass = this.matchRules(flatOnRules, message.content);
 
           if (pass) {
+            paramsToInject = message;
             return on;
+          } else {
+            // If it doesn't pass any of the rules => execute the commandNotFound only on the discord instance that match the message discord rules
+            const passNotFound = computedDiscordRules.some((cdr) => {
+              return cdr.regex.test(message.content);
+            });
+
+            if (passNotFound) {
+              notFoundOn = on.linkedDiscord.commandNotFound;
+            }
           }
         }
         return undefined;
@@ -192,6 +197,8 @@ export class MetadataStorage {
           eventsToExecute = onCommands;
         } else if (notFoundOn) {
           eventsToExecute = [notFoundOn];
+        } else {
+          eventsToExecute = [];
         }
       }
 
@@ -208,7 +215,7 @@ export class MetadataStorage {
     };
   }
 
-  transformRules(toMerge: RuleBuilder[], argsRules: SimpleArgsRules) {
+  private transformRules(toMerge: RuleBuilder[], argsRules: SimpleArgsRules) {
     argsRules.rules = [
       ...toMerge,
       ...RuleBuilder.fromArray(argsRules.rules)
@@ -217,5 +224,11 @@ export class MetadataStorage {
       RuleBuilder.join(Rule(argsRules.separator), ...(argsRules.rules as RuleBuilder[]))
     ];
     return argsRules;
+  }
+
+  private matchRules(rules: SimpleArgsRules<RuleBuilder>[], text: string) {
+    return rules.some((rule) => {
+      return rule.rules[0].regex.test(text);
+    });
   }
 }

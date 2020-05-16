@@ -8,6 +8,7 @@ export function Rule(from?: SimpleExpression, forceFromQueryBuilder?: boolean) {
   return new RuleBuilder(from, forceFromQueryBuilder);
 }
 
+// IDEA: Create an explicit description of what a command do (problem: i18n)
 export class RuleBuilder {
   static readonly start = "^";
   static readonly end = "$";

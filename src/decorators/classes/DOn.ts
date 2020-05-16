@@ -13,26 +13,27 @@ import {
   MainMethod,
   RuleBuilder
 } from "../..";
+import { DIService } from '../../logic';
 
 
 export class DOn extends Decorator {
   protected _event: DiscordEvents;
   protected _mainFunction?: MainMethod<any>;
-  protected _linkedInstance?: DDiscord;
+  protected _linkedDiscord?: DDiscord;
   protected _once: boolean;
   protected _guardsFunction?: (...params: any[]) => Promise<any>;
   protected _originalParams: Partial<DOn>;
   protected _compiledGuards: GuardFunction[] = [];
   protected _guards: DGuard[] = [];
 
-  get linkedInstance() {
-    return this._linkedInstance;
+  get linkedDiscord() {
+    return this._linkedDiscord;
   }
-  set linkedInstance(value: DDiscord) {
+  set linkedDiscord(value: DDiscord) {
     if (value) {
-      this._linkedInstance = value;
+      this._linkedDiscord = value;
       if (this instanceof DCommandNotFound) {
-        this._linkedInstance.commandNotFound = this;
+        this._linkedDiscord.commandNotFound = this;
       }
     }
   }
@@ -69,7 +70,7 @@ export class DOn extends Decorator {
   }
 
   bind() {
-    this._method.bind(this._linkedInstance.instance);
+    this._method.bind(this._linkedDiscord.instance);
   }
 
   getMainFunction<Event extends DiscordEvents = any>(): MainMethod<Event> {
@@ -104,9 +105,15 @@ export class DOn extends Decorator {
   // TOTEST: guard class binding
   private extractGuards() {
     this._guards.map((guard) => {
-      this._compiledGuards.push(guard.fn);
+      this._compiledGuards.push(
+        guard.fn.bind(
+          DIService.instance.getService(guard.from)
+        )
+      );
     });
-    this._compiledGuards.push(this.method.bind(this._linkedInstance.instance));
+    this._compiledGuards.push(this.method.bind(
+      DIService.instance.getService(this.from)
+    ));
   }
 
   private compileMainFunction<Event extends DiscordEvents = any>(): MainMethod<Event> {

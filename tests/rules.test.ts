@@ -47,6 +47,5 @@ async function triggerAndFilter(message: string) {
 
 describe("Create commands", () => {
   it("Should create modifiers", async () => {
-    const resTest = await triggerAndFilter("-mdb hello");
   });
 });

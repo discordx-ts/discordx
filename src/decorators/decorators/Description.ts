@@ -3,7 +3,7 @@ import {
   DCommand,
   Modifier,
   DDiscord
-} from "..";
+} from "../..";
 
 export function Description(description: string);
 export function Description(description: string) {

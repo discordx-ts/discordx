@@ -5,7 +5,7 @@ import {
   DDiscord,
   InfosType,
   TypeOrPromise
-} from "..";
+} from "../..";
 
 export function Infos<Type = any>(infos: InfosType<Type>);
 export function Infos<Type = any>(

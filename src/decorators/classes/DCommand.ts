@@ -4,7 +4,7 @@ import {
   InfosType,
   ArgsRules,
   FlatArgsRulesFunction
-} from "../../";
+} from "../..";
 import { DOn } from "./DOn";
 
 export class DCommand extends DOn implements Commandable<Expression> {

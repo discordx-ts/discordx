@@ -2,7 +2,7 @@ import {
   MetadataStorage,
   DiscordEvents,
   DOn
-} from "..";
+} from "../..";
 
 /**
  * Trigger a discord event only once

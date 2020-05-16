@@ -5,13 +5,11 @@ import {
   DDiscord,
   Expression,
   RuleBuilder,
-  ArgsRulesFunction,
-  SimpleExpression,
   ArgsRules,
   CommandMessage,
   TypeOrPromise,
   SimpleArgsRules
-} from "..";
+} from "../..";
 
 export type ComputedArgsRule = (command: CommandMessage) => TypeOrPromise<SimpleArgsRules[]>;
 

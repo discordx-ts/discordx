@@ -1,3 +1,4 @@
+import { join } from "path";
 import {
   Discord,
   Client,
@@ -6,10 +7,13 @@ import {
   CommandMessage,
   Rule,
   Infos,
-  Description
+  Description,
+  RuleBuilder
 } from "../src";
 
-@Discord("!")
+@Discord("!", {
+  import: join(__dirname, "commands", "*.ts")
+})
 @Infos({ test: "test" })
 @Description("My description")
 abstract class BotCommandExclamation {
@@ -42,6 +46,26 @@ abstract class BotCommandExclamation {
   }
 }
 
+
+@Discord(Rule().startWith("-space").spaceOrEnd())
+@Infos({ test: "test space" })
+@Description("My description space")
+abstract class BotCommandSpace {
+  @Command()
+  @Infos({ space: "space" })
+  @Description("My command description space")
+  hello(command: CommandMessage) {
+    return command.content;
+  }
+
+  @CommandNotFound()
+  @Infos({ commandNotFoundSpace: "commandNotFoundSpace" })
+  @Description("My command not found description space")
+  commandNotFound(command: CommandMessage) {
+    return "notfound space";
+  }
+}
+
 function createCommandMessage(content: string) {
   return {
     author: {
@@ -65,7 +89,7 @@ async function triggerAndFilter(message: string) {
 describe("Create commands", () => {
   it("Should a create simple command class", async () => {
     const resTest = await triggerAndFilter("test");
-    expect(resTest).toEqual(["notfound"]);
+    expect(resTest).toEqual([]);
 
     const resHello = await triggerAndFilter("!hello");
     expect(resHello).toEqual(["!hello"]);
@@ -81,22 +105,49 @@ describe("Create commands", () => {
 
     const resHello3 = await triggerAndFilter("!hello3");
     expect(resHello3).toEqual(["!hello33"]);
+
+    const resSpaceHello = await triggerAndFilter("-space hello");
+    expect(resSpaceHello).toEqual(["-space hello"]);
+
+    const resSpaceNotFound = await triggerAndFilter("-space blabla");
+    expect(resSpaceNotFound).toEqual(["notfound space"]);
   });
 
   it("Should get the correct command description", () => {
     const commands = Client.getCommands();
     const commandsNotFound = Client.getCommandsNotFound();
 
+    expect(commands[2].prefix).toEqual("!");
     expect(commands[0].infos.command).toEqual("command");
     expect(commands[0].description).toEqual("My command description");
 
+    expect(commands[2].prefix).toEqual("!");
     expect(commands[1].infos.command2).toEqual("command2");
     expect(commands[1].description).toEqual("My command description 2");
 
+    expect(commands[2].prefix).toEqual("!");
     expect(commands[2].infos.command3).toEqual("command3");
     expect(commands[2].description).toEqual("My command description 3");
 
+    expect(commands[3].prefix).toEqual("!");
+    expect((commands[3].commandName as RuleBuilder).source).toEqual("bye");
+
+    expect((commands[4].prefix as RuleBuilder).source).toEqual("^-space(\\s{1,}|$)");
+    expect(commands[4].infos.space).toEqual("space");
+    expect(commands[4].description).toEqual("My command description space");
+
     expect(commandsNotFound[0].infos.commandNotFound).toEqual("commandNotFound");
     expect(commandsNotFound[0].description).toEqual("My command not found description");
+
+    expect(commandsNotFound[1].infos.commandNotFoundSpace).toEqual("commandNotFoundSpace");
+    expect(commandsNotFound[1].description).toEqual("My command not found description space");
+  });
+
+  it("Should import the commands", async () => {
+    const resByeLo = await triggerAndFilter("!bye");
+    expect(resByeLo).toEqual(["!bye"]);
+
+    const resByeUp = await triggerAndFilter("!bYe");
+    expect(resByeUp).toEqual(["notfound"]);
   });
 });
