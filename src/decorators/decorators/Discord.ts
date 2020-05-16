@@ -6,9 +6,10 @@ import {
   Expression,
   DiscordParamsLimited,
   FlatArgsRulesFunction,
-  DIService
+  DIService,
+  Rule,
+  RuleBuilder
 } from "../..";
-import { Rule, RuleBuilder } from '../../logic';
 
 function importCommand(classType: Function, target: Function) {
   DIService.instance.addService(target);
