@@ -145,15 +145,18 @@ describe("Create commands", () => {
 
   it("Should import the commands", async () => {
     const resByeLo = await triggerAndFilter("!bye");
-    expect(resByeLo).toEqual(["!bye"]);
+    expect(resByeLo).toEqual(["!byepass"]);
 
     const resByeRuleNotFound = await triggerAndFilter("!testme");
     expect(resByeRuleNotFound).toEqual(["notfound"]);
 
     const resByeRule = await triggerAndFilter("!test me");
-    expect(resByeRule).toEqual(["!test me"]);
+    expect(resByeRule).toEqual(["!test mepass"]);
 
     const resByeUp = await triggerAndFilter("!bYe");
     expect(resByeUp).toEqual(["notfound"]);
+
+    const resDelete = await client.trigger("messageDelete");
+    expect(resDelete).toEqual(["messagedeletedpass"]);
   });
 });

@@ -13,7 +13,7 @@ import {
 } from "../..";
 
 function importCommand(classType: Function, target: Function) {
-  DIService.instance.addService(target);
+  DIService.instance.addService(classType);
 
   const ons = MetadataStorage.instance.events.filter((on) => {
     return on.classRef === classType;

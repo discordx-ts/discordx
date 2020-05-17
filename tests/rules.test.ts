@@ -6,8 +6,18 @@ import {
   CommandMessage,
   Rules,
   CommandNotFound,
-  ComputedRules
+  ComputedRules,
+  Guard,
+  GuardFunction
 } from "../src";
+
+const guard1: GuardFunction<{message: any, original: string}> = async ([message]: [any], client, on, next, mwDatas) => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 500);
+  });
+  mwDatas.original = message.content + "0";
+  return await next();
+};
 
 @Discord(/-mdb\s{1,}/i, {
   import: join(__dirname, "commands", "*.ts")
@@ -23,13 +33,15 @@ abstract class BotCommandRules {
   @ComputedRules(() => ([
     /test2/
   ]))
-  hello(command: CommandMessage) {
-    return command.content;
+  @Guard(guard1)
+  hello(command: CommandMessage, client, on, mwsDatas) {
+    return mwsDatas.original;
   }
 
   @CommandNotFound()
-  cnf() {
-    return "notfound";
+  @Guard(guard1)
+  cnf(command: CommandMessage, client, on, mwsDatas) {
+    return "notfound" + mwsDatas.original;
   }
 }
 
@@ -69,36 +81,18 @@ describe("Create commands", () => {
     expect(res1).toEqual([]);
 
     const res2 = await triggerAndFilter("-mdb ");
-    expect(res2).toEqual(["notfound"]);
+    expect(res2).toEqual(["notfound-mdb 0"]);
 
     const res3 = await triggerAndFilter("-mdb hello");
-    expect(res3).toEqual(["notfound"]);
+    expect(res3).toEqual(["notfound-mdb hello0"]);
 
     const res4 = await triggerAndFilter("-mdb bf");
-    expect(res4).toEqual(["-mdb bf"]);
+    expect(res4).toEqual(["-mdb bf0"]);
 
     const res5 = await triggerAndFilter("-mdb test");
-    expect(res5).toEqual(["-mdb test"]);
+    expect(res5).toEqual(["-mdb test0"]);
 
-    // const resHello = await triggerAndFilter("!hello");
-    // expect(resHello).toEqual(["!hello"]);
-
-    // const resHello2 = await triggerAndFilter("!hello2");
-    // expect(resHello2).toEqual(["!hello22"]);
-
-    // const resHelloCase = await triggerAndFilter("!Hello");
-    // expect(resHelloCase).toEqual(["!Hello"]);
-
-    // const resHello3Wrong = await triggerAndFilter("!Hello3");
-    // expect(resHello3Wrong).toEqual(["notfound"]);
-
-    // const resHello3 = await triggerAndFilter("!hello3");
-    // expect(resHello3).toEqual(["!hello33"]);
-
-    // const resSpaceHello = await triggerAndFilter("-space hello");
-    // expect(resSpaceHello).toEqual(["-space hello"]);
-
-    // const resSpaceNotFound = await triggerAndFilter("-space blabla");
-    // expect(resSpaceNotFound).toEqual(["notfound space"]);
+    const res6 = await triggerAndFilter("!testa");
+    expect(res6).toEqual(["!testa0"]);
   });
 });

@@ -151,7 +151,7 @@ export class Client extends ClientJS {
    * @param params Params to inject
    * @param once Trigger an once event
    */
-  trigger (event: DiscordEvents, params: any, once: boolean = false): Promise<any[]> {
+  trigger (event: DiscordEvents, params?: any, once: boolean = false): Promise<any[]> {
     return MetadataStorage.instance.trigger(
       event,
       this,

@@ -93,7 +93,9 @@ export class DOn extends Decorator {
       if (index >= this._compiledGuards.length - 1) {
         res = await guardToExecute(params, client, this, paramsToNext);
       } else {
-        res = await guardToExecute(params, client, this, nextFn, paramsToNext);
+        // If it's a commmand, the params isn't a array, and the destructing with guard causes an error
+        const normalizedParams = Array.isArray(params) ? params : [params];
+        res = await guardToExecute(normalizedParams, client, this, nextFn, paramsToNext);
       }
 
       if (res) {
