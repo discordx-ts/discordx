@@ -1,15 +1,15 @@
 import {
-  ArgsRules,
+  ArgsRulesFunction,
   DCommandNotFound,
   InfosType,
   Expression,
-  FlatArgsRulesFunction
+  ExpressionFunction
 } from "../..";
 
 export interface DiscordInfos<InfoType = any> {
-  argsRules: ArgsRules[];
+  argsRules: ArgsRulesFunction[];
   commandNotFound?: DCommandNotFound;
   infos: InfosType<InfoType>;
   description: string;
-  prefix: Expression | FlatArgsRulesFunction;
+  prefix: Expression | ExpressionFunction;
 }

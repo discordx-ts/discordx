@@ -5,25 +5,24 @@ import {
   Command,
   CommandMessage,
   Rules,
-  RuleBuilder,
-  CommandNotFound
+  CommandNotFound,
+  ComputedRules
 } from "../src";
 
 @Discord(/-mdb\s{1,}/i, {
   import: join(__dirname, "commands", "*.ts")
 })
-@Rules("", ["!", "test"])
+@Rules("!", "test")
 abstract class BotCommandRules {
   @Command()
-  @Rules([/\a/i])
-  @Rules([/\b/i])
-  @Rules([
-    { separator: " ", rules: [/c/, "d"] },
-    { separator: RuleBuilder.atLeastOneSpace, rules: [/z/, "y"] }
-  ])
-  @Rules(async (command) => [
-    { separator: " ", rules: [command.content] }
-  ])
+  @Rules(/a/)
+  @Rules(/b/, /f/)
+  @ComputedRules(() => ([
+    /test/
+  ]))
+  @ComputedRules(() => ([
+    /test2/
+  ]))
   hello(command: CommandMessage) {
     return command.content;
   }
@@ -73,8 +72,13 @@ describe("Create commands", () => {
     expect(res2).toEqual(["notfound"]);
 
     const res3 = await triggerAndFilter("-mdb hello");
-    expect(res2).toEqual(["-mdb hello"]);
+    expect(res3).toEqual(["notfound"]);
 
+    const res4 = await triggerAndFilter("-mdb bf");
+    expect(res4).toEqual(["-mdb bf"]);
+
+    const res5 = await triggerAndFilter("-mdb test");
+    expect(res5).toEqual(["-mdb test"]);
 
     // const resHello = await triggerAndFilter("!hello");
     // expect(resHello).toEqual(["!hello"]);

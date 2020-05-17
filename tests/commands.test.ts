@@ -117,15 +117,15 @@ describe("Create commands", () => {
     const commands = Client.getCommands();
     const commandsNotFound = Client.getCommandsNotFound();
 
-    expect(commands[2].prefix).toEqual("!");
+    expect(commands[0].prefix).toEqual("!");
     expect(commands[0].infos.command).toEqual("command");
     expect(commands[0].description).toEqual("My command description");
 
-    expect(commands[2].prefix).toEqual("!");
+    expect(commands[1].prefix).toEqual("!");
     expect(commands[1].infos.command2).toEqual("command2");
     expect(commands[1].description).toEqual("My command description 2");
 
-    expect(commands[2].prefix).toEqual("!");
+    expect(commands[1].prefix).toEqual("!");
     expect(commands[2].infos.command3).toEqual("command3");
     expect(commands[2].description).toEqual("My command description 3");
 

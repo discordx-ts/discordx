@@ -2,16 +2,19 @@ import {
   Expression,
   Commandable,
   InfosType,
-  ArgsRules,
-  FlatArgsRulesFunction
+  ArgsRulesFunction,
+  ExpressionFunction,
+  RuleBuilder,
+  Rule,
+  CommandMessage
 } from "../..";
 import { DOn } from "./DOn";
 
 export class DCommand extends DOn implements Commandable<Expression> {
-  protected _argsRules: ArgsRules[];
+  protected _argsRules: ArgsRulesFunction[];
   protected _originalRules: Partial<Commandable> = {};
   protected _infos: InfosType = {};
-  protected _commandName: Expression | FlatArgsRulesFunction;
+  protected _commandName: Expression | ExpressionFunction;
 
   get originalRules() {
     return this._originalRules;
@@ -40,16 +43,39 @@ export class DCommand extends DOn implements Commandable<Expression> {
   }
 
   static createCommand(
-    initialArgsRule: ArgsRules[],
-    commandName: Expression | FlatArgsRulesFunction
+    commandName?: Expression | ExpressionFunction
   ) {
     const command = new DCommand();
 
-    command._argsRules = initialArgsRule;
-    command._commandName = commandName;
+    if (commandName) {
+      let finalCommandName = commandName as ExpressionFunction;
+
+      if (typeof commandName !== "function") {
+        const expr = commandName as Expression;
+        const isRuleBuilder = expr instanceof RuleBuilder;
+        if (expr) {
+          finalCommandName = isRuleBuilder ? () => expr : () => Rule(expr).spaceOrEnd();
+        }
+      }
+
+      command._argsRules = [
+        async (command: CommandMessage) => [await finalCommandName(command)]
+      ];
+
+      command._commandName = commandName;
+    } else {
+      command._argsRules = [];
+    }
+
     command._event = "message";
     command._once = false;
 
     return command;
+  }
+
+  update() {
+    if (!this._commandName) {
+      this._commandName = this._key;
+    }
   }
 }

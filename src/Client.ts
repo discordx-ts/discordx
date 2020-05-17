@@ -7,7 +7,7 @@ import {
   DiscordEvents,
   CommandInfos,
   InfosType,
-  ArgsRules,
+  ArgsRulesFunction,
   RuleBuilder,
   CommandNotFoundInfos,
   EventInfos,
@@ -46,7 +46,7 @@ export class Client extends ClientJS {
   static getCommands<Type extends InfosType = any>(): CommandInfos<Type>[] {
     return MetadataStorage.instance.commands.map<CommandInfos<Type>>((c) => {
       return {
-        argsRules: c.argsRules as any as ArgsRules<RuleBuilder>[],
+        argsRules: c.argsRules as any as ArgsRulesFunction<RuleBuilder>[],
         infos: c.infos as InfosType<Type>,
         commandName: c.commandName,
         prefix: c.linkedDiscord.prefix,
@@ -74,7 +74,7 @@ export class Client extends ClientJS {
   static getDiscords<Type extends InfosType = any>(): DiscordInfos<Type>[] {
     return MetadataStorage.instance.discords.map<DiscordInfos<Type>>((discord) => {
       return {
-        argsRules: discord.argsRules as ArgsRules<RuleBuilder>[],
+        argsRules: discord.argsRules as ArgsRulesFunction<RuleBuilder>[],
         infos: discord.infos as InfosType<Type>,
         prefix: discord.prefix,
         commandNotFound: discord.commandNotFound,

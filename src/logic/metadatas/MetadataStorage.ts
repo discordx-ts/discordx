@@ -13,7 +13,7 @@ import {
   Modifier,
   DecoratorUtils,
   Rule,
-  SimpleArgsRules,
+  ArgsRulesFunction,
   DIService
 } from "../..";
 
@@ -92,10 +92,7 @@ export class MetadataStorage {
 
       // If the command is imported remove the original one
       if (on.hidden) {
-        const command = DecoratorUtils.getLinkedObjects(on, this._commands)[0];
-        if (command) {
-          this._commands.splice(this._commands.indexOf(command), 1);
-        }
+        this.removeEvent(on);
         return false;
       }
       return true;
@@ -109,6 +106,20 @@ export class MetadataStorage {
       on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
       on.compileGuardFn();
     });
+  }
+
+  removeEvent(event: DOn) {
+    const command = DecoratorUtils.getLinkedObjects(event, this._commands)[0];
+    if (command) {
+      this._commands.splice(this._commands.indexOf(command), 1);
+    }
+
+    const commandNotFound = DecoratorUtils.getLinkedObjects(event, this._commandNotFounds)[0];
+    if (commandNotFound) {
+      this._commandNotFounds.splice(this._commandNotFounds.indexOf(commandNotFound), 1);
+    }
+
+    return event;
   }
 
   trigger<Event extends DiscordEvents>(event: Event, client: Client, once: boolean = false) {
@@ -132,53 +143,38 @@ export class MetadataStorage {
           const message = params[0] as Message;
           const commandMessage = CommandMessage.create(message);
 
-          // Flatten all the @Discord rules
           const computedDiscordRules = (await Promise.all(
             on.linkedDiscord.argsRules.map(async (ar) => await ar(commandMessage))
-          )).reduce<SimpleArgsRules[]>((prev, cdr) => {
-            if (Array.isArray(cdr)) {
-              return [
-                ...prev,
-                ...cdr
-              ];
-            } else {
-              prev.push(cdr);
-            }
-            return prev;
-          }, []).reduce((prev, cor) => {
+          )).flatMap((rules) => {
+            return RuleBuilder.join(Rule(""), ...rules);
+          });
+
+          let computedCommandRules = (await Promise.all(
+            on.argsRules.map(async (ar) => await ar(commandMessage))
+          ));
+
+          if (computedCommandRules.length <= 0) {
+            computedCommandRules = [[
+              Rule(on.key).spaceOrEnd()
+            ]];
+          }
+
+          const allRules = computedDiscordRules.reduce<RuleBuilder[][]>((prev, cdr) => {
             return [
-              ...prev,
-              ...RuleBuilder.fromArray(cor.rules)
+              ...computedCommandRules.map<RuleBuilder[]>((ccr) => [
+                cdr,
+                ...RuleBuilder.fromArray(ccr)
+              ]),
+              ...prev
             ];
-          }, []);
-
-          // Call all the rules callbacks
-          const computedOnRules = await Promise.all(
-            on.argsRules.map(async (ar) => {
-              if (typeof ar === "function") {
-                return await ar(commandMessage);
-              }
-              return ar;
-            })
-          );
-
-          // Flatten the rules for the methods and merge it to the @Discord rules
-          const flatOnRules = computedOnRules.reduce<SimpleArgsRules<RuleBuilder>[]>((prev, cor) => {
-            if (Array.isArray(cor)) {
-              cor.map((cor) => this.transformRules(computedDiscordRules, cor));
-              return [
-                ...prev,
-                ...(cor as any as SimpleArgsRules<RuleBuilder>[])
-              ];
-            } else {
-              this.transformRules(computedDiscordRules, cor);
-              prev.push(cor as any as SimpleArgsRules<RuleBuilder>);
-            }
-            return prev;
-          }, []);
+          }, []).flatMap((rules) => {
+            return RuleBuilder.join(Rule(""), ...rules);
+          });
 
           // Test if the message match any of the rules
-          pass = this.matchRules(flatOnRules, message.content);
+          pass = allRules.some((rule) => {
+            return rule.regex.test(message.content);
+          });
 
           if (pass) {
             paramsToInject = message;
@@ -218,22 +214,5 @@ export class MetadataStorage {
       }
       return responses;
     };
-  }
-
-  private transformRules(toMerge: RuleBuilder[], argsRules: SimpleArgsRules) {
-    argsRules.rules = [
-      RuleBuilder.join(
-        Rule(""),
-        RuleBuilder.join(Rule(""), ...toMerge),
-        RuleBuilder.join(Rule(argsRules.separator), ...(argsRules.rules as RuleBuilder[]))
-      )
-    ];
-    return argsRules;
-  }
-
-  private matchRules(rules: SimpleArgsRules<RuleBuilder>[], text: string) {
-    return rules.some((rule) => {
-      return rule.rules[0].regex.test(text);
-    });
   }
 }

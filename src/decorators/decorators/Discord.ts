@@ -5,43 +5,73 @@ import {
   DDiscord,
   Expression,
   DiscordParamsLimited,
-  FlatArgsRulesFunction,
   DIService,
-  Rule,
-  RuleBuilder,
-  DCommand
+  DCommand,
+  DOn,
+  DCommandNotFound,
+  ExpressionFunction
 } from "../..";
 
 function importCommand(classType: Function, target: Function) {
   DIService.instance.addService(target);
 
-  const ons = MetadataStorage.instance.commands.filter((on) => {
+  const ons = MetadataStorage.instance.events.filter((on) => {
     return on.classRef === classType;
   });
 
-  ons.map((command) => {
-    command.hidden = true;
-    const newCommand = (
-      DCommand
-      .createCommand(
-        command.argsRules,
-        command.commandName
-      )
-      .decorate(
-        target,
-        command.key,
-        command.method,
-        classType
-      )
-    );
-    MetadataStorage.instance.addCommand(newCommand);
+  ons.map((event) => {
+    event.hidden = true;
+    if (event instanceof DCommand) {
+      const newCommand = (
+        DCommand
+        .createCommand(
+          event.commandName
+        )
+        .decorate(
+          target,
+          event.key,
+          event.method,
+          classType
+        )
+      );
+      MetadataStorage.instance.addCommand(newCommand);
+    } else if (event instanceof DCommandNotFound) {
+      const newCommand = (
+        DCommandNotFound
+        .createCommandNotFound()
+        .decorate(
+          target,
+          event.key,
+          event.method,
+          classType
+        )
+      );
+      MetadataStorage.instance.addCommandNotFound(newCommand);
+    } else {
+      const newCommand = (
+        DOn
+        .createOn(
+          event.event,
+          event.once
+        )
+        .decorate(
+          target,
+          event.key,
+          event.method,
+          classType
+        )
+      );
+      MetadataStorage.instance.addOn(newCommand);
+    }
   });
 }
 
 export function Discord();
-export function Discord(prefix: Expression | FlatArgsRulesFunction);
-export function Discord(prefix: Expression | FlatArgsRulesFunction, params: DiscordParamsLimited);
-export function Discord(prefix?: Expression | FlatArgsRulesFunction, params?: DiscordParams) {
+export function Discord(prefix: Expression);
+export function Discord(prefix: Expression, params: DiscordParamsLimited);
+export function Discord(prefix: ExpressionFunction);
+export function Discord(prefix: ExpressionFunction, params: DiscordParamsLimited);
+export function Discord(prefix?: Expression | ExpressionFunction, params?: DiscordParams) {
   const finalParams = params  || {};
 
   return (target: Function) => {
@@ -71,22 +101,9 @@ export function Discord(prefix?: Expression | FlatArgsRulesFunction, params?: Di
       });
     }
 
-    let finalArgsRule: FlatArgsRulesFunction;
-
-    if (typeof prefix === "function") {
-      finalArgsRule = prefix;
-    } else {
-      const isRuleBuilder = prefix instanceof RuleBuilder;
-      finalArgsRule = () => ({
-        separator: "",
-        rules: [isRuleBuilder ? prefix : Rule().startWith(prefix)]
-      });
-    }
-
     const instance = (
       DDiscord
       .createDiscord(
-        [finalArgsRule],
         prefix
       )
       .decorate(

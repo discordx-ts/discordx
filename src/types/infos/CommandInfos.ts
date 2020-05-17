@@ -1,15 +1,15 @@
 import {
   InfosType,
   RuleBuilder,
-  ArgsRules,
+  ArgsRulesFunction,
   Expression,
-  FlatArgsRulesFunction
+  ExpressionFunction
 } from "../..";
 
 export interface CommandInfos<InfoType = any> {
-  prefix: Expression | FlatArgsRulesFunction;
-  commandName: Expression | FlatArgsRulesFunction;
+  prefix: Expression | ExpressionFunction;
+  commandName: Expression | ExpressionFunction;
   description: string;
   infos: InfosType<InfoType>;
-  argsRules: ArgsRules<RuleBuilder>[];
+  argsRules: ArgsRulesFunction<RuleBuilder>[];
 }

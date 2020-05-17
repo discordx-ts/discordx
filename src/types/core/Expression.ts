@@ -4,5 +4,6 @@ import {
   TypeOrPromise
 } from "../..";
 
-export type SimpleExpression = string | RegExp | RuleBuilder;
-export type Expression = SimpleExpression;
+export type Expression = string | RegExp | RuleBuilder;
+
+export type ExpressionFunction = (command?: CommandMessage) => TypeOrPromise<Expression>;

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2017",
+    "target": "es2019",
     "noImplicitAny": false,
     "sourceMap": true,
     "outDir": "build",
@@ -11,7 +11,8 @@
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "es2017",
+      "ES2020",
+      "ES2017",
       "esnext.asynciterable"
     ],
     "moduleResolution": "node"

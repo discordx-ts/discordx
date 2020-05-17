@@ -3,18 +3,21 @@ import {
   DCommandNotFound,
   Commandable,
   Expression,
-  ArgsRules,
+  ArgsRulesFunction,
   InfosType,
-  FlatArgsRulesFunction
+  ExpressionFunction,
+  RuleBuilder,
+  CommandMessage,
+  Rule
 } from "../..";
 
 export class DDiscord extends Decorator implements Commandable<Expression> {
-  protected _argsRules: ArgsRules[];
+  protected _argsRules: ArgsRulesFunction[];
   protected _commandNotFound?: DCommandNotFound;
   protected _instance?: Function;
   protected _originalRules: Partial<Commandable> = {};
   protected _infos: InfosType = {};
-  protected _prefix: Expression | FlatArgsRulesFunction;
+  protected _prefix: Expression | ExpressionFunction;
 
   get originalRules() {
     return this._originalRules;
@@ -54,12 +57,19 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
   }
 
   static createDiscord(
-    initialArgsRules: ArgsRules[],
-    prefix: Expression | FlatArgsRulesFunction
+    prefix: Expression | ExpressionFunction
   ) {
     const discord = new DDiscord();
 
-    discord._argsRules = initialArgsRules;
+    let finalPrefix = prefix as ExpressionFunction;
+    if (typeof prefix !== "function") {
+      const isRuleBuilder = prefix instanceof RuleBuilder;
+      finalPrefix = isRuleBuilder ? () => prefix : () => Rule().startWith(prefix);
+    }
+
+    discord._argsRules = [
+      async (command: CommandMessage) => [await finalPrefix(command)]
+    ];
     discord._prefix = prefix;
 
     return discord;

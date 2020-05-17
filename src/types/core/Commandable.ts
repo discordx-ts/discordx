@@ -1,6 +1,6 @@
-import { Expression, InfosType, ArgsRules } from "../..";
+import { Expression, InfosType, ArgsRulesFunction } from "../..";
 
 export interface Commandable<Type extends Expression = Expression> {
-  argsRules: ArgsRules<Type>[];
+  argsRules: ArgsRulesFunction<Type>[];
   infos: InfosType;
 }
