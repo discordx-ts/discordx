@@ -83,11 +83,22 @@ export class MetadataStorage {
 
   async build() {
     // Link the events with their instances
-    this._events.map((on) => {
+    this._events = this._events.filter((on, index) => {
       const discord = this._discords.find((instance) => {
-        return instance.classRef === on.classRef;
+        return instance.from === on.classRef;
       });
+
       on.linkedDiscord = discord;
+
+      // If the command is imported remove the original one
+      if (on.hidden) {
+        const command = DecoratorUtils.getLinkedObjects(on, this._commands)[0];
+        if (command) {
+          this._commands.splice(this._commands.indexOf(command), 1);
+        }
+        return false;
+      }
+      return true;
     });
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
@@ -95,11 +106,6 @@ export class MetadataStorage {
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
 
     this._events.map((on) => {
-      if (!on.linkedDiscord) {
-        console.error(on, "The class isn't decorated by @Discord");
-        return;
-      }
-
       on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
       on.compileGuardFn();
     });

@@ -5,7 +5,8 @@ import {
   Command,
   CommandMessage,
   Rules,
-  RuleBuilder
+  RuleBuilder,
+  CommandNotFound
 } from "../src";
 
 @Discord(/-mdb\s{1,}/i, {
@@ -26,9 +27,14 @@ abstract class BotCommandRules {
   hello(command: CommandMessage) {
     return command.content;
   }
+
+  @CommandNotFound()
+  cnf() {
+    return "notfound";
+  }
 }
 
-@Discord(/-mdb\s{1,}/i, {
+@Discord(/-mdb2\s{1,}/i, {
   import: join(__dirname, "commands", "*.ts")
 })
 abstract class BotCommandRules2 {
@@ -59,6 +65,36 @@ async function triggerAndFilter(message: string) {
 }
 
 describe("Create commands", () => {
-  it("Should create modifiers", async () => {
+  it("Should a create modifiers", async () => {
+    const res1 = await triggerAndFilter("-mdb");
+    expect(res1).toEqual([]);
+
+    const res2 = await triggerAndFilter("-mdb ");
+    expect(res2).toEqual(["notfound"]);
+
+    const res3 = await triggerAndFilter("-mdb hello");
+    expect(res2).toEqual(["-mdb hello"]);
+
+
+    // const resHello = await triggerAndFilter("!hello");
+    // expect(resHello).toEqual(["!hello"]);
+
+    // const resHello2 = await triggerAndFilter("!hello2");
+    // expect(resHello2).toEqual(["!hello22"]);
+
+    // const resHelloCase = await triggerAndFilter("!Hello");
+    // expect(resHelloCase).toEqual(["!Hello"]);
+
+    // const resHello3Wrong = await triggerAndFilter("!Hello3");
+    // expect(resHello3Wrong).toEqual(["notfound"]);
+
+    // const resHello3 = await triggerAndFilter("!hello3");
+    // expect(resHello3).toEqual(["!hello33"]);
+
+    // const resSpaceHello = await triggerAndFilter("-space hello");
+    // expect(resSpaceHello).toEqual(["-space hello"]);
+
+    // const resSpaceNotFound = await triggerAndFilter("-space blabla");
+    // expect(resSpaceNotFound).toEqual(["notfound space"]);
   });
 });

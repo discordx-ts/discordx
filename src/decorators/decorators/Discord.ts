@@ -8,19 +8,33 @@ import {
   FlatArgsRulesFunction,
   DIService,
   Rule,
-  RuleBuilder
+  RuleBuilder,
+  DCommand
 } from "../..";
 
 function importCommand(classType: Function, target: Function) {
   DIService.instance.addService(target);
 
-  const ons = MetadataStorage.instance.events.filter((on) => {
+  const ons = MetadataStorage.instance.commands.filter((on) => {
     return on.classRef === classType;
   });
 
-  ons.map((on) => {
-    on.classRef = target;
-    on.from = classType;
+  ons.map((command) => {
+    command.hidden = true;
+    const newCommand = (
+      DCommand
+      .createCommand(
+        command.argsRules,
+        command.commandName
+      )
+      .decorate(
+        target,
+        command.key,
+        command.method,
+        classType
+      )
+    );
+    MetadataStorage.instance.addCommand(newCommand);
   });
 }
 

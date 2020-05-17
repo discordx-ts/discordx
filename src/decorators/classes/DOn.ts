@@ -1,20 +1,15 @@
-import { Message } from "discord.js";
 import { Decorator } from "./Decorator";
 import {
   DiscordEvents,
   DDiscord,
   DGuard,
-  DCommand,
   ArgsOf,
-  Next,
   Client,
   GuardFunction,
   DCommandNotFound,
   MainMethod,
-  RuleBuilder
+  DIService
 } from "../..";
-import { DIService } from '../../logic';
-
 
 export class DOn extends Decorator {
   protected _event: DiscordEvents;
@@ -25,6 +20,7 @@ export class DOn extends Decorator {
   protected _originalParams: Partial<DOn>;
   protected _compiledGuards: GuardFunction[] = [];
   protected _guards: DGuard[] = [];
+  protected _hidden: boolean = false;
 
   get linkedDiscord() {
     return this._linkedDiscord;
@@ -43,6 +39,13 @@ export class DOn extends Decorator {
   }
   set event(value: DiscordEvents) {
     this._event = value;
+  }
+
+  get hidden() {
+    return this._hidden;
+  }
+  set hidden(value) {
+    this._hidden = value;
   }
 
   get once() {

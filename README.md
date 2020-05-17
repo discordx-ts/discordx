@@ -22,16 +22,9 @@ This module is built on `discord.js`, so the internal behavior (methods, propert
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
 ## 💾 Installation
-Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `typeit/discord` with the peer dependecies (`discord.js`)
-you must install `reflect-metadata` for the decorators and import it at your entry point:
+Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `typeit/discord` with `discord.js`:
 ```sh
-npm i @typeit/discord discord.js reflect-metadata
-```
-
-```typescript
-import "reflect-metadata";
-
-// start ...
+npm i @typeit/discord discord.js
 ```
 
 Your tsconfig.json should look like this:
@@ -113,10 +106,6 @@ start();
 ```
 
 ### Client payload injection
-There is two ways to inject payload into your methods, `"first"` (default) or `"spread"`, the details are available [here](https://github.com/OwenCalvin/discord.ts#spread-or-first-payload-injection)
-
-**Using the "first" way (default, recommended)**  
-You will also receive the client instance always as the second payload:
 ```typescript
 import {
   Discord,
@@ -130,28 +119,6 @@ abstract class AppDiscord {
   @On("message")
   private onMessage(
     [message]: ArgsOf<"message">, // Type message automatically
-    client: Client // Client instance injected here
-  ) {
-    // ...
-  }
-}
-```
-
-**Using the "spread" way**  
-You will also receive the client instance always as the last payload:
-```typescript
-import {
-  Discord,
-  On,
-  Client
-} from "@typeit/discord";
-import { Message } from "discord.js";
-
-@Discord()
-abstract class AppDiscord {
-  @On("message")
-  private onMessage(
-    message: Message, // You must manually type the message
     client: Client // Client instance injected here
   ) {
     // ...

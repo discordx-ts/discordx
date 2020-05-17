@@ -60,9 +60,11 @@ export class Decorator {
   decorate(
     classRef: Function,
     key: string,
-    method?: Function
+    method?: Function,
+    from?: Function
   ) {
-    this.classRef = classRef;
+    this._from = from || classRef;
+    this._classRef = classRef;
     this._key = key;
     this._method = method;
 
