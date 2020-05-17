@@ -1,6 +1,6 @@
 import { Discord, On, Client, Guard, GuardFunction } from "../src";
 
-const guard1: GuardFunction<{message: string, original: string}> = async ([message]: [string], client, on, next, mwDatas) => {
+const guard1: GuardFunction<any, {message: string, original: string}> = async ([message]: [string], client, next, mwDatas) => {
   mwDatas.original = message;
   if (message.includes("hello")) {
     mwDatas.message = message + "0";
@@ -8,7 +8,7 @@ const guard1: GuardFunction<{message: string, original: string}> = async ([messa
   }
 };
 
-const guard2: GuardFunction = async ([message]: [string], client, on, next, mwDatas) => {
+const guard2: GuardFunction = async ([message]: [string], client, next, mwDatas) => {
   if (mwDatas.original === "hello0") {
     mwDatas.message += "1";
     await next();
@@ -31,7 +31,7 @@ abstract class Bot {
 
   @On("messageDelete")
   @Guard(guard1, guard2)
-  private onMessageDelete([message]: [string], client: Client, on, guardParams: any) {
+  private onMessageDelete([message]: [string], client: Client, guardParams: any) {
     guardParams.message += "3";
   }
 }

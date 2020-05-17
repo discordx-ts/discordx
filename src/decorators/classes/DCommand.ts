@@ -6,7 +6,8 @@ import {
   ExpressionFunction,
   RuleBuilder,
   Rule,
-  CommandMessage
+  CommandMessage,
+  CommandInfos
 } from "../..";
 import { DOn } from "./DOn";
 
@@ -42,16 +43,33 @@ export class DCommand extends DOn implements Commandable<Expression> {
     return this._commandName;
   }
 
+  get commandInfos(): CommandInfos {
+    return {
+      description: this.description,
+      infos: this.infos,
+      argsRules: this.argsRules as ArgsRulesFunction<any>[],
+      prefix: this.linkedDiscord.prefix,
+      commandName: this.commandName
+    };
+  }
+
+
   static createCommand(
     commandName?: Expression | ExpressionFunction
   ) {
     const command = new DCommand();
 
     if (commandName) {
-      let finalCommandName = commandName as ExpressionFunction;
+      let finalCommandName = commandName;
 
-      if (typeof commandName !== "function") {
-        const expr = commandName as Expression;
+      if (RuleBuilder.typeOfExpression(finalCommandName) === String) {
+        finalCommandName = RuleBuilder.escape(finalCommandName as string);
+      }
+
+      const escapedCommandName = finalCommandName;
+
+      if (typeof escapedCommandName !== "function") {
+        const expr = escapedCommandName as Expression;
         const isRuleBuilder = expr instanceof RuleBuilder;
         if (expr) {
           finalCommandName = isRuleBuilder ? () => expr : () => Rule(expr).spaceOrEnd();
@@ -59,10 +77,10 @@ export class DCommand extends DOn implements Commandable<Expression> {
       }
 
       command._argsRules = [
-        async (command: CommandMessage) => [await finalCommandName(command)]
+        async (command: CommandMessage) => [await (finalCommandName as ExpressionFunction)(command)]
       ];
 
-      command._commandName = commandName;
+      command._commandName = escapedCommandName;
     } else {
       command._argsRules = [];
     }

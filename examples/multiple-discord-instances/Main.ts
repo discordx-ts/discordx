@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { Client } from "../../src";
 
 export class Main {
@@ -14,8 +13,9 @@ export class Main {
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
     this._client.login(
-      "YOUR_TOKEN",
-      `${__dirname}/Discords/*.ts` // glob string to load the classes
+      "Njg4NDY2MTk0MDA5MDMwNzAy.XsELig.bmvzfl8HQOWlB3ahCQV96eDRwTQ",
+      `${__dirname}/discords/*.ts`, // glob string to load the classes
+      `${__dirname}/discords/*.js` // If you compile your bot, the file extension will be .js
     );
 
     console.log(Client.getCommands());

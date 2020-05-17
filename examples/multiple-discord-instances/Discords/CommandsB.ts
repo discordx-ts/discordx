@@ -6,7 +6,7 @@ import {
   Client
 } from "../../../src";
 
-@Discord({ prefix: "!" })
+@Discord("!")
 export class CommandsB {
   @Command("hello")
   hello(command: CommandMessage, client: Client) {

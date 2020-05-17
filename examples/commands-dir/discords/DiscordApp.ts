@@ -2,9 +2,8 @@ import { CommandNotFound, Discord, CommandMessage, On, ArgsOf, Client } from "..
 import * as Path from "path";
 import { Bye } from "../commands/Bye";
 
-@Discord({
-  prefix: "!",
-  importCommands: [
+@Discord("!", {
+  import: [
     Path.join(__dirname, "..", "commands", "*.ts"),
     Bye
   ]
@@ -18,7 +17,7 @@ export class DiscordApp {
     console.log(message);
   }
 
-  @CommandNotFound({ prefix: "!" })
+  @CommandNotFound()
   notFoundA(command: CommandMessage) {
     command.reply("Command not found");
   }

@@ -11,7 +11,7 @@ import {
   GuardFunction
 } from "../src";
 
-const guard1: GuardFunction<{message: any, original: string}> = async ([message]: [any], client, on, next, mwDatas) => {
+const guard1: GuardFunction<any, {message: any, original: string}> = async ([message]: [any], client, next, mwDatas) => {
   await new Promise((resolve) => {
     setTimeout(resolve, 500);
   });
@@ -34,13 +34,13 @@ abstract class BotCommandRules {
     /test2/
   ]))
   @Guard(guard1)
-  hello(command: CommandMessage, client, on, mwsDatas) {
+  hello(command: CommandMessage, client, mwsDatas) {
     return mwsDatas.original;
   }
 
   @CommandNotFound()
   @Guard(guard1)
-  cnf(command: CommandMessage, client, on, mwsDatas) {
+  cnf(command: CommandMessage, client, mwsDatas) {
     return "notfound" + mwsDatas.original;
   }
 }

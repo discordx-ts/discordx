@@ -103,9 +103,7 @@ export function Discord(prefix?: Expression | ExpressionFunction, params?: Disco
 
     const instance = (
       DDiscord
-      .createDiscord(
-        prefix
-      )
+      .createDiscord(prefix)
       .decorate(
         target,
         target.constructor.name,

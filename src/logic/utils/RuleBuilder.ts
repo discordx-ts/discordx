@@ -1,6 +1,7 @@
 import {
   Expression,
-  ArgsRulesFunction
+  ArgsRulesFunction,
+  ExpressionFunction
 } from "../..";
 
 export function Rule(expr?: Expression, ...add: (string | RegExp)[]) {
@@ -19,11 +20,6 @@ export class RuleBuilder {
   private _source?: string = "";
   private _flags: string = "i";
   private _from?: typeof String | typeof RegExp | typeof RuleBuilder;
-  private _imported: boolean = false;
-
-  get imported() {
-    return this._imported;
-  }
 
   get from() {
     return this._from;
@@ -88,12 +84,19 @@ export class RuleBuilder {
     return Rule(source).setFlags(flags);
   }
 
+  static escape(text: Expression) {
+    if (typeof text === "string") {
+      return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    }
+    return text;
+  }
+
   static isExpression(obj: any) {
     const exprType = this.typeOfExpression(obj);
     return [String, RuleBuilder, RegExp].includes(exprType as any);
   }
 
-  static typeOfExpression(expr: Expression) {
+  static typeOfExpression(expr: Expression | ExpressionFunction) {
     if (typeof expr === "string") {
       return String;
     }

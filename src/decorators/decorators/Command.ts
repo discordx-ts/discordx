@@ -12,9 +12,7 @@ export function Command(commandName?: Expression | ExpressionFunction) {
   return async (target: Object, key: string, descriptor: PropertyDescriptor) => {
     const command = (
       DCommand
-      .createCommand(
-        commandName
-      )
+      .createCommand(commandName)
       .decorate(
         target.constructor,
         key,

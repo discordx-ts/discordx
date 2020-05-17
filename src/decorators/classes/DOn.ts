@@ -8,7 +8,8 @@ import {
   GuardFunction,
   DCommandNotFound,
   MainMethod,
-  DIService
+  DIService,
+  CommandMessage
 } from "../..";
 
 export class DOn extends Decorator {
@@ -91,11 +92,15 @@ export class DOn extends Decorator {
       let res: any;
 
       if (index >= this._compiledGuards.length - 1) {
-        res = await guardToExecute(params, client, this, paramsToNext);
+        let normalizedParams = params;
+        if (this instanceof CommandMessage) {
+          normalizedParams = params[0];
+        }
+        res = await guardToExecute(normalizedParams, client, paramsToNext);
       } else {
         // If it's a commmand, the params isn't a array, and the destructing with guard causes an error
         const normalizedParams = Array.isArray(params) ? params : [params];
-        res = await guardToExecute(normalizedParams, client, this, nextFn, paramsToNext);
+        res = await guardToExecute(normalizedParams, client, nextFn, paramsToNext);
       }
 
       if (res) {

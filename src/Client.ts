@@ -1,4 +1,4 @@
-import { Client as ClientJS } from "discord.js";
+import { Client as ClientJS, ClientEvents } from "discord.js";
 import * as Glob from "glob";
 import {
   MetadataStorage,
@@ -7,11 +7,10 @@ import {
   DiscordEvents,
   CommandInfos,
   InfosType,
-  ArgsRulesFunction,
-  RuleBuilder,
   CommandNotFoundInfos,
   EventInfos,
-  DiscordInfos
+  DiscordInfos,
+  DOn
 } from ".";
 
 export class Client extends ClientJS {
@@ -44,15 +43,7 @@ export class Client extends ClientJS {
    * Get the details about the created commands of your app (@Command)
    */
   static getCommands<Type extends InfosType = any>(): CommandInfos<Type>[] {
-    return MetadataStorage.instance.commands.map<CommandInfos<Type>>((c) => {
-      return {
-        argsRules: c.argsRules as any as ArgsRulesFunction<RuleBuilder>[],
-        infos: c.infos as InfosType<Type>,
-        commandName: c.commandName,
-        prefix: c.linkedDiscord.prefix,
-        description: c.infos.description
-      };
-    });
+    return MetadataStorage.instance.commands.map<CommandInfos<Type>>((c) => c.commandInfos);
   }
 
   /**
@@ -72,15 +63,7 @@ export class Client extends ClientJS {
    * Get the details about the created discords of your app (@Discord)
    */
   static getDiscords<Type extends InfosType = any>(): DiscordInfos<Type>[] {
-    return MetadataStorage.instance.discords.map<DiscordInfos<Type>>((discord) => {
-      return {
-        argsRules: discord.argsRules as ArgsRulesFunction<RuleBuilder>[],
-        infos: discord.infos as InfosType<Type>,
-        prefix: discord.prefix,
-        commandNotFound: discord.commandNotFound,
-        description: discord.infos.description
-      };
-    });
+    return MetadataStorage.instance.discords.map<DiscordInfos<Type>>((d) => d.discordInfos);
   }
 
   /**
@@ -108,10 +91,29 @@ export class Client extends ClientJS {
 
     this.build();
 
-    MetadataStorage.instance.events.map(async (on) => {
+    MetadataStorage.instance.events.map((event) => {
+      if (!this.silent) {
+        let eventName = event.event;
+        console.log(`${eventName}: ${event.classRef.name}.${event.key}`);
+      }
+    });
+
+    const usedEvents = (
+      MetadataStorage.instance.events
+      .reduce<DOn[]>((prev, event, index) => {
+        const found = MetadataStorage.instance.events.find((event2) => event.event === event2.event);
+        const foundIndex = MetadataStorage.instance.events.indexOf(found);
+        if (foundIndex === index || found.once !== event.once) {
+          prev.push(event);
+        }
+        return prev;
+      }, [])
+    );
+
+    usedEvents.map(async (on) => {
       if (on.once) {
         this.once(
-          on.event,
+          on.event as any,
           MetadataStorage.instance.trigger(
             on.event,
             this,
@@ -120,17 +122,12 @@ export class Client extends ClientJS {
         );
       } else {
         this.on(
-          on.event,
+          on.event as any,
           MetadataStorage.instance.trigger(
             on.event,
             this
           )
         );
-      }
-
-      if (!this.silent) {
-        let eventName = on.event;
-        console.log(`${eventName}: ${on.classRef.name}.${on.key}`);
       }
     });
 

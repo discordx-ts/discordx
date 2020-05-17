@@ -2,9 +2,8 @@ import {
   ArgsOf,
   Client,
   Next,
-  DOn
+  DiscordEvents
 } from "../..";
 
-export type GuardFunction<PreviousArgs = any> =
-  ((params: ArgsOf<any>, client: Client, event: DOn, next: Next, ...previousArgs: PreviousArgs[]) => Promise<any> | Promise<void> | any | void);
-
+export type GuardFunction<ArgsType extends DiscordEvents = any, NextObj = any, ReturnType = any> =
+  (params: ArgsOf<ArgsType>, client: Client, next: Next, nextObj?: NextObj) => ReturnType;

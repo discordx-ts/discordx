@@ -134,23 +134,31 @@ export class MetadataStorage {
       const isMessage = event === "message";
       let isCommand = false;
       let notFoundOn;
+      let onCommands = [];
 
-      const onCommands = (await Promise.all(this.events.map(async (on) => {
+      onCommands = (await Promise.all(this.events.map(async (on) => {
         if (isMessage && on instanceof DCommand) {
+          const message = params[0] as Message;
           isCommand = true;
           let pass = false;
 
-          const message = params[0] as Message;
-          const commandMessage = CommandMessage.create(message);
+          if (message.author.id === client.user.id) {
+            return;
+          }
+
+          const commandMessage = CommandMessage.create(
+            message,
+            on
+          );
 
           const computedDiscordRules = (await Promise.all(
-            on.linkedDiscord.argsRules.map(async (ar) => await ar(commandMessage))
+            on.linkedDiscord.argsRules.map(async (ar) => await ar(commandMessage, client))
           )).flatMap((rules) => {
             return RuleBuilder.join(Rule(""), ...rules);
           });
 
           let computedCommandRules = (await Promise.all(
-            on.argsRules.map(async (ar) => await ar(commandMessage))
+            on.argsRules.map(async (ar) => await ar(commandMessage, client))
           ));
 
           if (computedCommandRules.length <= 0) {
@@ -177,7 +185,7 @@ export class MetadataStorage {
           });
 
           if (pass) {
-            paramsToInject = message;
+            paramsToInject = commandMessage;
             return on;
           } else {
             // If it doesn't pass any of the rules => execute the commandNotFound only on the discord instance that match the message discord rules
@@ -187,6 +195,7 @@ export class MetadataStorage {
 
             if (passNotFound) {
               notFoundOn = on.linkedDiscord.commandNotFound;
+              paramsToInject = commandMessage;
             }
           }
         }

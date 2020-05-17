@@ -3,10 +3,11 @@ import {
   Command,
   CommandNotFound,
   CommandMessage,
-  Client
+  Client,
+  Once
 } from "../../../src";
 
-@Discord({ prefix: "." })
+@Discord(".")
 export class CommandsA {
   @Command("hello")
   hello(command: CommandMessage, client: Client) {

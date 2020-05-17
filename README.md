@@ -17,6 +17,24 @@
 ## Introduction
 This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
 
+## Index
+**Setup**
+- Need help ?
+- Installation
+- Setup
+
+**Decorators**
+* `@Discord`
+* `@On` / `@Once`
+* `@Command`
+* `@Infos` / `@Description`
+* `@Rules` / `@ComputedRules`
+* `@Guard`
+
+**API**
+- Retrieve the `@Commands` / `@On` / `@Discord` infos
+
+
 ## ☎️ Need help ?
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
@@ -53,43 +71,11 @@ Your tsconfig.json should look like this:
 }
 ```
 
-## 🚀 Getting started
-So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized).
-```typescript
-abstract class AppDiscord {
-}
-```
+## Setup and start your application
+In order to start your application, you must use the `discord.`**`ts`**'s `Client` (not the client that is provided by `discord.`**`js`**!).  
+It works the same as the `discord.`**`js`**'s Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property (into `Client` initialization) in order to not log anything in the console.
+**You must specify the glob path(s) where your decorated classes are**
 
-Then you must declare it as a Discord app class with the `@Discord` decorator :
-
-```typescript
-import { Discord } from "@typeit/discord";
-
-@Discord() // Decorate the class
-abstract class AppDiscord {
-}
-```
-
-We can now declare methods that will be executed whenever a Discord event is triggered.  
-Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.  
-When the event is triggered, the method is called and we receive the values (in arguments) related to the event.
-Here, we receive the message instance (details below) :
-
-```typescript
-import { Discord, On, ArgsOf } from "@typeit/discord";
-
-@Discord()
-abstract class AppDiscord {
-  @On("message")
-  private onMessage([message]: ArgsOf<"message">) {
-    // ...
-  }
-}
-```
-
-### Start your application
-In order to start your application, you must use the DiscordTS `Client` (not the client that is provided by discord.js!).  
-It works the same as the discord.js's Client (same methods, properties, ...) but the `login` method is overriden and you can set the `silent` property (into `Client` initialization) in order to not log anything in the console.
 ```typescript
 // Use the Client that are provided by @typeit/discord NOT discord.js
 import { Client } from "@typeit/discord";
@@ -98,7 +84,8 @@ function start() {
   const client = new Client();
   client.login(
     "YOUR_TOKEN",
-    `${__dirname}/*Discord.ts` // glob string to load the classes
+    `${__dirname}/*Discord.ts`, // glob string to load the classes
+    `${__dirname}/*Discord.js` // If you compile using "tsc" the file extension change to .js
   );
 }
 
@@ -126,10 +113,52 @@ abstract class AppDiscord {
 }
 ```
 
+## @Discord - Getting started
+So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized).
+```typescript
+abstract class AppDiscord {
+}
+```
+
+Then you must declare it as a Discord app class with the `@Discord` decorator :
+
+```typescript
+import { Discord } from "@typeit/discord";
+
+@Discord() // Decorate the class
+abstract class AppDiscord {
+}
+```
+
+### @On / @Once - Listen to the events
+We can now declare methods that will be executed whenever a Discord event is triggered.  
+Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.  
+When the event is triggered, the method is called and we receive the values (in arguments) related to the event.
+Here, we receive the message instance (details below) :
+
+```typescript
+import { Discord, On, ArgsOf } from "@typeit/discord";
+
+@Discord()
+abstract class AppDiscord {
+  @On("message")
+  private onMessage([message]: ArgsOf<"message">) {
+    // ...
+  }
+}
+```
+
 ## 📟 Commands
 You can simply use the `@Command` and `@CommandNotFound` decorators to implement a command system in your app.  
 
-When you use the `@Command` or the `@CommandNotFound` decorator, you should type your first parameters as a `CommandMessage`. It provides the command parameters, the prefix, and the command (specified [here](https://github.com/OwenCalvin/discord.ts/blob/master/src/Types/CommandMessage.ts)).  
+**Typing:**  
+When you use the `@Command` or the `@CommandNotFound` decorator, you have to type your first parameters as a `CommandMessage`. It gives you more informations about the message that is used as a command.
+
+**Parameters:**  
+`@Discord`: You can specify the prefix for all commands in the `@Discord` decorator.  
+`@Command`: You can specify the command name for the method (by default the method name is taken)
+
+> `@CommandNotFound` is executed if the message match any command **in the class**
 
 ```typescript
 import {
@@ -140,9 +169,9 @@ import {
   CommandMessage
 } from "@typeit/discord";
 
-@Discord({ prefix: "!" })
+@Discord("!") // Specify your prefix
 abstract class AppDiscord {
-  @Command("hello")
+  @Command("hello") // Reachable with the command: !hello
   private hello(
     message: CommandMessage,
     client: Client
@@ -160,60 +189,13 @@ abstract class AppDiscord {
 }
 ```
 
-### The command parameters
-You can specify the `prefix` and the `commandCaseSensitive` on the `@Discord` and `@Command` params (you can specify only the prefix of `@CommandNotFound`). The params on the `@Command` will override those of `@Discord`.  
-The `@Command` decorator also have a `description` parameter and an `infos` one. The description one is useful if you have an help command to display the command description. The `infos` one can store anything you want.
-
-**If you use different prefixes or case sensitivity, I recommend implementing multiple classes decorated by the `@Discord` parameter using different prefixes/case sensitivity, like the [multiple-discord-instances example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/multiple-discord-instances).**  
-
-But here is an example for the different params:
+### Dynamic paramaters
+If your prefixes or your command names depends on dynamic datas you can pass (async) functions into the decorators.
+> It also works for `@Command`
 ```typescript
-import {
-  Discord,
-  On,
-  Client,
-  Command,
-  CommandMessage
-} from "@typeit/discord";
-
-@Discord({ prefix: "!", commandCaseSensitive: true })
-abstract class AppDiscord {
-  // Executed using the !HELLO command
-  @Command("HELLO")
-  private hello(message: CommandMessage) {
-    // ...
-  }
-
-  // Executed if a command with the prefix "!" isn't found
-  @CommandNotFound()
-  private notFound(message: CommandMessage) {
-    // ...
-  }
-
-  // Executed using the .helloDot command
-  @Command("helloDot", { prefix: "." }) 
-  private helloDot(message: CommandMessage) {
-    // ...
-  }
-
-  // Executed if a command with the prefix "." isn't found
-  @CommandNotFound({ prefix: "." })
-  private notFoundDot(message: CommandMessage) {
-    // ...
-  }
-
-  // Executed using 0ab, 0Ab, 0aB or 0AB
-  @Command("ab", { prefix: "0" }) 
-  private ab(message: CommandMessage) {
-    // ...
-  }
-}
-```
-
-### Dynamic prefix
-If you have different prefix for different servers you can use dynamic prefixes using functions like this:
-```typescript
-// If the message has been sent in the guild with the name MyGuildName the prefix "." will be considered otherwise the prefix "$" will trigger the action.
+// If the message has been sent in the guild with
+// the name MyGuildName the prefix "." will be considered
+// otherwise the prefix "$" will trigger the action.
 async function prefixBehaviour(message: Message, client: Client) {
   if (message.guild.name === "MyGuildName") {
     return ".";
@@ -221,97 +203,60 @@ async function prefixBehaviour(message: Message, client: Client) {
   return "$";
 }
 
-@Discord({ prefix: prefixBehaviour })
+@Discord(prefixBehaviour)
 abstract class AppDiscord {
-  @Command("HELLO")
+  @Command("hello")
   private hello(message: CommandMessage) {
     // ...
   }
 }
 ```
 
-
-### Retrieve the commands
-You can simply get all the commands and their details using `Client.getCommands<InfoType>(forPrefix?: string): ICommandInfos[]`.
-> If you specify no prefix for the `forPrefix` parameter, you will receive the details of all the commands.
+### API - Retrive the infos
+You can simply get all the infos about your decorated stuff using:
 
 ```typescript
-import {
-  Discord,
-  On,
-  Client,
-  Command,
-  CommandMessage
-} from "@typeit/discord";
+import { Client } from "@typeit/discord";
 
-interface Infos {
-  requiredRole: string;
-}
-
-@Discord({ prefix: "!" })
-abstract class AppDiscord {
-  @Command("hello", {
-    description: "The command simply say hello",
-    infos: { requiredRole: "master" }
-  })
-  private hello(
-    message: CommandMessage,
-    client: Client
-  ) {
-    // ...
-  }
-
-  @Command("help")
-  private hello(
-    message: CommandMessage,
-    client: Client
-  ) {
-    // You receive all the commands prefixed by "!"
-    const commands = Client.getCommands<Infos>("!");
-
-    // ...
-  }
-
-  @CommandNotFound()
-  private notFound(
-    message: CommandMessage,
-    client: Client
-  ) {
-    // ...
-  }
-}
+Client.getCommands();         // @Command
+Client.getCommandsNotFound(); // @CommandNotFound
+Client.getEvents();           // @On
+Client.getDiscords();         // @Discord
 ```
 
 ### Command directory pattern
 > [Example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/commands-dir)  
 
 If you have a directory pattern that looks like this:
-```shell
+```sh
 Main.ts
 DiscordApp.ts
 commands
 - Ping.ts
 - Hello.ts
 - Blabla.ts
+events
+- messageDelete
 ```
 
-You should use the `importCommands` parameter for the `@Discord` decorator.
-Here, all of the commands will be injected into this Discord class instance.
+You should use the `import` parameter for the `@Discord` decorator.
+Here, all the elements will be injected into this Discord class instance.
 ```typescript
 import {
   Discord,
   CommandNotFound
 } from "@typeit/discord";
 
-@Discord({
-  prefix: "!", // The Discord parameters will be applied to the imported commands
-  importCommands: [
+// The prefix will be applied to the imported commands
+@Discord("!", {
+  import: [
     Path.join(__dirname,  "commands", "*.ts")
     // You can also specify the class directly here if you don't want to use a glob
   ]
 })
 export abstract class DiscordApp {
-  @CommandNotFound({ prefix: "!" })
+  // This command not found is triggered
+  @CommandNotFound()
   notFoundA(commad: CommandMessage) {
     commad.reply("Command not found");
   }
@@ -320,63 +265,22 @@ export abstract class DiscordApp {
 
 Here is an example of what your command file should look like:
 ```typescript
-import { ClassCommand, Command, CommandMessage } from "@typeit/discord";
-
-export abstract class Bye implements ClassCommand {
-  @Command("bye")
-  async execute(command: CommandMessage) {
-    command.reply("Bye!");
-  }
-}
-```
-
-### Set commands paramaters programmaticaly
-If you are forced to change the prefix during the execution or if it's loaded from a file when your app start, you can use two methods (it returns `true` if the params changed):
-- `Client.setDiscordParams(discordInstance: InstanceType<any>, params: IDiscordParams): boolean`  
-- `Client.setCommandParams(discordInstance InstanceType<any>, method: Function, params: ICommandParams): boolean`  
->I recommend not specifying the prefix inside the decorator if you use one of these two methods because it wouldn't be consistent
-
-```typescript
-import {
-  Discord,
-  On,
-  Client,
-  Command,
-  CommandMessage
-} from "@typeit/discord";
-
-@Discord({ prefix: "!" })
-abstract class AppDiscord {
-  @Command("prefix")
-  private prefix(message: CommandMessage) {
-    // Will change the prefix of all the @Command methods of this @Discord instance
-    Client.setDiscordParams(this, {
-      prefix: message.params[0]
-    });
-  }
-
-  @Command("changeMyPrefix")
-  private changeMyPrefix(message: CommandMessage) {
-    // Will change the prefix of the changeMyPrefix method
-    Client.setCommandParams(this, this.changeMyPrefix, {
-      prefix: message.params[0]
-    });
-  }
-}
-```
-
-The command class should look like that:
-```typescript
 import {
   ClassCommand,
   Command,
   CommandMessage
 } from "@typeit/discord";
 
-export abstract class Bye implements ClassCommand {
-  @Command()
-  async execute(command: CommandMessage) {
+// Do not have to decorate the class with @Discord
+export abstract class Bye {
+  @Command("bye")
+  async bye(command: CommandMessage) {
     command.reply("Bye!");
+  }
+
+  @Command("ciao")
+  async ciao(command: CommandMessage) {
+    command.reply("Ciao!");
   }
 }
 ```
@@ -425,16 +329,17 @@ abstract class AppDiscord {
 > Notice that the guard function is impacted by your payloadInjection policy  
 
 Here is a simple example of a guard function (the payload and the client instance are injected like for events)
-- If the function returns `false`: the next guards and the event function aren't executed  
-- If the function returns `true`: it continues the executions of the next guards  
+The guard works as the same ways as `koa` do, a `next` function is injected as the third parameter (after the `Client`) and you must call it to pass the guard.
 ```typescript
 import { Client, ArgsOf } from "typeit/discord";
 
-export function NotBot(
-  [message]: ArgsOf<"message">,
-  client: Client
-) {
-  return client.user.id !== message.author.id;
+export const NotBot: GuardFunction<"message"> = (
+  [message],
+  client
+) => {
+  if (client.user.id !== message.author.id) {
+    await next();
+  }
 }
 ```
 
@@ -443,65 +348,27 @@ If you have to indicate parameters for a guard function you can simple use the "
 import { Client, ArgsOf } from "typeit/discord";
 
 export function Prefix(text: string, replace: boolean = true) {
-  return (
-    [message]: ArgsOf<"message">,
-    client: Client
+  const guard: GuardFunction<"message"> = (
+    [message],
+    client,
+    next
   ) => {
     const startWith = message.content.startsWith(text);
     if (replace) {
       message.content = message.content.replace(text, "");
     }
-    return startWith;
+    if (startWith) {
+      await next();
+    }
   };
+
+  return guard;
 }
 ```
 
 ## 💡 Events and payload
 Here you have the details about the payloads that are injected into the method related to a specific event.
 **`@Once(event: DiscordEvent)` exists too, it executes the method only one time**
-
-### "spread" or "first" payload injection
-> [Example for the spread argument injection](https://github.com/OwenCalvin/discord.ts/tree/master/examples/spread-arg-injection)  
-> Notice that there is no impacts for the `@Command` decorators  
-
-Using `"first"` payloadInjection policy, you don't have to care about the typing of your arguments. But if you have a reason to don't care about that, the `"spread"` policy exists, notice that you must type your payload manually:  
-
-**By default (`"first"`) an event look like this**:
-```typescript
-// ...
-
-@On("channelUpdate")
-private onChannelUpdate(
-  // Types the args automatically based on the event
-  [oldChannel, newChannel]: ArgsOf<"channelUpdate">,
-  client: Client
-) {
-  console.log(oldChannel.id, newChannel.id)
-}
-```
-
-**With the "spread" payloadInjection policy, it will look like this:**   
-Be aware that the types must be imported from discord.js.  
-In this example the `"channelUpdate"`'s method receive two arguments from the event:  
-```typescript
-// ...
-
-@On("channelUpdate")
-private onChannelUpdate(
-  oldChannel: Channel,  // Must type the first arg and the second one manually
-  newChannel: Channel,
-  client: Client
-) {
-  console.log(oldChannel.id, newChannel.id)
-}
-```
-
-To enable the `"spread"` payload injection you must specify an extra argument in your `Client` construction
-```typescript
-const client = new Client({
-  payloadInjection: "spread"
-})
-```
 
 ### The argument list
 Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.0)
