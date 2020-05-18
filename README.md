@@ -34,7 +34,6 @@ This module is built on `discord.js`, so the internal behavior (methods, propert
 **API**
 - Retrieve the `@Commands` / `@On` / `@Discord` infos
 
-
 ## ☎️ Need help ?
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
@@ -189,7 +188,7 @@ abstract class AppDiscord {
 }
 ```
 
-### Dynamic paramaters
+### Dynamic parameters
 If your prefixes or your command names depends on dynamic datas you can pass (async) functions into the decorators.
 > It also works for `@Command`
 ```typescript
@@ -236,12 +235,13 @@ commands
 - Hello.ts
 - Blabla.ts
 events
-- messageDelete
+- messageDelete.ts
 ```
 
 You should use the `import` parameter for the `@Discord` decorator.
 Here, all the elements will be injected into this Discord class instance.
 ```typescript
+import * as Path from "path";
 import {
   Discord,
   CommandNotFound
@@ -250,7 +250,8 @@ import {
 // The prefix will be applied to the imported commands
 @Discord("!", {
   import: [
-    Path.join(__dirname,  "commands", "*.ts")
+    Path.join(__dirname,  "commands", "*.ts"),
+    Path.join(__dirname,  "events", "*.ts")
     // You can also specify the class directly here if you don't want to use a glob
   ]
 })
@@ -285,6 +286,115 @@ export abstract class Bye {
 }
 ```
 
+## @Infos / @Description
+You can give some infos and a description to your commands and your discords:
+> To retrieve these infos use the `CommandMessage` properties (`description`, `infos`) or use `Client.getCommands()`
+```typescript
+import {
+  ClassCommand,
+  Command,
+  CommandMessage
+} from "@typeit/discord";
+
+@Discord("!")
+@Description("Admin commands")
+@Infos({ forAdmins: true })
+export abstract class Bye {
+  @Command("ciao")
+  @Description("say ciao")
+  async ciao(command: CommandMessage) {
+    command.reply("Ciao!");
+  }
+}
+```
+
+## @Rules / @ComputedRules - Advanced message validation
+That's a very useful decorator to specify advances rules to validate the message contents.
+In the following example, the `hello` methos is triggered only if the message match this regex rule: `/^!salut\s{1,}toi$/i` so a message that contains `!salut toi` trigger the method.
+```typescript
+import {
+  ClassCommand,
+  Command,
+  CommandMessage,
+  Rules
+} from "@typeit/discord";
+
+@Discord("!")
+export abstract class Bye {
+  @Rules(/salut\s{1,}toi(\s{1,}|$)/i)
+  async hello(command: CommandMessage) {
+    command.reply("Ciao!");
+  }
+}
+```
+
+Okay but using RegExp is less clear...  
+Yes for this reason you can use the `RuleBuilder` API:  
+Now to write `/salut\s{1,}toi(\s{1,}|$)/i` it's simple:
+
+```typescript
+import {
+  ClassCommand,
+  Command,
+  CommandMessage,
+  Rules,
+  Rule
+} from "@typeit/discord";
+
+@Discord("!")
+export abstract class Bye {
+  @Rules(Rule("salut").space("toi").spaceOrEnd())
+  async hello(command: CommandMessage) {
+    command.reply("Ciao!");
+  }
+}
+```
+
+The rules can also be applied to `@Discord`, it will be merged to the rules of commands inside the class:
+> In this example we rewrite explicitly the prefix rule
+```typescript
+import {
+  ClassCommand,
+  Command,
+  CommandMessage,
+  Rules,
+  Rule
+} from "@typeit/discord";
+
+@Discord()
+@Rules(Rule().startWith("!")) // Explicit prefix
+export abstract class Bye {
+  @Rules(Rule("salut").space("toi").spaceOrEnd())
+  async hello(command: CommandMessage) {
+    command.reply("Ciao!");
+  }
+}
+```
+
+### Computed rule
+If your rules depends on computed datas:
+```typescript
+import {
+  ClassCommand,
+  Command,
+  CommandMessage,
+  Rules,
+  Rule
+} from "@typeit/discord";
+
+async function getRules() {
+  return [Rule("salut").space("toi").spaceOrEnd()]
+}
+
+@Discord("!")
+export abstract class Bye {
+  @ComputedRules(getRules)
+  async hello(command: CommandMessage) {
+    command.reply("Ciao!");
+  }
+}
+```
+
 ## ⚔️ Guards
 > Guards works also with `@Command` and `@CommandNotFound`   
 
@@ -298,9 +408,6 @@ import {
   Guard,
   Prefix
 } from "@typeit/discord";
-import {
-  Message
-} from "discord.js";
 import {
   NotBot
 } from "./NotBot";
