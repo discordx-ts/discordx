@@ -17,6 +17,11 @@ export class CommandMessage<InfoType extends InfosType = any> extends Message im
   private _infos: InfoType;
   private _argsRules: ArgsRulesFunction<Expression>[];
   private _discord: DiscordInfos;
+  private _args: string[];
+
+  get args() {
+    return this._args;
+  }
 
   get prefix() {
     return this._prefix;
@@ -53,8 +58,8 @@ export class CommandMessage<InfoType extends InfosType = any> extends Message im
     commandMessage._argsRules = command.commandInfos.argsRules;
     commandMessage._commandName = command.commandInfos.commandName;
     commandMessage._description = command.commandInfos.description;
-
     commandMessage._discord = command.linkedDiscord.discordInfos;
+    commandMessage._args = message.content.split(/\s{1,}/g);
 
     return commandMessage;
   }
