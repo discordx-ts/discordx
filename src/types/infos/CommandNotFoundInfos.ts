@@ -1,11 +1,11 @@
 import {
   InfosType,
   Expression,
-  FlatArgsRulesFunction
+  ExpressionFunction
 } from "../..";
 
 export interface CommandNotFoundInfos<InfoType = any> {
-  prefix: Expression | FlatArgsRulesFunction;
+  prefix: Expression | ExpressionFunction;
   infos: InfosType<InfoType>;
   description: string;
 }
