@@ -6,46 +6,17 @@ import {
   ArgsRulesFunction,
   InfosType,
   DiscordInfos,
-  DDiscord,
   DCommand
 } from "../..";
 
 export class CommandMessage<InfoType extends InfosType = any> extends Message implements CommandInfos<InfoType, Expression> {
-  private _prefix: Expression | ExpressionFunction;
-  private _commandName: Expression | ExpressionFunction;
-  private _description: string;
-  private _infos: InfoType;
-  private _argsRules: ArgsRulesFunction<Expression>[];
-  private _discord: DiscordInfos;
-  private _args: string[];
-
-  get args() {
-    return this._args;
-  }
-
-  get prefix() {
-    return this._prefix;
-  }
-
-  get commandName() {
-    return this._commandName;
-  }
-
-  get description() {
-    return this._description;
-  }
-
-  get infos() {
-    return this._infos;
-  }
-
-  get argsRules() {
-    return this._argsRules;
-  }
-
-  get discord() {
-    return this._discord;
-  }
+  prefix: Expression | ExpressionFunction;
+  commandName: Expression | ExpressionFunction;
+  description: string;
+  infos: InfoType;
+  argsRules: ArgsRulesFunction<Expression>[];
+  discord: DiscordInfos;
+  args: string[];
 
   static create<InfoType extends InfosType = any>(
     message: Message,
@@ -53,13 +24,13 @@ export class CommandMessage<InfoType extends InfosType = any> extends Message im
   ) {
     const commandMessage = message as CommandMessage<InfoType>;
 
-    commandMessage._infos = command.commandInfos.infos;
-    commandMessage._prefix = command.commandInfos.prefix;
-    commandMessage._argsRules = command.commandInfos.argsRules;
-    commandMessage._commandName = command.commandInfos.commandName;
-    commandMessage._description = command.commandInfos.description;
-    commandMessage._discord = command.linkedDiscord.discordInfos;
-    commandMessage._args = message.content.split(/\s{1,}/g);
+    commandMessage.infos = command.commandInfos.infos;
+    commandMessage.prefix = command.commandInfos.prefix;
+    commandMessage.argsRules = command.commandInfos.argsRules;
+    commandMessage.commandName = command.commandInfos.commandName;
+    commandMessage.description = command.commandInfos.description;
+    commandMessage.discord = command.linkedDiscord.discordInfos;
+    commandMessage.args = message.content.split(/\s{1,}/g);
 
     return commandMessage;
   }
