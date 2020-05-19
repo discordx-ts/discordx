@@ -15,7 +15,7 @@
 </p>
 
 ## Introduction
-This module is built on `discord.js`, so the internal behavior (methods, properties, ...) is the same.
+This module is built on **[`discord.js`](https://discordjs.guide/)**, so the internal behavior (methods, properties, ...) is the same.
 
 ## Index
 **Setup**
