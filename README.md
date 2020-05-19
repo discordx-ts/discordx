@@ -33,7 +33,7 @@ This module is built on **[`discord.js`](https://discordjs.guide/)**, so the int
 * [`@Command`](https://github.com/OwenCalvin/discord.ts#-commands)  
   Create a command system simply
 
-* [`@Infos` / `@Description`](https://github.com/OwenCalvin/discord.ts#infos--description)  
+* [`@Infos` / `@Description`](https://github.com/OwenCalvin/discord.ts#%E2%84%B9%EF%B8%8F-infos--description)  
   Add informations about your commands
 
 * [`@Rules` / `@ComputedRules`](https://github.com/OwenCalvin/discord.ts#rules--computedrules---advanced-message-validation)  
