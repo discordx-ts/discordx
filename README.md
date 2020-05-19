@@ -165,7 +165,8 @@ import {
   On,
   Client,
   Command,
-  CommandMessage
+  CommandMessage,
+  CommandNotFound
 } from "@typeit/discord";
 
 @Discord("!") // Specify your prefix
