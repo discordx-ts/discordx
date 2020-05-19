@@ -13,7 +13,6 @@ import {
   Modifier,
   DecoratorUtils,
   Rule,
-  ArgsRulesFunction,
   DIService
 } from "../..";
 
@@ -140,7 +139,7 @@ export class MetadataStorage {
         if (isMessage && on instanceof DCommand) {
           const message = params[0] as Message;
           isCommand = true;
-          let pass = false;
+          let pass: RuleBuilder[] = undefined;
 
           if (message.author.id === client.user.id) {
             return;
@@ -176,15 +175,20 @@ export class MetadataStorage {
               ...prev
             ];
           }, []).flatMap((rules) => {
-            return RuleBuilder.join(Rule(""), ...rules);
+            const res = RuleBuilder.join(Rule(""), ...rules);
+            return [[
+              res.copy().setSource(res.source.replace(Client.variablesExpression, "")),
+              res
+            ]];
           });
 
           // Test if the message match any of the rules
-          pass = allRules.some((rule) => {
-            return rule.regex.test(message.content);
+          pass = allRules.find((rule) => {
+            return rule[0].regex.test(message.content);
           });
 
           if (pass) {
+            CommandMessage.parseArgs(pass, commandMessage);
             paramsToInject = commandMessage;
             return on;
           } else {

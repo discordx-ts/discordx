@@ -6,7 +6,9 @@ import {
   ArgsRulesFunction,
   InfosType,
   DiscordInfos,
-  DCommand
+  DCommand,
+  Client,
+  RuleBuilder
 } from "../..";
 
 export class CommandMessage<InfoType extends InfosType = any> extends Message implements CommandInfos<InfoType, Expression> {
@@ -16,7 +18,7 @@ export class CommandMessage<InfoType extends InfosType = any> extends Message im
   infos: InfoType;
   argsRules: ArgsRulesFunction<Expression>[];
   discord: DiscordInfos;
-  args: string[];
+  args: {[key: string]: any};
 
   static create<InfoType extends InfosType = any>(
     message: Message,
@@ -30,8 +32,24 @@ export class CommandMessage<InfoType extends InfosType = any> extends Message im
     commandMessage.commandName = command.commandInfos.commandName;
     commandMessage.description = command.commandInfos.description;
     commandMessage.discord = command.linkedDiscord.discordInfos;
-    commandMessage.args = message.content.split(/\s{1,}/g);
+    commandMessage.args = {};
 
     return commandMessage;
+  }
+
+  static parseArgs(expression: RuleBuilder[], message: CommandMessage) {
+    const excludeSpecialChar = /[^\w]/gi;
+    const splitSpaces = /\s{1,}/g;
+
+    const originalArgsNames = expression[1].source.match(Client.variablesExpression) || [];
+    const argsValues = message.content.replace(expression[0].regex, "").split(splitSpaces).filter(i => i);
+
+    originalArgsNames.map((argName, index) => {
+      const normalized = argName.replace(excludeSpecialChar, "").trim();
+      const value = argsValues[index];
+      const numberValue = Number(value);
+
+      message.args[normalized] = Number.isNaN(numberValue) ? value : numberValue;
+    });
   }
 }

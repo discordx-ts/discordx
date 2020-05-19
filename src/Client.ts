@@ -14,8 +14,18 @@ import {
 } from ".";
 
 export class Client extends ClientJS {
+  private static _variablesChar: string;
+  private static _variablesExpression: RegExp;
   private _silent: boolean;
-  private _loadClasses: LoadClass[] = [];
+  private _loadClasses: LoadClass[];
+
+  static get variablesChar() {
+    return this._variablesChar;
+  }
+
+  static get variablesExpression() {
+    return this._variablesExpression;
+  }
 
   get silent() {
     return this._silent;
@@ -30,13 +40,12 @@ export class Client extends ClientJS {
    */
   constructor(options?: ClientOptions) {
     super(options);
-    this._silent = false;
-    this._loadClasses = [];
 
-    if (options) {
-      this.silent = options.silent;
-      this._loadClasses = options.classes;
-    }
+    this._silent = options?.silent !== undefined || false;
+    this._loadClasses = options?.classes || [];
+
+    Client._variablesChar = options?.variablesChar || ":";
+    Client._variablesExpression = new RegExp(`\\s{1,}${Client._variablesChar}\\w*`, "g");
   }
 
   /**

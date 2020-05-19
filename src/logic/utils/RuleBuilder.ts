@@ -16,6 +16,7 @@ export class RuleBuilder {
   static readonly space = "\\s";
   static readonly atLeastOne = "{1,}";
   static readonly atLeastOneSpace = RuleBuilder.space + RuleBuilder.atLeastOne;
+  static readonly atLeastOneSpaceOrEnd = "(\\s{1,}|$)";
 
   private _source?: string = "";
   private _flags: string = "i";
@@ -138,6 +139,10 @@ export class RuleBuilder {
     return copy;
   }
 
+  addParam(name: string) {
+    return this.add();
+  }
+
   /**
    * Add expressions to the end of your rule
    * @param exprs Expressions to add
@@ -173,6 +178,11 @@ export class RuleBuilder {
 
   strictSpace(exprToAdd?: Expression) {
     return this.add(RuleBuilder.space, exprToAdd);
+  }
+
+  setSource(source: string) {
+    this._source = source;
+    return this;
   }
 
   /**

@@ -11,4 +11,10 @@ export interface ClientOptions extends DiscordJSClientOptions {
    * The classes to load for your discord bot
    */
   classes: LoadClass[];
+
+  /**
+   * The char that match your command args variables
+   * @default ":"
+   */
+  variablesChar: string;
 }

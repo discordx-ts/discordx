@@ -38,6 +38,13 @@ abstract class BotCommandRules {
     return mwsDatas.original;
   }
 
+
+  @Command("args :a :number :b")
+  @Rules("an another rule path :slug :number")
+  args(command: CommandMessage, client, mwsDatas) {
+    return command.args;
+  }
+
   @CommandNotFound()
   @Guard(guard1)
   cnf(command: CommandMessage, client, mwsDatas) {
@@ -94,5 +101,19 @@ describe("Create commands", () => {
 
     const res6 = await triggerAndFilter("!testa");
     expect(res6).toEqual(["!testa0"]);
+  });
+
+  it("Should parse the args", async () => {
+    const res1 = await triggerAndFilter("-mdb args a 34");
+    expect(res1[1]).toEqual({ a: "a", b: undefined, number: 34 });
+
+    const res2 = await triggerAndFilter("-mdb an another rule path yo 56");
+    expect(res2[1]).toEqual({ slug: "yo", number: 56 });
+
+    const res3 = await triggerAndFilter("!testan another rule path yo 56");
+    expect(res3[1]).toEqual({ slug: "yo", number: 56 });
+
+    const res4 = await triggerAndFilter("!testargs a 34");
+    expect(res4[1]).toEqual({ a: "a", b: undefined, number: 34 });
   });
 });

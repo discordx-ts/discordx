@@ -8,7 +8,7 @@ import {
 
 @Discord("!")
 export class CommandsB {
-  @Command("hello")
+  @Command("hello :slug :number")
   hello(command: CommandMessage, client: Client) {
     console.log(client);
     command.reply("Hello B");
