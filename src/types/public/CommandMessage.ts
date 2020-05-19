@@ -11,20 +11,24 @@ import {
   RuleBuilder
 } from "../..";
 
-export class CommandMessage<InfoType extends InfosType = any> extends Message implements CommandInfos<InfoType, Expression> {
+export class CommandMessage<
+  ArgsType = any,
+  InfoType extends InfosType = any>
+  extends Message implements CommandInfos<InfoType, Expression
+>{
   prefix: Expression | ExpressionFunction;
   commandName: Expression | ExpressionFunction;
   description: string;
   infos: InfoType;
   argsRules: ArgsRulesFunction<Expression>[];
   discord: DiscordInfos;
-  args: {[key: string]: any};
+  args: ArgsType;
 
   static create<InfoType extends InfosType = any>(
     message: Message,
     command: DCommand
   ) {
-    const commandMessage = message as CommandMessage<InfoType>;
+    const commandMessage = message as CommandMessage<any, InfoType>;
 
     commandMessage.infos = command.commandInfos.infos;
     commandMessage.prefix = command.commandInfos.prefix;
