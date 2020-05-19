@@ -189,6 +189,25 @@ abstract class AppDiscord {
 }
 ```
 
+### Args parsing
+You can specify arguments into `@Command` and `@Rules` that are parsed before your method call. You can use the same syntaxe as `express.js` uses: `:` before the variable name.  
+You can access the arguments using the injected `CommandMessage` value (first parameter of your method) with the property `args`.
+> If the argument value is a number the value will be casted automaticaly
+```typescript
+@Discord("!")
+abstract class AppDiscord {
+  @Command("args :slug :number")
+  private hello(message: CommandMessage) {
+    const mySlug = message.args.slug;
+    const myNumber = message.args.number;
+
+    // Using js destructuring:
+    const { slug, number } = message.args; 
+  }
+}
+```
+
+
 ### Dynamic parameters
 If your prefixes or your command names depends on dynamic datas you can pass (async) functions into the decorators.
 > It also works for `@Command`
