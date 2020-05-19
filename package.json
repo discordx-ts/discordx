@@ -1,6 +1,6 @@
 {
   "name": "@typeit/discord",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Create your discord bot by using TypeScript and decorators!",
   "main": "index.js",
   "types": "index.d.ts",
