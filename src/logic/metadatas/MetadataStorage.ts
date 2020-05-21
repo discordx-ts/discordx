@@ -202,22 +202,45 @@ export class MetadataStorage {
               paramsToInject = commandMessage;
             }
           }
+        } else if (
+          on.event === "message" &&
+          !(on instanceof DCommandNotFound) &&
+          !(on instanceof DCommand)
+        ) {
+          return on;
         }
         return undefined;
       }))).filter(c => c);
 
       if (isCommand) {
-        if (onCommands.length > 0) {
+        const realCommands = onCommands.filter((e) => e instanceof DCommand);
+        const onsInCommands = onCommands.filter((e) => !(e instanceof DCommand));
+
+        if (realCommands.length > 0) {
           eventsToExecute = onCommands;
-        } else if (notFoundOn) {
-          eventsToExecute = [notFoundOn];
+        } else if (notFoundOn && realCommands.length <= 0) {
+          eventsToExecute = [
+            ...onsInCommands,
+            notFoundOn
+          ];
+        } else if (onsInCommands.length > 0) {
+          eventsToExecute = onsInCommands;
         } else {
           eventsToExecute = [];
         }
       }
 
       for (const on of eventsToExecute) {
-        const res = await on.getMainFunction<Event>()(paramsToInject, client);
+        let injectedParams = paramsToInject;
+        if (
+          isCommand &&
+          !Array.isArray(injectedParams) &&
+          !(on instanceof DCommand || on instanceof DCommandNotFound)
+        ) {
+          injectedParams = [paramsToInject];
+        }
+
+        const res = await on.getMainFunction<Event>()(injectedParams, client);
         if (res.executed) {
           responses.push(res.res);
         }

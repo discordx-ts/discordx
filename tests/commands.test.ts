@@ -8,7 +8,9 @@ import {
   Rule,
   Infos,
   Description,
-  RuleBuilder
+  RuleBuilder,
+  On,
+  ArgsOf
 } from "../src";
 
 @Discord("!", {
@@ -17,6 +19,11 @@ import {
 @Infos({ test: "test" })
 @Description("My description")
 abstract class BotCommandExclamation {
+  @On("message")
+  onMessage([message]: ArgsOf<"message">) {
+    return message.content;
+  }
+
   @Command()
   @Infos({ command: "command" })
   @Description("My command description")
@@ -88,29 +95,38 @@ async function triggerAndFilter(message: string) {
 
 describe("Create commands", () => {
   it("Should a create simple command class", async () => {
+    const resMessage = await client.trigger("message", createCommandMessage("blabla"));
+    expect(resMessage).toEqual(["blabla"]);
+
     const resTest = await triggerAndFilter("test");
-    expect(resTest).toEqual([]);
+    expect(resTest).toEqual(["test"]);
 
     const resHello = await triggerAndFilter("!hello");
-    expect(resHello).toEqual(["!hello"]);
+    expect(resHello).toEqual(["!hello", "!hello"]);
+
+    const resHelloPrefixAfter = await triggerAndFilter("hel!lo");
+    expect(resHelloPrefixAfter).toEqual(["hel!lo"]);
+
+    const resHelloPrefixAfter2 = await triggerAndFilter("hello !hello");
+    expect(resHelloPrefixAfter2).toEqual(["hello !hello"]);
 
     const resHello2 = await triggerAndFilter("!hello2");
-    expect(resHello2).toEqual(["!hello22"]);
+    expect(resHello2).toEqual(["!hello2", "!hello22"]);
 
     const resHelloCase = await triggerAndFilter("!Hello");
-    expect(resHelloCase).toEqual(["!Hello"]);
+    expect(resHelloCase).toEqual(["!Hello", "!Hello"]);
 
     const resHello3Wrong = await triggerAndFilter("!Hello3");
-    expect(resHello3Wrong).toEqual(["notfound"]);
+    expect(resHello3Wrong).toEqual(["!Hello3", "notfound"]);
 
     const resHello3 = await triggerAndFilter("!hello3");
-    expect(resHello3).toEqual(["!hello33"]);
+    expect(resHello3).toEqual(["!hello3", "!hello33"]);
 
     const resSpaceHello = await triggerAndFilter("-space hello");
-    expect(resSpaceHello).toEqual(["-space hello"]);
+    expect(resSpaceHello).toEqual(["-space hello", "-space hello"]);
 
     const resSpaceNotFound = await triggerAndFilter("-space blabla");
-    expect(resSpaceNotFound).toEqual(["notfound space"]);
+    expect(resSpaceNotFound).toEqual(["-space blabla", "notfound space"]);
   });
 
   it("Should get the correct command description", () => {
@@ -145,16 +161,16 @@ describe("Create commands", () => {
 
   it("Should import the commands", async () => {
     const resByeLo = await triggerAndFilter("!bye");
-    expect(resByeLo).toEqual(["!byepass"]);
+    expect(resByeLo).toEqual(["!bye", "!byepass"]);
 
     const resByeRuleNotFound = await triggerAndFilter("!testme");
-    expect(resByeRuleNotFound).toEqual(["notfound"]);
+    expect(resByeRuleNotFound).toEqual(["!testme", "notfound"]);
 
     const resByeRule = await triggerAndFilter("!test me");
-    expect(resByeRule).toEqual(["!test mepass"]);
+    expect(resByeRule).toEqual(["!test me", "!test mepass"]);
 
     const resByeUp = await triggerAndFilter("!bYe");
-    expect(resByeUp).toEqual(["notfound"]);
+    expect(resByeUp).toEqual(["!bYe", "notfound"]);
 
     const resDelete = await client.trigger("messageDelete");
     expect(resDelete).toEqual(["messagedeletedpass"]);
