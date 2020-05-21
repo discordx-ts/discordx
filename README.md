@@ -53,7 +53,7 @@ This module is built on **[`discord.js`](https://discordjs.guide/)**, so the int
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
 ## 💾 Installation
-Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `typeit/discord` with `discord.js`:
+Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `@typeit/discord` with `discord.js`:
 ```sh
 npm i @typeit/discord discord.js
 ```
@@ -579,7 +579,7 @@ import {
   Client,
   ArgsOf,
   GuardFunction
-} from "typeit/discord";
+} from "@typeit/discord";
 
 export const NotBot: GuardFunction<"message"> = (
   [message],
@@ -598,7 +598,7 @@ import {
   Client,
   ArgsOf,
   GuardFunction
-} from "typeit/discord";
+} from "@typeit/discord";
 
 export function Prefix(text: string, replace: boolean = true) {
   const guard: GuardFunction<"message"> = (
@@ -626,7 +626,7 @@ import {
   Client,
   ArgsOf,
   GuardFunction
-} from "typeit/discord";
+} from "@typeit/discord";
 
 export const NotBot: GuardFunction<"message"> = (
   [message],
