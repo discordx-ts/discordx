@@ -236,7 +236,7 @@ The prefix that is applied to your command.
 The command name
 
 - `commandContent`: `string`  
-The message content without the prefix (`-cmd hello there` become `hello there`)
+The message content without the prefix (`-cmd hello there` becomes `hello there`)
 
 - `description`: `string`  
 [The command description](https://github.com/OwenCalvin/discord.ts#infos--description)
