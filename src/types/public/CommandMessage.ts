@@ -8,7 +8,8 @@ import {
   DiscordInfos,
   DCommand,
   Client,
-  RuleBuilder
+  RuleBuilder,
+  Rule
 } from "../..";
 
 export class CommandMessage<
@@ -23,6 +24,7 @@ export class CommandMessage<
   argsRules: ArgsRulesFunction<Expression>[];
   discord: DiscordInfos;
   args: ArgsType;
+  commandContent: string;
 
   static create<InfoType extends InfosType = any>(
     message: Message,

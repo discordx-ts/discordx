@@ -189,6 +189,12 @@ export class MetadataStorage {
 
           if (pass) {
             CommandMessage.parseArgs(pass, commandMessage);
+
+            commandMessage.commandContent = commandMessage.content;
+            computedDiscordRules.map((cdr) => {
+              commandMessage.commandContent = commandMessage.commandContent.replace(cdr.regex, "");
+            });
+
             paramsToInject = commandMessage;
             return on;
           } else {

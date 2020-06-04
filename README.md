@@ -232,8 +232,11 @@ The `CommandMessage` is the first argument injected into a method using `@Comman
 - `prefix`: `string`   
 The prefix that is applied to your command.
 
-- `CommandName`: `string`  
+- `commandName`: `string`  
 The command name
+
+- `commandContent`: `string`  
+The message content without the prefix (`-cmd hello there` become `hello there`)
 
 - `description`: `string`  
 [The command description](https://github.com/OwenCalvin/discord.ts#infos--description)
