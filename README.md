@@ -156,7 +156,7 @@ abstract class AppDiscord {
     // ...
   }
 
-  @Once("messageDelere")
+  @Once("messageDelete")
   private onMessageDelete() {
     // ...
   }
