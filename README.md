@@ -576,7 +576,7 @@ abstract class AppDiscord {
 
 Here is a simple example of a guard function (the payload and the client instance are injected like for events)  
 Guards work like `Koa`'s, it's a function passed in parameter (after the `Client`'s instance) and you will have to call if the guard is passed.
-> If next isn't called the next guard (or the main method) will ne be executed
+> If next isn't called the next guard (or the main method) will not be executed
 ```typescript
 import {
   Client,
