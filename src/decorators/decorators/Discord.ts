@@ -96,7 +96,7 @@ export function Discord(prefix?: Expression | ExpressionFunction, params?: Disco
             importCommand(classType, target);
           });
         } else {
-          importCommand((cmd as any).execute, target);
+          importCommand(cmd, target);
         }
       });
     }
