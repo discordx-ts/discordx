@@ -15,11 +15,11 @@
 </p>
 
 ## Introduction
-This module is built on **[`discord.js`](https://discordjs.guide/)**, so the internal behavior (methods, properties, ...) is the same.
+This module is an extension of **[`discord.js`](https://discordjs.guide/)**, so the internal behavior (methods, properties, ...) is the same.
 
 ## Index
 **Setup**
-- [Need help ?](https://github.com/OwenCalvin/discord.ts#%EF%B8%8F-need-help-)
+- [Need help?](https://github.com/OwenCalvin/discord.ts#%EF%B8%8F-need-help-)
 - [Installation](https://github.com/OwenCalvin/discord.ts#-installation)
 - [Setup](https://github.com/OwenCalvin/discord.ts#setup-and-start-your-application)
 
@@ -48,7 +48,7 @@ This module is built on **[`discord.js`](https://discordjs.guide/)**, so the int
 
 **Informations**
 
-## ☎️ Need help ?
+## ☎️ Need help?
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
@@ -685,6 +685,7 @@ Client.getDiscords();         // @Discord
 
 ## 💡 Events and payload
 Here you have the details about the payloads that are injected into the method related to a specific event.
+Note that on some events, for example voiceStateUpdate, it will return an array of the subsequent event payloads, and the second parameter will be the discord.ts Client.
 **`@Once(event: DiscordEvent)` exists too, it executes the method only one time**
 
 ### The argument list
