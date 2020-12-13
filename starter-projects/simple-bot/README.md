@@ -4,7 +4,7 @@
 >
 > This Simple Bot will listen for the Ready, Message, MessageDelete, GuildMemberAdd, and GuildCreate Events. It will also listen for a ping and hellothere command that has a '!' before the command.
 
-To see this bot in action copy the code by downloading the [SimpleBot.zip](https://github.com/OwenCalvin/discord.ts/blob/master/starter-projects/simple-bot/SimpleBot.zip) file.
+To see this bot in action copy the code by downloading the [SimpleBot.zip](https://github.com/OwenCalvin/discord.ts/raw/master/starter-projects/simple-bot/SimpleBot.zip) file.
 After the zip has been downloaded extract the contents and run `npm install` the the inner SimpleBot Directory.
 
 **Before starting the bot you will need to replace 'ADD_YOUR_DISCORD_BOT_TOKEN_HERE' with your bot token.**
