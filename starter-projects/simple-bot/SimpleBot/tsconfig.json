@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es2020",
+      "noImplicitAny": false,
+      "sourceMap": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "importHelpers": true,
+      "forceConsistentCasingInFileNames": true,
+      "lib": ["es2020", "esnext.asynciterable"],
+      "moduleResolution": "node",
+      "outDir": "./build"
+    },
+    "exclude": ["node_modules"],
+    "indent": [true, "spaces", 2]
+  }
+  
