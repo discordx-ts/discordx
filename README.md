@@ -364,8 +364,8 @@ import {
 export abstract class DiscordApp {
   // This command not found is triggered
   @CommandNotFound()
-  notFoundA(commad: CommandMessage) {
-    commad.reply("Command not found");
+  notFoundA(command: CommandMessage) {
+    command.reply("Command not found");
   }
 }
 ```
