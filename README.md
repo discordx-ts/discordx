@@ -405,7 +405,7 @@ import {
 export abstract class MessageDelete {
   @On("messageDelete")
   async onMessageDelete([message]: ArgsOf<"messageDelete">) {
-    command.reply("Bye!");
+    message.reply("Bye!");
   }
 }
 ```
