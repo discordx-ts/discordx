@@ -578,11 +578,7 @@ Here is a simple example of a guard function (the payload and the client instanc
 Guards work like `Koa`'s, it's a function passed in parameter (after the `Client`'s instance) and you will have to call if the guard is passed.
 > If next isn't called the next guard (or the main method) will not be executed
 ```typescript
-import {
-  Client,
-  ArgsOf,
-  GuardFunction
-} from "@typeit/discord";
+import { GuardFunction } from "@typeit/discord";
 
 export const NotBot: GuardFunction<"message"> = (
   [message],
@@ -597,11 +593,7 @@ export const NotBot: GuardFunction<"message"> = (
 
 If you have to indicate parameters for a guard function you can simple use the "function that returns a function" pattern like this:
 ```typescript
-import {
-  Client,
-  ArgsOf,
-  GuardFunction
-} from "@typeit/discord";
+import { GuardFunction } from "@typeit/discord";
 
 export function Prefix(text: string, replace: boolean = true) {
   const guard: GuardFunction<"message"> = (
@@ -625,11 +617,7 @@ export function Prefix(text: string, replace: boolean = true) {
 ### Guard datas
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 ```typescript
-import {
-  Client,
-  ArgsOf,
-  GuardFunction
-} from "@typeit/discord";
+import { GuardFunction } from "@typeit/discord";
 
 export const NotBot: GuardFunction<"message"> = (
   [message],
