@@ -45,7 +45,7 @@ export class CommandMessage<ArgsType = any, InfoType extends InfosType = any>
     const excludeSpecialChar = /[^\w]/gi;
     const splitSpaces = /\s{1,}/g;
 
-    const originalArgsNames = expression[1].source.match(Client.variablesExpression) || [];
+    const originalArgsNames = expression[1].source.match(Client.variablesExpression) || undefined;
     const argsValues = message.content.replace(expression[0].regex, "").split(splitSpaces).filter(i => i);
     if (originalArgsNames) {
       originalArgsNames.map((argName, index) => {
