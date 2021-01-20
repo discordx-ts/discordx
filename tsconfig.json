@@ -21,6 +21,7 @@
     "node_modules",
     "tests",
     "examples",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "starter-projects"
   ]
 }
