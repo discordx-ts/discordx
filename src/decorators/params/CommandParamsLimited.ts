@@ -1,2 +1,1 @@
-export interface CommandParamsLimited {
-}
+export interface CommandParamsLimited {}

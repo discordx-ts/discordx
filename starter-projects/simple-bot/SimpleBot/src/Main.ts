@@ -13,7 +13,7 @@ export class Main {
     this._client.login(
       "ADD_YOUR_DISCORD_BOT_TOKEN_HERE",
       `${__dirname}/*.ts`,
-      `${__dirname}/*.js`,
+      `${__dirname}/*.js`
     );
   }
 }

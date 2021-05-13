@@ -33,11 +33,9 @@ export class Decorator {
     return !!this._method;
   }
 
-  protected constructor() {
-  }
+  protected constructor() {}
 
-  static create(...params: any[]) {
-  }
+  static create(...params: any[]) {}
 
   decorateUnknown(
     classRef: Function,
@@ -50,11 +48,7 @@ export class Decorator {
     const finalKey = decorateAClass ? finalClassRef.name : key;
     const finalMethod = decorateAClass ? finalClassRef : method?.value;
 
-    return this.decorate(
-      finalClassRef,
-      finalKey,
-      finalMethod
-    );
+    return this.decorate(finalClassRef, finalKey, finalMethod);
   }
 
   decorate(
@@ -73,6 +67,5 @@ export class Decorator {
     return this;
   }
 
-  update() {
-  }
+  update() {}
 }

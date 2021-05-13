@@ -1,8 +1,4 @@
-import {
-  Expression,
-  ArgsRulesFunction,
-  ExpressionFunction
-} from "../..";
+import { Expression, ArgsRulesFunction, ExpressionFunction } from "../..";
 
 export function Rule(expr?: Expression, ...add: (string | RegExp)[]) {
   return new RuleBuilder(expr, ...add);
@@ -57,16 +53,20 @@ export class RuleBuilder {
     return exprs.map((expr) => Rule(expr));
   }
 
-  static fromArgsRuleArray<Type extends Expression = Expression>(argsRules: ArgsRulesFunction<Type>[]): ArgsRulesFunction<RuleBuilder>[] {
+  static fromArgsRuleArray<Type extends Expression = Expression>(
+    argsRules: ArgsRulesFunction<Type>[]
+  ): ArgsRulesFunction<RuleBuilder>[] {
     return [];
   }
 
   static joinSources(joinChar: Expression, ...exprs: Expression[]) {
-    return RuleBuilder.fromArray(exprs).map(rb => rb.source).join(Rule(joinChar).source);
+    return RuleBuilder.fromArray(exprs)
+      .map((rb) => rb.source)
+      .join(Rule(joinChar).source);
   }
 
   static joinFlags(...exprs: Expression[]) {
-    const flags = RuleBuilder.fromArray(exprs).map(rb => rb.flags);
+    const flags = RuleBuilder.fromArray(exprs).map((rb) => rb.flags);
     return flags.filter((f, i) => flags.indexOf(f) === i).join("");
   }
 
@@ -230,10 +230,7 @@ export class RuleBuilder {
   }
 
   spaceOrEnd() {
-    return this.addOr(
-      RuleBuilder.atLeastOneSpace,
-      RuleBuilder.end
-    );
+    return this.addOr(RuleBuilder.atLeastOneSpace, RuleBuilder.end);
   }
 
   /**
@@ -265,7 +262,10 @@ export class RuleBuilder {
    * @param cond The condition function, it receive the copied Rule at the first parameter and must return a boolean value
    * @param then It receive the Rule reference at the first parameter
    */
-  if(cond: (ruleBuilder: RuleBuilder) => boolean, then: (ruleBuilder: RuleBuilder) => void) {
+  if(
+    cond: (ruleBuilder: RuleBuilder) => boolean,
+    then: (ruleBuilder: RuleBuilder) => void
+  ) {
     if (cond(this.copy())) {
       then(this);
     }

@@ -9,7 +9,7 @@ import {
   DCommandNotFound,
   MainMethod,
   DIService,
-  CommandMessage
+  CommandMessage,
 } from "../..";
 
 export class DOn extends Decorator {
@@ -61,10 +61,7 @@ export class DOn extends Decorator {
     this.extractGuards();
   }
 
-  static createOn(
-    event: DiscordEvents,
-    once: boolean
-  ) {
+  static createOn(event: DiscordEvents, once: boolean) {
     const on = new DOn();
 
     on._event = event;
@@ -86,7 +83,12 @@ export class DOn extends Decorator {
 
   // TOTEST: next function & next function params
   compileGuardFn() {
-    const next = async (params: any, client: Client, index: number, paramsToNext: any) => {
+    const next = async (
+      params: any,
+      client: Client,
+      index: number,
+      paramsToNext: any
+    ) => {
       const nextFn = () => next(params, client, index + 1, paramsToNext);
       const guardToExecute = this._compiledGuards[index];
       let res: any;
@@ -100,7 +102,12 @@ export class DOn extends Decorator {
       } else {
         // If it's a commmand, the params isn't a array, and the destructing with guard causes an error
         const normalizedParams = Array.isArray(params) ? params : [params];
-        res = await guardToExecute(normalizedParams, client, nextFn, paramsToNext);
+        res = await guardToExecute(
+          normalizedParams,
+          client,
+          nextFn,
+          paramsToNext
+        );
       }
 
       if (res) {
@@ -109,24 +116,25 @@ export class DOn extends Decorator {
       return paramsToNext;
     };
 
-    this._guardsFunction = (params: any, client: Client) => next(params, client, 0, {});
+    this._guardsFunction = (params: any, client: Client) =>
+      next(params, client, 0, {});
   }
 
   // TOTEST: guard class binding
   private extractGuards() {
     this._guards.map((guard) => {
       this._compiledGuards.push(
-        guard.fn.bind(
-          DIService.instance.getService(guard.from)
-        )
+        guard.fn.bind(DIService.instance.getService(guard.from))
       );
     });
-    this._compiledGuards.push(this.method.bind(
-      DIService.instance.getService(this.from)
-    ));
+    this._compiledGuards.push(
+      this.method.bind(DIService.instance.getService(this.from))
+    );
   }
 
-  private compileMainFunction<Event extends DiscordEvents = any>(): MainMethod<Event> {
+  private compileMainFunction<
+    Event extends DiscordEvents = any
+  >(): MainMethod<Event> {
     // Compiled mthods executes all the guards and the main method
     // compiledMethod = async (params: ArgsOf<any>, client: Client) => {
     //   guard1(params, client)
@@ -140,7 +148,7 @@ export class DOn extends Decorator {
       return {
         res,
         on: this,
-        executed: true
+        executed: true,
       };
     };
 

@@ -1,14 +1,20 @@
 import { Discord, On, Client, Guard, GuardFunction } from "../src";
 
-const guard1: GuardFunction<any, {message: string, original: string}> = async ([message]: [string], client, next, mwDatas) => {
-  mwDatas.original = message;
-  if (message.includes("hello")) {
-    mwDatas.message = message + "0";
-    await next();
-  }
-};
+const guard1: GuardFunction<any, { message: string; original: string }> =
+  async ([message]: [string], client, next, mwDatas) => {
+    mwDatas.original = message;
+    if (message.includes("hello")) {
+      mwDatas.message = message + "0";
+      await next();
+    }
+  };
 
-const guard2: GuardFunction = async ([message]: [string], client, next, mwDatas) => {
+const guard2: GuardFunction = async (
+  [message]: [string],
+  client,
+  next,
+  mwDatas
+) => {
   if (mwDatas.original === "hello0") {
     mwDatas.message += "1";
     await next();
@@ -31,7 +37,11 @@ abstract class Bot {
 
   @On("messageDelete")
   @Guard(guard1, guard2)
-  private onMessageDelete([message]: [string], client: Client, guardParams: any) {
+  private onMessageDelete(
+    [message]: [string],
+    client: Client,
+    guardParams: any
+  ) {
     guardParams.message += "3";
   }
 }
@@ -41,7 +51,6 @@ const client = new Client();
 beforeAll(async () => {
   await client.build();
 });
-
 
 describe("Create on event", () => {
   it("Should create and execute two messages events", async () => {

@@ -3,7 +3,7 @@ import {
   Command,
   CommandNotFound,
   CommandMessage,
-  Client
+  Client,
 } from "../../../src";
 
 @Discord("!")

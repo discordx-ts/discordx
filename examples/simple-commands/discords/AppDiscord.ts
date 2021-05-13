@@ -3,7 +3,7 @@ import {
   CommandMessage,
   Command,
   Description,
-  Infos
+  Infos,
 } from "../../../src";
 
 interface HelloArgs {

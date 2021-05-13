@@ -12,8 +12,8 @@ After the zip has been downloaded extract the contents and run `npm install` the
 > **Note:**  
 > This project will install other libraries like TSLint.  
 > In the package.json some scripts have been provided. You can run them with `npm run <script>`
->  
+>
 > **start** - Run the Bot without compiling down to JS.  
 > **lint** - Check for Syntax errors  
 > **build** - Compile the TypeScript down to JS  
-> **prod** - Run the compiled JS  
+> **prod** - Run the compiled JS

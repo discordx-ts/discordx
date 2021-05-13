@@ -5,10 +5,7 @@ import { Say } from "../guards/Say";
 export abstract class AppDiscord {
   @On("message")
   @Guard(Say("hello"))
-  onMessage(
-    [message]: ArgsOf<"message">,
-    client: Client
-  ) {
+  onMessage([message]: ArgsOf<"message">, client: Client) {
     console.log(message.content);
   }
 }

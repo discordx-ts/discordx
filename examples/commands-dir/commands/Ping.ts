@@ -8,4 +8,3 @@ export default abstract class Ping {
     command.reply("Pong");
   }
 }
-

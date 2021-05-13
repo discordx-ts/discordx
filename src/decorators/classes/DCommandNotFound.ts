@@ -1,7 +1,5 @@
 import { DOn } from "./DOn";
-import {
-  InfosType
-} from "../..";
+import { InfosType } from "../..";
 
 export class DCommandNotFound extends DOn {
   private _infos: InfosType;
@@ -27,4 +25,3 @@ export class DCommandNotFound extends DOn {
     return cnf;
   }
 }
-

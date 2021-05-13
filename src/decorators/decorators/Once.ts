@@ -1,8 +1,4 @@
-import {
-  MetadataStorage,
-  DiscordEvents,
-  DOn
-} from "../..";
+import { MetadataStorage, DiscordEvents, DOn } from "../..";
 
 /**
  * Trigger a discord event only once
@@ -10,18 +6,15 @@ import {
  * @param event The discord event to trigger
  */
 export function Once(event: DiscordEvents) {
-  return (target: Object, key: string, descriptor: PropertyDescriptor): void => {
-    const on = (
-      DOn
-      .createOn(
-        event,
-        true
-      )
-      .decorate(
-        target.constructor,
-        key,
-        descriptor.value
-      )
+  return (
+    target: Object,
+    key: string,
+    descriptor: PropertyDescriptor
+  ): void => {
+    const on = DOn.createOn(event, true).decorate(
+      target.constructor,
+      key,
+      descriptor.value
     );
 
     MetadataStorage.instance.addOn(on);

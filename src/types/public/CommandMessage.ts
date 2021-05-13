@@ -9,12 +9,13 @@ import {
   DCommand,
   Client,
   RuleBuilder,
-  Rule
+  Rule,
 } from "../..";
 
 export class CommandMessage<ArgsType = any, InfoType extends InfosType = any>
-  extends Message implements CommandInfos<InfoType, Expression>{
-
+  extends Message
+  implements CommandInfos<InfoType, Expression>
+{
   prefix: Expression | ExpressionFunction;
   commandName: Expression | ExpressionFunction;
   description: string;
@@ -45,15 +46,22 @@ export class CommandMessage<ArgsType = any, InfoType extends InfosType = any>
     const excludeSpecialChar = /[^\w]/gi;
     const splitSpaces = /\s{1,}/g;
 
-    const originalArgsNames = expression[1].source.match(Client.variablesExpression) || undefined;
-    const argsValues = message.content.replace(expression[0].regex, "").split(splitSpaces).filter(i => i);
+    const originalArgsNames =
+      expression[1].source.match(Client.variablesExpression) || undefined;
+    const argsValues = message.content
+      .replace(expression[0].regex, "")
+      .split(splitSpaces)
+      .filter((i) => i);
     if (originalArgsNames) {
       originalArgsNames.map((argName, index) => {
         const normalized = argName.replace(excludeSpecialChar, "").trim();
         const value = argsValues[index];
         const numberValue = Number(value);
 
-        message.args[normalized] = Number.isNaN(numberValue) || !Number.isSafeInteger(numberValue) ? value : numberValue;
+        message.args[normalized] =
+          Number.isNaN(numberValue) || !Number.isSafeInteger(numberValue)
+            ? value
+            : numberValue;
       });
     } else {
       // if no arg names present, args = the regex group results.

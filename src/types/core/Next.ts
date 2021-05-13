@@ -1,1 +1,1 @@
-export type Next = ((...paramsToNext: any[]) => Promise<any>);
+export type Next = (...paramsToNext: any[]) => Promise<any>;

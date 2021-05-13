@@ -1,7 +1,4 @@
-import {
-  DiscordEvents,
-  DDiscord
-} from "../..";
+import { DiscordEvents, DDiscord } from "../..";
 
 export interface EventInfos {
   event: DiscordEvents;

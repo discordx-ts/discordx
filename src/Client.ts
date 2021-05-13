@@ -10,7 +10,7 @@ import {
   CommandNotFoundInfos,
   EventInfos,
   DiscordInfos,
-  DOn
+  DOn,
 } from ".";
 
 export class Client extends ClientJS {
@@ -45,14 +45,19 @@ export class Client extends ClientJS {
     this._loadClasses = options?.classes || [];
 
     Client._variablesChar = options?.variablesChar || ":";
-    Client._variablesExpression = new RegExp(`\\s{1,}${Client._variablesChar}\\w*`, "g");
+    Client._variablesExpression = new RegExp(
+      `\\s{1,}${Client._variablesChar}\\w*`,
+      "g"
+    );
   }
 
   /**
    * Get the details about the created commands of your app (@Command)
    */
   static getCommands<Type extends InfosType = any>(): CommandInfos<Type>[] {
-    return MetadataStorage.instance.commands.map<CommandInfos<Type>>((c) => c.commandInfos);
+    return MetadataStorage.instance.commands.map<CommandInfos<Type>>(
+      (c) => c.commandInfos
+    );
   }
 
   /**
@@ -63,7 +68,7 @@ export class Client extends ClientJS {
       return {
         event: event.event,
         once: event.once,
-        linkedInstance: event.linkedDiscord
+        linkedInstance: event.linkedDiscord,
       };
     });
   }
@@ -72,18 +77,24 @@ export class Client extends ClientJS {
    * Get the details about the created discords of your app (@Discord)
    */
   static getDiscords<Type extends InfosType = any>(): DiscordInfos<Type>[] {
-    return MetadataStorage.instance.discords.map<DiscordInfos<Type>>((d) => d.discordInfos);
+    return MetadataStorage.instance.discords.map<DiscordInfos<Type>>(
+      (d) => d.discordInfos
+    );
   }
 
   /**
    * Get the details about the created commandsNotFound of your app (@CommandNotFound)
    */
-  static getCommandsNotFound<Type extends InfosType = any>(): CommandNotFoundInfos<Type>[] {
-    return MetadataStorage.instance.commandsNotFound.map<CommandNotFoundInfos<Type>>((c) => {
+  static getCommandsNotFound<
+    Type extends InfosType = any
+  >(): CommandNotFoundInfos<Type>[] {
+    return MetadataStorage.instance.commandsNotFound.map<
+      CommandNotFoundInfos<Type>
+    >((c) => {
       return {
         infos: c.infos as InfosType<Type>,
         prefix: c.linkedDiscord.prefix,
-        description: c.infos.description
+        description: c.infos.description,
       };
     });
   }
@@ -107,35 +118,30 @@ export class Client extends ClientJS {
       }
     });
 
-    const usedEvents = (
-      MetadataStorage.instance.events
-      .reduce<DOn[]>((prev, event, index) => {
-        const found = MetadataStorage.instance.events.find((event2) => event.event === event2.event);
+    const usedEvents = MetadataStorage.instance.events.reduce<DOn[]>(
+      (prev, event, index) => {
+        const found = MetadataStorage.instance.events.find(
+          (event2) => event.event === event2.event
+        );
         const foundIndex = MetadataStorage.instance.events.indexOf(found);
         if (foundIndex === index || found.once !== event.once) {
           prev.push(event);
         }
         return prev;
-      }, [])
+      },
+      []
     );
 
     usedEvents.map(async (on) => {
       if (on.once) {
         this.once(
           on.event as any,
-          MetadataStorage.instance.trigger(
-            on.event,
-            this,
-            true
-          )
+          MetadataStorage.instance.trigger(on.event, this, true)
         );
       } else {
         this.on(
           on.event as any,
-          MetadataStorage.instance.trigger(
-            on.event,
-            this
-          )
+          MetadataStorage.instance.trigger(on.event, this)
         );
       }
     });
@@ -157,12 +163,12 @@ export class Client extends ClientJS {
    * @param params Params to inject
    * @param once Trigger an once event
    */
-  trigger (event: DiscordEvents, params?: any, once: boolean = false): Promise<any[]> {
-    return MetadataStorage.instance.trigger(
-      event,
-      this,
-      once
-    )(params);
+  trigger(
+    event: DiscordEvents,
+    params?: any,
+    once: boolean = false
+  ): Promise<any[]> {
+    return MetadataStorage.instance.trigger(event, this, once)(params);
   }
 
   private loadClasses() {

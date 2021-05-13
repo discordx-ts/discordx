@@ -3,10 +3,13 @@ import {
   RuleBuilder,
   ArgsRulesFunction,
   Expression,
-  ExpressionFunction
+  ExpressionFunction,
 } from "../..";
 
-export interface CommandInfos<InfoType = any, ArgsRulesType extends Expression = RuleBuilder> {
+export interface CommandInfos<
+  InfoType = any,
+  ArgsRulesType extends Expression = RuleBuilder
+> {
   prefix: Expression | ExpressionFunction;
   commandName: Expression | ExpressionFunction;
   description: string;

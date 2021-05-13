@@ -10,11 +10,11 @@ import {
   Description,
   RuleBuilder,
   On,
-  ArgsOf
+  ArgsOf,
 } from "../src";
 
 @Discord("!", {
-  import: join(__dirname, "commands", "*.ts")
+  import: join(__dirname, "commands", "*.ts"),
 })
 @Infos({ test: "test" })
 @Description("My description")
@@ -53,7 +53,6 @@ abstract class BotCommandExclamation {
   }
 }
 
-
 @Discord(Rule().startWith("-space").spaceOrEnd())
 @Infos({ test: "test space" })
 @Description("My description space")
@@ -76,9 +75,9 @@ abstract class BotCommandSpace {
 function createCommandMessage(content: string) {
   return {
     author: {
-      id: ""
+      id: "",
     },
-    content
+    content,
   };
 }
 
@@ -90,12 +89,15 @@ beforeAll(async () => {
 });
 
 async function triggerAndFilter(message: string) {
-  return (await client.trigger("message", createCommandMessage(message)));
+  return await client.trigger("message", createCommandMessage(message));
 }
 
 describe("Create commands", () => {
   it("Should a create simple command class", async () => {
-    const resMessage = await client.trigger("message", createCommandMessage("blabla"));
+    const resMessage = await client.trigger(
+      "message",
+      createCommandMessage("blabla")
+    );
     expect(resMessage).toEqual(["blabla"]);
 
     const resTest = await triggerAndFilter("test");
@@ -148,15 +150,25 @@ describe("Create commands", () => {
     expect(commands[3].prefix).toEqual("!");
     expect((commands[3].commandName as RuleBuilder).source).toEqual("bye");
 
-    expect((commands[4].prefix as RuleBuilder).source).toEqual("^-space(\\s{1,}|$)");
+    expect((commands[4].prefix as RuleBuilder).source).toEqual(
+      "^-space(\\s{1,}|$)"
+    );
     expect(commands[4].infos.space).toEqual("space");
     expect(commands[4].description).toEqual("My command description space");
 
-    expect(commandsNotFound[0].infos.commandNotFound).toEqual("commandNotFound");
-    expect(commandsNotFound[0].description).toEqual("My command not found description");
+    expect(commandsNotFound[0].infos.commandNotFound).toEqual(
+      "commandNotFound"
+    );
+    expect(commandsNotFound[0].description).toEqual(
+      "My command not found description"
+    );
 
-    expect(commandsNotFound[1].infos.commandNotFoundSpace).toEqual("commandNotFoundSpace");
-    expect(commandsNotFound[1].description).toEqual("My command not found description space");
+    expect(commandsNotFound[1].infos.commandNotFoundSpace).toEqual(
+      "commandNotFoundSpace"
+    );
+    expect(commandsNotFound[1].description).toEqual(
+      "My command not found description space"
+    );
   });
 
   it("Should import the commands", async () => {

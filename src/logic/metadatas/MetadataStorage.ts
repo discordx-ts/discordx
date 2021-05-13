@@ -13,7 +13,7 @@ import {
   Modifier,
   DecoratorUtils,
   Rule,
-  DIService
+  DIService,
 } from "../..";
 
 export class MetadataStorage {
@@ -98,7 +98,10 @@ export class MetadataStorage {
     });
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._commandNotFounds);
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._commandNotFounds
+    );
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
 
     this._events.map((on) => {
@@ -113,19 +116,33 @@ export class MetadataStorage {
       this._commands.splice(this._commands.indexOf(command), 1);
     }
 
-    const commandNotFound = DecoratorUtils.getLinkedObjects(event, this._commandNotFounds)[0];
+    const commandNotFound = DecoratorUtils.getLinkedObjects(
+      event,
+      this._commandNotFounds
+    )[0];
     if (commandNotFound) {
-      this._commandNotFounds.splice(this._commandNotFounds.indexOf(commandNotFound), 1);
+      this._commandNotFounds.splice(
+        this._commandNotFounds.indexOf(commandNotFound),
+        1
+      );
     }
 
     return event;
   }
 
-  trigger<Event extends DiscordEvents>(event: Event, client: Client, once: boolean = false) {
+  trigger<Event extends DiscordEvents>(
+    event: Event,
+    client: Client,
+    once: boolean = false
+  ) {
     const responses: any[] = [];
 
     let eventsToExecute = this._events.filter((on) => {
-      return on.event === event && on.once === once && !(on instanceof DCommandNotFound);
+      return (
+        on.event === event &&
+        on.once === once &&
+        !(on instanceof DCommandNotFound)
+      );
     });
 
     return async (...params: ArgsOf<Event>) => {
@@ -135,100 +152,111 @@ export class MetadataStorage {
       let notFoundOn;
       let onCommands = [];
 
-      onCommands = (await Promise.all(this.events.map(async (on) => {
-        if (isMessage && on instanceof DCommand) {
-          const message = params[0] as Message;
-          isCommand = true;
-          let pass: RuleBuilder[] = undefined;
+      onCommands = (
+        await Promise.all(
+          this.events.map(async (on) => {
+            if (isMessage && on instanceof DCommand) {
+              const message = params[0] as Message;
+              isCommand = true;
+              let pass: RuleBuilder[] = undefined;
 
-          if (message.author.id === client.user.id) {
-            return;
-          }
+              if (message.author.id === client.user.id) {
+                return;
+              }
 
-          const commandMessage = CommandMessage.create(
-            message,
-            on
-          );
+              const commandMessage = CommandMessage.create(message, on);
 
-          const computedDiscordRules = (await Promise.all(
-            on.linkedDiscord.argsRules.map(async (ar) => await ar(commandMessage, client))
-          )).flatMap((rules) => {
-            return RuleBuilder.join(Rule(""), ...rules);
-          });
+              const computedDiscordRules = (
+                await Promise.all(
+                  on.linkedDiscord.argsRules.map(
+                    async (ar) => await ar(commandMessage, client)
+                  )
+                )
+              ).flatMap((rules) => {
+                return RuleBuilder.join(Rule(""), ...rules);
+              });
 
-          let computedCommandRules = (await Promise.all(
-            on.argsRules.map(async (ar) => await ar(commandMessage, client))
-          ));
+              let computedCommandRules = await Promise.all(
+                on.argsRules.map(async (ar) => await ar(commandMessage, client))
+              );
 
-          if (computedCommandRules.length <= 0) {
-            computedCommandRules = [[
-              Rule(on.key).spaceOrEnd()
-            ]];
-          }
+              if (computedCommandRules.length <= 0) {
+                computedCommandRules = [[Rule(on.key).spaceOrEnd()]];
+              }
 
-          const allRules = computedDiscordRules.reduce<RuleBuilder[][]>((prev, cdr) => {
-            return [
-              ...computedCommandRules.map<RuleBuilder[]>((ccr) => [
-                cdr,
-                ...RuleBuilder.fromArray(ccr)
-              ]),
-              ...prev
-            ];
-          }, []).flatMap((rules) => {
-            const res = RuleBuilder.join(Rule(""), ...rules);
-            return [[
-              res.copy().setSource(res.source.replace(Client.variablesExpression, "")),
-              res
-            ]];
-          });
+              const allRules = computedDiscordRules
+                .reduce<RuleBuilder[][]>((prev, cdr) => {
+                  return [
+                    ...computedCommandRules.map<RuleBuilder[]>((ccr) => [
+                      cdr,
+                      ...RuleBuilder.fromArray(ccr),
+                    ]),
+                    ...prev,
+                  ];
+                }, [])
+                .flatMap((rules) => {
+                  const res = RuleBuilder.join(Rule(""), ...rules);
+                  return [
+                    [
+                      res
+                        .copy()
+                        .setSource(
+                          res.source.replace(Client.variablesExpression, "")
+                        ),
+                      res,
+                    ],
+                  ];
+                });
 
-          // Test if the message match any of the rules
-          pass = allRules.find((rule) => {
-            return rule[0].regex.test(message.content);
-          });
+              // Test if the message match any of the rules
+              pass = allRules.find((rule) => {
+                return rule[0].regex.test(message.content);
+              });
 
-          if (pass) {
-            CommandMessage.parseArgs(pass, commandMessage);
+              if (pass) {
+                CommandMessage.parseArgs(pass, commandMessage);
 
-            commandMessage.commandContent = commandMessage.content;
-            computedDiscordRules.map((cdr) => {
-              commandMessage.commandContent = commandMessage.commandContent.replace(cdr.regex, "");
-            });
+                commandMessage.commandContent = commandMessage.content;
+                computedDiscordRules.map((cdr) => {
+                  commandMessage.commandContent =
+                    commandMessage.commandContent.replace(cdr.regex, "");
+                });
 
-            paramsToInject = commandMessage;
-            return on;
-          } else {
-            // If it doesn't pass any of the rules => execute the commandNotFound only on the discord instance that match the message discord rules
-            const passNotFound = computedDiscordRules.some((cdr) => {
-              return cdr.regex.test(message.content);
-            });
+                paramsToInject = commandMessage;
+                return on;
+              } else {
+                // If it doesn't pass any of the rules => execute the commandNotFound only on the discord instance that match the message discord rules
+                const passNotFound = computedDiscordRules.some((cdr) => {
+                  return cdr.regex.test(message.content);
+                });
 
-            if (passNotFound) {
-              notFoundOn = on.linkedDiscord.commandNotFound;
-              paramsToInject = commandMessage;
+                if (passNotFound) {
+                  notFoundOn = on.linkedDiscord.commandNotFound;
+                  paramsToInject = commandMessage;
+                }
+              }
+            } else if (
+              on.event === "message" &&
+              !(on instanceof DCommandNotFound) &&
+              !(on instanceof DCommand)
+            ) {
+              return on;
             }
-          }
-        } else if (
-          on.event === "message" &&
-          !(on instanceof DCommandNotFound) &&
-          !(on instanceof DCommand)
-        ) {
-          return on;
-        }
-        return undefined;
-      }))).filter(c => c);
+            return undefined;
+          })
+        )
+      ).filter((c) => c);
 
       if (isCommand) {
         const realCommands = onCommands.filter((e) => e instanceof DCommand);
-        const onsInCommands = onCommands.filter((e) => !(e instanceof DCommand));
+        const onsInCommands = onCommands.filter(
+          (e) => !(e instanceof DCommand)
+        );
 
         if (realCommands.length > 0) {
           eventsToExecute = onCommands;
         } else if (notFoundOn && realCommands.length <= 0) {
-          eventsToExecute = [
-            ...onsInCommands,
-            notFoundOn
-          ];
+          eventsToExecute = [...onsInCommands, notFoundOn];
         } else if (onsInCommands.length > 0) {
           eventsToExecute = onsInCommands;
         } else {

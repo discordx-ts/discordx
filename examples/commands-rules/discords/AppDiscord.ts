@@ -9,13 +9,11 @@ import {
   Expression,
   Description,
   Infos,
-  DOn
+  DOn,
 } from "../../../src";
 
 async function getRulesFromServer(command: CommandMessage) {
-  let rules: Expression[] = [
-    /compute$/
-  ];
+  let rules: Expression[] = [/compute$/];
 
   return rules;
 }

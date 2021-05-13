@@ -1,7 +1,10 @@
 import { Decorator } from "../..";
 
 export class DecoratorUtils {
-  static getLinkedObjectsListToList<Type extends Decorator>(list1: Type[], list2: Type[]) {
+  static getLinkedObjectsListToList<Type extends Decorator>(
+    list1: Type[],
+    list2: Type[]
+  ) {
     list1.map((a) => {
       return this.getLinkedObjects(a, list2);
     });
@@ -9,10 +12,7 @@ export class DecoratorUtils {
 
   static getLinkedObjects<Type extends Decorator>(a: Decorator, list: Type[]) {
     return list.filter((b) => {
-      return (
-        a.from === b.from &&
-        a.method === b.method
-      );
+      return a.from === b.from && a.method === b.method;
     });
   }
 

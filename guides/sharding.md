@@ -17,9 +17,9 @@ When you hit that milestone and need to begin the sharding process this guide wi
 
 ### What if my bot is in less than 2,000 servers?
 
-Discord.js has stated 
+Discord.js has stated
 
-`Sharding is only necessary at 2,500 guilds—at that point, Discord will not allow your bot to login without sharding. With that in mind, you should consider this when your bot is around 2,000 guilds, which should be enough time to get this working. Contrary to popular belief, sharding itself is very simple. It can be complex depending on your bot's needs, however. If your bot is in a total of 2,000 or more servers, then please continue with this guide. Otherwise, it may be a good idea to wait until then.` 
+`Sharding is only necessary at 2,500 guilds—at that point, Discord will not allow your bot to login without sharding. With that in mind, you should consider this when your bot is around 2,000 guilds, which should be enough time to get this working. Contrary to popular belief, sharding itself is very simple. It can be complex depending on your bot's needs, however. If your bot is in a total of 2,000 or more servers, then please continue with this guide. Otherwise, it may be a good idea to wait until then.`
 
 However if you are curious you may continue to read this doc! But don't worry about sharding until 2,000 guilds. Focus on building a quality bot as sharding adds more complexity.
 
@@ -42,12 +42,11 @@ I found success with using this `tsconfig.json`
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2020", "esnext.asynciterable"],
     "moduleResolution": "node",
-    "outDir": "./src/build",
+    "outDir": "./src/build"
   },
   "exclude": ["node_modules"],
   "indent": [true, "spaces", 2]
 }
-
 ```
 
 If you are receiving errors that complain about imports. Try using the following import where the compiler complains about the import.
@@ -90,17 +89,14 @@ You don't need to change anything in the `entry.bot.ts` file. The magic will be 
 You will make a new class in the `shard.bot.ts` file. I have named my class ShardBot
 
 ```typescript
-export class ShardBot {
-
-}
+export class ShardBot {}
 ```
 
 Inside this class I have defined a `static start` method that gets called outside of the ShardBot class.
 
 ```typescript
 export class ShardBot {
-  static start(): void {
-  }
+  static start(): void {}
 }
 
 ShardBot.start();
@@ -114,7 +110,6 @@ import { environment } from "../../environments/environment";
 
 export class ShardBot {
   static start(): void {
-
     const manager = new ShardingManager("./src/build/src/app/entry.bot.js", {
       token: environment.DISCORD_TOKEN,
     });
@@ -122,7 +117,7 @@ export class ShardBot {
     manager.on("shardCreate", (shard) => {
       console.log(`Launched shard ${shard.id}`);
     });
-      
+
     manager.spawn();
   }
 }
@@ -139,7 +134,7 @@ Now that your bot compiles and has the shard file we can run the bot with the sh
 
 `node build/app/shard.bot.js`
 
-will start the shard here. 
+will start the shard here.
 
 **Note:** Make sure you provide the correct path to the shard file when running with node.
 

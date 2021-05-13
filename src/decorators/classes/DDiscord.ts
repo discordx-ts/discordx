@@ -9,7 +9,7 @@ import {
   RuleBuilder,
   CommandMessage,
   Rule,
-  DiscordInfos
+  DiscordInfos,
 } from "../..";
 
 export class DDiscord extends Decorator implements Commandable<Expression> {
@@ -62,13 +62,11 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
       description: this.description,
       infos: this.infos,
       argsRules: this.argsRules,
-      prefix: this.prefix
+      prefix: this.prefix,
     };
   }
 
-  static createDiscord(
-    prefix: Expression | ExpressionFunction
-  ) {
+  static createDiscord(prefix: Expression | ExpressionFunction) {
     const discord = new DDiscord();
 
     let finalPrefix = prefix;
@@ -81,11 +79,15 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
 
     if (typeof escapedPrefix !== "function") {
       const isRuleBuilder = escapedPrefix instanceof RuleBuilder;
-      finalPrefix = isRuleBuilder ? () => escapedPrefix as Expression : () => Rule().startWith(escapedPrefix as Expression);
+      finalPrefix = isRuleBuilder
+        ? () => escapedPrefix as Expression
+        : () => Rule().startWith(escapedPrefix as Expression);
     }
 
     discord._argsRules = [
-      async (command: CommandMessage) => [await (finalPrefix as ExpressionFunction)(command)]
+      async (command: CommandMessage) => [
+        await (finalPrefix as ExpressionFunction)(command),
+      ],
     ];
     discord._prefix = escapedPrefix;
 

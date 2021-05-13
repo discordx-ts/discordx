@@ -1,3 +1,3 @@
 export type InfosType<T = { [key: string]: any }> = {
-  description?: string
+  description?: string;
 } & { [key: string]: any } & T;

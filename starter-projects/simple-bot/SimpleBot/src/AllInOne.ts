@@ -7,12 +7,11 @@ import {
   ArgsOf,
   Guard,
 } from "@typeit/discord";
-import { NotBot } from './NotABot';
+import { NotBot } from "./NotABot";
 
 @Discord("!")
 @Description("Example of having everything in one file!")
 export abstract class AllInOne {
-
   @Command("ping")
   @Guard(NotBot)
   ping(command: CommandMessage): void {
@@ -41,12 +40,13 @@ export abstract class AllInOne {
 
   @On("guildMemberAdd")
   memberJoin([member]: ArgsOf<"guildMemberAdd">): void {
-    console.log(`User : ${member.user.username} has joined the Discord Server.`);
+    console.log(
+      `User : ${member.user.username} has joined the Discord Server.`
+    );
   }
 
   @On("guildCreate")
   guildJoin([guild]: ArgsOf<"guildCreate">): void {
     console.log(`Bot added to the Discord Server : ${guild.name}`);
   }
-
 }

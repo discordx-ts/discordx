@@ -8,10 +8,15 @@ import {
   CommandNotFound,
   ComputedRules,
   Guard,
-  GuardFunction
+  GuardFunction,
 } from "../src";
 
-const guard1: GuardFunction<any, {message: any, original: string}> = async ([message]: [any], client, next, mwDatas) => {
+const guard1: GuardFunction<any, { message: any; original: string }> = async (
+  [message]: [any],
+  client,
+  next,
+  mwDatas
+) => {
   await new Promise((resolve) => {
     setTimeout(resolve, 500);
   });
@@ -20,24 +25,19 @@ const guard1: GuardFunction<any, {message: any, original: string}> = async ([mes
 };
 
 @Discord(/-mdb\s{1,}/i, {
-  import: join(__dirname, "commands", "*.ts")
+  import: join(__dirname, "commands", "*.ts"),
 })
 @Rules("!", "test")
 abstract class BotCommandRules {
   @Command()
   @Rules(/a/)
   @Rules(/b/, /f/)
-  @ComputedRules(() => ([
-    /test/
-  ]))
-  @ComputedRules(() => ([
-    /test2/
-  ]))
+  @ComputedRules(() => [/test/])
+  @ComputedRules(() => [/test2/])
   @Guard(guard1)
   hello(command: CommandMessage, client, mwsDatas) {
     return mwsDatas.original;
   }
-
 
   @Command("args :a :number :b")
   @Rules("an another rule path :slug :number")
@@ -53,7 +53,7 @@ abstract class BotCommandRules {
 }
 
 @Discord(/-mdb2\s{1,}/i, {
-  import: join(__dirname, "commands", "*.ts")
+  import: join(__dirname, "commands", "*.ts"),
 })
 abstract class BotCommandRules2 {
   @Command()
@@ -65,9 +65,9 @@ abstract class BotCommandRules2 {
 function createCommandMessage(content: string) {
   return {
     author: {
-      id: ""
+      id: "",
     },
-    content
+    content,
   };
 }
 
@@ -79,7 +79,7 @@ beforeAll(async () => {
 });
 
 async function triggerAndFilter(message: string) {
-  return (await client.trigger("message", createCommandMessage(message)));
+  return await client.trigger("message", createCommandMessage(message));
 }
 
 describe("Create commands", () => {

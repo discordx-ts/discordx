@@ -3,7 +3,7 @@ import {
   DCommandNotFound,
   InfosType,
   Expression,
-  ExpressionFunction
+  ExpressionFunction,
 } from "../..";
 
 export interface DiscordInfos<InfoType = any> {

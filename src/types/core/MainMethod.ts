@@ -1,9 +1,4 @@
-import {
-  DiscordEvents,
-  ArgsOf,
-  Client,
-  DOn
-} from "../..";
+import { DiscordEvents, ArgsOf, Client, DOn } from "../..";
 
 export interface MainResponse {
   readonly on: DOn;
@@ -11,4 +6,7 @@ export interface MainResponse {
   readonly executed: boolean;
 }
 
-export type MainMethod<Event extends DiscordEvents> = (params: ArgsOf<Event>, client: Client) => Promise<MainResponse>;
+export type MainMethod<Event extends DiscordEvents> = (
+  params: ArgsOf<Event>,
+  client: Client
+) => Promise<MainResponse>;

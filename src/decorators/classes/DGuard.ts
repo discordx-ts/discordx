@@ -1,7 +1,5 @@
 import { Decorator } from "./Decorator";
-import {
-  GuardFunction
-} from "../..";
+import { GuardFunction } from "../..";
 
 export class DGuard extends Decorator {
   protected _fn: GuardFunction;
@@ -10,9 +8,7 @@ export class DGuard extends Decorator {
     return this._fn;
   }
 
-  static createGuard(
-    fn: GuardFunction
-  ) {
+  static createGuard(fn: GuardFunction) {
     const guard = new DGuard();
 
     guard._fn = fn;

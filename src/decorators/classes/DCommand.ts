@@ -7,7 +7,7 @@ import {
   RuleBuilder,
   Rule,
   CommandMessage,
-  CommandInfos
+  CommandInfos,
 } from "../..";
 import { DOn } from "./DOn";
 
@@ -49,14 +49,11 @@ export class DCommand extends DOn implements Commandable<Expression> {
       infos: this.infos,
       argsRules: this.argsRules as ArgsRulesFunction<any>[],
       prefix: this.linkedDiscord.prefix,
-      commandName: this.commandName
+      commandName: this.commandName,
     };
   }
 
-
-  static createCommand(
-    commandName?: Expression | ExpressionFunction
-  ) {
+  static createCommand(commandName?: Expression | ExpressionFunction) {
     const command = new DCommand();
 
     if (commandName) {
@@ -72,12 +69,16 @@ export class DCommand extends DOn implements Commandable<Expression> {
         const expr = escapedCommandName as Expression;
         const isRuleBuilder = expr instanceof RuleBuilder;
         if (expr) {
-          finalCommandName = isRuleBuilder ? () => expr : () => Rule(expr).spaceOrEnd();
+          finalCommandName = isRuleBuilder
+            ? () => expr
+            : () => Rule(expr).spaceOrEnd();
         }
       }
 
       command._argsRules = [
-        async (command: CommandMessage) => [await (finalCommandName as ExpressionFunction)(command)]
+        async (command: CommandMessage) => [
+          await (finalCommandName as ExpressionFunction)(command),
+        ],
       ];
 
       command._commandName = escapedCommandName;
