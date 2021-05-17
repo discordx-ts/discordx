@@ -13,8 +13,8 @@ export interface ClientOptions extends DiscordJSClientOptions {
   classes: LoadClass[];
 
   /**
-   * The char that match your command args variables
+   * The character that match your command parameters variables
    * @default ":"
    */
-  variablesChar: string;
+  paramChar: string;
 }

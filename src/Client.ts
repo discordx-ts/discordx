@@ -14,18 +14,8 @@ import {
 } from ".";
 
 export class Client extends ClientJS {
-  private static _variablesChar: string;
-  private static _variablesExpression: RegExp;
   private _silent: boolean;
   private _loadClasses: LoadClass[];
-
-  static get variablesChar() {
-    return this._variablesChar;
-  }
-
-  static get variablesExpression() {
-    return this._variablesExpression;
-  }
 
   get silent() {
     return this._silent;
@@ -43,12 +33,6 @@ export class Client extends ClientJS {
 
     this._silent = options?.silent !== undefined || false;
     this._loadClasses = options?.classes || [];
-
-    Client._variablesChar = options?.variablesChar || ":";
-    Client._variablesExpression = new RegExp(
-      `\\s{1,}${Client._variablesChar}\\w*`,
-      "g"
-    );
   }
 
   /**

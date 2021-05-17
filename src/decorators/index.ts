@@ -4,10 +4,8 @@ export * from "./decorators/Guard";
 export * from "./decorators/Discord";
 export * from "./decorators/Command";
 export * from "./decorators/CommandNotFound";
-export * from "./decorators/Rules";
 export * from "./decorators/Infos";
 export * from "./decorators/Description";
-export * from "./decorators/ComputedRules";
 
 export * from "./params/CommandParams";
 export * from "./params/CommandNotFoundParams";

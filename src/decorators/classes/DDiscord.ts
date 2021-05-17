@@ -12,17 +12,13 @@ import {
   DiscordInfos,
 } from "../..";
 
-export class DDiscord extends Decorator implements Commandable<Expression> {
-  protected _argsRules: ArgsRulesFunction[];
+export class DDiscord extends Decorator implements Commandable {
+  protected _rules: (Expression | ExpressionFunction)[] = [];
+  protected _normalizedRules: ExpressionFunction[] = [];
   protected _commandNotFound?: DCommandNotFound;
   protected _instance?: Function;
-  protected _originalRules: Partial<Commandable> = {};
   protected _infos: InfosType = {};
-  protected _prefix: Expression | ExpressionFunction;
-
-  get originalRules() {
-    return this._originalRules;
-  }
+  protected _prefix: ExpressionFunction;
 
   get description() {
     return this._infos.description;
@@ -30,6 +26,9 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
 
   get prefix() {
     return this._prefix;
+  }
+  set prefix(value) {
+    this._prefix = value;
   }
 
   get infos() {
@@ -39,11 +38,15 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
     this._infos = value;
   }
 
-  get argsRules() {
-    return this._argsRules;
+  get rules() {
+    return this._rules;
   }
-  set argsRules(value) {
-    this._argsRules = value;
+  set rules(value) {
+    this._rules = value;
+  }
+
+  get normalizedRules() {
+    return this._normalizedRules;
   }
 
   get instance() {
@@ -61,7 +64,7 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
     return {
       description: this.description,
       infos: this.infos,
-      argsRules: this.argsRules,
+      rules: this.normalizedRules,
       prefix: this.prefix,
     };
   }
@@ -69,27 +72,7 @@ export class DDiscord extends Decorator implements Commandable<Expression> {
   static createDiscord(prefix: Expression | ExpressionFunction) {
     const discord = new DDiscord();
 
-    let finalPrefix = prefix;
-
-    if (RuleBuilder.typeOfExpression(prefix) === String) {
-      finalPrefix = RuleBuilder.escape(prefix as string);
-    }
-
-    const escapedPrefix = finalPrefix;
-
-    if (typeof escapedPrefix !== "function") {
-      const isRuleBuilder = escapedPrefix instanceof RuleBuilder;
-      finalPrefix = isRuleBuilder
-        ? () => escapedPrefix as Expression
-        : () => Rule().startWith(escapedPrefix as Expression);
-    }
-
-    discord._argsRules = [
-      async (command: CommandMessage) => [
-        await (finalPrefix as ExpressionFunction)(command),
-      ],
-    ];
-    discord._prefix = escapedPrefix;
+    discord._prefix = RuleBuilder.normalize(prefix, (str) => Rule().startWith(str));
 
     return discord;
   }

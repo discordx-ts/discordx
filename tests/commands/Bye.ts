@@ -1,4 +1,4 @@
-import { Command, CommandMessage, Rule, Rules, On } from "../../src";
+import { Command, CommandMessage, Rule, On } from "../../src";
 
 export abstract class Bye {
   bindingTest = "pass";
@@ -9,7 +9,6 @@ export abstract class Bye {
   }
 
   @Command(Rule("bye").caseSensitive())
-  @Rules(Rule(/test/).space("me"))
   bye(command: CommandMessage) {
     return command.content + this.bindingTest;
   }

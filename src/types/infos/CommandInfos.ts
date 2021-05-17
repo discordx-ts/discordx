@@ -1,18 +1,12 @@
 import {
   InfosType,
-  RuleBuilder,
-  ArgsRulesFunction,
-  Expression,
   ExpressionFunction,
 } from "../..";
 
-export interface CommandInfos<
-  InfoType = any,
-  ArgsRulesType extends Expression = RuleBuilder
-> {
-  prefix: Expression | ExpressionFunction;
-  commandName: Expression | ExpressionFunction;
+export interface CommandInfos<InfoType = any> {
+  prefix: ExpressionFunction;
+  name: string;
   description: string;
   infos: InfosType<InfoType>;
-  argsRules: ArgsRulesFunction<ArgsRulesType>[];
+  rules: ExpressionFunction[];
 }

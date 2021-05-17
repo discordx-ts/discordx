@@ -1,5 +1,4 @@
 import { Message } from "discord.js";
-import { CommandMessage } from "../../types/public/CommandMessage";
 import {
   DOn,
   DDiscord,
@@ -14,6 +13,7 @@ import {
   DecoratorUtils,
   Rule,
   DIService,
+  CommandMessage
 } from "../..";
 
 export class MetadataStorage {
@@ -81,28 +81,35 @@ export class MetadataStorage {
   }
 
   async build() {
-    // Link the events with their instances
-    this._events = this._events.filter((on, index) => {
+    // Link the events with @Discord class instances
+    this._events = this._events.filter((on) => {
+      // Find the linked @Discord of an event
       const discord = this._discords.find((instance) => {
-        return instance.from === on.classRef;
+        return instance.from === on.from;
       });
 
+      // You can get the @Discord that wrap a @Command/@On by using 
+      // on.linkedDiscord or command.linkedDiscord
       on.linkedDiscord = discord;
 
       // If the command is imported remove the original one
-      if (on.hidden) {
-        this.removeEvent(on);
-        return false;
-      }
+      // @Discord({ import: [...] })
+
       return true;
     });
 
-    await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._commands
+    );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._commandNotFounds
     );
-    await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._discords
+    );
 
     this._events.map((on) => {
       on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
@@ -149,90 +156,47 @@ export class MetadataStorage {
       let paramsToInject: any = params;
       const isMessage = event === "message";
       let isCommand = false;
-      let notFoundOn;
-      let onCommands = [];
+      let notFoundOn: DCommandNotFound;
+      let onCommands: DOn[] = [];
 
       onCommands = (
         await Promise.all(
           this.events.map(async (on) => {
             if (isMessage && on instanceof DCommand) {
-              const message = params[0] as Message;
-              isCommand = true;
-              let pass: RuleBuilder[] = undefined;
+              // If the event type is "message" and if it's decorated by @Command
 
+              const message = params[0] as Message;
+              let pass: RuleBuilder[] = undefined;
+              isCommand = true;
+
+              // Do not trigger the command if the command was executed by the bot itself
               if (message.author.id === client.user.id) {
                 return;
               }
-
+              
+              on.rules = [
+                ...on.linkedDiscord.rules,
+                ...on.rules,
+              ];
+            
               const commandMessage = CommandMessage.create(message, on);
 
-              const computedDiscordRules = (
-                await Promise.all(
-                  on.linkedDiscord.argsRules.map(
-                    async (ar) => await ar(commandMessage, client)
-                  )
-                )
-              ).flatMap((rules) => {
-                return RuleBuilder.join(Rule(""), ...rules);
-              });
+              const prefixExpr = await on.linkedDiscord.prefix(commandMessage, client);
+              const prefix = Rule(prefixExpr);
 
-              let computedCommandRules = await Promise.all(
-                on.argsRules.map(async (ar) => await ar(commandMessage, client))
-              );
-
-              if (computedCommandRules.length <= 0) {
-                computedCommandRules = [[Rule(on.key).spaceOrEnd()]];
+              // If the message doesn't start with the @Discord prefix, do not continue
+              if (!prefix.test(message.content)) {
+                return;
               }
 
-              const allRules = computedDiscordRules
-                .reduce<RuleBuilder[][]>((prev, cdr) => {
-                  return [
-                    ...computedCommandRules.map<RuleBuilder[]>((ccr) => [
-                      cdr,
-                      ...RuleBuilder.fromArray(ccr),
-                    ]),
-                    ...prev,
-                  ];
-                }, [])
-                .flatMap((rules) => {
-                  const res = RuleBuilder.join(Rule(""), ...rules);
-                  return [
-                    [
-                      res
-                        .copy()
-                        .setSource(
-                          res.source.replace(Client.variablesExpression, "")
-                        ),
-                      res,
-                    ],
-                  ];
-                });
-
-              // Test if the message match any of the rules
-              pass = allRules.find((rule) => {
-                return rule[0].regex.test(message.content);
-              });
-
-              if (pass) {
-                CommandMessage.parseArgs(pass, commandMessage);
-
-                commandMessage.commandContent = commandMessage.content;
-                computedDiscordRules.map((cdr) => {
-                  commandMessage.commandContent =
-                    commandMessage.commandContent.replace(cdr.regex, "");
-                });
-
+              pass = await CommandMessage.pass(client, commandMessage);
+              
+              if (pass.length > 0) {
                 paramsToInject = commandMessage;
                 return on;
               } else {
-                // If it doesn't pass any of the rules => execute the commandNotFound only on the discord instance that match the message discord rules
-                const passNotFound = computedDiscordRules.some((cdr) => {
-                  return cdr.regex.test(message.content);
-                });
-
-                if (passNotFound) {
+                if (on.linkedDiscord.commandNotFound) {
                   notFoundOn = on.linkedDiscord.commandNotFound;
-                  paramsToInject = commandMessage;
                 }
               }
             } else if (
@@ -240,8 +204,11 @@ export class MetadataStorage {
               !(on instanceof DCommandNotFound) &&
               !(on instanceof DCommand)
             ) {
+              // If the event type is "message" but not decorated by @Command or @CommandNotFound
               return on;
             }
+
+            // It's not a @Command, returns undefined
             return undefined;
           })
         )
@@ -266,6 +233,7 @@ export class MetadataStorage {
 
       for (const on of eventsToExecute) {
         let injectedParams = paramsToInject;
+
         if (
           isCommand &&
           !Array.isArray(injectedParams) &&
@@ -275,6 +243,7 @@ export class MetadataStorage {
         }
 
         const res = await on.getMainFunction<Event>()(injectedParams, client);
+
         if (res.executed) {
           responses.push(res.res);
         }

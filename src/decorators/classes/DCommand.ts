@@ -11,14 +11,17 @@ import {
 } from "../..";
 import { DOn } from "./DOn";
 
-export class DCommand extends DOn implements Commandable<Expression> {
-  protected _argsRules: ArgsRulesFunction[];
-  protected _originalRules: Partial<Commandable> = {};
+export class DCommand extends DOn implements Commandable {
+  protected _rules: (Expression | ExpressionFunction)[] = [];
+  protected _normalizedRules: ExpressionFunction[] = [];
   protected _infos: InfosType = {};
-  protected _commandName: Expression | ExpressionFunction;
+  protected _params: string[] = [];
 
-  get originalRules() {
-    return this._originalRules;
+  get params() {
+    return this._params;
+  }
+  set params(value) {
+    this._params = value;
   }
 
   get infos() {
@@ -32,60 +35,37 @@ export class DCommand extends DOn implements Commandable<Expression> {
     return this._infos.description;
   }
 
-  get argsRules() {
-    return this._argsRules;
-  }
-  set argsRules(value) {
-    this._argsRules = value;
+  get name() {
+    return this._infos.name;
   }
 
-  get commandName() {
-    return this._commandName;
+  get rules() {
+    return this._rules;
+  }
+  set rules(value) {
+    this._rules = value;
+    this.update();
+  }
+
+  get normalizedRules() {
+    return this._normalizedRules;
   }
 
   get commandInfos(): CommandInfos {
     return {
+      name: this.infos.name,
       description: this.description,
       infos: this.infos,
-      argsRules: this.argsRules as ArgsRulesFunction<any>[],
+      rules: this.normalizedRules,
       prefix: this.linkedDiscord.prefix,
-      commandName: this.commandName,
     };
   }
 
-  static createCommand(commandName?: Expression | ExpressionFunction) {
+  static createCommand(rule?: Expression | ExpressionFunction, params?: string[]) {
     const command = new DCommand();
 
-    if (commandName) {
-      let finalCommandName = commandName;
-
-      if (RuleBuilder.typeOfExpression(finalCommandName) === String) {
-        finalCommandName = RuleBuilder.escape(finalCommandName as string);
-      }
-
-      const escapedCommandName = finalCommandName;
-
-      if (typeof escapedCommandName !== "function") {
-        const expr = escapedCommandName as Expression;
-        const isRuleBuilder = expr instanceof RuleBuilder;
-        if (expr) {
-          finalCommandName = isRuleBuilder
-            ? () => expr
-            : () => Rule(expr).spaceOrEnd();
-        }
-      }
-
-      command._argsRules = [
-        async (command: CommandMessage) => [
-          await (finalCommandName as ExpressionFunction)(command),
-        ],
-      ];
-
-      command._commandName = escapedCommandName;
-    } else {
-      command._argsRules = [];
-    }
-
+    command.rules = [rule] || [];
+    command.params = params || [];
     command._event = "message";
     command._once = false;
 
@@ -93,8 +73,15 @@ export class DCommand extends DOn implements Commandable<Expression> {
   }
 
   update() {
-    if (!this._commandName) {
-      this._commandName = this._key;
+    this._normalizedRules = this.rules.map(
+      (rule) => RuleBuilder.normalize(
+        rule,
+        (str) => Rule(str).escape().spaceOrEnd()
+      )
+    );
+  
+    if (!this._infos.name) {
+      this._infos.name = this._key;
     }
   }
 }

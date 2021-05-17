@@ -9,10 +9,8 @@ export class RuleBuilder {
   static readonly start = "^";
   static readonly end = "$";
   static readonly caseInsensitiveFlag = "i";
-  static readonly space = "\\s";
-  static readonly atLeastOne = "{1,}";
-  static readonly atLeastOneSpace = RuleBuilder.space + RuleBuilder.atLeastOne;
-  static readonly atLeastOneSpaceOrEnd = "(\\s{1,}|$)";
+  static readonly space = /\s/.source;
+  static readonly atLeastOne = "+";
 
   private _source?: string = "";
   private _flags: string = "i";
@@ -37,11 +35,45 @@ export class RuleBuilder {
     return new RegExp(this._source, this._flags);
   }
 
+  get type() {
+    return RuleBuilder.typeOfExpression(this);
+  }
+
   constructor(expr?: Expression, ...add: (string | RegExp)[]) {
     this.fromExpression(expr);
     if (add.length > 0) {
       this.add(...add);
     }
+  }
+
+  static normalize(
+    expr: Expression | ExpressionFunction,
+    stringRule: (str: string) => RuleBuilder
+  ): ExpressionFunction {
+    let finalRule: Expression;
+      
+    // We have to normalize the rules to have a single type
+    // for _normalizedRules
+    // (Expression is an union of many type, it's complicated to operate on)
+    switch (RuleBuilder.typeOfExpression(expr)) {
+      case Function:
+        // @Command((command: Command, client: Client) => {...})
+        return expr as ExpressionFunction;
+      case RegExp:
+        // @Command(/^hello.*$/)
+        finalRule = Rule(expr as RegExp);
+        break;
+      case String:
+        // @Command("hello")
+        finalRule = stringRule(expr as string);
+        break;
+      case RuleBuilder:
+        // @Command(Rule("hello"))
+        finalRule = expr as RuleBuilder;
+        break;
+    }
+
+    return (() => finalRule) as ExpressionFunction;
   }
 
   static validate(text: string, rules: ArgsRulesFunction[]) {
@@ -85,13 +117,6 @@ export class RuleBuilder {
     return Rule(source).setFlags(flags);
   }
 
-  static escape(text: Expression) {
-    if (typeof text === "string") {
-      return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-    }
-    return text;
-  }
-
   static isExpression(obj: any) {
     const exprType = this.typeOfExpression(obj);
     return [String, RuleBuilder, RegExp].includes(exprType as any);
@@ -101,14 +126,14 @@ export class RuleBuilder {
     if (typeof expr === "string") {
       return String;
     }
-    if (typeof expr === "function") {
-      return Function;
-    }
     if (expr instanceof RegExp) {
       return RegExp;
     }
     if (expr instanceof RuleBuilder) {
       return RuleBuilder;
+    }
+    if (typeof expr === "function") {
+      return Function;
     }
   }
 
@@ -129,6 +154,18 @@ export class RuleBuilder {
   }
 
   /**
+   * We escape the regex tokens of a string
+   * This operation is only applied on string
+   * @example escape("^hello?.my $name is .+lucy") returns "\^hello\?\.my \$name is \.\+lucy"
+   * @example https://regex101.com/r/TYVn9H/2
+   * @param text The expression parameter
+   * @returns The escaped text
+   */
+  escape() {
+    return this.setSource(this.source.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"));
+  }
+
+  /**
    * Create a copy of the current rule
    */
   copy() {
@@ -137,10 +174,6 @@ export class RuleBuilder {
     copy._from = this._from;
     copy._flags = this._flags;
     return copy;
-  }
-
-  addParam(name: string) {
-    return this.add();
   }
 
   /**
@@ -163,6 +196,10 @@ export class RuleBuilder {
     return this;
   }
 
+  test(text: string): boolean {
+    return this.regex.test(text);
+  }
+
   /**
    * Set the flags of your regex rule
    * @param flags the Regex flags
@@ -173,23 +210,15 @@ export class RuleBuilder {
   }
 
   space(exprToAdd?: Expression) {
-    return this.add(RuleBuilder.atLeastOneSpace, exprToAdd);
+    return this.add(/\s+/, exprToAdd);
   }
 
-  strictSpace(exprToAdd?: Expression) {
+  onlyOneSpace(exprToAdd?: Expression) {
     return this.add(RuleBuilder.space, exprToAdd);
   }
 
   setSource(source: string) {
     this._source = source;
-    return this;
-  }
-
-  /**
-   * Add \s{1,}
-   */
-  haveSpaceAfter() {
-    this._source += RuleBuilder.atLeastOneSpace;
     return this;
   }
 
@@ -230,7 +259,7 @@ export class RuleBuilder {
   }
 
   spaceOrEnd() {
-    return this.addOr(RuleBuilder.atLeastOneSpace, RuleBuilder.end);
+    return this.addOr(/\s+/, RuleBuilder.end);
   }
 
   /**

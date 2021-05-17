@@ -4,9 +4,7 @@ import {
   Client,
   Command,
   CommandMessage,
-  Rules,
   CommandNotFound,
-  ComputedRules,
   Guard,
   GuardFunction,
 } from "../src";
@@ -27,22 +25,22 @@ const guard1: GuardFunction<any, { message: any; original: string }> = async (
 @Discord(/-mdb\s{1,}/i, {
   import: join(__dirname, "commands", "*.ts"),
 })
-@Rules("!", "test")
+// @Rules("!", "test")
 abstract class BotCommandRules {
   @Command()
-  @Rules(/a/)
-  @Rules(/b/, /f/)
-  @ComputedRules(() => [/test/])
-  @ComputedRules(() => [/test2/])
+  @Command(/a/)
+  @Command(/b/)
+  // @Command(() => [/test/])
+  // @Command(() => [/test2/])
   @Guard(guard1)
   hello(command: CommandMessage, client, mwsDatas) {
     return mwsDatas.original;
   }
 
-  @Command("args :a :number :b")
-  @Rules("an another rule path :slug :number")
+  @Command("args :a :number :b", "a", "number", "b")
+  @Command("an another rule path :slug :number")
   args(command: CommandMessage, client, mwsDatas) {
-    return command.args;
+    return command.params;
   }
 
   @CommandNotFound()

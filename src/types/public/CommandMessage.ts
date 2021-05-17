@@ -3,7 +3,6 @@ import {
   CommandInfos,
   Expression,
   ExpressionFunction,
-  ArgsRulesFunction,
   InfosType,
   DiscordInfos,
   DCommand,
@@ -12,60 +11,71 @@ import {
   Rule,
 } from "../..";
 
-export class CommandMessage<ArgsType = any, InfoType extends InfosType = any>
+export class CommandMessage<
+  ParamsType extends {[key: string]: any} = {},
+  InfoType extends InfosType = any
+>
   extends Message
-  implements CommandInfos<InfoType, Expression>
+  implements CommandInfos<InfoType>
 {
-  prefix: Expression | ExpressionFunction;
-  commandName: Expression | ExpressionFunction;
+  prefix: ExpressionFunction;
+  name: string;
   description: string;
   infos: InfoType;
-  argsRules: ArgsRulesFunction<Expression>[];
+  rules: ExpressionFunction[];
   discord: DiscordInfos;
-  args: ArgsType;
+  params: ParamsType;
+  values: string[];
+  paramsNames: string[];
   commandContent: string;
 
-  static create<InfoType extends InfosType = any>(
+  static create<
+    ParamsType extends {[key: string]: any} = {},
+    InfoType extends InfosType = any>
+  (
     message: Message,
     command: DCommand
   ) {
-    const commandMessage = message as CommandMessage<any, InfoType>;
+    const commandMessage = { ...message } as CommandMessage<ParamsType, InfoType>;
 
     commandMessage.infos = command.commandInfos.infos;
     commandMessage.prefix = command.commandInfos.prefix;
-    commandMessage.argsRules = command.commandInfos.argsRules;
-    commandMessage.commandName = command.commandInfos.commandName;
-    commandMessage.description = command.commandInfos.description;
+    commandMessage.rules = command.normalizedRules;
+    commandMessage.name = command.name;
+    commandMessage.description = command.description;
     commandMessage.discord = command.linkedDiscord.discordInfos;
-    commandMessage.args = {};
+    commandMessage.values = commandMessage.content.split(/\s+/);
+
+    commandMessage.paramsNames = command.params;
+    commandMessage.params = command.params.reverse().reduce<any>((prev, param, index) => {
+      return {
+        ...prev,
+        [param]: commandMessage.values[commandMessage.values.length - index - 1]
+      };
+    }, {});
 
     return commandMessage;
   }
 
-  static parseArgs(expression: RuleBuilder[], message: CommandMessage) {
-    const excludeSpecialChar = /[^\w]/gi;
-    const splitSpaces = /\s{1,}/g;
+  static async pass(client: Client, commandMessage: CommandMessage): Promise<RuleBuilder[]> {
+    const rules = await Promise.all(commandMessage.rules.map(async (rule) => {
+      return await rule(commandMessage, client);
+    }));
 
-    const originalArgsNames =
-      expression[1].source.match(Client.variablesExpression) || undefined;
-    const argsValues = message.content
-      .replace(expression[0].regex, "")
-      .split(splitSpaces)
-      .filter((i) => i);
-    if (originalArgsNames) {
-      originalArgsNames.map((argName, index) => {
-        const normalized = argName.replace(excludeSpecialChar, "").trim();
-        const value = argsValues[index];
-        const numberValue = Number(value);
+    return rules.reduce((prev, rule) => {
+      if (!rule) {
+        return prev;
+      }
 
-        message.args[normalized] =
-          Number.isNaN(numberValue) || !Number.isSafeInteger(numberValue)
-            ? value
-            : numberValue;
-      });
-    } else {
-      // if no arg names present, args = the regex group results.
-      message.args = expression[0].regex.exec(message.content);
-    }
+      const ruleBuilder = Rule(rule)
+      if (ruleBuilder.test(commandMessage.content)) {
+        return [
+          ...prev,
+          ruleBuilder
+        ];
+      }
+
+      return prev;
+    }, []);
   }
 }

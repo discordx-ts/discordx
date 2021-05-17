@@ -7,9 +7,9 @@ import {
 } from "../..";
 
 export interface DiscordInfos<InfoType = any> {
-  argsRules: ArgsRulesFunction[];
+  rules: ExpressionFunction[];
   commandNotFound?: DCommandNotFound;
   infos: InfosType<InfoType>;
   description: string;
-  prefix: Expression | ExpressionFunction;
+  prefix: ExpressionFunction;
 }
