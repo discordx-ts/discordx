@@ -21,3 +21,4 @@ export * from "./classes/DSlash";
 export * from "./classes/DOption";
 export * from "./classes/DChoice";
 export * from "./classes/Modifier";
+export * from "./classes/Method";

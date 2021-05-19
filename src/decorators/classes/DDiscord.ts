@@ -3,10 +3,10 @@ import {
   DiscordInfos,
   DGuard,
 } from "../..";
+import { DIService } from "../../logic";
 
 export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
-  private _instance?: Function;
   private _description: string;
   private _name: string;
 
@@ -32,7 +32,7 @@ export class DDiscord extends Decorator {
   }
 
   get instance() {
-    return this._instance;
+    return DIService.instance.getService(this.from);
   }
 
   get discordInfos(): DiscordInfos {

@@ -8,12 +8,23 @@ import {
   Option,
   Choice,
   Permission,
+  Guard,
 } from "../../../src";
 
 @Discord()
+@Guard(async (a, b, c, d) => {
+  console.log(a, b, c, d);
+  await c();
+})
 export abstract class AppDiscord {
+  x = "s";
+
   @On("message")
-  onMessage([message]: ArgsOf<"message">, client: Client) {
+  @Guard(async (a, b, c, d) => {
+    console.log(a, b, c, d);
+    await c();
+  })
+  onMessage([message]: ArgsOf<"message">, client: Client, a, b) {
     console.log(message.content);
   }
 

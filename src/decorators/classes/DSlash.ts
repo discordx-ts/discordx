@@ -1,26 +1,18 @@
 import {
   ApplicationCommandData,
   ApplicationCommandPermissionData,
+  CommandInteraction,
 } from "discord.js";
-import { DOption, DDiscord, Client, DGuard } from "../..";
-import { Decorator } from "../classes/Decorator";
+import { DOption, Client } from "../..";
+import { Method } from "./Method";
 
-export class DSlash extends Decorator {
+export class DSlash extends Method {
   private _description: string;
   private _name: string;
   private _defaultPermission: boolean = true;
   private _options: DOption[] = [];
   private _permissions: string[] = [];
-  private _guards: DGuard[] = [];
   private _guilds: string[];
-  private _discord: DDiscord;
-
-  get discord() {
-    return this._discord;
-  }
-  set discord(value: DDiscord) {
-    this._discord = value;
-  }
 
   get permissions() {
     return this._permissions;
@@ -64,13 +56,6 @@ export class DSlash extends Decorator {
     this._options = value;
   }
 
-  get guards() {
-    return this._guards;
-  }
-  set guards(value) {
-    this._guards = value;
-  }
-
   protected constructor() {
     super();
   }
@@ -106,5 +91,9 @@ export class DSlash extends Decorator {
       id: permission,
       type: 1,
     }));
+  }
+
+  parseParams(interaction: CommandInteraction) {
+    return interaction.options.map((option) => option.value);
   }
 }

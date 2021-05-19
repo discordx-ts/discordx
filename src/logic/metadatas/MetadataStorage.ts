@@ -6,13 +6,11 @@ import {
   ArgsOf,
   DiscordEvents,
   Modifier,
-  DecoratorUtils,
   DIService,
   DSlash,
-  DOption
+  DOption,
+  Method
 } from "../..";
-
-type DiscordMember = DSlash | DOn;
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -46,7 +44,7 @@ export class MetadataStorage {
     return this._slashes as readonly DSlash[];
   }
 
-  private get discordMembers(): readonly DiscordMember[] {
+  private get discordMembers(): readonly Method[] {
     return [
       ...this._slashes,
       ...this._events
@@ -81,32 +79,29 @@ export class MetadataStorage {
 
   async build() {
     // Link the events with @Discord class instances
-    this.discordMembers.filter((on) => {
+    this.discordMembers.filter((member) => {
       // Find the linked @Discord of an event
       const discord = this._discords.find((instance) => {
-        return instance.from === on.from;
+        return instance.from === member.from;
       });
 
       // You can get the @Discord that wrap a @Command/@On by using
       // on.discord or slash.discord
-      on.discord = discord;
+      member.discord = discord;
     });
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._events);
     await Modifier.applyFromModifierListToList(this._modifiers, this._options);
     await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
-
-    this.discordMembers.map((on) => {
-      on.discord.guards = DecoratorUtils.getLinkedObjects(
-        on.discord,
-        this._guards
-      );
-
-      on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
-      // on.compileGuardFn();
-    });
   }
 
+  /**
+   * Trigger a discord event
+   * @param event The event to trigger
+   * @param client The discord.ts client instance
+   * @param once Should we execute the event once
+   */
   trigger<Event extends DiscordEvents>(
     event: Event,
     client: Client,
@@ -122,16 +117,9 @@ export class MetadataStorage {
     });
 
     return async (...params: ArgsOf<Event>) => {
-      const paramsToInject: any = params;
-
       for (const on of eventsToExecute) {
-        const injectedParams = paramsToInject;
-
-        const res = await on.getMainFunction<Event>()(injectedParams, client);
-
-        if (res.executed) {
-          responses.push(res.res);
-        }
+        const res = await on.execute(params, client);
+        responses.push(res);
       }
       return responses;
     };

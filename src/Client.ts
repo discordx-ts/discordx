@@ -9,7 +9,6 @@ import {
   ClientOptions,
   DiscordEvents,
   DOn,
-  DGuard,
   GuardFunction,
 } from ".";
 import { DSlash } from "./decorators";
@@ -19,7 +18,7 @@ export class Client extends ClientJS {
   private _loadClasses: LoadClass[] = [];
   private static _requiredByDefault: boolean = false;
   private static _slashGuilds: string[] = [];
-  private static _guards: DGuard[] = [];
+  private static _guards: GuardFunction[] = [];
 
   static get slashGuilds() {
     return Client._slashGuilds;
@@ -67,31 +66,17 @@ export class Client extends ClientJS {
   static get guards() {
     return Client._guards;
   }
-
-  /**
-   * Set the guards
-   * @param value The guards functions
-   * @returns The guards instances
-   */
-  static setGuards(...value: GuardFunction[]) {
-    Client._guards = value.map((guard) => DGuard.create(guard));
-    return Client._guards;
+  static set guards(value) {
+    Client._guards = value;
   }
-
   /**
    * The global guards
    */
   get guards() {
     return Client.guards;
   }
-
-  /**
-   * Set the guards
-   * @param value The guards functions
-   * @returns The guards instances
-   */
-  setGuards(...value: GuardFunction[]) {
-    return Client.setGuards(...value);
+  set guards(value) {
+    Client._guards = value;
   }
 
   /**
@@ -103,7 +88,7 @@ export class Client extends ClientJS {
 
     this._silent = options?.silent !== undefined || false;
     this._loadClasses = options?.classes || [];
-    this.setGuards(...(options.guards || []));
+    this.guards = options.guards || [];
     this.requiredByDefault = options.requiredByDefault;
     this.slashGuilds = options.slashGuilds || [];
   }
@@ -247,8 +232,7 @@ export class Client extends ClientJS {
     if (!command) return;
 
     // Parse the options values and inject it into the @Slash method
-    const options = interaction.options.map((option) => option.value);
-    await command.method(...options, interaction, this);
+    await command.execute(interaction, this);
   }
 
   /**
