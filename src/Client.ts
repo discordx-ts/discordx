@@ -120,12 +120,18 @@ export class Client extends ClientJS {
 
     this.build();
 
-    this.events.map((event) => {
-      if (!this.silent) {
+    if (!this.silent) {
+      console.log("Events");
+      this.events.map((event) => {
         const eventName = event.event;
-        console.log(`${eventName}: ${event.classRef.name}.${event.key}`);
-      }
-    });
+        console.log(`   ${eventName}: ${event.classRef.name}.${event.key}`);
+      });
+
+      console.log("Slash");
+      this.slashes.map((slash) => {
+        console.log(`   ${slash.name}: ${slash.classRef.name}.${slash.key}`);
+      });
+    }
 
     this.decorators.usedEvents.map(async (on) => {
       if (on.once) {
