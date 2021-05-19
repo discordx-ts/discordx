@@ -7,7 +7,7 @@ export function Guard(...fns: GuardFunction[]) {
     descriptor?: PropertyDescriptor
   ): void => {
     fns.map((fn) => {
-      const guard = DGuard.createGuard(fn).decorateUnknown(
+      const guard = DGuard.create(fn).decorateUnknown(
         target,
         key,
         descriptor

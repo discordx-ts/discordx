@@ -8,16 +8,16 @@ import {
 import { Decorator } from "../classes/Decorator";
 import { DChoice, Client } from "../..";
 
-type StringOptionType = 
-  "STRING" |
-  "BOOLEAN" |
-  "INTEGER" |
-  "CHANNEL" |
-  "ROLE" |
-  "USER" |
-  "MENTIONABLE" |
-  "SUB_COMMAND" |
-  "SUB_COMMAND_GROUP";
+type StringOptionType =
+  | "STRING"
+  | "BOOLEAN"
+  | "INTEGER"
+  | "CHANNEL"
+  | "ROLE"
+  | "USER"
+  | "MENTIONABLE"
+  | "SUB_COMMAND"
+  | "SUB_COMMAND_GROUP";
 
 export enum OptionType {
   STRING = "STRING",
@@ -28,19 +28,19 @@ export enum OptionType {
   USER = "USER",
   MENTIONABLE = "MENTIONABLE",
   SUB_COMMAND = "SUB_COMMAND",
-  SUB_COMMAND_GROUP = "SUB_COMMAND_GROUP"
+  SUB_COMMAND_GROUP = "SUB_COMMAND_GROUP",
 }
 
-export type OptionValueType = 
-  typeof String |
-  typeof Boolean |
-  typeof Number |
-  typeof ClientUser |
-  typeof TextChannel |
-  typeof VoiceChannel |
-  typeof Role |
-  OptionType |
-  StringOptionType;
+export type OptionValueType =
+  | typeof String
+  | typeof Boolean
+  | typeof Number
+  | typeof ClientUser
+  | typeof TextChannel
+  | typeof VoiceChannel
+  | typeof Role
+  | OptionType
+  | StringOptionType;
 
 export class DOption extends Decorator {
   private _required: boolean = false;
@@ -69,14 +69,14 @@ export class DOption extends Decorator {
   set description(value) {
     this._description = value;
   }
-  
+
   get required() {
     return this._required;
   }
   set required(value) {
     this._required = value;
   }
-  
+
   get choices() {
     return this._choices;
   }
@@ -84,7 +84,11 @@ export class DOption extends Decorator {
     this._choices = value;
   }
 
-  static createOption(
+  protected constructor() {
+    super();
+  }
+
+  static create(
     name: string,
     type: OptionValueType,
     description: string,
@@ -96,7 +100,8 @@ export class DOption extends Decorator {
     option._name = name;
     option._type = type || String;
     option._description = description || `${name} - ${option.getStringType()}`;
-    option._required = required !== undefined ? required : Client.requiredByDefault;
+    option._required =
+      required !== undefined ? required : Client.requiredByDefault;
     option._index = index;
 
     return option;
@@ -107,7 +112,7 @@ export class DOption extends Decorator {
       return this.type;
     }
 
-    switch(this.type) {
+    switch (this.type) {
       case String:
         return OptionType.STRING;
       case Number:
@@ -131,7 +136,7 @@ export class DOption extends Decorator {
       name: this.name,
       type: this.getStringType(),
       required: this.required,
-      choices: this.choices.map((choice) => choice.toObject())
+      choices: this.choices.map((choice) => choice.toObject()),
     };
   }
 }

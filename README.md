@@ -15,9 +15,11 @@
 </p>
 
 ## Introduction
+
 This module is an extension of **[`discord.js`](https://discordjs.guide/)**, so the internal behavior (methods, properties, ...) is the same.
 
 ## Index
+
 **Setup**
 
 - [Need help?](https://github.com/OwenCalvin/discord.ts#%EF%B8%8F-need-help-)
@@ -49,10 +51,12 @@ This module is an extension of **[`discord.js`](https://discordjs.guide/)**, so 
 **Informations**
 
 ## ☎️ Need help?
+
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
 ## 💾 Installation
+
 Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `@typeit/discord` with `discord.js`:
 
 ```sh
@@ -81,6 +85,7 @@ Your tsconfig.json should look like this:
 ```
 
 ## Setup and start your application
+
 In order to start your application, you must use the `discord.`**`ts`**'s `Client` (not the client that is provided by `discord.`**`js`**!).  
 It works the same as the `discord.`**`js`**'s `Client` (same methods, properties, ...).
 
@@ -107,7 +112,7 @@ async function start() {
       `${__dirname}/*Discord.ts`, // glob string to load the classes
       `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js
     ],
-    silent: false
+    silent: false,
   });
 
   await client.login("YOUR_TOKEN");
@@ -117,6 +122,7 @@ start();
 ```
 
 ## @Discord - Getting started
+
 So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized).
 
 ```typescript
@@ -133,6 +139,7 @@ abstract class AppDiscord {}
 ```
 
 ### @On / @Once - Listen to the events
+
 We can now declare methods that will be executed whenever a Discord event is triggered.  
 Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.  
 That's simple, when the event is triggered, the method is called:
@@ -155,6 +162,7 @@ abstract class AppDiscord {
 ```
 
 ### Client payload injection
+
 For each event a list of arguments is injected in your decorated method, you can type this list thanks to the `ArgsOf<Event>` type provided by `discord.ts`.
 You also receive other useful arguments after that:
 
@@ -181,11 +189,12 @@ abstract class AppDiscord {
 ```
 
 ## 📟 Commands
+
 `discord.ts` provides a decorator allowing the implementation of command systems very simply by essentially using only two decorators `@Command(rule?: string | RegExp | RuleBuilder)` and `@CommandNotFound()`.
 
 We will also use `@Discord(prefix: string)` to specify a prefix for our commands within the class.
 
-**You can specify a `regex` expression for your command names**  
+**You can specify a `regex` expression for your command names**
 
 > Notice that the first arguments do not use `ArgsOf`, the first payload is a `CommandMessage`.
 
@@ -215,6 +224,7 @@ abstract class AppDiscord {
 ```
 
 ### Regex with @Command
+
 ```typescript
 import {
   Discord,
@@ -238,9 +248,10 @@ abstract class AppDiscord {
   @CommandNotFound()
   private notFound(message: CommandMessage) {}
 }
-``` 
+```
 
 ### Async function with @Command
+
 May be for a very specific case
 
 ```typescript
@@ -255,7 +266,7 @@ import {
 
 async function getCommand(command: CommandMessage, client: Client) {
   // Waits ...
-  return /hello/i
+  return /hello/i;
 }
 
 // Specify your prefix
@@ -271,9 +282,10 @@ abstract class AppDiscord {
   @CommandNotFound()
   private notFound(message: CommandMessage) {}
 }
-``` 
+```
 
 ### RuleBuilder with @Command
+
 It's not very clear sometimes to use a regex expression. For this reason you can use the `RuleBuilder` API:
 To write `/salut\s+toi/i` it's simple and clear:
 
@@ -293,9 +305,10 @@ export abstract class Bye {
     command.reply("Ciao!");
   }
 }
-``` 
+```
 
 ### The `CommandMessage` object
+
 The `CommandMessage` is the first argument injected into a method using `@Command` or `@CommandNotFound`, it has exactly the same structure as the `Message` object in `discord.js` except that it includes useful information about the command that was executed such as:
 
 - `prefix`: `RuleBuilder`  
@@ -335,15 +348,16 @@ The `CommandMessage` is the first argument injected into a method using `@Comman
   Your message content splitted by space  
   `hello my name is stan` becomes `["hello", "my", "name", "is", "stan"]`
 
-- `paramsString`: `string`:   
+- `paramsString`: `string`:  
   Your message content without the command part  
   `-command hello my name is stan` becomes `"my name is stan"`
 
-- `paramsValues`: `string`:   
+- `paramsValues`: `string`:  
   `paramsString` splitted by space  
   `"my name is stan"` becomes `["my", "name", "is", "stan"]`
 
 ### Params parsing
+
 You have the ability to specify arguments for your command, as `express.js` does in it's routing system. So by using `":"` (or the value specified in `variablesChar` when your `Client` intializes) in the name of your `@Command` in front of the dynamic values, `discord.ts` will extract these informations when a command is executed and inject it into the `args` property of your `CommandMessage` with the correct name that you indicated in the command name.
 
 > If the argument value is a number the value will be casted automaticaly
@@ -363,6 +377,7 @@ abstract class AppDiscord {
 ```
 
 ### Dynamic Values
+
 Okay but what if my prefix or my command name of my `@Discord` / `@Command` decorators depends on external datas? Well you can specify a function that will be executed when a command is executed to verify the origin and return the correct value.
 
 You receive the `Message` as the first argument and the `Client` instance as the second one.
@@ -420,6 +435,7 @@ abstract class AppDiscord {
 ```
 
 ### Command directory pattern
+
 > [Example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/commands-dir)
 
 If you have a directory pattern that looks like this:
@@ -496,6 +512,7 @@ export abstract class MessageDelete {
 ```
 
 ## ℹ️ @Infos / @Description / @Name
+
 It would be useful to be able to specify order information, for example to display a help command (`!help`) in your application.
 For the one you have two useful decorators which are `@Infos`, `@Name` and `@Description`.
 
@@ -530,6 +547,7 @@ Client.getDiscords(); // @Discord
 ```
 
 ## ⚔️ Guards
+
 You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator.
 
 The order of execution of the guards is done according to their position in the list, so they will be executed in order (from top to bottom).
@@ -562,7 +580,9 @@ abstract class AppDiscord {
 ```
 
 ### Guards for `@Discord`
+
 When you use `@Guard` along with `@Discord` the guard is applied to:
+
 - each `@On` of the class
 - each `@Once` of the class
 - each `@Command` of the class
@@ -582,7 +602,7 @@ abstract class AppDiscord {
   message([message]: ArgsOf<"message">) {
     //...
   }
-  
+
   @Command("hello")
   message(command: CommandMessage) {
     //...
@@ -591,6 +611,7 @@ abstract class AppDiscord {
 ```
 
 ### Global guards
+
 When can setup some guards globally using `Client.setGuards`
 
 > The global guards are set statically, you can access it by `Client.guards`
@@ -607,7 +628,7 @@ async function start() {
     ],
     silent: false,
     // At instanciation
-    guards: [NotBot, Prefix("!")]
+    guards: [NotBot, Prefix("!")],
   });
 
   // Or using client.setGuards
@@ -620,6 +641,7 @@ start();
 ```
 
 ### The guard functions
+
 Here is a simple example of a guard function (the payload and the client instance are injected like for events)  
 Guards work like `Koa`'s, it's a function passed in parameter (after the `Client`'s instance) and you will have to call if the guard is passed.
 
@@ -656,6 +678,7 @@ export function Prefix(text: string, replace: boolean = true) {
 ```
 
 ### Guard datas
+
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 
 ```typescript
@@ -691,6 +714,7 @@ abstract class AppDiscord {
 ```
 
 ## API - Retrieve the infos
+
 You can simply get all the infos about your decorated stuff using:
 
 ```typescript
@@ -703,11 +727,13 @@ Client.getDiscords(); // @Discord
 ```
 
 ## 💡 Events and payload
+
 Here you have the details about the payloads that are injected into the method related to a specific event.
 Note that on some events, for example voiceStateUpdate, it will return an array of the subsequent event payloads, and the second parameter will be the discord.ts Client.
 **`@Once(event: DiscordEvent)` exists too, it executes the method only one time**
 
 ### The argument list
+
 Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.0)
 
 - **channelCreate**: `(Channel)`
@@ -762,9 +788,11 @@ Here is all the `DiscordEvents` and their parameters (`discord.js` version 12.2.
 - **shardResume**: `(number, number)`
 
 ## Examples
+
 Some examples are provided in the [`/examples` folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples) !
 
 ## Migration v4 to v5
+
 `@Rules` and `@ComputedRules` do not exists anymore, we simplify everything and corrected some bugs.
 
 ## See also

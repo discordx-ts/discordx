@@ -9,11 +9,7 @@ export function Slash(name?: string, params?: SlashParams) {
     key: string,
     descriptor: PropertyDescriptor
   ) => {
-
-    const slash = DSlash.createSlash(
-      name || key,
-      params?.description,
-    ).decorate(
+    const slash = DSlash.create(name || key, params?.description).decorate(
       target.constructor,
       key,
       target[key]

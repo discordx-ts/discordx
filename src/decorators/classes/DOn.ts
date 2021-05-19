@@ -6,16 +6,14 @@ import {
   ArgsOf,
   Client,
   GuardFunction,
-  DCommandNotFound,
   MainMethod,
-  DIService,
-  CommandMessage,
+  DIService
 } from "../..";
 
 export class DOn extends Decorator {
   protected _event: DiscordEvents;
   protected _mainFunction?: MainMethod<any>;
-  protected _linkedDiscord?: DDiscord;
+  protected _discord: DDiscord;
   protected _once: boolean;
   protected _guardsFunction?: (...params: any[]) => Promise<any>;
   protected _originalParams: Partial<DOn>;
@@ -23,16 +21,11 @@ export class DOn extends Decorator {
   protected _guards: DGuard[] = [];
   protected _hidden: boolean = false;
 
-  get linkedDiscord() {
-    return this._linkedDiscord;
+  get discord() {
+    return this._discord;
   }
-  set linkedDiscord(value: DDiscord) {
-    if (value) {
-      this._linkedDiscord = value;
-      if (this instanceof DCommandNotFound) {
-        this._linkedDiscord.commandNotFound = this;
-      }
-    }
+  set discord(value: DDiscord) {
+    this._discord = value;
   }
 
   get event() {
@@ -57,11 +50,15 @@ export class DOn extends Decorator {
   }
 
   set guards(value: DGuard[]) {
-    this._guards = [...Client.guards, ...this.linkedDiscord.guards, ...value];
+    this._guards = [...Client.guards, ...this.discord.guards, ...value];
     this.extractGuards();
   }
 
-  static createOn(event: DiscordEvents, once: boolean) {
+  protected constructor() {
+    super();
+  }
+
+  static create(event: DiscordEvents, once: boolean) {
     const on = new DOn();
 
     on._event = event;
@@ -71,7 +68,7 @@ export class DOn extends Decorator {
   }
 
   bind() {
-    this._method.bind(this._linkedDiscord.instance);
+    this._method.bind(this._discord.instance);
   }
 
   getMainFunction<Event extends DiscordEvents = any>(): MainMethod<Event> {
@@ -94,11 +91,7 @@ export class DOn extends Decorator {
       let res: any;
 
       if (index >= this._compiledGuards.length - 1) {
-        let normalizedParams = params;
-        if (this instanceof CommandMessage) {
-          normalizedParams = params[0];
-        }
-        res = await guardToExecute(normalizedParams, client, paramsToNext);
+        res = await guardToExecute(params, client, paramsToNext);
       } else {
         // If it's a commmand, the params isn't a array, and the destructing with guard causes an error
         const normalizedParams = Array.isArray(params) ? params : [params];

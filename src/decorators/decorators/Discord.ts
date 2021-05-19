@@ -3,13 +3,7 @@ import {
   MetadataStorage,
   DiscordParams,
   DDiscord,
-  Expression,
-  DiscordParamsLimited,
   DIService,
-  DCommand,
-  DOn,
-  DCommandNotFound,
-  ExpressionFunction,
 } from "../..";
 
 /**
@@ -34,22 +28,11 @@ function importCommand(classType: Function, target: Function) {
 }
 
 export function Discord();
-export function Discord(prefix: Expression);
-export function Discord(prefix: Expression, params: DiscordParamsLimited);
-export function Discord(prefix: ExpressionFunction);
-export function Discord(
-  prefix: ExpressionFunction,
-  params: DiscordParamsLimited
-);
-export function Discord(
-  prefix?: Expression | ExpressionFunction,
-  params?: DiscordParams
-) {
-  const finalParams = params || {};
-
+export function Discord(params: DiscordParams);
+export function Discord(params?: DiscordParams) {
   return (target: Function, key: string) => {
-    if (finalParams?.import) {
-      let importCommands = finalParams?.import || [];
+    if (params?.import) {
+      let importCommands = params?.import || [];
       if (!Array.isArray(importCommands)) {
         importCommands = [importCommands];
       }
@@ -83,7 +66,7 @@ export function Discord(
       });
     }
 
-    const instance = DDiscord.createDiscord(prefix, target.name).decorate(
+    const instance = DDiscord.create(target.name).decorate(
       target,
       target.name
     );

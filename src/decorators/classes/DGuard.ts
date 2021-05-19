@@ -8,7 +8,11 @@ export class DGuard extends Decorator {
     return this._fn;
   }
 
-  static createGuard(fn: GuardFunction) {
+  protected constructor() {
+    super();
+  }
+
+  static create(fn: GuardFunction) {
     const guard = new DGuard();
 
     guard._fn = fn;

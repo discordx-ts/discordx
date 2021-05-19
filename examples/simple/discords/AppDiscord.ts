@@ -1,5 +1,14 @@
 import { CommandInteraction, Permissions } from "discord.js";
-import { Discord, On, Client, ArgsOf, Slash, Option, Choice, Permission } from "../../../src";
+import {
+  Discord,
+  On,
+  Client,
+  ArgsOf,
+  Slash,
+  Option,
+  Choice,
+  Permission,
+} from "../../../src";
 
 @Discord()
 export abstract class AppDiscord {

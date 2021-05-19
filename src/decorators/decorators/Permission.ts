@@ -10,13 +10,10 @@ export function Permission(...roleIDs: string[]) {
     descriptor: PropertyDescriptor
   ) => {
     MetadataStorage.instance.addModifier(
-      Modifier.createModifier<DSlash>(async (original) => {
+      Modifier.create<DSlash>(async (original) => {
         original.defaultPermission = false;
-        original.permissions = [
-          ...original.permissions,
-          ...roleIDs
-        ];
-      }).decorateUnknown(target, key, descriptor)
+        original.permissions = [...original.permissions, ...roleIDs];
+      }, DSlash).decorateUnknown(target, key, descriptor)
     );
   };
 }

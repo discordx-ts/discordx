@@ -13,16 +13,15 @@ export class Main {
       intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILDS
       ],
       slashGuilds: ["693401527494377482"],
-      requiredByDefault: true
+      requiredByDefault: true,
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
     await this._client.login(
-      "YOUR_TOKEN",
+      "Njg4NDY2MTk0MDA5MDMwNzAy.Xm0uGw.NhlADYv3YgrutP2QFcXvDqh8dWc",
       `${__dirname}/discords/*.ts`, // glob string to load the classes
       `${__dirname}/discords/*.js` // If you compile your bot, the file extension will be .js
     );
@@ -36,8 +35,6 @@ export class Main {
     this._client.on("interaction", (interaction) => {
       this._client.executeSlash(interaction);
     });
-
-    console.log(Client.getCommands());
   }
 }
 

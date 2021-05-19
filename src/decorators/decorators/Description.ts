@@ -1,4 +1,5 @@
-import { MetadataStorage, DCommand, Modifier, DDiscord } from "../..";
+import { MetadataStorage, Modifier, DDiscord } from "../..";
+import { DSlash } from "../classes/DSlash";
 
 export function Description(description: string);
 export function Description(description: string) {
@@ -8,12 +9,9 @@ export function Description(description: string) {
     descriptor?: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.createModifier<DCommand | DDiscord>(async (original) => {
-        original.infos = {
-          ...original.infos,
-          description,
-        };
-      }).decorateUnknown(target, key, descriptor)
+      Modifier.create<DSlash | DDiscord>(async (original) => {
+        original.description = description;
+      }, DSlash, DDiscord).decorateUnknown(target, key, descriptor)
     );
   };
 }

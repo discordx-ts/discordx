@@ -4,13 +4,19 @@ import {
   DOption,
   OptionType,
   OptionValueType,
-  OptionParams
+  OptionParams,
+  Modifier,
 } from "../..";
+import { DSlash } from "../classes/DSlash";
 
 export function Option(name: string);
 export function Option(name: string, type: OptionValueType | OptionType);
 export function Option(name: string, params: OptionParams);
-export function Option(name: string, type: OptionValueType | OptionType, params: OptionParams);
+export function Option(
+  name: string,
+  type: OptionValueType | OptionType,
+  params: OptionParams
+);
 export function Option(
   name: string,
   typeOrParams?: OptionParams | OptionValueType | OptionType,
@@ -19,7 +25,9 @@ export function Option(
   return (target: Object, key: string, index: number) => {
     const isParams = typeof typeOrParams === "object";
     let finalParams: OptionParams = params || {};
-    let type = Reflect.getMetadata("design:paramtypes", target, key)[index] as OptionValueType;
+    let type = Reflect.getMetadata("design:paramtypes", target, key)[
+      index
+    ] as OptionValueType;
 
     if (isParams) {
       finalParams = typeOrParams as OptionParams;
@@ -27,11 +35,11 @@ export function Option(
       type = typeOrParams as OptionValueType;
     }
 
-    const option = DOption.createOption(
+    const option = DOption.create(
       name || key,
       type,
       finalParams?.description,
-      !!finalParams?.required,
+      finalParams?.required,
       index
     ).decorate(
       target.constructor,
@@ -39,6 +47,21 @@ export function Option(
       target[key],
       target.constructor,
       index
+    );
+
+    MetadataStorage.instance.addModifier(
+      Modifier.create<DSlash>(async (original) => {
+        original.options = [
+          ...original.options,
+          option
+        ];
+      }, DSlash).decorate(
+        target.constructor,
+        key,
+        target[key],
+        target.constructor,
+        index
+      )
     );
 
     MetadataStorage.instance.addOption(option);

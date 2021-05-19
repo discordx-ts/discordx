@@ -1,18 +1,16 @@
-import { Client as ClientJS, GuildApplicationCommandManager, Interaction } from "discord.js";
+import {
+  Client as ClientJS,
+  Interaction,
+} from "discord.js";
 import * as Glob from "glob";
 import {
   MetadataStorage,
   LoadClass,
   ClientOptions,
   DiscordEvents,
-  CommandInfos,
-  InfosType,
-  CommandNotFoundInfos,
-  EventInfos,
-  DiscordInfos,
   DOn,
   DGuard,
-  GuardFunction
+  GuardFunction,
 } from ".";
 import { DSlash } from "./decorators";
 
@@ -49,18 +47,18 @@ export class Client extends ClientJS {
     Client._requiredByDefault = value;
   }
 
-  get silent() {
-    return this._silent;
-  }
-  set silent(value: boolean) {
-    this._silent = value;
-  }
-
   static get slashes() {
     return MetadataStorage.instance.slashes as readonly DSlash[];
   }
   get slashes() {
     return MetadataStorage.instance.slashes as readonly DSlash[];
+  }
+
+  get silent() {
+    return this._silent;
+  }
+  set silent(value: boolean) {
+    this._silent = value;
   }
 
   /**
@@ -76,7 +74,7 @@ export class Client extends ClientJS {
    * @returns The guards instances
    */
   static setGuards(...value: GuardFunction[]) {
-    Client._guards = value.map((guard) => DGuard.createGuard(guard));
+    Client._guards = value.map((guard) => DGuard.create(guard));
     return Client._guards;
   }
 
@@ -105,57 +103,9 @@ export class Client extends ClientJS {
 
     this._silent = options?.silent !== undefined || false;
     this._loadClasses = options?.classes || [];
-    this.setGuards(...options.guards || []);
+    this.setGuards(...(options.guards || []));
     this.requiredByDefault = options.requiredByDefault;
     this.slashGuilds = options.slashGuilds || [];
-  }
-
-  /**
-   * Get the details about the created commands of your app (@Command)
-   */
-  static getCommands<Type extends InfosType = any>(): CommandInfos<Type>[] {
-    return MetadataStorage.instance.commands.map<CommandInfos<Type>>(
-      (c) => c.commandInfos
-    );
-  }
-
-  /**
-   * Get the details about the created events of your app (@On)
-   */
-  static getEvent(): EventInfos[] {
-    return MetadataStorage.instance.events.map<EventInfos>((event) => {
-      return {
-        event: event.event,
-        once: event.once,
-        linkedInstance: event.linkedDiscord,
-      };
-    });
-  }
-
-  /**
-   * Get the details about the created discords of your app (@Discord)
-   */
-  static getDiscords<Type extends InfosType = any>(): DiscordInfos<Type>[] {
-    return MetadataStorage.instance.discords.map<DiscordInfos<Type>>(
-      (d) => d.discordInfos
-    );
-  }
-
-  /**
-   * Get the details about the created commandsNotFound of your app (@CommandNotFound)
-   */
-  static getCommandsNotFound<
-    Type extends InfosType = any
-  >(): CommandNotFoundInfos<Type>[] {
-    return MetadataStorage.instance.commandsNotFound.map<
-      CommandNotFoundInfos<Type>
-    >((c) => {
-      return {
-        infos: c.infos as InfosType<Type>,
-        prefix: c.linkedDiscord.prefix,
-        description: c.infos.description,
-      };
-    });
   }
 
   /**
@@ -208,10 +158,15 @@ export class Client extends ClientJS {
     return super.login(token);
   }
 
+  /**
+   * Initialize all the @Slash with their permissions
+   */
   async initSlashes() {
     await Promise.all(
       this.slashes.map(async (slash) => {
+        // Init all the @Slash
         if (slash.guilds.length > 0) {
+          // If the @Slash is guild specific, add it to the guild
           await Promise.all(
             slash.guilds.map(async (guild) => {
               const commands = this.guilds.cache.get(guild).commands;
@@ -223,6 +178,7 @@ export class Client extends ClientJS {
             })
           );
         } else {
+          // If the @Slash is global, add it globaly
           const commands = this.application.commands;
           const command = await commands.create(slash.toObject());
 
@@ -234,39 +190,65 @@ export class Client extends ClientJS {
     );
   }
 
+  /**
+   * Fetch the existing slash commands of a guild or globaly
+   * @param guild The guild ID (empty -> globaly)
+   * @returns The existing commands
+   */
+  async fetchSlash(guild?: string) {
+    if (guild) {
+      return await this.guilds.cache.get(guild).commands.fetch();
+    }
+    return await this.application.commands.fetch();
+  }
+
+  /**
+   * Clear the Slash commands globaly or for some guilds
+   * @param guilds The guild IDs (empty -> globaly)
+   */
   async clearSlashes(...guilds: string[]) {
     if (guilds.length > 0) {
       await Promise.all(
         guilds.map(async (guild) => {
-          const commands = await this.guilds.cache.get(guild).commands.fetch();
-
-          await Promise.all(commands.map(async (value) => {
-            await this.guilds.cache.get(guild).commands.delete(value);
-          }));
+          // Select and delete the commands of each guild
+          const commands = await this.fetchSlash(guild);
+          await Promise.all(
+            commands.map(async (value) => {
+              await this.guilds.cache.get(guild).commands.delete(value);
+            })
+          );
         })
       );
     } else {
-      const commands = await this.application.commands.fetch();
-      
-      await Promise.all(commands.map(async (value) => {
-        await this.application.commands.delete(value);
-      }));
+      // Select and delete the commands of each guild
+      const commands = await this.fetchSlash();
+      await Promise.all(
+        commands.map(async (value) => {
+          await this.application.commands.delete(value);
+        })
+      );
     }
   }
 
-  executeSlash(interaction: Interaction) {
+  /**
+   * Execute the corresponding @Slash command based on an Interaction instance
+   * @param interaction The discord.js interaction instance
+   * @returns void
+   */
+  async executeSlash(interaction: Interaction) {
     // If the interaction isn't a slash command, return
     if (!interaction.isCommand()) return;
 
+    // Find the corresponding @Slash
     const command = MetadataStorage.instance.slashes.find((slash) => {
       return slash.name === interaction.commandName;
     });
 
     if (!command) return;
 
+    // Parse the options values and inject it into the @Slash method
     const options = interaction.options.map((option) => option.value);
-
-    command.method(...options, interaction, this);
+    await command.method(...options, interaction, this);
   }
 
   /**

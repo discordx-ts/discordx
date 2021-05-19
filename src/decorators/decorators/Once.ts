@@ -11,7 +11,7 @@ export function Once(event: DiscordEvents) {
     key: string,
     descriptor: PropertyDescriptor
   ): void => {
-    const on = DOn.createOn(event, true).decorate(
+    const on = DOn.create(event, true).decorate(
       target.constructor,
       key,
       descriptor.value

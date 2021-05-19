@@ -19,7 +19,11 @@ export class DChoice<Type = any> extends Decorator {
     this._value = value;
   }
 
-  static createChoice<Type = any>(name: string, value: Type) {
+  protected constructor() {
+    super();
+  }
+
+  static create<Type = any>(name: string, value: Type) {
     const choice = new DChoice<Type>();
 
     choice.name = name;
@@ -31,7 +35,7 @@ export class DChoice<Type = any> extends Decorator {
   toObject(): ApplicationCommandOptionChoice {
     return {
       name: this.name,
-      value: this.value as any
+      value: this.value as any,
     };
-  } 
+  }
 }

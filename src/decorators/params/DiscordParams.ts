@@ -1,5 +1,3 @@
-import { DiscordParamsLimited, Expression } from "../..";
-
-export interface DiscordParams extends DiscordParamsLimited {
-  prefix?: Expression;
+export interface DiscordParams {
+  import?: (string | Function)[] | string | Function;
 }

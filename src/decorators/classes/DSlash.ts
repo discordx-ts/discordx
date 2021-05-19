@@ -1,19 +1,26 @@
-import { ApplicationCommandData, ApplicationCommandPermissionData } from "discord.js";
 import {
-  InfosType,
-  DOption,
-  DDiscord,
-  Client
-} from "../..";
+  ApplicationCommandData,
+  ApplicationCommandPermissionData,
+} from "discord.js";
+import { DOption, DDiscord, Client, DGuard } from "../..";
 import { Decorator } from "../classes/Decorator";
 
-export class DSlash<IT extends InfosType = any> extends Decorator {
-  private _infos: IT = {} as any;
-  private _discord: DDiscord;
-  private _defaultPermission: boolean = true; 
+export class DSlash extends Decorator {
+  private _description: string;
+  private _name: string;
+  private _defaultPermission: boolean = true;
   private _options: DOption[] = [];
-  private _permissions: string[] = []; 
+  private _permissions: string[] = [];
+  private _guards: DGuard[] = [];
   private _guilds: string[];
+  private _discord: DDiscord;
+
+  get discord() {
+    return this._discord;
+  }
+  set discord(value: DDiscord) {
+    this._discord = value;
+  }
 
   get permissions() {
     return this._permissions;
@@ -36,25 +43,18 @@ export class DSlash<IT extends InfosType = any> extends Decorator {
     this._defaultPermission = value;
   }
 
-  get discord() {
-    return this._discord;
-  }
-  set discord(value) {
-    this._discord = value;
-  }
-
   get name() {
-    return this._infos.name;
+    return this._name;
   }
   set name(value: string) {
-    this._infos.name = value;
+    this._name = value;
   }
 
   get description() {
-    return this._infos.description;
+    return this._description;
   }
   set description(value: string) {
-    this._infos.description = value;
+    this._description = value;
   }
 
   get options() {
@@ -64,7 +64,18 @@ export class DSlash<IT extends InfosType = any> extends Decorator {
     this._options = value;
   }
 
-  static createSlash(
+  get guards() {
+    return this._guards;
+  }
+  set guards(value) {
+    this._guards = value;
+  }
+
+  protected constructor() {
+    super();
+  }
+
+  static create(
     name: string,
     description?: string,
     defaultPermission: boolean = true,
@@ -85,7 +96,7 @@ export class DSlash<IT extends InfosType = any> extends Decorator {
       name: this.name,
       description: this.description,
       options: this.options.reverse().map((option) => option.toObject()),
-      defaultPermission: this.defaultPermission
+      defaultPermission: this.defaultPermission,
     };
   }
 
@@ -93,7 +104,7 @@ export class DSlash<IT extends InfosType = any> extends Decorator {
     return this.permissions.map((permission) => ({
       permission: true,
       id: permission,
-      type: 1
+      type: 1,
     }));
   }
 }

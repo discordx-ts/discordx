@@ -38,9 +38,8 @@ export class Decorator {
     return !!this._method;
   }
 
-  protected constructor() {}
-
-  static create(...params: any[]) {}
+  protected constructor() {
+  }
 
   decorateUnknown(
     classRef: Function | Object,
@@ -48,7 +47,8 @@ export class Decorator {
     method?: PropertyDescriptor,
     index?: number
   ) {
-    const decorateAClass = DecoratorUtils.decorateAClass(method) && index === undefined;
+    const decorateAClass =
+      DecoratorUtils.decorateAClass(method) && index === undefined;
 
     const finalClassRef: Function = decorateAClass
       ? (classRef as Function)
@@ -56,7 +56,13 @@ export class Decorator {
     const finalKey = decorateAClass ? finalClassRef.name : key;
     const finalMethod = decorateAClass ? finalClassRef : method?.value;
 
-    return this.decorate(finalClassRef, finalKey, finalMethod, finalClassRef, index);
+    return this.decorate(
+      finalClassRef,
+      finalKey,
+      finalMethod,
+      finalClassRef,
+      index
+    );
   }
 
   decorate(
