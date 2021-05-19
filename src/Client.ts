@@ -127,21 +127,7 @@ export class Client extends ClientJS {
       }
     });
 
-    const usedEvents = this.events.reduce<DOn[]>(
-      (prev, event, index) => {
-        const found = this.events.find(
-          (event2) => event.event === event2.event
-        );
-        const foundIndex = this.events.indexOf(found);
-        if (foundIndex === index || found.once !== event.once) {
-          prev.push(event);
-        }
-        return prev;
-      },
-      []
-    );
-
-    usedEvents.map(async (on) => {
+    this.decorators.usedEvents.map(async (on) => {
       if (on.once) {
         this.once(
           on.event as any,

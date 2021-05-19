@@ -36,6 +36,27 @@ export class MetadataStorage {
     return this._events as readonly DOn[];
   }
 
+  /**
+   * Get the list of used events without duplications
+   */
+  get usedEvents() {
+    return this.events.reduce<DOn[]>(
+      (prev, event, index) => {
+        const found = this.events.find(
+          (event2) => event.event === event2.event
+        );
+        const foundIndex = this.events.indexOf(found);
+
+        if (foundIndex === index || found.once !== event.once) {
+          prev.push(event);
+        }
+
+        return prev;
+      },
+      []
+    ) as readonly DOn[];
+  }
+
   get discords() {
     return this._discords as readonly DDiscord[];
   }
