@@ -92,8 +92,8 @@ You have different parameters in addition to discord.js when you initialize your
 - **`silent` (`false` by default)**:  
   Allows you to disable your event information at startup.
 
-- **`variablesChar` (`":"` by default)**:  
-  Allows you to change the prefix character of a variable.
+- **`guards` (`[]` by default)**:  
+  Set the global guards.
 
 **You must specify the glob path(s) where your decorated classes are**
 
@@ -107,8 +107,7 @@ async function start() {
       `${__dirname}/*Discord.ts`, // glob string to load the classes
       `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js
     ],
-    silent: false,
-    variablesChar: ":",
+    silent: false
   });
 
   await client.login("YOUR_TOKEN");
