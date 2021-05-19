@@ -35,7 +35,7 @@ This module is an extension of **[`discord.js`](https://discordjs.guide/)**, so 
 - [`@Command`](https://github.com/OwenCalvin/discord.ts#-commands)  
   Create a command
 
-- [`@Infos` / `@Description` / `@Name`](https://github.com/OwenCalvin/discord.ts#%E2%84%B9%EF%B8%8F-infos--description)  
+- [`@Infos` / `@Description` / `@Name`](https://github.com/OwenCalvin/discord.ts#ℹ%EF%B8%8F-infos--description--name)  
   Add informations about your commands
 
 - [`@Guard`](https://github.com/OwenCalvin/discord.ts#%EF%B8%8F-guards)  
