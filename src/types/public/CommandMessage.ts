@@ -23,7 +23,6 @@ export class CommandMessage<
   paramsNames: string[] = [];
   paramsValues: string[] = [];
   paramsString: string;
-  commandContent: string;
   client: Client;
   message: Message;
   content: string;

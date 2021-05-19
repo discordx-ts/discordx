@@ -1,4 +1,5 @@
 import { ClientOptions as DiscordJSClientOptions } from "discord.js";
+import { GuardFunction } from "./GuardFunction";
 import { LoadClass } from "./LoadClass";
 
 export interface ClientOptions extends DiscordJSClientOptions {
@@ -13,8 +14,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   classes: LoadClass[];
 
   /**
-   * The character that match your command parameters variables
-   * @default ":"
+   * The global guards
    */
-  paramChar: string;
+  guards: GuardFunction[];
 }

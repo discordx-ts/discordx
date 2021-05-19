@@ -27,19 +27,37 @@ export class Client extends ClientJS {
     this._silent = value;
   }
 
+  /**
+   * The global guards
+   */
   static get guards() {
     return Client._guards;
   }
-  static setGuards(value: GuardFunction[]) {
+
+  /**
+   * Set the guards
+   * @param value The guards functions
+   * @returns The guards instances
+   */
+  static setGuards(...value: GuardFunction[]) {
     Client._guards = value.map((guard) => DGuard.createGuard(guard));
     return Client._guards;
   }
 
+  /**
+   * The global guards
+   */
   get guards() {
     return Client.guards;
   }
-  setGuards(value: GuardFunction[]) {
-    return Client.setGuards(value);
+
+  /**
+   * Set the guards
+   * @param value The guards functions
+   * @returns The guards instances
+   */
+  setGuards(...value: GuardFunction[]) {
+    return Client.setGuards(...value);
   }
 
   /**
@@ -51,6 +69,7 @@ export class Client extends ClientJS {
 
     this._silent = options?.silent !== undefined || false;
     this._loadClasses = options?.classes || [];
+    this.setGuards(...options.guards || []);
   }
 
   /**
