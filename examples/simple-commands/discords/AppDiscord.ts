@@ -7,17 +7,17 @@ import {
 } from "../../../src";
 
 interface HelloArgs {
-  slug: string;
-  number: number;
+  SLUG: string;
+  NUMBER: number;
 }
 
 @Discord("!")
 @Description("My super app")
 @Infos({ hello: "world" })
 export abstract class AppDiscord {
-  @Command("hello :slug :number")
+  @Command("hello", "SLUG", "NUMBER")
   hello(command: CommandMessage<HelloArgs>) {
-    const { slug, number } = command.args;
-    console.log(slug, number);
+    const { SLUG, NUMBER } = command.params;
+    console.log(SLUG, NUMBER);
   }
 }

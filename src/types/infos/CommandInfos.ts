@@ -1,7 +1,4 @@
-import {
-  InfosType,
-  ExpressionFunction,
-} from "../..";
+import { InfosType, ExpressionFunction } from "../..";
 
 export interface CommandInfos<InfoType = any> {
   prefix: ExpressionFunction;

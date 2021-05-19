@@ -30,34 +30,6 @@ function importCommand(classType: Function, target: Function) {
     // it's imported
     event.hidden = true;
     event.from = target;
-
-    // Add the imported command / on / commandNotFound
-    // into the MetadataStorage
-    // if (event instanceof DCommand) {
-    //   const newCommand = DCommand.createCommand().decorate(
-    //     target,
-    //     event.key,
-    //     event.method,
-    //     classType
-    //   );
-    //   MetadataStorage.instance.addCommand(newCommand);
-    // } else if (event instanceof DCommandNotFound) {
-    //   const newCommand = DCommandNotFound.createCommandNotFound().decorate(
-    //     target,
-    //     event.key,
-    //     event.method,
-    //     classType
-    //   );
-    //   MetadataStorage.instance.addCommandNotFound(newCommand);
-    // } else {
-    //   const newCommand = DOn.createOn(event.event, event.once).decorate(
-    //     target,
-    //     event.key,
-    //     event.method,
-    //     classType
-    //   );
-    //   MetadataStorage.instance.addOn(newCommand);
-    // }
   });
 }
 
@@ -75,7 +47,7 @@ export function Discord(
 ) {
   const finalParams = params || {};
 
-  return (target: Function) => {
+  return (target: Function, key: string) => {
     if (finalParams?.import) {
       let importCommands = finalParams?.import || [];
       if (!Array.isArray(importCommands)) {
@@ -111,10 +83,9 @@ export function Discord(
       });
     }
 
-    const instance = DDiscord.createDiscord(prefix).decorate(
+    const instance = DDiscord.createDiscord(prefix, target.name).decorate(
       target,
-      target.constructor.name,
-      target
+      target.name
     );
 
     MetadataStorage.instance.addDiscord(instance);

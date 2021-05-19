@@ -3,26 +3,22 @@ import {
   DCommandNotFound,
   Commandable,
   Expression,
-  ArgsRulesFunction,
   InfosType,
   ExpressionFunction,
   RuleBuilder,
-  CommandMessage,
   Rule,
   DiscordInfos,
+  DGuard,
 } from "../..";
 
 export class DDiscord extends Decorator implements Commandable {
   protected _rules: (Expression | ExpressionFunction)[] = [];
   protected _normalizedRules: ExpressionFunction[] = [];
+  protected _guards: DGuard[] = [];
   protected _commandNotFound?: DCommandNotFound;
   protected _instance?: Function;
   protected _infos: InfosType = {};
   protected _prefix: ExpressionFunction;
-
-  get description() {
-    return this._infos.description;
-  }
 
   get prefix() {
     return this._prefix;
@@ -38,11 +34,32 @@ export class DDiscord extends Decorator implements Commandable {
     this._infos = value;
   }
 
+  get description() {
+    return this._infos.description;
+  }
+  set description(value) {
+    this._infos.description = value;
+  }
+
+  get name() {
+    return this._infos.name;
+  }
+  set name(value) {
+    this._infos.name = value;
+  }
+
   get rules() {
     return this._rules;
   }
   set rules(value) {
     this._rules = value;
+  }
+
+  get guards() {
+    return this._guards;
+  }
+  set guards(value) {
+    this._guards = value;
   }
 
   get normalizedRules() {
@@ -62,6 +79,7 @@ export class DDiscord extends Decorator implements Commandable {
 
   get discordInfos(): DiscordInfos {
     return {
+      name: this.name,
       description: this.description,
       infos: this.infos,
       rules: this.normalizedRules,
@@ -69,10 +87,17 @@ export class DDiscord extends Decorator implements Commandable {
     };
   }
 
-  static createDiscord(prefix: Expression | ExpressionFunction) {
+  static createDiscord(prefix: Expression | ExpressionFunction, name: string) {
     const discord = new DDiscord();
 
-    discord._prefix = RuleBuilder.normalize(prefix, (str) => Rule().startWith(str));
+    discord._prefix = RuleBuilder.normalize(
+      prefix,
+      (str) => Rule().startWith(Rule(str).escape()),
+      (regexRule) => Rule().startWith(regexRule).setFlags(regexRule.flags),
+      (rule) => Rule().startWith(rule).setFlags(rule.flags)
+    );
+
+    discord.name = name;
 
     return discord;
   }

@@ -57,7 +57,7 @@ export class DOn extends Decorator {
   }
 
   set guards(value: DGuard[]) {
-    this._guards = value;
+    this._guards = [...Client.guards, ...this.linkedDiscord.guards, ...value];
     this.extractGuards();
   }
 
@@ -120,15 +120,17 @@ export class DOn extends Decorator {
       next(params, client, 0, {});
   }
 
-  // TOTEST: guard class binding
+  /**
+   * Bind the guards to the class instance created on DI
+   */
   private extractGuards() {
     this._guards.map((guard) => {
       this._compiledGuards.push(
-        guard.fn.bind(DIService.instance.getService(guard.from))
+        guard.fn.bind(DIService.instance.getService(guard.classRef))
       );
     });
     this._compiledGuards.push(
-      this.method.bind(DIService.instance.getService(this.from))
+      this.method.bind(DIService.instance.getService(this.classRef))
     );
   }
 

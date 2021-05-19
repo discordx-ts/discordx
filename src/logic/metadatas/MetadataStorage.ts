@@ -13,7 +13,8 @@ import {
   DecoratorUtils,
   Rule,
   DIService,
-  CommandMessage
+  CommandMessage,
+  // DSlash
 } from "../..";
 
 export class MetadataStorage {
@@ -22,6 +23,7 @@ export class MetadataStorage {
   private _commands: DCommand[] = [];
   private _commandNotFounds: DCommandNotFound[] = [];
   private _guards: DGuard[] = [];
+  // private _slashes: DSlash[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
 
@@ -48,6 +50,10 @@ export class MetadataStorage {
     return this._commands as readonly DCommand[];
   }
 
+  // get slashes() {
+  //   return this._slashes as readonly DSlash[];
+  // }
+
   get commandsNotFound() {
     return this._commandNotFounds as readonly DCommandNotFound[];
   }
@@ -64,6 +70,10 @@ export class MetadataStorage {
     this._commands.push(on);
     this.addOn(on);
   }
+
+  // addSlash(slash: DSlash) {
+  //   this._slashes.push(slash);
+  // }
 
   addCommandNotFound(on: DCommandNotFound) {
     this._commandNotFounds.push(on);
@@ -88,7 +98,7 @@ export class MetadataStorage {
         return instance.from === on.from;
       });
 
-      // You can get the @Discord that wrap a @Command/@On by using 
+      // You can get the @Discord that wrap a @Command/@On by using
       // on.linkedDiscord or command.linkedDiscord
       on.linkedDiscord = discord;
 
@@ -98,20 +108,18 @@ export class MetadataStorage {
       return true;
     });
 
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._commands
-    );
+    await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._commandNotFounds
     );
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._discords
-    );
+    await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
 
     this._events.map((on) => {
+      on.linkedDiscord.guards = DecoratorUtils.getLinkedObjects(
+        on.linkedDiscord,
+        this._guards
+      );
       on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
       on.compileGuardFn();
     });
@@ -173,29 +181,28 @@ export class MetadataStorage {
               if (message.author.id === client.user.id) {
                 return;
               }
-              
-              on.rules = [
-                ...on.linkedDiscord.rules,
-                ...on.rules,
-              ];
-            
-              const commandMessage = CommandMessage.create(message, on);
 
-              const prefixExpr = await on.linkedDiscord.prefix(commandMessage, client);
-              const prefix = Rule(prefixExpr);
+              on.rules = [...on.linkedDiscord.rules, ...on.rules];
+
+              const commandMessage = await CommandMessage.create(
+                message,
+                on,
+                client
+              );
 
               // If the message doesn't start with the @Discord prefix, do not continue
-              if (!prefix.test(message.content)) {
+              if (!commandMessage.prefix.test(message.content)) {
                 return;
               }
 
-              pass = await CommandMessage.pass(client, commandMessage);
-              
+              pass = await CommandMessage.pass(commandMessage);
+
               if (pass.length > 0) {
                 paramsToInject = commandMessage;
                 return on;
               } else {
                 if (on.linkedDiscord.commandNotFound) {
+                  paramsToInject = commandMessage;
                   notFoundOn = on.linkedDiscord.commandNotFound;
                 }
               }
@@ -209,7 +216,7 @@ export class MetadataStorage {
             }
 
             // It's not a @Command, returns undefined
-            return undefined;
+            return;
           })
         )
       ).filter((c) => c);
@@ -221,6 +228,7 @@ export class MetadataStorage {
         );
 
         if (realCommands.length > 0) {
+          // Execute the detected commands
           eventsToExecute = onCommands;
         } else if (notFoundOn && realCommands.length <= 0) {
           eventsToExecute = [...onsInCommands, notFoundOn];

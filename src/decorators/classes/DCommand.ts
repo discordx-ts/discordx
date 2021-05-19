@@ -61,10 +61,19 @@ export class DCommand extends DOn implements Commandable {
     };
   }
 
-  static createCommand(rule?: Expression | ExpressionFunction, params?: string[]) {
+  static createCommand(
+    rule?: Expression | ExpressionFunction,
+    params?: string[]
+  ) {
     const command = new DCommand();
 
-    command.rules = [rule] || [];
+    command.rules = [];
+    if (Array.isArray(rule)) {
+      command.rules = rule;
+    } else {
+      command.rules = [rule];
+    }
+
     command.params = params || [];
     command._event = "message";
     command._once = false;
@@ -73,13 +82,15 @@ export class DCommand extends DOn implements Commandable {
   }
 
   update() {
-    this._normalizedRules = this.rules.map(
-      (rule) => RuleBuilder.normalize(
+    this._normalizedRules = this.rules.map((rule) =>
+      RuleBuilder.normalize(
         rule,
-        (str) => Rule(str).escape().spaceOrEnd()
+        (str) => Rule(str).escape().spaceOrEnd(),
+        (regexRule) => regexRule.spaceOrEnd().setFlags(regexRule.flags),
+        (rule) => rule.spaceOrEnd().setFlags(rule.flags)
       )
     );
-  
+
     if (!this._infos.name) {
       this._infos.name = this._key;
     }

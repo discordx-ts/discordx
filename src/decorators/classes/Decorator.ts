@@ -38,13 +38,15 @@ export class Decorator {
   static create(...params: any[]) {}
 
   decorateUnknown(
-    classRef: Function,
+    classRef: Function | Object,
     key?: string,
     method?: PropertyDescriptor
   ) {
     const decorateAClass = DecoratorUtils.decorateAClass(method);
 
-    const finalClassRef = decorateAClass ? classRef : classRef.constructor;
+    const finalClassRef: Function = decorateAClass
+      ? (classRef as Function)
+      : classRef.constructor;
     const finalKey = decorateAClass ? finalClassRef.name : key;
     const finalMethod = decorateAClass ? finalClassRef : method?.value;
 

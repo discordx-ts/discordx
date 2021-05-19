@@ -5,6 +5,6 @@ export default abstract class Ping {
   @Command()
   @Guard(Say("Pong"))
   async execute(command: CommandMessage) {
-    command.reply("Pong");
+    command.message.reply("Pong");
   }
 }

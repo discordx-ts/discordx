@@ -12,7 +12,7 @@ export class DecoratorUtils {
 
   static getLinkedObjects<Type extends Decorator>(a: Decorator, list: Type[]) {
     return list.filter((b) => {
-      return a.from === b.from && a.method === b.method;
+      return a.from === b.from && a.key === b.key;
     });
   }
 

@@ -20,6 +20,6 @@ export class DiscordApp {
 
   @CommandNotFound()
   notFoundA(command: CommandMessage) {
-    command.reply("Command not found");
+    command.message.reply("Command not found");
   }
 }

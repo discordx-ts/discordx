@@ -11,5 +11,6 @@ export interface DiscordInfos<InfoType = any> {
   commandNotFound?: DCommandNotFound;
   infos: InfosType<InfoType>;
   description: string;
+  name: string;
   prefix: ExpressionFunction;
 }

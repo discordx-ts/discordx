@@ -1,13 +1,13 @@
 import { ArgsOf, GuardFunction } from "../../../src";
 
 export const Say = (text: string) => {
-  const guard: GuardFunction<"commandMessage"> = async (
+  const guard: GuardFunction<"message"> = async (
     [message],
     client,
     next,
     nextObj
   ) => {
-    console.log(message.prefix, text);
+    console.log(message.content, text);
     await next();
   };
 

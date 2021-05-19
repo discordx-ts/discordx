@@ -6,6 +6,8 @@ export * from "./decorators/Command";
 export * from "./decorators/CommandNotFound";
 export * from "./decorators/Infos";
 export * from "./decorators/Description";
+export * from "./decorators/Name";
+// export * from "./decorators/Slash";
 
 export * from "./params/CommandParams";
 export * from "./params/CommandNotFoundParams";
@@ -20,4 +22,5 @@ export * from "./classes/Decorator";
 export * from "./classes/DGuard";
 export * from "./classes/DDiscord";
 export * from "./classes/DOn";
+// export * from "./classes/DSlash";
 export * from "./classes/Modifier";

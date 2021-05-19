@@ -2,20 +2,26 @@ import {
   MetadataStorage,
   DCommand,
   Expression,
-  ExpressionFunction
+  ExpressionFunction,
 } from "../..";
 
 export function Command();
-export function Command(rule: (Expression | ExpressionFunction));
-export function Command(rule: (Expression | ExpressionFunction), ...params: string[]);
-export function Command(rule?: Expression | ExpressionFunction, ...params: string[]) {
+export function Command(rule: Expression | ExpressionFunction);
+export function Command(
+  rule: Expression | ExpressionFunction,
+  ...params: string[]
+);
+export function Command(
+  rule?: Expression | ExpressionFunction,
+  ...params: string[]
+) {
   return async (
     target: Object,
     key: string,
     descriptor: PropertyDescriptor
   ) => {
     let finalRule: Expression | ExpressionFunction = rule;
-  
+
     if (!finalRule) {
       finalRule = key;
     }
@@ -23,7 +29,7 @@ export function Command(rule?: Expression | ExpressionFunction, ...params: strin
     const command = DCommand.createCommand(finalRule, params).decorate(
       target.constructor,
       key,
-      descriptor.value
+      target[key]
     );
 
     MetadataStorage.instance.addCommand(command);

@@ -8,15 +8,15 @@ import {
 
 @Discord("!")
 export class CommandsB {
-  @Command("hello :slug :number")
+  @Command("hello", "SLUG", "NUMBER")
   hello(command: CommandMessage, client: Client) {
     console.log(client);
-    command.reply("Hello B");
+    command.message.reply("Hello B");
   }
 
   @CommandNotFound()
   notFound(command: CommandMessage, client: Client) {
     console.log(client);
-    command.reply("NotFound B");
+    command.message.reply("NotFound B");
   }
 }

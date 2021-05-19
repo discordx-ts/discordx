@@ -4,8 +4,6 @@ import {
   Rule,
   CommandMessage,
   Command,
-  Rules,
-  ComputedRules,
   Expression,
   Description,
   Infos,
@@ -13,12 +11,10 @@ import {
 } from "../../../src";
 
 async function getRulesFromServer(command: CommandMessage) {
-  let rules: Expression[] = [/compute$/];
-
-  return rules;
+  return /compute$/;
 }
 
-@Discord(Rule().startWith("-hello").spaceOrEnd()) // => /^-hello(${1,}|$)/
+@Discord(Rule("-hello").spaceOrEnd()) // => /^-hello(${1,}|$)/
 @Description("My app part of the bot that is prefixed by -hello")
 @Infos({ hello: "world" })
 export abstract class AppDiscord {
@@ -35,9 +31,9 @@ export abstract class AppDiscord {
   // "-hello 1" or "-hello 2", ...
   // "-hello " + your server rules (/compute$/) => "-hello compute"
   @Command("bye") // Auto end ($)
-  @Rules("bye", Rule("alias").end())
-  @Rules(/[0-9]$/)
-  @ComputedRules(getRulesFromServer)
+  @Command(Rule("bye").space("alias").end())
+  @Command(/[0-9]$/)
+  @Command(getRulesFromServer)
   bye(command: CommandMessage) {
     console.log(command.content);
   }

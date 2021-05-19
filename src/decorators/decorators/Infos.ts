@@ -26,9 +26,10 @@ export function Infos<Type = any>(
   ): void => {
     MetadataStorage.instance.addModifier(
       Modifier.createModifier<DCommand | DDiscord>(async (original) => {
+        const newInfos = await normalizedInfos(original as any);
         original.infos = {
           ...original.infos,
-          ...(await normalizedInfos(original as any)),
+          ...newInfos,
         };
       }).decorateUnknown(target, key, descriptor)
     );

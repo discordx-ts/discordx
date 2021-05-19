@@ -9,48 +9,75 @@ import {
   GuardFunction,
 } from "../src";
 
-const guard1: GuardFunction<any, { message: any; original: string }> = async (
+const guard0: GuardFunction<any, { message: any; guards: string }> = async (
   [message]: [any],
   client,
   next,
   mwDatas
 ) => {
   await new Promise((resolve) => {
-    setTimeout(resolve, 500);
+    setTimeout(resolve, 100);
   });
-  mwDatas.original = message.content + "0";
+  mwDatas.guards = "0";
   return await next();
 };
 
-@Discord(/-mdb\s{1,}/i, {
+const guard1: GuardFunction<any, { message: any; guards: string }> = async (
+  [message]: [any],
+  client,
+  next,
+  mwDatas
+) => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 100);
+  });
+  mwDatas.guards += "1";
+  return await next();
+};
+
+const guard2: GuardFunction<any, { message: any; guards: string }> = async (
+  [message]: [any],
+  client,
+  next,
+  mwDatas
+) => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 100);
+  });
+  mwDatas.guards += "2";
+  return await next();
+};
+
+@Discord(/-mdb\s+/i, {
   import: join(__dirname, "commands", "*.ts"),
 })
-// @Rules("!", "test")
+@Guard(guard0, guard1)
 abstract class BotCommandRules {
   @Command()
   @Command(/a/)
   @Command(/b/)
-  // @Command(() => [/test/])
-  // @Command(() => [/test2/])
-  @Guard(guard1)
+  @Command(() => /test2/)
+  @Command(() => /test/)
+  @Guard(guard1, guard2)
   hello(command: CommandMessage, client, mwsDatas) {
-    return mwsDatas.original;
+    return mwsDatas;
   }
 
-  @Command("args :a :number :b", "a", "number", "b")
-  @Command("an another rule path :slug :number")
+  @Command("args", "a", "number", "b")
+  @Command("an another rule path", "slug", "number")
   args(command: CommandMessage, client, mwsDatas) {
     return command.params;
   }
 
   @CommandNotFound()
-  @Guard(guard1)
+  @Guard(guard2, guard1)
   cnf(command: CommandMessage, client, mwsDatas) {
-    return "notfound" + mwsDatas.original;
+    mwsDatas.notfound = true;
+    return mwsDatas;
   }
 }
 
-@Discord(/-mdb2\s{1,}/i, {
+@Discord(/-mdb2\s+/i, {
   import: join(__dirname, "commands", "*.ts"),
 })
 abstract class BotCommandRules2 {
@@ -86,32 +113,23 @@ describe("Create commands", () => {
     expect(res1).toEqual([]);
 
     const res2 = await triggerAndFilter("-mdb ");
-    expect(res2).toEqual(["notfound-mdb 0"]);
+    expect(res2).toEqual([{ guards: "0121", notfound: true }]);
 
     const res3 = await triggerAndFilter("-mdb hello");
-    expect(res3).toEqual(["notfound-mdb hello0"]);
+    expect(res3).toEqual([{ guards: "0112" }]);
 
     const res4 = await triggerAndFilter("-mdb bf");
-    expect(res4).toEqual(["-mdb bf0"]);
+    expect(res4).toEqual([{ guards: "0121", notfound: true }]);
 
     const res5 = await triggerAndFilter("-mdb test");
-    expect(res5).toEqual(["-mdb test0"]);
-
-    const res6 = await triggerAndFilter("!testa");
-    expect(res6).toEqual(["!testa0"]);
+    expect(res5).toEqual([{ guards: "0112" }]);
   });
 
   it("Should parse the args", async () => {
     const res1 = await triggerAndFilter("-mdb args a 34");
-    expect(res1[1]).toEqual({ a: "a", b: undefined, number: 34 });
+    expect(res1[0]).toEqual({ a: "a", b: undefined, number: 34 });
 
     const res2 = await triggerAndFilter("-mdb an another rule path yo 56");
-    expect(res2[1]).toEqual({ slug: "yo", number: 56 });
-
-    const res3 = await triggerAndFilter("!testan another rule path yo 56");
-    expect(res3[1]).toEqual({ slug: "yo", number: 56 });
-
-    const res4 = await triggerAndFilter("!testargs a 34");
-    expect(res4[1]).toEqual({ a: "a", b: undefined, number: 34 });
+    expect(res2[0]).toEqual({ slug: "yo", number: 56 });
   });
 });

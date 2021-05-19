@@ -48,10 +48,12 @@ export class RuleBuilder {
 
   static normalize(
     expr: Expression | ExpressionFunction,
-    stringRule: (str: string) => RuleBuilder
+    stringRule: (str: string) => RuleBuilder,
+    regexRule: (str: RuleBuilder) => RuleBuilder,
+    ruleRule: (str: RuleBuilder) => RuleBuilder
   ): ExpressionFunction {
     let finalRule: Expression;
-      
+
     // We have to normalize the rules to have a single type
     // for _normalizedRules
     // (Expression is an union of many type, it's complicated to operate on)
@@ -61,15 +63,17 @@ export class RuleBuilder {
         return expr as ExpressionFunction;
       case RegExp:
         // @Command(/^hello.*$/)
-        finalRule = Rule(expr as RegExp);
-        break;
-      case String:
-        // @Command("hello")
-        finalRule = stringRule(expr as string);
+        finalRule = expr as RegExp;
+        finalRule = regexRule(Rule(finalRule)).setFlags(finalRule.flags);
         break;
       case RuleBuilder:
         // @Command(Rule("hello"))
         finalRule = expr as RuleBuilder;
+        finalRule = ruleRule(Rule(finalRule)).setFlags(finalRule.flags);
+        break;
+      case String:
+        // @Command("hello")
+        finalRule = stringRule(expr as string);
         break;
     }
 
@@ -162,7 +166,9 @@ export class RuleBuilder {
    * @returns The escaped text
    */
   escape() {
-    return this.setSource(this.source.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"));
+    return this.setSource(
+      this.source.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+    );
   }
 
   /**

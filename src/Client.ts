@@ -11,17 +11,35 @@ import {
   EventInfos,
   DiscordInfos,
   DOn,
+  DGuard,
 } from ".";
+import { GuardFunction } from "./types";
 
 export class Client extends ClientJS {
   private _silent: boolean;
-  private _loadClasses: LoadClass[];
+  private _loadClasses: LoadClass[] = [];
+  private static _guards: DGuard[] = [];
 
   get silent() {
     return this._silent;
   }
   set silent(value: boolean) {
     this._silent = value;
+  }
+
+  static get guards() {
+    return Client._guards;
+  }
+  static setGuards(value: GuardFunction[]) {
+    Client._guards = value.map((guard) => DGuard.createGuard(guard));
+    return Client._guards;
+  }
+
+  get guards() {
+    return Client.guards;
+  }
+  setGuards(value: GuardFunction[]) {
+    return Client.setGuards(value);
   }
 
   /**
@@ -97,7 +115,7 @@ export class Client extends ClientJS {
 
     MetadataStorage.instance.events.map((event) => {
       if (!this.silent) {
-        let eventName = event.event;
+        const eventName = event.event;
         console.log(`${eventName}: ${event.classRef.name}.${event.key}`);
       }
     });
