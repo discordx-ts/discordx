@@ -11,7 +11,7 @@ import {
   DOn,
   GuardFunction,
 } from ".";
-import { DSlash } from "./decorators";
+import { DDiscord, DSlash } from "./decorators";
 
 export class Client extends ClientJS {
   private _silent: boolean;
@@ -46,11 +46,45 @@ export class Client extends ClientJS {
     Client._requiredByDefault = value;
   }
 
+  static get guards() {
+    return Client._guards;
+  }
+  static set guards(value) {
+    Client._guards = value;
+  }
+  get guards() {
+    return Client.guards;
+  }
+  set guards(value) {
+    Client._guards = value;
+  }
+
   static get slashes() {
     return MetadataStorage.instance.slashes as readonly DSlash[];
   }
   get slashes() {
-    return MetadataStorage.instance.slashes as readonly DSlash[];
+    return Client.slashes;
+  }
+
+  static get events() {
+    return MetadataStorage.instance.events as readonly DOn[];
+  }
+  get events() {
+    return Client.events;
+  }
+
+  static get discords() {
+    return MetadataStorage.instance.discords as readonly DDiscord[];
+  }
+  get discord() {
+    return Client.discords;
+  }
+
+  static get decorators() {
+    return MetadataStorage.instance;
+  }
+  get decorators() {
+    return MetadataStorage.instance;
   }
 
   get silent() {
@@ -58,25 +92,6 @@ export class Client extends ClientJS {
   }
   set silent(value: boolean) {
     this._silent = value;
-  }
-
-  /**
-   * The global guards
-   */
-  static get guards() {
-    return Client._guards;
-  }
-  static set guards(value) {
-    Client._guards = value;
-  }
-  /**
-   * The global guards
-   */
-  get guards() {
-    return Client.guards;
-  }
-  set guards(value) {
-    Client._guards = value;
   }
 
   /**
@@ -105,19 +120,19 @@ export class Client extends ClientJS {
 
     this.build();
 
-    MetadataStorage.instance.events.map((event) => {
+    this.events.map((event) => {
       if (!this.silent) {
         const eventName = event.event;
         console.log(`${eventName}: ${event.classRef.name}.${event.key}`);
       }
     });
 
-    const usedEvents = MetadataStorage.instance.events.reduce<DOn[]>(
+    const usedEvents = this.events.reduce<DOn[]>(
       (prev, event, index) => {
-        const found = MetadataStorage.instance.events.find(
+        const found = this.events.find(
           (event2) => event.event === event2.event
         );
-        const foundIndex = MetadataStorage.instance.events.indexOf(found);
+        const foundIndex = this.events.indexOf(found);
         if (foundIndex === index || found.once !== event.once) {
           prev.push(event);
         }
@@ -130,12 +145,12 @@ export class Client extends ClientJS {
       if (on.once) {
         this.once(
           on.event as any,
-          MetadataStorage.instance.trigger(on.event, this, true)
+          this.decorators.trigger(on.event, this, true)
         );
       } else {
         this.on(
           on.event as any,
-          MetadataStorage.instance.trigger(on.event, this)
+          this.decorators.trigger(on.event, this)
         );
       }
     });
@@ -225,7 +240,7 @@ export class Client extends ClientJS {
     if (!interaction.isCommand()) return;
 
     // Find the corresponding @Slash
-    const command = MetadataStorage.instance.slashes.find((slash) => {
+    const command = this.slashes.find((slash) => {
       return slash.name === interaction.commandName;
     });
 
@@ -240,7 +255,7 @@ export class Client extends ClientJS {
    */
   async build() {
     this.loadClasses();
-    await MetadataStorage.instance.build();
+    await this.decorators.build();
   }
 
   /**
@@ -254,7 +269,7 @@ export class Client extends ClientJS {
     params?: any,
     once: boolean = false
   ): Promise<any[]> {
-    return MetadataStorage.instance.trigger(event, this, once)(params);
+    return this.decorators.trigger(event, this, once)(params);
   }
 
   private loadClasses() {
