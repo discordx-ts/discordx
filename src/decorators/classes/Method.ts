@@ -16,13 +16,15 @@ export abstract class Method extends Decorator {
     return this.getMainFunction();
   }
 
+  /**
+   * Returns all the guards of the application
+   * The guards that are defined globaly with Client
+   * The guards that decorate @Discord
+   * The guards that decorate the method (this)
+   */
   get guards() {
     const clientGuards = Client.guards.map((guard) => DGuard.create(guard.bind(undefined)));
-    
-    // Returns all the guards of the application
-    // The guards that are defined globaly with Client
-    // The guards that decorate @Discord
-    // The guards that decorate the method (this)
+
     return [
       ...clientGuards,
       ...this.discord.guards,
