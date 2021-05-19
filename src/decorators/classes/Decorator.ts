@@ -5,6 +5,11 @@ export class Decorator {
   protected _from: Function;
   protected _key: string;
   protected _method: Function;
+  protected _index: number = undefined;
+
+  get index() {
+    return this._index;
+  }
 
   get classRef() {
     return this._classRef;
@@ -40,9 +45,10 @@ export class Decorator {
   decorateUnknown(
     classRef: Function | Object,
     key?: string,
-    method?: PropertyDescriptor
+    method?: PropertyDescriptor,
+    index?: number
   ) {
-    const decorateAClass = DecoratorUtils.decorateAClass(method);
+    const decorateAClass = DecoratorUtils.decorateAClass(method) && index === undefined;
 
     const finalClassRef: Function = decorateAClass
       ? (classRef as Function)
@@ -50,19 +56,21 @@ export class Decorator {
     const finalKey = decorateAClass ? finalClassRef.name : key;
     const finalMethod = decorateAClass ? finalClassRef : method?.value;
 
-    return this.decorate(finalClassRef, finalKey, finalMethod);
+    return this.decorate(finalClassRef, finalKey, finalMethod, finalClassRef, index);
   }
 
   decorate(
     classRef: Function,
     key: string,
     method?: Function,
-    from?: Function
+    from?: Function,
+    index?: number
   ) {
     this._from = from || classRef;
     this._classRef = classRef;
     this._key = key;
     this._method = method;
+    this._index = index;
 
     this.update();
 

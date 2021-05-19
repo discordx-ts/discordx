@@ -10,9 +10,17 @@ export class DecoratorUtils {
     });
   }
 
-  static getLinkedObjects<Type extends Decorator>(a: Decorator, list: Type[]) {
+  static getLinkedObjects<Type extends Decorator>(a: Decorator, list: Type[], ignoreIndex: boolean = false) {
     return list.filter((b) => {
-      return a.from === b.from && a.key === b.key;
+      let cond = a.from === b.from && a.key === b.key;
+
+      if (ignoreIndex) return cond;
+
+      if (a.index !== undefined || b.index !== undefined) {
+        cond &&= a.index === b.index;
+      }
+
+      return cond;
     });
   }
 

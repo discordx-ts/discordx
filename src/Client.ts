@@ -1,4 +1,4 @@
-import { Client as ClientJS, ClientEvents } from "discord.js";
+import { Client as ClientJS, GuildApplicationCommandManager, Interaction } from "discord.js";
 import * as Glob from "glob";
 import {
   MetadataStorage,
@@ -12,19 +12,55 @@ import {
   DiscordInfos,
   DOn,
   DGuard,
+  GuardFunction
 } from ".";
-import { GuardFunction } from "./types";
+import { DSlash } from "./decorators";
 
 export class Client extends ClientJS {
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
+  private static _requiredByDefault: boolean = false;
+  private static _slashGuilds: string[] = [];
   private static _guards: DGuard[] = [];
+
+  static get slashGuilds() {
+    return Client._slashGuilds;
+  }
+  static set slashGuilds(value) {
+    Client._slashGuilds = value;
+  }
+  get slashGuilds() {
+    return Client._slashGuilds;
+  }
+  set slashGuilds(value) {
+    Client._slashGuilds = value;
+  }
+
+  static get requiredByDefault() {
+    return Client._requiredByDefault;
+  }
+  static set requiredByDefault(value) {
+    Client._requiredByDefault = value;
+  }
+  get requiredByDefault() {
+    return Client._requiredByDefault;
+  }
+  set requiredByDefault(value) {
+    Client._requiredByDefault = value;
+  }
 
   get silent() {
     return this._silent;
   }
   set silent(value: boolean) {
     this._silent = value;
+  }
+
+  static get slashes() {
+    return MetadataStorage.instance.slashes as readonly DSlash[];
+  }
+  get slashes() {
+    return MetadataStorage.instance.slashes as readonly DSlash[];
   }
 
   /**
@@ -70,6 +106,8 @@ export class Client extends ClientJS {
     this._silent = options?.silent !== undefined || false;
     this._loadClasses = options?.classes || [];
     this.setGuards(...options.guards || []);
+    this.requiredByDefault = options.requiredByDefault;
+    this.slashGuilds = options.slashGuilds || [];
   }
 
   /**
@@ -168,6 +206,67 @@ export class Client extends ClientJS {
     });
 
     return super.login(token);
+  }
+
+  async initSlashes() {
+    await Promise.all(
+      this.slashes.map(async (slash) => {
+        if (slash.guilds.length > 0) {
+          await Promise.all(
+            slash.guilds.map(async (guild) => {
+              const commands = this.guilds.cache.get(guild).commands;
+              const command = await commands.create(slash.toObject());
+
+              if (slash.permissions.length <= 0) return;
+
+              await commands.setPermissions(command, slash.getPermissions());
+            })
+          );
+        } else {
+          const commands = this.application.commands;
+          const command = await commands.create(slash.toObject());
+
+          if (slash.permissions.length <= 0) return;
+
+          await commands.setPermissions(command, slash.getPermissions());
+        }
+      })
+    );
+  }
+
+  async clearSlashes(...guilds: string[]) {
+    if (guilds.length > 0) {
+      await Promise.all(
+        guilds.map(async (guild) => {
+          const commands = await this.guilds.cache.get(guild).commands.fetch();
+
+          await Promise.all(commands.map(async (value) => {
+            await this.guilds.cache.get(guild).commands.delete(value);
+          }));
+        })
+      );
+    } else {
+      const commands = await this.application.commands.fetch();
+      
+      await Promise.all(commands.map(async (value) => {
+        await this.application.commands.delete(value);
+      }));
+    }
+  }
+
+  executeSlash(interaction: Interaction) {
+    // If the interaction isn't a slash command, return
+    if (!interaction.isCommand()) return;
+
+    const command = MetadataStorage.instance.slashes.find((slash) => {
+      return slash.name === interaction.commandName;
+    });
+
+    if (!command) return;
+
+    const options = interaction.options.map((option) => option.value);
+
+    command.method(...options, interaction, this);
   }
 
   /**

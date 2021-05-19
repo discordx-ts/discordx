@@ -11,10 +11,10 @@ import {
   RuleBuilder,
   Modifier,
   DecoratorUtils,
-  Rule,
   DIService,
   CommandMessage,
-  // DSlash
+  DSlash,
+  DOption
 } from "../..";
 
 export class MetadataStorage {
@@ -23,7 +23,8 @@ export class MetadataStorage {
   private _commands: DCommand[] = [];
   private _commandNotFounds: DCommandNotFound[] = [];
   private _guards: DGuard[] = [];
-  // private _slashes: DSlash[] = [];
+  private _slashes: DSlash[] = [];
+  private _options: DOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
 
@@ -50,9 +51,13 @@ export class MetadataStorage {
     return this._commands as readonly DCommand[];
   }
 
-  // get slashes() {
-  //   return this._slashes as readonly DSlash[];
-  // }
+  get slashes() {
+    return this._slashes as readonly DSlash[];
+  }
+
+  get options() {
+    return this._options as readonly DOption[];
+  }
 
   get commandsNotFound() {
     return this._commandNotFounds as readonly DCommandNotFound[];
@@ -71,9 +76,13 @@ export class MetadataStorage {
     this.addOn(on);
   }
 
-  // addSlash(slash: DSlash) {
-  //   this._slashes.push(slash);
-  // }
+  addSlash(slash: DSlash) {
+    this._slashes.push(slash);
+  }
+
+  addOption(option: DOption) {
+    this._options.push(option);
+  }
 
   addCommandNotFound(on: DCommandNotFound) {
     this._commandNotFounds.push(on);
@@ -114,6 +123,8 @@ export class MetadataStorage {
       this._commandNotFounds
     );
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._options);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
 
     this._events.map((on) => {
       on.linkedDiscord.guards = DecoratorUtils.getLinkedObjects(
@@ -123,26 +134,10 @@ export class MetadataStorage {
       on.guards = DecoratorUtils.getLinkedObjects(on, this._guards);
       on.compileGuardFn();
     });
-  }
 
-  removeEvent(event: DOn) {
-    const command = DecoratorUtils.getLinkedObjects(event, this._commands)[0];
-    if (command) {
-      this._commands.splice(this._commands.indexOf(command), 1);
-    }
-
-    const commandNotFound = DecoratorUtils.getLinkedObjects(
-      event,
-      this._commandNotFounds
-    )[0];
-    if (commandNotFound) {
-      this._commandNotFounds.splice(
-        this._commandNotFounds.indexOf(commandNotFound),
-        1
-      );
-    }
-
-    return event;
+    this._slashes.map((slash) => {
+      slash.options = DecoratorUtils.getLinkedObjects(slash, this._options, true);
+    });
   }
 
   trigger<Event extends DiscordEvents>(

@@ -11,10 +11,14 @@ export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * The classes to load for your discord bot
    */
-  classes: LoadClass[];
+  classes?: LoadClass[];
 
   /**
    * The global guards
    */
-  guards: GuardFunction[];
+  guards?: GuardFunction[];
+
+  requiredByDefault?: boolean;
+  
+  slashGuilds?: string[];
 }
