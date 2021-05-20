@@ -1,6 +1,5 @@
 import { Decorator } from "./Decorator";
 import {
-  DiscordInfos,
   DGuard,
 } from "../..";
 import { DIService } from "../../logic";
@@ -33,13 +32,6 @@ export class DDiscord extends Decorator {
 
   get instance() {
     return DIService.instance.getService(this.from);
-  }
-
-  get discordInfos(): DiscordInfos {
-    return {
-      name: this.name,
-      description: this.description
-    };
   }
 
   protected constructor() {

@@ -6,41 +6,7 @@ import {
   VoiceChannel,
 } from "discord.js";
 import { Decorator } from "../classes/Decorator";
-import { DChoice, Client } from "../..";
-
-type StringOptionType =
-  | "STRING"
-  | "BOOLEAN"
-  | "INTEGER"
-  | "CHANNEL"
-  | "ROLE"
-  | "USER"
-  | "MENTIONABLE"
-  | "SUB_COMMAND"
-  | "SUB_COMMAND_GROUP";
-
-export enum OptionType {
-  STRING = "STRING",
-  BOOLEAN = "BOOLEAN",
-  INTEGER = "INTEGER",
-  CHANNEL = "CHANNEL",
-  ROLE = "ROLE",
-  USER = "USER",
-  MENTIONABLE = "MENTIONABLE",
-  SUB_COMMAND = "SUB_COMMAND",
-  SUB_COMMAND_GROUP = "SUB_COMMAND_GROUP",
-}
-
-export type OptionValueType =
-  | typeof String
-  | typeof Boolean
-  | typeof Number
-  | typeof ClientUser
-  | typeof TextChannel
-  | typeof VoiceChannel
-  | typeof Role
-  | OptionType
-  | StringOptionType;
+import { DChoice, Client, OptionValueType, StringOptionType, OptionType } from "../..";
 
 export class DOption extends Decorator {
   private _required: boolean = false;
@@ -48,6 +14,22 @@ export class DOption extends Decorator {
   private _type: OptionValueType;
   private _description: string;
   private _choices: DChoice[] = [];
+  private _options: DOption[] = [];
+  private _isNode: boolean = false;
+
+  get isNode() {
+    return this._isNode;
+  }
+  set isNode(value) {
+    this._isNode = value;
+  }
+
+  get options() {
+    return this._options;
+  }
+  set options(value) {
+    this._options = value;
+  }
 
   get name() {
     return this._name;
@@ -91,9 +73,9 @@ export class DOption extends Decorator {
   static create(
     name: string,
     type: OptionValueType,
-    description: string,
-    required: boolean,
-    index: number
+    description?: string,
+    required?: boolean,
+    index?: number
   ) {
     const option = new DOption();
 
@@ -131,12 +113,19 @@ export class DOption extends Decorator {
   }
 
   toObject(): ApplicationCommandOptionData {
-    return {
+    const data: ApplicationCommandOptionData = {
       description: this.description,
       name: this.name,
       type: this.getStringType(),
       required: this.required,
       choices: this.choices.map((choice) => choice.toObject()),
+      options: this.options.map((option) => option.toObject())
     };
+
+    if (!this.isNode) {
+      delete data.required;
+    }
+
+    return data;
   }
 }

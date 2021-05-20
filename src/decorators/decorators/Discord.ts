@@ -22,7 +22,6 @@ function importCommand(classType: Function, target: Function) {
   ons.map((event) => {
     // Set the property hidden to true when
     // it's imported
-    event.hidden = true;
     event.from = target;
   });
 }

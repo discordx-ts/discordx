@@ -9,26 +9,43 @@ import {
   Choice,
   Permission,
   Guard,
+  Group,
 } from "../../../src";
 
 @Discord()
-@Guard(async (a, b, c, d) => {
-  console.log(a, b, c, d);
-  await c();
+class B {
+  @Slash()
+  b() {}
+}
+
+@Discord()
+@Group("X")
+class X {
+  @Slash()
+  x() {}
+}
+
+@Discord()
+@Group("Y", { Z: "yes" })
+class Y {
+  @Group("Z")
+  @Slash()
+  z() {}
+}
+
+@Discord()
+@Group("Testing", "Testing description", {
+  Text: "text",
+  Math: "maths"
 })
 export abstract class AppDiscord {
-  x = "s";
-
   @On("message")
-  @Guard(async (a, b, c, d) => {
-    console.log(a, b, c, d);
-    await c();
-  })
   onMessage([message]: ArgsOf<"message">, client: Client, a, b) {
     console.log(message.content);
   }
 
   @Slash("hello")
+  @Group("Text")
   hello(
     @Option("message", { description: "Say hello" })
     message: string,
@@ -38,6 +55,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("add")
+  @Group("Math")
   add(
     @Option("x", { description: "x value" })
     x: number,
@@ -46,6 +64,18 @@ export abstract class AppDiscord {
     interaction: CommandInteraction
   ) {
     interaction.reply(String(x + y));
+  }
+
+  @Slash("multiply")
+  @Group("Math")
+  multiply(
+    @Option("x", { description: "x value" })
+    x: number,
+    @Option("y", { description: "y value" })
+    y: number,
+    interaction: CommandInteraction
+  ) {
+    interaction.reply(String(x * y));
   }
 
   @Slash("iam")

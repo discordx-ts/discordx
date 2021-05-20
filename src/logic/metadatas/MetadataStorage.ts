@@ -11,6 +11,7 @@ import {
   DOption,
   Method
 } from "../..";
+import { DGroup } from "../../decorators";
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -20,6 +21,9 @@ export class MetadataStorage {
   private _options: DOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
+
+  private _groups: DGroup<DSlash>[] = [];
+  private _subGroups: DGroup<DOption>[] = [];
 
   static get instance() {
     if (!this._instance) {
@@ -65,6 +69,14 @@ export class MetadataStorage {
     return this._slashes as readonly DSlash[];
   }
 
+  get groups() {
+    return this._groups as readonly DGroup[];
+  }
+
+  get subGroups() {
+    return this._subGroups as readonly DGroup[];
+  }
+
   private get discordMembers(): readonly Method[] {
     return [
       ...this._slashes,
@@ -86,6 +98,14 @@ export class MetadataStorage {
 
   addOption(option: DOption) {
     this._options.push(option);
+  }
+
+  addGroup(group: DGroup<DSlash>) {
+    this._groups.push(group);
+  }
+
+  addSubGroup(subGroup: DGroup<DOption>) {
+    this._subGroups.push(subGroup);
   }
 
   addGuard(guard: DGuard) {
@@ -110,11 +130,114 @@ export class MetadataStorage {
       // on.discord or slash.discord
       member.discord = discord;
     });
-
+    
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
     await Modifier.applyFromModifierListToList(this._modifiers, this._options);
     await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
+
+    // Set the property "group" of all @Slash
+    this._groups.map((group) => {
+      this._slashes.map((slash) => {
+        if (group.from !== slash.from) {
+          return;
+        }
+
+        slash.group = group.name;
+      });
+    });
+
+    this._slashes = this.groupSlashes();
+
+    console.log(this._slashes);
+  }
+
+  private groupSlashes() {
+    const groupedSlashes: Map<string, DSlash> = new Map();
+
+    // Create Slashes from class groups that will wraps the commands
+    //
+    // "name": "permissions",
+    // "description": "Get or edit permissions for a user or a role",
+    // "options": [
+    //    ...comands
+    // ]
+    //
+    this._groups.map((group) => {
+      const slash = DSlash.create(
+        group.name,
+        group.infos.description
+      ).decorate(
+        group.classRef,
+        group.key,
+        group.method
+      );
+      groupedSlashes.set(group.name, slash);
+    });
+
+    // Create for each subgroup (@Group on methods) create an Option based on Slash
+    //
+    // "name": "permissions",
+    // "description": "Get or edit permissions for a user or a role",
+    // "options": [
+    //    {
+    //        "name": "user",
+    //        "description": "Get or edit permissions for a user",
+    //        "type": "SUB_COMMAND_GROUP"
+    //        "options": [
+    //            ....
+    //        ]
+    //     }
+    // ]
+    this._subGroups.map((subGroup) => {
+      const option = DOption.create(
+        subGroup.name,
+        "SUB_COMMAND_GROUP",
+        subGroup.infos.description
+      );
+
+      // Get the slashes that are in this subgroup
+      const slashes = this._slashes.filter((slash) => {
+        return slash.subgroup === option.name;
+      });
+
+      // Convert this slashes into options and add it to the option parent
+      // this slashes are the node of the options
+      //
+      // "name": "permissions",
+      // "description": "Get or edit permissions for a user or a role",
+      // "options": [
+      //     {
+      //         "name": "user",
+      //         "description": "Get or edit permissions for a user",
+      //         "type": "SUB_COMMAND_GROUP"
+      //         "options": [
+      //             {
+      //                 "name": "get",
+      //                 "description": "Get permissions for a user",
+      //                 "type": "SUB_COMMAND"
+      //                 "options": [
+      //                 ]
+      //              }
+      //          ]
+      //      }
+      // ]
+      //
+      slashes.map((slash) => {
+        option.options.push(slash.toSubCommand());
+      });
+      
+      // The the root option to the root Slash command
+      const groupSlash = groupedSlashes.get(slashes[0].group);
+      if (groupSlash) {
+        groupSlash.options.push(option);
+      }
+    });
+
+    return [
+      ...this._slashes.filter((s) => !s.group && !s.subgroup),
+      ...Array.from(groupedSlashes.values())
+    ];
   }
 
   /**

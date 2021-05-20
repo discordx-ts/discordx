@@ -49,6 +49,8 @@ export function Option(
       index
     );
 
+    option.isNode = true;
+
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash>(async (original) => {
         original.options = [

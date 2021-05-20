@@ -1,9 +1,10 @@
 import {
   ApplicationCommandData,
+  ApplicationCommandOptionData,
   ApplicationCommandPermissionData,
   CommandInteraction,
 } from "discord.js";
-import { DOption, Client } from "../..";
+import { DOption, Client, SubValueType } from "../..";
 import { Method } from "./Method";
 
 export class DSlash extends Method {
@@ -13,6 +14,22 @@ export class DSlash extends Method {
   private _options: DOption[] = [];
   private _permissions: string[] = [];
   private _guilds: string[];
+  private _group: string;
+  private _subgroup: string;
+
+  get group() {
+    return this._group;
+  }
+  set group(value) {
+    this._group = value;
+  }
+
+  get subgroup() {
+    return this._subgroup;
+  }
+  set subgroup(value) {
+    this._subgroup = value;
+  }
 
   get permissions() {
     return this._permissions;
@@ -76,11 +93,23 @@ export class DSlash extends Method {
     return slash;
   }
 
+  toSubCommand() {
+    const option = DOption.create(
+      this.name,
+      "SUB_COMMAND"
+    );
+    option.options = this.options;
+
+    return option;
+  }
+
   toObject(): ApplicationCommandData {
+    const options = this.options.reverse().map((option) => option.toObject());
+    
     return {
       name: this.name,
       description: this.description,
-      options: this.options.reverse().map((option) => option.toObject()),
+      options: options,
       defaultPermission: this.defaultPermission,
     };
   }

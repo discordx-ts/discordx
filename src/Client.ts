@@ -113,12 +113,12 @@ export class Client extends ClientJS {
    * @param token The bot token
    * @param loadClasses A list of glob path or classes
    */
-  login(token: string, ...loadClasses: LoadClass[]) {
+  async login(token: string, ...loadClasses: LoadClass[]) {
     if (loadClasses.length > 0) {
       this._loadClasses = loadClasses;
     }
 
-    this.build();
+    await this.build();
 
     if (!this.silent) {
       console.log("Events");
@@ -147,7 +147,7 @@ export class Client extends ClientJS {
       }
     });
 
-    return super.login(token);
+    return await super.login(token);
   }
 
   /**
@@ -265,15 +265,17 @@ export class Client extends ClientJS {
   }
 
   private loadClasses() {
-    if (this._loadClasses) {
-      this._loadClasses.map((file) => {
-        if (typeof file === "string") {
-          const files = Glob.sync(file);
-          files.map((file) => {
-            require(file);
-          });
-        }
-      });
+    if (!this._loadClasses) {
+      return;
     }
+
+    this._loadClasses.map((file) => {
+      if (typeof file === "string") {
+        const files = Glob.sync(file);
+        files.map((file) => {
+          require(file);
+        });
+      }
+    });
   }
 }

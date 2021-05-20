@@ -8,6 +8,7 @@ export * from "./decorators/Slash";
 export * from "./decorators/Option";
 export * from "./decorators/Choice";
 export * from "./decorators/Permission";
+export * from "./decorators/Group";
 
 export * from "./params/DiscordParams";
 export * from "./params/OptionParams";
@@ -22,3 +23,4 @@ export * from "./classes/DOption";
 export * from "./classes/DChoice";
 export * from "./classes/Modifier";
 export * from "./classes/Method";
+export * from "./classes/DGroup";
