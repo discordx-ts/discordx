@@ -132,3 +132,22 @@ abstract class AppDiscord {
   }
 }
 ```
+
+## Params
+
+### Name
+`string`  
+The Slash command name
+
+### Description
+`string`  
+The Slash command description
+
+### Guilds
+`string[]`   
+The guilds where the command is create
+
+### defaultPermission
+`boolean`  
+`true` by default     
+"You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
