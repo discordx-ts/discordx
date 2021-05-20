@@ -1,0 +1,19 @@
+{
+  "name": "discord.ts",
+  "version": "0.0.1",
+  "description": "The discord.ts documentation",
+  "main": "index.js",
+  "authors": {
+    "name": "Owen Calvin",
+    "email": ""
+  },
+  "repository": "https://github.com/owencalvin/discord.ts/discord.ts",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}

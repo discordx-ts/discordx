@@ -14,11 +14,11 @@
   <br/>
 </p>
 
-## Introduction
+# Introduction
 
 This module is an extension of **[`discord.js`](https://discordjs.guide/)**, so the internal behavior (methods, properties, ...) is the same.
 
-## Index
+# Index
 
 **Setup**
 
@@ -53,12 +53,12 @@ This module is an extension of **[`discord.js`](https://discordjs.guide/)**, so 
 
 **Informations**
 
-## ☎️ Need help?
+# ☎️ Need help?
 
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
-## 💾 Installation
+# 💾 Installation
 
 Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `@typeit/discord` with `discord.js`:
 
@@ -87,7 +87,7 @@ Your tsconfig.json should look like this:
 }
 ```
 
-## Setup and start your application
+# Setup and start your application
 
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
 It works the same as the discord.**js**'s Client (same methods, properties, ...).
@@ -115,6 +115,10 @@ import { Client } from "@typeit/discord";
 
 async function start() {
   const client = new Client({
+    intents: [
+      Intents.FLAGS.GUILDS,
+      Intents.FLAGS.GUILD_MESSAGES,
+    ],
     classes: [
       `${__dirname}/*Discord.ts`, // glob string to load the classes
       `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js
@@ -128,7 +132,7 @@ async function start() {
 start();
 ```
 
-## @Discord - Getting started
+# @Discord - Getting started
 
 So we start with an empty class (abstract is not necessary but this is more type-safe, the class shouldn't be initialized).
 
@@ -145,7 +149,7 @@ import { Discord } from "@typeit/discord";
 abstract class AppDiscord {}
 ```
 
-### @On / @Once - Listen to the events
+## @On / @Once - Listen to the events
 
 We can now declare methods that will be executed whenever a Discord event is triggered.  
 Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.  
@@ -168,7 +172,7 @@ abstract class AppDiscord {
 }
 ```
 
-### Client payload injection
+## Client payload injection
 
 For each event a list of arguments is injected in your decorated method, you can type this list thanks to the `ArgsOf<"YOUR_EVENT">` type provided by `discord.ts`.
 You also receive other useful arguments after that:
@@ -195,7 +199,66 @@ abstract class AppDiscord {
 }
 ```
 
-### Command directory pattern
+# @Slash - Discord commands
+Discord has it's own command system now, you can simply declare commands and use Slash commands this way
+
+```ts
+import { Discord, Slash } from "@typeit/discord";
+
+@Discord()
+abstract class AppDiscord {
+  @Slash("hello")
+  private hello(
+  ) {
+    // ...
+  }
+}
+```
+
+It require a bit of configuration at you Client initialization.
+You have to manualy execute and initialize your Slash commands by using `client.initSlashes()` and `client.executeSlash(interaction)`. This provide flexibility in your code
+
+```ts
+import { Client } from "@typeit/discord";
+
+async function start() {
+  const client = new Client({
+    intents: [
+      Intents.FLAGS.GUILDS,
+      Intents.FLAGS.GUILD_MESSAGES,
+    ],
+  });
+
+  client.once("ready", async () => {
+    await client.initSlashes();
+  });
+
+  client.on("interaction", (interaction) => {
+    client.executeSlash(interaction);
+  });
+
+  await client.login("YOUR_TOKEN");
+}
+
+start();
+```
+
+## Client's Slash API
+You can remove Slash commands from the Discord cache by using `client.clearSlashes(...guildIDs: string[])` or fetch them by using `client.fetchSlashes(guildID: string)`
+
+> If you do not specify the guild id you operate on global Slash commands
+
+```ts
+client.once("ready", async () => {
+  await this._client.clearSlashes();
+  await this._client.clearSlashes("546281071751331840");
+  await this._client.initSlashes();
+});
+```
+
+## @Option - Slash options
+
+## Command directory pattern
 
 > [Example](https://github.com/OwenCalvin/discord.ts/tree/master/examples/commands-dir)
 
