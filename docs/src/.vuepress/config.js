@@ -44,12 +44,6 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 3,
         path: "/introduction/",
-        children: [
-          ["/introduction/", "Introduction"],
-          ["/introduction/installation", "Installation"],
-          ["/introduction/getting_started", "Getting started"],
-          ["/introduction/help", "Need help?"],
-        ]
       },
       {
         title: 'General',
