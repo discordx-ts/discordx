@@ -27,7 +27,7 @@ function importCommand(classType: Function, target: Function) {
 }
 
 export function Discord();
-export function Discord(params: DiscordParams);
+// export function Discord(params: DiscordParams);
 export function Discord(params?: DiscordParams) {
   return (target: Function, key: string) => {
     if (params?.import) {

@@ -9,7 +9,7 @@ abstract class AppDiscord {}
 > `abstract` keyword is not necessary but this is more type-safe, the class shouldn't be initialized
 
 
-Then you must declare it as a Discord app class with the `@Discord` decorator :
+Then **you must declare it as a Discord app class with the `@Discord` decorator to use members decorators**
 
 ```typescript
 import { Discord } from "@typeit/discord";
@@ -18,6 +18,22 @@ import { Discord } from "@typeit/discord";
 abstract class AppDiscord {}
 ```
 
+## Adding members
+You have to decocrate the class with @Discord to use @Slash for example
+```ts
+import { Discord, Slash } from "@typeit/discord";
+
+@Discord()
+abstract class AppDiscord {
+  @Slash("hello")
+  private hello(
+  ) {
+    // ...
+  }
+}
+```
+
+<!--
 ## Params
 ### import
 If you have a directory pattern that looks like this:
@@ -88,3 +104,4 @@ export abstract class MessageDelete {
   }
 }
 ```
+-->

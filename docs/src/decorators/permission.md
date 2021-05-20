@@ -23,8 +23,8 @@ class DiscordBot {
 ```
 
 ## Params
-`@Permission(roleID: string)`
+`@Permission(...roleIDs: string[])`
 
-### roleID
-`string`  
-The role ID
+### roleIDs
+`string[]`  
+The role ID list
