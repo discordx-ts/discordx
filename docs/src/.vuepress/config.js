@@ -10,7 +10,7 @@ module.exports = {
    */
   description: description,
 
-  base: "/discord.ts/",
+  base: "/discord-ts/",
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
