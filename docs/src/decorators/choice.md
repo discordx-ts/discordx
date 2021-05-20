@@ -1,7 +1,7 @@
 # @Choice
 An option of a Slash command can implement an autocompletion feature for `string` and `number` types
 
-![](/choices.png)
+![](/discord.ts/choices.png)
 
 ## Setup autocompletion
 You just decorate your parameter with one or multiple @Choice ! 

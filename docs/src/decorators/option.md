@@ -3,7 +3,7 @@ A Slash Command can have multiple options (parameters)
 
 > query is an option in this image
 
-![](/options.png)
+![](/discord.ts/options.png)
 
 ## Declare an option
 To declare an option you simply use the `@Option` decorator before a method parameter
@@ -99,4 +99,4 @@ const client = new Client({
 ```
 
 ## Autocompletion (Option's choices)
-You can use the [@Choice](/decorators/choice) decorator
+You can use the [@Choice](/discord.ts/decorators/choice) decorator

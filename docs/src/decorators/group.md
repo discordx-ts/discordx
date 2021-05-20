@@ -70,7 +70,7 @@ export abstract class AppDiscord {
   }
 }
 ```
-![](/group1.png)
+![](/discord.ts/group1.png)
 
 ### Group on method level
 When @Group decorate a method it creates sub-groups inside the class group
@@ -154,5 +154,5 @@ export abstract class AppDiscord {
 }
 ```
 
-![](/group2.png)
+![](/discord.ts/group2.png)
 
