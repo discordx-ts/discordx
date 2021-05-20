@@ -164,7 +164,7 @@ export class MetadataStorage {
     // ]
     //
     this._groups.map((group) => {
-      const slash = DSlash.create(
+      const slashParent = DSlash.create(
         group.name,
         group.infos.description
       ).decorate(
@@ -172,7 +172,15 @@ export class MetadataStorage {
         group.key,
         group.method
       );
-      groupedSlashes.set(group.name, slash);
+      groupedSlashes.set(group.name, slashParent);
+
+      const slashes = this._slashes.filter((slash) => {
+        return slash.group === slashParent.name && !slash.subgroup;
+      });
+
+      slashes.map((slash) => {
+        slashParent.options.push(slash.toSubCommand());
+      });
     });
 
     // Create for each subgroup (@Group on methods) create an Option based on Slash
