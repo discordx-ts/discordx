@@ -18,7 +18,7 @@ import { Discord } from "@typeit/discord";
 abstract class AppDiscord {}
 ```
 
-## Adding members
+## Adding class members
 You have to decocrate the class with @Discord to use @Slash for example
 ```ts
 import { Discord, Slash } from "@typeit/discord";
