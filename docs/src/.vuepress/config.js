@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Vuepress Docs Boilerplate',
+  title: 'discord.ts official documentation',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -27,37 +27,61 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '',
-    editLinks: false,
+    repo: 'https://github.com/owencalvin/discord.ts',
+    editLinks: true,
     docsDir: '',
-    editLinkText: '',
-    lastUpdated: false,
+    editLinkText: 'Edit this page',
+    lastUpdated: true,
     nav: [
       {
-        text: 'Guide',
-        link: '/guide/',
-      },
-      {
-        text: 'Config',
-        link: '/config/'
-      },
-      {
-        text: 'VuePress',
-        link: 'https://v1.vuepress.vuejs.org'
+        text: 'Discord',
+        link: 'https://discord.gg/JbVSu4KxwV',
       }
     ],
-    sidebar: {
-      '/guide/': [
-        {
-          title: 'Guide',
-          collapsable: false,
-          children: [
-            '',
-            'using-vue',
-          ]
-        }
-      ],
-    }
+    sidebar: [
+      {
+        title: 'Introduction',
+        collapsable: false,
+        sidebarDepth: 3,
+        path: "/introduction/",
+        children: [
+          ["/introduction/", "Introduction"],
+          ["/introduction/installation", "Installation"],
+          ["/introduction/getting_started", "Getting started"],
+          ["/introduction/help", "Need help?"],
+        ]
+      },
+      {
+        title: 'General',
+        collapsable: false,
+        path: "/general/",
+        sidebarDepth: 3,
+        children: [
+          ["/general/client", "Client"],
+          ["/general/metadatastorage", "MetadataStorage"],
+          ["/general/argsof", "ArgsOf"],
+          ["/general/events", "List of the events"]
+        ]
+      },
+      {
+        title: 'Decorators',
+        collapsable: false,
+        sidebarDepth: 3,
+        path: "/decorators/",
+        children: [
+          ["/decorators/discord", "@Discord"],
+          ["/decorators/on", "@On"],
+          ["/decorators/once", "@Once"],
+          ["/decorators/slash", "@Slash"],
+          ["/decorators/option", "@Option"],
+          ["/decorators/choice", "@Choice"],
+          ["/decorators/permission", "@Permission"],
+          ["/decorators/group", "@Group"],
+          ["/decorators/guard", "@Guard"],
+          ["/decorators/description", "@Description"],
+        ]
+      }
+    ]
   },
 
   /**
