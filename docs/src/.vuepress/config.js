@@ -58,6 +58,7 @@ module.exports = {
           ["/general/metadatastorage", "MetadataStorage"],
           ["/general/argsof", "ArgsOf"],
           ["/general/events", "List of the events"]
+          ["/general/sharding", "Sharding"],
         ]
       },
       {
