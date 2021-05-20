@@ -22,7 +22,7 @@ export class Main {
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
     await this._client.login(
-      "Njg4NDY2MTk0MDA5MDMwNzAy.Xm0uGw.Eby-LcnuPSxi4lz-KlQm8aGjANE",
+      "YOUR_TOKEN",
       `${__dirname}/discords/*.ts`, // glob string to load the classes
       `${__dirname}/discords/*.js` // If you compile your bot, the file extension will be .js
     );
