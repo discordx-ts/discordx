@@ -4,7 +4,14 @@ import {
   Slash,
   Option,
   Group,
+  Choices,
+  Choice,
 } from "../../../src";
+
+enum TextChoices {
+  Hello = "Hello",
+  "Good Bye" = "GoodBye"
+}
 
 @Discord()
 @Group(
@@ -43,6 +50,8 @@ export abstract class AppDiscord {
   @Slash("hello")
   @Group("text")
   hello(
+    @Choices(TextChoices)
+    @Choice("How are you", "question")
     @Option("text")
     text: string,
     interaction: CommandInteraction
@@ -50,8 +59,24 @@ export abstract class AppDiscord {
     interaction.reply(text);
   }
 
-  @Slash("root")
-  root(interaction: CommandInteraction) {
-    interaction.reply("root");
+  @Slash("hello")
+  root(
+    @Option("text")
+    text: string,
+    interaction: CommandInteraction
+  ) {
+    interaction.reply(text);
+  }
+}
+
+@Discord()
+export abstract class AppDiscord1 {
+  @Slash("hello")
+  add(
+    @Option("text")
+    text: string,
+    interaction: CommandInteraction
+  ) {
+    interaction.reply(text);
   }
 }

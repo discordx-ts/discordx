@@ -3,6 +3,7 @@ import {
   ApplicationCommandOptionData,
   ApplicationCommandPermissionData,
   CommandInteraction,
+  CommandInteractionOption,
 } from "discord.js";
 import { DOption, Client, SubValueType } from "../..";
 import { Method } from "./Method";
@@ -122,7 +123,14 @@ export class DSlash extends Method {
     }));
   }
 
+  getLastNestedOption(options: CommandInteractionOption[]) {
+    if (!options[0].options) {
+      return options;
+    }
+    return this.getLastNestedOption(options[0].options);
+  }
+
   parseParams(interaction: CommandInteraction) {
-    return interaction.options.map((option) => option.value);
+    return this.getLastNestedOption(interaction.options).map((option) => option.value);
   }
 }

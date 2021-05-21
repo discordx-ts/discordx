@@ -1,5 +1,9 @@
 import {
+  ApplicationCommandOption,
+  ApplicationCommandOptionData,
   Client as ClientJS,
+  CommandInteraction,
+  CommandInteractionOption,
   Interaction,
 } from "discord.js";
 import * as Glob from "glob";
@@ -64,6 +68,13 @@ export class Client extends ClientJS {
   }
   get slashes() {
     return Client.slashes;
+  }
+
+  static get allSlashes() {
+    return MetadataStorage.instance.allSlashes as readonly DSlash[];
+  }
+  get allSlashes() {
+    return Client.allSlashes;
   }
 
   static get events() {
@@ -223,6 +234,70 @@ export class Client extends ClientJS {
   }
 
   /**
+   * Get the group tree of an interaction 
+   * /hello => ["hello"]
+   * /test hello => ["test", "hello"]
+   * /test hello me => ["test", "hello", "me"]
+   * @param interaction The targeted interaction
+   * @returns The group tree
+   */
+  getInteractionGroupTree(interaction: CommandInteraction) {
+    const tree = [];
+    const getOptionsTree = (
+      option: Partial<CommandInteractionOption>
+    ) => {
+      if (!option) return;
+
+      if (
+        !option.type || 
+        option.type === "SUB_COMMAND_GROUP" ||
+        option.type === "SUB_COMMAND"
+      ) {
+        tree.push(option.name);
+        return getOptionsTree(option.options?.[0]);
+      }
+    };
+    getOptionsTree({
+      name: interaction.commandName,
+      options: interaction.options,
+      type: undefined
+    });
+
+    return tree;
+  }
+
+  /**
+   * Return the corresponding @Slash from a tree
+   * @param tree 
+   * @returns The corresponding Slash
+   */
+  getSlashFromTree(tree: string[]) {
+    // Find the corresponding @Slash
+    return this.allSlashes.find((slash) => {
+      switch(tree.length) {
+        case 1:
+          // Simple command /hello
+          return (slash.name === tree[0]);
+        case 2:
+          // Simple grouped command
+          // /permission user perm
+          return (
+            slash.group === group &&
+            slash.name === tree[1]
+          );
+        case 3:
+          // Grouped and subgroupped command
+          // /permission user perm
+          return (
+            slash.group === group &&
+            slash.subgroup === subgroup &&
+            slash.name === tree[2]
+          );
+      }
+    });
+  }
+
+  /**
    * Execute the corresponding @Slash command based on an Interaction instance
    * @param interaction The discord.js interaction instance
    * @returns void
@@ -231,15 +306,14 @@ export class Client extends ClientJS {
     // If the interaction isn't a slash command, return
     if (!interaction.isCommand()) return;
 
-    // Find the corresponding @Slash
-    const command = this.slashes.find((slash) => {
-      return slash.name === interaction.commandName;
-    });
+    // Get the interaction group tree
+    const tree = this.getInteractionGroupTree(interaction);
+    const slash = this.getSlashFromTree(tree);
 
-    if (!command) return;
+    if (!slash) return;
 
     // Parse the options values and inject it into the @Slash method
-    await command.execute(interaction, this);
+    await slash.execute(interaction, this);
   }
 
   /**

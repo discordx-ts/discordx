@@ -18,6 +18,7 @@ export class MetadataStorage {
   private _events: DOn[] = [];
   private _guards: DGuard[] = [];
   private _slashes: DSlash[] = [];
+  private _allSlashes: DSlash[] = [];
   private _options: DOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
@@ -67,6 +68,10 @@ export class MetadataStorage {
 
   get slashes() {
     return this._slashes as readonly DSlash[];
+  }
+
+  get allSlashes() {
+    return this._allSlashes as readonly DSlash[];
   }
 
   get groups() {
@@ -147,6 +152,7 @@ export class MetadataStorage {
       });
     });
 
+    this._allSlashes = this._slashes;
     this._slashes = this.groupSlashes();
 
     console.log(this._slashes);
@@ -176,6 +182,10 @@ export class MetadataStorage {
 
       const slashes = this._slashes.filter((slash) => {
         return slash.group === slashParent.name && !slash.subgroup;
+      });
+
+      slashParent.discord = this._discords.find((instance) => {
+        return instance.from === slashParent.from;
       });
 
       slashes.map((slash) => {

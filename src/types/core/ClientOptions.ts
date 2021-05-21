@@ -1,5 +1,5 @@
 import { ClientOptions as DiscordJSClientOptions } from "discord.js";
-import { GuardFunction } from "./GuardFunction";
+import { GuardFunction } from "../public/GuardFunction";
 import { LoadClass } from "./LoadClass";
 
 export interface ClientOptions extends DiscordJSClientOptions {
