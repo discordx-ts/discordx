@@ -91,7 +91,7 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
 - **`guards` (`[]` by default)**:  
   Global guards, it's an array of functions
 
-- **`slashGuilds`**:  
+- **`slashGuilds`**  
   The slash commands are executed only on this list of guilds by default
 
 - **`requiredByDefault`**:  
