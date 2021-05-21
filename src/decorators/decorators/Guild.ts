@@ -12,6 +12,11 @@ export function Guild(...guildIDs: string[]) {
   ): void => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DDiscord>(async (original) => {
+        original.guilds = [
+          ...original.guilds,
+          ...guildIDs
+        ];
+
         if (original instanceof DDiscord) {
           original.slashes.map((slash) => {
             slash.guilds = [
@@ -19,13 +24,7 @@ export function Guild(...guildIDs: string[]) {
               ...guildIDs
             ];
           });
-        } else {
-          original.guilds = [
-            ...original.guilds,
-            ...guildIDs
-          ];
         }
-
       }, DSlash, DDiscord).decorateUnknown(target, key, descriptor)
     );
   };

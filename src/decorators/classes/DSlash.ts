@@ -130,10 +130,10 @@ export class DSlash extends Method {
   }
 
   getLastNestedOption(options: CommandInteractionOption[]) {
-    if (!options[0].options) {
+    if (!options[0]?.options) {
       return options;
     }
-    return this.getLastNestedOption(options[0].options);
+    return this.getLastNestedOption(options[0]?.options);
   }
 
   parseParams(interaction: CommandInteraction) {

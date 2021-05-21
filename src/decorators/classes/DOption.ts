@@ -66,30 +66,7 @@ export class DOption extends Decorator {
     this._choices = value;
   }
 
-  protected constructor() {
-    super();
-  }
-
-  static create(
-    name: string,
-    type: OptionValueType,
-    description?: string,
-    required?: boolean,
-    index?: number
-  ) {
-    const option = new DOption();
-
-    option._name = name;
-    option._type = type || String;
-    option._description = description || `${name} - ${option.getStringType()}`;
-    option._required =
-      required !== undefined ? required : Client.requiredByDefault;
-    option._index = index;
-
-    return option;
-  }
-
-  getStringType(): StringOptionType {
+  get stringType(): StringOptionType {
     if (typeof this.type === "string") {
       return this.type;
     }
@@ -112,11 +89,34 @@ export class DOption extends Decorator {
     }
   }
 
+  protected constructor() {
+    super();
+  }
+
+  static create(
+    name: string,
+    type: OptionValueType,
+    description?: string,
+    required?: boolean,
+    index?: number
+  ) {
+    const option = new DOption();
+
+    option._name = name;
+    option._type = type || String;
+    option._description = description || `${name} - ${option.stringType}`;
+    option._required =
+      required !== undefined ? required : Client.requiredByDefault;
+    option._index = index;
+
+    return option;
+  }
+
   toObject(): ApplicationCommandOptionData {
     const data: ApplicationCommandOptionData = {
       description: this.description,
       name: this.name,
-      type: this.getStringType(),
+      type: this.stringType,
       required: this.required,
       choices: this.choices.map((choice) => choice.toObject()),
       options: this.options.map((option) => option.toObject())

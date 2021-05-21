@@ -3,7 +3,9 @@ import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
 import { DSlash } from "../classes/DSlash";
 
-export function Guard(...fns: GuardFunction[]) {
+export function Guard<Type = any, DatasType = any>(
+  ...fns: GuardFunction<Type, DatasType>[]
+) {
   return (
     target: Function | Object,
     key?: string,

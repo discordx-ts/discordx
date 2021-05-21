@@ -12,8 +12,22 @@ export abstract class Method extends Decorator {
     this._discord = value;
   }
 
+  /**
+   * Compiled methods executes all the guards and the main method
+   * ```ts
+   * compiledMethod = async (params: ArgsOf<any>, client: Client) => {
+   *   guard1(params, client)
+   *   guard2(params, client)
+   *   guard3(params, client)
+   *   main(params, client)
+   * }
+   * ```
+   * @returns The function that execute everything
+   */
   get execute() {
-    return this.getMainFunction();
+    return async (...params: any[]) => {
+      return await this.getGuardFunction()(...params);
+    };
   }
 
   /**
@@ -58,7 +72,7 @@ export abstract class Method extends Decorator {
       if (index >= this.guards.length - 1) {
         // If it's the main method
         res = await (guardToExecute.fn as any)(
-          // method([Interaction, Client], ...) => method(Interaction, Client, ...)
+          // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
           ...this.parseParams(...params as any),
           ...params,
           paramsToNext
@@ -81,23 +95,5 @@ export abstract class Method extends Decorator {
     };
 
     return (...params: any[]) => next(params, 0, {});
-  }
-
-  /**
-   * Compiled methods executes all the guards and the main method
-   * ```ts
-   * compiledMethod = async (params: ArgsOf<any>, client: Client) => {
-   *   guard1(params, client)
-   *   guard2(params, client)
-   *   guard3(params, client)
-   *   main(params, client)
-   * }
-   * ```
-   * @returns The function that execute everything
-   */
-  private getMainFunction() {
-    return async (...params: any[]) => {
-      return await this.getGuardFunction()(...params);
-    };
   }
 }

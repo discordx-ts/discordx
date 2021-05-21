@@ -7,29 +7,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Simple",
-      "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/simple/Main.ts"],
-      "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
       "name": "Slash",
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/slash/Main.ts"],
-      "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Simple commands",
-      "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/simple-commands/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "neverOpen"
@@ -47,29 +27,19 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Event",
+      "protocol": "inspector",
+      "args": ["${workspaceRoot}/examples/event/Main.ts"],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Multiple discord instances",
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/multiple-discord-instances/Main.ts"],
-      "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Complex commands",
-      "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/complex-commands/Main.ts"],
-      "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Commands dir",
-      "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/commands-dir/Main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
       "internalConsoleOptions": "neverOpen"

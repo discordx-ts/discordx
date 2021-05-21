@@ -154,7 +154,7 @@ export class Client extends ClientJS {
             const tab = Array(depth).join("      ");
   
             options.map((option) => {
-              console.log(`${tab}${option.name}: ${option.getStringType()} (${option.classRef.name}.${option.key})`);
+              console.log(`${tab}${option.name}: ${option.stringType} (${option.classRef.name}.${option.key})`);
               printOptions(option.options, depth + 1);
             });
           };
@@ -274,6 +274,7 @@ export class Client extends ClientJS {
    */
   getInteractionGroupTree(interaction: CommandInteraction) {
     const tree = [];
+
     const getOptionsTree = (
       option: Partial<CommandInteractionOption>
     ) => {
@@ -288,6 +289,7 @@ export class Client extends ClientJS {
         return getOptionsTree(option.options?.[0]);
       }
     };
+
     getOptionsTree({
       name: interaction.commandName,
       options: interaction.options,
@@ -308,12 +310,17 @@ export class Client extends ClientJS {
       switch(tree.length) {
         case 1:
           // Simple command /hello
-          return (slash.name === tree[0]);
+          return (
+            slash.group === undefined &&
+            slash.subgroup === undefined &&
+            slash.name === tree[0]
+          );
         case 2:
           // Simple grouped command
           // /permission user perm
           return (
             slash.group === tree[0] &&
+            slash.subgroup === undefined &&
             slash.name === tree[1]
           );
         case 3:
@@ -351,7 +358,7 @@ export class Client extends ClientJS {
     if (!slash) return;
 
     // Parse the options values and inject it into the @Slash method
-    await slash.execute(interaction, this);
+    return await slash.execute(interaction, this);
   }
 
   /**

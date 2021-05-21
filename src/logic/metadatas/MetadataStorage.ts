@@ -85,7 +85,7 @@ export class MetadataStorage {
   private get discordMembers(): readonly Method[] {
     return [
       ...this._slashes,
-      ...this._events
+      ...this._events,
     ];
   }
 
@@ -185,14 +185,18 @@ export class MetadataStorage {
         group.key,
         group.method
       );
+
+      slashParent.discord = this._discords.find((instance) => {
+        return instance.from === slashParent.from;
+      });
+
+      slashParent.guilds = slashParent.discord.guilds;
+      slashParent.permissions = slashParent.discord.permissions;
+
       groupedSlashes.set(group.name, slashParent);
 
       const slashes = this._slashes.filter((slash) => {
         return slash.group === slashParent.name && !slash.subgroup;
-      });
-
-      slashParent.discord = this._discords.find((instance) => {
-        return instance.from === slashParent.from;
       });
 
       slashes.map((slash) => {

@@ -46,7 +46,7 @@ abstract class Bot {
   }
 }
 
-const client = new Client();
+const client = new Client({ intents: [] });
 
 beforeAll(async () => {
   await client.build();

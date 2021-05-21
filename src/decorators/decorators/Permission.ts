@@ -12,14 +12,14 @@ export function Permission(...roleIDs: string[]) {
   ) => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DDiscord>(async (original) => {
+        original.defaultPermission = false;
+        original.permissions = [...original.permissions, ...roleIDs];
+
         if (original instanceof DDiscord) {
           original.slashes.map((slash) => {
             slash.defaultPermission = false;
             slash.permissions = [...slash.permissions, ...roleIDs];
           });
-        } else {
-          original.defaultPermission = false;
-          original.permissions = [...original.permissions, ...roleIDs];
         }
       }, DSlash, DDiscord).decorateUnknown(target, key, descriptor)
     );
