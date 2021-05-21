@@ -127,7 +127,7 @@ async function start() {
 start();
 ```
 
-## ☎️ Need help?
+## Need help?
 
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**  
 
