@@ -32,7 +32,7 @@ module.exports = {
   themeConfig: {
     repo: 'https://github.com/owencalvin/discord.ts',
     editLinks: true,
-    docsDir: 'docs',
+    docsDir: 'docs/src',
     editLinkText: 'Edit this page',
     lastUpdated: true,
     nav: [
