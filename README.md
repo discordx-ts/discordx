@@ -48,8 +48,10 @@ abstract class AppDiscord {
 ## Decorators related to Slash commands
 There is a whole system that allows you to implement complex Slash commands
 - `@Choice`
+- `@Choices`
 - `@Option`
 - `@Permission`
+- `@Guild`
 - `@Group`
 - `@Description`
 - `@Guard`
