@@ -113,12 +113,14 @@ abstract class AppDiscord {
 ```
 
 # Installation
-Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
+Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord@slash** with **discord.js**
+
+> You use the npm @slash tag to install version of discord.ts **@typeit/discord** that includes Slash commands (this version)
 
 For the moment discord.**js** didn't release the v13 on npm, you have to install it this way:
 
 ```sh
-npm i @typeit/discord
+npm i @typeit/discord@slash
 ```
 ```sh
 npm i https://github.com/discordjs/discord.js

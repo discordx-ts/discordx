@@ -8,7 +8,7 @@
   "scripts": {
     "test": "jest --detectOpenHandles",
     "format": "npx prettier --write .",
-    "publish": "./publish.sh",
+    "publish:module": "sh ./publish.sh",
     "publish:docs": "cd docs && sh ./deploy.sh"
   },
   "files": [

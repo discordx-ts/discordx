@@ -26,6 +26,8 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 ## Installation
 Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
 
+> You use the npm @slash tag to install version of discord.ts **@typeit/discord** that includes Slash commands (this version)
+
 ::: danger
 For the moment discord.**js** didn't release the v13 on npm, you have to install it this way:
 ```sh
