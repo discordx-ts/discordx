@@ -1,15 +1,16 @@
 ---
 home: true
-heroImage: https://v1.vuepress.vuejs.org/hero.png
+heroImage: https://i.imgur.com/kSLOEIF.png
 tagline: The discord.ts documentation
+title: Discord.ts
 actionText: Quick Start →
-actionLink: /guide/
+actionLink: /introduction/
 features:
-- title: Feature 1 Title
-  details: Feature 1 Description
-- title: Feature 2 Title
-  details: Feature 2 Description
-- title: Feature 3 Title
-  details: Feature 3 Description
-footer: Made by Owen Calvin with ❤️
+- title: Decorators
+  details: Create your bot using Typescript decorators !
+- title: Slash commands
+  details: Implement a Discord's Slash commands system simply !
+- title: discord.js support
+  details: You can use discord.js along discord.ts without any problems !
+footer: Made by discord.ts team with ❤️
 ---

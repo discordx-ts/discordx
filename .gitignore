@@ -3,3 +3,4 @@ build
 test
 package-lock.json
 .DS_Store
+docs/src/.vuepress/dist

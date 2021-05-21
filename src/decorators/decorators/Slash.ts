@@ -9,7 +9,10 @@ export function Slash(name?: string, params?: SlashParams) {
     key: string,
     descriptor: PropertyDescriptor
   ) => {
-    const slash = DSlash.create(name || key, params?.description).decorate(
+    name = name || key, params?.description;
+    name = name.toLocaleLowerCase();
+
+    const slash = DSlash.create(name).decorate(
       target.constructor,
       key,
       target[key]

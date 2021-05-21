@@ -1,22 +1,13 @@
 import {
   Discord,
-  Command,
-  CommandNotFound,
-  CommandMessage,
-  Client,
+  Slash,
 } from "../../../src";
+import { CommandInteraction } from "discord.js";
 
-@Discord("!")
+@Discord()
 export class CommandsB {
-  @Command("hello", "SLUG", "NUMBER")
-  hello(command: CommandMessage, client: Client) {
-    console.log(client);
-    command.message.reply("Hello B");
-  }
-
-  @CommandNotFound()
-  notFound(command: CommandMessage, client: Client) {
-    console.log(client);
-    command.message.reply("NotFound B");
+  @Slash("hello")
+  hello(interaction: CommandInteraction) {;
+    interaction.reply("Hello 1");
   }
 }
