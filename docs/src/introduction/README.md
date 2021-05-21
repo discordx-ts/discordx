@@ -23,7 +23,7 @@ This module is an extension of **[discord.**js**](https://discordjs.guide/)**, s
 
 This library allows you to use TypeScript decorators on discord.**js**, it simplify your code and improve the readability !
 
-## 📡 Installation
+## Installation
 Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
 
 > You use the npm @slash tag to install version of discord.ts **@typeit/discord** that includes Slash commands (this version)
