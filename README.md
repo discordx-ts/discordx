@@ -112,7 +112,7 @@ abstract class AppDiscord {
 }
 ```
 
-# Installation
+# 📡 Installation
 Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord@slash** with **discord.js**
 
 > You use the npm @slash tag to install version of discord.ts **@typeit/discord** that includes Slash commands (this version)
