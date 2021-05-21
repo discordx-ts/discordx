@@ -37,7 +37,7 @@ module.exports = {
     lastUpdated: true,
     nav: [
       {
-        text: 'Discord',
+        text: 'Discord server',
         link: 'https://discord.gg/JbVSu4KxwV',
       }
     ],
