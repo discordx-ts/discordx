@@ -74,6 +74,7 @@ module.exports = {
           ["/decorators/option", "@Option"],
           ["/decorators/choice", "@Choice"],
           ["/decorators/choices", "@Choices"],
+          ["/decorators/guild", "@Guild"],
           ["/decorators/permission", "@Permission"],
           ["/decorators/group", "@Group"],
           ["/decorators/guard", "@Guard"],

@@ -1,11 +1,15 @@
 import { Decorator } from "./Decorator";
 import {
   DGuard,
+  DSlash,
+  DIService,
+  DOn
 } from "../..";
-import { DIService } from "../../logic";
 
 export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
+  private _slashes: DSlash[] = [];
+  private _events: DOn[] = [];
   private _description: string;
   private _name: string;
 
@@ -28,6 +32,20 @@ export class DDiscord extends Decorator {
   }
   set guards(value) {
     this._guards = value;
+  }
+
+  get slashes() {
+    return this._slashes;
+  }
+  set slashes(value) {
+    this._slashes = value;
+  }
+
+  get events() {
+    return this._events;
+  }
+  set events(value) {
+    this._events = value;
   }
 
   get instance() {

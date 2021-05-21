@@ -98,6 +98,12 @@ export class DSlash extends Method {
     const option = DOption.create(
       this.name,
       "SUB_COMMAND"
+    ).decorate(
+      this.classRef,
+      this.key,
+      this.method,
+      this.from,
+      this.index
     );
     option.options = this.options;
 

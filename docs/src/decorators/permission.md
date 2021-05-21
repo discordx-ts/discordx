@@ -22,6 +22,26 @@ class DiscordBot {
 }
 ```
 
+## Permissions at class level
+You can set the permissions for all @Slash inside the class by decorating the class with @Permission
+```ts
+@Discord()
+@Permission("ROLE_ID", "ROLE_ID2")
+class DiscordBot {
+  @Slash("hello") // Only the role that has this ROLE_ID can use this command
+  private hello(
+  ) {
+    // ...
+  }
+
+  @Slash("hello2") // Only the role that has this ROLE_ID can use this command
+  private hello2(
+  ) {
+    // ...
+  }
+}
+```
+
 ## Params
 `@Permission(...roleIDs: string[])`
 

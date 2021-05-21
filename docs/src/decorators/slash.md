@@ -161,7 +161,7 @@ The Slash command description
 
 ### Guilds
 `string[]`   
-The guilds where the command is create
+The guilds where the command is created
 
 ### defaultPermission
 `boolean`  

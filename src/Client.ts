@@ -15,7 +15,7 @@ import {
   DOn,
   GuardFunction,
 } from ".";
-import { DDiscord, DSlash } from "./decorators";
+import { DDiscord, DOption, DSlash } from "./decorators";
 
 export class Client extends ClientJS {
   private _silent: boolean;
@@ -133,15 +133,39 @@ export class Client extends ClientJS {
 
     if (!this.silent) {
       console.log("Events");
-      this.events.map((event) => {
-        const eventName = event.event;
-        console.log(`   ${eventName}: ${event.classRef.name}.${event.key}`);
-      });
+      if (this.events.length > 0) {
+        this.events.map((event) => {
+          const eventName = event.event;
+          console.log(`   ${eventName} (${event.classRef.name}.${event.key})`);
+        });
+      } else {
+        console.log("   No events detected");
+      }
 
-      console.log("Slash");
-      this.slashes.map((slash) => {
-        console.log(`   ${slash.name}: ${slash.classRef.name}.${slash.key}`);
-      });
+      console.log("");
+
+      console.log("Slashes");
+      if (this.slashes.length > 0) {
+        this.slashes.map((slash) => {
+          console.log(`   ${slash.name} (${slash.classRef.name}.${slash.key})`);
+          const printOptions = (options: DOption[], depth: number) => {
+            if (!options) return;
+    
+            const tab = Array(depth).join("      ");
+  
+            options.map((option) => {
+              console.log(`${tab}${option.name}: ${option.getStringType()} (${option.classRef.name}.${option.key})`);
+              printOptions(option.options, depth + 1);
+            });
+          };
+  
+          printOptions(slash.options, 2);
+  
+          console.log("");
+        });
+      } else {
+        console.log("   No slashes detected");
+      }
     }
 
     this.decorators.usedEvents.map(async (on) => {
@@ -171,8 +195,15 @@ export class Client extends ClientJS {
         if (slash.guilds.length > 0) {
           // If the @Slash is guild specific, add it to the guild
           await Promise.all(
-            slash.guilds.map(async (guild) => {
-              const commands = this.guilds.cache.get(guild).commands;
+            slash.guilds.map(async (guildID) => {
+              const guild = this.guilds.cache.get(guildID);
+
+              if (!guild) {
+                console.log(`The guild with the ID "${guildID}" is not found`);
+                return;
+              }
+
+              const commands = guild.commands;
               const command = await commands.create(slash.toObject());
 
               if (slash.permissions.length <= 0) return;
@@ -282,15 +313,15 @@ export class Client extends ClientJS {
           // Simple grouped command
           // /permission user perm
           return (
-            slash.group === group &&
+            slash.group === tree[0] &&
             slash.name === tree[1]
           );
         case 3:
           // Grouped and subgroupped command
           // /permission user perm
           return (
-            slash.group === group &&
-            slash.subgroup === subgroup &&
+            slash.group === tree[0] &&
+            slash.subgroup === tree[1] &&
             slash.name === tree[2]
           );
       }
@@ -303,6 +334,13 @@ export class Client extends ClientJS {
    * @returns void
    */
   async executeSlash(interaction: Interaction) {
+    if (!interaction) {
+      if (!this.silent) {
+        console.log("Interaction is undefined");
+      }
+      return;
+    }
+
     // If the interaction isn't a slash command, return
     if (!interaction.isCommand()) return;
 

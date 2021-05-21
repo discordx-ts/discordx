@@ -3,9 +3,9 @@ import {
   Discord,
   Slash,
   Option,
+  Guild,
   Group,
   Choices,
-  Choice,
 } from "../../../src";
 
 enum TextChoices {
@@ -14,6 +14,7 @@ enum TextChoices {
 }
 
 @Discord()
+@Guild("693401527494377482")
 @Group(
   "testing",
   "Testing group description",
@@ -51,9 +52,8 @@ export abstract class AppDiscord {
   @Group("text")
   hello(
     @Choices(TextChoices)
-    @Choice("How are you", "question")
     @Option("text")
-    text: string,
+    text: TextChoices,
     interaction: CommandInteraction
   ) {
     interaction.reply(text);
@@ -70,6 +70,7 @@ export abstract class AppDiscord {
 }
 
 @Discord()
+@Guild("invalid_id")
 export abstract class AppDiscord1 {
   @Slash("hello")
   add(

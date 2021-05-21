@@ -134,6 +134,14 @@ export class MetadataStorage {
       // You can get the @Discord that wrap a @Command/@On by using
       // on.discord or slash.discord
       member.discord = discord;
+
+      if (member instanceof DSlash) {
+        discord.slashes.push(member);
+      }
+
+      if (member instanceof DOn) {
+        discord.events.push(member);
+      }
     });
     
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
@@ -141,7 +149,8 @@ export class MetadataStorage {
     await Modifier.applyFromModifierListToList(this._modifiers, this._options);
     await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
 
-    // Set the property "group" of all @Slash
+    // Set the class level "group" property of all @Slash
+    // Cannot achieve it using modifiers
     this._groups.map((group) => {
       this._slashes.map((slash) => {
         if (group.from !== slash.from) {
@@ -154,8 +163,6 @@ export class MetadataStorage {
 
     this._allSlashes = this._slashes;
     this._slashes = this.groupSlashes();
-
-    console.log(this._slashes);
   }
 
   private groupSlashes() {
@@ -212,6 +219,10 @@ export class MetadataStorage {
         subGroup.name,
         "SUB_COMMAND_GROUP",
         subGroup.infos.description
+      ).decorate(
+        subGroup.classRef,
+        subGroup.key,
+        subGroup.method
       );
 
       // Get the slashes that are in this subgroup

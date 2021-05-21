@@ -39,8 +39,7 @@ export function Group(
           { description }
         ).decorate(
           target as Function,
-          key,
-          target[key]
+          (target as Function).name
         );
 
         MetadataStorage.instance.addGroup(group);
@@ -54,8 +53,7 @@ export function Group(
             { description: subCommands[key] }
           ).decorate(
             target as Function,
-            key,
-            target[key]
+            (target as Function).name
           );
 
           MetadataStorage.instance.addSubGroup(group);
