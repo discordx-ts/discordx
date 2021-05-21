@@ -47,4 +47,4 @@ class DiscordBot {
 
 ### roleIDs
 `string[]`  
-The role ID list
+The roles IDs list

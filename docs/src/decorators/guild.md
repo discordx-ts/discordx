@@ -39,3 +39,10 @@ class DiscordBot {
   }
 }
 ```
+
+## Params
+`@Guild(...guildIDs: string[])`
+
+### roleIDs
+`string[]`  
+The guilds IDs list
