@@ -112,6 +112,30 @@ abstract class AppDiscord {
 }
 ```
 
+# Installation
+Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
+
+For the moment discord.**js** didn't release the v13 on npm, you have to install it this way:
+
+```sh
+npm i @typeit/discord
+```
+```sh
+npm i https://github.com/discordjs/discord.js
+```
+
+And you should see this in your package.json
+```json
+{
+  // ...
+  "dependencies": {
+    "@typeit/discord": "^X.X.X",
+    "discord.js": "github:discordjs/discord.js",
+  }
+  // ...
+}
+```
+
 # ☎️ Need help?
 
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**  

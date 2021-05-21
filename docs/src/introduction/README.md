@@ -24,13 +24,36 @@ This module is an extension of **[discord.**js**](https://discordjs.guide/)**, s
 This library allows you to use TypeScript decorators on discord.**js**, it simplify your code and improve the readability !
 
 ## Installation
+Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
 
-Use [`npm`](https://www.npmjs.com/package/@typeit/discord) or `yarn` to install `@typeit/discord` with `discord.js`:
+::: danger
+For the moment discord.**js** didn't release the v13 on npm, you have to install it this way:
+```sh
+npm i @typeit/discord
+```
+```sh
+npm i https://github.com/discordjs/discord.js
+```
+And you should see this in your package.json
+```json
+{
+  // ...
+  "dependencies": {
+    "@typeit/discord": "^X.X.X",
+    "discord.js": "github:discordjs/discord.js",
+  }
+  // ...
+}
+```
+:::
 
+<!--
 ```sh
 npm i @typeit/discord discord.js
 ```
+-->
 
+## tsconfig.json
 Your tsconfig.json file should look like this:
 
 ```json
