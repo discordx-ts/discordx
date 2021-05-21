@@ -1,4 +1,4 @@
-# @On
+# @On - Discord events
 We can declare methods that will be executed whenever a Discord event is triggered.  
 
 Our methods must be decorated with the `@On(event: string)` or [@Once(event: string)](/decorators/once) decorator.  

@@ -1,4 +1,4 @@
-# @Once
+# @Once - Discord events
 It's exactly the same behavior as [@On](/decorators/on) but the method is only executed once
 
 ```typescript

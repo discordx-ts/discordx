@@ -73,7 +73,7 @@ module.exports = {
           ["/decorators/slash", "@Slash"],
           ["/decorators/option", "@Option"],
           ["/decorators/choice", "@Choice"],
-          ["/decorators/choice", "@Choices"],
+          ["/decorators/choices", "@Choices"],
           ["/decorators/permission", "@Permission"],
           ["/decorators/group", "@Group"],
           ["/decorators/guard", "@Guard"],

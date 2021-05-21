@@ -9,7 +9,7 @@
     "test": "jest --detectOpenHandles",
     "format": "npx prettier --write .",
     "publish": "./publish.sh",
-    "docs": "vuepress build docs/src"
+    "publish:docs": "cd docs && sh ./deploy.sh"
   },
   "files": [
     "*"

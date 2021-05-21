@@ -1,4 +1,4 @@
-## ℹ️ @Description
+# @Description
 This decorator is a shortcut to set the description property
 
 ```typescript
