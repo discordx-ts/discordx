@@ -1,4 +1,4 @@
-# Guards
+# @Guard
 
 You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator.
 

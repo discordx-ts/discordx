@@ -1,37 +1,26 @@
 # @Discord
+This decorator instanciate the class inside the discord.**ts** library to access to the class members or to call the methods
 
-So we start with an empty class
-
-
-```typescript
-abstract class AppDiscord {}
-```
-> `abstract` keyword is not necessary but this is more type-safe, the class shouldn't be initialized
-
-
-Then **you must declare it as a Discord app class with the `@Discord` decorator to use members decorators**
+::: danger
+you must declare it as a Discord app class with the `@Discord` decorator to use members decorators
+:::
 
 ```typescript
-import { Discord } from "@typeit/discord";
-
-@Discord() // Decorate the class
-abstract class AppDiscord {}
-```
-
-## Adding class members
-You have to decocrate the class with @Discord to use @Slash for example
-```ts
 import { Discord, Slash } from "@typeit/discord";
 
 @Discord()
 abstract class AppDiscord {
-  @Slash("hello")
+  // We can use member decorators
+  // because we decorated the class with @Discord 
+  @Slash("hello") 
   private hello(
   ) {
     // ...
   }
 }
 ```
+
+> `abstract` keyword is not necessary but this is more type-safe, the class shouldn't be initialized
 
 <!--
 ## Params

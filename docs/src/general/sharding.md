@@ -2,7 +2,7 @@
 
 Sharding your bot with `@typeit/discord`.
 
-[TOC]
+[[toc]]
 
 ## Purpose
 
@@ -12,8 +12,8 @@ When you hit that milestone and need to begin the sharding process this guide wi
 
 ## Before you start
 
-- [ ] Get your bot into 2,000 guilds
-- [ ] Ensure your bot compiles down to javascript with `tsc`
+- ✅ Get your bot into 2,000 guilds
+- ✅ Ensure your bot compiles down to javascript with `tsc`
 
 ### What if my bot is in less than 2,000 servers?
 

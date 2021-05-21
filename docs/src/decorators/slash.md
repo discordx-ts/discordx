@@ -48,6 +48,22 @@ async function start() {
 start();
 ```
 
+::: danger
+The Slash commands take time to be globaly applied on Discord's server
+
+**Global** slash commands take time to propagate on discord servers, we recommended to develop on a test server with the **guild** specific mode
+
+```ts
+const client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ],
+  slashGuilds: process.DEV ? ["GUILD_ID"] | undefined
+});
+```
+:::
+
 ## Slash API
 By using the Client class you can access and manage to Slashes
 

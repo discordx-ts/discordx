@@ -2,7 +2,7 @@
 home: true
 heroImage: https://i.imgur.com/kSLOEIF.png
 tagline: The discord.ts documentation
-title: Discord.ts
+title: discord.ts
 actionText: Quick Start →
 actionLink: /introduction/
 features:
