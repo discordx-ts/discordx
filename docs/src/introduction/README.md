@@ -31,7 +31,7 @@ Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@t
 ::: danger
 For the moment discord.**js** didn't release the v13 on npm, you have to install it this way:
 ```sh
-npm i @typeit/discord
+npm i @typeit/discord@slash
 ```
 ```sh
 npm i https://github.com/discordjs/discord.js
