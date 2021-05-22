@@ -29,25 +29,39 @@ Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@t
 > You use the npm @slash tag to install version of discord.ts **@typeit/discord** that includes Slash commands (this version)
 
 ::: danger
-For the moment discord.**js** didn't release the v13 on npm, you have to install it this way:
+For the moment discord.**js** didn't release the v13 on npm, you have to install it this way  
+(You also have to install "reflect-metadata" for the decorators)
 ```sh
-npm i @typeit/discord@slash
+npm i @typeit/discord@slash reflect-metadata https://github.com/discordjs/discord.js 
 ```
+
+Install you TypeScript dev dependencies too
 ```sh
-npm i https://github.com/discordjs/discord.js
+npm i -D @types/node typescript tslib
 ```
+
 And you should see this in your package.json
+
 ```json
 {
   // ...
   "dependencies": {
     "@typeit/discord": "^X.X.X",
     "discord.js": "github:discordjs/discord.js",
+    "reflect-metadata": "^0.1.13",
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.3",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
   }
   // ...
 }
 ```
 :::
+
+## Execution environnement
+To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).  
 
 <!--
 ```sh
