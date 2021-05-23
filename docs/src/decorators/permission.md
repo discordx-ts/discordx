@@ -5,6 +5,11 @@ The permissions are based on a **role id** that you specify on the @Permission d
 
 The permissions will be set when you call `client.initSlashes()`
 
+::: danger
+Permissions are only available for Guild specific Slash commands  
+[More informations](https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions)
+:::
+
 > You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initSlashes()` implementation
 
 ## Setup permissions

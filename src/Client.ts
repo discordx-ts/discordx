@@ -16,6 +16,7 @@ import {
   GuardFunction,
 } from ".";
 import { DDiscord, DOption, DSlash } from "./decorators";
+import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
   private _silent: boolean;
@@ -199,8 +200,7 @@ export class Client extends ClientJS {
               const guild = this.guilds.cache.get(guildID);
 
               if (!guild) {
-                console.log(`The guild with the ID "${guildID}" is not found`);
-                return;
+                throw new GuildNotFoundError(guildID);
               }
 
               const commands = guild.commands;
@@ -216,9 +216,11 @@ export class Client extends ClientJS {
           const commands = this.application.commands;
           const command = await commands.create(slash.toObject());
 
-          if (slash.permissions.length <= 0) return;
+          // Only available for Guilds
+          // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
+          // if (slash.permissions.length <= 0) return;
 
-          await commands.setPermissions(command, slash.getPermissions());
+          // await commands.setPermissions(command, slash.getPermissions());
         }
       })
     );
@@ -229,9 +231,13 @@ export class Client extends ClientJS {
    * @param guild The guild ID (empty -> globaly)
    * @returns The existing commands
    */
-  async fetchSlash(guild?: string) {
-    if (guild) {
-      return await this.guilds.cache.get(guild).commands.fetch();
+  async fetchSlash(guildID?: string) {
+    if (guildID) {
+      const guild = this.guilds.cache.get(guildID);
+      if (!guild) {
+        throw new GuildNotFoundError(guildID);
+      }
+      return await guild.commands.fetch();
     }
     return await this.application.commands.fetch();
   }
