@@ -55,6 +55,7 @@ module.exports = {
         sidebarDepth: 3,
         children: [
           ["/general/client", "Client"],
+          ["/general/debugging", "Debugging"],
           ["/general/metadatastorage", "MetadataStorage"],
           ["/general/argsof", "ArgsOf"],
           ["/general/events", "List of the events"],
