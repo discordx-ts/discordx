@@ -63,6 +63,22 @@ And you should see this in your package.json
 ## Execution environnement
 To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).  
 
+::: danger
+Be aware that if you compile your code into JavaScript with `tsc` you have to specify .js files when you instanciate your Client
+```ts
+const client = new Client({
+  // glob string to load the classes
+  classes: [
+    `${__dirname}/*Discord.ts`, // If you use ts-node
+    `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js
+  ],
+  silent: false,
+  // At instanciation
+  guards: [NotBot, Prefix("!")],
+});
+```
+:::
+
 <!--
 ```sh
 npm i @typeit/discord discord.js
