@@ -117,7 +117,7 @@ If you have to indicate parameters for a guard function you can simple use the "
 import { GuardFunction } from "@typeit/discord";
 
 export function Prefix(text: string, replace: boolean = true) {
-  const guard: GuardFunction<"message"> = ([message], client, next) => {
+  const guard: GuardFunction<ArgsOf<"message">> = ([message], client, next) => {
     const startWith = message.content.startsWith(text);
     if (replace) {
       message.content = message.content.replace(text, "");
@@ -138,7 +138,7 @@ As 4th parameter you receive a basic empty object that can be used to transmit d
 ```typescript
 import { GuardFunction } from "@typeit/discord";
 
-export const NotBot: GuardFunction<"message"> = (
+export const NotBot: GuardFunction<ArgsOf<"message">> = (
   [message],
   client,
   next,
@@ -152,15 +152,16 @@ export const NotBot: GuardFunction<"message"> = (
 ```
 
 ```typescript
-import { Discord, Command, Client, Guard } from "@typeit/discord";
+import { Discord, Slash, Client, Guard } from "@typeit/discord";
+import { CommandInteraction } from "discord.js";
 import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";
 
 @Discord()
 abstract class AppDiscord {
-  @Command()
+  @Slash()
   @Guard(NotBot, Prefix("!"))
-  async hello(command: CommandMessage, client: Client, guardDatas: any) {
+  async hello(interaction: CommandInteraction, client: Client, guardDatas: any) {
     console.log(guardDatas.message);
     // > the NotBot guard passed
   }
