@@ -35,7 +35,7 @@ For the moment discord.**js** didn't release the v13 on npm, you have to install
 npm i @typeit/discord@slash reflect-metadata https://github.com/discordjs/discord.js 
 ```
 
-Install you TypeScript dev dependencies too
+Install your TypeScript dev dependencies too
 ```sh
 npm i -D @types/node typescript tslib
 ```
