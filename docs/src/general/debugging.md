@@ -2,9 +2,9 @@
 
 1. Create the `.vscode/launch.json` file at your project root directory if the file do not already exists
    
-2. Install ts-node globaly
+2. Install ts-node as a dev dependency
    ```
-   npm i -g ts-node
+   npm i -D ts-node
    ```
 
 3. Copy paste this into your `launch.json` file
