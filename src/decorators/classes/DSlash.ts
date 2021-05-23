@@ -129,7 +129,7 @@ export class DSlash extends Method {
     }));
   }
 
-  getLastNestedOption(options: CommandInteractionOption[]) {
+  getLastNestedOption(options: CommandInteractionOption[]): CommandInteractionOption[] {
     if (!options[0]?.options) {
       return options;
     }
@@ -137,6 +137,12 @@ export class DSlash extends Method {
   }
 
   parseParams(interaction: CommandInteraction) {
-    return this.getLastNestedOption(interaction.options).map((option) => option.value);
+    const options = this.getLastNestedOption(interaction.options);
+
+    const values = this.options.map((opt, index) => {
+      return options[index]?.value;
+    });
+
+    return values;
   }
 }

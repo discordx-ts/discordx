@@ -118,7 +118,7 @@ export abstract class AppDiscord1 {
   @Slash("hello")
   @Permission("123")
   add(
-    @Option("text")
+    @Option("text", { required: false })
     text: string,
     interaction: CommandInteraction,
     client: Client,
@@ -402,6 +402,17 @@ describe("Slash", () => {
 
     const res = await client.executeSlash(interaction as any);
     expect(res).toEqual(["/testing maths add", 7, interaction, true]);
+  });
+
+  it("Should execute the with optional option", async () => {
+    const interaction = new FakeInteraction(
+      "hello",
+      [
+      ]
+    );
+
+    const res = await client.executeSlash(interaction as any);
+    expect(res).toEqual(["/hello", undefined, interaction, true]);
   });
 
   it("Should not execute not found slash", async () => {
