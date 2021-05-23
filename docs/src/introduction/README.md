@@ -107,6 +107,19 @@ Your tsconfig.json file should look like this:
 }
 ```
 
+## reflect-metadata
+You have to import the reflect-metadata module on your main file for the decorators (for the reflection)
+```ts
+import "reflect-metadata";
+import { Client } from "@typeit/discord";
+
+async function start() {
+  // ...
+}
+
+start();
+```
+
 ## Setup and start your application
 
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
@@ -153,19 +166,6 @@ async function start() {
   });
 
   await client.login("YOUR_TOKEN");
-}
-
-start();
-```
-
-## reflect-metadata
-You have to import the reflect-metadata module on your main file for the decorators
-```ts
-import "reflect-metadata";
-import { Client } from "@typeit/discord";
-
-async function start() {
-  // ...
 }
 
 start();
