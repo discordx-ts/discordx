@@ -134,7 +134,8 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
 
 **You must specify the glob path(s) where your decorated classes are**
 
-```typescript
+```ts
+import "reflect-metadata";
 // Use the Client that are provided by @typeit/discord NOT discord.js
 import { Client } from "@typeit/discord";
 
@@ -152,6 +153,19 @@ async function start() {
   });
 
   await client.login("YOUR_TOKEN");
+}
+
+start();
+```
+
+## reflect-metadata
+You have to import the reflect-metadata module on your main file for the decorators
+```ts
+import "reflect-metadata";
+import { Client } from "@typeit/discord";
+
+async function start() {
+  // ...
 }
 
 start();
