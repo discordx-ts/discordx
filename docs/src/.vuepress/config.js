@@ -51,7 +51,7 @@ module.exports = {
       {
         title: 'General',
         collapsable: false,
-        path: "/general/",
+        path: "/general/client",
         sidebarDepth: 3,
         children: [
           ["/general/client", "Client"],
@@ -66,7 +66,7 @@ module.exports = {
         title: 'Decorators',
         collapsable: false,
         sidebarDepth: 3,
-        path: "/decorators/",
+        path: "/decorators/discord",
         children: [
           ["/decorators/discord", "@Discord"],
           ["/decorators/on", "@On"],
