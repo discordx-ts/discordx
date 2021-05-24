@@ -2,28 +2,33 @@
 It manage all the operations between you Discord and event discord.js
 
 ## Setup and start your application
-
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
 It works the same as the discord.**js**'s Client (same methods, properties, ...).
 
-- **`classes` (required)**:  
+- **`classes` (required)**  
+  `string[]`    
   Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
 
-- **`silent` (`false` by default)**:  
+- **`silent`**    
+  `boolean` (`false` by default)   
   Allows you to disable your event information at startup
 
-- **`guards` (`[]` by default)**:  
+- **`requiredByDefault`**    
+  `boolean` (`false` by default)  
+  The `@Option` are required by default 
+
+- **`guards`**    
+  `GuardFunction[]`  
   Global guards, it's an array of functions
 
-- **`slashGuilds`**:  
+- **`slashGuilds`**    
+  `string[]`   
   The slash commands are executed only on this list of guilds by default
-
-- **`requiredByDefault`**:  
-  The `@Option` are required by default 
 
 **You must specify the glob path(s) where your decorated classes are**
 
-```typescript
+```ts
+import "reflect-metadata";
 // Use the Client that are provided by @typeit/discord NOT discord.js
 import { Client } from "@typeit/discord";
 
