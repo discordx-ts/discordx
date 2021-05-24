@@ -1,5 +1,5 @@
 # Client
-It manage all the operations between you Discord and event discord.js
+It manage all the operations between your app, Discord's API and discord.js
 
 ## Setup and start your application
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
