@@ -170,3 +170,6 @@ The guilds where the command is created
 
 ## Authorize your bot to use Slash commands
 On the Discord's developer portal you have to check the box **bot** AND **applications.commands**
+
+![](/discord.ts/authorize1.png)
+![](/discord.ts/authorize2.png)

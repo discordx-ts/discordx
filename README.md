@@ -117,7 +117,7 @@ abstract class AppDiscord {
 # 📡 Installation
 Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord@slash** with **discord.js**
 
-**[Please refer to the documentation](https://owencalvin.github.io/discord.ts/introduction/#installation)**
+**[Please refer to the documentation](https://owencalvin.github.io/discord.ts/installation/#installation)**
 
 
 # ☎️ Need help?

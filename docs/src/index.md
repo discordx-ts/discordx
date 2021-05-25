@@ -4,7 +4,7 @@ heroImage: https://i.imgur.com/kSLOEIF.png
 tagline: The discord.ts documentation
 title: discord.ts
 actionText: Quick Start →
-actionLink: /introduction/
+actionLink: /installation/
 features:
 - title: Decorators
   details: Create your bot using Typescript decorators !
