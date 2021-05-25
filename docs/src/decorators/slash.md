@@ -175,4 +175,4 @@ On the Discord's developer portal you have to check the box **bot** AND **applic
 ![](/discord.ts/authorize2.png)
 
 ## discord.js's Slash documentation
-(discord.js's documentation with Interactions)[https://discord.js.org/#/docs/main/master/general/welcome]
+[discord.js's documentation with Interactions](https://discord.js.org/#/docs/main/master/general/welcome)
