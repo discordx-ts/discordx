@@ -1,5 +1,5 @@
 # Intents
-You must now specify the "**intents**" of your bot when you initialize the Client, it specify wich informations your bot receive from the Discord's servers, **it's different from the permissions**
+You must specify the "**intents**" of your bot when you initialize the Client, it specify wich informations your bot receive from the Discord's servers, **it's different from the permissions**
 
 *Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.*
 
