@@ -55,7 +55,6 @@ module.exports = {
         sidebarDepth: 3,
         children: [
           ["/general/debugging", "Debugging"],
-          ["/general/intents", "Intents"],
           ["/general/client", "Client"],
           ["/general/metadatastorage", "MetadataStorage"],
           ["/general/argsof", "ArgsOf"],
