@@ -174,5 +174,6 @@ On the Discord's developer portal, select your bot, go to the OAuth2 tab and che
 ![](/discord.ts/authorize1.png)
 ![](/discord.ts/authorize2.png)
 
-## discord.js's Slash documentation
-[discord.js's documentation with Interactions](https://discord.js.org/#/docs/main/master/general/welcome)
+## See also
+- [discord.js's documentation with Interactions (Slash commands)](https://discord.js.org/#/docs/main/master/general/welcome)
+- [Discord's Slash commands interactions](https://discord.com/developers/docs/interactions/slash-commands)
