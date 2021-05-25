@@ -121,7 +121,7 @@ const client = new Client({
 - DIRECT_MESSAGE_TYPING
 
 ## Slashes API
-It also implements an [API for your @Slash](http://localhost:8080/decorators/slash.html#slash-api)
+It also implements an [API for your @Slash](/discord.ts/decorators/slash.html#slash-api)
 
 ## See also
 - [discord.js documentation](https://discord.js.org/#/docs/main/stable/class/Intents)
