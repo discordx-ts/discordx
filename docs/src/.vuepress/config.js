@@ -54,8 +54,8 @@ module.exports = {
         path: "/general/client",
         sidebarDepth: 3,
         children: [
-          ["/general/client", "Client"],
           ["/general/debugging", "Debugging"],
+          ["/general/client", "Client"],
           ["/general/metadatastorage", "MetadataStorage"],
           ["/general/argsof", "ArgsOf"],
           ["/general/events", "List of the events"],
