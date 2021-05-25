@@ -99,4 +99,4 @@ const client = new Client({
 ```
 
 ## Autocompletion (Option's choices)
-You can use the [@Choice](/discord.ts/decorators/choice) decorator
+You can use the [@Choice](/decorators/choice/) decorator

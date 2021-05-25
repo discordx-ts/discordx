@@ -19,7 +19,7 @@ For each event a list of arguments is injected in your decorated method, you can
 You also receive other useful arguments after that:
 1. The event payload (`ArgsOf<"YOUR_EVENT">`)
 2. The `Client` instance
-3. The [guards](/discord.ts/decorators/guards) payload
+3. The [guards](/decorators/guards/) payload
 
 > You should use JS desctructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 

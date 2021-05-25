@@ -125,5 +125,5 @@ You can also find help with the [different projects that use discord.ts](https:/
 - [Discord's Slash commands interactions](https://discord.com/developers/docs/interactions/slash-commands)
 
 ## Next step
-[Setup and start your application 🚀](/discord.ts/general/client)
+[Setup and start your application 🚀](/general/client/)
 
