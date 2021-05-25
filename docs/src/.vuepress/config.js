@@ -43,10 +43,10 @@ module.exports = {
     ],
     sidebar: [
       {
-        title: 'Introduction',
+        title: 'Installation',
         collapsable: false,
         sidebarDepth: 3,
-        path: "/introduction/",
+        path: "/installation/",
       },
       {
         title: 'General',
