@@ -120,5 +120,10 @@ start();
 
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
+## See also
+- [discord.js's documentation with Interactions (Slash commands)](https://discord.js.org/#/docs/main/master/general/welcome)
+- [Discord's Slash commands interactions](https://discord.com/developers/docs/interactions/slash-commands)
+
 ## Next step
 [Setup and start your application 🚀](/discord.ts/general/client)
+
