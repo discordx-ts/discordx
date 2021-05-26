@@ -190,7 +190,10 @@ export class MetadataStorage {
         return instance.from === slashParent.from;
       });
 
-      slashParent.guilds = slashParent.discord.guilds;
+      slashParent.guilds = [
+        ...Client.slashGuilds,
+        ...slashParent.discord.guilds
+      ];
       slashParent.permissions = slashParent.discord.permissions;
 
       groupedSlashes.set(group.name, slashParent);
