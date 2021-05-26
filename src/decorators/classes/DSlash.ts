@@ -112,7 +112,7 @@ export class DSlash extends Method {
   }
 
   toObject(): ApplicationCommandData {
-    const options = this.options.reverse().map((option) => option.toObject());
+    const options = [...this.options].reverse().map((option) => option.toObject());
     
     return {
       name: this.name,
