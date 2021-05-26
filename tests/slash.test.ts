@@ -12,7 +12,8 @@ import {
   Permission,
   OptionValueType,
   StringOptionType,
-  Guard
+  Guard,
+  Description
 } from "../src";
 
 enum TextChoices {
@@ -35,6 +36,7 @@ enum TextChoices {
   return await next();
 })
 export abstract class AppDiscord {
+  @Description("Addition")
   @Slash("add")
   @Group("maths")
   add(
@@ -54,7 +56,7 @@ export abstract class AppDiscord {
     ];
   }
 
-  @Slash("multiply")
+  @Slash("multiply", { description: "Multiply" })
   @Group("maths")
   multiply(
     @Option("x", { description: "x value" })
@@ -208,7 +210,7 @@ describe("Slash", () => {
             ],
             options: [
               {
-                description: "hello - SUB_COMMAND",
+                description: "hello",
                 name: "hello",
                 type: "SUB_COMMAND",
                 choices: [
@@ -244,7 +246,7 @@ describe("Slash", () => {
             ],
             options: [
               {
-                description: "add - SUB_COMMAND",
+                description: "Addition",
                 name: "add",
                 type: "SUB_COMMAND",
                 choices: [
@@ -273,7 +275,7 @@ describe("Slash", () => {
                 ],
               },
               {
-                description: "multiply - SUB_COMMAND",
+                description: "Multiply",
                 name: "multiply",
                 type: "SUB_COMMAND",
                 choices: [
@@ -304,7 +306,7 @@ describe("Slash", () => {
             ],
           },
           {
-            description: "hello - SUB_COMMAND",
+            description: "hello",
             name: "hello",
             type: "SUB_COMMAND",
             choices: [

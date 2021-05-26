@@ -97,7 +97,8 @@ export class DSlash extends Method {
   toSubCommand() {
     const option = DOption.create(
       this.name,
-      "SUB_COMMAND"
+      "SUB_COMMAND",
+      this.description
     ).decorate(
       this.classRef,
       this.key,

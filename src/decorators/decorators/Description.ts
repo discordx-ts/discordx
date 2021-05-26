@@ -4,14 +4,14 @@ import { DSlash } from "../classes/DSlash";
 export function Description(description: string);
 export function Description(description: string) {
   return (
-    target: Function,
+    target: Object,
     key: string,
     descriptor: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>(async (original) => {
+      Modifier.create<DSlash>(async (original) => {
         original.description = description;
-      }, DSlash).decorate(target, key, descriptor.value)
+      }, DSlash).decorate(target.constructor, key, descriptor.value)
     );
   };
 }

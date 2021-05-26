@@ -146,8 +146,8 @@ export class MetadataStorage {
     
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._options);
     await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._options);
 
     // Set the class level "group" property of all @Slash
     // Cannot achieve it using modifiers

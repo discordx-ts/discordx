@@ -29,6 +29,7 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
 
 ```ts
 import "reflect-metadata";
+import { Intents } from "discord.js";
 // Use the Client that are provided by @typeit/discord NOT discord.js
 import { Client } from "@typeit/discord";
 
@@ -60,6 +61,8 @@ You must specify the "**intents**" of your bot when you initialize the Client, i
 
 ### Basic intents, just text messages
 ```ts
+import { Intents } from "discord.js";
+
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -71,6 +74,8 @@ const client = new Client({
 
 ### Voice activity intent, the ability to speak
 ```ts
+import { Intents } from "discord.js";
+
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,
@@ -83,6 +88,8 @@ const client = new Client({
 
 ### All the intents
 ```ts
+import { Intents } from "discord.js";
+
 const client = new Client({
   intents: [
     Intents.FLAGS.GUILDS,
