@@ -109,7 +109,7 @@ export class DOption extends Decorator {
   ) {
     const option = new DOption();
 
-    option._name = name;
+    option._name = name.toLowerCase();
     option._type = type || String;
     option._description = description || `${name} - ${option.stringType}`;
     option._required =

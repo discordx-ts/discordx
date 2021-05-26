@@ -86,7 +86,7 @@ export class DSlash extends Method {
   ) {
     const slash = new DSlash();
 
-    slash.name = name;
+    slash.name = name.toLowerCase();
     slash.description = description || slash.name;
     slash.defaultPermission = defaultPermission;
     slash.guilds = guilds || Client.slashGuilds;
