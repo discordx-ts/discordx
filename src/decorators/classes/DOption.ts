@@ -126,7 +126,7 @@ export class DOption extends Decorator {
       type: this.stringType,
       required: this.required,
       choices: this.choices.map((choice) => choice.toObject()),
-      options: this.options.map((option) => option.toObject()) as ApplicationCommandOption[]
+      options: this.options.reverse().map((option) => option.toObject()) as ApplicationCommandOption[]
     };
 
     if (!this.isNode) {

@@ -95,8 +95,10 @@ export abstract class AppDiscord {
 
   @Slash("hello")
   root(
-    @Option("text")
+    @Option("text", { required: true })
     text: string,
+    @Option("text2", { required: false })
+    text2: string,
     interaction: CommandInteraction,
     client: Client,
     datas: any
@@ -104,6 +106,7 @@ export abstract class AppDiscord {
     return [
       "/testing hello text",
       text,
+      text2,
       interaction,
       datas.passed
     ];
@@ -136,16 +139,16 @@ export abstract class AppDiscord1 {
 
   @Slash("inferance")
   inferance(
-    @Option("text", { required: false })
+    @Option("text", { required: true })
     text: string,
 
-    @Option("bool", { required: false })
+    @Option("bool", { required: true })
     bool: boolean,
 
-    @Option("nb", { required: false })
+    @Option("nb", { required: true })
     nb: number,
 
-    @Option("channel", { required: false })
+    @Option("channel", { required: true })
     channel: Channel,
 
     @Option("textchannel", { required: false })
@@ -244,7 +247,7 @@ describe("Slash", () => {
             description: "text - STRING",
             name: "text",
             type: "STRING",
-            required: false,
+            required: true,
             choices: [
             ],
             options: [
@@ -254,7 +257,7 @@ describe("Slash", () => {
             description: "bool - BOOLEAN",
             name: "bool",
             type: "BOOLEAN",
-            required: false,
+            required: true,
             choices: [
             ],
             options: [
@@ -264,7 +267,7 @@ describe("Slash", () => {
             description: "nb - INTEGER",
             name: "nb",
             type: "INTEGER",
-            required: false,
+            required: true,
             choices: [
             ],
             options: [
@@ -274,7 +277,7 @@ describe("Slash", () => {
             description: "channel - CHANNEL",
             name: "channel",
             type: "CHANNEL",
-            required: false,
+            required: true,
             choices: [
             ],
             options: [
@@ -371,15 +374,15 @@ describe("Slash", () => {
             ],
             options: [
               {
-                description: "Addition",
-                name: "add",
+                description: "Multiply",
+                name: "multiply",
                 type: "SUB_COMMAND",
                 choices: [
                 ],
                 options: [
                   {
-                    description: "y value",
-                    name: "y",
+                    description: "x value",
+                    name: "x",
                     type: "INTEGER",
                     required: false,
                     choices: [
@@ -388,8 +391,8 @@ describe("Slash", () => {
                     ],
                   },
                   {
-                    description: "x value",
-                    name: "x",
+                    description: "y value",
+                    name: "y",
                     type: "INTEGER",
                     required: false,
                     choices: [
@@ -400,15 +403,15 @@ describe("Slash", () => {
                 ],
               },
               {
-                description: "Multiply",
-                name: "multiply",
+                description: "Addition",
+                name: "add",
                 type: "SUB_COMMAND",
                 choices: [
                 ],
                 options: [
                   {
-                    description: "y value",
-                    name: "y",
+                    description: "x value",
+                    name: "x",
                     type: "INTEGER",
                     required: false,
                     choices: [
@@ -417,8 +420,8 @@ describe("Slash", () => {
                     ],
                   },
                   {
-                    description: "x value",
-                    name: "x",
+                    description: "y value",
+                    name: "y",
                     type: "INTEGER",
                     required: false,
                     choices: [
@@ -440,6 +443,16 @@ describe("Slash", () => {
               {
                 description: "text - STRING",
                 name: "text",
+                type: "STRING",
+                required: true,
+                choices: [
+                ],
+                options: [
+                ],
+              },
+              {
+                description: "text2 - STRING",
+                name: "text2",
                 type: "STRING",
                 required: false,
                 choices: [
@@ -472,13 +485,14 @@ describe("Slash", () => {
       "testing",
       [
         new FakeOption("hello", "SUB_COMMAND", "text", [
-          new FakeOption("text", "STRING", "testing hello text")
+          new FakeOption("text", "STRING", "testing hello text"),
+          new FakeOption("text2", "STRING", "testing hello text2")
         ])
       ]
     );
 
     const res = await client.executeSlash(interaction as any);
-    expect(res).toEqual(["/testing hello text", "testing hello text", interaction, true]);
+    expect(res).toEqual(["/testing hello text", "testing hello text", "testing hello text2", interaction, true]);
   });
 
   it("Should execute the simple subgrouped text slash", async () => {
