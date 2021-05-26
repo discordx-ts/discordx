@@ -1,4 +1,4 @@
-import { Channel, ClientUser, Role, TextChannel, VoiceChannel } from "discord.js";
+import { Channel, ClientUser, Role, TextChannel, User, VoiceChannel } from "discord.js";
 
 export type SubCommand = {
   [key: string]: string
@@ -42,6 +42,7 @@ export type OptionValueType =
   | typeof String
   | typeof Boolean
   | typeof Number
+  | typeof User
   | typeof ClientUser
   | typeof Channel
   | typeof TextChannel

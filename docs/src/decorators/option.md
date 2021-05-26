@@ -103,32 +103,20 @@ class DiscordBot {
   ```
 
 - `"USER"`  
-  **Infered from `ClientUser`**   
+  **Infered from `User` (or `ClientUser`, not recommended)**   
   ```ts
   fn(
     @Option("x")
-    channel: ClientUser,
+    channel: User,
   )
   ```
 
 - `"CHANNEL"`  
-  **Infered from `Channel`, `TextChannel` or `VoiceChannel`**  
+  **Infered from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**  
   ```ts
   fn(
     @Option("x")
     channel: Channel,
-  ```
-  ```ts
-  fn(
-    @Option("x")
-    channel: TextChannel, // Be aware that you can receive, a VoiceChannel too
-  )
-  ```
-  ```ts
-  fn(
-    @Option("x")
-    channel: VoiceChannel, // Be aware that you can receive, a TextChannel too
-  )
   ```
 
 - `"MENTIONABLE"`  

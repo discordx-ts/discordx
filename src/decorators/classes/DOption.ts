@@ -5,6 +5,7 @@ import {
   ClientUser,
   Role,
   TextChannel,
+  User,
   VoiceChannel,
 } from "discord.js";
 import { Decorator } from "../classes/Decorator";
@@ -88,6 +89,8 @@ export class DOption extends Decorator {
         return OptionType.CHANNEL;
       case Role:
         return OptionType.ROLE;
+      case User:
+        return OptionType.USER;
       case ClientUser:
         return OptionType.USER;
     }

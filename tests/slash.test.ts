@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOption } from "discord.js";
+import { Channel, CommandInteraction, CommandInteractionOption, Role, TextChannel, User, VoiceChannel } from "discord.js";
 import {
   Discord,
   Slash,
@@ -133,6 +133,44 @@ export abstract class AppDiscord1 {
       datas.passed
     ];
   }
+
+  @Slash("inferance")
+  inferance(
+    @Option("text", { required: false })
+    text: string,
+
+    @Option("bool", { required: false })
+    bool: boolean,
+
+    @Option("nb", { required: false })
+    nb: number,
+
+    @Option("channel", { required: false })
+    channel: Channel,
+
+    @Option("textchannel", { required: false })
+    textChannel: TextChannel,
+
+    @Option("voicechannel", { required: false })
+    voiceChannel: VoiceChannel,
+
+    @Option("user", { required: false })
+    clientUser: User,
+
+    @Option("role", { required: false })
+    role: Role,
+
+    interaction: CommandInteraction,
+    client: Client,
+    datas: any
+  ) {
+    return [
+      "/inferance",
+      "infer",
+      interaction,
+      datas.passed
+    ];
+  }
 }
 
 const client = new Client({ intents: [] });
@@ -197,6 +235,93 @@ describe("Slash", () => {
           },
         ],
         defaultPermission: false,
+      },
+      {
+        name: "inferance",
+        description: "inferance",
+        options: [
+          {
+            description: "text - STRING",
+            name: "text",
+            type: "STRING",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+          {
+            description: "bool - BOOLEAN",
+            name: "bool",
+            type: "BOOLEAN",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+          {
+            description: "nb - INTEGER",
+            name: "nb",
+            type: "INTEGER",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+          {
+            description: "channel - CHANNEL",
+            name: "channel",
+            type: "CHANNEL",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+          {
+            description: "textchannel - CHANNEL",
+            name: "textchannel",
+            type: "CHANNEL",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+          {
+            description: "voicechannel - CHANNEL",
+            name: "voicechannel",
+            type: "CHANNEL",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+          {
+            description: "user - USER",
+            name: "user",
+            type: "USER",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+          {
+            description: "role - ROLE",
+            name: "role",
+            type: "ROLE",
+            required: false,
+            choices: [
+            ],
+            options: [
+            ],
+          },
+        ],
+        defaultPermission: true,
       },
       {
         name: "testing",
