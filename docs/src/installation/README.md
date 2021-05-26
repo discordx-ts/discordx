@@ -23,6 +23,14 @@ This module is an extension of **[discord.**js**](https://discordjs.guide/)**, s
 
 This library allows you to use TypeScript decorators on discord.**js**, it simplify your code and improve the readability !
 
+## Easy setup - starter project
+1. Clone this project  
+   `git clone https://github.com/owencalvin/discord.js-template`
+
+2. Run `npm i`
+   
+3. And let's go, everything was done for you! 🚀
+
 ## Installation
 Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
 
