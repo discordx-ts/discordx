@@ -47,7 +47,7 @@ class DiscordBot {
 ```
 
 ## Manual typing
-If you want to specify the type manually you can do it
+If you want to specify the type manually you can do it:
 ```ts
 import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js"
 
@@ -55,14 +55,103 @@ import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js"
 class DiscordBot {
   @Slash("getID")
   getID(
-    @Option("x", "CHANNEL")
-    channel: TextChannel | VoiceChannel,
+    @Option("x", "MENTIONABLE")
+    mentionable: TextChannel | VoiceChannel | ClientUser | Role,
 
     interaction: CommandInteraction
   ) {
     interaction.reply(channel.id);
   }
 }
+```
+
+## Type inferance
+- `"STRING"`  
+  **Infered from `String`**  
+  ```ts
+  fn(
+    @Option("x")
+    channel: string,
+  )
+  ```
+
+- `"BOOLEAN"`  
+  **Infered from `Boolean`**  
+  ```ts
+  fn(
+    @Option("x")
+    channel: boolean,
+  )
+  ```
+
+- `"INTEGER"`  
+  **Infered from `Number`**  
+  ```ts
+  fn(
+    @Option("x")
+    channel: number,
+  )
+  ```
+
+- `"ROLE"`  
+  **Infered from `Role`**  
+  ```ts
+  fn(
+    @Option("x")
+    channel: Role,
+  )
+  ```
+
+- `"USER"`  
+  **Infered from `ClientUser`**   
+  ```ts
+  fn(
+    @Option("x")
+    channel: ClientUser,
+  )
+  ```
+
+- `"CHANNEL"`  
+  **Infered from `Channel`, `TextChannel` or `VoiceChannel`**  
+  ```ts
+  fn(
+    @Option("x")
+    channel: Channel,
+  ```
+  ```ts
+  fn(
+    @Option("x")
+    channel: TextChannel, // Be aware that you can receive, a VoiceChannel too
+  )
+  ```
+  ```ts
+  fn(
+    @Option("x")
+    channel: VoiceChannel, // Be aware that you can receive, a TextChannel too
+  )
+  ```
+
+- `"MENTIONABLE"`  
+  **No inferance, use:**  
+  ```ts
+  fn(
+    @Option("x", "MENTIONABLE")
+    channel: TextChannel | VoiceChannel | ClientUser | Role,
+  )
+  ```
+
+- `"SUB_COMMAND"`  
+  No inferance, use [@Group](/decorators/group/)
+  
+- `"SUB_COMMAND_GROUP"`  
+  No inferance, use [@Group](/decorators/group/)
+
+## Signature
+```ts
+Option(name: string);
+Option(name: string, type: OptionValueType | OptionType);
+Option(name: string, params: OptionParams);
+Option(name: string, type: OptionValueType | OptionType, params: OptionParams);
 ```
 
 ## Params

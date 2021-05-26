@@ -1,6 +1,7 @@
 import {
   ApplicationCommandOption,
   ApplicationCommandOptionData,
+  Channel,
   ClientUser,
   Role,
   TextChannel,
@@ -79,6 +80,8 @@ export class DOption extends Decorator {
         return OptionType.INTEGER;
       case Boolean:
         return OptionType.BOOLEAN;
+      case Channel:
+        return OptionType.CHANNEL;
       case TextChannel:
         return OptionType.CHANNEL;
       case VoiceChannel:
