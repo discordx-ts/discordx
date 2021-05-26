@@ -177,3 +177,11 @@ const client = new Client({
 
 ## Autocompletion (Option's choices)
 You can use the [@Choice](/decorators/choice/) decorator
+
+## Option order
+**You have to put required options before optional ones**  
+Or you will get this error:  
+```
+(node:64399) UnhandledPromiseRejectionWarning: DiscordAPIError: Invalid Form Body
+options[1]: Required options must be placed before non-required options
+```
