@@ -49,9 +49,7 @@ start();
 ```
 
 ::: danger
-The Slash commands take time to be globaly applied on Discord's server
-
-**Global** slash commands take time to propagate on discord servers, we recommended to develop on a test server with the **guild** specific mode
+**Global** slash commands take time to propagate on discord servers, we recommend to develop on a test server with the **Guild** specific mode
 
 ```ts
 const client = new Client({
@@ -59,7 +57,7 @@ const client = new Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
   ],
-  slashGuilds: process.DEV ? ["GUILD_ID"] | undefined
+  slashGuilds: process.DEV ? ["GUILD_ID"] : undefined
 });
 ```
 :::
