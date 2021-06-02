@@ -59,6 +59,10 @@ You must specify the "**intents**" of your bot when you initialize the Client, i
 
 *When identifying to the gateway, you can specify an intents parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group.*
 
+::: danger
+If an event of your app isn't triggered, you probably missed an Intent
+:::
+
 ### Basic intents, just text messages
 ```ts
 import { Intents } from "discord.js";
@@ -86,7 +90,26 @@ const client = new Client({
 });
 ```
 
-### All the intents
+### List of all the intents
+[You can find the complete list here](https://discord.com/developers/docs/topics/gateway#list-of-intents)  
+
+**Most used ones**  
+- GUILDS
+- GUILD_MEMBERS
+- GUILD_BANS
+- GUILD_EMOJIS
+- GUILD_INTEGRATIONS
+- GUILD_WEBHOOKS
+- GUILD_INVITES
+- GUILD_VOICE_STATES
+- GUILD_PRESENCES
+- GUILD_MESSAGES
+- GUILD_MESSAGE_REACTIONS
+- GUILD_MESSAGE_TYPING
+- DIRECT_MESSAGES
+- DIRECT_MESSAGE_REACTIONS
+- DIRECT_MESSAGE_TYPING    
+
 ```ts
 import { Intents } from "discord.js";
 
@@ -109,23 +132,6 @@ const client = new Client({
   // ...
 });
 ```
-
-### List of the intents
-- GUILDS
-- GUILD_MEMBERS
-- GUILD_BANS
-- GUILD_EMOJIS
-- GUILD_INTEGRATIONS
-- GUILD_WEBHOOKS
-- GUILD_INVITES
-- GUILD_VOICE_STATES
-- GUILD_PRESENCES
-- GUILD_MESSAGES
-- GUILD_MESSAGE_REACTIONS
-- GUILD_MESSAGE_TYPING
-- DIRECT_MESSAGES
-- DIRECT_MESSAGE_REACTIONS
-- DIRECT_MESSAGE_TYPING
 
 ## Slashes API
 It also implements an [API for your @Slash](/decorators/slash.html#slash-api)
