@@ -2,6 +2,7 @@ import {
   ApplicationCommandData,
   ApplicationCommandOptionData,
   ApplicationCommandPermissionData,
+  Collection,
   CommandInteraction,
   CommandInteractionOption,
 } from "discord.js";
@@ -125,16 +126,19 @@ export class DSlash extends Method {
   getPermissions(): ApplicationCommandPermissionData[] {
     return this.permissions.map((permission) => ({
       permission: true,
-      id: permission,
+      id: permission as any,
       type: 1,
     }));
   }
 
-  getLastNestedOption(options: CommandInteractionOption[]): CommandInteractionOption[] {
-    if (!options[0]?.options) {
-      return options;
+  getLastNestedOption(options: Map<string, CommandInteractionOption>): CommandInteractionOption[] {
+    const arrOptions = Array.from(options?.values());
+    
+    if (!arrOptions?.[0]?.options) {
+      return arrOptions;
     }
-    return this.getLastNestedOption(options[0]?.options);
+
+    return this.getLastNestedOption(arrOptions?.[0].options);
   }
 
   parseParams(interaction: CommandInteraction) {

@@ -286,7 +286,7 @@ export class MetadataStorage {
     event: Event,
     client: Client,
     once: boolean = false
-  ) {
+  ): ((...params: ArgsOf<Event>) => Promise<any>) {
     const responses: any[] = [];
 
     const eventsToExecute = this._events.filter((on) => {

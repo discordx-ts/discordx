@@ -5,6 +5,7 @@ import {
   CommandInteraction,
   CommandInteractionOption,
   Interaction,
+  Snowflake,
 } from "discord.js";
 import * as Glob from "glob";
 import {
@@ -197,7 +198,7 @@ export class Client extends ClientJS {
           // If the @Slash is guild specific, add it to the guild
           await Promise.all(
             slash.guilds.map(async (guildID) => {
-              const guild = this.guilds.cache.get(guildID);
+              const guild = this.guilds.cache.get(guildID as Snowflake);
 
               if (!guild) {
                 throw new GuildNotFoundError(guildID);
@@ -233,7 +234,7 @@ export class Client extends ClientJS {
    */
   async fetchSlash(guildID?: string) {
     if (guildID) {
-      const guild = this.guilds.cache.get(guildID);
+      const guild = this.guilds.cache.get(guildID as Snowflake);
       if (!guild) {
         throw new GuildNotFoundError(guildID);
       }
@@ -254,7 +255,7 @@ export class Client extends ClientJS {
           const commands = await this.fetchSlash(guild);
           await Promise.all(
             commands.map(async (value) => {
-              await this.guilds.cache.get(guild).commands.delete(value);
+              await this.guilds.cache.get(guild as Snowflake).commands.delete(value);
             })
           );
         })
@@ -292,7 +293,7 @@ export class Client extends ClientJS {
         option.type === "SUB_COMMAND"
       ) {
         tree.push(option.name);
-        return getOptionsTree(option.options?.[0]);
+        return getOptionsTree(Array.from(option.options?.values() || [])?.[0]);
       }
     };
 

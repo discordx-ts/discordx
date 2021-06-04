@@ -70,7 +70,7 @@ export abstract class AppDiscord {
 }
 
 @Discord()
-@Guild("invalid_id")
+@Guild("693401527494377482")
 export abstract class AppDiscord1 {
   @Slash("hello")
   add(
