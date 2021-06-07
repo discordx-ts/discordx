@@ -121,7 +121,7 @@ export abstract class AppDiscord {
 })
 export abstract class AppDiscord1 {
   @Slash("hello")
-  @Permission("123")
+  @Permission("123", "USER")
   add(
     @Option("text", { required: false })
     text: string,
@@ -218,7 +218,10 @@ class FakeInteraction {
 describe("Slash", () => {
   it("Should create the slash structure", async () => {
     expect(client.slashes[0].guilds).toEqual(["invalid_id"]);
-    expect(client.slashes[0].permissions).toEqual(["123"]);
+    expect(client.slashes[0].permissions).toEqual([{
+      id: "123",
+      type: "USER",
+    }]);
 
     const slashesObjects = client.slashes.map((slash) => slash.toObject());
     expect(slashesObjects).toEqual([
