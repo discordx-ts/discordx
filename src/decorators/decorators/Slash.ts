@@ -12,7 +12,7 @@ export function Slash(name?: string, params?: SlashParams) {
     name = name || key;
     name = name.toLocaleLowerCase();
 
-    const slash = DSlash.create(name, params?.description).decorate(
+    const slash = DSlash.create(name, params?.description, params?.defaultPermission, params?.guilds).decorate(
       target.constructor,
       key,
       target[key]
