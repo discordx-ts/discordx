@@ -5,6 +5,7 @@ import {
   DIService,
   DOn
 } from "../..";
+import { PermissionType } from "../../types";
 
 export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
@@ -13,7 +14,7 @@ export class DDiscord extends Decorator {
   private _description: string;
   private _name: string;
   private _defaultPermission: boolean = true;
-  private _permissions: string[] = [];
+  private _permissions: { id: string, type: PermissionType }[] = [];
   private _guilds: string[] = [];
 
   get permissions() {

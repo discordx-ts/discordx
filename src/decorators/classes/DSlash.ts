@@ -1,12 +1,11 @@
 import {
   ApplicationCommandData,
-  ApplicationCommandOptionData,
   ApplicationCommandPermissionData,
-  Collection,
   CommandInteraction,
   CommandInteractionOption,
+  Snowflake,
 } from "discord.js";
-import { DOption, Client, SubValueType } from "../..";
+import { DOption, Client, SubValueType, PermissionType } from "../..";
 import { Method } from "./Method";
 
 export class DSlash extends Method {
@@ -14,7 +13,7 @@ export class DSlash extends Method {
   private _name: string;
   private _defaultPermission: boolean = true;
   private _options: DOption[] = [];
-  private _permissions: string[] = [];
+  private _permissions: { id: string, type: PermissionType }[] = [];
   private _guilds: string[];
   private _group: string;
   private _subgroup: string;
@@ -126,8 +125,8 @@ export class DSlash extends Method {
   getPermissions(): ApplicationCommandPermissionData[] {
     return this.permissions.map((permission) => ({
       permission: true,
-      id: permission as any,
-      type: 1,
+      id: permission.id as Snowflake,
+      type: permission.type,
     }));
   }
 
