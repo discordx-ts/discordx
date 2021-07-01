@@ -14,14 +14,14 @@ export function Guild(...guildIDs: string[]) {
       Modifier.create<DSlash | DDiscord>(async (original) => {
         original.guilds = [
           ...original.guilds,
-          ...guildIDs
+          ...guildIDs.filter(guildID => !original.guilds.includes(guildID))
         ];
 
         if (original instanceof DDiscord) {
           original.slashes.map((slash) => {
             slash.guilds = [
               ...slash.guilds,
-              ...guildIDs
+              ...guildIDs.filter(guildID => !slash.guilds.includes(guildID))
             ];
           });
         }
