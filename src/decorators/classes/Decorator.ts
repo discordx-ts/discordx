@@ -39,10 +39,6 @@ export class Decorator {
     return !!this._method;
   }
 
-  protected constructor() {
-    // empty constructor
-  }
-
   decorateUnknown(
     classRef: Function | Object,
     key?: string,
