@@ -12,13 +12,13 @@ import { Decorator } from "../classes/Decorator";
 import { DChoice, Client, OptionValueType, StringOptionType, OptionType } from "../..";
 
 export class DOption extends Decorator {
-  private _required: boolean = false;
+  private _required = false;
   private _name: string;
   private _type: OptionValueType;
   private _description: string;
   private _choices: DChoice[] = [];
   private _options: DOption[] = [];
-  private _isNode: boolean = false;
+  private _isNode = false;
 
   get isNode() {
     return this._isNode;

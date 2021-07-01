@@ -285,7 +285,7 @@ export class MetadataStorage {
   trigger<Event extends DiscordEvents>(
     event: Event,
     client: Client,
-    once: boolean = false
+    once = false
   ): ((...params: ArgsOf<Event>) => Promise<any>) {
     const responses: any[] = [];
 

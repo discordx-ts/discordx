@@ -20,7 +20,7 @@ import { GuildNotFoundError } from "./errors";
 export class Client extends ClientJS {
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
-  private static _requiredByDefault: boolean = false;
+  private static _requiredByDefault = false;
   private static _slashGuilds: string[] = [];
   private static _guards: GuardFunction[] = [];
 
@@ -387,7 +387,7 @@ export class Client extends ClientJS {
   trigger(
     event: DiscordEvents,
     params?: any,
-    once: boolean = false
+    once = false
   ): Promise<any[]> {
     return this.decorators.trigger(event, this, once)(params);
   }

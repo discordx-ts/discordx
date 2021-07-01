@@ -13,7 +13,7 @@ export class DDiscord extends Decorator {
   private _events: DOn[] = [];
   private _description: string;
   private _name: string;
-  private _defaultPermission: boolean = true;
+  private _defaultPermission = true;
   private _permissions: { id: string, type: PermissionType }[] = [];
   private _guilds: string[] = [];
 

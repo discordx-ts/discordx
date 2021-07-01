@@ -11,7 +11,7 @@ import { Method } from "./Method";
 export class DSlash extends Method {
   private _description: string;
   private _name: string;
-  private _defaultPermission: boolean = true;
+  private _defaultPermission = true;
   private _options: DOption[] = [];
   private _permissions: { id: string, type: PermissionType }[] = [];
   private _guilds: string[];
@@ -81,7 +81,7 @@ export class DSlash extends Method {
   static create(
     name: string,
     description?: string,
-    defaultPermission: boolean = true,
+    defaultPermission = true,
     guilds?: string[]
   ) {
     const slash = new DSlash();
