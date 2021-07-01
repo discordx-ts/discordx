@@ -39,6 +39,7 @@ export class Decorator {
   }
 
   protected constructor() {
+    // empty constructor
   }
 
   decorateUnknown(
@@ -83,5 +84,7 @@ export class Decorator {
     return this;
   }
 
-  update() {}
+  update() {
+    // empty function
+  }
 }
