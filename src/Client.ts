@@ -20,7 +20,7 @@ import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
   botid?: string;
-  static importedClass: string[] = [];
+  static build = false;
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
   private static _requiredByDefault = false;
@@ -209,7 +209,10 @@ export class Client extends ClientJS {
     // update guild commands
     for (const gc of guildSlashStorage) {
       const guild = await this.guilds.fetch({ guild: gc[0] as Snowflake });
-      if (!guild) console.log("guild not found");
+      if (!guild) {
+        console.log("guild not found");
+        continue;
+      }
 
       // commands for guild
       const slashes = gc[1];
@@ -494,6 +497,8 @@ export class Client extends ClientJS {
    * Manually build the app
    */
   async build() {
+    if(Client.build) return ;
+    Client.build = true;
     this.loadClasses();
     await this.decorators.build();
   }
@@ -517,11 +522,7 @@ export class Client extends ClientJS {
       if (typeof file === "string") {
         const files = Glob.sync(file);
         files.forEach((file) => {
-          // skip already imported files
-          if (!Client.importedClass.includes(file)) {
-            Client.importedClass.push(file);
-            require(file);
-          }
+          require(file);
         });
       }
     });
