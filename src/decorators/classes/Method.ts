@@ -37,13 +37,15 @@ export abstract class Method extends Decorator {
    * The guards that decorate the method (this)
    */
   get guards() {
-    const clientGuards = Client.guards.map((guard) => DGuard.create(guard.bind(undefined)));
+    const clientGuards = Client.guards.map((guard) =>
+      DGuard.create(guard.bind(undefined))
+    );
 
     return [
       ...clientGuards,
       ...this.discord.guards,
       ...this._guards,
-      DGuard.create(this._method.bind(this._discord.instance))
+      DGuard.create(this._method.bind(this._discord.instance)),
     ];
   }
   set guards(value) {
@@ -60,11 +62,7 @@ export abstract class Method extends Decorator {
    * Execute a guard with params
    */
   getGuardFunction(): (...params: any[]) => Promise<any> {
-    const next = async (
-      params: any,
-      index: number,
-      paramsToNext: any
-    ) => {
+    const next = async (params: any, index: number, paramsToNext: any) => {
       const nextFn = () => next(params, index + 1, paramsToNext);
       const guardToExecute = this.guards[index];
       let res: any;
@@ -73,18 +71,14 @@ export abstract class Method extends Decorator {
         // If it's the main method
         res = await (guardToExecute.fn as any)(
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
-          ...this.parseParams(...params as any),
+          ...this.parseParams(...(params as any)),
           ...params,
           paramsToNext
         );
       } else {
         // If it's the guards
         // method([Interaction, Client])
-        res = await (guardToExecute.fn as any)(
-          ...params,
-          nextFn,
-          paramsToNext
-        );
+        res = await (guardToExecute.fn as any)(...params, nextFn, paramsToNext);
       }
 
       if (res) {

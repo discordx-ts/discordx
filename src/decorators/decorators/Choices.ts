@@ -1,4 +1,10 @@
-import { MetadataStorage, DChoice, DOption, Modifier, ChoicesType } from "../..";
+import {
+  MetadataStorage,
+  DChoice,
+  DOption,
+  Modifier,
+  ChoicesType,
+} from "../..";
 
 export function Choices(choices: ChoicesType);
 export function Choices(choices: ChoicesType) {
@@ -8,10 +14,7 @@ export function Choices(choices: ChoicesType) {
         const arrayChoices = Object.keys(choices).map((key) => {
           return DChoice.create(key, choices[key]);
         });
-        original.choices = [
-          ...original.choices,
-          ...arrayChoices,
-        ];
+        original.choices = [...original.choices, ...arrayChoices];
       }, DOption).decorate(
         target.constructor,
         key,

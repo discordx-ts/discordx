@@ -12,7 +12,7 @@ export class DGroup<InfoType = any> extends Decorator {
     const group = new DGroup<InfoType>();
 
     group.name = name.toLowerCase();
-    group.infos = infos || {} as any;
+    group.infos = infos;
 
     return group;
   }

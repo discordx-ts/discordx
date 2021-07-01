@@ -9,7 +9,7 @@ import {
   DIService,
   DSlash,
   DOption,
-  Method
+  Method,
 } from "../..";
 import { DGroup } from "../../decorators";
 
@@ -45,21 +45,16 @@ export class MetadataStorage {
    * Get the list of used events without duplications
    */
   get usedEvents() {
-    return this.events.reduce<DOn[]>(
-      (prev, event, index) => {
-        const found = this.events.find(
-          (event2) => event.event === event2.event
-        );
-        const foundIndex = this.events.indexOf(found);
+    return this.events.reduce<DOn[]>((prev, event, index) => {
+      const found = this.events.find((event2) => event.event === event2.event);
+      const foundIndex = this.events.indexOf(found);
 
-        if (foundIndex === index || found.once !== event.once) {
-          prev.push(event);
-        }
+      if (foundIndex === index || found.once !== event.once) {
+        prev.push(event);
+      }
 
-        return prev;
-      },
-      []
-    ) as readonly DOn[];
+      return prev;
+    }, []) as readonly DOn[];
   }
 
   get discords() {
@@ -83,10 +78,7 @@ export class MetadataStorage {
   }
 
   private get discordMembers(): readonly Method[] {
-    return [
-      ...this._slashes,
-      ...this._events,
-    ];
+    return [...this._slashes, ...this._events];
   }
 
   addModifier(modifier: Modifier<any>) {
@@ -143,7 +135,7 @@ export class MetadataStorage {
         discord.events.push(member);
       }
     });
-    
+
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
     await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
@@ -180,11 +172,7 @@ export class MetadataStorage {
       const slashParent = DSlash.create(
         group.name,
         group.infos.description
-      ).decorate(
-        group.classRef,
-        group.key,
-        group.method
-      );
+      ).decorate(group.classRef, group.key, group.method);
 
       slashParent.discord = this._discords.find((instance) => {
         return instance.from === slashParent.from;
@@ -192,7 +180,7 @@ export class MetadataStorage {
 
       slashParent.guilds = [
         ...Client.slashGuilds,
-        ...slashParent.discord.guilds
+        ...slashParent.discord.guilds,
       ];
       slashParent.permissions = slashParent.discord.permissions;
 
@@ -226,11 +214,7 @@ export class MetadataStorage {
         subGroup.name,
         "SUB_COMMAND_GROUP",
         subGroup.infos.description
-      ).decorate(
-        subGroup.classRef,
-        subGroup.key,
-        subGroup.method
-      );
+      ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup
       const slashes = this._slashes.filter((slash) => {
@@ -262,7 +246,7 @@ export class MetadataStorage {
       slashes.forEach((slash) => {
         option.options.push(slash.toSubCommand());
       });
-      
+
       // The the root option to the root Slash command
       const groupSlash = groupedSlashes.get(slashes[0].group);
       if (groupSlash) {
@@ -272,7 +256,7 @@ export class MetadataStorage {
 
     return [
       ...this._slashes.filter((s) => !s.group && !s.subgroup),
-      ...Array.from(groupedSlashes.values())
+      ...Array.from(groupedSlashes.values()),
     ];
   }
 
@@ -286,14 +270,11 @@ export class MetadataStorage {
     event: Event,
     client: Client,
     once = false
-  ): ((...params: ArgsOf<Event>) => Promise<any>) {
+  ): (...params: ArgsOf<Event>) => Promise<any> {
     const responses: any[] = [];
 
     const eventsToExecute = this._events.filter((on) => {
-      return (
-        on.event === event &&
-        on.once === once
-      );
+      return on.event === event && on.once === once;
     });
 
     return async (...params: ArgsOf<Event>) => {

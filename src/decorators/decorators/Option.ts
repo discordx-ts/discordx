@@ -41,22 +41,13 @@ export function Option(
       finalParams?.description,
       finalParams?.required,
       index
-    ).decorate(
-      target.constructor,
-      key,
-      target[key],
-      target.constructor,
-      index
-    );
+    ).decorate(target.constructor, key, target[key], target.constructor, index);
 
     option.isNode = true;
 
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash>(async (original) => {
-        original.options = [
-          ...original.options,
-          option
-        ];
+        original.options = [...original.options, option];
       }, DSlash).decorate(
         target.constructor,
         key,

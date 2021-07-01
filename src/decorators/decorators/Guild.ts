@@ -11,21 +11,27 @@ export function Guild(...guildIDs: string[]) {
     descriptor: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>(async (original) => {
-        original.guilds = [
-          ...original.guilds,
-          ...guildIDs.filter(guildID => !original.guilds.includes(guildID))
-        ];
+      Modifier.create<DSlash | DDiscord>(
+        async (original) => {
+          original.guilds = [
+            ...original.guilds,
+            ...guildIDs.filter((guildID) => !original.guilds.includes(guildID)),
+          ];
 
-        if (original instanceof DDiscord) {
-          original.slashes.forEach((slash) => {
-            slash.guilds = [
-              ...slash.guilds,
-              ...guildIDs.filter(guildID => !slash.guilds.includes(guildID))
-            ];
-          });
-        }
-      }, DSlash, DDiscord).decorateUnknown(target, key, descriptor)
+          if (original instanceof DDiscord) {
+            original.slashes.forEach((slash) => {
+              slash.guilds = [
+                ...slash.guilds,
+                ...guildIDs.filter(
+                  (guildID) => !slash.guilds.includes(guildID)
+                ),
+              ];
+            });
+          }
+        },
+        DSlash,
+        DDiscord
+      ).decorateUnknown(target, key, descriptor)
     );
   };
 }

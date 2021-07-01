@@ -19,7 +19,7 @@ import { DDiscord, DOption, DSlash } from "./decorators";
 import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
-  private static isAlreadyBuilt = false;
+  private static isBuilt = false;
   private _botId: string;
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
@@ -34,10 +34,10 @@ export class Client extends ClientJS {
     Client._slashGuilds = value;
   }
 
-  get botid() {
+  get botId() {
     return this._botId;
   }
-  set botid(value) {
+  set botId(value) {
     this._botId = value;
   }
 
@@ -128,7 +128,7 @@ export class Client extends ClientJS {
     this.guards = options.guards || [];
     this.requiredByDefault = options.requiredByDefault;
     this.slashGuilds = options.slashGuilds || [];
-    this.botid = options.botId;
+    this.botId = options.botId;
   }
 
   /**
@@ -232,7 +232,7 @@ export class Client extends ClientJS {
       const added = slashes.filter(
         (s) =>
           !existing.find((c) => c.name === s.name) &&
-          (!s.botIds || s.botIds.includes(this.botid))
+          (!s.botIds || s.botIds.includes(this.botId))
       );
 
       // filter commands to update
@@ -250,7 +250,7 @@ export class Client extends ClientJS {
             (bs) =>
               s.name === bs.name &&
               bs.guilds.includes(s.guild.id) &&
-              (!bs.botIds || bs.botIds.includes(this.botid))
+              (!bs.botIds || bs.botIds.includes(this.botId))
           )
       );
 
@@ -456,7 +456,7 @@ export class Client extends ClientJS {
     const tree = this.getInteractionGroupTree(interaction);
     const slash = this.getSlashFromTree(tree);
 
-    if (!slash || (slash.botIds && !slash.botIds.includes(this.botid))) return;
+    if (!slash || (slash.botIds && !slash.botIds.includes(this.botId))) return;
 
     // Parse the options values and inject it into the @Slash method
     return slash.execute(interaction, this);
@@ -466,8 +466,8 @@ export class Client extends ClientJS {
    * Manually build the app
    */
   async build() {
-    if(Client.isAlreadyBuilt) return ;
-    Client.isAlreadyBuilt = true;
+    if (Client.isBuilt) return;
+    Client.isBuilt = true;
     this.loadClasses();
     await this.decorators.build();
   }

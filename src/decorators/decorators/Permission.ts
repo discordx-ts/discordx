@@ -6,26 +6,26 @@ export function Permission(id: string, type: PermissionType);
 export function Permission(id: string, type: PermissionType) {
   const permission = {
     id,
-    type
+    type,
   };
 
-  return (
-    target: Object,
-    key: string,
-    descriptor: PropertyDescriptor
-  ) => {
+  return (target: Object, key: string, descriptor: PropertyDescriptor) => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>((original) => {
-        original.defaultPermission = false;
-        original.permissions = [...original.permissions, permission];
+      Modifier.create<DSlash | DDiscord>(
+        (original) => {
+          original.defaultPermission = false;
+          original.permissions = [...original.permissions, permission];
 
-        if (original instanceof DDiscord) {
-          original.slashes.forEach((slash) => {
-            slash.defaultPermission = false;
-            slash.permissions = [...slash.permissions, permission];
-          });
-        }
-      }, DSlash, DDiscord).decorateUnknown(target, key, descriptor)
+          if (original instanceof DDiscord) {
+            original.slashes.forEach((slash) => {
+              slash.defaultPermission = false;
+              slash.permissions = [...slash.permissions, permission];
+            });
+          }
+        },
+        DSlash,
+        DDiscord
+      ).decorateUnknown(target, key, descriptor)
     );
   };
 }

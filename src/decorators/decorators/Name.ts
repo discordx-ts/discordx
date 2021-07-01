@@ -8,9 +8,13 @@ export function Name(name: string) {
     descriptor?: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>(async (original) => {
-        original.name = name;
-      }, DSlash, DDiscord).decorateUnknown(target, key, descriptor)
+      Modifier.create<DSlash | DDiscord>(
+        async (original) => {
+          original.name = name;
+        },
+        DSlash,
+        DDiscord
+      ).decorateUnknown(target, key, descriptor)
     );
   };
 }

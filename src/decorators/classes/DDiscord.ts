@@ -1,10 +1,5 @@
 import { Decorator } from "./Decorator";
-import {
-  DGuard,
-  DSlash,
-  DIService,
-  DOn
-} from "../..";
+import { DGuard, DSlash, DIService, DOn } from "../..";
 import { PermissionType } from "../../types";
 
 export class DDiscord extends Decorator {
@@ -14,7 +9,7 @@ export class DDiscord extends Decorator {
   private _description: string;
   private _name: string;
   private _defaultPermission = true;
-  private _permissions: { id: string, type: PermissionType }[] = [];
+  private _permissions: { id: string; type: PermissionType }[] = [];
   private _guilds: string[] = [];
 
   get permissions() {
@@ -83,7 +78,7 @@ export class DDiscord extends Decorator {
 
   static create(name: string) {
     const discord = new DDiscord();
-  
+
     discord.name = name;
 
     return discord;

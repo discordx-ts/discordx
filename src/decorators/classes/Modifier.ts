@@ -31,7 +31,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
    * that are on the targets type of modification
    * @param modifiers The modifier list
    * @param originals The list of objects to modify
-   * @returns 
+   * @returns
    */
   static async applyFromModifierListToList(
     modifiers: Modifier<any>[],
@@ -43,7 +43,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
         let linked = DecoratorUtils.getLinkedObjects(modifier, originals);
 
         // Filter the linked objects to match the target types of modification
-        linked = linked.filter((l) => 
+        linked = linked.filter((l) =>
           modifier._modifyTypes.includes((l as Object).constructor)
         );
 

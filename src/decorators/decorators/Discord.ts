@@ -1,10 +1,5 @@
 import * as Glob from "glob";
-import {
-  MetadataStorage,
-  DiscordParams,
-  DDiscord,
-  DIService,
-} from "../..";
+import { MetadataStorage, DiscordParams, DDiscord, DIService } from "../..";
 
 /**
  * Import the commands when using @Discord({ imports: [...] })
@@ -65,10 +60,7 @@ export function Discord(params?: DiscordParams) {
       });
     }
 
-    const instance = DDiscord.create(target.name).decorate(
-      target,
-      target.name
-    );
+    const instance = DDiscord.create(target.name).decorate(target, target.name);
 
     MetadataStorage.instance.addDiscord(instance);
   };

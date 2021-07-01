@@ -7,7 +7,11 @@ export function Group(group: string);
 export function Group(subCommands: SubCommand);
 export function Group(group: string, description: string);
 export function Group(group: string, subCommands: SubCommand);
-export function Group(group: string, description: string, subCommands: SubCommand);
+export function Group(
+  group: string,
+  description: string,
+  subCommands: SubCommand
+);
 export function Group(
   groupOrSubcommands: string | SubCommand,
   subCommandsOrDescription?: SubCommand | string,
@@ -20,27 +24,28 @@ export function Group(
   ) => {
     // Detect the type of parameters for overloading
     const isGroup = typeof groupOrSubcommands === "string";
-    const group = isGroup ? (groupOrSubcommands as string).toLocaleLowerCase() : undefined;
+    const group = isGroup
+      ? (groupOrSubcommands as string).toLocaleLowerCase()
+      : undefined;
 
     const isDescription = typeof subCommandsOrDescription === "string";
-    const description = isDescription ? subCommandsOrDescription as string : undefined;
+    const description = isDescription
+      ? (subCommandsOrDescription as string)
+      : undefined;
 
     if (subCommandsOrDescription !== undefined && !isDescription) {
       subCommands = subCommandsOrDescription as SubCommand;
     }
 
-    subCommands = isGroup ? subCommands : groupOrSubcommands as SubCommand;
+    subCommands = isGroup ? subCommands : (groupOrSubcommands as SubCommand);
 
     if (!descriptor) {
       // Add the group to groups if @Group decorate a class
       if (group) {
         const group = DGroup.create<DSlash>(
-          groupOrSubcommands as string || key,
+          (groupOrSubcommands as string) || key,
           { description }
-        ).decorate(
-          target as Function,
-          (target as Function).name
-        );
+        ).decorate(target as Function, (target as Function).name);
 
         MetadataStorage.instance.addGroup(group);
       }
@@ -48,13 +53,9 @@ export function Group(
       // Create a subgroup if @Group decorate a method
       if (subCommands) {
         Object.keys(subCommands).forEach((key) => {
-          const group = DGroup.create<DOption>(
-            key,
-            { description: subCommands[key] }
-          ).decorate(
-            target as Function,
-            (target as Function).name
-          );
+          const group = DGroup.create<DOption>(key, {
+            description: subCommands[key],
+          }).decorate(target as Function, (target as Function).name);
 
           MetadataStorage.instance.addSubGroup(group);
         });

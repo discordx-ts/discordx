@@ -13,9 +13,9 @@ export class DSlash extends Method {
   private _name: string;
   private _defaultPermission = true;
   private _options: DOption[] = [];
-  private _permissions: { id: string, type: PermissionType }[] = [];
+  private _permissions: { id: string; type: PermissionType }[] = [];
   private _guilds: string[];
-  private _botids: string[];
+  private _botIds?: string[];
   private _group: string;
   private _subgroup: string;
 
@@ -48,10 +48,10 @@ export class DSlash extends Method {
   }
 
   get botIds() {
-    return this._botids;
+    return this._botIds;
   }
   set botIds(value) {
-    this._botids = value;
+    this._botIds = value;
   }
 
   get defaultPermission() {
@@ -109,21 +109,17 @@ export class DSlash extends Method {
       this.name,
       "SUB_COMMAND",
       this.description
-    ).decorate(
-      this.classRef,
-      this.key,
-      this.method,
-      this.from,
-      this.index
-    );
+    ).decorate(this.classRef, this.key, this.method, this.from, this.index);
     option.options = this.options;
 
     return option;
   }
 
   toObject(): ApplicationCommandData {
-    const options = [...this.options].reverse().map((option) => option.toObject());
-    
+    const options = [...this.options]
+      .reverse()
+      .map((option) => option.toObject());
+
     return {
       name: this.name,
       description: this.description,
@@ -140,9 +136,11 @@ export class DSlash extends Method {
     }));
   }
 
-  getLastNestedOption(options: Map<string, CommandInteractionOption>): CommandInteractionOption[] {
+  getLastNestedOption(
+    options: Map<string, CommandInteractionOption>
+  ): CommandInteractionOption[] {
     const arrOptions = Array.from(options?.values());
-    
+
     if (!arrOptions?.[0]?.options) {
       return arrOptions;
     }
@@ -153,6 +151,8 @@ export class DSlash extends Method {
   parseParams(interaction: CommandInteraction) {
     const options = this.getLastNestedOption(interaction.options);
 
-    return this.options.sort((a, b) => a.index - b.index).map((op) => options.find((o) => o.name === op.name)?.value);
+    return this.options
+      .sort((a, b) => a.index - b.index)
+      .map((op) => options.find((o) => o.name === op.name)?.value);
   }
 }
