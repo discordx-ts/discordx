@@ -9,13 +9,13 @@ export function Permission(id: string, type: PermissionType) {
     type
   };
 
-  return async (
+  return (
     target: Object,
     key: string,
     descriptor: PropertyDescriptor
   ) => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>(async (original) => {
+      Modifier.create<DSlash | DDiscord>((original) => {
         original.defaultPermission = false;
         original.permissions = [...original.permissions, permission];
 
