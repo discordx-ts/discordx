@@ -20,7 +20,7 @@ import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
   botid?: string;
-  static importedClass: string[] = []
+  static importedClass: string[] = [];
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
   private static _requiredByDefault = false;
@@ -484,7 +484,7 @@ export class Client extends ClientJS {
     const tree = this.getInteractionGroupTree(interaction);
     const slash = this.getSlashFromTree(tree);
 
-    if (!slash || !slash.botids?.includes(this.botid)) return;
+    if (!slash || (this.botid && !slash.botids?.includes(this.botid))) return;
 
     // Parse the options values and inject it into the @Slash method
     return slash.execute(interaction, this);
