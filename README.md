@@ -1,3 +1,22 @@
+# ⚠️ Caution
+this repo can be only used by experienced developer, this repo contain untested codes, for stable support use original repo
+
+# Changes from original repo
+changes which are not yet accepted under original repo
+
+## New Features
+* multiple bot support (only slash supported for now, events will be supported soon)
+
+#### Issue Fixed
+* github.com/OwenCalvin/discord.ts/issues/54
+* github.com/OwenCalvin/discord.ts/issues/49
+
+### Pull Accepted
+* github.com/OwenCalvin/discord.ts/pull/60
+* github.com/OwenCalvin/discord.ts/pull/58
+* github.com/OwenCalvin/discord.ts/pull/56
+* github.com/OwenCalvin/discord.ts/pull/55
+
 <p align="center">
   <br/>
   <img src="https://i.imgur.com/kSLOEIF.png" width="150px">
