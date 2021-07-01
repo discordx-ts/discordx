@@ -207,7 +207,11 @@ export class Client extends ClientJS {
 
               if (slash.permissions.length <= 0) return;
 
-              await commands.setPermissions(command, slash.getPermissions());
+              // https://discord.js.org/#/docs/main/master/class/ApplicationCommandPermissionsManager?scrollTo=set
+              await commands.permissions.set({
+                command: command,
+                permissions: slash.getPermissions(),
+              });
             })
           );
         } else {
