@@ -2,7 +2,8 @@ import { DGuard, Client, DDiscord } from "../..";
 import { Decorator } from "./Decorator";
 
 export abstract class Method extends Decorator {
-  protected _discord: DDiscord;
+  // required fix
+  protected _discord!: DDiscord;
   protected _guards: DGuard[] = [];
 
   get discord() {
@@ -45,7 +46,7 @@ export abstract class Method extends Decorator {
       ...clientGuards,
       ...this.discord.guards,
       ...this._guards,
-      DGuard.create(this._method.bind(this._discord.instance)),
+      DGuard.create(this._method?.bind(this._discord.instance)),
     ];
   }
   set guards(value) {

@@ -43,7 +43,7 @@ export function Group(
       // Add the group to groups if @Group decorate a class
       if (group) {
         const group = DGroup.create<DSlash>(
-          (groupOrSubcommands as string) || key,
+          (groupOrSubcommands as string) ?? key,
           { description }
         ).decorate(target as Function, (target as Function).name);
 
@@ -54,7 +54,7 @@ export function Group(
       if (subCommands) {
         Object.keys(subCommands).forEach((key) => {
           const group = DGroup.create<DOption>(key, {
-            description: subCommands[key],
+            description: subCommands?.[key],
           }).decorate(target as Function, (target as Function).name);
 
           MetadataStorage.instance.addSubGroup(group);

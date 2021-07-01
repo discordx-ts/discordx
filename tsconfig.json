@@ -4,6 +4,7 @@
     "target": "es2019",
     "noImplicitAny": false,
     "sourceMap": true,
+    "strict": true /* Enable all strict type-checking options. */,
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

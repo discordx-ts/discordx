@@ -6,8 +6,8 @@ export type ModifyFunction<ToModify extends Decorator> = (
 ) => any;
 
 export class Modifier<ToModify extends Decorator> extends Decorator {
-  private _toModify: ModifyFunction<ToModify>;
-  private _modifyTypes: any[];
+  private _toModify!: ModifyFunction<ToModify>;
+  private _modifyTypes!: any[];
 
   protected constructor() {
     super();

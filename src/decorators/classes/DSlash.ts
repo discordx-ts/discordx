@@ -9,15 +9,15 @@ import { DOption, Client, PermissionType } from "../..";
 import { Method } from "./Method";
 
 export class DSlash extends Method {
-  private _description: string;
-  private _name: string;
+  private _description!: string;
+  private _name!: string;
   private _defaultPermission = true;
   private _options: DOption[] = [];
   private _permissions: { id: string; type: PermissionType }[] = [];
-  private _guilds: string[];
-  private _botIds?: string[];
-  private _group: string;
-  private _subgroup: string;
+  private _guilds!: string[];
+  private _botIds!: string[];
+  private _group!: string;
+  private _subgroup!: string;
 
   get group() {
     return this._group;
@@ -99,7 +99,7 @@ export class DSlash extends Method {
     slash.description = description || slash.name;
     slash.defaultPermission = defaultPermission;
     slash.guilds = guilds || Client.slashGuilds;
-    slash.botIds = botIds;
+    slash.botIds = botIds ?? [];
 
     return slash;
   }
@@ -108,7 +108,9 @@ export class DSlash extends Method {
     const option = DOption.create(
       this.name,
       "SUB_COMMAND",
-      this.description
+      this.description,
+      false,
+      0 // required fix
     ).decorate(this.classRef, this.key, this.method, this.from, this.index);
     option.options = this.options;
 
@@ -152,7 +154,7 @@ export class DSlash extends Method {
     const options = this.getLastNestedOption(interaction.options);
 
     return this.options
-      .sort((a, b) => a.index - b.index)
+      .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
       .map((op) => options.find((o) => o.name === op.name)?.value);
   }
 }

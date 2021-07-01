@@ -1,8 +1,8 @@
 import { Decorator } from "./Decorator";
 
 export class DGroup<InfoType = any> extends Decorator {
-  name: string;
-  infos: Partial<InfoType>;
+  name: string | undefined;
+  infos: Partial<InfoType> | undefined;
 
   protected constructor() {
     super();

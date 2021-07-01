@@ -1,9 +1,9 @@
 import { ApplicationCommandOptionChoice } from "discord.js";
 import { Decorator } from "../classes/Decorator";
 
-export class DChoice<Type = any> extends Decorator {
+export class DChoice extends Decorator {
   private _name: string;
-  private _value: Type;
+  private _value: string | number;
 
   get name() {
     return this._name;
@@ -19,12 +19,15 @@ export class DChoice<Type = any> extends Decorator {
     this._value = value;
   }
 
-  protected constructor() {
+  protected constructor(name: string, value: string | number) {
     super();
+
+    this._name = name;
+    this._value = value;
   }
 
-  static create<Type = any>(name: string, value: Type) {
-    const choice = new DChoice<Type>();
+  static create(name: string, value: string | number) {
+    const choice = new DChoice(name, value);
 
     choice.name = name;
     choice.value = value;
@@ -35,7 +38,7 @@ export class DChoice<Type = any> extends Decorator {
   toObject(): ApplicationCommandOptionChoice {
     return {
       name: this.name,
-      value: this.value as any,
+      value: this.value,
     };
   }
 }

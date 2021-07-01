@@ -19,9 +19,9 @@ import {
 
 export class DOption extends Decorator {
   private _required = false;
-  private _name: string;
-  private _type: OptionValueType;
-  private _description: string;
+  private _name!: string;
+  private _type!: OptionValueType;
+  private _description!: string;
   private _choices: DChoice[] = [];
   private _options: DOption[] = [];
   private _isNode = false;
@@ -99,6 +99,8 @@ export class DOption extends Decorator {
         return OptionType.USER;
       case ClientUser:
         return OptionType.USER;
+      default:
+        return OptionType.STRING;
     }
   }
 
