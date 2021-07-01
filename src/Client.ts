@@ -19,6 +19,8 @@ import { DDiscord, DOption, DSlash } from "./decorators";
 import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
+  botid?: string;
+  static importedClass: string[] = []
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
   private static _requiredByDefault = false;
@@ -118,6 +120,7 @@ export class Client extends ClientJS {
     this.guards = options.guards || [];
     this.requiredByDefault = options.requiredByDefault;
     this.slashGuilds = options.slashGuilds || [];
+    this.botid = options.botid;
   }
 
   /**
@@ -216,7 +219,9 @@ export class Client extends ClientJS {
 
       // filter only unregistered command
       const added = slashes.filter(
-        (s) => !existing.find((c) => c.name === s.name)
+        (s) =>
+          !existing.find((c) => c.name === s.name) &&
+          (!s.botids || s.botids.includes(this.botid))
       );
 
       // filter commands to update
@@ -231,7 +236,10 @@ export class Client extends ClientJS {
       const deleted = existing.filter(
         (s) =>
           !this.slashes.find(
-            (bs) => s.name === bs.name && bs.guilds.includes(s.guild.id)
+            (bs) =>
+              s.name === bs.name &&
+              bs.guilds.includes(s.guild.id) &&
+              (!bs.botids || bs.botids.includes(this.botid))
           )
       );
 
@@ -476,7 +484,7 @@ export class Client extends ClientJS {
     const tree = this.getInteractionGroupTree(interaction);
     const slash = this.getSlashFromTree(tree);
 
-    if (!slash) return;
+    if (!slash || !slash.botids?.includes(this.botid)) return;
 
     // Parse the options values and inject it into the @Slash method
     return slash.execute(interaction, this);
@@ -509,7 +517,11 @@ export class Client extends ClientJS {
       if (typeof file === "string") {
         const files = Glob.sync(file);
         files.forEach((file) => {
-          require(file);
+          // skip already imported files
+          if (!Client.importedClass.includes(file)) {
+            Client.importedClass.push(file);
+            require(file);
+          }
         });
       }
     });

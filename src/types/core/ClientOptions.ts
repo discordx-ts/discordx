@@ -4,6 +4,11 @@ import { LoadClass } from "./LoadClass";
 
 export interface ClientOptions extends DiscordJSClientOptions {
   /**
+   * Specifiy bot id (added for multiple bot support)
+   */
+  botid?: string;
+
+  /**
    * Do not log anything in the console
    */
   silent?: boolean;

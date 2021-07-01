@@ -15,6 +15,7 @@ export class DSlash extends Method {
   private _options: DOption[] = [];
   private _permissions: { id: string, type: PermissionType }[] = [];
   private _guilds: string[];
+  private _botids: string[];
   private _group: string;
   private _subgroup: string;
 
@@ -44,6 +45,13 @@ export class DSlash extends Method {
   }
   set guilds(value) {
     this._guilds = value;
+  }
+
+  get botids() {
+    return this._botids;
+  }
+  set botids(value) {
+    this._botids = value;
   }
 
   get defaultPermission() {
@@ -82,7 +90,8 @@ export class DSlash extends Method {
     name: string,
     description?: string,
     defaultPermission = true,
-    guilds?: string[]
+    guilds?: string[],
+    botids?: string[]
   ) {
     const slash = new DSlash();
 
@@ -90,6 +99,7 @@ export class DSlash extends Method {
     slash.description = description || slash.name;
     slash.defaultPermission = defaultPermission;
     slash.guilds = guilds || Client.slashGuilds;
+    slash.botids = botids;
 
     return slash;
   }
