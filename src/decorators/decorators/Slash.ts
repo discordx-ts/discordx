@@ -4,10 +4,9 @@ export function Slash();
 export function Slash(name: string);
 export function Slash(name: string, params: SlashParams);
 export function Slash(name?: string, params?: SlashParams) {
-  return async (
+  return (
     target: Object,
-    key: string,
-    descriptor: PropertyDescriptor
+    key: string
   ) => {
     name = name || key;
     name = name.toLocaleLowerCase();

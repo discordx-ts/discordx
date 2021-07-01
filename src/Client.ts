@@ -213,7 +213,7 @@ export class Client extends ClientJS {
         } else {
           // If the @Slash is global, add it globaly
           const commands = this.application.commands;
-          const command = await commands.create(slash.toObject());
+          await commands.create(slash.toObject());
 
           // Only available for Guilds
           // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions

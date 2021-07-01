@@ -29,7 +29,7 @@ function importCommand(classType: Function, target: Function) {
 export function Discord();
 // export function Discord(params: DiscordParams);
 export function Discord(params?: DiscordParams) {
-  return (target: Function, key: string) => {
+  return (target: Function) => {
     if (params?.import) {
       let importCommands = params?.import || [];
       if (!Array.isArray(importCommands)) {

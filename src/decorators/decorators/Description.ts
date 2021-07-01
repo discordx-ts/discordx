@@ -1,4 +1,4 @@
-import { MetadataStorage, Modifier, DDiscord } from "../..";
+import { MetadataStorage, Modifier } from "../..";
 import { DSlash } from "../classes/DSlash";
 
 export function Description(description: string);

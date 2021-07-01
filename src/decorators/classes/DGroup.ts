@@ -1,4 +1,3 @@
-import { InstanceOf, ToInterface } from "../../types";
 import { Decorator } from "./Decorator";
 
 export class DGroup<InfoType = any> extends Decorator {
