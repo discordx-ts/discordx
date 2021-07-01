@@ -6,7 +6,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * Specifiy bot id (added for multiple bot support)
    */
-  botid?: string;
+  botId: string;
 
   /**
    * Do not log anything in the console

@@ -47,10 +47,10 @@ export class DSlash extends Method {
     this._guilds = value;
   }
 
-  get botids() {
+  get botIds() {
     return this._botids;
   }
-  set botids(value) {
+  set botIds(value) {
     this._botids = value;
   }
 
@@ -91,7 +91,7 @@ export class DSlash extends Method {
     description?: string,
     defaultPermission = true,
     guilds?: string[],
-    botids?: string[]
+    botIds?: string[]
   ) {
     const slash = new DSlash();
 
@@ -99,7 +99,7 @@ export class DSlash extends Method {
     slash.description = description || slash.name;
     slash.defaultPermission = defaultPermission;
     slash.guilds = guilds || Client.slashGuilds;
-    slash.botids = botids;
+    slash.botIds = botIds;
 
     return slash;
   }

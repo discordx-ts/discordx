@@ -19,8 +19,8 @@ import { DDiscord, DOption, DSlash } from "./decorators";
 import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
-  botid?: string;
-  static build = false;
+  private static isAlreadyBuilt = false;
+  private _botId: string;
   private _silent: boolean;
   private _loadClasses: LoadClass[] = [];
   private static _requiredByDefault = false;
@@ -33,6 +33,14 @@ export class Client extends ClientJS {
   static set slashGuilds(value) {
     Client._slashGuilds = value;
   }
+
+  get botid() {
+    return this._botId;
+  }
+  set botid(value) {
+    this._botId = value;
+  }
+
   get slashGuilds() {
     return Client._slashGuilds;
   }
@@ -120,7 +128,7 @@ export class Client extends ClientJS {
     this.guards = options.guards || [];
     this.requiredByDefault = options.requiredByDefault;
     this.slashGuilds = options.slashGuilds || [];
-    this.botid = options.botid;
+    this.botid = options.botId;
   }
 
   /**
@@ -196,7 +204,7 @@ export class Client extends ClientJS {
     const guildSlashStorage = new Map<string, DSlash[]>();
     const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
 
-    // group single guild slash togather
+    // group single guild slash together
     for (const s of guildsSlash) {
       s.guilds.forEach((guild) =>
         guildSlashStorage.set(guild, [
@@ -224,7 +232,7 @@ export class Client extends ClientJS {
       const added = slashes.filter(
         (s) =>
           !existing.find((c) => c.name === s.name) &&
-          (!s.botids || s.botids.includes(this.botid))
+          (!s.botIds || s.botIds.includes(this.botid))
       );
 
       // filter commands to update
@@ -242,13 +250,13 @@ export class Client extends ClientJS {
             (bs) =>
               s.name === bs.name &&
               bs.guilds.includes(s.guild.id) &&
-              (!bs.botids || bs.botids.includes(this.botid))
+              (!bs.botIds || bs.botIds.includes(this.botid))
           )
       );
 
       if (!this.silent)
         console.log(
-          `${this.user.username} >> guild: #${guild} >> command >> Adding ${
+          `${this.user.username} >> guild: #${guild} >> command >> adding ${
             added.length
           } [${added.map((s) => s.name).join(", ")}]`
         );
@@ -266,7 +274,7 @@ export class Client extends ClientJS {
         );
 
       await Promise.all([
-        ...added.map((s) => guild.commands.create(s.toObject())), //
+        ...added.map((s) => guild.commands.create(s.toObject())),
         ...updated.map((s) => s[0].edit(s[1].toObject())),
         ...deleted.map((key) => guild.commands.delete(key)),
       ]);
@@ -291,7 +299,7 @@ export class Client extends ClientJS {
 
     if (!this.silent)
       console.log(
-        `${this.user.username} >> global >> command >> Adding ${
+        `${this.user.username} >> global >> command >> adding ${
           added.length
         } [${added.map((s) => s.name).join(", ")}]`
       );
@@ -311,45 +319,6 @@ export class Client extends ClientJS {
       ...updated.map((s) => s[0].edit(s[1].toObject())),
       ...deleted.map((key) => this.application.commands.delete(key)),
     ]);
-
-    //    await Promise.all(
-    //      this.slashes.map(async (slash) => {
-    //        // Init all the @Slash
-    //        if (slash.guilds.length > 0) {
-    //          // If the @Slash is guild specific, add it to the guild
-    //          await Promise.all(
-    //            slash.guilds.map(async (guildID) => {
-    //              const guild = this.guilds.cache.get(guildID as Snowflake);
-    //
-    //              if (!guild) {
-    //                throw new GuildNotFoundError(guildID);
-    //              }
-    //
-    //              const commands = guild.commands;
-    //              const command = await commands.create(slash.toObject());
-    //
-    //              if (slash.permissions.length <= 0) return;
-    //
-    //              // https://discord.js.org/#/docs/main/master/class/ApplicationCommandPermissionsManager?scrollTo=set
-    //              await commands.permissions.set({
-    //                command: command,
-    //                permissions: slash.getPermissions(),
-    //              });
-    //            })
-    //          );
-    //        } else {
-    //          // If the @Slash is global, add it globaly
-    //          const commands = this.application.commands;
-    //          await commands.create(slash.toObject());
-    //
-    //          // Only available for Guilds
-    //          // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
-    //          // if (slash.permissions.length <= 0) return;
-    //
-    //          // await commands.setPermissions(command, slash.getPermissions());
-    //        }
-    //      })
-    //    );
   }
 
   /**
@@ -487,7 +456,7 @@ export class Client extends ClientJS {
     const tree = this.getInteractionGroupTree(interaction);
     const slash = this.getSlashFromTree(tree);
 
-    if (!slash || (this.botid && !slash.botids?.includes(this.botid))) return;
+    if (!slash || (slash.botIds && !slash.botIds.includes(this.botid))) return;
 
     // Parse the options values and inject it into the @Slash method
     return slash.execute(interaction, this);
@@ -497,8 +466,8 @@ export class Client extends ClientJS {
    * Manually build the app
    */
   async build() {
-    if(Client.build) return ;
-    Client.build = true;
+    if(Client.isAlreadyBuilt) return ;
+    Client.isAlreadyBuilt = true;
     this.loadClasses();
     await this.decorators.build();
   }
