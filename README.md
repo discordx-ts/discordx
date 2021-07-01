@@ -5,6 +5,7 @@ this repo can be only used by experienced developer, this repo contain untested 
 changes which are not yet accepted under original repo
 
 ## New Features
+* improved ``bot.initSlashes()`` to register commands only if required (to overcome the daily register command limit from discord)
 * multiple bot support (only slash supported for now, events will be supported soon)
 
 #### Issue Fixed
