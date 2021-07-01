@@ -1,6 +1,7 @@
+import { DSlash, DOption } from "..";
 import { Decorator } from "./Decorator";
 
-export class DGroup<InfoType = any> extends Decorator {
+export class DGroup<InfoType = DSlash | DOption> extends Decorator {
   name: string | undefined;
   infos: Partial<InfoType> | undefined;
 
@@ -8,7 +9,10 @@ export class DGroup<InfoType = any> extends Decorator {
     super();
   }
 
-  static create<InfoType = any>(name: string, infos?: Partial<InfoType>) {
+  static create<InfoType = DSlash | DOption>(
+    name: string,
+    infos?: Partial<InfoType>
+  ) {
     const group = new DGroup<InfoType>();
 
     group.name = name.toLowerCase();
