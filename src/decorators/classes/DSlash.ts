@@ -143,10 +143,6 @@ export class DSlash extends Method {
   parseParams(interaction: CommandInteraction) {
     const options = this.getLastNestedOption(interaction.options);
 
-    const values = this.options.map((opt, index) => {
-      return options[index]?.value;
-    });
-
-    return values;
+    return this.options.sort((a, b) => a.index - b.index).map((op) => options.find((o) => o.name === op.name)?.value);
   }
 }
