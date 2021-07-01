@@ -1,4 +1,5 @@
 import {
+  ApplicationCommand,
   Client as ClientJS,
   CommandInteraction,
   CommandInteractionOption,
@@ -150,17 +151,19 @@ export class Client extends ClientJS {
           console.log(`   ${slash.name} (${slash.classRef.name}.${slash.key})`);
           const printOptions = (options: DOption[], depth: number) => {
             if (!options) return;
-    
+
             const tab = Array(depth).join("      ");
-  
+
             options.forEach((option) => {
-              console.log(`${tab}${option.name}: ${option.stringType} (${option.classRef.name}.${option.key})`);
+              console.log(
+                `${tab}${option.name}: ${option.stringType} (${option.classRef.name}.${option.key})`
+              );
               printOptions(option.options, depth + 1);
             });
           };
-  
+
           printOptions(slash.options, 2);
-  
+
           console.log("");
         });
       } else {
@@ -175,10 +178,7 @@ export class Client extends ClientJS {
           this.decorators.trigger(on.event, this, true)
         );
       } else {
-        this.on(
-          on.event as any,
-          this.decorators.trigger(on.event, this)
-        );
+        this.on(on.event as any, this.decorators.trigger(on.event, this));
       }
     });
 
@@ -189,44 +189,156 @@ export class Client extends ClientJS {
    * Initialize all the @Slash with their permissions
    */
   async initSlashes() {
-    await Promise.all(
-      this.slashes.map(async (slash) => {
-        // Init all the @Slash
-        if (slash.guilds.length > 0) {
-          // If the @Slash is guild specific, add it to the guild
-          await Promise.all(
-            slash.guilds.map(async (guildID) => {
-              const guild = this.guilds.cache.get(guildID as Snowflake);
+    // # first init guild's all slash
+    const guildSlashStorage = new Map<string, DSlash[]>();
+    const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
 
-              if (!guild) {
-                throw new GuildNotFoundError(guildID);
-              }
+    // group single guild slash togather
+    for (const s of guildsSlash) {
+      s.guilds.forEach((guild) =>
+        guildSlashStorage.set(guild, [
+          ...(guildSlashStorage.get(guild) ?? []),
+          s,
+        ])
+      );
+    }
 
-              const commands = guild.commands;
-              const command = await commands.create(slash.toObject());
+    // update guild commands
+    for (const gc of guildSlashStorage) {
+      const guild = await this.guilds.fetch({ guild: gc[0] as Snowflake });
+      if (!guild) console.log("guild not found");
 
-              if (slash.permissions.length <= 0) return;
+      // commands for guild
+      const slashes = gc[1];
 
-              // https://discord.js.org/#/docs/main/master/class/ApplicationCommandPermissionsManager?scrollTo=set
-              await commands.permissions.set({
-                command: command,
-                permissions: slash.getPermissions(),
-              });
-            })
-          );
-        } else {
-          // If the @Slash is global, add it globaly
-          const commands = this.application.commands;
-          await commands.create(slash.toObject());
+      // fetch already registered command
+      const existing = await guild.commands.fetch();
 
-          // Only available for Guilds
-          // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
-          // if (slash.permissions.length <= 0) return;
+      // filter only unregistered command
+      const added = slashes.filter(
+        (s) => !existing.find((c) => c.name === s.name)
+      );
 
-          // await commands.setPermissions(command, slash.getPermissions());
-        }
-      })
+      // filter commands to update
+      const updated = slashes
+        .map<[ApplicationCommand, DSlash]>((s) => [
+          existing.find((c) => c.name === s.name),
+          s,
+        ])
+        .filter((s) => s[0]);
+
+      // filter commands to delete
+      const deleted = existing.filter(
+        (s) =>
+          !this.slashes.find(
+            (bs) => s.name === bs.name && bs.guilds.includes(s.guild.id)
+          )
+      );
+
+      if (!this.silent)
+        console.log(
+          `${this.user.username} >> guild: #${guild} >> command >> Adding ${
+            added.length
+          } [${added.map((s) => s.name).join(", ")}]`
+        );
+
+      if (!this.silent)
+        console.log(
+          `${this.user.username} >> guild: #${guild} >> command >> deleting ${
+            deleted.size
+          } [${deleted.map((s) => s.name).join(", ")}]`
+        );
+
+      if (!this.silent)
+        console.log(
+          `${this.user.username} >> guild: #${guild} >> command >> updating ${updated.length}`
+        );
+
+      await Promise.all([
+        ...added.map((s) => guild.commands.create(s.toObject())), //
+        ...updated.map((s) => s[0].edit(s[1].toObject())),
+        ...deleted.map((key) => guild.commands.delete(key)),
+      ]);
+    }
+
+    // # init global commands
+    const existing = (await this.fetchSlash()).filter((s) => !s.guild);
+    const slashes = this.slashes.filter((s) => !s.guilds?.length);
+
+    const added = slashes.filter(
+      (s) => !existing.find((c) => c.name === s.name)
     );
+    const updated = slashes
+      .map<[ApplicationCommand, DSlash]>((s) => [
+        existing.find((c) => c.name === s.name),
+        s,
+      ])
+      .filter((s) => s[0]);
+    const deleted = existing.filter((c) =>
+      slashes.every((s) => s.name !== c.name)
+    );
+
+    if (!this.silent)
+      console.log(
+        `${this.user.username} >> global >> command >> Adding ${
+          added.length
+        } [${added.map((s) => s.name).join(", ")}]`
+      );
+    if (!this.silent)
+      console.log(
+        `${this.user.username} >> global >> command >> deleting ${
+          deleted.size
+        } [${deleted.map((s) => s.name).join(", ")}]`
+      );
+    if (!this.silent)
+      console.log(
+        `${this.user.username} >> global >> command >> updating ${updated.length}`
+      );
+
+    await Promise.all([
+      ...added.map((s) => this.application.commands.create(s.toObject())),
+      ...updated.map((s) => s[0].edit(s[1].toObject())),
+      ...deleted.map((key) => this.application.commands.delete(key)),
+    ]);
+
+    //    await Promise.all(
+    //      this.slashes.map(async (slash) => {
+    //        // Init all the @Slash
+    //        if (slash.guilds.length > 0) {
+    //          // If the @Slash is guild specific, add it to the guild
+    //          await Promise.all(
+    //            slash.guilds.map(async (guildID) => {
+    //              const guild = this.guilds.cache.get(guildID as Snowflake);
+    //
+    //              if (!guild) {
+    //                throw new GuildNotFoundError(guildID);
+    //              }
+    //
+    //              const commands = guild.commands;
+    //              const command = await commands.create(slash.toObject());
+    //
+    //              if (slash.permissions.length <= 0) return;
+    //
+    //              // https://discord.js.org/#/docs/main/master/class/ApplicationCommandPermissionsManager?scrollTo=set
+    //              await commands.permissions.set({
+    //                command: command,
+    //                permissions: slash.getPermissions(),
+    //              });
+    //            })
+    //          );
+    //        } else {
+    //          // If the @Slash is global, add it globaly
+    //          const commands = this.application.commands;
+    //          await commands.create(slash.toObject());
+    //
+    //          // Only available for Guilds
+    //          // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
+    //          // if (slash.permissions.length <= 0) return;
+    //
+    //          // await commands.setPermissions(command, slash.getPermissions());
+    //        }
+    //      })
+    //    );
   }
 
   /**
@@ -257,7 +369,9 @@ export class Client extends ClientJS {
           const commands = await this.fetchSlash(guild);
           await Promise.all(
             commands.map(async (value) => {
-              await this.guilds.cache.get(guild as Snowflake).commands.delete(value);
+              await this.guilds.cache
+                .get(guild as Snowflake)
+                .commands.delete(value);
             })
           );
         })
@@ -274,7 +388,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Get the group tree of an interaction 
+   * Get the group tree of an interaction
    * /hello => ["hello"]
    * /test hello => ["test", "hello"]
    * /test hello me => ["test", "hello", "me"]
@@ -284,13 +398,11 @@ export class Client extends ClientJS {
   getInteractionGroupTree(interaction: CommandInteraction) {
     const tree = [];
 
-    const getOptionsTree = (
-      option: Partial<CommandInteractionOption>
-    ) => {
+    const getOptionsTree = (option: Partial<CommandInteractionOption>) => {
       if (!option) return;
 
       if (
-        !option.type || 
+        !option.type ||
         option.type === "SUB_COMMAND_GROUP" ||
         option.type === "SUB_COMMAND"
       ) {
@@ -302,7 +414,7 @@ export class Client extends ClientJS {
     getOptionsTree({
       name: interaction.commandName,
       options: interaction.options,
-      type: undefined
+      type: undefined,
     });
 
     return tree;
@@ -310,13 +422,13 @@ export class Client extends ClientJS {
 
   /**
    * Return the corresponding @Slash from a tree
-   * @param tree 
+   * @param tree
    * @returns The corresponding Slash
    */
   getSlashFromTree(tree: string[]) {
     // Find the corresponding @Slash
     return this.allSlashes.find((slash) => {
-      switch(tree.length) {
+      switch (tree.length) {
         case 1:
           // Simple command /hello
           return (
@@ -384,11 +496,7 @@ export class Client extends ClientJS {
    * @param params Params to inject
    * @param once Trigger an once event
    */
-  trigger(
-    event: DiscordEvents,
-    params?: any,
-    once = false
-  ): Promise<any[]> {
+  trigger(event: DiscordEvents, params?: any, once = false): Promise<any[]> {
     return this.decorators.trigger(event, this, once)(params);
   }
 
