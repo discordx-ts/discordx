@@ -1,13 +1,21 @@
 import { Decorator } from "./Decorator";
 import { DecoratorUtils } from "../../logic/utils/DecoratorUtils";
+import { DSlash, DDiscord, DOption } from "..";
+import { DOn } from "./DOn";
 
 export type ModifyFunction<ToModify extends Decorator> = (
   original: ToModify
-) => any;
+) => void;
 
 export class Modifier<ToModify extends Decorator> extends Decorator {
   private _toModify!: ModifyFunction<ToModify>;
-  private _modifyTypes!: any[];
+  private _modifyTypes!: (
+    | typeof DSlash
+    | typeof DDiscord
+    | typeof DOption
+    | typeof DOn
+    | Function
+  )[];
 
   protected constructor() {
     super();
@@ -15,7 +23,12 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
 
   static create<ToModify extends Decorator>(
     toModify: ModifyFunction<ToModify>,
-    ...modifyTypes: any[]
+    ...modifyTypes: (
+      | typeof DSlash
+      | typeof DDiscord
+      | typeof DOption
+      | typeof DOn
+    )[]
   ) {
     const modifier = new Modifier<ToModify>();
 
