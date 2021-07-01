@@ -1,4 +1,4 @@
-import { DGuard, Client, DDiscord, DIService } from "../..";
+import { DGuard, Client, DDiscord } from "../..";
 import { Decorator } from "./Decorator";
 
 export abstract class Method extends Decorator {
@@ -26,7 +26,7 @@ export abstract class Method extends Decorator {
    */
   get execute() {
     return async (...params: any[]) => {
-      return await this.getGuardFunction()(...params);
+      return this.getGuardFunction()(...params);
     };
   }
 

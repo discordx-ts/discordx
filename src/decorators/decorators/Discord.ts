@@ -19,7 +19,7 @@ function importCommand(classType: Function, target: Function) {
     return on.classRef === classType;
   });
 
-  ons.map((event) => {
+  ons.forEach((event) => {
     // Set the property hidden to true when
     // it's imported
     event.from = target;
@@ -37,11 +37,11 @@ export function Discord(params?: DiscordParams) {
       }
 
       // For the commands that were imported like @Discord({ import: [...] })
-      importCommands.map((cmd) => {
+      importCommands.forEach((cmd) => {
         if (typeof cmd === "string") {
           // For the commands that were imported like @Discord({ import: ["*.ts"] })
           const files = Glob.sync(cmd);
-          files.map((file) => {
+          files.forEach((file) => {
             let classType;
             const classImport = require(file);
             if (classImport.default) {

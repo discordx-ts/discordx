@@ -18,7 +18,7 @@ export function Guild(...guildIDs: string[]) {
         ];
 
         if (original instanceof DDiscord) {
-          original.slashes.map((slash) => {
+          original.slashes.forEach((slash) => {
             slash.guilds = [
               ...slash.guilds,
               ...guildIDs.filter(guildID => !slash.guilds.includes(guildID))

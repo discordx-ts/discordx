@@ -20,7 +20,7 @@ export function Permission(id: string, type: PermissionType) {
         original.permissions = [...original.permissions, permission];
 
         if (original instanceof DDiscord) {
-          original.slashes.map((slash) => {
+          original.slashes.forEach((slash) => {
             slash.defaultPermission = false;
             slash.permissions = [...slash.permissions, permission];
           });

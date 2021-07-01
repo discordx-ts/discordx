@@ -151,8 +151,8 @@ export class MetadataStorage {
 
     // Set the class level "group" property of all @Slash
     // Cannot achieve it using modifiers
-    this._groups.map((group) => {
-      this._slashes.map((slash) => {
+    this._groups.forEach((group) => {
+      this._slashes.forEach((slash) => {
         if (group.from !== slash.from) {
           return;
         }
@@ -176,7 +176,7 @@ export class MetadataStorage {
     //    ...comands
     // ]
     //
-    this._groups.map((group) => {
+    this._groups.forEach((group) => {
       const slashParent = DSlash.create(
         group.name,
         group.infos.description
@@ -202,7 +202,7 @@ export class MetadataStorage {
         return slash.group === slashParent.name && !slash.subgroup;
       });
 
-      slashes.map((slash) => {
+      slashes.forEach((slash) => {
         slashParent.options.push(slash.toSubCommand());
       });
     });
@@ -221,7 +221,7 @@ export class MetadataStorage {
     //        ]
     //     }
     // ]
-    this._subGroups.map((subGroup) => {
+    this._subGroups.forEach((subGroup) => {
       const option = DOption.create(
         subGroup.name,
         "SUB_COMMAND_GROUP",
@@ -259,7 +259,7 @@ export class MetadataStorage {
       //      }
       // ]
       //
-      slashes.map((slash) => {
+      slashes.forEach((slash) => {
         option.options.push(slash.toSubCommand());
       });
       

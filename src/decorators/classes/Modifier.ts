@@ -37,7 +37,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
     modifiers: Modifier<any>[],
     originals: Decorator[]
   ) {
-    return await Promise.all(
+    return Promise.all(
       modifiers.map(async (modifier) => {
         // Get the list of objects that are linked to the specified modifier
         let linked = DecoratorUtils.getLinkedObjects(modifier, originals);
@@ -50,7 +50,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
         // Apply the modifications
         await Promise.all(
           linked.map(async (linkedOriginal) => {
-            return await modifier.applyModifications(linkedOriginal);
+            return modifier.applyModifications(linkedOriginal);
           })
         );
       })

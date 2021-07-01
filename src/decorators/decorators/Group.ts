@@ -47,7 +47,7 @@ export function Group(
 
       // Create a subgroup if @Group decorate a method
       if (subCommands) {
-        Object.keys(subCommands).map((key) => {
+        Object.keys(subCommands).forEach((key) => {
           const group = DGroup.create<DOption>(
             key,
             { description: subCommands[key] }

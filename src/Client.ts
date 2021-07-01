@@ -1,6 +1,4 @@
 import {
-  ApplicationCommandOption,
-  ApplicationCommandOptionData,
   Client as ClientJS,
   CommandInteraction,
   CommandInteractionOption,
@@ -155,7 +153,7 @@ export class Client extends ClientJS {
     
             const tab = Array(depth).join("      ");
   
-            options.map((option) => {
+            options.forEach((option) => {
               console.log(`${tab}${option.name}: ${option.stringType} (${option.classRef.name}.${option.key})`);
               printOptions(option.options, depth + 1);
             });
@@ -184,7 +182,7 @@ export class Client extends ClientJS {
       }
     });
 
-    return await super.login(token);
+    return super.login(token);
   }
 
   /**
@@ -365,7 +363,7 @@ export class Client extends ClientJS {
     if (!slash) return;
 
     // Parse the options values and inject it into the @Slash method
-    return await slash.execute(interaction, this);
+    return slash.execute(interaction, this);
   }
 
   /**
@@ -395,10 +393,10 @@ export class Client extends ClientJS {
       return;
     }
 
-    this._loadClasses.map((file) => {
+    this._loadClasses.forEach((file) => {
       if (typeof file === "string") {
         const files = Glob.sync(file);
-        files.map((file) => {
+        files.forEach((file) => {
           require(file);
         });
       }

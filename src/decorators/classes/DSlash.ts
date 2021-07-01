@@ -5,7 +5,7 @@ import {
   CommandInteractionOption,
   Snowflake,
 } from "discord.js";
-import { DOption, Client, SubValueType, PermissionType } from "../..";
+import { DOption, Client, PermissionType } from "../..";
 import { Method } from "./Method";
 
 export class DSlash extends Method {
