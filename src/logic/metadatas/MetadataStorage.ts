@@ -197,14 +197,20 @@ export class MetadataStorage {
       });
 
       let groupGuilds: string[] = [];
+      let botIds: string[] = [];
       slashes.forEach((slash) => {
         groupGuilds = [...groupGuilds, ...slash.guilds];
+        botIds = [...botIds, ...slash.botIds];
         slashParent.options.push(slash.toSubCommand());
       });
 
+      // remove duplicate guilds
       slashParent.guilds = groupGuilds.filter(
         (a, b) => groupGuilds.indexOf(a) === b
       );
+
+      // multiple bot support
+      slashParent.botIds = botIds.filter((a, b) => botIds.indexOf(a) === b);
     });
 
     // Create for each subgroup (@Group on methods) create an Option based on Slash
