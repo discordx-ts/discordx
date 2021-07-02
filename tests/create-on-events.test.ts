@@ -1,4 +1,4 @@
-import { Discord, On, Client, Guard, GuardFunction, Description } from "../src";
+import { Discord, On, Client, Guard, GuardFunction } from "../src";
 
 const guard1: GuardFunction<any, { message: string; original: string }> =
   async ([message]: [string], client, next, mwDatas) => {
@@ -46,7 +46,7 @@ abstract class Bot {
   }
 }
 
-const client = new Client({ intents: [] });
+const client = new Client({ botId: "test", intents: [] });
 
 beforeAll(async () => {
   await client.build();

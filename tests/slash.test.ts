@@ -1,4 +1,11 @@
-import { Channel, CommandInteraction, CommandInteractionOption, Role, TextChannel, User, VoiceChannel } from "discord.js";
+import {
+  Channel,
+  CommandInteraction,
+  Role,
+  TextChannel,
+  User,
+  VoiceChannel,
+} from "discord.js";
 import {
   Discord,
   Slash,
@@ -7,30 +14,23 @@ import {
   Group,
   Choices,
   Client,
-  DSlash,
-  DOption,
   Permission,
-  OptionValueType,
   StringOptionType,
   Guard,
-  Description
+  Description,
 } from "../src";
 
 enum TextChoices {
   Hello = "Hello",
-  "Good Bye" = "GoodBye"
+  "Good Bye" = "GoodBye",
 }
 
 @Discord()
 @Guild("693401527494377482")
-@Group(
-  "testing",
-  "Testing group description",
-  {
-    maths: "maths group description",
-    text: "text group description"
-  }
-)
+@Group("testing", "Testing group description", {
+  maths: "maths group description",
+  text: "text group description",
+})
 @Guard<any, any>(async (params, client, next, datas) => {
   datas.passed = true;
   return await next();
@@ -48,12 +48,7 @@ export abstract class AppDiscord {
     client: Client,
     datas: any
   ) {
-    return [
-      "/testing maths add",
-      x + y,
-      interaction,
-      datas.passed
-    ];
+    return ["/testing maths add", x + y, interaction, datas.passed];
   }
 
   @Slash("multiply", { description: "Multiply" })
@@ -67,12 +62,7 @@ export abstract class AppDiscord {
     client: Client,
     datas: any
   ) {
-    return [
-      "/testing maths multiply",
-      x * y,
-      interaction,
-      datas.passed
-    ];
+    return ["/testing maths multiply", x * y, interaction, datas.passed];
   }
 
   @Slash("hello")
@@ -85,12 +75,7 @@ export abstract class AppDiscord {
     client: Client,
     datas: any
   ) {
-    return [
-      "/testing text hello",
-      text,
-      interaction,
-      datas.passed
-    ];
+    return ["/testing text hello", text, interaction, datas.passed];
   }
 
   @Slash("hello")
@@ -103,13 +88,7 @@ export abstract class AppDiscord {
     client: Client,
     datas: any
   ) {
-    return [
-      "/testing hello text",
-      text,
-      text2,
-      interaction,
-      datas.passed
-    ];
+    return ["/testing hello text", text, text2, interaction, datas.passed];
   }
 }
 
@@ -129,12 +108,7 @@ export abstract class AppDiscord1 {
     client: Client,
     datas: any
   ) {
-    return [
-      "/hello",
-      text,
-      interaction,
-      datas.passed
-    ];
+    return ["/hello", text, interaction, datas.passed];
   }
 
   @Slash("inferance")
@@ -167,16 +141,11 @@ export abstract class AppDiscord1 {
     client: Client,
     datas: any
   ) {
-    return [
-      "/inferance",
-      "infer",
-      interaction,
-      datas.passed
-    ];
+    return ["/inferance", "infer", interaction, datas.passed];
   }
 }
 
-const client = new Client({ intents: [] });
+const client = new Client({ botId: "test", intents: [] });
 
 beforeAll(async () => {
   await client.build();
@@ -192,7 +161,7 @@ class FakeOption {
     name: string,
     type: StringOptionType,
     value: string | number,
-    options?: FakeOption[],
+    options?: FakeOption[]
   ) {
     this.type = type;
     this.name = name;
@@ -218,10 +187,12 @@ class FakeInteraction {
 describe("Slash", () => {
   it("Should create the slash structure", async () => {
     expect(client.slashes[0].guilds).toEqual(["invalid_id"]);
-    expect(client.slashes[0].permissions).toEqual([{
-      id: "123",
-      type: "USER",
-    }]);
+    expect(client.slashes[0].permissions).toEqual([
+      {
+        id: "123",
+        type: "USER",
+      },
+    ]);
 
     const slashesObjects = client.slashes.map((slash) => slash.toObject());
     expect(slashesObjects).toEqual([
@@ -234,10 +205,8 @@ describe("Slash", () => {
             name: "text",
             type: "STRING",
             required: false,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
         ],
         defaultPermission: false,
@@ -251,80 +220,64 @@ describe("Slash", () => {
             name: "text",
             type: "STRING",
             required: true,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
           {
             description: "bool - BOOLEAN",
             name: "bool",
             type: "BOOLEAN",
             required: true,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
           {
             description: "nb - INTEGER",
             name: "nb",
             type: "INTEGER",
             required: true,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
           {
             description: "channel - CHANNEL",
             name: "channel",
             type: "CHANNEL",
             required: true,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
           {
             description: "textchannel - CHANNEL",
             name: "textchannel",
             type: "CHANNEL",
             required: false,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
           {
             description: "voicechannel - CHANNEL",
             name: "voicechannel",
             type: "CHANNEL",
             required: false,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
           {
             description: "user - USER",
             name: "user",
             type: "USER",
             required: false,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
           {
             description: "role - ROLE",
             name: "role",
             type: "ROLE",
             required: false,
-            choices: [
-            ],
-            options: [
-            ],
+            choices: [],
+            options: [],
           },
         ],
         defaultPermission: true,
@@ -337,15 +290,13 @@ describe("Slash", () => {
             description: "text group description",
             name: "text",
             type: "SUB_COMMAND_GROUP",
-            choices: [
-            ],
+            choices: [],
             options: [
               {
                 description: "hello",
                 name: "hello",
                 type: "SUB_COMMAND",
-                choices: [
-                ],
+                choices: [],
                 options: [
                   {
                     description: "text - STRING",
@@ -362,8 +313,7 @@ describe("Slash", () => {
                         value: "GoodBye",
                       },
                     ],
-                    options: [
-                    ],
+                    options: [],
                   },
                 ],
               },
@@ -373,35 +323,29 @@ describe("Slash", () => {
             description: "maths group description",
             name: "maths",
             type: "SUB_COMMAND_GROUP",
-            choices: [
-            ],
+            choices: [],
             options: [
               {
                 description: "Multiply",
                 name: "multiply",
                 type: "SUB_COMMAND",
-                choices: [
-                ],
+                choices: [],
                 options: [
                   {
                     description: "x value",
                     name: "x",
                     type: "INTEGER",
                     required: false,
-                    choices: [
-                    ],
-                    options: [
-                    ],
+                    choices: [],
+                    options: [],
                   },
                   {
                     description: "y value",
                     name: "y",
                     type: "INTEGER",
                     required: false,
-                    choices: [
-                    ],
-                    options: [
-                    ],
+                    choices: [],
+                    options: [],
                   },
                 ],
               },
@@ -409,28 +353,23 @@ describe("Slash", () => {
                 description: "Addition",
                 name: "add",
                 type: "SUB_COMMAND",
-                choices: [
-                ],
+                choices: [],
                 options: [
                   {
                     description: "x value",
                     name: "x",
                     type: "INTEGER",
                     required: false,
-                    choices: [
-                    ],
-                    options: [
-                    ],
+                    choices: [],
+                    options: [],
                   },
                   {
                     description: "y value",
                     name: "y",
                     type: "INTEGER",
                     required: false,
-                    choices: [
-                    ],
-                    options: [
-                    ],
+                    choices: [],
+                    options: [],
                   },
                 ],
               },
@@ -440,28 +379,23 @@ describe("Slash", () => {
             description: "hello",
             name: "hello",
             type: "SUB_COMMAND",
-            choices: [
-            ],
+            choices: [],
             options: [
               {
                 description: "text - STRING",
                 name: "text",
                 type: "STRING",
                 required: true,
-                choices: [
-                ],
-                options: [
-                ],
+                choices: [],
+                options: [],
               },
               {
                 description: "text2 - STRING",
                 name: "text2",
                 type: "STRING",
                 required: false,
-                choices: [
-                ],
-                options: [
-                ],
+                choices: [],
+                options: [],
               },
             ],
           },
@@ -472,105 +406,94 @@ describe("Slash", () => {
   });
 
   it("Should execute the simple slash", async () => {
-    const interaction = new FakeInteraction(
-      "hello",
-      [
-        new FakeOption("text", "STRING", "hello")
-      ]
-    );
+    const interaction = new FakeInteraction("hello", [
+      new FakeOption("text", "STRING", "hello"),
+    ]);
 
     const res = await client.executeSlash(interaction as any);
     expect(res).toEqual(["/hello", "hello", interaction, true]);
   });
 
   it("Should execute the simple grouped text slash", async () => {
-    const interaction = new FakeInteraction(
-      "testing",
-      [
-        new FakeOption("hello", "SUB_COMMAND", "text", [
-          new FakeOption("text", "STRING", "testing hello text"),
-          new FakeOption("text2", "STRING", "testing hello text2")
-        ])
-      ]
-    );
+    const interaction = new FakeInteraction("testing", [
+      new FakeOption("hello", "SUB_COMMAND", "text", [
+        new FakeOption("text", "STRING", "testing hello text"),
+        new FakeOption("text2", "STRING", "testing hello text2"),
+      ]),
+    ]);
 
     const res = await client.executeSlash(interaction as any);
-    expect(res).toEqual(["/testing hello text", "testing hello text", "testing hello text2", interaction, true]);
+    expect(res).toEqual([
+      "/testing hello text",
+      "testing hello text",
+      "testing hello text2",
+      interaction,
+      true,
+    ]);
   });
 
   it("Should execute the simple subgrouped text slash", async () => {
-    const interaction = new FakeInteraction(
-      "testing",
-      [
-        new FakeOption("text", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("hello", "SUB_COMMAND", "text", [
-            new FakeOption("text", "STRING", "testing text hello")
-          ])
-        ])
-      ]
-    );
+    const interaction = new FakeInteraction("testing", [
+      new FakeOption("text", "SUB_COMMAND_GROUP", "text", [
+        new FakeOption("hello", "SUB_COMMAND", "text", [
+          new FakeOption("text", "STRING", "testing text hello"),
+        ]),
+      ]),
+    ]);
 
     const res = await client.executeSlash(interaction as any);
-    expect(res).toEqual(["/testing text hello", "testing text hello", interaction, true]);
+    expect(res).toEqual([
+      "/testing text hello",
+      "testing text hello",
+      interaction,
+      true,
+    ]);
   });
 
   it("Should execute the simple subgrouped multiply slash", async () => {
-    const interaction = new FakeInteraction(
-      "testing",
-      [
-        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("multiply", "SUB_COMMAND", "text", [
-            new FakeOption("x", "INTEGER", 2),
-            new FakeOption("y", "INTEGER", 5)
-          ])
-        ])
-      ]
-    );
+    const interaction = new FakeInteraction("testing", [
+      new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
+        new FakeOption("multiply", "SUB_COMMAND", "text", [
+          new FakeOption("x", "INTEGER", 2),
+          new FakeOption("y", "INTEGER", 5),
+        ]),
+      ]),
+    ]);
 
     const res = await client.executeSlash(interaction as any);
     expect(res).toEqual(["/testing maths multiply", 10, interaction, true]);
   });
 
   it("Should execute the simple subgrouped addition slash", async () => {
-    const interaction = new FakeInteraction(
-      "testing",
-      [
-        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("add", "SUB_COMMAND", "text", [
-            new FakeOption("x", "INTEGER", 2),
-            new FakeOption("y", "INTEGER", 5)
-          ])
-        ])
-      ]
-    );
+    const interaction = new FakeInteraction("testing", [
+      new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
+        new FakeOption("add", "SUB_COMMAND", "text", [
+          new FakeOption("x", "INTEGER", 2),
+          new FakeOption("y", "INTEGER", 5),
+        ]),
+      ]),
+    ]);
 
     const res = await client.executeSlash(interaction as any);
     expect(res).toEqual(["/testing maths add", 7, interaction, true]);
   });
 
   it("Should execute the with optional option", async () => {
-    const interaction = new FakeInteraction(
-      "hello",
-      [
-      ]
-    );
+    const interaction = new FakeInteraction("hello", []);
 
     const res = await client.executeSlash(interaction as any);
     expect(res).toEqual(["/hello", undefined, interaction, true]);
   });
 
   it("Should not execute not found slash", async () => {
-    const interaction = new FakeInteraction(
-      "testing",
-      [
-        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("notfound", "SUB_COMMAND", "text", [
-            new FakeOption("x", "INTEGER", 2),
-            new FakeOption("y", "INTEGER", 5)
-          ])
-        ])
-      ]
-    );
+    const interaction = new FakeInteraction("testing", [
+      new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
+        new FakeOption("notfound", "SUB_COMMAND", "text", [
+          new FakeOption("x", "INTEGER", 2),
+          new FakeOption("y", "INTEGER", 5),
+        ]),
+      ]),
+    ]);
 
     const res = await client.executeSlash(interaction as any);
     expect(res).toEqual(undefined);
