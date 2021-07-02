@@ -199,7 +199,9 @@ export class Client extends ClientJS {
   /**
    * Initialize all the @Slash with their permissions
    */
-  async initSlashes() {
+  async initSlashes(options?: {
+    log: { forGuild: boolean; forGlobal: boolean };
+  }) {
     // # first init guild's all slash
     const guildSlashStorage = new Map<string, DSlash[]>();
     const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
@@ -257,24 +259,23 @@ export class Client extends ClientJS {
           )
       );
 
-      if (!this.silent)
+      if (options?.log.forGuild) {
         console.log(
           `${this.user?.username} >> guild: #${guild} >> command >> adding ${
             added.length
           } [${added.map((s) => s.name).join(", ")}]`
         );
 
-      if (!this.silent)
         console.log(
           `${this.user?.username} >> guild: #${guild} >> command >> deleting ${
             deleted.size
           } [${deleted.map((s) => s.name).join(", ")}]`
         );
 
-      if (!this.silent)
         console.log(
           `${this.user?.username} >> guild: #${guild} >> command >> updating ${updated.length}`
         );
+      }
 
       await Promise.all([
         ...added.map((s) => guild.commands.create(s.toObject())),
@@ -304,22 +305,21 @@ export class Client extends ClientJS {
         slashes.every((s) => s.name !== c.name)
       );
 
-      if (!this.silent)
+      if (options?.log.forGlobal) {
         console.log(
           `${this.user?.username} >> global >> command >> adding ${
             added.length
           } [${added.map((s) => s.name).join(", ")}]`
         );
-      if (!this.silent)
         console.log(
           `${this.user?.username} >> global >> command >> deleting ${
             deleted.size
           } [${deleted.map((s) => s.name).join(", ")}]`
         );
-      if (!this.silent)
         console.log(
           `${this.user?.username} >> global >> command >> updating ${updated.length}`
         );
+      }
 
       await Promise.all([
         ...added.map((s) => this.application?.commands.create(s.toObject())),
