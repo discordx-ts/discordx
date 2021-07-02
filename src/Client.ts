@@ -234,7 +234,7 @@ export class Client extends ClientJS {
       const added = slashes.filter(
         (s) =>
           !existing.find((c) => c.name === s.name) &&
-          (!s.botIds || s.botIds.includes(this.botId))
+          (!s.botIds.length || s.botIds.includes(this.botId))
       );
 
       // filter commands to update
@@ -255,7 +255,7 @@ export class Client extends ClientJS {
               s.name === bs.name &&
               s.guild &&
               bs.guilds.includes(s.guild.id) &&
-              (!bs.botIds || bs.botIds.includes(this.botId))
+              (!bs.botIds.length || bs.botIds.includes(this.botId))
           )
       );
 
