@@ -11,6 +11,7 @@ export * from "./decorators/Choices";
 export * from "./decorators/Permission";
 export * from "./decorators/Group";
 export * from "./decorators/Guild";
+export * from "./decorators/Bot";
 
 export * from "./params/DiscordParams";
 export * from "./params/OptionParams";

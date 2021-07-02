@@ -11,12 +11,20 @@ export class DDiscord extends Decorator {
   private _defaultPermission = true;
   private _permissions: { id: string; type: PermissionType }[] = [];
   private _guilds: string[] = [];
+  private _botIds: string[] = [];
 
   get permissions() {
     return this._permissions;
   }
   set permissions(value) {
     this._permissions = value;
+  }
+
+  get botIds() {
+    return this._botIds;
+  }
+  set botIds(value) {
+    this._botIds = value;
   }
 
   get guilds() {
