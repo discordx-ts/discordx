@@ -240,7 +240,11 @@ export class Client extends ClientJS {
       // filter commands to update
       const updated = slashes
         .map<[ApplicationCommand | undefined, DSlash]>((s) => [
-          existing.find((c) => c.name === s.name),
+          existing.find(
+            (c) =>
+              c.name === s.name &&
+              (!s.botIds.length || s.botIds.includes(this.botId))
+          ),
           s,
         ])
         .filter<[ApplicationCommand, DSlash]>(
