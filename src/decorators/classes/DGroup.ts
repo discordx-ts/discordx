@@ -2,7 +2,7 @@ import { DSlash, DOption } from "..";
 import { Decorator } from "./Decorator";
 
 export class DGroup<InfoType = DSlash | DOption> extends Decorator {
-  name: string | undefined;
+  name!: string;
   infos: Partial<InfoType> | undefined;
 
   protected constructor() {

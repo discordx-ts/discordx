@@ -47,9 +47,9 @@ export class MetadataStorage {
   get usedEvents() {
     return this.events.reduce<DOn[]>((prev, event, index) => {
       const found = this.events.find((event2) => event.event === event2.event);
-      const foundIndex = this.events.indexOf(found);
+      const foundIndex = found ? this.events.indexOf(found) : -1;
 
-      if (foundIndex === index || found.once !== event.once) {
+      if (foundIndex === index || found?.once !== event.once) {
         prev.push(event);
       }
 
@@ -123,6 +123,8 @@ export class MetadataStorage {
         return instance.from === member.from;
       });
 
+      if (!discord) return;
+
       // You can get the @Discord that wrap a @Command/@On by using
       // on.discord or slash.discord
       member.discord = discord;
@@ -171,12 +173,16 @@ export class MetadataStorage {
     this._groups.forEach((group) => {
       const slashParent = DSlash.create(
         group.name,
-        group.infos.description
+        group.infos?.description
       ).decorate(group.classRef, group.key, group.method);
 
-      slashParent.discord = this._discords.find((instance) => {
+      const discord = this._discords.find((instance) => {
         return instance.from === slashParent.from;
       });
+
+      if (!discord) return;
+
+      slashParent.discord = discord;
 
       slashParent.guilds = [
         ...Client.slashGuilds,
@@ -213,7 +219,7 @@ export class MetadataStorage {
       const option = DOption.create(
         subGroup.name,
         "SUB_COMMAND_GROUP",
-        subGroup.infos.description
+        subGroup.infos?.description
       ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup

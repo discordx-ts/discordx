@@ -120,15 +120,15 @@ export class Client extends ClientJS {
    * Create your bot
    * @param options { silent: boolean, loadClasses: LoadClass[] }
    */
-  constructor(options?: ClientOptions) {
+  constructor(options: ClientOptions) {
     super(options);
 
     this._silent = !!options?.silent;
     this._loadClasses = options?.classes || [];
     this.guards = options.guards || [];
-    this.requiredByDefault = options.requiredByDefault;
+    this.requiredByDefault = options.requiredByDefault ?? true;
     this.slashGuilds = options.slashGuilds || [];
-    this.botId = options.botId;
+    this._botId = options.botId;
   }
 
   /**
@@ -237,11 +237,11 @@ export class Client extends ClientJS {
 
       // filter commands to update
       const updated = slashes
-        .map<[ApplicationCommand, DSlash]>((s) => [
+        .map<[ApplicationCommand | undefined, DSlash]>((s) => [
           existing.find((c) => c.name === s.name),
           s,
         ])
-        .filter((s) => s[0]);
+        .map((s) => s !== undefined);
 
       // filter commands to delete
       const deleted = existing.filter(
@@ -249,6 +249,7 @@ export class Client extends ClientJS {
           !this.slashes.find(
             (bs) =>
               s.name === bs.name &&
+              s.guild &&
               bs.guilds.includes(s.guild.id) &&
               (!bs.botIds || bs.botIds.includes(this.botId))
           )
@@ -256,21 +257,21 @@ export class Client extends ClientJS {
 
       if (!this.silent)
         console.log(
-          `${this.user.username} >> guild: #${guild} >> command >> adding ${
+          `${this.user?.username} >> guild: #${guild} >> command >> adding ${
             added.length
           } [${added.map((s) => s.name).join(", ")}]`
         );
 
       if (!this.silent)
         console.log(
-          `${this.user.username} >> guild: #${guild} >> command >> deleting ${
+          `${this.user?.username} >> guild: #${guild} >> command >> deleting ${
             deleted.size
           } [${deleted.map((s) => s.name).join(", ")}]`
         );
 
       if (!this.silent)
         console.log(
-          `${this.user.username} >> guild: #${guild} >> command >> updating ${updated.length}`
+          `${this.user?.username} >> guild: #${guild} >> command >> updating ${updated.length}`
         );
 
       await Promise.all([
@@ -281,44 +282,45 @@ export class Client extends ClientJS {
     }
 
     // # init global commands
-    const existing = (await this.fetchSlash()).filter((s) => !s.guild);
+    const existing = (await this.fetchSlash())?.filter((s) => !s.guild);
     const slashes = this.slashes.filter((s) => !s.guilds?.length);
-
-    const added = slashes.filter(
-      (s) => !existing.find((c) => c.name === s.name)
-    );
-    const updated = slashes
-      .map<[ApplicationCommand, DSlash]>((s) => [
-        existing.find((c) => c.name === s.name),
-        s,
-      ])
-      .filter((s) => s[0]);
-    const deleted = existing.filter((c) =>
-      slashes.every((s) => s.name !== c.name)
-    );
-
-    if (!this.silent)
-      console.log(
-        `${this.user.username} >> global >> command >> adding ${
-          added.length
-        } [${added.map((s) => s.name).join(", ")}]`
+    if (existing) {
+      const added = slashes.filter(
+        (s) => !existing.find((c) => c.name === s.name)
       );
-    if (!this.silent)
-      console.log(
-        `${this.user.username} >> global >> command >> deleting ${
-          deleted.size
-        } [${deleted.map((s) => s.name).join(", ")}]`
-      );
-    if (!this.silent)
-      console.log(
-        `${this.user.username} >> global >> command >> updating ${updated.length}`
+      const updated = slashes
+        .map<[ApplicationCommand | undefined, DSlash]>((s) => [
+          existing.find((c) => c.name === s.name),
+          s,
+        ])
+        .map((s) => s !== undefined);
+      const deleted = existing.filter((c) =>
+        slashes.every((s) => s.name !== c.name)
       );
 
-    await Promise.all([
-      ...added.map((s) => this.application.commands.create(s.toObject())),
-      ...updated.map((s) => s[0].edit(s[1].toObject())),
-      ...deleted.map((key) => this.application.commands.delete(key)),
-    ]);
+      if (!this.silent)
+        console.log(
+          `${this.user?.username} >> global >> command >> adding ${
+            added.length
+          } [${added.map((s) => s.name).join(", ")}]`
+        );
+      if (!this.silent)
+        console.log(
+          `${this.user?.username} >> global >> command >> deleting ${
+            deleted.size
+          } [${deleted.map((s) => s.name).join(", ")}]`
+        );
+      if (!this.silent)
+        console.log(
+          `${this.user?.username} >> global >> command >> updating ${updated.length}`
+        );
+
+      await Promise.all([
+        ...added.map((s) => this.application?.commands.create(s.toObject())),
+        ...updated.map((s) => s[0].edit(s[1].toObject())),
+        ...deleted.map((key) => this.application?.commands.delete(key)),
+      ]);
+    }
   }
 
   /**
@@ -334,7 +336,7 @@ export class Client extends ClientJS {
       }
       return await guild.commands.fetch();
     }
-    return await this.application.commands.fetch();
+    return await this.application?.commands.fetch();
   }
 
   /**
@@ -347,23 +349,27 @@ export class Client extends ClientJS {
         guilds.map(async (guild) => {
           // Select and delete the commands of each guild
           const commands = await this.fetchSlash(guild);
-          await Promise.all(
-            commands.map(async (value) => {
-              await this.guilds.cache
-                .get(guild as Snowflake)
-                .commands.delete(value);
-            })
-          );
+          if (commands && this.guilds.cache !== undefined)
+            await Promise.all(
+              commands.map(async (value) => {
+                const guildManager = await this.guilds.cache.get(
+                  guild as Snowflake
+                );
+                if (guildManager) guildManager.commands.delete(value);
+              })
+            );
         })
       );
     } else {
       // Select and delete the commands of each guild
       const commands = await this.fetchSlash();
-      await Promise.all(
-        commands.map(async (value) => {
-          await this.application.commands.delete(value);
-        })
-      );
+      if (commands) {
+        await Promise.all(
+          commands.map(async (value) => {
+            await this.application?.commands.delete(value);
+          })
+        );
+      }
     }
   }
 
@@ -376,7 +382,7 @@ export class Client extends ClientJS {
    * @returns The group tree
    */
   getInteractionGroupTree(interaction: CommandInteraction) {
-    const tree = [];
+    const tree: string[] = [];
 
     const getOptionsTree = (option: Partial<CommandInteractionOption>) => {
       if (!option) return;
@@ -386,7 +392,7 @@ export class Client extends ClientJS {
         option.type === "SUB_COMMAND_GROUP" ||
         option.type === "SUB_COMMAND"
       ) {
-        tree.push(option.name);
+        if (option.name) tree.push(option.name);
         return getOptionsTree(Array.from(option.options?.values() || [])?.[0]);
       }
     };
