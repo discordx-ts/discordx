@@ -241,7 +241,9 @@ export class Client extends ClientJS {
           existing.find((c) => c.name === s.name),
           s,
         ])
-        .map((s) => s !== undefined);
+        .filter<[ApplicationCommand, DSlash]>(
+          (s): s is [ApplicationCommand, DSlash] => s[0] !== undefined
+        );
 
       // filter commands to delete
       const deleted = existing.filter(
@@ -288,12 +290,16 @@ export class Client extends ClientJS {
       const added = slashes.filter(
         (s) => !existing.find((c) => c.name === s.name)
       );
+
       const updated = slashes
         .map<[ApplicationCommand | undefined, DSlash]>((s) => [
           existing.find((c) => c.name === s.name),
           s,
         ])
-        .map((s) => s !== undefined);
+        .filter<[ApplicationCommand, DSlash]>(
+          (s): s is [ApplicationCommand, DSlash] => s[0] !== undefined
+        );
+
       const deleted = existing.filter((c) =>
         slashes.every((s) => s.name !== c.name)
       );
