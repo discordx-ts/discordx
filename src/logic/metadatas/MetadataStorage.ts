@@ -196,9 +196,15 @@ export class MetadataStorage {
         return slash.group === slashParent.name && !slash.subgroup;
       });
 
+      let groupGuilds: string[] = [];
       slashes.forEach((slash) => {
+        groupGuilds = [...groupGuilds, ...slash.guilds];
         slashParent.options.push(slash.toSubCommand());
       });
+
+      slashParent.guilds = groupGuilds.filter(
+        (a, b) => groupGuilds.indexOf(a) === b
+      );
     });
 
     // Create for each subgroup (@Group on methods) create an Option based on Slash
@@ -254,7 +260,7 @@ export class MetadataStorage {
       });
 
       // The the root option to the root Slash command
-      const groupSlash = slashes?.[0]?.group
+      const groupSlash = slashes?.[0].group
         ? groupedSlashes.get(slashes[0].group)
         : undefined;
       if (groupSlash) {

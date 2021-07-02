@@ -26,7 +26,7 @@ export abstract class Method extends Decorator {
    */
   get execute() {
     return async (...params: any[]) => {
-      return this.getGuardFunction()(...params);
+      return await this.getGuardFunction()(...params);
     };
   }
 
@@ -45,7 +45,7 @@ export abstract class Method extends Decorator {
       ...clientGuards,
       ...this.discord.guards,
       ...this._guards,
-      DGuard.create(this._method?.bind(this._discord.instance)),
+      DGuard.create(this._method.bind(this._discord.instance)),
     ];
   }
   set guards(value) {

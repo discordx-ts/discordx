@@ -6,8 +6,8 @@ export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
   private _slashes: DSlash[] = [];
   private _events: DOn[] = [];
-  private _description?: string;
-  private _name: string;
+  private _description!: string;
+  private _name!: string;
   private _defaultPermission = true;
   private _permissions: { id: string; type: PermissionType }[] = [];
   private _guilds: string[] = [];
@@ -72,12 +72,15 @@ export class DDiscord extends Decorator {
     return DIService.instance.getService(this.from);
   }
 
-  protected constructor(name: string) {
+  protected constructor() {
     super();
-    this._name = name;
   }
 
   static create(name: string) {
-    return new DDiscord(name);
+    const discord = new DDiscord();
+
+    discord.name = name;
+
+    return discord;
   }
 }

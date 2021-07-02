@@ -1,21 +1,13 @@
 import { Decorator } from "./Decorator";
 import { DecoratorUtils } from "../../logic/utils/DecoratorUtils";
-import { DSlash, DDiscord, DOption } from "..";
-import { DOn } from "./DOn";
 
 export type ModifyFunction<ToModify extends Decorator> = (
   original: ToModify
-) => void;
+) => any;
 
 export class Modifier<ToModify extends Decorator> extends Decorator {
   private _toModify!: ModifyFunction<ToModify>;
-  private _modifyTypes!: (
-    | typeof DSlash
-    | typeof DDiscord
-    | typeof DOption
-    | typeof DOn
-    | Function
-  )[];
+  private _modifyTypes!: any[];
 
   protected constructor() {
     super();
@@ -23,12 +15,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
 
   static create<ToModify extends Decorator>(
     toModify: ModifyFunction<ToModify>,
-    ...modifyTypes: (
-      | typeof DSlash
-      | typeof DDiscord
-      | typeof DOption
-      | typeof DOn
-    )[]
+    ...modifyTypes: any[]
   ) {
     const modifier = new Modifier<ToModify>();
 
@@ -50,7 +37,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
     modifiers: Modifier<any>[],
     originals: Decorator[]
   ) {
-    return Promise.all(
+    return await Promise.all(
       modifiers.map(async (modifier) => {
         // Get the list of objects that are linked to the specified modifier
         let linked = DecoratorUtils.getLinkedObjects(modifier, originals);
@@ -63,7 +50,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
         // Apply the modifications
         await Promise.all(
           linked.map(async (linkedOriginal) => {
-            return modifier.applyModifications(linkedOriginal);
+            return await modifier.applyModifications(linkedOriginal);
           })
         );
       })

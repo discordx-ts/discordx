@@ -65,7 +65,7 @@ export function Group(
       MetadataStorage.instance.addModifier(
         Modifier.create<DSlash>(async (original) => {
           original.subgroup = group as string;
-        }, DSlash).decorate(target.constructor, key)
+        }, DSlash).decorate(target.constructor, key as string)
       );
     }
   };

@@ -2,18 +2,21 @@ import { Decorator } from "./Decorator";
 import { GuardFunction } from "../..";
 
 export class DGuard extends Decorator {
-  protected _fn: GuardFunction;
+  protected _fn!: GuardFunction;
 
   get fn() {
     return this._fn;
   }
 
-  protected constructor(fn: GuardFunction) {
+  protected constructor() {
     super();
-    this._fn = fn;
   }
 
   static create(fn: GuardFunction) {
-    return new DGuard(fn);
+    const guard = new DGuard();
+
+    guard._fn = fn;
+
+    return guard;
   }
 }

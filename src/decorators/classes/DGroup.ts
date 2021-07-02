@@ -1,34 +1,19 @@
-import { DSlash, DOption } from "..";
 import { Decorator } from "./Decorator";
 
-export class DGroup<InfoType = DSlash | DOption> extends Decorator {
-  private _name: string;
-  private _infos?: Partial<InfoType>;
+export class DGroup<InfoType = any> extends Decorator {
+  name!: string;
+  infos!: Partial<InfoType>;
 
-  protected constructor(name: string, infos?: Partial<InfoType>) {
+  protected constructor() {
     super();
-    this._name = name;
-    this._infos = infos;
   }
 
-  get name() {
-    return this._name;
-  }
-  set name(value) {
-    this._name = value;
-  }
+  static create<InfoType = any>(name: string, infos?: Partial<InfoType>) {
+    const group = new DGroup<InfoType>();
 
-  get infos() {
-    return this._infos;
-  }
-  set infos(value) {
-    this._infos = value;
-  }
+    group.name = name.toLowerCase();
+    group.infos = infos || ({} as any);
 
-  static create<InfoType = DSlash | DOption>(
-    name: string,
-    infos?: Partial<InfoType>
-  ) {
-    return new DGroup<InfoType>(name.toLowerCase(), infos);
+    return group;
   }
 }

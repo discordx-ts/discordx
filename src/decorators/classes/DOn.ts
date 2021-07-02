@@ -2,9 +2,9 @@ import { DiscordEvents } from "../..";
 import { Method } from "./Method";
 
 export class DOn extends Method {
-  protected _botIds: string[];
-  protected _event: DiscordEvents;
-  protected _once: boolean;
+  protected _event!: DiscordEvents;
+  protected _once!: boolean;
+  protected _botIds!: string[];
 
   get botIds() {
     return this._botIds;
@@ -27,15 +27,18 @@ export class DOn extends Method {
     this._once = value;
   }
 
-  protected constructor(event, once, botIds) {
+  protected constructor() {
     super();
-    this._event = event;
-    this._once = once;
-    this._botIds = botIds;
   }
 
-  static create(event: DiscordEvents, once: boolean, botIds: string[]) {
-    return new DOn(event, once, botIds);
+  static create(event: DiscordEvents, once: boolean, botIds?: string[]) {
+    const on = new DOn();
+
+    on._event = event;
+    on._once = once;
+    on._botIds = botIds ?? [];
+
+    return on;
   }
 
   parseParams() {
