@@ -468,7 +468,11 @@ export class Client extends ClientJS {
     const tree = this.getInteractionGroupTree(interaction);
     const slash = this.getSlashFromTree(tree);
 
-    if (!slash || (slash.botIds && !slash.botIds.includes(this.botId))) return;
+    if (
+      !slash ||
+      (slash.botIds.length > 0 && !slash.botIds.includes(this.botId))
+    )
+      return;
 
     // Parse the options values and inject it into the @Slash method
     return slash.execute(interaction, this);
