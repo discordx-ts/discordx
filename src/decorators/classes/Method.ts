@@ -2,7 +2,6 @@ import { DGuard, Client, DDiscord } from "../..";
 import { Decorator } from "./Decorator";
 
 export abstract class Method extends Decorator {
-  // required fix
   protected _discord!: DDiscord;
   protected _guards: DGuard[] = [];
 

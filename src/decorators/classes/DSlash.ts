@@ -9,15 +9,15 @@ import { DOption, Client, PermissionType } from "../..";
 import { Method } from "./Method";
 
 export class DSlash extends Method {
-  private _description!: string;
-  private _name!: string;
+  private _description: string;
+  private _name: string;
   private _defaultPermission = true;
   private _options: DOption[] = [];
   private _permissions: { id: string; type: PermissionType }[] = [];
-  private _guilds!: string[];
-  private _botIds!: string[];
-  private _group!: string;
-  private _subgroup!: string;
+  private _guilds: string[];
+  private _botIds: string[];
+  private _group?: string;
+  private _subgroup?: string;
 
   get group() {
     return this._group;
@@ -82,8 +82,19 @@ export class DSlash extends Method {
     this._options = value;
   }
 
-  protected constructor() {
+  protected constructor(options: {
+    name: string;
+    description: string;
+    defaultPermission: boolean;
+    guilds: string[];
+    botIds: string[];
+  }) {
     super();
+    this._name = options.name.toLowerCase();
+    this._description = options.description;
+    this._defaultPermission = options.defaultPermission;
+    this._guilds = options.guilds || Client.slashGuilds;
+    this._botIds = options.botIds;
   }
 
   static create(
@@ -93,15 +104,13 @@ export class DSlash extends Method {
     guilds?: string[],
     botIds?: string[]
   ) {
-    const slash = new DSlash();
-
-    slash.name = name.toLowerCase();
-    slash.description = description || slash.name;
-    slash.defaultPermission = defaultPermission;
-    slash.guilds = guilds || Client.slashGuilds;
-    slash.botIds = botIds ?? [];
-
-    return slash;
+    return new DSlash({
+      name: name.toLowerCase(),
+      description: description ?? name,
+      defaultPermission: defaultPermission,
+      guilds: guilds ?? Client.slashGuilds,
+      botIds: botIds ?? [],
+    });
   }
 
   toSubCommand() {
@@ -110,7 +119,7 @@ export class DSlash extends Method {
       "SUB_COMMAND",
       this.description,
       false,
-      0 // required fix
+      this.index
     ).decorate(this.classRef, this.key, this.method, this.from, this.index);
     option.options = this.options;
 

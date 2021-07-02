@@ -254,7 +254,9 @@ export class MetadataStorage {
       });
 
       // The the root option to the root Slash command
-      const groupSlash = groupedSlashes.get(slashes[0].group);
+      const groupSlash = slashes[0].group
+        ? groupedSlashes.get(slashes[0].group)
+        : undefined;
       if (groupSlash) {
         groupSlash.options.push(option);
       }

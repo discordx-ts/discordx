@@ -27,12 +27,7 @@ export class DChoice extends Decorator {
   }
 
   static create(name: string, value: string | number) {
-    const choice = new DChoice(name, value);
-
-    choice.name = name;
-    choice.value = value;
-
-    return choice;
+    return new DChoice(name, value);
   }
 
   toObject(): ApplicationCommandOptionChoice {

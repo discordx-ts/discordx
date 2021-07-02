@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2019",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "sourceMap": true,
     "strict": true /* Enable all strict type-checking options. */,
     "outDir": "build",

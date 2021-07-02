@@ -1,7 +1,6 @@
 import { DecoratorUtils } from "../../logic";
 
 export class Decorator {
-  // required fix
   protected _classRef!: Function;
   protected _from!: Function;
   protected _key: string | undefined;
