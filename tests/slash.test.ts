@@ -201,7 +201,7 @@ describe("Slash", () => {
         description: "hello",
         options: [
           {
-            description: "text",
+            description: "text - STRING",
             name: "text",
             type: "STRING",
             required: false,
@@ -216,7 +216,7 @@ describe("Slash", () => {
         description: "inferance",
         options: [
           {
-            description: "text",
+            description: "text - STRING",
             name: "text",
             type: "STRING",
             required: true,
@@ -224,7 +224,7 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "bool",
+            description: "bool - BOOLEAN",
             name: "bool",
             type: "BOOLEAN",
             required: true,
@@ -232,7 +232,7 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "nb",
+            description: "nb - INTEGER",
             name: "nb",
             type: "INTEGER",
             required: true,
@@ -240,7 +240,7 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "channel",
+            description: "channel - CHANNEL",
             name: "channel",
             type: "CHANNEL",
             required: true,
@@ -248,7 +248,7 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "textchannel",
+            description: "textchannel - CHANNEL",
             name: "textchannel",
             type: "CHANNEL",
             required: false,
@@ -256,7 +256,7 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "voicechannel",
+            description: "voicechannel - CHANNEL",
             name: "voicechannel",
             type: "CHANNEL",
             required: false,
@@ -264,7 +264,7 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "user",
+            description: "user - USER",
             name: "user",
             type: "USER",
             required: false,
@@ -272,7 +272,7 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "role",
+            description: "role - ROLE",
             name: "role",
             type: "ROLE",
             required: false,
@@ -299,7 +299,7 @@ describe("Slash", () => {
                 choices: [],
                 options: [
                   {
-                    description: "text",
+                    description: "text - STRING",
                     name: "text",
                     type: "STRING",
                     required: false,
@@ -382,7 +382,7 @@ describe("Slash", () => {
             choices: [],
             options: [
               {
-                description: "text",
+                description: "text - STRING",
                 name: "text",
                 type: "STRING",
                 required: true,
@@ -390,7 +390,7 @@ describe("Slash", () => {
                 options: [],
               },
               {
-                description: "text2",
+                description: "text2 - STRING",
                 name: "text2",
                 type: "STRING",
                 required: false,
