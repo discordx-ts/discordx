@@ -1,5 +1,5 @@
 # @Bot
 
 ::: danger
-doc of `@Bot` is not ready
+doc for `@Bot` is not ready
 :::
