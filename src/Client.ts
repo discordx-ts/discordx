@@ -304,13 +304,17 @@ export class Client extends ClientJS {
       await Promise.all([
         ...added.map((s) =>
           guild.commands.create(s.toObject()).then((cmd) => {
-            cmd.permissions.set({ permissions: s.getPermissions() });
+            if (s.permissions.length > 0) {
+              cmd.permissions.set({ permissions: s.getPermissions() });
+            }
             return cmd;
           })
         ),
         ...updated.map((s) =>
           s[0].edit(s[1].toObject()).then((cmd) => {
-            cmd.permissions.set({ permissions: s[1].getPermissions() });
+            if (s[1].permissions.length > 0) {
+              cmd.permissions.set({ permissions: s[1].getPermissions() });
+            }
             return cmd;
           })
         ),
