@@ -25,7 +25,7 @@ export function Guard<Type = any, DatasType = any>(
 
     MetadataStorage.instance.addModifier(
       Modifier.create<Method>(
-        async (original) => {
+        (original) => {
           original.guards = guards;
         },
         DSelectMenu,

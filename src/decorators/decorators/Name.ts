@@ -9,7 +9,7 @@ export function Name(name: string) {
   ): void => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DDiscord>(
-        async (original) => {
+        (original) => {
           original.name = name;
         },
         DSlash,

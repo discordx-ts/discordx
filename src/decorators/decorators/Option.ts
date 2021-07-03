@@ -29,7 +29,7 @@ export function Option(name: string, params?: OptionParams) {
     option.isNode = true;
 
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash>(async (original) => {
+      Modifier.create<DSlash>((original) => {
         original.options = [...original.options, option];
       }, DSlash).decorate(
         target.constructor,
