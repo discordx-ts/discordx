@@ -485,11 +485,11 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute the corresponding @Slash command based on an Interaction instance
+   * Execute the corresponding @Slash @Button @SelectMenu based on an Interaction instance
    * @param interaction The discord.js interaction instance
    * @returns void
    */
-  async executeSlash(interaction: Interaction) {
+  async executeInteraction(interaction: Interaction) {
     if (!interaction) {
       if (!this.silent) {
         console.log("Interaction is undefined");
