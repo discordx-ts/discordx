@@ -1,28 +1,17 @@
 import { CommandInteraction } from "discord.js";
-import {
-  Discord,
-  Slash,
-  Option,
-  Guild,
-  Group,
-  Choices,
-} from "../../../src";
+import { Discord, Slash, Option, Guild, Group, Choices } from "../../../src";
 
 enum TextChoices {
   Hello = "Hello",
-  "Good Bye" = "GoodBye"
+  "Good Bye" = "GoodBye",
 }
 
 @Discord()
 @Guild("693401527494377482")
-@Group(
-  "testing",
-  "Testing group description",
-  {
-    maths: "maths group description",
-    text: "text group description"
-  }
-)
+@Group("testing", "Testing group description", {
+  maths: "maths group description",
+  text: "text group description",
+})
 export abstract class AppDiscord {
   @Slash("add")
   @Group("maths")

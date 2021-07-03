@@ -10,10 +10,8 @@ export class Main {
 
   static async start() {
     this._client = new Client({
-      intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-      ],
+      botId: "test",
+      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       slashGuilds: ["546281071751331840"],
       requiredByDefault: true,
     });

@@ -11,10 +11,8 @@ export class Main {
 
   static async start() {
     this._client = new Client({
-      intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-      ]
+      botId: "test",
+      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
