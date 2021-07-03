@@ -92,25 +92,25 @@ export abstract class StonePaperScissor {
         )
       );
     } else {
-      const boutonStone = new MessageButton()
+      const buttonStone = new MessageButton()
         .setLabel("Stone")
         .setEmoji("💎")
         .setStyle("PRIMARY")
         .setCustomID("spc-stone");
 
-      const boutonPaper = new MessageButton()
+      const buttonPaper = new MessageButton()
         .setLabel("Paper")
         .setEmoji("🧻")
         .setStyle("PRIMARY")
         .setCustomID("spc-paper");
 
-      const boutonScissor = new MessageButton()
+      const buttonScissor = new MessageButton()
         .setLabel("Scissor")
         .setEmoji("✂️")
         .setStyle("PRIMARY")
         .setCustomID("spc-scissor");
 
-      const boutonPuit = new MessageButton()
+      const buttonWell = new MessageButton()
         .setLabel("Well")
         .setEmoji("❓")
         .setStyle("DANGER")
@@ -118,10 +118,10 @@ export abstract class StonePaperScissor {
         .setDisabled(true);
 
       const buttonRow = new MessageActionRow().addComponents(
-        boutonStone,
-        boutonPaper,
-        boutonScissor,
-        boutonPuit
+        buttonStone,
+        buttonPaper,
+        buttonScissor,
+        buttonWell
       );
 
       interaction.editReply({
