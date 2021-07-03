@@ -13,6 +13,7 @@ export class Main {
     this._client = new Client({
       botId: "test",
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+      // slashGuilds: [YOUR_GUILD_ID],
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

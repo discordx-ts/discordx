@@ -12,7 +12,7 @@ export class Main {
     this._client = new Client({
       botId: "test",
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      slashGuilds: ["546281071751331840"],
+      // slashGuilds: [YOUR_GUILD_ID],
       requiredByDefault: true,
     });
 
@@ -25,8 +25,6 @@ export class Main {
     );
 
     this._client.once("ready", async () => {
-      await this._client.clearSlashes();
-      await this._client.clearSlashes("546281071751331840");
       await this._client.initSlashes();
     });
 
