@@ -5,7 +5,11 @@ It manage all the operations between your app, Discord's API and discord.js
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
 It works the same as the discord.**js**'s Client (same methods, properties, ...).
 
-- **`classes` (required)**  
+- **`botId` (required)**  
+  `string`    
+  a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
+
+- **`classes`**  
   `string[]`    
   Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
 
