@@ -481,28 +481,34 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isButton()) {
-      const findButton = this.buttons.find(
-        (s) => s.id === interaction.customID
-      );
-      if (!findButton)
+      const button = this.buttons.find((s) => s.id === interaction.customID);
+      if (
+        !button ||
+        (button.guilds.length > 0 &&
+          !button.guilds.includes(interaction.guild?.id as string)) ||
+        (button.botIds.length > 0 && !button.botIds.includes(this.botId))
+      )
         return console.log(
           `button interaction not found, id: ${interaction.id}`
         );
 
-      findButton.execute(interaction, this);
+      button.execute(interaction, this);
     }
 
     // if interaction is a button
     if (interaction.isSelectMenu()) {
-      const findMenu = this.selectMenus.find(
-        (s) => s.id === interaction.customID
-      );
-      if (!findMenu)
+      const menu = this.selectMenus.find((s) => s.id === interaction.customID);
+      if (
+        !menu ||
+        (menu.guilds.length > 0 &&
+          !menu.guilds.includes(interaction.guild?.id as string)) ||
+        (menu.botIds.length > 0 && !menu.botIds.includes(this.botId))
+      )
         return console.log(
           `selectMenu interaction not found, id: ${interaction.id}`
         );
 
-      findMenu.execute(interaction, this);
+      menu.execute(interaction, this);
     }
 
     // If the interaction isn't a slash command, return

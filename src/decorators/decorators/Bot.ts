@@ -1,5 +1,7 @@
 import { MetadataStorage, Modifier } from "../..";
+import { DButton } from "../classes/DButton";
 import { DDiscord } from "../classes/DDiscord";
+import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
 
 export function Bot(botID: string);
@@ -11,7 +13,7 @@ export function Bot(...botIDs: string[]) {
     descriptor: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>(
+      Modifier.create<DSlash | DDiscord | DButton | DSelectMenu>(
         async (original) => {
           original.botIds = [
             ...original.botIds,
@@ -28,7 +30,9 @@ export function Bot(...botIDs: string[]) {
           }
         },
         DSlash,
-        DDiscord
+        DDiscord,
+        DButton,
+        DSelectMenu
       ).decorateUnknown(target, key, descriptor)
     );
   };

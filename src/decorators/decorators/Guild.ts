@@ -1,5 +1,7 @@
 import { MetadataStorage, Modifier } from "../..";
+import { DButton } from "../classes/DButton";
 import { DDiscord } from "../classes/DDiscord";
+import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
 
 export function Guild(guildID: string);
@@ -11,7 +13,7 @@ export function Guild(...guildIDs: string[]) {
     descriptor: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>(
+      Modifier.create<DSlash | DDiscord | DButton | DSelectMenu>(
         async (original) => {
           original.guilds = [
             ...original.guilds,
@@ -30,7 +32,9 @@ export function Guild(...guildIDs: string[]) {
           }
         },
         DSlash,
-        DDiscord
+        DDiscord,
+        DButton,
+        DSelectMenu
       ).decorateUnknown(target, key, descriptor)
     );
   };
