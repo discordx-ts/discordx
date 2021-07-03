@@ -7,5 +7,7 @@ import { MetadataStorage } from "@typeit/discord.ts"
 MetadataStorage.instance.slashes;
 MetadataStorage.instance.events;
 MetadataStorage.instance.discords;
+MetadataStorage.instance.buttons;
+MetadataStorage.instance.selectMenus;
 // ...
 ```
