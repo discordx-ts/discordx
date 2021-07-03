@@ -1,9 +1,13 @@
 import { Decorator } from "./Decorator";
 import { DGuard, DSlash, DIService, DOn } from "../..";
 import { PermissionType } from "../../types";
+import { DButton } from "./DButton";
+import { DSelectMenu } from "./DSelectMenu";
 
 export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
+  private _buttons: DButton[] = [];
+  private _selectMenus: DSelectMenu[] = [];
   private _slashes: DSlash[] = [];
   private _events: DOn[] = [];
   private _description!: string;
@@ -67,6 +71,20 @@ export class DDiscord extends Decorator {
   }
   set slashes(value) {
     this._slashes = value;
+  }
+
+  get buttons() {
+    return this._buttons;
+  }
+  set buttons(value) {
+    this._buttons = value;
+  }
+
+  get selectMenus() {
+    return this._selectMenus;
+  }
+  set selectMenus(value) {
+    this._selectMenus = value;
   }
 
   get events() {

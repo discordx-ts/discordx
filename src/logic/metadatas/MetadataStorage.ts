@@ -11,7 +11,8 @@ import {
   DOption,
   Method,
 } from "../..";
-import { DGroup } from "../../decorators";
+import { DButton, DGroup } from "../../decorators";
+import { DSelectMenu } from "../../decorators/classes/DSelectMenu";
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
@@ -19,6 +20,8 @@ export class MetadataStorage {
   private _guards: DGuard[] = [];
   private _slashes: DSlash[] = [];
   private _allSlashes: DSlash[] = [];
+  private _buttons: DButton[] = [];
+  private _selectMenu: DSelectMenu[] = [];
   private _options: DOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
@@ -65,6 +68,14 @@ export class MetadataStorage {
     return this._slashes as readonly DSlash[];
   }
 
+  get buttons() {
+    return this._buttons as readonly DButton[];
+  }
+
+  get selectMenus() {
+    return this._selectMenu as readonly DSelectMenu[];
+  }
+
   get allSlashes() {
     return this._allSlashes as readonly DSlash[];
   }
@@ -78,7 +89,12 @@ export class MetadataStorage {
   }
 
   private get discordMembers(): readonly Method[] {
-    return [...this._slashes, ...this._events];
+    return [
+      ...this._slashes,
+      ...this._events,
+      ...this._buttons,
+      ...this._selectMenu,
+    ];
   }
 
   addModifier(modifier: Modifier<any>) {
@@ -91,6 +107,14 @@ export class MetadataStorage {
 
   addSlash(slash: DSlash) {
     this._slashes.push(slash);
+  }
+
+  addButton(button: DButton) {
+    this._buttons.push(button);
+  }
+
+  addSelectMenu(selectMenu: DSelectMenu) {
+    this._selectMenu.push(selectMenu);
   }
 
   addOption(option: DOption) {
@@ -136,12 +160,25 @@ export class MetadataStorage {
       if (member instanceof DOn) {
         discord.events.push(member);
       }
+
+      if (member instanceof DButton) {
+        discord.buttons.push(member);
+      }
+
+      if (member instanceof DSelectMenu) {
+        discord.selectMenus.push(member);
+      }
     });
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
     await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._buttons);
     await Modifier.applyFromModifierListToList(this._modifiers, this._options);
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._selectMenu
+    );
 
     // Set the class level "group" property of all @Slash
     // Cannot achieve it using modifiers

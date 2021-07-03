@@ -15,7 +15,7 @@ import {
   DOn,
   GuardFunction,
 } from ".";
-import { DDiscord, DOption, DSlash } from "./decorators";
+import { DButton, DDiscord, DOption, DSelectMenu, DSlash } from "./decorators";
 import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
@@ -79,6 +79,20 @@ export class Client extends ClientJS {
   }
   get slashes() {
     return Client.slashes;
+  }
+
+  static get buttons() {
+    return MetadataStorage.instance.buttons as readonly DButton[];
+  }
+  get buttons() {
+    return Client.buttons;
+  }
+
+  static get selectMenus() {
+    return MetadataStorage.instance.selectMenus as readonly DSelectMenu[];
+  }
+  get selectMenus() {
+    return Client.selectMenus;
   }
 
   static get allSlashes() {
@@ -463,6 +477,32 @@ export class Client extends ClientJS {
         console.log("Interaction is undefined");
       }
       return;
+    }
+
+    // if interaction is a button
+    if (interaction.isButton()) {
+      const findButton = this.buttons.find(
+        (s) => s.id === interaction.customID
+      );
+      if (!findButton)
+        return console.log(
+          `button interaction not found, id: ${interaction.id}`
+        );
+
+      findButton.execute(interaction, this);
+    }
+
+    // if interaction is a button
+    if (interaction.isSelectMenu()) {
+      const findMenu = this.selectMenus.find(
+        (s) => s.id === interaction.customID
+      );
+      if (!findMenu)
+        return console.log(
+          `selectMenu interaction not found, id: ${interaction.id}`
+        );
+
+      findMenu.execute(interaction, this);
     }
 
     // If the interaction isn't a slash command, return

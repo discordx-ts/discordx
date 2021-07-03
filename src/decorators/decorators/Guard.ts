@@ -5,8 +5,10 @@ import {
   Modifier,
   Method,
 } from "../..";
+import { DButton } from "../classes/DButton";
 import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
+import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
 
 export function Guard<Type = any, DatasType = any>(
@@ -26,6 +28,8 @@ export function Guard<Type = any, DatasType = any>(
         async (original) => {
           original.guards = guards;
         },
+        DSelectMenu,
+        DButton,
         DSlash,
         DOn,
         DDiscord

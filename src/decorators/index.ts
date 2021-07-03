@@ -12,11 +12,15 @@ export * from "./decorators/Permission";
 export * from "./decorators/Group";
 export * from "./decorators/Guild";
 export * from "./decorators/Bot";
+export * from "./decorators/Button";
+export * from "./decorators/SelectMenu";
 
 export * from "./params/DiscordParams";
 export * from "./params/OptionParams";
 export * from "./params/SlashParams";
 
+export * from "./classes/DSelectMenu";
+export * from "./classes/DButton";
 export * from "./classes/Decorator";
 export * from "./classes/DGuard";
 export * from "./classes/DDiscord";
