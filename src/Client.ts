@@ -489,7 +489,7 @@ export class Client extends ClientJS {
         (button.botIds.length > 0 && !button.botIds.includes(this.botId))
       )
         return console.log(
-          `button interaction not found, id: ${interaction.id}`
+          `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
         );
 
       button.execute(interaction, this);
