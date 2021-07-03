@@ -140,7 +140,7 @@ export class Client extends ClientJS {
     this._silent = !!options?.silent;
     this._loadClasses = options?.classes || [];
     this.guards = options.guards || [];
-    this.requiredByDefault = options.requiredByDefault ?? true;
+    this.requiredByDefault = options.requiredByDefault ?? false;
     this.slashGuilds = options.slashGuilds || [];
     this._botId = options.botId;
   }
