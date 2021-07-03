@@ -359,6 +359,10 @@ export class Client extends ClientJS {
         );
       }
 
+      // Only available for Guilds
+      // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
+      // if (slash.permissions.length <= 0) return;
+
       await Promise.all([
         ...added.map((s) => this.application?.commands.create(s.toObject())),
         ...updated.map((s) => s[0].edit(s[1].toObject())),
