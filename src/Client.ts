@@ -510,7 +510,7 @@ export class Client extends ClientJS {
           `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
         );
 
-      button.execute(interaction, this);
+      return button.execute(interaction, this);
     }
 
     // if interaction is a button
@@ -526,7 +526,7 @@ export class Client extends ClientJS {
           `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
         );
 
-      menu.execute(interaction, this);
+      return menu.execute(interaction, this);
     }
 
     // If the interaction isn't a slash command, return

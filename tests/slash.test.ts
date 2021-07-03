@@ -182,6 +182,14 @@ class FakeInteraction {
   isCommand() {
     return true;
   }
+
+  isButton() {
+    return false;
+  }
+
+  isSelectMenu() {
+    return false;
+  }
 }
 
 describe("Slash", () => {
