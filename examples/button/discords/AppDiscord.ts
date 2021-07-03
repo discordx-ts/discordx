@@ -9,9 +9,7 @@ import {
   Discord,
   Slash,
   Button,
-  Bot,
   Option,
-  Guild,
   Description,
   Choices,
 } from "../../../src";
@@ -64,8 +62,6 @@ class spcProposition {
 }
 
 @Discord()
-@Guild(process.env.IORP_GUILD_ID)
-@Bot("alexa")
 export abstract class StonePaperScissor {
   @Slash("stonepaperscissor")
   @Description(
