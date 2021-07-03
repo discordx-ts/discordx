@@ -295,9 +295,25 @@ export class Client extends ClientJS {
         );
       }
 
+      guild.commands
+        .create(added[0].toObject())
+        .then((cmd) =>
+          cmd.permissions.set({ permissions: added[0].getPermissions() })
+        );
+
       await Promise.all([
-        ...added.map((s) => guild.commands.create(s.toObject())),
-        ...updated.map((s) => s[0].edit(s[1].toObject())),
+        ...added.map((s) =>
+          guild.commands.create(s.toObject()).then((cmd) => {
+            cmd.permissions.set({ permissions: s.getPermissions() });
+            return cmd;
+          })
+        ),
+        ...updated.map((s) =>
+          s[0].edit(s[1].toObject()).then((cmd) => {
+            cmd.permissions.set({ permissions: s[1].getPermissions() });
+            return cmd;
+          })
+        ),
         ...deleted.map((key) => guild.commands.delete(key)),
       ]);
     }
