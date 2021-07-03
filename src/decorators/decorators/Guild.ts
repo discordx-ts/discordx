@@ -14,7 +14,7 @@ export function Guild(...guildIDs: string[]) {
   ): void => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DDiscord | DButton | DSelectMenu>(
-        (original) => {
+        async (original) => {
           original.guilds = [
             ...original.guilds,
             ...guildIDs.filter((guildID) => !original.guilds.includes(guildID)),

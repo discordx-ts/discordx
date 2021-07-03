@@ -14,7 +14,7 @@ export function Bot(...botIDs: string[]) {
   ): void => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DDiscord | DButton | DSelectMenu>(
-        (original) => {
+        async (original) => {
           original.botIds = [
             ...original.botIds,
             ...botIDs.filter((botID) => !original.botIds.includes(botID)),

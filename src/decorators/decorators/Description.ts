@@ -9,7 +9,7 @@ export function Description(description: string) {
     descriptor: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash>((original) => {
+      Modifier.create<DSlash>(async (original) => {
         original.description = description;
       }, DSlash).decorate(target.constructor, key, descriptor.value)
     );
