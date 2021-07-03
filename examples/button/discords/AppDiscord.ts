@@ -82,14 +82,10 @@ export abstract class StonePaperScissor {
     if (choice) {
       const playerChoice = spcProposition.nameToClass(choice);
       const botChoice = StonePaperScissor.spcPlayBot();
-      const result = StonePaperScissor.isWinPfc(playerChoice, botChoice);
+      const result = StonePaperScissor.isWinSpc(playerChoice, botChoice);
 
       interaction.editReply(
-        StonePaperScissor.spcResultProcess(
-          playerChoice,
-          botChoise,
-          result
-        )
+        StonePaperScissor.spcResultProcess(playerChoice, botChoice, result)
       );
     } else {
       const buttonStone = new MessageButton()
@@ -143,7 +139,9 @@ export abstract class StonePaperScissor {
   private async spcButton(interaction: ButtonInteraction) {
     await interaction.defer();
 
-    const playerChoice = spcProposition.buttonCustomIDToClass(interaction.customID);
+    const playerChoice = spcProposition.buttonCustomIDToClass(
+      interaction.customID
+    );
     const botChoice = StonePaperScissor.spcPlayBot();
     const result = StonePaperScissor.isWinSpc(playerChoice, botChoice);
 
@@ -200,7 +198,7 @@ export abstract class StonePaperScissor {
         };
       case spcResult.LOSS:
         return {
-          content: `${otChoice.emoji} ${otChoice.choice} ! Okay bye, Easy!`,
+          content: `${botChoice.emoji} ${botChoice.choice} ! Okay bye, Easy!`,
         };
       case spcResult.DRAW:
         return {
