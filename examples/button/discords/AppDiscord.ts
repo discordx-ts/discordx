@@ -143,12 +143,12 @@ export abstract class StonePaperScissor {
   private async spcButton(interaction: ButtonInteraction) {
     await interaction.defer();
 
-    const choice = spcProposition.buttonCustomIDToClass(interaction.customID);
-    const BotChoice = StonePaperScissor.spcPlayBot();
-    const resultat = StonePaperScissor.isWinPfc(choice, BotChoice);
+    const playerChoice = spcProposition.buttonCustomIDToClass(interaction.customID);
+    const botChoice = StonePaperScissor.spcPlayBot();
+    const result = StonePaperScissor.isWinSpc(playerChoice, botChoice);
 
     interaction.editReply(
-      StonePaperScissor.spcTraitementResultat(choice, BotChoice, resultat)
+      StonePaperScissor.spcResultProcess(playerChoice, botChoice, result)
     );
 
     setTimeout(
