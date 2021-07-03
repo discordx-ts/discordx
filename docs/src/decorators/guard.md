@@ -75,6 +75,7 @@ import { Client } from "@typeit/discord";
 
 async function start() {
   const client = new Client({
+    botId: "test",
     classes: [
       `${__dirname}/*Discord.ts`, // glob string to load the classes
       `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js

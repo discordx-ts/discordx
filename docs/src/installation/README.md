@@ -76,6 +76,7 @@ Be aware that if you compile your code into JavaScript with `tsc` you have to sp
 
 ```ts
 const client = new Client({
+  botId: "test",
   // glob string to load the classes
   classes: [
     `${__dirname}/*Discord.ts`, // If you use ts-node

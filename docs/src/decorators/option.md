@@ -162,6 +162,7 @@ if you want to set the default required value, you can use `client.requiredByDef
 
 ```ts
 const client = new Client({
+  botId: "test",
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,

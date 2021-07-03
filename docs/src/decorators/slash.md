@@ -19,7 +19,7 @@ abstract class AppDiscord {
 It require a bit of configuration at you Client initialization.
 You have to manualy execute and initialize your Slash commands by using:
 - `client.initSlashes()`
-- `client.executeSlash(interaction)`
+- `client.executeInteraction(interaction)`
 
 This provide flexibility in your code
 
@@ -28,6 +28,7 @@ import { Client } from "@typeit/discord";
 
 async function start() {
   const client = new Client({
+    botId: "test",
     intents: [
       Intents.FLAGS.GUILDS,
       Intents.FLAGS.GUILD_MESSAGES,
@@ -39,7 +40,7 @@ async function start() {
   });
 
   client.on("interaction", (interaction) => {
-    client.executeSlash(interaction);
+    client.executeInteraction(interaction);
   });
 
   await client.login("YOUR_TOKEN");
@@ -53,6 +54,7 @@ start();
 
 ```ts
 const client = new Client({
+  botId: "test",
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
@@ -123,6 +125,7 @@ You can do:
 
 ```ts
 const client = new Client({
+  botId: "test",
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,

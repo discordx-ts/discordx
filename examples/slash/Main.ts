@@ -34,7 +34,7 @@ export class Main {
     });
 
     this._client.on("interaction", (interaction) => {
-      this._client.executeSlash(interaction);
+      this._client.executeInteraction(interaction);
     });
   }
 }

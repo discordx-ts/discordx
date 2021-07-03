@@ -35,6 +35,7 @@ import { Client } from "@typeit/discord";
 
 async function start() {
   const client = new Client({
+    botId: "test",
     intents: [
       Intents.FLAGS.GUILDS,
       Intents.FLAGS.GUILD_MESSAGES,
@@ -68,6 +69,7 @@ If an event of your app isn't triggered, you probably missed an Intent
 import { Intents } from "discord.js";
 
 const client = new Client({
+  botId: "test",
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
@@ -81,6 +83,7 @@ const client = new Client({
 import { Intents } from "discord.js";
 
 const client = new Client({
+  botId: "test",
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
@@ -114,6 +117,7 @@ const client = new Client({
 import { Intents } from "discord.js";
 
 const client = new Client({
+  botId: "test",
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
