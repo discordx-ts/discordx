@@ -188,7 +188,7 @@ export abstract class StonePaperScissor {
     return spcProposition.propositions[randomInt(3)];
   }
 
-  private static spcTraitementResultat(
+  private static spcResultProcess(
     choice: spcProposition,
     BotChoice: spcProposition,
     resultat: spcResult
