@@ -164,7 +164,7 @@ export abstract class StonePaperScissor {
     );
   }
 
-  private static isWinPfc(
+  private static isWinSpc(
     player: spcProposition,
     bot: spcProposition
   ): spcResult {
