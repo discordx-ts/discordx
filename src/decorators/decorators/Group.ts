@@ -63,7 +63,7 @@ export function Group(
     } else {
       // If @Group decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
-        Modifier.create<DSlash>(async (original) => {
+        Modifier.create<DSlash>((original) => {
           original.subgroup = group as string;
         }, DSlash).decorate(target.constructor, key as string)
       );
