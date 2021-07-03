@@ -39,7 +39,7 @@ async function start() {
     await client.initSlashes();
   });
 
-  client.on("interaction", (interaction) => {
+  client.on("interactionCreate", (interaction) => {
     client.executeInteraction(interaction);
   });
 

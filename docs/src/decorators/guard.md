@@ -1,10 +1,11 @@
 # @Guard
+//todo add example for slash, argof message does not apply on interactions
 
 You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator.
 
 The order of execution of the guards is done according to their position in the list, so they will be executed in order (from top to bottom).
 
-Guards can be set for `@Slash`, `@On`, `@Once`, `@Discord` and globaly.
+Guards can be set for `@Slash`, `@Button`, `@SelectMenu`, `@On`, `@Once`, `@Discord` and globaly.
 
 ```typescript
 import { Discord, On, Client, Guard } from "@typeit/discord";
@@ -13,12 +14,12 @@ import { Prefix } from "./Prefix";
 
 @Discord()
 abstract class AppDiscord {
-  @On("message")
+  @On("messageCreate")
   @Guard(
     NotBot, // You can use multiple guard functions, they are excuted in the same order!
     Prefix("!")
   )
-  async onMessage([message]: ArgsOf<"message">) {
+  async onMessage([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {
       case "hello":
         message.reply("Hello!");
@@ -49,8 +50,8 @@ import { Prefix } from "./Prefix";
 @Discord()
 @Guard(NotBot, Prefix("!"))
 abstract class AppDiscord {
-  @On("message")
-  message([message]: ArgsOf<"message">) {
+  @On("messageCreate")
+  message([message]: ArgsOf<"messageCreate">) {
     //...
   }
 
@@ -105,7 +106,7 @@ Guards work like `Koa`'s, it's a function passed in parameter (third parameter i
 ```typescript
 import { GuardFunction, ArgsOf } from "@typeit/discord";
 
-export const NotBot: GuardFunction<ArgsOf<"message">> = ([message], client, next) => {
+export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = ([message], client, next) => {
   if (client.user.id !== message.author.id) {
     await next();
   }
@@ -118,7 +119,7 @@ If you have to indicate parameters for a guard function you can simple use the "
 import { GuardFunction } from "@typeit/discord";
 
 export function Prefix(text: string, replace: boolean = true) {
-  const guard: GuardFunction<ArgsOf<"message">> = ([message], client, next) => {
+  const guard: GuardFunction<ArgsOf<"messageCreate">> = ([message], client, next) => {
     const startWith = message.content.startsWith(text);
     if (replace) {
       message.content = message.content.replace(text, "");
@@ -139,7 +140,7 @@ As 4th parameter you receive a basic empty object that can be used to transmit d
 ```typescript
 import { GuardFunction } from "@typeit/discord";
 
-export const NotBot: GuardFunction<ArgsOf<"message">> = (
+export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
   [message],
   client,
   next,

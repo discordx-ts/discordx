@@ -69,17 +69,20 @@ module.exports = {
         path: "/decorators/discord",
         children: [
           ["/decorators/discord", "@Discord"],
-          ["/decorators/on", "@On"],
-          ["/decorators/once", "@Once"],
-          ["/decorators/slash", "@Slash"],
-          ["/decorators/option", "@Option"],
+          ["/decorators/bot", "@Bot"],
+          ["/decorators/button", "@Button"],
           ["/decorators/choice", "@Choice"],
           ["/decorators/choices", "@Choices"],
-          ["/decorators/guild", "@Guild"],
-          ["/decorators/permission", "@Permission"],
+          ["/decorators/description", "@Description"],
           ["/decorators/group", "@Group"],
           ["/decorators/guard", "@Guard"],
-          ["/decorators/description", "@Description"],
+          ["/decorators/guild", "@Guild"],
+          ["/decorators/on", "@On"],
+          ["/decorators/once", "@Once"],
+          ["/decorators/option", "@Option"],
+          ["/decorators/permission", "@Permission"],
+          ["/decorators/selectmenu", "@SelectMenu"],
+          ["/decorators/slash", "@Slash"],
         ]
       }
     ]

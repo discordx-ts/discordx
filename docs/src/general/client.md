@@ -9,6 +9,10 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
   `string`    
   a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
 
+- **`intents` (required)**  
+  `Intents[]`    
+  [see Intents](#intents) 
+
 - **`classes`**  
   `string[]`    
   Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
@@ -58,7 +62,7 @@ start();
 ```
 
 ## Intents
-You must specify the "**intents**" of your bot when you initialize the Client, it specify wich informations your bot receive from the Discord's servers, **it's different from the permissions**
+You must specify the "**intents**" of your bot when you initialize the Client, it specify which informations your bot receive from the Discord's servers, **it's different from the permissions**
 
 *Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden.*
 

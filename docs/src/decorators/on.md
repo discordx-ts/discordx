@@ -10,7 +10,7 @@ import { Discord, On, Once } from "@typeit/discord";
 
 @Discord()
 abstract class AppDiscord {
-  @On("message")
+  @On("messageCreate")
   private onMessage() {
     // ...
   }
@@ -42,9 +42,9 @@ import {
 
 @Discord()
 abstract class AppDiscord {
-  @On("message")
+  @On("messageCreate")
   private onMessage(
-    [message]: ArgsOf<"message">, // Type message automatically
+    [message]: ArgsOf<"messageCreate">, // Type message automatically
     client: Client, // Client instance injected here,
     guardPayload: any
   ) {

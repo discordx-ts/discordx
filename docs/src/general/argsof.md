@@ -13,10 +13,10 @@ import {
 
 @Discord()
 abstract class AppDiscord {
-  @On("message")
+  @On("messageCreate")
   private onMessage(
     // The type of message is Message
-    [message]: ArgsOf<"message">
+    [message]: ArgsOf<"messageCreate">
   ) {
     // ...
   }

@@ -1,5 +1,5 @@
 # @Guild
-You can specify in wich guilds your @Slash commands are created by decorating the method with @Slash and @Guild 
+You can specify in which guilds your @Slash commands are created by decorating the method with @Slash and @Guild 
 
 ```ts
 @Discord()
