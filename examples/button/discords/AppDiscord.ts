@@ -86,9 +86,9 @@ export abstract class StonePaperScissor {
 
       interaction.editReply(
         StonePaperScissor.spcResultProcess(
-          choixJoueur,
-          BotChoice,
-          resultat
+          playerChoice,
+          botChoise,
+          result
         )
       );
     } else {
