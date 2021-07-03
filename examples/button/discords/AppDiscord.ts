@@ -189,22 +189,22 @@ export abstract class StonePaperScissor {
   }
 
   private static spcResultProcess(
-    choice: spcProposition,
-    BotChoice: spcProposition,
-    resultat: spcResult
+    playerChoice: spcProposition,
+    botChoice: spcProposition,
+    result: spcResult
   ) {
-    switch (resultat) {
+    switch (result) {
       case spcResult.WIN:
         return {
-          content: `${BotChoice.emoji} ${BotChoice.choice} ! Well, noob ${choice.emoji} ${choice.choice} need nerf plz...`,
+          content: `${botChoice.emoji} ${botChoice.choice} ! Well, noob ${playerChoice.emoji} ${playerChoice.choice} need nerf plz...`,
         };
       case spcResult.LOSS:
         return {
-          content: `${BotChoice.emoji} ${BotChoice.choice} ! Okay bye, Easy!`,
+          content: `${otChoice.emoji} ${otChoice.choice} ! Okay bye, Easy!`,
         };
       case spcResult.DRAW:
         return {
-          content: `${BotChoice.emoji} ${BotChoice.choice} ! Ha... Draw...`,
+          content: `${botChoice.emoji} ${botChoice.choice} ! Ha... Draw...`,
         };
     }
   }
