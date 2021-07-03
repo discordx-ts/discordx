@@ -80,9 +80,9 @@ export abstract class StonePaperScissor {
     await interaction.defer();
 
     if (choice) {
-      const choixJoueur = spcProposition.nameToClass(choice);
-      const BotChoice = StonePaperScissor.spcPlayBot();
-      const resultat = StonePaperScissor.isWinPfc(choixJoueur, BotChoice);
+      const playerChoice = spcProposition.nameToClass(choice);
+      const botChoice = StonePaperScissor.spcPlayBot();
+      const result = StonePaperScissor.isWinPfc(playerChoice, botChoice);
 
       interaction.editReply(
         StonePaperScissor.spcTraitementResultat(
