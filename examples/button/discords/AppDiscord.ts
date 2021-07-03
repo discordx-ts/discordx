@@ -85,7 +85,7 @@ export abstract class StonePaperScissor {
       const result = StonePaperScissor.isWinPfc(playerChoice, botChoice);
 
       interaction.editReply(
-        StonePaperScissor.spcTraitementResultat(
+        StonePaperScissor.spcResultProcess(
           choixJoueur,
           BotChoice,
           resultat
