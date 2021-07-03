@@ -505,7 +505,7 @@ export class Client extends ClientJS {
         (menu.botIds.length > 0 && !menu.botIds.includes(this.botId))
       )
         return console.log(
-          `selectMenu interaction not found, id: ${interaction.id}`
+          `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
         );
 
       menu.execute(interaction, this);
