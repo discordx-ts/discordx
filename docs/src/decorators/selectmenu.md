@@ -1,2 +1,5 @@
 # @SelectMenu
-doc is not ready
+
+::: danger
+doc of `@SelectMenu` is not ready
+:::

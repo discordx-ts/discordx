@@ -1,2 +1,5 @@
 # @Button
-doc is not ready
+
+::: danger
+doc of `@Button` is not ready
+:::
