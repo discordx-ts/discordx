@@ -295,12 +295,6 @@ export class Client extends ClientJS {
         );
       }
 
-      guild.commands
-        .create(added[0].toObject())
-        .then((cmd) =>
-          cmd.permissions.set({ permissions: added[0].getPermissions() })
-        );
-
       await Promise.all([
         ...added.map((s) =>
           guild.commands.create(s.toObject()).then((cmd) => {
