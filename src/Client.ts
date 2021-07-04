@@ -221,14 +221,14 @@ export class Client extends ClientJS {
     const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
 
     // group single guild slash together
-    for (const s of guildsSlash) {
+    guildsSlash.forEach((s) => {
       s.guilds.forEach((guild) =>
         guildSlashStorage.set(guild, [
           ...(guildSlashStorage.get(guild) ?? []),
           s,
         ])
       );
-    }
+    });
 
     // update guild commands
     guildSlashStorage.forEach(async (slashes, key) => {
