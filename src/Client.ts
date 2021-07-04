@@ -151,7 +151,7 @@ export class Client extends ClientJS {
    * @param loadClasses A list of glob path or classes
    */
   async login(token: string, ...loadClasses: LoadClass[]) {
-    if (loadClasses.length > 0) {
+    if (loadClasses.length) {
       this._loadClasses = loadClasses;
     }
 
@@ -159,7 +159,7 @@ export class Client extends ClientJS {
 
     if (!this.silent) {
       console.log("Events");
-      if (this.events.length > 0) {
+      if (this.events.length) {
         this.events.map((event) => {
           const eventName = event.event;
           console.log(`   ${eventName} (${event.classRef.name}.${event.key})`);
@@ -171,7 +171,7 @@ export class Client extends ClientJS {
       console.log("");
 
       console.log("Slashes");
-      if (this.slashes.length > 0) {
+      if (this.slashes.length) {
         this.slashes.map((slash) => {
           console.log(`   ${slash.name} (${slash.classRef.name}.${slash.key})`);
           const printOptions = (options: DOption[], depth: number) => {
@@ -298,7 +298,7 @@ export class Client extends ClientJS {
       await Promise.all([
         ...added.map((s) =>
           guild.commands.create(s.toObject()).then((cmd) => {
-            if (s.permissions.length > 0) {
+            if (s.permissions.length) {
               cmd.permissions.set({ permissions: s.permissions });
             }
             return cmd;
@@ -306,7 +306,7 @@ export class Client extends ClientJS {
         ),
         ...updated.map((s) =>
           s[0].edit(s[1].toObject()).then((cmd) => {
-            if (s[1].permissions.length > 0) {
+            if (s[1].permissions.length) {
               cmd.permissions.set({ permissions: s[1].permissions });
             }
             return cmd;
@@ -386,7 +386,7 @@ export class Client extends ClientJS {
    * @param guilds The guild IDs (empty -> globaly)
    */
   async clearSlashes(...guilds: string[]) {
-    if (guilds.length > 0) {
+    if (guilds.length) {
       await Promise.all(
         guilds.map(async (guild) => {
           // Select and delete the commands of each guild
@@ -502,9 +502,9 @@ export class Client extends ClientJS {
       const button = this.buttons.find((s) => s.id === interaction.customID);
       if (
         !button ||
-        (button.guilds.length > 0 &&
+        (button.guilds.length &&
           !button.guilds.includes(interaction.guild?.id as string)) ||
-        (button.botIds.length > 0 && !button.botIds.includes(this.botId))
+        (button.botIds.length && !button.botIds.includes(this.botId))
       )
         return console.log(
           `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
@@ -518,9 +518,9 @@ export class Client extends ClientJS {
       const menu = this.selectMenus.find((s) => s.id === interaction.customID);
       if (
         !menu ||
-        (menu.guilds.length > 0 &&
+        (menu.guilds.length &&
           !menu.guilds.includes(interaction.guild?.id as string)) ||
-        (menu.botIds.length > 0 && !menu.botIds.includes(this.botId))
+        (menu.botIds.length && !menu.botIds.includes(this.botId))
       )
         return console.log(
           `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
@@ -542,7 +542,7 @@ export class Client extends ClientJS {
       );
     }
 
-    if (slash.botIds.length > 0 && !slash.botIds.includes(this.botId)) return;
+    if (slash.botIds.length && !slash.botIds.includes(this.botId)) return;
 
     // Parse the options values and inject it into the @Slash method
     return slash.execute(interaction, this);
