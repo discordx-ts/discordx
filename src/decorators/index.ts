@@ -8,6 +8,7 @@ export * from "./decorators/Slash";
 export * from "./decorators/Option";
 export * from "./decorators/Choice";
 export * from "./decorators/Choices";
+export * from "./decorators/DefaultPermission";
 export * from "./decorators/Permission";
 export * from "./decorators/Group";
 export * from "./decorators/Guild";

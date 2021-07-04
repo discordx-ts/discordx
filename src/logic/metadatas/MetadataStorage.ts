@@ -226,11 +226,11 @@ export class MetadataStorage {
         ...slashParent.discord.guilds,
       ];
       slashParent.botIds = [...slashParent.discord.botIds];
-      slashParent.permissions = slashParent.discord.permissions;
-      slashParent.defaultPermission =
-        slashParent.defaultPermission ??
-        !slashParent.discord.permissions.length ??
-        false;
+      slashParent.permissions = [
+        ...slashParent.permissions,
+        ...slashParent.discord.permissions,
+      ];
+      slashParent.defaultPermission = slashParent.discord.defaultPermission;
 
       groupedSlashes.set(group.name, slashParent);
 
