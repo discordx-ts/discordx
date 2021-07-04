@@ -3,9 +3,8 @@ import {
   ApplicationCommandPermissionData,
   CommandInteraction,
   CommandInteractionOption,
-  Snowflake,
 } from "discord.js";
-import { DOption, Client, PermissionType } from "../..";
+import { DOption, Client } from "../..";
 import { Method } from "./Method";
 
 export class DSlash extends Method {
@@ -13,7 +12,7 @@ export class DSlash extends Method {
   private _name!: string;
   private _defaultPermission = true;
   private _options: DOption[] = [];
-  private _permissions: { id: string; type: PermissionType }[] = [];
+  private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds!: string[];
   private _group!: string;
   private _subgroup!: string;
@@ -126,14 +125,6 @@ export class DSlash extends Method {
       options: options,
       defaultPermission: this.defaultPermission,
     };
-  }
-
-  getPermissions(): ApplicationCommandPermissionData[] {
-    return this.permissions.map((permission) => ({
-      permission: true,
-      id: permission.id as Snowflake,
-      type: permission.type,
-    }));
   }
 
   getLastNestedOption(

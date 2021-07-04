@@ -299,7 +299,7 @@ export class Client extends ClientJS {
         ...added.map((s) =>
           guild.commands.create(s.toObject()).then((cmd) => {
             if (s.permissions.length > 0) {
-              cmd.permissions.set({ permissions: s.getPermissions() });
+              cmd.permissions.set({ permissions: s.permissions });
             }
             return cmd;
           })
@@ -307,7 +307,7 @@ export class Client extends ClientJS {
         ...updated.map((s) =>
           s[0].edit(s[1].toObject()).then((cmd) => {
             if (s[1].permissions.length > 0) {
-              cmd.permissions.set({ permissions: s[1].getPermissions() });
+              cmd.permissions.set({ permissions: s[1].permissions });
             }
             return cmd;
           })

@@ -1,8 +1,8 @@
 import { Decorator } from "./Decorator";
 import { DGuard, DSlash, DIService, DOn } from "../..";
-import { PermissionType } from "../../types";
 import { DButton } from "./DButton";
 import { DSelectMenu } from "./DSelectMenu";
+import { ApplicationCommandPermissionData } from "discord.js";
 
 export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
@@ -13,7 +13,7 @@ export class DDiscord extends Decorator {
   private _description!: string;
   private _name!: string;
   private _defaultPermission = true;
-  private _permissions: { id: string; type: PermissionType }[] = [];
+  private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: string[] = [];
   private _botIds: string[] = [];
 
