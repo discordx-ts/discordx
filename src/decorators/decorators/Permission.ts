@@ -10,12 +10,10 @@ export function Permission(...permission: ApplicationCommandPermissionData[]) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DDiscord>(
         (original) => {
-          original.defaultPermission = false;
           original.permissions = [...original.permissions, ...permission];
 
           if (original instanceof DDiscord) {
             original.slashes.forEach((slash) => {
-              slash.defaultPermission = false;
               slash.permissions = [...slash.permissions, ...permission];
             });
           }

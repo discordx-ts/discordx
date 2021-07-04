@@ -88,7 +88,7 @@ export class DSlash extends Method {
   static create(
     name: string,
     description?: string,
-    defaultPermission = true,
+    defaultPermission?: boolean,
     guilds?: string[],
     botIds?: string[]
   ) {
@@ -96,7 +96,7 @@ export class DSlash extends Method {
 
     slash.name = name.toLowerCase();
     slash.description = description || slash.name;
-    slash.defaultPermission = defaultPermission;
+    slash.defaultPermission = defaultPermission ?? true;
     slash.guilds = guilds || Client.slashGuilds;
     slash.botIds = botIds || [];
 
