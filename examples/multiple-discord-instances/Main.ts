@@ -28,7 +28,7 @@ export class Main {
       await this._client.initSlashes();
     });
 
-    this._client.on("interaction", (interaction) => {
+    this._client.on("interactionCreate", (interaction) => {
       this._client.executeInteraction(interaction);
     });
   }

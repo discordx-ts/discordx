@@ -31,7 +31,7 @@ export class Main {
       console.log("Bot started");
     });
 
-    this._client.on("interaction", (interaction) => {
+    this._client.on("interactionCreate", (interaction) => {
       this._client.executeInteraction(interaction);
     });
   }

@@ -68,7 +68,7 @@ import { Discord, On, Once } from "@typeit/discord";
 
 @Discord()
 abstract class AppDiscord {
-  @On("message")
+  @On("messageCreate")
   private onMessage() {
     // ...
   }
@@ -96,12 +96,12 @@ import { Prefix } from "./Prefix";
 
 @Discord()
 abstract class AppDiscord {
-  @On("message")
+  @On("messageCreate")
   @Guard(
     NotBot, // You can use multiple guard functions, they are excuted in the same order!
     Prefix("!")
   )
-  async onMessage([message]: ArgsOf<"message">) {
+  async onMessage([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {
       case "hello":
         message.reply("Hello!");
