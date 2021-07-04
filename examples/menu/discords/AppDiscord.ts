@@ -33,7 +33,7 @@ export abstract class buttons {
   }
 
   @Slash("myroles", { description: "roles menu" })
-  async button(interaction: CommandInteraction): Promise<unknown> {
+  async myroles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.defer();
 
     // create menu for roels
