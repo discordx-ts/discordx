@@ -231,15 +231,9 @@ export class Client extends ClientJS {
     }
 
     // update guild commands
-    for (const gc of guildSlashStorage) {
-      const guild = await this.guilds.fetch({ guild: gc[0] as Snowflake });
-      if (!guild) {
-        console.log("guild not found");
-        continue;
-      }
-
-      // commands for guild
-      const slashes = gc[1];
+    guildSlashStorage.forEach(async (slashes, key) => {
+      const guild = await this.guilds.fetch({ guild: key as Snowflake });
+      if (!guild) return console.log("guild not found");
 
       // fetch already registered command
       const existing = await guild.commands.fetch();
@@ -314,7 +308,7 @@ export class Client extends ClientJS {
         ),
         ...deleted.map((key) => guild.commands.delete(key)),
       ]);
-    }
+    });
 
     // # init global commands
     const existing = (await this.fetchSlash())?.filter((s) => !s.guild);
