@@ -141,7 +141,7 @@ export class MetadataStorage {
 
   async build() {
     // Link the events with @Discord class instances
-    this.discordMembers.filter((member) => {
+    this.discordMembers.forEach((member) => {
       // Find the linked @Discord of an event
       const discord = this._discords.find((instance) => {
         return instance.from === member.from;
