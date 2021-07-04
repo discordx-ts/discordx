@@ -329,7 +329,8 @@ export class MetadataStorage {
 
     return async (...params: ArgsOf<Event>) => {
       for (const on of eventsToExecute) {
-        if (on.botIds.length && !on.botIds.includes(client.botId)) return;
+        const botIDs = [...on.botIds, ...on.discord.botIds];
+        if (botIDs.length && !botIDs.includes(client.botId)) return;
         const res = await on.execute(params, client);
         responses.push(res);
       }
