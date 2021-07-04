@@ -80,6 +80,7 @@ module.exports = {
           ["/decorators/on", "@On"],
           ["/decorators/once", "@Once"],
           ["/decorators/option", "@Option"],
+          ["/decorators/defaultpermission", "@DefaultPermission"],
           ["/decorators/permission", "@Permission"],
           ["/decorators/selectmenu", "@SelectMenu"],
           ["/decorators/slash", "@Slash"],
