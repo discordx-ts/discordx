@@ -13,8 +13,11 @@ import {
 } from "../..";
 import { DButton, DGroup } from "../../decorators";
 import { DSelectMenu } from "../../decorators/classes/DSelectMenu";
+import * as glob from "glob";
 
 export class MetadataStorage {
+  private static isBuilt = false;
+  private static _classesToLoad: string[] = [];
   private static _instance: MetadataStorage;
   private _events: DOn[] = [];
   private _guards: DGuard[] = [];
@@ -58,6 +61,14 @@ export class MetadataStorage {
 
       return prev;
     }, []) as readonly DOn[];
+  }
+
+  static get classes() {
+    return this._classesToLoad;
+  }
+
+  static set classes(files: string[]) {
+    this._classesToLoad = files;
   }
 
   get discords() {
@@ -139,7 +150,28 @@ export class MetadataStorage {
     DIService.instance.addService(discord.classRef);
   }
 
+  private loadClasses() {
+    // collect all import paths
+    const imports: string[] = [];
+    MetadataStorage.classes.forEach((path) => {
+      const files = glob.sync(path).filter((file) => typeof file === "string");
+      files.forEach((file) => {
+        if (!imports.includes(file)) imports.push(file);
+      });
+    });
+
+    // import all files
+    imports.forEach((file) => require(file));
+  }
+
   async build() {
+    // build the instance if not already built
+    if (MetadataStorage.isBuilt) return;
+    MetadataStorage.isBuilt = true;
+
+    // load the classes
+    this.loadClasses();
+
     // Link the events with @Discord class instances
     this.discordMembers.forEach((member) => {
       // Find the linked @Discord of an event

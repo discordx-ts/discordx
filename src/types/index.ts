@@ -1,5 +1,4 @@
 export * from "./core/DiscordEvents";
-export * from "./core/LoadClass";
 export * from "./core/InstanceOf";
 export * from "./core/ClientOptions";
 export * from "./core/Next";

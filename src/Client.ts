@@ -6,10 +6,8 @@ import {
   Interaction,
   Snowflake,
 } from "discord.js";
-import * as Glob from "glob";
 import {
   MetadataStorage,
-  LoadClass,
   ClientOptions,
   DiscordEvents,
   DOn,
@@ -22,7 +20,6 @@ export class Client extends ClientJS {
   private static isBuilt = false;
   private _botId: string;
   private _silent: boolean;
-  private _loadClasses: LoadClass[] = [];
   private static _requiredByDefault = false;
   private static _slashGuilds: string[] = [];
   private static _guards: GuardFunction[] = [];
@@ -132,13 +129,16 @@ export class Client extends ClientJS {
 
   /**
    * Create your bot
-   * @param options { silent: boolean, loadClasses: LoadClass[] }
+   * @param options { silent: boolean }
    */
   constructor(options: ClientOptions) {
     super(options);
+    MetadataStorage.classes = [
+      ...MetadataStorage.classes,
+      ...(options?.classes || []),
+    ];
 
     this._silent = !!options?.silent;
-    this._loadClasses = options?.classes || [];
     this.guards = options.guards || [];
     this.requiredByDefault = options.requiredByDefault ?? false;
     this.slashGuilds = options.slashGuilds || [];
@@ -150,12 +150,8 @@ export class Client extends ClientJS {
    * @param token The bot token
    * @param loadClasses A list of glob path or classes
    */
-  async login(token: string, ...loadClasses: LoadClass[]) {
-    if (loadClasses.length) {
-      this._loadClasses = loadClasses;
-    }
-
-    await this.build();
+  async login(token: string) {
+    await this.decorators.build();
 
     if (!this.silent) {
       console.log("Events");
@@ -553,16 +549,6 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Manually build the app
-   */
-  async build() {
-    if (Client.isBuilt) return;
-    Client.isBuilt = true;
-    this.loadClasses();
-    await this.decorators.build();
-  }
-
-  /**
    * Manually trigger an event (used for tests)
    * @param event The event
    * @param params Params to inject
@@ -570,20 +556,5 @@ export class Client extends ClientJS {
    */
   trigger(event: DiscordEvents, params?: any, once = false): Promise<any[]> {
     return this.decorators.trigger(event, this, once)(params);
-  }
-
-  private loadClasses() {
-    if (!this._loadClasses) {
-      return;
-    }
-
-    this._loadClasses.forEach((file) => {
-      if (typeof file === "string") {
-        const files = Glob.sync(file);
-        files.forEach((file) => {
-          require(file);
-        });
-      }
-    });
   }
 }
