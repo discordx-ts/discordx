@@ -17,7 +17,6 @@ import { DButton, DDiscord, DOption, DSelectMenu, DSlash } from "./decorators";
 import { GuildNotFoundError } from "./errors";
 
 export class Client extends ClientJS {
-  private static isBuilt = false;
   private _botId: string;
   private _silent: boolean;
   private static _requiredByDefault = false;
