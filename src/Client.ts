@@ -498,7 +498,7 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isButton()) {
-      const button = this.buttons.find((s) => s.id === interaction.customID);
+      const button = this.buttons.find((s) => s.id === interaction.customId);
       if (
         !button ||
         (button.guilds.length &&
@@ -506,7 +506,7 @@ export class Client extends ClientJS {
         (button.botIds.length && !button.botIds.includes(this.botId))
       )
         return console.log(
-          `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
+          `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
         );
 
       return button.execute(interaction, this);
@@ -514,7 +514,7 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isSelectMenu()) {
-      const menu = this.selectMenus.find((s) => s.id === interaction.customID);
+      const menu = this.selectMenus.find((s) => s.id === interaction.customId);
       if (
         !menu ||
         (menu.guilds.length &&
@@ -522,7 +522,7 @@ export class Client extends ClientJS {
         (menu.botIds.length && !menu.botIds.includes(this.botId))
       )
         return console.log(
-          `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customID}`
+          `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
         );
 
       return menu.execute(interaction, this);
