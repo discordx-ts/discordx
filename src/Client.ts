@@ -216,11 +216,11 @@ export class Client extends ClientJS {
   async initSlashes(options?: {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
-    // # first init guild's all slash
+    // # group guild slashes by guildId
     const guildSlashStorage = new Map<string, DSlash[]>();
     const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
 
-    // group single guild slash together
+    // group single guild slashes together
     guildsSlash.forEach((s) => {
       s.guilds.forEach((guild) =>
         guildSlashStorage.set(guild, [
@@ -230,7 +230,7 @@ export class Client extends ClientJS {
       );
     });
 
-    // update guild commands
+    // run task to add/update/delete slashes for guilds
     guildSlashStorage.forEach(async (slashes, key) => {
       const guild = await this.guilds.fetch({ guild: key as Snowflake });
       if (!guild) return console.log("guild not found");
@@ -245,7 +245,7 @@ export class Client extends ClientJS {
           (!s.botIds.length || s.botIds.includes(this.botId))
       );
 
-      // filter commands to update
+      // filter slashes to update
       const updated = slashes
         .map<[ApplicationCommand | undefined, DSlash]>((s) => [
           existing.find(
@@ -259,7 +259,7 @@ export class Client extends ClientJS {
           (s): s is [ApplicationCommand, DSlash] => s[0] !== undefined
         );
 
-      // filter commands to delete
+      // filter slashes to delete
       const deleted = existing.filter(
         (s) =>
           !this.slashes.find(
@@ -271,7 +271,8 @@ export class Client extends ClientJS {
           )
       );
 
-      if (options?.log.forGuild) {
+      // log the changes to slashes in console if enabled by options or silent mode is turned off
+      if (options?.log.forGuild || !this.silent) {
         console.log(
           `${this.user?.username} >> guild: #${guild} >> command >> adding ${
             added.length
@@ -290,6 +291,7 @@ export class Client extends ClientJS {
       }
 
       await Promise.all([
+        // add and set permissions
         ...added.map((s) =>
           guild.commands.create(s.toObject()).then((cmd) => {
             if (s.permissions.length) {
@@ -298,6 +300,8 @@ export class Client extends ClientJS {
             return cmd;
           })
         ),
+
+        // update and set permissions
         ...updated.map((s) =>
           s[0].edit(s[1].toObject()).then((cmd) => {
             if (s[1].permissions.length) {
@@ -306,11 +310,13 @@ export class Client extends ClientJS {
             return cmd;
           })
         ),
+
+        // delete
         ...deleted.map((key) => guild.commands.delete(key)),
       ]);
     });
 
-    // # init global commands
+    // # initialize add/update/delete task for global slashes
     const existing = (await this.fetchSlash())?.filter((s) => !s.guild);
     const slashes = this.slashes.filter((s) => !s.guilds?.length);
     if (existing) {
@@ -331,7 +337,8 @@ export class Client extends ClientJS {
         slashes.every((s) => s.name !== c.name)
       );
 
-      if (options?.log.forGlobal) {
+      // log the changes to slashes in console if enabled by options or silent mode is turned off
+      if (options?.log.forGlobal || !this.silent) {
         console.log(
           `${this.user?.username} >> global >> command >> adding ${
             added.length
@@ -352,8 +359,11 @@ export class Client extends ClientJS {
       // if (slash.permissions.length <= 0) return;
 
       await Promise.all([
+        // add
         ...added.map((s) => this.application?.commands.create(s.toObject())),
+        // update
         ...updated.map((s) => s[0].edit(s[1].toObject())),
+        // delete
         ...deleted.map((key) => this.application?.commands.delete(key)),
       ]);
     }
