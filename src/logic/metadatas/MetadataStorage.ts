@@ -16,15 +16,15 @@ import { DSelectMenu } from "../../decorators/classes/DSelectMenu";
 
 export class MetadataStorage {
   private static _instance: MetadataStorage;
-  private static _events: DOn[] = [];
-  private static _guards: DGuard[] = [];
-  private static _slashes: DSlash[] = [];
-  private static _allSlashes: DSlash[] = [];
-  private static _buttons: DButton[] = [];
-  private static _selectMenu: DSelectMenu[] = [];
-  private static _options: DOption[] = [];
-  private static _discords: DDiscord[] = [];
-  private static _modifiers: Modifier<any>[] = [];
+  private _events: DOn[] = [];
+  private _guards: DGuard[] = [];
+  private _slashes: DSlash[] = [];
+  private _allSlashes: DSlash[] = [];
+  private _buttons: DButton[] = [];
+  private _selectMenu: DSelectMenu[] = [];
+  private _options: DOption[] = [];
+  private _discords: DDiscord[] = [];
+  private _modifiers: Modifier<any>[] = [];
 
   private _groups: DGroup<DSlash>[] = [];
   private _subGroups: DGroup<DOption>[] = [];
@@ -41,7 +41,7 @@ export class MetadataStorage {
   }
 
   get events() {
-    return MetadataStorage._events as readonly DOn[];
+    return this._events as readonly DOn[];
   }
 
   /**
@@ -61,23 +61,23 @@ export class MetadataStorage {
   }
 
   get discords() {
-    return MetadataStorage._discords as readonly DDiscord[];
+    return this._discords as readonly DDiscord[];
   }
 
   get slashes() {
-    return MetadataStorage._slashes as readonly DSlash[];
+    return this._slashes as readonly DSlash[];
   }
 
   get buttons() {
-    return MetadataStorage._buttons as readonly DButton[];
+    return this._buttons as readonly DButton[];
   }
 
   get selectMenus() {
-    return MetadataStorage._selectMenu as readonly DSelectMenu[];
+    return this._selectMenu as readonly DSelectMenu[];
   }
 
   get allSlashes() {
-    return MetadataStorage._allSlashes as readonly DSlash[];
+    return this._allSlashes as readonly DSlash[];
   }
 
   get groups() {
@@ -90,35 +90,35 @@ export class MetadataStorage {
 
   private get discordMembers(): readonly Method[] {
     return [
-      ...MetadataStorage._slashes,
-      ...MetadataStorage._events,
-      ...MetadataStorage._buttons,
-      ...MetadataStorage._selectMenu,
+      ...this._slashes,
+      ...this._events,
+      ...this._buttons,
+      ...this._selectMenu,
     ];
   }
 
   addModifier(modifier: Modifier<any>) {
-    MetadataStorage._modifiers.push(modifier);
+    this._modifiers.push(modifier);
   }
 
   addOn(on: DOn) {
-    MetadataStorage._events.push(on);
+    this._events.push(on);
   }
 
   addSlash(slash: DSlash) {
-    MetadataStorage._slashes.push(slash);
+    this._slashes.push(slash);
   }
 
   addButton(button: DButton) {
-    MetadataStorage._buttons.push(button);
+    this._buttons.push(button);
   }
 
   addSelectMenu(selectMenu: DSelectMenu) {
-    MetadataStorage._selectMenu.push(selectMenu);
+    this._selectMenu.push(selectMenu);
   }
 
   addOption(option: DOption) {
-    MetadataStorage._options.push(option);
+    this._options.push(option);
   }
 
   addGroup(group: DGroup<DSlash>) {
@@ -130,12 +130,12 @@ export class MetadataStorage {
   }
 
   addGuard(guard: DGuard) {
-    MetadataStorage._guards.push(guard);
+    this._guards.push(guard);
     DIService.instance.addService(guard.classRef);
   }
 
   addDiscord(discord: DDiscord) {
-    MetadataStorage._discords.push(discord);
+    this._discords.push(discord);
     DIService.instance.addService(discord.classRef);
   }
 
@@ -143,7 +143,7 @@ export class MetadataStorage {
     // Link the events with @Discord class instances
     this.discordMembers.forEach((member) => {
       // Find the linked @Discord of an event
-      const discord = MetadataStorage._discords.find((instance) => {
+      const discord = this._discords.find((instance) => {
         return instance.from === member.from;
       });
 
@@ -170,35 +170,20 @@ export class MetadataStorage {
       }
     });
 
+    await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._events);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._buttons);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._options);
     await Modifier.applyFromModifierListToList(
-      MetadataStorage._modifiers,
-      MetadataStorage._discords
-    );
-    await Modifier.applyFromModifierListToList(
-      MetadataStorage._modifiers,
-      MetadataStorage._events
-    );
-    await Modifier.applyFromModifierListToList(
-      MetadataStorage._modifiers,
-      MetadataStorage._slashes
-    );
-    await Modifier.applyFromModifierListToList(
-      MetadataStorage._modifiers,
-      MetadataStorage._buttons
-    );
-    await Modifier.applyFromModifierListToList(
-      MetadataStorage._modifiers,
-      MetadataStorage._options
-    );
-    await Modifier.applyFromModifierListToList(
-      MetadataStorage._modifiers,
-      MetadataStorage._selectMenu
+      this._modifiers,
+      this._selectMenu
     );
 
     // Set the class level "group" property of all @Slash
     // Cannot achieve it using modifiers
     this._groups.forEach((group) => {
-      MetadataStorage._slashes.forEach((slash) => {
+      this._slashes.forEach((slash) => {
         if (group.from !== slash.from) {
           return;
         }
@@ -207,8 +192,8 @@ export class MetadataStorage {
       });
     });
 
-    MetadataStorage._allSlashes = MetadataStorage._slashes;
-    MetadataStorage._slashes = this.groupSlashes();
+    this._allSlashes = this._slashes;
+    this._slashes = this.groupSlashes();
   }
 
   private groupSlashes() {
@@ -228,7 +213,7 @@ export class MetadataStorage {
         group.infos?.description
       ).decorate(group.classRef, group.key, group.method);
 
-      const discord = MetadataStorage._discords.find((instance) => {
+      const discord = this._discords.find((instance) => {
         return instance.from === slashParent.from;
       });
 
@@ -249,7 +234,7 @@ export class MetadataStorage {
 
       groupedSlashes.set(group.name, slashParent);
 
-      const slashes = MetadataStorage._slashes.filter((slash) => {
+      const slashes = this._slashes.filter((slash) => {
         return slash.group === slashParent.name && !slash.subgroup;
       });
 
@@ -280,7 +265,7 @@ export class MetadataStorage {
       ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup
-      const slashes = MetadataStorage._slashes.filter((slash) => {
+      const slashes = this._slashes.filter((slash) => {
         return slash.subgroup === option.name;
       });
 
@@ -320,7 +305,7 @@ export class MetadataStorage {
     });
 
     return [
-      ...MetadataStorage._slashes.filter((s) => !s.group && !s.subgroup),
+      ...this._slashes.filter((s) => !s.group && !s.subgroup),
       ...Array.from(groupedSlashes.values()),
     ];
   }
@@ -338,7 +323,7 @@ export class MetadataStorage {
   ): (...params: ArgsOf<Event>) => Promise<any> {
     const responses: any[] = [];
 
-    const eventsToExecute = MetadataStorage._events.filter((on) => {
+    const eventsToExecute = this._events.filter((on) => {
       return on.event === event && on.once === once;
     });
 

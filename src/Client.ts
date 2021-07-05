@@ -26,7 +26,6 @@ export class Client extends ClientJS {
   private static _requiredByDefault = false;
   private static _slashGuilds: string[] = [];
   private static _guards: GuardFunction[] = [];
-  private _metadataStorage = new MetadataStorage();
 
   static get slashGuilds() {
     return Client._slashGuilds;
@@ -121,7 +120,7 @@ export class Client extends ClientJS {
     return MetadataStorage.instance;
   }
   get decorators() {
-    return this._metadataStorage;
+    return MetadataStorage.instance;
   }
 
   get silent() {
