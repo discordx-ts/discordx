@@ -100,7 +100,7 @@ export abstract class AppDiscord {
 })
 export abstract class AppDiscord1 {
   @Slash("hello")
-  @Permission("123", "USER")
+  @Permission({ id: "123", type: "USER", permission: true })
   add(
     @Option("text", { required: false })
     text: string,
@@ -199,6 +199,7 @@ describe("Slash", () => {
       {
         id: "123",
         type: "USER",
+        permission: true,
       },
     ]);
 
@@ -217,7 +218,7 @@ describe("Slash", () => {
             options: [],
           },
         ],
-        defaultPermission: false,
+        defaultPermission: true,
       },
       {
         name: "inferance",

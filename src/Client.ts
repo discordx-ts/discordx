@@ -556,4 +556,11 @@ export class Client extends ClientJS {
   trigger(event: DiscordEvents, params?: any, once = false): Promise<any[]> {
     return this.decorators.trigger(event, this, once)(params);
   }
+
+  /**
+   * Manually build the app
+   */
+  async build() {
+    await this.decorators.build();
+  }
 }
