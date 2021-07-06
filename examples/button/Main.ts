@@ -11,7 +11,10 @@ export class Main {
 
   static async start() {
     this._client = new Client({
-      botId: "test",
+      classes: [
+        `${__dirname}/discords/*.ts`, // glob string to load the classes
+        `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
+      ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       // slashGuilds: [YOUR_GUILD_ID],
       requiredByDefault: true,
@@ -19,11 +22,7 @@ export class Main {
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
-    await this._client.login(
-      "YOU_TOKEN",
-      `${__dirname}/discords/*.ts`, // glob string to load the classes
-      `${__dirname}/discords/*.js` // If you compile your bot, the file extension will be .js
-    );
+    await this._client.login("YOU_TOKEN");
 
     this._client.once("ready", async () => {
       await this._client.initSlashes();

@@ -92,25 +92,25 @@ export abstract class StonePaperScissor {
         .setLabel("Stone")
         .setEmoji("💎")
         .setStyle("PRIMARY")
-        .setCustomID("spc-stone");
+        .setCustomId("spc-stone");
 
       const buttonPaper = new MessageButton()
         .setLabel("Paper")
         .setEmoji("🧻")
         .setStyle("PRIMARY")
-        .setCustomID("spc-paper");
+        .setCustomId("spc-paper");
 
       const buttonScissor = new MessageButton()
         .setLabel("Scissor")
         .setEmoji("✂️")
         .setStyle("PRIMARY")
-        .setCustomID("spc-scissor");
+        .setCustomId("spc-scissor");
 
       const buttonWell = new MessageButton()
         .setLabel("Well")
         .setEmoji("❓")
         .setStyle("DANGER")
-        .setCustomID("spc-well")
+        .setCustomId("spc-well")
         .setDisabled(true);
 
       const buttonRow = new MessageActionRow().addComponents(
@@ -140,7 +140,7 @@ export abstract class StonePaperScissor {
     await interaction.defer();
 
     const playerChoice = spcProposition.buttonCustomIDToClass(
-      interaction.customID
+      interaction.customId
     );
     const botChoice = StonePaperScissor.spcPlayBot();
     const result = StonePaperScissor.isWinSpc(playerChoice, botChoice);

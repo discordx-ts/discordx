@@ -39,7 +39,7 @@ export abstract class buttons {
     // create menu for roels
     const menu = new MessageSelectMenu()
       .addOptions(roles)
-      .setCustomID("role-menu");
+      .setCustomId("role-menu");
 
     // create a row for meessage actions
     const buttonRow = new MessageActionRow().addComponents(menu);
