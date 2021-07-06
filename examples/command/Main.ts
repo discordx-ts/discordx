@@ -24,6 +24,10 @@ export class Main {
     // In this case that's not necessary because the entry point of your application is this file.
     await this._client.login("YOU_TOKEN");
 
+    this._client.on("messageCreate", (message) => {
+      this._client.executeCommand(message);
+    });
+
     this._client.once("ready", async () => {
       await this._client.initSlashes();
 
