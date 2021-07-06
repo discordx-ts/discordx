@@ -8,13 +8,13 @@ export function DefaultPermission(permission: boolean);
 export function DefaultPermission(permission?: boolean) {
   return (target: Object, key: string, descriptor: PropertyDescriptor) => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord>(
+      Modifier.create<DSlash | DCommand | DDiscord>(
         (original) => {
           original.defaultPermission = permission ?? true;
 
           if (original instanceof DDiscord) {
-            original.slashes.forEach((slash) => {
-              slash.defaultPermission = permission ?? true;
+            [...original.slashes, ...original.commands].forEach((obj) => {
+              obj.defaultPermission = permission ?? true;
             });
           }
         },

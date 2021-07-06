@@ -656,6 +656,47 @@ export class Client extends ClientJS {
     // check dm allowed or not
     if (!command.directMessage && !message.guild) return;
 
+    // check for member permissions
+    if (command.defaultPermission) {
+      // when default perm is on
+      const permissions = command.permissions.filter(
+        (perm) => !perm.permission
+      );
+      const userPermissions = permissions.filter(
+        (perm) => perm.type === "USER"
+      );
+      const rolePermissions = permissions.filter(
+        (perm) => perm.type === "ROLE"
+      );
+
+      const isUserIdAllowed =
+        userPermissions.some((perm) => perm.id === message.member?.id) ||
+        rolePermissions.some((perm) =>
+          message.member?.roles.cache.has(perm.id)
+        );
+
+      // user is not allowed to access this command
+      if (isUserIdAllowed) return;
+    } else {
+      // when default perm is off
+      const permissions = command.permissions.filter((perm) => perm.permission);
+      const userPermissions = permissions.filter(
+        (perm) => perm.type === "USER"
+      );
+      const rolePermissions = permissions.filter(
+        (perm) => perm.type === "ROLE"
+      );
+
+      const isUserIdAllowed =
+        userPermissions.some((perm) => perm.id === message.member?.id) ||
+        rolePermissions.some((perm) =>
+          message.member?.roles.cache.has(perm.id)
+        );
+
+      // user does not have any permission to access this command
+      if (!isUserIdAllowed) return;
+    }
+
     const msg = message as CommandMessage;
     msg.command = {
       prefix,
