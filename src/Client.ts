@@ -654,8 +654,12 @@ export class Client extends ClientJS {
     if (!command.directMessage && !message.guild) return;
 
     const msg = message as CommandMessage;
-    msg.commandName = commandInfo.commandName;
-    msg.commandArgString = commandInfo.commandArgs;
+    msg.command = {
+      prefix,
+      object: command,
+      name: commandInfo.commandName,
+      argString: commandInfo.commandArgs,
+    };
     command.execute(msg, this);
   }
 
