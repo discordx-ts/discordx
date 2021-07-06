@@ -571,7 +571,7 @@ export class Client extends ClientJS {
    * @param message messsage instance
    * @returns prefix
    */
-  private async getMessagePrefix(message: Message) {
+  async getMessagePrefix(message: Message) {
     if (typeof this.prefix === "string") return this.prefix;
     else return await this.prefix(message);
   }
@@ -582,7 +582,7 @@ export class Client extends ClientJS {
    * @param message original message
    * @returns { isCommand: boolean; commandName?: string; commandArgs?: string }
    */
-  private parseCommand(
+  parseCommand(
     prefix: string,
     message: Message
   ): { isCommand: boolean; commandName: string; commandArgs: string } {
