@@ -1,4 +1,5 @@
 import { MetadataStorage, Modifier } from "../..";
+import { DCommand } from "../classes/DCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DSlash } from "../classes/DSlash";
 
@@ -18,6 +19,7 @@ export function DefaultPermission(permission?: boolean) {
           }
         },
         DSlash,
+        DCommand,
         DDiscord
       ).decorateUnknown(target, key, descriptor)
     );

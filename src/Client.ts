@@ -4,6 +4,7 @@ import {
   CommandInteraction,
   CommandInteractionOption,
   Interaction,
+  Message,
   Snowflake,
 } from "discord.js";
 import {
@@ -14,10 +15,13 @@ import {
   GuardFunction,
 } from ".";
 import { DButton, DDiscord, DOption, DSelectMenu, DSlash } from "./decorators";
+import { DCommand } from "./decorators/classes/DCommand";
 import { GuildNotFoundError } from "./errors";
+import { CommandMessage } from "./types/public/CommandMessage";
 
 export class Client extends ClientJS {
   private _botId: string;
+  private _prefix: string | ((message: Message) => Promise<string>);
   private _silent: boolean;
   private static _requiredByDefault = false;
   private static _slashGuilds: string[] = [];
@@ -28,6 +32,13 @@ export class Client extends ClientJS {
   }
   static set slashGuilds(value) {
     Client._slashGuilds = value;
+  }
+
+  get prefix() {
+    return this._prefix;
+  }
+  set prefix(value) {
+    this._prefix = value;
   }
 
   get botId() {
@@ -75,6 +86,13 @@ export class Client extends ClientJS {
   }
   get slashes() {
     return Client.slashes;
+  }
+
+  static get commands() {
+    return MetadataStorage.instance.commands as readonly DCommand[];
+  }
+  get commands() {
+    return Client.commands;
   }
 
   static get buttons() {
@@ -141,7 +159,8 @@ export class Client extends ClientJS {
     this.guards = options.guards || [];
     this.requiredByDefault = options.requiredByDefault ?? false;
     this.slashGuilds = options.slashGuilds || [];
-    this._botId = options.botId;
+    this._botId = options.botId || "bot";
+    this._prefix = options.prefix || "!";
   }
 
   /**
@@ -545,6 +564,99 @@ export class Client extends ClientJS {
 
     // Parse the options values and inject it into the @Slash method
     return slash.execute(interaction, this);
+  }
+
+  /**
+   * Fetch prefix for message
+   * @param message messsage instance
+   * @returns prefix
+   */
+  private async getMessagePrefix(message: Message) {
+    if (typeof this.prefix === "string") return this.prefix;
+    else return await this.prefix(message);
+  }
+
+  /**
+   *
+   * @param prefix command prefix
+   * @param message original message
+   * @returns { isCommand: boolean; commandName?: string; commandArgs?: string }
+   */
+  private parseCommand(
+    prefix: string,
+    message: Message
+  ): { isCommand: boolean; commandName: string; commandArgs: string } {
+    const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+    const prefixRegex = RegExp(`^${escapePrefix}`);
+    const isCommand = prefixRegex.test(message.content);
+    if (!isCommand)
+      return { isCommand: false, commandName: "", commandArgs: "" };
+
+    const contentWithoutPrefix = message.content
+      .replace(prefixRegex, "")
+      .trim();
+
+    const commandName = contentWithoutPrefix.split(" ")[0];
+    if (!commandName)
+      return { isCommand: false, commandName: "", commandArgs: "" };
+
+    const commandArgs = contentWithoutPrefix.split(" ").splice(1).join(" ");
+
+    return {
+      isCommand: true,
+      commandName,
+      commandArgs,
+    };
+  }
+
+  /**
+   * Execute the corresponding @Command based on an message instance
+   * @param message The discord.js message instance
+   * @returns void
+   */
+  async executeCommand(message: Message) {
+    if (!message) {
+      if (!this.silent) {
+        console.log("message is undefined");
+      }
+      return;
+    }
+
+    const prefix = await this.getMessagePrefix(message);
+    if (!prefix) {
+      if (!this.silent) console.log("command prefix not found");
+      return;
+    }
+
+    const commandInfo = this.parseCommand(prefix, message);
+    if (!commandInfo.isCommand) return;
+
+    const command = this.commands.find(
+      (cmd) => cmd.name === commandInfo.commandName
+    );
+
+    if (!command) {
+      return console.log("command not found:", commandInfo.commandName);
+    }
+
+    // validate bot id
+    if (command.botIds.length && !command.botIds.includes(this.botId)) return;
+
+    // validate guild id
+    if (
+      command.guilds.length &&
+      message.guild?.id &&
+      !command.guilds.includes(message.guild.id)
+    )
+      return;
+
+    // check dm allowed or not
+    if (!command.directMessage && !message.guild) return;
+
+    const msg = message as CommandMessage;
+    msg.commandName = commandInfo.commandName;
+    msg.commandArgString = commandInfo.commandArgs;
+    command.execute(msg, this);
   }
 
   /**

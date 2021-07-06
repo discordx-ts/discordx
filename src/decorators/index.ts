@@ -15,6 +15,8 @@ export * from "./decorators/Guild";
 export * from "./decorators/Bot";
 export * from "./decorators/Button";
 export * from "./decorators/SelectMenu";
+export * from "./decorators/Command";
+export * from "./decorators/CommandOption";
 
 export * from "./params/DiscordParams";
 export * from "./params/OptionParams";

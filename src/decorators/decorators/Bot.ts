@@ -1,5 +1,6 @@
 import { MetadataStorage, Modifier } from "../..";
 import { DButton } from "../classes/DButton";
+import { DCommand } from "../classes/DCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
 import { DSelectMenu } from "../classes/DSelectMenu";
@@ -14,7 +15,9 @@ export function Bot(...botIDs: string[]) {
     descriptor: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord | DButton | DSelectMenu | DOn>(
+      Modifier.create<
+        DSlash | DCommand | DDiscord | DButton | DSelectMenu | DOn
+      >(
         (original) => {
           original.botIds = [
             ...original.botIds,
@@ -22,15 +25,22 @@ export function Bot(...botIDs: string[]) {
           ];
 
           if (original instanceof DDiscord) {
-            original.slashes.forEach((slash) => {
-              slash.botIds = [
-                ...slash.botIds,
-                ...botIDs.filter((botID) => !slash.botIds.includes(botID)),
+            [
+              ...original.slashes,
+              ...original.commands,
+              ...original.buttons,
+              ...original.selectMenus,
+              ...original.events,
+            ].forEach((ob) => {
+              ob.botIds = [
+                ...ob.botIds,
+                ...botIDs.filter((botID) => !ob.botIds.includes(botID)),
               ];
             });
           }
         },
         DSlash,
+        DCommand,
         DDiscord,
         DButton,
         DSelectMenu,

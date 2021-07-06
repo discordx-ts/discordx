@@ -3,12 +3,14 @@ import { DGuard, DSlash, DIService, DOn } from "../..";
 import { DButton } from "./DButton";
 import { DSelectMenu } from "./DSelectMenu";
 import { ApplicationCommandPermissionData } from "discord.js";
+import { DCommand } from "./DCommand";
 
 export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
   private _buttons: DButton[] = [];
   private _selectMenus: DSelectMenu[] = [];
   private _slashes: DSlash[] = [];
+  private _commands: DCommand[] = [];
   private _events: DOn[] = [];
   private _description!: string;
   private _name!: string;
@@ -71,6 +73,13 @@ export class DDiscord extends Decorator {
   }
   set slashes(value) {
     this._slashes = value;
+  }
+
+  get commands() {
+    return this._commands;
+  }
+  set commands(value) {
+    this._commands = value;
   }
 
   get buttons() {

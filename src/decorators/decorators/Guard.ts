@@ -6,6 +6,7 @@ import {
   Method,
 } from "../..";
 import { DButton } from "../classes/DButton";
+import { DCommand } from "../classes/DCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
 import { DSelectMenu } from "../classes/DSelectMenu";
@@ -31,6 +32,7 @@ export function Guard<Type = any, DatasType = any>(
         DSelectMenu,
         DButton,
         DSlash,
+        DCommand,
         DOn,
         DDiscord
       ).decorateUnknown(target, key, descriptor)

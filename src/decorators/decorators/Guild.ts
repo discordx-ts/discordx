@@ -1,5 +1,6 @@
 import { MetadataStorage, Modifier } from "../..";
 import { DButton } from "../classes/DButton";
+import { DCommand } from "../classes/DCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
@@ -13,7 +14,7 @@ export function Guild(...guildIDs: string[]) {
     descriptor: PropertyDescriptor
   ): void => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DDiscord | DButton | DSelectMenu>(
+      Modifier.create<DSlash | DCommand | DDiscord | DButton | DSelectMenu>(
         (original) => {
           original.guilds = [
             ...original.guilds,
@@ -21,7 +22,12 @@ export function Guild(...guildIDs: string[]) {
           ];
 
           if (original instanceof DDiscord) {
-            original.slashes.forEach((slash) => {
+            [
+              ...original.slashes,
+              ...original.commands,
+              ...original.buttons,
+              ...original.selectMenus,
+            ].forEach((slash) => {
               slash.guilds = [
                 ...slash.guilds,
                 ...guildIDs.filter(
@@ -32,6 +38,7 @@ export function Guild(...guildIDs: string[]) {
           }
         },
         DSlash,
+        DCommand,
         DDiscord,
         DButton,
         DSelectMenu

@@ -1,11 +1,16 @@
-import { ClientOptions as DiscordJSClientOptions } from "discord.js";
+import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
 import { GuardFunction } from "../public/GuardFunction";
 
 export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * Specifiy bot id (added for multiple bot support)
    */
-  botId: string;
+  botId?: string;
+
+  /**
+   * bot prefix resolver
+   */
+  prefix?: string | ((message: Message) => Promise<string>);
 
   /**
    * Do not log anything in the console

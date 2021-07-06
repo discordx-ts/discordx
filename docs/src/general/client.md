@@ -5,20 +5,24 @@ It manage all the operations between your app, Discord's API and discord.js
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
 It works the same as the discord.**js**'s Client (same methods, properties, ...).
 
-- **`botId` (required)**  
-  `string`    
-  a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
-
 - **`intents` (required)**  
-  `Intents[]`    
+  `Intents[]`
   [see Intents](#intents) 
 
-- **`classes`**  
-  `string[]`    
+- **`botId`**  
+  `string` (`bot` by default)
+  a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
+
+- **`prefix`**  
+  `string | ((message: Message) => Promise<string>)` (`!` by default)
+  simple commands use use this prefix by default, use function to fetch different prefix for different guilds
+
+- **`classes`**
+  `string[]`
   Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
 
-- **`silent`**    
-  `boolean` (`false` by default)   
+- **`silent`**
+  `boolean` (`true` by default)   
   Allows you to disable your event information at startup
 
 - **`requiredByDefault`**    

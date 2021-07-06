@@ -14,6 +14,8 @@ import {
 import { DButton, DGroup } from "../../decorators";
 import { DSelectMenu } from "../../decorators/classes/DSelectMenu";
 import * as glob from "glob";
+import { DCommand } from "../../decorators/classes/DCommand";
+import { DCommandOption } from "../../decorators/classes/DCommandOption";
 
 export class MetadataStorage {
   private static isBuilt = false;
@@ -28,6 +30,8 @@ export class MetadataStorage {
   private _options: DOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
+  private _commands: DCommand[] = [];
+  private _commandsOptions: DCommandOption[] = [];
 
   private _groups: DGroup<DSlash>[] = [];
   private _subGroups: DGroup<DOption>[] = [];
@@ -79,6 +83,10 @@ export class MetadataStorage {
     return this._slashes as readonly DSlash[];
   }
 
+  get commands() {
+    return this._commands as readonly DCommand[];
+  }
+
   get buttons() {
     return this._buttons as readonly DButton[];
   }
@@ -102,6 +110,7 @@ export class MetadataStorage {
   private get discordMembers(): readonly Method[] {
     return [
       ...this._slashes,
+      ...this._commands,
       ...this._events,
       ...this._buttons,
       ...this._selectMenu,
@@ -118,6 +127,14 @@ export class MetadataStorage {
 
   addSlash(slash: DSlash) {
     this._slashes.push(slash);
+  }
+
+  addCommand(cmd: DCommand) {
+    this._commands.push(cmd);
+  }
+
+  addCommandOption(cmdOption: DCommandOption) {
+    this._commandsOptions.push(cmdOption);
   }
 
   addButton(button: DButton) {
@@ -189,6 +206,10 @@ export class MetadataStorage {
         discord.slashes.push(member);
       }
 
+      if (member instanceof DCommand) {
+        discord.commands.push(member);
+      }
+
       if (member instanceof DOn) {
         discord.events.push(member);
       }
@@ -205,6 +226,7 @@ export class MetadataStorage {
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
     await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
+    await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
     await Modifier.applyFromModifierListToList(this._modifiers, this._buttons);
     await Modifier.applyFromModifierListToList(this._modifiers, this._options);
     await Modifier.applyFromModifierListToList(
@@ -361,7 +383,7 @@ export class MetadataStorage {
 
     return async (...params: ArgsOf<Event>) => {
       for (const on of eventsToExecute) {
-        const botIDs = [...on.botIds, ...on.discord.botIds];
+        const botIDs = on.botIds;
         if (botIDs.length && !botIDs.includes(client.botId)) return;
         const res = await on.execute(params, client);
         responses.push(res);

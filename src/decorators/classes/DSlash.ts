@@ -10,7 +10,7 @@ import { Method } from "./Method";
 export class DSlash extends Method {
   private _description!: string;
   private _name!: string;
-  private _defaultPermission = true;
+  private _defaultPermission!: boolean;
   private _options: DOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds!: string[];
