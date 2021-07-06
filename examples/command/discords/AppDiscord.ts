@@ -17,8 +17,8 @@ export abstract class commandTest {
       !["+", "-", "*", "/"].includes(operation)
     )
       return message.reply(
-        `usage: ${message.command.prefix}${message.command.name} number operation number` +
-          `${message.command.prefix}${message.command.name} 4 + 3`
+        `**Command Usage:** \`\`${message.command.prefix}${message.command.name} num1 operator num2\`\` ` + //
+          `\`\`\`${message.command.prefix}${message.command.name} 1 + 3\`\`\``
       );
 
     let out = 0;
