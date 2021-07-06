@@ -106,7 +106,7 @@ export class DCommand extends Method {
 
   parseParams(message: CommandMessage) {
     if (!this.options.length) return [];
-    const args = message.commandArgString.split(this.argSplitter);
+    const args = message.command.argString.split(this.argSplitter);
 
     return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
