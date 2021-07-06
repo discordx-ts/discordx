@@ -636,7 +636,10 @@ export class Client extends ClientJS {
     );
 
     if (!command) {
-      return console.log("command not found:", commandInfo.commandName);
+      if (!this.silent) {
+        console.log("command not found:", commandInfo.commandName);
+      }
+      return;
     }
 
     // validate bot id
