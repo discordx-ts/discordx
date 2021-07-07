@@ -2,8 +2,8 @@
   "name": "@typeit/discord",
   "version": "5.0.13",
   "description": "Create your discord bot by using TypeScript and decorators!",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "private": false,
   "scripts": {
     "test": "jest --detectOpenHandles",
