@@ -24,14 +24,15 @@ This module is an extension of **[discord.**js**](https://discordjs.guide/)**, s
 This library allows you to use TypeScript decorators on discord.**js**, it simplify your code and improve the readability !
 
 ## Easy setup - starter project
+
 1. Clone this project  
    `git clone https://github.com/owencalvin/discord.js-template`
 
 2. Run `npm i`
-   
 3. And let's go, everything was done for you! 🚀
 
 ## Installation
+
 Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
 
 > You use the npm @slash tag to install version of discord.ts **@typeit/discord** that includes Slash commands (this version)
@@ -39,11 +40,13 @@ Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@t
 ::: danger
 For the moment discord.**js** didn't release the v13 on npm, you have to install it this way  
 (You also have to install "reflect-metadata" for the decorators)
+
 ```sh
-npm i @typeit/discord@slash reflect-metadata https://github.com/discordjs/discord.js 
+npm i @typeit/discord@slash reflect-metadata https://github.com/discordjs/discord.js
 ```
 
 Install your TypeScript dev dependencies too
+
 ```sh
 npm i -D @types/node typescript tslib
 ```
@@ -56,7 +59,7 @@ And you should see this in your package.json
   "dependencies": {
     "@typeit/discord": "^X.X.X",
     "discord.js": "github:discordjs/discord.js",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/node": "^15.0.3",
@@ -66,10 +69,12 @@ And you should see this in your package.json
   // ...
 }
 ```
+
 :::
 
 ## Execution environnement
-To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).  
+
+To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).
 
 ::: danger
 Be aware that if you compile your code into JavaScript with `tsc` you have to specify .js files when you instanciate your Client
@@ -87,9 +92,11 @@ const client = new Client({
   guards: [NotBot, Prefix("!")],
 });
 ```
+
 :::
 
 ## tsconfig.json
+
 Your tsconfig.json file should look like this:
 
 ```json
@@ -112,7 +119,9 @@ Your tsconfig.json file should look like this:
 ```
 
 ## reflect-metadata
+
 You have to import the reflect-metadata module on your main file for the decorators (for the reflection)
+
 ```ts
 import "reflect-metadata";
 import { Client } from "@typeit/discord";
@@ -125,14 +134,16 @@ start();
 ```
 
 ## Need help?
-**[Simply join the Discord server](https://discord.gg/VDjwu8E)**  
+
+**[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 
 You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
 
 ## See also
+
 - [discord.js's documentation with Interactions (Slash commands)](https://discord.js.org/#/docs/main/master/general/welcome)
 - [Discord's Slash commands interactions](https://discord.com/developers/docs/interactions/slash-commands)
 
 ## Next step
-[Setup and start your application 🚀](/general/client/)
 
+[Setup and start your application 🚀](/general/client/)

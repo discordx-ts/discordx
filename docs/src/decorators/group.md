@@ -1,5 +1,7 @@
 # @Group
+
 You can group your command like this
+
 ```
 command
 |
@@ -8,6 +10,7 @@ command
 |__ subcommand
 
 ```
+
 ```
 command
 |
@@ -21,17 +24,21 @@ command
 ```
 
 ## Example
-Here you create a Slash command group that groups "permissions" commands  
+
+Here you create a Slash command group that groups "permissions" commands
 
 The permissions commands also grouped by "user" or "role"
 
 ![](https://discord.com/assets/4cfea1bfc6d3ed0396c16cd47e0a7154.png)
 
 ## Create a Group
+
 We use @Group at two level, on the class and on methods
 
 ### Group on class level
+
 When @Group decorate a class it groups all the Slash commands in the class
+
 ```
 maths
 |
@@ -42,10 +49,7 @@ maths
 
 ```ts
 @Discord()
-@Group(
-  "maths",
-  "maths group description",
-)
+@Group("maths", "maths group description")
 export abstract class AppDiscord {
   @Slash("add")
   add(
@@ -70,12 +74,15 @@ export abstract class AppDiscord {
   }
 }
 ```
+
 ![](/discord.ts/group1.png)
 
 ### Group on method level
+
 When @Group decorate a method it creates sub-groups inside the class group
 
 **You have to list the groups that are in the class in the @Group parameters that decorate the class, or they will not appear**
+
 ```ts
 @Group(
   "testing",
@@ -102,16 +109,13 @@ testing
 |
 |__ root
 ```
+
 ```ts
 @Discord()
-@Group(
-  "testing",
-  "Testing group description",
-  {
-    maths: "maths group description",
-    text: "text group description"
-  }
-)
+@Group("testing", "Testing group description", {
+  maths: "maths group description",
+  text: "text group description",
+})
 export abstract class AppDiscord {
   @Slash("add")
   @Group("maths")
@@ -155,4 +159,3 @@ export abstract class AppDiscord {
 ```
 
 ![](/discord.ts/group2.png)
-

@@ -1,4 +1,5 @@
 # @Discord
+
 This decorator instanciate the class inside the discord.**ts** library to access to the class members or to call the methods
 
 ::: danger
@@ -11,10 +12,9 @@ import { Discord, Slash } from "@typeit/discord";
 @Discord()
 abstract class AppDiscord {
   // We can use member decorators
-  // because we decorated the class with @Discord 
-  @Slash("hello") 
-  private hello(
-  ) {
+  // because we decorated the class with @Discord
+  @Slash("hello")
+  private hello() {
     // ...
   }
 }

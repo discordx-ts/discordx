@@ -6,9 +6,9 @@ Sharding your bot with `@typeit/discord`.
 
 ## Purpose
 
-Sharding is the process of splitting your main discord process into multiple shards to help with the load when your bot is in 2,500+ guilds. discord.**js** has recommended to start making updates for sharding at around 2,000 guilds.  
+Sharding is the process of splitting your main discord process into multiple shards to help with the load when your bot is in 2,500+ guilds. discord.**js** has recommended to start making updates for sharding at around 2,000 guilds.
 
-[Discord.js Sharding Guide](https://discordjs.guide/sharding/#when-to-shard)  
+[Discord.js Sharding Guide](https://discordjs.guide/sharding/#when-to-shard)
 
 When you hit that milestone and need to begin the sharding process this guide will serve as a starting document to help you get set up.
 
@@ -19,9 +19,9 @@ When you hit that milestone and need to begin the sharding process this guide wi
 
 ### What if my bot is in less than 2,000 servers?
 
-discord.**js** has stated 
+discord.**js** has stated
 
-"*Sharding is only necessary at 2,500 guilds—at that point, Discord will not allow your bot to login without sharding. With that in mind, you should consider this when your bot is around 2,000 guilds, which should be enough time to get this working. Contrary to popular belief, sharding itself is very simple. It can be complex depending on your bot's needs, however. If your bot is in a total of 2,000 or more servers, then please continue with this guide. Otherwise, it may be a good idea to wait until then.*"
+"_Sharding is only necessary at 2,500 guilds—at that point, Discord will not allow your bot to login without sharding. With that in mind, you should consider this when your bot is around 2,000 guilds, which should be enough time to get this working. Contrary to popular belief, sharding itself is very simple. It can be complex depending on your bot's needs, however. If your bot is in a total of 2,000 or more servers, then please continue with this guide. Otherwise, it may be a good idea to wait until then._"
 
 However if you are curious you may continue to read this doc! But don't worry about sharding until 2,000 guilds. Focus on building a quality bot as sharding adds more complexity.
 
@@ -44,12 +44,11 @@ I found success with using this `tsconfig.json`
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2020", "esnext.asynciterable"],
     "moduleResolution": "node",
-    "outDir": "./src/build",
+    "outDir": "./src/build"
   },
   "exclude": ["node_modules"],
   "indent": [true, "spaces", 2]
 }
-
 ```
 
 If you are receiving errors that complain about imports. Try using the following import where the compiler complains about the import.
@@ -94,17 +93,14 @@ Read the [discord.js sharding docs](https://discordjs.guide/sharding/).
 You will make a new class in the `shard.bot.ts` file. I have named my class ShardBot
 
 ```typescript
-export class ShardBot {
-
-}
+export class ShardBot {}
 ```
 
 Inside this class I have defined a `static start` method that gets called outside of the ShardBot class.
 
 ```typescript
 export class ShardBot {
-  static start(): void {
-  }
+  static start(): void {}
 }
 
 ShardBot.start();
@@ -118,7 +114,6 @@ import { environment } from "../../environments/environment";
 
 export class ShardBot {
   static start(): void {
-
     const manager = new ShardingManager("./src/build/src/app/entry.bot.js", {
       token: environment.DISCORD_TOKEN,
     });
@@ -126,7 +121,7 @@ export class ShardBot {
     manager.on("shardCreate", (shard) => {
       console.log(`Launched shard ${shard.id}`);
     });
-      
+
     manager.spawn();
   }
 }
@@ -143,7 +138,7 @@ Now that your bot compiles and has the shard file we can run the bot with the sh
 
 `node build/app/shard.bot.js`
 
-will start the shard here. 
+will start the shard here.
 
 ::: warning
 Make sure you provide the correct path to the shard file when running with node.

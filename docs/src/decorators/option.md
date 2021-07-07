@@ -1,4 +1,5 @@
 # Option
+
 A Slash Command can have multiple options (parameters)
 
 > query is an option in this image
@@ -6,7 +7,9 @@ A Slash Command can have multiple options (parameters)
 ![](/discord.ts/options.png)
 
 ## Declare an option
+
 To declare an option you simply use the `@Option` decorator before a method parameter
+
 ```ts
 @Discord()
 class DiscordBot {
@@ -25,6 +28,7 @@ class DiscordBot {
 ```
 
 ## Automatic typing
+
 An option infer the type from TypeScript in this example, discord.**ts** knows that your options are both `number` because you typed the parameters
 
 discord.**ts** convert automatically the infered type into discord.**js** options types
@@ -47,9 +51,11 @@ class DiscordBot {
 ```
 
 ## Manual typing
+
 If you want to specify the type manually you can do it:
+
 ```ts
-import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js"
+import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js";
 
 @Discord()
 class DiscordBot {
@@ -66,8 +72,10 @@ class DiscordBot {
 ```
 
 ## Type inferance
+
 - `"STRING"`  
-  **Infered from `String`**  
+  **Infered from `String`**
+
   ```ts
   fn(
     @Option("x")
@@ -76,7 +84,8 @@ class DiscordBot {
   ```
 
 - `"BOOLEAN"`  
-  **Infered from `Boolean`**  
+  **Infered from `Boolean`**
+
   ```ts
   fn(
     @Option("x")
@@ -85,7 +94,8 @@ class DiscordBot {
   ```
 
 - `"INTEGER"`  
-  **Infered from `Number`**  
+  **Infered from `Number`**
+
   ```ts
   fn(
     @Option("x")
@@ -94,7 +104,8 @@ class DiscordBot {
   ```
 
 - `"ROLE"`  
-  **Infered from `Role`**  
+  **Infered from `Role`**
+
   ```ts
   fn(
     @Option("x")
@@ -103,7 +114,8 @@ class DiscordBot {
   ```
 
 - `"USER"`  
-  **Infered from `User` (or `ClientUser`, not recommended)**   
+  **Infered from `User` (or `ClientUser`, not recommended)**
+
   ```ts
   fn(
     @Option("x")
@@ -112,7 +124,8 @@ class DiscordBot {
   ```
 
 - `"CHANNEL"`  
-  **Infered from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**  
+  **Infered from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
+
   ```ts
   fn(
     @Option("x")
@@ -120,7 +133,8 @@ class DiscordBot {
   ```
 
 - `"MENTIONABLE"`  
-  **No inferance, use:**  
+  **No inferance, use:**
+
   ```ts
   fn(
     @Option("x", "MENTIONABLE")
@@ -130,11 +144,11 @@ class DiscordBot {
 
 - `"SUB_COMMAND"`  
   No inferance, use [@Group](/decorators/group/)
-  
 - `"SUB_COMMAND_GROUP"`  
   No inferance, use [@Group](/decorators/group/)
 
 ## Signature
+
 ```ts
 Option(name: string);
 Option(name: string, type: OptionValueType | OptionType);
@@ -143,45 +157,49 @@ Option(name: string, type: OptionValueType | OptionType, params: OptionParams);
 ```
 
 ## Params
+
 The parameters of an @Option is an object as the last parameter
 
 ### Description
+
 `string`  
-`OPTION_NAME - OPTION_TYPE` by default 
+`OPTION_NAME - OPTION_TYPE` by default
 
 You can set the description of the option
 
 ### Required
+
 `bool`  
-`false` by default      
+`false` by default
 
 The option is required or not
 
 ## Set the default required value
+
 if you want to set the default required value, you can use `client.requiredByDefault`
 
 ```ts
 const client = new Client({
   botId: "test",
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-  ],
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
   classes: [
     `${__dirname}/*Discord.ts`, // glob string to load the classes
     `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js
   ],
   silent: false,
-  requiredByDefault: true
+  requiredByDefault: true,
 });
 ```
 
 ## Autocompletion (Option's choices)
+
 You can use the [@Choice](/decorators/choice/) decorator
 
 ## Option order
+
 **You have to put required options before optional ones**  
-Or you will get this error:  
+Or you will get this error:
+
 ```
 (node:64399) UnhandledPromiseRejectionWarning: DiscordAPIError: Invalid Form Body
 options[1]: Required options must be placed before non-required options

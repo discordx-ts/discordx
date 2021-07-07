@@ -1,4 +1,5 @@
 # @Choices
+
 It works exactly like [@Choice](/decorators/choice/) except that you can directly pass an object or enum to define all the choices at once
 
 > The key of the object or enum is what discord shows and the value is the property value (object[key])
@@ -7,7 +8,7 @@ It works exactly like [@Choice](/decorators/choice/) except that you can directl
 enum TextChoices {
   // WhatDiscordShows = value
   Hello = "Hello",
-  "Good Bye" = "GoodBye"
+  "Good Bye" = "GoodBye",
 }
 
 // Could be

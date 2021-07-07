@@ -1,4 +1,5 @@
 # @Guard
+
 ::: warning
 add example for slash, argof message does not apply on interactions
 :::
@@ -68,7 +69,7 @@ abstract class AppDiscord {
 
 When can setup some guards globaly by assigning `Client.guards`
 
-> The global guards are set statically, you can access it by `Client.guards`    
+> The global guards are set statically, you can access it by `Client.guards`
 >
 > Global guards are executed before @Discord guards
 
@@ -99,7 +100,7 @@ start();
 
 ## The guard functions
 
-Here is a simple example of a guard function (the payload and the client instance are injected like for events)  
+Here is a simple example of a guard function (the payload and the client instance are injected like for events)
 
 Guards work like `Koa`'s, it's a function passed in parameter (third parameter in the guard function) and you will have to call if the guard is passed.
 
@@ -108,7 +109,11 @@ Guards work like `Koa`'s, it's a function passed in parameter (third parameter i
 ```typescript
 import { GuardFunction, ArgsOf } from "@typeit/discord";
 
-export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = ([message], client, next) => {
+export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
+  [message],
+  client,
+  next
+) => {
   if (client.user.id !== message.author.id) {
     await next();
   }
@@ -121,7 +126,11 @@ If you have to indicate parameters for a guard function you can simple use the "
 import { GuardFunction } from "@typeit/discord";
 
 export function Prefix(text: string, replace: boolean = true) {
-  const guard: GuardFunction<ArgsOf<"messageCreate">> = ([message], client, next) => {
+  const guard: GuardFunction<ArgsOf<"messageCreate">> = (
+    [message],
+    client,
+    next
+  ) => {
     const startWith = message.content.startsWith(text);
     if (replace) {
       message.content = message.content.replace(text, "");
@@ -165,7 +174,11 @@ import { Prefix } from "./Prefix";
 abstract class AppDiscord {
   @Slash()
   @Guard(NotBot, Prefix("!"))
-  async hello(interaction: CommandInteraction, client: Client, guardDatas: any) {
+  async hello(
+    interaction: CommandInteraction,
+    client: Client,
+    guardDatas: any
+  ) {
     console.log(guardDatas.message);
     // > the NotBot guard passed
   }

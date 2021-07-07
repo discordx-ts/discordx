@@ -1,9 +1,9 @@
 # List of the discord.js events
+
 Here is all the `DiscordEvents` and their parameters (`discord.js`)
 
 - **channelCreate**  
   `[Channel]`
-  
 - **channelDelete**  
   `[Channel | PartialDMChannel]`
 
@@ -15,10 +15,8 @@ Here is all the `DiscordEvents` and their parameters (`discord.js`)
 
 - **debug**  
   `[string]`
-  
 - **warn**  
   `[string]`
-  
 - **disconnect**  
   `[any, number]`
 
