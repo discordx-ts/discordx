@@ -19,6 +19,9 @@ import { DCommand } from "./decorators/classes/DCommand";
 import { GuildNotFoundError } from "./errors";
 import { CommandMessage } from "./types/public/CommandMessage";
 
+/**
+ * Extend original client class of discord.js
+ */
 export class Client extends ClientJS {
   private _botId: string;
   private _prefix: string | ((message: Message) => Promise<string>);

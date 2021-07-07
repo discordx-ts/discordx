@@ -1,13 +1,13 @@
 {
   "name": "discordx",
-  "version": "5.0.21",
+  "version": "5.0.23",
   "description": "Create your discord bot by using TypeScript and decorators!",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "private": false,
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
+    "postinstall": "npm run build",
     "test": "jest --detectOpenHandles",
     "publish:module": "sh ./publish.sh",
     "publish:docs": "cd docs && sh ./deploy.sh"
