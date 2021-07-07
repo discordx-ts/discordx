@@ -1,18 +1,20 @@
-import { CommandInteraction, Message } from "discord.js";
-import { GuardFunction } from "../../../src";
+import { CommandInteraction, MessageReaction, VoiceState } from "discord.js";
+import { ArgsOf, GuardFunction } from "../../../src";
 
-export const Say = (text: string) => {
-  // do not use ArgOf it will throw undefined error cause of type error
-  const guard: GuardFunction<Message | CommandInteraction> = async (
-    messageOrCommand,
-    _client,
-    next,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _nextObj
-  ) => {
-    messageOrCommand.channel.send(text);
+export const NotBot: GuardFunction<
+  | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
+  | CommandInteraction
+> = async (arg, client, next) => {
+  const argObj = arg instanceof Array ? arg[0] : arg;
+  const user =
+    argObj instanceof CommandInteraction
+      ? argObj.user
+      : argObj instanceof MessageReaction
+      ? argObj.message.author
+      : argObj instanceof VoiceState
+      ? argObj.member.user
+      : argObj.author;
+  if (!user?.bot) {
     await next();
-  };
-
-  return guard;
+  }
 };
