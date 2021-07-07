@@ -1,6 +1,6 @@
 import { CommandInteraction } from "discord.js";
 import { Discord, On, Client, ArgsOf, Guard, Slash } from "../../../src";
-import { NotBot } from "../guards/Say";
+import { NotBot } from "../guards/NotBot";
 
 @Discord()
 export abstract class AppDiscord {

@@ -1,6 +1,8 @@
 import { CommandInteraction, MessageReaction, VoiceState } from "discord.js";
 import { ArgsOf, GuardFunction } from "../../../src";
 
+// Example by @AndyClausen
+
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
   | CommandInteraction
