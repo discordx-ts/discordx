@@ -24,7 +24,7 @@ Package by [@OwenCalvin](https://github.com/OwenCalvin)
 
 # ⚠️ Warning
 
-following documentation are based on original package, if you wish to read documentation that is compitable with discordx then at [oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)
+following documentation are based on original package, if you wish to read documentation that is compitable with discordx then read at [oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)
 
 ---
 
