@@ -6,15 +6,15 @@ we are updating this package daily as per discord.js v13 updates. If you are usi
 
 Thank you, you can open issues or request any feature at github [click here](https://github.com/oceanroleplay/discord.ts/issues)
 
-
 # New features
-* added multiple bot support
-* added new interactions: ``@Button @SelectMenu``
-* added ``@Command`` to support v4 commands
-* added new decorator ``@DefaultPermission``
-* add new init slash method
-* Code improved with lint
-* added more example for new decorators
+
+- added multiple bot support
+- added new interactions: `@Button @SelectMenu`
+- added `@Command` to support v4 commands
+- added new decorator `@DefaultPermission`
+- add new init slash method
+- Code improved with lint
+- added more example for new decorators
 
 # Package
 
@@ -24,7 +24,7 @@ Package by [@OwenCalvin](https://github.com/OwenCalvin)
 
 # ⚠️ Warning
 
-following documentation are not yet updated on based on discordx package, once new documentation is ready, we will update this message. Thank you
+following documentation are based on original package, if you wish to read documentation that is compitable with discordx then at [oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)
 
 ---
 

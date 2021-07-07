@@ -4,3 +4,4 @@ test
 package-lock.json
 .DS_Store
 docs/src/.vuepress/dist
+publish-doc.bat
