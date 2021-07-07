@@ -1,5 +1,7 @@
 name: discordx
-on: [push]
+on:
+  release:
+    types: [created]
 jobs:
   build:
     runs-on: ubuntu-latest
