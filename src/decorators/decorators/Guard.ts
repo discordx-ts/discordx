@@ -12,7 +12,7 @@ import { DOn } from "../classes/DOn";
 import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
 
-export function Guard<Type = any, DatasType = any>(
+export function Guard<Type, DatasType = unknown>(
   ...fns: GuardFunction<Type, DatasType>[]
 ) {
   return (
