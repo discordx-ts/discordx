@@ -1,3 +1,23 @@
+# Why discordx?
+
+their are fixes and new features for `@typeit/discord#slash` in this package, we have also requested them on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62)
+
+we are updating this package daily as per discord.js v13 updates. If you are using this package, make sure you keep it upto date in your project or use stable package `@typeit/discord`
+
+Thank you, you can open issues or request any feature at github [click here](https://github.com/oceanroleplay/discord.ts/issues)
+
+# Package
+
+Maintained by [@oceanroleplay](https://github.com/oceanroleplay)
+
+Package by [@OwenCalvin](https://github.com/OwenCalvin)
+
+# ⚠️ Warning
+
+following documentation are not yet updated on based on discordx package, once new documentation is ready, we will update this message. Thank you
+
+---
+
 <p align="center">
   <br/>
   <img src="https://i.imgur.com/kSLOEIF.png" width="150px">

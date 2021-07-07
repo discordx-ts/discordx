@@ -1,6 +1,6 @@
 {
   "name": "discordx",
-  "version": "5.0.19",
+  "version": "5.0.20",
   "description": "Create your discord bot by using TypeScript and decorators!",
   "main": "build/index.js",
   "types": "build/index.d.ts",
