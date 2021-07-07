@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Discord, On, Client, Guard, GuardFunction } from "../src";
 
 const guard1: GuardFunction<any, { message: string; original: string }> =
@@ -9,19 +10,15 @@ const guard1: GuardFunction<any, { message: string; original: string }> =
     }
   };
 
-const guard2: GuardFunction = async (
-  [message]: [string],
-  client,
-  next,
-  mwDatas
-) => {
-  if (mwDatas.original === "hello0") {
-    mwDatas.message += "1";
-    await next();
-  } else {
-    mwDatas.message += "2";
-  }
-};
+const guard2: GuardFunction<[string], { original: string; message: string }> =
+  async ([message]: [string], client, next, mwDatas) => {
+    if (mwDatas.original === "hello0") {
+      mwDatas.message += "1";
+      await next();
+    } else {
+      mwDatas.message += "2";
+    }
+  };
 
 @Discord()
 abstract class Bot {
@@ -46,7 +43,7 @@ abstract class Bot {
   }
 }
 
-const client = new Client({ botId: "test", intents: [] });
+const client = new Client({ intents: [] });
 
 beforeAll(async () => {
   await client.build();

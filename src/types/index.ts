@@ -9,4 +9,3 @@ export * from "./public/GuardFunction";
 export * from "./public/CommandType";
 export * from "./public/CommandMessage";
 export * from "./public/ArgsOf";
-export * from "./public/PermissionType";

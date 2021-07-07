@@ -6,13 +6,15 @@ import { Say } from "../guards/Say";
 export abstract class AppDiscord {
   @On("messageCreate")
   @Guard(Say("hello"))
-  onMessage([message]: ArgsOf<"messageCreate">, client: Client) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onMessage([message]: ArgsOf<"messageCreate">, _client: Client) {
     console.log(message.content);
   }
 
   @Slash("hello")
   @Guard(Say("hello"))
-  hello(interaction: CommandInteraction, client: Client) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  hello(interaction: CommandInteraction, _client: Client) {
     console.log(interaction);
   }
 }

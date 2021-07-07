@@ -145,7 +145,7 @@ export abstract class AppDiscord1 {
   }
 }
 
-const client = new Client({ botId: "test", intents: [] });
+const client = new Client({ intents: [] });
 
 beforeAll(async () => {
   await client.build();
