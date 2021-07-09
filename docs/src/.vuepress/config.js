@@ -81,6 +81,8 @@ module.exports = {
           ["/decorators/discord", "@Discord"],
           ["/decorators/bot", "@Bot"],
           ["/decorators/button", "@Button"],
+          ["/decorators/command", "@Command"],
+          ["/decorators/commandoption", "@CommandOption"],
           ["/decorators/choice", "@Choice"],
           ["/decorators/choices", "@Choices"],
           ["/decorators/description", "@Description"],

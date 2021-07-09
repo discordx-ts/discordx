@@ -1,9 +1,5 @@
 # @Guard
 
-::: warning
-add example for slash, argof message does not apply on interactions
-:::
-
 You can use functions that are executed before your event to determine if it's executed. For example, if you want to apply a prefix to the messages, you can simply use the `@Guard` decorator.
 
 The order of execution of the guards is done according to their position in the list, so they will be executed in order (from top to bottom).
@@ -123,20 +119,27 @@ export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
 If you have to indicate parameters for a guard function you can simple use the "function that returns a function" pattern like this:
 
 ```typescript
+import { CommandInteraction } from "discord.js";
 import { GuardFunction } from "discordx";
 
 export function Prefix(text: string, replace: boolean = true) {
-  const guard: GuardFunction<ArgsOf<"messageCreate">> = (
-    [message],
+  const guard: GuardFunction<ArgsOf<"messageCreate"> | CommandInteraction> = (
+    arg,
     client,
     next
   ) => {
-    const startWith = message.content.startsWith(text);
-    if (replace) {
-      message.content = message.content.replace(text, "");
-    }
-    if (startWith) {
+    const argObj = arg instanceof Array ? arg[0] : arg;
+    if (argObj instanceof CommandInteraction) {
       await next();
+    } else {
+      const message = argObj;
+      const startWith = message.content.startsWith(text);
+      if (replace) {
+        message.content = message.content.replace(text, "");
+      }
+      if (startWith) {
+        await next();
+      }
     }
   };
 
@@ -149,16 +152,25 @@ export function Prefix(text: string, replace: boolean = true) {
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 
 ```typescript
-import { GuardFunction } from "discordx";
+import { CommandInteraction, MessageReaction, VoiceState } from "discord.js";
+import { ArgsOf, GuardFunction } from "discordx";
 
-export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
-  [message],
-  client,
-  next,
-  guardDatas
-) => {
-  if (client.user.id !== message.author.id) {
-    guardDatas.message = "the NotBot guard passed";
+// Example by @AndyClausen
+
+export const NotBot: GuardFunction<
+  | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
+  | CommandInteraction
+> = async (arg, client, next) => {
+  const argObj = arg instanceof Array ? arg[0] : arg;
+  const user =
+    argObj instanceof CommandInteraction
+      ? argObj.user
+      : argObj instanceof MessageReaction
+      ? argObj.message.author
+      : argObj instanceof VoiceState
+      ? argObj.member.user
+      : argObj.author;
+  if (!user?.bot) {
     await next();
   }
 };
@@ -168,12 +180,11 @@ export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
 import { Discord, Slash, Client, Guard } from "discordx";
 import { CommandInteraction } from "discord.js";
 import { NotBot } from "./NotBot";
-import { Prefix } from "./Prefix";
 
 @Discord()
 abstract class AppDiscord {
   @Slash()
-  @Guard(NotBot, Prefix("!"))
+  @Guard(NotBot)
   async hello(
     interaction: CommandInteraction,
     client: Client,

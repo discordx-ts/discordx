@@ -1,15 +1,10 @@
 # @Permission
 
-You can set some permissions to your Slash commands
+You can set some permissions to your Slash commands or normal commands
 
 The permissions are based on a **role id** or **user id** that you specify on the @Permission decorator
 
 The permissions will be set when you call `client.initSlashes()`
-
-::: danger
-Permissions are only available for Guild specific Slash commands  
-[More informations](https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions)
-:::
 
 > You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initSlashes()` implementation
 
@@ -20,8 +15,9 @@ You just decorate your parameter with one or multiple @Permission !
 ```ts
 @Discord()
 class DiscordBot {
-  @Permission("USER_ID", "USER") // Only the role that has this USER_ID can use this command
-  @Permission("ROLE_ID", "ROLE") // Only the role that has this ROLE_ID can use this command
+  @DefaultPermission(false)
+  @Permission({ id: "USER_ID" as Snowflake, type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
+  @Permission({ id: "ROLE_ID" as Snowflake, type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
   @Slash("hello")
   private hello() {
     // ...
@@ -35,8 +31,9 @@ You can set the permissions for all @Slash inside the class by decorating the cl
 
 ```ts
 @Discord()
-@Permission("USER_ID", "USER") // Only the role that has this USER_ID can use this command
-@Permission("ROLE_ID", "ROLE") // Only the role that has this ROLE_ID can use this command
+@DefaultPermission(false)
+@Permission({ id: "USER_ID" as Snowflake, type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
+@Permission({ id: "ROLE_ID" as Snowflake, type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
 class DiscordBot {
   @Slash("hello") // Only the role that has this ROLE_ID can use this command
   private hello() {
@@ -52,7 +49,7 @@ class DiscordBot {
 
 ## Params
 
-`@Permission(id: string, type: "USER" | "ROLE")`
+`@Permission({ id: Snowflake, type: "USER" | "ROLE", permission: true | false })`
 
 ### id
 
@@ -63,3 +60,8 @@ The id if the user or role
 
 `"ROLE" | "USER"`  
 It specify if the permission is given to a user or a role
+
+### permission
+
+`true | false`  
+It specify if the permission is granted or restricated
