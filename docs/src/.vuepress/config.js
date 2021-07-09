@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: "discord.ts official documentation",
+  title: "discordx or discord.ts official documentation",
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
