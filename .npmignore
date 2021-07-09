@@ -1,0 +1,16 @@
+.git
+.gitignore
+.npmignore
+.github
+.vscode
+node_modules
+docs
+examples
+src
+tests
+.eslintrc
+.prettierrc.json
+jest.config.js
+publish.sh
+tsconfig.json
+publish-doc.bat

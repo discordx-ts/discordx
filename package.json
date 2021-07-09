@@ -7,7 +7,6 @@
   "private": false,
   "scripts": {
     "build": "tsc",
-    "postinstall": "npm run build",
     "test": "jest --detectOpenHandles",
     "publish:module": "sh ./publish.sh",
     "publish:docs": "cd docs && sh ./deploy.sh"
