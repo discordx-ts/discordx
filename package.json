@@ -11,9 +11,6 @@
     "publish:module": "sh ./publish.sh",
     "publish:docs": "cd docs && sh ./deploy.sh"
   },
-  "files": [
-    "*"
-  ],
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issue",
     "email": "indianoceanroleplay@gmail.com"
