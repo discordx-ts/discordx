@@ -35,7 +35,7 @@ if you wish to read documentation that is compitable with discordx then read at 
   <br/>
   <h1 align="center">
     <p  align="center">
-      discord.ts (discordx)
+      discord.ts (discordx or @typeit/discord)
     </p>
   </h1>
     <p align="center">
