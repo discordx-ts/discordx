@@ -4,7 +4,7 @@ The default permission used to set permission for everyone in your slash or simp
 
 ## Examples
 
-[check here](/discord.ts/decorators/permission.html)
+[check here](/decorators/permission.html)
 
 ## Params
 
