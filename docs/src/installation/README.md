@@ -5,7 +5,7 @@
   <br/>
   <h1 align="center">
     <p  align="center">
-      discord.ts (@typeit/discord)
+      discord.ts (discordx or @typeit/discord)
     </p>
   </h1>
     <p align="center">
@@ -26,23 +26,23 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 ## Easy setup - starter project
 
 1. Clone this project  
-   `git clone https://github.com/owencalvin/discord.js-template`
+   `git clone https://github.com/oceanroleplay/discord.ts-example`
 
 2. Run `npm i`
 3. And let's go, everything was done for you! 🚀
 
 ## Installation
 
-Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord** with **discord.js**
+Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx** with **discord.js**
 
-> You use the npm @slash tag to install version of discord.ts **@typeit/discord** that includes Slash commands (this version)
+> You use the npm @slash tag to install version of discord.ts **discordx** that includes Slash commands (this version)
 
 ::: danger
 For the moment discord.**js** didn't release the v13 on npm, you have to install it this way  
 (You also have to install "reflect-metadata" for the decorators)
 
 ```sh
-npm i @typeit/discord@slash reflect-metadata https://github.com/discordjs/discord.js
+npm i discordx reflect-metadata https://github.com/discordjs/discord.js
 ```
 
 Install your TypeScript dev dependencies too
@@ -57,7 +57,7 @@ And you should see this in your package.json
 {
   // ...
   "dependencies": {
-    "@typeit/discord": "^X.X.X",
+    "discordx": "^X.X.X",
     "discord.js": "github:discordjs/discord.js",
     "reflect-metadata": "^0.1.13"
   },
@@ -124,7 +124,7 @@ You have to import the reflect-metadata module on your main file for the decorat
 
 ```ts
 import "reflect-metadata";
-import { Client } from "@typeit/discord";
+import { Client } from "discordx";
 
 async function start() {
   // ...
@@ -137,7 +137,7 @@ start();
 
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 
-You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
+You can also find help with [examples folder](https://github.com/oceanroleplay/discord.ts/tree/slashx/examples)
 
 ## See also
 

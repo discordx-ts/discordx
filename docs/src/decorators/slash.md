@@ -3,7 +3,7 @@
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
 ```ts
-import { Discord, Slash } from "@typeit/discord";
+import { Discord, Slash } from "discordx";
 
 @Discord()
 abstract class AppDiscord {
@@ -25,7 +25,7 @@ You have to manualy execute and initialize your Slash commands by using:
 This provide flexibility in your code
 
 ```ts
-import { Client } from "@typeit/discord";
+import { Client } from "discordx";
 
 async function start() {
   const client = new Client({

@@ -1,10 +1,10 @@
-const { description } = require('../../package')
+const { description } = require("../../package");
 
 module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'discord.ts official documentation',
+  title: "discord.ts official documentation",
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -18,10 +18,20 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['link', { rel: "icon", type: "image/png", href: "https://i.imgur.com/kSLOEIF.png"}],
+    ["meta", { name: "theme-color", content: "#3eaf7c" }],
+    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
+    [
+      "meta",
+      { name: "apple-mobile-web-app-status-bar-style", content: "black" },
+    ],
+    [
+      "link",
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "https://i.imgur.com/kSLOEIF.png",
+      },
+    ],
   ],
 
   /**
@@ -30,26 +40,26 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: 'https://github.com/owencalvin/discord.ts',
+    repo: "https://github.com/oceanroleplay/discord.ts",
     editLinks: true,
-    docsDir: 'docs/src',
-    editLinkText: 'Edit this page',
+    docsDir: "docs/src",
+    editLinkText: "Edit this page",
     lastUpdated: true,
     nav: [
       {
-        text: 'Discord server',
-        link: 'https://discord.gg/JbVSu4KxwV',
-      }
+        text: "Discord server",
+        link: "https://discord.gg/JbVSu4KxwV",
+      },
     ],
     sidebar: [
       {
-        title: 'Installation',
+        title: "Installation",
         collapsable: false,
         sidebarDepth: 3,
         path: "/installation/",
       },
       {
-        title: 'General',
+        title: "General",
         collapsable: false,
         path: "/general/client",
         sidebarDepth: 3,
@@ -60,10 +70,10 @@ module.exports = {
           ["/general/argsof", "ArgsOf"],
           ["/general/events", "List of the events"],
           ["/general/sharding", "Sharding"],
-        ]
+        ],
       },
       {
-        title: 'Decorators',
+        title: "Decorators",
         collapsable: false,
         sidebarDepth: 3,
         path: "/decorators/discord",
@@ -84,16 +94,13 @@ module.exports = {
           ["/decorators/permission", "@Permission"],
           ["/decorators/selectmenu", "@SelectMenu"],
           ["/decorators/slash", "@Slash"],
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
 
   /**
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
-  plugins: [
-    '@vuepress/plugin-back-to-top',
-    '@vuepress/plugin-medium-zoom',
-  ]
-}
+  plugins: ["@vuepress/plugin-back-to-top", "@vuepress/plugin-medium-zoom"],
+};

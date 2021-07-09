@@ -3,7 +3,6 @@ import { EventParams } from "../params/EventParams";
 
 /**
  * Trigger a discord event
- * @link https://github.com/OwenCalvin/discord.ts#client-payload-injection
  * @param event The discord event to trigger
  */
 export function On(event: DiscordEvents);

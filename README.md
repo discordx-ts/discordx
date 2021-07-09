@@ -1,8 +1,8 @@
 # Why discordx?
 
-their are fixes and new features for `@typeit/discord#slash` in this package, we have also requested them on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62)
+their are fixes and new features for `discordx#slash` in this package, we have also requested them on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62)
 
-we are updating this package daily as per discord.js v13 updates. If you are using this package, make sure you keep it upto date in your project or use stable package `@typeit/discord`
+we are updating this package daily as per discord.js v13 updates. If you are using this package, make sure you keep it upto date in your project or use stable package `discordx`
 
 Thank you, you can open issues or request any feature at github [click here](https://github.com/oceanroleplay/discord.ts/issues)
 
@@ -24,7 +24,7 @@ Package by [@OwenCalvin](https://github.com/OwenCalvin)
 
 # ⚠️ Warning
 
-following documentation are based on original package, if you wish to read documentation that is compitable with discordx then read at [oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)
+if you wish to read documentation that is compitable with discordx then read at [oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)
 
 ---
 
@@ -35,7 +35,7 @@ following documentation are based on original package, if you wish to read docum
   <br/>
   <h1 align="center">
     <p  align="center">
-      discord.ts (@typeit/discord)
+      discord.ts (discordx)
     </p>
   </h1>
     <p align="center">
@@ -55,14 +55,14 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 # 📜 Documentation
 
-**[https://owencalvin.github.io/discord.ts/](https://owencalvin.github.io/discord.ts/)**
+**[https://oceanroleplay.github.io/discord.ts/](https://oceanroleplay.github.io/discord.ts/)**
 
 # 📟 @Slash - Discord commands
 
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
 ```ts
-import { Discord, Slash } from "@typeit/discord";
+import { Discord, Slash } from "discordx";
 import { CommandInteraction } from "discord.js";
 
 @Discord()
@@ -100,7 +100,7 @@ Our methods must be decorated with the `@On(event: string)` or `@Once(event: str
 That's simple, when the event is triggered, the method is called:
 
 ```typescript
-import { Discord, On, Once } from "@typeit/discord";
+import { Discord, On, Once } from "discordx";
 
 @Discord()
 abstract class AppDiscord {
@@ -127,7 +127,7 @@ The order of execution of the guards is done according to their position in the 
 Guards can be set for `@Slash`, `@On`, `@Once`, `@Discord` and globaly.
 
 ```typescript
-import { Discord, On, Client, Guard } from "@typeit/discord";
+import { Discord, On, Client, Guard } from "discordx";
 import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";
 
@@ -153,12 +153,12 @@ abstract class AppDiscord {
 
 # 📡 Installation
 
-Use [npm](https://www.npmjs.com/package/@typeit/discord) or yarn to install **@typeit/discord@slash** with **discord.js**
+Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx** with **discord.js**
 
-**[Please refer to the documentation](https://owencalvin.github.io/discord.ts/installation/#installation)**
+**[Please refer to the documentation](https://oceanroleplay.github.io/discord.ts/installation/#installation)**
 
 # ☎️ Need help?
 
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 
-You can also find help with the [different projects that use discord.ts](https://github.com/OwenCalvin/discord.ts/network/dependents?package_id=UGFja2FnZS00Njc1MzYwNzU%3D) and in the [examples folder](https://github.com/OwenCalvin/discord.ts/tree/master/examples)
+You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/slashx/examples)

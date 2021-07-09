@@ -3,7 +3,7 @@
 It's exactly the same behavior as [@On](/decorators/on) but the method is only executed once
 
 ```typescript
-import { Discord, On, Once } from "@typeit/discord";
+import { Discord, On, Once } from "discordx";
 
 @Discord()
 abstract class AppDiscord {
@@ -27,7 +27,7 @@ You also receive other useful arguments after that:
 > You should use JS desctructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 
 ```typescript
-import { Discord, On, Client, ArgsOf } from "@typeit/discord";
+import { Discord, On, Client, ArgsOf } from "discordx";
 
 @Discord()
 abstract class AppDiscord {

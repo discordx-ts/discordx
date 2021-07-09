@@ -44,8 +44,8 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
 ```ts
 import "reflect-metadata";
 import { Intents } from "discord.js";
-// Use the Client that are provided by @typeit/discord NOT discord.js
-import { Client } from "@typeit/discord";
+// Use the Client that are provided by discordx NOT discord.js
+import { Client } from "discordx";
 
 async function start() {
   const client = new Client({

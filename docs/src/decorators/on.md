@@ -7,7 +7,7 @@ Our methods must be decorated with the `@On(event: string)` or [@Once(event: str
 That's simple, when the event is triggered, the method is called:
 
 ```typescript
-import { Discord, On, Once } from "@typeit/discord";
+import { Discord, On, Once } from "discordx";
 
 @Discord()
 abstract class AppDiscord {
@@ -36,7 +36,7 @@ You also receive other useful arguments after that:
 > You should use JS desctructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 
 ```typescript
-import { Discord, On, Client, ArgsOf } from "@typeit/discord";
+import { Discord, On, Client, ArgsOf } from "discordx";
 
 @Discord()
 abstract class AppDiscord {

@@ -11,7 +11,7 @@ The order of execution of the guards is done according to their position in the 
 Guards can be set for `@Slash`, `@Button`, `@SelectMenu`, `@On`, `@Once`, `@Discord` and globaly.
 
 ```typescript
-import { Discord, On, Client, Guard } from "@typeit/discord";
+import { Discord, On, Client, Guard } from "discordx";
 import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";
 
@@ -46,7 +46,7 @@ When you use `@Guard` along with `@Discord` the guard is applied to:
 > It's executed before the members's guards
 
 ```typescript
-import { Discord, On, Client, Guard, CommandMessage } from "@typeit/discord";
+import { Discord, On, Client, Guard, CommandMessage } from "discordx";
 import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";
 
@@ -74,8 +74,8 @@ When can setup some guards globaly by assigning `Client.guards`
 > Global guards are executed before @Discord guards
 
 ```typescript
-// Use the Client that are provided by @typeit/discord NOT discord.js
-import { Client } from "@typeit/discord";
+// Use the Client that are provided by discordx NOT discord.js
+import { Client } from "discordx";
 
 async function start() {
   const client = new Client({
@@ -107,7 +107,7 @@ Guards work like `Koa`'s, it's a function passed in parameter (third parameter i
 **If `next` isn't called the next guard (or the main method) will not be executed**
 
 ```typescript
-import { GuardFunction, ArgsOf } from "@typeit/discord";
+import { GuardFunction, ArgsOf } from "discordx";
 
 export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
   [message],
@@ -123,7 +123,7 @@ export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
 If you have to indicate parameters for a guard function you can simple use the "function that returns a function" pattern like this:
 
 ```typescript
-import { GuardFunction } from "@typeit/discord";
+import { GuardFunction } from "discordx";
 
 export function Prefix(text: string, replace: boolean = true) {
   const guard: GuardFunction<ArgsOf<"messageCreate">> = (
@@ -149,7 +149,7 @@ export function Prefix(text: string, replace: boolean = true) {
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 
 ```typescript
-import { GuardFunction } from "@typeit/discord";
+import { GuardFunction } from "discordx";
 
 export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
   [message],
@@ -165,7 +165,7 @@ export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
 ```
 
 ```typescript
-import { Discord, Slash, Client, Guard } from "@typeit/discord";
+import { Discord, Slash, Client, Guard } from "discordx";
 import { CommandInteraction } from "discord.js";
 import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";

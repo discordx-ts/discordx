@@ -7,7 +7,7 @@ you must decorate a class by the `@Discord` decorator to use members decorators
 :::
 
 ```typescript
-import { Discord, Slash } from "@typeit/discord";
+import { Discord, Slash } from "discordx";
 
 @Discord()
 abstract class AppDiscord {
@@ -43,7 +43,7 @@ Here, all the elements will be injected into this Discord class instance.
 
 ```typescript
 import * as Path from "path";
-import { Discord, CommandNotFound } from "@typeit/discord";
+import { Discord, CommandNotFound } from "discordx";
 
 // The prefix will be applied to the imported commands
 @Discord({
@@ -62,7 +62,7 @@ Here is an example of what your command file should look like:
 _Bye.ts_
 
 ```typescript
-import { Slash } from "@typeit/discord";
+import { Slash } from "discordx";
 
 // Do not have to decorate the class with @Discord
 // It applied the parameters of the @Discord decorator that imported it
@@ -82,7 +82,7 @@ export abstract class Bye {
 _MessageDelete.ts_
 
 ```typescript
-import { On, ArgsOf } from "@typeit/discord";
+import { On, ArgsOf } from "discordx";
 
 // Do not have to decorate the class with @Discord
 // It applied the parameters of the @Discord decorator that imported it

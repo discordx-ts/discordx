@@ -1,6 +1,6 @@
 # Sharding
 
-Sharding your bot with `@typeit/discord`.
+Sharding your bot with `discordx`.
 
 [[toc]]
 
