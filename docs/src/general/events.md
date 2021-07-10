@@ -2,110 +2,126 @@
 
 Here is all the `DiscordEvents` and their parameters (`discord.js`)
 
+- **applicationCommandCreate**  
+  `[command: ApplicationCommand]`
+
+- **applicationCommandDelete**  
+  `[command: ApplicationCommand]`
+
+- **applicationCommandUpdate**  
+  `[oldCommand: ApplicationCommand | null, newCommand: ApplicationCommand]`
+
 - **channelCreate**  
-  `[Channel]`
+  `[channel: GuildChannel]`
+
 - **channelDelete**  
-  `[Channel | PartialDMChannel]`
+  `[channel: DMChannel | GuildChannel]`
 
 - **channelPinsUpdate**  
-  `[Channel | PartialDMChannel, Date]`
+  `[channel: TextChannel | NewsChannel | DMChannel | PartialDMChannel, date: Date]`
 
 - **channelUpdate**  
-  `[Channel, Channel]`
+  `[oldChannel: DMChannel | GuildChannel, newChannel: DMChannel | GuildChannel]`
 
 - **debug**  
-  `[string]`
+  `[message: string]`
+
 - **warn**  
-  `[string]`
-- **disconnect**  
-  `[any, number]`
+  `[message: string]`
 
 - **emojiCreate**  
-  `[GuildEmoji]`
+  `[emoji: GuildEmoji]`
 
 - **emojiDelete**  
-  `[GuildEmoji]`
+  `[emoji: GuildEmoji]`
 
 - **emojiUpdate**  
-  `[GuildEmoji, GuildEmoji]`
+  `[oldEmoji: GuildEmoji, newEmoji: GuildEmoji]`
 
 - **error**  
-  `[Error]`
+  `[error: Error]`
 
 - **guildBanAdd**  
-  `[Guild, User | PartialUser]`
+  `[ban: GuildBan]`
 
 - **guildBanRemove**  
-  `[Guild, User | PartialUser]`
+  `[ban: GuildBan]`
 
 - **guildCreate**  
-  `[Guild]`
+  `[guild: Guild]`
 
 - **guildDelete**  
-  `[Guild]`
+  `[guild: Guild]`
 
 - **guildUnavailable**  
-  `[Guild]`
+  `[guild: Guild]`
 
 - **guildIntegrationsUpdate**  
-  `[Guild]`
+  `[guild: Guild]`
 
 - **guildMemberAdd**  
-  `[GuildMember | PartialGuildMember]`
+  `[member: GuildMember]`
 
 - **guildMemberAvailable**  
-  `[GuildMember | PartialGuildMember]`
+  `[member: GuildMember | PartialGuildMember]`
 
 - **guildMemberRemove**  
-  `[GuildMember | PartialGuildMember]`
+  `[member: GuildMember | PartialGuildMember]`
 
 - **guildMembersChunk**  
-  `[Collection<Snowflake, GuildMember | PartialGuildMember>, Guild]`
-
-- **guildMemberSpeaking**  
-  `[GuildMember | PartialGuildMember, Readonly<Speaking>]`
+  `[members: Collection<Snowflake, GuildMember>, guild: Guild, data: { count: number; index: number; nonce: string | undefined }]`
 
 - **guildMemberUpdate**  
-  `[GuildMember | PartialGuildMember, GuildMember | PartialGuildMember]`
+  `[oldMember: GuildMember | PartialGuildMember, newMember: GuildMember]`
 
 - **guildUpdate**  
-  `[Guild, Guild]`
+  `[oldGuild: Guild, newGuild: Guild]`
 
 - **inviteCreate**  
-  `[Invite]`
+  `[invite: Invite]`
 
 - **inviteDelete**  
-  `[Invite]`
+  `[invite: Invite]`
+
+  ```ts
+  // @deprecated Use messageCreate instead
+  ```
 
 - **message**  
-  `[Message]`
+  `[message: Message]`
+
+- **messageCreate**  
+  `[message: Message]`
 
 - **messageDelete**  
-  `[Message | PartialMessage]`
+  `[message: Message | PartialMessage]`
 
 - **messageReactionRemoveAll**  
-  `[Message | PartialMessage]`
+  `[message: Message | PartialMessage]`
 
 - **messageReactionRemoveEmoji**  
-  `[MessageReaction]`
+  `[reaction: MessageReaction | PartialMessageReaction]`
 
 - **messageDeleteBulk**  
-  `[Collection<Snowflake, Message | PartialMessage>]`
+  `[messages: Collection<Snowflake, Message | PartialMessage>]`
 
 - **messageReactionAdd**  
-  `[MessageReaction, User | PartialUser]`
+  `[message: MessageReaction | PartialMessageReaction, user: User | PartialUser]`
 
 - **messageReactionRemove**  
-  `[MessageReaction, User | PartialUser]`
+  `[reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser]`
 
 - **messageUpdate**  
-  `[Message | PartialMessage, Message | PartialMessage]`
+  `[oldMessage: Message | PartialMessage, newMessage: Message | PartialMessage]`
 
 - **presenceUpdate**  
-  `[Presence | undefined, Presence]`
+  `[oldPresence: Presence | null, newPresence: Presence]`
 
 - **rateLimit**  
-  `[RateLimitData]`
+  `[rateLimitData: RateLimitData]`
+
+- **invalidRequestWarning**  
+  `[invalidRequestWarningData: InvalidRequestWarningData]`
 
 - **ready**  
   `[]`
@@ -114,37 +130,74 @@ Here is all the `DiscordEvents` and their parameters (`discord.js`)
   `[]`
 
 - **roleCreate**  
-  `[Role]`
+  `[role: Role]`
 
 - **roleDelete**  
-  `[Role]`
+  `[role: Role]`
 
 - **roleUpdate**  
-  `[Role, Role]`
+  `[oldRole: Role, newRole: Role]`
+
+- **threadCreate**  
+  `[thread: ThreadChannel]`
+
+- **threadDelete**  
+  `[thread: ThreadChannel]`
+
+- **threadListSync**  
+  `[threads: Collection<Snowflake, ThreadChannel>]`
+
+- **threadMemberUpdate**  
+  `[oldMember: ThreadMember, newMember: ThreadMember]`
+
+- **threadMembersUpdate**  
+  `[oldMembers: Collection<Snowflake, ThreadMember>, mewMembers: Collection<Snowflake, ThreadMember>]`
+
+- **threadUpdate**  
+  `[oldThread: ThreadChannel, newThread: ThreadChannel]`
 
 - **typingStart**  
-  `[Channel | PartialDMChannel, User | PartialUser]`
+  `[channel: Channel | PartialDMChannel, user: User | PartialUser]`
 
 - **userUpdate**  
-  `[User | PartialUser, User | PartialUser]`
+  `[oldUser: User | PartialUser, newUser: User]`
 
 - **voiceStateUpdate**  
-  `[VoiceState, VoiceState]`
+  `[oldState: VoiceState, newState: VoiceState]`
 
 - **webhookUpdate**  
-  `[TextChannel]`
+  `[channel: TextChannel]`
+
+  ```ts
+  // @deprecated Use interactionCreate instead
+  ```
+
+- **interaction**  
+  `[interaction: Interaction]`
+
+- **interactionCreate**  
+  `[interaction: Interaction]`
 
 - **shardDisconnect**  
-  `[CloseEvent, number]`
+  `[closeEvent: CloseEvent, shardId: number]`
 
 - **shardError**  
-  `[Error, number]`
+  `[error: Error, shardId: number]`
 
 - **shardReady**  
-  `[number]`
+  `[shardId: number, unavailableGuilds: Set<Snowflake> | undefined]`
 
 - **shardReconnecting**  
-  `[number]`
+  `[shardId: number]`
 
 - **shardResume**  
-  `[number, number]`
+  `[shardId: number, replayedEvents: number]`
+
+- **stageInstanceCreate**  
+  `[stageInstance: StageInstance]`
+
+- **stageInstanceUpdate**  
+  `[oldStageInstance: StageInstance | null, newStageInstance: StageInstance]`
+
+- **stageInstanceDelete**  
+  `[stageInstance: StageInstance]`
