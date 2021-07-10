@@ -61,7 +61,7 @@ import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js";
 class DiscordBot {
   @Slash("getID")
   getID(
-    @Option("x", "MENTIONABLE")
+    @Option("x", { type: OptionType.MENTIONABLE })
     mentionable: TextChannel | VoiceChannel | ClientUser | Role,
 
     interaction: CommandInteraction
@@ -137,7 +137,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x", "MENTIONABLE")
+    @Option("x", { type: OptionType.MENTIONABLE })
     channel: TextChannel | VoiceChannel | ClientUser | Role,
   )
   ```
