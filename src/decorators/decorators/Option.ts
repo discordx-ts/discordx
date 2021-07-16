@@ -2,9 +2,9 @@ import "reflect-metadata";
 import {
   MetadataStorage,
   DOption,
-  OptionValueType,
   OptionParams,
   Modifier,
+  StringOptionType,
 } from "../..";
 import { DSlash } from "../classes/DSlash";
 
@@ -16,7 +16,7 @@ export function Option(name: string, params?: OptionParams) {
       params?.type ??
       (Reflect.getMetadata("design:paramtypes", target, key)[
         index
-      ] as OptionValueType);
+      ] as StringOptionType);
 
     const option = DOption.create(
       name || key,
