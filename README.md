@@ -6,7 +6,7 @@ But with `discordx` we intend to provide latest upto date package to build bots 
 
 ⚠️ This package is updated daily with discord.js v13 updates. If you are using this package, make sure you keep it up to date.
 
-If you have any issues or feature requests, please open them at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
+If you have any issues or feature requests, Open an issue at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
 
 # New features
 
