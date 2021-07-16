@@ -1,10 +1,12 @@
 # Why discordx?
 
-their are fixes and new features for `discordx#slash` in this package, we have also requested them on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62)
+For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have created fixes and new features. Likewise, We have also requested our fixes and new features on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62).
 
-we are updating this package daily as per discord.js v13 updates. If you are using this package, make sure you keep it upto date in your project or use stable package `discordx`
+But with `discordx` we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, etc.
 
-Thank you, you can open issues or request any feature at github [click here](https://github.com/oceanroleplay/discord.ts/issues)
+⚠️ This package is updated daily with discord.js v13 updates. If you are using this package, make sure you keep it up to date.
+
+If you have any issues or feature requests, please open them at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
 
 # New features
 
@@ -21,10 +23,6 @@ Thank you, you can open issues or request any feature at github [click here](htt
 Maintained by [@oceanroleplay](https://github.com/oceanroleplay)
 
 Package by [@OwenCalvin](https://github.com/OwenCalvin)
-
-# ⚠️ Warning
-
-if you wish to read documentation that is compitable with discordx then read at [oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)
 
 ---
 
@@ -162,3 +160,5 @@ Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx*
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 
 You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/slashx/examples)
+
+# Thank you
