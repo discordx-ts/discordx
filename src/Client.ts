@@ -462,7 +462,7 @@ export class Client extends ClientJS {
 
     getOptionsTree({
       name: interaction.commandName,
-      options: interaction.options,
+      options: Array.from(interaction.options.data.values()),
       type: undefined,
     });
 

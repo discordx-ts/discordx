@@ -128,7 +128,7 @@ export class DSlash extends Method {
   }
 
   getLastNestedOption(
-    options: Map<string, CommandInteractionOption>
+    options: CommandInteractionOption[]
   ): CommandInteractionOption[] {
     const arrOptions = Array.from(options?.values());
 
@@ -140,7 +140,9 @@ export class DSlash extends Method {
   }
 
   parseParams(interaction: CommandInteraction) {
-    const options = this.getLastNestedOption(interaction.options);
+    const options = this.getLastNestedOption(
+      Array.from(interaction.options.data.values())
+    );
 
     return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
