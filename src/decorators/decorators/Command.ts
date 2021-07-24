@@ -9,7 +9,7 @@ export function Command(name: string);
 export function Command(name: string, params: CommandParams);
 export function Command(name?: string, params?: CommandParams) {
   return (target: Object, key: string) => {
-    name = name || key;
+    name = name ?? key;
     name = name.toLocaleLowerCase();
     if (!testName.test(name)) throw Error("invalid command name");
 

@@ -94,12 +94,12 @@ export class DCommand extends Method {
     const cmd = new DCommand();
 
     cmd.name = name.toLowerCase();
-    cmd.description = description || cmd.name;
+    cmd.description = description ?? cmd.name;
     cmd.directMessage = directMessage ?? true;
     cmd.defaultPermission = defaultPermission ?? true;
     cmd.argSplitter = argSplitter ?? " ";
-    cmd.guilds = guilds || Client.slashGuilds;
-    cmd.botIds = botIds || [];
+    cmd.guilds = guilds ?? Client.slashGuilds;
+    cmd.botIds = botIds ?? [];
 
     return cmd;
   }

@@ -73,7 +73,7 @@ export class Decorator {
     from?: Function,
     index?: number
   ) {
-    this._from = from || classRef;
+    this._from = from ?? classRef;
     this._classRef = classRef;
     this._key = key;
     this._method = method as Function;

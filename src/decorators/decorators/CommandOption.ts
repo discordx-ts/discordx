@@ -21,7 +21,7 @@ export function CommandOption(
       ).toLowerCase() as "string" | "number" | "boolean");
 
     const option = DCommandOption.create(
-      name || key,
+      name ?? key,
       type,
       params?.description
     ).decorate(target.constructor, key, target[key], target.constructor, index);

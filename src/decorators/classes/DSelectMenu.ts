@@ -35,8 +35,8 @@ export class DSelectMenu extends Method {
     const menu = new DSelectMenu();
 
     menu.id = id;
-    menu.guilds = guilds || Client.slashGuilds;
-    menu.botIds = botIds || [];
+    menu.guilds = guilds ?? Client.slashGuilds;
+    menu.botIds = botIds ?? [];
 
     return menu;
   }

@@ -110,7 +110,7 @@ export class DOption extends Decorator {
 
   static create(
     name: string,
-    type: OptionValueType,
+    type?: OptionValueType,
     description?: string,
     required?: boolean,
     index?: number
@@ -118,8 +118,8 @@ export class DOption extends Decorator {
     const option = new DOption();
 
     option._name = name.toLowerCase();
-    option._type = type || String;
-    option._description = description || `${name} - ${option.stringType}`;
+    option._type = type ?? String;
+    option._description = description ?? `${name} - ${option.stringType}`;
     option._required =
       required !== undefined ? required : Client.requiredByDefault;
     option._index = index;

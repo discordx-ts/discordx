@@ -32,14 +32,14 @@ export class DCommandOption extends Decorator {
 
   static create(
     name: string,
-    type: "string" | "number" | "boolean",
+    type?: "string" | "number" | "boolean",
     description?: string
   ) {
     const option = new DCommandOption();
 
     option._name = name.toLowerCase();
-    option._type = type || "string";
-    option._description = description || `${name} - ${option.type}`;
+    option._type = type ?? "string";
+    option._description = description ?? `${name} - ${option.type}`;
 
     return option;
   }

@@ -5,7 +5,7 @@ export function Slash(name: string);
 export function Slash(name: string, params: SlashParams);
 export function Slash(name?: string, params?: SlashParams) {
   return (target: Object, key: string) => {
-    name = name || key;
+    name = name ?? key;
     name = name.toLocaleLowerCase();
 
     const slash = DSlash.create(

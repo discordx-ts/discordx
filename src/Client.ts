@@ -155,15 +155,15 @@ export class Client extends ClientJS {
     super(options);
     MetadataStorage.classes = [
       ...MetadataStorage.classes,
-      ...(options?.classes || []),
+      ...(options?.classes ?? []),
     ];
 
     this._silent = !!options?.silent;
-    this.guards = options.guards || [];
+    this.guards = options.guards ?? [];
     this.requiredByDefault = options.requiredByDefault ?? false;
-    this.slashGuilds = options.slashGuilds || [];
-    this._botId = options.botId || "bot";
-    this._prefix = options.prefix || "!";
+    this.slashGuilds = options.slashGuilds ?? [];
+    this._botId = options.botId ?? "bot";
+    this._prefix = options.prefix ?? "!";
   }
 
   /**
@@ -456,7 +456,7 @@ export class Client extends ClientJS {
         option.type === "SUB_COMMAND"
       ) {
         if (option.name) tree.push(option.name);
-        return getOptionsTree(Array.from(option.options?.values() || [])?.[0]);
+        return getOptionsTree(Array.from(option.options?.values() ?? [])?.[0]);
       }
     };
 

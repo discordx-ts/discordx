@@ -95,10 +95,10 @@ export class DSlash extends Method {
     const slash = new DSlash();
 
     slash.name = name.toLowerCase();
-    slash.description = description || slash.name;
+    slash.description = description ?? slash.name;
     slash.defaultPermission = defaultPermission ?? true;
-    slash.guilds = guilds || Client.slashGuilds;
-    slash.botIds = botIds || [];
+    slash.guilds = guilds ?? Client.slashGuilds;
+    slash.botIds = botIds ?? [];
 
     return slash;
   }

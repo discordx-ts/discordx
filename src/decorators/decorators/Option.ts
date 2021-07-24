@@ -19,7 +19,7 @@ export function Option(name: string, params?: OptionParams) {
       ] as StringOptionType);
 
     const option = DOption.create(
-      name || key,
+      name ?? key,
       type,
       params?.description,
       params?.required,

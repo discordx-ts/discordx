@@ -35,8 +35,8 @@ export class DButton extends Method {
     const button = new DButton();
 
     button.id = id;
-    button.guilds = guilds || Client.slashGuilds;
-    button.botIds = botIds || [];
+    button.guilds = guilds ?? Client.slashGuilds;
+    button.botIds = botIds ?? [];
 
     return button;
   }
