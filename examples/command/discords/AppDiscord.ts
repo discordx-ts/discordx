@@ -3,7 +3,8 @@ import { Discord, Command, CommandOption, CommandMessage } from "../../../src";
 @Discord()
 export abstract class commandTest {
   // single whitespace will be used to split options
-  @Command("math", { argSplitter: " ", aliases: ["m"] })
+  // command aliases: !m, !solve
+  @Command("math", { aliases: ["m", "solve"], argSplitter: " " })
   async cmd(
     @CommandOption("num1")
     num1: number, //

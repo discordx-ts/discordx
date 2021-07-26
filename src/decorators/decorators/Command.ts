@@ -14,7 +14,7 @@ export function Command(name?: string, params?: CommandParams) {
     name = name.toLocaleLowerCase();
     if (!testName.test(name)) throw Error("invalid command name");
     if (params?.aliases) {
-      if (params.aliases.every((name) => !testName.test(name))) {
+      if (params.aliases.some((name) => !testName.test(name))) {
         throw Error("invalid command alias");
       }
     }

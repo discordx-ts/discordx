@@ -24,7 +24,7 @@ export class Main {
         const notFoundMessage = await message.reply(
           `invalid command, type ${command.prefix}help to check command list`
         );
-        setTimeout(() => notFoundMessage.delete(), 5005);
+        setTimeout(() => notFoundMessage.delete(), 5000);
       },
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       classes: [
