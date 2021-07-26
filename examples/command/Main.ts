@@ -13,7 +13,7 @@ export class Main {
     this._client = new Client({
       // prefix: "!",
       prefix: async (message) => {
-        // let's use different command for dm
+        // let's use different command prefix for dm
         if (message.channel.type === "DM") return "+";
 
         // common command prefix for all guild

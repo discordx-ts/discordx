@@ -39,7 +39,7 @@ export class Client extends ClientJS {
       ) => Promise<void>);
   private _silent: boolean;
   private static _requiredByDefault = false;
-  private static _slashGuilds: string[] = [];
+  private static _slashGuilds: Snowflake[] = [];
   private static _guards: GuardFunction[] = [];
 
   static get slashGuilds() {
@@ -187,7 +187,7 @@ export class Client extends ClientJS {
     this._silent = !!options?.silent;
     this.guards = options.guards ?? [];
     this.requiredByDefault = options.requiredByDefault ?? false;
-    this.slashGuilds = options.slashGuilds ?? [];
+    this.slashGuilds = options.slashGuilds?.filter((guild) => !!guild) ?? [];
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
     this._notFoundHandler = options.commandNotFoundHandler;
@@ -259,7 +259,7 @@ export class Client extends ClientJS {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
     // # group guild slashes by guildId
-    const guildSlashStorage = new Map<string, DSlash[]>();
+    const guildSlashStorage = new Map<Snowflake, DSlash[]>();
     const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
 
     // group single guild slashes together
@@ -274,8 +274,8 @@ export class Client extends ClientJS {
 
     // run task to add/update/delete slashes for guilds
     guildSlashStorage.forEach(async (slashes, key) => {
-      const guild = await this.guilds.fetch({ guild: key as Snowflake });
-      if (!guild) return console.log("guild not found");
+      const guild = await this.guilds.fetch({ guild: key });
+      if (!guild) return console.log(`${key} guild not found`);
 
       // fetch already registered command
       const existing = await guild.commands.fetch();
@@ -416,9 +416,9 @@ export class Client extends ClientJS {
    * @param guild The guild ID (empty -> globaly)
    * @returns The existing commands
    */
-  async fetchSlash(guildID?: string) {
+  async fetchSlash(guildID?: Snowflake) {
     if (guildID) {
-      const guild = this.guilds.cache.get(guildID as Snowflake);
+      const guild = this.guilds.cache.get(guildID);
       if (!guild) {
         throw new GuildNotFoundError(guildID);
       }
@@ -431,7 +431,7 @@ export class Client extends ClientJS {
    * Clear the Slash commands globaly or for some guilds
    * @param guilds The guild IDs (empty -> globaly)
    */
-  async clearSlashes(...guilds: string[]) {
+  async clearSlashes(...guilds: Snowflake[]) {
     if (guilds.length) {
       await Promise.all(
         guilds.map(async (guild) => {
@@ -440,9 +440,7 @@ export class Client extends ClientJS {
           if (commands && this.guilds.cache !== undefined)
             await Promise.all(
               commands.map(async (value) => {
-                const guildManager = await this.guilds.cache.get(
-                  guild as Snowflake
-                );
+                const guildManager = this.guilds.cache.get(guild);
                 if (guildManager) guildManager.commands.delete(value);
               })
             );
@@ -551,7 +549,8 @@ export class Client extends ClientJS {
       if (
         !button ||
         (button.guilds.length &&
-          !button.guilds.includes(interaction.guild?.id as string)) ||
+          interaction.guild &&
+          !button.guilds.includes(interaction.guild.id)) ||
         (button.botIds.length && !button.botIds.includes(this.botId))
       )
         return console.log(
@@ -567,7 +566,8 @@ export class Client extends ClientJS {
       if (
         !menu ||
         (menu.guilds.length &&
-          !menu.guilds.includes(interaction.guild?.id as string)) ||
+          interaction.guild &&
+          !menu.guilds.includes(interaction.guild.id)) ||
         (menu.botIds.length && !menu.botIds.includes(this.botId))
       )
         return console.log(

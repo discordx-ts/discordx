@@ -1,9 +1,10 @@
+import { Snowflake } from "discord.js";
 import { Client } from "../..";
 import { Method } from "./Method";
 
 export class DButton extends Method {
   private _id: string;
-  private _guilds: string[];
+  private _guilds: Snowflake[];
   private _botIds: string[];
 
   get botIds() {
@@ -27,14 +28,14 @@ export class DButton extends Method {
     this._guilds = value;
   }
 
-  protected constructor(id: string, guilds?: string[], botIds?: string[]) {
+  protected constructor(id: string, guilds?: Snowflake[], botIds?: string[]) {
     super();
     this._id = id;
     this._guilds = guilds ?? Client.slashGuilds;
     this._botIds = botIds ?? [];
   }
 
-  static create(id: string, guilds?: string[], botIds?: string[]) {
+  static create(id: string, guilds?: Snowflake[], botIds?: string[]) {
     return new DButton(id, guilds, botIds);
   }
 

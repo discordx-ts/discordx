@@ -1,9 +1,11 @@
+import { Snowflake } from "discord.js";
+
 export interface CommandParams {
   argSplitter?: string;
   description?: string;
   directMessage?: boolean;
   defaultPermission?: boolean;
-  guilds?: string[];
+  guilds?: Snowflake[];
   botIds?: string[];
   aliases?: string[];
 }

@@ -1,8 +1,9 @@
+import { Snowflake } from "discord.js";
 import { MetadataStorage, DSelectMenu } from "../..";
 
 export function SelectMenu(
   id: string,
-  params?: { guilds?: string[]; botIds?: string[] }
+  params?: { guilds?: Snowflake[]; botIds?: string[] }
 ) {
   return function (target: Record<string, any>, key: string) {
     const button = DSelectMenu.create(

@@ -1,6 +1,8 @@
+import { Snowflake } from "discord.js";
+
 export interface SlashParams {
   description?: string;
   defaultPermission?: boolean;
-  guilds?: string[];
+  guilds?: Snowflake[];
   botIds?: string[];
 }

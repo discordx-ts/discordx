@@ -1,4 +1,4 @@
-import { ApplicationCommandPermissionData } from "discord.js";
+import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
 import { Client } from "../..";
 import { CommandMessage } from "../../types/public/CommandMessage";
 import { DCommandOption } from "./DCommandOption";
@@ -12,7 +12,7 @@ export class DCommand extends Method {
   private _argSplitter: string;
   private _options: DCommandOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
-  private _guilds: string[];
+  private _guilds: Snowflake[];
   private _botIds: string[];
   private _aliases: string[];
 
@@ -92,7 +92,7 @@ export class DCommand extends Method {
     argSplitter?: string,
     directMessage?: boolean,
     defaultPermission?: boolean,
-    guilds?: string[],
+    guilds?: Snowflake[],
     botIds?: string[],
     aliases?: string[]
   ) {
@@ -115,7 +115,7 @@ export class DCommand extends Method {
     argSplitter?: string,
     directMessage?: boolean,
     defaultPermission?: boolean,
-    guilds?: string[],
+    guilds?: Snowflake[],
     botIds?: string[],
     aliases?: string[]
   ) {

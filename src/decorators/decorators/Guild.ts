@@ -1,3 +1,4 @@
+import { Snowflake } from "discord.js";
 import { MetadataStorage, Modifier } from "../..";
 import { ClassMethodDecorator } from "../../types/public/decorators";
 import { DButton } from "../classes/DButton";
@@ -6,9 +7,9 @@ import { DDiscord } from "../classes/DDiscord";
 import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
 
-export function Guild(guildID: string): ClassMethodDecorator;
-export function Guild(...guildIDs: string[]): ClassMethodDecorator;
-export function Guild(...guildIDs: string[]) {
+export function Guild(guildID: Snowflake): ClassMethodDecorator;
+export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator;
+export function Guild(...guildIDs: Snowflake[]) {
   return function (
     target: Record<string, any>,
     key: string,

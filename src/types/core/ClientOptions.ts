@@ -1,4 +1,8 @@
-import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
+import {
+  ClientOptions as DiscordJSClientOptions,
+  Message,
+  Snowflake,
+} from "discord.js";
 import { DCommand } from "../../decorators/classes/DCommand";
 import { GuardFunction } from "../public/GuardFunction";
 
@@ -56,5 +60,5 @@ export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * Set the guilds globaly
    */
-  slashGuilds?: string[];
+  slashGuilds?: Snowflake[];
 }

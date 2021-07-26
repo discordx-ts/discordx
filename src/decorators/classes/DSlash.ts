@@ -3,6 +3,7 @@ import {
   ApplicationCommandPermissionData,
   CommandInteraction,
   CommandInteractionOption,
+  Snowflake,
 } from "discord.js";
 import { DOption, Client } from "../..";
 import { Method } from "./Method";
@@ -13,7 +14,7 @@ export class DSlash extends Method {
   private _defaultPermission: boolean;
   private _options: DOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
-  private _guilds: string[];
+  private _guilds: Snowflake[];
   private _group?: string;
   private _subgroup?: string;
   private _botIds: string[];
@@ -85,7 +86,7 @@ export class DSlash extends Method {
     name: string,
     description?: string,
     defaultPermission?: boolean,
-    guilds?: string[],
+    guilds?: Snowflake[],
     botIds?: string[]
   ) {
     super();
@@ -100,7 +101,7 @@ export class DSlash extends Method {
     name: string,
     description?: string,
     defaultPermission?: boolean,
-    guilds?: string[],
+    guilds?: Snowflake[],
     botIds?: string[]
   ) {
     return new DSlash(name, description, defaultPermission, guilds, botIds);

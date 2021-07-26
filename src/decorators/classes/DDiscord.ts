@@ -2,7 +2,7 @@ import { Decorator } from "./Decorator";
 import { DGuard, DSlash, DIService, DOn } from "../..";
 import { DButton } from "./DButton";
 import { DSelectMenu } from "./DSelectMenu";
-import { ApplicationCommandPermissionData } from "discord.js";
+import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
 import { DCommand } from "./DCommand";
 
 export class DDiscord extends Decorator {
@@ -16,7 +16,7 @@ export class DDiscord extends Decorator {
   private _events: DOn[] = [];
   private _defaultPermission = true;
   private _permissions: ApplicationCommandPermissionData[] = [];
-  private _guilds: string[] = [];
+  private _guilds: Snowflake[] = [];
   private _botIds: string[] = [];
 
   get permissions() {
