@@ -31,6 +31,12 @@ export class Client extends ClientJS {
         message: Message,
         command: { name: string; prefix: string }
       ) => Promise<void>);
+  private _unauthorizedHandler?:
+    | string
+    | ((
+        message: Message,
+        info: { name: string; prefix: string; command: DCommand }
+      ) => Promise<void>);
   private _silent: boolean;
   private static _requiredByDefault = false;
   private static _slashGuilds: string[] = [];
@@ -48,6 +54,13 @@ export class Client extends ClientJS {
   }
   set prefix(value) {
     this._prefix = value;
+  }
+
+  get unauthorizedHandler() {
+    return this._unauthorizedHandler;
+  }
+  set unauthorizedHandler(value) {
+    this._unauthorizedHandler = value;
   }
 
   get notFoundHandler() {
@@ -178,6 +191,7 @@ export class Client extends ClientJS {
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
     this._notFoundHandler = options.commandNotFoundHandler;
+    this._unauthorizedHandler = options.commandUnauthorizedHandler;
   }
 
   /**
@@ -697,14 +711,27 @@ export class Client extends ClientJS {
         (perm) => perm.type === "ROLE"
       );
 
-      const isUserIdAllowed =
+      const isUserIdNotAllowed =
         userPermissions.some((perm) => perm.id === message.member?.id) ||
         rolePermissions.some((perm) =>
           message.member?.roles.cache.has(perm.id)
         );
 
       // user is not allowed to access this command
-      if (isUserIdAllowed) return;
+      if (isUserIdNotAllowed) {
+        if (this.unauthorizedHandler) {
+          if (typeof this.unauthorizedHandler === "string") {
+            message.reply(this.unauthorizedHandler);
+            return;
+          }
+          await this.unauthorizedHandler(message, {
+            name: command.name,
+            prefix,
+            command,
+          });
+        }
+        return;
+      }
     } else {
       // when default perm is off
       const permissions = command.permissions.filter((perm) => perm.permission);
@@ -722,7 +749,20 @@ export class Client extends ClientJS {
         );
 
       // user does not have any permission to access this command
-      if (!isUserIdAllowed) return;
+      if (!isUserIdAllowed) {
+        if (this.unauthorizedHandler) {
+          if (typeof this.unauthorizedHandler === "string") {
+            message.reply(this.unauthorizedHandler);
+            return;
+          }
+          await this.unauthorizedHandler(message, {
+            name: command.name,
+            prefix,
+            command,
+          });
+        }
+        return;
+      }
     }
 
     const msg = message as CommandMessage;

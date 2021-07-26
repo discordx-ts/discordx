@@ -1,4 +1,12 @@
-import { Discord, Command, CommandOption, CommandMessage } from "../../../src";
+import { Snowflake } from "discord.js";
+import {
+  Discord,
+  Command,
+  CommandOption,
+  CommandMessage,
+  DefaultPermission,
+  Permission,
+} from "../../../src";
 
 @Discord()
 export abstract class commandTest {
@@ -39,5 +47,16 @@ export abstract class commandTest {
         break;
     }
     message.reply(`${num1} ${operation} ${num2} = ${out}`);
+  }
+
+  @Command("permcheck", { aliases: ["ptest"] })
+  @DefaultPermission(false)
+  @Permission({
+    id: "462341082919731200" as Snowflake,
+    type: "USER",
+    permission: true,
+  })
+  async permFunc(message: CommandMessage) {
+    message.reply("access granted");
   }
 }

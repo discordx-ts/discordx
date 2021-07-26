@@ -1,4 +1,5 @@
 import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
+import { DCommand } from "../../decorators/classes/DCommand";
 import { GuardFunction } from "../public/GuardFunction";
 
 export interface ClientOptions extends DiscordJSClientOptions {
@@ -20,6 +21,16 @@ export interface ClientOptions extends DiscordJSClientOptions {
     | ((
         message: Message,
         command: { name: string; prefix: string }
+      ) => Promise<void>);
+
+  /**
+   * define bot reply, when command not found
+   */
+  commandUnauthorizedHandler?:
+    | string
+    | ((
+        message: Message,
+        info: { name: string; prefix: string; command: DCommand }
       ) => Promise<void>);
 
   /**
