@@ -47,4 +47,4 @@ class buttonExample {
 ### btn-id
 
 `string`  
-The button id for your handlering button interaction
+The button id for your handling button interaction

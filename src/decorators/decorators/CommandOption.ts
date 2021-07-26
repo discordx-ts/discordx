@@ -4,13 +4,13 @@ import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DCommand } from "../classes/DCommand";
 import { DCommandOption } from "../classes/DCommandOption";
 
-export function CommandOption(name: string): ParameterDecoratorEx;
+export function CommandOption(name?: string): ParameterDecoratorEx;
 export function CommandOption(
   name: string,
-  params: { description?: string; type?: "string" | "number" | "boolean" }
+  params?: { description?: string; type?: "string" | "number" | "boolean" }
 ): ParameterDecoratorEx;
 export function CommandOption(
-  name: string,
+  name?: string,
   params?: { description?: string; type?: "string" | "number" | "boolean" }
 ) {
   return function (target: Record<string, any>, key: string, index: number) {

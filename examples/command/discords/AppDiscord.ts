@@ -59,4 +59,14 @@ export abstract class commandTest {
   async permFunc(message: CommandMessage) {
     message.reply("access granted");
   }
+
+  @Command("hello")
+  async testCommand(
+    @CommandOption() name: string,
+
+    message: CommandMessage
+  ) {
+    if (!name) return message.reply("usage: ``!hello <your name>``");
+    message.reply(`hello ${name}`);
+  }
 }

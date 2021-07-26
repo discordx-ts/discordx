@@ -12,7 +12,7 @@ const cortana = new Client({
 });
 
 @Discord()
-@Bot("alexa") // now define, which bot can execute following slashes, events or commands
+@Bot("alexa", "cortana") // now define, which bot can execute following slashes, events or commands
 class simpleCommandExample {
   @Command("hello")
   command(message: Message) {
