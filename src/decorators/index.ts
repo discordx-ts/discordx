@@ -18,7 +18,6 @@ export * from "./decorators/SelectMenu";
 export * from "./decorators/Command";
 export * from "./decorators/CommandOption";
 
-export * from "./params/DiscordParams";
 export * from "./params/OptionParams";
 export * from "./params/SlashParams";
 
