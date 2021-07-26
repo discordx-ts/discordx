@@ -82,15 +82,24 @@ Be aware that if you compile your code into JavaScript with `tsc` you have to sp
 ```ts
 const client = new Client({
   botId: "test",
+  // prefix: "!",
+  prefix: async (message: Message) => {
+    return "!";
+  },
   // glob string to load the classes
   classes: [
-    `${__dirname}/*Discord.ts`, // If you use ts-node
-    `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js
+    `${__dirname}/comamnds/**/*.discord.{js,ts}`,
+    `${__dirname}/events/**/*.discord.{js,ts}`,
+  ],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS,
   ],
   silent: false,
-  // At instanciation
-  guards: [NotBot, Prefix("!")],
 });
+
+client.login(BOT_TOKEN);
 ```
 
 :::
