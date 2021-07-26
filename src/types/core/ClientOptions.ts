@@ -24,7 +24,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
       ) => Promise<void>);
 
   /**
-   * define bot reply, when command not found
+   * define bot reply, when command is not auhorized
    */
   commandUnauthorizedHandler?:
     | string
