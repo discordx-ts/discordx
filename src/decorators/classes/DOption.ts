@@ -8,7 +8,7 @@ import {
   User,
   VoiceChannel,
 } from "discord.js";
-import { Decorator } from "../classes/Decorator";
+import { Decorator } from "./Decorator";
 import {
   DChoice,
   Client,

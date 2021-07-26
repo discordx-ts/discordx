@@ -1,14 +1,15 @@
 import { MetadataStorage } from "../..";
+import { MethodDecoratorEx } from "../../types/public/decorators";
 import { DCommand } from "../classes/DCommand";
 import { CommandParams } from "../params/CommandParams";
 
 const testName = RegExp(/^[a-z0-9]+$/);
 
-export function Command();
-export function Command(name: string);
-export function Command(name: string, params: CommandParams);
+export function Command(): MethodDecoratorEx;
+export function Command(name: string): MethodDecoratorEx;
+export function Command(name: string, params: CommandParams): MethodDecoratorEx;
 export function Command(name?: string, params?: CommandParams) {
-  return (target: Object, key: string) => {
+  return function (target: Record<string, any>, key: string) {
     name = name ?? key;
     name = name.toLocaleLowerCase();
     if (!testName.test(name)) throw Error("invalid command name");

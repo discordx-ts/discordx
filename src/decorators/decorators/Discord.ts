@@ -6,8 +6,11 @@ import { MetadataStorage, DDiscord } from "../..";
  */
 
 export function Discord() {
-  return (target: Function) => {
-    const instance = DDiscord.create(target.name).decorate(target, target.name);
+  return function (target: Record<string, any>) {
+    const instance = DDiscord.create(target.name).decorate(
+      target.constructor,
+      target.name
+    );
     MetadataStorage.instance.addDiscord(instance);
   };
 }

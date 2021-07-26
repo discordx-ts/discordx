@@ -1,10 +1,10 @@
 import { MetadataStorage, DSlash, SlashParams } from "../..";
+import { MethodDecoratorEx } from "../../types/public/decorators";
 
-export function Slash();
-export function Slash(name: string);
-export function Slash(name: string, params: SlashParams);
+export function Slash(name?: string): MethodDecoratorEx;
+export function Slash(name?: string, params?: SlashParams): MethodDecoratorEx;
 export function Slash(name?: string, params?: SlashParams) {
-  return (target: Object, key: string) => {
+  return function (target: Record<string, any>, key: string) {
     name = name ?? key;
     name = name.toLocaleLowerCase();
 

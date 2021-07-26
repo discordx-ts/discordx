@@ -6,17 +6,24 @@ import {
   Modifier,
   StringOptionType,
 } from "../..";
+import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DSlash } from "../classes/DSlash";
 
-export function Option(name: string);
-export function Option(name: string, params: OptionParams);
+export function Option(name: string): ParameterDecoratorEx;
+export function Option(
+  name: string,
+  params: OptionParams
+): ParameterDecoratorEx;
 export function Option(name: string, params?: OptionParams) {
-  return (target: Object, key: string, index: number) => {
-    const type =
+  return (target: Record<string, any>, key: string, index: number) => {
+    const type: StringOptionType | "OBJECT" =
       params?.type ??
-      (Reflect.getMetadata("design:paramtypes", target, key)[
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      ((Reflect.getMetadata("design:paramtypes", target, key) as Function[])[
         index
-      ] as StringOptionType);
+      ].name.toUpperCase() as StringOptionType | "OBJECT");
+
+    if (type === "OBJECT") throw Error("invalid option type");
 
     const option = DOption.create(
       name ?? key,

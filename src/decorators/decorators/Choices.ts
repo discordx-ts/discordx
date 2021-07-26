@@ -5,10 +5,11 @@ import {
   Modifier,
   ChoicesType,
 } from "../..";
+import { ParameterDecoratorEx } from "../../types/public/decorators";
 
-export function Choices(choices: ChoicesType);
+export function Choices(choices: ChoicesType): ParameterDecoratorEx;
 export function Choices(choices: ChoicesType) {
-  return (target: Object, key: string, index: number) => {
+  return function (target: Record<string, any>, key: string, index: number) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DOption>((original) => {
         const arrayChoices = Object.keys(choices).map((key) => {

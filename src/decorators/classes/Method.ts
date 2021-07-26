@@ -56,7 +56,7 @@ export abstract class Method extends Decorator {
    * Define how to parse the params
    * @param params The params to parse
    */
-  abstract parseParams(...params: any[]);
+  abstract parseParams(...params: any[]): any[];
 
   /**
    * Execute a guard with params
@@ -71,7 +71,7 @@ export abstract class Method extends Decorator {
         // If it's the main method
         res = await (guardToExecute.fn as any)(
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
-          ...this.parseParams(...(params as any)),
+          ...this.parseParams(...params),
           ...params,
           paramsToNext
         );

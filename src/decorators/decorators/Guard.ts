@@ -15,11 +15,11 @@ import { DSlash } from "../classes/DSlash";
 export function Guard<Type = any, DatasType = any>(
   ...fns: GuardFunction<Type, DatasType>[]
 ) {
-  return (
-    target: Function | Object,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
-  ): void => {
+  ) {
     const guards = fns.map((fn) => {
       return DGuard.create(fn).decorateUnknown(target, key, descriptor);
     });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { DecoratorUtils } from "../../logic";
 
 export class Decorator {
@@ -38,12 +39,8 @@ export class Decorator {
     return !!this._method;
   }
 
-  protected constructor() {
-    // empty constructor
-  }
-
   decorateUnknown(
-    classRef: Function | Object,
+    classRef: Record<string, any>,
     key?: string,
     method?: PropertyDescriptor,
     index?: number
@@ -51,15 +48,13 @@ export class Decorator {
     const decorateAClass =
       DecoratorUtils.decorateAClass(method) && index === undefined;
 
-    const finalClassRef: Function = decorateAClass
-      ? (classRef as Function)
-      : classRef.constructor;
-    const finalKey = decorateAClass ? finalClassRef.name : key;
+    const finalClassRef: Function = classRef.constructor;
+    const finalKey = key ?? finalClassRef.name;
     const finalMethod = decorateAClass ? finalClassRef : method?.value;
 
     return this.decorate(
       finalClassRef,
-      finalKey as string,
+      finalKey,
       finalMethod,
       finalClassRef,
       index
@@ -78,13 +73,6 @@ export class Decorator {
     this._key = key;
     this._method = method as Function;
     this._index = index as number;
-
-    this.update();
-
     return this;
-  }
-
-  update() {
-    // empty function
   }
 }

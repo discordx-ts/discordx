@@ -1,13 +1,22 @@
 import { ApplicationCommandPermissionData } from "discord.js";
 import { MetadataStorage, Modifier } from "../..";
+import { ClassMethodDecorator } from "../../types/public/decorators";
 import { DCommand } from "../classes/DCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DSlash } from "../classes/DSlash";
 
-export function Permission(permission: ApplicationCommandPermissionData);
-export function Permission(...permission: ApplicationCommandPermissionData[]);
+export function Permission(
+  permission: ApplicationCommandPermissionData
+): ClassMethodDecorator;
+export function Permission(
+  ...permission: ApplicationCommandPermissionData[]
+): ClassMethodDecorator;
 export function Permission(...permission: ApplicationCommandPermissionData[]) {
-  return (target: Object, key: string, descriptor: PropertyDescriptor) => {
+  return function (
+    target: Record<string, any>,
+    key: string,
+    descriptor: PropertyDescriptor
+  ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DCommand | DDiscord>(
         (original) => {

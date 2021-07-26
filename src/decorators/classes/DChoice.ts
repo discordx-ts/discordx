@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionChoice } from "discord.js";
-import { Decorator } from "../classes/Decorator";
+import { Decorator } from "./Decorator";
 
 export class DChoice extends Decorator {
   private _name!: string;

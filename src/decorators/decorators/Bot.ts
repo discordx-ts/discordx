@@ -1,4 +1,5 @@
 import { MetadataStorage, Modifier } from "../..";
+import { ClassMethodDecorator } from "../../types/public/decorators";
 import { DButton } from "../classes/DButton";
 import { DCommand } from "../classes/DCommand";
 import { DDiscord } from "../classes/DDiscord";
@@ -6,14 +7,14 @@ import { DOn } from "../classes/DOn";
 import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
 
-export function Bot(botID: string);
-export function Bot(...botIDs: string[]);
+export function Bot(botID: string): ClassMethodDecorator;
+export function Bot(...botIDs: string[]): ClassMethodDecorator;
 export function Bot(...botIDs: string[]) {
-  return (
-    target: Function,
-    key: string,
-    descriptor: PropertyDescriptor
-  ): void => {
+  return function (
+    target: Record<string, any>,
+    key?: string,
+    descriptor?: PropertyDescriptor
+  ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
         DSlash | DCommand | DDiscord | DButton | DSelectMenu | DOn

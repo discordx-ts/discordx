@@ -215,12 +215,9 @@ export class Client extends ClientJS {
 
     this.decorators.usedEvents.map(async (on) => {
       if (on.once) {
-        this.once(
-          on.event as any,
-          this.decorators.trigger(on.event, this, true)
-        );
+        this.once(on.event, this.decorators.trigger(on.event, this, true));
       } else {
-        this.on(on.event as any, this.decorators.trigger(on.event, this));
+        this.on(on.event, this.decorators.trigger(on.event, this));
       }
     });
 
@@ -447,7 +444,9 @@ export class Client extends ClientJS {
   getInteractionGroupTree(interaction: CommandInteraction) {
     const tree: string[] = [];
 
-    const getOptionsTree = (option: Partial<CommandInteractionOption>) => {
+    const getOptionsTree = (
+      option: Partial<CommandInteractionOption>
+    ): void => {
       if (!option) return;
 
       if (

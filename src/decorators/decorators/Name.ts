@@ -1,13 +1,12 @@
 import { MetadataStorage, DSlash, Modifier, DDiscord } from "../..";
 import { DCommand } from "../classes/DCommand";
 
-export function Name(name: string);
 export function Name(name: string) {
-  return (
-    target: Function,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
-  ): void => {
+  ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DCommand | DDiscord>(
         (original) => {

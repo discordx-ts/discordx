@@ -2,9 +2,9 @@ import { MetadataStorage, DSelectMenu } from "../..";
 
 export function SelectMenu(
   id: string,
-  params?: { guilds?: string[]; botIds?: [] }
+  params?: { guilds?: string[]; botIds?: string[] }
 ) {
-  return (target: Object, key: string) => {
+  return function (target: Record<string, any>, key: string) {
     const button = DSelectMenu.create(
       id,
       params?.guilds,

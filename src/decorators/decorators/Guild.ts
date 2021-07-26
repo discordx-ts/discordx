@@ -1,18 +1,19 @@
 import { MetadataStorage, Modifier } from "../..";
+import { ClassMethodDecorator } from "../../types/public/decorators";
 import { DButton } from "../classes/DButton";
 import { DCommand } from "../classes/DCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DSelectMenu } from "../classes/DSelectMenu";
 import { DSlash } from "../classes/DSlash";
 
-export function Guild(guildID: string);
-export function Guild(...guildIDs: string[]);
+export function Guild(guildID: string): ClassMethodDecorator;
+export function Guild(...guildIDs: string[]): ClassMethodDecorator;
 export function Guild(...guildIDs: string[]) {
-  return (
-    target: Function,
+  return function (
+    target: Record<string, any>,
     key: string,
     descriptor: PropertyDescriptor
-  ): void => {
+  ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DCommand | DDiscord | DButton | DSelectMenu>(
         (original) => {

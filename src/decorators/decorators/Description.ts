@@ -1,14 +1,15 @@
 import { MetadataStorage, Modifier } from "../..";
+import { MethodDecoratorEx } from "../../types/public/decorators";
 import { DCommand } from "../classes/DCommand";
 import { DSlash } from "../classes/DSlash";
 
-export function Description(description: string);
+export function Description(description: string): MethodDecoratorEx;
 export function Description(description: string) {
-  return (
-    target: Object,
+  return function (
+    target: Record<string, any>,
     key: string,
     descriptor: PropertyDescriptor
-  ): void => {
+  ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DCommand>(
         (original) => {
