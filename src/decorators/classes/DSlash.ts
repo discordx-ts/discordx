@@ -8,15 +8,15 @@ import { DOption, Client } from "../..";
 import { Method } from "./Method";
 
 export class DSlash extends Method {
-  private _description!: string;
-  private _name!: string;
-  private _defaultPermission!: boolean;
+  private _name: string;
+  private _description: string;
+  private _defaultPermission: boolean;
   private _options: DOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
-  private _guilds!: string[];
-  private _group!: string;
-  private _subgroup!: string;
-  private _botIds!: string[];
+  private _guilds: string[];
+  private _group?: string;
+  private _subgroup?: string;
+  private _botIds: string[];
 
   get botIds() {
     return this._botIds;
@@ -81,8 +81,19 @@ export class DSlash extends Method {
     this._options = value;
   }
 
-  protected constructor() {
+  protected constructor(
+    name: string,
+    description?: string,
+    defaultPermission?: boolean,
+    guilds?: string[],
+    botIds?: string[]
+  ) {
     super();
+    this._name = name.toLowerCase();
+    this._description = description ?? this.name;
+    this._defaultPermission = defaultPermission ?? true;
+    this._guilds = guilds ?? Client.slashGuilds;
+    this._botIds = botIds ?? [];
   }
 
   static create(
@@ -92,15 +103,7 @@ export class DSlash extends Method {
     guilds?: string[],
     botIds?: string[]
   ) {
-    const slash = new DSlash();
-
-    slash.name = name.toLowerCase();
-    slash.description = description ?? slash.name;
-    slash.defaultPermission = defaultPermission ?? true;
-    slash.guilds = guilds ?? Client.slashGuilds;
-    slash.botIds = botIds ?? [];
-
-    return slash;
+    return new DSlash(name, description, defaultPermission, guilds, botIds);
   }
 
   toSubCommand() {

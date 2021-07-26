@@ -6,14 +6,14 @@ import { ApplicationCommandPermissionData } from "discord.js";
 import { DCommand } from "./DCommand";
 
 export class DDiscord extends Decorator {
+  private _name: string;
+  private _description: string;
   private _guards: DGuard[] = [];
   private _buttons: DButton[] = [];
   private _selectMenus: DSelectMenu[] = [];
   private _slashes: DSlash[] = [];
   private _commands: DCommand[] = [];
   private _events: DOn[] = [];
-  private _description!: string;
-  private _name!: string;
   private _defaultPermission = true;
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: string[] = [];
@@ -107,15 +107,13 @@ export class DDiscord extends Decorator {
     return DIService.instance.getService(this.from);
   }
 
-  protected constructor() {
+  protected constructor(name: string, description?: string) {
     super();
+    this._name = name;
+    this._description = description ?? name;
   }
 
-  static create(name: string) {
-    const discord = new DDiscord();
-
-    discord.name = name;
-
-    return discord;
+  static create(name: string, description?: string) {
+    return new DDiscord(name, description);
   }
 }

@@ -1,9 +1,9 @@
 import { Decorator } from "./Decorator";
 
 export class DCommandOption extends Decorator {
-  private _name!: string;
-  private _description!: string;
-  private _type!: "string" | "number" | "boolean";
+  private _name: string;
+  private _description: string;
+  private _type: "string" | "number" | "boolean";
 
   get name() {
     return this._name;
@@ -26,8 +26,15 @@ export class DCommandOption extends Decorator {
     this._description = value;
   }
 
-  protected constructor() {
+  protected constructor(
+    name: string,
+    type?: "string" | "number" | "boolean",
+    description?: string
+  ) {
     super();
+    this._name = name;
+    this._description = description ?? `${name} - ${this.type}`;
+    this._type = type ?? "string";
   }
 
   static create(
@@ -35,12 +42,6 @@ export class DCommandOption extends Decorator {
     type?: "string" | "number" | "boolean",
     description?: string
   ) {
-    const option = new DCommandOption();
-
-    option._name = name.toLowerCase();
-    option._type = type ?? "string";
-    option._description = description ?? `${name} - ${option.type}`;
-
-    return option;
+    return new DCommandOption(name, type, description);
   }
 }

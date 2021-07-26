@@ -2,9 +2,9 @@ import { Client } from "../..";
 import { Method } from "./Method";
 
 export class DSelectMenu extends Method {
-  private _id!: string;
-  private _guilds!: string[];
-  private _botIds!: string[];
+  private _id: string;
+  private _guilds: string[];
+  private _botIds: string[];
 
   get botIds() {
     return this._botIds;
@@ -27,18 +27,15 @@ export class DSelectMenu extends Method {
     this._guilds = value;
   }
 
-  protected constructor() {
+  protected constructor(id: string, guilds?: string[], botIds?: string[]) {
     super();
+    this._id = id;
+    this._guilds = guilds ?? Client.slashGuilds;
+    this._botIds = botIds ?? [];
   }
 
   static create(id: string, guilds?: string[], botIds?: string[]) {
-    const menu = new DSelectMenu();
-
-    menu.id = id;
-    menu.guilds = guilds ?? Client.slashGuilds;
-    menu.botIds = botIds ?? [];
-
-    return menu;
+    return new DSelectMenu(id, guilds, botIds);
   }
 
   parseParams() {

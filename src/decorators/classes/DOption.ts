@@ -19,9 +19,9 @@ import {
 
 export class DOption extends Decorator {
   private _required = false;
-  private _name!: string;
-  private _type!: OptionValueType;
-  private _description!: string;
+  private _name: string;
+  private _description: string;
+  private _type: OptionValueType;
   private _choices: DChoice[] = [];
   private _options: DOption[] = [];
   private _isNode = false;
@@ -104,8 +104,21 @@ export class DOption extends Decorator {
     }
   }
 
-  protected constructor() {
+  protected constructor(
+    name: string,
+    type?: OptionValueType,
+    description?: string,
+    required?: boolean,
+    index?: number
+  ) {
     super();
+
+    this._name = name.toLowerCase();
+    this._type = type ?? String;
+    this._description = description ?? `${name} - ${this.stringType}`;
+    this._required =
+      required !== undefined ? required : Client.requiredByDefault;
+    this._index = index;
   }
 
   static create(
@@ -115,16 +128,7 @@ export class DOption extends Decorator {
     required?: boolean,
     index?: number
   ) {
-    const option = new DOption();
-
-    option._name = name.toLowerCase();
-    option._type = type ?? String;
-    option._description = description ?? `${name} - ${option.stringType}`;
-    option._required =
-      required !== undefined ? required : Client.requiredByDefault;
-    option._index = index;
-
-    return option;
+    return new DOption(name, type, description, required, index);
   }
 
   toObject(): ApplicationCommandOptionData {

@@ -5,15 +5,15 @@ import { DCommandOption } from "./DCommandOption";
 import { Method } from "./Method";
 
 export class DCommand extends Method {
-  private _description!: string;
-  private _name!: string;
-  private _defaultPermission!: boolean;
-  private _directMessage!: boolean;
-  private _argSplitter!: string;
+  private _description: string;
+  private _name: string;
+  private _defaultPermission: boolean;
+  private _directMessage: boolean;
+  private _argSplitter: string;
   private _options: DCommandOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
-  private _guilds!: string[];
-  private _botIds!: string[];
+  private _guilds: string[];
+  private _botIds: string[];
 
   get botIds() {
     return this._botIds;
@@ -78,8 +78,25 @@ export class DCommand extends Method {
     this._options = value;
   }
 
-  protected constructor() {
+  protected constructor(
+    name: string,
+    description?: string,
+    argSplitter?: string,
+    directMessage?: boolean,
+    defaultPermission?: boolean,
+    guilds?: string[],
+    botIds?: string[]
+  ) {
     super();
+    this._name = name.toLowerCase();
+    this._description = description ?? this.name;
+    this._defaultPermission = defaultPermission ?? true;
+    this._directMessage = directMessage ?? true;
+    this._argSplitter = argSplitter ?? " ";
+    this._options = [];
+    this._permissions = [];
+    this._guilds = guilds ?? Client.slashGuilds;
+    this._botIds = botIds ?? [];
   }
 
   static create(
@@ -91,17 +108,15 @@ export class DCommand extends Method {
     guilds?: string[],
     botIds?: string[]
   ) {
-    const cmd = new DCommand();
-
-    cmd.name = name.toLowerCase();
-    cmd.description = description ?? cmd.name;
-    cmd.directMessage = directMessage ?? true;
-    cmd.defaultPermission = defaultPermission ?? true;
-    cmd.argSplitter = argSplitter ?? " ";
-    cmd.guilds = guilds ?? Client.slashGuilds;
-    cmd.botIds = botIds ?? [];
-
-    return cmd;
+    return new DCommand(
+      name,
+      description,
+      argSplitter,
+      directMessage,
+      defaultPermission,
+      guilds,
+      botIds
+    );
   }
 
   parseParams(message: CommandMessage) {

@@ -6,23 +6,23 @@ export type ModifyFunction<ToModify extends Decorator> = (
 ) => any;
 
 export class Modifier<ToModify extends Decorator> extends Decorator {
-  private _toModify!: ModifyFunction<ToModify>;
-  private _modifyTypes!: any[];
+  private _toModify: ModifyFunction<ToModify>;
+  private _modifyTypes: any[];
 
-  protected constructor() {
+  protected constructor(
+    toModify: ModifyFunction<ToModify>,
+    modifyTypes: any[]
+  ) {
     super();
+    this._toModify = toModify;
+    this._modifyTypes = modifyTypes;
   }
 
   static create<ToModify extends Decorator>(
     toModify: ModifyFunction<ToModify>,
     ...modifyTypes: any[]
   ) {
-    const modifier = new Modifier<ToModify>();
-
-    modifier._toModify = toModify;
-    modifier._modifyTypes = modifyTypes;
-
-    return modifier;
+    return new Modifier<ToModify>(toModify, modifyTypes);
   }
 
   /**
@@ -44,7 +44,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
 
         // Filter the linked objects to match the target types of modification
         linked = linked.filter((l) =>
-          modifier._modifyTypes.includes((l as Object).constructor)
+          modifier._modifyTypes.includes(l.constructor)
         );
 
         // Apply the modifications
