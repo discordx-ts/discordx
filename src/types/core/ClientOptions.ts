@@ -13,6 +13,16 @@ export interface ClientOptions extends DiscordJSClientOptions {
   prefix?: string | ((message: Message) => Promise<string>);
 
   /**
+   * define bot reply, when command not found
+   */
+  commandNotFoundHandler?:
+    | string
+    | ((
+        message: Message,
+        command: { name: string; prefix: string }
+      ) => Promise<void>);
+
+  /**
    * Do not log anything in the console
    */
   silent?: boolean;

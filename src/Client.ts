@@ -25,6 +25,12 @@ import { CommandMessage } from "./types/public/CommandMessage";
 export class Client extends ClientJS {
   private _botId: string;
   private _prefix: string | ((message: Message) => Promise<string>);
+  private _notFoundHandler?:
+    | string
+    | ((
+        message: Message,
+        command: { name: string; prefix: string }
+      ) => Promise<void>);
   private _silent: boolean;
   private static _requiredByDefault = false;
   private static _slashGuilds: string[] = [];
@@ -42,6 +48,13 @@ export class Client extends ClientJS {
   }
   set prefix(value) {
     this._prefix = value;
+  }
+
+  get notFoundHandler() {
+    return this._notFoundHandler;
+  }
+  set notFoundHandler(value) {
+    this._notFoundHandler = value;
   }
 
   get botId() {
@@ -164,6 +177,7 @@ export class Client extends ClientJS {
     this.slashGuilds = options.slashGuilds ?? [];
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
+    this._notFoundHandler = options.commandNotFoundHandler;
   }
 
   /**
@@ -634,12 +648,24 @@ export class Client extends ClientJS {
     if (!commandInfo.isCommand) return;
 
     const command = this.commands.find(
-      (cmd) => cmd.name === commandInfo.commandName
+      (cmd) =>
+        cmd.name === commandInfo.commandName ||
+        cmd.aliases.includes(commandInfo.commandName)
     );
 
     if (!command) {
       if (!this.silent) {
         console.log("command not found:", commandInfo.commandName);
+      }
+      if (this.notFoundHandler) {
+        if (typeof this.notFoundHandler === "string") {
+          message.reply(this.notFoundHandler);
+        } else {
+          await this.notFoundHandler(message, {
+            name: commandInfo.commandName,
+            prefix,
+          });
+        }
       }
       return;
     }

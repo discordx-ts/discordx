@@ -14,6 +14,14 @@ export class DCommand extends Method {
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: string[];
   private _botIds: string[];
+  private _aliases: string[];
+
+  get aliases() {
+    return this._aliases;
+  }
+  set aliases(value) {
+    this._aliases = value;
+  }
 
   get botIds() {
     return this._botIds;
@@ -85,7 +93,8 @@ export class DCommand extends Method {
     directMessage?: boolean,
     defaultPermission?: boolean,
     guilds?: string[],
-    botIds?: string[]
+    botIds?: string[],
+    aliases?: string[]
   ) {
     super();
     this._name = name.toLowerCase();
@@ -97,6 +106,7 @@ export class DCommand extends Method {
     this._permissions = [];
     this._guilds = guilds ?? Client.slashGuilds;
     this._botIds = botIds ?? [];
+    this._aliases = aliases ?? [];
   }
 
   static create(
@@ -106,7 +116,8 @@ export class DCommand extends Method {
     directMessage?: boolean,
     defaultPermission?: boolean,
     guilds?: string[],
-    botIds?: string[]
+    botIds?: string[],
+    aliases?: string[]
   ) {
     return new DCommand(
       name,
@@ -115,7 +126,8 @@ export class DCommand extends Method {
       directMessage,
       defaultPermission,
       guilds,
-      botIds
+      botIds,
+      aliases
     );
   }
 

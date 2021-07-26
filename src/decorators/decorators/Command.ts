@@ -13,6 +13,11 @@ export function Command(name?: string, params?: CommandParams) {
     name = name ?? key;
     name = name.toLocaleLowerCase();
     if (!testName.test(name)) throw Error("invalid command name");
+    if (params?.aliases) {
+      if (params.aliases.every((name) => !testName.test(name))) {
+        throw Error("invalid command alias");
+      }
+    }
 
     const cmd = DCommand.create(
       name,
@@ -21,7 +26,8 @@ export function Command(name?: string, params?: CommandParams) {
       params?.directMessage,
       params?.defaultPermission,
       params?.guilds,
-      params?.botIds
+      params?.botIds,
+      params?.aliases
     ).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addCommand(cmd);

@@ -5,4 +5,5 @@ export interface CommandParams {
   defaultPermission?: boolean;
   guilds?: string[];
   botIds?: string[];
+  aliases?: string[];
 }

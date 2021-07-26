@@ -1,17 +1,9 @@
-import {
-  Discord,
-  Command,
-  CommandOption,
-  CommandMessage,
-  DefaultPermission,
-} from "../../../src";
+import { Discord, Command, CommandOption, CommandMessage } from "../../../src";
 
 @Discord()
-@DefaultPermission(false)
 export abstract class commandTest {
   // single whitespace will be used to split options
-  @Command("math", { argSplitter: " " })
-  @DefaultPermission(false)
+  @Command("math", { argSplitter: " ", aliases: ["m"] })
   async cmd(
     @CommandOption("num1")
     num1: number, //

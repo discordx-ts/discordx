@@ -11,18 +11,34 @@ export class Main {
 
   static async start() {
     this._client = new Client({
+      // prefix: "!",
+      prefix: async (message) => {
+        // let's use different command for dm
+        if (message.channel.type === "DM") return "+";
+
+        // commong command for all guild
+        return "!";
+      },
+      // commandNotFoundHandler: "invalid command",
+      commandNotFoundHandler: async (message, command) => {
+        const notFoundMessage = await message.reply(
+          `invalid command, type ${command.prefix}help to check command list`
+        );
+        setTimeout(() => notFoundMessage.delete(), 5005);
+      },
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       classes: [
         `${__dirname}/discords/*.ts`, // glob string to load the classes
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
       // slashGuilds: [YOUR_GUILD_ID],
+      silent: true,
       requiredByDefault: true,
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
-    await this._client.login("YOU_TOKEN");
+    await this._client.login(process.env.BOT_TOKEN);
 
     this._client.on("messageCreate", (message) => {
       this._client.executeCommand(message);
