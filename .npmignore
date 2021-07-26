@@ -3,6 +3,8 @@
 .vscode
 .eslintrc
 .prettierrc.json
+package-lock.json
+yarn.lock
 jest.config.js
 publish.sh
 tsconfig.json

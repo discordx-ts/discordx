@@ -2,6 +2,7 @@ node_modules
 build
 test
 package-lock.json
+yarn.lock
 .DS_Store
 docs/src/.vuepress/dist
 publish-doc.bat
