@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { DecoratorUtils } from "../../logic";
 
 export class Decorator {
-  protected _classRef!: Function;
-  protected _from!: Function;
+  protected _classRef!: Record<string, any>;
+  protected _from!: Record<string, any>;
   protected _key!: string;
-  protected _method!: Function;
-  protected _index: number | undefined = undefined;
+  protected _method?: Record<string, any>;
+  protected _index?: number = undefined;
 
   get index() {
     return this._index;
@@ -15,7 +14,7 @@ export class Decorator {
   get classRef() {
     return this._classRef;
   }
-  set classRef(value: Function) {
+  set classRef(value: Record<string, any>) {
     this._classRef = value;
     this.from = value;
   }
@@ -23,7 +22,7 @@ export class Decorator {
   get from() {
     return this._from;
   }
-  set from(value: Function) {
+  set from(value: Record<string, any>) {
     this._from = value;
   }
 
@@ -48,8 +47,10 @@ export class Decorator {
     const decorateAClass =
       DecoratorUtils.decorateAClass(method) && index === undefined;
 
-    const finalClassRef: Function = classRef.constructor;
-    const finalKey = key ?? finalClassRef.name;
+    const finalClassRef: Record<string, any> = decorateAClass
+      ? classRef
+      : classRef.constructor;
+    const finalKey = decorateAClass ? finalClassRef.name : key;
     const finalMethod = decorateAClass ? finalClassRef : method?.value;
 
     return this.decorate(
@@ -62,16 +63,16 @@ export class Decorator {
   }
 
   decorate(
-    classRef: Function,
+    classRef: Record<string, any>,
     key: string,
-    method?: Function,
-    from?: Function,
+    method?: Record<string, any>,
+    from?: Record<string, any>,
     index?: number
   ) {
     this._from = from ?? classRef;
     this._classRef = classRef;
     this._key = key;
-    this._method = method as Function;
+    this._method = method;
     this._index = index as number;
     return this;
   }

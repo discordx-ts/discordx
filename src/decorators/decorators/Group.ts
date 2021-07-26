@@ -26,40 +26,36 @@ export function Group(
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
-    // Detect the type of parameters for overloading
-    if (typeof groupOrSubcommands === "string") {
-      const groupName = groupOrSubcommands.toLocaleLowerCase();
-      const groupDescription =
-        typeof subCommandsOrDescription === "string"
-          ? subCommandsOrDescription
-          : undefined;
+    if (typeof groupOrSubcommands === "string" && key) {
+      // If @Group decorate a method edit the method and add it to subgroup
+      MetadataStorage.instance.addModifier(
+        Modifier.create<DSlash>((original) => {
+          original.subgroup = groupOrSubcommands.toLowerCase();
+        }, DSlash).decorate(target.constructor, key)
+      );
+    }
 
-      // Add the group to groups if @Group decorate a class
-      if (!descriptor) {
-        const group = DGroup.create<DSlash>(groupName, {
-          description: groupDescription,
-        }).decorate(target.constructor, target.name);
-
+    if (!descriptor) {
+      if (typeof groupOrSubcommands === "string") {
+        const group = DGroup.create<DSlash>(groupOrSubcommands, {
+          description:
+            typeof subCommandsOrDescription === "string"
+              ? subCommandsOrDescription
+              : undefined,
+        }).decorate(target, key ?? target.name);
         MetadataStorage.instance.addGroup(group);
-      } else {
-        MetadataStorage.instance.addModifier(
-          Modifier.create<DSlash>((original) => {
-            original.subgroup = groupName;
-          }, DSlash).decorate(
-            target.constructor,
-            key ?? target.constructor.name
-          )
-        );
       }
-    } else {
-      // Create a subgroup if @Group decorate a method
-      Object.keys(groupOrSubcommands).forEach((key) => {
-        const group = DGroup.create<DOption>(key, {
-          description: subCommands?.[key],
-        }).decorate(target.constructor, target.name);
 
-        MetadataStorage.instance.addSubGroup(group);
-      });
+      // Create a subgroup if @Group decorate a method
+      if (subCommands) {
+        Object.keys(subCommands).forEach((key) => {
+          const group = DGroup.create<DOption>(key, {
+            description: subCommands?.[key],
+          }).decorate(target, target.name);
+
+          MetadataStorage.instance.addSubGroup(group);
+        });
+      }
     }
   };
 }

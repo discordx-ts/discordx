@@ -16,14 +16,12 @@ export function Option(
 ): ParameterDecoratorEx;
 export function Option(name: string, params?: OptionParams) {
   return (target: Record<string, any>, key: string, index: number) => {
-    const type: StringOptionType | "OBJECT" =
+    const type: StringOptionType =
       params?.type ??
       // eslint-disable-next-line @typescript-eslint/ban-types
-      ((Reflect.getMetadata("design:paramtypes", target, key) as Function[])[
+      ((Reflect.getMetadata("design:paramtypes", target, key) as any[])[
         index
-      ].name.toUpperCase() as StringOptionType | "OBJECT");
-
-    if (type === "OBJECT") throw Error("invalid option type");
+      ] as StringOptionType);
 
     const option = DOption.create(
       name ?? key,

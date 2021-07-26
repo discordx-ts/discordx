@@ -172,11 +172,11 @@ class FakeOption {
 
 class FakeInteraction {
   commandName: string;
-  options: FakeOption[];
+  options: { data: FakeOption[] };
 
   constructor(commandName: string, options: FakeOption[]) {
     this.commandName = commandName;
-    this.options = options;
+    this.options = { data: options };
   }
 
   isCommand() {
