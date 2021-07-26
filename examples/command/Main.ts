@@ -35,7 +35,7 @@ export class Main {
 
         // let's have different message for guild command
         message.reply(
-          `${message.member} you are not authorized access ${commandInfo.prefix}${commandInfo.name} command`
+          `${message.member} you are not authorized to access ${commandInfo.prefix}${commandInfo.name} command`
         );
         return;
       },

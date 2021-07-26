@@ -21,7 +21,7 @@ export class Main {
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
-    await this._client.login("YOUR_TOKEN");
+    await this._client.login(process.env.BOT_TOKEN);
   }
 }
 
