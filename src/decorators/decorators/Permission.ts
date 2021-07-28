@@ -11,11 +11,13 @@ export function Permission(
 export function Permission(
   ...permission: ApplicationCommandPermissionData[]
 ): ClassMethodDecorator;
-export function Permission(...permission: ApplicationCommandPermissionData[]) {
+export function Permission(
+  ...permission: ApplicationCommandPermissionData[]
+): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
-    key: string,
-    descriptor: PropertyDescriptor
+    key?: string,
+    descriptor?: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DCommand | DDiscord>(

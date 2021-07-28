@@ -20,7 +20,7 @@ export function Group(
   groupOrSubcommands: string | SubCommand,
   subCommandsOrDescription?: SubCommand | string,
   subCommands?: SubCommand
-) {
+): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
     key?: string,

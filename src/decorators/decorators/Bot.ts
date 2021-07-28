@@ -9,7 +9,7 @@ import { DSlash } from "../classes/DSlash";
 
 export function Bot(botID: string): ClassMethodDecorator;
 export function Bot(...botIDs: string[]): ClassMethodDecorator;
-export function Bot(...botIDs: string[]) {
+export function Bot(...botIDs: string[]): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
     key?: string,

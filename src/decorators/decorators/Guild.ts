@@ -9,11 +9,11 @@ import { DSlash } from "../classes/DSlash";
 
 export function Guild(guildID: Snowflake): ClassMethodDecorator;
 export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator;
-export function Guild(...guildIDs: Snowflake[]) {
+export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
-    key: string,
-    descriptor: PropertyDescriptor
+    key?: string,
+    descriptor?: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DSlash | DCommand | DDiscord | DButton | DSelectMenu>(
