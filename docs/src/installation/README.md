@@ -5,7 +5,7 @@
   <br/>
   <h1 align="center">
     <p  align="center">
-      discord.ts (discordx or @typeit/discord)
+      discord.ts (discordx)
     </p>
   </h1>
     <p align="center">

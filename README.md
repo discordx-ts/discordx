@@ -33,7 +33,7 @@ Package by [@OwenCalvin](https://github.com/OwenCalvin)
   <br/>
   <h1 align="center">
     <p  align="center">
-      discord.ts (discordx or @typeit/discord)
+      discord.ts (discordx)
     </p>
   </h1>
     <p align="center">
@@ -89,6 +89,111 @@ There is a whole system that allows you to implement complex Slash commands
 - `@Description`
 - `@Guard`
 
+# 📟 @Button - Discord button interaction handler
+
+add button interaction handler for your bot using `@Button` decorator
+
+```ts
+@Discord()
+class buttonExample {
+  @Slash("hello")
+  async hello(interaction: CommandInteraction) {
+    await interaction.defer();
+
+    const helloBtn = new MessageButton()
+      .setLabel("Hello")
+      .setEmoji("👋")
+      .setStyle("PRIMARY")
+      .setCustomId("hello-btn");
+
+    const row = new MessageActionRow().addComponents(helloBtn);
+
+    interaction.editReply({
+      content: "Say hello to bot",
+      components: [row],
+    });
+  }
+
+  @Button("hello-btn")
+  mybtn(interaction: ButtonInteraction) {
+    interaction.reply(`👋 ${interaction.member}`);
+  }
+}
+```
+
+# 📟 @SelectMenu - Discord menu interaction handler
+
+add menu interaction handler for your bot using `@SelectMenu` decorator
+
+```ts
+const roles = [
+  { label: "Principal", value: "principal" },
+  { label: "Teacher", value: "teacher" },
+  { label: "Student", value: "student" },
+];
+
+@Discord()
+class buttons {
+  @SelectMenu("role-menu")
+  async handle(interaction: SelectMenuInteraction) {
+    await interaction.defer();
+
+    // extract selected value by member
+    const roleValue = interaction.values?.[0];
+
+    // if value not found
+    if (!roleValue)
+      return await interaction.followUp("invalid role id, select again");
+    await interaction.followUp(
+      `you have selected role: ${
+        roles.find((r) => r.value === roleValue).label
+      }`
+    );
+    return;
+  }
+
+  @Slash("myroles", { description: "roles menu" })
+  async myroles(interaction: CommandInteraction): Promise<unknown> {
+    await interaction.defer();
+
+    // create menu for roels
+    const menu = new MessageSelectMenu()
+      .addOptions(roles)
+      .setCustomId("role-menu");
+
+    // create a row for meessage actions
+    const buttonRow = new MessageActionRow().addComponents(menu);
+
+    // send it
+    interaction.editReply({
+      content: "select your role!",
+      components: [buttonRow],
+    });
+    return;
+  }
+}
+```
+
+# 📟 @Command - Command Processor
+
+Create a simple command handler for messages using `@Command`. Example `!hello world`
+
+```ts
+@Discord()
+class commandTest {
+  @Command("permcheck", { aliases: ["ptest"] })
+  @DefaultPermission(false)
+  @Permission({
+    id: "462341082919731200" as Snowflake,
+    type: "USER",
+    permission: true,
+  })
+  async permFunc(message: CommandMessage) {
+    message.reply("access granted");
+  }
+}
+```
+
 # 💡@On / @Once - Discord events
 
 We can declare methods that will be executed whenever a Discord event is triggered.
@@ -133,8 +238,7 @@ import { Prefix } from "./Prefix";
 abstract class AppDiscord {
   @On("messageCreate")
   @Guard(
-    NotBot, // You can use multiple guard functions, they are excuted in the same order!
-    Prefix("!")
+    NotBot // You can use multiple guard functions, they are excuted in the same order!
   )
   async onMessage([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {
