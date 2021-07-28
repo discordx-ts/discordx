@@ -12,7 +12,8 @@ import {
 export abstract class commandTest {
   // single whitespace will be used to split options
   // command aliases: !m, !solve
-  @Command("math", { aliases: ["m", "solve"], argSplitter: " " })
+  // string or regex supported for argSplitter
+  @Command("math", { aliases: ["m", "solve"], argSplitter: /\s/ })
   async cmd(
     @CommandOption("num1")
     num1: number, //

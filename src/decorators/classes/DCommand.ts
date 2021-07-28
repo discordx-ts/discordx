@@ -9,7 +9,7 @@ export class DCommand extends Method {
   private _name: string;
   private _defaultPermission: boolean;
   private _directMessage: boolean;
-  private _argSplitter: string;
+  private _argSplitter: string | RegExp;
   private _options: DCommandOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: Snowflake[];
@@ -89,7 +89,7 @@ export class DCommand extends Method {
   protected constructor(
     name: string,
     description?: string,
-    argSplitter?: string,
+    argSplitter?: string | RegExp,
     directMessage?: boolean,
     defaultPermission?: boolean,
     guilds?: Snowflake[],
@@ -112,7 +112,7 @@ export class DCommand extends Method {
   static create(
     name: string,
     description?: string,
-    argSplitter?: string,
+    argSplitter?: string | RegExp,
     directMessage?: boolean,
     defaultPermission?: boolean,
     guilds?: Snowflake[],
