@@ -98,8 +98,6 @@ add button interaction handler for your bot using `@Button` decorator
 class buttonExample {
   @Slash("hello")
   async hello(interaction: CommandInteraction) {
-    await interaction.defer();
-
     const helloBtn = new MessageButton()
       .setLabel("Hello")
       .setEmoji("👋")
@@ -108,7 +106,7 @@ class buttonExample {
 
     const row = new MessageActionRow().addComponents(helloBtn);
 
-    interaction.editReply({
+    interaction.reply({
       content: "Say hello to bot",
       components: [row],
     });
@@ -152,7 +150,7 @@ class buttons {
     return;
   }
 
-  @Slash("myroles", { description: "roles menu" })
+  @Slash("roles", { description: "role selector menu" })
   async myroles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.defer();
 
