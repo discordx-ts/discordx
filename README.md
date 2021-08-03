@@ -10,12 +10,12 @@ If you have any issues or feature requests, Open an issue at Github [click here]
 
 # New features
 
-- added multiple bot support
-- added new interactions: `@Button @SelectMenu`
+- added multiple bot support (`@Bot`)
 - added `@Command` to support v4 commands
+- added new interactions: `@Button @SelectMenu`
 - added new decorator `@DefaultPermission`
-- add new init slash method
-- Code improved with lint
+- added new initSlash method to create/update/remove slash commands
+- internal source code improved with lint for better type support
 - added more example for new decorators
 
 # Package
