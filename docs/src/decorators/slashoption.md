@@ -143,9 +143,9 @@ class DiscordBot {
   ```
 
 - `"SUB_COMMAND"`  
-  No inferance, use [@Group](/decorators/group/)
+  No inferance, use [@SlashGroup](/decorators/slashgroup/)
 - `"SUB_COMMAND_GROUP"`  
-  No inferance, use [@Group](/decorators/group/)
+  No inferance, use [@SlashGroup](/decorators/slashgroup/)
 
 ## Signature
 

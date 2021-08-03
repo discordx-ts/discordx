@@ -76,18 +76,28 @@ abstract class AppDiscord {
 }
 ```
 
-## Decorators related to Slash commands
+## Decorators related to slash/simple commands, button, menu and more.
 
-There is a whole system that allows you to implement complex Slash commands
+There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button and select menu
 
+- `@Bot`
+- `@Button`
+- `@Command`
+- `@CommandOption`
+- `@DefaultPermission`
+- `@Description`
+- `@Discord`
+- `@Guard`
+- `@Guild`
+- `@On`
+- `@Once`
+- `@Permission`
+- `@SelectMenu`
+- `@Slash`
 - `@SlashChoice`
 - `@SlashChoices`
+- `@SlashGroup`
 - `@SlashOption`
-- `@Permission`
-- `@Guild`
-- `@Group`
-- `@Description`
-- `@Guard`
 
 # 📟 @Button - Discord button interaction handler
 

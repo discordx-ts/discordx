@@ -1,5 +1,6 @@
 import { SlashChoice } from "./decorators/SlashChoice";
 import { SlashChoices } from "./decorators/SlashChoices";
+import { SlashGroup } from "./decorators/SlashGroup";
 import { SlashOption } from "./decorators/SlashOption";
 
 /**
@@ -17,6 +18,11 @@ export const Choice = SlashChoice;
  */
 export const Choices = SlashChoices;
 
+/**
+ * @deprecated Use `SlashGroup` instead.
+ */
+export const Group = SlashGroup;
+
 // remove above area by end of auguest
 
 export * from "./decorators/On";
@@ -31,7 +37,7 @@ export * from "./decorators/SlashChoice";
 export * from "./decorators/SlashChoices";
 export * from "./decorators/DefaultPermission";
 export * from "./decorators/Permission";
-export * from "./decorators/Group";
+export * from "./decorators/SlashGroup";
 export * from "./decorators/Guild";
 export * from "./decorators/Bot";
 export * from "./decorators/Button";

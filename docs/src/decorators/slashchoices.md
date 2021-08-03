@@ -20,7 +20,7 @@ enum TextChoices {
 @Discord()
 class DiscordBot {
   @Slash("hello")
-  @Group("text")
+  @SlashGroup("text")
   hello(
     @SlashChoices(TextChoices)
     @SlashChoice("How are you", "question")

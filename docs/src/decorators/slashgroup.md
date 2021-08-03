@@ -1,4 +1,4 @@
-# @Group
+# @SlashGroup
 
 You can group your command like this
 
@@ -31,13 +31,13 @@ The permissions commands also grouped by "user" or "role"
 
 ![](https://discord.com/assets/4cfea1bfc6d3ed0396c16cd47e0a7154.png)
 
-## Create a Group
+## Create a group
 
-We use @Group at two level, on the class and on methods
+We use @SlashGroup at two level, on the class and on methods
 
-### Group on class level
+### group on class level
 
-When @Group decorate a class it groups all the Slash commands in the class
+When @SlashGroup decorate a class it groups all the Slash commands in the class
 
 ```
 maths
@@ -49,7 +49,7 @@ maths
 
 ```ts
 @Discord()
-@Group("maths", "maths group description")
+@SlashGroup("maths", "maths group description")
 export abstract class AppDiscord {
   @Slash("add")
   add(
@@ -77,14 +77,14 @@ export abstract class AppDiscord {
 
 ![](/discord.ts/group1.png)
 
-### Group on method level
+### SlashGroup on method level
 
-When @Group decorate a method it creates sub-groups inside the class group
+When @SlashGroup decorate a method it creates sub-groups inside the class group
 
-**You have to list the groups that are in the class in the @Group parameters that decorate the class, or they will not appear**
+**You have to list the groups that are in the class in the @SlashGroup parameters that decorate the class, or they will not appear**
 
 ```ts
-@Group(
+@SlashGroup(
   "testing",
   "Testing group description",
   {
@@ -112,13 +112,13 @@ testing
 
 ```ts
 @Discord()
-@Group("testing", "Testing group description", {
+@SlashGroup("testing", "Testing group description", {
   maths: "maths group description",
   text: "text group description",
 })
 export abstract class AppDiscord {
   @Slash("add")
-  @Group("maths")
+  @SlashGroup("maths")
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -130,7 +130,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("multiply")
-  @Group("maths")
+  @SlashGroup("maths")
   multiply(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -142,7 +142,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("hello")
-  @Group("text")
+  @SlashGroup("text")
   hello(
     @SlashOption("text")
     text: string,

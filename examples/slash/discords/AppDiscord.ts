@@ -4,7 +4,7 @@ import {
   Slash,
   SlashOption,
   Guild,
-  Group,
+  SlashGroup,
   SlashChoices,
 } from "../../../src";
 
@@ -15,13 +15,13 @@ enum TextChoices {
 
 @Discord()
 @Guild("693401527494377482")
-@Group("testing", "Testing group description", {
+@SlashGroup("testing", "Testing group description", {
   maths: "maths group description",
   text: "text group description",
 })
 export abstract class AppDiscord {
   @Slash("add")
-  @Group("maths")
+  @SlashGroup("maths")
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -33,7 +33,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("multiply")
-  @Group("maths")
+  @SlashGroup("maths")
   multiply(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -45,7 +45,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("hello")
-  @Group("text")
+  @SlashGroup("text")
   hello(
     @SlashChoices(TextChoices)
     @SlashOption("text")
