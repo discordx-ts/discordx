@@ -11,7 +11,7 @@ import {
   Button,
   SlashOption,
   Description,
-  SlashChoices,
+  SlashChoice,
 } from "../../../src";
 import { randomInt } from "crypto";
 
@@ -68,7 +68,7 @@ export abstract class StonePaperScissor {
     "What could be more fun than play Rock Paper Scissor with a bot?"
   )
   private async spc(
-    @SlashChoices(spcChoice)
+    @SlashChoice(spcChoice)
     @SlashOption("choice", {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",

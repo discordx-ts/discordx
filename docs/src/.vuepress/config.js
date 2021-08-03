@@ -93,7 +93,6 @@ module.exports = {
           ["/decorators/selectmenu", "@SelectMenu"],
           ["/decorators/slash", "@Slash"],
           ["/decorators/slashchoice", "@SlashChoice"],
-          ["/decorators/slashchoices", "@SlashChoices"],
           ["/decorators/slashgroup", "@SlashGroup"],
           ["/decorators/slashoption", "@SlashOption"],
         ],

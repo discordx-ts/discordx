@@ -5,7 +5,7 @@ import {
   SlashOption,
   Guild,
   SlashGroup,
-  SlashChoices,
+  SlashChoice,
 } from "../../../src";
 
 enum TextChoices {
@@ -47,7 +47,7 @@ export abstract class AppDiscord {
   @Slash("hello")
   @SlashGroup("text")
   hello(
-    @SlashChoices(TextChoices)
+    @SlashChoice(TextChoices)
     @SlashOption("text")
     text: TextChoices,
     interaction: CommandInteraction

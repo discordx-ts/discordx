@@ -95,7 +95,6 @@ There is a whole system that allows you to implement complex slash/simple comman
 - `@SelectMenu`
 - `@Slash`
 - `@SlashChoice`
-- `@SlashChoices`
 - `@SlashGroup`
 - `@SlashOption`
 

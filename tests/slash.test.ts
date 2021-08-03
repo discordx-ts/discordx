@@ -12,7 +12,7 @@ import {
   SlashOption,
   Guild,
   SlashGroup,
-  SlashChoices,
+  SlashChoice,
   Client,
   Permission,
   StringOptionType,
@@ -68,7 +68,7 @@ export abstract class AppDiscord {
   @Slash("hello")
   @SlashGroup("text")
   hello(
-    @SlashChoices(TextChoices)
+    @SlashChoice(TextChoices)
     @SlashOption("text")
     text: TextChoices,
     interaction: CommandInteraction,

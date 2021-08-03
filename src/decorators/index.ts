@@ -1,5 +1,4 @@
 import { SlashChoice } from "./decorators/SlashChoice";
-import { SlashChoices } from "./decorators/SlashChoices";
 import { SlashGroup } from "./decorators/SlashGroup";
 import { SlashOption } from "./decorators/SlashOption";
 
@@ -14,9 +13,9 @@ export const Option = SlashOption;
 export const Choice = SlashChoice;
 
 /**
- * @deprecated Use `SlashChoices` instead.
+ * @deprecated Use `SlashChoice` instead.
  */
-export const Choices = SlashChoices;
+export const Choices = SlashChoice;
 
 /**
  * @deprecated Use `SlashGroup` instead.
@@ -34,7 +33,6 @@ export * from "./decorators/Name";
 export * from "./decorators/Slash";
 export * from "./decorators/SlashOption";
 export * from "./decorators/SlashChoice";
-export * from "./decorators/SlashChoices";
 export * from "./decorators/DefaultPermission";
 export * from "./decorators/Permission";
 export * from "./decorators/SlashGroup";

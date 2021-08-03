@@ -26,9 +26,48 @@ class DiscordBot {
 }
 ```
 
-## Params
+## Use object or enum to define all the choices at once
 
-`@SlashChoice(name: string, value: string | number)`
+```ts
+enum TextChoices {
+  // WhatDiscordShows = value
+  Hello = "Hello",
+  "Good Bye" = "GoodBye",
+}
+
+// Could be
+// const textChoices = {
+//   Hello: "Hello",
+//   ["Good Bye"]: "GoodBye"
+// }
+
+@Discord()
+class DiscordBot {
+  @Slash("hello")
+  @SlashGroup("text")
+  hello(
+    @SlashChoice(TextChoices)
+    @SlashChoice("How are you", "question")
+    @SlashOption("text")
+    text: string,
+    interaction: CommandInteraction
+  ) {
+    interaction.reply(text);
+  }
+}
+```
+
+## Signature
+
+```ts
+SlashChoice(name: string);
+SlashChoice(name: number);
+SlashChoice(name: string, value: number);
+SlashChoice(name: string, value: string);
+SlashChoice(choices: ChoicesType);
+```
+
+## Params
 
 ### Name
 
