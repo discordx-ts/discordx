@@ -192,7 +192,7 @@ class commandTest {
   @Command("permcheck", { aliases: ["ptest"] })
   @DefaultPermission(false)
   @Permission({
-    id: "462341082919731200" as Snowflake,
+    id: "462341082919731200",
     type: "USER",
     permission: true,
   })

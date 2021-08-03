@@ -16,8 +16,8 @@ You just decorate your parameter with one or multiple @Permission !
 @Discord()
 class DiscordBot {
   @DefaultPermission(false)
-  @Permission({ id: "USER_ID" as Snowflake, type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
-  @Permission({ id: "ROLE_ID" as Snowflake, type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
+  @Permission({ id: "USER_ID", type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
+  @Permission({ id: "ROLE_ID", type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
   @Slash("hello")
   private hello() {
     // ...
@@ -32,8 +32,8 @@ You can set the permissions for all @Slash inside the class by decorating the cl
 ```ts
 @Discord()
 @DefaultPermission(false)
-@Permission({ id: "USER_ID" as Snowflake, type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
-@Permission({ id: "ROLE_ID" as Snowflake, type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
+@Permission({ id: "USER_ID", type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
+@Permission({ id: "ROLE_ID", type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
 class DiscordBot {
   @Slash("hello") // Only the role that has this ROLE_ID can use this command
   private hello() {
@@ -53,15 +53,15 @@ class DiscordBot {
 
 ### id
 
-`string`  
+`Snowflake`
 The id if the user or role
 
 ### type
 
-`"ROLE" | "USER"`  
+`"ROLE" | "USER"`
 It specify if the permission is given to a user or a role
 
 ### permission
 
-`true | false`  
+`true | false`
 It specify if the permission is granted or restricated

@@ -73,7 +73,7 @@ class DiscordBot {
 
 ## Type inferance
 
-- `"STRING"`  
+- `"STRING"`
   **Infered from `String`**
 
   ```ts
@@ -83,7 +83,7 @@ class DiscordBot {
   )
   ```
 
-- `"BOOLEAN"`  
+- `"BOOLEAN"`
   **Infered from `Boolean`**
 
   ```ts
@@ -93,7 +93,7 @@ class DiscordBot {
   )
   ```
 
-- `"INTEGER"`  
+- `"INTEGER"`
   **Infered from `Number`**
 
   ```ts
@@ -103,7 +103,7 @@ class DiscordBot {
   )
   ```
 
-- `"ROLE"`  
+- `"ROLE"`
   **Infered from `Role`**
 
   ```ts
@@ -113,7 +113,7 @@ class DiscordBot {
   )
   ```
 
-- `"USER"`  
+- `"USER"`
   **Infered from `User` (or `ClientUser`, not recommended)**
 
   ```ts
@@ -123,7 +123,7 @@ class DiscordBot {
   )
   ```
 
-- `"CHANNEL"`  
+- `"CHANNEL"`
   **Infered from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
 
   ```ts
@@ -132,7 +132,7 @@ class DiscordBot {
     channel: Channel,
   ```
 
-- `"MENTIONABLE"`  
+- `"MENTIONABLE"`
   **No inferance, use:**
 
   ```ts
@@ -142,9 +142,9 @@ class DiscordBot {
   )
   ```
 
-- `"SUB_COMMAND"`  
+- `"SUB_COMMAND"`
   No inferance, use [@SlashGroup](/decorators/slashgroup/)
-- `"SUB_COMMAND_GROUP"`  
+- `"SUB_COMMAND_GROUP"`
   No inferance, use [@SlashGroup](/decorators/slashgroup/)
 
 ## Signature
@@ -162,14 +162,14 @@ The parameters of an @SlashOption is an object as the last parameter
 
 ### Description
 
-`string`  
+`string`
 `OPTION_NAME - OPTION_TYPE` by default
 
 You can set the description of the option
 
 ### Required
 
-`bool`  
+`bool`
 `false` by default
 
 The option is required or not

@@ -34,7 +34,7 @@ function CommandOption(
 
 ### name
 
-`string`  
+`string`
 The name of your command option
 
 ### description

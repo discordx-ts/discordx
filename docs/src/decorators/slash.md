@@ -66,7 +66,7 @@ By using the Client class you can access and manage to Slashes
 
 ### Clear slashes from Discord cache
 
-You can remove Slash commands from the Discord cache by using `client.clearSlashes(...guildIDs: string[])`
+You can remove Slash commands from the Discord cache by using `client.clearSlashes(...guildIDs: Snowflake[])`
 
 > If you do not specify the guild id you operate on global Slash commands
 
@@ -151,22 +151,22 @@ abstract class AppDiscord {
 
 ### Name
 
-`string`  
+`string`
 The Slash command name
 
 ### Description
 
-`string`  
+`string`
 The Slash command description
 
 ### Guilds
 
-`string[]`  
+`string[]`
 The guilds where the command is created
 
 ### defaultPermission
 
-`boolean`  
+`boolean`
 `true` by default  
 "You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
 

@@ -207,7 +207,7 @@ export class Client extends ClientJS {
       if (this.events.length) {
         this.events.map((event) => {
           const eventName = event.event;
-          console.log(`   ${eventName} (${event.classRef.name}.${event.key})`);
+          console.log(` ${eventName} (${event.classRef.name}.${event.key})`);
         });
       } else {
         console.log("   No events detected");
@@ -218,7 +218,7 @@ export class Client extends ClientJS {
       console.log("Slashes");
       if (this.slashes.length) {
         this.slashes.map((slash) => {
-          console.log(`   ${slash.name} (${slash.classRef.name}.${slash.key})`);
+          console.log(` ${slash.name} (${slash.classRef.name}.${slash.key})`);
           const printOptions = (options: DOption[], depth: number) => {
             if (!options) return;
 

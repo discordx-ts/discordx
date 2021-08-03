@@ -46,5 +46,5 @@ class buttonExample {
 
 ### btn-id
 
-`string`  
+`string`
 The button id for your handling button interaction

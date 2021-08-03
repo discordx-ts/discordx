@@ -41,9 +41,9 @@ class DiscordBot {
 
 ## Params
 
-`@Guild(...guildIDs: string[])`
+`@Guild(...guildIDs: Snowflake[])`
 
 ### roleIDs
 
-`string[]`  
-The guilds IDs list
+`Snowflake[]`
+The list of guild id's

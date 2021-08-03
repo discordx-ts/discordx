@@ -32,10 +32,10 @@ class DiscordBot {
 
 ### Name
 
-`string`  
+`string`
 You have to set a diplayed name for your choice
 
 ### Value
 
-`string | number`  
+`string | number`
 You have to set a value for your choice, if the user select "Astraunot", you will receive the value "astro"

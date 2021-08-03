@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { Client } from "../../src";
-import { Intents, Snowflake } from "discord.js";
+import { Intents } from "discord.js";
 
 export class Main {
   private static _client: Client;
@@ -16,7 +16,7 @@ export class Main {
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      slashGuilds: [process.env.GUILD_ID as Snowflake],
+      slashGuilds: [process.env.GUILD_ID],
       requiredByDefault: true,
     });
 

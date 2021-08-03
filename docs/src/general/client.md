@@ -32,11 +32,11 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
   The `@SlashOption` are required by default
 
 - **`guards`**  
-  `GuardFunction[]`  
+  `GuardFunction[]`
   Global guards, it's an array of functions
 
 - **`slashGuilds`**  
-  `string[]`  
+  `Snowflake[]`
   The slash commands are executed only on this list of guilds by default
 
 **You must specify the glob path(s) where your decorated classes are**

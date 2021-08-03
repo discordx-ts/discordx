@@ -2,7 +2,6 @@ import {
   Channel,
   CommandInteraction,
   Role,
-  Snowflake,
   TextChannel,
   User,
   VoiceChannel,
@@ -94,7 +93,7 @@ export abstract class AppDiscord {
 }
 
 @Discord()
-@Guild("invalid_id" as Snowflake)
+@Guild("invalid_id")
 @Guard<any, any>(async (params, client, next, datas) => {
   datas.passed = true;
   return await next();

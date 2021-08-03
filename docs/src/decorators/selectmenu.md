@@ -59,7 +59,7 @@ class buttons {
 
 ### id
 
-`string`  
+`string`
 The menu custom id for your handling menu interaction
 
 ### guilds
