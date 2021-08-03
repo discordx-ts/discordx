@@ -193,7 +193,7 @@ const client = new Client({
 
 ## Autocompletion (Option's choices)
 
-You can use the [@SlashChoice](/decorators/choice/) decorator
+You can use the [@SlashChoice](/decorators/slashchoice/) decorator
 
 ## Option order
 
