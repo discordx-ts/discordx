@@ -9,9 +9,9 @@ import {
   Discord,
   Slash,
   Button,
-  Option,
+  SlashOption,
   Description,
-  Choices,
+  SlashChoices,
 } from "../../../src";
 import { randomInt } from "crypto";
 
@@ -68,8 +68,8 @@ export abstract class StonePaperScissor {
     "What could be more fun than play Rock Paper Scissor with a bot?"
   )
   private async spc(
-    @Choices(spcChoice)
-    @Option("Choice", {
+    @SlashChoices(spcChoice)
+    @SlashOption("choice", {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
       required: false,

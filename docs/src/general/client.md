@@ -29,7 +29,7 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
 
 - **`requiredByDefault`**  
   `boolean` (`false` by default)  
-  The `@Option` are required by default
+  The `@SlashOption` are required by default
 
 - **`guards`**  
   `GuardFunction[]`  

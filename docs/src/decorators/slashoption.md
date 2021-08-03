@@ -8,16 +8,16 @@ A Slash Command can have multiple options (parameters)
 
 ## Declare an option
 
-To declare an option you simply use the `@Option` decorator before a method parameter
+To declare an option you simply use the `@SlashOption` decorator before a method parameter
 
 ```ts
 @Discord()
 class DiscordBot {
   @Slash("add")
   add(
-    @Option("x", { description: "x value" })
+    @SlashOption("x", { description: "x value" })
     x: number,
-    @Option("y", { description: "y value" })
+    @SlashOption("y", { description: "y value" })
     y: number,
 
     interaction: CommandInteraction
@@ -38,9 +38,9 @@ discord.**ts** convert automatically the infered type into discord.**js** option
 class DiscordBot {
   @Slash("add")
   add(
-    @Option("x", { description: "x value" })
+    @SlashOption("x", { description: "x value" })
     x: number, // :number, options are both INTEGER
-    @Option("y", { description: "y value" })
+    @SlashOption("y", { description: "y value" })
     y: number, // :number, options are both INTEGER
 
     interaction: CommandInteraction
@@ -61,7 +61,7 @@ import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js";
 class DiscordBot {
   @Slash("getID")
   getID(
-    @Option("x", { type: OptionType.MENTIONABLE })
+    @SlashOption("x", { type: OptionType.MENTIONABLE })
     mentionable: TextChannel | VoiceChannel | ClientUser | Role,
 
     interaction: CommandInteraction
@@ -78,7 +78,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x")
+    @SlashOption("x")
     channel: string,
   )
   ```
@@ -88,7 +88,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x")
+    @SlashOption("x")
     channel: boolean,
   )
   ```
@@ -98,7 +98,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x")
+    @SlashOption("x")
     channel: number,
   )
   ```
@@ -108,7 +108,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x")
+    @SlashOption("x")
     channel: Role,
   )
   ```
@@ -118,7 +118,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x")
+    @SlashOption("x")
     channel: User,
   )
   ```
@@ -128,7 +128,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x")
+    @SlashOption("x")
     channel: Channel,
   ```
 
@@ -137,7 +137,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @Option("x", { type: OptionType.MENTIONABLE })
+    @SlashOption("x", { type: OptionType.MENTIONABLE })
     channel: TextChannel | VoiceChannel | ClientUser | Role,
   )
   ```
@@ -158,7 +158,7 @@ Option(name: string, type: OptionValueType | OptionType, params: OptionParams);
 
 ## Params
 
-The parameters of an @Option is an object as the last parameter
+The parameters of an @SlashOption is an object as the last parameter
 
 ### Description
 
@@ -193,7 +193,7 @@ const client = new Client({
 
 ## Autocompletion (Option's choices)
 
-You can use the [@Choice](/decorators/choice/) decorator
+You can use the [@SlashChoice](/decorators/choice/) decorator
 
 ## Option order
 

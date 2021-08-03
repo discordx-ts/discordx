@@ -67,7 +67,7 @@ import { CommandInteraction } from "discord.js";
 abstract class AppDiscord {
   @Slash("hello")
   private hello(
-    @Option("text")
+    @SlashOption("text")
     text: string,
     interaction: CommandInteraction
   ) {
@@ -80,9 +80,9 @@ abstract class AppDiscord {
 
 There is a whole system that allows you to implement complex Slash commands
 
-- `@Choice`
-- `@Choices`
-- `@Option`
+- `@SlashChoice`
+- `@SlashChoices`
+- `@SlashOption`
 - `@Permission`
 - `@Guild`
 - `@Group`

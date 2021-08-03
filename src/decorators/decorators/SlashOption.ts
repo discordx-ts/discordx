@@ -9,16 +9,16 @@ import {
 import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DSlash } from "../classes/DSlash";
 
-export function Option(name?: string): ParameterDecoratorEx;
-export function Option(
+export function SlashOption(name?: string): ParameterDecoratorEx;
+export function SlashOption(
   name: string,
   params?: OptionParams
 ): ParameterDecoratorEx;
-export function Option(
+export function SlashOption(
   name: string,
   params: OptionParams
 ): ParameterDecoratorEx;
-export function Option(name?: string, params?: OptionParams) {
+export function SlashOption(name?: string, params?: OptionParams) {
   return (target: Record<string, any>, key: string, index: number) => {
     const type: StringOptionType =
       params?.type ??

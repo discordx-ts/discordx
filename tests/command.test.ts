@@ -1,7 +1,7 @@
 import { CommandInteraction } from "discord.js";
 import {
   Discord,
-  Option,
+  SlashOption,
   Guild,
   Client,
   Guard,
@@ -21,9 +21,9 @@ export abstract class AppDiscord {
   @Description("Addition")
   @Command("add")
   add(
-    @Option("x", { description: "x value" })
+    @SlashOption("x", { description: "x value" })
     x: number,
-    @Option("y", { description: "y value" })
+    @SlashOption("y", { description: "y value" })
     y: number,
     interaction: CommandInteraction,
     client: Client,

@@ -1,4 +1,4 @@
-# @Choice
+# @SlashChoice
 
 An option of a Slash command can implement an autocompletion feature for `string` and `number` types
 
@@ -6,17 +6,17 @@ An option of a Slash command can implement an autocompletion feature for `string
 
 ## Setup autocompletion
 
-You just decorate your parameter with one or multiple @Choice !
+You just decorate your parameter with one or multiple @SlashChoice !
 
 ```ts
 @Discord()
 class DiscordBot {
   @Slash("iam")
   iam(
-    @Choice("Human", "human")
-    @Choice("Astraunot", "astro")
-    @Choice("Dev", "dev")
-    @Option("what", { description: "What are you?" })
+    @SlashChoice("Human", "human")
+    @SlashChoice("Astraunot", "astro")
+    @SlashChoice("Dev", "dev")
+    @SlashOption("what", { description: "What are you?" })
     what: string,
 
     interaction: CommandInteraction
@@ -28,12 +28,12 @@ class DiscordBot {
 
 ## Params
 
-`@Choice(name: string, value: string | number)`
+`@SlashChoice(name: string, value: string | number)`
 
 ### Name
 
 `string`  
-You have to set a diplayed name for your Choice
+You have to set a diplayed name for your choice
 
 ### Value
 

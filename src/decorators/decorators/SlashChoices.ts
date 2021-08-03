@@ -7,8 +7,8 @@ import {
 } from "../..";
 import { ParameterDecoratorEx } from "../../types/public/decorators";
 
-export function Choices(choices: ChoicesType): ParameterDecoratorEx;
-export function Choices(choices: ChoicesType) {
+export function SlashChoices(choices: ChoicesType): ParameterDecoratorEx;
+export function SlashChoices(choices: ChoicesType) {
   return function (target: Record<string, any>, key: string, index: number) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DOption>((original) => {

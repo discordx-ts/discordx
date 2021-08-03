@@ -1,5 +1,12 @@
 import { CommandInteraction } from "discord.js";
-import { Discord, Slash, Option, Guild, Group, Choices } from "../../../src";
+import {
+  Discord,
+  Slash,
+  SlashOption,
+  Guild,
+  Group,
+  SlashChoices,
+} from "../../../src";
 
 enum TextChoices {
   Hello = "Hello",
@@ -16,9 +23,9 @@ export abstract class AppDiscord {
   @Slash("add")
   @Group("maths")
   add(
-    @Option("x", { description: "x value" })
+    @SlashOption("x", { description: "x value" })
     x: number,
-    @Option("y", { description: "y value" })
+    @SlashOption("y", { description: "y value" })
     y: number,
     interaction: CommandInteraction
   ) {
@@ -28,9 +35,9 @@ export abstract class AppDiscord {
   @Slash("multiply")
   @Group("maths")
   multiply(
-    @Option("x", { description: "x value" })
+    @SlashOption("x", { description: "x value" })
     x: number,
-    @Option("y", { description: "y value" })
+    @SlashOption("y", { description: "y value" })
     y: number,
     interaction: CommandInteraction
   ) {
@@ -40,8 +47,8 @@ export abstract class AppDiscord {
   @Slash("hello")
   @Group("text")
   hello(
-    @Choices(TextChoices)
-    @Option("text")
+    @SlashChoices(TextChoices)
+    @SlashOption("text")
     text: TextChoices,
     interaction: CommandInteraction
   ) {
@@ -50,7 +57,7 @@ export abstract class AppDiscord {
 
   @Slash("hello")
   root(
-    @Option("text")
+    @SlashOption("text")
     text: string,
     interaction: CommandInteraction
   ) {
@@ -63,7 +70,7 @@ export abstract class AppDiscord {
 export abstract class AppDiscord1 {
   @Slash("hello")
   add(
-    @Option("text")
+    @SlashOption("text")
     text: string,
     interaction: CommandInteraction
   ) {

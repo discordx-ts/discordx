@@ -297,7 +297,7 @@ export class MetadataStorage {
       });
     });
 
-    // Create for each subgroup (@Group on methods) create an Option based on Slash
+    // Create for each subgroup (@Group on methods) create an SlashOption based on Slash
     //
     // "name": "permissions",
     // "description": "Get or edit permissions for a user or a role",

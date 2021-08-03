@@ -1,6 +1,6 @@
-# @Choices
+# @SlashChoices
 
-It works exactly like [@Choice](/decorators/choice/) except that you can directly pass an object or enum to define all the choices at once
+It works exactly like [@SlashChoice](/decorators/choice/) except that you can directly pass an object or enum to define all the choices at once
 
 > The key of the object or enum is what discord shows and the value is the property value (object[key])
 
@@ -22,9 +22,9 @@ class DiscordBot {
   @Slash("hello")
   @Group("text")
   hello(
-    @Choices(TextChoices)
-    @Choice("How are you", "question")
-    @Option("text")
+    @SlashChoices(TextChoices)
+    @SlashChoice("How are you", "question")
+    @SlashOption("text")
     text: string,
     interaction: CommandInteraction
   ) {

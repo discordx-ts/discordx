@@ -1,3 +1,24 @@
+import { SlashChoice } from "./decorators/SlashChoice";
+import { SlashChoices } from "./decorators/SlashChoices";
+import { SlashOption } from "./decorators/SlashOption";
+
+/**
+ * @deprecated Use `SlashOption` instead.
+ */
+export const Option = SlashOption;
+
+/**
+ * @deprecated Use `SlashChoice` instead.
+ */
+export const Choice = SlashChoice;
+
+/**
+ * @deprecated Use `SlashChoices` instead.
+ */
+export const Choices = SlashChoices;
+
+// remove above area by end of auguest
+
 export * from "./decorators/On";
 export * from "./decorators/Once";
 export * from "./decorators/Guard";
@@ -5,9 +26,9 @@ export * from "./decorators/Discord";
 export * from "./decorators/Description";
 export * from "./decorators/Name";
 export * from "./decorators/Slash";
-export * from "./decorators/Option";
-export * from "./decorators/Choice";
-export * from "./decorators/Choices";
+export * from "./decorators/SlashOption";
+export * from "./decorators/SlashChoice";
+export * from "./decorators/SlashChoices";
 export * from "./decorators/DefaultPermission";
 export * from "./decorators/Permission";
 export * from "./decorators/Group";

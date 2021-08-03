@@ -53,7 +53,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   guards?: GuardFunction[];
 
   /**
-   * Set the default required value for @Option
+   * Set the default required value for @SlashOption
    */
   requiredByDefault?: boolean;
 

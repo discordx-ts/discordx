@@ -10,10 +10,10 @@ import {
 import {
   Discord,
   Slash,
-  Option,
+  SlashOption,
   Guild,
   Group,
-  Choices,
+  SlashChoices,
   Client,
   Permission,
   StringOptionType,
@@ -41,9 +41,9 @@ export abstract class AppDiscord {
   @Slash("add")
   @Group("maths")
   add(
-    @Option("x", { description: "x value" })
+    @SlashOption("x", { description: "x value" })
     x: number,
-    @Option("y", { description: "y value" })
+    @SlashOption("y", { description: "y value" })
     y: number,
     interaction: CommandInteraction,
     client: Client,
@@ -55,9 +55,9 @@ export abstract class AppDiscord {
   @Slash("multiply", { description: "Multiply" })
   @Group("maths")
   multiply(
-    @Option("x", { description: "x value" })
+    @SlashOption("x", { description: "x value" })
     x: number,
-    @Option("y", { description: "y value" })
+    @SlashOption("y", { description: "y value" })
     y: number,
     interaction: CommandInteraction,
     client: Client,
@@ -69,8 +69,8 @@ export abstract class AppDiscord {
   @Slash("hello")
   @Group("text")
   hello(
-    @Choices(TextChoices)
-    @Option("text")
+    @SlashChoices(TextChoices)
+    @SlashOption("text")
     text: TextChoices,
     interaction: CommandInteraction,
     client: Client,
@@ -81,9 +81,9 @@ export abstract class AppDiscord {
 
   @Slash("hello")
   root(
-    @Option("text", { required: true })
+    @SlashOption("text", { required: true })
     text: string,
-    @Option("text2", { required: false })
+    @SlashOption("text2", { required: false })
     text2: string,
     interaction: CommandInteraction,
     client: Client,
@@ -103,7 +103,7 @@ export abstract class AppDiscord1 {
   @Slash("hello")
   @Permission({ id: "123", type: "USER", permission: true })
   add(
-    @Option("text", { required: false })
+    @SlashOption("text", { required: false })
     text: string,
     interaction: CommandInteraction,
     client: Client,
@@ -114,28 +114,28 @@ export abstract class AppDiscord1 {
 
   @Slash("inferance")
   inferance(
-    @Option("text", { required: true })
+    @SlashOption("text", { required: true })
     text: string,
 
-    @Option("bool", { required: true })
+    @SlashOption("bool", { required: true })
     bool: boolean,
 
-    @Option("nb", { required: true })
+    @SlashOption("nb", { required: true })
     nb: number,
 
-    @Option("channel", { required: true })
+    @SlashOption("channel", { required: true })
     channel: Channel,
 
-    @Option("textchannel", { required: false })
+    @SlashOption("textchannel", { required: false })
     textChannel: TextChannel,
 
-    @Option("voicechannel", { required: false })
+    @SlashOption("voicechannel", { required: false })
     voiceChannel: VoiceChannel,
 
-    @Option("user", { required: false })
+    @SlashOption("user", { required: false })
     clientUser: User,
 
-    @Option("role", { required: false })
+    @SlashOption("role", { required: false })
     role: Role,
 
     interaction: CommandInteraction,
