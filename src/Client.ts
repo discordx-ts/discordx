@@ -460,14 +460,14 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Get the group tree of an interaction
+   * Get the group tree of an slash interaction
    * /hello => ["hello"]
    * /test hello => ["test", "hello"]
    * /test hello me => ["test", "hello", "me"]
-   * @param interaction The targeted interaction
+   * @param interaction The targeted slash interaction
    * @returns The group tree
    */
-  getInteractionGroupTree(interaction: CommandInteraction) {
+  getSlashGroupTree(interaction: CommandInteraction) {
     const tree: string[] = [];
 
     const getOptionsTree = (
@@ -581,7 +581,7 @@ export class Client extends ClientJS {
     if (!interaction.isCommand()) return;
 
     // Get the interaction group tree
-    const tree = this.getInteractionGroupTree(interaction);
+    const tree = this.getSlashGroupTree(interaction);
     const slash = this.getSlashFromTree(tree);
 
     if (!slash) {

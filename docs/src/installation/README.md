@@ -19,7 +19,7 @@
 
 ## Introduction
 
-This module is an extension of **[discord.**js**](https://discordjs.guide/)**, so the internal behavior (methods, properties, ...) is the same.
+This module is an extension of **[discord.**js**](https://discord.js.org)**, so the internal behavior (methods, properties, ...) is the same.
 
 This library allows you to use TypeScript decorators on discord.**js**, it simplify your code and improve the readability !
 
@@ -35,14 +35,10 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx** with **discord.js**
 
-> You use the npm @slash tag to install version of discord.ts **discordx** that includes Slash commands (this version)
-
-::: danger
-For the moment discord.**js** didn't release the v13 on npm, you have to install it this way  
 (You also have to install "reflect-metadata" for the decorators)
 
 ```sh
-npm i discordx reflect-metadata https://github.com/discordjs/discord.js
+npm i discordx reflect-metadata discord.js
 ```
 
 Install your TypeScript dev dependencies too
@@ -57,20 +53,18 @@ And you should see this in your package.json
 {
   // ...
   "dependencies": {
-    "discordx": "^X.X.X",
-    "discord.js": "github:discordjs/discord.js",
+    "discordx": "^5.X.X",
+    "discord.js": "^13.X.X",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
-    "@types/node": "^15.0.3",
+    "@types/node": "^16.X.X",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   }
   // ...
 }
 ```
-
-:::
 
 ## Execution environnement
 
@@ -112,15 +106,17 @@ Your tsconfig.json file should look like this:
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2017",
-    "noImplicitAny": false,
+    "target": "ES2021",
+    "noImplicitAny": true,
     "sourceMap": true,
+    "strict": true,
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "declaration": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2017", "esnext.asynciterable"],
+    "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node"
   },
   "exclude": ["node_modules"]

@@ -17,7 +17,7 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
 
 - **`prefix`**  
   `string | ((message: Message) => Promise<string>)` (`!` by default)
-  simple commands use use this prefix by default, use function to fetch different prefix for different guilds
+  simple commands use this prefix by default, use function to fetch different prefix for different guilds
 
 - **`classes`**
   `string[]`

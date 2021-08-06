@@ -19,3 +19,30 @@ class commandTest {
   }
 }
 ```
+
+## Execute Commands
+
+You have to manualy execute your simple commands by using:
+
+- `client.executeCommand(message)`
+
+This provide flexibility in your code
+
+```ts
+import { Client } from "discordx";
+
+async function start() {
+  const client = new Client({
+    botId: "test",
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  });
+
+  client.on("messageCreate", (message) => {
+    client.executeCommand(message);
+  });
+
+  await client.login("YOUR_TOKEN");
+}
+
+start();
+```

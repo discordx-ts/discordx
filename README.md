@@ -4,8 +4,6 @@ For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have cr
 
 But with `discordx` we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, etc.
 
-⚠️ This package is updated daily with discord.js v13 updates. If you are using this package, make sure you keep it up to date.
-
 If you have any issues or feature requests, Open an issue at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
 
 # New features

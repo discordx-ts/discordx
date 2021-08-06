@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2019",
+    "target": "ES2021",
     "noImplicitAny": true,
     "sourceMap": true,
-    "strict": true /* Enable all strict type-checking options. */,
+    "strict": true,
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ES2020", "ES2017", "esnext.asynciterable"],
+    "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node"
   },
   "exclude": [
