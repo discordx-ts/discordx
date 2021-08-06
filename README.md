@@ -1,29 +1,3 @@
-# Why discordx?
-
-For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have created fixes and new features. Likewise, We have also requested our fixes and new features on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62).
-
-But with `discordx` we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, etc.
-
-If you have any issues or feature requests, Open an issue at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
-
-# New features
-
-- added multiple bot support (`@Bot`)
-- added `@Command` to support v4 commands
-- added new interactions: `@Button @SelectMenu`
-- added new decorator `@DefaultPermission`
-- added new initSlash method to create/update/remove slash commands
-- internal source code improved with lint for better type support
-- added more example for new decorators
-
-# Package
-
-Maintained by [@oceanroleplay](https://github.com/oceanroleplay)
-
-Package by [@OwenCalvin](https://github.com/OwenCalvin)
-
----
-
 <p align="center">
   <br/>
   <img src="https://i.imgur.com/kSLOEIF.png" width="150px">
@@ -52,6 +26,32 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 # 📜 Documentation
 
 **[https://oceanroleplay.github.io/discord.ts/](https://oceanroleplay.github.io/discord.ts/)**
+
+# Why discordx?
+
+For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have created fixes and new features. Likewise, We have also requested our fixes and new features on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62).
+
+But with `discordx` we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, etc.
+
+If you have any issues or feature requests, Open an issue at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
+
+# New features
+
+- added multiple bot support (`@Bot`)
+- added `@Command` to support v4 commands
+- added new interactions: `@Button @SelectMenu`
+- added new decorator `@DefaultPermission`
+- added new initSlash method to create/update/remove slash commands
+- internal source code improved with lint for better type support
+- added more example for new decorators
+
+# Package
+
+Maintained by [@oceanroleplay](https://github.com/oceanroleplay)
+
+Package by [@OwenCalvin](https://github.com/OwenCalvin)
+
+---
 
 # 📟 @Slash - Discord commands
 
