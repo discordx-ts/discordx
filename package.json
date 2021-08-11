@@ -9,8 +9,8 @@
     "build": "tsc",
     "type-check": "tsc --noemit",
     "test": "jest --detectOpenHandles",
-    "publish:module": "sh ./publish.sh",
-    "publish:docs": "cd docs && sh ./deploy.sh"
+    "test:typescript": "tsc",
+    "lint": "eslint src"
   },
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issue",
