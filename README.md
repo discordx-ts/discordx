@@ -38,8 +38,8 @@ If you have any issues or feature requests, Open an issue at Github [click here]
 # New features
 
 - added multiple bot support (`@Bot`)
-- added `@Command` to support v4 commands
-- added new interactions: `@Button @SelectMenu`
+- added `@SimpleCommand` to support v4 commands
+- added new interactions: `@ButtonComponent @SelectMenuComponent`
 - added new decorator `@DefaultPermission`
 - added new initSlash method to create/update/remove slash commands
 - internal source code improved with lint for better type support
@@ -79,9 +79,9 @@ abstract class AppDiscord {
 There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button and select menu
 
 - `@Bot`
-- `@Button`
-- `@Command`
-- `@CommandOption`
+- `@ButtonComponent`
+- `@SimpleCommand`
+- `@SimpleCommandOption`
 - `@DefaultPermission`
 - `@Description`
 - `@Discord`
@@ -90,15 +90,15 @@ There is a whole system that allows you to implement complex slash/simple comman
 - `@On`
 - `@Once`
 - `@Permission`
-- `@SelectMenu`
+- `@SelectMenuComponent`
 - `@Slash`
 - `@SlashChoice`
 - `@SlashGroup`
 - `@SlashOption`
 
-# 📟 @Button - Discord button interaction handler
+# 📟 @ButtonComponent - Discord button component interaction handler
 
-add button interaction handler for your bot using `@Button` decorator
+add button interaction handler for your bot using `@ButtonComponent` decorator
 
 ```ts
 @Discord()
@@ -119,16 +119,16 @@ class buttonExample {
     });
   }
 
-  @Button("hello-btn")
+  @ButtonComponent("hello-btn")
   mybtn(interaction: ButtonInteraction) {
     interaction.reply(`👋 ${interaction.member}`);
   }
 }
 ```
 
-# 📟 @SelectMenu - Discord menu interaction handler
+# 📟 @SelectMenuComponent - Discord menu component interaction handler
 
-add menu interaction handler for your bot using `@SelectMenu` decorator
+add menu interaction handler for your bot using `@SelectMenuComponent` decorator
 
 ```ts
 const roles = [
@@ -139,7 +139,7 @@ const roles = [
 
 @Discord()
 class buttons {
-  @SelectMenu("role-menu")
+  @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction) {
     await interaction.defer();
 
@@ -179,14 +179,14 @@ class buttons {
 }
 ```
 
-# 📟 @Command - Command Processor
+# 📟 @SimpleCommand - Command Processor
 
-Create a simple command handler for messages using `@Command`. Example `!hello world`
+Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 
 ```ts
 @Discord()
 class commandTest {
-  @Command("permcheck", { aliases: ["ptest"] })
+  @SimpleCommand("permcheck", { aliases: ["ptest"] })
   @DefaultPermission(false)
   @Permission({
     id: "462341082919731200",

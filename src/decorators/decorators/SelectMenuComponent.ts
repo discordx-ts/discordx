@@ -1,23 +1,24 @@
 import { Snowflake } from "discord.js";
-import { MetadataStorage, DButtonComponent } from "../..";
+import { MetadataStorage, DSelectMenuComponent } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
-export function Button(id?: string): MethodDecoratorEx;
-export function Button(
+export function SelectMenuComponent(id?: string): MethodDecoratorEx;
+export function SelectMenuComponent(
   id: string,
   params?: { guilds?: Snowflake[]; botIds?: string[] }
 ): MethodDecoratorEx;
 
-export function Button(
+export function SelectMenuComponent(
   id?: string,
   params?: { guilds?: Snowflake[]; botIds?: string[] }
 ) {
-  return (target: Record<string, any>, key: string) => {
-    const button = DButtonComponent.create(
+  return function (target: Record<string, any>, key: string) {
+    const button = DSelectMenuComponent.create(
       id ?? key,
       params?.guilds,
       params?.botIds
     ).decorate(target.constructor, key, target[key]);
-    MetadataStorage.instance.addButton(button);
+
+    MetadataStorage.instance.addSelectMenu(button);
   };
 }

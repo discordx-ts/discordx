@@ -1,6 +1,6 @@
-# @SelectMenu
+# @SelectMenuComponent
 
-add select menu interaction handler for your bot using `@SelectMenu` decorator
+add select menu interaction handler for your bot using `@SelectMenuComponent` decorator
 
 ## Example
 
@@ -13,7 +13,7 @@ const roles = [
 
 @Discord()
 class buttons {
-  @SelectMenu("role-menu")
+  @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction) {
     await interaction.defer();
 
@@ -55,7 +55,7 @@ class buttons {
 
 ## Params
 
-`@SelectMenu(id: string, params?: { guilds?: Snowflake[]; botIds?: string[] )`
+`@SelectMenuComponent(id: string, params?: { guilds?: Snowflake[]; botIds?: string[] )`
 
 ### id
 

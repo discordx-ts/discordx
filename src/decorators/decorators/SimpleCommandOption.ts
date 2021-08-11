@@ -4,12 +4,12 @@ import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DSimpleCommandOption } from "../classes/DSimpleCommandOption";
 
-export function CommandOption(name?: string): ParameterDecoratorEx;
-export function CommandOption(
+export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
+export function SimpleCommandOption(
   name: string,
   params?: { description?: string; type?: "string" | "number" | "boolean" }
 ): ParameterDecoratorEx;
-export function CommandOption(
+export function SimpleCommandOption(
   name?: string,
   params?: { description?: string; type?: "string" | "number" | "boolean" }
 ) {

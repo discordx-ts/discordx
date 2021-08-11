@@ -1,7 +1,7 @@
 import {
   Discord,
-  Command,
-  CommandOption,
+  SimpleCommand,
+  SimpleCommandOption,
   CommandMessage,
   DefaultPermission,
   Permission,
@@ -12,12 +12,12 @@ export abstract class commandTest {
   // single whitespace will be used to split options
   // command aliases: !m, !solve
   // string or regex supported for argSplitter
-  @Command("math", { aliases: ["m", "solve"], argSplitter: /\s/ })
+  @SimpleCommand("math", { aliases: ["m", "solve"], argSplitter: /\s/ })
   async cmd(
-    @CommandOption("num1")
+    @SimpleCommandOption("num1")
     num1: number, //
-    @CommandOption("a") operation: string, //
-    @CommandOption("num2") num2: number,
+    @SimpleCommandOption("a") operation: string, //
+    @SimpleCommandOption("num2") num2: number,
     message: CommandMessage
   ) {
     if (
@@ -49,7 +49,7 @@ export abstract class commandTest {
     message.reply(`${num1} ${operation} ${num2} = ${out}`);
   }
 
-  @Command("permcheck", { aliases: ["ptest"] })
+  @SimpleCommand("permcheck", { aliases: ["ptest"] })
   @DefaultPermission(false)
   @Permission({
     id: "462341082919731200",
@@ -60,9 +60,9 @@ export abstract class commandTest {
     message.reply("access granted");
   }
 
-  @Command("hello")
+  @SimpleCommand("hello")
   async testCommand(
-    @CommandOption() name: string,
+    @SimpleCommandOption() name: string,
 
     message: CommandMessage
   ) {

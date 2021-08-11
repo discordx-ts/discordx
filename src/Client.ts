@@ -14,7 +14,13 @@ import {
   DOn,
   GuardFunction,
 } from ".";
-import { DButtonComponent, DDiscord, DSlashOption, DSelectMenuComponent, DApplicationCommand } from "./decorators";
+import {
+  DButtonComponent,
+  DDiscord,
+  DSlashOption,
+  DSelectMenuComponent,
+  DApplicationCommand,
+} from "./decorators";
 import { DSimpleCommand } from "./decorators/classes/DSimpleCommand";
 import { GuildNotFoundError } from "./errors";
 import { CommandMessage } from "./types/public/CommandMessage";
@@ -132,14 +138,16 @@ export class Client extends ClientJS {
   }
 
   static get selectMenus() {
-    return MetadataStorage.instance.selectMenus as readonly DSelectMenuComponent[];
+    return MetadataStorage.instance
+      .selectMenus as readonly DSelectMenuComponent[];
   }
   get selectMenus() {
     return Client.selectMenus;
   }
 
   static get allSlashes() {
-    return MetadataStorage.instance.allSlashes as readonly DApplicationCommand[];
+    return MetadataStorage.instance
+      .allSlashes as readonly DApplicationCommand[];
   }
   get allSlashes() {
     return Client.allSlashes;
@@ -298,7 +306,8 @@ export class Client extends ClientJS {
           s,
         ])
         .filter<[ApplicationCommand, DApplicationCommand]>(
-          (s): s is [ApplicationCommand, DApplicationCommand] => s[0] !== undefined
+          (s): s is [ApplicationCommand, DApplicationCommand] =>
+            s[0] !== undefined
         );
 
       // filter slashes to delete
@@ -372,7 +381,8 @@ export class Client extends ClientJS {
           s,
         ])
         .filter<[ApplicationCommand, DApplicationCommand]>(
-          (s): s is [ApplicationCommand, DApplicationCommand] => s[0] !== undefined
+          (s): s is [ApplicationCommand, DApplicationCommand] =>
+            s[0] !== undefined
         );
 
       const deleted = existing.filter((c) =>
@@ -531,7 +541,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute the corresponding @Slash @Button @SelectMenu based on an Interaction instance
+   * Execute the corresponding @Slash @ButtonComponent @SelectMenuComponent based on an Interaction instance
    * @param interaction The discord.js interaction instance
    * @returns void
    */
@@ -640,7 +650,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute the corresponding @Command based on an message instance
+   * Execute the corresponding @SimpleCommand based on an message instance
    * @param message The discord.js message instance
    * @returns void
    */

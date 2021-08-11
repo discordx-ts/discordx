@@ -16,14 +16,14 @@ async function getParams(): CommandParams {
 
 // ...
 
-@Command(getParams)
+@SimpleCommand(getParams)
 
 // ...
 ```
 
 - `CommandParams` accpets regex for `name` and `prefix`
 
-- `@Command` accepts regex for the whole command  
+- `@SimpleCommand` accepts regex for the whole command  
   prefix: `"!"`, name: `undefined`, caseSensitive: `false`
 
 ```ts
@@ -44,8 +44,3 @@ prefix: `"-mbd"`, name: `"test"`, caseSensitive: `true`
 - `Client.getCommands` returns `@CommandNotFound`s too.
 
 - Can specify infos to `@CommandNotFound`.
-
-## Internal changes
-
-- `@On` has a type: `"on"` | `"command"` | `"commandNotFound"`
-- `@Command` params are compiled into a regex for tests

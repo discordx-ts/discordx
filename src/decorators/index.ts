@@ -1,3 +1,9 @@
+import {
+  ButtonComponent,
+  SelectMenuComponent,
+  SimpleCommand,
+  SimpleCommandOption,
+} from "..";
 import { SlashChoice } from "./decorators/SlashChoice";
 import { SlashGroup } from "./decorators/SlashGroup";
 import { SlashOption } from "./decorators/SlashOption";
@@ -22,6 +28,26 @@ export const Choices = SlashChoice;
  */
 export const Group = SlashGroup;
 
+/**
+ * @deprecated Use `ButtonComponent` instead.
+ */
+export const Button = ButtonComponent;
+
+/**
+ * @deprecated Use `ButtonComponent` instead.
+ */
+export const SelectMenu = SelectMenuComponent;
+
+/**
+ * @deprecated Use `SimpleCommand` instead.
+ */
+export const Command = SimpleCommand;
+
+/**
+ * @deprecated Use `SimpleCommandOption` instead.
+ */
+export const CommandOption = SimpleCommandOption;
+
 // remove above area by end of auguest
 
 export * from "./decorators/On";
@@ -38,10 +64,10 @@ export * from "./decorators/Permission";
 export * from "./decorators/SlashGroup";
 export * from "./decorators/Guild";
 export * from "./decorators/Bot";
-export * from "./decorators/Button";
-export * from "./decorators/SelectMenu";
-export * from "./decorators/Command";
-export * from "./decorators/CommandOption";
+export * from "./decorators/ButtonComponent";
+export * from "./decorators/SelectMenuComponent";
+export * from "./decorators/SimpleCommand";
+export * from "./decorators/SimpleCommandOption";
 
 export * from "./params/OptionParams";
 export * from "./params/SlashParams";

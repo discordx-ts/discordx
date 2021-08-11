@@ -198,7 +198,7 @@ export class MetadataStorage {
 
       if (!discord) return;
 
-      // You can get the @Discord that wrap a @Command/@On by using
+      // You can get the @Discord that wrap a @SimpleCommand/@On by using
       // on.discord or slash.discord
       member.discord = discord;
 

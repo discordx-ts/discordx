@@ -5,10 +5,13 @@ import { CommandParams } from "../params/CommandParams";
 
 const testName = RegExp(/^[a-z0-9]+$/);
 
-export function Command(): MethodDecoratorEx;
-export function Command(name: string): MethodDecoratorEx;
-export function Command(name: string, params: CommandParams): MethodDecoratorEx;
-export function Command(name?: string, params?: CommandParams) {
+export function SimpleCommand(): MethodDecoratorEx;
+export function SimpleCommand(name: string): MethodDecoratorEx;
+export function SimpleCommand(
+  name: string,
+  params: CommandParams
+): MethodDecoratorEx;
+export function SimpleCommand(name?: string, params?: CommandParams) {
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
     name = name.toLocaleLowerCase();

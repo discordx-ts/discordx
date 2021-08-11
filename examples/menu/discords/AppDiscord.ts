@@ -4,7 +4,7 @@ import {
   SelectMenuInteraction,
   MessageSelectMenu,
 } from "discord.js";
-import { Discord, Slash, SelectMenu } from "../../../src";
+import { Discord, Slash, SelectMenuComponent } from "../../../src";
 
 const roles = [
   { label: "Principal", value: "principal" },
@@ -14,9 +14,9 @@ const roles = [
 
 @Discord()
 export abstract class buttons {
-  @SelectMenu("role-menu")
+  @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction): Promise<unknown> {
-    await interaction.defer();
+    await interaction.deferReply();
 
     // extract selected value by member
     const roleValue = interaction.values?.[0];
@@ -34,7 +34,7 @@ export abstract class buttons {
 
   @Slash("myroles", { description: "roles menu" })
   async myroles(interaction: CommandInteraction): Promise<unknown> {
-    await interaction.defer();
+    await interaction.deferReply();
 
     // create menu for roels
     const menu = new MessageSelectMenu()

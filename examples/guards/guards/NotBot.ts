@@ -1,4 +1,9 @@
-import { CommandInteraction, MessageReaction, VoiceState } from "discord.js";
+import {
+  CommandInteraction,
+  Message,
+  MessageReaction,
+  VoiceState,
+} from "discord.js";
 import { ArgsOf, GuardFunction } from "../../../src";
 
 // Example by @AndyClausen
@@ -15,7 +20,9 @@ export const NotBot: GuardFunction<
       ? argObj.message.author
       : argObj instanceof VoiceState
       ? argObj.member.user
-      : argObj.author;
+      : argObj instanceof Message
+      ? argObj.author
+      : argObj.message.author;
   if (!user?.bot) {
     await next();
   }

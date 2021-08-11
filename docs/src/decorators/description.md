@@ -3,7 +3,6 @@
 This decorator is a shortcut to set the description property
 
 ```typescript
-import { ClassCommand, Command, CommandMessage } from "discordx";
 import { CommandInteraction } from "discord.js";
 
 @Discord()
@@ -19,7 +18,6 @@ export abstract class DiscordBot {
 Is equivalent to:
 
 ```typescript
-import { ClassCommand, Command, CommandMessage } from "discordx";
 import { CommandInteraction } from "discord.js";
 
 @Discord()

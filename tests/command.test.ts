@@ -6,7 +6,7 @@ import {
   Client,
   Guard,
   Description,
-  Command,
+  SimpleCommand,
   Permission,
 } from "../src";
 
@@ -19,7 +19,7 @@ import {
 })
 export abstract class AppDiscord {
   @Description("Addition")
-  @Command("add")
+  @SimpleCommand("add")
   add(
     @SlashOption("x", { description: "x value" })
     x: number,

@@ -8,7 +8,7 @@ import {
 import {
   Discord,
   Slash,
-  Button,
+  ButtonComponent,
   SlashOption,
   Description,
   SlashChoice,
@@ -77,7 +77,7 @@ export abstract class StonePaperScissor {
     choice: spcChoice,
     interaction: CommandInteraction
   ) {
-    await interaction.defer();
+    await interaction.deferReply();
 
     if (choice) {
       const playerChoice = spcProposition.nameToClass(choice);
@@ -133,11 +133,11 @@ export abstract class StonePaperScissor {
     }
   }
 
-  @Button("spc-stone")
-  @Button("spc-paper")
-  @Button("spc-scissor")
+  @ButtonComponent("spc-stone")
+  @ButtonComponent("spc-paper")
+  @ButtonComponent("spc-scissor")
   private async spcButton(interaction: ButtonInteraction) {
-    await interaction.defer();
+    await interaction.deferReply();
 
     const playerChoice = spcProposition.buttonCustomIDToClass(
       interaction.customId

@@ -1,15 +1,15 @@
-# @CommandOption
+# @SimpleCommandOption
 
 A simple command can have multiple options (parameters)
 
 ## Declare an option
 
-To declare an option you simply use the `@CommandOption` decorator before a method parameter
+To declare an option you simply use the `@SimpleCommandOption` decorator before a method parameter
 
 ```ts
-  @Command("hello")
+  @SimpleCommand("hello")
   async testCommand(
-    @CommandOption() name: string,
+    @SimpleCommandOption() name: string,
 
     message: CommandMessage
   ) {
@@ -21,8 +21,8 @@ To declare an option you simply use the `@CommandOption` decorator before a meth
 ## Signature
 
 ```ts
-function CommandOption(name?: string): ParameterDecoratorEx;
-function CommandOption(
+function SimpleCommandOption(name?: string): ParameterDecoratorEx;
+function SimpleCommandOption(
   name: string,
   params?: { description?: string; type?: "string" | "number" | "boolean" }
 ): ParameterDecoratorEx;
@@ -30,7 +30,7 @@ function CommandOption(
 
 ## Params
 
-`CommandOption( name: string, params?: { description?: string; type?: "string" | "number" | "boolean" } ): ParameterDecoratorEx;`
+`SimpleCommandOption( name: string, params?: { description?: string; type?: "string" | "number" | "boolean" } ): ParameterDecoratorEx;`
 
 ### name
 
