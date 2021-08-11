@@ -13,7 +13,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - name: working directory 
-      - working-directory: ./docs
+        working-directory: ./docs
       - run: npm install
       - run: npm run build
       - run: cd .vuepress/dist
