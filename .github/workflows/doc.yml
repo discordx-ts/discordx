@@ -23,12 +23,11 @@ jobs:
       
       - name: prepare git
         run: |
-          git init
+          git init -b docs
           git config user.email ${{ secrets.GIT_EMAIL }}
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
           git commit -m 'deploy'
-          git push -f git@github.com:oceanroleplay/discord.ts.git master:docs
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git push
         working-directory: ./docs/src/.vuepress/dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
