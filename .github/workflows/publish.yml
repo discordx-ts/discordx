@@ -1,4 +1,4 @@
-name: discordx
+name: publish stable
 on:
   workflow_dispatch:
   release:
