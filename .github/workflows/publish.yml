@@ -1,5 +1,6 @@
 name: discordx
 on:
+  workflow_dispatch:
   release:
     types: [created]
 jobs:
