@@ -12,8 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: build
-      - name: Run a multi-line script
-        run: |
+      - run: |
           cd docs
           npm install
           npm run build
