@@ -28,6 +28,6 @@ jobs:
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
           git commit -m 'deploy'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git push --set-upstream origin master
         working-directory: ./docs/src/.vuepress/dist
