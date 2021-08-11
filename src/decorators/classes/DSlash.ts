@@ -5,6 +5,7 @@ import {
   CommandInteractionOption,
   Snowflake,
 } from "discord.js";
+import { ApplicationCommandTypes } from "discord.js/typings/enums";
 import { DOption, Client } from "../..";
 import { Method } from "./Method";
 
@@ -128,6 +129,7 @@ export class DSlash extends Method {
       description: this.description,
       options: options,
       defaultPermission: this.defaultPermission,
+      type: ApplicationCommandTypes.CHAT_INPUT,
     };
   }
 
