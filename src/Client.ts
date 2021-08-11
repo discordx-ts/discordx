@@ -262,7 +262,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * @deprecated Use `clearApplicationCommands` instead.
+   * @deprecated Use `initApplicationCommands` instead.
    */
   initSlashes = this.initApplicationCommands;
 
