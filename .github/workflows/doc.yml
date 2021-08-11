@@ -12,10 +12,11 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: cd docs
+      - name: working directory 
+      - working-directory: ./docs
       - run: npm install
       - run: npm run build
-      - run: cd src/.vuepress/dist
+      - run: cd .vuepress/dist
       - run: git init
       - run: git add -A
       - run: git commit -m 'deploy'
