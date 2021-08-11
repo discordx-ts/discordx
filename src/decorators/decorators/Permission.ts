@@ -25,7 +25,10 @@ export function Permission(
           original.permissions = [...original.permissions, ...permission];
 
           if (original instanceof DDiscord) {
-            [...original.slashes, ...original.commands].forEach((obj) => {
+            [
+              ...original.applicationCommands,
+              ...original.simpleCommands,
+            ].forEach((obj) => {
               obj.permissions = [...obj.permissions, ...permission];
             });
           }

@@ -17,7 +17,10 @@ export function DefaultPermission(permission?: boolean): ClassMethodDecorator {
           original.defaultPermission = permission ?? true;
 
           if (original instanceof DDiscord) {
-            [...original.slashes, ...original.commands].forEach((obj) => {
+            [
+              ...original.applicationCommands,
+              ...original.simpleCommands,
+            ].forEach((obj) => {
               obj.defaultPermission = permission ?? true;
             });
           }

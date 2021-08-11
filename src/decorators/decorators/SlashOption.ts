@@ -39,7 +39,7 @@ export function SlashOption(name?: string, params?: OptionParams) {
 
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand>((original) => {
-        original.options = [...original.options, option];
+        original.slashOptions = [...original.slashOptions, option];
       }, DApplicationCommand).decorate(
         target.constructor,
         key,

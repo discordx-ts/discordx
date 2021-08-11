@@ -17,7 +17,12 @@ export function Bot(...botIDs: string[]): ClassMethodDecorator {
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
-        DApplicationCommand | DSimpleCommand | DDiscord | DButtonComponent | DSelectMenuComponent | DOn
+        | DApplicationCommand
+        | DSimpleCommand
+        | DDiscord
+        | DButtonComponent
+        | DSelectMenuComponent
+        | DOn
       >(
         (original) => {
           original.botIds = [
@@ -27,8 +32,8 @@ export function Bot(...botIDs: string[]): ClassMethodDecorator {
 
           if (original instanceof DDiscord) {
             [
-              ...original.slashes,
-              ...original.commands,
+              ...original.applicationCommands,
+              ...original.simpleCommands,
               ...original.buttons,
               ...original.selectMenus,
               ...original.events,

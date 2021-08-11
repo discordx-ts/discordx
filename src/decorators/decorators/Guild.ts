@@ -16,7 +16,13 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
     descriptor?: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord | DButtonComponent | DSelectMenuComponent>(
+      Modifier.create<
+        | DApplicationCommand
+        | DSimpleCommand
+        | DDiscord
+        | DButtonComponent
+        | DSelectMenuComponent
+      >(
         (original) => {
           original.guilds = [
             ...original.guilds,
@@ -25,8 +31,8 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
 
           if (original instanceof DDiscord) {
             [
-              ...original.slashes,
-              ...original.commands,
+              ...original.applicationCommands,
+              ...original.simpleCommands,
               ...original.buttons,
               ...original.selectMenus,
             ].forEach((slash) => {
