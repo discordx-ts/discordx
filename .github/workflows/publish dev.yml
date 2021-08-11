@@ -1,4 +1,4 @@
-name: publish dev
+name: Publish Dev
 on:
   workflow_dispatch:
 

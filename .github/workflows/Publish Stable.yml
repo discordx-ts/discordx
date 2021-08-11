@@ -1,4 +1,4 @@
-name: publish stable
+name: Publish Stable
 on:
   workflow_dispatch:
   release:
