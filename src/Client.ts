@@ -601,7 +601,7 @@ export class Client extends ClientJS {
     }
 
     // If the interaction isn't a slash command, return
-    if (!interaction.isCommand()) return;
+    if (!interaction.isCommand() && !interaction.isContextMenu()) return;
 
     // Get the interaction group tree
     const tree = this.getSlashGroupTree(interaction);
