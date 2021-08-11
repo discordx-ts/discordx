@@ -19,24 +19,6 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-  typings:
-    name: TSLint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Install Node v16
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run TSLint
-        run: npm run lint:typings
-
   typescript:
     name: TypeScript
     runs-on: ubuntu-latest
@@ -51,9 +33,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Register Problem Matcher
-        run: echo "##[add-matcher].github/tsc.json"
 
       - name: Run TypeScript compiler
         run: npm run test:typescript
