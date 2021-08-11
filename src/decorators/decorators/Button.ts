@@ -1,5 +1,5 @@
 import { Snowflake } from "discord.js";
-import { MetadataStorage, DButton } from "../..";
+import { MetadataStorage, DButtonComponent } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
 export function Button(id?: string): MethodDecoratorEx;
@@ -13,7 +13,7 @@ export function Button(
   params?: { guilds?: Snowflake[]; botIds?: string[] }
 ) {
   return (target: Record<string, any>, key: string) => {
-    const button = DButton.create(
+    const button = DButtonComponent.create(
       id ?? key,
       params?.guilds,
       params?.botIds

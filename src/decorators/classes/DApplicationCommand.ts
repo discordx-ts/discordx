@@ -5,14 +5,14 @@ import {
   CommandInteractionOption,
   Snowflake,
 } from "discord.js";
-import { DOption, Client } from "../..";
+import { DSlashOption, Client } from "../..";
 import { Method } from "./Method";
 
-export class DSlash extends Method {
+export class DApplicationCommand extends Method {
   private _name: string;
   private _description: string;
   private _defaultPermission: boolean;
-  private _options: DOption[] = [];
+  private _options: DSlashOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: Snowflake[];
   private _group?: string;
@@ -78,7 +78,7 @@ export class DSlash extends Method {
   get options() {
     return this._options;
   }
-  set options(value: DOption[]) {
+  set options(value: DSlashOption[]) {
     this._options = value;
   }
 
@@ -104,11 +104,11 @@ export class DSlash extends Method {
     guilds?: Snowflake[],
     botIds?: string[]
   ) {
-    return new DSlash(name, description, defaultPermission, guilds, botIds);
+    return new DApplicationCommand(name, description, defaultPermission, guilds, botIds);
   }
 
   toSubCommand() {
-    const option = DOption.create(
+    const option = DSlashOption.create(
       this.name,
       "SUB_COMMAND",
       this.description

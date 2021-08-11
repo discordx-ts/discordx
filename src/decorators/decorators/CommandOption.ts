@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { MetadataStorage, Modifier } from "../..";
 import { ParameterDecoratorEx } from "../../types/public/decorators";
-import { DCommand } from "../classes/DCommand";
-import { DCommandOption } from "../classes/DCommandOption";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
+import { DSimpleCommandOption } from "../classes/DSimpleCommandOption";
 
 export function CommandOption(name?: string): ParameterDecoratorEx;
 export function CommandOption(
@@ -21,16 +21,16 @@ export function CommandOption(
         index
       ].name.toLowerCase() as "string" | "number" | "boolean" | undefined);
 
-    const option = DCommandOption.create(
+    const option = DSimpleCommandOption.create(
       name ?? key,
       type,
       params?.description
     ).decorate(target.constructor, key, target[key], target.constructor, index);
 
     MetadataStorage.instance.addModifier(
-      Modifier.create<DCommand>((original) => {
+      Modifier.create<DSimpleCommand>((original) => {
         original.options = [...original.options, option];
-      }, DCommand).decorate(
+      }, DSimpleCommand).decorate(
         target.constructor,
         key,
         target[key],

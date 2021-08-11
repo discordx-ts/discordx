@@ -1,4 +1,4 @@
-import { MetadataStorage, DSlash, SlashParams } from "../..";
+import { MetadataStorage, DApplicationCommand, SlashParams } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
 export function Slash(name?: string): MethodDecoratorEx;
@@ -8,7 +8,7 @@ export function Slash(name?: string, params?: SlashParams) {
     name = name ?? key;
     name = name.toLocaleLowerCase();
 
-    const slash = DSlash.create(
+    const slash = DApplicationCommand.create(
       name,
       params?.description,
       params?.defaultPermission,

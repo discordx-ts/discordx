@@ -1,7 +1,7 @@
 import { MetadataStorage, Modifier } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
-import { DCommand } from "../classes/DCommand";
-import { DSlash } from "../classes/DSlash";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
+import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function Description(description: string): MethodDecoratorEx;
 export function Description(description: string) {
@@ -11,12 +11,12 @@ export function Description(description: string) {
     descriptor: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DCommand>(
+      Modifier.create<DApplicationCommand | DSimpleCommand>(
         (original) => {
           original.description = description;
         },
-        DSlash,
-        DCommand
+        DApplicationCommand,
+        DSimpleCommand
       ).decorate(target.constructor, key, descriptor.value)
     );
   };

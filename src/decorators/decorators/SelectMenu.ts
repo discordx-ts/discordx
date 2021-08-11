@@ -1,5 +1,5 @@
 import { Snowflake } from "discord.js";
-import { MetadataStorage, DSelectMenu } from "../..";
+import { MetadataStorage, DSelectMenuComponent } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
 export function SelectMenu(id?: string): MethodDecoratorEx;
@@ -13,7 +13,7 @@ export function SelectMenu(
   params?: { guilds?: Snowflake[]; botIds?: string[] }
 ) {
   return function (target: Record<string, any>, key: string) {
-    const button = DSelectMenu.create(
+    const button = DSelectMenuComponent.create(
       id ?? key,
       params?.guilds,
       params?.botIds

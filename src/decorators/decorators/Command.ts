@@ -1,6 +1,6 @@
 import { MetadataStorage } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
-import { DCommand } from "../classes/DCommand";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { CommandParams } from "../params/CommandParams";
 
 const testName = RegExp(/^[a-z0-9]+$/);
@@ -19,7 +19,7 @@ export function Command(name?: string, params?: CommandParams) {
       }
     }
 
-    const cmd = DCommand.create(
+    const cmd = DSimpleCommand.create(
       name,
       params?.description,
       params?.argSplitter,

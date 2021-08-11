@@ -14,8 +14,8 @@ import {
   DOn,
   GuardFunction,
 } from ".";
-import { DButton, DDiscord, DOption, DSelectMenu, DSlash } from "./decorators";
-import { DCommand } from "./decorators/classes/DCommand";
+import { DButtonComponent, DDiscord, DSlashOption, DSelectMenuComponent, DApplicationCommand } from "./decorators";
+import { DSimpleCommand } from "./decorators/classes/DSimpleCommand";
 import { GuildNotFoundError } from "./errors";
 import { CommandMessage } from "./types/public/CommandMessage";
 
@@ -35,7 +35,7 @@ export class Client extends ClientJS {
     | string
     | ((
         message: Message,
-        info: { name: string; prefix: string; command: DCommand }
+        info: { name: string; prefix: string; command: DSimpleCommand }
       ) => Promise<void>);
   private _silent: boolean;
   private static _requiredByDefault = false;
@@ -111,35 +111,35 @@ export class Client extends ClientJS {
   }
 
   static get slashes() {
-    return MetadataStorage.instance.slashes as readonly DSlash[];
+    return MetadataStorage.instance.slashes as readonly DApplicationCommand[];
   }
   get slashes() {
     return Client.slashes;
   }
 
   static get commands() {
-    return MetadataStorage.instance.commands as readonly DCommand[];
+    return MetadataStorage.instance.commands as readonly DSimpleCommand[];
   }
   get commands() {
     return Client.commands;
   }
 
   static get buttons() {
-    return MetadataStorage.instance.buttons as readonly DButton[];
+    return MetadataStorage.instance.buttons as readonly DButtonComponent[];
   }
   get buttons() {
     return Client.buttons;
   }
 
   static get selectMenus() {
-    return MetadataStorage.instance.selectMenus as readonly DSelectMenu[];
+    return MetadataStorage.instance.selectMenus as readonly DSelectMenuComponent[];
   }
   get selectMenus() {
     return Client.selectMenus;
   }
 
   static get allSlashes() {
-    return MetadataStorage.instance.allSlashes as readonly DSlash[];
+    return MetadataStorage.instance.allSlashes as readonly DApplicationCommand[];
   }
   get allSlashes() {
     return Client.allSlashes;
@@ -219,7 +219,7 @@ export class Client extends ClientJS {
       if (this.slashes.length) {
         this.slashes.map((slash) => {
           console.log(` ${slash.name} (${slash.classRef.name}.${slash.key})`);
-          const printOptions = (options: DOption[], depth: number) => {
+          const printOptions = (options: DSlashOption[], depth: number) => {
             if (!options) return;
 
             const tab = Array(depth).join("      ");
@@ -259,7 +259,7 @@ export class Client extends ClientJS {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
     // # group guild slashes by guildId
-    const guildSlashStorage = new Map<Snowflake, DSlash[]>();
+    const guildSlashStorage = new Map<Snowflake, DApplicationCommand[]>();
     const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
 
     // group single guild slashes together
@@ -289,7 +289,7 @@ export class Client extends ClientJS {
 
       // filter slashes to update
       const updated = slashes
-        .map<[ApplicationCommand | undefined, DSlash]>((s) => [
+        .map<[ApplicationCommand | undefined, DApplicationCommand]>((s) => [
           existing.find(
             (c) =>
               c.name === s.name &&
@@ -297,8 +297,8 @@ export class Client extends ClientJS {
           ),
           s,
         ])
-        .filter<[ApplicationCommand, DSlash]>(
-          (s): s is [ApplicationCommand, DSlash] => s[0] !== undefined
+        .filter<[ApplicationCommand, DApplicationCommand]>(
+          (s): s is [ApplicationCommand, DApplicationCommand] => s[0] !== undefined
         );
 
       // filter slashes to delete
@@ -367,12 +367,12 @@ export class Client extends ClientJS {
       );
 
       const updated = slashes
-        .map<[ApplicationCommand | undefined, DSlash]>((s) => [
+        .map<[ApplicationCommand | undefined, DApplicationCommand]>((s) => [
           existing.find((c) => c.name === s.name),
           s,
         ])
-        .filter<[ApplicationCommand, DSlash]>(
-          (s): s is [ApplicationCommand, DSlash] => s[0] !== undefined
+        .filter<[ApplicationCommand, DApplicationCommand]>(
+          (s): s is [ApplicationCommand, DApplicationCommand] => s[0] !== undefined
         );
 
       const deleted = existing.filter((c) =>

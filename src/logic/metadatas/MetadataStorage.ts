@@ -7,15 +7,15 @@ import {
   DiscordEvents,
   Modifier,
   DIService,
-  DSlash,
-  DOption,
+  DApplicationCommand,
+  DSlashOption,
   Method,
 } from "../..";
-import { DButton, DGroup } from "../../decorators";
-import { DSelectMenu } from "../../decorators/classes/DSelectMenu";
+import { DButtonComponent, DSlashGroup } from "../../decorators";
+import { DSelectMenuComponent } from "../../decorators/classes/DSelectMenuComponent";
 import * as glob from "glob";
-import { DCommand } from "../../decorators/classes/DCommand";
-import { DCommandOption } from "../../decorators/classes/DCommandOption";
+import { DSimpleCommand } from "../../decorators/classes/DSimpleCommand";
+import { DSimpleCommandOption } from "../../decorators/classes/DSimpleCommandOption";
 
 export class MetadataStorage {
   private static isBuilt = false;
@@ -23,18 +23,18 @@ export class MetadataStorage {
   private static _instance: MetadataStorage;
   private _events: DOn[] = [];
   private _guards: DGuard[] = [];
-  private _slashes: DSlash[] = [];
-  private _allSlashes: DSlash[] = [];
-  private _buttons: DButton[] = [];
-  private _selectMenu: DSelectMenu[] = [];
-  private _options: DOption[] = [];
+  private _slashes: DApplicationCommand[] = [];
+  private _allSlashes: DApplicationCommand[] = [];
+  private _buttons: DButtonComponent[] = [];
+  private _selectMenu: DSelectMenuComponent[] = [];
+  private _options: DSlashOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
-  private _commands: DCommand[] = [];
-  private _commandsOptions: DCommandOption[] = [];
+  private _commands: DSimpleCommand[] = [];
+  private _commandsOptions: DSimpleCommandOption[] = [];
 
-  private _groups: DGroup<DSlash>[] = [];
-  private _subGroups: DGroup<DOption>[] = [];
+  private _groups: DSlashGroup<DApplicationCommand>[] = [];
+  private _subGroups: DSlashGroup<DSlashOption>[] = [];
 
   static get instance() {
     if (!this._instance) {
@@ -80,31 +80,31 @@ export class MetadataStorage {
   }
 
   get slashes() {
-    return this._slashes as readonly DSlash[];
+    return this._slashes as readonly DApplicationCommand[];
   }
 
   get commands() {
-    return this._commands as readonly DCommand[];
+    return this._commands as readonly DSimpleCommand[];
   }
 
   get buttons() {
-    return this._buttons as readonly DButton[];
+    return this._buttons as readonly DButtonComponent[];
   }
 
   get selectMenus() {
-    return this._selectMenu as readonly DSelectMenu[];
+    return this._selectMenu as readonly DSelectMenuComponent[];
   }
 
   get allSlashes() {
-    return this._allSlashes as readonly DSlash[];
+    return this._allSlashes as readonly DApplicationCommand[];
   }
 
   get groups() {
-    return this._groups as readonly DGroup[];
+    return this._groups as readonly DSlashGroup[];
   }
 
   get subGroups() {
-    return this._subGroups as readonly DGroup[];
+    return this._subGroups as readonly DSlashGroup[];
   }
 
   private get discordMembers(): readonly Method[] {
@@ -125,35 +125,35 @@ export class MetadataStorage {
     this._events.push(on);
   }
 
-  addSlash(slash: DSlash) {
+  addSlash(slash: DApplicationCommand) {
     this._slashes.push(slash);
   }
 
-  addCommand(cmd: DCommand) {
+  addCommand(cmd: DSimpleCommand) {
     this._commands.push(cmd);
   }
 
-  addCommandOption(cmdOption: DCommandOption) {
+  addCommandOption(cmdOption: DSimpleCommandOption) {
     this._commandsOptions.push(cmdOption);
   }
 
-  addButton(button: DButton) {
+  addButton(button: DButtonComponent) {
     this._buttons.push(button);
   }
 
-  addSelectMenu(selectMenu: DSelectMenu) {
+  addSelectMenu(selectMenu: DSelectMenuComponent) {
     this._selectMenu.push(selectMenu);
   }
 
-  addOption(option: DOption) {
+  addOption(option: DSlashOption) {
     this._options.push(option);
   }
 
-  addGroup(group: DGroup<DSlash>) {
+  addGroup(group: DSlashGroup<DApplicationCommand>) {
     this._groups.push(group);
   }
 
-  addSubGroup(subGroup: DGroup<DOption>) {
+  addSubGroup(subGroup: DSlashGroup<DSlashOption>) {
     this._subGroups.push(subGroup);
   }
 
@@ -202,11 +202,11 @@ export class MetadataStorage {
       // on.discord or slash.discord
       member.discord = discord;
 
-      if (member instanceof DSlash) {
+      if (member instanceof DApplicationCommand) {
         discord.slashes.push(member);
       }
 
-      if (member instanceof DCommand) {
+      if (member instanceof DSimpleCommand) {
         discord.commands.push(member);
       }
 
@@ -214,11 +214,11 @@ export class MetadataStorage {
         discord.events.push(member);
       }
 
-      if (member instanceof DButton) {
+      if (member instanceof DButtonComponent) {
         discord.buttons.push(member);
       }
 
-      if (member instanceof DSelectMenu) {
+      if (member instanceof DSelectMenuComponent) {
         discord.selectMenus.push(member);
       }
     });
@@ -251,7 +251,7 @@ export class MetadataStorage {
   }
 
   private groupSlashes() {
-    const groupedSlashes: Map<string, DSlash> = new Map();
+    const groupedSlashes: Map<string, DApplicationCommand> = new Map();
 
     // Create Slashes from class groups that will wraps the commands
     //
@@ -262,7 +262,7 @@ export class MetadataStorage {
     // ]
     //
     this._groups.forEach((group) => {
-      const slashParent = DSlash.create(
+      const slashParent = DApplicationCommand.create(
         group.name,
         group.infos?.description
       ).decorate(group.classRef, group.key, group.method);
@@ -312,7 +312,7 @@ export class MetadataStorage {
     //     }
     // ]
     this._subGroups.forEach((subGroup) => {
-      const option = DOption.create(
+      const option = DSlashOption.create(
         subGroup.name,
         "SUB_COMMAND_GROUP",
         subGroup.infos?.description

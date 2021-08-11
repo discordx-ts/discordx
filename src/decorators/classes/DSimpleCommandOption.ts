@@ -1,6 +1,6 @@
 import { Decorator } from "./Decorator";
 
-export class DCommandOption extends Decorator {
+export class DSimpleCommandOption extends Decorator {
   private _name: string;
   private _description: string;
   private _type: "string" | "number" | "boolean";
@@ -42,6 +42,6 @@ export class DCommandOption extends Decorator {
     type?: "string" | "number" | "boolean",
     description?: string
   ) {
-    return new DCommandOption(name, type, description);
+    return new DSimpleCommandOption(name, type, description);
   }
 }

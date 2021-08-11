@@ -5,12 +5,12 @@ import {
   Modifier,
   Method,
 } from "../..";
-import { DButton } from "../classes/DButton";
-import { DCommand } from "../classes/DCommand";
+import { DButtonComponent } from "../classes/DButtonComponent";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
-import { DSelectMenu } from "../classes/DSelectMenu";
-import { DSlash } from "../classes/DSlash";
+import { DSelectMenuComponent } from "../classes/DSelectMenuComponent";
+import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function Guard<Type = any, DatasType = any>(
   ...fns: GuardFunction<Type, DatasType>[]
@@ -29,10 +29,10 @@ export function Guard<Type = any, DatasType = any>(
         (original) => {
           original.guards = guards;
         },
-        DSelectMenu,
-        DButton,
-        DSlash,
-        DCommand,
+        DSelectMenuComponent,
+        DButtonComponent,
+        DApplicationCommand,
+        DSimpleCommand,
         DOn,
         DDiscord
       ).decorateUnknown(target, key, descriptor)

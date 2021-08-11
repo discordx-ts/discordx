@@ -1,7 +1,7 @@
 import {
   MetadataStorage,
-  DChoice,
-  DOption,
+  DSlashChoice,
+  DSlashOption,
   Modifier,
   ChoicesType,
 } from "../..";
@@ -18,19 +18,19 @@ export function SlashChoice(
 ) {
   return (target: Record<string, any>, key: string, index: number) => {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DOption>((original) => {
+      Modifier.create<DSlashOption>((original) => {
         if (typeof name === "string" || typeof name === "number") {
           original.choices = [
             ...original.choices,
-            DChoice.create(name.toString(), value ? value : name),
+            DSlashChoice.create(name.toString(), value ? value : name),
           ];
         } else {
           const allChoices = Object.keys(name).map((key) => {
-            return DChoice.create(key, name[key]);
+            return DSlashChoice.create(key, name[key]);
           });
           original.choices = [...original.choices, ...allChoices];
         }
-      }, DOption).decorate(
+      }, DSlashOption).decorate(
         target.constructor,
         key,
         target[key],

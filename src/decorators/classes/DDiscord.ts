@@ -1,18 +1,18 @@
 import { Decorator } from "./Decorator";
-import { DGuard, DSlash, DIService, DOn } from "../..";
-import { DButton } from "./DButton";
-import { DSelectMenu } from "./DSelectMenu";
+import { DGuard, DApplicationCommand, DIService, DOn } from "../..";
+import { DButtonComponent } from "./DButtonComponent";
+import { DSelectMenuComponent } from "./DSelectMenuComponent";
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
-import { DCommand } from "./DCommand";
+import { DSimpleCommand } from "./DSimpleCommand";
 
 export class DDiscord extends Decorator {
   private _name: string;
   private _description: string;
   private _guards: DGuard[] = [];
-  private _buttons: DButton[] = [];
-  private _selectMenus: DSelectMenu[] = [];
-  private _slashes: DSlash[] = [];
-  private _commands: DCommand[] = [];
+  private _buttons: DButtonComponent[] = [];
+  private _selectMenus: DSelectMenuComponent[] = [];
+  private _slashes: DApplicationCommand[] = [];
+  private _commands: DSimpleCommand[] = [];
   private _events: DOn[] = [];
   private _defaultPermission = true;
   private _permissions: ApplicationCommandPermissionData[] = [];

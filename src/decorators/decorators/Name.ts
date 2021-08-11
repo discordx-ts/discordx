@@ -1,5 +1,5 @@
-import { MetadataStorage, DSlash, Modifier, DDiscord } from "../..";
-import { DCommand } from "../classes/DCommand";
+import { MetadataStorage, DApplicationCommand, Modifier, DDiscord } from "../..";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
 
 export function Name(name: string) {
   return function (
@@ -8,12 +8,12 @@ export function Name(name: string) {
     descriptor?: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DCommand | DDiscord>(
+      Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord>(
         (original) => {
           original.name = name;
         },
-        DSlash,
-        DCommand,
+        DApplicationCommand,
+        DSimpleCommand,
         DDiscord
       ).decorateUnknown(target, key, descriptor)
     );

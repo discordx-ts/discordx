@@ -1,11 +1,11 @@
 import { MetadataStorage, Modifier } from "../..";
 import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DButton } from "../classes/DButton";
-import { DCommand } from "../classes/DCommand";
+import { DButtonComponent } from "../classes/DButtonComponent";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
-import { DSelectMenu } from "../classes/DSelectMenu";
-import { DSlash } from "../classes/DSlash";
+import { DSelectMenuComponent } from "../classes/DSelectMenuComponent";
+import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function Bot(botID: string): ClassMethodDecorator;
 export function Bot(...botIDs: string[]): ClassMethodDecorator;
@@ -17,7 +17,7 @@ export function Bot(...botIDs: string[]): ClassMethodDecorator {
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
-        DSlash | DCommand | DDiscord | DButton | DSelectMenu | DOn
+        DApplicationCommand | DSimpleCommand | DDiscord | DButtonComponent | DSelectMenuComponent | DOn
       >(
         (original) => {
           original.botIds = [
@@ -40,11 +40,11 @@ export function Bot(...botIDs: string[]): ClassMethodDecorator {
             });
           }
         },
-        DSlash,
-        DCommand,
+        DApplicationCommand,
+        DSimpleCommand,
         DDiscord,
-        DButton,
-        DSelectMenu,
+        DButtonComponent,
+        DSelectMenuComponent,
         DOn
       ).decorateUnknown(target, key, descriptor)
     );

@@ -1,13 +1,13 @@
 import "reflect-metadata";
 import {
   MetadataStorage,
-  DOption,
+  DSlashOption,
   OptionParams,
   Modifier,
   StringOptionType,
 } from "../..";
 import { ParameterDecoratorEx } from "../../types/public/decorators";
-import { DSlash } from "../classes/DSlash";
+import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function SlashOption(name?: string): ParameterDecoratorEx;
 export function SlashOption(
@@ -27,7 +27,7 @@ export function SlashOption(name?: string, params?: OptionParams) {
         index
       ] as StringOptionType);
 
-    const option = DOption.create(
+    const option = DSlashOption.create(
       name ?? key,
       type,
       params?.description,
@@ -38,9 +38,9 @@ export function SlashOption(name?: string, params?: OptionParams) {
     option.isNode = true;
 
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash>((original) => {
+      Modifier.create<DApplicationCommand>((original) => {
         original.options = [...original.options, option];
-      }, DSlash).decorate(
+      }, DApplicationCommand).decorate(
         target.constructor,
         key,
         target[key],

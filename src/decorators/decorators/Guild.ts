@@ -1,11 +1,11 @@
 import { Snowflake } from "discord.js";
 import { MetadataStorage, Modifier } from "../..";
 import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DButton } from "../classes/DButton";
-import { DCommand } from "../classes/DCommand";
+import { DButtonComponent } from "../classes/DButtonComponent";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
-import { DSelectMenu } from "../classes/DSelectMenu";
-import { DSlash } from "../classes/DSlash";
+import { DSelectMenuComponent } from "../classes/DSelectMenuComponent";
+import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function Guild(guildID: Snowflake): ClassMethodDecorator;
 export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator;
@@ -16,7 +16,7 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
     descriptor?: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DCommand | DDiscord | DButton | DSelectMenu>(
+      Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord | DButtonComponent | DSelectMenuComponent>(
         (original) => {
           original.guilds = [
             ...original.guilds,
@@ -39,11 +39,11 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
             });
           }
         },
-        DSlash,
-        DCommand,
+        DApplicationCommand,
+        DSimpleCommand,
         DDiscord,
-        DButton,
-        DSelectMenu
+        DButtonComponent,
+        DSelectMenuComponent
       ).decorateUnknown(target, key, descriptor)
     );
   };

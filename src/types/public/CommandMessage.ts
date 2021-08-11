@@ -1,10 +1,10 @@
 import { Message } from "discord.js";
-import { DCommand } from "../../decorators/classes/DCommand";
+import { DSimpleCommand } from "../../decorators/classes/DSimpleCommand";
 
 export interface CommandMessage extends Message {
   command: {
     prefix: string;
-    object: DCommand;
+    object: DSimpleCommand;
     name: string;
     argString: string;
   };

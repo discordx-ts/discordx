@@ -1,16 +1,16 @@
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
 import { Client } from "../..";
 import { CommandMessage } from "../../types/public/CommandMessage";
-import { DCommandOption } from "./DCommandOption";
+import { DSimpleCommandOption } from "./DSimpleCommandOption";
 import { Method } from "./Method";
 
-export class DCommand extends Method {
+export class DSimpleCommand extends Method {
   private _description: string;
   private _name: string;
   private _defaultPermission: boolean;
   private _directMessage: boolean;
   private _argSplitter: string | RegExp;
-  private _options: DCommandOption[] = [];
+  private _options: DSimpleCommandOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: Snowflake[];
   private _botIds: string[];
@@ -82,7 +82,7 @@ export class DCommand extends Method {
   get options() {
     return this._options;
   }
-  set options(value: DCommandOption[]) {
+  set options(value: DSimpleCommandOption[]) {
     this._options = value;
   }
 
@@ -119,7 +119,7 @@ export class DCommand extends Method {
     botIds?: string[],
     aliases?: string[]
   ) {
-    return new DCommand(
+    return new DSimpleCommand(
       name,
       description,
       argSplitter,

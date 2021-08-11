@@ -1,8 +1,8 @@
 import { MetadataStorage, Modifier } from "../..";
 import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DCommand } from "../classes/DCommand";
+import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
-import { DSlash } from "../classes/DSlash";
+import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function DefaultPermission(permission?: boolean): ClassMethodDecorator {
   return function (
@@ -12,7 +12,7 @@ export function DefaultPermission(permission?: boolean): ClassMethodDecorator {
     descriptor?: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSlash | DCommand | DDiscord>(
+      Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord>(
         (original) => {
           original.defaultPermission = permission ?? true;
 
@@ -22,8 +22,8 @@ export function DefaultPermission(permission?: boolean): ClassMethodDecorator {
             });
           }
         },
-        DSlash,
-        DCommand,
+        DApplicationCommand,
+        DSimpleCommand,
         DDiscord
       ).decorateUnknown(target, key, descriptor)
     );

@@ -10,20 +10,20 @@ import {
 } from "discord.js";
 import { Decorator } from "./Decorator";
 import {
-  DChoice,
+  DSlashChoice,
   Client,
   OptionValueType,
   StringOptionType,
   OptionType,
 } from "../..";
 
-export class DOption extends Decorator {
+export class DSlashOption extends Decorator {
   private _required = false;
   private _name: string;
   private _description: string;
   private _type: OptionValueType;
-  private _choices: DChoice[] = [];
-  private _options: DOption[] = [];
+  private _choices: DSlashChoice[] = [];
+  private _options: DSlashOption[] = [];
   private _isNode = false;
 
   get isNode() {
@@ -128,7 +128,7 @@ export class DOption extends Decorator {
     required?: boolean,
     index?: number
   ) {
-    return new DOption(name, type, description, required, index);
+    return new DSlashOption(name, type, description, required, index);
   }
 
   toObject(): ApplicationCommandOptionData {
