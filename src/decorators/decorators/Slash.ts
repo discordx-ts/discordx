@@ -10,6 +10,7 @@ export function Slash(name?: string, params?: SlashParams) {
 
     const slash = DApplicationCommand.create(
       name,
+      "CHAT_INPUT",
       params?.description,
       params?.defaultPermission,
       params?.guilds,

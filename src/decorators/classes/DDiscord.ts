@@ -9,10 +9,10 @@ export class DDiscord extends Decorator {
   private _name: string;
   private _description: string;
   private _guards: DGuard[] = [];
-  private _buttons: DButtonComponent[] = [];
+  private _buttonComponents: DButtonComponent[] = [];
   private _selectMenus: DSelectMenuComponent[] = [];
-  private _slashes: DApplicationCommand[] = [];
-  private _commands: DSimpleCommand[] = [];
+  private _applicationCommands: DApplicationCommand[] = [];
+  private _simpleCommands: DSimpleCommand[] = [];
   private _events: DOn[] = [];
   private _defaultPermission = true;
   private _permissions: ApplicationCommandPermissionData[] = [];
@@ -68,25 +68,25 @@ export class DDiscord extends Decorator {
     this._guards = value;
   }
 
-  get slashes() {
-    return this._slashes;
+  get applicationCommands() {
+    return this._applicationCommands;
   }
-  set slashes(value) {
-    this._slashes = value;
+  set applicationCommands(value) {
+    this._applicationCommands = value;
   }
 
-  get commands() {
-    return this._commands;
+  get simpleCommands() {
+    return this._simpleCommands;
   }
-  set commands(value) {
-    this._commands = value;
+  set simpleCommands(value) {
+    this._simpleCommands = value;
   }
 
   get buttons() {
-    return this._buttons;
+    return this._buttonComponents;
   }
   set buttons(value) {
-    this._buttons = value;
+    this._buttonComponents = value;
   }
 
   get selectMenus() {

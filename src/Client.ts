@@ -116,18 +116,19 @@ export class Client extends ClientJS {
     Client._guards = value;
   }
 
-  static get slashes() {
-    return MetadataStorage.instance.slashes as readonly DApplicationCommand[];
+  static get applicationCommands() {
+    return MetadataStorage.instance
+      .applicationCommands as readonly DApplicationCommand[];
   }
-  get slashes() {
-    return Client.slashes;
+  get applicationCommands() {
+    return Client.applicationCommands;
   }
 
-  static get commands() {
-    return MetadataStorage.instance.commands as readonly DSimpleCommand[];
+  static get simpleCommands() {
+    return MetadataStorage.instance.simpleCommands as readonly DSimpleCommand[];
   }
-  get commands() {
-    return Client.commands;
+  get simpleCommands() {
+    return Client.simpleCommands;
   }
 
   static get buttons() {
@@ -147,7 +148,7 @@ export class Client extends ClientJS {
 
   static get allSlashes() {
     return MetadataStorage.instance
-      .allSlashes as readonly DApplicationCommand[];
+      .allApplicationCommands as readonly DApplicationCommand[];
   }
   get allSlashes() {
     return Client.allSlashes;
@@ -224,8 +225,8 @@ export class Client extends ClientJS {
       console.log("");
 
       console.log("Slashes");
-      if (this.slashes.length) {
-        this.slashes.map((slash) => {
+      if (this.applicationCommands.length) {
+        this.applicationCommands.map((slash) => {
           console.log(` ${slash.name} (${slash.classRef.name}.${slash.key})`);
           const printOptions = (options: DSlashOption[], depth: number) => {
             if (!options) return;
@@ -240,7 +241,7 @@ export class Client extends ClientJS {
             });
           };
 
-          printOptions(slash.options, 2);
+          printOptions(slash.slashOptions, 2);
 
           console.log("");
         });
@@ -268,7 +269,9 @@ export class Client extends ClientJS {
   }) {
     // # group guild slashes by guildId
     const guildSlashStorage = new Map<Snowflake, DApplicationCommand[]>();
-    const guildsSlash = this.slashes.filter((s) => s.guilds?.length);
+    const guildsSlash = this.applicationCommands.filter(
+      (s) => s.guilds?.length
+    );
 
     // group single guild slashes together
     guildsSlash.forEach((s) => {
@@ -313,7 +316,7 @@ export class Client extends ClientJS {
       // filter slashes to delete
       const deleted = existing.filter(
         (s) =>
-          !this.slashes.find(
+          !this.applicationCommands.find(
             (bs) =>
               s.name === bs.name &&
               s.guild &&
@@ -369,7 +372,7 @@ export class Client extends ClientJS {
 
     // # initialize add/update/delete task for global slashes
     const existing = (await this.fetchSlash())?.filter((s) => !s.guild);
-    const slashes = this.slashes.filter((s) => !s.guilds?.length);
+    const slashes = this.applicationCommands.filter((s) => !s.guilds?.length);
     if (existing) {
       const added = slashes.filter(
         (s) => !existing.find((c) => c.name === s.name)
@@ -671,7 +674,7 @@ export class Client extends ClientJS {
     const commandInfo = this.parseCommand(prefix, message);
     if (!commandInfo.isCommand) return;
 
-    const command = this.commands.find(
+    const command = this.simpleCommands.find(
       (cmd) =>
         cmd.name === commandInfo.commandName ||
         cmd.aliases.includes(commandInfo.commandName)

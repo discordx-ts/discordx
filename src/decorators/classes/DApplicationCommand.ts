@@ -4,6 +4,7 @@ import {
   CommandInteraction,
   CommandInteractionOption,
   Snowflake,
+  ApplicationCommandType,
 } from "discord.js";
 import { DSlashOption, Client } from "../..";
 import { Method } from "./Method";
@@ -11,13 +12,21 @@ import { Method } from "./Method";
 export class DApplicationCommand extends Method {
   private _name: string;
   private _description: string;
+  private _type: ApplicationCommandType;
   private _defaultPermission: boolean;
-  private _options: DSlashOption[] = [];
+  private _slashOptions: DSlashOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: Snowflake[];
   private _group?: string;
   private _subgroup?: string;
   private _botIds: string[];
+
+  get type() {
+    return this._type;
+  }
+  set type(value) {
+    this._type = value;
+  }
 
   get botIds() {
     return this._botIds;
@@ -75,15 +84,16 @@ export class DApplicationCommand extends Method {
     this._description = value;
   }
 
-  get options() {
-    return this._options;
+  get slashOptions() {
+    return this._slashOptions;
   }
-  set options(value: DSlashOption[]) {
-    this._options = value;
+  set slashOptions(value: DSlashOption[]) {
+    this._slashOptions = value;
   }
 
   protected constructor(
     name: string,
+    type: ApplicationCommandType,
     description?: string,
     defaultPermission?: boolean,
     guilds?: Snowflake[],
@@ -91,6 +101,7 @@ export class DApplicationCommand extends Method {
   ) {
     super();
     this._name = name.toLowerCase();
+    this._type = type;
     this._description = description ?? this.name;
     this._defaultPermission = defaultPermission ?? true;
     this._guilds = guilds ?? Client.slashGuilds;
@@ -99,12 +110,20 @@ export class DApplicationCommand extends Method {
 
   static create(
     name: string,
+    type: ApplicationCommandType,
     description?: string,
     defaultPermission?: boolean,
     guilds?: Snowflake[],
     botIds?: string[]
   ) {
-    return new DApplicationCommand(name, description, defaultPermission, guilds, botIds);
+    return new DApplicationCommand(
+      name,
+      type,
+      description,
+      defaultPermission,
+      guilds,
+      botIds
+    );
   }
 
   toSubCommand() {
@@ -113,13 +132,13 @@ export class DApplicationCommand extends Method {
       "SUB_COMMAND",
       this.description
     ).decorate(this.classRef, this.key, this.method, this.from, this.index);
-    option.options = this.options;
+    option.options = this.slashOptions;
 
     return option;
   }
 
   toObject(): ApplicationCommandData {
-    const options = [...this.options]
+    const options = [...this.slashOptions]
       .reverse()
       .map((option) => option.toObject());
 
@@ -149,7 +168,7 @@ export class DApplicationCommand extends Method {
       Array.from(interaction.options.data.values())
     );
 
-    return this.options
+    return this.slashOptions
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
       .map((op) => options.find((o) => o.name === op.name)?.value);
   }

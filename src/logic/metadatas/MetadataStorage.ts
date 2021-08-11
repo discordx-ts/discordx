@@ -23,14 +23,14 @@ export class MetadataStorage {
   private static _instance: MetadataStorage;
   private _events: DOn[] = [];
   private _guards: DGuard[] = [];
-  private _slashes: DApplicationCommand[] = [];
-  private _allSlashes: DApplicationCommand[] = [];
-  private _buttons: DButtonComponent[] = [];
-  private _selectMenu: DSelectMenuComponent[] = [];
-  private _options: DSlashOption[] = [];
+  private _applicationCommands: DApplicationCommand[] = [];
+  private _AllApplicationCommands: DApplicationCommand[] = [];
+  private _buttonComponents: DButtonComponent[] = [];
+  private _selectMenuComponents: DSelectMenuComponent[] = [];
+  private _slashOptions: DSlashOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
-  private _commands: DSimpleCommand[] = [];
+  private _simpleCommands: DSimpleCommand[] = [];
   private _commandsOptions: DSimpleCommandOption[] = [];
 
   private _groups: DSlashGroup<DApplicationCommand>[] = [];
@@ -79,24 +79,24 @@ export class MetadataStorage {
     return this._discords as readonly DDiscord[];
   }
 
-  get slashes() {
-    return this._slashes as readonly DApplicationCommand[];
+  get applicationCommands() {
+    return this._applicationCommands as readonly DApplicationCommand[];
   }
 
-  get commands() {
-    return this._commands as readonly DSimpleCommand[];
+  get simpleCommands() {
+    return this._simpleCommands as readonly DSimpleCommand[];
   }
 
   get buttons() {
-    return this._buttons as readonly DButtonComponent[];
+    return this._buttonComponents as readonly DButtonComponent[];
   }
 
   get selectMenus() {
-    return this._selectMenu as readonly DSelectMenuComponent[];
+    return this._selectMenuComponents as readonly DSelectMenuComponent[];
   }
 
-  get allSlashes() {
-    return this._allSlashes as readonly DApplicationCommand[];
+  get allApplicationCommands() {
+    return this._AllApplicationCommands as readonly DApplicationCommand[];
   }
 
   get groups() {
@@ -109,11 +109,11 @@ export class MetadataStorage {
 
   private get discordMembers(): readonly Method[] {
     return [
-      ...this._slashes,
-      ...this._commands,
+      ...this._applicationCommands,
+      ...this._simpleCommands,
       ...this._events,
-      ...this._buttons,
-      ...this._selectMenu,
+      ...this._buttonComponents,
+      ...this._selectMenuComponents,
     ];
   }
 
@@ -126,11 +126,11 @@ export class MetadataStorage {
   }
 
   addSlash(slash: DApplicationCommand) {
-    this._slashes.push(slash);
+    this._applicationCommands.push(slash);
   }
 
   addCommand(cmd: DSimpleCommand) {
-    this._commands.push(cmd);
+    this._simpleCommands.push(cmd);
   }
 
   addCommandOption(cmdOption: DSimpleCommandOption) {
@@ -138,15 +138,15 @@ export class MetadataStorage {
   }
 
   addButton(button: DButtonComponent) {
-    this._buttons.push(button);
+    this._buttonComponents.push(button);
   }
 
   addSelectMenu(selectMenu: DSelectMenuComponent) {
-    this._selectMenu.push(selectMenu);
+    this._selectMenuComponents.push(selectMenu);
   }
 
   addOption(option: DSlashOption) {
-    this._options.push(option);
+    this._slashOptions.push(option);
   }
 
   addGroup(group: DSlashGroup<DApplicationCommand>) {
@@ -203,11 +203,11 @@ export class MetadataStorage {
       member.discord = discord;
 
       if (member instanceof DApplicationCommand) {
-        discord.slashes.push(member);
+        discord.applicationCommands.push(member);
       }
 
       if (member instanceof DSimpleCommand) {
-        discord.commands.push(member);
+        discord.simpleCommands.push(member);
       }
 
       if (member instanceof DOn) {
@@ -225,19 +225,31 @@ export class MetadataStorage {
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._slashes);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._commands);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._buttons);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._options);
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._selectMenu
+      this._applicationCommands
+    );
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._simpleCommands
+    );
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._buttonComponents
+    );
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._slashOptions
+    );
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._selectMenuComponents
     );
 
     // Set the class level "group" property of all @Slash
     // Cannot achieve it using modifiers
     this._groups.forEach((group) => {
-      this._slashes.forEach((slash) => {
+      this._applicationCommands.forEach((slash) => {
         if (group.from !== slash.from) {
           return;
         }
@@ -246,8 +258,8 @@ export class MetadataStorage {
       });
     });
 
-    this._allSlashes = this._slashes;
-    this._slashes = this.groupSlashes();
+    this._AllApplicationCommands = this._applicationCommands;
+    this._applicationCommands = this.groupSlashes();
   }
 
   private groupSlashes() {
@@ -264,6 +276,7 @@ export class MetadataStorage {
     this._groups.forEach((group) => {
       const slashParent = DApplicationCommand.create(
         group.name,
+        "CHAT_INPUT",
         group.infos?.description
       ).decorate(group.classRef, group.key, group.method);
 
@@ -288,12 +301,12 @@ export class MetadataStorage {
 
       groupedSlashes.set(group.name, slashParent);
 
-      const slashes = this._slashes.filter((slash) => {
+      const slashes = this._applicationCommands.filter((slash) => {
         return slash.group === slashParent.name && !slash.subgroup;
       });
 
       slashes.forEach((slash) => {
-        slashParent.options.push(slash.toSubCommand());
+        slashParent.slashOptions.push(slash.toSubCommand());
       });
     });
 
@@ -319,7 +332,7 @@ export class MetadataStorage {
       ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup
-      const slashes = this._slashes.filter((slash) => {
+      const slashes = this._applicationCommands.filter((slash) => {
         return slash.subgroup === option.name;
       });
 
@@ -354,12 +367,12 @@ export class MetadataStorage {
         ? groupedSlashes.get(slashes[0].group)
         : undefined;
       if (groupSlash) {
-        groupSlash.options.push(option);
+        groupSlash.slashOptions.push(option);
       }
     });
 
     return [
-      ...this._slashes.filter((s) => !s.group && !s.subgroup),
+      ...this._applicationCommands.filter((s) => !s.group && !s.subgroup),
       ...Array.from(groupedSlashes.values()),
     ];
   }
