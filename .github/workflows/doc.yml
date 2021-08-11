@@ -29,5 +29,5 @@ jobs:
           git add -A
           git commit -m 'deploy'
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push --set-upstream origin master
+          git push --set-upstream origin docs
         working-directory: ./docs/src/.vuepress/dist
