@@ -1,0 +1,24 @@
+name: Deploy Doc
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+      - name: Run a multi-line script
+        run: |
+          cd docs
+          npm install
+          npm run build
+          cd src/.vuepress/dist
+          git init
+          git add -A
+          git commit -m 'deploy'
+          git push -f git@github.com:oceanroleplay/discord.ts.git master:docs
