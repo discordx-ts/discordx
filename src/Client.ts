@@ -262,9 +262,14 @@ export class Client extends ClientJS {
   }
 
   /**
+   * @deprecated Use `clearApplicationCommands` instead.
+   */
+  initSlashes = this.initApplicationCommands;
+
+  /**
    * Initialize all the @Slash with their permissions
    */
-  async initSlashes(options?: {
+  async initApplicationCommands(options?: {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
     // # group guild slashes by guildId
@@ -441,10 +446,15 @@ export class Client extends ClientJS {
   }
 
   /**
+   * @deprecated Use `clearApplicationCommands` instead.
+   */
+  clearSlashes = this.clearApplicationCommands;
+
+  /**
    * Clear the Slash commands globaly or for some guilds
    * @param guilds The guild IDs (empty -> globaly)
    */
-  async clearSlashes(...guilds: Snowflake[]) {
+  async clearApplicationCommands(...guilds: Snowflake[]) {
     if (guilds.length) {
       await Promise.all(
         guilds.map(async (guild) => {

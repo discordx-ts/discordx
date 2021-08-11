@@ -68,6 +68,7 @@ export * from "./decorators/ButtonComponent";
 export * from "./decorators/SelectMenuComponent";
 export * from "./decorators/SimpleCommand";
 export * from "./decorators/SimpleCommandOption";
+export * from "./decorators/ContextMenu";
 
 export * from "./params/OptionParams";
 export * from "./params/SlashParams";

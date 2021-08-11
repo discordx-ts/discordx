@@ -1,3 +1,4 @@
+import { ApplicationCommandType } from "discord.js";
 import {
   MetadataStorage,
   DApplicationCommand,
@@ -5,19 +6,26 @@ import {
 } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
-export function Slash(name?: string): MethodDecoratorEx;
-export function Slash(
+export function ContextMenu(
+  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  name?: string
+): MethodDecoratorEx;
+export function ContextMenu(
+  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
   name?: string,
   params?: ApplicationCommandParams
 ): MethodDecoratorEx;
-export function Slash(name?: string, params?: ApplicationCommandParams) {
+export function ContextMenu(
+  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  name?: string,
+  params?: ApplicationCommandParams
+) {
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
-    name = name.toLocaleLowerCase();
 
     const slash = DApplicationCommand.create(
       name,
-      "CHAT_INPUT",
+      type,
       params?.description,
       params?.defaultPermission,
       params?.guilds,

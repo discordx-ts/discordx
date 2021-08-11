@@ -80,8 +80,7 @@ module.exports = {
         children: [
           ["/decorators/bot", "@Bot"],
           ["/decorators/buttoncomponent", "@ButtonComponent"],
-          ["/decorators/simplecommand", "@SimpleCommand"],
-          ["/decorators/simplecommandoption", "@SimpleCommandOption"],
+          ["/decorators/contextmenu", "@ContextMenu"],
           ["/decorators/defaultpermission", "@DefaultPermission"],
           ["/decorators/description", "@Description"],
           ["/decorators/discord", "@Discord"],
@@ -91,6 +90,8 @@ module.exports = {
           ["/decorators/once", "@Once"],
           ["/decorators/permission", "@Permission"],
           ["/decorators/selectmenucomponent", "@SelectMenuComponent"],
+          ["/decorators/simplecommand", "@SimpleCommand"],
+          ["/decorators/simplecommandoption", "@SimpleCommandOption"],
           ["/decorators/slash", "@Slash"],
           ["/decorators/slashchoice", "@SlashChoice"],
           ["/decorators/slashgroup", "@SlashGroup"],

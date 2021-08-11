@@ -100,7 +100,7 @@ export class DApplicationCommand extends Method {
     botIds?: string[]
   ) {
     super();
-    this._name = name.toLowerCase();
+    this._name = name;
     this._type = type;
     this._description = description ?? this.name;
     this._defaultPermission = defaultPermission ?? true;
@@ -142,12 +142,20 @@ export class DApplicationCommand extends Method {
       .reverse()
       .map((option) => option.toObject());
 
+    if (this.type === "CHAT_INPUT") {
+      return {
+        name: this.name,
+        description: this.description,
+        options: options,
+        defaultPermission: this.defaultPermission,
+        type: this.type,
+      };
+    }
+
     return {
       name: this.name,
-      description: this.description,
-      options: options,
       defaultPermission: this.defaultPermission,
-      type: "CHAT_INPUT",
+      type: this.type,
     };
   }
 
