@@ -12,11 +12,21 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - working-directory: ./docs
-      - run: npm install
-      - run: npm run build
-      - run: cd .vuepress/dist
-      - run: git init
-      - run: git add -A
-      - run: git commit -m 'deploy'
-      - run: git push -f git@github.com:oceanroleplay/discord.ts.git master:docs
+          
+      - name: install dep
+        run: npm install
+        working-directory: ./docs
+        
+      - name: build docs
+        run: npm run build
+        working-directory: ./docs
+      
+      - name: prepare git
+        run: |
+          git init
+          git config user.email ${{ secrets.GIT_EMAIL }}
+          git config user.name ${{ secrets.GIT_NAME }}
+          git add -A
+          git commit -m 'deploy'
+          git push -f git@github.com:oceanroleplay/discord.ts.git master:docs
+        working-directory: ./docs/src/.vuepress/dist
