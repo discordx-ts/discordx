@@ -1,4 +1,4 @@
-// working
+// workings
 export * from "./logic";
 export * from "./decorators";
 export * from "./types";
