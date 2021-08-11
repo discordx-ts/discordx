@@ -10,17 +10,17 @@ jobs:
       # Setup .npmrc file to publish to npm /
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-          
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+
       - name: install dep
         run: npm install
         working-directory: ./docs
-        
+
       - name: build docs
         run: npm run build
         working-directory: ./docs
-      
+
       - name: prepare git
         run: |
           git init -b docs
