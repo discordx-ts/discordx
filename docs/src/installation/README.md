@@ -142,7 +142,7 @@ start();
 
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 
-You can also find help with [examples folder](https://github.com/oceanroleplay/discord.ts/tree/slashx/examples)
+You can also find help with [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
 
 ## See also
 

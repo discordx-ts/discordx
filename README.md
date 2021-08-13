@@ -268,6 +268,6 @@ Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx*
 
 **[Simply join the Discord server](https://discord.gg/VDjwu8E)**
 
-You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/slashx/examples)
+You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
 
 # Thank you

@@ -1,8 +1,10 @@
 import { Decorator } from "./Decorator";
-import { DSlashOption } from "./DSlashOption";
+import { DApplicationCommandOption } from "./DApplicationCommandOption";
 import { DApplicationCommand } from "./DApplicationCommand";
 
-export class DSlashGroup<InfoType = DApplicationCommand | DSlashOption> extends Decorator {
+export class DSlashGroup<
+  InfoType = DApplicationCommand | DApplicationCommandOption
+> extends Decorator {
   name: string;
   infos: Partial<InfoType>;
 
@@ -12,7 +14,7 @@ export class DSlashGroup<InfoType = DApplicationCommand | DSlashOption> extends 
     this.infos = infos ?? {};
   }
 
-  static create<InfoType = DApplicationCommand | DSlashOption>(
+  static create<InfoType = DApplicationCommand | DApplicationCommandOption>(
     name: string,
     infos?: Partial<InfoType>
   ) {

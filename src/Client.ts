@@ -17,7 +17,7 @@ import {
 import {
   DButtonComponent,
   DDiscord,
-  DSlashOption,
+  DApplicationCommandOption,
   DSelectMenuComponent,
   DApplicationCommand,
 } from "./decorators";
@@ -228,7 +228,10 @@ export class Client extends ClientJS {
       if (this.applicationCommands.length) {
         this.applicationCommands.map((slash) => {
           console.log(` ${slash.name} (${slash.classRef.name}.${slash.key})`);
-          const printOptions = (options: DSlashOption[], depth: number) => {
+          const printOptions = (
+            options: DApplicationCommandOption[],
+            depth: number
+          ) => {
             if (!options) return;
 
             const tab = Array(depth).join("      ");

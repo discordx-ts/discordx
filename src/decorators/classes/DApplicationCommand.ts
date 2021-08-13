@@ -6,7 +6,7 @@ import {
   Snowflake,
   ApplicationCommandType,
 } from "discord.js";
-import { DSlashOption, Client } from "../..";
+import { DApplicationCommandOption, Client } from "../..";
 import { Method } from "./Method";
 
 export class DApplicationCommand extends Method {
@@ -14,7 +14,7 @@ export class DApplicationCommand extends Method {
   private _description: string;
   private _type: ApplicationCommandType;
   private _defaultPermission: boolean;
-  private _slashOptions: DSlashOption[] = [];
+  private _slashOptions: DApplicationCommandOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: Snowflake[];
   private _group?: string;
@@ -87,7 +87,7 @@ export class DApplicationCommand extends Method {
   get slashOptions() {
     return this._slashOptions;
   }
-  set slashOptions(value: DSlashOption[]) {
+  set slashOptions(value: DApplicationCommandOption[]) {
     this._slashOptions = value;
   }
 
@@ -127,7 +127,7 @@ export class DApplicationCommand extends Method {
   }
 
   toSubCommand() {
-    const option = DSlashOption.create(
+    const option = DApplicationCommandOption.create(
       this.name,
       "SUB_COMMAND",
       this.description

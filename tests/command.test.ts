@@ -41,8 +41,8 @@ beforeAll(async () => {
 
 describe("Commands", () => {
   it("Should create the command structure", async () => {
-    expect(client.commands[0].guilds).toEqual(["693401527494377482"]);
-    expect(client.commands[0].permissions).toEqual([
+    expect(client.simpleCommands[0].guilds).toEqual(["693401527494377482"]);
+    expect(client.simpleCommands[0].permissions).toEqual([
       {
         id: "123",
         type: "USER",

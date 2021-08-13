@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import {
   MetadataStorage,
-  DSlashOption,
+  DApplicationCommandOption,
   OptionParams,
   Modifier,
   StringOptionType,
@@ -27,7 +27,7 @@ export function SlashOption(name?: string, params?: OptionParams) {
         index
       ] as StringOptionType);
 
-    const option = DSlashOption.create(
+    const option = DApplicationCommandOption.create(
       name ?? key,
       type,
       params?.description,

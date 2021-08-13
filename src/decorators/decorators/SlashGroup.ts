@@ -2,7 +2,7 @@ import { MetadataStorage, DApplicationCommand, Modifier } from "../..";
 import { SubCommand } from "../../types";
 import { ClassMethodDecorator } from "../../types/public/decorators";
 import { DSlashGroup } from "../classes/DSlashGroup";
-import { DSlashOption } from "../classes/DSlashOption";
+import { DApplicationCommandOption } from "../classes/DApplicationCommandOption";
 
 export function SlashGroup(group: string): ClassMethodDecorator;
 export function SlashGroup(subCommands: SubCommand): ClassMethodDecorator;
@@ -40,19 +40,22 @@ export function SlashGroup(
 
     if (!descriptor) {
       if (typeof groupOrSubcommands === "string") {
-        const group = DSlashGroup.create<DApplicationCommand>(groupOrSubcommands, {
-          description:
-            typeof subCommandsOrDescription === "string"
-              ? subCommandsOrDescription
-              : undefined,
-        }).decorate(target, key ?? target.name);
+        const group = DSlashGroup.create<DApplicationCommand>(
+          groupOrSubcommands,
+          {
+            description:
+              typeof subCommandsOrDescription === "string"
+                ? subCommandsOrDescription
+                : undefined,
+          }
+        ).decorate(target, key ?? target.name);
         MetadataStorage.instance.addGroup(group);
       }
 
       // Create a subgroup if @SlashGroup decorate a method
       if (subCommands) {
         Object.keys(subCommands).forEach((key) => {
-          const group = DSlashGroup.create<DSlashOption>(key, {
+          const group = DSlashGroup.create<DApplicationCommandOption>(key, {
             description: subCommands?.[key],
           }).decorate(target, target.name);
 

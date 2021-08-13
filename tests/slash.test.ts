@@ -194,8 +194,8 @@ class FakeInteraction {
 
 describe("Slash", () => {
   it("Should create the slash structure", async () => {
-    expect(client.slashes[0].guilds).toEqual(["invalid_id"]);
-    expect(client.slashes[0].permissions).toEqual([
+    expect(client.applicationCommands[0].guilds).toEqual(["invalid_id"]);
+    expect(client.applicationCommands[0].permissions).toEqual([
       {
         id: "123",
         type: "USER",
@@ -203,7 +203,9 @@ describe("Slash", () => {
       },
     ]);
 
-    const slashesObjects = client.slashes.map((slash) => slash.toObject());
+    const slashesObjects = client.applicationCommands.map((slash) =>
+      slash.toObject()
+    );
     expect(slashesObjects).toEqual([
       {
         name: "hello",
@@ -218,6 +220,7 @@ describe("Slash", () => {
             options: [],
           },
         ],
+        type: "CHAT_INPUT",
         defaultPermission: true,
       },
       {
@@ -289,6 +292,7 @@ describe("Slash", () => {
             options: [],
           },
         ],
+        type: "CHAT_INPUT",
         defaultPermission: true,
       },
       {
@@ -409,6 +413,7 @@ describe("Slash", () => {
             ],
           },
         ],
+        type: "CHAT_INPUT",
         defaultPermission: true,
       },
     ]);

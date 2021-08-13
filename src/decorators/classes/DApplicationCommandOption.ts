@@ -1,5 +1,4 @@
 import {
-  ApplicationCommandOption,
   ApplicationCommandOptionData,
   Channel,
   ClientUser,
@@ -10,20 +9,20 @@ import {
 } from "discord.js";
 import { Decorator } from "./Decorator";
 import {
-  DSlashChoice,
+  DApplicationCommandOptionChoice,
   Client,
   OptionValueType,
   StringOptionType,
   OptionType,
 } from "../..";
 
-export class DSlashOption extends Decorator {
+export class DApplicationCommandOption extends Decorator {
   private _required = false;
   private _name: string;
   private _description: string;
   private _type: OptionValueType;
-  private _choices: DSlashChoice[] = [];
-  private _options: DSlashOption[] = [];
+  private _choices: DApplicationCommandOptionChoice[] = [];
+  private _options: DApplicationCommandOption[] = [];
   private _isNode = false;
 
   get isNode() {
@@ -128,7 +127,13 @@ export class DSlashOption extends Decorator {
     required?: boolean,
     index?: number
   ) {
-    return new DSlashOption(name, type, description, required, index);
+    return new DApplicationCommandOption(
+      name,
+      type,
+      description,
+      required,
+      index
+    );
   }
 
   toObject(): ApplicationCommandOptionData {
@@ -138,9 +143,10 @@ export class DSlashOption extends Decorator {
       type: this.stringType,
       required: this.required,
       choices: this.choices.map((choice) => choice.toObject()),
+      //todo: fix this any
       options: [...this.options]
         .reverse()
-        .map((option) => option.toObject()) as ApplicationCommandOption[],
+        .map((option) => option.toObject() as any),
     };
 
     if (!this.isNode) {

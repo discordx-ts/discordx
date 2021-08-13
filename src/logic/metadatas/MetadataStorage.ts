@@ -8,7 +8,7 @@ import {
   Modifier,
   DIService,
   DApplicationCommand,
-  DSlashOption,
+  DApplicationCommandOption,
   Method,
 } from "../..";
 import { DButtonComponent, DSlashGroup } from "../../decorators";
@@ -27,14 +27,14 @@ export class MetadataStorage {
   private _AllApplicationCommands: DApplicationCommand[] = [];
   private _buttonComponents: DButtonComponent[] = [];
   private _selectMenuComponents: DSelectMenuComponent[] = [];
-  private _slashOptions: DSlashOption[] = [];
+  private _slashOptions: DApplicationCommandOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
   private _commandsOptions: DSimpleCommandOption[] = [];
 
   private _groups: DSlashGroup<DApplicationCommand>[] = [];
-  private _subGroups: DSlashGroup<DSlashOption>[] = [];
+  private _subGroups: DSlashGroup<DApplicationCommandOption>[] = [];
 
   static get instance() {
     if (!this._instance) {
@@ -145,7 +145,7 @@ export class MetadataStorage {
     this._selectMenuComponents.push(selectMenu);
   }
 
-  addOption(option: DSlashOption) {
+  addOption(option: DApplicationCommandOption) {
     this._slashOptions.push(option);
   }
 
@@ -153,7 +153,7 @@ export class MetadataStorage {
     this._groups.push(group);
   }
 
-  addSubGroup(subGroup: DSlashGroup<DSlashOption>) {
+  addSubGroup(subGroup: DSlashGroup<DApplicationCommandOption>) {
     this._subGroups.push(subGroup);
   }
 
@@ -325,7 +325,7 @@ export class MetadataStorage {
     //     }
     // ]
     this._subGroups.forEach((subGroup) => {
-      const option = DSlashOption.create(
+      const option = DApplicationCommandOption.create(
         subGroup.name,
         "SUB_COMMAND_GROUP",
         subGroup.infos?.description

@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionChoice } from "discord.js";
 import { Decorator } from "./Decorator";
 
-export class DSlashChoice extends Decorator {
+export class DApplicationCommandOptionChoice extends Decorator {
   private _name: string;
   private _value: string | number;
 
@@ -26,7 +26,7 @@ export class DSlashChoice extends Decorator {
   }
 
   static create(name: string, value: string | number) {
-    return new DSlashChoice(name, value);
+    return new DApplicationCommandOptionChoice(name, value);
   }
 
   toObject(): ApplicationCommandOptionChoice {
