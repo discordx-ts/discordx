@@ -14,7 +14,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm install
       - run: npm run build
-      - run: npm version --git-tag-version=false 5.3.0-dev.$(date +%s)
+      - run: npm version --git-tag-version=false 5.4.0-dev.$(date +%s)
       - run: npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
