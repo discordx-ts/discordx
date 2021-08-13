@@ -14,7 +14,7 @@ export class DApplicationCommand extends Method {
   private _description: string;
   private _type: ApplicationCommandType;
   private _defaultPermission: boolean;
-  private _slashOptions: DApplicationCommandOption[] = [];
+  private _options: DApplicationCommandOption[] = [];
   private _permissions: ApplicationCommandPermissionData[] = [];
   private _guilds: Snowflake[];
   private _group?: string;
@@ -84,11 +84,11 @@ export class DApplicationCommand extends Method {
     this._description = value;
   }
 
-  get slashOptions() {
-    return this._slashOptions;
+  get options() {
+    return this._options;
   }
-  set slashOptions(value: DApplicationCommandOption[]) {
-    this._slashOptions = value;
+  set options(value: DApplicationCommandOption[]) {
+    this._options = value;
   }
 
   protected constructor(
@@ -132,13 +132,13 @@ export class DApplicationCommand extends Method {
       "SUB_COMMAND",
       this.description
     ).decorate(this.classRef, this.key, this.method, this.from, this.index);
-    option.options = this.slashOptions;
+    option.options = this.options;
 
     return option;
   }
 
   toObject(): ApplicationCommandData {
-    const options = [...this.slashOptions]
+    const options = [...this.options]
       .reverse()
       .map((option) => option.toObject());
 
@@ -176,7 +176,7 @@ export class DApplicationCommand extends Method {
       Array.from(interaction.options.data.values())
     );
 
-    return this.slashOptions
+    return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
       .map((op) => options.find((o) => o.name === op.name)?.value);
   }

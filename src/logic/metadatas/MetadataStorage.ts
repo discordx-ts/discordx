@@ -306,7 +306,7 @@ export class MetadataStorage {
       });
 
       slashes.forEach((slash) => {
-        slashParent.slashOptions.push(slash.toSubCommand());
+        slashParent.options.push(slash.toSubCommand());
       });
     });
 
@@ -367,7 +367,7 @@ export class MetadataStorage {
         ? groupedSlashes.get(slashes[0].group)
         : undefined;
       if (groupSlash) {
-        groupSlash.slashOptions.push(option);
+        groupSlash.options.push(option);
       }
     });
 

@@ -244,7 +244,7 @@ export class Client extends ClientJS {
             });
           };
 
-          printOptions(slash.slashOptions, 2);
+          printOptions(slash.options, 2);
 
           console.log("");
         });
