@@ -30,11 +30,25 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 ## Easy setup - starter project
 
-1. Clone this project  
-   `git clone https://github.com/oceanroleplay/discord.ts-example`
+1. Clone this project
 
-2. Run `npm i`
-3. And let's go, everything was done for you! 🚀
+```
+git clone https://github.com/oceanroleplay/discord.ts-example
+```
+
+2. Build
+
+```
+npm install
+```
+
+3. Run
+
+```
+npm start
+```
+
+4. And let's go, everything was done for you! 🚀
 
 ## Installation
 
@@ -75,7 +89,7 @@ And you should see this in your package.json
 
 To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).
 
-::: danger
+:::caution
 Be aware that if you compile your code into JavaScript with `tsc` you have to specify .js files when you instanciate your Client
 
 ```ts

@@ -86,7 +86,7 @@ I recommend renaming your main entry file where you call `client.login(TOKEN);` 
 
 You don't need to change anything in the `entry.bot.ts` file. The magic will be in the `shard.bot.ts` file.
 
-::: tip
+:::tip
 Read the [discord.js sharding docs](https://discordjs.guide/sharding/).
 :::
 
@@ -140,7 +140,7 @@ Now that your bot compiles and has the shard file we can run the bot with the sh
 
 will start the shard here.
 
-::: warning
+:::warning
 Make sure you provide the correct path to the shard file when running with node.
 :::
 

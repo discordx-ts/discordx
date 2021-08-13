@@ -47,7 +47,7 @@ async function start() {
 start();
 ```
 
-::: danger
+:::danger
 **Global** slash commands take time to propagate on discord servers, we recommend to develop on a test server with the **Guild** specific mode
 
 ```ts

@@ -72,7 +72,7 @@ _Maintaining a stateful application can be difficult when it comes to the amount
 
 _When identifying to the gateway, you can specify an intents parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group._
 
-::: danger
+:::danger
 If an event of your app isn't triggered, you probably missed an Intent
 :::
 

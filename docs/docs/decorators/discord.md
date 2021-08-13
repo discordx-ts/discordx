@@ -2,7 +2,7 @@
 
 This decorator instanciate the class inside the discord.**ts** library to access to the class members or to call the methods
 
-::: danger
+:::danger
 you must decorate a class by the `@Discord` decorator to use members decorators
 :::
 
