@@ -143,12 +143,9 @@ export class DApplicationCommandOption extends Decorator {
       type: this.stringType,
       required: this.required,
       choices: this.choices.map((choice) => choice.toObject()),
-      options:
-        this.stringType === "SUB_COMMAND_GROUP"
-          ? undefined
-          : [...this.options]
-              .reverse()
-              .map((option) => option.toObject() as any),
+      options: [...this.options]
+        .reverse()
+        .map((option) => option.toObject()) as any,
     };
 
     if (!this.isNode) {

@@ -38,6 +38,10 @@ export class Decorator {
     return !!this._method;
   }
 
+  protected constructor() {
+    // protected constructor
+  }
+
   decorateUnknown(
     classRef: Record<string, any>,
     key?: string,

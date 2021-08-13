@@ -104,7 +104,7 @@ export class DApplicationCommand extends Method {
     this._type = type;
     this._description = description ?? this.name;
     this._defaultPermission = defaultPermission ?? true;
-    this._guilds = guilds ?? Client.slashGuilds;
+    this._guilds = guilds ?? Client.botGuilds;
     this._botIds = botIds ?? [];
   }
 

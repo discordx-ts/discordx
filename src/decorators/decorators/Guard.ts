@@ -5,11 +5,11 @@ import {
   Modifier,
   Method,
 } from "../..";
-import { DButtonComponent } from "../classes/DButtonComponent";
+import { DComponentButton } from "../classes/DComponentButton";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
-import { DSelectMenuComponent } from "../classes/DSelectMenuComponent";
+import { DComponentSelectMenu } from "../classes/DComponentSelectMenu";
 import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function Guard<Type = any, DatasType = any>(
@@ -29,8 +29,8 @@ export function Guard<Type = any, DatasType = any>(
         (original) => {
           original.guards = guards;
         },
-        DSelectMenuComponent,
-        DButtonComponent,
+        DComponentSelectMenu,
+        DComponentButton,
         DApplicationCommand,
         DSimpleCommand,
         DOn,

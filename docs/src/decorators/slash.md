@@ -54,7 +54,7 @@ start();
 const client = new Client({
   botId: "test",
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-  slashGuilds: process.DEV ? ["GUILD_ID"] : undefined,
+  botGuilds: process.DEV ? ["GUILD_ID"] : undefined,
 });
 ```
 
@@ -128,7 +128,7 @@ You can do:
 const client = new Client({
   botId: "test",
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-  slashGuilds: ["GUILD_ID"],
+  botGuilds: ["GUILD_ID"],
 });
 ```
 

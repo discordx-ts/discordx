@@ -2,7 +2,7 @@ import { Decorator } from "./Decorator";
 import { DApplicationCommandOption } from "./DApplicationCommandOption";
 import { DApplicationCommand } from "./DApplicationCommand";
 
-export class DSlashGroup<
+export class DApplicationCommandGroup<
   InfoType = DApplicationCommand | DApplicationCommandOption
 > extends Decorator {
   name: string;
@@ -18,6 +18,6 @@ export class DSlashGroup<
     name: string,
     infos?: Partial<InfoType>
   ) {
-    return new DSlashGroup<InfoType>(name, infos);
+    return new DApplicationCommandGroup<InfoType>(name, infos);
   }
 }

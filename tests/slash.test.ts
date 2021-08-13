@@ -187,6 +187,10 @@ class FakeInteraction {
     return false;
   }
 
+  isContextMenu() {
+    return false;
+  }
+
   isSelectMenu() {
     return false;
   }

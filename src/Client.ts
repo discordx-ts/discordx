@@ -15,10 +15,10 @@ import {
   GuardFunction,
 } from ".";
 import {
-  DButtonComponent,
+  DComponentButton,
   DDiscord,
   DApplicationCommandOption,
-  DSelectMenuComponent,
+  DComponentSelectMenu,
   DApplicationCommand,
 } from "./decorators";
 import { DSimpleCommand } from "./decorators/classes/DSimpleCommand";
@@ -45,14 +45,14 @@ export class Client extends ClientJS {
       ) => Promise<void>);
   private _silent: boolean;
   private static _requiredByDefault = false;
-  private static _slashGuilds: Snowflake[] = [];
+  private static _botGuilds: Snowflake[] = [];
   private static _guards: GuardFunction[] = [];
 
-  static get slashGuilds() {
-    return Client._slashGuilds;
+  static get botGuilds() {
+    return Client._botGuilds;
   }
-  static set slashGuilds(value) {
-    Client._slashGuilds = value;
+  static set botGuilds(value) {
+    Client._botGuilds = value;
   }
 
   get prefix() {
@@ -83,11 +83,11 @@ export class Client extends ClientJS {
     this._botId = value;
   }
 
-  get slashGuilds() {
-    return Client._slashGuilds;
+  get botGuilds() {
+    return Client._botGuilds;
   }
-  set slashGuilds(value) {
-    Client._slashGuilds = value;
+  set botGuilds(value) {
+    Client._botGuilds = value;
   }
 
   static get requiredByDefault() {
@@ -132,7 +132,7 @@ export class Client extends ClientJS {
   }
 
   static get buttons() {
-    return MetadataStorage.instance.buttons as readonly DButtonComponent[];
+    return MetadataStorage.instance.buttons as readonly DComponentButton[];
   }
   get buttons() {
     return Client.buttons;
@@ -140,18 +140,18 @@ export class Client extends ClientJS {
 
   static get selectMenus() {
     return MetadataStorage.instance
-      .selectMenus as readonly DSelectMenuComponent[];
+      .selectMenus as readonly DComponentSelectMenu[];
   }
   get selectMenus() {
     return Client.selectMenus;
   }
 
-  static get allSlashes() {
+  static get allApplicationCommands() {
     return MetadataStorage.instance
       .allApplicationCommands as readonly DApplicationCommand[];
   }
-  get allSlashes() {
-    return Client.allSlashes;
+  get allApplicationCommands() {
+    return Client.allApplicationCommands;
   }
 
   static get events() {
@@ -196,7 +196,7 @@ export class Client extends ClientJS {
     this._silent = !!options?.silent;
     this.guards = options.guards ?? [];
     this.requiredByDefault = options.requiredByDefault ?? false;
-    this.slashGuilds = options.slashGuilds?.filter((guild) => !!guild) ?? [];
+    this.botGuilds = options.botGuilds?.filter((guild) => !!guild) ?? [];
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
     this._notFoundHandler = options.commandNotFoundHandler;
@@ -493,7 +493,7 @@ export class Client extends ClientJS {
    * @param interaction The targeted slash interaction
    * @returns The group tree
    */
-  getSlashGroupTree(interaction: CommandInteraction) {
+  getApplicationCommandGroupTree(interaction: CommandInteraction) {
     const tree: string[] = [];
 
     const getOptionsTree = (
@@ -525,16 +525,17 @@ export class Client extends ClientJS {
    * @param tree
    * @returns The corresponding Slash
    */
-  getSlashFromTree(tree: string[]) {
+  getApplicationCommandFromTree(tree: string[]) {
     // Find the corresponding @Slash
-    return this.allSlashes.find((slash) => {
+    return this.allApplicationCommands.find((slash) => {
       switch (tree.length) {
         case 1:
           // Simple command /hello
           return (
             slash.group === undefined &&
             slash.subgroup === undefined &&
-            slash.name === tree[0]
+            slash.name === tree[0] &&
+            slash.type === "CHAT_INPUT"
           );
         case 2:
           // Simple grouped command
@@ -542,7 +543,8 @@ export class Client extends ClientJS {
           return (
             slash.group === tree[0] &&
             slash.subgroup === undefined &&
-            slash.name === tree[1]
+            slash.name === tree[1] &&
+            slash.type === "CHAT_INPUT"
           );
         case 3:
           // Grouped and subgroupped command
@@ -550,7 +552,8 @@ export class Client extends ClientJS {
           return (
             slash.group === tree[0] &&
             slash.subgroup === tree[1] &&
-            slash.name === tree[2]
+            slash.name === tree[2] &&
+            slash.type === "CHAT_INPUT"
           );
       }
     });
@@ -603,23 +606,53 @@ export class Client extends ClientJS {
       return menu.execute(interaction, this);
     }
 
+    // if interaction is context menu
+    if (interaction.isContextMenu()) {
+      const applicationCommand = this.allApplicationCommands.find(
+        (cmd) =>
+          cmd.type !== "CHAT_INPUT" && cmd.name === interaction.commandName
+      );
+
+      if (
+        !applicationCommand ||
+        (applicationCommand.guilds.length &&
+          interaction.guild &&
+          !applicationCommand.guilds.includes(interaction.guild.id)) ||
+        (applicationCommand.botIds.length &&
+          !applicationCommand.botIds.includes(this.botId))
+      )
+        return console.log(
+          `context menu interaction not found, name: ${interaction.commandName}`
+        );
+
+      if (
+        applicationCommand.botIds.length &&
+        !applicationCommand.botIds.includes(this.botId)
+      )
+        return;
+
+      return applicationCommand.execute(interaction, this);
+    }
+
     // If the interaction isn't a slash command, return
-    if (!interaction.isCommand() && !interaction.isContextMenu()) return;
+    if (!interaction.isCommand()) return;
 
     // Get the interaction group tree
-    const tree = this.getSlashGroupTree(interaction);
-    const slash = this.getSlashFromTree(tree);
+    const tree = this.getApplicationCommandGroupTree(interaction);
+    const applicationCommand = this.getApplicationCommandFromTree(tree);
 
-    if (!slash) {
+    if (
+      !applicationCommand ||
+      (applicationCommand.botIds.length &&
+        !applicationCommand.botIds.includes(this.botId))
+    ) {
       return console.log(
         `interaction not found, commandName: ${interaction.commandName}`
       );
     }
 
-    if (slash.botIds.length && !slash.botIds.includes(this.botId)) return;
-
     // Parse the options values and inject it into the @Slash method
-    return slash.execute(interaction, this);
+    return applicationCommand.execute(interaction, this);
   }
 
   /**

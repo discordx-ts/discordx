@@ -49,6 +49,6 @@ export function SlashOption(name?: string, params?: OptionParams) {
       )
     );
 
-    MetadataStorage.instance.addOption(option);
+    MetadataStorage.instance.addApplicationCommandOption(option);
   };
 }

@@ -39,6 +39,6 @@ export function SimpleCommandOption(
       )
     );
 
-    MetadataStorage.instance.addCommandOption(option);
+    MetadataStorage.instance.addSimpleCommandOption(option);
   };
 }

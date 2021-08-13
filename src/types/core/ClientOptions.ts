@@ -58,7 +58,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   requiredByDefault?: boolean;
 
   /**
-   * Set the guilds globaly
+   * Set the guilds globaly for application commands
    */
-  slashGuilds?: Snowflake[];
+  botGuilds?: Snowflake[];
 }

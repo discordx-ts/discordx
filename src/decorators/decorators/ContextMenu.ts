@@ -23,7 +23,7 @@ export function ContextMenu(
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
 
-    const slash = DApplicationCommand.create(
+    const applicationCommand = DApplicationCommand.create(
       name,
       type,
       params?.description,
@@ -32,6 +32,6 @@ export function ContextMenu(
       params?.botIds
     ).decorate(target.constructor, key, target[key]);
 
-    MetadataStorage.instance.addSlash(slash);
+    MetadataStorage.instance.addApplicationCommand(applicationCommand);
   };
 }

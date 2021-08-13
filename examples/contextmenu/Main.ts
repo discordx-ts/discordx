@@ -44,7 +44,7 @@ export class Main {
         `${__dirname}/discords/*.ts`, // glob string to load the classes
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
-      slashGuilds: ["874802018361950248"],
+      botGuilds: ["874802018361950248"],
       silent: true,
       requiredByDefault: true,
     });

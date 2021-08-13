@@ -104,7 +104,7 @@ export class DSimpleCommand extends Method {
     this._argSplitter = argSplitter ?? " ";
     this._options = [];
     this._permissions = [];
-    this._guilds = guilds ?? Client.slashGuilds;
+    this._guilds = guilds ?? Client.botGuilds;
     this._botIds = botIds ?? [];
     this._aliases = aliases ?? [];
   }

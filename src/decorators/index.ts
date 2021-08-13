@@ -73,8 +73,8 @@ export * from "./decorators/ContextMenu";
 export * from "./params/OptionParams";
 export * from "./params/SlashParams";
 
-export * from "./classes/DSelectMenuComponent";
-export * from "./classes/DButtonComponent";
+export * from "./classes/DComponentSelectMenu";
+export * from "./classes/DComponentButton";
 export * from "./classes/Decorator";
 export * from "./classes/DGuard";
 export * from "./classes/DDiscord";
@@ -82,6 +82,6 @@ export * from "./classes/DOn";
 export * from "./classes/DApplicationCommand";
 export * from "./classes/DApplicationCommandOption";
 export * from "./classes/DApplicationCommandOptionChoice";
+export * from "./classes/DApplicationCommandGroup";
 export * from "./classes/Modifier";
 export * from "./classes/Method";
-export * from "./classes/DSlashGroup";

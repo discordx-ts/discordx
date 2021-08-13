@@ -16,7 +16,7 @@ export class Main {
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      // slashGuilds: [YOUR_GUILD_ID],
+      // botGuilds: [YOUR_GUILD_ID],
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

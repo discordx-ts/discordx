@@ -35,9 +35,9 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
   `GuardFunction[]`
   Global guards, it's an array of functions
 
-- **`slashGuilds`**  
+- **`botGuilds`**  
   `Snowflake[]`
-  The slash commands are executed only on this list of guilds by default
+  The application commands are executed only on this list of guilds by default, ex. slash, button, selectmenu, contextmenu
 
 **You must specify the glob path(s) where your decorated classes are**
 

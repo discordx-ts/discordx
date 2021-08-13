@@ -16,7 +16,7 @@ export class Main {
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      slashGuilds: [process.env.GUILD_ID],
+      botGuilds: [process.env.GUILD_ID],
       requiredByDefault: true,
     });
 

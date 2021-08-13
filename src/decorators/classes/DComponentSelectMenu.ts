@@ -2,7 +2,7 @@ import { Snowflake } from "discord.js";
 import { Client } from "../..";
 import { Method } from "./Method";
 
-export class DButtonComponent extends Method {
+export class DComponentSelectMenu extends Method {
   private _id: string;
   private _guilds: Snowflake[];
   private _botIds: string[];
@@ -31,12 +31,12 @@ export class DButtonComponent extends Method {
   protected constructor(id: string, guilds?: Snowflake[], botIds?: string[]) {
     super();
     this._id = id;
-    this._guilds = guilds ?? Client.slashGuilds;
+    this._guilds = guilds ?? Client.botGuilds;
     this._botIds = botIds ?? [];
   }
 
   static create(id: string, guilds?: Snowflake[], botIds?: string[]) {
-    return new DButtonComponent(id, guilds, botIds);
+    return new DComponentSelectMenu(id, guilds, botIds);
   }
 
   parseParams() {

@@ -1,10 +1,10 @@
 import { Snowflake } from "discord.js";
 import { MetadataStorage, Modifier } from "../..";
 import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DButtonComponent } from "../classes/DButtonComponent";
+import { DComponentButton } from "../classes/DComponentButton";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
-import { DSelectMenuComponent } from "../classes/DSelectMenuComponent";
+import { DComponentSelectMenu } from "../classes/DComponentSelectMenu";
 import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function Guild(guildID: Snowflake): ClassMethodDecorator;
@@ -20,8 +20,8 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
         | DApplicationCommand
         | DSimpleCommand
         | DDiscord
-        | DButtonComponent
-        | DSelectMenuComponent
+        | DComponentButton
+        | DComponentSelectMenu
       >(
         (original) => {
           original.guilds = [
@@ -35,12 +35,10 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
               ...original.simpleCommands,
               ...original.buttons,
               ...original.selectMenus,
-            ].forEach((slash) => {
-              slash.guilds = [
-                ...slash.guilds,
-                ...guildIDs.filter(
-                  (guildID) => !slash.guilds.includes(guildID)
-                ),
+            ].forEach((obj) => {
+              obj.guilds = [
+                ...obj.guilds,
+                ...guildIDs.filter((guildID) => !obj.guilds.includes(guildID)),
               ];
             });
           }
@@ -48,8 +46,8 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
         DApplicationCommand,
         DSimpleCommand,
         DDiscord,
-        DButtonComponent,
-        DSelectMenuComponent
+        DComponentButton,
+        DComponentSelectMenu
       ).decorateUnknown(target, key, descriptor)
     );
   };

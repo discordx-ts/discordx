@@ -15,7 +15,7 @@ export function Slash(name?: string, params?: ApplicationCommandParams) {
     name = name ?? key;
     name = name.toLocaleLowerCase();
 
-    const slash = DApplicationCommand.create(
+    const applicationCommand = DApplicationCommand.create(
       name,
       "CHAT_INPUT",
       params?.description,
@@ -24,6 +24,6 @@ export function Slash(name?: string, params?: ApplicationCommandParams) {
       params?.botIds
     ).decorate(target.constructor, key, target[key]);
 
-    MetadataStorage.instance.addSlash(slash);
+    MetadataStorage.instance.addApplicationCommand(applicationCommand);
   };
 }

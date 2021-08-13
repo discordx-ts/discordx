@@ -1,10 +1,10 @@
 import { MetadataStorage, Modifier } from "../..";
 import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DButtonComponent } from "../classes/DButtonComponent";
+import { DComponentButton } from "../classes/DComponentButton";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DOn } from "../classes/DOn";
-import { DSelectMenuComponent } from "../classes/DSelectMenuComponent";
+import { DComponentSelectMenu } from "../classes/DComponentSelectMenu";
 import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 export function Bot(botID: string): ClassMethodDecorator;
@@ -20,8 +20,8 @@ export function Bot(...botIDs: string[]): ClassMethodDecorator {
         | DApplicationCommand
         | DSimpleCommand
         | DDiscord
-        | DButtonComponent
-        | DSelectMenuComponent
+        | DComponentButton
+        | DComponentSelectMenu
         | DOn
       >(
         (original) => {
@@ -48,8 +48,8 @@ export function Bot(...botIDs: string[]): ClassMethodDecorator {
         DApplicationCommand,
         DSimpleCommand,
         DDiscord,
-        DButtonComponent,
-        DSelectMenuComponent,
+        DComponentButton,
+        DComponentSelectMenu,
         DOn
       ).decorateUnknown(target, key, descriptor)
     );

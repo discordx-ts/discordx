@@ -11,8 +11,8 @@ import {
   DApplicationCommandOption,
   Method,
 } from "../..";
-import { DButtonComponent, DSlashGroup } from "../../decorators";
-import { DSelectMenuComponent } from "../../decorators/classes/DSelectMenuComponent";
+import { DComponentButton, DApplicationCommandGroup } from "../../decorators";
+import { DComponentSelectMenu } from "../../decorators/classes/DComponentSelectMenu";
 import * as glob from "glob";
 import { DSimpleCommand } from "../../decorators/classes/DSimpleCommand";
 import { DSimpleCommandOption } from "../../decorators/classes/DSimpleCommandOption";
@@ -25,16 +25,17 @@ export class MetadataStorage {
   private _guards: DGuard[] = [];
   private _applicationCommands: DApplicationCommand[] = [];
   private _AllApplicationCommands: DApplicationCommand[] = [];
-  private _buttonComponents: DButtonComponent[] = [];
-  private _selectMenuComponents: DSelectMenuComponent[] = [];
+  private _buttonComponents: DComponentButton[] = [];
+  private _selectMenuComponents: DComponentSelectMenu[] = [];
   private _slashOptions: DApplicationCommandOption[] = [];
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
   private _commandsOptions: DSimpleCommandOption[] = [];
 
-  private _groups: DSlashGroup<DApplicationCommand>[] = [];
-  private _subGroups: DSlashGroup<DApplicationCommandOption>[] = [];
+  private _groups: DApplicationCommandGroup<DApplicationCommand>[] = [];
+  private _subGroups: DApplicationCommandGroup<DApplicationCommandOption>[] =
+    [];
 
   static get instance() {
     if (!this._instance) {
@@ -88,11 +89,11 @@ export class MetadataStorage {
   }
 
   get buttons() {
-    return this._buttonComponents as readonly DButtonComponent[];
+    return this._buttonComponents as readonly DComponentButton[];
   }
 
   get selectMenus() {
-    return this._selectMenuComponents as readonly DSelectMenuComponent[];
+    return this._selectMenuComponents as readonly DComponentSelectMenu[];
   }
 
   get allApplicationCommands() {
@@ -100,11 +101,11 @@ export class MetadataStorage {
   }
 
   get groups() {
-    return this._groups as readonly DSlashGroup[];
+    return this._groups as readonly DApplicationCommandGroup[];
   }
 
   get subGroups() {
-    return this._subGroups as readonly DSlashGroup[];
+    return this._subGroups as readonly DApplicationCommandGroup[];
   }
 
   private get discordMembers(): readonly Method[] {
@@ -125,36 +126,40 @@ export class MetadataStorage {
     this._events.push(on);
   }
 
-  addSlash(slash: DApplicationCommand) {
+  addApplicationCommand(slash: DApplicationCommand) {
     this._applicationCommands.push(slash);
   }
 
-  addCommand(cmd: DSimpleCommand) {
-    this._simpleCommands.push(cmd);
-  }
-
-  addCommandOption(cmdOption: DSimpleCommandOption) {
-    this._commandsOptions.push(cmdOption);
-  }
-
-  addButton(button: DButtonComponent) {
-    this._buttonComponents.push(button);
-  }
-
-  addSelectMenu(selectMenu: DSelectMenuComponent) {
-    this._selectMenuComponents.push(selectMenu);
-  }
-
-  addOption(option: DApplicationCommandOption) {
+  addApplicationCommandOption(option: DApplicationCommandOption) {
     this._slashOptions.push(option);
   }
 
-  addGroup(group: DSlashGroup<DApplicationCommand>) {
+  addApplicationCommandGroup(
+    group: DApplicationCommandGroup<DApplicationCommand>
+  ) {
     this._groups.push(group);
   }
 
-  addSubGroup(subGroup: DSlashGroup<DApplicationCommandOption>) {
+  addApplicationCommandSubGroup(
+    subGroup: DApplicationCommandGroup<DApplicationCommandOption>
+  ) {
     this._subGroups.push(subGroup);
+  }
+
+  addSimpleCommand(cmd: DSimpleCommand) {
+    this._simpleCommands.push(cmd);
+  }
+
+  addSimpleCommandOption(cmdOption: DSimpleCommandOption) {
+    this._commandsOptions.push(cmdOption);
+  }
+
+  addComponentButton(button: DComponentButton) {
+    this._buttonComponents.push(button);
+  }
+
+  addComponentSelectMenu(selectMenu: DComponentSelectMenu) {
+    this._selectMenuComponents.push(selectMenu);
   }
 
   addGuard(guard: DGuard) {
@@ -214,11 +219,11 @@ export class MetadataStorage {
         discord.events.push(member);
       }
 
-      if (member instanceof DButtonComponent) {
+      if (member instanceof DComponentButton) {
         discord.buttons.push(member);
       }
 
-      if (member instanceof DSelectMenuComponent) {
+      if (member instanceof DComponentSelectMenu) {
         discord.selectMenus.push(member);
       }
     });
@@ -288,10 +293,7 @@ export class MetadataStorage {
 
       slashParent.discord = discord;
 
-      slashParent.guilds = [
-        ...Client.slashGuilds,
-        ...slashParent.discord.guilds,
-      ];
+      slashParent.guilds = [...Client.botGuilds, ...slashParent.discord.guilds];
       slashParent.botIds = [...slashParent.discord.botIds];
       slashParent.permissions = [
         ...slashParent.permissions,

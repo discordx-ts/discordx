@@ -33,6 +33,6 @@ export function SimpleCommand(name?: string, params?: CommandParams) {
       params?.aliases
     ).decorate(target.constructor, key, target[key]);
 
-    MetadataStorage.instance.addCommand(cmd);
+    MetadataStorage.instance.addSimpleCommand(cmd);
   };
 }

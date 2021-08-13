@@ -11,7 +11,7 @@ export class Main {
   static async start() {
     this._client = new Client({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      // slashGuilds: [YOUR_GUILD_ID],
+      // botGuilds: [YOUR_GUILD_ID],
       requiredByDefault: true,
       classes: [
         `${__dirname}/discords/*.ts`, // glob string to load the classes
