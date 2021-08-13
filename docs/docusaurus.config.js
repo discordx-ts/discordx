@@ -13,7 +13,6 @@ module.exports = {
   organizationName: "oceanroleplay", // Usually your GitHub org/user name.
   projectName: "discord.ts", // Usually your repo name.
   themeConfig: {
-    sidebarCollapsible: false,
     navbar: {
       title: "Discordx",
       items: [
@@ -44,6 +43,7 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
+          sidebarCollapsed: false,
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
