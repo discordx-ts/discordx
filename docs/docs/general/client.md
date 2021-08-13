@@ -152,7 +152,7 @@ const client = new Client({
 
 ## Slashes API
 
-It also implements an [API for your @Slash](/decorators/slash.html#slash-api)
+It also implements an [API for your @Slash](/docs/decorators/slash#slash-api)
 
 ## See also
 

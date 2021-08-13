@@ -30,4 +30,4 @@ jobs:
           git commit -m 'docs'
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git push --force --set-upstream origin docs
-        working-directory: ./docs/src/.vuepress/dist
+        working-directory: ./docs/build

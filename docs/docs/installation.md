@@ -1,6 +1,8 @@
+#
+
 <p align="center">
   <br/>
-  <img src="https://i.imgur.com/kSLOEIF.png" width="150px">
+  <img src="https://i.imgur.com/kSLOEIF.png" width="150px" />
   <br/>
   <br/>
   <h1 align="center">
@@ -8,11 +10,10 @@
       discord.ts (discordx)
     </p>
   </h1>
-    <p align="center">
-      <b>
-        Create your discord bot by using TypeScript and decorators!  
-      </b>
-    <p>
+  <p align="center">
+    <b>
+      Create your discord bot by using TypeScript and decorators!
+    </b>
   </p>
   <br/>
 </p>
@@ -151,4 +152,4 @@ You can also find help with [examples folder](https://github.com/oceanroleplay/d
 
 ## Next step
 
-[Setup and start your application 🚀](/general/client/)
+[Setup and start your application 🚀](/docs/general/client)

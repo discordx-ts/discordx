@@ -4,7 +4,7 @@ A Slash Command can have multiple options (parameters)
 
 > query is an option in this image
 
-![](/discord.ts/options.png)
+![](/img/options.png)
 
 ## Declare an option
 
@@ -143,9 +143,9 @@ class DiscordBot {
   ```
 
 - `"SUB_COMMAND"`
-  No inferance, use [@SlashGroup](/decorators/slashgroup/)
+  No inferance, use [@SlashGroup](/docs/decorators/slashgroup)
 - `"SUB_COMMAND_GROUP"`
-  No inferance, use [@SlashGroup](/decorators/slashgroup/)
+  No inferance, use [@SlashGroup](/docs/decorators/slashgroup/)
 
 ## Signature
 
@@ -193,7 +193,7 @@ const client = new Client({
 
 ## Autocompletion (Option's choices)
 
-You can use the [@SlashChoice](/decorators/slashchoice/) decorator
+You can use the [@SlashChoice](/docs/decorators/slashchoice) decorator
 
 ## Option order
 
