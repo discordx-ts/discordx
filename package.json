@@ -33,7 +33,7 @@
     "decorators"
   ],
   "dependencies": {
-    "discord.js": "^13.2.0-dev.1628813079.f1d5ffc",
+    "discord.js": "^13.1.0",
     "glob": "^7.1.7"
   },
   "devDependencies": {
