@@ -39,7 +39,7 @@ If you have any issues or feature requests, Open an issue at Github [click here]
 
 - added multiple bot support (`@Bot`)
 - added `@SimpleCommand` to support v4 commands
-- added new interactions: `@ButtonComponent @SelectMenuComponent`
+- added new interactions: `@ButtonComponent @SelectMenuComponent` `@ContextMenu`
 - added new decorator `@DefaultPermission`
 - added new initSlash method to create/update/remove slash commands
 - internal source code improved with lint for better type support
