@@ -266,7 +266,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * @deprecated Use `initApplicationCommands` instead.
+   * @deprecated Use `initApplicationCommands` instead. will be removed by end of auguest 2021.
    */
   initSlashes = this.initApplicationCommands;
 
@@ -436,7 +436,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * @deprecated Use `clearApplicationCommands` instead.
+   * @deprecated Use `fetchApplicationCommands` instead. will be removed by end of auguest 2021.
    */
   fetchSlash = this.fetchApplicationCommands;
 
@@ -457,7 +457,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * @deprecated Use `clearApplicationCommands` instead.
+   * @deprecated Use `clearApplicationCommands` instead. will be removed by end of auguest 2021.
    */
   clearSlashes = this.clearApplicationCommands;
 
