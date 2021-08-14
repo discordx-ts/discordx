@@ -58,7 +58,7 @@ export class Main {
     });
 
     this._client.once("ready", async () => {
-      await this._client.initSlashes();
+      await this._client.initApplicationCommands();
 
       console.log("Bot started");
     });

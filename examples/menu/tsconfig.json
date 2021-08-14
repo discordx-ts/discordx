@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES2021",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

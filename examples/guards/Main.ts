@@ -24,7 +24,7 @@ export class Main {
     await this._client.login(process.env.BOT_TOKEN);
 
     this._client.once("ready", async () => {
-      await this._client.initSlashes();
+      await this._client.initApplicationCommands();
     });
 
     this._client.on("interactionCreate", (interaction) => {
