@@ -1,6 +1,11 @@
 name: Publish - Dev
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
 
 jobs:
   build:

@@ -1,5 +1,6 @@
 name: Test - Type
 on:
+  # workflow_dispatch:
   pull_request:
     paths-ignore:
       - "docs/docs/**"
