@@ -1,4 +1,4 @@
-name: Publish Stable
+name: Publish - Stable
 on:
   release:
     types: [created]

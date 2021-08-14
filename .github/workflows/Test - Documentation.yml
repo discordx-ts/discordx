@@ -1,4 +1,4 @@
-name: Type Check
+name: Test - Documentation
 on:
   pull_request:
     paths:
