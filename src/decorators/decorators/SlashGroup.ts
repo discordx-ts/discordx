@@ -4,21 +4,70 @@ import { ClassMethodDecorator } from "../../types/public/decorators";
 import { DApplicationCommandGroup } from "../classes/DApplicationCommandGroup";
 import { DApplicationCommandOption } from "../classes/DApplicationCommandOption";
 
+/**
+ * Group your slash command
+ * @param group name of group
+ * ___
+ * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slashgroup)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ */
 export function SlashGroup(group: string): ClassMethodDecorator;
+
+/**
+ * Group your slash command
+ * @param subCommands object
+ * ___
+ * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slashgroup)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ */
 export function SlashGroup(subCommands: SubCommand): ClassMethodDecorator;
+
+/**
+ * Group your slash command
+ * @param group name of group
+ * @param description string
+ * ___
+ * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slashgroup)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ */
 export function SlashGroup(
   group: string,
   description: string
 ): ClassMethodDecorator;
+
+/**
+ * Group your slash command
+ * @param group name of group
+ * @param subCommands object
+ * ___
+ * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slashgroup)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ */
 export function SlashGroup(
   group: string,
   subCommands: SubCommand
 ): ClassMethodDecorator;
+
+/**
+ * Group your slash command
+ * @param group name of group
+ * @param description string
+ * @param subCommands object
+ * ___
+ * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slashgroup)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ */
 export function SlashGroup(
   group: string,
   description: string,
   subCommands: SubCommand
 ): ClassMethodDecorator;
+
 export function SlashGroup(
   groupOrSubcommands: string | SubCommand,
   subCommandsOrDescription?: SubCommand | string,

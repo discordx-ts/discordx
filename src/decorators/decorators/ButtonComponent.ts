@@ -2,7 +2,21 @@ import { Snowflake } from "discord.js";
 import { MetadataStorage, DComponentButton } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
+/**
+ * Define button interaction handler
+ * @param id your button custom id
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/buttoncomponent)
+ */
 export function ButtonComponent(id?: string): MethodDecoratorEx;
+
+/**
+ * Define button interaction handler
+ * @param id your button custom id
+ * @param params additional configuration for button component
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/buttoncomponent)
+ */
 export function ButtonComponent(
   id: string,
   params?: { guilds?: Snowflake[]; botIds?: string[] }

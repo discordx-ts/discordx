@@ -5,12 +5,26 @@ import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DDiscord } from "../classes/DDiscord";
 import { DApplicationCommand } from "../classes/DApplicationCommand";
 
+/**
+ * Define permission for your application command or simple command
+ * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/permission)
+ */
 export function Permission(
   permission: ApplicationCommandPermissionData
 ): ClassMethodDecorator;
+
+/**
+ * Define permission for your application command or simple command
+ * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/permission)
+ */
 export function Permission(
   ...permission: ApplicationCommandPermissionData[]
 ): ClassMethodDecorator;
+
 export function Permission(
   ...permission: ApplicationCommandPermissionData[]
 ): ClassMethodDecorator {

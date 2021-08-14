@@ -3,6 +3,12 @@ import { MethodDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DApplicationCommand } from "../classes/DApplicationCommand";
 
+/**
+ * This decorator is a shortcut to set the description property
+ * @param description string
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/description)
+ */
 export function Description(description: string): MethodDecoratorEx;
 export function Description(description: string) {
   return function (

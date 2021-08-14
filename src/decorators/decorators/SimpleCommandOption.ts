@@ -4,11 +4,26 @@ import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DSimpleCommandOption } from "../classes/DSimpleCommandOption";
 
+/**
+ * Define option for simple commnad
+ * @param name option name
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/simplecommandoption)
+ */
 export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
+
+/**
+ * Define option for simple commnad
+ * @param name option name
+ * @param params additional configuration
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/simplecommandoption)
+ */
 export function SimpleCommandOption(
   name: string,
   params?: { description?: string; type?: "string" | "number" | "boolean" }
 ): ParameterDecoratorEx;
+
 export function SimpleCommandOption(
   name?: string,
   params?: { description?: string; type?: "string" | "number" | "boolean" }

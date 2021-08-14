@@ -2,7 +2,21 @@ import { Snowflake } from "discord.js";
 import { MetadataStorage, DComponentSelectMenu } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
+/**
+ * Define a select menu interaction handler
+ * @param id custom id for your select menu
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/selectmenucomponent)
+ */
 export function SelectMenuComponent(id?: string): MethodDecoratorEx;
+
+/**
+ * Define a select menu interaction handler
+ * @param id custom id for your select menu
+ * @param params additional configuration
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/selectmenucomponent)
+ */
 export function SelectMenuComponent(
   id: string,
   params?: { guilds?: Snowflake[]; botIds?: string[] }

@@ -5,12 +5,33 @@ import { CommandParams } from "../params/CommandParams";
 
 const testName = RegExp(/^[a-z0-9]+$/);
 
+/**
+ * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/simplecommand)
+ */
 export function SimpleCommand(): MethodDecoratorEx;
+
+/**
+ * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
+ * @param name command name
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/simplecommand)
+ */
 export function SimpleCommand(name: string): MethodDecoratorEx;
+
+/**
+ * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
+ * @param name command name
+ * @param params additional configuration
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/simplecommand)
+ */
 export function SimpleCommand(
   name: string,
   params: CommandParams
 ): MethodDecoratorEx;
+
 export function SimpleCommand(name?: string, params?: CommandParams) {
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;

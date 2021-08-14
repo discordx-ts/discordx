@@ -5,7 +5,21 @@ import {
 } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 
+/**
+ * Define slash command
+ * @param name name of your slash command
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slash)
+ */
 export function Slash(name?: string): MethodDecoratorEx;
+
+/**
+ * Define slash command
+ * @param name name of your slash command
+ * @param params additional configuration for slash
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slash)
+ */
 export function Slash(
   name?: string,
   params?: ApplicationCommandParams

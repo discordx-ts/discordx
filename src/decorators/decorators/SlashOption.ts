@@ -9,15 +9,26 @@ import {
 import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DApplicationCommand } from "../classes/DApplicationCommand";
 
+/**
+ * Define option for slash command
+ * @param name string
+ * ___
+ * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slashoption)
+ */
 export function SlashOption(name?: string): ParameterDecoratorEx;
+
+/**
+ * Define option for slash command
+ * @param name string
+ * @param params additional configuration
+ * ___
+ * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/slashoption)
+ */
 export function SlashOption(
   name: string,
   params?: OptionParams
 ): ParameterDecoratorEx;
-export function SlashOption(
-  name: string,
-  params: OptionParams
-): ParameterDecoratorEx;
+
 export function SlashOption(name?: string, params?: OptionParams) {
   return (target: Record<string, any>, key: string, index: number) => {
     const type: StringOptionType =

@@ -1,12 +1,14 @@
 import { MetadataStorage, DDiscord } from "../..";
 
 /**
- * @param classType The class of the imported command / on
+ * Class decorator for discord.ts instance
  * @param target The class of the destination (the class that is decorated by @Discord)
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/discord)
  */
 
 export function Discord() {
-  return function (target: Record<string, any>) {
+  return function Discord(target: Record<string, any>) {
     const instance = DDiscord.create(target.name).decorate(target, target.name);
     MetadataStorage.instance.addDiscord(instance);
   };

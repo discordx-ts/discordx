@@ -32,6 +32,11 @@ module.exports = {
           label: "Github",
           href: "https://github.com/oceanroleplay/discord.ts",
         },
+        {
+          position: "right",
+          label: "NPM",
+          href: "https://www.npmjs.com/package/discordx",
+        },
       ],
     },
     footer: {

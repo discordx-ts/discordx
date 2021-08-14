@@ -6,6 +6,12 @@ import {
 } from "../..";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 
+/**
+ * This decorator is a shortcut to set the name property
+ * @param name string
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/name)
+ */
 export function Name(name: string) {
   return function (
     target: Record<string, any>,

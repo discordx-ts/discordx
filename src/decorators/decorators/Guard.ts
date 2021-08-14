@@ -12,6 +12,12 @@ import { DOn } from "../classes/DOn";
 import { DComponentSelectMenu } from "../classes/DComponentSelectMenu";
 import { DApplicationCommand } from "../classes/DApplicationCommand";
 
+/**
+ * Define guard aka middleware for your application command, simple command, events, select menu, button
+ * @param fns array of guards
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/guard)
+ */
 export function Guard<Type = any, DatasType = any>(
   ...fns: GuardFunction<Type, DatasType>[]
 ) {
