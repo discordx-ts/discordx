@@ -80,14 +80,14 @@ client.once("ready", async () => {
 
 ### Fetch slashes from Discord
 
-or fetch them by using `client.fetchSlashes(guildID: string)`
+or fetch them by using `client.fetchApplicationCommands(guildID: string)`
 
 > If you do not specify the guild id you operate on global Slash commands
 
 ```ts
 client.once("ready", async () => {
   // ...
-  const slashes = await client.fetchSlashes();
+  const slashes = await client.fetchApplicationCommands();
 });
 ```
 

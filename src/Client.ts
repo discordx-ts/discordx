@@ -380,7 +380,9 @@ export class Client extends ClientJS {
     });
 
     // # initialize add/update/delete task for global slashes
-    const existing = (await this.fetchSlash())?.filter((s) => !s.guild);
+    const existing = (await this.fetchApplicationCommands())?.filter(
+      (s) => !s.guild
+    );
     const slashes = this.applicationCommands.filter((s) => !s.guilds?.length);
     if (existing) {
       const added = slashes.filter(
@@ -434,11 +436,16 @@ export class Client extends ClientJS {
   }
 
   /**
+   * @deprecated Use `clearApplicationCommands` instead.
+   */
+  fetchSlash = this.fetchApplicationCommands;
+
+  /**
    * Fetch the existing slash commands of a guild or globaly
    * @param guild The guild ID (empty -> globaly)
    * @returns The existing commands
    */
-  async fetchSlash(guildID?: Snowflake) {
+  async fetchApplicationCommands(guildID?: Snowflake) {
     if (guildID) {
       const guild = this.guilds.cache.get(guildID);
       if (!guild) {
@@ -463,7 +470,7 @@ export class Client extends ClientJS {
       await Promise.all(
         guilds.map(async (guild) => {
           // Select and delete the commands of each guild
-          const commands = await this.fetchSlash(guild);
+          const commands = await this.fetchApplicationCommands(guild);
           if (commands && this.guilds.cache !== undefined)
             await Promise.all(
               commands.map(async (value) => {
@@ -475,7 +482,7 @@ export class Client extends ClientJS {
       );
     } else {
       // Select and delete the commands of each guild
-      const commands = await this.fetchSlash();
+      const commands = await this.fetchApplicationCommands();
       if (commands) {
         await Promise.all(
           commands.map(async (value) => {
