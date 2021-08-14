@@ -31,7 +31,7 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@SelectMenuComponent](/docs/decorators/gui/selectmenucomponent)
 
-[@ContextMenu](/docs/docs/decorators/gui/contextmenu)
+[@ContextMenu](/docs/decorators/gui/contextmenu)
 
 [@Discord](/docs/decorators/general/discord)
 
