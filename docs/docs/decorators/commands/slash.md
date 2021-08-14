@@ -78,7 +78,7 @@ client.once("ready", async () => {
 });
 ```
 
-### Fetch slashes from Discord
+### Fetch application commands from Discord
 
 or fetch them by using `client.fetchApplicationCommands(guildID: string)`
 
@@ -87,7 +87,7 @@ or fetch them by using `client.fetchApplicationCommands(guildID: string)`
 ```ts
 client.once("ready", async () => {
   // ...
-  const slashes = await client.fetchApplicationCommands();
+  const applicationCommands = await client.fetchApplicationCommands();
 });
 ```
 
@@ -96,7 +96,7 @@ client.once("ready", async () => {
 You can retrieve the list of declared Slashes on your application (declared using @Slash)
 
 ```ts
-const slashes = client.slashes;
+const applicationCommands = client.applicationCommands;
 ```
 
 ### Apply Slash to specific guild globaly
