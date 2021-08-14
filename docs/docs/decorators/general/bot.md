@@ -35,7 +35,7 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@Discord](/docs/decorators/general/discord)
 
-[@On](/docs/decorators/general/on)
+[@On](/docs/decorators/general/on/breaktest)
 
 [@Once](/docs/decorators/general/once)
 
