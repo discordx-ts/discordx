@@ -184,9 +184,9 @@ Your tsconfig.json file should look like this:
 ```
 
 ## reflect-metadata
-
-You have to import the reflect-metadata module on your main file for the decorators (for the reflection)
-
+:::caution
+You should import the **reflect-metadata** module in your main file, for reflection
+:::
 ```ts
 import "reflect-metadata";
 import { Client } from "discordx";
