@@ -76,6 +76,16 @@ npm run start
 
 ## Installation
 
+<Tabs
+  groupId="operating-systems"
+  defaultValue="win"
+  values={[
+    { label: "Stable", value: "stable" },
+    { label: "Development", value: "dev" },
+  ]}
+>
+<TabItem value="stable">
+
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
 :::caution
@@ -110,7 +120,15 @@ And you should see this in your package.json
 }
 ```
 
-## Using Development versions for the latest features.
+If you need to update again in the future just run:
+
+```bash npm2yarn
+npm install discordx discord.js
+```
+
+</TabItem>
+
+<TabItem value="dev">
 
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
@@ -125,7 +143,7 @@ npm install discordx@dev discord.js@dev reflect-metadata
 Install your TypeScript dev dependencies too
 
 ```bash npm2yarn
-npm install --save-dev @types/node typescript tslib
+npm install --save-dev @types/node typescript
 ```
 
 And you should see this in your package.json
@@ -151,6 +169,9 @@ If you need to update again in the future just run:
 ```bash npm2yarn
 npm install discordx@dev discord.js@dev
 ```
+
+</TabItem>
+</Tabs>
 
 ## Execution environnement
 
