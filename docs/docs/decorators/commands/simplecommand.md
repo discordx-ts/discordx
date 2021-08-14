@@ -2,6 +2,12 @@
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 
+:::danger
+A simple command is dependent on the content of the message but unfortunately, Discord plans to remove message content for verified bots and apps, those with 100 or more servers. Hence, You cannot use simple commands if your bot cannot access message content.
+
+[Read discord message here](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Access-Deprecation-for-Verified-Bots)
+:::
+
 # Example
 
 ```ts
