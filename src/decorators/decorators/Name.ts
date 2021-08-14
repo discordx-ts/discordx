@@ -1,4 +1,9 @@
-import { MetadataStorage, DApplicationCommand, Modifier, DDiscord } from "../..";
+import {
+  MetadataStorage,
+  DApplicationCommand,
+  Modifier,
+  DDiscord,
+} from "../..";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 
 export function Name(name: string) {

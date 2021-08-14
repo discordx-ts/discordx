@@ -1,4 +1,8 @@
-# Use the VSCode debugger to debug your bot
+---
+title: Debugging
+---
+
+Use the VSCode debugger to debug your bot
 
 1. Create the `.vscode/launch.json` file at your project root directory if the file do not already exists
 2. Install ts-node as a dev dependency

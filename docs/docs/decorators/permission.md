@@ -65,3 +65,13 @@ It specify if the permission is given to a user or a role
 
 `true | false`
 It specify if the permission is granted or restricated
+
+## Make changes to
+
+It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
+
+[@Discord](/docs/decorators/discord)
+
+[@SimpleCommand](/docs/decorators/simeplcommand)
+
+[@Slash](/docs/decorators/slash)

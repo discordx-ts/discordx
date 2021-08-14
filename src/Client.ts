@@ -132,7 +132,8 @@ export class Client extends ClientJS {
   }
 
   static get buttons() {
-    return MetadataStorage.instance.buttons as readonly DComponentButton[];
+    return MetadataStorage.instance
+      .buttonComponents as readonly DComponentButton[];
   }
   get buttons() {
     return Client.buttons;
@@ -140,7 +141,7 @@ export class Client extends ClientJS {
 
   static get selectMenus() {
     return MetadataStorage.instance
-      .selectMenus as readonly DComponentSelectMenu[];
+      .selectMenuComponents as readonly DComponentSelectMenu[];
   }
   get selectMenus() {
     return Client.selectMenus;

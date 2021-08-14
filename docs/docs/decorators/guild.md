@@ -47,3 +47,17 @@ class DiscordBot {
 
 `Snowflake[]`
 The list of guild id's
+
+## Make changes to
+
+It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
+
+[@ButtonComponent](/docs/decorators/buttoncomponent)
+
+[@SelectMenuComponent](/docs/decorators/selectmenucomponent)
+
+[@Discord](/docs/decorators/discord)
+
+[@SimpleCommand](/docs/decorators/simeplcommand)
+
+[@Slash](/docs/decorators/slash)

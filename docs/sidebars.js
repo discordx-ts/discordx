@@ -63,6 +63,11 @@ module.exports = {
           label: "@ButtonComponent",
           id: "decorators/buttoncomponent",
         },
+        {
+          type: "doc",
+          label: "@SelectMenuComponent",
+          id: "decorators/selectmenucomponent",
+        },
         { type: "doc", label: "@ContextMenu", id: "decorators/contextmenu" },
         {
           type: "doc",
@@ -73,14 +78,10 @@ module.exports = {
         { type: "doc", label: "@Discord", id: "decorators/discord" },
         { type: "doc", label: "@Guard", id: "decorators/guard" },
         { type: "doc", label: "@Guild", id: "decorators/guild" },
+        { type: "doc", label: "@Name", id: "decorators/name" },
         { type: "doc", label: "@On", id: "decorators/on" },
         { type: "doc", label: "@Once", id: "decorators/once" },
         { type: "doc", label: "@Permission", id: "decorators/permission" },
-        {
-          type: "doc",
-          label: "@SelectMenuComponent",
-          id: "decorators/selectmenucomponent",
-        },
         {
           type: "doc",
           label: "@SimpleCommand",

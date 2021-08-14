@@ -195,3 +195,21 @@ abstract class AppDiscord {
   }
 }
 ```
+
+## Make changes to
+
+It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
+
+[@ButtonComponent](/docs/decorators/buttoncomponent)
+
+[@SelectMenuComponent](/docs/decorators/selectmenucomponent)
+
+[@Discord](/docs/decorators/discord)
+
+[@On](/docs/decorators/on)
+
+[@Once](/docs/decorators/once)
+
+[@SimpleCommand](/docs/decorators/simeplcommand)
+
+[@Slash](/docs/decorators/slash)

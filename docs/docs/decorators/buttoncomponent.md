@@ -1,6 +1,6 @@
-# @Button
+# @ButtonComponent
 
-add button interaction handler for your bot using `@Button` decorator
+add button interaction handler for your bot using `@ButtonComponent` decorator
 
 ## Example
 
@@ -11,7 +11,7 @@ import {
   MessageButton,
   MessageActionRow,
 } from "discord.js";
-import { Button, Discord, Slash } from "discordx";
+import { ButtonComponent, Discord, Slash } from "discordx";
 
 @Discord()
 class buttonExample {
@@ -33,7 +33,7 @@ class buttonExample {
     });
   }
 
-  @Button("hello-btn")
+  @ButtonComponent("hello-btn")
   mybtn(interaction: ButtonInteraction) {
     interaction.reply(`👋 ${interaction.member}`);
   }
@@ -42,9 +42,32 @@ class buttonExample {
 
 ## Params
 
-`@Button("btn-id")`
+`@ButtonComponent("btn-id")`
 
 ### btn-id
 
 `string`
 The button id for your handling button interaction
+
+# @Bot
+
+bot decorator help you manage multiple bot's in single node instance
+
+```ts
+const alexa = new Client({
+  botId: "alexa", // define botid under Client
+});
+
+const cortana = new Client({
+  botId: "cortana", // define botid under Client
+});
+
+@Discord()
+@Bot("alexa", "cortana") // now define, which bot can execute following slashes, events or commands
+class simpleCommandExample {
+  @SimpleCommand("hello")
+  command(message: Message) {
+    message.reply(`👋 ${message.member}`);
+  }
+}
+```

@@ -88,11 +88,11 @@ export class MetadataStorage {
     return this._simpleCommands as readonly DSimpleCommand[];
   }
 
-  get buttons() {
+  get buttonComponents() {
     return this._buttonComponents as readonly DComponentButton[];
   }
 
-  get selectMenus() {
+  get selectMenuComponents() {
     return this._selectMenuComponents as readonly DComponentSelectMenu[];
   }
 
@@ -100,11 +100,11 @@ export class MetadataStorage {
     return this._AllApplicationCommands as readonly DApplicationCommand[];
   }
 
-  get groups() {
+  get slashGroups() {
     return this._groups as readonly DApplicationCommandGroup[];
   }
 
-  get subGroups() {
+  get slashSubGroups() {
     return this._subGroups as readonly DApplicationCommandGroup[];
   }
 

@@ -2,8 +2,6 @@
 
 Sharding your bot with `discordx`.
 
-[[toc]]
-
 ## Purpose
 
 Sharding is the process of splitting your main discord process into multiple shards to help with the load when your bot is in 2,500+ guilds. discord.**js** has recommended to start making updates for sharding at around 2,000 guilds.

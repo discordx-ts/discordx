@@ -5,11 +5,11 @@ The MetadataStorage store all the informations about your decorators, you can ge
 ```ts
 import { MetadataStorage } from "discordx.ts";
 
-MetadataStorage.instance.slashes;
-MetadataStorage.instance.commands;
+MetadataStorage.instance.applicationCommands;
+MetadataStorage.instance.simpleCommands;
 MetadataStorage.instance.events;
 MetadataStorage.instance.discords;
-MetadataStorage.instance.buttons;
-MetadataStorage.instance.selectMenus;
+MetadataStorage.instance.buttonComponents;
+MetadataStorage.instance.selectMenuComponents;
 // ...
 ```

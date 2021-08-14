@@ -9,3 +9,13 @@ The default permission used to set permission for everyone in your slash or simp
 ## Params
 
 `@DefaultPermission(true | false)`
+
+## Make changes to
+
+It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
+
+[@Discord](/docs/decorators/discord)
+
+[@SimpleCommand](/docs/decorators/simeplcommand)
+
+[@Slash](/docs/decorators/slash)
