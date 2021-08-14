@@ -4,11 +4,11 @@ You can set some permissions to your Slash commands or normal commands
 
 The permissions are based on a **role id** or **user id** that you specify on the @Permission decorator
 
-The permissions will be set when you call `client.initSlashes()`
+The permissions will be set when you call `client.initApplicationCommands()`
 
-> You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initSlashes()` implementation
+> You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initApplicationCommands()` implementation
 
-:::warning 
+:::warning
 From discord developer docs:
 
 For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will not be hidden.

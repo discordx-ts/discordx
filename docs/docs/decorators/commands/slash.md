@@ -19,7 +19,7 @@ abstract class AppDiscord {
 It require a bit of configuration at you Client initialization.
 You have to manualy execute and initialize your Slash commands by using:
 
-- `client.initSlashes()`
+- `client.initApplicationCommands()`
 - `client.executeInteraction(interaction)`
 
 This provide flexibility in your code
@@ -34,7 +34,7 @@ async function start() {
   });
 
   client.once("ready", async () => {
-    await client.initSlashes();
+    await client.initApplicationCommands();
   });
 
   client.on("interactionCreate", (interaction) => {
@@ -66,15 +66,15 @@ By using the Client class you can access and manage to Slashes
 
 ### Clear slashes from Discord cache
 
-You can remove Slash commands from the Discord cache by using `client.clearSlashes(...guildIDs: Snowflake[])`
+You can remove Slash commands from the Discord cache by using `client.clearApplicationCommands(...guildIDs: Snowflake[])`
 
 > If you do not specify the guild id you operate on global Slash commands
 
 ```ts
 client.once("ready", async () => {
-  await client.clearSlashes();
-  await client.clearSlashes("546281071751331840");
-  await client.initSlashes();
+  await client.clearApplicationCommands();
+  await client.clearApplicationCommands("546281071751331840");
+  await client.initApplicationCommands();
 });
 ```
 
@@ -103,7 +103,7 @@ const slashes = client.slashes;
 
 Instead on doing this for all of your @Slash:
 
-> You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initSlashes()` implementation
+> You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initApplicationCommands()` implementation
 
 ```ts
 @Discord()
