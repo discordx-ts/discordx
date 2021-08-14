@@ -2,6 +2,10 @@
 
 add select menu interaction handler for your bot using `@SelectMenuComponent` decorator
 
+Here are some example screenshots:
+
+![](../../../static/img/select-menu-example.jpg)
+
 ## Example
 
 ```ts
