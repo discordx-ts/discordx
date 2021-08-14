@@ -9,7 +9,7 @@ module.exports = {
   baseUrl: "/discord.ts/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  // favicon: "img/favicon.ico",
+  favicon: "favicon.ico",
   organizationName: "oceanroleplay", // Usually your GitHub org/user name.
   projectName: "discord.ts", // Usually your repo name.
   themeConfig: {
