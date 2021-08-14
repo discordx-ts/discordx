@@ -80,17 +80,17 @@ There is a whole system that allows you to implement complex slash/simple comman
 
 - `@Bot`
 - `@ButtonComponent`
-- `@SimpleCommand`
-- `@SimpleCommandOption`
-- `@DefaultPermission`
-- `@Description`
+- `@SelectMenuComponent`
+- `@ContextMenu`
 - `@Discord`
 - `@Guard`
 - `@Guild`
 - `@On`
 - `@Once`
+- `@DefaultPermission`
 - `@Permission`
-- `@SelectMenuComponent`
+- `@SimpleCommand`
+- `@SimpleCommandOption`
 - `@Slash`
 - `@SlashChoice`
 - `@SlashGroup`
