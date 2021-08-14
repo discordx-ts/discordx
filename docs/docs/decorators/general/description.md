@@ -2,8 +2,6 @@
 
 This decorator is a shortcut to set the description property.
 
-This decorator doesn't modify anything for the user to see, it is entirely a developer feature.
-
 :::danger
 This decorator may be removed in future.
 :::
