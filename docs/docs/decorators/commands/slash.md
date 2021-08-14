@@ -1,6 +1,6 @@
 # @Slash - Discord commands
 
-Discord has it's own command system now, you can simply declare commands and use Slash commands this way
+Discord has it's own command system now, you can simply declare commands and use application commands this way
 
 ```ts
 import { Discord, Slash } from "discordx";
@@ -14,10 +14,10 @@ abstract class AppDiscord {
 }
 ```
 
-## Initialize Client and Slash Commands
+## Initialize client and application commands
 
 It require a bit of configuration at you Client initialization.
-You have to manualy execute and initialize your Slash commands by using:
+You have to manualy execute and initialize your application commands by using:
 
 - `client.initApplicationCommands()`
 - `client.executeInteraction(interaction)`
@@ -48,7 +48,7 @@ start();
 ```
 
 :::danger
-**Global** slash commands take time to propagate on discord servers, we recommend to develop on a test server with the **Guild** specific mode
+**Global** application commands take time to propagate on discord servers, we recommend to develop on a test server with the **Guild** specific mode
 
 ```ts
 const client = new Client({
@@ -60,15 +60,11 @@ const client = new Client({
 
 :::
 
-## Slash API
+### Clear application commands from Discord cache
 
-By using the Client class you can access and manage to Slashes
+You can remove application commands from the Discord cache by using `client.clearApplicationCommands(...guildIDs: Snowflake[])`
 
-### Clear slashes from Discord cache
-
-You can remove Slash commands from the Discord cache by using `client.clearApplicationCommands(...guildIDs: Snowflake[])`
-
-> If you do not specify the guild id you operate on global Slash commands
+> If you do not specify the guild id you operate on global application commands
 
 ```ts
 client.once("ready", async () => {
@@ -82,7 +78,7 @@ client.once("ready", async () => {
 
 or fetch them by using `client.fetchApplicationCommands(guildID: string)`
 
-> If you do not specify the guild id you operate on global Slash commands
+> If you do not specify the guild id you operate on global application commands
 
 ```ts
 client.once("ready", async () => {
@@ -91,15 +87,15 @@ client.once("ready", async () => {
 });
 ```
 
-### Get declared slashes
+### Get declared application commands
 
-You can retrieve the list of declared Slashes on your application (declared using @Slash)
+You can retrieve the list of declared application commands on your application (declared using @Slash, @ContextMenu)
 
 ```ts
 const applicationCommands = client.applicationCommands;
 ```
 
-### Apply Slash to specific guild globaly
+### Apply application command to specific guild globaly
 
 Instead on doing this for all of your @Slash:
 
