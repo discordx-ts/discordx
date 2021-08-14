@@ -174,8 +174,8 @@ The guilds where the command is created
 
 On the Discord's developer portal, select your bot, go to the OAuth2 tab and check the box **bot** AND **applications.commands**
 
-![](/img/authorize1.png)
-![](/img/authorize2.png)
+![](../../../static/img/authorize1.png)
+![](../../../static/img/authorize2.png)
 
 ## See also
 

@@ -66,7 +66,7 @@ Okay so now that you are ready let's talk about the set up.
 Bot
 ├───environments/
 ├───src/
-     ├───app/
+    ├───app/
         ├───abstract/
         ├───commands/
         ├───const/

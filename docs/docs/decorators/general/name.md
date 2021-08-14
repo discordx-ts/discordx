@@ -1,15 +1,24 @@
-# @Description
+# @Name
 
-This decorator is a shortcut to set the description property
+This decorator is a shortcut to set the name property.
+
+This decorator doesn't modify anything for the user to see, it is entirely a developer feature.
+
+:::danger
+This decorator may be removed in future.
+:::
+
+## Example
 
 ```typescript
 import { CommandInteraction } from "discord.js";
 
 @Discord()
 export abstract class DiscordBot {
-  @Slash("ciao")
-  @Description("say ciao")
+  @Slash("myslash")
+  @Name("yourslash")
   async ciao(interaction: CommandInteraction) {
+    // name of slash overwritten
     interaction.reply("Ciao!");
   }
 }
@@ -22,7 +31,7 @@ import { CommandInteraction } from "discord.js";
 
 @Discord()
 export abstract class DiscordBot {
-  @Slash("ciao", { description: "say ciao" })
+  @Slash("ciao")
   async ciao(interaction: CommandInteraction) {
     interaction.reply("Ciao!");
   }
@@ -33,6 +42,8 @@ export abstract class DiscordBot {
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@SimpleCommand](/docs/decorators/simplecommand)
+[@Discord](/docs/decorators/general/discord)
 
-[@Slash](/docs/decorators/slash)
+[@SimpleCommand](/docs/decorators/commands/simplecommand)
+
+[@Slash](/docs/decorators/commands/slash)

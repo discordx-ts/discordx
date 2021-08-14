@@ -1,6 +1,6 @@
 # @Once - Discord events
 
-It's exactly the same behavior as [@On](/docs/decorators/on) but the method is only executed once
+It's exactly the same behavior as [@On](/docs/decorators/general/on) but the method is only executed once
 
 ```typescript
 import { Discord, On, Once } from "discordx";
@@ -22,7 +22,7 @@ You also receive other useful arguments after that:
 
 1. The event payload (`ArgsOf<"YOUR_EVENT">`)
 2. The `Client` instance
-3. The [guards](/docs/decorators/guard) payload
+3. The [guards](/docs/decorators/general/guard) payload
 
 > You should use JS desctructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 

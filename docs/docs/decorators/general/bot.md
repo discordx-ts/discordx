@@ -6,10 +6,12 @@ bot decorator help you manage multiple bot's in single node instance
 const alexa = new Client({
   botId: "alexa", // define botid under Client
 });
+await alexa.login('alexatoken');
 
 const cortana = new Client({
   botId: "cortana", // define botid under Client
 });
+await cortana.login('cortanatoken');
 
 @Discord()
 @Bot("alexa", "cortana") // now define, which bot can execute following slashes, events or commands
@@ -25,16 +27,18 @@ class simpleCommandExample {
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](/docs/decorators/buttoncomponent)
+[@ButtonComponent](/docs/decorators/gui/buttoncomponent)
 
-[@SelectMenuComponent](/docs/decorators/selectmenucomponent)
+[@SelectMenuComponent](/docs/decorators/gui/selectmenucomponent)
 
-[@Discord](/docs/decorators/discord)
+[@ContextMenu](/docs/docs/decorators/gui/contextmenu)
 
-[@On](/docs/decorators/on)
+[@Discord](/docs/decorators/general/discord)
 
-[@Once](/docs/decorators/once)
+[@On](/docs/decorators/general/on)
 
-[@SimpleCommand](/docs/decorators/simplecommand)
+[@Once](/docs/decorators/general/once)
 
-[@Slash](/docs/decorators/slash)
+[@SimpleCommand](/docs/decorators/commands/simplecommand)
+
+[@Slash](/docs/decorators/commands/slash)

@@ -10,7 +10,7 @@ import { MethodDecoratorEx } from "../../types/public/decorators";
  * define context menu for your bot
  * @param type USER | MESSAGE
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/contextmenu)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
  */
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">
@@ -21,7 +21,7 @@ export function ContextMenu(
  * @param type USER | MESSAGE
  * @param name name of your context menu
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/contextmenu)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
  */
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
@@ -34,7 +34,7 @@ export function ContextMenu(
  * @param name name of your context menu
  * @param params additional configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/contextmenu)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
  */
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,

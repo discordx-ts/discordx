@@ -6,7 +6,7 @@ import { EventParams } from "../params/EventParams";
  * Trigger a discord event, It's exactly the same behavior as @On but the method is only executed once
  * @param event name of event
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/once)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/once)
  */
 export function Once(event: DiscordEvents): MethodDecoratorEx;
 
@@ -15,7 +15,7 @@ export function Once(event: DiscordEvents): MethodDecoratorEx;
  * @param event name of event
  * @param params addition configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/once)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/once)
  */
 export function Once(
   event: DiscordEvents,

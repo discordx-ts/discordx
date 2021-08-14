@@ -2,7 +2,7 @@
 
 An option of a Slash command can implement an autocompletion feature for `string` and `number` types
 
-![](/img/choices.png)
+![](../../../static/img/choices.png)
 
 ## Setup autocompletion
 

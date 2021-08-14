@@ -6,7 +6,7 @@ import { MethodDecoratorEx } from "../../types/public/decorators";
  * Define button interaction handler
  * @param id your button custom id
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/buttoncomponent)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent)
  */
 export function ButtonComponent(id?: string): MethodDecoratorEx;
 
@@ -15,7 +15,7 @@ export function ButtonComponent(id?: string): MethodDecoratorEx;
  * @param id your button custom id
  * @param params additional configuration for button component
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/buttoncomponent)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent)
  */
 export function ButtonComponent(
   id: string,

@@ -11,7 +11,7 @@ import { DApplicationCommand } from "../classes/DApplicationCommand";
  * Execute your application command, button, select menu, simple command or event by defined bot when multiple bots are running in the same instance
  * @param botID id of your bot
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/bot)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/bot)
  */
 export function Bot(botID: string): ClassMethodDecorator;
 
@@ -19,7 +19,7 @@ export function Bot(botID: string): ClassMethodDecorator;
  * Make your application command, button, select menu, simple command or event executable by defined bot in case of multiple bot are running in same instance
  * @param botIDs array of bot id's
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/bot)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/bot)
  */
 export function Bot(...botIDs: string[]): ClassMethodDecorator;
 export function Bot(...botIDs: string[]): ClassMethodDecorator {

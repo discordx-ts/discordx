@@ -4,7 +4,7 @@ You can use functions that are executed before your event to determine if it's e
 
 The order of execution of the guards is done according to their position in the list, so they will be executed in order (from top to bottom).
 
-Guards can be set for `@Slash`, `@ButtonComponent`, `@SelectMenuComponent`, `@On`, `@Once`, `@Discord` and globaly.
+Guards can be set for `@SimpleCommand`, `@Slash`, `@ButtonComponent`, `@SelectMenuComponent`, `@On`, `@Once`, `@Discord` and globaly.
 
 ```typescript
 import { Discord, On, Client, Guard } from "discordx";
@@ -35,6 +35,7 @@ abstract class AppDiscord {
 
 When you use `@Guard` along with `@Discord` the guard is applied to:
 
+- Each `@SimpleCommand` of the class
 - Each `@Slash` of the class
 - Each `@On` of the class
 - Each `@Once` of the class
@@ -200,16 +201,16 @@ abstract class AppDiscord {
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](/docs/decorators/buttoncomponent)
+[@ButtonComponent](/docs/decorators/gui/buttoncomponent)
 
-[@SelectMenuComponent](/docs/decorators/selectmenucomponent)
+[@SelectMenuComponent](/docs/decorators/gui/selectmenucomponent)
 
-[@Discord](/docs/decorators/discord)
+[@Discord](/docs/decorators/general/discord)
 
-[@On](/docs/decorators/on)
+[@On](/docs/decorators/general/on)
 
-[@Once](/docs/decorators/once)
+[@Once](/docs/decorators/general/once)
 
-[@SimpleCommand](/docs/decorators/simplecommand)
+[@SimpleCommand](/docs/decorators/commands/simplecommand)
 
-[@Slash](/docs/decorators/slash)
+[@Slash](/docs/decorators/commands/slash)

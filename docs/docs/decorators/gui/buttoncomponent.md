@@ -19,12 +19,14 @@ class buttonExample {
   async hello(interaction: CommandInteraction) {
     await interaction.defer();
 
+    // Create the button, giving it the ID: "hello-btn"
     const helloBtn = new MessageButton()
       .setLabel("Hello")
       .setEmoji("👋")
       .setStyle("PRIMARY")
       .setCustomId("hello-btn");
 
+    // Create a MessageActionRow and add the button to that row.
     const row = new MessageActionRow().addComponents(helloBtn);
 
     interaction.editReply({
@@ -33,6 +35,7 @@ class buttonExample {
     });
   }
 
+  // register a handler for the button with ID: "hello-btn"
   @ButtonComponent("hello-btn")
   mybtn(interaction: ButtonInteraction) {
     interaction.reply(`👋 ${interaction.member}`);
@@ -47,27 +50,4 @@ class buttonExample {
 ### btn-id
 
 `string`
-The button id for your handling button interaction
-
-# @Bot
-
-bot decorator help you manage multiple bot's in single node instance
-
-```ts
-const alexa = new Client({
-  botId: "alexa", // define botid under Client
-});
-
-const cortana = new Client({
-  botId: "cortana", // define botid under Client
-});
-
-@Discord()
-@Bot("alexa", "cortana") // now define, which bot can execute following slashes, events or commands
-class simpleCommandExample {
-  @SimpleCommand("hello")
-  command(message: Message) {
-    message.reply(`👋 ${message.member}`);
-  }
-}
-```
+A unique name for your button interaction to be handled under.
