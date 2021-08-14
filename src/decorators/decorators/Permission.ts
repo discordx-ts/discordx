@@ -9,7 +9,7 @@ import { DApplicationCommand } from "../classes/DApplicationCommand";
  * Define permission for your application command or simple command
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/permission)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
  */
 export function Permission(
   permission: ApplicationCommandPermissionData
@@ -19,7 +19,7 @@ export function Permission(
  * Define permission for your application command or simple command
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/permission)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
  */
 export function Permission(
   ...permission: ApplicationCommandPermissionData[]

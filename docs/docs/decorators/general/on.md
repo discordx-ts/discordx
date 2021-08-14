@@ -1,10 +1,10 @@
 # @On - Discord events
 
-We can declare methods that will be executed whenever a Discord event is triggered.
+You can use this decorator to declare methods that will be executed whenever a Discord event is triggered.
 
-Our methods must be decorated with the `@On(event: string)` or [@Once(event: string)](/docs/decorators/once) decorator.
+Our methods must be decorated with the `@On(event: string)` or [@Once(event: string)](/docs/decorators/general/once) decorator.
 
-That's simple, when the event is triggered, the method is called:
+It's that simple, when the event is triggered, the method is called:
 
 ```typescript
 import { Discord, On, Once } from "discordx";
@@ -31,7 +31,7 @@ You also receive other useful arguments after that:
 
 1. The event payload (`ArgsOf<"YOUR_EVENT">`)
 2. The `Client` instance
-3. The [guards](/docs/decorators/guard) payload
+3. The [guards](/docs/decorators/general/guard) payload
 
 > You should use JS desctructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 

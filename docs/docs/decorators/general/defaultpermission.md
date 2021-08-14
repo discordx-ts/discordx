@@ -4,7 +4,7 @@ The default permission used to set permission for everyone in your slash or simp
 
 ## Examples
 
-[check here](/docs/decorators/permission)
+[check here](/docs/decorators/general/permission)
 
 ## Params
 
@@ -14,8 +14,8 @@ The default permission used to set permission for everyone in your slash or simp
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@Discord](/docs/decorators/discord)
+[@Discord](/docs/decorators/general/discord)
 
-[@SimpleCommand](/docs/decorators/simplecommand)
+[@SimpleCommand](/docs/decorators/commands/simplecommand)
 
-[@Slash](/docs/decorators/slash)
+[@Slash](/docs/decorators/commands/slash)

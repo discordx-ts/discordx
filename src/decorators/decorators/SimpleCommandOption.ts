@@ -8,7 +8,7 @@ import { DSimpleCommandOption } from "../classes/DSimpleCommandOption";
  * Define option for simple commnad
  * @param name option name
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/simplecommandoption)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
  */
 export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
 
@@ -17,7 +17,7 @@ export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
  * @param name option name
  * @param params additional configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/simplecommandoption)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
  */
 export function SimpleCommandOption(
   name: string,

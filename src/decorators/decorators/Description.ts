@@ -7,7 +7,7 @@ import { DApplicationCommand } from "../classes/DApplicationCommand";
  * This decorator is a shortcut to set the description property
  * @param description string
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/description)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/description)
  */
 export function Description(description: string): MethodDecoratorEx;
 export function Description(description: string) {

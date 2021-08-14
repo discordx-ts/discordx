@@ -1,18 +1,18 @@
 # @Guild
 
-You can specify in which guilds your @Slash commands are created by decorating the method with @Slash and @Guild
+You can use this guard to specify which guilds your @Slash commands are created by decorating the method with @Slash and @Guild
 
 ```ts
 @Discord()
 abstract class AppDiscord {
-  @Guild("GUILD_ID") // Only created on the guild GUILD_ID
   @Slash("hello")
+  @Guild("GUILD_ID") // Only created on the guild GUILD_ID
   private hello() {
     // ...
   }
 
-  @Guild("GUILD_ID", "GUILD_ID2") // Only created on the guild GUILD_ID and GUILD_ID2
   @Slash("bye")
+  @Guild("GUILD_ID", "GUILD_ID2") // Only created on the guild GUILD_ID and GUILD_ID2
   private bye() {
     // ...
   }
@@ -52,12 +52,12 @@ The list of guild id's
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](/docs/decorators/buttoncomponent)
+[@ButtonComponent](/docs/decorators/gui/buttoncomponent)
 
-[@SelectMenuComponent](/docs/decorators/selectmenucomponent)
+[@SelectMenuComponent](/docs/decorators/gui/selectmenucomponent)
 
-[@Discord](/docs/decorators/discord)
+[@Discord](/docs/decorators/general/discord)
 
-[@SimpleCommand](/docs/decorators/simplecommand)
+[@SimpleCommand](/docs/decorators/commands/simplecommand)
 
-[@Slash](/docs/decorators/slash)
+[@Slash](/docs/decorators/commands/slash)

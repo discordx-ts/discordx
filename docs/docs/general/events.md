@@ -83,10 +83,9 @@ Here is all the `DiscordEvents` and their parameters (`discord.js`)
 - **inviteDelete**  
   `[invite: Invite]`
 
-  ```ts
-  // @deprecated Use messageCreate instead
-  ```
-
+:::warning
+'message' event is deprecated, use 'messageCreate' instead
+:::
 - **message**  
   `[message: Message]`
 

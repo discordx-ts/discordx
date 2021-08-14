@@ -85,6 +85,47 @@ And you should see this in your package.json
 }
 ```
 
+## Using Development versions for the latest features.
+
+Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx** with **discord.js**
+
+(You also have to install "reflect-metadata" for the decorators)
+
+```sh
+npm i discordx@dev discord.js@dev reflect-metadata
+```
+
+Install your TypeScript dev dependencies too
+
+```sh
+npm i -D @types/node typescript tslib
+```
+
+And you should see this in your package.json
+
+```json
+{
+  // ...
+  "dependencies": {
+    "discordx": "^5.X.X-dev.###",
+    "discord.js": "^13.X.X-dev.###.###",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^16.X.X",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  }
+  // ...
+}
+```
+
+If you need to update again in the future just run:
+
+```
+npm i discordx@dev discord.js@dev
+```
+
 ## Execution environnement
 
 To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).
@@ -101,7 +142,7 @@ const client = new Client({
   },
   // glob string to load the classes
   classes: [
-    `${__dirname}/comamnds/**/*.discord.{js,ts}`,
+    `${__dirname}/commands/**/*.discord.{js,ts}`,
     `${__dirname}/events/**/*.discord.{js,ts}`,
   ],
   intents: [
@@ -165,7 +206,7 @@ You can also find help with [examples folder](https://github.com/oceanroleplay/d
 
 ## See also
 
-- [discord.js's documentation with Interactions (Slash commands)](https://discord.js.org/#/docs/main/master/general/welcome)
+- [Discord.js's documentation with Interactions (Slash commands)](https://discord.js.org/#/docs/main/master/general/welcome)
 - [Discord's Slash commands interactions](https://discord.com/developers/docs/interactions/slash-commands)
 
 ## Next step

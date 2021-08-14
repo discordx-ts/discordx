@@ -75,7 +75,7 @@ export abstract class AppDiscord {
 }
 ```
 
-![](/img/group1.png)
+![](../../../static/img/group1.png)
 
 ### SlashGroup on method level
 
@@ -158,4 +158,4 @@ export abstract class AppDiscord {
 }
 ```
 
-![](/img/group2.png)
+![](../../../static/img/group2.png)

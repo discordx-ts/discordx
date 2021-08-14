@@ -11,7 +11,7 @@ import { DApplicationCommand } from "../classes/DApplicationCommand";
  * Define guild id for your application command, simple command, events, select menu, button
  * @param guildID guild id
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/guild)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
  */
 export function Guild(guildID: Snowflake): ClassMethodDecorator;
 
@@ -19,7 +19,7 @@ export function Guild(guildID: Snowflake): ClassMethodDecorator;
  * Define guild id for your application command, simple command, events, select menu, button
  * @param guildIDs array of guild id's
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/guild)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
  */
 export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator;
 

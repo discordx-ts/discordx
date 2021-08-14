@@ -8,9 +8,15 @@ The permissions will be set when you call `client.initSlashes()`
 
 > You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initSlashes()` implementation
 
+:::warning 
+From discord developer docs:
+
+For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will not be hidden.
+:::
+
 ## Setup permissions
 
-You just decorate your parameter with one or multiple @Permission !
+You can decorate your method with one or more @Permission decorators.
 
 ```ts
 @Discord()
@@ -70,8 +76,8 @@ It specify if the permission is granted or restricated
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@Discord](/docs/decorators/discord)
+[@Discord](/docs/decorators/general/discord)
 
-[@SimpleCommand](/docs/decorators/simplecommand)
+[@SimpleCommand](/docs/decorators/commands/simplecommand)
 
-[@Slash](/docs/decorators/slash)
+[@Slash](/docs/decorators/commands/slash)

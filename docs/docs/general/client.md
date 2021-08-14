@@ -1,6 +1,6 @@
 # Client
 
-It manage all the operations between your app, Discord's API and discord.js
+It manages all the operations between your app and Discord's API using discord.js
 
 ## Setup and start your application
 
@@ -150,11 +150,7 @@ const client = new Client({
 });
 ```
 
-## Slashes API
-
-It also implements an [API for your @Slash](/docs/decorators/slash#slash-api)
-
 ## See also
 
-- [discord.js documentation](https://discord.js.org/#/docs/main/stable/class/Intents)
+- [Discord.js documentation](https://discord.js.org/#/docs/main/stable/class/Intents)
 - [Discord's documentation](https://discord.com/developers/docs/topics/gateway#list-of-intents)

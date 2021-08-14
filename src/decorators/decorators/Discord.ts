@@ -4,7 +4,7 @@ import { MetadataStorage, DDiscord } from "../..";
  * Class decorator for discord.ts instance
  * @param target The class of the destination (the class that is decorated by @Discord)
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/discord)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/discord)
  */
 
 export function Discord() {

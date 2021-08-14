@@ -6,7 +6,7 @@ import { EventParams } from "../params/EventParams";
  * Trigger a discord event
  * @param event name of event
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/on)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/on)
  */
 export function On(event: DiscordEvents): MethodDecoratorEx;
 
@@ -15,7 +15,7 @@ export function On(event: DiscordEvents): MethodDecoratorEx;
  * @param event name of event
  * @param params addition configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/on)
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/on)
  */
 export function On(
   event: DiscordEvents,
