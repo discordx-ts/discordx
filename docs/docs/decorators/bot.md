@@ -35,6 +35,6 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@Once](/docs/decorators/once)
 
-[@SimpleCommand](/docs/decorators/simeplcommand)
+[@SimpleCommand](/docs/decorators/simplecommand)
 
 [@Slash](/docs/decorators/slash)

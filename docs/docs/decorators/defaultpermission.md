@@ -16,6 +16,6 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@Discord](/docs/decorators/discord)
 
-[@SimpleCommand](/docs/decorators/simeplcommand)
+[@SimpleCommand](/docs/decorators/simplecommand)
 
 [@Slash](/docs/decorators/slash)
