@@ -53,6 +53,9 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             "https://github.com/oceanroleplay/discord.ts/edit/main/docs/",
+          remarkPlugins: [
+            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+          ],
         },
         // blog: {
         //   showReadingTime: true,

@@ -24,7 +24,7 @@ title: Installation
 
 ## Introduction
 
-This module is an extension of **[discord.**js**](https://discord.js.org)**, so the internal behavior (methods, properties, ...) is the same.
+This module is an extension of **[discord.js](https://discord.js.org)**, so the internal behavior (methods, properties, ...) is the same.
 
 This library allows you to use TypeScript decorators on discord.**js**, it simplify your code and improve the readability !
 
@@ -34,36 +34,53 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 ```
 git clone https://github.com/oceanroleplay/discord.ts-example
+cd discord.ts-example
 ```
 
 2. Build
 
-```
+```bash npm2yarn
 npm install
 ```
 
-3. Run
+3. Setup bot token
+
+For windows user
 
 ```
-npm start
+set BOT_TOKEN=<your bot token>
 ```
 
-4. And let's go, everything was done for you! 🚀
+For linux user
+
+```
+export BOT_TOKEN=<your bot token>
+```
+
+4. Run
+
+```bash npm2yarn
+npm run start
+```
+
+5. And let's go, everything was done for you! 🚀
 
 ## Installation
 
-Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx** with **discord.js**
+Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
-(You also have to install "reflect-metadata" for the decorators)
+:::caution
+You also have to install "reflect-metadata" for the decorators
+:::
 
-```sh
-npm i discordx reflect-metadata discord.js
+```bash npm2yarn
+npm install discordx reflect-metadata discord.js
 ```
 
 Install your TypeScript dev dependencies too
 
-```sh
-npm i -D @types/node typescript tslib
+```bash npm2yarn
+npm install --save-dev @types/node typescript
 ```
 
 And you should see this in your package.json
@@ -78,7 +95,6 @@ And you should see this in your package.json
   },
   "devDependencies": {
     "@types/node": "^16.X.X",
-    "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   }
   // ...
@@ -87,18 +103,20 @@ And you should see this in your package.json
 
 ## Using Development versions for the latest features.
 
-Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx** with **discord.js**
+Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
-(You also have to install "reflect-metadata" for the decorators)
+:::caution
+You also have to install "reflect-metadata" for the decorators
+:::
 
-```sh
-npm i discordx@dev discord.js@dev reflect-metadata
+```bash npm2yarn
+npm install discordx@dev discord.js@dev reflect-metadata
 ```
 
 Install your TypeScript dev dependencies too
 
-```sh
-npm i -D @types/node typescript tslib
+```bash npm2yarn
+npm install --save-dev @types/node typescript tslib
 ```
 
 And you should see this in your package.json
@@ -113,7 +131,6 @@ And you should see this in your package.json
   },
   "devDependencies": {
     "@types/node": "^16.X.X",
-    "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   }
   // ...
@@ -122,8 +139,8 @@ And you should see this in your package.json
 
 If you need to update again in the future just run:
 
-```
-npm i discordx@dev discord.js@dev
+```bash npm2yarn
+npm install discordx@dev discord.js@dev
 ```
 
 ## Execution environnement
@@ -184,9 +201,11 @@ Your tsconfig.json file should look like this:
 ```
 
 ## reflect-metadata
+
 :::caution
 You should import the **reflect-metadata** module in your main file, for reflection
 :::
+
 ```ts
 import "reflect-metadata";
 import { Client } from "discordx";
