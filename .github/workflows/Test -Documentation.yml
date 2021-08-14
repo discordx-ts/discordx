@@ -1,0 +1,33 @@
+name: Type Check
+on:
+  pull_request:
+    paths:
+      - "docs/docs/**"
+    branches:
+      - main
+  push:
+    paths:
+      - "docs/docs/**"
+    branches:
+      - main
+
+jobs:
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node v16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./docs
+
+      - name: Run TypeScript compiler
+        run: npm run build
+        working-directory: ./docs
