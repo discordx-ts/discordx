@@ -19,7 +19,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: install dep
-        run: npm install
+        run: npm ci
         working-directory: ./docs
 
       - name: build docs

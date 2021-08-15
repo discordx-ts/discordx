@@ -10,7 +10,8 @@
     "type-check": "tsc --noemit",
     "test": "jest --detectOpenHandles",
     "lint": "eslint src",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
   },
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issue",

@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
-      - run: npm install
+      - run: npm ci
       - run: npm run build
       - run: npm version --git-tag-version=false 5.5.0-dev.$(date +%s)
       - run: npm publish --tag dev
