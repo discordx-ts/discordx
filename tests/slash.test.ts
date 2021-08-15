@@ -17,7 +17,6 @@ import {
   Permission,
   StringOptionType,
   Guard,
-  Description,
 } from "../src";
 
 enum TextChoices {
@@ -36,8 +35,7 @@ enum TextChoices {
   return await next();
 })
 export abstract class AppDiscord {
-  @Description("Addition")
-  @Slash("add")
+  @Slash("add", { description: "Addition" })
   @SlashGroup("maths")
   add(
     @SlashOption("x", { description: "x value" })

@@ -27,6 +27,9 @@ import { CommandMessage } from "./types/public/CommandMessage";
 
 /**
  * Extend original client class of discord.js
+ * @param options object
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/general/client)
  */
 export class Client extends ClientJS {
   private _botId: string;
@@ -184,8 +187,10 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Create your bot
-   * @param options { silent: boolean }
+   * Extend original client class of discord.js
+   * @param options object
+   * ___
+   * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/general/client)
    */
   constructor(options: ClientOptions) {
     super(options);

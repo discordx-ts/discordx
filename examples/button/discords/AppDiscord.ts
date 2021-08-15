@@ -10,7 +10,6 @@ import {
   Slash,
   ButtonComponent,
   SlashOption,
-  Description,
   SlashChoice,
 } from "../../../src";
 import { randomInt } from "crypto";
@@ -63,10 +62,10 @@ class spcProposition {
 
 @Discord()
 export abstract class StonePaperScissor {
-  @Slash("stonepaperscissor")
-  @Description(
-    "What could be more fun than play Rock Paper Scissor with a bot?"
-  )
+  @Slash("stonepaperscissor", {
+    description:
+      "What could be more fun than play Rock Paper Scissor with a bot?",
+  })
   private async spc(
     @SlashChoice(spcChoice)
     @SlashOption("choice", {
