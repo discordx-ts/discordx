@@ -1,4 +1,4 @@
-# SlashOption
+# @SlashOption
 
 A slash command can have multiple options (parameters)
 
