@@ -25,7 +25,7 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 # 📜 Documentation
 
-**[https://oceanroleplay.github.io/discord.ts/](https://oceanroleplay.github.io/discord.ts/)**
+**[https://oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)**
 
 # Why discordx?
 
@@ -53,7 +53,37 @@ Package by [@OwenCalvin](https://github.com/OwenCalvin)
 
 ---
 
-# 📟 @Slash - Discord commands
+# Decorators
+
+There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button, select menu, contextmenu etc.
+
+#### General
+
+- [`@Discord`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/discord)
+- [`@Guard`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guard)
+- [`@Guild`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
+- [`@Bot`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/bot)
+- [`@DefaultPermission`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/defaultpermission)
+- [`@Permission`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+- [`@On`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/on)
+- [`@Once`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/once)
+
+#### Commands
+
+- [`@Slash`](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slash)
+- [`@SlashChoice`](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashchoice)
+- [`@SlashGroup`](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
+- [`@SlashOption`](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
+- [`@SimpleCommand`](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand)
+- [`@SimpleCommandOption`](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
+
+#### GUI Interactions
+
+- [`@ButtonComponent`](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent)
+- [`@SelectMenuComponent`](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/selectmenucomponent)
+- [`@ContextMenu`](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
+
+# 📟 [@Slash](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slash) - Discord commands
 
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
@@ -74,29 +104,7 @@ abstract class AppDiscord {
 }
 ```
 
-## Decorators related to slash/simple commands, button, menu and more.
-
-There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button and select menu
-
-- `@Bot`
-- `@ButtonComponent`
-- `@SelectMenuComponent`
-- `@ContextMenu`
-- `@Discord`
-- `@Guard`
-- `@Guild`
-- `@On`
-- `@Once`
-- `@DefaultPermission`
-- `@Permission`
-- `@SimpleCommand`
-- `@SimpleCommandOption`
-- `@Slash`
-- `@SlashChoice`
-- `@SlashGroup`
-- `@SlashOption`
-
-# 📟 @ButtonComponent - Discord button component interaction handler
+# 📟 [@ButtonComponent](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent) - Discord button component interaction handler
 
 add button interaction handler for your bot using `@ButtonComponent` decorator
 
@@ -126,7 +134,7 @@ class buttonExample {
 }
 ```
 
-# 📟 @SelectMenuComponent - Discord menu component interaction handler
+# 📟 [@SelectMenuComponent](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/selectmenucomponent) - Discord menu component interaction handler
 
 add menu interaction handler for your bot using `@SelectMenuComponent` decorator
 
@@ -179,7 +187,7 @@ class buttons {
 }
 ```
 
-# 📟 @SimpleCommand - Command Processor
+# 📟 [@SimpleCommand](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand) - Command Processor
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 
@@ -199,7 +207,7 @@ class commandTest {
 }
 ```
 
-# 💡@On / @Once - Discord events
+# 💡[@On](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/on) / [@Once](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/once) - Discord events
 
 We can declare methods that will be executed whenever a Discord event is triggered.
 
@@ -224,7 +232,7 @@ abstract class AppDiscord {
 }
 ```
 
-# ⚔️ Guards
+# ⚔️ [Guards](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guard)
 
 We implemented a guard system thats work pretty like the [Koa](https://koajs.com/) middleware system
 
@@ -258,7 +266,7 @@ abstract class AppDiscord {
 }
 ```
 
-# 📡 Installation
+# 📡 [Installation](https://oceanroleplay.github.io/discord.ts/docs/installation)
 
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
