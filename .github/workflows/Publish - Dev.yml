@@ -19,7 +19,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
       - run: npm run build
-      - run: npm version --git-tag-version=false 5.5.0-dev.$(date +%s)
+      - run: npm version --git-tag-version=false 5.5.0-dev.$(date +%s).$(git rev-parse --short HEAD)
       - run: npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
