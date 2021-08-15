@@ -86,6 +86,7 @@ Here is all the `DiscordEvents` and their parameters (`discord.js`)
 :::warning
 'message' event is deprecated, use 'messageCreate' instead
 :::
+
 - **message**  
   `[message: Message]`
 

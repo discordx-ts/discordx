@@ -6,12 +6,12 @@ bot decorator help you manage multiple bot's in single node instance
 const alexa = new Client({
   botId: "alexa", // define botid under Client
 });
-await alexa.login('alexatoken');
+await alexa.login("alexatoken");
 
 const cortana = new Client({
   botId: "cortana", // define botid under Client
 });
-await cortana.login('cortanatoken');
+await cortana.login("cortanatoken");
 
 @Discord()
 @Bot("alexa", "cortana") // now define, which bot can execute following slashes, events or commands
