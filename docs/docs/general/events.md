@@ -83,12 +83,12 @@ Here is all the `DiscordEvents` and their parameters (`discord.js`)
 - **inviteDelete**  
   `[invite: Invite]`
 
+- **message**  
+  `[message: Message]`
+
 :::warning
 'message' event is deprecated, use 'messageCreate' instead
 :::
-
-- **message**  
-  `[message: Message]`
 
 - **messageCreate**  
   `[message: Message]`
@@ -168,12 +168,12 @@ Here is all the `DiscordEvents` and their parameters (`discord.js`)
 - **webhookUpdate**  
   `[channel: TextChannel]`
 
-  ```ts
-  // @deprecated Use interactionCreate instead
-  ```
-
 - **interaction**  
-  `[interaction: Interaction]`
+   `[interaction: Interaction]`
+
+  :::warning
+  'interaction' event is deprecated, use 'interactionCreate' instead
+  :::
 
 - **interactionCreate**  
   `[interaction: Interaction]`
