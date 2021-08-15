@@ -1,3 +1,4 @@
+import "reflect-metadata";
 export * from "./logic";
 export * from "./decorators";
 export * from "./types";

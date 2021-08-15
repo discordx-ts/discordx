@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { MetadataStorage, Modifier } from "../..";
 import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";

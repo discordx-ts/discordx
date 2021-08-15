@@ -37,6 +37,7 @@
   "dependencies": {
     "discord.js": "^13.2.0-dev.1629028990.d289d5c",
     "glob": "^7.1.7",
+    "reflect-metadata": "^0.1.13",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
@@ -47,7 +48,6 @@
     "eslint": "^7.32.0",
     "jest": "^27.0.6",
     "prettier": "2.3.2",
-    "reflect-metadata": "^0.1.13",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
