@@ -3,7 +3,7 @@
 This decorator is a shortcut to set the description property.
 
 :::danger
-This decorator may be removed in future.
+Deprecated decorator, will be removed at the end of August.
 :::
 
 ```typescript
