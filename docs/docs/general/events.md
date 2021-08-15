@@ -1,6 +1,6 @@
 # List of the discord.js events
 
-Here is all the `DiscordEvents` and their parameters (`discord.js`)
+Here is all the [`DiscordEvents`](https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events) and their parameters (`discord.js`)
 
 - **applicationCommandCreate**  
   `[command: ApplicationCommand]`
