@@ -20,7 +20,7 @@
     /></a>
     <a href="https://github.com/oceanroleplay/discord.ts/actions"
       ><img
-        src="https://github.com/oceanroleplay/discord.ts/workflows/Testing/badge.svg"
+        src="https://github.com/oceanroleplay/discord.ts/workflows/Build/badge.svg"
         alt="Build status"
     /></a>
     <a href="https://www.paypal.me/vijayxmeena"
