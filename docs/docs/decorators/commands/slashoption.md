@@ -1,6 +1,6 @@
-# Option
+# SlashOption
 
-A Slash Command can have multiple options (parameters)
+A slash command can have multiple options (parameters)
 
 > query is an option in this image
 
