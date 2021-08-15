@@ -260,13 +260,15 @@ abstract class AppDiscord {
 
 # 📡 Installation
 
-Use [npm](https://www.npmjs.com/package/discordx) or yarn to install **discordx** with **discord.js**
+Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
 **[Please refer to the documentation](https://oceanroleplay.github.io/discord.ts/installation/#installation)**
 
 # ☎️ Need help?
 
-**[Simply join the Discord server](https://discord.gg/VDjwu8E)**
+**[discordx server](https://discord.gg/yHQY9fexH9)**
+
+**[discord.ts server](https://discord.gg/VDjwu8E)**
 
 You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
 
