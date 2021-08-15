@@ -1,203 +1,350 @@
 # List of the discord.js events
 
-Here is all the [`DiscordEvents`](https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events) and their parameters (`discord.js`)
+Here is all the [`DiscordEvents`](https://discord.com/developers/docs/topics/gateway#commands-and-events-gateway-events) and their parameters ([`discord.js`](https://discord.js.org/#/docs/main/stable/class/Client))
 
-- **applicationCommandCreate**  
-  `[command: ApplicationCommand]`
+### applicationCommandCreate
 
-- **applicationCommandDelete**  
-  `[command: ApplicationCommand]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-applicationCommandCreate)
+`[command: ApplicationCommand]`
 
-- **applicationCommandUpdate**  
-  `[oldCommand: ApplicationCommand | null, newCommand: ApplicationCommand]`
+### applicationCommandDelete
 
-- **channelCreate**  
-  `[channel: GuildChannel]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-applicationCommandDelete)
+`[command: ApplicationCommand]`
 
-- **channelDelete**  
-  `[channel: DMChannel | GuildChannel]`
+### applicationCommandUpdate
 
-- **channelPinsUpdate**  
-  `[channel: TextChannel | NewsChannel | DMChannel | PartialDMChannel, date: Date]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-applicationCommandUpdate)
+`[oldCommand: ApplicationCommand | null, newCommand: ApplicationCommand]`
 
-- **channelUpdate**  
-  `[oldChannel: DMChannel | GuildChannel, newChannel: DMChannel | GuildChannel]`
+### channelCreate
 
-- **debug**  
-  `[message: string]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-channelCreate)
+`[channel: GuildChannel]`
 
-- **warn**  
-  `[message: string]`
+### channelDelete
 
-- **emojiCreate**  
-  `[emoji: GuildEmoji]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-channelDelete)
+`[channel: DMChannel | GuildChannel]`
 
-- **emojiDelete**  
-  `[emoji: GuildEmoji]`
+### channelPinsUpdate
 
-- **emojiUpdate**  
-  `[oldEmoji: GuildEmoji, newEmoji: GuildEmoji]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-channelPinsUpdate)
+`[channel: TextChannel | NewsChannel | DMChannel | PartialDMChannel, date: Date]`
 
-- **error**  
-  `[error: Error]`
+### channelUpdate
 
-- **guildBanAdd**  
-  `[ban: GuildBan]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-channelUpdate)
+`[oldChannel: DMChannel | GuildChannel, newChannel: DMChannel | GuildChannel]`
 
-- **guildBanRemove**  
-  `[ban: GuildBan]`
+### debug
 
-- **guildCreate**  
-  `[guild: Guild]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-debug)
+`[message: string]`
 
-- **guildDelete**  
-  `[guild: Guild]`
+### warn
 
-- **guildUnavailable**  
-  `[guild: Guild]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-warn)
+`[message: string]`
 
-- **guildIntegrationsUpdate**  
-  `[guild: Guild]`
+### emojiCreate
 
-- **guildMemberAdd**  
-  `[member: GuildMember]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-emojiCreate)
+`[emoji: GuildEmoji]`
 
-- **guildMemberAvailable**  
-  `[member: GuildMember | PartialGuildMember]`
+### emojiDelete
 
-- **guildMemberRemove**  
-  `[member: GuildMember | PartialGuildMember]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-emojiDelete)
+`[emoji: GuildEmoji]`
 
-- **guildMembersChunk**  
-  `[members: Collection<Snowflake, GuildMember>, guild: Guild, data: { count: number; index: number; nonce: string | undefined }]`
+### emojiUpdate
 
-- **guildMemberUpdate**  
-  `[oldMember: GuildMember | PartialGuildMember, newMember: GuildMember]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-emojiUpdate)
+`[oldEmoji: GuildEmoji, newEmoji: GuildEmoji]`
 
-- **guildUpdate**  
-  `[oldGuild: Guild, newGuild: Guild]`
+### error
 
-- **inviteCreate**  
-  `[invite: Invite]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-error)
+`[error: Error]`
 
-- **inviteDelete**  
-  `[invite: Invite]`
+### guildBanAdd
 
-- **message**  
-  `[message: Message]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildBanAdd)
+`[ban: GuildBan]`
+
+### guildBanRemove
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildBanRemove)
+`[ban: GuildBan]`
+
+### guildCreate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildCreate)
+`[guild: Guild]`
+
+### guildDelete
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildDelete)
+`[guild: Guild]`
+
+### guildUnavailable
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildUnavailable)
+`[guild: Guild]`
+
+### guildIntegrationsUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildIntegrationsUpdate)
+`[guild: Guild]`
+
+### guildMemberAdd
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildMemberAdd)
+`[member: GuildMember]`
+
+### guildMemberAvailable
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildMemberAvailable)
+`[member: GuildMember | PartialGuildMember]`
+
+### guildMemberRemove
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildMemberRemove)
+`[member: GuildMember | PartialGuildMember]`
+
+### guildMembersChunk
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildMembersChunk)
+`[ members: Collection<Snowflake, GuildMember>, guild: Guild, data: { count: number; index: number; nonce: string | undefined } ]`
+
+### guildMemberUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildMemberUpdate)
+`[oldMember: GuildMember | PartialGuildMember, newMember: GuildMember]`
+
+### guildUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-guildUpdate)
+`[oldGuild: Guild, newGuild: Guild]`
+
+### inviteCreate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-inviteCreate)
+`[invite: Invite]`
+
+### inviteDelete
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-inviteDelete)
+`[invite: Invite]`
+
+### message
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-message)
+`[message: Message]`
 
 :::warning
-'message' event is deprecated, use 'messageCreate' instead
+`message` event is deprecated, use `messageCreate` instead
 :::
 
-- **messageCreate**  
-  `[message: Message]`
+### messageCreate
 
-- **messageDelete**  
-  `[message: Message | PartialMessage]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageCreate)
+`[message: Message]`
 
-- **messageReactionRemoveAll**  
-  `[message: Message | PartialMessage]`
+### messageDelete
 
-- **messageReactionRemoveEmoji**  
-  `[reaction: MessageReaction | PartialMessageReaction]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageDelete)
+`[message: Message | PartialMessage]`
 
-- **messageDeleteBulk**  
-  `[messages: Collection<Snowflake, Message | PartialMessage>]`
+### messageReactionRemoveAll
 
-- **messageReactionAdd**  
-  `[message: MessageReaction | PartialMessageReaction, user: User | PartialUser]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageReactionRemoveAll)
+`[message: Message | PartialMessage]`
 
-- **messageReactionRemove**  
-  `[reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser]`
+### messageReactionRemoveEmoji
 
-- **messageUpdate**  
-  `[oldMessage: Message | PartialMessage, newMessage: Message | PartialMessage]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageReactionRemoveEmoji)
+`[reaction: MessageReaction | PartialMessageReaction]`
 
-- **presenceUpdate**  
-  `[oldPresence: Presence | null, newPresence: Presence]`
+### messageDeleteBulk
 
-- **rateLimit**  
-  `[rateLimitData: RateLimitData]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageDeleteBulk)
+`[messages: Collection<Snowflake, Message | PartialMessage>]`
 
-- **invalidRequestWarning**  
-  `[invalidRequestWarningData: InvalidRequestWarningData]`
+### messageReactionAdd
 
-- **ready**  
-  `[]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageReactionAdd)
+`[message: MessageReaction | PartialMessageReaction, user: User | PartialUser]`
 
-- **invalidated**  
-  `[]`
+### messageReactionRemove
 
-- **roleCreate**  
-  `[role: Role]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageReactionRemove)
+`[reaction: MessageReaction | PartialMessageReaction, user: User | PartialUser]`
 
-- **roleDelete**  
-  `[role: Role]`
+### messageUpdate
 
-- **roleUpdate**  
-  `[oldRole: Role, newRole: Role]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-messageUpdate)
+`[oldMessage: Message | PartialMessage, newMessage: Message | PartialMessage]`
 
-- **threadCreate**  
-  `[thread: ThreadChannel]`
+### presenceUpdate
 
-- **threadDelete**  
-  `[thread: ThreadChannel]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-presenceUpdate)
+`[oldPresence: Presence | null, newPresence: Presence]`
 
-- **threadListSync**  
-  `[threads: Collection<Snowflake, ThreadChannel>]`
+### rateLimit
 
-- **threadMemberUpdate**  
-  `[oldMember: ThreadMember, newMember: ThreadMember]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-rateLimit)
+`[rateLimitData: RateLimitData]`
 
-- **threadMembersUpdate**  
-  `[oldMembers: Collection<Snowflake, ThreadMember>, mewMembers: Collection<Snowflake, ThreadMember>]`
+### invalidRequestWarning
 
-- **threadUpdate**  
-  `[oldThread: ThreadChannel, newThread: ThreadChannel]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-invalidRequestWarning)
+`[invalidRequestWarningData: InvalidRequestWarningData]`
 
-- **typingStart**  
-  `[channel: Channel | PartialDMChannel, user: User | PartialUser]`
+### ready
 
-- **userUpdate**  
-  `[oldUser: User | PartialUser, newUser: User]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-ready)
+`[]`
 
-- **voiceStateUpdate**  
-  `[oldState: VoiceState, newState: VoiceState]`
+### invalidated
 
-- **webhookUpdate**  
-  `[channel: TextChannel]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-invalidated)
+`[]`
 
-- **interaction**  
-   `[interaction: Interaction]`
+### roleCreate
 
-  :::warning
-  'interaction' event is deprecated, use 'interactionCreate' instead
-  :::
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-roleCreate)
+`[role: Role]`
 
-- **interactionCreate**  
-  `[interaction: Interaction]`
+### roleDelete
 
-- **shardDisconnect**  
-  `[closeEvent: CloseEvent, shardId: number]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-roleDelete)
+`[role: Role]`
 
-- **shardError**  
-  `[error: Error, shardId: number]`
+### roleUpdate
 
-- **shardReady**  
-  `[shardId: number, unavailableGuilds: Set<Snowflake> | undefined]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-roleUpdate)
+`[oldRole: Role, newRole: Role]`
 
-- **shardReconnecting**  
-  `[shardId: number]`
+### threadCreate
 
-- **shardResume**  
-  `[shardId: number, replayedEvents: number]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-threadCreate)
+`[thread: ThreadChannel]`
 
-- **stageInstanceCreate**  
-  `[stageInstance: StageInstance]`
+### threadDelete
 
-- **stageInstanceUpdate**  
-  `[oldStageInstance: StageInstance | null, newStageInstance: StageInstance]`
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-threadDelete)
+`[thread: ThreadChannel]`
 
-- **stageInstanceDelete**  
-  `[stageInstance: StageInstance]`
+### threadListSync
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-threadListSync)
+`[threads: Collection<Snowflake, ThreadChannel>]`
+
+### threadMemberUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-threadMemberUpdate)
+`[oldMember: ThreadMember, newMember: ThreadMember]`
+
+### threadMembersUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-threadMembersUpdate)
+`[oldMembers: Collection<Snowflake, ThreadMember>, mewMembers: Collection<Snowflake, ThreadMember>]`
+
+### threadUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-threadUpdate)
+`[oldThread: ThreadChannel, newThread: ThreadChannel]`
+
+### typingStart
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-typingStart)
+`[channel: Channel | PartialDMChannel, user: User | PartialUser]`
+
+### userUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-userUpdate)
+`[oldUser: User | PartialUser, newUser: User]`
+
+### voiceStateUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-voiceStateUpdate)
+`[oldState: VoiceState, newState: VoiceState]`
+
+### webhookUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-webhookUpdate)
+`[channel: TextChannel]`
+
+### interaction
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-interaction)
+`[interaction: Interaction]`
+
+:::warning
+`interaction` event is deprecated, use `interactionCreate` instead
+:::
+
+### interactionCreate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-interactionCreate)
+`[interaction: Interaction]`
+
+### shardDisconnect
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-shardDisconnect)
+`[closeEvent: CloseEvent, shardId: number]`
+
+### shardError
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-shardError)
+`[error: Error, shardId: number]`
+
+### shardReady
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-shardReady)
+`[shardId: number, unavailableGuilds: Set<Snowflake> | undefined]`
+
+### shardReconnecting
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-shardReconnecting)
+`[shardId: number]`
+
+### shardResume
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-shardResume)
+`[shardId: number, replayedEvents: number]`
+
+### stageInstanceCreate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-stageInstanceCreate)
+`[stageInstance: StageInstance]`
+
+### stageInstanceUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-stageInstanceUpdate)
+`[oldStageInstance: StageInstance | null, newStageInstance: StageInstance]`
+
+### stageInstanceDelete
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-stageInstanceDelete)
+`[stageInstance: StageInstance]`
+
+### stickerCreate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-stickerCreate)
+`[sticker: Sticker]`
+
+### stickerDelete
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-stickerDelete)
+`[sticker: Sticker]`
+
+### stickerUpdate
+
+[🔗](https://discord.js.org/#/docs/main/stable/class/Client?scrollTo=e-stickerUpdate)
+`[oldSticker: Sticker, newSticker: Sticker]`
+
+:::note
+If you notice any changes to the events list, please edit the page
+:::
