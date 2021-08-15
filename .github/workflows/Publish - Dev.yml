@@ -13,13 +13,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Setup .npmrc file to publish to npm /
-      - uses: actions/setup-node@v2
+      - name: Install Node v16
+        uses: actions/setup-node@v2
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
-      - run: npm ci
-      - run: npm run build
-      - run: npm version --git-tag-version=false 5.5.0-dev.$(date +%s).$(git rev-parse --short HEAD)
-      - run: npm publish --tag dev
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: build
+        run: npm run build
+
+      - name: Deprecate old versions
+        run: npm deprecate discordx@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish
+        run: |
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
+          npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
