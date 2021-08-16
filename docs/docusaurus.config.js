@@ -78,6 +78,7 @@ module.exports = {
         tsconfig: "../tsconfig.json",
         excludePrivate: true,
         excludeExternals: true,
+        excludeProtected: true,
         readme: "none",
       },
     ],
