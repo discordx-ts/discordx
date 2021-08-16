@@ -7,37 +7,53 @@ It manages all the operations between your app and Discord's API using discord.j
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
 It works the same as the discord.**js**'s Client (same methods, properties, ...).
 
-- **`intents` (required)**  
-  `Intents[]`
-  [see Intents](#intents)
+### **intents (required)**
 
-- **`botId`**  
-  `string` (`bot` by default)
-  a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
+`Intents[]`
 
-- **`prefix`**  
-  `string | ((message: Message) => Promise<string>)` (`!` by default)
-  simple commands use this prefix by default, use function to fetch different prefix for different guilds
+[see Intents](#intents)
 
-- **`classes`**
-  `string[]`
-  Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
+### **botId**
 
-- **`silent`**
-  `boolean` (`true` by default)  
-  Allows you to disable your event information at startup
+`string` `default: bot`
 
-- **`requiredByDefault`**  
-  `boolean` (`false` by default)  
-  The `@SlashOption` are required by default
+a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
 
-- **`guards`**  
-  `GuardFunction[]`
-  Global guards, it's an array of functions
+### **prefix**
 
-- **`botGuilds`**  
-  `Snowflake[]`
-  The application commands are executed only on this list of guilds by default, ex. slash, button, selectmenu, contextmenu
+`string | ((message: Message) => Promise<string>)` `default: !`
+
+simple commands use this prefix by default, use function to fetch different prefix for different guilds
+
+### **classes**
+
+`string[]`
+
+Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
+
+### **silent**
+
+`boolean` `default: true`
+
+Allows you to disable your event information at startup
+
+### **requiredByDefault**
+
+`boolean` `default: false`
+
+The `@SlashOption` are required by default
+
+### **guards**
+
+`GuardFunction[]`
+
+Global guards, it's an array of functions
+
+### **botGuilds**
+
+`Snowflake[]`
+
+The application commands are executed only on this list of guilds by default, ex. slash, button, selectmenu, contextmenu
 
 **You must specify the glob path(s) where your decorated classes are**
 
@@ -84,6 +100,24 @@ import { Intents } from "discord.js";
 const client = new Client({
   botId: "test",
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  // ...
+});
+```
+
+### Enable direct messages from user
+
+```ts
+import { Intents } from "discord.js";
+
+const client = new Client({
+  botId: "test",
+  // partial configuration required to enable direct messages
+  partials: ["CHANNEL", "MESSAGE"],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGES,
+  ],
   // ...
 });
 ```
