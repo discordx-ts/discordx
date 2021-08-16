@@ -697,10 +697,6 @@ export class Client extends ClientJS {
       .replace(prefixRegex, "")
       .trim();
 
-    this.simpleCommands.forEach((r) => {
-      console.log(r.name);
-    });
-
     const command = this.simpleCommands.find((cmd) =>
       contentWithoutPrefix.startsWith(cmd.name)
     );
