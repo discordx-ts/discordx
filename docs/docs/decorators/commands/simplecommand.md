@@ -52,3 +52,59 @@ async function start() {
 
 start();
 ```
+
+## Params
+
+### Name
+
+`string`
+
+The simple command name.
+
+### Options
+
+`object`
+
+Multiple options, check below.
+
+#### aliases
+
+`string[]`
+
+Alternative names for simple commands.
+
+#### Description
+
+`string`
+
+The simple command description.
+
+#### argSplitter
+
+`string | RegExp` `default: " "`
+
+Splitter for arguments used with @SimpleCommandOption
+
+#### botIds
+
+`string[]`
+
+Array of bot ids, for which only the command will be executed.
+
+#### defaultPermission
+
+`boolean` `default: true`
+
+When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
+
+#### directMessage
+
+`boolean` `default: true`
+
+Allow command execution from direct messages.
+
+#### guilds
+
+`string[]`
+
+Array of guild ids, for which only the command will be executed.

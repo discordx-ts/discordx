@@ -23,6 +23,14 @@ class simpleCommandExample {
 }
 ```
 
+## Params
+
+### Name
+
+`string[]`
+
+Array of bot ids, for which only the below statement will be executed.
+
 ## Make changes to
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
