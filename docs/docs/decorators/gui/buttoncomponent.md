@@ -6,7 +6,7 @@ Here are some example screenshots:
 
 ![](../../../static/img/button-example.jpg)
 
-### Example
+## Example
 
 ```ts
 import {

@@ -23,7 +23,7 @@ command
     |__ subcommand
 ```
 
-### Example
+## Example
 
 Here you create a Slash command group that groups "permissions" commands
 

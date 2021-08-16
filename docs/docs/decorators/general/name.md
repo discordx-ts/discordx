@@ -6,7 +6,7 @@ This decorator is a shortcut to set the name property.
 Deprecated decorator, will be removed at the end of August.
 :::
 
-### Example
+## Example
 
 ```typescript
 import { CommandInteraction } from "discord.js";
