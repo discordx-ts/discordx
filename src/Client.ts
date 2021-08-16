@@ -706,8 +706,10 @@ export class Client extends ClientJS {
       .replace(prefixRegex, "")
       .trim();
 
-    const commandRaw = this.simpleCommands.find((cmd) =>
-      contentWithoutPrefix.startsWith(cmd.name)
+    const commandRaw = this.simpleCommands.find(
+      (cmd) =>
+        contentWithoutPrefix.startsWith(cmd.name) ||
+        cmd.aliases.some((al) => contentWithoutPrefix.startsWith(al))
     );
 
     if (!commandRaw) return undefined;
