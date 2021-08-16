@@ -21,7 +21,7 @@ import {
   DComponentSelectMenu,
   DApplicationCommand,
 } from "./decorators";
-import { DSimpleCommand } from "./decorators/classes/DSimpleCommand";
+import { DSimpleCommand } from "./decorators";
 import { GuildNotFoundError } from "./errors";
 import { SimpleCommandMessage } from "./classes";
 

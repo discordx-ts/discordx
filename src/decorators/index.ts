@@ -83,5 +83,7 @@ export * from "./classes/DApplicationCommand";
 export * from "./classes/DApplicationCommandOption";
 export * from "./classes/DApplicationCommandOptionChoice";
 export * from "./classes/DApplicationCommandGroup";
+export * from "./classes/DSimpleCommand";
+export * from "./classes/DSimpleCommandOption";
 export * from "./classes/Modifier";
 export * from "./classes/Method";

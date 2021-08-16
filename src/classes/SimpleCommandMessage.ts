@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { DSimpleCommand } from "../decorators/classes/DSimpleCommand";
+import { DSimpleCommand } from "../decorators";
 
 export class SimpleCommandMessage {
   prefix: string;

@@ -12,10 +12,10 @@ import {
   Method,
 } from "../..";
 import { DComponentButton, DApplicationCommandGroup } from "../../decorators";
-import { DComponentSelectMenu } from "../../decorators/classes/DComponentSelectMenu";
+import { DComponentSelectMenu } from "../../decorators";
 import * as glob from "glob";
-import { DSimpleCommand } from "../../decorators/classes/DSimpleCommand";
-import { DSimpleCommandOption } from "../../decorators/classes/DSimpleCommandOption";
+import { DSimpleCommand } from "../../decorators";
+import { DSimpleCommandOption } from "../../decorators";
 
 export class MetadataStorage {
   private static isBuilt = false;
