@@ -240,6 +240,15 @@ export class Client extends ClientJS {
       } else {
         console.log("   No slashes detected");
       }
+
+      console.log("Simple Commands");
+      if (this.simpleCommands.length) {
+        this.simpleCommands.map((cmd) => {
+          console.log(` ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
+        });
+      } else {
+        console.log("   No simple commands detected");
+      }
     }
 
     this.decorators.usedEvents.map(async (on) => {
