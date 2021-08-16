@@ -35,7 +35,7 @@ export function SimpleCommand(
 export function SimpleCommand(name?: string, params?: CommandParams) {
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
-    name = name.toLocaleLowerCase();
+    name = name;
     if (!testName.test(name)) throw Error("invalid command name");
     if (params?.aliases) {
       if (params.aliases.some((name) => !testName.test(name))) {
