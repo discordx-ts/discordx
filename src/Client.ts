@@ -119,6 +119,16 @@ export class Client extends ClientJS {
     return Client.simpleCommands;
   }
 
+  static get allSimpleCommands() {
+    return MetadataStorage.instance.allSimpleCommands as readonly {
+      name: string;
+      command: DSimpleCommand;
+    }[];
+  }
+  get allSimpleCommands() {
+    return Client.allSimpleCommands;
+  }
+
   static get buttons() {
     return MetadataStorage.instance
       .buttonComponents as readonly DComponentButton[];
@@ -706,10 +716,8 @@ export class Client extends ClientJS {
       .replace(prefixRegex, "")
       .trim();
 
-    const commandRaw = this.simpleCommands.find(
-      (cmd) =>
-        contentWithoutPrefix.startsWith(cmd.name) ||
-        cmd.aliases.some((al) => contentWithoutPrefix.startsWith(al))
+    const commandRaw = this.allSimpleCommands.find((cmd) =>
+      contentWithoutPrefix.startsWith(cmd.name)
     );
 
     if (!commandRaw) return undefined;
@@ -723,7 +731,7 @@ export class Client extends ClientJS {
       commandRaw.name,
       commandArgs,
       message,
-      commandRaw
+      commandRaw.command
     );
 
     return command;

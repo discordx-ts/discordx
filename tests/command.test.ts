@@ -17,7 +17,7 @@ import {
   return await next();
 })
 export abstract class AppDiscord {
-  @SimpleCommand("add", { description: "Addition" })
+  @SimpleCommand("add", { aliases: ["add1", "add2"], description: "Addition" })
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -47,5 +47,6 @@ describe("Commands", () => {
         permission: true,
       },
     ]);
+    expect(client.simpleCommands[0].aliases).toEqual(["add1", "add2"]);
   });
 });

@@ -68,7 +68,7 @@ export abstract class commandTest {
     command.message.reply("access granted");
   }
 
-  @SimpleCommand("hello")
+  @SimpleCommand("hello", { aliases: ["ptest mark"] })
   async testCommand(
     @SimpleCommandOption() name: string,
 

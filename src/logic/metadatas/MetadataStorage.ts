@@ -31,6 +31,7 @@ export class MetadataStorage {
   private _discords: DDiscord[] = [];
   private _modifiers: Modifier<any>[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
+  private _allSimpleCommands: { name: string; command: DSimpleCommand }[] = [];
   private _commandsOptions: DSimpleCommandOption[] = [];
 
   private _groups: DApplicationCommandGroup<DApplicationCommand>[] = [];
@@ -86,6 +87,12 @@ export class MetadataStorage {
 
   get simpleCommands() {
     return this._simpleCommands as readonly DSimpleCommand[];
+  }
+  get allSimpleCommands() {
+    return this._allSimpleCommands as readonly {
+      name: string;
+      command: DSimpleCommand;
+    }[];
   }
 
   get buttonComponents() {
@@ -266,8 +273,15 @@ export class MetadataStorage {
     this._AllApplicationCommands = this._applicationCommands;
     this._applicationCommands = this.groupSlashes();
 
+    this._simpleCommands.forEach((cmd) => {
+      this._allSimpleCommands.push({ name: cmd.name, command: cmd });
+      cmd.aliases.forEach((al) => {
+        this._allSimpleCommands.push({ name: al, command: cmd });
+      });
+    });
+
     // sort simple commands
-    this._simpleCommands = this._simpleCommands.sort(function (a, b) {
+    this._allSimpleCommands = this._allSimpleCommands.sort(function (a, b) {
       // ASC  -> a.length - b.length
       // DESC -> b.length - a.length
       return b.name.length - a.name.length;
