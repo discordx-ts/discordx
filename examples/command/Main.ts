@@ -44,6 +44,8 @@ export class Main {
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.DIRECT_MESSAGES,
       ],
+      // enable partials to recieve direct messages
+      partials: ["CHANNEL", "MESSAGE"],
       classes: [
         `${__dirname}/discords/*.ts`, // glob string to load the classes
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
