@@ -25,6 +25,12 @@ a bot id, help you manage your bot interactions, events (this is important in ca
 
 simple commands use this prefix by default, use function to fetch different prefix for different guilds
 
+### commandUnauthorizedHandler
+
+`string | ((command: SimpleCommandMessage) => Promise<void>)`
+
+define bot reply, when command is not auhorized
+
 ### classes
 
 `string[]`
