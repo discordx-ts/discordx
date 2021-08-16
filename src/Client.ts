@@ -23,7 +23,7 @@ import {
 } from "./decorators";
 import { DSimpleCommand } from "./decorators/classes/DSimpleCommand";
 import { GuildNotFoundError } from "./errors";
-import { CommandMessage } from "./types/public/CommandMessage";
+import { SimpleCommandMessage } from "./classes";
 
 /**
  * Extend original client class of discord.js
@@ -34,18 +34,9 @@ import { CommandMessage } from "./types/public/CommandMessage";
 export class Client extends ClientJS {
   private _botId: string;
   private _prefix: string | ((message: Message) => Promise<string>);
-  private _notFoundHandler?:
-    | string
-    | ((
-        message: Message,
-        command: { name: string; prefix: string }
-      ) => Promise<void>);
   private _unauthorizedHandler?:
     | string
-    | ((
-        message: Message,
-        info: { name: string; prefix: string; command: CommandMessage }
-      ) => Promise<void>);
+    | ((command: SimpleCommandMessage) => Promise<void>);
   private _silent: boolean;
   private static _requiredByDefault = false;
   private static _botGuilds: Snowflake[] = [];
@@ -70,13 +61,6 @@ export class Client extends ClientJS {
   }
   set unauthorizedHandler(value) {
     this._unauthorizedHandler = value;
-  }
-
-  get notFoundHandler() {
-    return this._notFoundHandler;
-  }
-  set notFoundHandler(value) {
-    this._notFoundHandler = value;
   }
 
   get botId() {
@@ -205,7 +189,6 @@ export class Client extends ClientJS {
     this.botGuilds = options.botGuilds?.filter((guild) => !!guild) ?? [];
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
-    this._notFoundHandler = options.commandNotFoundHandler;
     this._unauthorizedHandler = options.commandUnauthorizedHandler;
   }
 
@@ -687,7 +670,7 @@ export class Client extends ClientJS {
   parseCommand(
     prefix: string,
     message: Message
-  ): undefined | { message: CommandMessage; commandArgs: string } {
+  ): undefined | SimpleCommandMessage {
     const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     const prefixRegex = RegExp(`^${escapePrefix}`);
     const isCommand = prefixRegex.test(message.content);
@@ -697,23 +680,25 @@ export class Client extends ClientJS {
       .replace(prefixRegex, "")
       .trim();
 
-    const command = this.simpleCommands.find((cmd) =>
+    const commandRaw = this.simpleCommands.find((cmd) =>
       contentWithoutPrefix.startsWith(cmd.name)
     );
 
-    if (!command) return undefined;
+    if (!commandRaw) return undefined;
 
-    const commandArgs = contentWithoutPrefix.replace(command.name, "").trim();
+    const commandArgs = contentWithoutPrefix
+      .replace(commandRaw.name, "")
+      .trim();
 
-    const commandMessage = message as CommandMessage;
-    commandMessage.command = {
+    const command = new SimpleCommandMessage(
       prefix,
-      object: command,
-      name: command.name,
-      argString: commandArgs,
-    };
+      commandRaw.name,
+      commandArgs,
+      message,
+      commandRaw
+    );
 
-    return { message: commandMessage, commandArgs };
+    return command;
   }
 
   /**
@@ -735,32 +720,28 @@ export class Client extends ClientJS {
       return;
     }
 
-    const commandInfo = this.parseCommand(prefix, message);
-    if (!commandInfo) return;
+    const command = this.parseCommand(prefix, message);
+    if (!command) return;
 
     // validate bot id
-    if (
-      commandInfo.message.command.object.botIds.length &&
-      !commandInfo.message.command.object.botIds.includes(this.botId)
-    )
+    if (command.info.botIds.length && !command.info.botIds.includes(this.botId))
       return;
 
     // validate guild id
     if (
-      commandInfo.message.command.object.guilds.length &&
+      command.info.guilds.length &&
       message.guild?.id &&
-      !commandInfo.message.command.object.guilds.includes(message.guild.id)
+      !command.info.guilds.includes(message.guild.id)
     )
       return;
 
     // check dm allowed or not
-    if (!commandInfo.message.command.object.directMessage && !message.guild)
-      return;
+    if (!command.info.directMessage && !message.guild) return;
 
     // check for member permissions
-    if (commandInfo.message.command.object.defaultPermission) {
+    if (command.info.defaultPermission) {
       // when default perm is on
-      const permissions = commandInfo.message.command.object.permissions.filter(
+      const permissions = command.info.permissions.filter(
         (perm) => !perm.permission
       );
       const userPermissions = permissions.filter(
@@ -783,17 +764,13 @@ export class Client extends ClientJS {
             message.reply(this.unauthorizedHandler);
             return;
           }
-          await this.unauthorizedHandler(message, {
-            name: commandInfo.message.command.object.name,
-            prefix,
-            command: commandInfo.message,
-          });
+          await this.unauthorizedHandler(command);
         }
         return;
       }
     } else {
       // when default perm is off
-      const permissions = commandInfo.message.command.object.permissions.filter(
+      const permissions = command.info.permissions.filter(
         (perm) => perm.permission
       );
       const userPermissions = permissions.filter(
@@ -816,17 +793,13 @@ export class Client extends ClientJS {
             message.reply(this.unauthorizedHandler);
             return;
           }
-          await this.unauthorizedHandler(message, {
-            name: commandInfo.message.command.object.name,
-            prefix,
-            command: commandInfo.message,
-          });
+          await this.unauthorizedHandler(command);
         }
         return;
       }
     }
 
-    commandInfo.message.command.object.execute(commandInfo.message, this);
+    command.info.execute();
   }
 
   /**

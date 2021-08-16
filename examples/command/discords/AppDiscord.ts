@@ -4,7 +4,7 @@ import {
   Discord,
   SimpleCommand,
   SimpleCommandOption,
-  CommandMessage,
+  SimpleCommandMessage,
   DefaultPermission,
   Permission,
 } from "../../../src";
@@ -23,7 +23,7 @@ export abstract class commandTest {
     @SimpleCommandOption("num1") num1: number, //
     @SimpleCommandOption("operation") operation: string, //
     @SimpleCommandOption("num2") num2: number,
-    message: CommandMessage
+    command: SimpleCommandMessage
   ) {
     if (
       !num1 ||
@@ -31,9 +31,9 @@ export abstract class commandTest {
       !num2 ||
       !["+", "-", "*", "/"].includes(operation)
     )
-      return message.reply(
-        `**Command Usage:** \`\`${message.command.prefix}${message.command.name} num1 operator num2\`\` ` + //
-          `\`\`\`${message.command.prefix}${message.command.name} 1 + 3\`\`\``
+      return command.message.reply(
+        `**Command Usage:** \`\`${command.prefix}${command.name} num1 operator num2\`\` ` + //
+          `\`\`\`${command.prefix}${command.name} 1 + 3\`\`\``
       );
 
     let out = 0;
@@ -51,9 +51,9 @@ export abstract class commandTest {
         out = num1 / num2;
         break;
     }
-    message.reply(`${num1} ${operation} ${num2} = ${out}`);
-    message.reply(
-      `command prefix: \`\`${message.command.prefix}\`\`\ncommand name: \`\`${message.command.name}\`\`\nargument string: \`\`${message.command.argString}\`\``
+    command.message.reply(`${num1} ${operation} ${num2} = ${out}`);
+    command.message.reply(
+      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );
   }
 
@@ -64,18 +64,18 @@ export abstract class commandTest {
     type: "USER",
     permission: true,
   })
-  async permFunc(message: CommandMessage) {
-    message.reply("access granted");
+  async permFunc(command: SimpleCommandMessage) {
+    command.message.reply("access granted");
   }
 
   @SimpleCommand("hello")
   async testCommand(
     @SimpleCommandOption() name: string,
 
-    message: CommandMessage
+    command: SimpleCommandMessage
   ) {
-    if (!name) return message.reply("usage: ``!hello <your name>``");
-    message.reply(`hello ${name}`);
+    if (!name) return command.message.reply("usage: ``!hello <your name>``");
+    command.message.reply(`hello ${name}`);
   }
 
   // mention test
@@ -84,29 +84,29 @@ export abstract class commandTest {
   async handler(
     @SimpleCommandOption("user", { type: "USER" })
     user: User, //
-    message: CommandMessage
+    command: SimpleCommandMessage
   ) {
-    if (!user) message.reply("user not mentioned");
-    else message.reply(`${user}`);
+    if (!user) command.message.reply("user not mentioned");
+    else command.message.reply(`${user}`);
   }
 
   @SimpleCommand("mentiontestrole")
   async handlerRole(
     @SimpleCommandOption("role", { type: "ROLE" })
     role: Role, //
-    message: CommandMessage
+    command: SimpleCommandMessage
   ) {
-    if (!role) message.reply("role not mentioned");
-    else message.reply(`${role}`);
+    if (!role) command.message.reply("role not mentioned");
+    else command.message.reply(`${role}`);
   }
 
   @SimpleCommand("mentiontestchannel")
   async handlerChannel(
     @SimpleCommandOption("channel", { type: "CHANNEL" })
     channel: Channel, //
-    message: CommandMessage
+    command: SimpleCommandMessage
   ) {
-    if (!channel) message.reply("channel not mentioned");
-    else message.reply(`${channel}`);
+    if (!channel) command.message.reply("channel not mentioned");
+    else command.message.reply(`${channel}`);
   }
 }

@@ -1,25 +1,25 @@
-import { Discord, SimpleCommand, CommandMessage } from "../../../src";
+import { Discord, SimpleCommand, SimpleCommandMessage } from "../../../src";
 
 @Discord()
 export abstract class commandTest {
   @SimpleCommand("race")
-  async race(message: CommandMessage) {
-    message.reply(
-      `command prefix: \`\`${message.command.prefix}\`\`\ncommand name: \`\`${message.command.name}\`\`\nargument string: \`\`${message.command.argString}\`\``
+  async race(command: SimpleCommandMessage) {
+    command.message.reply(
+      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );
   }
 
   @SimpleCommand("race car")
-  async car(message: CommandMessage) {
-    message.reply(
-      `command prefix: \`\`${message.command.prefix}\`\`\ncommand name: \`\`${message.command.name}\`\`\nargument string: \`\`${message.command.argString}\`\``
+  async car(command: SimpleCommandMessage) {
+    command.message.reply(
+      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );
   }
 
   @SimpleCommand("race bike")
-  async bike(message: CommandMessage) {
-    message.reply(
-      `command prefix: \`\`${message.command.prefix}\`\`\ncommand name: \`\`${message.command.name}\`\`\nargument string: \`\`${message.command.argString}\`\``
+  async bike(command: SimpleCommandMessage) {
+    command.message.reply(
+      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );
   }
 }

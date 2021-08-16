@@ -43,7 +43,7 @@ When you use `@Guard` along with `@Discord` the guard is applied to:
 > It's executed before the members's guards
 
 ```typescript
-import { Discord, On, Client, Guard, CommandMessage } from "discordx";
+import { Discord, On, Client, Guard, SimpleCommandMessage } from "discordx";
 import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";
 
@@ -56,7 +56,7 @@ abstract class AppDiscord {
   }
 
   @SimpleCommand("hello")
-  message(command: CommandMessage) {
+  message(command: SimpleCommandMessage) {
     //...
   }
 }

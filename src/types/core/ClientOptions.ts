@@ -3,7 +3,7 @@ import {
   Message,
   Snowflake,
 } from "discord.js";
-import { CommandMessage } from "..";
+import { SimpleCommandMessage } from "../../classes";
 import { GuardFunction } from "../public/GuardFunction";
 
 export interface ClientOptions extends DiscordJSClientOptions {
@@ -18,24 +18,11 @@ export interface ClientOptions extends DiscordJSClientOptions {
   prefix?: string | ((message: Message) => Promise<string>);
 
   /**
-   * define bot reply, when command not found
-   */
-  commandNotFoundHandler?:
-    | string
-    | ((
-        message: Message,
-        command: { name: string; prefix: string }
-      ) => Promise<void>);
-
-  /**
    * define bot reply, when command is not auhorized
    */
   commandUnauthorizedHandler?:
     | string
-    | ((
-        message: Message,
-        info: { name: string; prefix: string; command: CommandMessage }
-      ) => Promise<void>);
+    | ((command: SimpleCommandMessage) => Promise<void>);
 
   /**
    * Do not log anything in the console

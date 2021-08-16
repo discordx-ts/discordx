@@ -1,6 +1,6 @@
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
 import { Client } from "../..";
-import { CommandMessage } from "../../types/public/CommandMessage";
+import { SimpleCommandMessage } from "../../classes";
 import { DSimpleCommandOption } from "./DSimpleCommandOption";
 import { Method } from "./Method";
 
@@ -131,9 +131,9 @@ export class DSimpleCommand extends Method {
     );
   }
 
-  parseParams(message: CommandMessage) {
+  parseParams(command: SimpleCommandMessage) {
     if (!this.options.length) return [];
-    const args = message.command.argString.split(this.argSplitter);
+    const args = command.argString.split(this.argSplitter);
 
     return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
@@ -145,15 +145,19 @@ export class DSimpleCommand extends Method {
           : op.type === "NUMBER"
           ? Number(args[index])
           : op.type === "USER"
-          ? message.channel.type === "DM"
-            ? args[index].replace(/\D/g, "") === message.client.user?.id
-              ? message.client.user
-              : message.author
-            : message.guild?.members.resolve(args[index].replace(/\D/g, ""))
+          ? command.message.channel.type === "DM"
+            ? args[index].replace(/\D/g, "") === command.message.client.user?.id
+              ? command.message.client.user
+              : command.message.author
+            : command.message.guild?.members.resolve(
+                args[index].replace(/\D/g, "")
+              )
           : op.type === "CHANNEL"
-          ? message.guild?.channels.resolve(args[index].replace(/\D/g, ""))
+          ? command.message.guild?.channels.resolve(
+              args[index].replace(/\D/g, "")
+            )
           : op.type === "ROLE"
-          ? message.guild?.roles.resolve(args[index].replace(/\D/g, ""))
+          ? command.message.guild?.roles.resolve(args[index].replace(/\D/g, ""))
           : args[index]
       );
   }

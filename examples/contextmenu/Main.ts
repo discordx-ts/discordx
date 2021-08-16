@@ -11,34 +11,6 @@ export class Main {
 
   static async start() {
     this._client = new Client({
-      // prefix: "!",
-      prefix: async (message) => {
-        // let's use different command prefix for dm
-        if (message.channel.type === "DM") return "+";
-
-        // common command prefix for all guild
-        return "!";
-      },
-      // commandNotFoundHandler: "invalid command",
-      commandNotFoundHandler: async (message, command) => {
-        const notFoundMessage = await message.reply(
-          `invalid command, type ${command.prefix}help to check command list`
-        );
-        setTimeout(() => notFoundMessage.delete(), 5000);
-      },
-      // commandUnauthorizedHandler: "you are not authorized to use this command",
-      commandUnauthorizedHandler: async (message, commandInfo) => {
-        if (message.channel.type === "DM") {
-          message.reply("do you have permission to access this command?");
-          return;
-        }
-
-        // let's have different message for guild command
-        message.reply(
-          `${message.member} you are not authorized to access ${commandInfo.prefix}${commandInfo.name} command`
-        );
-        return;
-      },
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       classes: [
         `${__dirname}/discords/*.ts`, // glob string to load the classes

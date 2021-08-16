@@ -17,7 +17,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
   async testCommand(
     @SimpleCommandOption() name: string,
 
-    message: CommandMessage
+    command: SimpleCommandMessage
   ) {
     if (!name) return message.reply("usage: ``!hello <your name>``");
     message.reply(`hello ${name}`);
