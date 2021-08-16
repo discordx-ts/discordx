@@ -106,7 +106,7 @@ Guards work like `Koa`'s, it's a function passed in parameter (third parameter i
 ```typescript
 import { GuardFunction, ArgsOf } from "discordx";
 
-export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = (
+export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = async (
   [message],
   client,
   next
@@ -124,7 +124,7 @@ import { CommandInteraction } from "discord.js";
 import { GuardFunction } from "discordx";
 
 export function Prefix(text: string, replace: boolean = true) {
-  const guard: GuardFunction<ArgsOf<"messageCreate"> | CommandInteraction> = (
+  const guard: GuardFunction<ArgsOf<"messageCreate"> | CommandInteraction> = async (
     arg,
     client,
     next
@@ -201,7 +201,7 @@ abstract class AppDiscord {
 
 ```ts
 Guard<Type = any, DatasType = any>(
-  ...fns: GuardFunction<Type, DatasType>[]
+  ...fns => GuardFunction<Type, DatasType>[]
 );
 ```
 
