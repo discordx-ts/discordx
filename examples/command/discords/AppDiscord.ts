@@ -1,3 +1,5 @@
+import { Channel } from "diagnostics_channel";
+import { Role, User } from "discord.js";
 import {
   Discord,
   SimpleCommand,
@@ -12,11 +14,15 @@ export abstract class commandTest {
   // single whitespace will be used to split options
   // command aliases: !m, !solve
   // string or regex supported for argSplitter
-  @SimpleCommand("math", { aliases: ["m", "solve"], argSplitter: /\s/ })
+  @SimpleCommand("math", {
+    aliases: ["m", "solve"],
+    argSplitter: /\s/,
+    directMessage: true,
+  })
   async cmd(
     @SimpleCommandOption("num1")
     num1: number, //
-    @SimpleCommandOption("a") operation: string, //
+    @SimpleCommandOption("operation") operation: string, //
     @SimpleCommandOption("num2") num2: number,
     message: CommandMessage
   ) {
@@ -68,5 +74,37 @@ export abstract class commandTest {
   ) {
     if (!name) return message.reply("usage: ``!hello <your name>``");
     message.reply(`hello ${name}`);
+  }
+
+  // mention test
+
+  @SimpleCommand("mentiontestuser")
+  async handler(
+    @SimpleCommandOption("user", { type: "USER" })
+    user: User, //
+    message: CommandMessage
+  ) {
+    if (!user) message.reply("user not mentioned");
+    else message.reply(`${user}`);
+  }
+
+  @SimpleCommand("mentiontestrole")
+  async handlerRole(
+    @SimpleCommandOption("role", { type: "ROLE" })
+    role: Role, //
+    message: CommandMessage
+  ) {
+    if (!role) message.reply("role not mentioned");
+    else message.reply(`${role}`);
+  }
+
+  @SimpleCommand("mentiontestchannel")
+  async handlerChannel(
+    @SimpleCommandOption("channel", { type: "CHANNEL" })
+    channel: Channel, //
+    message: CommandMessage
+  ) {
+    if (!channel) message.reply("channel not mentioned");
+    else message.reply(`${channel}`);
   }
 }

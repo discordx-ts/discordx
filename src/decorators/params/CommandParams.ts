@@ -9,3 +9,11 @@ export interface CommandParams {
   botIds?: string[];
   aliases?: string[];
 }
+
+export type SimpleCommandType =
+  | "STRING"
+  | "NUMBER"
+  | "BOOLEAN"
+  | "USER"
+  | "CHANNEL"
+  | "ROLE";

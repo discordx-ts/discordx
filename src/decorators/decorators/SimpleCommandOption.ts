@@ -2,6 +2,7 @@ import { MetadataStorage, Modifier } from "../..";
 import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DSimpleCommandOption } from "../classes/DSimpleCommandOption";
+import { SimpleCommandType } from "../params/CommandParams";
 
 /**
  * Define option for simple commnad
@@ -20,12 +21,12 @@ export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
  */
 export function SimpleCommandOption(
   name: string,
-  params?: { description?: string; type?: "string" | "number" | "boolean" }
+  params?: { description?: string; type?: SimpleCommandType }
 ): ParameterDecoratorEx;
 
 export function SimpleCommandOption(
   name?: string,
-  params?: { description?: string; type?: "string" | "number" | "boolean" }
+  params?: { description?: string; type?: SimpleCommandType }
 ) {
   return function (target: Record<string, any>, key: string, index: number) {
     const type =
@@ -33,7 +34,7 @@ export function SimpleCommandOption(
       // eslint-disable-next-line @typescript-eslint/ban-types
       ((Reflect.getMetadata("design:paramtypes", target, key) as Function[])[
         index
-      ].name.toLowerCase() as "string" | "number" | "boolean" | undefined);
+      ].name.toLowerCase() as "STRING" | "NUMBER" | "BOOLEAN" | undefined);
 
     const option = DSimpleCommandOption.create(
       name ?? key,

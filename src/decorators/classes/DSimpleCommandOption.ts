@@ -1,9 +1,10 @@
+import { SimpleCommandType } from "../params/CommandParams";
 import { Decorator } from "./Decorator";
 
 export class DSimpleCommandOption extends Decorator {
   private _name: string;
   private _description: string;
-  private _type: "string" | "number" | "boolean";
+  private _type: SimpleCommandType;
 
   get name() {
     return this._name;
@@ -28,20 +29,16 @@ export class DSimpleCommandOption extends Decorator {
 
   protected constructor(
     name: string,
-    type?: "string" | "number" | "boolean",
+    type?: SimpleCommandType,
     description?: string
   ) {
     super();
     this._name = name;
     this._description = description ?? `${name} - ${this.type}`;
-    this._type = type ?? "string";
+    this._type = type ?? "STRING";
   }
 
-  static create(
-    name: string,
-    type?: "string" | "number" | "boolean",
-    description?: string
-  ) {
+  static create(name: string, type?: SimpleCommandType, description?: string) {
     return new DSimpleCommandOption(name, type, description);
   }
 }

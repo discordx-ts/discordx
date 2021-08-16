@@ -140,10 +140,20 @@ export class DSimpleCommand extends Method {
       .map((op, index) =>
         !args?.[index]?.length
           ? undefined
-          : op.type === "boolean"
+          : op.type === "BOOLEAN"
           ? Boolean(args[index])
-          : op.type === "number"
+          : op.type === "NUMBER"
           ? Number(args[index])
+          : op.type === "USER"
+          ? message.channel.type === "DM"
+            ? args[index].replace(/\D/g, "") === message.client.user?.id
+              ? message.client.user
+              : message.author
+            : message.guild?.members.resolve(args[index].replace(/\D/g, ""))
+          : op.type === "CHANNEL"
+          ? message.guild?.channels.resolve(args[index].replace(/\D/g, ""))
+          : op.type === "ROLE"
+          ? message.guild?.roles.resolve(args[index].replace(/\D/g, ""))
           : args[index]
       );
   }

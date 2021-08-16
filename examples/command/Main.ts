@@ -39,7 +39,11 @@ export class Main {
         );
         return;
       },
-      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+      intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.DIRECT_MESSAGES,
+      ],
       classes: [
         `${__dirname}/discords/*.ts`, // glob string to load the classes
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
