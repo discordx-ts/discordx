@@ -8,7 +8,7 @@ A simple command is dependent on the content of the message but unfortunately, D
 [Read discord message here](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Access-Deprecation-for-Verified-Bots)
 :::
 
-# Example
+## Example
 
 ```ts
 @Discord()

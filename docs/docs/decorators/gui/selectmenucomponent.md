@@ -6,7 +6,7 @@ Here are some example screenshots:
 
 ![](../../../static/img/select-menu-example.jpg)
 
-## Example
+### Example
 
 ```ts
 const roles = [

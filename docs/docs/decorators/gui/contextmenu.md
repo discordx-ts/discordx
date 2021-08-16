@@ -7,7 +7,7 @@ Here are some example screenshots:
 ![](../../../static/img/user-context.jpg)
 ![](../../../static/img/message-context.jpg)
 
-# Example
+## Example
 
 ```ts
 @Discord()
