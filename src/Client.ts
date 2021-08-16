@@ -825,7 +825,7 @@ export class Client extends ClientJS {
       }
     }
 
-    command.info.execute();
+    command.info.execute(command, this);
   }
 
   /**

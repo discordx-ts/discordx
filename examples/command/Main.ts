@@ -47,7 +47,7 @@ export class Main {
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
       // botGuilds: [YOUR_GUILD_ID],
-      silent: true,
+      silent: false,
       requiredByDefault: true,
     });
 
