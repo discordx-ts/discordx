@@ -3,7 +3,7 @@ import { MethodDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { CommandParams } from "../params/CommandParams";
 
-const testName = RegExp(/^[a-z0-9]+$/);
+const testName = RegExp(/^[a-zA-Z0-9 ]+$/);
 
 /**
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``

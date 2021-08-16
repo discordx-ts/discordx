@@ -265,6 +265,13 @@ export class MetadataStorage {
 
     this._AllApplicationCommands = this._applicationCommands;
     this._applicationCommands = this.groupSlashes();
+
+    // sort simple commands
+    this._simpleCommands = this._simpleCommands.sort(function (a, b) {
+      // ASC  -> a.length - b.length
+      // DESC -> b.length - a.length
+      return b.name.length - b.name.length;
+    });
   }
 
   private groupSlashes() {

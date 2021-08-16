@@ -3,7 +3,7 @@ import {
   Message,
   Snowflake,
 } from "discord.js";
-import { DSimpleCommand } from "../../decorators/classes/DSimpleCommand";
+import { CommandMessage } from "..";
 import { GuardFunction } from "../public/GuardFunction";
 
 export interface ClientOptions extends DiscordJSClientOptions {
@@ -34,7 +34,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
     | string
     | ((
         message: Message,
-        info: { name: string; prefix: string; command: DSimpleCommand }
+        info: { name: string; prefix: string; command: CommandMessage }
       ) => Promise<void>);
 
   /**

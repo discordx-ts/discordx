@@ -44,7 +44,7 @@ export class Client extends ClientJS {
     | string
     | ((
         message: Message,
-        info: { name: string; prefix: string; command: DSimpleCommand }
+        info: { name: string; prefix: string; command: CommandMessage }
       ) => Promise<void>);
   private _silent: boolean;
   private static _requiredByDefault = false;
@@ -687,28 +687,33 @@ export class Client extends ClientJS {
   parseCommand(
     prefix: string,
     message: Message
-  ): { isCommand: boolean; commandName: string; commandArgs: string } {
+  ): undefined | { message: CommandMessage; commandArgs: string } {
     const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     const prefixRegex = RegExp(`^${escapePrefix}`);
     const isCommand = prefixRegex.test(message.content);
-    if (!isCommand)
-      return { isCommand: false, commandName: "", commandArgs: "" };
+    if (!isCommand) return undefined;
 
     const contentWithoutPrefix = message.content
       .replace(prefixRegex, "")
       .trim();
 
-    const commandName = contentWithoutPrefix.split(" ")[0];
-    if (!commandName)
-      return { isCommand: false, commandName: "", commandArgs: "" };
+    const command = this.simpleCommands.find((cmd) =>
+      contentWithoutPrefix.startsWith(cmd.name)
+    );
 
-    const commandArgs = contentWithoutPrefix.split(" ").splice(1).join(" ");
+    if (!command) return undefined;
 
-    return {
-      isCommand: true,
-      commandName,
-      commandArgs,
+    const commandArgs = contentWithoutPrefix.replace(command.name, "").trim();
+
+    const commandMessage = message as CommandMessage;
+    commandMessage.command = {
+      prefix,
+      object: command,
+      name: command.name,
+      argString: commandArgs,
     };
+
+    return { message: commandMessage, commandArgs };
   }
 
   /**
@@ -731,49 +736,31 @@ export class Client extends ClientJS {
     }
 
     const commandInfo = this.parseCommand(prefix, message);
-    if (!commandInfo.isCommand) return;
-
-    const command = this.simpleCommands.find(
-      (cmd) =>
-        cmd.name === commandInfo.commandName ||
-        cmd.aliases.includes(commandInfo.commandName)
-    );
-
-    if (!command) {
-      if (!this.silent) {
-        console.log("command not found:", commandInfo.commandName);
-      }
-      if (this.notFoundHandler) {
-        if (typeof this.notFoundHandler === "string") {
-          message.reply(this.notFoundHandler);
-        } else {
-          await this.notFoundHandler(message, {
-            name: commandInfo.commandName,
-            prefix,
-          });
-        }
-      }
-      return;
-    }
+    if (!commandInfo) return;
 
     // validate bot id
-    if (command.botIds.length && !command.botIds.includes(this.botId)) return;
+    if (
+      commandInfo.message.command.object.botIds.length &&
+      !commandInfo.message.command.object.botIds.includes(this.botId)
+    )
+      return;
 
     // validate guild id
     if (
-      command.guilds.length &&
+      commandInfo.message.command.object.guilds.length &&
       message.guild?.id &&
-      !command.guilds.includes(message.guild.id)
+      !commandInfo.message.command.object.guilds.includes(message.guild.id)
     )
       return;
 
     // check dm allowed or not
-    if (!command.directMessage && !message.guild) return;
+    if (!commandInfo.message.command.object.directMessage && !message.guild)
+      return;
 
     // check for member permissions
-    if (command.defaultPermission) {
+    if (commandInfo.message.command.object.defaultPermission) {
       // when default perm is on
-      const permissions = command.permissions.filter(
+      const permissions = commandInfo.message.command.object.permissions.filter(
         (perm) => !perm.permission
       );
       const userPermissions = permissions.filter(
@@ -797,16 +784,18 @@ export class Client extends ClientJS {
             return;
           }
           await this.unauthorizedHandler(message, {
-            name: command.name,
+            name: commandInfo.message.command.object.name,
             prefix,
-            command,
+            command: commandInfo.message,
           });
         }
         return;
       }
     } else {
       // when default perm is off
-      const permissions = command.permissions.filter((perm) => perm.permission);
+      const permissions = commandInfo.message.command.object.permissions.filter(
+        (perm) => perm.permission
+      );
       const userPermissions = permissions.filter(
         (perm) => perm.type === "USER"
       );
@@ -828,23 +817,16 @@ export class Client extends ClientJS {
             return;
           }
           await this.unauthorizedHandler(message, {
-            name: command.name,
+            name: commandInfo.message.command.object.name,
             prefix,
-            command,
+            command: commandInfo.message,
           });
         }
         return;
       }
     }
 
-    const msg = message as CommandMessage;
-    msg.command = {
-      prefix,
-      object: command,
-      name: commandInfo.commandName,
-      argString: commandInfo.commandArgs,
-    };
-    command.execute(msg, this);
+    commandInfo.message.command.object.execute(commandInfo.message, this);
   }
 
   /**

@@ -14,14 +14,13 @@ export abstract class commandTest {
   // single whitespace will be used to split options
   // command aliases: !m, !solve
   // string or regex supported for argSplitter
-  @SimpleCommand("math", {
+  @SimpleCommand("calc math add", {
     aliases: ["m", "solve"],
     argSplitter: /\s/,
     directMessage: true,
   })
   async cmd(
-    @SimpleCommandOption("num1")
-    num1: number, //
+    @SimpleCommandOption("num1") num1: number, //
     @SimpleCommandOption("operation") operation: string, //
     @SimpleCommandOption("num2") num2: number,
     message: CommandMessage
@@ -53,6 +52,9 @@ export abstract class commandTest {
         break;
     }
     message.reply(`${num1} ${operation} ${num2} = ${out}`);
+    message.reply(
+      `command prefix: \`\`${message.command.prefix}\`\`\ncommand name: \`\`${message.command.name}\`\`\nargument string: \`\`${message.command.argString}\`\``
+    );
   }
 
   @SimpleCommand("permcheck", { aliases: ["ptest"] })

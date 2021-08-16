@@ -34,7 +34,7 @@ export function SimpleCommandOption(
       // eslint-disable-next-line @typescript-eslint/ban-types
       ((Reflect.getMetadata("design:paramtypes", target, key) as Function[])[
         index
-      ].name.toLowerCase() as "STRING" | "NUMBER" | "BOOLEAN" | undefined);
+      ].name.toUpperCase() as "STRING" | "NUMBER" | "BOOLEAN" | undefined);
 
     const option = DSimpleCommandOption.create(
       name ?? key,
