@@ -76,6 +76,9 @@ module.exports = {
       {
         entryPoints: ["../src/index.ts"],
         tsconfig: "../tsconfig.json",
+        excludePrivate: true,
+        excludeExternals: true,
+        readme: "none",
       },
     ],
   ],
