@@ -270,7 +270,7 @@ export class MetadataStorage {
     this._simpleCommands = this._simpleCommands.sort(function (a, b) {
       // ASC  -> a.length - b.length
       // DESC -> b.length - a.length
-      return b.name.length - b.name.length;
+      return b.name.length - a.name.length;
     });
   }
 
