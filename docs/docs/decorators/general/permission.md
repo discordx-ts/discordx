@@ -53,23 +53,30 @@ class DiscordBot {
 }
 ```
 
-## Params
+## Signature
 
-`@Permission({ id: Snowflake, type: "USER" | "ROLE", permission: true | false })`
+```ts
+@Permission({ id: Snowflake, type: "USER" | "ROLE", permission: true | false })
+```
+
+## Parameters
 
 ### id
 
 `Snowflake`
+
 The id if the user or role
 
 ### type
 
 `"ROLE" | "USER"`
+
 It specify if the permission is given to a user or a role
 
 ### permission
 
 `true | false`
+
 It specify if the permission is granted or restricated
 
 ## Make changes to

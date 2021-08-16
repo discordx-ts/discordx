@@ -159,3 +159,33 @@ export abstract class AppDiscord {
 ```
 
 ![](../../../static/img/group2.png)
+
+## Signature
+
+```ts
+SlashGroup(
+  group: string,
+  description: string,
+  subCommands: SubCommand
+): ClassMethodDecorator;
+```
+
+## Parameters
+
+### group
+
+`string`
+
+The group name
+
+### description
+
+`string`
+
+The group description
+
+### subCommands
+
+`[key: string]: string`
+
+Define sub commands name with description, [check example here](#slashgroup-on-method-level).

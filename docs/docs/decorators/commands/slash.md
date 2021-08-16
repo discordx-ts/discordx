@@ -143,28 +143,50 @@ abstract class AppDiscord {
 }
 ```
 
-## Params
+## Signature
+
+```ts
+Slash(
+  name?: string,
+  params?: ApplicationCommandParams
+)
+```
+
+## Parameters
 
 ### Name
 
 `string`
+
 The Slash command name
 
-### Description
+### ApplicationCommandParams
+
+`object`
+
+Multiple options, check below.
+
+#### botIds
+
+`string[]`
+
+Array of bot ids, for which only the event will be executed.
+
+#### defaultPermission
+
+`boolean` `default: true`
+
+"You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
+
+#### Description
 
 `string`
 The Slash command description
 
-### Guilds
+#### Guilds
 
 `string[]`
 The guilds where the command is created
-
-### defaultPermission
-
-`boolean`
-`true` by default  
-"You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
 
 ## Authorize your bot to use Slash commands
 

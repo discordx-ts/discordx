@@ -23,9 +23,15 @@ class simpleCommandExample {
 }
 ```
 
-## Params
+## Signature
 
-### Name
+```ts
+Bot(...botIDs: string[]): ClassMethodDecorator;
+```
+
+## Parameters
+
+### botID
 
 `string[]`
 

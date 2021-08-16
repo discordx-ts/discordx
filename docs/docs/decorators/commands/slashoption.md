@@ -156,23 +156,36 @@ Option(name: string, params: OptionParams);
 Option(name: string, type: OptionValueType | OptionType, params: OptionParams);
 ```
 
-## Params
+## Parameters
 
-The parameters of an @SlashOption is an object as the last parameter
+### name
 
-### Description
+`string`
+
+The option name
+
+### OptionValueType
+
+#### Description
 
 `string`
 `OPTION_NAME - OPTION_TYPE` by default
 
 You can set the description of the option
 
-### Required
+#### Required
 
-`bool`
-`false` by default
+`bool` `default: false`
 
 The option is required or not
+
+#### Type
+
+`"USER" | "STRING" | "BOOLEAN" | "INTEGER" | "CHANNEL" | "ROLE" | "MENTIONABLE" | undefined`
+
+`default: STRING`
+
+Slash option input type
 
 ## Set the default required value
 

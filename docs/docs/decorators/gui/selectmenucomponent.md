@@ -57,23 +57,36 @@ class buttons {
 }
 ```
 
-## Params
+## Signature
 
-`@SelectMenuComponent(id: string, params?: { guilds?: Snowflake[]; botIds?: string[] )`
+```ts
+@SelectMenuComponent(custom_id: string, params?: { guilds?: Snowflake[]; botIds?: string[] )
+```
 
-### id
+## Parameters
+
+### custom_id
 
 `string`
-The menu custom id for your handling menu interaction
+A unique id for your button interaction to be handled under.
 
-### guilds
+:::caution
+As per discord latest annoucement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
+:::
 
-`Snowflake[]`
+### params
 
-array of guild ids, the menu will execute for mentioned guild id
+`object`
 
-### botIds
+Multiple options, check below.
+
+#### botIds
 
 `string[]`
 
-array of bot ids, the menu will execute for mentioned bot only, useful in case of multiple bots
+Array of bot ids, for which only the event will be executed.
+
+#### Guilds
+
+`string[]`
+The guilds where the command is created

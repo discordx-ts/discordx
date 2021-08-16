@@ -53,7 +53,13 @@ async function start() {
 start();
 ```
 
-## Params
+## Signature
+
+```ts
+SimpleCommand(name: string, params: CommandParams)
+```
+
+## Parameters
 
 ### Name
 
@@ -61,7 +67,7 @@ start();
 
 The simple command name.
 
-### Options
+### CommandParams
 
 `object`
 

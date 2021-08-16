@@ -47,11 +47,39 @@ class buttonExample {
 }
 ```
 
-## Params
+## Signature
 
-`@ButtonComponent("btn-id")`
+```ts
+ButtonComponent(
+  custom_id: string,
+  params?: { guilds?: Snowflake[]; botIds?: string[] }
+)
+```
 
-### btn-id
+## Parameters
+
+### custom_id
 
 `string`
-A unique name for your button interaction to be handled under.
+A unique id for your button interaction to be handled under.
+
+:::caution
+As per discord latest annoucement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
+:::
+
+### params
+
+`object`
+
+Multiple options, check below.
+
+#### botIds
+
+`string[]`
+
+Array of bot ids, for which only the event will be executed.
+
+#### Guilds
+
+`string[]`
+The guilds where the command is created

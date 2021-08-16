@@ -39,13 +39,18 @@ class DiscordBot {
 }
 ```
 
-## Params
+## Signature
 
-`@Guild(...guildIDs: Snowflake[])`
+```ts
+@Guild(...guildIDs: Snowflake[])
+```
 
-### roleIDs
+## Parameters
+
+### guildId
 
 `Snowflake[]`
+
 The list of guild id's
 
 ## Make changes to

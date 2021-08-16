@@ -50,3 +50,29 @@ abstract class AppDiscord {
   }
 }
 ```
+
+## Signature
+
+```ts
+On(event: DiscordEvents, params?: EventParams)
+```
+
+## Parameters
+
+### Name
+
+`event`
+
+The event name.
+
+### EventParams
+
+`object`
+
+Multiple options, check below.
+
+#### botIds
+
+`string[]`
+
+Array of bot ids, for which only the event will be executed.

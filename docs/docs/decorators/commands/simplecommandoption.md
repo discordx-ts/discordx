@@ -27,28 +27,38 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
 ## Signature
 
 ```ts
-function SimpleCommandOption(name?: string): ParameterDecoratorEx;
-function SimpleCommandOption(
+SimpleCommandOption(name?: string): ParameterDecoratorEx;
+SimpleCommandOption(
   name: string,
   params?: { description?: string; type?: "string" | "number" | "boolean" }
 ): ParameterDecoratorEx;
 ```
 
-## Params
+## Signature
 
-`SimpleCommandOption( name: string, params?: { description?: string; type?: "string" | "number" | "boolean" } ): ParameterDecoratorEx;`
+```ts
+SimpleCommandOption( name: string, params?: { description?: string; type?: "string" | "number" | "boolean" } ): ParameterDecoratorEx;
+```
+
+## Parameters
 
 ### name
 
 `string`
 The name of your command option
 
-### description
+### params
+
+`object`
+
+Multiple options, check below.
+
+#### description
 
 `string`
 The description of command option
 
-### type
+#### type
 
 `string | number | boolean`
 The type of your command option

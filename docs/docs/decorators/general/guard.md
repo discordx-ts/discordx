@@ -197,6 +197,22 @@ abstract class AppDiscord {
 }
 ```
 
+## Signature
+
+```ts
+Guard<Type = any, DatasType = any>(
+  ...fns: GuardFunction<Type, DatasType>[]
+);
+```
+
+## Parameters
+
+### guard
+
+`GuardFunction[]`
+
+Array of guard functions.
+
 ## Make changes to
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.

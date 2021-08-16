@@ -6,9 +6,19 @@ The default permission used to set permission for everyone in your slash or simp
 
 [check here](/docs/decorators/general/permission)
 
-## Params
+## Signature
 
-`@DefaultPermission(true | false)`
+```ts
+@DefaultPermission(true | false)
+```
+
+## Parameters
+
+### permission
+
+`boolean` `default: true`
+
+When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
 
 ## Make changes to
 

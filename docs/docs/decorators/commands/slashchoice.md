@@ -67,7 +67,7 @@ SlashChoice(name: string, value: string);
 SlashChoice(choices: ChoicesType);
 ```
 
-## Params
+## Parameters
 
 ### Name
 
