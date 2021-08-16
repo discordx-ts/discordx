@@ -16,6 +16,7 @@ export class Main {
       ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       // botGuilds: [YOUR_GUILD_ID],
+      botGuilds: [process.env.GUILD_ID],
       requiredByDefault: true,
     });
 

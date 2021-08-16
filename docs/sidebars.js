@@ -142,6 +142,7 @@ module.exports = {
             },
           ],
         },
+
         // {
         //   type: "category",
         //   label: "All Decorators",
@@ -168,6 +169,11 @@ module.exports = {
         //   ]
         // },
       ],
+    },
+    {
+      type: "category",
+      label: "API",
+      items: require("./typedoc-sidebar.js"),
     },
   ],
 };
