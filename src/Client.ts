@@ -20,6 +20,7 @@ import {
   DApplicationCommandOption,
   DComponentSelectMenu,
   DApplicationCommand,
+  DSimpleCommandOption,
 } from "./decorators";
 import { DSimpleCommand } from "./decorators";
 import { GuildNotFoundError } from "./errors";
@@ -245,6 +246,22 @@ export class Client extends ClientJS {
       if (this.simpleCommands.length) {
         this.simpleCommands.map((cmd) => {
           console.log(` ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
+
+          const printOptions = (
+            options: DSimpleCommandOption[],
+            depth: number
+          ) => {
+            if (!options) return;
+            const tab = Array(depth).join("      ");
+            options.forEach((option) => {
+              console.log(
+                `${tab}${option.name}: ${option.type} (${option.classRef.name}.${option.key})`
+              );
+            });
+          };
+
+          printOptions(cmd.options, 2);
+          console.log("");
         });
       } else {
         console.log("   No simple commands detected");
