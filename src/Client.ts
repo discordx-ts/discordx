@@ -216,7 +216,7 @@ export class Client extends ClientJS {
       if (this.events.length) {
         this.events.map((event) => {
           const eventName = event.event;
-          console.log(` ${eventName} (${event.classRef.name}.${event.key})`);
+          console.log(`>> ${eventName} (${event.classRef.name}.${event.key})`);
         });
       } else {
         console.log("   No events detected");
@@ -227,7 +227,7 @@ export class Client extends ClientJS {
       console.log("Slashes");
       if (this.applicationCommands.length) {
         this.applicationCommands.map((slash) => {
-          console.log(` ${slash.name} (${slash.classRef.name}.${slash.key})`);
+          console.log(`>> ${slash.name} (${slash.classRef.name}.${slash.key})`);
           const printOptions = (
             options: DApplicationCommandOption[],
             depth: number
@@ -238,7 +238,7 @@ export class Client extends ClientJS {
 
             options.forEach((option) => {
               console.log(
-                `${tab}${option.name}: ${option.stringType} (${option.classRef.name}.${option.key})`
+                `${tab}(option) ${option.name}: ${option.stringType} (${option.classRef.name}.${option.key})`
               );
               printOptions(option.options, depth + 1);
             });
@@ -255,7 +255,10 @@ export class Client extends ClientJS {
       console.log("Simple Commands");
       if (this.simpleCommands.length) {
         this.simpleCommands.map((cmd) => {
-          console.log(` ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
+          console.log(`>> ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
+          if (cmd.aliases.length) {
+            console.log("      aliases:", cmd.aliases.join(", "));
+          }
 
           const printOptions = (
             options: DSimpleCommandOption[],
@@ -265,7 +268,7 @@ export class Client extends ClientJS {
             const tab = Array(depth).join("      ");
             options.forEach((option) => {
               console.log(
-                `${tab}${option.name}: ${option.type} (${option.classRef.name}.${option.key})`
+                `${tab}(option) ${option.name}: ${option.type} (${option.classRef.name}.${option.key})`
               );
             });
           };
