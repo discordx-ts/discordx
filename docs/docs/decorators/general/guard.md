@@ -201,7 +201,7 @@ abstract class AppDiscord {
 
 ```ts
 Guard<Type = any, DatasType = any>(
-  ...fns => GuardFunction<Type, DatasType>[]
+  ...fns: GuardFunction<Type, DatasType>[]
 );
 ```
 
