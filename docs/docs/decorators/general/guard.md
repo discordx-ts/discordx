@@ -124,25 +124,22 @@ import { CommandInteraction } from "discord.js";
 import { GuardFunction } from "discordx";
 
 export function Prefix(text: string, replace: boolean = true) {
-  const guard: GuardFunction<ArgsOf<"messageCreate"> | CommandInteraction> = async (
-    arg,
-    client,
-    next
-  ) => {
-    const argObj = arg instanceof Array ? arg[0] : arg;
-    if (argObj instanceof CommandInteraction) {
-      await next();
-    } else {
-      const message = argObj;
-      const startWith = message.content.startsWith(text);
-      if (replace) {
-        message.content = message.content.replace(text, "");
-      }
-      if (startWith) {
+  const guard: GuardFunction<ArgsOf<"messageCreate"> | CommandInteraction> =
+    async (arg, client, next) => {
+      const argObj = arg instanceof Array ? arg[0] : arg;
+      if (argObj instanceof CommandInteraction) {
         await next();
+      } else {
+        const message = argObj;
+        const startWith = message.content.startsWith(text);
+        if (replace) {
+          message.content = message.content.replace(text, "");
+        }
+        if (startWith) {
+          await next();
+        }
       }
-    }
-  };
+    };
 
   return guard;
 }
