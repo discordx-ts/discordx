@@ -65,6 +65,10 @@ SimpleCommand(name: string, params: CommandParams)
 
 `string`
 
+:::caution
+Make sure your command name is compitable with regex `a-z A-Z0-9`
+:::
+
 The simple command name.
 
 ### CommandParams
