@@ -18,7 +18,10 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: install dep
+      - name: install source dep
+        run: npm ci
+
+      - name: install doc dep
         run: npm ci
         working-directory: ./docs
 
