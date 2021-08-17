@@ -720,7 +720,7 @@ export class Client extends ClientJS {
       .trim();
 
     const commandRaw = this.allSimpleCommands.find((cmd) =>
-      contentWithoutPrefix.startsWith(cmd.name)
+      contentWithoutPrefix.startsWith(`${cmd.name} `)
     );
 
     if (!commandRaw) return undefined;
@@ -838,7 +838,7 @@ export class Client extends ClientJS {
       }
     }
 
-    command.info.execute(command, this);
+    return command.info.execute(command, this);
   }
 
   /**

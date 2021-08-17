@@ -1,12 +1,13 @@
-import { CommandInteraction } from "discord.js";
+import { Message } from "discord.js";
 import {
   Discord,
-  SlashOption,
   Guild,
   Client,
   Guard,
   SimpleCommand,
   Permission,
+  SimpleCommandOption,
+  SimpleCommandMessage,
 } from "../src";
 
 @Discord()
@@ -17,17 +18,23 @@ import {
   return await next();
 })
 export abstract class AppDiscord {
-  @SimpleCommand("add", { aliases: ["add1", "add2"], description: "Addition" })
+  @SimpleCommand("add", {
+    aliases: ["add1", "add2"],
+    description: "Addition",
+    argSplitter: "~",
+  })
   add(
-    @SlashOption("x", { description: "x value" })
+    @SimpleCommandOption("x", { description: "x value" })
     x: number,
-    @SlashOption("y", { description: "y value" })
+    @SimpleCommandOption("op", { description: "operation value" })
+    op: string,
+    @SimpleCommandOption("y", { description: "y value" })
     y: number,
-    interaction: CommandInteraction,
+    command: SimpleCommandMessage,
     client: Client,
     datas: any
   ) {
-    return ["/testing maths add", x + y, interaction, datas.passed];
+    return ["!add", [op, x + y], command, datas.passed];
   }
 }
 
@@ -48,5 +55,26 @@ describe("Commands", () => {
       },
     ]);
     expect(client.simpleCommands[0].aliases).toEqual(["add1", "add2"]);
+    expect(client.simpleCommands[0].argSplitter).toEqual("~");
+  });
+
+  it("Should execute simple command", async () => {
+    const sampleMessage = { content: "!add 2~+~4" } as Message;
+    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual(["!add", ["+", 6], parsedCommand, true]);
+  });
+
+  it("Should execute simple command aliases", async () => {
+    const sampleMessage = { content: "!add2 2~+~4" } as Message;
+    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual(["!add", ["+", 6], parsedCommand, true]);
+  });
+
+  it("Should not execute not found simple command", async () => {
+    const sampleMessage = { content: "!add22 2~+~4" } as Message;
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual(undefined);
   });
 });
