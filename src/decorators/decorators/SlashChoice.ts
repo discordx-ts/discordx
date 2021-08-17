@@ -3,7 +3,7 @@ import {
   DApplicationCommandOptionChoice,
   DApplicationCommandOption,
   Modifier,
-  ChoicesType,
+  SlashChoicesType,
 } from "../..";
 import { ParameterDecoratorEx } from "../../types/public/decorators";
 
@@ -47,10 +47,10 @@ export function SlashChoice(name: string, value: string): ParameterDecoratorEx;
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashchoice)
  */
-export function SlashChoice(choices: ChoicesType): ParameterDecoratorEx;
+export function SlashChoice(choices: SlashChoicesType): ParameterDecoratorEx;
 
 export function SlashChoice(
-  name: string | ChoicesType | number,
+  name: string | SlashChoicesType | number,
   value?: string | number
 ) {
   return (target: Record<string, any>, key: string, index: number) => {

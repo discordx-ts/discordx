@@ -64,7 +64,7 @@ SlashChoice(name: string);
 SlashChoice(name: number);
 SlashChoice(name: string, value: number);
 SlashChoice(name: string, value: string);
-SlashChoice(choices: ChoicesType);
+SlashChoice(choices: SlashChoicesType);
 ```
 
 ## Parameters

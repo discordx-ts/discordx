@@ -1,3 +1,3 @@
-export type ChoicesType = {
+export type SlashChoicesType = {
   [key: string]: string | number;
 };
