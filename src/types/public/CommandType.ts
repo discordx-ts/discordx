@@ -37,18 +37,6 @@ export enum OptionType {
   SUB_COMMAND_GROUP = "SUB_COMMAND_GROUP",
 }
 
-export type StringSubType = "SUB_COMMAND" | "SUB_COMMAND_GROUP";
-
-/**
- * @ignore
- */
-export enum SubType {
-  SUB_COMMAND = "SUB_COMMAND",
-  SUB_COMMAND_GROUP = "SUB_COMMAND_GROUP",
-}
-
-export type SubValueType = StringSubType | SubType;
-
 export type OptionValueType =
   | typeof String
   | typeof Boolean
