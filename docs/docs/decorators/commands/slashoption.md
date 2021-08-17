@@ -152,8 +152,8 @@ class DiscordBot {
 ```ts
 Option(name: string);
 Option(name: string, type: OptionValueType | OptionType);
-Option(name: string, params: OptionParams);
-Option(name: string, type: OptionValueType | OptionType, params: OptionParams);
+Option(name: string, params: SlashOptionParams);
+Option(name: string, type: OptionValueType | OptionType, params: SlashOptionParams);
 ```
 
 ## Parameters

@@ -1,7 +1,7 @@
 import {
   MetadataStorage,
   DApplicationCommandOption,
-  OptionParams,
+  SlashOptionParams,
   Modifier,
   StringOptionType,
 } from "../..";
@@ -25,10 +25,10 @@ export function SlashOption(name?: string): ParameterDecoratorEx;
  */
 export function SlashOption(
   name: string,
-  params?: OptionParams
+  params?: SlashOptionParams
 ): ParameterDecoratorEx;
 
-export function SlashOption(name?: string, params?: OptionParams) {
+export function SlashOption(name?: string, params?: SlashOptionParams) {
   return (target: Record<string, any>, key: string, index: number) => {
     const type: StringOptionType =
       params?.type ??

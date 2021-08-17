@@ -70,7 +70,7 @@ export * from "./decorators/SimpleCommand";
 export * from "./decorators/SimpleCommandOption";
 export * from "./decorators/ContextMenu";
 
-export * from "./params/OptionParams";
+export * from "./params/SlashOptionParams";
 export * from "./params/SlashParams";
 
 export * from "./classes/DComponentSelectMenu";
