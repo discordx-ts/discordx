@@ -23,6 +23,10 @@ export class SimpleCommandMessage {
     this.argString = argString;
   }
 
+  /**
+   * get related commands
+   * @returns {DSimpleCommand[]}
+   */
   getRelatedCommands() {
     const commandName = this.info.name.split(" ")[0];
     return MetadataStorage.instance.simpleCommands.filter(
