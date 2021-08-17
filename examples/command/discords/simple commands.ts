@@ -5,7 +5,19 @@ export abstract class commandTest {
   @SimpleCommand("race")
   async race(command: SimpleCommandMessage) {
     command.message.reply(
-      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
+      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${
+        command.name
+      }\`\`\nargument string: \`\`${
+        !command.argString.length ? " " : command.argString
+      }\`\`` +
+        `\nRelated Commands: \`\`${
+          !command.getRelatedCommands().length
+            ? "none"
+            : command
+                .getRelatedCommands()
+                .map((cmd) => cmd.name)
+                .join(", ")
+        }\`\``
     );
   }
 

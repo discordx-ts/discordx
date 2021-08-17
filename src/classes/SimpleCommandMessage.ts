@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { MetadataStorage } from "..";
 import { DSimpleCommand } from "../decorators";
 
 export class SimpleCommandMessage {
@@ -20,5 +21,12 @@ export class SimpleCommandMessage {
     this.info = info;
     this.name = name;
     this.argString = argString;
+  }
+
+  getRelatedCommands() {
+    const commandName = this.info.name.split(" ")[0];
+    return MetadataStorage.instance.simpleCommands.filter(
+      (cmd) => cmd.name.startsWith(commandName) && cmd.name !== this.info.name
+    );
   }
 }
