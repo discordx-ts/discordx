@@ -60,7 +60,7 @@ If you have any issues or feature requests, Please open an issue at Github [clic
 - Support for multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
 - new interactions/decorators: ` @ButtonComponent @SelectMenuComponent @ContextMenu @DefaultPermission`
-- New method initApplicationCommands to create/update/remove slash commands for global and defined guilds
+- New method `client.initApplicationCommands` to create/update/remove slash commands for global and defined guilds
 - Lint improved internal source code for better type support
 - Provided more examples for new decorators
 
