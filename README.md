@@ -45,9 +45,9 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 # 📜 Documentation
 
-**[https://oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)**
+> **[https://oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)**
 
-# Why discordx?
+# 💡Why discordx?
 
 For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have created fixes and new features. Likewise, We have also requested our fixes and new features on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62).
 
@@ -55,7 +55,7 @@ But with `discordx` we intend to provide latest upto date package to build bots 
 
 If you have any issues or feature requests, Please open an issue at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
 
-# New features
+# 🆕New features
 
 - Support for multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
@@ -64,7 +64,7 @@ If you have any issues or feature requests, Please open an issue at Github [clic
 - Lint improved internal source code for better type support
 - Provided more examples for new decorators
 
-# Package
+# 📦Package
 
 Maintained by [@oceanroleplay](https://github.com/oceanroleplay)
 
@@ -72,7 +72,7 @@ Package by [@OwenCalvin](https://github.com/OwenCalvin)
 
 ---
 
-# Decorators
+# 📔Decorators
 
 There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button, select menu, contextmenu etc.
 
