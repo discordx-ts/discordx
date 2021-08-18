@@ -22,7 +22,7 @@ export abstract class Method extends Decorator {
    *   main(params, client)
    * }
    * ```
-   * @returns The function that execute everything
+   * @returns
    */
   get execute() {
     return async (...params: any[]) => {

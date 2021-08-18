@@ -34,7 +34,7 @@ export class DSimpleCommandOption extends Decorator {
   ) {
     super();
     this._name = name;
-    this._description = description ?? `${name} - ${this.type}`;
+    this._description = description ?? `${type ?? "STRING"}`;
     this._type = type ?? "STRING";
   }
 

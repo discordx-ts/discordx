@@ -1,4 +1,10 @@
-import { Discord, SimpleCommand, SimpleCommandMessage } from "../../../src";
+import { Role, User } from "discord.js";
+import {
+  Discord,
+  SimpleCommand,
+  SimpleCommandMessage,
+  SimpleCommandOption,
+} from "../../../src";
 
 @Discord()
 export abstract class commandTest {
@@ -21,8 +27,17 @@ export abstract class commandTest {
     );
   }
 
-  @SimpleCommand("race car")
-  async car(command: SimpleCommandMessage) {
+  @SimpleCommand("race car", { description: "simple command example" })
+  async car(
+    @SimpleCommandOption("user", { type: "USER" }) user: User,
+    @SimpleCommandOption("role", {
+      type: "ROLE",
+      description: "mention the role you wish to grant",
+    })
+    role: Role,
+    command: SimpleCommandMessage
+  ) {
+    if (!user) return command.sendUsageSyntax();
     command.message.reply(
       `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );

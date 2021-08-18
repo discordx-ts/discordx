@@ -25,12 +25,37 @@ export class SimpleCommandMessage {
 
   /**
    * get related commands
-   * @returns {DSimpleCommand[]}
+   * @returns
    */
   getRelatedCommands() {
     const commandName = this.info.name.split(" ")[0];
     return MetadataStorage.instance.simpleCommands.filter(
       (cmd) => cmd.name.startsWith(commandName) && cmd.name !== this.info.name
     );
+  }
+
+  /**
+   * send usage syntax for command
+   * @returns
+   */
+  sendUsageSyntax() {
+    const commandString =
+      "Command Usage: ``" +
+      this.prefix +
+      this.name +
+      ` ${this.info.options.map((op) => `{${op.name}}`).join(" ")}` +
+      "``" +
+      "\nDescription: ``" +
+      this.info.description +
+      "``";
+
+    const optionsString = this.info.options.length
+      ? "\n\nOptions\n" +
+        this.info.options
+          .map((op) => `> ${op.name}: ${op.description}`)
+          .join("\n")
+      : "";
+
+    return this.message.reply(`${commandString}${optionsString}`);
   }
 }

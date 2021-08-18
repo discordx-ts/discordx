@@ -36,6 +36,21 @@ export abstract class AppDiscord {
   ) {
     return ["!add", [op, x + y], command, datas.passed];
   }
+
+  @SimpleCommand("add plus")
+  addExtend(command: SimpleCommandMessage, client: Client, datas: any) {
+    return ["!add plus", [], command, datas.passed];
+  }
+
+  @SimpleCommand("add plus second")
+  addExtendSecond(
+    @SimpleCommandOption() arg: string,
+    command: SimpleCommandMessage,
+    client: Client,
+    datas: any
+  ) {
+    return ["!add plus second", [arg], command, datas.passed];
+  }
 }
 
 const client = new Client({ intents: [] });
@@ -63,6 +78,32 @@ describe("Commands", () => {
     const parsedCommand = client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual(["!add", ["+", 6], parsedCommand, true]);
+  });
+
+  it("Should execute simple command without arguments", async () => {
+    const sampleMessage = { content: "!add" } as Message;
+    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual(["!add", [undefined, NaN], parsedCommand, true]);
+  });
+
+  it("Should execute simple command with space", async () => {
+    const sampleMessage = { content: "!add plus" } as Message;
+    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual(["!add plus", [], parsedCommand, true]);
+  });
+
+  it("Should execute simple command with two spaces", async () => {
+    const sampleMessage = { content: "!add plus second car" } as Message;
+    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual([
+      "!add plus second",
+      ["car"],
+      parsedCommand,
+      true,
+    ]);
   });
 
   it("Should execute simple command aliases", async () => {

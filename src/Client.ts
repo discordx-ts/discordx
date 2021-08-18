@@ -470,7 +470,7 @@ export class Client extends ClientJS {
   /**
    * Fetch the existing slash commands of a guild or globaly
    * @param guild The guild ID (empty -> globaly)
-   * @returns The existing commands
+   * @returns
    */
   async fetchApplicationCommands(guildID?: Snowflake) {
     if (guildID) {
@@ -526,7 +526,7 @@ export class Client extends ClientJS {
    * /test hello => ["test", "hello"]
    * /test hello me => ["test", "hello", "me"]
    * @param interaction The targeted slash interaction
-   * @returns The group tree
+   * @returns
    */
   getApplicationCommandGroupTree(interaction: CommandInteraction) {
     const tree: string[] = [];
@@ -558,7 +558,7 @@ export class Client extends ClientJS {
   /**
    * Return the corresponding @Slash from a tree
    * @param tree
-   * @returns The corresponding Slash
+   * @returns
    */
   getApplicationCommandFromTree(tree: string[]) {
     // Find the corresponding @Slash
@@ -597,7 +597,7 @@ export class Client extends ClientJS {
   /**
    * Execute the corresponding @Slash @ButtonComponent @SelectMenuComponent based on an Interaction instance
    * @param interaction The discord.js interaction instance
-   * @returns void
+   * @returns
    */
   async executeInteraction(interaction: Interaction) {
     if (!interaction) {
@@ -693,7 +693,7 @@ export class Client extends ClientJS {
   /**
    * Fetch prefix for message
    * @param message messsage instance
-   * @returns prefix
+   * @returns
    */
   async getMessagePrefix(message: Message) {
     if (typeof this.prefix === "string") return this.prefix;
@@ -704,7 +704,7 @@ export class Client extends ClientJS {
    *
    * @param prefix command prefix
    * @param message original message
-   * @returns { isCommand: boolean; commandName?: string; commandArgs?: string }
+   * @returns
    */
   parseCommand(
     prefix: string,
@@ -715,9 +715,8 @@ export class Client extends ClientJS {
     const isCommand = prefixRegex.test(message.content);
     if (!isCommand) return undefined;
 
-    const contentWithoutPrefix = message.content
-      .replace(prefixRegex, "")
-      .trim();
+    const contentWithoutPrefix =
+      message.content.replace(prefixRegex, "").trim() + " ";
 
     const commandRaw = this.allSimpleCommands.find((cmd) =>
       contentWithoutPrefix.startsWith(`${cmd.name} `)
@@ -743,7 +742,7 @@ export class Client extends ClientJS {
   /**
    * Execute the corresponding @SimpleCommand based on an message instance
    * @param message The discord.js message instance
-   * @returns void
+   * @returns
    */
   async executeCommand(message: Message) {
     if (!message) {
