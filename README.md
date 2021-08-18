@@ -53,17 +53,16 @@ For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have cr
 
 But with `discordx` we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, etc.
 
-If you have any issues or feature requests, Open an issue at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
+If you have any issues or feature requests, Please open an issue at Github [click here](https://github.com/oceanroleplay/discord.ts/issues)
 
 # New features
 
-- added multiple bot support (`@Bot`)
-- added `@SimpleCommand` to support v4 commands
-- added new interactions: `@ButtonComponent @SelectMenuComponent` `@ContextMenu`
-- added new decorator `@DefaultPermission`
-- added new initSlash method to create/update/remove slash commands
-- internal source code improved with lint for better type support
-- added more example for new decorators
+- Support for multiple bots in a single nodejs instance (`@Bot`)
+- `@SimpleCommand` to use old fashioned command, such as `!hello world`
+- new interactions/decorators: ` @ButtonComponent @SelectMenuComponent @ContextMenu @DefaultPermission`
+- New method initApplicationCommands to create/update/remove slash commands for global and defined guilds
+- Lint improved internal source code for better type support
+- Provided more examples for new decorators
 
 # Package
 
