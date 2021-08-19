@@ -34,7 +34,7 @@ export const Group = SlashGroup;
 export const Button = ButtonComponent;
 
 /**
- * @deprecated Use `ButtonComponent` instead.
+ * @deprecated Use `SelectMenuComponent` instead.
  */
 export const SelectMenu = SelectMenuComponent;
 
