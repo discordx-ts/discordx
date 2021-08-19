@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2017",
-    "noImplicitAny": false,
+    "target": "ES2021",
+    "strict": true,
+    "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "build",
     "emitDecoratorMetadata": true,
@@ -10,7 +11,7 @@
     "declaration": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2017", "esnext.asynciterable"],
+    "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node"
   }
 }

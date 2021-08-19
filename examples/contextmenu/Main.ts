@@ -16,14 +16,14 @@ export class Main {
         `${__dirname}/discords/*.ts`, // glob string to load the classes
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
-      botGuilds: ["874802018361950248"],
+      botGuilds: [process.env.GUILD_ID ?? ""],
       silent: true,
       requiredByDefault: true,
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
-    await this._client.login(process.env.BOT_TOKEN);
+    await this._client.login(process.env.BOT_TOKEN ?? "");
 
     this._client.on("messageCreate", (message) => {
       this._client.executeCommand(message);

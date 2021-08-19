@@ -33,14 +33,15 @@ I found success with using this `tsconfig.json`
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2020",
-    "noImplicitAny": false,
+    "target": "ES2021",
+    "strict": true,
+    "noImplicitAny": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2020", "esnext.asynciterable"],
+    "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node",
     "outDir": "./src/build"
   },

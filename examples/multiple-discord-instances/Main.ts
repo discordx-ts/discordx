@@ -11,17 +11,17 @@ export class Main {
   static async start() {
     this._client = new Client({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      // botGuilds: [YOUR_GUILD_ID],
       requiredByDefault: true,
       classes: [
         `${__dirname}/discords/*.ts`, // glob string to load the classes
         `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
       ],
+      botGuilds: [process.env.GUILD_ID ?? ""],
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
     // In this case that's not necessary because the entry point of your application is this file.
-    await this._client.login(process.env.BOT_TOKEN);
+    await this._client.login(process.env.BOT_TOKEN ?? "");
 
     this._client.once("ready", async () => {
       await this._client.initApplicationCommands();

@@ -20,6 +20,8 @@ enum spcChoice {
   Scissor = "Scissor",
 }
 
+type spcTypes = "spc-stone" | "spc-paper" | "spc-scissor";
+
 enum spcResult {
   WIN,
   LOSS,
@@ -35,27 +37,30 @@ class spcProposition {
 
   public choice: spcChoice;
   public emoji: EmojiIdentifierResolvable;
-  public buttonCustomID: "spc-stone" | "spc-paper" | "spc-scissor";
+  public buttonCustomID: spcTypes;
 
   constructor(
     choice: spcChoice,
     emoji: EmojiIdentifierResolvable,
-    buttonCustomID: "spc-stone" | "spc-paper" | "spc-scissor"
+    buttonCustomID: spcTypes
   ) {
     this.choice = choice;
     this.emoji = emoji;
     this.buttonCustomID = buttonCustomID;
   }
 
-  public static nameToClass(choice: string) {
-    return this.propositions.find(
-      (proposition) => choice === proposition.choice
+  public static nameToClass(choice: spcChoice) {
+    return (
+      this.propositions.find((proposition) => choice === proposition.choice) ??
+      this.propositions[0]
     );
   }
 
   public static buttonCustomIDToClass(buttonCustomID: string) {
-    return this.propositions.find(
-      (proposition) => buttonCustomID === proposition.buttonCustomID
+    return (
+      this.propositions.find(
+        (proposition) => buttonCustomID === proposition.buttonCustomID
+      ) ?? this.propositions[0]
     );
   }
 }

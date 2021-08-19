@@ -19,7 +19,7 @@ export const NotBot: GuardFunction<
       : argObj instanceof MessageReaction
       ? argObj.message.author
       : argObj instanceof VoiceState
-      ? argObj.member.user
+      ? argObj.member?.user
       : argObj instanceof Message
       ? argObj.author
       : argObj.message.author;

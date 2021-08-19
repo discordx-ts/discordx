@@ -26,7 +26,7 @@ export abstract class buttons {
       return await interaction.followUp("invalid role id, select again");
     await interaction.followUp(
       `you have selected role: ${
-        roles.find((r) => r.value === roleValue).label
+        roles.find((r) => r.value === roleValue)?.label ?? "unknown"
       }`
     );
     return;

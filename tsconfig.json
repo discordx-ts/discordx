@@ -5,6 +5,7 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "strict": true,
+    "rootDir": "src",
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -14,13 +15,5 @@
     "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node"
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "tests",
-    "examples",
-    "guides",
-    "**/*.spec.ts",
-    "starter-projects"
-  ]
+  "exclude": ["node_modules", "build", "tests", "examples", "docs"]
 }
