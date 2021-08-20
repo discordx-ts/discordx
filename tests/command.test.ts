@@ -39,6 +39,21 @@ export abstract class AppDiscord {
     return ["!add", [op, x + y], command, datas.passed];
   }
 
+  @SimpleCommand("sub", {
+    argSplitter: "|",
+  })
+  sub(
+    @SimpleCommandOption("x", { description: "x value" })
+    x: string,
+    @SimpleCommandOption("y", { description: "y value" })
+    y: string,
+    command: SimpleCommandMessage,
+    client: Client,
+    datas: Data
+  ): unknown {
+    return ["!add", [x, y], command, datas.passed];
+  }
+
   @SimpleCommand("add plus")
   addExtend(
     command: SimpleCommandMessage,
@@ -123,5 +138,15 @@ describe("Commands", () => {
     const sampleMessage = { content: "!add22 2~+~4" } as Message;
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual(undefined);
+  });
+
+  it("Should avoid splitter space for options", async () => {
+    const contents = ["!sub 2 | 4", "!sub 2 | 4   ", "!sub 2 |4", "!sub 2|4"];
+    contents.forEach(async (content) => {
+      const sampleMessage = { content } as Message;
+      const parsedCommand = client.parseCommand("!", sampleMessage);
+      const response = await client.executeCommand(sampleMessage);
+      expect(response).toEqual(["!add", ["2", "4"], parsedCommand, true]);
+    });
   });
 });

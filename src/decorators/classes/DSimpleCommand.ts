@@ -135,7 +135,9 @@ export class DSimpleCommand extends Method {
 
   parseParams(command: SimpleCommandMessage) {
     if (!this.options.length) return [];
-    const args = command.argString.split(this.argSplitter);
+    const args = command.argString
+      .split(this.argSplitter)
+      .map((op) => op.trim());
 
     return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
