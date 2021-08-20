@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "docs/docs/**"
+      - "docs/i18n/**"
 
 jobs:
   build:
