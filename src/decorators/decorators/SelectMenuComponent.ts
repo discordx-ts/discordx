@@ -1,6 +1,9 @@
+import {
+  DComponentSelectMenu,
+  MetadataStorage,
+  MethodDecoratorEx,
+} from "../..";
 import { Snowflake } from "discord.js";
-import { MetadataStorage, DComponentSelectMenu } from "../..";
-import { MethodDecoratorEx } from "../../types/public/decorators";
 
 /**
  * Define a select menu interaction handler

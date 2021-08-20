@@ -1,4 +1,4 @@
-import { Discord, ContextMenu } from "../../../src";
+import { ContextMenu, Discord } from "../../../src";
 
 @Discord()
 export abstract class contextTest {

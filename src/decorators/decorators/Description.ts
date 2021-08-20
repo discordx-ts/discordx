@@ -1,7 +1,10 @@
-import { MetadataStorage, Modifier } from "../..";
-import { MethodDecoratorEx } from "../../types/public/decorators";
-import { DSimpleCommand } from "../classes/DSimpleCommand";
-import { DApplicationCommand } from "../classes/DApplicationCommand";
+import {
+  DApplicationCommand,
+  DSimpleCommand,
+  MetadataStorage,
+  MethodDecoratorEx,
+  Modifier,
+} from "../..";
 
 /**
  * This decorator is a shortcut to set the description property

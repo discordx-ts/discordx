@@ -7,16 +7,16 @@ import {
   VoiceChannel,
 } from "discord.js";
 import {
-  Discord,
-  Slash,
-  SlashOption,
-  Guild,
-  SlashGroup,
-  SlashChoice,
   Client,
-  Permission,
-  StringOptionType,
+  Discord,
   Guard,
+  Guild,
+  Permission,
+  Slash,
+  SlashChoice,
+  SlashGroup,
+  SlashOption,
+  StringOptionType,
 } from "../src";
 
 enum TextChoices {

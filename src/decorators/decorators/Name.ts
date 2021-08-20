@@ -1,10 +1,10 @@
 import {
-  MetadataStorage,
   DApplicationCommand,
-  Modifier,
   DDiscord,
+  DSimpleCommand,
+  MetadataStorage,
+  Modifier,
 } from "../..";
-import { DSimpleCommand } from "../classes/DSimpleCommand";
 
 /**
  * This decorator is a shortcut to set the name property

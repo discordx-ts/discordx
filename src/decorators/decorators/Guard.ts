@@ -1,16 +1,16 @@
 import {
-  MetadataStorage,
-  GuardFunction,
+  DApplicationCommand,
+  DComponentButton,
+  DComponentSelectMenu,
+  DDiscord,
   DGuard,
-  Modifier,
+  DOn,
+  DSimpleCommand,
+  GuardFunction,
+  MetadataStorage,
   Method,
+  Modifier,
 } from "../..";
-import { DComponentButton } from "../classes/DComponentButton";
-import { DSimpleCommand } from "../classes/DSimpleCommand";
-import { DDiscord } from "../classes/DDiscord";
-import { DOn } from "../classes/DOn";
-import { DComponentSelectMenu } from "../classes/DComponentSelectMenu";
-import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 /**
  * Define guard aka middleware for your application command, simple command, events, select menu, button

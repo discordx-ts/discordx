@@ -7,13 +7,14 @@ import {
   User,
   VoiceChannel,
 } from "discord.js";
-import { Decorator } from "./Decorator";
+
 import {
-  DApplicationCommandOptionChoice,
   Client,
+  DApplicationCommandOptionChoice,
+  Decorator,
+  OptionType,
   OptionValueType,
   StringOptionType,
-  OptionType,
 } from "../..";
 
 export class DApplicationCommandOption extends Decorator {

@@ -1,5 +1,4 @@
-import { SimpleCommandType } from "..";
-import { Decorator } from "./Decorator";
+import { Decorator, SimpleCommandType } from "..";
 
 export class DSimpleCommandOption extends Decorator {
   private _name: string;

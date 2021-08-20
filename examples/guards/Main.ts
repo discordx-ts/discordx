@@ -1,5 +1,5 @@
-import { Intents } from "discord.js";
 import { Client } from "../../src";
+import { Intents } from "discord.js";
 
 export class Main {
   private static _client: Client;

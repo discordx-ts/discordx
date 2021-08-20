@@ -1,6 +1,10 @@
-import { MetadataStorage, DiscordEvents, DOn } from "../..";
-import { MethodDecoratorEx } from "../../types/public/decorators";
-import { EventParams } from "..";
+import {
+  DOn,
+  DiscordEvents,
+  EventParams,
+  MetadataStorage,
+  MethodDecoratorEx,
+} from "../..";
 
 /**
  * Trigger a discord event, It's exactly the same behavior as @On but the method is only executed once

@@ -1,10 +1,10 @@
 import {
   CommandInteraction,
   MessageActionRow,
-  SelectMenuInteraction,
   MessageSelectMenu,
+  SelectMenuInteraction,
 } from "discord.js";
-import { Discord, Slash, SelectMenuComponent } from "../../../src";
+import { Discord, SelectMenuComponent, Slash } from "../../../src";
 
 const roles = [
   { label: "Principal", value: "principal" },

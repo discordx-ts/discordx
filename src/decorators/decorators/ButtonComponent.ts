@@ -1,6 +1,5 @@
+import { DComponentButton, MetadataStorage, MethodDecoratorEx } from "../..";
 import { Snowflake } from "discord.js";
-import { MetadataStorage, DComponentButton } from "../..";
-import { MethodDecoratorEx } from "../../types/public/decorators";
 
 /**
  * Define button interaction handler

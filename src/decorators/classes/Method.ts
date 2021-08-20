@@ -1,5 +1,4 @@
-import { DGuard, Client, DDiscord } from "../..";
-import { Decorator } from "./Decorator";
+import { Client, DDiscord, DGuard, Decorator } from "../..";
 
 export abstract class Method extends Decorator {
   protected _discord!: DDiscord;

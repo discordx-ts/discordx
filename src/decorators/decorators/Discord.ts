@@ -1,4 +1,4 @@
-import { MetadataStorage, DDiscord } from "../..";
+import { DDiscord, MetadataStorage } from "../..";
 
 /**
  * Class decorator for discord.ts instance

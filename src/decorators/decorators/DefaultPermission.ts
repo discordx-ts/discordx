@@ -1,8 +1,11 @@
-import { MetadataStorage, Modifier } from "../..";
-import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DSimpleCommand } from "../classes/DSimpleCommand";
-import { DDiscord } from "../classes/DDiscord";
-import { DApplicationCommand } from "../classes/DApplicationCommand";
+import {
+  ClassMethodDecorator,
+  DApplicationCommand,
+  DDiscord,
+  DSimpleCommand,
+  MetadataStorage,
+  Modifier,
+} from "../..";
 
 /**
  * Define default permission (also refer to everyone permission) for your slash or simple commands

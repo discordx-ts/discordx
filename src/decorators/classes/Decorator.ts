@@ -1,4 +1,4 @@
-import { DecoratorUtils } from "../../logic";
+import { DecoratorUtils } from "../..";
 
 export class Decorator {
   protected _classRef!: Record<string, any>;

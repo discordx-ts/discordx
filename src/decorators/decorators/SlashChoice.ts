@@ -1,11 +1,11 @@
 import {
-  MetadataStorage,
-  DApplicationCommandOptionChoice,
   DApplicationCommandOption,
+  DApplicationCommandOptionChoice,
+  MetadataStorage,
   Modifier,
+  ParameterDecoratorEx,
   SlashChoicesType,
 } from "../..";
-import { ParameterDecoratorEx } from "../../types/public/decorators";
 
 /**
  * An option of a Slash command can implement an autocompletion feature for ``string`` and ``number`` types

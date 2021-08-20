@@ -1,6 +1,6 @@
+import { DSimpleCommand } from "../decorators";
 import { Message } from "discord.js";
 import { MetadataStorage } from "..";
-import { DSimpleCommand } from "../decorators";
 
 export class SimpleCommandMessage {
   prefix: string;

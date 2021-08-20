@@ -1,6 +1,5 @@
+import { Client, Method } from "../..";
 import { Snowflake } from "discord.js";
-import { Client } from "../..";
-import { Method } from "./Method";
 
 export class DComponentSelectMenu extends Method {
   private _id: string;

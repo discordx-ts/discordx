@@ -1,9 +1,14 @@
-import { Decorator } from "./Decorator";
-import { DGuard, DApplicationCommand, DIService, DOn } from "../..";
-import { DComponentButton } from "./DComponentButton";
-import { DComponentSelectMenu } from "./DComponentSelectMenu";
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
-import { DSimpleCommand } from "./DSimpleCommand";
+import {
+  DApplicationCommand,
+  DComponentButton,
+  DComponentSelectMenu,
+  DGuard,
+  DIService,
+  DOn,
+  DSimpleCommand,
+  Decorator,
+} from "../..";
 
 export class DDiscord extends Decorator {
   private _name: string;

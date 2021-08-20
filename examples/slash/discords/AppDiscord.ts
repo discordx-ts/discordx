@@ -1,11 +1,11 @@
-import { CommandInteraction } from "discord.js";
 import {
   Discord,
   Slash,
-  SlashOption,
-  SlashGroup,
   SlashChoice,
+  SlashGroup,
+  SlashOption,
 } from "../../../src";
+import { CommandInteraction } from "discord.js";
 
 enum TextChoices {
   Hello = "Hello",

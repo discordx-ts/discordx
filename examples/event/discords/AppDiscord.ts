@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Discord, On, Client, ArgsOf } from "../../../src";
+import { ArgsOf, Client, Discord, On } from "../../../src";
 
 @Discord()
 export abstract class AppDiscord {

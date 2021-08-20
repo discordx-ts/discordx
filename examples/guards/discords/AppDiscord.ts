@@ -1,5 +1,5 @@
+import { ArgsOf, Client, Discord, Guard, On, Slash } from "../../../src";
 import { CommandInteraction } from "discord.js";
-import { Discord, On, Client, ArgsOf, Guard, Slash } from "../../../src";
 import { NotBot } from "../guards/NotBot";
 
 @Discord()

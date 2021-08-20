@@ -1,10 +1,10 @@
-import { Role, User } from "discord.js";
 import {
   Discord,
   SimpleCommand,
   SimpleCommandMessage,
   SimpleCommandOption,
 } from "../../../src";
+import { Role, User } from "discord.js";
 
 @Discord()
 export abstract class commandTest {

@@ -1,21 +1,22 @@
+import * as glob from "glob";
 import {
-  DOn,
+  ArgsOf,
+  Client,
+  DApplicationCommand,
+  DApplicationCommandGroup,
+  DApplicationCommandOption,
+  DComponentButton,
+  DComponentSelectMenu,
   DDiscord,
   DGuard,
-  Client,
-  ArgsOf,
-  DiscordEvents,
-  Modifier,
   DIService,
-  DApplicationCommand,
-  DApplicationCommandOption,
+  DOn,
+  DSimpleCommand,
+  DSimpleCommandOption,
+  DiscordEvents,
   Method,
+  Modifier,
 } from "../..";
-import { DComponentButton, DApplicationCommandGroup } from "../../decorators";
-import { DComponentSelectMenu } from "../../decorators";
-import * as glob from "glob";
-import { DSimpleCommand } from "../../decorators";
-import { DSimpleCommandOption } from "../../decorators";
 
 export class MetadataStorage {
   private static isBuilt = false;

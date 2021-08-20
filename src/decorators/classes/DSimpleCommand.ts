@@ -1,8 +1,10 @@
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
-import { Client } from "../..";
-import { SimpleCommandMessage } from "../../classes";
-import { DSimpleCommandOption } from "./DSimpleCommandOption";
-import { Method } from "./Method";
+import {
+  Client,
+  DSimpleCommandOption,
+  Method,
+  SimpleCommandMessage,
+} from "../..";
 
 export class DSimpleCommand extends Method {
   private _description: string;

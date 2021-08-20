@@ -1,11 +1,14 @@
-import { MetadataStorage, Modifier } from "../..";
-import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DComponentButton } from "../classes/DComponentButton";
-import { DSimpleCommand } from "../classes/DSimpleCommand";
-import { DDiscord } from "../classes/DDiscord";
-import { DOn } from "../classes/DOn";
-import { DComponentSelectMenu } from "../classes/DComponentSelectMenu";
-import { DApplicationCommand } from "../classes/DApplicationCommand";
+import {
+  ClassMethodDecorator,
+  DApplicationCommand,
+  DComponentButton,
+  DComponentSelectMenu,
+  DDiscord,
+  DOn,
+  DSimpleCommand,
+  MetadataStorage,
+  Modifier,
+} from "../..";
 
 /**
  * Execute your application command, button, select menu, simple command or event by defined bot when multiple bots are running in the same instance

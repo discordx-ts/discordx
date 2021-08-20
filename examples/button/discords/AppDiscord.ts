@@ -1,17 +1,17 @@
 import {
-  CommandInteraction,
-  MessageButton,
-  MessageActionRow,
-  ButtonInteraction,
-  EmojiIdentifierResolvable,
-} from "discord.js";
-import {
+  ButtonComponent,
   Discord,
   Slash,
-  ButtonComponent,
-  SlashOption,
   SlashChoice,
+  SlashOption,
 } from "../../../src";
+import {
+  ButtonInteraction,
+  CommandInteraction,
+  EmojiIdentifierResolvable,
+  MessageActionRow,
+  MessageButton,
+} from "discord.js";
 import { randomInt } from "crypto";
 
 enum spcChoice {

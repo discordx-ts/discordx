@@ -1,14 +1,14 @@
-import { Message } from "discord.js";
 import {
-  Discord,
-  Guild,
   Client,
+  Discord,
   Guard,
-  SimpleCommand,
+  Guild,
   Permission,
-  SimpleCommandOption,
+  SimpleCommand,
   SimpleCommandMessage,
+  SimpleCommandOption,
 } from "../src";
+import { Message } from "discord.js";
 
 @Discord()
 @Permission({ id: "123", type: "USER", permission: true })

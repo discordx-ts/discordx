@@ -8,23 +8,21 @@ import {
   Snowflake,
 } from "discord.js";
 import {
-  MetadataStorage,
   ClientOptions,
-  DiscordEvents,
-  DOn,
-  GuardFunction,
-} from ".";
-import {
-  DComponentButton,
-  DDiscord,
-  DApplicationCommandOption,
-  DComponentSelectMenu,
   DApplicationCommand,
+  DApplicationCommandOption,
+  DComponentButton,
+  DComponentSelectMenu,
+  DDiscord,
+  DOn,
+  DSimpleCommand,
   DSimpleCommandOption,
-} from "./decorators";
-import { DSimpleCommand } from "./decorators";
-import { GuildNotFoundError } from "./errors";
-import { SimpleCommandMessage } from "./classes";
+  DiscordEvents,
+  GuardFunction,
+  GuildNotFoundError,
+  MetadataStorage,
+  SimpleCommandMessage,
+} from ".";
 
 /**
  * Extend original client class of discord.js

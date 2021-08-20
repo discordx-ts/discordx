@@ -1,9 +1,9 @@
 import {
-  MetadataStorage,
-  DApplicationCommand,
   ApplicationCommandParams,
+  DApplicationCommand,
+  MetadataStorage,
+  MethodDecoratorEx,
 } from "../..";
-import { MethodDecoratorEx } from "../../types/public/decorators";
 
 /**
  * Define slash command

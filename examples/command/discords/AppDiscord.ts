@@ -1,13 +1,13 @@
-import { Channel } from "diagnostics_channel";
-import { Role, User } from "discord.js";
 import {
-  Discord,
-  SimpleCommand,
-  SimpleCommandOption,
-  SimpleCommandMessage,
   DefaultPermission,
+  Discord,
   Permission,
+  SimpleCommand,
+  SimpleCommandMessage,
+  SimpleCommandOption,
 } from "../../../src";
+import { Role, User } from "discord.js";
+import { Channel } from "diagnostics_channel";
 
 @Discord()
 export abstract class commandTest {

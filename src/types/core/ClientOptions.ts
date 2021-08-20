@@ -3,8 +3,7 @@ import {
   Message,
   Snowflake,
 } from "discord.js";
-import { SimpleCommandMessage } from "../../classes";
-import { GuardFunction } from "../public/GuardFunction";
+import { GuardFunction, SimpleCommandMessage } from "../..";
 
 export interface ClientOptions extends DiscordJSClientOptions {
   /**

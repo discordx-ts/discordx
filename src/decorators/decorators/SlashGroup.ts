@@ -1,8 +1,12 @@
-import { MetadataStorage, DApplicationCommand, Modifier } from "../..";
-import { SubCommand } from "../../types";
-import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DApplicationCommandGroup } from "../classes/DApplicationCommandGroup";
-import { DApplicationCommandOption } from "../classes/DApplicationCommandOption";
+import {
+  ClassMethodDecorator,
+  DApplicationCommand,
+  DApplicationCommandGroup,
+  DApplicationCommandOption,
+  MetadataStorage,
+  Modifier,
+  SubCommand,
+} from "../..";
 
 /**
  * Group your slash command

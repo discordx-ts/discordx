@@ -1,5 +1,4 @@
-import { DiscordEvents } from "../..";
-import { Method } from "./Method";
+import { DiscordEvents, Method } from "../..";
 
 export class DOn extends Method {
   protected _event: DiscordEvents;

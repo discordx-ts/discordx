@@ -1,11 +1,14 @@
+import {
+  ClassMethodDecorator,
+  DApplicationCommand,
+  DComponentButton,
+  DComponentSelectMenu,
+  DDiscord,
+  DSimpleCommand,
+  MetadataStorage,
+  Modifier,
+} from "../..";
 import { Snowflake } from "discord.js";
-import { MetadataStorage, Modifier } from "../..";
-import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DComponentButton } from "../classes/DComponentButton";
-import { DSimpleCommand } from "../classes/DSimpleCommand";
-import { DDiscord } from "../classes/DDiscord";
-import { DComponentSelectMenu } from "../classes/DComponentSelectMenu";
-import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 /**
  * Define guild id for your application command, simple command, events, select menu, button

@@ -1,13 +1,13 @@
 import {
   ApplicationCommandData,
   ApplicationCommandPermissionData,
+  ApplicationCommandType,
   CommandInteraction,
   CommandInteractionOption,
   Snowflake,
-  ApplicationCommandType,
 } from "discord.js";
-import { DApplicationCommandOption, Client } from "../..";
-import { Method } from "./Method";
+
+import { Client, DApplicationCommandOption, Method } from "../..";
 
 export class DApplicationCommand extends Method {
   private _name: string;

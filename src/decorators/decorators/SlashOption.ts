@@ -1,12 +1,12 @@
 import {
-  MetadataStorage,
+  DApplicationCommand,
   DApplicationCommandOption,
-  SlashOptionParams,
+  MetadataStorage,
   Modifier,
+  ParameterDecoratorEx,
+  SlashOptionParams,
   StringOptionType,
 } from "../..";
-import { ParameterDecoratorEx } from "../../types/public/decorators";
-import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 /**
  * Define option for slash command

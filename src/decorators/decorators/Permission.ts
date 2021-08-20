@@ -1,9 +1,12 @@
+import {
+  ClassMethodDecorator,
+  DApplicationCommand,
+  DDiscord,
+  DSimpleCommand,
+  MetadataStorage,
+  Modifier,
+} from "../..";
 import { ApplicationCommandPermissionData } from "discord.js";
-import { MetadataStorage, Modifier } from "../..";
-import { ClassMethodDecorator } from "../../types/public/decorators";
-import { DSimpleCommand } from "../classes/DSimpleCommand";
-import { DDiscord } from "../classes/DDiscord";
-import { DApplicationCommand } from "../classes/DApplicationCommand";
 
 /**
  * Define permission for your application command or simple command

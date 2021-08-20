@@ -1,10 +1,10 @@
+import { ArgsOf, GuardFunction } from "../../../src";
 import {
   CommandInteraction,
   Message,
   MessageReaction,
   VoiceState,
 } from "discord.js";
-import { ArgsOf, GuardFunction } from "../../../src";
 
 // Example by @AndyClausen
 

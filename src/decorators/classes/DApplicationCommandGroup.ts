@@ -1,6 +1,4 @@
-import { Decorator } from "./Decorator";
-import { DApplicationCommandOption } from "./DApplicationCommandOption";
-import { DApplicationCommand } from "./DApplicationCommand";
+import { DApplicationCommand, DApplicationCommandOption, Decorator } from "..";
 
 export class DApplicationCommandGroup<
   InfoType = DApplicationCommand | DApplicationCommandOption
