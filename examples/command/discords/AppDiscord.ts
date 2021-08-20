@@ -109,4 +109,14 @@ export abstract class commandTest {
     if (!channel) command.message.reply("channel not mentioned");
     else command.message.reply(`${channel}`);
   }
+
+  @SimpleCommand("add", { argSplitter: "+" })
+  async add(
+    @SimpleCommandOption() x: number,
+    @SimpleCommandOption() y: number,
+    command: SimpleCommandMessage
+  ): Promise<unknown> {
+    if (!x || !y) return command.sendUsageSyntax();
+    return command.message.reply(`${x + y}`);
+  }
 }

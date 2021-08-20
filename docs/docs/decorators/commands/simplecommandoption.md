@@ -16,11 +16,24 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
   @SimpleCommand("hello")
   async testCommand(
     @SimpleCommandOption() name: string,
-
     command: SimpleCommandMessage
   ) {
     if (!name) return message.reply("usage: ``!hello <your name>``");
     message.reply(`hello ${name}`);
+  }
+```
+
+## Use custom arg splitter
+
+```ts
+  @SimpleCommand("add", { argSplitter: "+" })
+  async add(
+    @SimpleCommandOption() x: number,
+    @SimpleCommandOption() y: number,
+    command: SimpleCommandMessage
+  ): Promise<unknown> {
+    if (!x || !y) return command.sendUsageSyntax();
+    return command.message.reply(`${x + y}`);
   }
 ```
 
