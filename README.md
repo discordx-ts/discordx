@@ -47,6 +47,8 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 > **[https://oceanroleplay.github.io/discord.ts](https://oceanroleplay.github.io/discord.ts)**
 
+> **[discord.ts-example](https://github.com/oceanroleplay/discord.ts-example)**
+
 # 💡Why discordx?
 
 For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have created fixes and new features. Likewise, We have also requested our fixes and new features on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62).
