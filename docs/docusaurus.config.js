@@ -12,6 +12,10 @@ module.exports = {
   favicon: "favicon.ico",
   organizationName: "oceanroleplay", // Usually your GitHub org/user name.
   projectName: "discord.ts", // Usually your repo name.
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "fr", "de"],
+  },
   themeConfig: {
     navbar: {
       title: "Discordx",
@@ -21,6 +25,10 @@ module.exports = {
           docId: "installation",
           position: "left",
           label: "Docs",
+        },
+        {
+          type: "localeDropdown",
+          position: "right",
         },
         {
           position: "right",

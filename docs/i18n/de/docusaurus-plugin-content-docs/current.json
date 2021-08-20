@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Guides": {
+    "message": "Guides",
+    "description": "The label for category Guides in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Decorators": {
+    "message": "Decorators",
+    "description": "The label for category Decorators in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.General": {
+    "message": "General",
+    "description": "The label for category General in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Commands": {
+    "message": "Commands",
+    "description": "The label for category Commands in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Gui Interactions": {
+    "message": "Gui Interactions",
+    "description": "The label for category Gui Interactions in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.API": {
+    "message": "API",
+    "description": "The label for category API in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Classes": {
+    "message": "Classes",
+    "description": "The label for category Classes in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Interfaces": {
+    "message": "Interfaces",
+    "description": "The label for category Interfaces in sidebar tutorialSidebar"
+  }
+}
