@@ -29,14 +29,6 @@ jobs:
         run: npm run build
         working-directory: ./docs
 
-      - name: build docs - French
-        run: npm run build -- --locale fr
-        working-directory: ./docs
-
-      - name: build docs - German
-        run: npm run build -- --locale de
-        working-directory: ./docs
-
       - name: prepare git
         run: |
           git init -b docs
