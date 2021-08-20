@@ -1,5 +1,8 @@
 import { Decorator } from "../../decorators/classes/Decorator";
 
+/**
+ * @category Internal
+ */
 export class DecoratorUtils {
   /**
    * Get the list of the linked decorators

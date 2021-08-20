@@ -19,6 +19,7 @@ export function SimpleCommand(): MethodDecoratorEx;
  * @param name command name
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand)
+ * @category Decorator
  */
 export function SimpleCommand(name: string): MethodDecoratorEx;
 
@@ -28,6 +29,7 @@ export function SimpleCommand(name: string): MethodDecoratorEx;
  * @param params additional configuration
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand)
+ * @category Decorator
  */
 export function SimpleCommand(
   name: string,

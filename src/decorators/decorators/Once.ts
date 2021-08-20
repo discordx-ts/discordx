@@ -11,6 +11,7 @@ import {
  * @param event name of event
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/once)
+ * @category Decorator
  */
 export function Once(event: DiscordEvents): MethodDecoratorEx;
 
@@ -20,6 +21,7 @@ export function Once(event: DiscordEvents): MethodDecoratorEx;
  * @param params addition configuration
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/once)
+ * @category Decorator
  */
 export function Once(
   event: DiscordEvents,

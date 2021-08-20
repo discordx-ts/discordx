@@ -13,6 +13,7 @@ import {
  * @param name string
  * ___
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
+ * @category Decorator
  */
 export function SlashOption(name?: string): ParameterDecoratorEx;
 
@@ -22,6 +23,7 @@ export function SlashOption(name?: string): ParameterDecoratorEx;
  * @param params additional configuration
  * ___
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
+ * @category Decorator
  */
 export function SlashOption(
   name: string,

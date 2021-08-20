@@ -12,6 +12,7 @@ import {
  * @param name option name
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
+ * @category Decorator
  */
 export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
 
@@ -21,6 +22,7 @@ export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
  * @param params additional configuration
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
+ * @category Decorator
  */
 export function SimpleCommandOption(
   name: string,

@@ -2,6 +2,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { DecoratorUtils } from "../..";
 
+/**
+ * @category Decorator
+ */
 export class Decorator {
   protected _classRef!: Record<string, any>;
   protected _from!: Record<string, any>;

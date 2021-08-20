@@ -10,6 +10,7 @@ import {
  * @param name name of your slash command
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slash)
+ * @category Decorator
  */
 export function Slash(name?: string): MethodDecoratorEx;
 
@@ -19,6 +20,7 @@ export function Slash(name?: string): MethodDecoratorEx;
  * @param params additional configuration for slash
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slash)
+ * @category Decorator
  */
 export function Slash(
   name?: string,

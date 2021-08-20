@@ -11,6 +11,9 @@ import {
 } from "../..";
 import { Decorator } from "./Decorator";
 
+/**
+ * @category Decorator
+ */
 export class DDiscord extends Decorator {
   private _name: string;
   private _description: string;

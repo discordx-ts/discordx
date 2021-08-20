@@ -15,6 +15,7 @@ import {
  * @param botID id of your bot
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/bot)
+ * @category Decorator
  */
 export function Bot(botID: string): ClassMethodDecorator;
 
@@ -23,8 +24,10 @@ export function Bot(botID: string): ClassMethodDecorator;
  * @param botIDs array of bot id's
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/bot)
+ * @category Decorator
  */
 export function Bot(...botIDs: string[]): ClassMethodDecorator;
+
 export function Bot(...botIDs: string[]): ClassMethodDecorator {
   return function (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

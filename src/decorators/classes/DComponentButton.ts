@@ -3,6 +3,9 @@ import { Client } from "../..";
 import { Method } from "./Method";
 import { Snowflake } from "discord.js";
 
+/**
+ * @category Decorator
+ */
 export class DComponentButton extends Method {
   private _id: string;
   private _guilds: Snowflake[];

@@ -20,6 +20,9 @@ import {
 } from "../..";
 import { Method } from "../../decorators/classes/Method";
 
+/**
+ * @category Internal
+ */
 export class MetadataStorage {
   private static isBuilt = false;
   private static _classesToLoad: string[] = [];

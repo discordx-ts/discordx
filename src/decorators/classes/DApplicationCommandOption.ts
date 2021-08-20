@@ -18,6 +18,9 @@ import {
 } from "../..";
 import { Decorator } from "./Decorator";
 
+/**
+ * @category Decorator
+ */
 export class DApplicationCommandOption extends Decorator {
   private _required = false;
   private _name: string;

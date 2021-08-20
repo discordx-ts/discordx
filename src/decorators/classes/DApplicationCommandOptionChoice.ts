@@ -2,6 +2,9 @@
 import { ApplicationCommandOptionChoice } from "discord.js";
 import { Decorator } from "./Decorator";
 
+/**
+ * @category Decorator
+ */
 export class DApplicationCommandOptionChoice extends Decorator {
   private _name: string;
   private _value: string | number;

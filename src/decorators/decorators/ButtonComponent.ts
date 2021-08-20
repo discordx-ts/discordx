@@ -6,6 +6,7 @@ import { Snowflake } from "discord.js";
  * @param id your button custom id
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent)
+ * @category Decorator
  */
 export function ButtonComponent(id?: string): MethodDecoratorEx;
 
@@ -15,6 +16,7 @@ export function ButtonComponent(id?: string): MethodDecoratorEx;
  * @param params additional configuration for button component
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent)
+ * @category Decorator
  */
 export function ButtonComponent(
   id: string,

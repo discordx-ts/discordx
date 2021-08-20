@@ -1,6 +1,9 @@
 import { Decorator } from "./Decorator";
 import { GuardFunction } from "../..";
 
+/**
+ * @category Decorator
+ */
 export class DGuard extends Decorator {
   protected _fn: GuardFunction;
 

@@ -13,6 +13,7 @@ import {
  * @deprecated will be removed by end of auguest 2021.
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/name)
+ * @category Decorator
  */
 export function Name(name: string): ClassMethodDecorator {
   return function (

@@ -3,6 +3,9 @@ import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
 import { Client, DSimpleCommandOption, SimpleCommandMessage } from "../..";
 import { Method } from "./Method";
 
+/**
+ * @category Decorator
+ */
 export class DSimpleCommand extends Method {
   private _description: string;
   private _name: string;

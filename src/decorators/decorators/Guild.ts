@@ -15,6 +15,7 @@ import { Snowflake } from "discord.js";
  * @param guildID guild id
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
+ * @category Decorator
  */
 export function Guild(guildID: Snowflake): ClassMethodDecorator;
 
@@ -23,6 +24,7 @@ export function Guild(guildID: Snowflake): ClassMethodDecorator;
  * @param guildIDs array of guild id's
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
+ * @category Decorator
  */
 export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator;
 

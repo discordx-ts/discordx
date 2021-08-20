@@ -15,6 +15,7 @@ import {
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * @category Decorator
  */
 export function SlashGroup(group: string): ClassMethodDecorator;
 
@@ -25,6 +26,7 @@ export function SlashGroup(group: string): ClassMethodDecorator;
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * @category Decorator
  */
 export function SlashGroup(subCommands: SubCommand): ClassMethodDecorator;
 
@@ -36,6 +38,7 @@ export function SlashGroup(subCommands: SubCommand): ClassMethodDecorator;
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * @category Decorator
  */
 export function SlashGroup(
   group: string,
@@ -50,6 +53,7 @@ export function SlashGroup(
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * @category Decorator
  */
 export function SlashGroup(
   group: string,
@@ -65,6 +69,7 @@ export function SlashGroup(
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * @category Decorator
  */
 export function SlashGroup(
   group: string,

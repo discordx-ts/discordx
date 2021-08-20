@@ -11,6 +11,7 @@ import { ApplicationCommandType } from "discord.js";
  * @param type USER | MESSAGE
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
+ * @category Decorator
  */
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">
@@ -22,6 +23,7 @@ export function ContextMenu(
  * @param name name of your context menu
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
+ * @category Decorator
  */
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
@@ -35,6 +37,7 @@ export function ContextMenu(
  * @param params additional configuration
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
+ * @category Decorator
  */
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,

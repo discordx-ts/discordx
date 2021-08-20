@@ -2,6 +2,9 @@
 import { DiscordEvents } from "../..";
 import { Method } from "./Method";
 
+/**
+ * @category Decorator
+ */
 export class DOn extends Method {
   protected _event: DiscordEvents;
   protected _once: boolean;

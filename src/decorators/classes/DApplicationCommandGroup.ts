@@ -1,6 +1,9 @@
 import { DApplicationCommand, DApplicationCommandOption } from "..";
 import { Decorator } from "./Decorator";
 
+/**
+ * @category Decorator
+ */
 export class DApplicationCommandGroup<
   InfoType = DApplicationCommand | DApplicationCommandOption
 > extends Decorator {

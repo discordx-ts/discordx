@@ -2,6 +2,9 @@
 import { Decorator } from "./Decorator";
 import { SimpleCommandType } from "..";
 
+/**
+ * @category Decorator
+ */
 export class DSimpleCommandOption extends Decorator {
   private _name: string;
   private _description: string;

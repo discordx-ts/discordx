@@ -18,6 +18,7 @@ import { Method } from "../classes/Method";
  * @param fns array of guards
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guard)
+ * @category Decorator
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Guard<Type = any, DatasType = any>(

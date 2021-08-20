@@ -13,6 +13,7 @@ import { ApplicationCommandPermissionData } from "discord.js";
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * @category Decorator
  */
 export function Permission(
   permission: ApplicationCommandPermissionData
@@ -23,6 +24,7 @@ export function Permission(
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * @category Decorator
  */
 export function Permission(
   ...permission: ApplicationCommandPermissionData[]

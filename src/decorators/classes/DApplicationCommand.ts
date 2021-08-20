@@ -11,6 +11,9 @@ import {
 import { Client, DApplicationCommandOption } from "../..";
 import { Method } from "./Method";
 
+/**
+ * @category Decorator
+ */
 export class DApplicationCommand extends Method {
   private _name: string;
   private _description: string;
