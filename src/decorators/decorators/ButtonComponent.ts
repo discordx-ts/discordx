@@ -24,7 +24,8 @@ export function ButtonComponent(
 export function ButtonComponent(
   id?: string,
   params?: { guilds?: Snowflake[]; botIds?: string[] }
-) {
+): MethodDecoratorEx {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (target: Record<string, any>, key: string) => {
     const button = DComponentButton.create(
       id ?? key,

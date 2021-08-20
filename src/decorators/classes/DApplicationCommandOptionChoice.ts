@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ApplicationCommandOptionChoice } from "discord.js";
 import { Decorator } from "./Decorator";
 

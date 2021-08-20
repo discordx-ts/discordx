@@ -24,7 +24,7 @@ export function DefaultPermission(permission?: boolean): ClassMethodDecorator;
 
 export function DefaultPermission(permission?: boolean): ClassMethodDecorator {
   return function (
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor

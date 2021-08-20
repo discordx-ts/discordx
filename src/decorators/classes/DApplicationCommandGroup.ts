@@ -12,6 +12,7 @@ export class DApplicationCommandGroup<
     this.infos = infos ?? {};
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   static create<InfoType = DApplicationCommand | DApplicationCommandOption>(
     name: string,
     infos?: Partial<InfoType>

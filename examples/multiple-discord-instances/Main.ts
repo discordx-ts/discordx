@@ -8,7 +8,7 @@ export class Main {
     return this._client;
   }
 
-  static async start() {
+  static async start(): Promise<void> {
     this._client = new Client({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       requiredByDefault: true,

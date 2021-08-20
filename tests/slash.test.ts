@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Channel,
   CommandInteraction,
@@ -19,6 +20,7 @@ import {
   StringOptionType,
 } from "../src";
 
+type Data = { passed: boolean };
 enum TextChoices {
   Hello = "Hello",
   "Good Bye" = "GoodBye",
@@ -44,8 +46,8 @@ export abstract class AppDiscord {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["/testing maths add", x + y, interaction, datas.passed];
   }
 
@@ -58,8 +60,8 @@ export abstract class AppDiscord {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["/testing maths multiply", x * y, interaction, datas.passed];
   }
 
@@ -71,8 +73,8 @@ export abstract class AppDiscord {
     text: TextChoices,
     interaction: CommandInteraction,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["/testing text hello", text, interaction, datas.passed];
   }
 
@@ -84,8 +86,8 @@ export abstract class AppDiscord {
     text2: string,
     interaction: CommandInteraction,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["/testing hello text", text, text2, interaction, datas.passed];
   }
 }
@@ -104,8 +106,8 @@ export abstract class AppDiscord1 {
     text: string,
     interaction: CommandInteraction,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["/hello", text, interaction, datas.passed];
   }
 
@@ -137,8 +139,8 @@ export abstract class AppDiscord1 {
 
     interaction: CommandInteraction,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["/inferance", "infer", interaction, datas.passed];
   }
 }

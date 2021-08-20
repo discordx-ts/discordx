@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
 import {
   Client,

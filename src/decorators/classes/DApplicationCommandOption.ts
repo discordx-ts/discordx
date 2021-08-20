@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   ApplicationCommandOptionData,
   Channel,
@@ -146,6 +147,7 @@ export class DApplicationCommandOption extends Decorator {
       choices: this.choices.map((choice) => choice.toObject()),
       options: [...this.options]
         .reverse()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .map((option) => option.toObject()) as any,
     };
 

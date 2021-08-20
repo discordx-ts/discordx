@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Client, Method } from "../..";
 import { Snowflake } from "discord.js";
 

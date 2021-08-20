@@ -1,4 +1,5 @@
 import {
+  ClassMethodDecorator,
   DApplicationCommand,
   DDiscord,
   DSimpleCommand,
@@ -13,8 +14,9 @@ import {
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/name)
  */
-export function Name(name: string) {
+export function Name(name: string): ClassMethodDecorator {
   return function (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor

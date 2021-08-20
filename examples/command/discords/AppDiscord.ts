@@ -24,7 +24,7 @@ export abstract class commandTest {
     @SimpleCommandOption("operation") operation: string, //
     @SimpleCommandOption("num2") num2: number,
     command: SimpleCommandMessage
-  ) {
+  ): Promise<unknown> {
     if (
       !num1 ||
       !operation ||
@@ -64,7 +64,7 @@ export abstract class commandTest {
     type: "USER",
     permission: true,
   })
-  async permFunc(command: SimpleCommandMessage) {
+  async permFunc(command: SimpleCommandMessage): Promise<void> {
     command.message.reply("access granted");
   }
 
@@ -73,7 +73,7 @@ export abstract class commandTest {
     @SimpleCommandOption() name: string,
 
     command: SimpleCommandMessage
-  ) {
+  ): Promise<unknown> {
     if (!name) return command.message.reply("usage: ``!hello <your name>``");
     command.message.reply(`hello ${name}`);
   }
@@ -85,7 +85,7 @@ export abstract class commandTest {
     @SimpleCommandOption("user", { type: "USER" })
     user: User, //
     command: SimpleCommandMessage
-  ) {
+  ): Promise<void> {
     if (!user) command.message.reply("user not mentioned");
     else command.message.reply(`${user}`);
   }
@@ -95,7 +95,7 @@ export abstract class commandTest {
     @SimpleCommandOption("role", { type: "ROLE" })
     role: Role, //
     command: SimpleCommandMessage
-  ) {
+  ): Promise<void> {
     if (!role) command.message.reply("role not mentioned");
     else command.message.reply(`${role}`);
   }
@@ -105,7 +105,7 @@ export abstract class commandTest {
     @SimpleCommandOption("channel", { type: "CHANNEL" })
     channel: Channel, //
     command: SimpleCommandMessage
-  ) {
+  ): Promise<void> {
     if (!channel) command.message.reply("channel not mentioned");
     else command.message.reply(`${channel}`);
   }

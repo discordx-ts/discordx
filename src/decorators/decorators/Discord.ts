@@ -1,4 +1,4 @@
-import { DDiscord, MetadataStorage } from "../..";
+import { ClassMethodDecorator, DDiscord, MetadataStorage } from "../..";
 
 /**
  * Class decorator for discord.ts instance
@@ -7,7 +7,8 @@ import { DDiscord, MetadataStorage } from "../..";
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/discord)
  */
 
-export function Discord() {
+export function Discord(): ClassMethodDecorator {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function Discord(target: Record<string, any>) {
     const instance = DDiscord.create(target.name).decorate(target, target.name);
     MetadataStorage.instance.addDiscord(instance);

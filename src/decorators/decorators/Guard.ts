@@ -1,4 +1,5 @@
 import {
+  ClassMethodDecorator,
   DApplicationCommand,
   DComponentButton,
   DComponentSelectMenu,
@@ -18,10 +19,12 @@ import {
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guard)
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Guard<Type = any, DatasType = any>(
   ...fns: GuardFunction<Type, DatasType>[]
-) {
+): ClassMethodDecorator {
   return function (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor

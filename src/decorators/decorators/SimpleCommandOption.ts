@@ -30,7 +30,8 @@ export function SimpleCommandOption(
 export function SimpleCommandOption(
   name?: string,
   params?: { description?: string; type?: SimpleCommandType }
-) {
+): ParameterDecoratorEx {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string, index: number) {
     const type =
       params?.type ??

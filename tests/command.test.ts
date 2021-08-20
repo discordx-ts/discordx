@@ -10,10 +10,12 @@ import {
 } from "../src";
 import { Message } from "discord.js";
 
+type Data = { passed: boolean };
+
 @Discord()
 @Permission({ id: "123", type: "USER", permission: true })
 @Guild("693401527494377482")
-@Guard<any, any>(async (params, client, next, datas) => {
+@Guard(async (params, client, next, datas) => {
   datas.passed = true;
   return await next();
 })
@@ -32,13 +34,17 @@ export abstract class AppDiscord {
     y: number,
     command: SimpleCommandMessage,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["!add", [op, x + y], command, datas.passed];
   }
 
   @SimpleCommand("add plus")
-  addExtend(command: SimpleCommandMessage, client: Client, datas: any) {
+  addExtend(
+    command: SimpleCommandMessage,
+    client: Client,
+    datas: Data
+  ): unknown {
     return ["!add plus", [], command, datas.passed];
   }
 
@@ -47,8 +53,8 @@ export abstract class AppDiscord {
     @SimpleCommandOption() arg: string,
     command: SimpleCommandMessage,
     client: Client,
-    datas: any
-  ) {
+    datas: Data
+  ): unknown {
     return ["!add plus second", [arg], command, datas.passed];
   }
 }

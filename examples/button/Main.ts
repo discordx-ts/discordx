@@ -9,7 +9,7 @@ export class Main {
     return this._client;
   }
 
-  static async start() {
+  static async start(): Promise<void> {
     this._client = new Client({
       classes: [
         `${__dirname}/discords/*.ts`, // glob string to load the classes

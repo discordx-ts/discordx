@@ -33,7 +33,10 @@ export class DecoratorUtils {
    * @param list The list of linked decorators to a
    * @returns
    */
-  static getLinkedObjects<Type extends Decorator>(a: Decorator, list: Type[]) {
+  static getLinkedObjects<Type extends Decorator>(
+    a: Decorator,
+    list: Type[]
+  ): Type[] {
     return list.filter((b) => {
       let cond = a.from === b.from && a.key === b.key;
 
@@ -45,7 +48,7 @@ export class DecoratorUtils {
     });
   }
 
-  static decorateAClass(method?: PropertyDescriptor) {
+  static decorateAClass(method?: PropertyDescriptor): boolean {
     return !method?.value;
   }
 }

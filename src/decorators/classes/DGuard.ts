@@ -3,7 +3,7 @@ import { Decorator, GuardFunction } from "../..";
 export class DGuard extends Decorator {
   protected _fn: GuardFunction;
 
-  get fn() {
+  get fn(): GuardFunction {
     return this._fn;
   }
 
@@ -12,7 +12,7 @@ export class DGuard extends Decorator {
     this._fn = fn;
   }
 
-  static create(fn: GuardFunction) {
+  static create(fn: GuardFunction): DGuard {
     return new DGuard(fn);
   }
 }

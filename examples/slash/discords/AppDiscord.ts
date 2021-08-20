@@ -26,7 +26,7 @@ export abstract class AppDiscord {
     @SlashOption("y", { description: "y value" })
     y: number,
     interaction: CommandInteraction
-  ) {
+  ): void {
     interaction.reply(String(x + y));
   }
 
@@ -38,7 +38,7 @@ export abstract class AppDiscord {
     @SlashOption("y", { description: "y value" })
     y: number,
     interaction: CommandInteraction
-  ) {
+  ): void {
     interaction.reply(String(x * y));
   }
 
@@ -49,7 +49,7 @@ export abstract class AppDiscord {
     @SlashOption("text")
     text: TextChoices,
     interaction: CommandInteraction
-  ) {
+  ): void {
     interaction.reply(text);
   }
 
@@ -58,7 +58,7 @@ export abstract class AppDiscord {
     @SlashOption("text")
     text: string,
     interaction: CommandInteraction
-  ) {
+  ): void {
     interaction.reply(text);
   }
 }
@@ -70,7 +70,7 @@ export abstract class AppDiscord1 {
     @SlashOption("text")
     text: string,
     interaction: CommandInteraction
-  ) {
+  ): void {
     interaction.reply(text);
   }
 }

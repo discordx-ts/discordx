@@ -28,6 +28,7 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator;
 
 export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
   return function (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor

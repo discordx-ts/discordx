@@ -46,7 +46,8 @@ export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
   name?: string,
   params?: ApplicationCommandParams
-) {
+): MethodDecoratorEx {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
 

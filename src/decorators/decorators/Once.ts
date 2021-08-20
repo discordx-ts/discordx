@@ -26,8 +26,12 @@ export function Once(
   params?: EventParams
 ): MethodDecoratorEx;
 
-export function Once(event: DiscordEvents, params?: EventParams) {
+export function Once(
+  event: DiscordEvents,
+  params?: EventParams
+): MethodDecoratorEx {
   return function (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: Record<string, any>,
     key: string,
     descriptor: PropertyDescriptor

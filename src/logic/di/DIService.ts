@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { InstanceOf } from "../..";
 
 /**
@@ -7,7 +8,7 @@ import { InstanceOf } from "../..";
 export class DIService {
   private static _instance: DIService;
 
-  static get instance() {
+  static get instance(): DIService {
     if (!this._instance) {
       this._instance = new DIService();
     }
@@ -22,6 +23,7 @@ export class DIService {
     return instance;
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   getService<ClassType>(classType: any): InstanceOf<ClassType> {
     return this._services.get(classType);
   }

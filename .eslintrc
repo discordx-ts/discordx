@@ -16,9 +16,9 @@
     "@typescript-eslint/no-inferrable-types": "warn",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
     "@typescript-eslint/no-non-null-assertion": "warn",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "warn",
     "@typescript-eslint/no-var-requires": "warn",
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/ban-types": "warn"
   }
 }

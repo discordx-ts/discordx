@@ -34,7 +34,11 @@ export function SimpleCommand(
   params: CommandParams
 ): MethodDecoratorEx;
 
-export function SimpleCommand(name?: string, params?: CommandParams) {
+export function SimpleCommand(
+  name?: string,
+  params?: CommandParams
+): MethodDecoratorEx {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
     name = name;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   ApplicationCommand,
   Client as ClientJS,
@@ -844,6 +845,7 @@ export class Client extends ClientJS {
    * @param params Params to inject
    * @param once Trigger an once event
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trigger(event: DiscordEvents, params?: any, once = false): Promise<any[]> {
     return this.decorators.trigger(event, this, once)(params);
   }

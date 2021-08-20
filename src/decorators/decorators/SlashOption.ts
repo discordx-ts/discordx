@@ -28,12 +28,16 @@ export function SlashOption(
   params?: SlashOptionParams
 ): ParameterDecoratorEx;
 
-export function SlashOption(name?: string, params?: SlashOptionParams) {
+export function SlashOption(
+  name?: string,
+  params?: SlashOptionParams
+): ParameterDecoratorEx {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (target: Record<string, any>, key: string, index: number) => {
     const type: StringOptionType =
       params?.type ??
       // eslint-disable-next-line @typescript-eslint/ban-types
-      ((Reflect.getMetadata("design:paramtypes", target, key) as any[])[
+      (Reflect.getMetadata("design:paramtypes", target, key)[
         index
       ] as StringOptionType);
 

@@ -28,7 +28,8 @@ export function SelectMenuComponent(
 export function SelectMenuComponent(
   id?: string,
   params?: { guilds?: Snowflake[]; botIds?: string[] }
-) {
+): MethodDecoratorEx {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {
     const button = DComponentSelectMenu.create(
       id ?? key,

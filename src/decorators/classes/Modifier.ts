@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Decorator, DecoratorUtils } from "../..";
 
 export type ModifyFunction<ToModify extends Decorator> = (
@@ -20,7 +21,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
   static create<ToModify extends Decorator>(
     toModify: ModifyFunction<ToModify>,
     ...modifyTypes: any[]
-  ) {
+  ): Modifier<ToModify> {
     return new Modifier<ToModify>(toModify, modifyTypes);
   }
 
@@ -35,7 +36,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
   static async applyFromModifierListToList(
     modifiers: Modifier<any>[],
     originals: Decorator[]
-  ) {
+  ): Promise<void[]> {
     return await Promise.all(
       modifiers.map(async (modifier) => {
         // Get the list of objects that are linked to the specified modifier
@@ -56,7 +57,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
     );
   }
 
-  applyModifications(original: ToModify) {
+  applyModifications(original: ToModify): (original: ToModify) => any {
     return this._toModify(original);
   }
 }

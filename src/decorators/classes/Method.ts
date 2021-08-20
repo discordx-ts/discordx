@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Client, DDiscord, DGuard, Decorator } from "../..";
 
 export abstract class Method extends Decorator {

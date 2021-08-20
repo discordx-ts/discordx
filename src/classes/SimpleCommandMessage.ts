@@ -27,7 +27,7 @@ export class SimpleCommandMessage {
    * get related commands
    * @returns
    */
-  getRelatedCommands() {
+  getRelatedCommands(): DSimpleCommand[] {
     const commandName = this.info.name.split(" ")[0];
     return MetadataStorage.instance.simpleCommands.filter(
       (cmd) => cmd.name.startsWith(commandName) && cmd.name !== this.info.name
@@ -38,7 +38,7 @@ export class SimpleCommandMessage {
    * send usage syntax for command
    * @returns
    */
-  sendUsageSyntax() {
+  sendUsageSyntax(): Promise<Message> {
     const commandString =
       "Command Usage: ``" +
       this.prefix +

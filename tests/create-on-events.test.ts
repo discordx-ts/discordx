@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Client, Discord, Guard, GuardFunction, On } from "../src";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const guard1: GuardFunction<any, { message: string; original: string }> =
   async ([message]: [string], client, next, mwDatas) => {
     mwDatas.original = message;
@@ -37,7 +38,7 @@ abstract class Bot {
   private onMessageDelete(
     [message]: [string],
     client: Client,
-    guardParams: any
+    guardParams: { message: string }
   ) {
     guardParams.message += "3";
   }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client, Next } from "../..";
 
 export type GuardFunction<Type = any, DatasType = any> = (

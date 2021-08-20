@@ -9,7 +9,7 @@ import { Role, User } from "discord.js";
 @Discord()
 export abstract class commandTest {
   @SimpleCommand("race")
-  async race(command: SimpleCommandMessage) {
+  async race(command: SimpleCommandMessage): Promise<void> {
     command.message.reply(
       `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${
         command.name
@@ -36,7 +36,7 @@ export abstract class commandTest {
     })
     role: Role,
     command: SimpleCommandMessage
-  ) {
+  ): Promise<unknown> {
     if (!user) return command.sendUsageSyntax();
     command.message.reply(
       `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
@@ -44,7 +44,7 @@ export abstract class commandTest {
   }
 
   @SimpleCommand("race bike")
-  async bike(command: SimpleCommandMessage) {
+  async bike(command: SimpleCommandMessage): Promise<void> {
     command.message.reply(
       `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );

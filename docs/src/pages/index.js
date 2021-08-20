@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import HomepageFeatures from "../components/HomepageFeatures";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
