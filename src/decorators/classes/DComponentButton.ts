@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Client, Method } from "../..";
+import { Client } from "../..";
+import { Method } from "./Method";
 import { Snowflake } from "discord.js";
 
 export class DComponentButton extends Method {

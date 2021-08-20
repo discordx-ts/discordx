@@ -8,7 +8,8 @@ import {
   Snowflake,
 } from "discord.js";
 
-import { Client, DApplicationCommandOption, Method } from "../..";
+import { Client, DApplicationCommandOption } from "../..";
+import { Method } from "./Method";
 
 export class DApplicationCommand extends Method {
   private _name: string;

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Decorator, SimpleCommandType } from "..";
+import { Decorator } from "./Decorator";
+import { SimpleCommandType } from "..";
 
 export class DSimpleCommandOption extends Decorator {
   private _name: string;

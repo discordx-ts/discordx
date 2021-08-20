@@ -12,11 +12,11 @@ import {
 import {
   Client,
   DApplicationCommandOptionChoice,
-  Decorator,
   OptionType,
   OptionValueType,
   StringOptionType,
 } from "../..";
+import { Decorator } from "./Decorator";
 
 export class DApplicationCommandOption extends Decorator {
   private _required = false;

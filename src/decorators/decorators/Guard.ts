@@ -9,9 +9,9 @@ import {
   DSimpleCommand,
   GuardFunction,
   MetadataStorage,
-  Method,
   Modifier,
 } from "../..";
+import { Method } from "../classes/Method";
 
 /**
  * Define guard aka middleware for your application command, simple command, events, select menu, button

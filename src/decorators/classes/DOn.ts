@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { DiscordEvents, Method } from "../..";
+import { DiscordEvents } from "../..";
+import { Method } from "./Method";
 
 export class DOn extends Method {
   protected _event: DiscordEvents;

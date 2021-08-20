@@ -72,7 +72,6 @@ export * from "./decorators/ContextMenu";
 
 export * from "./classes/DComponentSelectMenu";
 export * from "./classes/DComponentButton";
-export * from "./classes/Decorator";
 export * from "./classes/DGuard";
 export * from "./classes/DDiscord";
 export * from "./classes/DOn";
@@ -83,7 +82,6 @@ export * from "./classes/DApplicationCommandGroup";
 export * from "./classes/DSimpleCommand";
 export * from "./classes/DSimpleCommandOption";
 export * from "./classes/Modifier";
-export * from "./classes/Method";
 
 export * from "./params/CommandParams";
 export * from "./params/EventParams";

@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
-import {
-  Client,
-  DSimpleCommandOption,
-  Method,
-  SimpleCommandMessage,
-} from "../..";
+import { Client, DSimpleCommandOption, SimpleCommandMessage } from "../..";
+import { Method } from "./Method";
 
 export class DSimpleCommand extends Method {
   private _description: string;

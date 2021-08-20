@@ -16,9 +16,9 @@ import {
   DSimpleCommand,
   DSimpleCommandOption,
   DiscordEvents,
-  Method,
   Modifier,
 } from "../..";
+import { Method } from "../../decorators/classes/Method";
 
 export class MetadataStorage {
   private static isBuilt = false;

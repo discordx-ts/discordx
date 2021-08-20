@@ -8,8 +8,8 @@ import {
   DIService,
   DOn,
   DSimpleCommand,
-  Decorator,
 } from "../..";
+import { Decorator } from "./Decorator";
 
 export class DDiscord extends Decorator {
   private _name: string;

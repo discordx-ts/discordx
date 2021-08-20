@@ -1,4 +1,4 @@
-import { Decorator } from "../..";
+import { Decorator } from "../../decorators/classes/Decorator";
 
 export class DecoratorUtils {
   /**
