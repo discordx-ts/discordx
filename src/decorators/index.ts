@@ -70,9 +70,6 @@ export * from "./decorators/SimpleCommand";
 export * from "./decorators/SimpleCommandOption";
 export * from "./decorators/ContextMenu";
 
-export * from "./params/SlashOptionParams";
-export * from "./params/SlashParams";
-
 export * from "./classes/DComponentSelectMenu";
 export * from "./classes/DComponentButton";
 export * from "./classes/Decorator";
@@ -87,3 +84,8 @@ export * from "./classes/DSimpleCommand";
 export * from "./classes/DSimpleCommandOption";
 export * from "./classes/Modifier";
 export * from "./classes/Method";
+
+export * from "./params/CommandParams";
+export * from "./params/EventParams";
+export * from "./params/SlashOptionParams";
+export * from "./params/SlashParams";

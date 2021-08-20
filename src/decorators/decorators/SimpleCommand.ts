@@ -1,7 +1,7 @@
 import { MetadataStorage } from "../..";
 import { MethodDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
-import { CommandParams } from "../params/CommandParams";
+import { CommandParams } from "..";
 
 const testName = RegExp(/^[a-zA-Z0-9 ]+$/);
 

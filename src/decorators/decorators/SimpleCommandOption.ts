@@ -2,7 +2,7 @@ import { MetadataStorage, Modifier } from "../..";
 import { ParameterDecoratorEx } from "../../types/public/decorators";
 import { DSimpleCommand } from "../classes/DSimpleCommand";
 import { DSimpleCommandOption } from "../classes/DSimpleCommandOption";
-import { SimpleCommandType } from "../params/CommandParams";
+import { SimpleCommandType } from "..";
 
 /**
  * Define option for simple commnad

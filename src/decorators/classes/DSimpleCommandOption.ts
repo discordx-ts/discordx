@@ -1,4 +1,4 @@
-import { SimpleCommandType } from "../params/CommandParams";
+import { SimpleCommandType } from "..";
 import { Decorator } from "./Decorator";
 
 export class DSimpleCommandOption extends Decorator {
