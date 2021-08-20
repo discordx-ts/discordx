@@ -36,6 +36,7 @@ export abstract class AppDiscord {
     client: Client,
     datas: Data
   ): unknown {
+    if (!command.isValid()) return "usage: !add x + y";
     return ["!add", [op, x + y], command, datas.passed];
   }
 
@@ -103,9 +104,8 @@ describe("Commands", () => {
 
   it("Should execute simple command without arguments", async () => {
     const sampleMessage = { content: "!add" } as Message;
-    const parsedCommand = client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
-    expect(response).toEqual(["!add", [undefined, NaN], parsedCommand, true]);
+    expect(response).toEqual("usage: !add x + y");
   });
 
   it("Should execute simple command with space", async () => {

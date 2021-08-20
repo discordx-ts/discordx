@@ -134,6 +134,10 @@ export class DSimpleCommand extends Method {
   }
 
   parseParams(command: SimpleCommandMessage) {
+    return command.options;
+  }
+
+  parseParamsEx(command: SimpleCommandMessage) {
     if (!this.options.length) return [];
     const args = command.argString
       .split(this.argSplitter)

@@ -32,7 +32,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
     @SimpleCommandOption() y: number,
     command: SimpleCommandMessage
   ): Promise<unknown> {
-    if (!x || !y) return command.sendUsageSyntax();
+    if (!command.isValid()) return command.sendUsageSyntax();
     return command.message.reply(`${x + y}`);
   }
 ```

@@ -1,6 +1,5 @@
-import { DSimpleCommand } from "../decorators";
+import { DSimpleCommand, MetadataStorage, SimpleCommandOptionType } from "..";
 import { Message } from "discord.js";
-import { MetadataStorage } from "..";
 
 /**
  * Simple command message class
@@ -11,6 +10,7 @@ export class SimpleCommandMessage {
   name: string;
   argString: string;
   message: Message;
+  options: SimpleCommandOptionType[];
 
   constructor(
     prefix: string,
@@ -24,6 +24,15 @@ export class SimpleCommandMessage {
     this.info = info;
     this.name = name;
     this.argString = argString;
+    this.options = this.info.parseParamsEx(this);
+  }
+
+  /**
+   * Verify that all options are valid
+   * @returns
+   */
+  isValid(): boolean {
+    return !this.options.includes(undefined);
   }
 
   /**
