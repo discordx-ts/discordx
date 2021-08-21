@@ -73,6 +73,20 @@ export abstract class AppDiscord {
   ): unknown {
     return ["!add plus second", [arg], command, datas.passed];
   }
+
+  @SimpleCommand("ban", {
+    argSplitter: /\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
+  })
+  ban(
+    @SimpleCommandOption() id: number,
+    @SimpleCommandOption() time: number,
+    @SimpleCommandOption() reason: string,
+    command: SimpleCommandMessage,
+    client: Client,
+    datas: Data
+  ): unknown {
+    return ["!ban", [id, time, reason], command, datas.passed];
+  }
 }
 
 const client = new Client({ intents: [] });
@@ -148,5 +162,19 @@ describe("Commands", () => {
       const response = await client.executeCommand(sampleMessage);
       expect(response).toEqual(["!add", ["2", "4"], parsedCommand, true]);
     });
+  });
+
+  it("Should execute arg splitter regex", async () => {
+    const sampleMessage = {
+      content: "!ban 123 99 'ban reason test'",
+    } as Message;
+    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual([
+      "!ban",
+      [123, 99, "'ban reason test'"],
+      parsedCommand,
+      true,
+    ]);
   });
 });
