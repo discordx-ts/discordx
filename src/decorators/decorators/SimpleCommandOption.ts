@@ -14,7 +14,7 @@ import {
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
  * @category Decorator
  */
-export function SimpleCommandOption(name?: string): ParameterDecoratorEx;
+export function SimpleCommandOption(name: string): ParameterDecoratorEx;
 
 /**
  * Define option for simple commnad
@@ -30,7 +30,7 @@ export function SimpleCommandOption(
 ): ParameterDecoratorEx;
 
 export function SimpleCommandOption(
-  name?: string,
+  name: string,
   params?: { description?: string; type?: SimpleCommandType }
 ): ParameterDecoratorEx {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,7 +43,7 @@ export function SimpleCommandOption(
       ].name.toUpperCase() as "STRING" | "NUMBER" | "BOOLEAN" | undefined);
 
     const option = DSimpleCommandOption.create(
-      name ?? key,
+      name,
       type,
       params?.description
     ).decorate(target.constructor, key, target[key], target.constructor, index);

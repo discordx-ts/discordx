@@ -15,7 +15,7 @@ import {
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
  * @category Decorator
  */
-export function SlashOption(name?: string): ParameterDecoratorEx;
+export function SlashOption(name: string): ParameterDecoratorEx;
 
 /**
  * Define option for slash command
@@ -31,7 +31,7 @@ export function SlashOption(
 ): ParameterDecoratorEx;
 
 export function SlashOption(
-  name?: string,
+  name: string,
   params?: SlashOptionParams
 ): ParameterDecoratorEx {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,7 +44,7 @@ export function SlashOption(
       ] as StringOptionType);
 
     const option = DApplicationCommandOption.create(
-      name ?? key,
+      name,
       type,
       params?.description,
       params?.required,

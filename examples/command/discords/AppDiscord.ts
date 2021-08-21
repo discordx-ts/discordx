@@ -1,3 +1,4 @@
+import { Channel, Role, User } from "discord.js";
 import {
   DefaultPermission,
   Discord,
@@ -6,8 +7,6 @@ import {
   SimpleCommandMessage,
   SimpleCommandOption,
 } from "../../../src";
-import { Role, User } from "discord.js";
-import { Channel } from "diagnostics_channel";
 
 @Discord()
 export abstract class commandTest {
@@ -70,7 +69,7 @@ export abstract class commandTest {
 
   @SimpleCommand("hello", { aliases: ["ptest mark"] })
   async testCommand(
-    @SimpleCommandOption() name: string,
+    @SimpleCommandOption("name") name: string,
 
     command: SimpleCommandMessage
   ): Promise<unknown> {
@@ -112,11 +111,31 @@ export abstract class commandTest {
 
   @SimpleCommand("add", { argSplitter: "+" })
   async add(
-    @SimpleCommandOption() x: number,
-    @SimpleCommandOption() y: number,
+    @SimpleCommandOption("x") x: number,
+    @SimpleCommandOption("y") y: number,
     command: SimpleCommandMessage
   ): Promise<unknown> {
     if (!command.isValid()) return command.sendUsageSyntax();
     return command.message.reply(`${x + y}`);
+  }
+
+  @SimpleCommand("ban", {
+    argSplitter:
+      /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
+  })
+  ban(
+    @SimpleCommandOption("id") id: number,
+    @SimpleCommandOption("time") time: number,
+    @SimpleCommandOption("reason") reason: string,
+    @SimpleCommandOption("type") type: string,
+    command: SimpleCommandMessage
+  ): unknown {
+    if (!command.isValid()) return command.sendUsageSyntax();
+    return command.message.reply(
+      `id: ${id}\n` +
+        `time: ${time} seconds\n` +
+        `reason: ${reason}\n` +
+        `Type: ${type}`
+    );
   }
 }

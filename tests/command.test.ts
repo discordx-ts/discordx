@@ -66,7 +66,7 @@ export abstract class AppDiscord {
 
   @SimpleCommand("add plus second")
   addExtendSecond(
-    @SimpleCommandOption() arg: string,
+    @SimpleCommandOption("arg") arg: string,
     command: SimpleCommandMessage,
     client: Client,
     datas: Data
@@ -75,17 +75,19 @@ export abstract class AppDiscord {
   }
 
   @SimpleCommand("ban", {
-    argSplitter: /\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
+    argSplitter:
+      /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
   })
   ban(
-    @SimpleCommandOption() id: number,
-    @SimpleCommandOption() time: number,
-    @SimpleCommandOption() reason: string,
+    @SimpleCommandOption("id") id: number,
+    @SimpleCommandOption("time") time: number,
+    @SimpleCommandOption("reason") reason: string,
+    @SimpleCommandOption("type") type: string,
     command: SimpleCommandMessage,
     client: Client,
     datas: Data
   ): unknown {
-    return ["!ban", [id, time, reason], command, datas.passed];
+    return ["!ban", [id, time, reason, type], command, datas.passed];
   }
 }
 
@@ -166,13 +168,13 @@ describe("Commands", () => {
 
   it("Should execute arg splitter regex", async () => {
     const sampleMessage = {
-      content: "!ban 123 99 'ban reason test'",
+      content: "!ban 123 99 'ban reason test' cars",
     } as Message;
     const parsedCommand = client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual([
       "!ban",
-      [123, 99, "'ban reason test'"],
+      [123, 99, "ban reason test", "cars"],
       parsedCommand,
       true,
     ]);

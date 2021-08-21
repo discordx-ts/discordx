@@ -141,6 +141,7 @@ export class DSimpleCommand extends Method {
     if (!this.options.length) return [];
     const args = command.argString
       .split(this.argSplitter)
+      .filter((op) => op && op.length)
       .map((op) => op.trim());
 
     return this.options
