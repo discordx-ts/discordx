@@ -1,7 +1,7 @@
-import { StringOptionType } from "../..";
+import { SlashOptionType } from "../..";
 
 export interface SlashOptionParams {
-  type?: Exclude<StringOptionType, "SUB_COMMAND" | "SUB_COMMAND_GROUP">;
+  type?: Exclude<SlashOptionType, "SUB_COMMAND" | "SUB_COMMAND_GROUP">;
   description?: string;
   required?: boolean;
 }

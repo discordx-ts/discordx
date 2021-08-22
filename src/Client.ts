@@ -237,7 +237,7 @@ export class Client extends ClientJS {
 
             options.forEach((option) => {
               console.log(
-                `${tab}(option) ${option.name}: ${option.stringType} (${option.classRef.name}.${option.key})`
+                `${tab}(option) ${option.name}: ${option.type} (${option.classRef.name}.${option.key})`
               );
               printOptions(option.options, depth + 1);
             });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import {
   DApplicationCommand,
   DApplicationCommandOption,
@@ -5,7 +6,8 @@ import {
   Modifier,
   ParameterDecoratorEx,
   SlashOptionParams,
-  StringOptionType,
+  SlashOptionType,
+  SlashOptionTypes,
 } from "../..";
 
 /**
@@ -36,12 +38,23 @@ export function SlashOption(
 ): ParameterDecoratorEx {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (target: Record<string, any>, key: string, index: number) => {
-    const type: StringOptionType =
-      params?.type ??
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      (Reflect.getMetadata("design:paramtypes", target, key)[
-        index
-      ] as StringOptionType);
+    const dType = (
+      Reflect.getMetadata("design:paramtypes", target, key)[index] as Function
+    ).name.toUpperCase();
+
+    const type: SlashOptionType =
+      params?.type ?? dType === "NUMBER"
+        ? "INTEGER"
+        : dType === "GUILDMEMBER"
+        ? "USER"
+        : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
+        ? "CHANNEL"
+        : (dType as SlashOptionType);
+
+    // throw error if option type is invalid
+    if (!SlashOptionTypes.includes(type)) {
+      throw Error(`invalid slash option: ${type}`);
+    }
 
     const option = DApplicationCommandOption.create(
       name,

@@ -1,3 +1,4 @@
+import { CommandInteraction, GuildMember } from "discord.js";
 import {
   Discord,
   Slash,
@@ -5,7 +6,6 @@ import {
   SlashGroup,
   SlashOption,
 } from "../../../src";
-import { CommandInteraction } from "discord.js";
 
 enum TextChoices {
   Hello = "Hello",
@@ -67,10 +67,10 @@ export abstract class AppDiscord {
 export abstract class AppDiscord1 {
   @Slash("hello")
   add(
-    @SlashOption("text")
-    text: string,
+    @SlashOption("user")
+    userOrRole: GuildMember,
     interaction: CommandInteraction
   ): void {
-    interaction.reply(text);
+    interaction.reply(`${userOrRole}`);
   }
 }

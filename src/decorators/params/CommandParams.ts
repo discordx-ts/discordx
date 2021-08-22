@@ -29,10 +29,13 @@ export type SimpleCommandOptionType =
   | null
   | undefined;
 
-export type SimpleCommandType =
-  | "STRING"
-  | "NUMBER"
-  | "BOOLEAN"
-  | "USER"
-  | "CHANNEL"
-  | "ROLE";
+export const SimpleCommandTypes = <const>[
+  "STRING",
+  "NUMBER",
+  "BOOLEAN",
+  "USER",
+  "CHANNEL",
+  "ROLE",
+];
+
+export type SimpleCommandType = typeof SimpleCommandTypes[number];

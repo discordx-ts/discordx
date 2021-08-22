@@ -17,7 +17,7 @@ import {
   SlashChoice,
   SlashGroup,
   SlashOption,
-  StringOptionType,
+  SlashOptionType,
 } from "../src";
 
 type Data = { passed: boolean };
@@ -48,6 +48,7 @@ export abstract class AppDiscord {
     client: Client,
     datas: Data
   ): unknown {
+    console.log(x, y);
     return ["/testing maths add", x + y, interaction, datas.passed];
   }
 
@@ -153,13 +154,13 @@ beforeAll(async () => {
 
 class FakeOption {
   name: string;
-  type: StringOptionType;
+  type: SlashOptionType;
   options: FakeOption[] | undefined;
   value: string | number;
 
   constructor(
     name: string,
-    type: StringOptionType,
+    type: SlashOptionType,
     value: string | number,
     options?: FakeOption[]
   ) {
@@ -170,13 +171,25 @@ class FakeOption {
   }
 }
 
+class SlashOptionResolver {
+  data: FakeOption[];
+
+  constructor(options: FakeOption[]) {
+    this.data = options;
+  }
+
+  get(name: string) {
+    return this.data.find((op) => op.name === name);
+  }
+}
+
 class FakeInteraction {
   commandName: string;
-  options: { data: FakeOption[] };
+  options: SlashOptionResolver;
 
   constructor(commandName: string, options: FakeOption[]) {
     this.commandName = commandName;
-    this.options = { data: options };
+    this.options = new SlashOptionResolver(options);
   }
 
   isCommand() {

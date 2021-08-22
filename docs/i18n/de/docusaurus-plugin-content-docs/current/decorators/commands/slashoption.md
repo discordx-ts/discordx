@@ -61,7 +61,7 @@ import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js";
 class DiscordBot {
   @Slash("getID")
   getID(
-    @SlashOption("x", { type: OptionType.MENTIONABLE })
+    @SlashOption("x", { type: "MENTIONABLE" })
     mentionable: TextChannel | VoiceChannel | ClientUser | Role,
 
     interaction: CommandInteraction
@@ -137,7 +137,7 @@ class DiscordBot {
 
   ```ts
   fn(
-    @SlashOption("x", { type: OptionType.MENTIONABLE })
+    @SlashOption("x", { type: "MENTIONABLE" })
     channel: TextChannel | VoiceChannel | ClientUser | Role,
   )
   ```
@@ -150,10 +150,11 @@ class DiscordBot {
 ## Signature
 
 ```ts
-Option(name: string);
-Option(name: string, type: OptionValueType | OptionType);
-Option(name: string, params: SlashOptionParams);
-Option(name: string, type: OptionValueType | OptionType, params: SlashOptionParams);
+SlashOption(name: string);
+SlashOption(
+  name: string,
+  params?: SlashOptionParams
+)
 ```
 
 ## Parameters
@@ -164,7 +165,7 @@ Option(name: string, type: OptionValueType | OptionType, params: SlashOptionPara
 
 The option name
 
-### OptionValueType
+### SlashOptionType
 
 #### Description
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import {
   DSimpleCommand,
   DSimpleCommandOption,
@@ -6,6 +7,7 @@ import {
   ParameterDecoratorEx,
   SimpleCommandType,
 } from "../..";
+import { SimpleCommandTypes } from "..";
 
 /**
  * Define option for simple commnad
@@ -35,12 +37,16 @@ export function SimpleCommandOption(
 ): ParameterDecoratorEx {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string, index: number) {
-    const type =
-      params?.type ??
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      ((Reflect.getMetadata("design:paramtypes", target, key) as Function[])[
-        index
-      ].name.toUpperCase() as "STRING" | "NUMBER" | "BOOLEAN" | undefined);
+    const dType = (
+      Reflect.getMetadata("design:paramtypes", target, key)[index] as Function
+    ).name.toUpperCase();
+
+    const type = params?.type ?? (dType as SimpleCommandType);
+
+    // throw error if option type is invalid
+    if (!SimpleCommandTypes.includes(type)) {
+      throw Error("Invalid simple command option type");
+    }
 
     const option = DSimpleCommandOption.create(
       name,

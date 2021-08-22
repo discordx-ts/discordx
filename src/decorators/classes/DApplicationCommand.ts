@@ -4,7 +4,6 @@ import {
   ApplicationCommandPermissionData,
   ApplicationCommandType,
   CommandInteraction,
-  CommandInteractionOption,
   Snowflake,
 } from "discord.js";
 
@@ -164,25 +163,26 @@ export class DApplicationCommand extends Method {
     };
   }
 
-  getLastNestedOption(
-    options: CommandInteractionOption[]
-  ): CommandInteractionOption[] {
-    const arrOptions = Array.from(options?.values());
-
-    if (!arrOptions?.[0]?.options) {
-      return arrOptions;
-    }
-
-    return this.getLastNestedOption(arrOptions?.[0].options);
-  }
-
   parseParams(interaction: CommandInteraction) {
-    const options = this.getLastNestedOption(
-      Array.from(interaction.options.data.values())
-    );
-
     return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-      .map((op) => options.find((o) => o.name === op.name)?.value);
+      .map((op) => {
+        const option = interaction.options.get(op.name);
+        console.log(option);
+        return option?.type === "CHANNEL"
+          ? // GuildChannel | APIInteractionDataResolvedChannel | undefined
+            option.channel
+          : option?.type === "USER"
+          ? // GuildMember | APIInteractionDataResolvedGuildMember | User | undefined
+            option.member ?? option.user
+          : option?.type === "ROLE"
+          ? // Role | APIRole | undefined
+            option.role
+          : option?.type === "MENTIONABLE"
+          ? // GuildChannel | APIInteractionDataResolvedChannel | Role | APIRole | undefined
+            option.member ?? option.user ?? option.role
+          : // string | number | boolean | undefined
+            option?.value;
+      });
   }
 }
