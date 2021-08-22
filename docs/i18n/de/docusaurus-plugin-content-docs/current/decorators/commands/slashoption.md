@@ -66,7 +66,7 @@ class DiscordBot {
 
     interaction: CommandInteraction
   ) {
-    interaction.reply(channel.id);
+    interaction.reply(mentionable.id);
   }
 }
 ```
