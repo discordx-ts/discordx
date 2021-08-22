@@ -1,11 +1,4 @@
-import {
-  GuildChannel,
-  GuildMember,
-  Role,
-  Snowflake,
-  ThreadChannel,
-  User,
-} from "discord.js";
+import { Snowflake } from "discord.js";
 
 export interface SimpleCommandParams {
   argSplitter?: string | RegExp;
@@ -16,26 +9,3 @@ export interface SimpleCommandParams {
   botIds?: string[];
   aliases?: string[];
 }
-
-export type SimpleCommandOptionType =
-  | string
-  | number
-  | boolean
-  | ThreadChannel
-  | GuildChannel
-  | User
-  | GuildMember
-  | Role
-  | null
-  | undefined;
-
-export const SimpleCommandTypes = <const>[
-  "STRING",
-  "NUMBER",
-  "BOOLEAN",
-  "USER",
-  "CHANNEL",
-  "ROLE",
-];
-
-export type SimpleCommandType = typeof SimpleCommandTypes[number];

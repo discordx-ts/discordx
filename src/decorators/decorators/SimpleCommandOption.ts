@@ -6,8 +6,8 @@ import {
   Modifier,
   ParameterDecoratorEx,
   SimpleCommandType,
+  SimpleCommandTypes,
 } from "../..";
-import { SimpleCommandTypes } from "..";
 
 /**
  * Define option for simple commnad

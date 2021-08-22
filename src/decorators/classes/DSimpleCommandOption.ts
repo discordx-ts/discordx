@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Decorator } from "./Decorator";
-import { SimpleCommandType } from "..";
+import { SimpleCommandType } from "../..";
 
 /**
  * @category Decorator
