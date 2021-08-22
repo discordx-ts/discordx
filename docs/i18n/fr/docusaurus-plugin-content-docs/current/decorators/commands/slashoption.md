@@ -182,7 +182,7 @@ The option is required or not
 
 #### Type
 
-`"USER" | "STRING" | "BOOLEAN" | "INTEGER" | "CHANNEL" | "ROLE" | "MENTIONABLE" | undefined`
+`"USER" | "STRING" | "BOOLEAN" | "INTEGER" | "NUMBER" | "CHANNEL" | "ROLE" | "MENTIONABLE" | undefined`
 
 `default: STRING`
 
