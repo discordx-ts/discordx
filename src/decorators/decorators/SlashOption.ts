@@ -43,9 +43,7 @@ export function SlashOption(
     ).name.toUpperCase();
 
     const type: SlashOptionType =
-      params?.type ?? dType === "NUMBER"
-        ? "INTEGER"
-        : dType === "GUILDMEMBER"
+      params?.type ?? dType === "GUILDMEMBER"
         ? "USER"
         : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
         ? "CHANNEL"

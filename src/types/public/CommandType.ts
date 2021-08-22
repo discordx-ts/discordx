@@ -6,6 +6,7 @@ export const SlashOptionTypes = <const>[
   "STRING",
   "BOOLEAN",
   "INTEGER",
+  "NUMBER",
   "CHANNEL",
   "ROLE",
   "USER",
