@@ -48,7 +48,6 @@ export abstract class AppDiscord {
     client: Client,
     datas: Data
   ): unknown {
-    console.log(x, y);
     return ["/testing maths add", x + y, interaction, datas.passed];
   }
 
