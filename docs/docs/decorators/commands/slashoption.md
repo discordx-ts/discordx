@@ -114,7 +114,7 @@ class DiscordBot {
   ```
 
 - `"USER"`
-  **Infered from `User` (or `ClientUser`, not recommended)**
+  **Infered from `User` | `GuildMember` (you will recieve GuildMember if present otherwise User)**
 
   ```ts
   fn(
