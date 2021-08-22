@@ -56,7 +56,7 @@ start();
 ## Signature
 
 ```ts
-SimpleCommand(name: string, params: CommandParams)
+SimpleCommand(name: string, params: SimpleCommandParams)
 ```
 
 ## Parameters
@@ -71,7 +71,7 @@ Make sure your command name is compitable with regex `a-z A-Z0-9`
 
 The simple command name.
 
-### CommandParams
+### SimpleCommandParams
 
 `object`
 

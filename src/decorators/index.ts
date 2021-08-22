@@ -83,7 +83,7 @@ export * from "./classes/DSimpleCommand";
 export * from "./classes/DSimpleCommandOption";
 export * from "./classes/Modifier";
 
-export * from "./params/CommandParams";
 export * from "./params/EventParams";
+export * from "./params/SimpleCommandParams";
 export * from "./params/SlashOptionParams";
 export * from "./params/SlashParams";

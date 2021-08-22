@@ -1,8 +1,8 @@
 import {
-  CommandParams,
   DSimpleCommand,
   MetadataStorage,
   MethodDecoratorEx,
+  SimpleCommandParams,
 } from "../..";
 
 const testName = RegExp(/^[a-zA-Z0-9 ]+$/);
@@ -33,12 +33,12 @@ export function SimpleCommand(name: string): MethodDecoratorEx;
  */
 export function SimpleCommand(
   name: string,
-  params: CommandParams
+  params: SimpleCommandParams
 ): MethodDecoratorEx;
 
 export function SimpleCommand(
   name?: string,
-  params?: CommandParams
+  params?: SimpleCommandParams
 ): MethodDecoratorEx {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {

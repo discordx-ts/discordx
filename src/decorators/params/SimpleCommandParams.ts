@@ -7,7 +7,7 @@ import {
   User,
 } from "discord.js";
 
-export interface CommandParams {
+export interface SimpleCommandParams {
   argSplitter?: string | RegExp;
   description?: string;
   directMessage?: boolean;
