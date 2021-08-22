@@ -260,9 +260,9 @@ describe("Slash", () => {
             options: [],
           },
           {
-            description: "nb - INTEGER",
+            description: "nb - NUMBER",
             name: "nb",
-            type: "INTEGER",
+            type: "NUMBER",
             required: true,
             choices: [],
             options: [],
@@ -363,7 +363,7 @@ describe("Slash", () => {
                   {
                     description: "x value",
                     name: "x",
-                    type: "INTEGER",
+                    type: "NUMBER",
                     required: false,
                     choices: [],
                     options: [],
@@ -371,7 +371,7 @@ describe("Slash", () => {
                   {
                     description: "y value",
                     name: "y",
-                    type: "INTEGER",
+                    type: "NUMBER",
                     required: false,
                     choices: [],
                     options: [],
@@ -387,7 +387,7 @@ describe("Slash", () => {
                   {
                     description: "x value",
                     name: "x",
-                    type: "INTEGER",
+                    type: "NUMBER",
                     required: false,
                     choices: [],
                     options: [],
@@ -395,7 +395,7 @@ describe("Slash", () => {
                   {
                     description: "y value",
                     name: "y",
-                    type: "INTEGER",
+                    type: "NUMBER",
                     required: false,
                     choices: [],
                     options: [],
@@ -484,8 +484,8 @@ describe("Slash", () => {
     const interaction = new FakeInteraction("testing", [
       new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
         new FakeOption("multiply", "SUB_COMMAND", "text", [
-          new FakeOption("x", "INTEGER", 2),
-          new FakeOption("y", "INTEGER", 5),
+          new FakeOption("x", "NUMBER", 2),
+          new FakeOption("y", "NUMBER", 5),
         ]),
       ]),
     ]);
@@ -498,8 +498,8 @@ describe("Slash", () => {
     const interaction = new FakeInteraction("testing", [
       new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
         new FakeOption("add", "SUB_COMMAND", "text", [
-          new FakeOption("x", "INTEGER", 2),
-          new FakeOption("y", "INTEGER", 5),
+          new FakeOption("x", "NUMBER", 2),
+          new FakeOption("y", "NUMBER", 5),
         ]),
       ]),
     ]);
@@ -519,8 +519,8 @@ describe("Slash", () => {
     const interaction = new FakeInteraction("testing", [
       new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
         new FakeOption("notfound", "SUB_COMMAND", "text", [
-          new FakeOption("x", "INTEGER", 2),
-          new FakeOption("y", "INTEGER", 5),
+          new FakeOption("x", "NUMBER", 2),
+          new FakeOption("y", "NUMBER", 5),
         ]),
       ]),
     ]);
