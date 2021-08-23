@@ -62,7 +62,7 @@ class DiscordBot {
   @Slash("getID")
   getID(
     @SlashOption("x", { type: "MENTIONABLE" })
-    mentionable: TextChannel | VoiceChannel | ClientUser | Role,
+    mentionable: GuildMember | User | Role,
 
     interaction: CommandInteraction
   ) {
@@ -138,7 +138,7 @@ class DiscordBot {
   ```ts
   fn(
     @SlashOption("x", { type: "MENTIONABLE" })
-    channel: TextChannel | VoiceChannel | ClientUser | Role,
+    channel: GuildMember | User | Role,
   )
   ```
 

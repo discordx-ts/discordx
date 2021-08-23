@@ -1,4 +1,10 @@
-import { Channel, CommandInteraction, GuildMember, Role } from "discord.js";
+import {
+  Channel,
+  CommandInteraction,
+  GuildMember,
+  Role,
+  User,
+} from "discord.js";
 import {
   Discord,
   Slash,
@@ -81,10 +87,10 @@ export abstract class AppDiscord1 {
     interaction.reply(`${channel}`);
   }
 
-  @Slash("roleOrUser")
+  @Slash("roleoruser")
   roleorUser(
     @SlashOption("channel", { type: "MENTIONABLE" })
-    roleOrUser: GuildMember | Role,
+    roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${roleOrUser}`);
