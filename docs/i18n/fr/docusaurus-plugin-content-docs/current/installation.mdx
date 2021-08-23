@@ -44,32 +44,36 @@ title: Installation
     <p align="center">discord.ts (discordx)</p>
   </h1>
   <p align="center">
-    <b> Create your discord bot by using TypeScript and decorators! </b>
+    <b> Créez votre bot discord en utilisant TypeScript et decorators! </b>
   </p>
 </div>
+
+:::warning
+Ce fichier a été traduit avec le traducteur google, s'il y a une erreur, nous nous excusons
+:::
 
 ## Introduction
 
 Ce module est une extension de **[discord.js](https://discord.js.org)**, donc le comportement interne (méthodes, propriétés, ...) est le même.
 
-This library allows you to use TypeScript decorators on discord.**js**, it simplify your code and improve the readability !
+Cette bibliothèque vous permet d'utiliser des décorateurs TypeScript sur Discord.**js**, it simplify your code and improve the readability !
 
-## Easy setup - starter project
+## Configuration facile - projet de démarrage
 
-1. Clone this project
+1. Cloner ce projet
 
 ```
 git clone https://github.com/oceanroleplay/discord.ts-example
 cd discord.ts-example
 ```
 
-2. Build
+2. Construire
 
 ```bash npm2yarn
 npm install
 ```
 
-3. Setup bot token
+3. Jeton de bot de configuration
 
 <Tabs
   defaultValue="win"
@@ -101,7 +105,7 @@ export BOT_TOKEN=<your bot token>
 npm run start
 ```
 
-5. And let's go, everything was done for you! 🚀
+5. Et tu as fini, tout a été fait pour toi! 🚀
 
 ## Installation
 
@@ -117,20 +121,20 @@ npm run start
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
 :::caution
-You also have to install "reflect-metadata" for the decorators
+Vous devez également installer "reflect-metadata" pour le decorators
 :::
 
 ```bash npm2yarn
 npm install discordx reflect-metadata discord.js
 ```
 
-Install your TypeScript dev dependencies too
+Installez également vos dépendances de développement TypeScript
 
 ```bash npm2yarn
 npm install --save-dev @types/node typescript
 ```
 
-And you should see this in your package.json
+Et vous devriez voir cela dans votre package.json
 
 ```json title="package.json"
 {
@@ -148,7 +152,7 @@ And you should see this in your package.json
 }
 ```
 
-If you need to update again in the future just run:
+Si vous avez besoin de mettre à jour à nouveau à l'avenir, exécutez simplement:
 
 ```bash npm2yarn
 npm install discordx discord.js
@@ -161,20 +165,20 @@ npm install discordx discord.js
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
 :::caution
-You also have to install "reflect-metadata" for the decorators
+Vous devez également installer "reflect-metadata" pour le decorators
 :::
 
 ```bash npm2yarn
 npm install discordx@dev discord.js@dev reflect-metadata
 ```
 
-Install your TypeScript dev dependencies too
+Installez également vos dépendances de développement TypeScript
 
 ```bash npm2yarn
 npm install --save-dev @types/node typescript
 ```
 
-And you should see this in your package.json
+Et vous devriez voir cela dans votre package.json
 
 ```json title="package.json"
 {
@@ -192,7 +196,7 @@ And you should see this in your package.json
 }
 ```
 
-If you need to update again in the future just run:
+Si vous avez besoin de mettre à jour à nouveau à l'avenir, exécutez simplement:
 
 ```bash npm2yarn
 npm install discordx@dev discord.js@dev
@@ -203,10 +207,10 @@ npm install discordx@dev discord.js@dev
 
 ## Execution environment
 
-To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).
+Pour démarrer votre bot, vous pouvez compiler votre code en JavaScript avec TypeScript en utilisant la commande `tsc` ou une simple utilisation [ts-node](https://www.npmjs.com/package/ts-node).
 
 :::caution
-Be aware that if you compile your code into JavaScript with `tsc` you have to specify .js files when you instanciate your Client
+Notez que si vous compilez votre code en JavaScript avec `tsc` vous devez spécifier le fichier .js lorsque vous instanciez votre client
 
 ```ts
 const client = new Client({
@@ -235,7 +239,7 @@ client.login(BOT_TOKEN);
 
 ## tsconfig.json
 
-Your tsconfig.json file should look like this:
+Votre fichier tsconfig.json devrait ressembler à ceci:
 
 ```json title="tsconfig.json"
 {
@@ -261,7 +265,7 @@ Your tsconfig.json file should look like this:
 ## reflect-metadata
 
 :::caution
-You should import the **reflect-metadata** module in your main file, for reflection
+Vous devez importer le module **reflect-metadata** dans votre fichier principal, pour réflexion
 :::
 
 ```ts
@@ -281,13 +285,13 @@ start();
 
 **[discord.ts server](https://discord.gg/VDjwu8E)**
 
-You can also find help with [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
+Vous pouvez également trouver de l'aide pour [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
 
-## See also
+## Voir également
 
 - [Discord.js's documentation with Interactions (Slash commands)](https://discord.js.org/#/docs/main/master/general/welcome)
 - [Discord's Slash commands interactions](https://discord.com/developers/docs/interactions/slash-commands)
 
-## Next step
+## L'étape suivante
 
-[Setup and start your application 🚀](/docs/general/client)
+[Configurez et démarrez votre application 🚀](/docs/general/client)
