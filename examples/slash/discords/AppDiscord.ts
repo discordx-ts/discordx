@@ -80,4 +80,13 @@ export abstract class AppDiscord1 {
   ): void {
     interaction.reply(`${channel}`);
   }
+
+  @Slash("roleOrUser")
+  roleorUser(
+    @SlashOption("channel", { type: "MENTIONABLE" })
+    roleOrUser: GuildMember | Role,
+    interaction: CommandInteraction
+  ): void {
+    interaction.reply(`${roleOrUser}`);
+  }
 }

@@ -43,11 +43,12 @@ export function SlashOption(
     ).name.toUpperCase();
 
     const type: SlashOptionType =
-      params?.type ?? dType === "GUILDMEMBER"
+      params?.type ??
+      (dType === "GUILDMEMBER"
         ? "USER"
         : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
         ? "CHANNEL"
-        : (dType as SlashOptionType);
+        : (dType as SlashOptionType));
 
     // throw error if option type is invalid
     if (!SlashOptionTypes.includes(type)) {
