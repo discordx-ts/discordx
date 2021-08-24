@@ -1,4 +1,5 @@
 import { ContextMenu, Discord } from "../../../src";
+import { ContextMenuInteraction } from "discord.js";
 
 @Discord()
 export abstract class contextTest {
@@ -8,7 +9,7 @@ export abstract class contextTest {
   }
 
   @ContextMenu("USER", "Hello from discord.ts")
-  async userHandler(): Promise<void> {
-    console.log("I am user");
+  async userHandler(interaction: ContextMenuInteraction): Promise<void> {
+    console.log(`Selected user: ${interaction.targetId}`);
   }
 }
