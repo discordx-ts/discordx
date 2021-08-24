@@ -2,6 +2,7 @@
 import {
   Channel,
   CommandInteraction,
+  GuildMember,
   Role,
   TextChannel,
   User,
@@ -136,6 +137,9 @@ export abstract class AppDiscord1 {
 
     @SlashOption("role", { required: false })
     role: Role,
+
+    @SlashOption("userorrole", { type: "MENTIONABLE", required: false })
+    userorrole: GuildMember | User | Role,
 
     interaction: CommandInteraction,
     client: Client,
@@ -303,6 +307,14 @@ describe("Slash", () => {
             description: "role - ROLE",
             name: "role",
             type: "ROLE",
+            required: false,
+            choices: [],
+            options: [],
+          },
+          {
+            description: "userorrole - MENTIONABLE",
+            name: "userorrole",
+            type: "MENTIONABLE",
             required: false,
             choices: [],
             options: [],

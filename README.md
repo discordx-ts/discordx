@@ -171,7 +171,7 @@ const roles = [
 class buttons {
   @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction) {
-    await interaction.defer();
+    await interaction.deferReply();
 
     // extract selected value by member
     const roleValue = interaction.values?.[0];
@@ -189,7 +189,7 @@ class buttons {
 
   @Slash("roles", { description: "role selector menu" })
   async myroles(interaction: CommandInteraction): Promise<unknown> {
-    await interaction.defer();
+    await interaction.deferReply();
 
     // create menu for roels
     const menu = new MessageSelectMenu()

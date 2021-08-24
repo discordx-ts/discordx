@@ -21,7 +21,7 @@ import { ButtonComponent, Discord, Slash } from "discordx";
 class buttonExample {
   @Slash("hello")
   async hello(interaction: CommandInteraction) {
-    await interaction.defer();
+    await interaction.deferReply();
 
     // Create the button, giving it the ID: "hello-btn"
     const helloBtn = new MessageButton()
