@@ -184,20 +184,23 @@ export class DApplicationCommand extends Method {
       .map((op) => {
         const option = options.find((xp) => xp.name === op.name);
         if (!option) return undefined;
-        return option.type === "CHANNEL"
-          ? // GuildChannel | APIInteractionDataResolvedChannel | undefined
-            option.channel
-          : option.type === "USER"
-          ? // GuildMember | APIInteractionDataResolvedGuildMember | User | undefined
-            option.member ?? option.user
-          : option.type === "ROLE"
-          ? // Role | APIRole | undefined
-            option.role
-          : option.type === "MENTIONABLE"
-          ? // GuildChannel | APIInteractionDataResolvedChannel | Role | APIRole | undefined
-            option.member ?? option.user ?? option.role
-          : // string | number | boolean | undefined
-            option.value;
+
+        // GuildChannel | APIInteractionDataResolvedChannel | undefined
+        if (option.type === "CHANNEL") return option.channel;
+
+        // GuildMember | APIInteractionDataResolvedGuildMember | User | undefined
+        if (option.type === "USER") return option.member ?? option.user;
+
+        // Role | APIRole | undefined
+        if (option.type === "ROLE") return option.role;
+
+        // GuildChannel | APIInteractionDataResolvedChannel | Role | APIRole | undefined
+        if (option.type === "MENTIONABLE") {
+          return option.member ?? option.user ?? option.role;
+        }
+
+        // string | number | boolean | undefined
+        return option.value;
       });
   }
 }
