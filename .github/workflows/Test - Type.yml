@@ -68,3 +68,21 @@ jobs:
 
       - name: Run prettier
         run: npm run format-check
+
+  jest:
+    name: Jest Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node v16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run prettier
+        run: npm run test
