@@ -104,7 +104,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
   ```ts
   fn(
     @SimpleCommandOption("x", { type: "MENTIONABLE" })
-    channel: GuildMember | User | ClientUser | Role,
+    channel: GuildMember | User | Role,
   )
   ```
 

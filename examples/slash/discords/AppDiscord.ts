@@ -89,7 +89,7 @@ export abstract class AppDiscord1 {
 
   @Slash("roleoruser")
   roleorUser(
-    @SlashOption("channel", { type: "MENTIONABLE" })
+    @SlashOption("roleoruser", { type: "MENTIONABLE" })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {

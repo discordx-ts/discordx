@@ -55,7 +55,6 @@ export abstract class commandTest {
     @SimpleCommandOption("user") user: GuildMember,
     command: SimpleCommandMessage
   ): Promise<void> {
-    console.log(user);
-    command.message.reply("done");
+    command.message.reply(`${user}`);
   }
 }

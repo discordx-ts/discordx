@@ -173,26 +173,24 @@ export class DSimpleCommand extends Method {
           return command.message.guild?.roles.resolve(id);
         }
 
-        // GuildMember | User | ClientUser | undefined
+        // GuildMember | User | undefined
         if (op.type === "USER") {
           if (!id?.length) return undefined;
-          if (id === command.message.client.user?.id) {
-            return command.message.client.user;
-          }
           if (command.message.channel.type === "DM") {
-            return command.message.author;
+            return command.message.client.user?.id === id
+              ? command.message.client.users.resolve(id)
+              : command.message.author;
           }
           return command.message.guild?.members.resolve(id);
         }
 
-        // GuildMember | User | ClientUser | Role | undefined
+        // GuildMember | User | Role | undefined
         if (op.type === "MENTIONABLE") {
           if (!id?.length) return undefined;
-          if (id === command.message.client.user?.id) {
-            return command.message.client.user;
-          }
           if (command.message.channel.type === "DM") {
-            return command.message.author;
+            return command.message.client.user?.id === id
+              ? command.message.client.users.resolve(id)
+              : command.message.author;
           }
           return (
             command.message.guild?.members.resolve(id) ??
