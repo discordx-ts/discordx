@@ -56,7 +56,8 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          sidebarCollapsed: true,
+          sidebarCollapsible: true,
+          sidebarCollapsed: false,
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
