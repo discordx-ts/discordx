@@ -39,11 +39,13 @@ export type SimpleCommandOptionType =
 
 export const SimpleCommandTypes = <const>[
   "STRING",
+  "INTEGER",
   "NUMBER",
   "BOOLEAN",
   "USER",
   "CHANNEL",
   "ROLE",
+  "MENTIONABLE",
 ];
 
 export type SimpleCommandType = typeof SimpleCommandTypes[number];

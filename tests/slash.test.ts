@@ -214,8 +214,8 @@ class FakeInteraction {
 
 describe("Slash", () => {
   it("Should create the slash structure", async () => {
-    expect(client.applicationCommands[0].guilds).toEqual(["invalid_id"]);
-    expect(client.applicationCommands[0].permissions).toEqual([
+    expect(client.applicationCommands[0]?.guilds).toEqual(["invalid_id"]);
+    expect(client.applicationCommands[0]?.permissions).toEqual([
       {
         id: "123",
         type: "USER",

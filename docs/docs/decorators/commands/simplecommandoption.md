@@ -37,10 +37,81 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
   }
 ```
 
+## Type inferance
+
+- `"STRING"`
+  **Infered from `String`**
+
+  ```ts
+  fn(
+    @SimpleCommandOption("x")
+    channel: string,
+  )
+  ```
+
+- `"BOOLEAN"`
+  **Infered from `Boolean`**
+
+  ```ts
+  fn(
+    @SimpleCommandOption("x")
+    channel: boolean,
+  )
+  ```
+
+- `"INTEGER"`
+  **Infered from `Number`**
+
+  ```ts
+  fn(
+    @SimpleCommandOption("x")
+    channel: number,
+  )
+  ```
+
+- `"ROLE"`
+  **Infered from `Role`**
+
+  ```ts
+  fn(
+    @SimpleCommandOption("x")
+    channel: Role,
+  )
+  ```
+
+- `"USER"`
+  **Infered from `User` | `GuildMember` (you will recieve GuildMember if present otherwise User)**
+
+  ```ts
+  fn(
+    @SimpleCommandOption("x")
+    channel: User,
+  )
+  ```
+
+- `"CHANNEL"`
+  **Infered from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
+
+  ```ts
+  fn(
+    @SimpleCommandOption("x")
+    channel: Channel,
+  ```
+
+- `"MENTIONABLE"`
+  **No inferance, use:**
+
+  ```ts
+  fn(
+    @SimpleCommandOption("x", { type: "MENTIONABLE" })
+    channel: GuildMember | User | ClientUser | Role,
+  )
+  ```
+
 ## Signature
 
 ```ts
-SimpleCommandOption( name: string, params?: { description?: string; type?: "STRING | NUMBER | BOOLEAN | USER | CHANNEL | ROLE" } ): ParameterDecoratorEx;
+SimpleCommandOption( name: string, params?: { description?: string; type?: "STRING | INTEGER | NUMBER | BOOLEAN | USER | CHANNEL | ROLE | MENTIONABLE" } );
 ```
 
 ## Parameters
@@ -63,6 +134,6 @@ The description of command option
 
 #### type
 
-`STRING | NUMBER | BOOLEAN | USER | CHANNEL | ROLE`
+`STRING | INTEGER | NUMBER | BOOLEAN | USER | CHANNEL | ROLE | MENTIONABLE`
 
 The type of your command option

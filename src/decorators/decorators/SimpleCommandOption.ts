@@ -41,7 +41,13 @@ export function SimpleCommandOption(
       Reflect.getMetadata("design:paramtypes", target, key)[index] as Function
     ).name.toUpperCase();
 
-    const type = params?.type ?? (dType as SimpleCommandType);
+    const type: SimpleCommandType =
+      params?.type ??
+      (dType === "GUILDMEMBER"
+        ? "USER"
+        : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
+        ? "CHANNEL"
+        : (dType as SimpleCommandType));
 
     // throw error if option type is invalid
     if (!SimpleCommandTypes.includes(type)) {

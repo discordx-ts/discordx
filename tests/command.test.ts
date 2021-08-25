@@ -99,16 +99,16 @@ beforeAll(async () => {
 
 describe("Commands", () => {
   it("Should create the command structure", async () => {
-    expect(client.simpleCommands[0].guilds).toEqual(["693401527494377482"]);
-    expect(client.simpleCommands[0].permissions).toEqual([
+    expect(client.simpleCommands[0]?.guilds).toEqual(["693401527494377482"]);
+    expect(client.simpleCommands[0]?.permissions).toEqual([
       {
         id: "123",
         type: "USER",
         permission: true,
       },
     ]);
-    expect(client.simpleCommands[0].aliases).toEqual(["add1", "add2"]);
-    expect(client.simpleCommands[0].argSplitter).toEqual("~");
+    expect(client.simpleCommands[0]?.aliases).toEqual(["add1", "add2"]);
+    expect(client.simpleCommands[0]?.argSplitter).toEqual("~");
   });
 
   it("Should execute simple command", async () => {

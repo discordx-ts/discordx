@@ -531,7 +531,7 @@ export class Client extends ClientJS {
     const tree: string[] = [];
 
     const getOptionsTree = (
-      option: Partial<CommandInteractionOption>
+      option: Partial<CommandInteractionOption> | undefined
     ): void => {
       if (!option) return;
 

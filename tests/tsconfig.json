@@ -3,6 +3,8 @@
     "module": "commonjs",
     "target": "ES2021",
     "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
     "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "build",

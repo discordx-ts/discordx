@@ -4,7 +4,7 @@ import {
   SimpleCommandMessage,
   SimpleCommandOption,
 } from "../../../src";
-import { Role, User } from "discord.js";
+import { GuildMember, Role, User } from "discord.js";
 
 @Discord()
 export abstract class commandTest {
@@ -48,5 +48,14 @@ export abstract class commandTest {
     command.message.reply(
       `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );
+  }
+
+  @SimpleCommand("testx")
+  async testx(
+    @SimpleCommandOption("user") user: GuildMember,
+    command: SimpleCommandMessage
+  ): Promise<void> {
+    console.log(user);
+    command.message.reply("done");
   }
 }

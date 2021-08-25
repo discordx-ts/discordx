@@ -5,6 +5,8 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "strict": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
     "rootDir": "src",
     "outDir": "build",
     "emitDecoratorMetadata": true,

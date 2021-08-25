@@ -74,7 +74,7 @@ export abstract class Method extends Decorator {
 
       if (index >= this.guards.length - 1) {
         // If it's the main method
-        res = await (guardToExecute.fn as any)(
+        res = await (guardToExecute?.fn as any)(
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
           ...this.parseParams(...params),
           ...params,
@@ -83,7 +83,11 @@ export abstract class Method extends Decorator {
       } else {
         // If it's the guards
         // method([Interaction, Client])
-        res = await (guardToExecute.fn as any)(...params, nextFn, paramsToNext);
+        res = await (guardToExecute?.fn as any)(
+          ...params,
+          nextFn,
+          paramsToNext
+        );
       }
 
       if (res) {

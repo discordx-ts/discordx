@@ -41,6 +41,7 @@ export class SimpleCommandMessage {
    */
   getRelatedCommands(): DSimpleCommand[] {
     const commandName = this.info.name.split(" ")[0];
+    if (!commandName) return [];
     return MetadataStorage.instance.simpleCommands.filter(
       (cmd) => cmd.name.startsWith(commandName) && cmd.name !== this.info.name
     );

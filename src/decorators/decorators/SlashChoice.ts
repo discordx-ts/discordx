@@ -72,7 +72,10 @@ export function SlashChoice(
           ];
         } else {
           const allChoices = Object.keys(name).map((key) => {
-            return DApplicationCommandOptionChoice.create(key, name[key]);
+            return DApplicationCommandOptionChoice.create(
+              key,
+              name[key] ?? "undefined"
+            );
           });
           original.choices = [...original.choices, ...allChoices];
         }

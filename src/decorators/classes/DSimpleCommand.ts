@@ -146,28 +146,62 @@ export class DSimpleCommand extends Method {
 
     return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-      .map((op, index) =>
-        !args?.[index]?.length
-          ? undefined
-          : op.type === "BOOLEAN"
-          ? Boolean(args[index])
-          : op.type === "NUMBER"
-          ? Number(args[index])
-          : op.type === "USER"
-          ? command.message.channel.type === "DM"
-            ? args[index].replace(/\D/g, "") === command.message.client.user?.id
-              ? command.message.client.user
-              : command.message.author
-            : command.message.guild?.members.resolve(
-                args[index].replace(/\D/g, "")
-              )
-          : op.type === "CHANNEL"
-          ? command.message.guild?.channels.resolve(
-              args[index].replace(/\D/g, "")
-            )
-          : op.type === "ROLE"
-          ? command.message.guild?.roles.resolve(args[index].replace(/\D/g, ""))
-          : args[index]
-      );
+      .map((op, index) => {
+        // only digits
+        const id = args[index]?.replace(/\D/g, "");
+
+        // undefined
+        if (!args[index]?.length) return undefined;
+
+        // Boolean
+        if (op.type === "BOOLEAN") return Boolean(args[index]);
+
+        // Number
+        if (op.type === "NUMBER" || op.type === "INTEGER") {
+          return Number(args[index]);
+        }
+
+        // Channel | undefined
+        if (op.type === "CHANNEL") {
+          if (!id?.length) return undefined;
+          return command.message.guild?.channels.resolve(id);
+        }
+
+        // Role | undefined
+        if (op.type === "ROLE") {
+          if (!id?.length) return undefined;
+          return command.message.guild?.roles.resolve(id);
+        }
+
+        // GuildMember | User | ClientUser | undefined
+        if (op.type === "USER") {
+          if (!id?.length) return undefined;
+          if (id === command.message.client.user?.id) {
+            return command.message.client.user;
+          }
+          if (command.message.channel.type === "DM") {
+            return command.message.author;
+          }
+          return command.message.guild?.members.resolve(id);
+        }
+
+        // GuildMember | User | ClientUser | Role | undefined
+        if (op.type === "MENTIONABLE") {
+          if (!id?.length) return undefined;
+          if (id === command.message.client.user?.id) {
+            return command.message.client.user;
+          }
+          if (command.message.channel.type === "DM") {
+            return command.message.author;
+          }
+          return (
+            command.message.guild?.members.resolve(id) ??
+            command.message.guild?.roles.resolve(id)
+          );
+        }
+
+        // string
+        return args[index];
+      });
   }
 }
