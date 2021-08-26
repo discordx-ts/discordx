@@ -13,24 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to npm /
       - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: install source dep
+      - name: Install root dependencies
         run: npm ci
 
-      - name: install doc dep
+      - name: Install doc dependencies
         run: npm ci
         working-directory: ./docs
 
-      - name: build docs
+      - name: Build docs
         run: npm run build
         working-directory: ./docs
 
-      - name: prepare git
+      - name: Publish git branch
         run: |
           git init -b docs
           git config user.email ${{ secrets.GIT_EMAIL }}

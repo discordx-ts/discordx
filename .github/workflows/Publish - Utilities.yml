@@ -1,8 +1,6 @@
-name: Publish - Stable
+name: Publish - Utilities
 on:
-  # workflow_dispatch:
-  release:
-    types: [created]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,8 +17,10 @@ jobs:
 
       - name: Build
         run: npm run build
+        working-directory: ./packages/utilities
 
       - name: Publish
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/utilities

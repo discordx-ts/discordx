@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      - name: build
+      - name: Build
         run: npm run build
 
       - name: Deprecate old versions
