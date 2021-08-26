@@ -51,7 +51,11 @@ export function SimpleCommandOption(
 
     // throw error if option type is invalid
     if (!SimpleCommandTypes.includes(type)) {
-      throw Error("Invalid simple command option type");
+      throw Error(
+        `invalid simple command option: ${type}\nSupported types are: ${SimpleCommandTypes.join(
+          ", "
+        )}`
+      );
     }
 
     const option = DSimpleCommandOption.create(

@@ -52,7 +52,11 @@ export function SlashOption(
 
     // throw error if option type is invalid
     if (!SlashOptionTypes.includes(type)) {
-      throw Error(`invalid slash option: ${type}`);
+      throw Error(
+        `invalid slash option: ${type}\nSupported types are: ${SlashOptionTypes.join(
+          ", "
+        )}`
+      );
     }
 
     const option = DApplicationCommandOption.create(
