@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Client, DDiscord, DGuard } from "../..";
 import { Decorator } from "./Decorator";
@@ -30,7 +29,7 @@ export abstract class Method extends Decorator {
    * @returns
    */
   get execute() {
-    return async (...params: any[]) => {
+    return async (...params: unknown[]) => {
       return await this.getGuardFunction()(...params);
     };
   }
@@ -61,20 +60,24 @@ export abstract class Method extends Decorator {
    * Define how to parse the params
    * @param params The params to parse
    */
-  abstract parseParams(...params: any[]): any[];
+  abstract parseParams(...params: unknown[]): unknown[];
 
   /**
    * Execute a guard with params
    */
-  getGuardFunction(): (...params: any[]) => Promise<any> {
-    const next = async (params: any, index: number, paramsToNext: any) => {
+  getGuardFunction(): (...params: unknown[]) => Promise<unknown> {
+    const next = async (
+      params: [],
+      index: number,
+      paramsToNext: Record<string, unknown>
+    ) => {
       const nextFn = () => next(params, index + 1, paramsToNext);
       const guardToExecute = this.guards[index];
-      let res: any;
+      let res: unknown;
 
       if (index >= this.guards.length - 1) {
         // If it's the main method
-        res = await (guardToExecute?.fn as any)(
+        res = await (guardToExecute?.fn as (...[]) => unknown)(
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
           ...this.parseParams(...params),
           ...params,
@@ -83,7 +86,7 @@ export abstract class Method extends Decorator {
       } else {
         // If it's the guards
         // method([Interaction, Client])
-        res = await (guardToExecute?.fn as any)(
+        res = await (guardToExecute?.fn as (...[]) => unknown)(
           ...params,
           nextFn,
           paramsToNext
@@ -97,6 +100,6 @@ export abstract class Method extends Decorator {
       return paramsToNext;
     };
 
-    return (...params: any[]) => next(params, 0, {});
+    return (...params: []) => next(params, 0, {});
   }
 }
