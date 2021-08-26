@@ -48,8 +48,6 @@ export async function sendPaginatedEmbeds(
       currentEmbed.setFooter(`Page ${page + 1} of ${embeds.length}`);
     }
 
-    console.log(currentEmbed.footer);
-
     if (options?.type === "BUTTON") {
       const buttonStyle = options?.style ?? "PRIMARY";
 
