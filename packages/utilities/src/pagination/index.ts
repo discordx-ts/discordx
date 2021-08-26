@@ -151,10 +151,7 @@ export async function sendPaginatedEmbeds(
     if (!message.editable) {
       return;
     }
-    if (
-      options?.showPagePosition === undefined ||
-      options?.showPagePosition === true
-    ) {
+    if (options?.showPagePosition ?? true) {
       const [embed] = message.embeds;
 
       if (embed) {
