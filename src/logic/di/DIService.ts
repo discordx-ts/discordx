@@ -19,7 +19,8 @@ export class DIService {
   private _services: Map<any, InstanceType<any>> = new Map();
 
   addService<ClassType>(classType: ClassType): InstanceOf<ClassType> {
-    const instance = new (classType as any)();
+    const instance =
+      new (classType as unknown as new () => InstanceOf<ClassType>)();
     this._services.set(classType, instance);
     return instance;
   }

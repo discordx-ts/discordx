@@ -3,6 +3,7 @@ import {
   Channel,
   CommandInteraction,
   GuildMember,
+  Interaction,
   Role,
   TextChannel,
   User,
@@ -452,7 +453,9 @@ describe("Slash", () => {
       new FakeOption("text", "STRING", "hello"),
     ]);
 
-    const res = await client.executeInteraction(interaction as any);
+    const res = await client.executeInteraction(
+      interaction as unknown as Interaction
+    );
     expect(res).toEqual(["/hello", "hello", interaction, true]);
   });
 
@@ -464,7 +467,9 @@ describe("Slash", () => {
       ]),
     ]);
 
-    const res = await client.executeInteraction(interaction as any);
+    const res = await client.executeInteraction(
+      interaction as unknown as Interaction
+    );
     expect(res).toEqual([
       "/testing hello text",
       "testing hello text",
@@ -483,7 +488,9 @@ describe("Slash", () => {
       ]),
     ]);
 
-    const res = await client.executeInteraction(interaction as any);
+    const res = await client.executeInteraction(
+      interaction as unknown as Interaction
+    );
     expect(res).toEqual([
       "/testing text hello",
       "testing text hello",
@@ -502,7 +509,9 @@ describe("Slash", () => {
       ]),
     ]);
 
-    const res = await client.executeInteraction(interaction as any);
+    const res = await client.executeInteraction(
+      interaction as unknown as Interaction
+    );
     expect(res).toEqual(["/testing maths multiply", 10, interaction, true]);
   });
 
@@ -516,14 +525,18 @@ describe("Slash", () => {
       ]),
     ]);
 
-    const res = await client.executeInteraction(interaction as any);
+    const res = await client.executeInteraction(
+      interaction as unknown as Interaction
+    );
     expect(res).toEqual(["/testing maths add", 7, interaction, true]);
   });
 
   it("Should execute the with optional option", async () => {
     const interaction = new FakeInteraction("hello", []);
 
-    const res = await client.executeInteraction(interaction as any);
+    const res = await client.executeInteraction(
+      interaction as unknown as Interaction
+    );
     expect(res).toEqual(["/hello", undefined, interaction, true]);
   });
 
@@ -537,7 +550,9 @@ describe("Slash", () => {
       ]),
     ]);
 
-    const res = await client.executeInteraction(interaction as any);
+    const res = await client.executeInteraction(
+      interaction as unknown as Interaction
+    );
     expect(res).toEqual(undefined);
   });
 });
