@@ -7,7 +7,7 @@ import {
   MessageSelectMenu,
   MessageSelectOptionData,
 } from "discord.js";
-import { PaginationInteractions, PaginationOptions } from "./types";
+import { PaginationInteractions, PaginationOptions, defaultIds } from "./types";
 
 // By default, it's half an hour.
 const defaultTime = 1800000;
@@ -23,7 +23,8 @@ export async function sendPaginatedEmbeds(
   embeds: (MessageEmbed | { content?: string; embed: MessageEmbed })[],
   options?: PaginationOptions
 ): Promise<void> {
-  let currentPage = options?.initialPage ?? 0;
+  const option = options ?? { type: "BUTTON" };
+  let currentPage = option.initialPage ?? 0;
 
   const pageOptions = (page: number): InteractionReplyOptions => {
     const beginning = page === 0;
@@ -41,19 +42,19 @@ export async function sendPaginatedEmbeds(
 
     const content =
       currentEmbedEx instanceof MessageEmbed
-        ? options?.content
-        : currentEmbedEx.content ?? options?.content;
+        ? option.content
+        : currentEmbedEx.content ?? option.content;
 
-    if (options?.showPagePosition ?? true) {
+    if (option.showPagePosition ?? true) {
       currentEmbed.setFooter(`Page ${page + 1} of ${embeds.length}`);
     }
 
-    if (options?.type === "BUTTON") {
-      const buttonStyle = options?.style ?? "PRIMARY";
+    if (option.type === "BUTTON") {
+      const buttonStyle = option.style ?? "PRIMARY";
 
       const optionOne = new MessageButton()
-        .setCustomId("discordx@nextButton")
-        .setLabel(options?.nextLabel ?? "Next")
+        .setCustomId(option.nextLabel ?? defaultIds.nextButton)
+        .setLabel(option.nextLabel ?? "Next")
         .setStyle(buttonStyle);
 
       if (end) {
@@ -61,8 +62,8 @@ export async function sendPaginatedEmbeds(
       }
 
       const optionTwo = new MessageButton()
-        .setCustomId("discordx@previousButton")
-        .setLabel(options?.previousLabel ?? "Previous")
+        .setCustomId(option.previousButtonId ?? defaultIds.previousButton)
+        .setLabel(option.previousLabel ?? "Previous")
         .setStyle(buttonStyle);
 
       if (beginning) {
@@ -77,20 +78,20 @@ export async function sendPaginatedEmbeds(
         components: [row],
       };
     } else {
-      const option = new MessageSelectMenu()
-        .setCustomId("discordx@pagination@menu")
+      const menu = new MessageSelectMenu()
+        .setCustomId(option.menuId ?? defaultIds.menuId)
         .setPlaceholder("Select page")
         .setOptions(
           Array.from(Array(embeds.length).keys()).map((i) => {
-            const option: MessageSelectOptionData = {
+            const selectMenuOption: MessageSelectOptionData = {
               label: `page ${i + 1}`,
               value: i.toString(),
             };
-            return option;
+            return selectMenuOption;
           })
         );
 
-      const row = new MessageActionRow().addComponents([option]);
+      const row = new MessageActionRow().addComponents([menu]);
 
       return {
         content,
@@ -116,15 +117,23 @@ export async function sendPaginatedEmbeds(
   }
 
   const collector = message.createMessageComponentCollector({
-    componentType: options?.type ?? "BUTTON",
-    time: options?.time ?? defaultTime,
+    componentType: option.type ?? "BUTTON",
+    time: option.time ?? defaultTime,
   });
 
   collector.on("collect", async (collectInteraction) => {
     if (collectInteraction.isButton()) {
-      if (collectInteraction.customId === "discordx@nextButton") {
+      if (
+        option.type === "BUTTON" &&
+        collectInteraction.customId ===
+          (option.nextButtonId ?? defaultIds.nextButton)
+      ) {
         currentPage++;
-      } else if (collectInteraction.customId === "discordx@previousButton") {
+      } else if (
+        option.type === "BUTTON" &&
+        collectInteraction.customId ===
+          (option.previousButtonId ?? defaultIds.previousButton)
+      ) {
         currentPage--;
       } else {
         return;
@@ -136,7 +145,8 @@ export async function sendPaginatedEmbeds(
     }
     if (
       collectInteraction.isSelectMenu() &&
-      collectInteraction.customId === "discordx@pagination@menu"
+      option.type === "SELECT_MENU" &&
+      collectInteraction.customId === (option.menuId ?? defaultIds.menuId)
     ) {
       await collectInteraction.deferUpdate();
       const currentPage = Number(collectInteraction.values[0] ?? "0");
@@ -146,10 +156,10 @@ export async function sendPaginatedEmbeds(
   });
 
   collector.on("end", async () => {
-    if (!message.editable) {
+    if (!message.editable || message.deleted) {
       return;
     }
-    if (options?.showPagePosition ?? true) {
+    if (option.showPagePosition ?? true) {
       const [embed] = message.embeds;
 
       if (embed) {

@@ -5,6 +5,12 @@ import {
   MessageComponentInteraction,
 } from "discord.js";
 
+export enum defaultIds {
+  nextButton = "discordx@pagination@nextButton",
+  previousButton = "discordx@pagination@previousButton",
+  menuId = "discordx@pagination@menu",
+}
+
 export type PaginationInteractions =
   | CommandInteraction
   | MessageComponentInteraction
@@ -44,6 +50,16 @@ interface BasicPaginationOptions {
 
 interface ButtonPaginationOptions extends BasicPaginationOptions {
   /**
+   * custom next button id (default: 'discordx@pagination@nextButton')
+   */
+  nextButtonId?: string;
+
+  /**
+   * custom previous button id (default: 'discordx@pagination@previousButton')
+   */
+  previousButtonId?: string;
+
+  /**
    * Button style.
    */
   style?: InteractionButtonOptions["style"];
@@ -51,14 +67,19 @@ interface ButtonPaginationOptions extends BasicPaginationOptions {
   /**
    * select pagination type (default: BUTTON)
    */
-  type?: "BUTTON";
+  type: "BUTTON";
 }
 
 interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   /**
    * select pagination type (default: BUTTON)
    */
-  type?: "SELECT_MENU";
+  type: "SELECT_MENU";
+
+  /**
+   * custom select menu id (default: 'discordx@pagination@menu')
+   */
+  menuId?: string;
 }
 
 export type PaginationOptions =
