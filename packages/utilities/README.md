@@ -3,7 +3,7 @@
 - Use embed pagination with discord new buttons and select menu
 - fully customizable (if you think something missing, just open a issue, so that we can add)
 
-![discord embed pagination](./images/discord-embed-pagination.jpg)
+![discord embed pagination](https://github.com/oceanroleplay/discord.ts/raw/main/packages/utilities/images/discord-embed-pagination.jpg)
 
 # Example
 
