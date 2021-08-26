@@ -232,6 +232,13 @@ const client = new Client({
   silent: false,
 });
 
+client.on("ready", () => {
+  console.log(">> Bot started");
+
+  // to create/update/delete discord application commands
+  client.initApplicationCommands();
+});
+
 client.login(BOT_TOKEN);
 ```
 
@@ -252,7 +259,7 @@ Votre fichier tsconfig.json devrait ressembler à ceci:
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": true,
+    "declaration": false,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ES2021", "esnext.asynciterable"],

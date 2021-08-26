@@ -10,7 +10,7 @@
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": true,
+    "declaration": false,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ES2021", "esnext.asynciterable"],
