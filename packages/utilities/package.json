@@ -1,6 +1,6 @@
 {
   "name": "@discordx/utilities",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "discordx utilities",
   "main": "build/index.js",
   "scripts": {
