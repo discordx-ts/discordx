@@ -1,0 +1,28 @@
+{
+  "name": "@discordx/utilities",
+  "version": "1.0.0",
+  "description": "discordx utilities",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+  },
+  "keywords": [
+    "discord",
+    "typescript",
+    "bot",
+    "javascript",
+    "utilities",
+    "discordx",
+    "discord.ts"
+  ],
+  "author": "Harry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oceanroleplay/discord.ts/issues"
+  },
+  "homepage": "https://github.com/oceanroleplay/discord.ts#readme"
+}
