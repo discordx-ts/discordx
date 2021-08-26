@@ -17,5 +17,5 @@
     "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node"
   },
-  "exclude": ["node_modules", "build", "tests", "examples", "docs"]
+  "exclude": ["node_modules", "build", "tests", "examples", "docs", "packages"]
 }
