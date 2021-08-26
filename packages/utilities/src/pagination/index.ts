@@ -8,6 +8,7 @@ import {
   MessageSelectOptionData,
 } from "discord.js";
 import { PaginationInteractions, PaginationOptions, defaultIds } from "./types";
+import { paginate } from "./paginate";
 
 // By default, it's half an hour.
 const defaultTime = 1800000;
@@ -78,18 +79,27 @@ export async function sendPaginatedEmbeds(
         components: [row],
       };
     } else {
+      const paginator = paginate(embeds.length, page, 1, 21).pages.map((i) => {
+        const selectMenuOption: MessageSelectOptionData = {
+          label: `page ${i}`,
+          value: (i - 1).toString(),
+        };
+        return selectMenuOption;
+      });
+
+      if (embeds.length > 21) {
+        if (page > 10) {
+          paginator.unshift({ label: "Start", value: "-1" });
+        }
+        if (page < embeds.length - 10) {
+          paginator.push({ label: "End", value: "-2" });
+        }
+      }
+
       const menu = new MessageSelectMenu()
         .setCustomId(option.menuId ?? defaultIds.menuId)
         .setPlaceholder("Select page")
-        .setOptions(
-          Array.from(Array(embeds.length).keys()).map((i) => {
-            const selectMenuOption: MessageSelectOptionData = {
-              label: `page ${i + 1}`,
-              value: i.toString(),
-            };
-            return selectMenuOption;
-          })
-        );
+        .setOptions(paginator);
 
       const row = new MessageActionRow().addComponents([menu]);
 
@@ -102,15 +112,18 @@ export async function sendPaginatedEmbeds(
   };
 
   const messageOptions = pageOptions(currentPage);
-  const message = interaction.deferred
-    ? await interaction.followUp({
-        ...messageOptions,
-        fetchReply: true,
-      })
-    : await interaction.reply({
-        ...messageOptions,
-        fetchReply: true,
-      });
+  const message =
+    interaction.deferred || interaction.replied
+      ? await interaction.followUp({
+          ...messageOptions,
+          ephemeral: option.ephemeral,
+          fetchReply: true,
+        })
+      : await interaction.reply({
+          ...messageOptions,
+          ephemeral: option.ephemeral,
+          fetchReply: true,
+        });
 
   if (!(message instanceof Message)) {
     throw Error("InvalidMessage instance");
@@ -149,7 +162,9 @@ export async function sendPaginatedEmbeds(
       collectInteraction.customId === (option.menuId ?? defaultIds.menuId)
     ) {
       await collectInteraction.deferUpdate();
-      const currentPage = Number(collectInteraction.values[0] ?? "0");
+      currentPage = Number(collectInteraction.values[0] ?? "0");
+      if (currentPage === -1) currentPage = 0;
+      if (currentPage === -2) currentPage = embeds.length - 1;
       const replyOptions = pageOptions(currentPage);
       await collectInteraction.editReply(replyOptions);
     }

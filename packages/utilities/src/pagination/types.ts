@@ -23,6 +23,11 @@ interface BasicPaginationOptions {
   content?: string;
 
   /**
+   * Interaction ephemeral
+   */
+  ephemeral?: boolean;
+
+  /**
    * Initial page (default: 0)
    */
   initialPage?: number;
@@ -85,3 +90,15 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
 export type PaginationOptions =
   | ButtonPaginationOptions
   | SelectMenuPaginationOptions;
+
+export interface IPaginate {
+  totalItems: number;
+  currentPage: number;
+  pageSize: number;
+  totalPages: number;
+  startPage: number;
+  endPage: number;
+  startIndex: number;
+  endIndex: number;
+  pages: number[];
+}
