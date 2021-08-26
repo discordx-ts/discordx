@@ -69,7 +69,15 @@ If you have any issues or feature requests, Please open an issue at Github [clic
 - Lint improved internal source code for better type support
 - Provided more examples for new decorators
 
-# 📦Package
+# 🧮 Packages
+
+Here are more packages from us to extend the functionality of your Discord bot.
+
+| Package                                                                                           | Description                              |
+| ------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| [`@discordx/utilities`](https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities) | embed pagination with button/select menu |
+
+# 📦 Package
 
 Maintained by [@oceanroleplay](https://github.com/oceanroleplay)
 
