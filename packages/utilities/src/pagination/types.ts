@@ -3,7 +3,10 @@ import {
   ContextMenuInteraction,
   InteractionButtonOptions,
   MessageComponentInteraction,
+  MessageEmbed,
 } from "discord.js";
+
+export type MessageEmbedWithContent = { content?: string; embed: MessageEmbed };
 
 export enum defaultIds {
   startButton = "discordx@pagination@startButton",

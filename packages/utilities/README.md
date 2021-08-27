@@ -3,6 +3,7 @@
 - Embed pagination with discord's new buttons and select menu
 - fully customizable (You can open an issue if you find something missing, so that we can fix it)
 - Large list support (for examples 1000 items)
+- Support content only pagination (`string[]`)
 
 ![discord embed pagination](https://github.com/oceanroleplay/discord.ts/raw/main/packages/utilities/images/discord-embed-pagination.jpg)
 
@@ -40,6 +41,14 @@ export abstract class StonePaperScissor {
     await sendPaginatedEmbeds(interaction, embeds, {
       type: "SELECT_MENU",
     });
+  }
+
+  @Slash("pages")
+  private async pages(interaction: CommandInteraction) {
+    await sendPaginatedEmbeds(
+      interaction,
+      Array.from(Array(20).keys()).map((i) => i.toString())
+    );
   }
 }
 ```

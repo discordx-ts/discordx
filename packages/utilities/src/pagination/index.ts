@@ -7,7 +7,12 @@ import {
   MessageSelectMenu,
   MessageSelectOptionData,
 } from "discord.js";
-import { PaginationInteractions, PaginationOptions, defaultIds } from "./types";
+import {
+  MessageEmbedWithContent,
+  PaginationInteractions,
+  PaginationOptions,
+  defaultIds,
+} from "./types";
 import { paginate } from "./paginate";
 
 // By default, it's half an hour.
@@ -21,7 +26,7 @@ const defaultTime = 1800000;
  */
 export async function sendPaginatedEmbeds(
   interaction: PaginationInteractions,
-  embeds: (MessageEmbed | { content?: string; embed: MessageEmbed })[],
+  embeds: (string | MessageEmbed | MessageEmbedWithContent)[],
   options?: PaginationOptions
 ): Promise<void> {
   const option = options ?? { type: "BUTTON" };
@@ -30,24 +35,27 @@ export async function sendPaginatedEmbeds(
   const pageOptions = (page: number): InteractionReplyOptions => {
     const beginning = page === 0;
     const end = page === embeds.length - 1;
-    const currentEmbedEx = embeds[page];
+    const embedEx = embeds[page];
+    if (!embedEx) throw Error("Embed page number out of bounds");
 
-    if (!currentEmbedEx) {
-      throw new Error("Embed page number out of bounds");
-    }
+    const content: string | undefined =
+      typeof embedEx === "string"
+        ? embedEx
+        : embedEx instanceof MessageEmbed
+        ? undefined
+        : embedEx.content;
 
-    const currentEmbed =
-      currentEmbedEx instanceof MessageEmbed
-        ? currentEmbedEx
-        : currentEmbedEx.embed;
+    const embed: MessageEmbed | undefined =
+      typeof embedEx === "string"
+        ? undefined
+        : embedEx instanceof MessageEmbed
+        ? embedEx
+        : embedEx.embed;
 
-    const content =
-      currentEmbedEx instanceof MessageEmbed
-        ? option.content
-        : currentEmbedEx.content ?? option.content;
+    if (!content && !embed) throw Error("Embed page number out of bounds");
 
     if (option.showPagePosition ?? true) {
-      currentEmbed.setFooter(`Page ${page + 1} of ${embeds.length}`);
+      embed?.setFooter(`Page ${page + 1} of ${embeds.length}`);
     }
 
     if (option.type === "BUTTON") {
@@ -97,7 +105,7 @@ export async function sendPaginatedEmbeds(
 
       return {
         content,
-        embeds: [currentEmbed],
+        embeds: embed ? [embed] : undefined,
         components: [row],
       };
     } else {
@@ -127,7 +135,7 @@ export async function sendPaginatedEmbeds(
 
       return {
         content,
-        embeds: [currentEmbed],
+        embeds: embed ? [embed] : undefined,
         components: [row],
       };
     }

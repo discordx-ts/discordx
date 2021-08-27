@@ -64,4 +64,12 @@ export abstract class StonePaperScissor {
       }
     );
   }
+
+  @Slash("pages")
+  private async pages(interaction: CommandInteraction) {
+    await sendPaginatedEmbeds(
+      interaction,
+      Array.from(Array(20).keys()).map((i) => i.toString())
+    );
+  }
 }
