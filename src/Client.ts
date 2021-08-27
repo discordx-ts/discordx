@@ -292,11 +292,6 @@ export class Client extends ClientJS {
   }
 
   /**
-   * @deprecated Use `initApplicationCommands` instead. will be removed by end of auguest 2021.
-   */
-  initSlashes = this.initApplicationCommands;
-
-  /**
    * Initialize all the @Slash with their permissions
    */
   async initApplicationCommands(options?: {
@@ -462,11 +457,6 @@ export class Client extends ClientJS {
   }
 
   /**
-   * @deprecated Use `fetchApplicationCommands` instead. will be removed by end of auguest 2021.
-   */
-  fetchSlash = this.fetchApplicationCommands;
-
-  /**
    * Fetch the existing slash commands of a guild or globaly
    * @param guild The guild ID (empty -> globaly)
    * @returns
@@ -481,11 +471,6 @@ export class Client extends ClientJS {
     }
     return await this.application?.commands.fetch();
   }
-
-  /**
-   * @deprecated Use `clearApplicationCommands` instead. will be removed by end of auguest 2021.
-   */
-  clearSlashes = this.clearApplicationCommands;
 
   /**
    * Clear the Slash commands globaly or for some guilds

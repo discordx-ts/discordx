@@ -1,61 +1,7 @@
-import {
-  ButtonComponent,
-  SelectMenuComponent,
-  SimpleCommand,
-  SimpleCommandOption,
-} from "..";
-import { SlashChoice } from "./decorators/SlashChoice";
-import { SlashGroup } from "./decorators/SlashGroup";
-import { SlashOption } from "./decorators/SlashOption";
-
-/**
- * @deprecated Use `SlashOption` instead.
- */
-export const Option = SlashOption;
-
-/**
- * @deprecated Use `SlashChoice` instead.
- */
-export const Choice = SlashChoice;
-
-/**
- * @deprecated Use `SlashChoice` instead.
- */
-export const Choices = SlashChoice;
-
-/**
- * @deprecated Use `SlashGroup` instead.
- */
-export const Group = SlashGroup;
-
-/**
- * @deprecated Use `ButtonComponent` instead.
- */
-export const Button = ButtonComponent;
-
-/**
- * @deprecated Use `SelectMenuComponent` instead.
- */
-export const SelectMenu = SelectMenuComponent;
-
-/**
- * @deprecated Use `SimpleCommand` instead.
- */
-export const Command = SimpleCommand;
-
-/**
- * @deprecated Use `SimpleCommandOption` instead.
- */
-export const CommandOption = SimpleCommandOption;
-
-// remove above area by end of auguest
-
 export * from "./decorators/On";
 export * from "./decorators/Once";
 export * from "./decorators/Guard";
 export * from "./decorators/Discord";
-export * from "./decorators/Description";
-export * from "./decorators/Name";
 export * from "./decorators/Slash";
 export * from "./decorators/SlashOption";
 export * from "./decorators/SlashChoice";

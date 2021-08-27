@@ -81,12 +81,6 @@ module.exports = {
             },
             { type: "doc", label: "@On", id: "decorators/general/on" },
             { type: "doc", label: "@Once", id: "decorators/general/once" },
-            { type: "doc", label: "@Name", id: "decorators/general/name" },
-            {
-              type: "doc",
-              label: "@Description",
-              id: "decorators/general/description",
-            },
           ],
         },
         {
@@ -142,32 +136,6 @@ module.exports = {
             },
           ],
         },
-
-        // {
-        //   type: "category",
-        //   label: "All Decorators",
-        //   items: [
-        //     { type: "doc", label: "@Bot", id: "decorators/general/bot" },
-        //     { type: "doc", label: "@ButtonComponent", id: "decorators/gui/buttoncomponent", },
-        //     { type: "doc", label: "@SelectMenuComponent", id: "decorators/gui/selectmenucomponent", },
-        //     { type: "doc", label: "@ContextMenu", id: "decorators/gui/contextmenu" },
-        //     { type: "doc", label: "@DefaultPermission", id: "decorators/general/defaultpermission", },
-        //     { type: "doc", label: "@Description", id: "decorators/general/description" },
-        //     { type: "doc", label: "@Discord", id: "decorators/general/discord" },
-        //     { type: "doc", label: "@Guard", id: "decorators/general/guard" },
-        //     { type: "doc", label: "@Guild", id: "decorators/general/guild" },
-        //     { type: "doc", label: "@Name", id: "decorators/general/name" },
-        //     { type: "doc", label: "@On", id: "decorators/general/on" },
-        //     { type: "doc", label: "@Once", id: "decorators/general/once" },
-        //     { type: "doc", label: "@Permission", id: "decorators/general/permission" },
-        //     { type: "doc", label: "@SimpleCommand", id: "decorators/commands/simplecommand", },
-        //     { type: "doc", label: "@SimpleCommandOption", id: "decorators/commands/simplecommandoption", },
-        //     { type: "doc", label: "@Slash", id: "decorators/commands/slash" },
-        //     { type: "doc", label: "@SlashChoice", id: "decorators/commands/slashchoice" },
-        //     { type: "doc", label: "@SlashGroup", id: "decorators/commands/slashgroup" },
-        //     { type: "doc", label: "@SlashOption", id: "decorators/commands/slashoption" },
-        //   ]
-        // },
       ],
     },
     {
