@@ -53,25 +53,47 @@ export async function sendPaginatedEmbeds(
     if (option.type === "BUTTON") {
       const buttonStyle = option.style ?? "PRIMARY";
 
-      const optionOne = new MessageButton()
-        .setCustomId(option.nextLabel ?? defaultIds.nextButton)
+      const startBtn = new MessageButton()
+        .setCustomId(option.startId ?? defaultIds.startButton)
+        .setLabel(option.startLabel ?? "Start")
+        .setStyle(buttonStyle);
+
+      if (beginning) {
+        startBtn.disabled = true;
+      }
+
+      const endBtn = new MessageButton()
+        .setCustomId(option.endId ?? defaultIds.endButton)
+        .setLabel(option.endLabel ?? "End")
+        .setStyle(buttonStyle);
+
+      if (end) {
+        endBtn.disabled = true;
+      }
+
+      const nextBtn = new MessageButton()
+        .setCustomId(option.nextId ?? defaultIds.nextButton)
         .setLabel(option.nextLabel ?? "Next")
         .setStyle(buttonStyle);
 
       if (end) {
-        optionOne.disabled = true;
+        nextBtn.disabled = true;
       }
 
-      const optionTwo = new MessageButton()
-        .setCustomId(option.previousButtonId ?? defaultIds.previousButton)
+      const prevBtn = new MessageButton()
+        .setCustomId(option.previousId ?? defaultIds.previousButton)
         .setLabel(option.previousLabel ?? "Previous")
         .setStyle(buttonStyle);
 
       if (beginning) {
-        optionTwo.disabled = true;
+        prevBtn.disabled = true;
       }
 
-      const row = new MessageActionRow().addComponents([optionTwo, optionOne]);
+      const row = new MessageActionRow().addComponents(
+        embeds.length > 10 && (option.startEndButtons ?? true)
+          ? [startBtn, prevBtn, nextBtn, endBtn]
+          : [prevBtn, nextBtn]
+      );
 
       return {
         content,
@@ -139,13 +161,23 @@ export async function sendPaginatedEmbeds(
       if (
         option.type === "BUTTON" &&
         collectInteraction.customId ===
-          (option.nextButtonId ?? defaultIds.nextButton)
+          (option.startId ?? defaultIds.startButton)
+      ) {
+        currentPage = 0;
+      } else if (
+        option.type === "BUTTON" &&
+        collectInteraction.customId === (option.endId ?? defaultIds.endButton)
+      ) {
+        currentPage = embeds.length - 1;
+      } else if (
+        option.type === "BUTTON" &&
+        collectInteraction.customId === (option.nextId ?? defaultIds.nextButton)
       ) {
         currentPage++;
       } else if (
         option.type === "BUTTON" &&
         collectInteraction.customId ===
-          (option.previousButtonId ?? defaultIds.previousButton)
+          (option.previousId ?? defaultIds.previousButton)
       ) {
         currentPage--;
       } else {

@@ -29,7 +29,6 @@ const embeds = pages.map((page) => {
 export abstract class StonePaperScissor {
   @Slash("page")
   private async page(interaction: CommandInteraction) {
-    await interaction.reply("boom");
     await sendPaginatedEmbeds(
       interaction,
       [

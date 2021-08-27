@@ -1,7 +1,8 @@
 # @discordx/utilities - Embed Pagination
 
-- Use embed pagination with discord new buttons and select menu
-- fully customizable (if you think something missing, just open a issue, so that we can add)
+- Embed pagination with discord's new buttons and select menu
+- fully customizable (You can open an issue if you find something missing, so that we can fix it)
+- Large list support (for examples 1000 items)
 
 ![discord embed pagination](https://github.com/oceanroleplay/discord.ts/raw/main/packages/utilities/images/discord-embed-pagination.jpg)
 
@@ -48,13 +49,13 @@ export abstract class StonePaperScissor {
 > NPM
 
 ```
-npm install @discordx/utilities
+npm install @discordx/utilities discord.js
 ```
 
 > yarn
 
 ```
-yarn add @discordx/utilities
+yarn add @discordx/utilities discord.js
 ```
 
 # Thank you

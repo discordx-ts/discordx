@@ -6,6 +6,8 @@ import {
 } from "discord.js";
 
 export enum defaultIds {
+  startButton = "discordx@pagination@startButton",
+  endButton = "discordx@pagination@endButton",
   nextButton = "discordx@pagination@nextButton",
   previousButton = "discordx@pagination@previousButton",
   menuId = "discordx@pagination@menu",
@@ -33,16 +35,6 @@ interface BasicPaginationOptions {
   initialPage?: number;
 
   /**
-   * The text that will appear on the next button (Default: 'Next')
-   */
-  nextLabel?: string;
-
-  /**
-   * The text that will appear on the previous button. (Default: 'Previous').
-   */
-  previousLabel?: string;
-
-  /**
    *  Displaying the current page in the footer of each embed. (Default: true).
    */
   showPagePosition?: boolean;
@@ -55,14 +47,49 @@ interface BasicPaginationOptions {
 
 interface ButtonPaginationOptions extends BasicPaginationOptions {
   /**
+   * Custom end button id (default: 'discordx@pagination@endButton')
+   */
+  endId?: string;
+
+  /**
+   * The text that will appear on the end button (Default: 'End')
+   */
+  endLabel?: string;
+
+  /**
    * custom next button id (default: 'discordx@pagination@nextButton')
    */
-  nextButtonId?: string;
+  nextId?: string;
+
+  /**
+   * The text that will appear on the next button (Default: 'Next')
+   */
+  nextLabel?: string;
 
   /**
    * custom previous button id (default: 'discordx@pagination@previousButton')
    */
-  previousButtonId?: string;
+  previousId?: string;
+
+  /**
+   * The text that will appear on the previous button. (Default: 'Previous').
+   */
+  previousLabel?: string;
+
+  /**
+   * Show start/end buttons for large list (items more then 10) (default: true)
+   */
+  startEndButtons?: boolean;
+
+  /**
+   * custom start button id (default: 'discordx@pagination@startButton')
+   */
+  startId?: string;
+
+  /**
+   * The text that will appear on the start button (Default: 'Start')
+   */
+  startLabel?: string;
 
   /**
    * Button style.
