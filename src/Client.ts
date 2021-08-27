@@ -297,13 +297,13 @@ export class Client extends ClientJS {
   async initApplicationCommands(options?: {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
-    // # group guild slashes by guildId
+    // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
       (DCommand) => DCommand.guilds?.length
     );
 
-    // group single guild slashes together
+    // group single guild commands together
     allGuildDCommands.forEach((DCommand) => {
       DCommand.guilds.forEach((guild) =>
         guildDCommandStore.set(guild, [
@@ -313,7 +313,7 @@ export class Client extends ClientJS {
       );
     });
 
-    // run task to add/update/delete slashes for guilds
+    // run task to add/update/delete commands for guilds
     guildDCommandStore.forEach(async (DCommands, key) => {
       const guild = await this.guilds.fetch({ guild: key });
       if (!guild) return console.log(`${key} guild not found`);
@@ -328,7 +328,7 @@ export class Client extends ClientJS {
           (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
       );
 
-      // filter slashes to update
+      // filter commands to update
       const updated = DCommands.map<
         [ApplicationCommand | undefined, DApplicationCommand]
       >((DCommand) => [
@@ -343,7 +343,7 @@ export class Client extends ClientJS {
           commands[0] !== undefined
       );
 
-      // filter slashes to delete
+      // filter commands to delete
       const deleted = existing.filter(
         (command) =>
           !this.applicationCommands.find(
@@ -355,7 +355,7 @@ export class Client extends ClientJS {
           )
       );
 
-      // log the changes to slashes in console if enabled by options or silent mode is turned off
+      // log the changes to commands in console if enabled by options or silent mode is turned off
       if (options?.log.forGuild || !this.silent) {
         console.log(
           `${this.user?.username} >> guild: #${guild} >> command >> adding ${
@@ -400,7 +400,7 @@ export class Client extends ClientJS {
       ]);
     });
 
-    // # initialize add/update/delete task for global slashes
+    // # initialize add/update/delete task for global commands
     const existing = (await this.fetchApplicationCommands())?.filter(
       (command) => !command.guild
     );
@@ -427,7 +427,7 @@ export class Client extends ClientJS {
         this.allApplicationCommands.every((s) => s.name !== command.name)
       );
 
-      // log the changes to slashes in console if enabled by options or silent mode is turned off
+      // log the changes to commands in console if enabled by options or silent mode is turned off
       if (options?.log.forGlobal || !this.silent) {
         console.log(
           `${this.user?.username} >> global >> command >> adding ${
@@ -462,7 +462,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Fetch the existing slash commands of a guild or globaly
+   * Fetch the existing application commands of a guild or globaly
    * @param guild The guild ID (empty -> globaly)
    * @returns
    */
@@ -478,7 +478,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Clear the Slash commands globaly or for some guilds
+   * Clear the application commands globaly or for some guilds
    * @param guilds The guild IDs (empty -> globaly)
    */
   async clearApplicationCommands(...guilds: Snowflake[]) {
