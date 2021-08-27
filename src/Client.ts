@@ -298,23 +298,23 @@ export class Client extends ClientJS {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
     // # group guild slashes by guildId
-    const guildSlashStorage = new Map<Snowflake, DApplicationCommand[]>();
-    const guildsSlash = this.applicationCommands.filter(
-      (s) => s.guilds?.length
+    const guildDCommandsStore = new Map<Snowflake, DApplicationCommand[]>();
+    const allGuildDCommands = this.applicationCommands.filter(
+      (DCommand) => DCommand.guilds?.length
     );
 
     // group single guild slashes together
-    guildsSlash.forEach((s) => {
-      s.guilds.forEach((guild) =>
-        guildSlashStorage.set(guild, [
-          ...(guildSlashStorage.get(guild) ?? []),
-          s,
+    allGuildDCommands.forEach((DCommand) => {
+      DCommand.guilds.forEach((guild) =>
+        guildDCommandsStore.set(guild, [
+          ...(guildDCommandsStore.get(guild) ?? []),
+          DCommand,
         ])
       );
     });
 
     // run task to add/update/delete slashes for guilds
-    guildSlashStorage.forEach(async (slashes, key) => {
+    guildDCommandsStore.forEach(async (DCommands, key) => {
       const guild = await this.guilds.fetch({ guild: key });
       if (!guild) return console.log(`${key} guild not found`);
 
@@ -322,36 +322,36 @@ export class Client extends ClientJS {
       const existing = await guild.commands.fetch();
 
       // filter only unregistered command
-      const added = slashes.filter(
-        (s) =>
-          !existing.find((c) => c.name === s.name) &&
-          (!s.botIds.length || s.botIds.includes(this.botId))
+      const added = DCommands.filter(
+        (DCommand) =>
+          !existing.find((command) => command.name === DCommand.name) &&
+          (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
       );
 
       // filter slashes to update
-      const updated = slashes
-        .map<[ApplicationCommand | undefined, DApplicationCommand]>((s) => [
-          existing.find(
-            (c) =>
-              c.name === s.name &&
-              (!s.botIds.length || s.botIds.includes(this.botId))
-          ),
-          s,
-        ])
-        .filter<[ApplicationCommand, DApplicationCommand]>(
-          (s): s is [ApplicationCommand, DApplicationCommand] =>
-            s[0] !== undefined
-        );
+      const updated = DCommands.map<
+        [ApplicationCommand | undefined, DApplicationCommand]
+      >((DCommand) => [
+        existing.find(
+          (command) =>
+            command.name === DCommand.name &&
+            (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+        ),
+        DCommand,
+      ]).filter<[ApplicationCommand, DApplicationCommand]>(
+        (commands): commands is [ApplicationCommand, DApplicationCommand] =>
+          commands[0] !== undefined
+      );
 
       // filter slashes to delete
       const deleted = existing.filter(
-        (s) =>
+        (command) =>
           !this.applicationCommands.find(
-            (bs) =>
-              s.name === bs.name &&
-              s.guild &&
-              bs.guilds.includes(s.guild.id) &&
-              (!bs.botIds.length || bs.botIds.includes(this.botId))
+            (DCommand) =>
+              command.name === DCommand.name &&
+              command.guild &&
+              DCommand.guilds.includes(command.guild.id) &&
+              (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
           )
       );
 
@@ -360,13 +360,13 @@ export class Client extends ClientJS {
         console.log(
           `${this.user?.username} >> guild: #${guild} >> command >> adding ${
             added.length
-          } [${added.map((s) => s.name).join(", ")}]`
+          } [${added.map((Dcommand) => Dcommand.name).join(", ")}]`
         );
 
         console.log(
           `${this.user?.username} >> guild: #${guild} >> command >> deleting ${
             deleted.size
-          } [${deleted.map((s) => s.name).join(", ")}]`
+          } [${deleted.map((DCommand) => DCommand.name).join(", ")}]`
         );
 
         console.log(
@@ -376,22 +376,22 @@ export class Client extends ClientJS {
 
       await Promise.all([
         // add and set permissions
-        ...added.map((s) =>
-          guild.commands.create(s.toObject()).then((cmd) => {
-            if (s.permissions.length) {
-              cmd.permissions.set({ permissions: s.permissions });
+        ...added.map((command) =>
+          guild.commands.create(command.toObject()).then((cmd) => {
+            if (command.permissions.length) {
+              cmd.permissions.set({ permissions: command.permissions });
             }
             return cmd;
           })
         ),
 
         // update and set permissions
-        ...updated.map((s) =>
-          s[0].edit(s[1].toObject()).then((cmd) => {
-            if (s[1].permissions.length) {
-              cmd.permissions.set({ permissions: s[1].permissions });
+        ...updated.map((commands) =>
+          commands[0].edit(commands[1].toObject()).then((command) => {
+            if (commands[1].permissions.length) {
+              command.permissions.set({ permissions: commands[1].permissions });
             }
-            return cmd;
+            return command;
           })
         ),
 
@@ -402,26 +402,29 @@ export class Client extends ClientJS {
 
     // # initialize add/update/delete task for global slashes
     const existing = (await this.fetchApplicationCommands())?.filter(
-      (s) => !s.guild
+      (command) => !command.guild
     );
-    const slashes = this.applicationCommands.filter((s) => !s.guilds?.length);
+    const AllDCommands = this.applicationCommands.filter(
+      (DCommand) => !DCommand.guilds?.length
+    );
     if (existing) {
-      const added = slashes.filter(
-        (s) => !existing.find((c) => c.name === s.name)
+      const added = AllDCommands.filter(
+        (DCommand) =>
+          !existing.find((command) => command.name === DCommand.name)
       );
 
-      const updated = slashes
-        .map<[ApplicationCommand | undefined, DApplicationCommand]>((s) => [
-          existing.find((c) => c.name === s.name),
-          s,
-        ])
-        .filter<[ApplicationCommand, DApplicationCommand]>(
-          (s): s is [ApplicationCommand, DApplicationCommand] =>
-            s[0] !== undefined
-        );
+      const updated = AllDCommands.map<
+        [ApplicationCommand | undefined, DApplicationCommand]
+      >((DCommand) => [
+        existing.find((command) => command.name === DCommand.name),
+        DCommand,
+      ]).filter<[ApplicationCommand, DApplicationCommand]>(
+        (commands): commands is [ApplicationCommand, DApplicationCommand] =>
+          commands[0] !== undefined
+      );
 
-      const deleted = existing.filter((c) =>
-        slashes.every((s) => s.name !== c.name)
+      const deleted = existing.filter((command) =>
+        this.allApplicationCommands.every((s) => s.name !== command.name)
       );
 
       // log the changes to slashes in console if enabled by options or silent mode is turned off
@@ -429,12 +432,12 @@ export class Client extends ClientJS {
         console.log(
           `${this.user?.username} >> global >> command >> adding ${
             added.length
-          } [${added.map((s) => s.name).join(", ")}]`
+          } [${added.map((DCommand) => DCommand.name).join(", ")}]`
         );
         console.log(
           `${this.user?.username} >> global >> command >> deleting ${
             deleted.size
-          } [${deleted.map((s) => s.name).join(", ")}]`
+          } [${deleted.map((DCommand) => DCommand.name).join(", ")}]`
         );
         console.log(
           `${this.user?.username} >> global >> command >> updating ${updated.length}`
@@ -447,11 +450,13 @@ export class Client extends ClientJS {
 
       await Promise.all([
         // add
-        ...added.map((s) => this.application?.commands.create(s.toObject())),
+        ...added.map((DCommand) =>
+          this.application?.commands.create(DCommand.toObject())
+        ),
         // update
-        ...updated.map((s) => s[0].edit(s[1].toObject())),
+        ...updated.map((commands) => commands[0].edit(commands[1].toObject())),
         // delete
-        ...deleted.map((key) => this.application?.commands.delete(key)),
+        ...deleted.map((command) => this.application?.commands.delete(command)),
       ]);
     }
   }
@@ -496,8 +501,8 @@ export class Client extends ClientJS {
       const commands = await this.fetchApplicationCommands();
       if (commands) {
         await Promise.all(
-          commands.map(async (value) => {
-            await this.application?.commands.delete(value);
+          commands.map(async (command) => {
+            await this.application?.commands.delete(command);
           })
         );
       }
