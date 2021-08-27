@@ -298,7 +298,7 @@ export class Client extends ClientJS {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
     // # group guild slashes by guildId
-    const guildDCommandsStore = new Map<Snowflake, DApplicationCommand[]>();
+    const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
       (DCommand) => DCommand.guilds?.length
     );
@@ -306,15 +306,15 @@ export class Client extends ClientJS {
     // group single guild slashes together
     allGuildDCommands.forEach((DCommand) => {
       DCommand.guilds.forEach((guild) =>
-        guildDCommandsStore.set(guild, [
-          ...(guildDCommandsStore.get(guild) ?? []),
+        guildDCommandStore.set(guild, [
+          ...(guildDCommandStore.get(guild) ?? []),
           DCommand,
         ])
       );
     });
 
     // run task to add/update/delete slashes for guilds
-    guildDCommandsStore.forEach(async (DCommands, key) => {
+    guildDCommandStore.forEach(async (DCommands, key) => {
       const guild = await this.guilds.fetch({ guild: key });
       if (!guild) return console.log(`${key} guild not found`);
 
