@@ -3,7 +3,7 @@
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "discordx official documentation",
+  title: "discord.ts official documentation",
   tagline: "The discord.ts documentation",
   url: "https://oceanroleplay.github.io",
   baseUrl: "/discord.ts/",
