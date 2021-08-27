@@ -12,7 +12,10 @@ function HomepageHeader() {
   return (
     <header className={clsx("hero--primary", styles.heroBanner)}>
       <div className="container">
-        <img className={styles.heroImg} src="/static/discord-ts.svg" />
+        <img
+          className={styles.heroImg}
+          src={"https://oceanroleplay.github.io/discord.ts/discord-ts.svg"}
+        />
         <h1 className="hero__title ">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
