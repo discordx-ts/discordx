@@ -4,7 +4,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "discord.ts official documentation",
-  tagline: "The discord.ts documentation",
+  tagline: "Create your discord bot by using TypeScript and decorators!",
   url: "https://oceanroleplay.github.io",
   baseUrl: "/discord.ts/",
   onBrokenLinks: "throw",

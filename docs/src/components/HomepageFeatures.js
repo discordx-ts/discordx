@@ -6,7 +6,7 @@ import styles from "./HomepageFeatures.module.css";
 const FeatureList = [
   {
     title: "Decorators",
-    description: <>Create your bot using Typescript decorators !</>,
+    description: <>it simplifies your code and improves the readability!</>,
   },
   {
     title: "Slash commands",
