@@ -5,6 +5,9 @@ import {
   MessageComponentInteraction,
 } from "discord.js";
 
+// By default, it's half an hour.
+export const defaultTime = 1800000;
+
 export enum defaultIds {
   startButton = "discordx@pagination@startButton",
   endButton = "discordx@pagination@endButton",
@@ -20,11 +23,6 @@ export type PaginationInteractions =
 
 interface BasicPaginationOptions {
   /**
-   * With the paginated embeds, the message to be displayed.
-   */
-  content?: string;
-
-  /**
    * Interaction ephemeral
    */
   ephemeral?: boolean;
@@ -33,11 +31,6 @@ interface BasicPaginationOptions {
    * Initial page (default: 0)
    */
   initialPage?: number;
-
-  /**
-   *  Displaying the current page in the footer of each embed. (Default: true).
-   */
-  showPagePosition?: boolean;
 
   /**
    * In milliseconds, how long should the paginator run. (Default: 30min)
