@@ -24,11 +24,5 @@
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issues"
   },
-  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
-  "dependencies": {
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.172"
-  }
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme"
 }
