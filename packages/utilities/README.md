@@ -3,7 +3,7 @@
 - Embed pagination with discord's new buttons and select menu
 - fully customizable (You can open an issue if you find something missing, so that we can fix it)
 - Large list support (for examples 1000 items)
-- Support content only pagination (`string[]`)
+- Support (`embeds: (string | MessageEmbed | MessageOptions)[]`)
 
 ![discord embed pagination](https://github.com/oceanroleplay/discord.ts/raw/main/packages/utilities/images/discord-embed-pagination.jpg)
 

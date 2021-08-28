@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- added `string[]` for pagination
+- support `embeds: (string | MessageEmbed | MessageOptions)[]`
 
 ## [1.0.6] - 2021-08-27
 

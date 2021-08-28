@@ -7,6 +7,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Pagination",
+      "protocol": "inspector",
+      "args": [
+        "${workspaceRoot}/packages/utilities/examples/pagination/Main.ts"
+      ],
+      "cwd": "${workspaceRoot}",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Slash",
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/slash/Main.ts"],

@@ -4,15 +4,11 @@ import {
   MessageActionRow,
   MessageButton,
   MessageEmbed,
+  MessageOptions,
   MessageSelectMenu,
   MessageSelectOptionData,
 } from "discord.js";
-import {
-  MessageEmbedWithContent,
-  PaginationInteractions,
-  PaginationOptions,
-  defaultIds,
-} from "./types";
+import { PaginationInteractions, PaginationOptions, defaultIds } from "./types";
 import { paginate } from "./paginate";
 
 // By default, it's half an hour.
@@ -26,131 +22,26 @@ const defaultTime = 1800000;
  */
 export async function sendPaginatedEmbeds(
   interaction: PaginationInteractions,
-  embeds: (string | MessageEmbed | MessageEmbedWithContent)[],
+  embeds: (string | MessageEmbed | MessageOptions)[],
   options?: PaginationOptions
 ): Promise<void> {
   const option = options ?? { type: "BUTTON" };
   let currentPage = option.initialPage ?? 0;
 
-  const pageOptions = (page: number): InteractionReplyOptions => {
-    const beginning = page === 0;
-    const end = page === embeds.length - 1;
-    const embedEx = embeds[page];
-    if (!embedEx) throw Error("Embed page number out of bounds");
+  const allPages = embeds.map((embed, index) =>
+    GeneratePage(embed, index, embeds.length, option)
+  );
 
-    const content: string | undefined =
-      typeof embedEx === "string"
-        ? embedEx
-        : embedEx instanceof MessageEmbed
-        ? undefined
-        : embedEx.content;
-
-    const embed: MessageEmbed | undefined =
-      typeof embedEx === "string"
-        ? undefined
-        : embedEx instanceof MessageEmbed
-        ? embedEx
-        : embedEx.embed;
-
-    if (!content && !embed) throw Error("Embed page number out of bounds");
-
-    if (option.showPagePosition ?? true) {
-      embed?.setFooter(`Page ${page + 1} of ${embeds.length}`);
-    }
-
-    if (option.type === "BUTTON") {
-      const buttonStyle = option.style ?? "PRIMARY";
-
-      const startBtn = new MessageButton()
-        .setCustomId(option.startId ?? defaultIds.startButton)
-        .setLabel(option.startLabel ?? "Start")
-        .setStyle(buttonStyle);
-
-      if (beginning) {
-        startBtn.disabled = true;
-      }
-
-      const endBtn = new MessageButton()
-        .setCustomId(option.endId ?? defaultIds.endButton)
-        .setLabel(option.endLabel ?? "End")
-        .setStyle(buttonStyle);
-
-      if (end) {
-        endBtn.disabled = true;
-      }
-
-      const nextBtn = new MessageButton()
-        .setCustomId(option.nextId ?? defaultIds.nextButton)
-        .setLabel(option.nextLabel ?? "Next")
-        .setStyle(buttonStyle);
-
-      if (end) {
-        nextBtn.disabled = true;
-      }
-
-      const prevBtn = new MessageButton()
-        .setCustomId(option.previousId ?? defaultIds.previousButton)
-        .setLabel(option.previousLabel ?? "Previous")
-        .setStyle(buttonStyle);
-
-      if (beginning) {
-        prevBtn.disabled = true;
-      }
-
-      const row = new MessageActionRow().addComponents(
-        embeds.length > 10 && (option.startEndButtons ?? true)
-          ? [startBtn, prevBtn, nextBtn, endBtn]
-          : [prevBtn, nextBtn]
-      );
-
-      return {
-        content,
-        embeds: embed ? [embed] : undefined,
-        components: [row],
-      };
-    } else {
-      const paginator = paginate(embeds.length, page, 1, 21).pages.map((i) => {
-        const selectMenuOption: MessageSelectOptionData = {
-          label: `page ${i}`,
-          value: (i - 1).toString(),
-        };
-        return selectMenuOption;
-      });
-
-      if (embeds.length > 21) {
-        if (page > 10) {
-          paginator.unshift({ label: "Start", value: "-1" });
-        }
-        if (page < embeds.length - 10) {
-          paginator.push({ label: "End", value: "-2" });
-        }
-      }
-
-      const menu = new MessageSelectMenu()
-        .setCustomId(option.menuId ?? defaultIds.menuId)
-        .setPlaceholder("Select page")
-        .setOptions(paginator);
-
-      const row = new MessageActionRow().addComponents([menu]);
-
-      return {
-        content,
-        embeds: embed ? [embed] : undefined,
-        components: [row],
-      };
-    }
-  };
-
-  const messageOptions = pageOptions(currentPage);
+  const replyOptions = allPages[currentPage];
   const message =
     interaction.deferred || interaction.replied
       ? await interaction.followUp({
-          ...messageOptions,
+          ...replyOptions,
           ephemeral: option.ephemeral,
           fetchReply: true,
         })
       : await interaction.reply({
-          ...messageOptions,
+          ...replyOptions,
           ephemeral: option.ephemeral,
           fetchReply: true,
         });
@@ -193,8 +84,10 @@ export async function sendPaginatedEmbeds(
       }
 
       await collectInteraction.deferUpdate();
-      const replyOptions = pageOptions(currentPage);
-      await collectInteraction.editReply(replyOptions);
+      const messageOptions = allPages[currentPage];
+      if (!messageOptions) throw Error("out of bound page");
+      if (!messageOptions.embeds) messageOptions.embeds = [];
+      await collectInteraction.editReply(messageOptions);
     }
     if (
       collectInteraction.isSelectMenu() &&
@@ -205,7 +98,9 @@ export async function sendPaginatedEmbeds(
       currentPage = Number(collectInteraction.values[0] ?? "0");
       if (currentPage === -1) currentPage = 0;
       if (currentPage === -2) currentPage = embeds.length - 1;
-      const replyOptions = pageOptions(currentPage);
+
+      const replyOptions = allPages[currentPage];
+      if (!replyOptions) throw Error("out of bound page");
       await collectInteraction.editReply(replyOptions);
     }
   });
@@ -227,3 +122,101 @@ export async function sendPaginatedEmbeds(
     await message.edit({ components: [] });
   });
 }
+
+const GeneratePage = (
+  embed: string | MessageEmbed | MessageOptions,
+  page: number,
+  totalPages: number,
+  option: PaginationOptions
+): InteractionReplyOptions => {
+  // const footer = `Page ${page + 1} of ${embeds.length}`;
+  const beginning = page === 0;
+  const end = page === totalPages - 1;
+
+  const cpage: MessageOptions =
+    typeof embed === "string"
+      ? { content: embed }
+      : embed instanceof MessageEmbed
+      ? { embeds: [embed] }
+      : embed;
+
+  if (option.type === "BUTTON") {
+    const buttonStyle = option.style ?? "PRIMARY";
+
+    const startBtn = new MessageButton()
+      .setCustomId(option.startId ?? defaultIds.startButton)
+      .setLabel(option.startLabel ?? "Start")
+      .setStyle(buttonStyle);
+
+    if (beginning) {
+      startBtn.disabled = true;
+    }
+
+    const endBtn = new MessageButton()
+      .setCustomId(option.endId ?? defaultIds.endButton)
+      .setLabel(option.endLabel ?? "End")
+      .setStyle(buttonStyle);
+
+    if (end) {
+      endBtn.disabled = true;
+    }
+
+    const nextBtn = new MessageButton()
+      .setCustomId(option.nextId ?? defaultIds.nextButton)
+      .setLabel(option.nextLabel ?? "Next")
+      .setStyle(buttonStyle);
+
+    if (end) {
+      nextBtn.disabled = true;
+    }
+
+    const prevBtn = new MessageButton()
+      .setCustomId(option.previousId ?? defaultIds.previousButton)
+      .setLabel(option.previousLabel ?? "Previous")
+      .setStyle(buttonStyle);
+
+    if (beginning) {
+      prevBtn.disabled = true;
+    }
+
+    const row = new MessageActionRow().addComponents(
+      totalPages > 10 && (option.startEndButtons ?? true)
+        ? [startBtn, prevBtn, nextBtn, endBtn]
+        : [prevBtn, nextBtn]
+    );
+
+    if (cpage.components) cpage.components.push(row);
+    else cpage.components = [row];
+
+    return cpage;
+  } else {
+    const paginator = paginate(totalPages, page, 1, 21).pages.map((i) => {
+      const selectMenuOption: MessageSelectOptionData = {
+        label: `page ${i}`,
+        value: (i - 1).toString(),
+      };
+      return selectMenuOption;
+    });
+
+    if (totalPages > 21) {
+      if (page > 10) {
+        paginator.unshift({ label: "Start", value: "-1" });
+      }
+      if (page < totalPages - 10) {
+        paginator.push({ label: "End", value: "-2" });
+      }
+    }
+
+    const menu = new MessageSelectMenu()
+      .setCustomId(option.menuId ?? defaultIds.menuId)
+      .setPlaceholder("Select page")
+      .setOptions(paginator);
+
+    const row = new MessageActionRow().addComponents([menu]);
+
+    if (cpage.components) cpage.components.push(row);
+    else cpage.components = [row];
+
+    return cpage;
+  }
+};

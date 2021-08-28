@@ -1,4 +1,9 @@
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import {
+  CommandInteraction,
+  MessageActionRow,
+  MessageButton,
+  MessageEmbed,
+} from "discord.js";
 import { Discord, Slash } from "../../../../../src";
 import { sendPaginatedEmbeds } from "../../../src";
 
@@ -71,5 +76,31 @@ export abstract class StonePaperScissor {
       interaction,
       Array.from(Array(20).keys()).map((i) => i.toString())
     );
+  }
+
+  @Slash("pagen")
+  private async pagen(interaction: CommandInteraction) {
+    await sendPaginatedEmbeds(interaction, [
+      {
+        content: "Page 1",
+      },
+      {
+        content: "Page 2",
+        embeds: [new MessageEmbed({ title: "It's me embed 2" })],
+      },
+      {
+        content: "Page 3",
+        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
+        components: [
+          new MessageActionRow().addComponents([
+            new MessageButton({
+              customId: "myEx",
+              style: "PRIMARY",
+              label: "My Custom Botton",
+            }),
+          ]),
+        ],
+      },
+    ]);
   }
 }

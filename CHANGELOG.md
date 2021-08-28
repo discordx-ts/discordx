@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 
 - `@SimpleCommandOption` - added option type `INTEGER`, `MENTIONABLE`
+- expose `initGuildApplicationCommands` and `initGlobalApplicationCommands` from client
 
 ## Fixed
 

@@ -313,122 +313,151 @@ export class Client extends ClientJS {
       );
     });
 
-    // run task to add/update/delete commands for guilds
-    guildDCommandStore.forEach(async (DCommands, key) => {
-      const guild = await this.guilds.fetch({ guild: key });
-      if (!guild) return console.log(`${key} guild not found`);
+    const allGuildPromises: Promise<void>[] = [];
 
-      // fetch already registered command
-      const existing = await guild.commands.fetch();
+    // run task to add/update/delete slashes for guilds
+    guildDCommandStore.forEach(async (DCommands, guildId) => {
+      allGuildPromises.push(
+        this.initGuildApplicationCommands(
+          guildId,
+          DCommands,
+          options?.log.forGuild
+        )
+      );
+    });
 
-      // filter only unregistered command
-      const added = DCommands.filter(
-        (DCommand) =>
-          !existing.find((command) => command.name === DCommand.name) &&
+    return await Promise.all([
+      Promise.all(allGuildPromises),
+      this.initGlobalApplicationCommands(options?.log.forGlobal),
+    ]);
+  }
+
+  /**
+   * init application commands for guild
+   * @param guildId
+   * @param DCommands
+   * @param log
+   */
+  async initGuildApplicationCommands(
+    guildId: string,
+    DCommands: DApplicationCommand[],
+    log?: boolean
+  ) {
+    const guild = await this.guilds.fetch({ guild: guildId });
+    if (!guild) throw Error(`${guildId} guild not found`);
+
+    // fetch already registered command
+    const ApplicationCommands = await guild.commands.fetch();
+
+    // filter only unregistered command
+    const added = DCommands.filter(
+      (DCommand) =>
+        !ApplicationCommands.find((cmd) => cmd.name === DCommand.name) &&
+        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+    );
+
+    // filter slashesx to update
+    const updated = DCommands.map<
+      [ApplicationCommand | undefined, DApplicationCommand]
+    >((DCommand) => [
+      ApplicationCommands.find(
+        (cmd) =>
+          cmd.name === DCommand.name &&
           (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+      ),
+      DCommand,
+    ]).filter<[ApplicationCommand, DApplicationCommand]>(
+      (s): s is [ApplicationCommand, DApplicationCommand] => s[0] !== undefined
+    );
+
+    // filter commands to delete
+    const deleted = ApplicationCommands.filter(
+      (cmd) =>
+        !this.applicationCommands.find(
+          (DCommand) =>
+            cmd.name === DCommand.name &&
+            cmd.guild &&
+            DCommand.guilds.includes(cmd.guild.id) &&
+            (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+        )
+    );
+
+    // log the changes to commands in console if enabled by options or silent mode is turned off
+    if (log || !this.silent) {
+      console.log(
+        `${this.user?.username} >> guild: #${guild} >> command >> adding ${
+          added.length
+        } [${added.map((DCommand) => DCommand.name).join(", ")}]`
       );
 
-      // filter commands to update
+      console.log(
+        `${this.user?.username} >> guild: #${guild} >> command >> deleting ${
+          deleted.size
+        } [${deleted.map((cmd) => cmd.name).join(", ")}]`
+      );
+
+      console.log(
+        `${this.user?.username} >> guild: #${guild} >> command >> updating ${updated.length}`
+      );
+    }
+
+    await Promise.all([
+      // add and set permissions
+      ...added.map((DCommand) =>
+        guild.commands.create(DCommand.toObject()).then((cmd) => {
+          if (DCommand.permissions.length) {
+            cmd.permissions.set({ permissions: DCommand.permissions });
+          }
+          return cmd;
+        })
+      ),
+
+      // update and set permissions
+      ...updated.map((command) =>
+        command[0].edit(command[1].toObject()).then((cmd) => {
+          if (command[1].permissions.length) {
+            cmd.permissions.set({ permissions: command[1].permissions });
+          }
+          return cmd;
+        })
+      ),
+
+      // delete
+      ...deleted.map((cmd) => guild.commands.delete(cmd)),
+    ]);
+  }
+
+  /**
+   * init global application commands
+   * @param log
+   */
+  async initGlobalApplicationCommands(log?: boolean) {
+    // # initialize add/update/delete task for global commands
+    const AllCommands = (await this.fetchApplicationCommands())?.filter(
+      (cmd) => !cmd.guild
+    );
+    const DCommands = this.applicationCommands.filter((s) => !s.guilds?.length);
+    if (AllCommands) {
+      const added = DCommands.filter(
+        (DCommand) => !AllCommands.find((cmd) => cmd.name === DCommand.name)
+      );
+
       const updated = DCommands.map<
         [ApplicationCommand | undefined, DApplicationCommand]
       >((DCommand) => [
-        existing.find(
-          (command) =>
-            command.name === DCommand.name &&
-            (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
-        ),
+        AllCommands.find((cmd) => cmd.name === DCommand.name),
         DCommand,
       ]).filter<[ApplicationCommand, DApplicationCommand]>(
-        (commands): commands is [ApplicationCommand, DApplicationCommand] =>
-          commands[0] !== undefined
+        (ob): ob is [ApplicationCommand, DApplicationCommand] =>
+          ob[0] !== undefined
       );
 
-      // filter commands to delete
-      const deleted = existing.filter(
-        (command) =>
-          !this.applicationCommands.find(
-            (DCommand) =>
-              command.name === DCommand.name &&
-              command.guild &&
-              DCommand.guilds.includes(command.guild.id) &&
-              (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
-          )
+      const deleted = AllCommands.filter((cmd) =>
+        DCommands.every((DCommand) => DCommand.name !== cmd.name)
       );
 
       // log the changes to commands in console if enabled by options or silent mode is turned off
-      if (options?.log.forGuild || !this.silent) {
-        console.log(
-          `${this.user?.username} >> guild: #${guild} >> command >> adding ${
-            added.length
-          } [${added.map((Dcommand) => Dcommand.name).join(", ")}]`
-        );
-
-        console.log(
-          `${this.user?.username} >> guild: #${guild} >> command >> deleting ${
-            deleted.size
-          } [${deleted.map((DCommand) => DCommand.name).join(", ")}]`
-        );
-
-        console.log(
-          `${this.user?.username} >> guild: #${guild} >> command >> updating ${updated.length}`
-        );
-      }
-
-      await Promise.all([
-        // add and set permissions
-        ...added.map((command) =>
-          guild.commands.create(command.toObject()).then((cmd) => {
-            if (command.permissions.length) {
-              cmd.permissions.set({ permissions: command.permissions });
-            }
-            return cmd;
-          })
-        ),
-
-        // update and set permissions
-        ...updated.map((commands) =>
-          commands[0].edit(commands[1].toObject()).then((command) => {
-            if (commands[1].permissions.length) {
-              command.permissions.set({ permissions: commands[1].permissions });
-            }
-            return command;
-          })
-        ),
-
-        // delete
-        ...deleted.map((key) => guild.commands.delete(key)),
-      ]);
-    });
-
-    // # initialize add/update/delete task for global commands
-    const existing = (await this.fetchApplicationCommands())?.filter(
-      (command) => !command.guild
-    );
-    const AllDCommands = this.applicationCommands.filter(
-      (DCommand) => !DCommand.guilds?.length
-    );
-    if (existing) {
-      const added = AllDCommands.filter(
-        (DCommand) =>
-          !existing.find((command) => command.name === DCommand.name)
-      );
-
-      const updated = AllDCommands.map<
-        [ApplicationCommand | undefined, DApplicationCommand]
-      >((DCommand) => [
-        existing.find((command) => command.name === DCommand.name),
-        DCommand,
-      ]).filter<[ApplicationCommand, DApplicationCommand]>(
-        (commands): commands is [ApplicationCommand, DApplicationCommand] =>
-          commands[0] !== undefined
-      );
-
-      const deleted = existing.filter((command) =>
-        this.allApplicationCommands.every((s) => s.name !== command.name)
-      );
-
-      // log the changes to commands in console if enabled by options or silent mode is turned off
-      if (options?.log.forGlobal || !this.silent) {
+      if (log || !this.silent) {
         console.log(
           `${this.user?.username} >> global >> command >> adding ${
             added.length
@@ -437,7 +466,7 @@ export class Client extends ClientJS {
         console.log(
           `${this.user?.username} >> global >> command >> deleting ${
             deleted.size
-          } [${deleted.map((DCommand) => DCommand.name).join(", ")}]`
+          } [${deleted.map((cmd) => cmd.name).join(", ")}]`
         );
         console.log(
           `${this.user?.username} >> global >> command >> updating ${updated.length}`
@@ -454,9 +483,9 @@ export class Client extends ClientJS {
           this.application?.commands.create(DCommand.toObject())
         ),
         // update
-        ...updated.map((commands) => commands[0].edit(commands[1].toObject())),
+        ...updated.map((ob) => ob[0].edit(ob[1].toObject())),
         // delete
-        ...deleted.map((command) => this.application?.commands.delete(command)),
+        ...deleted.map((cmd) => this.application?.commands.delete(cmd)),
       ]);
     }
   }
