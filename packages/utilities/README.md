@@ -68,3 +68,5 @@ yarn add @discordx/utilities discord.js
 ```
 
 # Thank you
+
+Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).
