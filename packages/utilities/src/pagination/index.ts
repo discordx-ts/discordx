@@ -48,27 +48,23 @@ export async function sendPaginatedEmbeds(
   });
 
   collector.on("collect", async (collectInteraction) => {
-    if (collectInteraction.isButton()) {
+    if (collectInteraction.isButton() && option.type === "BUTTON") {
       if (
-        option.type === "BUTTON" &&
         collectInteraction.customId ===
-          (option.startId ?? defaultIds.startButton)
+        (option.startId ?? defaultIds.startButton)
       ) {
         currentPage = 0;
       } else if (
-        option.type === "BUTTON" &&
         collectInteraction.customId === (option.endId ?? defaultIds.endButton)
       ) {
         currentPage = embeds.length - 1;
       } else if (
-        option.type === "BUTTON" &&
         collectInteraction.customId === (option.nextId ?? defaultIds.nextButton)
       ) {
         currentPage++;
       } else if (
-        option.type === "BUTTON" &&
         collectInteraction.customId ===
-          (option.previousId ?? defaultIds.previousButton)
+        (option.previousId ?? defaultIds.previousButton)
       ) {
         currentPage--;
       } else {
@@ -78,7 +74,6 @@ export async function sendPaginatedEmbeds(
       await collectInteraction.deferUpdate();
       const messageOptions = allPages[currentPage];
       if (!messageOptions) throw Error("out of bound page");
-      if (!messageOptions.embeds) messageOptions.embeds = [];
       await collectInteraction.editReply(messageOptions);
     }
     if (

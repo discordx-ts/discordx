@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [1.0.9] - 2021-08-29
+
+### Fixed
+
+- When undefined, all message payload properties are not reset
+
 ## [1.0.8] - 2021-08-28
 
 ### Changed

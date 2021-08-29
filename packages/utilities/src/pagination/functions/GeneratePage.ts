@@ -104,6 +104,11 @@ export const GeneratePage = (
     if (cpage.components) cpage.components.push(row);
     else cpage.components = [row];
 
+    // reset message payload additional parameters
+    if (!cpage.embeds) cpage.embeds = [];
+    if (!cpage.files) cpage.files = [];
+    if (!cpage.stickers) cpage.stickers = [];
+    if (!cpage.attachments) cpage.attachments = [];
     return cpage;
   }
 };
