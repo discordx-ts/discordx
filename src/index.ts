@@ -1,6 +1,6 @@
 import "reflect-metadata";
-export * from "./logic";
-export * from "./decorators";
-export * from "./types";
-export * from "./Client";
-export * from "./classes";
+export * from "./logic/index.ts";
+export * from "./decorators/index.ts";
+export * from "./types/index.ts";
+export * from "./Client/index.ts";
+export * from "./classes/index.ts";
