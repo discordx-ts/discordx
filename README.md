@@ -219,6 +219,25 @@ class buttons {
 }
 ```
 
+# 📟 [@ContextMenu](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu) - create discord context menu options with ease!
+
+add discord context menu for your bot using `@ContextMenu` decorator
+
+```ts
+@Discord()
+export abstract class contextTest {
+  @ContextMenu("MESSAGE", "message context")
+  async messageHandler(interaction: ContextMenuInteraction) {
+    console.log("I am message");
+  }
+
+  @ContextMenu("USER", "user context")
+  async userHandler(interaction: ContextMenuInteraction) {
+    console.log("I am user");
+  }
+}
+```
+
 # 📟 [@SimpleCommand](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand) - Command Processor
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
@@ -311,3 +330,5 @@ Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/
 You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
 
 # Thank you
+
+Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).
