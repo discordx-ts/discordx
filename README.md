@@ -306,9 +306,7 @@ Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/
 
 # ☎️ Need help?
 
-**[discordx server](https://discord.gg/yHQY9fexH9)**
-
-**[discord.ts server](https://discord.gg/VDjwu8E)**
+**[discord server](https://discord.gg/yHQY9fexH9)**
 
 You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
 
