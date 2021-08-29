@@ -1,3 +1,3 @@
-export * from "./metadatas/MetadataStorage";
-export * from "./utils/DecoratorUtils";
-export * from "./di/DIService";
+export * from "./metadatas/MetadataStorage.ts";
+export * from "./utils/DecoratorUtils.ts";
+export * from "./di/DIService.ts";
