@@ -14,6 +14,7 @@
 
 .heroImg {
   max-width: 564px;
+  padding: 2rem 0;
 }
 
 @media screen and (max-width: 966px) {
