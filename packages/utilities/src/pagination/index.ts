@@ -1,4 +1,10 @@
-import { Message, MessageEmbed, MessageOptions } from "discord.js";
+import {
+  Interaction,
+  Message,
+  MessageEmbed,
+  MessageOptions,
+  TextBasedChannels,
+} from "discord.js";
 import {
   PaginationInteractions,
   PaginationOptions,
@@ -14,7 +20,7 @@ import { GeneratePage } from "./functions/GeneratePage";
  * @param options
  */
 export async function sendPaginatedEmbeds(
-  interaction: PaginationInteractions,
+  sendTo: PaginationInteractions | Message | TextBasedChannels,
   embeds: (string | MessageEmbed | MessageOptions)[],
   options?: PaginationOptions
 ): Promise<void> {
@@ -26,22 +32,37 @@ export async function sendPaginatedEmbeds(
   );
 
   const replyOptions = allPages[currentPage];
-  const message =
-    interaction.deferred || interaction.replied
-      ? await interaction.followUp({
-          ...replyOptions,
-          ephemeral: option.ephemeral,
-          fetchReply: true,
-        })
-      : await interaction.reply({
-          ...replyOptions,
-          ephemeral: option.ephemeral,
-          fetchReply: true,
-        });
+  if (!replyOptions) throw Error("out of bound page");
 
-  if (!(message instanceof Message)) {
-    throw Error("InvalidMessage instance");
+  let message: Message;
+
+  if (sendTo instanceof Message) {
+    message = await sendTo.reply(replyOptions);
+  } else if (sendTo instanceof Interaction) {
+    const reply =
+      sendTo.deferred || sendTo.replied
+        ? await sendTo.followUp({
+            ...replyOptions,
+            ephemeral: option.ephemeral,
+            fetchReply: true,
+          })
+        : await sendTo.reply({
+            ...replyOptions,
+            ephemeral: option.ephemeral,
+            fetchReply: true,
+          });
+
+    if (!(reply instanceof Message)) {
+      throw Error("InvalidMessage instance");
+    }
+
+    message = reply;
+  } else {
+    message = await sendTo.send(replyOptions);
   }
+
+  // check if pages sent
+  if (!message) throw Error("Failed to send pages");
 
   const collector = message.createMessageComponentCollector({
     time: option.time ?? defaultTime,

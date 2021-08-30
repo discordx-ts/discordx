@@ -9,11 +9,11 @@ import {
 export const defaultTime = 1800000;
 
 export enum defaultIds {
-  startButton = "discordx@pagination@startButton",
-  endButton = "discordx@pagination@endButton",
-  nextButton = "discordx@pagination@nextButton",
-  previousButton = "discordx@pagination@previousButton",
-  menuId = "discordx@pagination@menu",
+  startButton = "discordxPaginationStartButton",
+  endButton = "discordxpaginationendButton",
+  nextButton = "discordxpaginationnextButton",
+  previousButton = "discordxpaginationpreviousButton",
+  menuId = "discordxpaginationmenu",
 }
 
 export type PaginationInteractions =
