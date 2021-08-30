@@ -78,6 +78,7 @@ export const GeneratePage = (
     return cpage;
   } else {
     const paginator = paginate(totalPages, page, 1, 21).pages.map((i) => {
+      // const selectMenuOption: MessageSelectOptionData = {
       const selectMenuOption: MessageSelectOptionData = {
         label: `page ${i}`,
         value: (i - 1).toString(),
@@ -94,10 +95,11 @@ export const GeneratePage = (
       }
     }
 
-    const menu = new MessageSelectMenu()
+    // const menu = new MessageSelectMenu()  // v13.2.0
+    const menu = new MessageSelectMenu({ options: paginator })
       .setCustomId(option.menuId ?? defaultIds.menuId)
-      .setPlaceholder("Select page")
-      .setOptions(paginator);
+      .setPlaceholder("Select page");
+    // .setOptions(paginator); // v13.2.0
 
     const row = new MessageActionRow().addComponents([menu]);
 
@@ -108,7 +110,8 @@ export const GeneratePage = (
     if (!cpage.embeds) cpage.embeds = [];
     if (!cpage.files) cpage.files = [];
     if (!cpage.stickers) cpage.stickers = [];
-    if (!cpage.attachments) cpage.attachments = [];
+    // if (!cpage.files) cpage.files = []; // v13.1.0
+    // if (!cpage.attachments) cpage.attachments = []; // v13.2.0
     return cpage;
   }
 };

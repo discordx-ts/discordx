@@ -19,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [1.1.2] - 2021-08-30
+
+### Changed
+
+- `discordx@dev` to `discordx@latest`
+- `discord.js@dev` to `discord.js@latest`
+
 ## [1.1.1] - 2021-08-30
 
 ### Fixed

@@ -1,4 +1,4 @@
-import { ArgsOf, Discord, On, Slash } from "../../../../../src";
+import { ArgsOf, Discord, On, Slash } from "discordx";
 import {
   CommandInteraction,
   MessageActionRow,
