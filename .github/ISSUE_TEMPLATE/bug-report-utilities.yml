@@ -1,7 +1,7 @@
 name: Bug Report - @discordx/utilities
 description: File a bug report
 title: "[Bug]: "
-labels: [bug, "package:discordx/utilities"]
+labels: [bug, "package:@discordx/utilities"]
 assignees:
   - oceanroleplay
 body:
