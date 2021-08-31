@@ -26,8 +26,8 @@ body:
       label: Version
       description: What version of our software are you running?
       options:
-        - stable
-        - dev
+        - Stable
+        - Dev
     validations:
       required: true
 
