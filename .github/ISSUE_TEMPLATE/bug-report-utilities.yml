@@ -28,18 +28,7 @@ body:
       placeholder: Repo link or code
     validations:
       required: true
-      
-  - type: dropdown
-    id: version
-    attributes:
-      label: Version
-      description: What version of our software are you running?
-      options:
-        - Stable
-        - Dev
-    validations:
-      required: true
-
+    
   - type: textarea
     id: logs
     attributes:
