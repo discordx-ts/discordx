@@ -20,11 +20,14 @@ body:
     validations:
       required: true
       
-  - type: input
+  - type: dropdown
     id: version
     attributes:
       label: Version
       description: What version of our software are you running?
+      options:
+        - stable
+        - dev
     validations:
       required: true
 
