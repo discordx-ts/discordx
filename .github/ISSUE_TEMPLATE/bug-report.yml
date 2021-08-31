@@ -1,7 +1,7 @@
 name: Bug Report
 description: File a bug report
 title: "[Bug]: "
-labels: [bug, 'package:discordx']
+labels: [bug, "package:discordx"]
 assignees:
   - oceanroleplay
 body:
@@ -19,7 +19,7 @@ body:
       value: "A bug happened!"
     validations:
       required: true
-      
+
   - type: textarea
     id: reproduction
     attributes:
@@ -28,7 +28,7 @@ body:
       placeholder: Repo link or code
     validations:
       required: true
-      
+
   - type: dropdown
     id: version
     attributes:
