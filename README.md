@@ -53,10 +53,6 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 # 💡Why discordx?
 
-~~For [@typeit/discord](https://www.npmjs.com/package/@typeit/discord), we have created fixes and new features. Likewise, We have also requested our fixes and new features on original package at [OwenCalvin/discord.ts/pull/62](https://github.com/OwenCalvin/discord.ts/pull/62).~~
-
-[@typeit/discord](https://www.npmjs.com/package/@typeit/discord) is currently unmaintained (The last update was on June 8, 2021, [see difference](https://github.com/oceanroleplay/discord.ts/graphs/contributors)). At first, this project was only intended for fixes. However, the original source code has been completely recoded and we have also added some new features. Currently, it is not possible to merge this project with the original. Our project code name will remain `discord.ts` since the original is unmaintained. - Harry
-
 With `discordx`, we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, pagination etc.
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord.gg/yHQY9fexH9)
