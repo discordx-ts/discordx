@@ -53,7 +53,7 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 # 💡Why discordx?
 
-With `discordx`, we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, pagination etc.
+With `discordx`, we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, pagination etc. **Updated daily with discord.js changes**.
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord.gg/yHQY9fexH9)
 
