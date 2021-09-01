@@ -81,7 +81,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 
 # 📦 Package
 
-Maintained by [@oceanroleplay](https://github.com/oceanroleplay)
+Developed by [@oceanroleplay](https://github.com/oceanroleplay)
 
 Package by [@OwenCalvin](https://github.com/OwenCalvin)
 
