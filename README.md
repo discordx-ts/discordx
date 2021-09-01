@@ -75,9 +75,9 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 
 Here are more packages from us to extend the functionality of your Discord bot.
 
-| Package                                                                                           | Description                              |
-| ------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| [`@discordx/utilities`](https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities) | embed pagination with button/select menu |
+| Package                                                                    | Description                              |
+| -------------------------------------------------------------------------- | ---------------------------------------- |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | embed pagination with button/select menu |
 
 # 📦 Package
 
