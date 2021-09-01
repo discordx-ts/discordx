@@ -1,7 +1,9 @@
 .git
 .github
 .vscode
+.eslintignore
 .eslintrc
+.prettierignore
 .prettierrc.json
 jest.config.js
 tsconfig.json
