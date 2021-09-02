@@ -11,8 +11,8 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       classes: [
-        `${__dirname}/discords/*.ts`, // glob string to load the classes
-        `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
+        // glob string to load the classes. If you compile your bot, the file extension will be .js
+        `${__dirname}/discords/*.{js,ts}`,
       ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       botGuilds: [process.env.GUILD_ID ?? ""],

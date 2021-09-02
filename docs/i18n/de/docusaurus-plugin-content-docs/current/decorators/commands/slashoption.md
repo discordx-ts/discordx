@@ -197,8 +197,8 @@ const client = new Client({
   botId: "test",
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
   classes: [
-    `${__dirname}/*Discord.ts`, // glob string to load the classes
-    `${__dirname}/*Discord.js`, // If you compile using "tsc" the file extension change to .js
+    // glob string to load the classes. If you compile your bot, the file extension will be .js
+    `${__dirname}/discords/*.{js,ts}`,
   ],
   silent: false,
   requiredByDefault: true,

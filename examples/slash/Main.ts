@@ -13,8 +13,8 @@ export class Main {
     this._client = new Client({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       classes: [
-        `${__dirname}/discords/*.ts`, // glob string to load the classes
-        `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
+        // glob string to load the classes. If you compile your bot, the file extension will be .js
+        `${__dirname}/discords/*.{js,ts}`,
       ],
       botGuilds: [process.env.GUILD_ID ?? ""],
       requiredByDefault: true,

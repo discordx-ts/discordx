@@ -43,8 +43,8 @@ export class Main {
       // enable partials to recieve direct messages
       partials: ["CHANNEL", "MESSAGE"],
       classes: [
-        `${__dirname}/discords/*.ts`, // glob string to load the classes
-        `${__dirname}/discords/*.js`, // If you compile your bot, the file extension will be .js
+        // glob string to load the classes. If you compile your bot, the file extension will be .js
+        `${__dirname}/discords/*.{js,ts}`,
       ],
       botGuilds: [process.env.GUILD_ID ?? ""],
       silent: false,

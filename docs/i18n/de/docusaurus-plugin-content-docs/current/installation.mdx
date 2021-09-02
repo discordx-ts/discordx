@@ -218,10 +218,9 @@ const client = new Client({
   prefix: async (message: Message) => {
     return "!";
   },
-  // glob string to load the classes
   classes: [
-    `${__dirname}/commands/**/*.discord.{js,ts}`,
-    `${__dirname}/events/**/*.discord.{js,ts}`,
+    // glob string to load the classes. If you compile your bot, the file extension will be .js
+    `${__dirname}/discords/*.{js,ts}`,
   ],
   intents: [
     Intents.FLAGS.GUILDS,
