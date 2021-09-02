@@ -102,22 +102,18 @@ export class DApplicationCommandOption extends Decorator {
   }
 
   toObject(): ApplicationCommandOptionData {
-    const data: ApplicationCommandOptionData = {
+    const data = {
       description: this.description,
       name: this.name,
       type: this.type,
       required: this.required,
       choices: this.choices.map((choice) => choice.toObject()),
-      options: [...this.options]
-        .reverse()
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .map((option) => option.toObject()) as any,
+      options: [...this.options].reverse().map((option) => option.toObject()),
     };
 
-    if (!this.isNode) {
-      delete data.required;
+    if (this.isNode) {
+      data.required = this.required;
     }
-
-    return data;
+    return data as unknown as ApplicationCommandOptionData;
   }
 }
