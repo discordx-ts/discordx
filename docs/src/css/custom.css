@@ -25,6 +25,14 @@
 }
 
 :root[data-theme="dark"] {
+  --ifm-color-primary: #5865f2;
+  --ifm-color-primary-dark: #3949f0;
+  --ifm-color-primary-darker: #2a3bee;
+  --ifm-color-primary-darkest: #1121d6;
+  --ifm-color-primary-light: #7781f4;
+  --ifm-color-primary-lighter: #868ff6;
+  --ifm-color-primary-lightest: #b4baf9;
+
   --ifm-table-border-color: #282c34;
   --ifm-table-head-background: #242526;
   --ifm-table-stripe-background: #101113;
@@ -63,4 +71,47 @@ article table td {
 
 article table tr:nth-child(2n) {
   background-color: var(--ifm-table-stripe-background);
+}
+
+.menu ul a {
+  font-size: 0.875rem;
+}
+
+html[data-theme="light"] p {
+  color: #374151;
+}
+
+html[data-theme="dark"] p {
+  color: #9ca3af;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.3333333;
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 1.25em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.6;
+}
+
+h4 {
+  font-weight: 400;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
 }
