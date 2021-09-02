@@ -68,7 +68,7 @@ export abstract class AppDiscord {
 export abstract class AppDiscord1 {
   @Slash("hello")
   hello(
-    @SlashOption("user") user: GuildMember,
+    @SlashOption("user", { type: "USER" }) user: GuildMember | User,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${user}`);

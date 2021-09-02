@@ -52,7 +52,7 @@ export abstract class commandTest {
 
   @SimpleCommand("testx")
   async testx(
-    @SimpleCommandOption("user") user: GuildMember,
+    @SimpleCommandOption("user", { type: "USER" }) user: GuildMember | User,
     command: SimpleCommandMessage
   ): Promise<void> {
     command.message.reply(`${user}`);
