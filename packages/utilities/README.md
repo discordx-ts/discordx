@@ -34,7 +34,7 @@ function embeds(): MessageOptions[] {
 }
 
 @Discord()
-export abstract class StonePaperScissor {
+export abstract class Example {
   // example: message
   @On("messageCreate")
   async onMessage([message]: ArgsOf<"messageCreate">): Promise<void> {
