@@ -47,11 +47,13 @@ class DiscordBot {
 
 ## Parameters
 
-### guildId
-
-`Snowflake[]`
+### guildIDs
 
 The list of guild id's
+
+| type         | default | required |
+| ------------ | ------- | -------- |
+| Snowflake[ ] | [ ]     | Yes      |
 
 ## Make changes to
 

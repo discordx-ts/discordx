@@ -60,8 +60,11 @@ ButtonComponent(
 
 ### custom_id
 
-`string`
 A unique id for your button interaction to be handled under.
+
+| type   | default | required |
+| ------ | ------- | -------- |
+| string |         | Yes      |
 
 :::caution
 As per discord latest annoucement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
@@ -69,17 +72,24 @@ As per discord latest annoucement, `custom_ids` being unique within a message. [
 
 ### params
 
-`object`
-
 Multiple options, check below.
 
-#### botIds
+| type   | default   | required |
+| ------ | --------- | -------- |
+| object | undefined | No       |
 
-`string[]`
+#### `botIds`
 
 Array of bot ids, for which only the event will be executed.
 
-#### Guilds
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |
 
-`string[]`
+#### `Guilds`
+
 The guilds where the command is created
+
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |

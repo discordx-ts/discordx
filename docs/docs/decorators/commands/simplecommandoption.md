@@ -118,22 +118,32 @@ SimpleCommandOption( name: string, params?: { description?: string; type?: "STRI
 
 ### name
 
-`string`
 The name of your command option
+
+| type   | default | required |
+| ------ | ------- | -------- |
+| string |         | Yes      |
 
 ### params
 
-`object`
-
 Multiple options, check below.
 
-#### description
+| type   | default   | required |
+| ------ | --------- | -------- |
+| object | undefined | No       |
 
-`string`
+#### `description`
+
 The description of command option
 
-#### type
+| type   | default      |
+| ------ | ------------ |
+| string | Command type |
 
-`STRING | INTEGER | NUMBER | BOOLEAN | USER | CHANNEL | ROLE | MENTIONABLE`
+#### `type`
 
 The type of your command option
+
+| type                                                                             | default   |
+| -------------------------------------------------------------------------------- | --------- |
+| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | Inferance |

@@ -38,40 +38,56 @@ ContextMenu(
 
 ### type
 
-`USER | MESSAGE`
-
 Context menu type.
+
+| type            | default | required |
+| --------------- | ------- | -------- |
+| USER \| MESSAGE |         | Yes      |
 
 ### name
 
-`string`
+| type   | default | required |
+| ------ | ------- | -------- |
+| string | name    | Yes      |
 
 Name of context menu. Name and handler have the same value currently.
 
 ### ApplicationCommandParams
 
-`object`
-
 Multiple options, check below.
 
-#### botIds
+| type   | default   | required |
+| ------ | --------- | -------- |
+| object | undefined | No       |
 
-`string[]`
+#### `botIds`
 
 Array of bot ids, for which only the event will be executed.
 
-#### defaultPermission
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |
 
-`boolean` `default: true`
+#### `defaultPermission`
 
 "You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
 
-#### Description
+| type    | default |
+| ------- | ------- |
+| boolean | true    |
 
-`string`
+#### `Description`
+
 The Slash command description
 
-#### Guilds
+| type   | default |
+| ------ | ------- |
+| string | true    |
 
-`string[]`
+#### `Guilds`
+
 The guilds where the command is created
+
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |

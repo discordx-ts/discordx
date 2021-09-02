@@ -63,58 +63,76 @@ SimpleCommand(name: string, params: SimpleCommandParams)
 
 ### Name
 
-`string`
+The simple command name.
+
+| type   | default | required |
+| ------ | ------- | -------- |
+| string |         | Yes      |
 
 :::caution
 Make sure your command name is compitable with regex `a-z A-Z0-9`
 :::
 
-The simple command name.
-
 ### SimpleCommandParams
-
-`object`
 
 Multiple options, check below.
 
-#### aliases
+| type   | default   | required |
+| ------ | --------- | -------- |
+| object | undefined | No       |
 
-`string[]`
+#### `aliases`
 
 Alternative names for simple commands.
 
-#### Description
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |
 
-`string`
+#### `Description`
 
 The simple command description.
 
-#### argSplitter
+| type   | default      |
+| ------ | ------------ |
+| string | Command name |
 
-`string | RegExp` `default: " "`
+#### `argSplitter`
 
 Splitter for arguments used with @SimpleCommandOption
 
-#### botIds
+| type   | default           |
+| ------ | ----------------- |
+| string | Single whitespace |
 
-`string[]`
+#### `botIds`
 
 Array of bot ids, for which only the command will be executed.
 
-#### defaultPermission
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |
 
-`boolean` `default: true`
+#### `defaultPermission`
 
 When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
 
-#### directMessage
+| type    | default |
+| ------- | ------- |
+| boolean | true    |
 
-`boolean` `default: true`
+#### `directMessage`
 
 Allow command execution from direct messages.
 
-#### guilds
+| type    | default |
+| ------- | ------- |
+| boolean | true    |
 
-`string[]`
+#### `guilds`
 
 Array of guild ids, for which only the command will be executed.
+
+| type        | default |
+| ----------- | ------- |
+| Snowflake[] | [ ]     |

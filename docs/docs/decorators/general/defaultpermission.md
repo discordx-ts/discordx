@@ -16,9 +16,11 @@ The default permission used to set permission for everyone in your slash or simp
 
 ### permission
 
-`boolean` `default: true`
-
 When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
+
+| type    | default | required |
+| ------- | ------- | -------- |
+| boolean | true    | No       |
 
 ## Make changes to
 

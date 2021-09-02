@@ -161,28 +161,43 @@ SlashOption(
 
 ### name
 
-`string`
+The name of your command option
 
-The option name
+| type   | default | required |
+| ------ | ------- | -------- |
+| string |         | Yes      |
 
-### SlashOptionParams
+### params
 
-#### Description
+Multiple options, check below.
 
-`string`
-`OPTION_NAME - OPTION_TYPE` by default
+| type   | default   | required |
+| ------ | --------- | -------- |
+| object | undefined | No       |
+
+#### `Description`
 
 You can set the description of the option
 
-#### Required
+| type   | default                   |
+| ------ | ------------------------- |
+| string | OPTION_NAME - OPTION_TYPE |
 
-`bool` `default: false`
+#### `Required`
 
 The option is required or not
 
-#### Type
+| type    | default |
+| ------- | ------- |
+| boolean | false   |
 
-`"USER" | "STRING" | "BOOLEAN" | "INTEGER" | "NUMBER" | "CHANNEL" | "ROLE" | "MENTIONABLE" | undefined`
+#### `Type`
+
+The type of your command option
+
+| type                                                                             | default   |
+| -------------------------------------------------------------------------------- | --------- |
+| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | Inferance |
 
 Slash option input type
 

@@ -7,59 +7,77 @@ It manages all the operations between your app and Discord's API using discord.j
 In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
 It works the same as the discord.**js**'s Client (same methods, properties, ...).
 
-### intents (required)
-
-`Intents[]`
+### intents
 
 [see Intents](#intents)
 
-### botId
+| type       | default | required |
+| ---------- | ------- | -------- |
+| Intents[ ] |         | Yes      |
 
-`string` `default: bot`
+### botId
 
 a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
 
-### prefix
+| type   | default | required |
+| ------ | ------- | -------- |
+| string | bot     | No       |
 
-`string | ((message: Message) => Promise<string>)` `default: !`
+### prefix
 
 simple commands use this prefix by default, use function to fetch different prefix for different guilds
 
-### commandUnauthorizedHandler
+| type                                                | default | required |
+| --------------------------------------------------- | ------- | -------- |
+| string \| ((message: Message) =\> Promise<string\>) | !       | No       |
 
-`string | ((command: SimpleCommandMessage) => Promise<void>)`
+### commandUnauthorizedHandler
 
 define bot reply, when command is not auhorized
 
-### classes
+| type                                                           | default | required |
+| -------------------------------------------------------------- | ------- | -------- |
+| string \| ((command: SimpleCommandMessage) =\> Promise<void\>) |         | No       |
 
-`string[]`
+### classes
 
 Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
 
-### silent
+| type      | default | required |
+| --------- | ------- | -------- |
+| string[ ] | [ ]     | No       |
 
-`boolean` `default: true`
+### silent
 
 Allows you to disable your event information at startup
 
-### requiredByDefault
+| type    | default | required |
+| ------- | ------- | -------- |
+| boolean | true    | No       |
 
-`boolean` `default: false`
+### requiredByDefault
 
 The `@SlashOption` are required by default
 
-### guards
+| type    | default | required |
+| ------- | ------- | -------- |
+| boolean | false   | No       |
 
-`GuardFunction[]`
+### guards
 
 Global guards, it's an array of functions
 
+| type             | default | required |
+| ---------------- | ------- | -------- |
+| GuardFunction[ ] | [ ]     | No       |
+
 ### botGuilds
 
-`Snowflake[]`
-
 The application commands are executed only on this list of guilds by default, ex. slash, button, selectmenu, contextmenu
+
+| type         | default | required |
+| ------------ | ------- | -------- |
+| Snowflake[ ] | [ ]     | No       |
 
 **You must specify the glob path(s) where your decorated classes are**
 

@@ -206,9 +206,11 @@ Guard<Type = any, DatasType = any>(
 
 ### guard
 
-`GuardFunction[]`
-
 Array of guard functions.
+
+| type             | default | required |
+| ---------------- | ------- | -------- |
+| GuardFunction[ ] | [ ]     | Yes      |
 
 ## Make changes to
 

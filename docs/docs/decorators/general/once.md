@@ -52,18 +52,24 @@ Once(event: DiscordEvents, params?: EventParams)
 
 ### Name
 
-`event`
-
 The event name.
+
+| type   | default | required |
+| ------ | ------- | -------- |
+| string |         | Yes      |
 
 ### EventParams
 
-`object`
-
 Multiple options, check below.
+
+| type   | default   | required |
+| ------ | --------- | -------- |
+| object | undefined | No       |
 
 #### botIds
 
-`string[]`
-
 Array of bot ids, for which only the event will be executed.
+
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |

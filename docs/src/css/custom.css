@@ -7,6 +7,10 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-code-font-size: 95%;
+}
+
+:root[data-theme="light"] {
   --ifm-color-primary: #5865f2;
   --ifm-color-primary-dark: #3949f0;
   --ifm-color-primary-darker: #2a3bee;
@@ -14,7 +18,16 @@
   --ifm-color-primary-light: #7781f4;
   --ifm-color-primary-lighter: #868ff6;
   --ifm-color-primary-lightest: #b4baf9;
-  --ifm-code-font-size: 95%;
+
+  --ifm-table-border-color: #dadde1;
+  --ifm-table-head-background: #ececec;
+  --ifm-table-stripe-background: #f5f6f7;
+}
+
+:root[data-theme="dark"] {
+  --ifm-table-border-color: #282c34;
+  --ifm-table-head-background: #242526;
+  --ifm-table-stripe-background: #101113;
 }
 
 .docusaurus-highlight-code-line {
@@ -30,4 +43,24 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
 
 .badge {
   padding: 2px;
+}
+
+article table {
+  display: table;
+  width: 100%;
+  font-size: 14px;
+}
+
+article table thead th {
+  text-align: left;
+  text-transform: uppercase;
+}
+
+article table th,
+article table td {
+  padding: 6px 10px;
+}
+
+article table tr:nth-child(2n) {
+  background-color: var(--ifm-table-stripe-background);
 }

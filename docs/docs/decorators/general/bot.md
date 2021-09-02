@@ -33,9 +33,11 @@ Bot(...botIDs: string[]): ClassMethodDecorator;
 
 ### botID
 
-`string[]`
-
 Array of bot ids, for which only the below statement will be executed.
+
+| type      | default | required |
+| --------- | ------- | -------- |
+| string[ ] | [ ]     | Yes      |
 
 ## Make changes to
 

@@ -174,18 +174,24 @@ SlashGroup(
 
 ### group
 
-`string`
-
 The group name
+
+| type   | default | required |
+| ------ | ------- | -------- |
+| string |         | Yes      |
 
 ### description
 
-`string`
-
 The group description
+
+| type   | default   | required |
+| ------ | --------- | -------- |
+| string | undefined | No       |
 
 ### subCommands
 
-`[key: string]: string`
-
 Define sub commands name with description, [check example here](#slashgroup-on-method-level).
+
+| type                  | default   | required |
+| --------------------- | --------- | -------- |
+| [key: string]: string | undefined | No       |

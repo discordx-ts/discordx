@@ -26,10 +26,10 @@ module.exports = {
           position: "left",
           label: "Docs",
         },
-        {
-          type: "localeDropdown",
-          position: "right",
-        },
+        // {
+        //   type: "localeDropdown",
+        //   position: "right",
+        // },
         {
           position: "right",
           label: "Discord server",

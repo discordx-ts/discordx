@@ -156,37 +156,51 @@ Slash(
 
 ### Name
 
-`string`
-
 The Slash command name
+
+| type   | default | required |
+| ------ | ------- | -------- |
+| string |         | YES      |
 
 ### ApplicationCommandParams
 
-`object`
-
 Multiple options, check below.
 
-#### botIds
+| type   | default   | required |
+| ------ | --------- | -------- |
+| object | undefined | No       |
 
-`string[]`
+#### `botIds`
 
 Array of bot ids, for which only the event will be executed.
 
-#### defaultPermission
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |
 
-`boolean` `default: true`
+#### `defaultPermission`
 
 "You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
 
-#### Description
+| type    | default |
+| ------- | ------- |
+| boolean | true    |
 
-`string`
+#### `Description`
+
 The Slash command description
+
+| type   | default                     |
+| ------ | --------------------------- |
+| string | Command name - Command type |
 
 #### Guilds
 
-`string[]`
 The guilds where the command is created
+
+| type        | default |
+| ----------- | ------- |
+| Snowflake[] | [ ]     |
 
 ## Authorize your bot to use Slash commands
 

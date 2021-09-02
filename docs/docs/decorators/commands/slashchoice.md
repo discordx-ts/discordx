@@ -71,10 +71,16 @@ SlashChoice(choices: SlashChoicesType);
 
 ### Name
 
-`string`
 You have to set a diplayed name for your choice
+
+| type             | default | required |
+| ---------------- | ------- | -------- |
+| string \| number |         | Yes      |
 
 ### Value
 
-`string | number`
 You have to set a value for your choice, if the user select "Astraunot", you will receive the value "astro"
+
+| type             | default     | required |
+| ---------------- | ----------- | -------- |
+| string \| number | Choice name | No       |
