@@ -21,7 +21,7 @@ function embeds(): MessageOptions[] {
 }
 
 @Discord()
-export abstract class StonePaperScissor {
+export abstract class Example {
   // example: message
   @On("messageCreate")
   async onMessage([message]: ArgsOf<"messageCreate">): Promise<void> {
@@ -43,7 +43,7 @@ export abstract class StonePaperScissor {
   }
 
   // example: simple slash with button pagination
-  @Slash("demoA")
+  @Slash("demoa", { description: "Simple slash with button pagination" })
   async page(interaction: CommandInteraction): Promise<void> {
     await sendPaginatedEmbeds(interaction, embeds(), {
       type: "BUTTON",
@@ -51,7 +51,7 @@ export abstract class StonePaperScissor {
   }
 
   // example: simple slash with menu pagination
-  @Slash("demoB")
+  @Slash("demob", { description: "Simple slash with menu pagination" })
   async pagex(interaction: CommandInteraction): Promise<void> {
     await sendPaginatedEmbeds(interaction, embeds(), {
       type: "SELECT_MENU",
@@ -59,7 +59,7 @@ export abstract class StonePaperScissor {
   }
 
   // example: simple string array
-  @Slash("demoC")
+  @Slash("democ", { description: "Simple string array" })
   async pages(interaction: CommandInteraction): Promise<void> {
     await sendPaginatedEmbeds(
       interaction,
@@ -68,7 +68,7 @@ export abstract class StonePaperScissor {
   }
 
   // example: array of custom message options
-  @Slash("demoD")
+  @Slash("demod", { description: "Array of custom message options" })
   async pagen(interaction: CommandInteraction): Promise<void> {
     await sendPaginatedEmbeds(interaction, [
       {
