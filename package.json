@@ -35,7 +35,7 @@
     "decorators"
   ],
   "dependencies": {
-    "discord.js": "^13.2.0-dev.1630541121.841956",
+    "discord.js": "^13.2.0-dev.1630627487.841956",
     "glob": "^7.1.7",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.3.1"
