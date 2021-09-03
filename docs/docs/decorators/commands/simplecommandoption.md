@@ -19,7 +19,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
     command: SimpleCommandMessage
   ) {
     if (!name) return message.reply("usage: ``!hello <your name>``");
-    message.reply(`hello ${name}`);
+    command.message.reply(`hello ${name}`);
   }
 ```
 
