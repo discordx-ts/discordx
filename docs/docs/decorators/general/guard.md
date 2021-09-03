@@ -194,6 +194,30 @@ abstract class AppDiscord {
 }
 ```
 
+### Access client from decorator
+
+```ts
+@Discord()
+class commandTest {
+  @SimpleCommand("mycmd")
+  async myCmd(command: SimpleCommandMessage, client: Client) {
+    command.message.reply("Hello :wave_tone1:");
+  }
+}
+```
+
+### Access guard data from decorator
+
+```ts
+@Discord()
+class commandTest {
+  @SimpleCommand("mycmd")
+  async myCmd(command: SimpleCommandMessage, client: Client, guardData: any) {
+    command.message.reply("Hello :wave_tone1:");
+  }
+}
+```
+
 ## Signature
 
 ```ts
