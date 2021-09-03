@@ -6,7 +6,7 @@ import {
 } from "discord.js";
 
 // By default, it's half an hour.
-export const defaultTime = 1800000;
+export const defaultTime = 1_800_000;
 
 export enum defaultIds {
   startButton = "discordx@pagination@startButton",
@@ -105,6 +105,11 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
    * custom select menu id (default: 'discordx@pagination@menu')
    */
   menuId?: string;
+
+  /**
+   * Define page text, use `{page}` to print page number
+   */
+  pageText?: string;
 }
 
 export type PaginationOptions =

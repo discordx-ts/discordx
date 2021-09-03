@@ -4,21 +4,9 @@ import {
   MessageActionRow,
   MessageButton,
   MessageEmbed,
-  MessageOptions,
 } from "discord.js";
+import { GeneratePages } from "../util/common functions";
 import { sendPaginatedEmbeds } from "../../../src";
-
-function embeds(): MessageOptions[] {
-  const pages = Array.from(Array(20).keys()).map((i) => {
-    return { content: `I am ${i + 1}`, embed: `Demo ${i + 1}` };
-  });
-  return pages.map((page) => {
-    return {
-      content: page.content,
-      embeds: [new MessageEmbed().setTitle(page.embed)],
-    };
-  });
-}
 
 @Discord()
 export abstract class Example {
@@ -26,7 +14,7 @@ export abstract class Example {
   @On("messageCreate")
   async onMessage([message]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated demo") {
-      await sendPaginatedEmbeds(message, embeds(), {
+      await sendPaginatedEmbeds(message, GeneratePages(), {
         type: "BUTTON",
       });
     }
@@ -36,7 +24,7 @@ export abstract class Example {
   @On("messageCreate")
   async onMessageChannel([message]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated channel demo") {
-      await sendPaginatedEmbeds(message.channel, embeds(), {
+      await sendPaginatedEmbeds(message.channel, GeneratePages(), {
         type: "BUTTON",
       });
     }
@@ -45,7 +33,7 @@ export abstract class Example {
   // example: simple slash with button pagination
   @Slash("demoa", { description: "Simple slash with button pagination" })
   async page(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, embeds(), {
+    await sendPaginatedEmbeds(interaction, GeneratePages(), {
       type: "BUTTON",
     });
   }
@@ -53,7 +41,7 @@ export abstract class Example {
   // example: simple slash with menu pagination
   @Slash("demob", { description: "Simple slash with menu pagination" })
   async pagex(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, embeds(), {
+    await sendPaginatedEmbeds(interaction, GeneratePages(), {
       type: "SELECT_MENU",
     });
   }

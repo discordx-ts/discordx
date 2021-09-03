@@ -80,7 +80,7 @@ export const GeneratePage = (
     const paginator = paginate(totalPages, page, 1, 21).pages.map((i) => {
       // const selectMenuOption: MessageSelectOptionData = {
       const selectMenuOption: MessageSelectOptionData = {
-        label: `page ${i}`,
+        label: (option.pageText ?? "Page {page}").replaceAll("{page}", `${i}`),
         value: (i - 1).toString(),
       };
       return selectMenuOption;

@@ -24,7 +24,9 @@ export async function sendPaginatedEmbeds(
   embeds: (string | MessageEmbed | MessageOptions)[],
   options?: PaginationOptions
 ): Promise<void> {
-  const option = options ?? { type: "BUTTON" };
+  const option =
+    options ??
+    (embeds.length < 20 ? { type: "BUTTON" } : { type: "SELECT_MENU" });
   let currentPage = option.initialPage ?? 0;
 
   const allPages = embeds.map((embed, index) =>

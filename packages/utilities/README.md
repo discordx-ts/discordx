@@ -123,6 +123,43 @@ npm install @discordx/utilities discord.js
 yarn add @discordx/utilities discord.js
 ```
 
+# Options
+
+| Name        | Type                  | Default   | Description          |
+| ----------- | --------------------- | --------- | -------------------- |
+| ephemeral   | -                     | undefined | For interaction only |
+| initialPage | -                     | 0         | -                    |
+| time        | -                     | 1_800_000 | -                    |
+| type        | BUTTON \| SELECT_MENU | BUTTON    | pagination type      |
+
+> When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.
+
+## Button Options
+
+The following options are only available, if you have set type to `BUTTON`
+
+| Name            | Type                                      | Default                            | Description            |
+| --------------- | ----------------------------------------- | ---------------------------------- | ---------------------- |
+| endId           | string                                    | discordx@pagination@endButton      | Button custom id       |
+| endLabel        | string                                    | End                                | Button lable           |
+| nextId          | string                                    | discordx@pagination@nextButton     | Button custom id       |
+| nextLabel       | string                                    | Next                               | Button lable           |
+| previousId      | string                                    | discordx@pagination@previousButton | Button custom id       |
+| previousLabel   | string                                    | Previous                           | Button lable           |
+| startId         | string                                    | discordx@pagination@startButton    | Button custom id       |
+| startLabel      | string                                    | Start                              | Button lable           |
+| startEndButtons | boolean                                   | true                               | Show start/end buttons |
+| style           | PRIMARY \| SECONDARY \| SUCCESS \| DANGER | PRIMARY                            | Button style           |
+
+## SELECT_MENU Options
+
+The following options are only available, if you have set type to `SELECT_MENU`
+
+| Name     | Type   | Default                  | Description    |
+| -------- | ------ | ------------------------ | -------------- |
+| menuId   | string | discordx@pagination@menu | Menu custom id |
+| pageText | string | Page {page}              | Menu page text |
+
 # Thank you
 
 Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).

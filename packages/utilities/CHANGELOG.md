@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [1.1.4] - 2021-09-03
+
+### Added
+
+- `pageText` option for select menu, to set custom page text
+
 ## [1.1.3] - 2021-09-02
 
 ### Changed
