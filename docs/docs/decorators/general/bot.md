@@ -17,8 +17,8 @@ await cortana.login("cortanatoken");
 @Bot("alexa", "cortana") // now define, which bot can execute following slashes, events or commands
 class simpleCommandExample {
   @SimpleCommand("hello")
-  command(message: Message) {
-    message.reply(`👋 ${message.member}`);
+  command(command: SimpleCommandMessage) {
+    command.message.reply(`👋 ${message.member}`);
   }
 }
 ```
