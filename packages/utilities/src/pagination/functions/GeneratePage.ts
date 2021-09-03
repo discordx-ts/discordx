@@ -16,7 +16,6 @@ export const GeneratePage = (
   totalPages: number,
   option: PaginationOptions
 ): InteractionReplyOptions => {
-  // const footer = `Page ${page + 1} of ${embeds.length}`;
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
@@ -88,17 +87,17 @@ export const GeneratePage = (
 
     if (totalPages > 21) {
       if (page > 10) {
-        paginator.unshift({ label: "Start", value: "-1" });
+        paginator.unshift({ label: option.startLabel ?? "Start", value: "-1" });
       }
       if (page < totalPages - 10) {
-        paginator.push({ label: "End", value: "-2" });
+        paginator.push({ label: option.endLabel ?? "End", value: "-2" });
       }
     }
 
     // const menu = new MessageSelectMenu()  // v13.2.0
     const menu = new MessageSelectMenu({ options: paginator })
       .setCustomId(option.menuId ?? defaultIds.menuId)
-      .setPlaceholder("Select page");
+      .setPlaceholder(option.placeholder ?? "Select page");
     // .setOptions(paginator); // v13.2.0
 
     const row = new MessageActionRow().addComponents([menu]);
@@ -110,7 +109,7 @@ export const GeneratePage = (
     if (!cpage.embeds) cpage.embeds = [];
     if (!cpage.files) cpage.files = [];
     if (!cpage.stickers) cpage.stickers = [];
-    // if (!cpage.files) cpage.files = []; // v13.1.0
+    if (!cpage.files) cpage.files = []; // v13.1.0
     // if (!cpage.attachments) cpage.attachments = []; // v13.2.0
     return cpage;
   }

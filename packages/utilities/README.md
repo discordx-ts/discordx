@@ -155,10 +155,13 @@ The following options are only available, if you have set type to `BUTTON`
 
 The following options are only available, if you have set type to `SELECT_MENU`
 
-| Name     | Type   | Default                  | Description    |
-| -------- | ------ | ------------------------ | -------------- |
-| menuId   | string | discordx@pagination@menu | Menu custom id |
-| pageText | string | Page {page}              | Menu page text |
+| Name        | Type   | Default                  | Description        |
+| ----------- | ------ | ------------------------ | ------------------ |
+| menuId      | string | discordx@pagination@menu | Menu custom id     |
+| pageText    | string | Page {page}              | Menu page text     |
+| placeholder | string | Select page              | Menu placeholder   |
+| startLabel  | string | Start                    | Start option label |
+| endLabel    | string | End                      | End option label   |
 
 # Thank you
 

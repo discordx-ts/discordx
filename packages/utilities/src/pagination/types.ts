@@ -110,6 +110,21 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
    * Define page text, use `{page}` to print page number
    */
   pageText?: string;
+
+  /**
+   * Set placeholder text
+   */
+  placeholder?: string;
+
+  /**
+   * Start label
+   */
+  startLabel?: string;
+
+  /**
+   * End label
+   */
+  endLabel?: string;
 }
 
 export type PaginationOptions =
