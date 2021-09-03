@@ -127,9 +127,9 @@ yarn add @discordx/utilities discord.js
 
 | Name        | Type                  | Default   | Description          |
 | ----------- | --------------------- | --------- | -------------------- |
-| ephemeral   | -                     | undefined | For interaction only |
-| initialPage | -                     | 0         | -                    |
-| time        | -                     | 1_800_000 | -                    |
+| ephemeral   | boolean               | undefined | For interaction only |
+| initialPage | number                | 0         | -                    |
+| time        | number                | 1_800_000 | -                    |
 | type        | BUTTON \| SELECT_MENU | BUTTON    | pagination type      |
 
 > When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.
