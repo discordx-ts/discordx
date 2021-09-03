@@ -251,7 +251,7 @@ class commandTest {
     permission: true,
   })
   async permFunc(command: SimpleCommandMessage) {
-    message.reply("access granted");
+    command.message.reply("access granted");
   }
 }
 ```
