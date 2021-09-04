@@ -9,7 +9,7 @@ It works the same as the discord.**js**'s Client (same methods, properties, ...)
 
 ### intents
 
-[see Intents](##list-of-all-the-intents)
+[see Intents](#list-of-all-the-intents)
 
 | type       | default | required |
 | ---------- | ------- | -------- |
