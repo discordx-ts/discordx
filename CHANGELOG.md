@@ -19,16 +19,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [Unreleased - 5.9.0] - 2021-00-00
+## [Unreleased - 5.8.2] - 2021-09-08
 
-## [5.8.0] - 2021-09-01
+### Changed
 
-## Added
+- readme
+
+## [5.8.1] - 2021-09-01
+
+### Added
 
 - `@SimpleCommandOption` - added option type `INTEGER`, `MENTIONABLE`
 - expose `initGuildApplicationCommands` and `initGlobalApplicationCommands` from client
 
-## Fixed
+### Fixed
 
 - `@SimpleCommandOption` - option parsing
 
