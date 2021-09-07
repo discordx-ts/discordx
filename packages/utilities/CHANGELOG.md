@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [1.1.6] - 2021-09-08
+
+### Changed
+
+- `pageText`support `string[]` - Different text for different pages
+
 ## [1.1.5] - 2021-09-03
 
 ### Added

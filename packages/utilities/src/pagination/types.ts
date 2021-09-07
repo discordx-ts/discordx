@@ -108,8 +108,9 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
 
   /**
    * Define page text, use `{page}` to print page number
+   * Different page texts can also be defined for different items using arrays
    */
-  pageText?: string;
+  pageText?: string | string[];
 
   /**
    * Set placeholder text
