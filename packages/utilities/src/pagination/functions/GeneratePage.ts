@@ -81,7 +81,7 @@ export const GeneratePage = (
       const selectMenuOption: MessageSelectOptionData = {
         label: (
           (option.pageText instanceof Array
-            ? option.pageText[page]
+            ? option.pageText[i - 1]
             : option.pageText) ?? "Page {page}"
         ).replaceAll("{page}", `${i}`),
         value: (i - 1).toString(),
