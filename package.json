@@ -36,7 +36,7 @@
     "decorators"
   ],
   "dependencies": {
-    "discord.js": "^13.2.0-dev.1631016490.f57791c",
+    "discord.js": "^13.2.0-dev.1631102601.f57791c",
     "glob": "^7.1.7",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.3.1"
@@ -47,7 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.32.0",
-    "jest": "^27.1.0",
+    "jest": "^27.1.1",
     "prettier": "2.3.2",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
