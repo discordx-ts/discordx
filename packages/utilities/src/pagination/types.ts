@@ -23,11 +23,6 @@ export type PaginationInteractions =
 
 interface BasicPaginationOptions {
   /**
-   * Interaction ephemeral
-   */
-  ephemeral?: boolean;
-
-  /**
    * Initial page (default: 0)
    */
   initialPage?: number;

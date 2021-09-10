@@ -127,7 +127,6 @@ yarn add @discordx/utilities discord.js
 
 | Name        | Type                  | Default   | Description                  |
 | ----------- | --------------------- | --------- | ---------------------------- |
-| ephemeral   | boolean               | undefined | For interaction only         |
 | initialPage | number                | 0         | Initial page                 |
 | time        | number                | 1_800_000 | Timeout for pagination in ms |
 | type        | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |
