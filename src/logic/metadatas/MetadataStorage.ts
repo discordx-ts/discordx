@@ -268,7 +268,7 @@ export class MetadataStorage {
     // Cannot achieve it using modifiers
     this._groups.forEach((group) => {
       this._applicationCommands.forEach((slash) => {
-        if (group.from !== slash.from) {
+        if (group.from !== slash.from || slash.type !== "CHAT_INPUT") {
           return;
         }
 

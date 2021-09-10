@@ -92,7 +92,9 @@ export function SlashGroup(
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
         Modifier.create<DApplicationCommand>((original) => {
-          original.subgroup = groupOrSubcommands.toLowerCase();
+          if (original.type === "CHAT_INPUT") {
+            original.subgroup = groupOrSubcommands.toLowerCase();
+          }
         }, DApplicationCommand).decorate(target.constructor, key)
       );
     }

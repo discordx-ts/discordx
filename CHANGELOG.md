@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [5.8.3] - 2021-09-15
+
+### Fixed
+
+- Issue where `@SlashGroup` apply on `@ContextMenu`
+
 ## [5.8.2] - 2021-09-08
 
 ### Changed
