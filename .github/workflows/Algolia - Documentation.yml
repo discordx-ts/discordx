@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: oceanroleplay/action-algolia-docsearch@master
+      - uses: oceanroleplay/action-algolia-docsearch@main
         with:
           algolia_application_id: ${{ secrets.ALGOLIA_API_KEY }}
           algolia_api_key: ${{ secrets.ALGOLIA_APPLICATION_ID }}
