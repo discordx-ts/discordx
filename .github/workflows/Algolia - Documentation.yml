@@ -5,10 +5,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      APPLICATION_ID: ${{ secrets.ALGOLIA_API_KEY }}
+      API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+      INDEX_NAME: discord.ts
+      CONFIG: ${{ jq -r tostring docs/config.json }}
+    name: Index Algolia
     steps:
-      - uses: actions/checkout@v2
+      - name: Algolia Docsearch Action
+        id: algolia
       - uses: oceanroleplay/action-algolia-docsearch@main
-        with:
-          algolia_application_id: ${{ secrets.ALGOLIA_API_KEY }}
-          algolia_api_key: ${{ secrets.ALGOLIA_APPLICATION_ID }}
-          config_file: "docs/config.json"
