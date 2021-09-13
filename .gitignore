@@ -3,6 +3,7 @@ build
 .DS_Store
 .docusaurus
 .cache-loader
+.env
 .env.local
 .env.development.local
 .env.test.local

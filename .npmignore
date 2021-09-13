@@ -1,6 +1,7 @@
 .git
 .github
 .vscode
+.env
 .eslintignore
 .eslintrc
 .prettierignore
