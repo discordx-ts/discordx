@@ -53,15 +53,7 @@ module.exports = {
     algolia: {
       apiKey: "d80ba8eaf70ddb3eb5371d44ebb0ba1a",
       indexName: "discord.ts",
-
-      // Optional: see doc section below
-      contextualSearch: true,
-
-      // Optional: see doc section below
       appId: "C09VVW4QGN",
-
-      // Optional: Algolia search parameters
-      searchParameters: {},
     },
   },
   presets: [
