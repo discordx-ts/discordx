@@ -317,6 +317,9 @@ export class Client extends ClientJS {
 
     // run task to add/update/delete slashes for guilds
     guildDCommandStore.forEach(async (DCommands, guildId) => {
+      // If bot is not in guild, skip it
+      const guild = this.guilds.cache.get(guildId);
+      if (!guild) return;
       allGuildPromises.push(
         this.initGuildApplicationCommands(
           guildId,
@@ -343,7 +346,7 @@ export class Client extends ClientJS {
     DCommands: DApplicationCommand[],
     log?: boolean
   ) {
-    const guild = await this.guilds.fetch({ guild: guildId });
+    const guild = this.guilds.cache.get(guildId);
     if (!guild) throw Error(`${guildId} guild not found`);
 
     // fetch already registered command

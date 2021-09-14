@@ -23,7 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Issue where `@SlashGroup` apply on `@ContextMenu`
+- Issue where, `@SlashGroup` apply on `@ContextMenu`
+- Issue where, Bot crash while running `initApplicationCommands` because of 403
 
 ## [5.8.2] - 2021-09-08
 
