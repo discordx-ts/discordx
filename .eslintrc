@@ -7,33 +7,26 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    // possible error
     "no-return-await": "warn",
     "no-unreachable-loop": "warn",
-    "no-loss-of-precision": "warn",
     "no-promise-executor-return": "warn",
     "no-unsafe-optional-chaining": "warn",
     "no-useless-backreference": "warn",
     "require-atomic-updates": "warn",
-
-    // Best Practices
     "require-await": "warn",
-    "no-empty-function": "warn",
-
-    // Stylistic Issues
-    "semi": "error",
-    "quotes": "error",
     "no-await-in-loop": "warn",
     "spaced-comment": "warn",
-
-    // ECMAScript 6
-    "sort-imports": "error",
-
-    // Variables
+    "sort-imports": "warn",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
 
-    // Typescript
+    // TypeScript
+    "@typescript-eslint/prefer-reduce-type-parameter": "warn",
+    "@typescript-eslint/prefer-optional-chain": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/semi": "warn",
+    "@typescript-eslint/no-loss-of-precision": "warn",
+    "@typescript-eslint/quotes": "warn",
+    "@typescript-eslint/no-empty-function": "warn",
     "@typescript-eslint/no-empty-interface": "warn",
     "@typescript-eslint/no-inferrable-types": "warn",
     "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
