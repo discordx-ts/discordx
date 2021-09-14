@@ -1,9 +1,11 @@
 import { ArgsOf, GuardFunction, SimpleCommandMessage } from "../../../src";
 import {
+  ButtonInteraction,
   CommandInteraction,
-  Interaction,
+  ContextMenuInteraction,
   Message,
   MessageReaction,
+  SelectMenuInteraction,
   VoiceState,
 } from "discord.js";
 
@@ -12,7 +14,10 @@ import {
 
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
-  | Interaction
+  | CommandInteraction
+  | ContextMenuInteraction
+  | SelectMenuInteraction
+  | ButtonInteraction
   | SimpleCommandMessage
 > = async (arg, client, next) => {
   const argObj = arg instanceof Array ? arg[0] : arg;
@@ -27,7 +32,10 @@ export const NotBot: GuardFunction<
       ? argObj.author
       : argObj instanceof SimpleCommandMessage
       ? argObj.message.author
-      : argObj instanceof Interaction
+      : argObj instanceof CommandInteraction ||
+        argObj instanceof ContextMenuInteraction ||
+        argObj instanceof SelectMenuInteraction ||
+        argObj instanceof ButtonInteraction
       ? argObj.member?.user
       : argObj.message.author;
   if (!user?.bot) {
