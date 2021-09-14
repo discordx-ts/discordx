@@ -8,6 +8,7 @@ import {
 } from "discord.js";
 
 // Example by @AndyClausen
+// Modified @oceanroleplay
 
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
