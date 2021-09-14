@@ -41,7 +41,11 @@ define bot reply, when command is not auhorized
 
 ### classes
 
-Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths
+Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths.
+
+:::warning
+In case of multi bot, All classes/functions should be decorated with @Bot to prevent other bots from executing them.
+:::
 
 | type      | default | required |
 | --------- | ------- | -------- |
