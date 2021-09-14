@@ -16,6 +16,7 @@ import {
   DSimpleCommand,
   DSimpleCommandOption,
   DiscordEvents,
+  GuardFunction,
   Modifier,
 } from "../..";
 import { Method } from "../../decorators/classes/Method";
@@ -413,6 +414,7 @@ export class MetadataStorage {
    * @param once Should we execute the event once
    */
   trigger<Event extends DiscordEvents>(
+    guards: GuardFunction[],
     event: Event,
     client: Client,
     once = false
@@ -427,7 +429,7 @@ export class MetadataStorage {
       for (const on of eventsToExecute) {
         const botIDs = on.botIds;
         if (botIDs.length && !botIDs.includes(client.botId)) continue;
-        const res = await on.execute(params, client);
+        const res = await on.execute(guards, params, client);
         responses.push(res);
       }
       return responses;

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { DDiscord, DGuard } from "../..";
+import { DDiscord, DGuard, GuardFunction } from "../..";
 import { Decorator } from "./Decorator";
 
 /**
@@ -29,8 +29,11 @@ export abstract class Method extends Decorator {
    * @returns
    */
   get execute() {
-    return async (...params: unknown[]) => {
-      return await this.getGuardFunction()(...params);
+    return async (guards: GuardFunction[], ...params: unknown[]) => {
+      const globalGuards = guards.map((guard) =>
+        DGuard.create(guard.bind(undefined))
+      );
+      return await this.getGuardFunction(globalGuards)(...params);
     };
   }
 
@@ -60,17 +63,19 @@ export abstract class Method extends Decorator {
   /**
    * Execute a guard with params
    */
-  getGuardFunction(): (...params: unknown[]) => Promise<unknown> {
+  getGuardFunction(
+    globalGuards: DGuard[]
+  ): (...params: unknown[]) => Promise<unknown> {
     const next = async (
       params: [],
       index: number,
       paramsToNext: Record<string, unknown>
     ) => {
       const nextFn = () => next(params, index + 1, paramsToNext);
-      const guardToExecute = this.guards[index];
+      const guardToExecute = [...globalGuards, ...this.guards][index];
       let res: unknown;
 
-      if (index >= this.guards.length - 1) {
+      if (index >= [...globalGuards, ...this.guards].length - 1) {
         // If it's the main method
         res = await (guardToExecute?.fn as (...[]) => unknown)(
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)

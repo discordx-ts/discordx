@@ -254,9 +254,12 @@ export class Client extends ClientJS {
 
     this.decorators.usedEvents.map(async (on) => {
       if (on.once) {
-        this.once(on.event, this.decorators.trigger(on.event, this, true));
+        this.once(
+          on.event,
+          this.decorators.trigger(this.guards, on.event, this, true)
+        );
       } else {
-        this.on(on.event, this.decorators.trigger(on.event, this));
+        this.on(on.event, this.decorators.trigger(this.guards, on.event, this));
       }
     });
 
@@ -622,7 +625,7 @@ export class Client extends ClientJS {
         );
       }
 
-      return button.execute(interaction, this);
+      return button.execute(this.guards, interaction, this);
     }
 
     // if interaction is a button
@@ -644,7 +647,7 @@ export class Client extends ClientJS {
         );
       }
 
-      return menu.execute(interaction, this);
+      return menu.execute(this.guards, interaction, this);
     }
 
     // if interaction is context menu
@@ -675,7 +678,7 @@ export class Client extends ClientJS {
       )
         return;
 
-      return applicationCommand.execute(interaction, this);
+      return applicationCommand.execute(this.guards, interaction, this);
     }
 
     // If the interaction isn't a slash command, return
@@ -696,7 +699,7 @@ export class Client extends ClientJS {
     }
 
     // Parse the options values and inject it into the @Slash method
-    return applicationCommand.execute(interaction, this);
+    return applicationCommand.execute(this.guards, interaction, this);
   }
 
   /**
@@ -847,7 +850,7 @@ export class Client extends ClientJS {
       }
     }
 
-    return command.info.execute(command, this);
+    return command.info.execute(this.guards, command, this);
   }
 
   /**
@@ -858,7 +861,7 @@ export class Client extends ClientJS {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trigger(event: DiscordEvents, params?: any, once = false): Promise<any[]> {
-    return this.decorators.trigger(event, this, once)(params);
+    return this.decorators.trigger(this.guards, event, this, once)(params);
   }
 
   /**
