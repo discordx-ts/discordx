@@ -304,7 +304,7 @@ export class Client extends ClientJS {
       );
     });
 
-    return await Promise.all([
+    return Promise.all([
       Promise.all(allGuildPromises),
       this.initGlobalApplicationCommands(options?.log.forGlobal),
     ]);
@@ -482,9 +482,9 @@ export class Client extends ClientJS {
       if (!guild) {
         throw new GuildNotFoundError(guildID);
       }
-      return await guild.commands.fetch();
+      return guild.commands.fetch();
     }
-    return await this.application?.commands.fetch();
+    return this.application?.commands.fetch();
   }
 
   /**
@@ -709,7 +709,7 @@ export class Client extends ClientJS {
    */
   async getMessagePrefix(message: Message) {
     if (typeof this.prefix === "string") return this.prefix;
-    else return await this.prefix(message);
+    else return this.prefix(message);
   }
 
   /**

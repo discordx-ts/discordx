@@ -33,7 +33,7 @@ export abstract class Method extends Decorator {
       const globalGuards = guards.map((guard) =>
         DGuard.create(guard.bind(undefined))
       );
-      return await this.getGuardFunction(globalGuards)(...params);
+      return this.getGuardFunction(globalGuards)(...params);
     };
   }
 
