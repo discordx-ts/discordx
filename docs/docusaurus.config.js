@@ -55,6 +55,11 @@ module.exports = {
       indexName: "discord.ts",
       appId: "C09VVW4QGN",
     },
+    gtag: {
+      trackingID: "G-VD776VLREB",
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
+    },
   },
   presets: [
     [
