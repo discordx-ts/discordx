@@ -759,10 +759,11 @@ export class Client extends ClientJS {
       return;
 
     // validate guild id
+    const commandGuilds = [...this.botGuilds, ...command.info.guilds];
     if (
-      command.info.guilds.length &&
       message.guild?.id &&
-      !command.info.guilds.includes(message.guild.id)
+      commandGuilds.length &&
+      !commandGuilds.includes(message.guild.id)
     )
       return;
 
