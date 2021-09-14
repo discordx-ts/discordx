@@ -342,7 +342,8 @@ export class Client extends ClientJS {
       ),
       DCommand,
     ]).filter<[ApplicationCommand, DApplicationCommand]>(
-      (s): s is [ApplicationCommand, DApplicationCommand] => s[0] !== undefined
+      (cmd): cmd is [ApplicationCommand, DApplicationCommand] =>
+        cmd[0] !== undefined
     );
 
     // filter commands to delete
@@ -604,7 +605,9 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isButton()) {
-      const button = this.buttons.find((s) => s.id === interaction.customId);
+      const button = this.buttons.find(
+        (DButton) => DButton.id === interaction.customId
+      );
       if (
         !button ||
         (interaction.guild &&
@@ -624,7 +627,9 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isSelectMenu()) {
-      const menu = this.selectMenus.find((s) => s.id === interaction.customId);
+      const menu = this.selectMenus.find(
+        (DSelectMenu) => DSelectMenu.id === interaction.customId
+      );
       if (
         !menu ||
         (interaction.guild &&
