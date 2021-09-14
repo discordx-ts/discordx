@@ -1,28 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Client, Discord, Guard, GuardFunction, On } from "../src";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const guard1: GuardFunction<any, { message: string; original: string }> =
-  async ([message]: [string], client, next, mwDatas) => {
-    mwDatas.original = message;
-    if (message.includes("hello")) {
-      mwDatas.message = message + "0";
-      await next();
-    }
-  };
+const guard1: GuardFunction = async (
+  [message]: [string],
+  client,
+  next,
+  mwDatas
+) => {
+  mwDatas.original = message;
+  if (message.includes("hello")) {
+    mwDatas.message = message + "0";
+    await next();
+  }
+};
 
-const guard2: GuardFunction<[string], { original: string; message: string }> =
-  async ([message]: [string], client, next, mwDatas) => {
-    if (mwDatas.original === "hello0") {
-      mwDatas.message += "1";
-      await next();
-    } else {
-      mwDatas.message += "2";
-    }
-  };
+const guard2: GuardFunction = async ([]: [string], client, next, mwDatas) => {
+  if (mwDatas.original === "hello0") {
+    mwDatas.message += "1";
+    await next();
+  } else {
+    mwDatas.message += "2";
+  }
+};
 
 @Discord()
-abstract class Bot {
+export abstract class Bot {
   @On("messageCreate")
   private onMessage([message]: [string]) {
     return message;
@@ -36,7 +37,7 @@ abstract class Bot {
   @On("messageDelete")
   @Guard(guard1, guard2)
   private onMessageDelete(
-    [message]: [string],
+    []: [string],
     client: Client,
     guardParams: { message: string }
   ) {
