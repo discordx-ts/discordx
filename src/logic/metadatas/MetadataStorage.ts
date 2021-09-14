@@ -192,7 +192,9 @@ export class MetadataStorage {
     MetadataStorage.classes.forEach((path) => {
       const files = glob.sync(path).filter((file) => typeof file === "string");
       files.forEach((file) => {
-        if (!imports.includes(file)) imports.push(file);
+        if (!imports.includes(file)) {
+          imports.push(file);
+        }
       });
     });
 
@@ -202,7 +204,9 @@ export class MetadataStorage {
 
   async build() {
     // build the instance if not already built
-    if (MetadataStorage.isBuilt) return;
+    if (MetadataStorage.isBuilt) {
+      return;
+    }
     MetadataStorage.isBuilt = true;
 
     // load the classes
@@ -215,7 +219,9 @@ export class MetadataStorage {
         return instance.from === member.from;
       });
 
-      if (!discord) return;
+      if (!discord) {
+        return;
+      }
 
       // You can get the @Discord that wrap a @SimpleCommand/@On by using
       // on.discord or slash.discord
@@ -317,7 +323,9 @@ export class MetadataStorage {
         return instance.from === slashParent.from;
       });
 
-      if (!discord) return;
+      if (!discord) {
+        return;
+      }
 
       slashParent.discord = discord;
 
@@ -429,7 +437,9 @@ export class MetadataStorage {
       await Promise.all(
         eventsToExecute.map(async (on) => {
           const botIDs = on.botIds;
-          if (botIDs.length && !botIDs.includes(client.botId)) return;
+          if (botIDs.length && !botIDs.includes(client.botId)) {
+            return;
+          }
           const res = await on.execute(guards, params, client);
           responses.push(res);
         })

@@ -18,6 +18,7 @@
     "spaced-comment": "warn",
     "sort-imports": "warn",
     "no-unused-vars": "off",
+    "curly": "warn",
 
     // TypeScript
     "@typescript-eslint/prefer-optional-chain": "warn",

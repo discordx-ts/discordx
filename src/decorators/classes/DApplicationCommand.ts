@@ -183,16 +183,24 @@ export class DApplicationCommand extends Method {
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
       .map((op) => {
         const option = options.find((xp) => xp.name === op.name);
-        if (!option) return undefined;
+        if (!option) {
+          return undefined;
+        }
 
         // GuildChannel | APIInteractionDataResolvedChannel | undefined
-        if (option.type === "CHANNEL") return option.channel;
+        if (option.type === "CHANNEL") {
+          return option.channel;
+        }
 
         // GuildMember | APIInteractionDataResolvedGuildMember | User | undefined
-        if (option.type === "USER") return option.member ?? option.user;
+        if (option.type === "USER") {
+          return option.member ?? option.user;
+        }
 
         // Role | APIRole | undefined
-        if (option.type === "ROLE") return option.role;
+        if (option.type === "ROLE") {
+          return option.role;
+        }
 
         // GuildChannel | APIInteractionDataResolvedChannel | Role | APIRole | undefined
         if (option.type === "MENTIONABLE") {

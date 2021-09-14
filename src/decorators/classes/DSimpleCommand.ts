@@ -138,7 +138,10 @@ export class DSimpleCommand extends Method {
   }
 
   parseParamsEx(command: SimpleCommandMessage) {
-    if (!this.options.length) return [];
+    if (!this.options.length) {
+      return [];
+    }
+
     const args = command.argString
       .split(this.argSplitter)
       .filter((op) => op?.length)
@@ -151,10 +154,14 @@ export class DSimpleCommand extends Method {
         const id = args[index]?.replace(/\D/g, "");
 
         // undefined
-        if (!args[index]?.length) return undefined;
+        if (!args[index]?.length) {
+          return undefined;
+        }
 
         // Boolean
-        if (op.type === "BOOLEAN") return Boolean(args[index]);
+        if (op.type === "BOOLEAN") {
+          return Boolean(args[index]);
+        }
 
         // Number
         if (op.type === "NUMBER" || op.type === "INTEGER") {
@@ -163,35 +170,48 @@ export class DSimpleCommand extends Method {
 
         // Channel | undefined
         if (op.type === "CHANNEL") {
-          if (!id?.length) return undefined;
+          if (!id?.length) {
+            return undefined;
+          }
           return command.message.guild?.channels.resolve(id);
         }
 
         // Role | undefined
         if (op.type === "ROLE") {
-          if (!id?.length) return undefined;
+          if (!id?.length) {
+            return undefined;
+          }
+
           return command.message.guild?.roles.resolve(id);
         }
 
         // GuildMember | User | undefined
         if (op.type === "USER") {
-          if (!id?.length) return undefined;
+          if (!id?.length) {
+            return undefined;
+          }
+
           if (command.message.channel.type === "DM") {
             return command.message.client.user?.id === id
               ? command.message.client.users.resolve(id)
               : command.message.author;
           }
+
           return command.message.guild?.members.resolve(id);
         }
 
         // GuildMember | User | Role | undefined
         if (op.type === "MENTIONABLE") {
-          if (!id?.length) return undefined;
+          if (!id?.length) {
+            return undefined;
+          }
+
           if (command.message.channel.type === "DM") {
             return command.message.client.user?.id === id
               ? command.message.client.users.resolve(id)
               : command.message.author;
           }
+
           return (
             command.message.guild?.members.resolve(id) ??
             command.message.guild?.roles.resolve(id)

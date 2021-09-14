@@ -44,7 +44,11 @@ export function SimpleCommand(
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
     name = name;
-    if (!testName.test(name)) throw Error("invalid command name");
+
+    if (!testName.test(name)) {
+      throw Error("invalid command name");
+    }
+
     if (params?.aliases) {
       if (params.aliases.some((name) => !testName.test(name))) {
         throw Error("invalid command alias");

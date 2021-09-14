@@ -203,7 +203,9 @@ export class Client extends ClientJS {
             options: DApplicationCommandOption[],
             depth: number
           ) => {
-            if (!options) return;
+            if (!options) {
+              return;
+            }
 
             const tab = Array(depth).join("      ");
 
@@ -235,7 +237,10 @@ export class Client extends ClientJS {
             options: DSimpleCommandOption[],
             depth: number
           ) => {
-            if (!options) return;
+            if (!options) {
+              return;
+            }
+
             const tab = Array(depth).join("      ");
             options.forEach((option) => {
               console.log(
@@ -294,7 +299,10 @@ export class Client extends ClientJS {
     guildDCommandStore.forEach((DCommands, guildId) => {
       // If bot is not in guild, skip it
       const guild = this.guilds.cache.get(guildId);
-      if (!guild) return;
+      if (!guild) {
+        return;
+      }
+
       allGuildPromises.push(
         this.initGuildApplicationCommands(
           guildId,
@@ -322,7 +330,9 @@ export class Client extends ClientJS {
     log?: boolean
   ) {
     const guild = this.guilds.cache.get(guildId);
-    if (!guild) throw Error(`${guildId} guild not found`);
+    if (!guild) {
+      throw Error(`${guildId} guild not found`);
+    }
 
     // fetch already registered command
     const ApplicationCommands = await guild.commands.fetch();
@@ -497,13 +507,13 @@ export class Client extends ClientJS {
         guilds.map(async (guild) => {
           // Select and delete the commands of each guild
           const commands = await this.fetchApplicationCommands(guild);
-          if (commands)
+          if (commands) {
             await Promise.all(
               commands.map((value) => {
-                const guildManager = this.guilds.cache.get(guild);
-                if (guildManager) guildManager.commands.delete(value);
+                this.guilds.cache.get(guild)?.commands.delete(value);
               })
             );
+          }
         })
       );
     } else {
@@ -533,14 +543,18 @@ export class Client extends ClientJS {
     const getOptionsTree = (
       option: Partial<CommandInteractionOption> | undefined
     ): void => {
-      if (!option) return;
+      if (!option) {
+        return;
+      }
 
       if (
         !option.type ||
         option.type === "SUB_COMMAND_GROUP" ||
         option.type === "SUB_COMMAND"
       ) {
-        if (option.name) tree.push(option.name);
+        if (option.name) {
+          tree.push(option.name);
+        }
         return getOptionsTree(Array.from(option.options?.values() ?? [])?.[0]);
       }
     };
@@ -675,14 +689,17 @@ export class Client extends ClientJS {
       if (
         applicationCommand.botIds.length &&
         !applicationCommand.botIds.includes(this.botId)
-      )
+      ) {
         return;
+      }
 
       return applicationCommand.execute(this.guards, interaction, this);
     }
 
     // If the interaction isn't a slash command, return
-    if (!interaction.isCommand()) return;
+    if (!interaction.isCommand()) {
+      return;
+    }
 
     // Get the interaction group tree
     const tree = this.getApplicationCommandGroupTree(interaction);
@@ -708,8 +725,11 @@ export class Client extends ClientJS {
    * @returns
    */
   getMessagePrefix(message: Message) {
-    if (typeof this.prefix === "string") return this.prefix;
-    else return this.prefix(message);
+    if (typeof this.prefix === "string") {
+      return this.prefix;
+    }
+
+    return this.prefix(message);
   }
 
   /**
@@ -725,7 +745,9 @@ export class Client extends ClientJS {
     const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     const prefixRegex = RegExp(`^${escapePrefix}`);
     const isCommand = prefixRegex.test(message.content);
-    if (!isCommand) return undefined;
+    if (!isCommand) {
+      return undefined;
+    }
 
     const contentWithoutPrefix =
       message.content.replace(prefixRegex, "").trim() + " ";
@@ -734,7 +756,9 @@ export class Client extends ClientJS {
       contentWithoutPrefix.startsWith(`${cmd.name} `)
     );
 
-    if (!commandRaw) return undefined;
+    if (!commandRaw) {
+      return undefined;
+    }
 
     const commandArgs = contentWithoutPrefix
       .replace(commandRaw.name, "")
@@ -766,16 +790,24 @@ export class Client extends ClientJS {
 
     const prefix = await this.getMessagePrefix(message);
     if (!prefix) {
-      if (!this.silent) console.log("command prefix not found");
+      if (!this.silent) {
+        console.log("command prefix not found");
+      }
       return;
     }
 
     const command = this.parseCommand(prefix, message);
-    if (!command) return;
+    if (!command) {
+      return;
+    }
 
     // validate bot id
-    if (command.info.botIds.length && !command.info.botIds.includes(this.botId))
+    if (
+      command.info.botIds.length &&
+      !command.info.botIds.includes(this.botId)
+    ) {
       return;
+    }
 
     // validate guild id
     const commandGuilds = [...this.botGuilds, ...command.info.guilds];
@@ -783,11 +815,14 @@ export class Client extends ClientJS {
       message.guild?.id &&
       commandGuilds.length &&
       !commandGuilds.includes(message.guild.id)
-    )
+    ) {
       return;
+    }
 
     // check dm allowed or not
-    if (!command.info.directMessage && !message.guild) return;
+    if (!command.info.directMessage && !message.guild) {
+      return;
+    }
 
     // check for member permissions
     if (command.info.defaultPermission) {
