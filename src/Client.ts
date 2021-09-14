@@ -605,14 +605,17 @@ export class Client extends ClientJS {
       const button = this.buttons.find((s) => s.id === interaction.customId);
       if (
         !button ||
-        (button.guilds.length &&
-          interaction.guild &&
-          !button.guilds.includes(interaction.guild.id)) ||
+        (interaction.guild &&
+          [...this.botGuilds, ...button.guilds].length &&
+          ![...this.botGuilds, ...button.guilds].includes(
+            interaction.guild.id
+          )) ||
         (button.botIds.length && !button.botIds.includes(this.botId))
-      )
+      ) {
         return console.log(
           `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
         );
+      }
 
       return button.execute(interaction, this);
     }
@@ -622,14 +625,17 @@ export class Client extends ClientJS {
       const menu = this.selectMenus.find((s) => s.id === interaction.customId);
       if (
         !menu ||
-        (menu.guilds.length &&
-          interaction.guild &&
-          !menu.guilds.includes(interaction.guild.id)) ||
+        (interaction.guild &&
+          [...this.botGuilds, ...menu.guilds].length &&
+          ![...this.botGuilds, ...menu.guilds].includes(
+            interaction.guild.id
+          )) ||
         (menu.botIds.length && !menu.botIds.includes(this.botId))
-      )
+      ) {
         return console.log(
           `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
         );
+      }
 
       return menu.execute(interaction, this);
     }
@@ -643,15 +649,18 @@ export class Client extends ClientJS {
 
       if (
         !applicationCommand ||
-        (applicationCommand.guilds.length &&
-          interaction.guild &&
-          !applicationCommand.guilds.includes(interaction.guild.id)) ||
+        (interaction.guild &&
+          [...this.botGuilds, ...applicationCommand.guilds].length &&
+          ![...this.botGuilds, ...applicationCommand.guilds].includes(
+            interaction.guild.id
+          )) ||
         (applicationCommand.botIds.length &&
           !applicationCommand.botIds.includes(this.botId))
-      )
+      ) {
         return console.log(
           `context menu interaction not found, name: ${interaction.commandName}`
         );
+      }
 
       if (
         applicationCommand.botIds.length &&
