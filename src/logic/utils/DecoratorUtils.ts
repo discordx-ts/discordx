@@ -43,7 +43,9 @@ export class DecoratorUtils {
     return list.filter((b) => {
       let cond = a.from === b.from && a.key === b.key;
 
-      if (a.index && b.index) {
+      // do not remove this undefined check, cause unexpected error
+      // such as choices apply on all options
+      if (a.index !== undefined && b.index !== undefined) {
         cond &&= a.index === b.index;
       }
 
