@@ -11,6 +11,7 @@
     "quotes": "error",
     "no-return-await": "warn",
     "no-await-in-loop": "warn",
+    "require-await": "warn",
     "spaced-comment": "warn",
     "sort-imports": "error",
     "@typescript-eslint/no-empty-function": "warn",

@@ -29,7 +29,7 @@ export abstract class Method extends Decorator {
    * @returns
    */
   get execute() {
-    return async (guards: GuardFunction[], ...params: unknown[]) => {
+    return (guards: GuardFunction[], ...params: unknown[]) => {
       const globalGuards = guards.map((guard) =>
         DGuard.create(guard.bind(undefined))
       );

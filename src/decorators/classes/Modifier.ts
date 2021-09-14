@@ -37,7 +37,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
    * @param originals The list of objects to modify
    * @returns
    */
-  static async applyFromModifierListToList(
+  static applyFromModifierListToList(
     modifiers: Modifier<any>[],
     originals: Decorator[]
   ): Promise<void[]> {
@@ -53,7 +53,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
 
         // Apply the modifications
         await Promise.all(
-          linked.map(async (linkedOriginal) => {
+          linked.map((linkedOriginal) => {
             return modifier.applyModifications(linkedOriginal);
           })
         );

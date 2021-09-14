@@ -252,7 +252,7 @@ export class Client extends ClientJS {
       }
     }
 
-    this.decorators.usedEvents.map(async (on) => {
+    this.decorators.usedEvents.map((on) => {
       if (on.once) {
         this.once(
           on.event,
@@ -269,7 +269,7 @@ export class Client extends ClientJS {
   /**
    * Initialize all the @Slash with their permissions
    */
-  async initApplicationCommands(options?: {
+  initApplicationCommands(options?: {
     log: { forGuild: boolean; forGlobal: boolean };
   }) {
     // # group guild commands by guildId
@@ -291,7 +291,7 @@ export class Client extends ClientJS {
     const allGuildPromises: Promise<void>[] = [];
 
     // run task to add/update/delete slashes for guilds
-    guildDCommandStore.forEach(async (DCommands, guildId) => {
+    guildDCommandStore.forEach((DCommands, guildId) => {
       // If bot is not in guild, skip it
       const guild = this.guilds.cache.get(guildId);
       if (!guild) return;
@@ -476,7 +476,7 @@ export class Client extends ClientJS {
    * @param guild The guild ID (empty -> globaly)
    * @returns
    */
-  async fetchApplicationCommands(guildID?: Snowflake) {
+  fetchApplicationCommands(guildID?: Snowflake) {
     if (guildID) {
       const guild = this.guilds.cache.get(guildID);
       if (!guild) {
@@ -499,7 +499,7 @@ export class Client extends ClientJS {
           const commands = await this.fetchApplicationCommands(guild);
           if (commands)
             await Promise.all(
-              commands.map(async (value) => {
+              commands.map((value) => {
                 const guildManager = this.guilds.cache.get(guild);
                 if (guildManager) guildManager.commands.delete(value);
               })
@@ -598,7 +598,7 @@ export class Client extends ClientJS {
    * @param interaction The discord.js interaction instance
    * @returns
    */
-  async executeInteraction(interaction: Interaction) {
+  executeInteraction(interaction: Interaction) {
     if (!interaction) {
       if (!this.silent) {
         console.log("Interaction is undefined");
@@ -707,7 +707,7 @@ export class Client extends ClientJS {
    * @param message messsage instance
    * @returns
    */
-  async getMessagePrefix(message: Message) {
+  getMessagePrefix(message: Message) {
     if (typeof this.prefix === "string") return this.prefix;
     else return this.prefix(message);
   }
