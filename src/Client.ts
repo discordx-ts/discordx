@@ -272,12 +272,12 @@ export class Client extends ClientJS {
     // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
-      (DCommand) => DCommand.guilds?.length
+      (DCommand) => [...this.botGuilds, ...DCommand.guilds].length
     );
 
     // group single guild commands together
     allGuildDCommands.forEach((DCommand) => {
-      DCommand.guilds.forEach((guild) =>
+      [...this.botGuilds, ...DCommand.guilds].forEach((guild) =>
         guildDCommandStore.set(guild, [
           ...(guildDCommandStore.get(guild) ?? []),
           DCommand,
@@ -352,7 +352,7 @@ export class Client extends ClientJS {
           (DCommand) =>
             cmd.name === DCommand.name &&
             cmd.guild &&
-            DCommand.guilds.includes(cmd.guild.id) &&
+            [...this.botGuilds, ...DCommand.guilds].includes(cmd.guild.id) &&
             (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
         )
     );
@@ -411,7 +411,9 @@ export class Client extends ClientJS {
     const AllCommands = (await this.fetchApplicationCommands())?.filter(
       (cmd) => !cmd.guild
     );
-    const DCommands = this.applicationCommands.filter((s) => !s.guilds?.length);
+    const DCommands = this.applicationCommands.filter(
+      (DCommand) => ![...this.botGuilds, ...DCommand.guilds].length
+    );
     if (AllCommands) {
       const added = DCommands.filter(
         (DCommand) => !AllCommands.find((cmd) => cmd.name === DCommand.name)
