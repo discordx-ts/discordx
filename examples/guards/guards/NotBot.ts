@@ -1,6 +1,7 @@
-import { ArgsOf, GuardFunction } from "../../../src";
+import { ArgsOf, GuardFunction, SimpleCommandMessage } from "../../../src";
 import {
   CommandInteraction,
+  Interaction,
   Message,
   MessageReaction,
   VoiceState,
@@ -10,7 +11,8 @@ import {
 
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
-  | CommandInteraction
+  | Interaction
+  | SimpleCommandMessage
 > = async (arg, client, next) => {
   const argObj = arg instanceof Array ? arg[0] : arg;
   const user =
@@ -22,6 +24,10 @@ export const NotBot: GuardFunction<
       ? argObj.member?.user
       : argObj instanceof Message
       ? argObj.author
+      : argObj instanceof SimpleCommandMessage
+      ? argObj.message.author
+      : argObj instanceof Interaction
+      ? argObj.member?.user
       : argObj.message.author;
   if (!user?.bot) {
     await next();

@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.8.3] - 2021-09-15
 
+### Changed
+
+- client botGuilds executed dynamically, before this property was static.
+- client guards executed dynamically, before this property was static.
+
 ### Fixed
 
 - Issue where, `@SlashGroup` apply on `@ContextMenu`
