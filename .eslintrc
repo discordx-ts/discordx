@@ -20,7 +20,6 @@
     "no-unused-vars": "off",
 
     // TypeScript
-    "@typescript-eslint/prefer-reduce-type-parameter": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/semi": "warn",
