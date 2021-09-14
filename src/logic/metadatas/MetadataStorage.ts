@@ -320,7 +320,7 @@ export class MetadataStorage {
 
       slashParent.discord = discord;
 
-      slashParent.guilds = [...Client.botGuilds, ...slashParent.discord.guilds];
+      slashParent.guilds = [...slashParent.discord.guilds];
       slashParent.botIds = [...slashParent.discord.botIds];
       slashParent.permissions = [
         ...slashParent.permissions,

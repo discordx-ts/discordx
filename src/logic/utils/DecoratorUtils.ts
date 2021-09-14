@@ -43,7 +43,7 @@ export class DecoratorUtils {
     return list.filter((b) => {
       let cond = a.from === b.from && a.key === b.key;
 
-      if (a.index !== undefined && b.index !== undefined) {
+      if (a.index && b.index) {
         cond &&= a.index === b.index;
       }
 

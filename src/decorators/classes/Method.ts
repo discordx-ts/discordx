@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Client, DDiscord, DGuard } from "../..";
+import { DDiscord, DGuard } from "../..";
 import { Decorator } from "./Decorator";
 
 /**
@@ -41,12 +41,7 @@ export abstract class Method extends Decorator {
    * The guards that decorate the method (this)
    */
   get guards() {
-    const clientGuards = Client.guards.map((guard) =>
-      DGuard.create(guard.bind(undefined))
-    );
-
     return [
-      ...clientGuards,
       ...this.discord.guards,
       ...this._guards,
       DGuard.create(this._method?.bind(this._discord.instance)),

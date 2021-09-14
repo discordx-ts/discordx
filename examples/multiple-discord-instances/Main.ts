@@ -11,7 +11,6 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      requiredByDefault: true,
       classes: [
         // glob string to load the classes. If you compile your bot, the file extension will be .js
         `${__dirname}/discords/*.{js,ts}`,

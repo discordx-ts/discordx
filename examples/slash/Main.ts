@@ -17,7 +17,6 @@ export class Main {
         `${__dirname}/discords/*.{js,ts}`,
       ],
       botGuilds: [process.env.GUILD_ID ?? ""],
-      requiredByDefault: true,
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

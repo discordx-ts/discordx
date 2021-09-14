@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import {
-  Client,
-  DApplicationCommandOptionChoice,
-  SlashOptionType,
-} from "../..";
+import { DApplicationCommandOptionChoice, SlashOptionType } from "../..";
 import { ApplicationCommandOptionData } from "discord.js";
 import { Decorator } from "./Decorator";
 
@@ -80,8 +76,7 @@ export class DApplicationCommandOption extends Decorator {
     this._name = name.toLowerCase();
     this._type = type ?? "STRING";
     this._description = description ?? `${name} - ${this.type}`;
-    this._required =
-      required !== undefined ? required : Client.requiredByDefault;
+    this._required = required ?? false;
     this._index = index;
   }
 

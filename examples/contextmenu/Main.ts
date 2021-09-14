@@ -18,7 +18,6 @@ export class Main {
       ],
       botGuilds: [process.env.GUILD_ID ?? ""],
       silent: true,
-      requiredByDefault: true,
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

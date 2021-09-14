@@ -17,7 +17,6 @@ export class Main {
       ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       botGuilds: [process.env.GUILD_ID ?? "874802018361950248"],
-      requiredByDefault: true,
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

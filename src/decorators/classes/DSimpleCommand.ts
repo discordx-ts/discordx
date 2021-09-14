@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
-import { Client, DSimpleCommandOption, SimpleCommandMessage } from "../..";
+import { DSimpleCommandOption, SimpleCommandMessage } from "../..";
 import { Method } from "./Method";
 
 /**
@@ -106,7 +106,7 @@ export class DSimpleCommand extends Method {
     this._argSplitter = argSplitter ?? " ";
     this._options = [];
     this._permissions = [];
-    this._guilds = guilds ?? Client.botGuilds;
+    this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
     this._aliases = aliases ?? [];
   }

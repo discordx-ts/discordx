@@ -64,10 +64,8 @@ abstract class AppDiscord {
 
 ## Global guards
 
-When can setup some guards globaly by assigning `Client.guards`
+When can setup some guards globaly
 
-> The global guards are set statically, you can access it by `Client.guards`
->
 > Global guards are executed before @Discord guards
 
 ```typescript
@@ -85,9 +83,6 @@ async function start() {
     // At instanciation
     guards: [NotBot, Prefix("!")],
   });
-
-  // Or using client.guards
-  Client.guards = [NotBot, Prefix("!")];
 
   await client.login("YOUR_TOKEN");
 }

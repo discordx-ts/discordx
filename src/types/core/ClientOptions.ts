@@ -39,11 +39,6 @@ export interface ClientOptions extends DiscordJSClientOptions {
   guards?: GuardFunction[];
 
   /**
-   * Set the default required value for @SlashOption
-   */
-  requiredByDefault?: boolean;
-
-  /**
    * Set the guilds globaly for application commands
    */
   botGuilds?: Snowflake[];

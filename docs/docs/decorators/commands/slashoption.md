@@ -201,23 +201,6 @@ The type of your command option
 
 Slash option input type
 
-## Set the default required value
-
-if you want to set the default required value, you can use `client.requiredByDefault`
-
-```ts
-const client = new Client({
-  botId: "test",
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-  classes: [
-    // glob string to load the classes. If you compile your bot, the file extension will be .js
-    `${__dirname}/discords/*.{js,ts}`,
-  ],
-  silent: false,
-  requiredByDefault: true,
-});
-```
-
 ## Autocompletion (Option's choices)
 
 You can use the [@SlashChoice](/docs/decorators/commands/slashchoice) decorator

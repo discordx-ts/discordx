@@ -38,15 +38,21 @@ export class Client extends ClientJS {
     | string
     | ((command: SimpleCommandMessage) => Promise<void>);
   private _silent: boolean;
-  private static _requiredByDefault = false;
-  private static _botGuilds: Snowflake[] = [];
-  private static _guards: GuardFunction[] = [];
+  private _botGuilds: Snowflake[] = [];
+  private _guards: GuardFunction[] = [];
 
-  static get botGuilds() {
-    return Client._botGuilds;
+  get botGuilds() {
+    return this._botGuilds;
   }
-  static set botGuilds(value) {
-    Client._botGuilds = value;
+  set botGuilds(value) {
+    this._botGuilds = value;
+  }
+
+  get guards() {
+    return this._guards;
+  }
+  set guards(value) {
+    this._guards = value;
   }
 
   get prefix() {
@@ -68,39 +74,6 @@ export class Client extends ClientJS {
   }
   set botId(value) {
     this._botId = value;
-  }
-
-  get botGuilds() {
-    return Client._botGuilds;
-  }
-  set botGuilds(value) {
-    Client._botGuilds = value;
-  }
-
-  static get requiredByDefault() {
-    return Client._requiredByDefault;
-  }
-  static set requiredByDefault(value) {
-    Client._requiredByDefault = value;
-  }
-  get requiredByDefault() {
-    return Client._requiredByDefault;
-  }
-  set requiredByDefault(value) {
-    Client._requiredByDefault = value;
-  }
-
-  static get guards() {
-    return Client._guards;
-  }
-  static set guards(value) {
-    Client._guards = value;
-  }
-  get guards() {
-    return Client.guards;
-  }
-  set guards(value) {
-    Client._guards = value;
   }
 
   static get applicationCommands() {
@@ -195,7 +168,6 @@ export class Client extends ClientJS {
 
     this._silent = !!options?.silent;
     this.guards = options.guards ?? [];
-    this.requiredByDefault = options.requiredByDefault ?? false;
     this.botGuilds = options.botGuilds?.filter((guild) => !!guild) ?? [];
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
@@ -519,7 +491,7 @@ export class Client extends ClientJS {
         guilds.map(async (guild) => {
           // Select and delete the commands of each guild
           const commands = await this.fetchApplicationCommands(guild);
-          if (commands && this.guilds.cache !== undefined)
+          if (commands)
             await Promise.all(
               commands.map(async (value) => {
                 const guildManager = this.guilds.cache.get(guild);

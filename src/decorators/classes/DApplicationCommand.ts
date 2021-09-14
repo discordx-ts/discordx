@@ -8,7 +8,7 @@ import {
   Snowflake,
 } from "discord.js";
 
-import { Client, DApplicationCommandOption } from "../..";
+import { DApplicationCommandOption } from "../..";
 import { Method } from "./Method";
 
 /**
@@ -109,7 +109,7 @@ export class DApplicationCommand extends Method {
     this._type = type;
     this._description = description ?? this.name;
     this._defaultPermission = defaultPermission ?? true;
-    this._guilds = guilds ?? Client.botGuilds;
+    this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
   }
 

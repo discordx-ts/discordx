@@ -55,14 +55,6 @@ Allows you to disable your event information at startup
 | ------- | ------- | -------- |
 | boolean | true    | No       |
 
-### requiredByDefault
-
-The `@SlashOption` are required by default
-
-| type    | default | required |
-| ------- | ------- | -------- |
-| boolean | false   | No       |
-
 ### guards
 
 Global guards, it's an array of functions

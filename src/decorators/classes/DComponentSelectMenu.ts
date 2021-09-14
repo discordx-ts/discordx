@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Client } from "../..";
 import { Method } from "./Method";
 import { Snowflake } from "discord.js";
 
@@ -35,7 +34,7 @@ export class DComponentSelectMenu extends Method {
   protected constructor(id: string, guilds?: Snowflake[], botIds?: string[]) {
     super();
     this._id = id;
-    this._guilds = guilds ?? Client.botGuilds;
+    this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
   }
 
