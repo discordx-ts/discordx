@@ -37,7 +37,7 @@
   </p>
 </div>
 
-# 🎻 Introduction
+# 📖 Introduction
 
 This module is an extension of **[discord.**js**](https://discordjs.guide/)**, so the internal behavior (methods, properties, ...) is the same.
 
