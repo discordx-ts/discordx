@@ -51,13 +51,13 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 > **[Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)**
 
-# 💡Why discordx?
+# 💡 Why discordx?
 
 With `discordx`, we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, pagination etc. **Updated daily with discord.js changes**.
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord.gg/yHQY9fexH9)
 
-# 🆕New features
+# 🆕 New features
 
 - Support for multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
@@ -83,7 +83,7 @@ Package by [@OwenCalvin](https://github.com/OwenCalvin)
 
 ---
 
-# 📔Decorators
+# 📔 Decorators
 
 There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button, select menu, contextmenu etc.
 
