@@ -280,7 +280,9 @@ export class Client extends ClientJS {
     // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
-      (DCommand) => [...this.botGuilds, ...DCommand.guilds].length
+      (DCommand) =>
+        [...this.botGuilds, ...DCommand.guilds].length &&
+        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
     );
 
     // group single guild commands together
@@ -340,19 +342,14 @@ export class Client extends ClientJS {
     // filter only unregistered command
     const added = DCommands.filter(
       (DCommand) =>
-        !ApplicationCommands.find((cmd) => cmd.name === DCommand.name) &&
-        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+        !ApplicationCommands.find((cmd) => cmd.name === DCommand.name)
     );
 
     // filter slashesx to update
     const updated = DCommands.map<
       [ApplicationCommand | undefined, DApplicationCommand]
     >((DCommand) => [
-      ApplicationCommands.find(
-        (cmd) =>
-          cmd.name === DCommand.name &&
-          (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
-      ),
+      ApplicationCommands.find((cmd) => cmd.name === DCommand.name),
       DCommand,
     ]).filter<[ApplicationCommand, DApplicationCommand]>(
       (cmd): cmd is [ApplicationCommand, DApplicationCommand] =>
@@ -366,8 +363,7 @@ export class Client extends ClientJS {
           (DCommand) =>
             cmd.name === DCommand.name &&
             cmd.guild &&
-            [...this.botGuilds, ...DCommand.guilds].includes(cmd.guild.id) &&
-            (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+            [...this.botGuilds, ...DCommand.guilds].includes(cmd.guild.id)
         )
     );
 
@@ -426,7 +422,9 @@ export class Client extends ClientJS {
       (cmd) => !cmd.guild
     );
     const DCommands = this.applicationCommands.filter(
-      (DCommand) => ![...this.botGuilds, ...DCommand.guilds].length
+      (DCommand) =>
+        ![...this.botGuilds, ...DCommand.guilds].length &&
+        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
     );
     if (AllCommands) {
       const added = DCommands.filter(
