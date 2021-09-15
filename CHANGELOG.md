@@ -19,13 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [5.9.3] - 2021-09-22
+## [5.9.2] - 2021-09-15
 
 ### Changed
 
 - Improved code with lint
-
-## [5.9.2] - 2021-09-15
 
 ### Fixed
 
