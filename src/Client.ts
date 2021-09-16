@@ -197,8 +197,13 @@ export class Client extends ClientJS {
 
       console.log("Slashes");
       if (this.applicationCommands.length) {
-        this.applicationCommands.map((slash) => {
-          console.log(`>> ${slash.name} (${slash.classRef.name}.${slash.key})`);
+        this.applicationCommands.map((DCommand) => {
+          if (DCommand.botIds.length && !DCommand.botIds.includes(this.botId)) {
+            return;
+          }
+          console.log(
+            `>> ${DCommand.name} (${DCommand.classRef.name}.${DCommand.key})`
+          );
           const printOptions = (
             options: DApplicationCommandOption[],
             depth: number
@@ -217,7 +222,7 @@ export class Client extends ClientJS {
             });
           };
 
-          printOptions(slash.options, 2);
+          printOptions(DCommand.options, 2);
 
           console.log("");
         });
@@ -359,7 +364,7 @@ export class Client extends ClientJS {
     // filter commands to delete
     const deleted = ApplicationCommands.filter(
       (cmd) =>
-        !this.applicationCommands.find(
+        !DCommands.find(
           (DCommand) =>
             cmd.name === DCommand.name &&
             cmd.guild &&
