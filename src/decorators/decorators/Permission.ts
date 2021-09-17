@@ -9,6 +9,15 @@ import {
 import { ApplicationCommandPermissionData } from "discord.js";
 
 /**
+ * Define default everyone permission for your application command or simple command.
+ * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * @category Decorator
+ */
+export function Permission(permission: boolean): ClassMethodDecorator;
+
+/**
  * Define permission for your application command or simple command
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
@@ -31,7 +40,10 @@ export function Permission(
 ): ClassMethodDecorator;
 
 export function Permission(
-  ...permission: ApplicationCommandPermissionData[]
+  permission:
+    | boolean
+    | ApplicationCommandPermissionData
+    | ApplicationCommandPermissionData[]
 ): ClassMethodDecorator {
   return function (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,17 +51,31 @@ export function Permission(
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
+    const isBoolean = typeof permission === "boolean";
+    const isArray = permission instanceof Array;
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord>(
         (original) => {
-          original.permissions = [...original.permissions, ...permission];
+          if (isBoolean) {
+            original.defaultPermission = permission;
+          } else if (isArray) {
+            original.permissions = [...original.permissions, ...permission];
+          } else {
+            original.permissions = [...original.permissions, permission];
+          }
 
           if (original instanceof DDiscord) {
             [
               ...original.applicationCommands,
               ...original.simpleCommands,
             ].forEach((obj) => {
-              obj.permissions = [...obj.permissions, ...permission];
+              if (isBoolean) {
+                obj.defaultPermission = permission;
+              } else if (isArray) {
+                obj.permissions = [...obj.permissions, ...permission];
+              } else {
+                obj.permissions = [...obj.permissions, permission];
+              }
             });
           }
         },

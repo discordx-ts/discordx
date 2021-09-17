@@ -8,6 +8,8 @@ import {
 } from "../..";
 
 /**
+ * @deprecated `use @Permission instead`
+ *
  * Define default permission (also refer to everyone permission) for your slash or simple commands
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/defaultpermission)
@@ -16,6 +18,8 @@ import {
 export function DefaultPermission(): ClassMethodDecorator;
 
 /**
+ * @deprecated `use @Permission instead`
+ *
  * Define default permission (also refer to everyone permission) for your slash or simple commands
  * @param permission true | false (default: true)
  * ___
