@@ -15,9 +15,9 @@ type Data = { passed: boolean };
 @Discord()
 @Permission({ id: "123", type: "USER", permission: true })
 @Guild("693401527494377482")
-@Guard(async (params, client, next, datas) => {
+@Guard((params, client, next, datas) => {
   datas.passed = true;
-  return await next();
+  return next();
 })
 export abstract class AppDiscord {
   @SimpleCommand("add", {
@@ -36,7 +36,9 @@ export abstract class AppDiscord {
     client: Client,
     datas: Data
   ): unknown {
-    if (!command.isValid()) return "usage: !add x + y";
+    if (!command.isValid()) {
+      return "usage: !add x + y";
+    }
     return ["!add", [op, x + y], command, datas.passed];
   }
 
@@ -98,7 +100,7 @@ beforeAll(async () => {
 });
 
 describe("Commands", () => {
-  it("Should create the command structure", async () => {
+  it("Should create the command structure", () => {
     expect(client.simpleCommands[0]?.guilds).toEqual(["693401527494377482"]);
     expect(client.simpleCommands[0]?.permissions).toEqual([
       {
@@ -156,7 +158,7 @@ describe("Commands", () => {
     expect(response).toEqual(undefined);
   });
 
-  it("Should avoid splitter space for options", async () => {
+  it("Should avoid splitter space for options", () => {
     const contents = ["!sub 2 | 4", "!sub 2 | 4   ", "!sub 2 |4", "!sub 2|4"];
     contents.forEach(async (content) => {
       const sampleMessage = { content } as Message;

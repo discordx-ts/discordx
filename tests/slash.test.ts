@@ -34,9 +34,9 @@ enum TextChoices {
   maths: "maths group description",
   text: "text group description",
 })
-@Guard<any, any>(async (params, client, next, datas) => {
+@Guard<any, any>((params, client, next, datas) => {
   datas.passed = true;
-  return await next();
+  return next();
 })
 export abstract class AppDiscord {
   @Slash("add", { description: "Addition" })
@@ -96,9 +96,9 @@ export abstract class AppDiscord {
 
 @Discord()
 @Guild("invalid_id")
-@Guard<any, any>(async (params, client, next, datas) => {
+@Guard<any, any>((params, client, next, datas) => {
   datas.passed = true;
-  return await next();
+  return next();
 })
 export abstract class AppDiscord1 {
   @Slash("hello")
@@ -214,7 +214,7 @@ class FakeInteraction {
 }
 
 describe("Slash", () => {
-  it("Should create the slash structure", async () => {
+  it("Should create the slash structure", () => {
     expect(client.applicationCommands[0]?.guilds).toEqual(["invalid_id"]);
     expect(client.applicationCommands[0]?.permissions).toEqual([
       {

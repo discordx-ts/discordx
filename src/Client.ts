@@ -33,10 +33,10 @@ import {
  */
 export class Client extends ClientJS {
   private _botId: string;
-  private _prefix: string | ((message: Message) => Promise<string>);
+  private _prefix: string | ((message: Message) => Promise<string> | string);
   private _unauthorizedHandler?:
     | string
-    | ((command: SimpleCommandMessage) => Promise<void>);
+    | ((command: SimpleCommandMessage) => Promise<void> | void);
   private _silent: boolean;
   private _botGuilds: Snowflake[] = [];
   private _guards: GuardFunction[] = [];

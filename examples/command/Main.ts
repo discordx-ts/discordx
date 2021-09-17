@@ -12,16 +12,18 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       // prefix: "!",
-      prefix: async (message) => {
+      prefix: (message): string => {
         // let's use different command prefix for dm
-        if (message.channel.type === "DM") return "+";
+        if (message.channel.type === "DM") {
+          return "+";
+        }
 
         // common command prefix for all guild
         return "!";
       },
 
       // commandUnauthorizedHandler: "you are not authorized to use this command",
-      commandUnauthorizedHandler: async (command) => {
+      commandUnauthorizedHandler: (command) => {
         if (command.message.channel.type === "DM") {
           command.message.reply(
             "do you have permission to access this command?"

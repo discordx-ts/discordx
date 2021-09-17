@@ -12,9 +12,9 @@ import { sendPaginatedEmbeds } from "../../../src";
 export abstract class Example {
   // example: message
   @On("messageCreate")
-  async onMessage([message]: ArgsOf<"messageCreate">): Promise<void> {
+  onMessage([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated demo") {
-      await sendPaginatedEmbeds(message, GeneratePages(), {
+      sendPaginatedEmbeds(message, GeneratePages(), {
         type: "BUTTON",
       });
     }
@@ -22,9 +22,9 @@ export abstract class Example {
 
   // example: any text channel
   @On("messageCreate")
-  async onMessageChannel([message]: ArgsOf<"messageCreate">): Promise<void> {
+  onMessageChannel([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated channel demo") {
-      await sendPaginatedEmbeds(message.channel, GeneratePages(), {
+      sendPaginatedEmbeds(message.channel, GeneratePages(), {
         type: "BUTTON",
       });
     }
@@ -32,24 +32,24 @@ export abstract class Example {
 
   // example: simple slash with button pagination
   @Slash("demoa", { description: "Simple slash with button pagination" })
-  async page(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, GeneratePages(), {
+  page(interaction: CommandInteraction): void {
+    sendPaginatedEmbeds(interaction, GeneratePages(), {
       type: "BUTTON",
     });
   }
 
   // example: simple slash with menu pagination
   @Slash("demob", { description: "Simple slash with menu pagination" })
-  async pagex(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, GeneratePages(), {
+  pagex(interaction: CommandInteraction): void {
+    sendPaginatedEmbeds(interaction, GeneratePages(), {
       type: "SELECT_MENU",
     });
   }
 
   // example: simple string array
   @Slash("democ", { description: "Simple string array" })
-  async pages(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(
+  pages(interaction: CommandInteraction): void {
+    sendPaginatedEmbeds(
       interaction,
       Array.from(Array(20).keys()).map((i) => i.toString())
     );
@@ -57,8 +57,8 @@ export abstract class Example {
 
   // example: array of custom message options
   @Slash("demod", { description: "Array of custom message options" })
-  async pagen(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, [
+  pagen(interaction: CommandInteraction): void {
+    sendPaginatedEmbeds(interaction, [
       {
         content: "Page 1",
       },

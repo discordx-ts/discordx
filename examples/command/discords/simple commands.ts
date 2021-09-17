@@ -9,7 +9,7 @@ import { GuildMember, Role, User } from "discord.js";
 @Discord()
 export abstract class commandTest {
   @SimpleCommand("race")
-  async race(command: SimpleCommandMessage): Promise<void> {
+  race(command: SimpleCommandMessage): void {
     command.message.reply(
       `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${
         command.name
@@ -28,7 +28,7 @@ export abstract class commandTest {
   }
 
   @SimpleCommand("race car", { description: "simple command example" })
-  async car(
+  car(
     @SimpleCommandOption("user", { type: "USER" }) user: User,
     @SimpleCommandOption("role", {
       type: "ROLE",
@@ -36,25 +36,26 @@ export abstract class commandTest {
     })
     role: Role,
     command: SimpleCommandMessage
-  ): Promise<unknown> {
-    if (!user) return command.sendUsageSyntax();
-    command.message.reply(
-      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
-    );
+  ): void {
+    !user
+      ? command.sendUsageSyntax()
+      : command.message.reply(
+          `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
+        );
   }
 
   @SimpleCommand("race bike")
-  async bike(command: SimpleCommandMessage): Promise<void> {
+  bike(command: SimpleCommandMessage): void {
     command.message.reply(
       `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
     );
   }
 
   @SimpleCommand("testx")
-  async testx(
+  testx(
     @SimpleCommandOption("user", { type: "USER" }) user: GuildMember | User,
     command: SimpleCommandMessage
-  ): Promise<void> {
+  ): void {
     command.message.reply(`${user}`);
   }
 }

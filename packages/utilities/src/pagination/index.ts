@@ -34,7 +34,9 @@ export async function sendPaginatedEmbeds(
   );
 
   const replyOptions = allPages[currentPage];
-  if (!replyOptions) throw Error("out of bound page");
+  if (!replyOptions) {
+    throw Error("Pagination: out of bound page");
+  }
 
   let message: Message;
 
@@ -62,7 +64,9 @@ export async function sendPaginatedEmbeds(
   }
 
   // check if pages sent
-  if (!message) throw Error("Failed to send pages");
+  if (!message) {
+    throw Error("Pagination: Failed to send pages");
+  }
 
   const collector = message.createMessageComponentCollector({
     time: option.time ?? defaultTime,
@@ -94,7 +98,9 @@ export async function sendPaginatedEmbeds(
 
       await collectInteraction.deferUpdate();
       const messageOptions = allPages[currentPage];
-      if (!messageOptions) throw Error("out of bound page");
+      if (!messageOptions) {
+        throw Error("Pagination: out of bound page");
+      }
       await collectInteraction.editReply(messageOptions);
     }
     if (
@@ -103,12 +109,23 @@ export async function sendPaginatedEmbeds(
       collectInteraction.customId === (option.menuId ?? defaultIds.menuId)
     ) {
       await collectInteraction.deferUpdate();
-      currentPage = Number(collectInteraction.values[0] ?? "0");
-      if (currentPage === -1) currentPage = 0;
-      if (currentPage === -2) currentPage = embeds.length - 1;
+
+      if (currentPage) {
+        currentPage = Number(collectInteraction.values[0] ?? "0");
+      }
+
+      if (currentPage === -1) {
+        currentPage = 0;
+      }
+
+      if (currentPage === -2) {
+        currentPage = embeds.length - 1;
+      }
 
       const replyOptions = allPages[currentPage];
-      if (!replyOptions) throw Error("out of bound page");
+      if (!replyOptions) {
+        throw Error("Pagination: out of bound page");
+      }
       await collectInteraction.editReply(replyOptions);
     }
   });

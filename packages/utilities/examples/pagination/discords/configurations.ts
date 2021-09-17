@@ -7,8 +7,8 @@ import { sendPaginatedEmbeds } from "../../../src";
 export abstract class Example {
   // example: simple slash with menu pagination
   @Slash("configexample", { description: "Custom page name for select menu" })
-  async pagex(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, GeneratePages(), {
+  pagex(interaction: CommandInteraction): void {
+    sendPaginatedEmbeds(interaction, GeneratePages(), {
       type: "SELECT_MENU",
       pageText: "My custom page: {page}, Index: {page}",
     });

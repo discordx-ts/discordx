@@ -172,16 +172,34 @@ export abstract class StonePaperScissor {
   ): spcResult {
     switch (player.choice) {
       case spcChoice.Stone:
-        if (bot.choice === spcChoice.Scissor) return spcResult.WIN;
-        if (bot.choice === spcChoice.Paper) return spcResult.LOSS;
+        if (bot.choice === spcChoice.Scissor) {
+          return spcResult.WIN;
+        }
+
+        if (bot.choice === spcChoice.Paper) {
+          return spcResult.LOSS;
+        }
+
         return spcResult.DRAW;
       case spcChoice.Paper:
-        if (bot.choice === spcChoice.Stone) return spcResult.WIN;
-        if (bot.choice === spcChoice.Scissor) return spcResult.LOSS;
+        if (bot.choice === spcChoice.Stone) {
+          return spcResult.WIN;
+        }
+
+        if (bot.choice === spcChoice.Scissor) {
+          return spcResult.LOSS;
+        }
+
         return spcResult.DRAW;
       case spcChoice.Scissor:
-        if (bot.choice === spcChoice.Paper) return spcResult.WIN;
-        if (bot.choice === spcChoice.Stone) return spcResult.LOSS;
+        if (bot.choice === spcChoice.Paper) {
+          return spcResult.WIN;
+        }
+
+        if (bot.choice === spcChoice.Stone) {
+          return spcResult.LOSS;
+        }
+
         return spcResult.DRAW;
     }
   }

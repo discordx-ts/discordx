@@ -71,8 +71,11 @@ export const GeneratePage = (
         : [prevBtn, nextBtn]
     );
 
-    if (cpage.components) cpage.components.push(row);
-    else cpage.components = [row];
+    if (cpage.components) {
+      cpage.components.push(row);
+    } else {
+      cpage.components = [row];
+    }
 
     return cpage;
   } else {
@@ -106,14 +109,29 @@ export const GeneratePage = (
 
     const row = new MessageActionRow().addComponents([menu]);
 
-    if (cpage.components) cpage.components.push(row);
-    else cpage.components = [row];
+    if (cpage.components) {
+      cpage.components.push(row);
+    } else {
+      cpage.components = [row];
+    }
 
     // reset message payload additional parameters
-    if (!cpage.embeds) cpage.embeds = [];
-    if (!cpage.files) cpage.files = [];
-    if (!cpage.stickers) cpage.stickers = [];
-    if (!cpage.files) cpage.files = []; // v13.1.0
+    if (!cpage.embeds) {
+      cpage.embeds = [];
+    }
+
+    if (!cpage.files) {
+      cpage.files = [];
+    }
+
+    if (!cpage.stickers) {
+      cpage.stickers = [];
+    }
+
+    if (!cpage.files) {
+      cpage.files = [];
+    } // v13.1.0
+
     // if (!cpage.attachments) cpage.attachments = []; // v13.2.0
     return cpage;
   }

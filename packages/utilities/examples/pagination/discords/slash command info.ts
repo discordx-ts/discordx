@@ -6,7 +6,7 @@ import { sendPaginatedEmbeds } from "../../../src";
 export abstract class SlashExample {
   // example: pagination for all slash command
   @Slash("slashes", { description: "Pagination for all slash command" })
-  async pages(interaction: CommandInteraction): Promise<void> {
+  pages(interaction: CommandInteraction): void {
     const commands = MetadataStorage.instance.applicationCommands.map((cmd) => {
       return { name: cmd.name, description: cmd.description };
     });
@@ -19,6 +19,6 @@ export abstract class SlashExample {
         .addField("Description", cmd.description);
     });
 
-    await sendPaginatedEmbeds(interaction, pages);
+    sendPaginatedEmbeds(interaction, pages);
   }
 }

@@ -14,14 +14,14 @@ export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * bot prefix resolver
    */
-  prefix?: string | ((message: Message) => Promise<string>);
+  prefix?: string | ((message: Message) => Promise<string> | string);
 
   /**
    * define bot reply, when command is not auhorized
    */
   commandUnauthorizedHandler?:
     | string
-    | ((command: SimpleCommandMessage) => Promise<void>);
+    | ((command: SimpleCommandMessage) => Promise<void> | void);
 
   /**
    * Do not log anything in the console

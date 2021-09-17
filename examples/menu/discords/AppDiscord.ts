@@ -22,9 +22,11 @@ export abstract class buttons {
     const roleValue = interaction.values?.[0];
 
     // if value not found
-    if (!roleValue)
-      return await interaction.followUp("invalid role id, select again");
-    await interaction.followUp(
+    if (!roleValue) {
+      return interaction.followUp("invalid role id, select again");
+    }
+
+    interaction.followUp(
       `you have selected role: ${
         roles.find((r) => r.value === roleValue)?.label ?? "unknown"
       }`

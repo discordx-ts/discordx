@@ -13,7 +13,7 @@ export const InteractionGuard: GuardFunction<ContextMenuInteraction> = async (
 export abstract class contextTest {
   @ContextMenu("USER", "Check details")
   @Guard(InteractionGuard)
-  async userHandler(interaction: ContextMenuInteraction): Promise<void> {
+  userHandler(interaction: ContextMenuInteraction): void {
     console.log(`Selected user: ${interaction.targetId}`);
   }
 }

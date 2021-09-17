@@ -30,9 +30,11 @@ export class Main {
     });
 
     this._client.on("interactionCreate", (interaction) => {
+      // do not execute interaction, if it's pagination (avoid warning: selectmenu/button interaction not found)
       if (interaction.isButton() || interaction.isSelectMenu()) {
-        // do not execute interaction, if it's pagination (avoid warning: selectmenu/button interaction not found)
-        if (interaction.customId.startsWith("discordx@pagination@")) return;
+        if (interaction.customId.startsWith("discordx@pagination@")) {
+          return;
+        }
       }
       this._client.executeInteraction(interaction);
     });
