@@ -1,6 +1,6 @@
 # @Permission
 
-You can set some permissions to your Slash commands or normal commands
+Define permission for your application command or simple command.
 
 The permissions are based on a **role id** or **user id** that you specify on the @Permission decorator
 
@@ -21,7 +21,7 @@ You can decorate your method with one or more @Permission decorators.
 ```ts
 @Discord()
 class DiscordBot {
-  @FPermission(false)
+  @Permission(false)
   @Permission({ id: "USER_ID", type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
   @Permission({ id: "ROLE_ID", type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
   @Slash("hello")
@@ -56,10 +56,20 @@ class DiscordBot {
 ## Signature
 
 ```ts
-@Permission({ id: Snowflake, type: "USER" | "ROLE", permission: true | false }[])
+@Permission(boolean | { id: Snowflake, type: "USER" | "ROLE", permission: boolean }[])
 ```
 
-## Parameters
+## Parameter
+
+| type                                        | required |
+| ------------------------------------------- | -------- |
+| boolean \| ApplicationCommandPermissionData | Yes      |
+
+## type: boolean
+
+Boolean overwrite default permission (aka permission for everyone) for application/simple command.
+
+## type: ApplicationCommandPermissionData
 
 ### id
 
