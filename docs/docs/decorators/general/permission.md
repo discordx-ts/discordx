@@ -65,7 +65,7 @@ class DiscordBot {
 | ------------------------------------------- | -------- |
 | boolean \| ApplicationCommandPermissionData | Yes      |
 
-## type: boolean
+## type: Boolean
 
 Overwrite default permission (aka permission for everyone) for application/simple command. When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
 
