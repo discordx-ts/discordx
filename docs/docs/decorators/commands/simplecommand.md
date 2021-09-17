@@ -14,7 +14,7 @@ A simple command is dependent on the content of the message but unfortunately, D
 @Discord()
 class commandTest {
   @SimpleCommand("permcheck", { aliases: ["ptest"] })
-  @DefaultPermission(false)
+  @Permission(false)
   @Permission({
     id: "462341082919731200",
     type: "USER",

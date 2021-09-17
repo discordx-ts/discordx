@@ -62,7 +62,7 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 - Support for multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
 - `@SimpleCommandOption` Parse and define command options like `@SlashOption`
-- new interactions/decorators: ` @ButtonComponent @SelectMenuComponent @ContextMenu @DefaultPermission`
+- new interactions/decorators: ` @ButtonComponent @SelectMenuComponent @ContextMenu`
 - New method `client.initApplicationCommands` to create/update/remove discord application commands (slash/context menu) for global and defined guilds
 - Lint improved internal source code for better type support
 - Provided more examples for new decorators
@@ -93,7 +93,6 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@Guard`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guard)
 - [`@Guild`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
 - [`@Bot`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/bot)
-- [`@DefaultPermission`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/defaultpermission)
 - [`@Permission`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
 - [`@On`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/on)
 - [`@Once`](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/once)
@@ -244,7 +243,7 @@ Create a simple command handler for messages using `@SimpleCommand`. Example `!h
 @Discord()
 class commandTest {
   @SimpleCommand("permcheck", { aliases: ["ptest"] })
-  @DefaultPermission(false)
+  @Permission(false)
   @Permission({
     id: "462341082919731200",
     type: "USER",

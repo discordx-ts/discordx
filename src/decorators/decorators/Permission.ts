@@ -9,7 +9,7 @@ import {
 import { ApplicationCommandPermissionData } from "discord.js";
 
 /**
- * Define default everyone permission for your application command or simple command.
+ * Define everyone permission for your application command or simple command.
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)

@@ -1,6 +1,5 @@
 import { Channel, Role, User } from "discord.js";
 import {
-  DefaultPermission,
   Discord,
   Permission,
   SimpleCommand,
@@ -58,7 +57,7 @@ export abstract class commandTest {
   }
 
   @SimpleCommand("permcheck", { aliases: ["ptest"] })
-  @DefaultPermission(false)
+  @Permission(false)
   @Permission({
     id: "462341082919731200",
     type: "USER",
