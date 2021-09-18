@@ -19,6 +19,7 @@
     "sort-imports": "warn",
     "no-unused-vars": "off",
     "curly": "warn",
+    "camelcase": "warn",
 
     // TypeScript
     "@typescript-eslint/no-use-before-define": "warn",
