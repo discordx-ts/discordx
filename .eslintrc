@@ -19,9 +19,9 @@
     "sort-imports": "warn",
     "no-unused-vars": "off",
     "curly": "warn",
-    "no-shadow": "warn",
 
     // TypeScript
+    "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/semi": "warn",

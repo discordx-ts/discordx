@@ -129,11 +129,7 @@ export abstract class StonePaperScissor {
         components: [buttonRow],
       });
 
-      setTimeout(
-        (interaction) => interaction.deleteReply(),
-        10 * 60 * 1000,
-        interaction
-      );
+      setTimeout(() => interaction.deleteReply(), 10 * 60 * 1000);
     }
   }
 
@@ -153,17 +149,13 @@ export abstract class StonePaperScissor {
       StonePaperScissor.spcResultProcess(playerChoice, botChoice, result)
     );
 
-    setTimeout(
-      (interaction) => {
-        try {
-          interaction.deleteReply();
-        } catch (err) {
-          console.error(err);
-        }
-      },
-      30000,
-      interaction
-    );
+    setTimeout(() => {
+      try {
+        interaction.deleteReply();
+      } catch (err) {
+        console.error(err);
+      }
+    }, 30000);
   }
 
   private static isWinSpc(

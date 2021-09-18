@@ -122,11 +122,11 @@ export async function sendPaginatedEmbeds(
         currentPage = embeds.length - 1;
       }
 
-      const replyOptions = allPages[currentPage];
-      if (!replyOptions) {
+      const replyOptionsEx = allPages[currentPage];
+      if (!replyOptionsEx) {
         throw Error("Pagination: out of bound page");
       }
-      await collectInteraction.editReply(replyOptions);
+      await collectInteraction.editReply(replyOptionsEx);
     }
   });
 
