@@ -3,78 +3,79 @@
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "discord.ts official documentation",
-  tagline: "Create your discord bot by using TypeScript and decorators!",
-  url: "https://oceanroleplay.github.io",
   baseUrl: "/discord.ts/",
+  favicon: "favicon.ico",
+  // i18n: {
+  //   defaultLocale: "en",
+  //   locales: ["en", "fr", "de"],
+  // },
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "favicon.ico",
   organizationName: "oceanroleplay", // Usually your GitHub org/user name.
   projectName: "discord.ts", // Usually your repo name.
-  //  i18n: {
-  //    defaultLocale: "en",
-  //    locales: ["en", "fr", "de"],
-  //  },
+  tagline: "Create your discord bot by using TypeScript and decorators!",
+  title: "discord.ts official documentation",
+  url: "https://oceanroleplay.github.io",
+  // eslint-disable-next-line sort-keys
   themeConfig: {
+    algolia: {
+      apiKey: "d80ba8eaf70ddb3eb5371d44ebb0ba1a",
+      appId: "C09VVW4QGN",
+      indexName: "discord.ts",
+    },
+    footer: {
+      copyright: "Made by discord.ts team with ❤️",
+    },
+    gtag: {
+      anonymizeIP: true, // Should IPs be anonymized?
+      trackingID: "G-VD776VLREB",
+    },
     navbar: {
-      title: "Discordx",
       items: [
         {
-          type: "doc",
           docId: "installation",
-          position: "left",
           label: "Docs",
+          position: "left",
+          type: "doc",
         },
         // {
         //   type: "localeDropdown",
         //   position: "right",
         // },
         {
-          position: "right",
-          label: "Discord server",
           href: "https://discord.gg/yHQY9fexH9",
+          label: "Discord server",
+          position: "right",
         },
         {
-          position: "right",
-          label: "Github",
           href: "https://github.com/oceanroleplay/discord.ts",
+          label: "Github",
+          position: "right",
         },
         {
-          position: "right",
-          label: "NPM",
           href: "https://www.npmjs.com/package/discordx",
+          label: "NPM",
+          position: "right",
         },
       ],
-    },
-    footer: {
-      copyright: "Made by discord.ts team with ❤️",
-    },
-    algolia: {
-      apiKey: "d80ba8eaf70ddb3eb5371d44ebb0ba1a",
-      indexName: "discord.ts",
-      appId: "C09VVW4QGN",
-    },
-    gtag: {
-      trackingID: "G-VD776VLREB",
-      // Optional fields.
-      anonymizeIP: true, // Should IPs be anonymized?
+      title: "Discordx",
     },
   },
+  // eslint-disable-next-line sort-keys
   presets: [
     [
       "@docusaurus/preset-classic",
       {
         docs: {
-          sidebarCollapsible: true,
-          sidebarCollapsed: false,
-          sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
             "https://github.com/oceanroleplay/discord.ts/edit/main/docs/",
           remarkPlugins: [
             [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
           ],
+          sidebarCollapsed: false,
+          sidebarCollapsible: true,
+          sidebarPath: require.resolve("./sidebars.js"),
         },
         // blog: {
         //   showReadingTime: true,
@@ -88,17 +89,18 @@ module.exports = {
       },
     ],
   ],
+  // eslint-disable-next-line sort-keys
   plugins: [
     [
       "docusaurus-plugin-typedoc",
       // Plugin / TypeDoc options
       {
         entryPoints: ["../src/index.ts"],
-        tsconfig: "../tsconfig.json",
-        excludePrivate: true,
         excludeExternals: true,
+        excludePrivate: true,
         excludeProtected: true,
         readme: "none",
+        tsconfig: "../tsconfig.json",
       },
     ],
   ],

@@ -125,8 +125,8 @@ export abstract class StonePaperScissor {
       );
 
       interaction.editReply({
-        content: "Ok let's go. 1v1 Stone Paper Scissor. Go choose!",
         components: [buttonRow],
+        content: "Ok let's go. 1v1 Stone Paper Scissor. Go choose!",
       });
 
       setTimeout(() => interaction.deleteReply(), 10 * 60 * 1000);

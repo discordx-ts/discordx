@@ -67,17 +67,17 @@ export abstract class Example {
         embeds: [new MessageEmbed({ title: "It's me embed 2" })],
       },
       {
-        content: "Page 3",
-        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
         components: [
           new MessageActionRow().addComponents([
             new MessageButton({
               customId: "myCustomId",
-              style: "PRIMARY",
               label: "My Custom Botton",
+              style: "PRIMARY",
             }),
           ]),
         ],
+        content: "Page 3",
+        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
       },
     ]);
   }

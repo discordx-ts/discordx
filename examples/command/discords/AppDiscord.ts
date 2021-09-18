@@ -60,8 +60,8 @@ export abstract class commandTest {
   @Permission(false)
   @Permission({
     id: "462341082919731200",
-    type: "USER",
     permission: true,
+    type: "USER",
   })
   permFunc(command: SimpleCommandMessage): void {
     command.message.reply("access granted");

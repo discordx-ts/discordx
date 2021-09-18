@@ -31,8 +31,8 @@ export abstract class commandTest {
   car(
     @SimpleCommandOption("user", { type: "USER" }) user: User,
     @SimpleCommandOption("role", {
-      type: "ROLE",
       description: "mention the role you wish to grant",
+      type: "ROLE",
     })
     role: Role,
     command: SimpleCommandMessage

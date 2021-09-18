@@ -5,18 +5,18 @@ import styles from "./HomepageFeatures.module.css";
 
 const FeatureList = [
   {
-    title: "Decorators",
     description: <>it simplifies your code and improves the readability!</>,
+    title: "Decorators",
   },
   {
-    title: "Slash commands",
     description: <>Implement a Discord's Slash commands system simply !</>,
+    title: "Slash commands",
   },
   {
-    title: "discord.js support",
     description: (
       <>You can use discord.js along discord.ts without any problems !</>
     ),
+    title: "discord.js support",
   },
 ];
 

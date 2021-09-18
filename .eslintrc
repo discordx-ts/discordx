@@ -17,6 +17,7 @@
     "no-await-in-loop": "warn",
     "spaced-comment": "warn",
     "sort-imports": "warn",
+    "sort-keys": "warn",
     "no-unused-vars": "off",
     "curly": "warn",
     "camelcase": "warn",

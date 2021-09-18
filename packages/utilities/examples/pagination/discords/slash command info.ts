@@ -8,7 +8,7 @@ export abstract class SlashExample {
   @Slash("slashes", { description: "Pagination for all slash command" })
   pages(interaction: CommandInteraction): void {
     const commands = MetadataStorage.instance.applicationCommands.map((cmd) => {
-      return { name: cmd.name, description: cmd.description };
+      return { description: cmd.description, name: cmd.name };
     });
 
     const pages = commands.map((cmd, i) => {

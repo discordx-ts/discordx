@@ -149,17 +149,17 @@ export class DApplicationCommand extends Method {
 
     if (this.type === "CHAT_INPUT") {
       return {
-        name: this.name,
-        description: this.description,
-        options: options,
         defaultPermission: this.defaultPermission,
+        description: this.description,
+        name: this.name,
+        options: options,
         type: this.type,
       };
     }
 
     return {
-      name: this.name,
       defaultPermission: this.defaultPermission,
+      name: this.name,
       type: this.type,
     };
   }

@@ -53,14 +53,14 @@ export function paginate(
 
   // return object with all pager properties required by the view
   return {
-    totalItems: totalItems,
     currentPage: currentPage,
-    pageSize: pageSize,
-    totalPages: totalPages,
-    startPage: startPage,
-    endPage: endPage,
-    startIndex: startIndex,
     endIndex: endIndex,
+    endPage: endPage,
+    pageSize: pageSize,
     pages: pages,
+    startIndex: startIndex,
+    startPage: startPage,
+    totalItems: totalItems,
+    totalPages: totalPages,
   };
 }

@@ -10,12 +10,12 @@ export class Main {
 
   static async start(): Promise<void> {
     this._client = new Client({
-      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+      botGuilds: [process.env.GUILD_ID ?? ""],
       classes: [
         // glob string to load the classes. If you compile your bot, the file extension will be .js
         `${__dirname}/discords/*.{js,ts}`,
       ],
-      botGuilds: [process.env.GUILD_ID ?? ""],
+      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

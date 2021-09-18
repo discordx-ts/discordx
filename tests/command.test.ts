@@ -13,7 +13,7 @@ import { Message } from "discord.js";
 type Data = { passed: boolean };
 
 @Discord()
-@Permission({ id: "123", type: "USER", permission: true })
+@Permission({ id: "123", permission: true, type: "USER" })
 @Guild("693401527494377482")
 @Guard((params, client, next, datas) => {
   datas.passed = true;
@@ -22,8 +22,8 @@ type Data = { passed: boolean };
 export abstract class AppDiscord {
   @SimpleCommand("add", {
     aliases: ["add1", "add2"],
-    description: "Addition",
     argSplitter: "~",
+    description: "Addition",
   })
   add(
     @SimpleCommandOption("x", { description: "x value" })
@@ -105,8 +105,8 @@ describe("Commands", () => {
     expect(client.simpleCommands[0]?.permissions).toEqual([
       {
         id: "123",
-        type: "USER",
         permission: true,
+        type: "USER",
       },
     ]);
     expect(client.simpleCommands[0]?.aliases).toEqual(["add1", "add2"]);

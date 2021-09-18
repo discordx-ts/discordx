@@ -48,8 +48,8 @@ export abstract class buttons {
 
     // send it
     interaction.editReply({
-      content: "select your role!",
       components: [buttonRow],
+      content: "select your role!",
     });
     return;
   }

@@ -287,9 +287,9 @@ export class MetadataStorage {
     this._applicationCommands = this.groupSlashes();
 
     this._simpleCommands.forEach((cmd) => {
-      this._allSimpleCommands.push({ name: cmd.name, command: cmd });
+      this._allSimpleCommands.push({ command: cmd, name: cmd.name });
       cmd.aliases.forEach((al) => {
-        this._allSimpleCommands.push({ name: al, command: cmd });
+        this._allSimpleCommands.push({ command: cmd, name: al });
       });
     });
 

@@ -9,8 +9,8 @@ export abstract class Example {
   @Slash("configexample", { description: "Custom page name for select menu" })
   pagex(interaction: CommandInteraction): void {
     sendPaginatedEmbeds(interaction, GeneratePages(), {
-      type: "SELECT_MENU",
       pageText: "My custom page: {page}, Index: {page}",
+      type: "SELECT_MENU",
     });
   }
 }

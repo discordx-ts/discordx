@@ -11,16 +11,12 @@ export class Main {
 
   static async start(): Promise<void> {
     this._client = new Client({
-      // prefix: "!",
-      prefix: (message): string => {
-        // let's use different command prefix for dm
-        if (message.channel.type === "DM") {
-          return "+";
-        }
+      botGuilds: [process.env.GUILD_ID ?? ""],
 
-        // common command prefix for all guild
-        return "!";
-      },
+      classes: [
+        // glob string to load the classes. If you compile your bot, the file extension will be .js
+        `${__dirname}/discords/*.{js,ts}`,
+      ],
 
       // commandUnauthorizedHandler: "you are not authorized to use this command",
       commandUnauthorizedHandler: (command) => {
@@ -44,11 +40,18 @@ export class Main {
       ],
       // enable partials to recieve direct messages
       partials: ["CHANNEL", "MESSAGE"],
-      classes: [
-        // glob string to load the classes. If you compile your bot, the file extension will be .js
-        `${__dirname}/discords/*.{js,ts}`,
-      ],
-      botGuilds: [process.env.GUILD_ID ?? ""],
+
+      // prefix: "!",
+      prefix: (message): string => {
+        // let's use different command prefix for dm
+        if (message.channel.type === "DM") {
+          return "+";
+        }
+
+        // common command prefix for all guild
+        return "!";
+      },
+
       silent: false,
     });
 
