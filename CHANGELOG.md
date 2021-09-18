@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrated `@Permission` with `@DefaultPermission`
-- Lint improved exampels code
+- Improved code with lint
 
 ## [5.9.3] - 2021-09-16
 
