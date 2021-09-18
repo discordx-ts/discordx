@@ -22,11 +22,11 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
     this._modifyTypes = modifyTypes;
   }
 
-  static create<ToModify extends Decorator>(
-    toModify: ModifyFunction<ToModify>,
+  static create<ToModifyEx extends Decorator>(
+    toModify: ModifyFunction<ToModifyEx>,
     ...modifyTypes: any[]
-  ): Modifier<ToModify> {
-    return new Modifier<ToModify>(toModify, modifyTypes);
+  ): Modifier<ToModifyEx> {
+    return new Modifier<ToModifyEx>(toModify, modifyTypes);
   }
 
   /**
@@ -61,7 +61,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
     );
   }
 
-  applyModifications(original: ToModify): (original: ToModify) => any {
+  applyModifications(original: ToModify): (originalEx: ToModify) => any {
     return this._toModify(original);
   }
 }

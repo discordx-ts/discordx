@@ -50,7 +50,7 @@ export function SimpleCommand(
     }
 
     if (params?.aliases) {
-      if (params.aliases.some((name) => !testName.test(name))) {
+      if (params.aliases.some((aName) => !testName.test(aName))) {
         throw Error("invalid command alias");
       }
     }

@@ -115,10 +115,10 @@ export function SlashGroup(
 
       // Create a subgroup if @SlashGroup decorate a method
       if (subCommands) {
-        Object.keys(subCommands).forEach((key) => {
+        Object.keys(subCommands).forEach((subKey) => {
           const group =
-            DApplicationCommandGroup.create<DApplicationCommandOption>(key, {
-              description: subCommands?.[key],
+            DApplicationCommandGroup.create<DApplicationCommandOption>(subKey, {
+              description: subCommands?.[subKey],
             }).decorate(target, target.name);
 
           MetadataStorage.instance.addApplicationCommandSubGroup(group);
