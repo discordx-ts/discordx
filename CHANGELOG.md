@@ -21,14 +21,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.9.4] - 2021-09-22
 
-### Deprecated
+### Added
 
-- `@DefaultPermission` use `@Permission` instead
+- `sensitiveOrder` option in `client.executeCommand` and `client.parseCommand`
 
 ### Changed
 
 - Migrated `@Permission` with `@DefaultPermission`
 - Improved code with lint
+
+### Deprecated
+
+- `@DefaultPermission` use `@Permission` instead
+
+### Fixed
+
+- simple command execution where uppercase commands are not executed.
 
 ## [5.9.3] - 2021-09-16
 
