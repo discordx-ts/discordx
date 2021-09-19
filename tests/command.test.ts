@@ -91,6 +91,15 @@ export abstract class AppDiscord {
   ): unknown {
     return ["!ban", [id, time, reason, type], command, datas.passed];
   }
+
+  @SimpleCommand("findSource")
+  findSource(
+    command: SimpleCommandMessage,
+    client: Client,
+    datas: Data
+  ): unknown {
+    return ["!findSource", [1], command, datas.passed];
+  }
 }
 
 const client = new Client({ intents: [] });
@@ -131,6 +140,13 @@ describe("Commands", () => {
     const parsedCommand = client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual(["!add plus", [], parsedCommand, true]);
+  });
+
+  it("Should execute simple command with uppercase names", async () => {
+    const sampleMessage = { content: "!findSource" } as Message;
+    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const response = await client.executeCommand(sampleMessage);
+    expect(response).toEqual(["!findSource", [1], parsedCommand, true]);
   });
 
   it("Should execute simple command with two spaces", async () => {

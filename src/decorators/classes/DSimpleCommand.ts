@@ -99,7 +99,7 @@ export class DSimpleCommand extends Method {
     aliases?: string[]
   ) {
     super();
-    this._name = name.toLowerCase();
+    this._name = name;
     this._description = description ?? this.name;
     this._defaultPermission = defaultPermission ?? true;
     this._directMessage = directMessage ?? true;
