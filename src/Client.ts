@@ -787,6 +787,7 @@ export class Client extends ClientJS {
   /**
    * Execute the corresponding @SimpleCommand based on an message instance
    * @param message The discord.js message instance
+   * @param options execution options ex. sensitiveOrder
    * @returns
    */
   async executeCommand(
