@@ -739,11 +739,13 @@ export class Client extends ClientJS {
    *
    * @param prefix command prefix
    * @param message original message
+   * @param sensitiveOrder allow insentive execution for simple commands
    * @returns
    */
   parseCommand(
     prefix: string,
-    message: Message
+    message: Message,
+    sensitiveOrder = false
   ): undefined | SimpleCommandMessage {
     const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     const prefixRegex = RegExp(`^${escapePrefix}`);
@@ -756,7 +758,11 @@ export class Client extends ClientJS {
       message.content.replace(prefixRegex, "").trim() + " ";
 
     const commandRaw = this.allSimpleCommands.find((cmd) =>
-      contentWithoutPrefix.startsWith(`${cmd.name} `)
+      sensitiveOrder
+        ? contentWithoutPrefix.startsWith(`${cmd.name} `)
+        : contentWithoutPrefix
+            .toLowerCase()
+            .startsWith(`${cmd.name.toLowerCase()} `)
     );
 
     if (!commandRaw) {
@@ -783,7 +789,10 @@ export class Client extends ClientJS {
    * @param message The discord.js message instance
    * @returns
    */
-  async executeCommand(message: Message) {
+  async executeCommand(
+    message: Message,
+    options?: { sensitiveOrder?: boolean }
+  ) {
     if (!message) {
       if (!this.silent) {
         console.log("message is undefined");
@@ -799,7 +808,11 @@ export class Client extends ClientJS {
       return;
     }
 
-    const command = this.parseCommand(prefix, message);
+    const command = this.parseCommand(
+      prefix,
+      message,
+      options?.sensitiveOrder ?? false
+    );
     if (!command) {
       return;
     }
