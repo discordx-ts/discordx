@@ -57,11 +57,17 @@ start();
 
 Simple commands can be executed in case-sensitive mode.
 
-**While the mode if disabled (default)**
+**While the mode is disabled (default)**
 `!ban === !BAN`
 
-**While the mode if enabled**
+**While the mode is enabled**
 `!ban !== !BAN`
+
+#### **To enable**
+
+```ts
+client.executeCommand(message, { caseSensitive: true });
+```
 
 ## Signature
 
