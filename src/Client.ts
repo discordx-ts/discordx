@@ -739,13 +739,13 @@ export class Client extends ClientJS {
    *
    * @param prefix command prefix
    * @param message original message
-   * @param sensitiveOrder allow insentive execution for simple commands
+   * @param caseSensitive allow insentive execution for simple commands
    * @returns
    */
   parseCommand(
     prefix: string,
     message: Message,
-    sensitiveOrder = false
+    caseSensitive = false
   ): undefined | SimpleCommandMessage {
     const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     const prefixRegex = RegExp(`^${escapePrefix}`);
@@ -758,7 +758,7 @@ export class Client extends ClientJS {
       message.content.replace(prefixRegex, "").trim() + " ";
 
     const commandRaw = this.allSimpleCommands.find((cmd) =>
-      sensitiveOrder
+      caseSensitive
         ? contentWithoutPrefix.startsWith(`${cmd.name} `)
         : contentWithoutPrefix
             .toLowerCase()
@@ -787,12 +787,12 @@ export class Client extends ClientJS {
   /**
    * Execute the corresponding @SimpleCommand based on an message instance
    * @param message The discord.js message instance
-   * @param options execution options ex. sensitiveOrder
+   * @param options execution options ex. caseSensitive
    * @returns
    */
   async executeCommand(
     message: Message,
-    options?: { sensitiveOrder?: boolean }
+    options?: { caseSensitive?: boolean }
   ) {
     if (!message) {
       if (!this.silent) {
@@ -812,7 +812,7 @@ export class Client extends ClientJS {
     const command = this.parseCommand(
       prefix,
       message,
-      options?.sensitiveOrder ?? false
+      options?.caseSensitive ?? false
     );
     if (!command) {
       return;

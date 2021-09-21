@@ -53,6 +53,16 @@ async function start() {
 start();
 ```
 
+### Execute with case sensitive mode
+
+Simple commands can be executed in case-sensitive mode.
+
+**While the mode if disabled (default)**
+`!ban === !BAN`
+
+**While the mode if enabled**
+`!ban !== !BAN`
+
 ## Signature
 
 ```ts
