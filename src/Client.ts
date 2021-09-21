@@ -485,8 +485,8 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Fetch the existing application commands of a guild or globaly
-   * @param guild The guild ID (empty -> globaly)
+   * Fetch the existing application commands of a guild or globally
+   * @param guild The guild ID (empty -> globally)
    * @returns
    */
   fetchApplicationCommands(guildID?: Snowflake) {
@@ -501,8 +501,8 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Clear the application commands globaly or for some guilds
-   * @param guilds The guild IDs (empty -> globaly)
+   * Clear the application commands globally or for some guilds
+   * @param guilds The guild IDs (empty -> globally)
    */
   async clearApplicationCommands(...guilds: Snowflake[]) {
     if (guilds.length) {

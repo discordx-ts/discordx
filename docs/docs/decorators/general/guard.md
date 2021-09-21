@@ -4,7 +4,7 @@ You can use functions that are executed before your event to determine if it's e
 
 The order of execution of the guards is done according to their position in the list, so they will be executed in order (from top to bottom).
 
-Guards can be set for `@SimpleCommand`, `@Slash`, `@ButtonComponent`, `@SelectMenuComponent`, `@On`, `@Once`, `@Discord` and globaly.
+Guards can be set for `@SimpleCommand`, `@Slash`, `@ButtonComponent`, `@SelectMenuComponent`, `@On`, `@Once`, `@Discord` and globally.
 
 ```typescript
 import { Discord, On, Client, Guard } from "discordx";
@@ -64,7 +64,7 @@ abstract class AppDiscord {
 
 ## Global guards
 
-When can setup some guards globaly
+When can setup some guards globally
 
 > Global guards are executed before @Discord guards
 

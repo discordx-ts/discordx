@@ -2,7 +2,7 @@
 import { InstanceOf } from "../..";
 
 /**
- * It create on instance of a classe and store it globaly using
+ * It create on instance of a classe and store it globally using
  * the singleton design pattern
  * @category Internal
  */

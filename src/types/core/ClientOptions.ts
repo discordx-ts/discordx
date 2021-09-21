@@ -39,7 +39,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   guards?: GuardFunction[];
 
   /**
-   * Set the guilds globaly for application commands
+   * Set the guilds globally for application commands
    */
   botGuilds?: Snowflake[];
 }

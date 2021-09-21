@@ -39,7 +39,7 @@ export abstract class Method extends Decorator {
 
   /**
    * Returns all the guards of the application
-   * The guards that are defined globaly with Client
+   * The guards that are defined globally with Client
    * The guards that decorate @Discord
    * The guards that decorate the method (this)
    */

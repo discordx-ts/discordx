@@ -95,7 +95,7 @@ You can retrieve the list of declared application commands on your application (
 const applicationCommands = client.applicationCommands;
 ```
 
-### Apply application command to specific guild globaly
+### Apply application command to specific guild globally
 
 Instead on doing this for all of your @Slash:
 
