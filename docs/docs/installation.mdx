@@ -255,10 +255,10 @@ Your tsconfig.json file should look like this:
     "sourceMap": true,
     "strict": true,
     "outDir": "build",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true, // required
+    "experimentalDecorators": true, // required
     "declaration": false,
-    "importHelpers": true,
+    "importHelpers": true, // required
     "forceConsistentCasingInFileNames": true,
     "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node"
