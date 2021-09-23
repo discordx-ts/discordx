@@ -21,6 +21,7 @@ import {
   DiscordEvents,
   GuardFunction,
   GuildNotFoundError,
+  InitCommandConfig,
   MetadataStorage,
   SimpleCommandMessage,
 } from ".";
@@ -280,7 +281,8 @@ export class Client extends ClientJS {
    * Initialize all the @Slash with their permissions
    */
   initApplicationCommands(options?: {
-    log: { forGuild: boolean; forGlobal: boolean };
+    guild?: InitCommandConfig;
+    global?: InitCommandConfig;
   }) {
     // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
@@ -311,17 +313,13 @@ export class Client extends ClientJS {
       }
 
       allGuildPromises.push(
-        this.initGuildApplicationCommands(
-          guildId,
-          DCommands,
-          options?.log.forGuild
-        )
+        this.initGuildApplicationCommands(guildId, DCommands, options?.guild)
       );
     });
 
     return Promise.all([
       Promise.all(allGuildPromises),
-      this.initGlobalApplicationCommands(options?.log.forGlobal),
+      this.initGlobalApplicationCommands(options?.global),
     ]);
   }
 
@@ -334,7 +332,7 @@ export class Client extends ClientJS {
   async initGuildApplicationCommands(
     guildId: string,
     DCommands: DApplicationCommand[],
-    log?: boolean
+    options?: InitCommandConfig
   ) {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
@@ -373,7 +371,7 @@ export class Client extends ClientJS {
     );
 
     // log the changes to commands in console if enabled by options or silent mode is turned off
-    if (log || !this.silent) {
+    if (options?.log || !this.silent) {
       console.log(
         `${this.user?.username} >> guild: #${guild} >> command >> adding ${
           added.length
@@ -391,29 +389,47 @@ export class Client extends ClientJS {
       );
     }
 
+    const addOperation = options?.disable?.add
+      ? []
+      : added.map((DCommand) =>
+          guild.commands.create(DCommand.toObject()).then((cmd) => {
+            if (
+              DCommand.permissions.length &&
+              (options?.disable?.permission ?? true)
+            ) {
+              cmd.permissions.set({ permissions: DCommand.permissions });
+            }
+            return cmd;
+          })
+        );
+
+    const updateOperation = options?.disable?.update
+      ? []
+      : updated.map((command) =>
+          command[0].edit(command[1].toObject()).then((cmd) => {
+            if (
+              command[1].permissions.length &&
+              (options?.disable?.permission ?? true)
+            ) {
+              cmd.permissions.set({ permissions: command[1].permissions });
+            }
+            return cmd;
+          })
+        );
+
+    const deleteOperation = options?.disable?.delete
+      ? []
+      : deleted.map((cmd) => guild.commands.delete(cmd));
+
     await Promise.all([
       // add and set permissions
-      ...added.map((DCommand) =>
-        guild.commands.create(DCommand.toObject()).then((cmd) => {
-          if (DCommand.permissions.length) {
-            cmd.permissions.set({ permissions: DCommand.permissions });
-          }
-          return cmd;
-        })
-      ),
+      ...addOperation,
 
       // update and set permissions
-      ...updated.map((command) =>
-        command[0].edit(command[1].toObject()).then((cmd) => {
-          if (command[1].permissions.length) {
-            cmd.permissions.set({ permissions: command[1].permissions });
-          }
-          return cmd;
-        })
-      ),
+      ...updateOperation,
 
       // delete
-      ...deleted.map((cmd) => guild.commands.delete(cmd)),
+      ...deleteOperation,
     ]);
   }
 
@@ -421,7 +437,7 @@ export class Client extends ClientJS {
    * init global application commands
    * @param log
    */
-  async initGlobalApplicationCommands(log?: boolean) {
+  async initGlobalApplicationCommands(options?: InitCommandConfig) {
     // # initialize add/update/delete task for global commands
     const AllCommands = (await this.fetchApplicationCommands())?.filter(
       (cmd) => !cmd.guild
@@ -451,7 +467,7 @@ export class Client extends ClientJS {
       );
 
       // log the changes to commands in console if enabled by options or silent mode is turned off
-      if (log || !this.silent) {
+      if (options?.log || !this.silent) {
         console.log(
           `${this.user?.username} >> global >> command >> adding ${
             added.length
@@ -473,13 +489,19 @@ export class Client extends ClientJS {
 
       await Promise.all([
         // add
-        ...added.map((DCommand) =>
-          this.application?.commands.create(DCommand.toObject())
-        ),
+        ...(options?.disable?.add
+          ? []
+          : added.map((DCommand) =>
+              this.application?.commands.create(DCommand.toObject())
+            )),
         // update
-        ...updated.map((ob) => ob[0].edit(ob[1].toObject())),
+        ...(options?.disable?.update
+          ? []
+          : updated.map((ob) => ob[0].edit(ob[1].toObject()))),
         // delete
-        ...deleted.map((cmd) => this.application?.commands.delete(cmd)),
+        ...(options?.disable?.delete
+          ? []
+          : deleted.map((cmd) => this.application?.commands.delete(cmd))),
       ]);
     }
   }

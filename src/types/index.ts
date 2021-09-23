@@ -8,3 +8,4 @@ export * from "./public/ArgsOf";
 export * from "./public/CommandType";
 export * from "./public/decorators";
 export * from "./public/GuardFunction";
+export * from "./public/interfaces";
