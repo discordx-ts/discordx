@@ -280,10 +280,10 @@ export class Client extends ClientJS {
   /**
    * Initialize all the @Slash with their permissions
    */
-  initApplicationCommands(options?: {
+  async initApplicationCommands(options?: {
     guild?: InitCommandConfig;
     global?: InitCommandConfig;
-  }) {
+  }): Promise<void> {
     // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
@@ -317,7 +317,7 @@ export class Client extends ClientJS {
       );
     });
 
-    return Promise.all([
+    await Promise.all([
       Promise.all(allGuildPromises),
       this.initGlobalApplicationCommands(options?.global),
     ]);
@@ -333,7 +333,7 @@ export class Client extends ClientJS {
     guildId: string,
     DCommands: DApplicationCommand[],
     options?: InitCommandConfig
-  ) {
+  ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
       throw Error(`${guildId} guild not found`);
@@ -437,7 +437,9 @@ export class Client extends ClientJS {
    * init global application commands
    * @param log
    */
-  async initGlobalApplicationCommands(options?: InitCommandConfig) {
+  async initGlobalApplicationCommands(
+    options?: InitCommandConfig
+  ): Promise<void> {
     // # initialize add/update/delete task for global commands
     const AllCommands = (await this.fetchApplicationCommands())?.filter(
       (cmd) => !cmd.guild
