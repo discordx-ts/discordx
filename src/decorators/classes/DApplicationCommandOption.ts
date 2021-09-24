@@ -73,7 +73,7 @@ export class DApplicationCommandOption extends Decorator {
   ) {
     super();
 
-    this._name = name.toLowerCase();
+    this._name = name;
     this._type = type ?? "STRING";
     this._description = description ?? `${name} - ${this.type}`;
     this._required = required ?? false;

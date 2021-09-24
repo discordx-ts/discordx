@@ -8,6 +8,8 @@ import {
   SubCommand,
 } from "../..";
 
+const testName = RegExp(/^[\w-]{1,32}$/);
+
 /**
  * Group your slash command
  * @param group name of group
@@ -89,11 +91,15 @@ export function SlashGroup(
     descriptor?: PropertyDescriptor
   ) {
     if (typeof groupOrSubcommands === "string" && key) {
+      if (!testName.test(groupOrSubcommands)) {
+        throw Error(`invalid group command name: ${groupOrSubcommands}`);
+      }
+
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
         Modifier.create<DApplicationCommand>((original) => {
           if (original.type === "CHAT_INPUT") {
-            original.subgroup = groupOrSubcommands.toLowerCase();
+            original.subgroup = groupOrSubcommands;
           }
         }, DApplicationCommand).decorate(target.constructor, key)
       );

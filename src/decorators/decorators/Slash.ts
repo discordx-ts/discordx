@@ -38,7 +38,6 @@ export function Slash(
     if (!testName.test(name)) {
       throw Error(`invalid command name: ${name}`);
     }
-    name = name.toLocaleLowerCase();
 
     const applicationCommand = DApplicationCommand.create(
       name,

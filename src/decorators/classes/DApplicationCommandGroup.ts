@@ -12,7 +12,7 @@ export class DApplicationCommandGroup<
 
   protected constructor(name: string, infos?: Partial<InfoType>) {
     super();
-    this.name = name.toLowerCase();
+    this.name = name;
     this.infos = infos ?? {};
   }
 
