@@ -408,41 +408,21 @@ export class Client extends ClientJS {
 
     const addOperation = options?.disable?.add
       ? []
-      : added.map((DCommand) =>
-          guild.commands.create(DCommand.toJSON()).then((cmd) => {
-            if (
-              DCommand.permissions.length &&
-              (options?.disable?.permission ?? true)
-            ) {
-              cmd.permissions.set({ permissions: DCommand.permissions });
-            }
-            return cmd;
-          })
-        );
+      : added.map((DCommand) => guild.commands.create(DCommand.toJSON()));
 
     const updateOperation = options?.disable?.update
       ? []
-      : updated.map((command) =>
-          command[0].edit(command[1].toJSON()).then((cmd) => {
-            if (
-              command[1].permissions.length &&
-              (options?.disable?.permission ?? true)
-            ) {
-              cmd.permissions.set({ permissions: command[1].permissions });
-            }
-            return cmd;
-          })
-        );
+      : updated.map((command) => command[0].edit(command[1].toJSON()));
 
     const deleteOperation = options?.disable?.delete
       ? []
       : deleted.map((cmd) => guild.commands.delete(cmd));
 
     await Promise.all([
-      // add and set permissions
+      // add
       ...addOperation,
 
-      // update and set permissions
+      // update
       ...updateOperation,
 
       // delete

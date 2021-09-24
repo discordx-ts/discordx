@@ -19,9 +19,5 @@ export interface InitCommandConfig {
      * Disable the delete operation, which unregisters application commands with Discord
      */
     delete?: boolean;
-    /**
-     * Disable the permission operation, which updates application commands permissions with Discord
-     */
-    permission?: boolean;
   };
 }
