@@ -5,6 +5,8 @@ import {
   MethodDecoratorEx,
 } from "../..";
 
+const testName = RegExp(/^[\w-]{1,32}$/);
+
 /**
  * Define slash command
  * @param name name of your slash command
@@ -33,6 +35,9 @@ export function Slash(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
+    if (!testName.test(name)) {
+      throw Error(`invalid command name: ${name}`);
+    }
     name = name.toLocaleLowerCase();
 
     const applicationCommand = DApplicationCommand.create(

@@ -5,7 +5,7 @@ import {
   SimpleCommandParams,
 } from "../..";
 
-const testName = RegExp(/^[a-zA-Z0-9 ]+$/);
+const testName = RegExp(/^[\w- ]{1,32}$/);
 
 /**
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
@@ -46,12 +46,12 @@ export function SimpleCommand(
     name = name;
 
     if (!testName.test(name)) {
-      throw Error("invalid command name");
+      throw Error(`invalid command name: ${name}`);
     }
 
     if (params?.aliases) {
       if (params.aliases.some((aName) => !testName.test(aName))) {
-        throw Error("invalid command alias");
+        throw Error(`invalid alias for command: ${name}`);
       }
     }
 
