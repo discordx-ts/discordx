@@ -38,11 +38,13 @@
   "dependencies": {
     "discord.js": "^13.2.0-dev.1632398593.5070d23",
     "glob": "^7.2.0",
+    "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",
+    "@types/lodash": "^4.14.173",
     "@types/node": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",

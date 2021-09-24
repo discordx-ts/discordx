@@ -97,20 +97,25 @@ export class DApplicationCommandOption extends Decorator {
   }
 
   toJSON(): ApplicationCommandOptionData {
+    const options = [...this.options]
+      .reverse()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((option) => option.toJSON() as any);
+
     const data: ApplicationCommandOptionData = {
-      choices: this.choices.map((choice) => choice.toJSON()),
+      choices:
+        this.choices.length === 0
+          ? undefined
+          : this.choices.map((choice) => choice.toJSON()),
       description: this.description,
       name: this.name,
-      options: [...this.options]
-        .reverse()
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .map((option) => option.toJSON()) as any,
+      options: options.length === 0 ? undefined : options,
       required: this.required,
       type: this.type,
     };
 
     if (!this.isNode) {
-      delete data.required;
+      data.required = undefined;
     }
 
     return data;

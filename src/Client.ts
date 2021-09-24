@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import * as _ from "lodash";
 import {
   ApplicationCommand,
   Client as ClientJS,
@@ -354,10 +355,26 @@ export class Client extends ClientJS {
     >((DCommand) => [
       ApplicationCommands.find((cmd) => cmd.name === DCommand.name),
       DCommand,
-    ]).filter<[ApplicationCommand, DApplicationCommand]>(
-      (cmd): cmd is [ApplicationCommand, DApplicationCommand] =>
-        cmd[0] !== undefined
-    );
+    ])
+      .filter<[ApplicationCommand, DApplicationCommand]>(
+        (cmd): cmd is [ApplicationCommand, DApplicationCommand] =>
+          cmd[0] !== undefined
+      )
+      .filter(
+        // skip update, if there is no change in command data
+        (cmd) =>
+          !_.isEqual(
+            _.omit(
+              cmd[0]?.toJSON() as JSON,
+              "id",
+              "applicationId",
+              "guild",
+              "guildId",
+              "version"
+            ),
+            cmd[1].toJSON()
+          )
+      );
 
     // filter commands to delete
     const deleted = ApplicationCommands.filter(
@@ -459,10 +476,26 @@ export class Client extends ClientJS {
       >((DCommand) => [
         AllCommands.find((cmd) => cmd.name === DCommand.name),
         DCommand,
-      ]).filter<[ApplicationCommand, DApplicationCommand]>(
-        (ob): ob is [ApplicationCommand, DApplicationCommand] =>
-          ob[0] !== undefined
-      );
+      ])
+        .filter<[ApplicationCommand, DApplicationCommand]>(
+          (ob): ob is [ApplicationCommand, DApplicationCommand] =>
+            ob[0] !== undefined
+        )
+        .filter(
+          // skip update, if there is no change in command data
+          (cmd) =>
+            !_.isEqual(
+              _.omit(
+                cmd[0]?.toJSON() as JSON,
+                "id",
+                "applicationId",
+                "guild",
+                "guildId",
+                "version"
+              ),
+              cmd[1].toJSON()
+            )
+        );
 
       const deleted = AllCommands.filter((cmd) =>
         DCommands.every((DCommand) => DCommand.name !== cmd.name)
