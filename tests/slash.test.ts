@@ -225,7 +225,7 @@ describe("Slash", () => {
     ]);
 
     const slashesObjects = client.applicationCommands.map((slash) =>
-      slash.toObject()
+      slash.toJSON()
     );
     expect(slashesObjects).toEqual([
       {

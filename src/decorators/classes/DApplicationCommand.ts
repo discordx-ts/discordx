@@ -142,10 +142,10 @@ export class DApplicationCommand extends Method {
     return option;
   }
 
-  toObject(): ApplicationCommandData {
+  toJSON(): ApplicationCommandData {
     const options = [...this.options]
       .reverse()
-      .map((option) => option.toObject());
+      .map((option) => option.toJSON());
 
     if (this.type === "CHAT_INPUT") {
       return {

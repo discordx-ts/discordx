@@ -33,7 +33,7 @@ export class DApplicationCommandOptionChoice extends Decorator {
     return new DApplicationCommandOptionChoice(name, value);
   }
 
-  toObject(): ApplicationCommandOptionChoice {
+  toJSON(): ApplicationCommandOptionChoice {
     return {
       name: this.name,
       value: this.value,

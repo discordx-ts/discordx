@@ -392,7 +392,7 @@ export class Client extends ClientJS {
     const addOperation = options?.disable?.add
       ? []
       : added.map((DCommand) =>
-          guild.commands.create(DCommand.toObject()).then((cmd) => {
+          guild.commands.create(DCommand.toJSON()).then((cmd) => {
             if (
               DCommand.permissions.length &&
               (options?.disable?.permission ?? true)
@@ -406,7 +406,7 @@ export class Client extends ClientJS {
     const updateOperation = options?.disable?.update
       ? []
       : updated.map((command) =>
-          command[0].edit(command[1].toObject()).then((cmd) => {
+          command[0].edit(command[1].toJSON()).then((cmd) => {
             if (
               command[1].permissions.length &&
               (options?.disable?.permission ?? true)
@@ -494,12 +494,12 @@ export class Client extends ClientJS {
         ...(options?.disable?.add
           ? []
           : added.map((DCommand) =>
-              this.application?.commands.create(DCommand.toObject())
+              this.application?.commands.create(DCommand.toJSON())
             )),
         // update
         ...(options?.disable?.update
           ? []
-          : updated.map((ob) => ob[0].edit(ob[1].toObject()))),
+          : updated.map((ob) => ob[0].edit(ob[1].toJSON()))),
         // delete
         ...(options?.disable?.delete
           ? []
