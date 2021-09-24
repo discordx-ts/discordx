@@ -230,11 +230,12 @@ const client = new Client({
   silent: false,
 });
 
-client.on("ready", () => {
+client.on("ready", async () => {
   console.log(">> Bot started");
 
   // to create/update/delete discord application commands
-  client.initApplicationCommands();
+  await client.initApplicationCommands();
+  await client.initApplicationPermissions();
 });
 
 client.login(BOT_TOKEN);

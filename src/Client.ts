@@ -279,12 +279,10 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Initialize all the @Slash with their permissions
+   * Get commands mapped by guildid (in case of multi bot, commands are filtered for this client only)
+   * @returns
    */
-  async initApplicationCommands(options?: {
-    guild?: InitCommandConfig;
-    global?: InitCommandConfig;
-  }): Promise<void> {
+  CommandByGuild() {
     // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
@@ -302,8 +300,18 @@ export class Client extends ClientJS {
         ])
       );
     });
+    return guildDCommandStore;
+  }
 
+  /**
+   * Initialize all the @Slash with their permissions
+   */
+  async initApplicationCommands(options?: {
+    guild?: InitCommandConfig;
+    global?: InitCommandConfig;
+  }): Promise<void> {
     const allGuildPromises: Promise<void>[] = [];
+    const guildDCommandStore = this.CommandByGuild();
 
     // run task to add/update/delete slashes for guilds
     guildDCommandStore.forEach((DCommands, guildId) => {
@@ -340,16 +348,16 @@ export class Client extends ClientJS {
       throw Error(`${guildId} guild not found`);
     }
 
-    // fetch already registered command
+    // fetch already registered application command
     const ApplicationCommands = await guild.commands.fetch();
 
-    // filter only unregistered command
+    // filter only unregistered application command
     const added = DCommands.filter(
       (DCommand) =>
         !ApplicationCommands.find((cmd) => cmd.name === DCommand.name)
     );
 
-    // filter slashesx to update
+    // filter application command to update
     const updated = DCommands.map<
       [ApplicationCommand | undefined, DApplicationCommand]
     >((DCommand) => [
@@ -519,6 +527,52 @@ export class Client extends ClientJS {
           : deleted.map((cmd) => this.application?.commands.delete(cmd))),
       ]);
     }
+  }
+  /**
+   * init global application commands
+   * @param log
+   */
+  async initApplicationPermissions(): Promise<void> {
+    const guildDCommandStore = this.CommandByGuild();
+    const promises: Promise<void>[] = [];
+    guildDCommandStore.forEach((cmds, guildId) => {
+      promises.push(this.initGuildApplicationPermissions(guildId, cmds));
+    });
+    await Promise.all(promises);
+  }
+
+  /**
+   * Update application commands permission by GuildId
+   * @param guildId guild id
+   * @param DCommands commands
+   */
+  async initGuildApplicationPermissions(
+    guildId: string,
+    DCommands: DApplicationCommand[]
+  ): Promise<void> {
+    const guild = this.guilds.cache.get(guildId);
+    if (!guild) {
+      throw Error(`${guildId} guild not found`);
+    }
+
+    // fetch already registered application command
+    const ApplicationCommands = await guild.commands.fetch();
+
+    const commandToUpdate = DCommands.map<
+      [ApplicationCommand | undefined, DApplicationCommand]
+    >((DCommand) => [
+      ApplicationCommands.find((cmd) => cmd.name === DCommand.name),
+      DCommand,
+    ]).filter<[ApplicationCommand, DApplicationCommand]>(
+      (ob): ob is [ApplicationCommand, DApplicationCommand] =>
+        ob[0] !== undefined
+    );
+
+    await Promise.all(
+      commandToUpdate.map((cmd) =>
+        cmd[0].permissions.set({ permissions: cmd[1].permissions })
+      )
+    );
   }
 
   /**

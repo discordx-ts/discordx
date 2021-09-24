@@ -35,6 +35,7 @@ async function start() {
 
   client.once("ready", async () => {
     await client.initApplicationCommands();
+    await client.initApplicationPermissions();
   });
 
   client.on("interactionCreate", (interaction) => {
@@ -71,6 +72,7 @@ client.once("ready", async () => {
   await client.clearApplicationCommands();
   await client.clearApplicationCommands("546281071751331840");
   await client.initApplicationCommands();
+  await client.initApplicationPermissions();
 });
 ```
 
