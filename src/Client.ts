@@ -345,7 +345,8 @@ export class Client extends ClientJS {
   ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
-      throw Error(`${guildId} guild not found`);
+      console.log(`initGuildApplicationCommands: guild not found: ${guildId}`);
+      return;
     }
 
     // fetch already registered application command
@@ -529,8 +530,7 @@ export class Client extends ClientJS {
     }
   }
   /**
-   * init global application commands
-   * @param log
+   * init all guild command permissions
    */
   async initApplicationPermissions(): Promise<void> {
     const guildDCommandStore = this.CommandByGuild();
@@ -552,7 +552,10 @@ export class Client extends ClientJS {
   ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
-      throw Error(`${guildId} guild not found`);
+      console.log(
+        `initGuildApplicationPermissions: guild not found: ${guildId}`
+      );
+      return;
     }
 
     // fetch already registered application command
