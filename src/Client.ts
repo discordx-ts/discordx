@@ -572,9 +572,24 @@ export class Client extends ClientJS {
     );
 
     await Promise.all(
-      commandToUpdate.map((cmd) =>
-        cmd[0].permissions.set({ permissions: cmd[1].permissions })
-      )
+      commandToUpdate.map((command) => {
+        guild.commands.permissions
+          .fetch({ command: command[0] })
+          .then(async (permissions) => {
+            if (!_.isEqual(permissions, command[1].permissions)) {
+              await command[0].permissions.set({
+                permissions: command[1].permissions,
+              });
+            }
+          })
+          .catch(async () => {
+            if (command[1].permissions.length) {
+              await command[0].permissions.set({
+                permissions: command[1].permissions,
+              });
+            }
+          });
+      })
     );
   }
 
