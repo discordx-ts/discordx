@@ -53,6 +53,41 @@ class DiscordBot {
 }
 ```
 
+## Example - Dynamic permission resolver
+
+Whenever permissions are required, dynamic resolvers are called. Such as, When initapplicationpermission or simple command execution is performed. A dynamic permission resolver is helpful for saving permissions in the database.
+
+Note: In order to refresh application permissions dynamically, run `initApplicationPermissions` anywhere.
+
+```ts
+@Discord()
+@Permission(false) // We will enable command for specific users/roles only, so disable it for everyone
+@Permission(async (): Promise<ApplicationCommandPermissionData> => {
+  const getResponse = () => {
+    return new Promise((resolve) => {
+      setTimeout(function () {
+        resolve(true);
+      }, 5000);
+    });
+  };
+
+  await getResponse(); // add delay
+
+  return { id: "462341082919731200", permission: true, type: "USER" };
+})
+class DiscordBot {
+  @Slash("hello") // Only the role that has this ROLE_ID can use this command
+  private hello() {
+    // ...
+  }
+
+  @Slash("hello2") // Only the role that has this ROLE_ID can use this command
+  private hello2() {
+    // ...
+  }
+}
+```
+
 ## Signature
 
 ```ts
