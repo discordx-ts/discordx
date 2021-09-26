@@ -56,20 +56,27 @@ class DiscordBot {
 ## Signature
 
 ```ts
-@Permission(boolean | { id: Snowflake, type: "USER" | "ROLE", permission: boolean }[])
+@Permission(
+  permission: boolean | IPermissions
+): ClassMethodDecorator
 ```
-
-## Parameter
-
-| type                                        | required |
-| ------------------------------------------- | -------- |
-| boolean \| ApplicationCommandPermissionData | Yes      |
 
 ## type: Boolean
 
 Overwrite default permission (aka permission for everyone) for application/simple command. When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
 
-## type: ApplicationCommandPermissionData
+## type: IPermissions
+
+```ts
+type IPermissions =
+  | ApplicationCommandPermissionData
+  | ApplicationCommandPermissionData[]
+  | (() =>
+      | ApplicationCommandPermissionData
+      | ApplicationCommandPermissionData[]
+      | Promise<ApplicationCommandPermissionData>
+      | Promise<ApplicationCommandPermissionData[]>);
+```
 
 ### id
 

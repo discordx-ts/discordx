@@ -7,7 +7,6 @@ import {
   MetadataStorage,
   Modifier,
 } from "../..";
-import { ApplicationCommandPermissionData } from "discord.js";
 
 /**
  * Define everyone permission for your application command or simple command.
@@ -17,28 +16,6 @@ import { ApplicationCommandPermissionData } from "discord.js";
  * @category Decorator
  */
 export function Permission(permission: boolean): ClassMethodDecorator;
-
-/**
- * Define permission for your application command or simple command
- * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
- * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
- * @category Decorator
- */
-export function Permission(
-  permission: ApplicationCommandPermissionData
-): ClassMethodDecorator;
-
-/**
- * Define permission for your application command or simple command
- * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
- * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
- * @category Decorator
- */
-export function Permission(
-  ...permission: ApplicationCommandPermissionData[]
-): ClassMethodDecorator;
 
 /**
  * Define permission for your application command or simple command
@@ -59,12 +36,7 @@ export function Permission(permission: IPermissions): ClassMethodDecorator;
 export function Permission(...permission: IPermissions[]): ClassMethodDecorator;
 
 export function Permission(
-  permission:
-    | boolean
-    | ApplicationCommandPermissionData
-    | ApplicationCommandPermissionData[]
-    | IPermissions
-    | IPermissions[]
+  permission: boolean | IPermissions
 ): ClassMethodDecorator {
   return function (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
