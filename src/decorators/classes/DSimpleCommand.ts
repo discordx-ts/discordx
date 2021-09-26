@@ -4,8 +4,8 @@ import {
   IPermissions,
   SimpleCommandMessage,
 } from "../..";
+import { Guild, Snowflake } from "discord.js";
 import { Method } from "./Method";
-import { Snowflake } from "discord.js";
 
 /**
  * @category Decorator
@@ -41,13 +41,6 @@ export class DSimpleCommand extends Method {
   }
   set permissions(value) {
     this._permissions = value;
-  }
-  get permissionsPromise() {
-    return Promise.all(
-      this._permissions.map((perm) =>
-        typeof perm === "function" ? perm() : perm
-      )
-    );
   }
 
   get guilds() {
@@ -141,6 +134,14 @@ export class DSimpleCommand extends Method {
       guilds,
       botIds,
       aliases
+    );
+  }
+
+  permissionsPromise(guild: Guild | null) {
+    return Promise.all(
+      this._permissions.map((resolver) =>
+        typeof resolver === "function" ? resolver(guild) : resolver
+      )
     );
   }
 

@@ -9,8 +9,8 @@ import {
   DSimpleCommand,
   IPermissions,
 } from "../..";
+import { Guild, Snowflake } from "discord.js";
 import { Decorator } from "./Decorator";
-import { Snowflake } from "discord.js";
 
 /**
  * @category Decorator
@@ -34,13 +34,6 @@ export class DDiscord extends Decorator {
   }
   set permissions(value) {
     this._permissions = value;
-  }
-  get permissionsPromise() {
-    return Promise.all(
-      this._permissions.map((perm) =>
-        typeof perm === "function" ? perm() : perm
-      )
-    );
   }
 
   get botIds() {
@@ -132,5 +125,13 @@ export class DDiscord extends Decorator {
 
   static create(name: string, description?: string) {
     return new DDiscord(name, description);
+  }
+
+  permissionsPromise(guild: Guild | null) {
+    return Promise.all(
+      this._permissions.map((resolver) =>
+        typeof resolver === "function" ? resolver(guild) : resolver
+      )
+    );
   }
 }

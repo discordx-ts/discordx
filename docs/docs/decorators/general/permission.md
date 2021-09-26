@@ -62,19 +62,19 @@ Note: In order to refresh application permissions dynamically, run `initApplicat
 ```ts
 @Discord()
 @Permission(false) // We will enable command for specific users/roles only, so disable it for everyone
-@Permission(async (): Promise<ApplicationCommandPermissionData> => {
-  const getResponse = () => {
-    return new Promise((resolve) => {
-      setTimeout(function () {
-        resolve(true);
-      }, 5000);
-    });
-  };
-
-  await getResponse(); // add delay
-
-  return { id: "462341082919731200", permission: true, type: "USER" };
-})
+@Permission(
+  async (guild: Guild | null): Promise<ApplicationCommandPermissionData> => {
+    const getResponse = () => {
+      return new Promise((resolve) => {
+        setTimeout(function () {
+          resolve(true);
+        }, 5000);
+      });
+    };
+    await getResponse(); // add delay
+    return { id: "462341082919731200", permission: true, type: "USER" };
+  }
+)
 class DiscordBot {
   @Slash("hello") // Only the role that has this ROLE_ID can use this command
   private hello() {
@@ -106,7 +106,9 @@ Overwrite default permission (aka permission for everyone) for application/simpl
 type IPermissions =
   | ApplicationCommandPermissionData
   | ApplicationCommandPermissionData[]
-  | (() =>
+  | ((
+      guild: Guild | null
+    ) =>
       | ApplicationCommandPermissionData
       | ApplicationCommandPermissionData[]
       | Promise<ApplicationCommandPermissionData>

@@ -4,6 +4,7 @@ import {
   ApplicationCommandType,
   CommandInteraction,
   CommandInteractionOption,
+  Guild,
   Snowflake,
 } from "discord.js";
 
@@ -58,13 +59,6 @@ export class DApplicationCommand extends Method {
   }
   set permissions(value) {
     this._permissions = value;
-  }
-  get permissionsPromise() {
-    return Promise.all(
-      this._permissions.map((perm) =>
-        typeof perm === "function" ? perm() : perm
-      )
-    );
   }
 
   get guilds() {
@@ -134,6 +128,14 @@ export class DApplicationCommand extends Method {
       defaultPermission,
       guilds,
       botIds
+    );
+  }
+
+  permissionsPromise(guild: Guild | null) {
+    return Promise.all(
+      this._permissions.map((resolver) =>
+        typeof resolver === "function" ? resolver(guild) : resolver
+      )
     );
   }
 
