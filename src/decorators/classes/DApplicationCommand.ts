@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   ApplicationCommandData,
-  ApplicationCommandPermissionData,
   ApplicationCommandType,
   CommandInteraction,
   CommandInteractionOption,
   Snowflake,
 } from "discord.js";
 
-import { DApplicationCommandOption } from "../..";
+import { DApplicationCommandOption, IPermissions } from "../..";
 import { Method } from "./Method";
 
 /**
@@ -20,7 +19,7 @@ export class DApplicationCommand extends Method {
   private _type: ApplicationCommandType;
   private _defaultPermission: boolean;
   private _options: DApplicationCommandOption[] = [];
-  private _permissions: ApplicationCommandPermissionData[] = [];
+  private _permissions: IPermissions[] = [];
   private _guilds: Snowflake[];
   private _group?: string;
   private _subgroup?: string;
@@ -59,6 +58,13 @@ export class DApplicationCommand extends Method {
   }
   set permissions(value) {
     this._permissions = value;
+  }
+  get permissionsPromise() {
+    return Promise.all(
+      this._permissions.map((perm) =>
+        typeof perm === "function" ? perm() : perm
+      )
+    );
   }
 
   get guilds() {

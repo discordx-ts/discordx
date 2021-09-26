@@ -3,6 +3,7 @@ import {
   DApplicationCommand,
   DDiscord,
   DSimpleCommand,
+  IPermissions,
   MetadataStorage,
   Modifier,
 } from "../..";
@@ -39,11 +40,31 @@ export function Permission(
   ...permission: ApplicationCommandPermissionData[]
 ): ClassMethodDecorator;
 
+/**
+ * Define permission for your application command or simple command
+ * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * @category Decorator
+ */
+export function Permission(permission: IPermissions): ClassMethodDecorator;
+
+/**
+ * Define permission for your application command or simple command
+ * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
+ * ___
+ * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * @category Decorator
+ */
+export function Permission(...permission: IPermissions[]): ClassMethodDecorator;
+
 export function Permission(
   permission:
     | boolean
     | ApplicationCommandPermissionData
     | ApplicationCommandPermissionData[]
+    | IPermissions
+    | IPermissions[]
 ): ClassMethodDecorator {
   return function (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

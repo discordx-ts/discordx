@@ -573,19 +573,19 @@ export class Client extends ClientJS {
 
     await Promise.all(
       commandToUpdate.map((command) => {
-        guild.commands.permissions
+        return guild.commands.permissions
           .fetch({ command: command[0] })
           .then(async (permissions) => {
             if (!_.isEqual(permissions, command[1].permissions)) {
               await command[0].permissions.set({
-                permissions: command[1].permissions,
+                permissions: (await command[1].permissionsPromise).flat(1),
               });
             }
           })
           .catch(async () => {
             if (command[1].permissions.length) {
               await command[0].permissions.set({
-                permissions: command[1].permissions,
+                permissions: (await command[1].permissionsPromise).flat(1),
               });
             }
           });
@@ -953,9 +953,7 @@ export class Client extends ClientJS {
     // check for member permissions
     if (command.info.defaultPermission) {
       // when default perm is on
-      const permissions = command.info.permissions.filter(
-        (perm) => !perm.permission
-      );
+      const permissions = (await command.info.permissionsPromise).flat(1);
       const userPermissions = permissions.filter(
         (perm) => perm.type === "USER"
       );
@@ -982,9 +980,7 @@ export class Client extends ClientJS {
       }
     } else {
       // when default perm is off
-      const permissions = command.info.permissions.filter(
-        (perm) => perm.permission
-      );
+      const permissions = (await command.info.permissionsPromise).flat(1);
       const userPermissions = permissions.filter(
         (perm) => perm.type === "USER"
       );

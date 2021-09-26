@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
 import {
   DApplicationCommand,
   DComponentButton,
@@ -8,8 +7,10 @@ import {
   DIService,
   DOn,
   DSimpleCommand,
+  IPermissions,
 } from "../..";
 import { Decorator } from "./Decorator";
+import { Snowflake } from "discord.js";
 
 /**
  * @category Decorator
@@ -24,7 +25,7 @@ export class DDiscord extends Decorator {
   private _simpleCommands: DSimpleCommand[] = [];
   private _events: DOn[] = [];
   private _defaultPermission = true;
-  private _permissions: ApplicationCommandPermissionData[] = [];
+  private _permissions: IPermissions[] = [];
   private _guilds: Snowflake[] = [];
   private _botIds: string[] = [];
 
@@ -33,6 +34,13 @@ export class DDiscord extends Decorator {
   }
   set permissions(value) {
     this._permissions = value;
+  }
+  get permissionsPromise() {
+    return Promise.all(
+      this._permissions.map((perm) =>
+        typeof perm === "function" ? perm() : perm
+      )
+    );
   }
 
   get botIds() {

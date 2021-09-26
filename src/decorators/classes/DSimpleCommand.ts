@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { ApplicationCommandPermissionData, Snowflake } from "discord.js";
-import { DSimpleCommandOption, SimpleCommandMessage } from "../..";
+import {
+  DSimpleCommandOption,
+  IPermissions,
+  SimpleCommandMessage,
+} from "../..";
 import { Method } from "./Method";
+import { Snowflake } from "discord.js";
 
 /**
  * @category Decorator
@@ -13,7 +17,7 @@ export class DSimpleCommand extends Method {
   private _directMessage: boolean;
   private _argSplitter: string | RegExp;
   private _options: DSimpleCommandOption[] = [];
-  private _permissions: ApplicationCommandPermissionData[] = [];
+  private _permissions: IPermissions[] = [];
   private _guilds: Snowflake[];
   private _botIds: string[];
   private _aliases: string[];
@@ -37,6 +41,13 @@ export class DSimpleCommand extends Method {
   }
   set permissions(value) {
     this._permissions = value;
+  }
+  get permissionsPromise() {
+    return Promise.all(
+      this._permissions.map((perm) =>
+        typeof perm === "function" ? perm() : perm
+      )
+    );
   }
 
   get guilds() {
