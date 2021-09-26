@@ -55,7 +55,7 @@ class DiscordBot {
 
 ## Example - Dynamic permission resolver
 
-Whenever permissions are required, dynamic resolvers are called. Such as, When initapplicationpermission or simple command execution is performed. A dynamic permission resolver is helpful for saving permissions in the database.
+Whenever permissions are required, dynamic resolvers are called. Such as, When `initApplicationPermissions` or simple command execution is performed. A dynamic permission resolver is helpful for saving permissions in the database.
 
 Note: In order to refresh application permissions dynamically, run `initApplicationPermissions` anywhere.
 
