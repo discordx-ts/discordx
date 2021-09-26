@@ -5,10 +5,14 @@ import {
   CommandInteraction,
   CommandInteractionOption,
   Guild,
-  Snowflake,
 } from "discord.js";
 
-import { DApplicationCommandOption, IPermissions } from "../..";
+import {
+  DApplicationCommandOption,
+  IGuild,
+  IPermissions,
+  resolveIPermission,
+} from "../..";
 import { Method } from "./Method";
 
 /**
@@ -21,7 +25,7 @@ export class DApplicationCommand extends Method {
   private _defaultPermission: boolean;
   private _options: DApplicationCommandOption[] = [];
   private _permissions: IPermissions[] = [];
-  private _guilds: Snowflake[];
+  private _guilds: IGuild[];
   private _group?: string;
   private _subgroup?: string;
   private _botIds: string[];
@@ -101,7 +105,7 @@ export class DApplicationCommand extends Method {
     type: ApplicationCommandType,
     description?: string,
     defaultPermission?: boolean,
-    guilds?: Snowflake[],
+    guilds?: IGuild[],
     botIds?: string[]
   ) {
     super();
@@ -118,7 +122,7 @@ export class DApplicationCommand extends Method {
     type: ApplicationCommandType,
     description?: string,
     defaultPermission?: boolean,
-    guilds?: Snowflake[],
+    guilds?: IGuild[],
     botIds?: string[]
   ) {
     return new DApplicationCommand(
@@ -132,11 +136,7 @@ export class DApplicationCommand extends Method {
   }
 
   permissionsPromise(guild: Guild | null) {
-    return Promise.all(
-      this._permissions.map((resolver) =>
-        typeof resolver === "function" ? resolver(guild) : resolver
-      )
-    );
+    return resolveIPermission(guild, this.permissions);
   }
 
   toSubCommand() {

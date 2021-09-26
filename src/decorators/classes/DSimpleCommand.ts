@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   DSimpleCommandOption,
+  IGuild,
   IPermissions,
   SimpleCommandMessage,
+  resolveIPermission,
 } from "../..";
-import { Guild, Snowflake } from "discord.js";
+import { Guild } from "discord.js";
 import { Method } from "./Method";
 
 /**
@@ -18,7 +20,7 @@ export class DSimpleCommand extends Method {
   private _argSplitter: string | RegExp;
   private _options: DSimpleCommandOption[] = [];
   private _permissions: IPermissions[] = [];
-  private _guilds: Snowflake[];
+  private _guilds: IGuild[];
   private _botIds: string[];
   private _aliases: string[];
 
@@ -98,7 +100,7 @@ export class DSimpleCommand extends Method {
     argSplitter?: string | RegExp,
     directMessage?: boolean,
     defaultPermission?: boolean,
-    guilds?: Snowflake[],
+    guilds?: IGuild[],
     botIds?: string[],
     aliases?: string[]
   ) {
@@ -121,7 +123,7 @@ export class DSimpleCommand extends Method {
     argSplitter?: string | RegExp,
     directMessage?: boolean,
     defaultPermission?: boolean,
-    guilds?: Snowflake[],
+    guilds?: IGuild[],
     botIds?: string[],
     aliases?: string[]
   ) {
@@ -138,11 +140,7 @@ export class DSimpleCommand extends Method {
   }
 
   permissionsPromise(guild: Guild | null) {
-    return Promise.all(
-      this._permissions.map((resolver) =>
-        typeof resolver === "function" ? resolver(guild) : resolver
-      )
-    );
+    return resolveIPermission(guild, this.permissions);
   }
 
   parseParams(command: SimpleCommandMessage) {

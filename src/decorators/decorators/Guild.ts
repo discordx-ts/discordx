@@ -5,10 +5,10 @@ import {
   DComponentSelectMenu,
   DDiscord,
   DSimpleCommand,
+  IGuild,
   MetadataStorage,
   Modifier,
 } from "../..";
-import { Snowflake } from "discord.js";
 
 /**
  * Define guild id for your application command, simple command, events, select menu, button
@@ -17,7 +17,7 @@ import { Snowflake } from "discord.js";
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
  * @category Decorator
  */
-export function Guild(guildID: Snowflake): ClassMethodDecorator;
+export function Guild(guildID: IGuild): ClassMethodDecorator;
 
 /**
  * Define guild id for your application command, simple command, events, select menu, button
@@ -26,9 +26,9 @@ export function Guild(guildID: Snowflake): ClassMethodDecorator;
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guild)
  * @category Decorator
  */
-export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator;
+export function Guild(...guildIDs: IGuild[]): ClassMethodDecorator;
 
-export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
+export function Guild(...guildIDs: IGuild[]): ClassMethodDecorator {
   return function (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     target: Record<string, any>,
@@ -44,10 +44,7 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
         | DComponentSelectMenu
       >(
         (original) => {
-          original.guilds = [
-            ...original.guilds,
-            ...guildIDs.filter((guildID) => !original.guilds.includes(guildID)),
-          ];
+          original.guilds = [...original.guilds, ...guildIDs];
 
           if (original instanceof DDiscord) {
             [
@@ -56,10 +53,7 @@ export function Guild(...guildIDs: Snowflake[]): ClassMethodDecorator {
               ...original.buttons,
               ...original.selectMenus,
             ].forEach((obj) => {
-              obj.guilds = [
-                ...obj.guilds,
-                ...guildIDs.filter((guildID) => !obj.guilds.includes(guildID)),
-              ];
+              obj.guilds = [...obj.guilds, ...guildIDs];
             });
           }
         },

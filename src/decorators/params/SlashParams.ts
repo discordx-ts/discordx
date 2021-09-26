@@ -1,8 +1,8 @@
-import { Snowflake } from "discord.js";
+import { IGuild } from "../..";
 
 export interface ApplicationCommandParams {
   description?: string;
   defaultPermission?: boolean;
-  guilds?: Snowflake[];
+  guilds?: IGuild[];
   botIds?: string[];
 }

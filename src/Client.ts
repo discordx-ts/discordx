@@ -22,9 +22,11 @@ import {
   DiscordEvents,
   GuardFunction,
   GuildNotFoundError,
+  IGuild,
   InitCommandConfig,
   MetadataStorage,
   SimpleCommandMessage,
+  resolveIGuild,
 } from ".";
 
 /**
@@ -40,7 +42,7 @@ export class Client extends ClientJS {
     | string
     | ((command: SimpleCommandMessage) => Promise<void> | void);
   private _silent: boolean;
-  private _botGuilds: Snowflake[] = [];
+  private _botGuilds: IGuild[] = [];
   private _guards: GuardFunction[] = [];
 
   get botGuilds() {
@@ -48,6 +50,9 @@ export class Client extends ClientJS {
   }
   set botGuilds(value) {
     this._botGuilds = value;
+  }
+  get botGuildsResolved() {
+    return resolveIGuild(this, this._botGuilds);
   }
 
   get guards() {
@@ -170,7 +175,7 @@ export class Client extends ClientJS {
 
     this._silent = !!options?.silent;
     this.guards = options.guards ?? [];
-    this.botGuilds = options.botGuilds?.filter((guild) => !!guild) ?? [];
+    this.botGuilds = options.botGuilds ?? [];
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
     this._unauthorizedHandler = options.commandUnauthorizedHandler;
@@ -282,24 +287,32 @@ export class Client extends ClientJS {
    * Get commands mapped by guildid (in case of multi bot, commands are filtered for this client only)
    * @returns
    */
-  CommandByGuild() {
+  async CommandByGuild() {
+    const botGuildsResolved = await this.botGuildsResolved;
+
     // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
       (DCommand) =>
-        [...this.botGuilds, ...DCommand.guilds].length &&
+        [...botGuildsResolved, ...DCommand.guilds].length &&
         (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
     );
 
     // group single guild commands together
-    allGuildDCommands.forEach((DCommand) => {
-      [...this.botGuilds, ...DCommand.guilds].forEach((guild) =>
-        guildDCommandStore.set(guild, [
-          ...(guildDCommandStore.get(guild) ?? []),
-          DCommand,
-        ])
-      );
-    });
+    await Promise.all(
+      allGuildDCommands.map(async (DCommand) => {
+        const guilds = await resolveIGuild(this, [
+          ...botGuildsResolved,
+          ...DCommand.guilds,
+        ]);
+        guilds.forEach((guild) =>
+          guildDCommandStore.set(guild, [
+            ...(guildDCommandStore.get(guild) ?? []),
+            DCommand,
+          ])
+        );
+      })
+    );
     return guildDCommandStore;
   }
 
@@ -311,7 +324,7 @@ export class Client extends ClientJS {
     global?: InitCommandConfig;
   }): Promise<void> {
     const allGuildPromises: Promise<void>[] = [];
-    const guildDCommandStore = this.CommandByGuild();
+    const guildDCommandStore = await this.CommandByGuild();
 
     // run task to add/update/delete slashes for guilds
     guildDCommandStore.forEach((DCommands, guildId) => {
@@ -343,6 +356,8 @@ export class Client extends ClientJS {
     DCommands: DApplicationCommand[],
     options?: InitCommandConfig
   ): Promise<void> {
+    const botGuildsResolved = await this.botGuildsResolved;
+
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
       console.log(`initGuildApplicationCommands: guild not found: ${guildId}`);
@@ -386,14 +401,30 @@ export class Client extends ClientJS {
       );
 
     // filter commands to delete
-    const deleted = ApplicationCommands.filter(
-      (cmd) =>
-        !DCommands.find(
-          (DCommand) =>
-            cmd.name === DCommand.name &&
-            cmd.guild &&
-            [...this.botGuilds, ...DCommand.guilds].includes(cmd.guild.id)
-        )
+    const deleted: ApplicationCommand[] = [];
+    await Promise.all(
+      ApplicationCommands.map(async (cmd) => {
+        const DCommandx = DCommands.find(
+          (DCommand) => DCommand.name === cmd.name
+        );
+
+        // delete command if it's not found
+        if (!DCommandx) {
+          deleted.push(cmd);
+          return;
+        }
+
+        const guilds = await resolveIGuild(this, [
+          ...botGuildsResolved,
+          ...(DCommandx.guilds ?? []),
+        ]);
+
+        // delete command if it's not registered for given guild
+        if (!cmd.guildId || !guilds.includes(cmd.guildId)) {
+          deleted.push(cmd);
+          return;
+        }
+      })
     );
 
     // log the changes to commands in console if enabled by options or silent mode is turned off
@@ -406,7 +437,7 @@ export class Client extends ClientJS {
 
       console.log(
         `${this.user?.username} >> guild: #${guild} >> command >> deleting ${
-          deleted.size
+          deleted.length
         } [${deleted.map((cmd) => cmd.name).join(", ")}]`
       );
 
@@ -446,13 +477,15 @@ export class Client extends ClientJS {
   async initGlobalApplicationCommands(
     options?: InitCommandConfig
   ): Promise<void> {
+    const botGuildsResolved = await this.botGuildsResolved;
+
     // # initialize add/update/delete task for global commands
     const AllCommands = (await this.fetchApplicationCommands())?.filter(
       (cmd) => !cmd.guild
     );
     const DCommands = this.applicationCommands.filter(
       (DCommand) =>
-        ![...this.botGuilds, ...DCommand.guilds].length &&
+        ![...botGuildsResolved, ...DCommand.guilds].length &&
         (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
     );
     if (AllCommands) {
@@ -533,7 +566,7 @@ export class Client extends ClientJS {
    * init all guild command permissions
    */
   async initApplicationPermissions(): Promise<void> {
-    const guildDCommandStore = this.CommandByGuild();
+    const guildDCommandStore = await this.CommandByGuild();
     const promises: Promise<void>[] = [];
     guildDCommandStore.forEach((cmds, guildId) => {
       promises.push(this.initGuildApplicationPermissions(guildId, cmds));
@@ -578,18 +611,14 @@ export class Client extends ClientJS {
           .then(async (permissions) => {
             if (!_.isEqual(permissions, command[1].permissions)) {
               await command[0].permissions.set({
-                permissions: (
-                  await command[1].permissionsPromise(guild)
-                ).flat(1),
+                permissions: await command[1].permissionsPromise(guild),
               });
             }
           })
           .catch(async () => {
             if (command[1].permissions.length) {
               await command[0].permissions.set({
-                permissions: (
-                  await command[1].permissionsPromise(guild)
-                ).flat(1),
+                permissions: await command[1].permissionsPromise(guild),
               });
             }
           });
@@ -728,7 +757,9 @@ export class Client extends ClientJS {
    * @param interaction The discord.js interaction instance
    * @returns
    */
-  executeInteraction(interaction: Interaction) {
+  async executeInteraction(interaction: Interaction) {
+    const botGuildsResolved = await this.botGuildsResolved;
+
     if (!interaction) {
       if (!this.silent) {
         console.log("Interaction is undefined");
@@ -741,13 +772,17 @@ export class Client extends ClientJS {
       const button = this.buttons.find(
         (DButton) => DButton.id === interaction.customId
       );
+
+      const guilds = await resolveIGuild(this, [
+        ...botGuildsResolved,
+        ...(button?.guilds ?? []),
+      ]);
+
       if (
         !button ||
         (interaction.guild &&
-          [...this.botGuilds, ...button.guilds].length &&
-          ![...this.botGuilds, ...button.guilds].includes(
-            interaction.guild.id
-          )) ||
+          guilds.length &&
+          !guilds.includes(interaction.guild.id)) ||
         (button.botIds.length && !button.botIds.includes(this.botId))
       ) {
         return console.log(
@@ -763,13 +798,17 @@ export class Client extends ClientJS {
       const menu = this.selectMenus.find(
         (DSelectMenu) => DSelectMenu.id === interaction.customId
       );
+
+      const guilds = await resolveIGuild(this, [
+        ...botGuildsResolved,
+        ...(menu?.guilds ?? []),
+      ]);
+
       if (
         !menu ||
         (interaction.guild &&
-          [...this.botGuilds, ...menu.guilds].length &&
-          ![...this.botGuilds, ...menu.guilds].includes(
-            interaction.guild.id
-          )) ||
+          guilds.length &&
+          !guilds.includes(interaction.guild.id)) ||
         (menu.botIds.length && !menu.botIds.includes(this.botId))
       ) {
         return console.log(
@@ -787,13 +826,16 @@ export class Client extends ClientJS {
           cmd.type !== "CHAT_INPUT" && cmd.name === interaction.commandName
       );
 
+      const guilds = await resolveIGuild(this, [
+        ...botGuildsResolved,
+        ...(applicationCommand?.guilds ?? []),
+      ]);
+
       if (
         !applicationCommand ||
         (interaction.guild &&
-          [...this.botGuilds, ...applicationCommand.guilds].length &&
-          ![...this.botGuilds, ...applicationCommand.guilds].includes(
-            interaction.guild.id
-          )) ||
+          guilds.length &&
+          !guilds.includes(interaction.guild.id)) ||
         (applicationCommand.botIds.length &&
           !applicationCommand.botIds.includes(this.botId))
       ) {
@@ -907,6 +949,8 @@ export class Client extends ClientJS {
     message: Message,
     options?: { caseSensitive?: boolean }
   ) {
+    const botGuildsResolved = await this.botGuildsResolved;
+
     if (!message) {
       if (!this.silent) {
         console.log("message is undefined");
@@ -940,7 +984,10 @@ export class Client extends ClientJS {
     }
 
     // validate guild id
-    const commandGuilds = [...this.botGuilds, ...command.info.guilds];
+    const commandGuilds = await resolveIGuild(this, [
+      ...botGuildsResolved,
+      ...command.info.guilds,
+    ]);
     if (
       message.guild?.id &&
       commandGuilds.length &&
@@ -957,9 +1004,9 @@ export class Client extends ClientJS {
     // check for member permissions
     if (command.info.defaultPermission) {
       // when default perm is on
-      const permissions = (
-        await command.info.permissionsPromise(command.message.guild)
-      ).flat(1);
+      const permissions = await command.info.permissionsPromise(
+        command.message.guild
+      );
       const userPermissions = permissions.filter(
         (perm) => perm.type === "USER"
       );
@@ -986,9 +1033,9 @@ export class Client extends ClientJS {
       }
     } else {
       // when default perm is off
-      const permissions = (
-        await command.info.permissionsPromise(command.message.guild)
-      ).flat(1);
+      const permissions = await command.info.permissionsPromise(
+        command.message.guild
+      );
       const userPermissions = permissions.filter(
         (perm) => perm.type === "USER"
       );

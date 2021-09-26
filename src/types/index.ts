@@ -3,7 +3,7 @@ export * from "./core/DiscordEvents";
 export * from "./core/InstanceOf";
 export * from "./core/Next";
 export * from "./core/SlashChoicesType";
-export * from "./core/permission";
+export * from "./core/common";
 
 export * from "./public/ArgsOf";
 export * from "./public/CommandType";

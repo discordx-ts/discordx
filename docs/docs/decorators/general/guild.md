@@ -42,18 +42,19 @@ class DiscordBot {
 ## Signature
 
 ```ts
-@Guild(...guildIDs: Snowflake[])
+@Guild(...guildIds: IGuild[])
 ```
 
-## Parameters
+## type: IGuild
 
-### guildIDs
-
-The list of guild id's
-
-| type         | default | required |
-| ------------ | ------- | -------- |
-| Snowflake[ ] | [ ]     | Yes      |
+```ts IGuild
+type IGuild =
+  | Snowflake
+  | Snowflake[]
+  | ((
+      client: Client
+    ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
+```
 
 ## Make changes to
 

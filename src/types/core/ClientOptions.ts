@@ -1,9 +1,5 @@
-import {
-  ClientOptions as DiscordJSClientOptions,
-  Message,
-  Snowflake,
-} from "discord.js";
-import { GuardFunction, SimpleCommandMessage } from "../..";
+import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
+import { GuardFunction, IGuild, SimpleCommandMessage } from "../..";
 
 export interface ClientOptions extends DiscordJSClientOptions {
   /**
@@ -41,5 +37,5 @@ export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * Set the guilds globally for application commands
    */
-  botGuilds?: Snowflake[];
+  botGuilds?: IGuild[];
 }

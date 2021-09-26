@@ -7,10 +7,12 @@ import {
   DIService,
   DOn,
   DSimpleCommand,
+  IGuild,
   IPermissions,
+  resolveIPermission,
 } from "../..";
-import { Guild, Snowflake } from "discord.js";
 import { Decorator } from "./Decorator";
+import { Guild } from "discord.js";
 
 /**
  * @category Decorator
@@ -26,7 +28,7 @@ export class DDiscord extends Decorator {
   private _events: DOn[] = [];
   private _defaultPermission = true;
   private _permissions: IPermissions[] = [];
-  private _guilds: Snowflake[] = [];
+  private _guilds: IGuild[] = [];
   private _botIds: string[] = [];
 
   get permissions() {
@@ -128,10 +130,6 @@ export class DDiscord extends Decorator {
   }
 
   permissionsPromise(guild: Guild | null) {
-    return Promise.all(
-      this._permissions.map((resolver) =>
-        typeof resolver === "function" ? resolver(guild) : resolver
-      )
-    );
+    return resolveIPermission(guild, this.permissions);
   }
 }

@@ -1,9 +1,9 @@
 import {
   DComponentSelectMenu,
+  IGuild,
   MetadataStorage,
   MethodDecoratorEx,
 } from "../..";
-import { Snowflake } from "discord.js";
 
 /**
  * Define a select menu interaction handler
@@ -24,12 +24,12 @@ export function SelectMenuComponent(id?: string): MethodDecoratorEx;
  */
 export function SelectMenuComponent(
   id: string,
-  params?: { guilds?: Snowflake[]; botIds?: string[] }
+  params?: { guilds?: IGuild[]; botIds?: string[] }
 ): MethodDecoratorEx;
 
 export function SelectMenuComponent(
   id?: string,
-  params?: { guilds?: Snowflake[]; botIds?: string[] }
+  params?: { guilds?: IGuild[]; botIds?: string[] }
 ): MethodDecoratorEx {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {

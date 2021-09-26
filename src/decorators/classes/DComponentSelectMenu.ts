@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { IGuild } from "../..";
 import { Method } from "./Method";
-import { Snowflake } from "discord.js";
 
 /**
  * @category Decorator
  */
 export class DComponentSelectMenu extends Method {
   private _id: string;
-  private _guilds: Snowflake[];
+  private _guilds: IGuild[];
   private _botIds: string[];
 
   get botIds() {
@@ -31,14 +31,14 @@ export class DComponentSelectMenu extends Method {
     this._guilds = value;
   }
 
-  protected constructor(id: string, guilds?: Snowflake[], botIds?: string[]) {
+  protected constructor(id: string, guilds?: IGuild[], botIds?: string[]) {
     super();
     this._id = id;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
   }
 
-  static create(id: string, guilds?: Snowflake[], botIds?: string[]) {
+  static create(id: string, guilds?: IGuild[], botIds?: string[]) {
     return new DComponentSelectMenu(id, guilds, botIds);
   }
 

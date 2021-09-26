@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - options for `initApplicationCommands`
 - added `initApplicationPermissions`
 - accept permission resolvers in `@Permission` decorator
+- accept guild resolvers in `@Guild` decorator
 
 ### Changed
 

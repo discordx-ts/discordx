@@ -1,5 +1,9 @@
-import { DComponentButton, MetadataStorage, MethodDecoratorEx } from "../..";
-import { Snowflake } from "discord.js";
+import {
+  DComponentButton,
+  IGuild,
+  MetadataStorage,
+  MethodDecoratorEx,
+} from "../..";
 
 /**
  * Define button interaction handler
@@ -20,12 +24,12 @@ export function ButtonComponent(id?: string): MethodDecoratorEx;
  */
 export function ButtonComponent(
   id: string,
-  params?: { guilds?: Snowflake[]; botIds?: string[] }
+  params?: { guilds?: IGuild[]; botIds?: string[] }
 ): MethodDecoratorEx;
 
 export function ButtonComponent(
   id?: string,
-  params?: { guilds?: Snowflake[]; botIds?: string[] }
+  params?: { guilds?: IGuild[]; botIds?: string[] }
 ): MethodDecoratorEx {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (target: Record<string, any>, key: string) => {

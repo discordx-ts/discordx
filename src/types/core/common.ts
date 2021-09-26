@@ -1,4 +1,5 @@
-import { ApplicationCommandPermissionData, Guild } from "discord.js";
+import { ApplicationCommandPermissionData, Guild, Snowflake } from "discord.js";
+import { Client } from "../..";
 
 export type IPermissions =
   | ApplicationCommandPermissionData
@@ -10,3 +11,10 @@ export type IPermissions =
       | ApplicationCommandPermissionData[]
       | Promise<ApplicationCommandPermissionData>
       | Promise<ApplicationCommandPermissionData[]>);
+
+export type IGuild =
+  | Snowflake
+  | Snowflake[]
+  | ((
+      client: Client
+    ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
