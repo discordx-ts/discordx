@@ -43,7 +43,7 @@ class DiscordBot {
 
 To provide dynamic guild lists, use guild resolver.
 
-````ts
+```ts
 this._client = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
 });
@@ -53,7 +53,7 @@ this._client = new Client({
 
 ```ts
 @Guild(...guildIds: IGuild[])
-````
+```
 
 ## type: IGuild
 
