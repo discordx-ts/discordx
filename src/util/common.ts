@@ -22,5 +22,9 @@ export const resolveIPermission = async (
       typeof resolver === "function" ? resolver(guild) : resolver
     )
   );
-  return _.uniqWith(permissionx.flat(1), _.isEqual);
+
+  const uniqFields = ["id", "type"];
+  return _.uniqWith(permissionx.flat(1), (a, b) =>
+    _.isEqual(_.pick(a, uniqFields), _.pick(b, uniqFields))
+  );
 };
