@@ -11,7 +11,7 @@ export class Main {
 
   static async start(): Promise<void> {
     this._client = new Client({
-      botGuilds: [process.env.GUILD_ID ?? ""],
+      botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       classes: [
         // glob string to load the classes. If you compile your bot, the file extension will be .js
         `${__dirname}/discords/*.{js,ts}`,
