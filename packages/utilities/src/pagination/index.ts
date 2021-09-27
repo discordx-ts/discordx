@@ -1,15 +1,10 @@
-import {
-  Interaction,
-  Message,
-  MessageEmbed,
-  MessageOptions,
-  TextBasedChannels,
-} from "discord.js";
+import { Interaction, Message, TextBasedChannels } from "discord.js";
 import {
   PaginationInteractions,
   PaginationOptions,
   defaultIds,
   defaultTime,
+  embedType,
   paginationFunc,
 } from "./types";
 import { GeneratePage } from "./functions/GeneratePage";
@@ -32,7 +27,7 @@ export class Pagination {
  */
 export async function sendPaginatedEmbeds(
   sendTo: PaginationInteractions | Message | TextBasedChannels,
-  embeds: (string | MessageEmbed | MessageOptions)[] | Pagination,
+  embeds: embedType[] | Pagination,
   options?: PaginationOptions
 ): Promise<void> {
   // max length
@@ -51,9 +46,9 @@ export async function sendPaginatedEmbeds(
   let currentPage = option.initialPage ?? 0;
 
   // get page
-  const getPage = (page: number) => {
+  const getPage = async (page: number) => {
     const embed =
-      embeds instanceof Pagination ? embeds.func(page) : embeds[page];
+      embeds instanceof Pagination ? await embeds.func(page) : embeds[page];
     if (!embed) {
       return undefined;
     }
@@ -61,7 +56,7 @@ export async function sendPaginatedEmbeds(
   };
 
   // prepare intial message
-  const replyOptions = getPage(currentPage);
+  const replyOptions = await getPage(currentPage);
   if (!replyOptions) {
     throw Error("Pagination: out of bound page");
   }
@@ -128,7 +123,7 @@ export async function sendPaginatedEmbeds(
 
       await collectInteraction.deferUpdate();
 
-      const messageOptions = getPage(currentPage);
+      const messageOptions = await getPage(currentPage);
       if (!messageOptions) {
         throw Error("Pagination: out of bound page");
       }
@@ -153,7 +148,7 @@ export async function sendPaginatedEmbeds(
         currentPage = maxLength - 1;
       }
 
-      const replyOptionsEx = getPage(currentPage);
+      const replyOptionsEx = await getPage(currentPage);
       if (!replyOptionsEx) {
         throw Error("Pagination: out of bound page");
       }

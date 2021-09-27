@@ -18,9 +18,9 @@ export enum defaultIds {
   menuId = "discordx@pagination@menu",
 }
 
-export type paginationFunc = (
-  page: number
-) => string | MessageEmbed | MessageOptions;
+export type embedType = string | MessageEmbed | MessageOptions;
+
+export type paginationFunc = (page: number) => embedType | Promise<embedType>;
 
 export type PaginationInteractions =
   | CommandInteraction
