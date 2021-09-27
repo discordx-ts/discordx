@@ -10,7 +10,7 @@ export const resolveIGuild = async (
     guilds.map((guild) => (typeof guild === "function" ? guild(client) : guild))
   );
 
-  return [...new Set([...guildx.flat(1)])];
+  return _.uniqWith(guildx.flat(1), _.isEqual);
 };
 
 export const resolveIPermission = async (
