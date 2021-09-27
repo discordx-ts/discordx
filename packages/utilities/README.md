@@ -34,6 +34,8 @@ function embeds(): MessageOptions[] {
   });
 }
 
+const embedsResolver = new Pagination((page) => `page ${page}`, 25);
+
 @Discord()
 export abstract class Example {
   // example: message
@@ -59,7 +61,7 @@ export abstract class Example {
   // example: simple slash with button pagination
   @Slash("demoA")
   async page(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, embeds(), {
+    await sendPaginatedEmbeds(interaction, embedsResolver, {
       type: "BUTTON",
     });
   }
