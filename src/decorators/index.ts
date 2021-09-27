@@ -5,7 +5,6 @@ export * from "./decorators/Discord";
 export * from "./decorators/Slash";
 export * from "./decorators/SlashOption";
 export * from "./decorators/SlashChoice";
-export * from "./decorators/DefaultPermission";
 export * from "./decorators/Permission";
 export * from "./decorators/SlashGroup";
 export * from "./decorators/Guild";
