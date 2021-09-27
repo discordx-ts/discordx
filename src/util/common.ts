@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import { ApplicationCommandPermissionData, Guild } from "discord.js";
 import { Client, IGuild, IPermissions } from "..";
 
@@ -21,5 +22,5 @@ export const resolveIPermission = async (
       typeof resolver === "function" ? resolver(guild) : resolver
     )
   );
-  return permissionx.flat(1);
+  return _.uniqWith(permissionx.flat(1), _.isEqual);
 };
