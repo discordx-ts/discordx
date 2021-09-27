@@ -10,8 +10,19 @@ import {
   PaginationOptions,
   defaultIds,
   defaultTime,
+  paginationFunc,
 } from "./types";
 import { GeneratePage } from "./functions/GeneratePage";
+
+export class Pagination {
+  func: paginationFunc;
+  maxLength: number;
+
+  constructor(resolver: paginationFunc, maxLength: number) {
+    this.func = resolver;
+    this.maxLength = maxLength;
+  }
+}
 
 /**
  * send paginated embeds
@@ -21,25 +32,43 @@ import { GeneratePage } from "./functions/GeneratePage";
  */
 export async function sendPaginatedEmbeds(
   sendTo: PaginationInteractions | Message | TextBasedChannels,
-  embeds: (string | MessageEmbed | MessageOptions)[],
+  embeds: (string | MessageEmbed | MessageOptions)[] | Pagination,
   options?: PaginationOptions
 ): Promise<void> {
+  // max length
+  const maxLength =
+    embeds instanceof Pagination ? embeds.maxLength : embeds.length;
+
+  if (maxLength < 1) {
+    throw Error("Pagination: invalid max length");
+  }
+
+  // default options
   const option =
-    options ??
-    (embeds.length < 20 ? { type: "BUTTON" } : { type: "SELECT_MENU" });
+    options ?? (maxLength < 20 ? { type: "BUTTON" } : { type: "SELECT_MENU" });
+
+  // current page
   let currentPage = option.initialPage ?? 0;
 
-  const allPages = embeds.map((embed, index) =>
-    GeneratePage(embed, index, embeds.length, option)
-  );
+  // get page
+  const getPage = (page: number) => {
+    const embed =
+      embeds instanceof Pagination ? embeds.func(page) : embeds[page];
+    if (!embed) {
+      return undefined;
+    }
+    return GeneratePage(embed, page, maxLength, option);
+  };
 
-  const replyOptions = allPages[currentPage];
+  // prepare intial message
+  const replyOptions = getPage(currentPage);
   if (!replyOptions) {
     throw Error("Pagination: out of bound page");
   }
 
   let message: Message;
 
+  // send embed
   if (sendTo instanceof Message) {
     message = await sendTo.reply(replyOptions);
   } else if (sendTo instanceof Interaction) {
@@ -68,6 +97,7 @@ export async function sendPaginatedEmbeds(
     throw Error("Pagination: Failed to send pages");
   }
 
+  // create collector
   const collector = message.createMessageComponentCollector({
     time: option.time ?? defaultTime,
   });
@@ -82,7 +112,7 @@ export async function sendPaginatedEmbeds(
       } else if (
         collectInteraction.customId === (option.endId ?? defaultIds.endButton)
       ) {
-        currentPage = embeds.length - 1;
+        currentPage = maxLength - 1;
       } else if (
         collectInteraction.customId === (option.nextId ?? defaultIds.nextButton)
       ) {
@@ -97,7 +127,8 @@ export async function sendPaginatedEmbeds(
       }
 
       await collectInteraction.deferUpdate();
-      const messageOptions = allPages[currentPage];
+
+      const messageOptions = getPage(currentPage);
       if (!messageOptions) {
         throw Error("Pagination: out of bound page");
       }
@@ -119,10 +150,10 @@ export async function sendPaginatedEmbeds(
       }
 
       if (currentPage === -2) {
-        currentPage = embeds.length - 1;
+        currentPage = maxLength - 1;
       }
 
-      const replyOptionsEx = allPages[currentPage];
+      const replyOptionsEx = getPage(currentPage);
       if (!replyOptionsEx) {
         throw Error("Pagination: out of bound page");
       }

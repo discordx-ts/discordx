@@ -5,8 +5,10 @@ import {
   MessageButton,
   MessageEmbed,
 } from "discord.js";
+import { Pagination, sendPaginatedEmbeds } from "../../../src";
 import { GeneratePages } from "../util/common functions";
-import { sendPaginatedEmbeds } from "../../../src";
+
+const embeds = new Pagination((page) => `page ${page}`, 25);
 
 @Discord()
 export abstract class Example {
@@ -33,7 +35,7 @@ export abstract class Example {
   // example: simple slash with button pagination
   @Slash("demoa", { description: "Simple slash with button pagination" })
   page(interaction: CommandInteraction): void {
-    sendPaginatedEmbeds(interaction, GeneratePages(), {
+    sendPaginatedEmbeds(interaction, embeds, {
       type: "BUTTON",
     });
   }

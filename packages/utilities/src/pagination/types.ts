@@ -3,6 +3,8 @@ import {
   ContextMenuInteraction,
   InteractionButtonOptions,
   MessageComponentInteraction,
+  MessageEmbed,
+  MessageOptions,
 } from "discord.js";
 
 // By default, it's half an hour.
@@ -15,6 +17,10 @@ export enum defaultIds {
   previousButton = "discordx@pagination@previousButton",
   menuId = "discordx@pagination@menu",
 }
+
+export type paginationFunc = (
+  page: number
+) => string | MessageEmbed | MessageOptions;
 
 export type PaginationInteractions =
   | CommandInteraction
