@@ -4,9 +4,7 @@ Define permission for your application command or simple command.
 
 The permissions are based on a **role id** or **user id** that you specify on the @Permission decorator
 
-The permissions will be set when you call `client.initApplicationCommands()`
-
-> You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initApplicationCommands()` implementation
+The permissions will be set when you call `client.initApplicationPermissions()`
 
 :::warning
 From discord developer docs:
