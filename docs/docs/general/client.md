@@ -47,9 +47,9 @@ Indicate the class jacket of your classes containing the `@Discord` decorator. I
 In case of multi bot, All classes/functions should be decorated with @Bot to prevent other bots from executing them.
 :::
 
-| type      | default | required |
-| --------- | ------- | -------- |
-| string[ ] | [ ]     | No       |
+| type       | default | required |
+| ---------- | ------- | -------- |
+| string [ ] | [ ]     | No       |
 
 ### silent
 
@@ -63,17 +63,17 @@ Allows you to disable your event information at startup
 
 Global guards, it's an array of functions
 
-| type             | default | required |
-| ---------------- | ------- | -------- |
-| GuardFunction[ ] | [ ]     | No       |
+| type              | default | required |
+| ----------------- | ------- | -------- |
+| GuardFunction [ ] | [ ]     | No       |
 
 ### botGuilds
 
 The application commands are executed only on this list of guilds by default, ex. slash, button, selectmenu, contextmenu
 
-| type         | default | required |
-| ------------ | ------- | -------- |
-| Snowflake[ ] | [ ]     | No       |
+| type       | default | required |
+| ---------- | ------- | -------- |
+| IGuild [ ] | [ ]     | No       |
 
 **You must specify the glob path(s) where your decorated classes are**
 

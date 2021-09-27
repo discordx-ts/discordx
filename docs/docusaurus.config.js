@@ -38,6 +38,12 @@ module.exports = {
           position: "left",
           type: "doc",
         },
+        {
+          docId: "api/index",
+          label: "API",
+          position: "left",
+          type: "doc",
+        },
         // {
         //   type: "localeDropdown",
         //   position: "right",
