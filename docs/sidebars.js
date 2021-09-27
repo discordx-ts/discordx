@@ -72,11 +72,6 @@ module.exports = {
           items: [
             { id: "decorators/general/bot", label: "@Bot", type: "doc" },
             {
-              id: "decorators/general/defaultpermission",
-              label: "@DefaultPermission",
-              type: "doc",
-            },
-            {
               id: "decorators/general/discord",
               label: "@Discord",
               type: "doc",
