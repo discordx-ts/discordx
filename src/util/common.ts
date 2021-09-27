@@ -9,7 +9,7 @@ export const resolveIGuild = async (
     guilds.map((guild) => (typeof guild === "function" ? guild(client) : guild))
   );
 
-  return guildx.flat(1);
+  return [...new Set([...guildx.flat(1)])];
 };
 
 export const resolveIPermission = async (
