@@ -11,7 +11,7 @@ export class Main {
 
   static async start(): Promise<void> {
     this._client = new Client({
-      botGuilds: [process.env.GUILD_ID ?? "874802018361950248"],
+      botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       classes: [
         // glob string to load the classes. If you compile your bot, the file extension will be .js
         `${__dirname}/discords/*.{js,ts}`,
@@ -25,7 +25,7 @@ export class Main {
 
     this._client.once("ready", async () => {
       await this._client.initApplicationCommands();
-      // await this._client.initApplicationPermissions();
+      await this._client.initApplicationPermissions();
 
       console.log("Bot started");
     });
