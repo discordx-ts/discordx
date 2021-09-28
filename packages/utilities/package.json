@@ -29,6 +29,6 @@
     "discord.js": "^13.1.0"
   },
   "devDependencies": {
-    "discordx": "^6.0.0"
+    "discordx": "^6.0.1"
   }
 }
