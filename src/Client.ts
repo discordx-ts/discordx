@@ -538,7 +538,9 @@ export class Client extends ClientJS {
           } [${deleted.map((cmd) => cmd.name).join(", ")}]`
         );
         console.log(
-          `${this.user?.username} >> global >> command >> updating ${updated.length}`
+          `${this.user?.username} >> global >> command >> updating ${
+            updated.length
+          } [${updated.map((cmd) => cmd[1].name).join(", ")}]`
         );
       }
 
