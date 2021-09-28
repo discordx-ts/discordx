@@ -442,7 +442,9 @@ export class Client extends ClientJS {
       );
 
       console.log(
-        `${this.user?.username} >> guild: #${guild} >> command >> updating ${updated.length}`
+        `${this.user?.username} >> guild: #${guild} >> command >> updating ${
+          updated.length
+        } [${updated.map((cmd) => cmd[1].name).join(", ")}]`
       );
     }
 

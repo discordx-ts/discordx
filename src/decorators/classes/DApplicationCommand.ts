@@ -167,7 +167,9 @@ export class DApplicationCommand extends Method {
 
     return {
       defaultPermission: this.defaultPermission,
+      description: "",
       name: this.name,
+      options: [],
       type: this.type,
     };
   }
