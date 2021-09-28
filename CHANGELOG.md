@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [6.0.2] - 2021-09-29
+
+### Added
+
+- Show names in the update log for global application commands
+
 ## [6.0.1] - 2021-09-29
 
 ### Fixed
