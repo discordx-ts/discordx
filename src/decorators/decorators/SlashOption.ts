@@ -8,6 +8,7 @@ import {
   SlashOptionParams,
   SlashOptionType,
   SlashOptionTypes,
+  VerifyName,
 } from "../..";
 
 /**
@@ -17,7 +18,9 @@ import {
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
  * @category Decorator
  */
-export function SlashOption(name: string): ParameterDecoratorEx;
+export function SlashOption<T extends string>(
+  name: VerifyName<T>
+): ParameterDecoratorEx;
 
 /**
  * Define option for slash command
@@ -27,8 +30,8 @@ export function SlashOption(name: string): ParameterDecoratorEx;
  * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
  * @category Decorator
  */
-export function SlashOption(
-  name: string,
+export function SlashOption<T extends string>(
+  name: VerifyName<T>,
   params?: SlashOptionParams
 ): ParameterDecoratorEx;
 

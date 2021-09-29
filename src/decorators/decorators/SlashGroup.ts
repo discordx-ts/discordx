@@ -6,9 +6,8 @@ import {
   MetadataStorage,
   Modifier,
   SubCommand,
+  VerifyName,
 } from "../..";
-
-const testName = RegExp(/^[\w-]{1,32}$/);
 
 /**
  * Group your slash command
@@ -19,7 +18,9 @@ const testName = RegExp(/^[\w-]{1,32}$/);
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
  */
-export function SlashGroup(group: string): ClassMethodDecorator;
+export function SlashGroup<T extends string>(
+  group: VerifyName<T>
+): ClassMethodDecorator;
 
 /**
  * Group your slash command
@@ -42,8 +43,8 @@ export function SlashGroup(subCommands: SubCommand): ClassMethodDecorator;
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
  */
-export function SlashGroup(
-  group: string,
+export function SlashGroup<T extends string>(
+  group: VerifyName<T>,
   description: string
 ): ClassMethodDecorator;
 
@@ -57,8 +58,8 @@ export function SlashGroup(
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
  */
-export function SlashGroup(
-  group: string,
+export function SlashGroup<T extends string>(
+  group: VerifyName<T>,
   subCommands: SubCommand
 ): ClassMethodDecorator;
 
@@ -73,8 +74,8 @@ export function SlashGroup(
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
  */
-export function SlashGroup(
-  group: string,
+export function SlashGroup<T extends string>(
+  group: VerifyName<T>,
   description: string,
   subCommands: SubCommand
 ): ClassMethodDecorator;
@@ -91,10 +92,6 @@ export function SlashGroup(
     descriptor?: PropertyDescriptor
   ) {
     if (typeof groupOrSubcommands === "string" && key) {
-      if (!testName.test(groupOrSubcommands)) {
-        throw Error(`invalid group command name: ${groupOrSubcommands}`);
-      }
-
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
         Modifier.create<DApplicationCommand>((original) => {

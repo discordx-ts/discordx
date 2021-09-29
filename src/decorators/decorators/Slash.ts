@@ -3,9 +3,8 @@ import {
   DApplicationCommand,
   MetadataStorage,
   MethodDecoratorEx,
+  VerifyName,
 } from "../..";
-
-const testName = RegExp(/^[\w-]{1,32}$/);
 
 /**
  * Define slash command
@@ -14,7 +13,9 @@ const testName = RegExp(/^[\w-]{1,32}$/);
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slash)
  * @category Decorator
  */
-export function Slash(name?: string): MethodDecoratorEx;
+export function Slash<T extends string>(
+  name?: VerifyName<T>
+): MethodDecoratorEx;
 
 /**
  * Define slash command
@@ -24,8 +25,8 @@ export function Slash(name?: string): MethodDecoratorEx;
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slash)
  * @category Decorator
  */
-export function Slash(
-  name?: string,
+export function Slash<T extends string>(
+  name?: VerifyName<T>,
   params?: ApplicationCommandParams
 ): MethodDecoratorEx;
 export function Slash(
@@ -35,9 +36,6 @@ export function Slash(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
-    if (!testName.test(name)) {
-      throw Error(`invalid command name: ${name}`);
-    }
 
     const applicationCommand = DApplicationCommand.create(
       name,

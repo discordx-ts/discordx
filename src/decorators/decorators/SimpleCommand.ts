@@ -5,8 +5,6 @@ import {
   SimpleCommandParams,
 } from "../..";
 
-const testName = RegExp(/^[\w- ]{1,32}$/);
-
 /**
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
  * ___
@@ -43,17 +41,6 @@ export function SimpleCommand(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function (target: Record<string, any>, key: string) {
     name = name ?? key;
-    name = name;
-
-    if (!testName.test(name)) {
-      throw Error(`invalid command name: ${name}`);
-    }
-
-    if (params?.aliases) {
-      if (params.aliases.some((aName) => !testName.test(aName))) {
-        throw Error(`invalid alias for command: ${name}`);
-      }
-    }
 
     const cmd = DSimpleCommand.create(
       name,

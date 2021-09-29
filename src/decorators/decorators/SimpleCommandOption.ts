@@ -7,6 +7,7 @@ import {
   ParameterDecoratorEx,
   SimpleCommandType,
   SimpleCommandTypes,
+  VerifyName,
 } from "../..";
 
 /**
@@ -16,7 +17,9 @@ import {
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
  * @category Decorator
  */
-export function SimpleCommandOption(name: string): ParameterDecoratorEx;
+export function SimpleCommandOption<T extends string>(
+  name: VerifyName<T>
+): ParameterDecoratorEx;
 
 /**
  * Define option for simple commnad
@@ -26,8 +29,8 @@ export function SimpleCommandOption(name: string): ParameterDecoratorEx;
  * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
  * @category Decorator
  */
-export function SimpleCommandOption(
-  name: string,
+export function SimpleCommandOption<T extends string>(
+  name: VerifyName<T>,
   params?: { description?: string; type?: SimpleCommandType }
 ): ParameterDecoratorEx;
 
