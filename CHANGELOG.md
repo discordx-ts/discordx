@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [6.0.5] - 2021-09-29
+
+### Changed
+
+- Updated type literal (length validation)
+
 ## [6.0.4] - 2021-09-29
 
 ### Changed

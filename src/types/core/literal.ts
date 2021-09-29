@@ -42,10 +42,21 @@ type SpecialCharacters =
   | ">"
   | ","
   | "."
-  | "?";
+  | "?"
+  | " ";
+
+type TruncateTo32<T extends string> = T extends ""
+  ? never
+  : T extends `${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}`
+  ? T extends `${infer F}${R}`
+    ? F
+    : never
+  : T;
 
 export type VName<S extends string> = S &
   Lowercase<S> &
+  Required<S> &
+  TruncateTo32<S> &
   ForbidCharacter<S, SpecialCharacters>;
 
 export type VerifyName<T extends string> = T extends VName<T>
