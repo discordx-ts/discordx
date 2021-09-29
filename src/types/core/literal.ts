@@ -9,46 +9,44 @@ export type WhitelistWords<S, D extends string> = S extends ""
   ? WhitelistWords<Tail, D>
   : never;
 
-type ValidChars =
-  | "0"
-  | "1"
-  | "2"
-  | "3"
-  | "4"
-  | "5"
-  | "6"
-  | "7"
-  | "8"
-  | "9"
-  | "0"
-  | "a"
-  | "b"
-  | "c"
-  | "d"
-  | "e"
-  | "f"
-  | "g"
-  | "h"
-  | "i"
-  | "j"
-  | "k"
-  | "l"
-  | "m"
-  | "n"
-  | "o"
-  | "p"
-  | "q"
-  | "r"
-  | "s"
-  | "t"
-  | "u"
-  | "v"
-  | "w"
-  | "x"
-  | "y"
-  | "z";
+type SpecialCharacters =
+  | "~"
+  | "`"
+  | "!"
+  | "@"
+  | "#"
+  | "$"
+  | "%"
+  | "^"
+  | "&"
+  | "*"
+  | "("
+  | ")"
+  | "-"
+  | "_"
+  | "+"
+  | "="
+  | "{"
+  | "}"
+  | "["
+  | "]"
+  | "|"
+  | "\\"
+  | "/"
+  | ":"
+  | ";"
+  // eslint-disable-next-line @typescript-eslint/quotes
+  | '"'
+  | "'"
+  | "<"
+  | ">"
+  | ","
+  | "."
+  | "?";
 
-export type VName<S extends string> = S & WhitelistWords<S, ValidChars>;
+export type VName<S extends string> = S &
+  Lowercase<S> &
+  ForbidCharacter<S, SpecialCharacters>;
 
 export type VerifyName<T extends string> = T extends VName<T>
   ? T
