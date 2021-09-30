@@ -1,9 +1,6 @@
 import { CommandInteraction } from "discord.js";
 import { GuardFunction } from "../../../src";
 
-// Example by @AndyClausen
-// Modified @oceanroleplay
-
 export const ErrorHandler: GuardFunction<CommandInteraction> = async (
   interaction,
   client,
