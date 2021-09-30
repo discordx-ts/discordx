@@ -29,10 +29,7 @@ export abstract class commandTest {
       !num2 ||
       !["+", "-", "*", "/"].includes(operation)
     ) {
-      return command.message.reply(
-        `**Command Usage:** \`\`${command.prefix}${command.name} num1 operator num2\`\` ` + //
-          `\`\`\`${command.prefix}${command.name} 1 + 3\`\`\``
-      );
+      return command.sendUsageSyntax();
     }
 
     let out = 0;
@@ -51,9 +48,6 @@ export abstract class commandTest {
         break;
     }
     command.message.reply(`${num1} ${operation} ${num2} = ${out}`);
-    command.message.reply(
-      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
-    );
   }
 
   @SimpleCommand("permcheck", { aliases: ["ptest"] })

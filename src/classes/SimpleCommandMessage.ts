@@ -56,22 +56,17 @@ export class SimpleCommandMessage {
    */
   sendUsageSyntax(): Promise<Message> {
     const commandString =
-      "Command Usage: ``" +
+      "**Command Usage**:```" +
       this.prefix +
       this.name +
-      ` ${this.info.options.map((op) => `{${op.name}}`).join(" ")}` +
-      "``" +
-      "\nDescription: ``" +
+      ` ${this.info.options
+        .map((op) => `{${op.name}: ${op.type}}`)
+        .join(" ")}` +
+      "```\n" +
+      "**Description**:```" +
       this.info.description +
-      "``";
+      "```";
 
-    const optionsString = this.info.options.length
-      ? "\n\nOptions\n" +
-        this.info.options
-          .map((op) => `> ${op.name}: ${op.description}`)
-          .join("\n")
-      : "";
-
-    return this.message.reply(`${commandString}${optionsString}`);
+    return this.message.reply(`${commandString}`);
   }
 }
