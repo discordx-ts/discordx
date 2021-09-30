@@ -36,7 +36,7 @@
     "decorators"
   ],
   "dependencies": {
-    "discord.js": "^13.2.0-dev.1632916991.fe95005",
+    "discord.js": "^13.2.0-dev.1633003689.fe95005",
     "glob": "^7.2.0",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
@@ -45,11 +45,11 @@
   "devDependencies": {
     "@types/glob": "^7.1.4",
     "@types/lodash": "^4.14.175",
-    "@types/node": "^16.10.1",
+    "@types/node": "^16.10.2",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
-    "jest": "^27.2.3",
+    "jest": "^27.2.4",
     "prettier": "2.4.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
