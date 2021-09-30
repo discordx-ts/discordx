@@ -85,10 +85,6 @@ The simple command name.
 | ------ | ------- | -------- |
 | string |         | Yes      |
 
-:::caution
-Make sure your command name is compitable with regex `a-z A-Z0-9`
-:::
-
 ### SimpleCommandParams
 
 Multiple options, check below.
