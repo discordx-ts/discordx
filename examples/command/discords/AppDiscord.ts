@@ -14,13 +14,14 @@ export abstract class commandTest {
   // string or regex supported for argSplitter
   @SimpleCommand("calc math add", {
     aliases: ["m", "solve"],
-    argSplitter: /\s/,
+    argSplitter: /s/,
     directMessage: true,
   })
   cmd(
-    @SimpleCommandOption("num1") num1: number, //
-    @SimpleCommandOption("operation") operation: string, //
-    @SimpleCommandOption("num2") num2: number,
+    @SimpleCommandOption("num1", { description: "first value" }) num1: number,
+    @SimpleCommandOption("operation", { description: "Operation (+, -, *, /)" })
+    operation: string,
+    @SimpleCommandOption("num2", { description: "second value" }) num2: number,
     command: SimpleCommandMessage
   ): unknown {
     if (
