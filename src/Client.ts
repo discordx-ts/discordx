@@ -929,7 +929,7 @@ export class Client extends ClientJS {
     }
 
     const commandArgs = contentWithoutPrefix
-      .replace(commandRaw.name, "")
+      .replace(new RegExp(commandRaw.name, "i"), "")
       .trim();
 
     const command = new SimpleCommandMessage(
