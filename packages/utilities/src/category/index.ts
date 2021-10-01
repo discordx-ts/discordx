@@ -78,12 +78,20 @@ export function Category(
   arg?: string | (ICategoryItem | ICategoryItemCommand)[]
 ): ClassMethodDecorator {
   if (!arg || typeof arg === "string") {
-    CategoryMetaData.categories.set(name, { items: [], name });
+    const find = CategoryMetaData.categories.get(name);
+    if (!find) {
+      CategoryMetaData.categories.set(name, { items: [], name });
+    } else {
+      find.description = arg;
+      CategoryMetaData.categories.set(name, find);
+    }
   } else {
     const find = CategoryMetaData.categories.get(name);
     if (find) {
       find.items.push(...arg);
       CategoryMetaData.categories.set(name, find);
+    } else {
+      CategoryMetaData.categories.set(name, { items: arg, name });
     }
   }
   return () => {
