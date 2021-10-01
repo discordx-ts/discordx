@@ -222,7 +222,7 @@ add discord context menu for your bot using `@ContextMenu` decorator
 
 ```ts
 @Discord()
-export abstract class contextTest {
+class contextTest {
   @ContextMenu("MESSAGE", "message context")
   messageHandler(interaction: ContextMenuInteraction) {
     console.log("I am message");

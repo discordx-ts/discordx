@@ -9,7 +9,7 @@
   { description: " kick a user", name: "kick", options: [], type: "SLASH" },
   { description: " ban a user", name: "ban", options: [], type: "SLASH" },
 ])
-export abstract class SlashExample {
+class SlashExample {
   // commands
 }
 ```
@@ -53,7 +53,7 @@ function embeds(): MessageOptions[] {
 const embedsResolver = new Pagination((page) => `page ${page}`, 25);
 
 @Discord()
-export abstract class Example {
+class Example {
   // example: message
   @On("messageCreate")
   async onMessage([message]: ArgsOf<"messageCreate">): Promise<void> {
