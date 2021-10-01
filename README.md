@@ -141,7 +141,7 @@ add button interaction handler for your bot using `@ButtonComponent` decorator
 @Discord()
 class buttonExample {
   @Slash("hello")
-  async hello(interaction: CommandInteraction) {
+  hello(interaction: CommandInteraction) {
     const helloBtn = new MessageButton()
       .setLabel("Hello")
       .setEmoji("👋")
@@ -224,12 +224,12 @@ add discord context menu for your bot using `@ContextMenu` decorator
 @Discord()
 export abstract class contextTest {
   @ContextMenu("MESSAGE", "message context")
-  async messageHandler(interaction: ContextMenuInteraction) {
+  messageHandler(interaction: ContextMenuInteraction) {
     console.log("I am message");
   }
 
   @ContextMenu("USER", "user context")
-  async userHandler(interaction: ContextMenuInteraction) {
+  userHandler(interaction: ContextMenuInteraction) {
     console.log("I am user");
   }
 }
@@ -249,7 +249,7 @@ class commandTest {
     type: "USER",
     permission: true,
   })
-  async permFunc(command: SimpleCommandMessage) {
+  permFunc(command: SimpleCommandMessage) {
     command.message.reply("access granted");
   }
 }
@@ -301,7 +301,7 @@ abstract class AppDiscord {
   @Guard(
     NotBot // You can use multiple guard functions, they are excuted in the same order!
   )
-  async onMessage([message]: ArgsOf<"messageCreate">) {
+  onMessage([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {
       case "hello":
         message.reply("Hello!");
