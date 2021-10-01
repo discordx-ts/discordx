@@ -1,3 +1,19 @@
+# @discordx/utilities - Category Decorator
+
+## Example
+
+```ts
+@Discord()
+@Category("Admin Commands", "Commands for server admin")
+@Category("Admin Commands", [
+  { description: " kick a user", name: "kick", type: "SLASH" },
+  { description: " ban a user", name: "ban", type: "SLASH" },
+])
+export abstract class SlashExample {
+  // commands
+}
+```
+
 # @discordx/utilities - Embed Pagination
 
 - Embed pagination with discord's new buttons and select menu
@@ -9,7 +25,7 @@
 
 ![discord embed pagination](https://github.com/oceanroleplay/discord.ts/raw/main/packages/utilities/images/discord-embed-pagination.jpg)
 
-# Example
+## Example
 
 ```ts
 import { ArgsOf, Discord, On, Slash } from "discordx";
