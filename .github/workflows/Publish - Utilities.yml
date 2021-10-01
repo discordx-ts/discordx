@@ -15,6 +15,10 @@ jobs:
       - name: Install root dependencies
         run: npm ci
 
+      - name: Install utilities dependencies
+        run: npm ci
+        working-directory: ./packages/utilities
+
       - name: Build
         run: npm run build
         working-directory: ./packages/utilities
