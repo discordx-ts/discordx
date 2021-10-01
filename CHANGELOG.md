@@ -24,14 +24,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - updated format of simple command usage
+- Updated type literal (length validation)
+- Disabled interaction not found logs, when silent mode is enabled.
 
 ### Fixed
 
 - simple command execution with different case (With case sensitive mode disabled)
-
-### Changed
-
-- Updated type literal (length validation)
 
 ## [6.0.5] - 2021-09-29
 
