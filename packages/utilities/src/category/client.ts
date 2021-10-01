@@ -7,14 +7,8 @@ export type CategoryItemTypes =
   | "CONTEXT USER"
   | "CONTEXT MESSAGE";
 
-export interface CategoryItemOption {
-  name: string;
-  description?: string;
-  optional: boolean;
-  type: SlashOptionType;
-}
-
 export interface CategoryItem {
+  botIds?: string[];
   examples?: string[];
   name: string;
   description?: string;
@@ -22,6 +16,7 @@ export interface CategoryItem {
 }
 
 export interface CategoryItemCommand {
+  botIds?: string[];
   examples?: string[];
   name: string;
   description?: string;
@@ -30,6 +25,13 @@ export interface CategoryItemCommand {
     CategoryItemTypes,
     "EVENT" | "CONTEXT USER" | "CONTEXT MESSAGE"
   >;
+}
+
+export interface CategoryItemOption {
+  name: string;
+  description?: string;
+  optional: boolean;
+  type: SlashOptionType;
 }
 
 export interface CategoryMeta {
