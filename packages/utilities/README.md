@@ -6,8 +6,8 @@
 @Discord()
 @Category("Admin Commands", "Commands for server admin")
 @Category("Admin Commands", [
-  { description: " kick a user", name: "kick", type: "SLASH" },
-  { description: " ban a user", name: "ban", type: "SLASH" },
+  { description: " kick a user", name: "kick", options: [], type: "SLASH" },
+  { description: " ban a user", name: "ban", options: [], type: "SLASH" },
 ])
 export abstract class SlashExample {
   // commands
