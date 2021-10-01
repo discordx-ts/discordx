@@ -14,6 +14,13 @@ class SlashExample {
 }
 ```
 
+```ts
+// Access data from anywhere
+import { CategoryMetaData } from "@discord/utilities";
+
+CategoryMetaData.categories; // access categories metadata
+```
+
 # @discordx/utilities - Embed Pagination
 
 - Embed pagination with discord's new buttons and select menu

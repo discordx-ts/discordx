@@ -1,4 +1,4 @@
-import { ClassMethodDecorator, Client, SlashOptionType } from "discordx";
+import { ClassMethodDecorator, SlashOptionType } from "discordx";
 
 export type CategoryItemTypes =
   | "SLASH"
@@ -7,44 +7,43 @@ export type CategoryItemTypes =
   | "CONTEXT USER"
   | "CONTEXT MESSAGE";
 
-export interface CategoryItem {
+interface ICategoryBase {
   botIds?: string[];
   examples?: string[];
   name: string;
   description?: string;
+}
+
+export interface ICategoryItem extends ICategoryBase {
   type: Exclude<CategoryItemTypes, "SIMPLECOMMAND" | "SLASH">;
 }
 
-export interface CategoryItemCommand {
-  botIds?: string[];
-  examples?: string[];
-  name: string;
-  description?: string;
-  options: CategoryItemOption[];
-  type: Exclude<
-    CategoryItemTypes,
-    "EVENT" | "CONTEXT USER" | "CONTEXT MESSAGE"
-  >;
-}
-
-export interface CategoryItemOption {
+export interface ICategoryItemOption {
   name: string;
   description?: string;
   optional: boolean;
   type: SlashOptionType;
 }
 
-export interface CategoryMeta {
-  name: string;
-  description?: string;
-  items: (CategoryItem | CategoryItemCommand)[];
+export interface ICategoryItemCommand extends ICategoryBase {
+  options: ICategoryItemOption[];
+  type: Exclude<
+    CategoryItemTypes,
+    "EVENT" | "CONTEXT USER" | "CONTEXT MESSAGE"
+  >;
 }
 
-export class CategoryClient extends Client {
-  static categories = new Map<string, CategoryMeta>();
+export interface ICategory {
+  name: string;
+  description?: string;
+  items: (ICategoryItem | ICategoryItemCommand)[];
+}
 
-  get categories(): Map<string, CategoryMeta> {
-    return CategoryClient.categories;
+export class CategoryMetaData {
+  static categories = new Map<string, ICategory>();
+
+  get categories(): Map<string, ICategory> {
+    return CategoryMetaData.categories;
   }
 }
 
@@ -71,20 +70,20 @@ export function Category(
  */
 export function Category(
   name: string,
-  items: (CategoryItem | CategoryItemCommand)[]
+  items: (ICategoryItem | ICategoryItemCommand)[]
 ): ClassMethodDecorator;
 
 export function Category(
   name: string,
-  arg?: string | (CategoryItem | CategoryItemCommand)[]
+  arg?: string | (ICategoryItem | ICategoryItemCommand)[]
 ): ClassMethodDecorator {
   if (!arg || typeof arg === "string") {
-    CategoryClient.categories.set(name, { items: [], name });
+    CategoryMetaData.categories.set(name, { items: [], name });
   } else {
-    const find = CategoryClient.categories.get(name);
+    const find = CategoryMetaData.categories.get(name);
     if (find) {
       find.items.push(...arg);
-      CategoryClient.categories.set(name, find);
+      CategoryMetaData.categories.set(name, find);
     }
   }
   return () => {

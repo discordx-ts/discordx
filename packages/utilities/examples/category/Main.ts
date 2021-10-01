@@ -1,16 +1,17 @@
 import "reflect-metadata";
-import { CategoryClient } from "../../src/category/client";
+import { CategoryMetaData } from "../../src/category";
+import { Client } from "discordx";
 import { Intents } from "discord.js";
 
 export class Main {
-  private static _client: CategoryClient;
+  private static _client: Client;
 
-  static get Client(): CategoryClient {
+  static get Client(): Client {
     return this._client;
   }
 
   static async start(): Promise<void> {
-    this._client = new CategoryClient({
+    this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       classes: [
         // glob string to load the classes. If you compile your bot, the file extension will be .js
@@ -29,7 +30,7 @@ export class Main {
 
       console.log("Bot started");
 
-      this._client.categories.forEach((cat) => {
+      CategoryMetaData.categories.forEach((cat) => {
         console.log(cat.name, JSON.stringify(cat.items));
       });
     });

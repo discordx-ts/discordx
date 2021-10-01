@@ -1,4 +1,4 @@
-import { Category } from "../../../src/category/client";
+import { Category } from "../../../src/category";
 import { Discord } from "discordx";
 
 @Discord()
