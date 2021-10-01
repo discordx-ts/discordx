@@ -1,22 +1,41 @@
-import { ClassMethodDecorator, Client } from "discordx";
+import { ClassMethodDecorator, Client, SlashOptionType } from "discordx";
 
-export type CategoryItemType =
+export type CategoryItemTypes =
   | "SLASH"
   | "SIMPLECOMMAND"
   | "EVENT"
   | "CONTEXT USER"
   | "CONTEXT MESSAGE";
 
-export interface CategoryItem {
+export interface CategoryItemOption {
   name: string;
   description?: string;
-  type: CategoryItemType;
+  optional: boolean;
+  type: SlashOptionType;
+}
+
+export interface CategoryItem {
+  examples?: string[];
+  name: string;
+  description?: string;
+  type: Exclude<CategoryItemTypes, "SIMPLECOMMAND" | "SLASH">;
+}
+
+export interface CategoryItemCommand {
+  examples?: string[];
+  name: string;
+  description?: string;
+  options: CategoryItemOption[];
+  type: Exclude<
+    CategoryItemTypes,
+    "EVENT" | "CONTEXT USER" | "CONTEXT MESSAGE"
+  >;
 }
 
 export interface CategoryMeta {
   name: string;
   description?: string;
-  items: CategoryItem[];
+  items: (CategoryItem | CategoryItemCommand)[];
 }
 
 export class CategoryClient extends Client {
@@ -50,12 +69,12 @@ export function Category(
  */
 export function Category(
   name: string,
-  items: CategoryItem[]
+  items: (CategoryItem | CategoryItemCommand)[]
 ): ClassMethodDecorator;
 
 export function Category(
   name: string,
-  arg?: string | CategoryItem[]
+  arg?: string | (CategoryItem | CategoryItemCommand)[]
 ): ClassMethodDecorator {
   if (!arg || typeof arg === "string") {
     CategoryClient.categories.set(name, { items: [], name });
