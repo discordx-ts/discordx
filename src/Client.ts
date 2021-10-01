@@ -789,9 +789,12 @@ export class Client extends ClientJS {
           !guilds.includes(interaction.guild.id)) ||
         (button.botIds.length && !button.botIds.includes(this.botId))
       ) {
-        return console.log(
-          `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
-        );
+        if (!this.silent) {
+          console.log(
+            `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
+          );
+        }
+        return;
       }
 
       return button.execute(this.guards, interaction, this);
@@ -815,9 +818,12 @@ export class Client extends ClientJS {
           !guilds.includes(interaction.guild.id)) ||
         (menu.botIds.length && !menu.botIds.includes(this.botId))
       ) {
-        return console.log(
-          `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
-        );
+        if (!this.silent) {
+          console.log(
+            `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
+          );
+        }
+        return;
       }
 
       return menu.execute(this.guards, interaction, this);
@@ -843,9 +849,12 @@ export class Client extends ClientJS {
         (applicationCommand.botIds.length &&
           !applicationCommand.botIds.includes(this.botId))
       ) {
-        return console.log(
-          `context menu interaction not found, name: ${interaction.commandName}`
-        );
+        if (!this.silent) {
+          console.log(
+            `context menu interaction not found, name: ${interaction.commandName}`
+          );
+        }
+        return;
       }
 
       if (
@@ -872,9 +881,12 @@ export class Client extends ClientJS {
       (applicationCommand.botIds.length &&
         !applicationCommand.botIds.includes(this.botId))
     ) {
-      return console.log(
-        `interaction not found, commandName: ${interaction.commandName}`
-      );
+      if (this.silent) {
+        console.log(
+          `interaction not found, commandName: ${interaction.commandName}`
+        );
+      }
+      return;
     }
 
     // Parse the options values and inject it into the @Slash method
