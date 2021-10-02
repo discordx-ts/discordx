@@ -31,11 +31,11 @@ jobs:
 
       - name: Publish git branch
         run: |
-          git init -b docs
+          git init -b gh-pages
           git config user.email ${{ secrets.GIT_EMAIL }}
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
           git commit -m 'docs'
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push --force --set-upstream origin docs
+          git push --force --set-upstream origin gh-pages
         working-directory: ./docs/build
