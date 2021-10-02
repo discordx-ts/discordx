@@ -15,7 +15,7 @@ import {
  * Define option for slash command
  * @param name string
  * ___
- * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
  * @category Decorator
  */
 export function SlashOption<T extends string>(
@@ -27,7 +27,7 @@ export function SlashOption<T extends string>(
  * @param name string
  * @param params additional configuration
  * ___
- * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashoption)
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
  * @category Decorator
  */
 export function SlashOption<T extends string>(

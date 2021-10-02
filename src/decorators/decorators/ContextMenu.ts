@@ -10,7 +10,7 @@ import { ApplicationCommandType } from "discord.js";
  * define context menu for your bot
  * @param type USER | MESSAGE
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
  * @category Decorator
  */
 export function ContextMenu(
@@ -22,7 +22,7 @@ export function ContextMenu(
  * @param type USER | MESSAGE
  * @param name name of your context menu
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
  * @category Decorator
  */
 export function ContextMenu(
@@ -36,7 +36,7 @@ export function ContextMenu(
  * @param name name of your context menu
  * @param params additional configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
  * @category Decorator
  */
 export function ContextMenu(

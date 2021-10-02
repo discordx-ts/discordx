@@ -12,7 +12,7 @@ import {
  * Define everyone permission for your application command or simple command.
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
  * @category Decorator
  */
 export function Permission(permission: boolean): ClassMethodDecorator;
@@ -21,7 +21,7 @@ export function Permission(permission: boolean): ClassMethodDecorator;
  * Define permission for your application command or simple command
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
  * @category Decorator
  */
 export function Permission(permission: IPermissions): ClassMethodDecorator;
@@ -30,7 +30,7 @@ export function Permission(permission: IPermissions): ClassMethodDecorator;
  * Define permission for your application command or simple command
  * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/permission)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
  * @category Decorator
  */
 export function Permission(...permission: IPermissions[]): ClassMethodDecorator;

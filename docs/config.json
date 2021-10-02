@@ -1,7 +1,7 @@
 {
   "index_name": "discord.ts",
-  "start_urls": ["https://oceanroleplay.github.io/discord.ts/"],
-  "sitemap_urls": ["https://oceanroleplay.github.io/discord.ts/sitemap.xml"],
+  "start_urls": ["https://discord-ts.js.org/"],
+  "sitemap_urls": ["https://discord-ts.js.org/sitemap.xml"],
   "sitemap_alternate_links": true,
   "stop_urls": [],
   "selectors": {

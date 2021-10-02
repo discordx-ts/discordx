@@ -184,8 +184,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- type `USER | ROLE | CHANNEL` added for [@SimpleCommandOption](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
-- [API docs](https://oceanroleplay.github.io/discord.ts/docs/api)
+- type `USER | ROLE | CHANNEL` added for [@SimpleCommandOption](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
+- [API docs](https://discord-ts.js.org/docs/api)
 
 ### Changed
 

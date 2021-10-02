@@ -9,7 +9,7 @@ import {
  * Define button interaction handler
  * @param id your button custom id
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
  * @category Decorator
  */
 export function ButtonComponent(id?: string): MethodDecoratorEx;
@@ -19,7 +19,7 @@ export function ButtonComponent(id?: string): MethodDecoratorEx;
  * @param id your button custom id
  * @param params additional configuration for button component
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/buttoncomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
  * @category Decorator
  */
 export function ButtonComponent(

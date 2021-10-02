@@ -14,7 +14,7 @@ import {
  * Define option for simple commnad
  * @param name option name
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
  * @category Decorator
  */
 export function SimpleCommandOption<T extends string>(
@@ -26,7 +26,7 @@ export function SimpleCommandOption<T extends string>(
  * @param name option name
  * @param params additional configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommandoption)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
  * @category Decorator
  */
 export function SimpleCommandOption<T extends string>(

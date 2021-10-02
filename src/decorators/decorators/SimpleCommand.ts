@@ -8,7 +8,7 @@ import {
 /**
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
  */
 export function SimpleCommand(): MethodDecoratorEx;
 
@@ -16,7 +16,7 @@ export function SimpleCommand(): MethodDecoratorEx;
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
  * @param name command name
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
  * @category Decorator
  */
 export function SimpleCommand(name: string): MethodDecoratorEx;
@@ -26,7 +26,7 @@ export function SimpleCommand(name: string): MethodDecoratorEx;
  * @param name command name
  * @param params additional configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/simplecommand)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
  * @category Decorator
  */
 export function SimpleCommand(

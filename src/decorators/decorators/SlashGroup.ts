@@ -13,7 +13,7 @@ import {
  * Group your slash command
  * @param group name of group
  * ___
- * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
@@ -26,7 +26,7 @@ export function SlashGroup<T extends string>(
  * Group your slash command
  * @param subCommands object
  * ___
- * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
@@ -38,7 +38,7 @@ export function SlashGroup(subCommands: SubCommand): ClassMethodDecorator;
  * @param group name of group
  * @param description string
  * ___
- * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
@@ -53,7 +53,7 @@ export function SlashGroup<T extends string>(
  * @param group name of group
  * @param subCommands object
  * ___
- * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
@@ -69,7 +69,7 @@ export function SlashGroup<T extends string>(
  * @param description string
  * @param subCommands object
  * ___
- * [View Discord.ts Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/commands/slashgroup)
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator

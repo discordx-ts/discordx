@@ -9,7 +9,7 @@ import {
  * Define a select menu interaction handler
  * @param id custom id for your select menu
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/selectmenucomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
  * @category Decorator
  */
 export function SelectMenuComponent(id?: string): MethodDecoratorEx;
@@ -19,7 +19,7 @@ export function SelectMenuComponent(id?: string): MethodDecoratorEx;
  * @param id custom id for your select menu
  * @param params additional configuration
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/gui/selectmenucomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
  * @category Decorator
  */
 export function SelectMenuComponent(

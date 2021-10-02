@@ -17,7 +17,7 @@ import { Method } from "../classes/Method";
  * Define guard aka middleware for your application command, simple command, events, select menu, button
  * @param fns array of guards
  * ___
- * [View Documentation](https://oceanroleplay.github.io/discord.ts/docs/decorators/general/guard)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guard)
  * @category Decorator
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
