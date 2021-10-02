@@ -45,7 +45,7 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 # 📜 Documentation
 
-> **[https://discord-ts.js.org](https://discord-ts.js.org)**
+> **[discord-ts.js.org](https://discord-ts.js.org)**
 
 > **[discord.ts-example](https://github.com/oceanroleplay/discord.ts-example)**
 
