@@ -64,7 +64,7 @@ module.exports = {
           position: "right",
         },
       ],
-      title: "Discordx",
+      title: "DISCORD.TS",
     },
   },
   // eslint-disable-next-line sort-keys
