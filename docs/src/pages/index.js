@@ -14,9 +14,7 @@ function HomepageHeader() {
       <div className="container">
         <img
           className={styles.heroImg}
-          src={
-            "https://raw.githubusercontent.com/oceanroleplay/discord.ts/main/docs/static/discord-ts.svg"
-          }
+          src={"https://discord-ts.js.org/discord-ts.svg"}
         />
         <h1 className="hero__title ">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
