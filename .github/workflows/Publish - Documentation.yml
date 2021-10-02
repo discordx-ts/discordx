@@ -29,6 +29,10 @@ jobs:
         run: npm run build
         working-directory: ./docs
 
+      - name: Add CNAME
+        run: echo discord-ts.js.org > CNAME
+        working-directory: ./docs/build
+
       - name: Publish git branch
         run: |
           git init -b gh-pages
