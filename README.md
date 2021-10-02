@@ -1,6 +1,6 @@
 <div>
   <p align="center">
-    <img src="https://oceanroleplay.github.io/discord.ts/discord-ts.svg" width="546" />
+    <img src="https://github.com/oceanroleplay/discord.ts/blob/main/docs/static/discord-ts.svg" width="546" />
   </p>
   <p align="center">
     <a href="https://discord.gg/yHQY9fexH9"
