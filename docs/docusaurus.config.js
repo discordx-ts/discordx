@@ -3,7 +3,7 @@
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  baseUrl: "/discord.ts/",
+  baseUrl: "/",
   favicon: "favicon.ico",
   // i18n: {
   //   defaultLocale: "en",
@@ -15,7 +15,7 @@ module.exports = {
   projectName: "discord.ts", // Usually your repo name.
   tagline: "Create your discord bot by using TypeScript and decorators!",
   title: "discord.ts official documentation",
-  url: "https://oceanroleplay.github.io",
+  url: "https://discord-ts.js.org",
   // eslint-disable-next-line sort-keys
   themeConfig: {
     algolia: {
