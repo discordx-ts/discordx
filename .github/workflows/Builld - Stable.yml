@@ -12,14 +12,14 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Update version
+        run: npm version 6.0.6
+
       - name: Install root dependencies
         run: npm ci
 
       - name: Install latest discord.js
         run: npm install discord.js@latest
-
-      - name: Update version
-        run: npm version 6.0.6
 
       - name: Publish branch
         run: |
