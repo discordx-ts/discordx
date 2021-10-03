@@ -32,5 +32,5 @@ jobs:
       - name: Publish branch
         run: |
           git add -A
-          git commit -m release $(jq --raw-output '.version' package.json)
+          git commit -m "release $(jq --raw-output '.version' package.json)"
           git push --force origin main:stable
