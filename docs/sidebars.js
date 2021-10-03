@@ -146,6 +146,11 @@ module.exports = {
           label: "Sharding",
           type: "doc",
         },
+        {
+          id: "general/tsyringe",
+          label: "TSyringe",
+          type: "doc",
+        },
       ],
       label: "Guides",
       type: "category",
