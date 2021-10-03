@@ -29,5 +29,5 @@ jobs:
       - name: Publish branch
         run: |
           git add -A
-          git commit -m release
+          git commit -m "release 6.0.6"
           git push --force origin main:stable
