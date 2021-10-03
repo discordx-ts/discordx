@@ -16,7 +16,7 @@ class Database {
 }
 
 @Discord()
-@singleton()
+@singleton() // singleton must defined under @Discord
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class AppDiscord {
   constructor(private database?: Database) {}
