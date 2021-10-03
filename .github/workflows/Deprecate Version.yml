@@ -1,0 +1,28 @@
+name: Deprecate - NPM Version
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "discordx npm version"
+        required: true
+        type: string
+      message:
+        description: "discordx npm version"
+        default: "no longer supported, update to latest version"
+        required: false
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Deprecate version
+        run: npm deprecate discordx@"${{ inputs.version }}" "${{ inputs.message }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
