@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [6.0.6] - 2021-10-06
 
+### Added
+
+- tsyringe support
+
 ### Changed
 
 - updated format of simple command usage

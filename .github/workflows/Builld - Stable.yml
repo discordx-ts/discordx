@@ -1,6 +1,13 @@
 name: Build - Stable
 on:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      username:
+        description: "discordx npm version"
+        default: "patch"
+        required: false
+        type: string
 
 jobs:
   build:
@@ -21,7 +28,7 @@ jobs:
         run: npm version --git-tag-version=false $(npm view discordx version)
 
       - name: Update version
-        run: npm version --git-tag-version=false patch
+        run: npm version --git-tag-version=false ${{ inputs.version }}
 
       - name: Install root dependencies
         run: npm ci
