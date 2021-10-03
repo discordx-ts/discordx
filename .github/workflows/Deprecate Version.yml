@@ -3,12 +3,17 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "discordx npm version"
+        description: "npm version range"
         required: true
         type: string
       message:
-        description: "discordx npm version"
+        description: "deprecate message"
         default: "no longer supported, update to latest version"
+        required: false
+        type: string
+      version:
+        description: "package"
+        default: "discordx"
         required: false
         type: string
 
