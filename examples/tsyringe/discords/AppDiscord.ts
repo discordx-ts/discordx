@@ -19,17 +19,28 @@ class Database {
 @singleton() // singleton must defined under @Discord
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class AppDiscord {
-  constructor(private database?: Database) {}
+  constructor(private database: Database) {
+    // I am just a empty constructor :(
+  }
 
   @Slash("tsyringe")
-  add(interaction: CommandInteraction): void {
+  tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
       const myClass = DIService.container.resolve(AppDiscord);
       interaction.reply(
-        `${myClass.database?.query() ?? "failed to execute"}, same class: ${
+        `${myClass.database.query() ?? "failed to execute"}, same class: ${
           myClass === this
         }`
       );
+    } else {
+      interaction.reply("Not using tsyringe");
+    }
+  }
+
+  @Slash("tsyringe2")
+  tsyringe2(interaction: CommandInteraction): void {
+    if (DIService.container) {
+      interaction.reply(this.database.query() ?? "failed to execute");
     } else {
       interaction.reply("Not using tsyringe");
     }
