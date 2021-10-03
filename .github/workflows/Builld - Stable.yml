@@ -28,4 +28,3 @@ jobs:
           git add -A
           git commit -m release
           git push --force origin main:stable
-}}
