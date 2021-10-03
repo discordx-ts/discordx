@@ -34,7 +34,7 @@ export class DIService {
       DIService.container.register(
         myClass,
         { useClass: myClass },
-        { lifecycle: Lifecycle.Singleton } // <- this is important
+        { lifecycle: Lifecycle.Singleton }
       );
       return DIService.container.resolve(myClass);
     } else {
