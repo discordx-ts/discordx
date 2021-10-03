@@ -27,5 +27,5 @@ jobs:
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
           git commit -m release
-          git push --force --set-upstream origin stable
+          git push --force origin main:stable
 }}
