@@ -9,19 +9,16 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "06:00"
-      timezone: "Asia/Kolkata"
+      time: "00:00"
 
   - package-ecosystem: "npm"
     directory: "/docs"
     schedule:
       interval: "daily"
-      time: "06:00"
-      timezone: "Asia/Kolkata"
+      time: "00:00"
 
   - package-ecosystem: "npm"
     directory: "/packages/utilities"
     schedule:
       interval: "daily"
-      time: "06:00"
-      timezone: "Asia/Kolkata"
+      time: "00:00"
