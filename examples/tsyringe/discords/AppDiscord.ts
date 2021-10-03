@@ -28,9 +28,7 @@ class AppDiscord {
     if (DIService.container) {
       const myClass = DIService.container.resolve(AppDiscord);
       interaction.reply(
-        `${myClass.database.query() ?? "failed to execute"}, same class: ${
-          myClass === this
-        }`
+        `${myClass.database.query()}, same class: ${myClass === this}`
       );
     } else {
       interaction.reply("Not using tsyringe");
@@ -40,7 +38,7 @@ class AppDiscord {
   @Slash("tsyringe2")
   tsyringe2(interaction: CommandInteraction): void {
     if (DIService.container) {
-      interaction.reply(this.database.query() ?? "failed to execute");
+      interaction.reply(this.database.query());
     } else {
       interaction.reply("Not using tsyringe");
     }
