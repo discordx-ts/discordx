@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DependencyContainer, Lifecycle } from "tsyringe";
+import { DependencyContainer } from "tsyringe";
 import { InstanceOf } from "../..";
 
 /**
@@ -28,19 +28,13 @@ export class DIService {
 
   private _services: Map<any, InstanceType<any>> = new Map();
 
-  addService<ClassType>(classType: ClassType): InstanceOf<ClassType> {
+  addService<ClassType>(classType: ClassType): void {
     const myClass = classType as unknown as new () => InstanceOf<ClassType>;
     if (DIService.container) {
-      DIService.container.register(
-        myClass,
-        { useClass: myClass },
-        { lifecycle: Lifecycle.Singleton }
-      );
-      return DIService.container.resolve(myClass);
+      DIService.container.registerSingleton(myClass);
     } else {
       const instance = new myClass();
       this._services.set(classType, instance);
-      return instance;
     }
   }
 
