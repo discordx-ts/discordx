@@ -13,7 +13,7 @@ on:
         type: string
 
 jobs:
-  build:
+  deprecate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,6 +23,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Deprecate version
-        run: npm deprecate discordx@"${{ inputs.version }}" "${{ inputs.message }}"
+        run: npm deprecate discordx@"${{ github.event.inputs.version }}" "${{ github.event.inputs.message }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
