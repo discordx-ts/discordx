@@ -1,7 +1,6 @@
 name: Build - Stable
 on:
   workflow_dispatch:
-  workflow_call:
     inputs:
       username:
         description: "discordx npm version"
