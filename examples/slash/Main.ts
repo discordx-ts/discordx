@@ -1,6 +1,10 @@
 import "reflect-metadata";
-import { Client } from "../../src";
+import { Client, DIService } from "../../src";
 import { Intents } from "discord.js";
+import { container } from "tsyringe";
+
+// initialize tsyringe container
+DIService.container = container;
 
 export class Main {
   private static _client: Client;
