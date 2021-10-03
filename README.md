@@ -71,17 +71,11 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 
 Here are more packages from us to extend the functionality of your Discord bot.
 
-| Package                                                                    | Description                              |
-| -------------------------------------------------------------------------- | ---------------------------------------- |
-| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | embed pagination with button/select menu |
-
-# 📦 Package
-
-Developed by [@oceanroleplay](https://github.com/oceanroleplay)
-
-Package by [@OwenCalvin](https://github.com/OwenCalvin)
-
----
+| Package                                                                    | Description                         |
+| -------------------------------------------------------------------------- | ----------------------------------- |
+| [`discordx`](https://www.npmjs.com/package/discordx)                       | main package                        |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc.       |
+| [`passwordx`](https://www.npmjs.com/package/passwordx)                     | Password generator for command line |
 
 # 📔 Decorators
 
