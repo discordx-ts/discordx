@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,6 +11,11 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
+
+      - name: Initialize gif config
+        run: |
+          git config user.email ${{ secrets.GIT_EMAIL }}
+          git config user.name ${{ secrets.GIT_NAME }}
 
       - name: Update version
         run: npm version 6.0.6
@@ -23,8 +28,6 @@ jobs:
 
       - name: Publish branch
         run: |
-          git config user.email ${{ secrets.GIT_EMAIL }}
-          git config user.name ${{ secrets.GIT_NAME }}
           git add -A
           git commit -m release
           git push --force origin main:stable
