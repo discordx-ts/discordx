@@ -11,7 +11,7 @@ on:
         default: "no longer supported, update to latest version"
         required: false
         type: string
-      version:
+      package:
         description: "package"
         default: "discordx"
         required: false
@@ -28,6 +28,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Deprecate version
-        run: npm deprecate discordx@"${{ github.event.inputs.version }}" "${{ github.event.inputs.message }}"
+        run: npm deprecate ${{ github.event.inputs.package }}@"${{ github.event.inputs.version }}" "${{ github.event.inputs.message }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
