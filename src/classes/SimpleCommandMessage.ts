@@ -1,5 +1,6 @@
+import * as crypto from "crypto";
 import { DSimpleCommand, MetadataStorage, SimpleCommandOptionType } from "..";
-import { Message } from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
 
 /**
  * Simple command message class
@@ -59,24 +60,41 @@ export class SimpleCommandMessage {
       a.name.length > b.name.length ? a : b
     ).name.length;
 
-    const commandString =
-      "**Command Usage**:```" +
-      this.prefix +
-      this.name +
-      ` ${this.info.options
-        .map((op) => `{${op.name}: ${op.type}}`)
-        .join(this.info.argSplitter.toString())}` +
-      "```" +
-      "\n**Description**:```" +
-      this.info.description +
-      "```" +
-      "\n**Options**" +
-      "```" +
-      this.info.options
-        .map((op) => `${op.name.padEnd(maxLength + 2)}: ${op.description}`)
-        .join("\n") +
-      "```";
+    const embed = new MessageEmbed();
+    embed.setColor(crypto.randomInt(654321));
+    embed.setTitle("Command Info");
+    embed.addField("Name", this.info.name);
+    embed.addField("Description", this.info.description);
 
-    return this.message.reply(`${commandString}`);
+    // add aliases
+    if (this.info.aliases.length) {
+      embed.addField("Aliases", this.info.aliases.join(", "));
+    }
+
+    // add syntax usage
+    embed.addField(
+      "Command Usage",
+      "```" +
+        this.prefix +
+        this.name +
+        ` ${this.info.options
+          .map((op) => `{${op.name}: ${op.type}}`)
+          .join(this.info.argSplitter.toString())}` +
+        "```"
+    );
+
+    // add options if available
+    if (this.info.options.length) {
+      embed.addField(
+        "Options",
+        "```" +
+          this.info.options
+            .map((op) => `${op.name.padEnd(maxLength + 2)}: ${op.description}`)
+            .join("\n") +
+          "```"
+      );
+    }
+
+    return this.message.reply({ embeds: [embed] });
   }
 }
