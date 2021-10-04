@@ -1,10 +1,11 @@
 import { DIService, Discord, Slash } from "../../../src";
+import { container, injectable, singleton } from "tsyringe";
 import { CommandInteraction } from "discord.js";
-import { singleton } from "tsyringe";
 
 @singleton()
 class Database {
   database: string;
+
   constructor() {
     console.log("I am database");
     this.database = "connected";
@@ -16,7 +17,7 @@ class Database {
 }
 
 @Discord()
-@singleton() // singleton must defined under @Discord
+@injectable()
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class AppDiscord {
   constructor(private database: Database) {
@@ -26,7 +27,7 @@ class AppDiscord {
   @Slash("tsyringe")
   tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
-      const myClass = DIService.container.resolve(AppDiscord);
+      const myClass = container.resolve(AppDiscord);
       interaction.reply(
         `${myClass.database.query()}, same class: ${myClass === this}`
       );
