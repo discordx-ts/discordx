@@ -113,8 +113,9 @@ import {container, singleton} from "tsyringe";
 
 function getAllDiscordClasses(): any[] {
     const dApplicationCommands = MetadataStorage.instance.allApplicationCommands;
-    const appClasses = new Set<Record<string, any>>();
-    for (const applicationCommand of dApplicationCommands) {
+    const simpleCommands = MetadataStorage.instance.allSimpleCommands.map(value => value.command);
+    const merge: Method[] = [...dApplicationCommands, ...simpleCommands];
+    for (const applicationCommand of merge) {
         const classRef = applicationCommand.classRef;
         appClasses.add(classRef);
     }
