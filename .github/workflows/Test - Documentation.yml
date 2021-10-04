@@ -20,7 +20,10 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install doc dependencies
         run: npm ci
         working-directory: ./docs
 
