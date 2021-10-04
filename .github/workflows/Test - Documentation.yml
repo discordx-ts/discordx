@@ -12,13 +12,11 @@ jobs:
     name: Documentation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Install Node v16
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install root dependencies
         run: npm ci
@@ -27,6 +25,6 @@ jobs:
         run: npm ci
         working-directory: ./docs
 
-      - name: Run TypeScript compiler
+      - name: Build docs
         run: npm run build
         working-directory: ./docs
