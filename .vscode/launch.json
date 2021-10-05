@@ -13,7 +13,7 @@
         "${workspaceRoot}/packages/utilities/examples/pagination/Main.ts"
       ],
       "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"]
+      "runtimeArgs": ["-r", "ts-node/register"]
     },
     {
       "type": "node",
@@ -22,7 +22,7 @@
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/slash/Main.ts"],
       "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
     },
     {
@@ -32,7 +32,7 @@
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/guards/Main.ts"],
       "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
     },
     {
@@ -42,7 +42,7 @@
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/event/Main.ts"],
       "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
     },
     {
@@ -52,7 +52,7 @@
       "protocol": "inspector",
       "args": ["${workspaceRoot}/examples/multiple-discord-instances/Main.ts"],
       "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
     },
     {
