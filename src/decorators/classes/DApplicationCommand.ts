@@ -3,7 +3,6 @@ import {
   ApplicationCommandData,
   ApplicationCommandType,
   CommandInteraction,
-  CommandInteractionOption,
   Guild,
 } from "discord.js";
 
@@ -97,6 +96,7 @@ export class DApplicationCommand extends Method {
     return this._options;
   }
   set options(value: DApplicationCommandOption[]) {
+    value.sort((a, b) => (a.index ?? 0) - (b.index ?? 0));
     this._options = value;
   }
 
@@ -174,51 +174,36 @@ export class DApplicationCommand extends Method {
     };
   }
 
-  getLastNestedOption(
-    options: readonly CommandInteractionOption[]
-  ): readonly CommandInteractionOption[] {
-    const arrOptions = options;
-
-    if (!arrOptions?.[0]?.options) {
-      return arrOptions;
-    }
-
-    return this.getLastNestedOption(arrOptions?.[0].options);
-  }
-
   parseParams(interaction: CommandInteraction) {
-    const options = this.getLastNestedOption(interaction.options.data);
-
-    return this.options
-      .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-      .map((op) => {
-        const option = options.find((xp) => xp.name === op.name);
-        if (!option) {
-          return undefined;
-        }
-
-        // GuildChannel | APIInteractionDataResolvedChannel | undefined
-        if (option.type === "CHANNEL") {
-          return option.channel;
-        }
-
-        // GuildMember | APIInteractionDataResolvedGuildMember | User | undefined
-        if (option.type === "USER") {
-          return option.member ?? option.user;
-        }
-
-        // Role | APIRole | undefined
-        if (option.type === "ROLE") {
-          return option.role;
-        }
-
-        // GuildChannel | APIInteractionDataResolvedChannel | Role | APIRole | undefined
-        if (option.type === "MENTIONABLE") {
-          return option.member ?? option.user ?? option.role;
-        }
-
-        // string | number | boolean | undefined
-        return option.value;
-      });
+    return this.options.map((op) => {
+      switch (op.type) {
+        case "STRING":
+          return interaction.options.getString(op.name);
+      
+        case "BOOLEAN":
+          return interaction.options.getBoolean(op.name);
+        
+        case "NUMBER":
+          return interaction.options.getNumber(op.name);
+        
+        case "INTEGER":
+          return interaction.options.getInteger(op.name);
+        
+        case "ROLE":
+          return interaction.options.getRole(op.name);
+        
+        case "CHANNEL":
+          return interaction.options.getChannel(op.name);
+        
+        case "MENTIONABLE":
+          return interaction.options.getMentionable(op.name);
+        
+        case "USER":
+          return interaction.options.getUser(op.name);
+        
+        default:
+          return interaction.options.getString(op.name);
+      }
+    });
   }
 }
