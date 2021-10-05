@@ -109,7 +109,7 @@ following code example:
 import { container, singleton } from "tsyringe";
 
 function getAllDiscordClasses(): any[] {
-  const appClasses = [];
+  const appClasses = new Set<Record<string, any>>();
   const dApplicationCommands = MetadataStorage.instance.allApplicationCommands;
   const simpleCommands = MetadataStorage.instance.allSimpleCommands.map(
     (value) => value.command
