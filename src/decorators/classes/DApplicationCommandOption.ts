@@ -125,13 +125,9 @@ export class DApplicationCommandOption extends Decorator {
       description: this.description,
       name: this.name,
       options: options.length === 0 ? undefined : options,
-      required: this.required,
+      required: !this.isNode ? undefined : this.required,
       type: this.type,
     };
-
-    if (!this.isNode) {
-      data.required = undefined;
-    }
 
     return data;
   }
