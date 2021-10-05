@@ -141,16 +141,14 @@ export class DApplicationCommandOption extends Decorator {
   toJSON(config?: { channelString: boolean }): ApplicationCommandOptionData {
     const options = [...this.options]
       .reverse()
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((option) => option.toJSON() as any);
+      .map((option) => option.toJSON());
 
     const data: ApplicationCommandOptionData = {
       channelTypes:
         this.channelTypes.length === 0
           ? undefined
           : config?.channelString
-          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (this.channelTypesEx() as any[])
+          ? (this.channelTypesEx() as unknown as undefined)
           : this.channelTypes,
       choices:
         this.choices.length === 0
@@ -158,7 +156,8 @@ export class DApplicationCommandOption extends Decorator {
           : this.choices.map((choice) => choice.toJSON()),
       description: this.description,
       name: this.name,
-      options: options.length === 0 ? undefined : options,
+      options:
+        options.length === 0 ? undefined : (options as unknown as undefined),
       required: !this.isNode ? undefined : this.required,
       type: this.type,
     };
