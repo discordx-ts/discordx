@@ -67,6 +67,7 @@ export function SlashOption(
       type,
       params?.description,
       params?.required,
+      params?.channelTypes,
       index
     ).decorate(target.constructor, key, target[key], target.constructor, index);
 

@@ -12,6 +12,7 @@ import {
   SlashGroup,
   SlashOption,
 } from "../../../src";
+import { ChannelTypes } from "discord.js/typings/enums";
 
 enum TextChoices {
   Hello = "Hello",
@@ -90,6 +91,18 @@ export abstract class AppDiscord1 {
   @Slash("roleoruser")
   roleorUser(
     @SlashOption("roleoruser", { type: "MENTIONABLE" })
+    roleOrUser: GuildMember | User | Role,
+    interaction: CommandInteraction
+  ): void {
+    interaction.reply(`${roleOrUser}`);
+  }
+
+  @Slash("voicechannel")
+  voicechannel(
+    @SlashOption("channel", {
+      channelTypes: [ChannelTypes.GUILD_CATEGORY],
+      type: "CHANNEL",
+    })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {

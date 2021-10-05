@@ -2,6 +2,7 @@
 
 import { DApplicationCommandOptionChoice, SlashOptionType } from "../..";
 import { ApplicationCommandOptionData } from "discord.js";
+import { ChannelTypes } from "discord.js/typings/enums";
 import { Decorator } from "./Decorator";
 
 /**
@@ -14,6 +15,7 @@ export class DApplicationCommandOption extends Decorator {
   private _type: SlashOptionType;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _options: DApplicationCommandOption[] = [];
+  private _channelTypes: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] = [];
   private _isNode = false;
 
   get isNode() {
@@ -28,6 +30,13 @@ export class DApplicationCommandOption extends Decorator {
   }
   set options(value) {
     this._options = value;
+  }
+
+  get channelTypes() {
+    return this._channelTypes;
+  }
+  set channelTypes(value) {
+    this._channelTypes = value;
   }
 
   get name() {
@@ -69,6 +78,7 @@ export class DApplicationCommandOption extends Decorator {
     type?: SlashOptionType,
     description?: string,
     required?: boolean,
+    channelType?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[],
     index?: number
   ) {
     super();
@@ -77,6 +87,7 @@ export class DApplicationCommandOption extends Decorator {
     this._type = type ?? "STRING";
     this._description = description ?? `${name} - ${this.type}`;
     this._required = required ?? false;
+    this._channelTypes = channelType ?? [];
     this._index = index;
   }
 
@@ -85,6 +96,7 @@ export class DApplicationCommandOption extends Decorator {
     type?: SlashOptionType,
     description?: string,
     required?: boolean,
+    channelType?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[],
     index?: number
   ) {
     return new DApplicationCommandOption(
@@ -92,6 +104,7 @@ export class DApplicationCommandOption extends Decorator {
       type,
       description,
       required,
+      channelType,
       index
     );
   }
@@ -103,6 +116,8 @@ export class DApplicationCommandOption extends Decorator {
       .map((option) => option.toJSON() as any);
 
     const data: ApplicationCommandOptionData = {
+      channelTypes:
+        this.channelTypes.length === 0 ? undefined : this.channelTypes,
       choices:
         this.choices.length === 0
           ? undefined
