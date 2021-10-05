@@ -101,11 +101,10 @@ export const GeneratePage = (
       }
     }
 
-    // const menu = new MessageSelectMenu()  // v13.2.0
-    const menu = new MessageSelectMenu({ options: paginator })
+    const menu = new MessageSelectMenu()
       .setCustomId(option.menuId ?? defaultIds.menuId)
-      .setPlaceholder(option.placeholder ?? "Select page");
-    // .setOptions(paginator); // v13.2.0
+      .setPlaceholder(option.placeholder ?? "Select page")
+      .setOptions(paginator);
 
     const row = new MessageActionRow().addComponents([menu]);
 
@@ -130,9 +129,11 @@ export const GeneratePage = (
 
     if (!cpage.files) {
       cpage.files = [];
-    } // v13.1.0
+    }
 
-    // if (!cpage.attachments) cpage.attachments = []; // v13.2.0
+    if (!cpage.attachments) {
+      cpage.attachments = [];
+    }
     return cpage;
   }
 };
