@@ -396,7 +396,7 @@ export class Client extends ClientJS {
               "guildId",
               "version"
             ),
-            cmd[1].toJSON()
+            cmd[1].toJSON({ channelString: true })
           )
       );
 

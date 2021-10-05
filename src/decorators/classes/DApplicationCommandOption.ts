@@ -109,7 +109,7 @@ export class DApplicationCommandOption extends Decorator {
     );
   }
 
-  toJSON(): ApplicationCommandOptionData {
+  toJSON(config?: { channelString: boolean }): ApplicationCommandOptionData {
     const options = [...this.options]
       .reverse()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -117,7 +117,11 @@ export class DApplicationCommandOption extends Decorator {
 
     const data: ApplicationCommandOptionData = {
       channelTypes:
-        this.channelTypes.length === 0 ? undefined : this.channelTypes,
+        this.channelTypes.length === 0
+          ? undefined
+          : config?.channelString
+          ? this.channelTypes
+          : this.channelTypes,
       choices:
         this.choices.length === 0
           ? undefined

@@ -150,10 +150,10 @@ export class DApplicationCommand extends Method {
     return option;
   }
 
-  toJSON(): ApplicationCommandData {
+  toJSON(config?: { channelString: boolean }): ApplicationCommandData {
     const options = [...this.options]
       .reverse()
-      .map((option) => option.toJSON());
+      .map((option) => option.toJSON(config));
 
     if (this.type === "CHAT_INPUT") {
       return {
