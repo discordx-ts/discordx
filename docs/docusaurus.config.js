@@ -13,7 +13,7 @@ module.exports = {
   onBrokenMarkdownLinks: "warn",
   organizationName: "oceanroleplay", // Usually your GitHub org/user name.
   projectName: "discord.ts", // Usually your repo name.
-  tagline: "Create your discord bot by using TypeScript and decorators!",
+  tagline: "Create a discord bot with TypeScript and Decorators!",
   title: "discord.ts official documentation",
   url: "https://discord-ts.js.org",
   // eslint-disable-next-line sort-keys

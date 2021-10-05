@@ -33,7 +33,7 @@
     <p align="center">discord.ts (discordx)</p>
   </h1>
   <p align="center">
-    <b> Create your discord bot by using TypeScript and decorators! </b>
+    <b> Create a discord bot with TypeScript and Decorators! </b>
   </p>
 </div>
 
