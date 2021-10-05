@@ -22,7 +22,6 @@ type SpecialCharacters =
   | "*"
   | "("
   | ")"
-  | "-"
   | "_"
   | "+"
   | "="
