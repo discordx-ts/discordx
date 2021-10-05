@@ -100,7 +100,7 @@ export abstract class AppDiscord1 {
   @Slash("voicechannel")
   voicechannel(
     @SlashOption("channel", {
-      channelTypes: [ChannelTypes.GUILD_CATEGORY],
+      channelTypes: [ChannelTypes.GUILD_VOICE],
       type: "CHANNEL",
     })
     roleOrUser: GuildMember | User | Role,
