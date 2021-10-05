@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DependencyContainer } from "tsyringe";
 import { InstanceOf } from "../..";
 
@@ -26,10 +25,10 @@ export class DIService {
     return this._instance;
   }
 
-  private _services: Map<any, InstanceType<any>> = new Map();
+  private _services = new Map();
 
-  addService<ClassType>(classType: ClassType): void {
-    const myClass = classType as unknown as new () => InstanceOf<ClassType>;
+  addService<T>(classType: T): void {
+    const myClass = classType as unknown as new () => InstanceOf<T>;
     if (DIService.container) {
       DIService.container.registerSingleton(myClass);
     } else {
@@ -38,10 +37,10 @@ export class DIService {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  getService<ClassType>(classType: any): InstanceOf<ClassType> {
+  getService<T extends unknown>(classType: T): InstanceOf<T> {
+    const myClass = classType as unknown as new () => InstanceOf<T>;
     if (DIService.container) {
-      return DIService.container.resolve(classType) as InstanceOf<ClassType>;
+      return DIService.container.resolve(myClass) as InstanceOf<T>;
     }
     return this._services.get(classType);
   }
