@@ -27,7 +27,7 @@ npm install --save-dev ts-node
       "protocol": "inspector",
       "args": ["${workspaceRoot}/PATH_TO_YOUR_MAIN.ts"],
       "cwd": "${workspaceRoot}",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
     }
   ]
