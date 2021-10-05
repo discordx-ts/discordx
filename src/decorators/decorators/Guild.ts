@@ -29,9 +29,8 @@ export function Guild(guildID: IGuild): ClassMethodDecorator;
 export function Guild(...guildIDs: IGuild[]): ClassMethodDecorator;
 
 export function Guild(...guildIDs: IGuild[]): ClassMethodDecorator {
-  return function (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: Record<string, any>,
+  return function <T>(
+    target: Record<string, T>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

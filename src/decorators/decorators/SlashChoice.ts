@@ -58,8 +58,7 @@ export function SlashChoice(
   name: string | SlashChoicesType | number,
   value?: string | number
 ): ParameterDecoratorEx {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (target: Record<string, any>, key: string, index: number) => {
+  return <T>(target: Record<string, T>, key: string, index: number) => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommandOption>((original) => {
         if (typeof name === "string" || typeof name === "number") {

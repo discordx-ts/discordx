@@ -39,8 +39,7 @@ export function SlashOption(
   name: string,
   params?: SlashOptionParams
 ): ParameterDecoratorEx {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (target: Record<string, any>, key: string, index: number) => {
+  return <T>(target: Record<string, T>, key: string, index: number) => {
     const dType = (
       Reflect.getMetadata("design:paramtypes", target, key)[index] as Function
     ).name.toUpperCase();

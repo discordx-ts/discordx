@@ -31,8 +31,7 @@ export function ButtonComponent(
   id?: string,
   params?: { guilds?: IGuild[]; botIds?: string[] }
 ): MethodDecoratorEx {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (target: Record<string, any>, key: string) => {
+  return <T>(target: Record<string, T>, key: string) => {
     const button = DComponentButton.create(
       id ?? key,
       params?.guilds,

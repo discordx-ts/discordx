@@ -29,9 +29,8 @@ export function Bot(botID: string): ClassMethodDecorator;
 export function Bot(...botIDs: string[]): ClassMethodDecorator;
 
 export function Bot(...botIDs: string[]): ClassMethodDecorator {
-  return function (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: Record<string, any>,
+  return function <T>(
+    target: Record<string, T>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

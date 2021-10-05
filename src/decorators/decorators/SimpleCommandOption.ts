@@ -38,8 +38,7 @@ export function SimpleCommandOption(
   name: string,
   params?: { description?: string; type?: SimpleCommandType }
 ): ParameterDecoratorEx {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function (target: Record<string, any>, key: string, index: number) {
+  return function <T>(target: Record<string, T>, key: string, index: number) {
     const dType = (
       Reflect.getMetadata("design:paramtypes", target, key)[index] as Function
     ).name.toUpperCase();

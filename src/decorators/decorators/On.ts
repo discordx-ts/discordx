@@ -32,14 +32,14 @@ export function On(
   event: DiscordEvents,
   params?: EventParams
 ): MethodDecoratorEx {
-  return function (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: Record<string, any>,
+  return function <T>(
+    target: Record<string, T>,
     key: string,
     descriptor?: PropertyDescriptor
   ) {
+    const myClass = target as unknown as new () => unknown;
     const on = DOn.create(event, false, params?.botIds).decorate(
-      target.constructor,
+      myClass.constructor,
       key,
       descriptor?.value
     );

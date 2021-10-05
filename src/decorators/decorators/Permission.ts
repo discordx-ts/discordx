@@ -38,9 +38,8 @@ export function Permission(...permission: IPermissions[]): ClassMethodDecorator;
 export function Permission(
   permission: boolean | IPermissions
 ): ClassMethodDecorator {
-  return function (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: Record<string, any>,
+  return function <T>(
+    target: Record<string, T>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

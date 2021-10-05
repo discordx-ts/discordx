@@ -16,11 +16,10 @@ export class DApplicationCommandGroup<
     this.infos = infos ?? {};
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   static create<InfoTypeEx = DApplicationCommand | DApplicationCommandOption>(
     name: string,
     infos?: Partial<InfoTypeEx>
-  ) {
+  ): DApplicationCommandGroup<InfoTypeEx> {
     return new DApplicationCommandGroup<InfoTypeEx>(name, infos);
   }
 }

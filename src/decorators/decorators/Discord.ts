@@ -9,9 +9,12 @@ import { ClassMethodDecorator, DDiscord, MetadataStorage } from "../..";
  */
 
 export function Discord(): ClassMethodDecorator {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function (target: Record<string, any>) {
-    const instance = DDiscord.create(target.name).decorate(target, target.name);
+  return function <T>(target: Record<string, T>) {
+    const myClass = target as unknown as new () => unknown;
+    const instance = DDiscord.create(myClass.name).decorate(
+      myClass,
+      myClass.name
+    );
     MetadataStorage.instance.addDiscord(instance);
   };
 }

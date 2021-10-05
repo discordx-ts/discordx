@@ -24,14 +24,17 @@ import { Method } from "../classes/Method";
 export function Guard<Type = any, DatasType = any>(
   ...fns: GuardFunction<Type, DatasType>[]
 ): ClassMethodDecorator {
-  return function (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: Record<string, any>,
+  return function <T>(
+    target: Record<string, T>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
     const guards = fns.map((fn) => {
-      return DGuard.create(fn).decorateUnknown(target, key, descriptor);
+      return DGuard.create(fn as () => unknown).decorateUnknown(
+        target,
+        key,
+        descriptor
+      );
     });
 
     MetadataStorage.instance.addModifier(

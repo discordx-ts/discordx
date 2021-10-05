@@ -33,8 +33,7 @@ export function Slash(
   name?: string,
   params?: ApplicationCommandParams
 ): MethodDecoratorEx {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function (target: Record<string, any>, key: string) {
+  return function <T>(target: Record<string, T>, key: string) {
     name = name ?? key;
 
     const applicationCommand = DApplicationCommand.create(

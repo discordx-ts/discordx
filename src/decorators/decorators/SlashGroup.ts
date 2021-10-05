@@ -85,12 +85,13 @@ export function SlashGroup(
   subCommandsOrDescription?: SubCommand | string,
   subCommands?: SubCommand
 ): ClassMethodDecorator {
-  return function (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    target: Record<string, any>,
+  return function <T>(
+    target: T,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
+    const myClass = target as unknown as new () => unknown;
+
     if (typeof groupOrSubcommands === "string" && key) {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
@@ -98,7 +99,7 @@ export function SlashGroup(
           if (original.type === "CHAT_INPUT") {
             original.subgroup = groupOrSubcommands;
           }
-        }, DApplicationCommand).decorate(target.constructor, key)
+        }, DApplicationCommand).decorate(myClass.constructor, key)
       );
     }
 
@@ -112,7 +113,7 @@ export function SlashGroup(
                 ? subCommandsOrDescription
                 : undefined,
           }
-        ).decorate(target, key ?? target.name);
+        ).decorate(myClass, key ?? myClass.name);
         MetadataStorage.instance.addApplicationCommandGroup(group);
       }
 
@@ -122,7 +123,7 @@ export function SlashGroup(
           const group =
             DApplicationCommandGroup.create<DApplicationCommandOption>(subKey, {
               description: subCommands?.[subKey],
-            }).decorate(target, target.name);
+            }).decorate(myClass, myClass.name);
 
           MetadataStorage.instance.addApplicationCommandSubGroup(group);
         });
