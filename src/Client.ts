@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as _ from "lodash";
 import {
   ApplicationCommand,
+  ClientEvents,
   Client as ClientJS,
+  Collection,
   CommandInteraction,
   CommandInteractionOption,
   Interaction,
@@ -45,115 +46,122 @@ export class Client extends ClientJS {
   private _botGuilds: IGuild[] = [];
   private _guards: GuardFunction[] = [];
 
-  get botGuilds() {
+  get botGuilds(): IGuild[] {
     return this._botGuilds;
   }
-  set botGuilds(value) {
+  set botGuilds(value: IGuild[]) {
     this._botGuilds = value;
   }
-  get botGuildsResolved() {
+  get botGuildsResolved(): Promise<string[]> {
     return resolveIGuild(this, this._botGuilds);
   }
 
-  get guards() {
+  get guards(): GuardFunction[] {
     return this._guards;
   }
-  set guards(value) {
+  set guards(value: GuardFunction[]) {
     this._guards = value;
   }
 
-  get prefix() {
+  get prefix(): string | ((message: Message) => string | Promise<string>) {
     return this._prefix;
   }
-  set prefix(value) {
+  set prefix(value: string | ((message: Message) => string | Promise<string>)) {
     this._prefix = value;
   }
 
-  get unauthorizedHandler() {
+  get unauthorizedHandler():
+    | string
+    | ((command: SimpleCommandMessage) => void | Promise<void>)
+    | undefined {
     return this._unauthorizedHandler;
   }
-  set unauthorizedHandler(value) {
+  set unauthorizedHandler(
+    value:
+      | string
+      | ((command: SimpleCommandMessage) => void | Promise<void>)
+      | undefined
+  ) {
     this._unauthorizedHandler = value;
   }
 
-  get botId() {
+  get botId(): string {
     return this._botId;
   }
-  set botId(value) {
+  set botId(value: string) {
     this._botId = value;
   }
 
-  static get applicationCommands() {
-    return MetadataStorage.instance
-      .applicationCommands as readonly DApplicationCommand[];
+  static get applicationCommands(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommands;
   }
-  get applicationCommands() {
+  get applicationCommands(): readonly DApplicationCommand[] {
     return Client.applicationCommands;
   }
 
-  static get simpleCommands() {
-    return MetadataStorage.instance.simpleCommands as readonly DSimpleCommand[];
+  static get simpleCommands(): readonly DSimpleCommand[] {
+    return MetadataStorage.instance.simpleCommands;
   }
-  get simpleCommands() {
+  get simpleCommands(): readonly DSimpleCommand[] {
     return Client.simpleCommands;
   }
 
-  static get allSimpleCommands() {
-    return MetadataStorage.instance.allSimpleCommands as readonly {
-      name: string;
-      command: DSimpleCommand;
-    }[];
+  static get allSimpleCommands(): readonly {
+    name: string;
+    command: DSimpleCommand;
+  }[] {
+    return MetadataStorage.instance.allSimpleCommands;
   }
-  get allSimpleCommands() {
+  get allSimpleCommands(): readonly {
+    name: string;
+    command: DSimpleCommand;
+  }[] {
     return Client.allSimpleCommands;
   }
 
-  static get buttons() {
-    return MetadataStorage.instance
-      .buttonComponents as readonly DComponentButton[];
+  static get buttons(): readonly DComponentButton[] {
+    return MetadataStorage.instance.buttonComponents;
   }
-  get buttons() {
+  get buttons(): readonly DComponentButton[] {
     return Client.buttons;
   }
 
-  static get selectMenus() {
-    return MetadataStorage.instance
-      .selectMenuComponents as readonly DComponentSelectMenu[];
+  static get selectMenus(): readonly DComponentSelectMenu[] {
+    return MetadataStorage.instance.selectMenuComponents;
   }
-  get selectMenus() {
+  get selectMenus(): readonly DComponentSelectMenu[] {
     return Client.selectMenus;
   }
 
-  static get allApplicationCommands() {
-    return MetadataStorage.instance
-      .allApplicationCommands as readonly DApplicationCommand[];
+  static get allApplicationCommands(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.allApplicationCommands;
   }
-  get allApplicationCommands() {
+  get allApplicationCommands(): readonly DApplicationCommand[] {
     return Client.allApplicationCommands;
   }
 
-  static get events() {
-    return MetadataStorage.instance.events as readonly DOn[];
+  static get events(): readonly DOn[] {
+    return MetadataStorage.instance.events;
   }
-  get events() {
+  get events(): readonly DOn[] {
     return Client.events;
   }
 
-  static get discords() {
-    return MetadataStorage.instance.discords as readonly DDiscord[];
+  static get discords(): readonly DDiscord[] {
+    return MetadataStorage.instance.discords;
   }
-  get discord() {
+  get discord(): readonly DDiscord[] {
     return Client.discords;
   }
 
-  static get decorators() {
+  static get decorators(): MetadataStorage {
     return MetadataStorage.instance;
   }
-  get decorators() {
+  get decorators(): MetadataStorage {
     return MetadataStorage.instance;
   }
 
-  get silent() {
+  get silent(): boolean {
     return this._silent;
   }
   set silent(value: boolean) {
@@ -186,7 +194,7 @@ export class Client extends ClientJS {
    * @param token The bot token
    * @param loadClasses A list of glob path or classes
    */
-  async login(token: string) {
+  async login(token: string): Promise<string> {
     await this.decorators.build();
 
     if (!this.silent) {
@@ -287,7 +295,7 @@ export class Client extends ClientJS {
    * Get commands mapped by guildid (in case of multi bot, commands are filtered for this client only)
    * @returns
    */
-  async CommandByGuild() {
+  async CommandByGuild(): Promise<Map<string, DApplicationCommand[]>> {
     const botGuildsResolved = await this.botGuildsResolved;
 
     // # group guild commands by guildId
@@ -635,7 +643,9 @@ export class Client extends ClientJS {
    * @param guild The guild ID (empty -> globally)
    * @returns
    */
-  fetchApplicationCommands(guildID?: Snowflake) {
+  fetchApplicationCommands(
+    guildID?: Snowflake
+  ): Promise<Collection<string, ApplicationCommand>> | undefined {
     if (guildID) {
       const guild = this.guilds.cache.get(guildID);
       if (!guild) {
@@ -650,7 +660,7 @@ export class Client extends ClientJS {
    * Clear the application commands globally or for some guilds
    * @param guilds The guild IDs (empty -> globally)
    */
-  async clearApplicationCommands(...guilds: Snowflake[]) {
+  async clearApplicationCommands(...guilds: Snowflake[]): Promise<void> {
     if (guilds.length) {
       await Promise.all(
         guilds.map(async (guild) => {
@@ -686,7 +696,7 @@ export class Client extends ClientJS {
    * @param interaction The targeted slash interaction
    * @returns
    */
-  getApplicationCommandGroupTree(interaction: CommandInteraction) {
+  getApplicationCommandGroupTree(interaction: CommandInteraction): string[] {
     const tree: string[] = [];
 
     const getOptionsTree = (
@@ -722,7 +732,9 @@ export class Client extends ClientJS {
    * @param tree
    * @returns
    */
-  getApplicationCommandFromTree(tree: string[]) {
+  getApplicationCommandFromTree(
+    tree: string[]
+  ): DApplicationCommand | undefined {
     // Find the corresponding @Slash
     return this.allApplicationCommands.find((slash) => {
       switch (tree.length) {
@@ -761,7 +773,7 @@ export class Client extends ClientJS {
    * @param interaction The discord.js interaction instance
    * @returns
    */
-  async executeInteraction(interaction: Interaction) {
+  async executeInteraction(interaction: Interaction): Promise<unknown> {
     const botGuildsResolved = await this.botGuildsResolved;
 
     if (!interaction) {
@@ -868,29 +880,27 @@ export class Client extends ClientJS {
     }
 
     // If the interaction isn't a slash command, return
-    if (!interaction.isCommand()) {
-      return;
-    }
+    if (interaction.isCommand()) {
+      // Get the interaction group tree
+      const tree = this.getApplicationCommandGroupTree(interaction);
+      const applicationCommand = this.getApplicationCommandFromTree(tree);
 
-    // Get the interaction group tree
-    const tree = this.getApplicationCommandGroupTree(interaction);
-    const applicationCommand = this.getApplicationCommandFromTree(tree);
-
-    if (
-      !applicationCommand ||
-      (applicationCommand.botIds.length &&
-        !applicationCommand.botIds.includes(this.botId))
-    ) {
-      if (this.silent) {
-        console.log(
-          `interaction not found, commandName: ${interaction.commandName}`
-        );
+      if (
+        !applicationCommand ||
+        (applicationCommand.botIds.length &&
+          !applicationCommand.botIds.includes(this.botId))
+      ) {
+        if (this.silent) {
+          console.log(
+            `interaction not found, commandName: ${interaction.commandName}`
+          );
+        }
+        return;
       }
-      return;
-    }
 
-    // Parse the options values and inject it into the @Slash method
-    return applicationCommand.execute(this.guards, interaction, this);
+      // Parse the options values and inject it into the @Slash method
+      return applicationCommand.execute(this.guards, interaction, this);
+    }
   }
 
   /**
@@ -898,7 +908,7 @@ export class Client extends ClientJS {
    * @param message messsage instance
    * @returns
    */
-  getMessagePrefix(message: Message) {
+  getMessagePrefix(message: Message): string | Promise<string> {
     if (typeof this.prefix === "string") {
       return this.prefix;
     }
@@ -964,7 +974,7 @@ export class Client extends ClientJS {
   async executeCommand(
     message: Message,
     options?: { caseSensitive?: boolean }
-  ) {
+  ): Promise<unknown> {
     const botGuildsResolved = await this.botGuildsResolved;
 
     if (!message) {
@@ -1087,15 +1097,18 @@ export class Client extends ClientJS {
    * @param params Params to inject
    * @param once Trigger an once event
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  trigger(event: DiscordEvents, params?: any, once = false): Promise<any[]> {
+  trigger(
+    event: DiscordEvents,
+    params: keyof ClientEvents,
+    once = false
+  ): Promise<unknown[]> {
     return this.decorators.trigger(this.guards, event, this, once)(params);
   }
 
   /**
    * Manually build the app
    */
-  async build() {
+  async build(): Promise<void> {
     await this.decorators.build();
   }
 }

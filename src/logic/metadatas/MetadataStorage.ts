@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as glob from "glob";
 import {
   ArgsOf,
@@ -45,25 +44,25 @@ export class MetadataStorage {
   private _subGroups: DApplicationCommandGroup<DApplicationCommandOption>[] =
     [];
 
-  static get instance() {
+  static get instance(): MetadataStorage {
     if (!this._instance) {
       this._instance = new MetadataStorage();
     }
     return this._instance;
   }
 
-  static clear() {
+  static clear(): void {
     this._instance = new MetadataStorage();
   }
 
-  get events() {
-    return this._events as readonly DOn[];
+  get events(): readonly DOn[] {
+    return this._events;
   }
 
   /**
    * Get the list of used events without duplications
    */
-  get usedEvents() {
+  get usedEvents(): readonly DOn[] {
     return this.events.reduce<DOn[]>((prev, event, index) => {
       const found = this.events.find((event2) => event.event === event2.event);
       const foundIndex = found ? this.events.indexOf(found) : -1;
@@ -73,10 +72,10 @@ export class MetadataStorage {
       }
 
       return prev;
-    }, []) as readonly DOn[];
+    }, []);
   }
 
-  static get classes() {
+  static get classes(): string[] {
     return this._classesToLoad;
   }
 
@@ -84,42 +83,42 @@ export class MetadataStorage {
     this._classesToLoad = files;
   }
 
-  get discords() {
-    return this._discords as readonly DDiscord[];
+  get discords(): readonly DDiscord[] {
+    return this._discords;
   }
 
-  get applicationCommands() {
-    return this._applicationCommands as readonly DApplicationCommand[];
+  get applicationCommands(): readonly DApplicationCommand[] {
+    return this._applicationCommands;
   }
 
-  get simpleCommands() {
-    return this._simpleCommands as readonly DSimpleCommand[];
+  get simpleCommands(): readonly DSimpleCommand[] {
+    return this._simpleCommands;
   }
-  get allSimpleCommands() {
-    return this._allSimpleCommands as readonly {
-      name: string;
-      command: DSimpleCommand;
-    }[];
-  }
-
-  get buttonComponents() {
-    return this._buttonComponents as readonly DComponentButton[];
+  get allSimpleCommands(): readonly {
+    name: string;
+    command: DSimpleCommand;
+  }[] {
+    return this._allSimpleCommands;
   }
 
-  get selectMenuComponents() {
-    return this._selectMenuComponents as readonly DComponentSelectMenu[];
+  get buttonComponents(): readonly DComponentButton[] {
+    return this._buttonComponents;
   }
 
-  get allApplicationCommands() {
-    return this._AllApplicationCommands as readonly DApplicationCommand[];
+  get selectMenuComponents(): readonly DComponentSelectMenu[] {
+    return this._selectMenuComponents;
   }
 
-  get slashGroups() {
-    return this._groups as readonly DApplicationCommandGroup[];
+  get allApplicationCommands(): readonly DApplicationCommand[] {
+    return this._AllApplicationCommands;
   }
 
-  get slashSubGroups() {
-    return this._subGroups as readonly DApplicationCommandGroup[];
+  get slashGroups(): readonly DApplicationCommandGroup[] {
+    return this._groups;
+  }
+
+  get slashSubGroups(): readonly DApplicationCommandGroup[] {
+    return this._subGroups;
   }
 
   private get discordMembers(): readonly Method[] {
@@ -132,61 +131,61 @@ export class MetadataStorage {
     ];
   }
 
-  addModifier(modifier: Modifier<any>) {
+  addModifier(modifier: Modifier<any>): void {
     this._modifiers.push(modifier);
   }
 
-  addOn(on: DOn) {
+  addOn(on: DOn): void {
     this._events.push(on);
   }
 
-  addApplicationCommand(slash: DApplicationCommand) {
+  addApplicationCommand(slash: DApplicationCommand): void {
     this._applicationCommands.push(slash);
   }
 
-  addApplicationCommandOption(option: DApplicationCommandOption) {
+  addApplicationCommandOption(option: DApplicationCommandOption): void {
     this._slashOptions.push(option);
   }
 
   addApplicationCommandGroup(
     group: DApplicationCommandGroup<DApplicationCommand>
-  ) {
+  ): void {
     this._groups.push(group);
   }
 
   addApplicationCommandSubGroup(
     subGroup: DApplicationCommandGroup<DApplicationCommandOption>
-  ) {
+  ): void {
     this._subGroups.push(subGroup);
   }
 
-  addSimpleCommand(cmd: DSimpleCommand) {
+  addSimpleCommand(cmd: DSimpleCommand): void {
     this._simpleCommands.push(cmd);
   }
 
-  addSimpleCommandOption(cmdOption: DSimpleCommandOption) {
+  addSimpleCommandOption(cmdOption: DSimpleCommandOption): void {
     this._commandsOptions.push(cmdOption);
   }
 
-  addComponentButton(button: DComponentButton) {
+  addComponentButton(button: DComponentButton): void {
     this._buttonComponents.push(button);
   }
 
-  addComponentSelectMenu(selectMenu: DComponentSelectMenu) {
+  addComponentSelectMenu(selectMenu: DComponentSelectMenu): void {
     this._selectMenuComponents.push(selectMenu);
   }
 
-  addGuard(guard: DGuard) {
+  addGuard(guard: DGuard): void {
     this._guards.push(guard);
     DIService.instance.addService(guard.classRef);
   }
 
-  addDiscord(discord: DDiscord) {
+  addDiscord(discord: DDiscord): void {
     this._discords.push(discord);
     DIService.instance.addService(discord.classRef);
   }
 
-  private loadClasses() {
+  private loadClasses(): void {
     // collect all import paths
     const imports: string[] = [];
     MetadataStorage.classes.forEach((path) => {
@@ -202,7 +201,7 @@ export class MetadataStorage {
     imports.forEach((file) => require(file));
   }
 
-  async build() {
+  async build(): Promise<void> {
     // build the instance if not already built
     if (MetadataStorage.isBuilt) {
       return;
