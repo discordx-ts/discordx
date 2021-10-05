@@ -199,7 +199,13 @@ The type of your command option
 | -------------------------------------------------------------------------------- | --------- |
 | STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | Inferance |
 
-Slash option input type
+#### `channelTypes`
+
+The type of your command option
+
+| type                                          | default   |
+| --------------------------------------------- | --------- |
+| Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] | undefined |
 
 ## Autocompletion (Option's choices)
 
