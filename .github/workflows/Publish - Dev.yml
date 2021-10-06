@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "src/**"
+      - "package.json"
 
 jobs:
   build:
