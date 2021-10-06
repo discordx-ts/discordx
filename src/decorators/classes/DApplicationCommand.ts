@@ -3,7 +3,6 @@ import {
   ApplicationCommandPermissionData,
   ApplicationCommandType,
   CommandInteraction,
-  CommandInteractionOption,
   Guild,
 } from "discord.js";
 
@@ -176,52 +175,41 @@ export class DApplicationCommand extends Method {
     };
   }
 
-  getLastNestedOption(
-    options: readonly CommandInteractionOption[]
-  ): readonly CommandInteractionOption[] {
-    const arrOptions = options;
-
-    if (!arrOptions?.[0]?.options) {
-      return arrOptions;
-    }
-
-    return this.getLastNestedOption(arrOptions?.[0].options);
-  }
-
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   parseParams(interaction: CommandInteraction) {
-    const options = this.getLastNestedOption(interaction.options.data);
+    return this.options.reverse().map((op) => {
+      switch (op.type) {
+        case "STRING":
+          return interaction.options.getString(op.name) ?? undefined;
 
-    return this.options
-      .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-      .map((op) => {
-        const option = options.find((xp) => xp.name === op.name);
-        if (!option) {
-          return undefined;
-        }
+        case "BOOLEAN":
+          return interaction.options.getBoolean(op.name) ?? undefined;
 
-        // GuildChannel | APIInteractionDataResolvedChannel | undefined
-        if (option.type === "CHANNEL") {
-          return option.channel;
-        }
+        case "NUMBER":
+          return interaction.options.getNumber(op.name) ?? undefined;
 
-        // GuildMember | APIInteractionDataResolvedGuildMember | User | undefined
-        if (option.type === "USER") {
-          return option.member ?? option.user;
-        }
+        case "INTEGER":
+          return interaction.options.getInteger(op.name) ?? undefined;
 
-        // Role | APIRole | undefined
-        if (option.type === "ROLE") {
-          return option.role;
-        }
+        case "ROLE":
+          return interaction.options.getRole(op.name) ?? undefined;
 
-        // GuildChannel | APIInteractionDataResolvedChannel | Role | APIRole | undefined
-        if (option.type === "MENTIONABLE") {
-          return option.member ?? option.user ?? option.role;
-        }
+        case "CHANNEL":
+          return interaction.options.getChannel(op.name) ?? undefined;
 
-        // string | number | boolean | undefined
-        return option.value;
-      });
+        case "MENTIONABLE":
+          return interaction.options.getMentionable(op.name) ?? undefined;
+
+        case "USER":
+          return (
+            interaction.options.getMember(op.name) ??
+            interaction.options.getUser(op.name) ??
+            undefined
+          );
+
+        default:
+          return interaction.options.getString(op.name) ?? undefined;
+      }
+    });
   }
 }
