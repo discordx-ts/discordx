@@ -177,7 +177,7 @@ export class DApplicationCommand extends Method {
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   parseParams(interaction: CommandInteraction) {
-    return this.options.reverse().map((op) => {
+    return [...this.options].reverse().map((op) => {
       switch (op.type) {
         case "STRING":
           return interaction.options.getString(op.name) ?? undefined;
