@@ -66,6 +66,9 @@ module.exports = {
       ],
       title: "DISCORD.TS",
     },
+    prism: {
+      theme: require("prism-react-renderer/themes/vsDark"),
+    },
   },
   // eslint-disable-next-line sort-keys
   presets: [

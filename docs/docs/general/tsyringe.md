@@ -83,12 +83,16 @@ class AppDiscord {
   @Slash("tsyringe")
   private tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
+      // resolve class
       const myClass = container.resolve(AppDiscord);
+
+      // respond with class test
       interaction.reply(
         `${myClass._database.query()}, same class: ${myClass === this}`
       );
     } else {
-      interaction.reply("Not using tsyringe");
+      // warn: TSyringe is not used
+      interaction.reply("Not using TSyringe");
     }
   }
 }
@@ -109,13 +113,18 @@ following code example:
 import { container, singleton } from "tsyringe";
 import { DIService } from "./DIService";
 
-function getAllDiscordClasses(): any[] {
+function getAllDiscordClasses(): unknown[] {
   const appClasses = DIService.allServices;
+
+  // store resolved classes from TSyringe resolve
   const commandClasses = [];
+
+  // resolve all classes
   for (const classRef of appClasses) {
-    const instance = container.resolve(classRef as constructor<any>);
+    const instance = container.resolve(classRef as constructor<unknown>);
     commandClasses.push(instance);
   }
+
   return commandClasses;
 }
 ```
