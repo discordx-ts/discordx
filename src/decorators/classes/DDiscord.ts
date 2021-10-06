@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { ApplicationCommandPermissionData, Guild } from "discord.js";
 import {
   DApplicationCommand,
   DComponentButton,
@@ -12,7 +12,6 @@ import {
   resolveIPermission,
 } from "../..";
 import { Decorator } from "./Decorator";
-import { Guild } from "discord.js";
 
 /**
  * @category Decorator
@@ -31,91 +30,91 @@ export class DDiscord extends Decorator {
   private _guilds: IGuild[] = [];
   private _botIds: string[] = [];
 
-  get permissions() {
+  get permissions(): IPermissions[] {
     return this._permissions;
   }
-  set permissions(value) {
+  set permissions(value: IPermissions[]) {
     this._permissions = value;
   }
 
-  get botIds() {
+  get botIds(): string[] {
     return this._botIds;
   }
-  set botIds(value) {
+  set botIds(value: string[]) {
     this._botIds = value;
   }
 
-  get guilds() {
+  get guilds(): IGuild[] {
     return this._guilds;
   }
-  set guilds(value) {
+  set guilds(value: IGuild[]) {
     this._guilds = value;
   }
 
-  get defaultPermission() {
+  get defaultPermission(): boolean {
     return this._defaultPermission;
   }
-  set defaultPermission(value) {
+  set defaultPermission(value: boolean) {
     this._defaultPermission = value;
   }
 
-  get description() {
+  get description(): string {
     return this._description;
   }
-  set description(value) {
+  set description(value: string) {
     this._description = value;
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
-  set name(value) {
+  set name(value: string) {
     this._name = value;
   }
 
-  get guards() {
+  get guards(): DGuard[] {
     return this._guards;
   }
-  set guards(value) {
+  set guards(value: DGuard[]) {
     this._guards = value;
   }
 
-  get applicationCommands() {
+  get applicationCommands(): DApplicationCommand[] {
     return this._applicationCommands;
   }
-  set applicationCommands(value) {
+  set applicationCommands(value: DApplicationCommand[]) {
     this._applicationCommands = value;
   }
 
-  get simpleCommands() {
+  get simpleCommands(): DSimpleCommand[] {
     return this._simpleCommands;
   }
-  set simpleCommands(value) {
+  set simpleCommands(value: DSimpleCommand[]) {
     this._simpleCommands = value;
   }
 
-  get buttons() {
+  get buttons(): DComponentButton[] {
     return this._buttonComponents;
   }
-  set buttons(value) {
+  set buttons(value: DComponentButton[]) {
     this._buttonComponents = value;
   }
 
-  get selectMenus() {
+  get selectMenus(): DComponentSelectMenu[] {
     return this._selectMenus;
   }
-  set selectMenus(value) {
+  set selectMenus(value: DComponentSelectMenu[]) {
     this._selectMenus = value;
   }
 
-  get events() {
+  get events(): DOn[] {
     return this._events;
   }
-  set events(value) {
+  set events(value: DOn[]) {
     this._events = value;
   }
 
-  get instance() {
+  get instance(): unknown {
     return DIService.instance.getService(this.from);
   }
 
@@ -125,11 +124,13 @@ export class DDiscord extends Decorator {
     this._description = description ?? name;
   }
 
-  static create(name: string, description?: string) {
+  static create(name: string, description?: string): DDiscord {
     return new DDiscord(name, description);
   }
 
-  permissionsPromise(guild: Guild | null) {
+  permissionsPromise(
+    guild: Guild | null
+  ): Promise<ApplicationCommandPermissionData[]> {
     return resolveIPermission(guild, this.permissions);
   }
 }

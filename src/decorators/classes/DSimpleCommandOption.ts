@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Decorator } from "./Decorator";
 import { SimpleCommandType } from "../..";
 
@@ -10,24 +9,24 @@ export class DSimpleCommandOption extends Decorator {
   private _description: string;
   private _type: SimpleCommandType;
 
-  get name() {
+  get name(): string {
     return this._name;
   }
-  set name(value) {
+  set name(value: string) {
     this._name = value;
   }
 
-  get type() {
+  get type(): SimpleCommandType {
     return this._type;
   }
-  set type(value) {
+  set type(value: SimpleCommandType) {
     this._type = value;
   }
 
-  get description() {
+  get description(): string {
     return this._description;
   }
-  set description(value) {
+  set description(value: string) {
     this._description = value;
   }
 
@@ -42,7 +41,11 @@ export class DSimpleCommandOption extends Decorator {
     this._type = type ?? "STRING";
   }
 
-  static create(name: string, type?: SimpleCommandType, description?: string) {
+  static create(
+    name: string,
+    type?: SimpleCommandType,
+    description?: string
+  ): DSimpleCommandOption {
     return new DSimpleCommandOption(name, type, description);
   }
 }

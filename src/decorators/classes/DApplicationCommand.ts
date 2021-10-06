@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   ApplicationCommandData,
+  ApplicationCommandPermissionData,
   ApplicationCommandType,
   CommandInteraction,
   CommandInteractionOption,
@@ -30,70 +30,70 @@ export class DApplicationCommand extends Method {
   private _subgroup?: string;
   private _botIds: string[];
 
-  get type() {
+  get type(): ApplicationCommandType {
     return this._type;
   }
-  set type(value) {
+  set type(value: ApplicationCommandType) {
     this._type = value;
   }
 
-  get botIds() {
+  get botIds(): string[] {
     return this._botIds;
   }
-  set botIds(value) {
+  set botIds(value: string[]) {
     this._botIds = value;
   }
 
-  get group() {
+  get group(): string | undefined {
     return this._group;
   }
-  set group(value) {
+  set group(value: string | undefined) {
     this._group = value;
   }
 
-  get subgroup() {
+  get subgroup(): string | undefined {
     return this._subgroup;
   }
-  set subgroup(value) {
+  set subgroup(value: string | undefined) {
     this._subgroup = value;
   }
 
-  get permissions() {
+  get permissions(): IPermissions[] {
     return this._permissions;
   }
-  set permissions(value) {
+  set permissions(value: IPermissions[]) {
     this._permissions = value;
   }
 
-  get guilds() {
+  get guilds(): IGuild[] {
     return this._guilds;
   }
-  set guilds(value) {
+  set guilds(value: IGuild[]) {
     this._guilds = value;
   }
 
-  get defaultPermission() {
+  get defaultPermission(): boolean {
     return this._defaultPermission;
   }
-  set defaultPermission(value) {
+  set defaultPermission(value: boolean) {
     this._defaultPermission = value;
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
   set name(value: string) {
     this._name = value;
   }
 
-  get description() {
+  get description(): string {
     return this._description;
   }
   set description(value: string) {
     this._description = value;
   }
 
-  get options() {
+  get options(): DApplicationCommandOption[] {
     return this._options;
   }
   set options(value: DApplicationCommandOption[]) {
@@ -124,7 +124,7 @@ export class DApplicationCommand extends Method {
     defaultPermission?: boolean,
     guilds?: IGuild[],
     botIds?: string[]
-  ) {
+  ): DApplicationCommand {
     return new DApplicationCommand(
       name,
       type,
@@ -135,11 +135,13 @@ export class DApplicationCommand extends Method {
     );
   }
 
-  permissionsPromise(guild: Guild | null) {
+  permissionsPromise(
+    guild: Guild | null
+  ): Promise<ApplicationCommandPermissionData[]> {
     return resolveIPermission(guild, this.permissions);
   }
 
-  toSubCommand() {
+  toSubCommand(): DApplicationCommandOption {
     const option = DApplicationCommandOption.create(
       this.name,
       "SUB_COMMAND",
@@ -186,6 +188,7 @@ export class DApplicationCommand extends Method {
     return this.getLastNestedOption(arrOptions?.[0].options);
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   parseParams(interaction: CommandInteraction) {
     const options = this.getLastNestedOption(interaction.options.data);
 

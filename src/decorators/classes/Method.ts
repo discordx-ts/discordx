@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { DDiscord, DGuard, GuardFunction } from "../..";
 import { Decorator } from "./Decorator";
 
@@ -9,7 +8,7 @@ export abstract class Method extends Decorator {
   protected _discord!: DDiscord;
   protected _guards: DGuard[] = [];
 
-  get discord() {
+  get discord(): DDiscord {
     return this._discord;
   }
   set discord(value: DDiscord) {
@@ -29,7 +28,10 @@ export abstract class Method extends Decorator {
    * @returns
    */
   get execute() {
-    return (guards: GuardFunction[], ...params: unknown[]) => {
+    return (
+      guards: GuardFunction[],
+      ...params: unknown[]
+    ): Promise<unknown> => {
       const globalGuards = guards.map((guard) =>
         DGuard.create(guard.bind(undefined))
       );
@@ -43,14 +45,14 @@ export abstract class Method extends Decorator {
    * The guards that decorate @Discord
    * The guards that decorate the method (this)
    */
-  get guards() {
+  get guards(): DGuard[] {
     return [
       ...this.discord.guards,
       ...this._guards,
       DGuard.create(this._method?.bind(this._discord.instance)),
     ];
   }
-  set guards(value) {
+  set guards(value: DGuard[]) {
     this._guards = value;
   }
 

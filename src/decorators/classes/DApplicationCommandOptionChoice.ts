@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ApplicationCommandOptionChoice } from "discord.js";
 import { Decorator } from "./Decorator";
 
@@ -9,17 +8,17 @@ export class DApplicationCommandOptionChoice extends Decorator {
   private _name: string;
   private _value: string | number;
 
-  get name() {
+  get name(): string {
     return this._name;
   }
-  set name(value) {
+  set name(value: string) {
     this._name = value;
   }
 
-  get value() {
+  get value(): string | number {
     return this._value;
   }
-  set value(value) {
+  set value(value: string | number) {
     this._value = value;
   }
 
@@ -29,7 +28,10 @@ export class DApplicationCommandOptionChoice extends Decorator {
     this._value = value;
   }
 
-  static create(name: string, value: string | number) {
+  static create(
+    name: string,
+    value: string | number
+  ): DApplicationCommandOptionChoice {
     return new DApplicationCommandOptionChoice(name, value);
   }
 

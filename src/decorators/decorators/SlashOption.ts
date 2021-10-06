@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import {
   DApplicationCommand,
   DApplicationCommandOption,
@@ -41,7 +40,9 @@ export function SlashOption(
 ): ParameterDecoratorEx {
   return <T>(target: Record<string, T>, key: string, index: number) => {
     const dType = (
-      Reflect.getMetadata("design:paramtypes", target, key)[index] as Function
+      Reflect.getMetadata("design:paramtypes", target, key)[
+        index
+      ] as () => unknown
     ).name.toUpperCase();
 
     const type: SlashOptionType =

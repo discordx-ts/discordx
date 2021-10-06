@@ -1,7 +1,6 @@
 import * as _ from "lodash";
 import {
   ApplicationCommand,
-  ClientEvents,
   Client as ClientJS,
   Collection,
   CommandInteraction,
@@ -1097,11 +1096,8 @@ export class Client extends ClientJS {
    * @param params Params to inject
    * @param once Trigger an once event
    */
-  trigger(
-    event: DiscordEvents,
-    params: keyof ClientEvents,
-    once = false
-  ): Promise<unknown[]> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  trigger(event: DiscordEvents, params: any, once = false): Promise<any[]> {
     return this.decorators.trigger(this.guards, event, this, once)(params);
   }
 

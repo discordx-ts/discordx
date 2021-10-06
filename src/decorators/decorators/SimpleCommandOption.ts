@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import {
   DSimpleCommand,
   DSimpleCommandOption,
@@ -40,7 +39,9 @@ export function SimpleCommandOption(
 ): ParameterDecoratorEx {
   return function <T>(target: Record<string, T>, key: string, index: number) {
     const dType = (
-      Reflect.getMetadata("design:paramtypes", target, key)[index] as Function
+      Reflect.getMetadata("design:paramtypes", target, key)[
+        index
+      ] as () => unknown
     ).name.toUpperCase();
 
     const type: SimpleCommandType =

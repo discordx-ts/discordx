@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { ClientEvents } from "discord.js";
 import { DiscordEvents } from "../..";
 import { Method } from "./Method";
 
@@ -10,21 +10,21 @@ export class DOn extends Method {
   protected _once: boolean;
   protected _botIds: string[];
 
-  get botIds() {
+  get botIds(): string[] {
     return this._botIds;
   }
   set botIds(value: string[]) {
     this._botIds = value;
   }
 
-  get event() {
+  get event(): keyof ClientEvents {
     return this._event;
   }
   set event(value: DiscordEvents) {
     this._event = value;
   }
 
-  get once() {
+  get once(): boolean {
     return this._once;
   }
   set once(value: boolean) {
@@ -42,11 +42,11 @@ export class DOn extends Method {
     this._botIds = botIds ?? [];
   }
 
-  static create(event: DiscordEvents, once: boolean, botIds?: string[]) {
+  static create(event: DiscordEvents, once: boolean, botIds?: string[]): DOn {
     return new DOn(event, once, botIds);
   }
 
-  parseParams() {
+  parseParams(): never[] {
     return [];
   }
 }

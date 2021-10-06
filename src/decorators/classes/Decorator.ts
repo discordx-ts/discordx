@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { DecoratorUtils } from "../..";
 
 /**
@@ -12,11 +11,11 @@ export class Decorator {
   protected _method?: Record<string, any>;
   protected _index?: number = undefined;
 
-  get index() {
+  get index(): number | undefined {
     return this._index;
   }
 
-  get classRef() {
+  get classRef(): Record<string, any> {
     return this._classRef;
   }
   set classRef(value: Record<string, any>) {
@@ -24,22 +23,22 @@ export class Decorator {
     this.from = value;
   }
 
-  get from() {
+  get from(): Record<string, any> {
     return this._from;
   }
   set from(value: Record<string, any>) {
     this._from = value;
   }
 
-  get key() {
+  get key(): string {
     return this._key;
   }
 
-  get method() {
+  get method(): Record<string, any> | undefined {
     return this._method;
   }
 
-  get isClass() {
+  get isClass(): boolean {
     return !!this._method;
   }
 
@@ -52,7 +51,7 @@ export class Decorator {
     key?: string,
     method?: PropertyDescriptor,
     index?: number
-  ) {
+  ): this {
     const decorateAClass =
       DecoratorUtils.decorateAClass(method) && index === undefined;
 
@@ -77,7 +76,7 @@ export class Decorator {
     method?: Record<string, any>,
     from?: Record<string, any>,
     index?: number
-  ) {
+  ): this {
     this._from = from ?? classRef;
     this._classRef = classRef;
     this._key = key;

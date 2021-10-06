@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import { DApplicationCommandOptionChoice, SlashOptionType } from "../..";
 import { ApplicationCommandOptionData } from "discord.js";
 import { ChannelTypes } from "discord.js/typings/enums";
@@ -18,59 +16,59 @@ export class DApplicationCommandOption extends Decorator {
   private _channelTypes: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] = [];
   private _isNode = false;
 
-  get isNode() {
+  get isNode(): boolean {
     return this._isNode;
   }
-  set isNode(value) {
+  set isNode(value: boolean) {
     this._isNode = value;
   }
 
-  get options() {
+  get options(): DApplicationCommandOption[] {
     return this._options;
   }
-  set options(value) {
+  set options(value: DApplicationCommandOption[]) {
     this._options = value;
   }
 
-  get channelTypes() {
+  get channelTypes(): Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] {
     return this._channelTypes;
   }
-  set channelTypes(value) {
+  set channelTypes(value: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[]) {
     this._channelTypes = value;
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
-  set name(value) {
+  set name(value: string) {
     this._name = value;
   }
 
-  get type() {
+  get type(): SlashOptionType {
     return this._type;
   }
-  set type(value) {
+  set type(value: SlashOptionType) {
     this._type = value;
   }
 
-  get description() {
+  get description(): string {
     return this._description;
   }
-  set description(value) {
+  set description(value: string) {
     this._description = value;
   }
 
-  get required() {
+  get required(): boolean {
     return this._required;
   }
-  set required(value) {
+  set required(value: boolean) {
     this._required = value;
   }
 
-  get choices() {
+  get choices(): DApplicationCommandOptionChoice[] {
     return this._choices;
   }
-  set choices(value) {
+  set choices(value: DApplicationCommandOptionChoice[]) {
     this._choices = value;
   }
   protected constructor(
@@ -98,7 +96,7 @@ export class DApplicationCommandOption extends Decorator {
     required?: boolean,
     channelType?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[],
     index?: number
-  ) {
+  ): DApplicationCommandOption {
     return new DApplicationCommandOption(
       name,
       type,
@@ -109,7 +107,20 @@ export class DApplicationCommandOption extends Decorator {
     );
   }
 
-  channelTypesEx() {
+  channelTypesEx(): (
+    | "GUILD_TEXT"
+    | "DM"
+    | "GUILD_VOICE"
+    | "GROUP_DM"
+    | "GUILD_CATEGORY"
+    | "GUILD_NEWS"
+    | "GUILD_STORE"
+    | "GUILD_NEWS_THREAD"
+    | "GUILD_PUBLIC_THREAD"
+    | "GUILD_PRIVATE_THREAD"
+    | "GUILD_STAGE_VOICE"
+    | undefined
+  )[] {
     return this.channelTypes.map((ch) => {
       switch (ch) {
         case 0:

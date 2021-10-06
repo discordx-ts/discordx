@@ -31,7 +31,6 @@ export function SelectMenuComponent(
   id?: string,
   params?: { guilds?: IGuild[]; botIds?: string[] }
 ): MethodDecoratorEx {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function <T>(target: Record<string, T>, key: string) {
     const button = DComponentSelectMenu.create(
       id ?? key,

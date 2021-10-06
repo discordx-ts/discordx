@@ -1,12 +1,20 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import {
+  ApplicationCommandPermissionData,
+  Guild,
+  GuildChannel,
+  GuildMember,
+  Role,
+  ThreadChannel,
+  User,
+} from "discord.js";
 import {
   DSimpleCommandOption,
   IGuild,
   IPermissions,
   SimpleCommandMessage,
+  SimpleCommandOptionType,
   resolveIPermission,
 } from "../..";
-import { Guild } from "discord.js";
 import { Method } from "./Method";
 
 /**
@@ -24,70 +32,70 @@ export class DSimpleCommand extends Method {
   private _botIds: string[];
   private _aliases: string[];
 
-  get aliases() {
+  get aliases(): string[] {
     return this._aliases;
   }
-  set aliases(value) {
+  set aliases(value: string[]) {
     this._aliases = value;
   }
 
-  get botIds() {
+  get botIds(): string[] {
     return this._botIds;
   }
-  set botIds(value) {
+  set botIds(value: string[]) {
     this._botIds = value;
   }
 
-  get permissions() {
+  get permissions(): IPermissions[] {
     return this._permissions;
   }
-  set permissions(value) {
+  set permissions(value: IPermissions[]) {
     this._permissions = value;
   }
 
-  get guilds() {
+  get guilds(): IGuild[] {
     return this._guilds;
   }
-  set guilds(value) {
+  set guilds(value: IGuild[]) {
     this._guilds = value;
   }
 
-  get argSplitter() {
+  get argSplitter(): string | RegExp {
     return this._argSplitter;
   }
-  set argSplitter(value) {
+  set argSplitter(value: string | RegExp) {
     this._argSplitter = value;
   }
 
-  get directMessage() {
+  get directMessage(): boolean {
     return this._directMessage;
   }
-  set directMessage(value) {
+  set directMessage(value: boolean) {
     this._directMessage = value;
   }
 
-  get defaultPermission() {
+  get defaultPermission(): boolean {
     return this._defaultPermission;
   }
-  set defaultPermission(value) {
+  set defaultPermission(value: boolean) {
     this._defaultPermission = value;
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
   set name(value: string) {
     this._name = value;
   }
 
-  get description() {
+  get description(): string {
     return this._description;
   }
   set description(value: string) {
     this._description = value;
   }
 
-  get options() {
+  get options(): DSimpleCommandOption[] {
     return this._options;
   }
   set options(value: DSimpleCommandOption[]) {
@@ -126,7 +134,7 @@ export class DSimpleCommand extends Method {
     guilds?: IGuild[],
     botIds?: string[],
     aliases?: string[]
-  ) {
+  ): DSimpleCommand {
     return new DSimpleCommand(
       name,
       description,
@@ -139,15 +147,30 @@ export class DSimpleCommand extends Method {
     );
   }
 
-  permissionsPromise(guild: Guild | null) {
+  permissionsPromise(
+    guild: Guild | null
+  ): Promise<ApplicationCommandPermissionData[]> {
     return resolveIPermission(guild, this.permissions);
   }
 
-  parseParams(command: SimpleCommandMessage) {
+  parseParams(command: SimpleCommandMessage): SimpleCommandOptionType[] {
     return command.options;
   }
 
-  parseParamsEx(command: SimpleCommandMessage) {
+  parseParamsEx(
+    command: SimpleCommandMessage
+  ): (
+    | string
+    | number
+    | boolean
+    | ThreadChannel
+    | GuildChannel
+    | User
+    | GuildMember
+    | Role
+    | null
+    | undefined
+  )[] {
     if (!this.options.length) {
       return [];
     }

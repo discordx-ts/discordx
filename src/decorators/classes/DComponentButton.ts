@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IGuild } from "../..";
 import { Method } from "./Method";
 
@@ -10,24 +9,24 @@ export class DComponentButton extends Method {
   private _guilds: IGuild[];
   private _botIds: string[];
 
-  get botIds() {
+  get botIds(): string[] {
     return this._botIds;
   }
-  set botIds(value) {
+  set botIds(value: string[]) {
     this._botIds = value;
   }
 
-  get id() {
+  get id(): string {
     return this._id;
   }
-  set id(value) {
+  set id(value: string) {
     this._id = value;
   }
 
-  get guilds() {
+  get guilds(): IGuild[] {
     return this._guilds;
   }
-  set guilds(value) {
+  set guilds(value: IGuild[]) {
     this._guilds = value;
   }
 
@@ -38,11 +37,15 @@ export class DComponentButton extends Method {
     this._botIds = botIds ?? [];
   }
 
-  static create(id: string, guilds?: IGuild[], botIds?: string[]) {
+  static create(
+    id: string,
+    guilds?: IGuild[],
+    botIds?: string[]
+  ): DComponentButton {
     return new DComponentButton(id, guilds, botIds);
   }
 
-  parseParams() {
+  parseParams(): never[] {
     return [];
   }
 }

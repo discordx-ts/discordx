@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Channel,
   CommandInteraction,
@@ -34,7 +33,7 @@ enum TextChoices {
   maths: "maths group description",
   text: "text group description",
 })
-@Guard<any, any>((params, client, next, datas) => {
+@Guard((params, client, next, datas) => {
   datas.passed = true;
   return next();
 })
@@ -96,7 +95,7 @@ export abstract class AppDiscord {
 
 @Discord()
 @Guild("invalid_id")
-@Guard<any, any>((params, client, next, datas) => {
+@Guard((params, client, next, datas) => {
   datas.passed = true;
   return next();
 })
