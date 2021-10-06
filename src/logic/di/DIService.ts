@@ -26,12 +26,12 @@ export class DIService {
   }
 
   private _services = new Map();
-  private static _ServiceSet:Set<Record<string, any>> = new Set();
+  private static _ServiceSet = new Set();
 
-    /**
-     * Get all the services from the DI container
-     */
-  static get allServices():Set<Record<string, any>>{
+  /**
+   * Get all the services from the DI container
+   */
+  static get allServices(): Set<unknown> {
     return DIService._ServiceSet;
   }
 
