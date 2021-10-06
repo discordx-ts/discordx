@@ -1,6 +1,6 @@
 {
   "name": "@discordx/utilities",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "discordx utilities",
   "main": "build/index.js",
   "scripts": {
@@ -27,6 +27,6 @@
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
   "dependencies": {
     "discord.js": "^13.2.0",
-    "discordx": "^6.1.1"
+    "discordx": "^6.1.2"
   }
 }
