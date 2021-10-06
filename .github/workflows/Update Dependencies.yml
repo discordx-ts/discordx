@@ -1,0 +1,32 @@
+name: Update Dependencies
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Initialize gif config
+        run: |
+          git config user.email ${{ secrets.GIT_EMAIL }}
+          git config user.name ${{ secrets.GIT_NAME }}
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install latest discord.js@dev
+        run: npm install discord.js@dev
+
+      - name: Publish branch
+        run: |
+          git add -A
+          git commit -m "update discord.js@dev"
+          git push
