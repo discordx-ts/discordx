@@ -181,8 +181,55 @@ class SlashOptionResolver {
     this.data = options;
   }
 
+  getLastNestedOption(options: readonly FakeOption[]): readonly FakeOption[] {
+    const arrOptions = options;
+
+    if (!arrOptions?.[0]?.options) {
+      return arrOptions;
+    }
+
+    return this.getLastNestedOption(arrOptions?.[0].options);
+  }
+
   get(name: string) {
-    return this.data.find((op) => op.name === name);
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getString(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getBoolean(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getNumber(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getInteger(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getRole(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getChannel(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getMentionable(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getMember(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
+  }
+  getUser(name: string) {
+    const options = this.getLastNestedOption(this.data);
+    return options.find((op) => op.name === name)?.value;
   }
 }
 
