@@ -5,8 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "docs/docs/**"
-      - "docs/i18n/**"
+      - "docs/**"
 
 jobs:
   build:
