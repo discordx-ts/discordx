@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as glob from "glob";
 import {
   ArgsOf,
@@ -35,6 +34,7 @@ export class MetadataStorage {
   private _selectMenuComponents: DComponentSelectMenu[] = [];
   private _slashOptions: DApplicationCommandOption[] = [];
   private _discords: DDiscord[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _modifiers: Modifier<any>[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
   private _allSimpleCommands: { name: string; command: DSimpleCommand }[] = [];
@@ -131,6 +131,7 @@ export class MetadataStorage {
     ];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   addModifier(modifier: Modifier<any>): void {
     this._modifiers.push(modifier);
   }
@@ -425,7 +426,9 @@ export class MetadataStorage {
     event: Event,
     client: Client,
     once = false
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): (...params: ArgsOf<Event>) => Promise<any> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responses: any[] = [];
 
     const eventsToExecute = this._events.filter((on) => {
