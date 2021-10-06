@@ -106,17 +106,17 @@ If for some reason, you wish to get all instances of the `@Discord` classes in y
 following code example:
 
 ```ts
-import {container, singleton} from "tsyringe";
-import {DIService} from "./DIService";
+import { container, singleton } from "tsyringe";
+import { DIService } from "./DIService";
 
 function getAllDiscordClasses(): any[] {
-    const appClasses = DIService.allServices;
-    const commandClasses = [];
-    for (const classRef of appClasses) {
-        const instance = container.resolve(classRef as constructor<any>);
-        commandClasses.push(instance);
-    }
-    return commandClasses;
+  const appClasses = DIService.allServices;
+  const commandClasses = [];
+  for (const classRef of appClasses) {
+    const instance = container.resolve(classRef as constructor<any>);
+    commandClasses.push(instance);
+  }
+  return commandClasses;
 }
 ```
 
