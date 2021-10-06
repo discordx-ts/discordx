@@ -107,18 +107,10 @@ following code example:
 
 ```ts
 import { container, singleton } from "tsyringe";
+import { DIService } from "./DIService";
 
 function getAllDiscordClasses(): any[] {
-  const appClasses = new Set<Record<string, any>>();
-  const dApplicationCommands = MetadataStorage.instance.allApplicationCommands;
-  const simpleCommands = MetadataStorage.instance.allSimpleCommands.map(
-    (value) => value.command
-  );
-  const merge: Method[] = [...dApplicationCommands, ...simpleCommands];
-  for (const applicationCommand of merge) {
-    const classRef = applicationCommand.classRef;
-    appClasses.add(classRef);
-  }
+  const appClasses = DIService.allServices;
   const commandClasses = [];
   for (const classRef of appClasses) {
     const instance = container.resolve(classRef as constructor<any>);

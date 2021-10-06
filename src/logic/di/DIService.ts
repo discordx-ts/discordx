@@ -26,8 +26,17 @@ export class DIService {
   }
 
   private _services = new Map();
+  private static _ServiceSet = new Set();
+
+  /**
+   * Get all the services from the DI container
+   */
+  static get allServices(): Set<unknown> {
+    return DIService._ServiceSet;
+  }
 
   addService<T>(classType: T): void {
+    DIService._ServiceSet.add(classType);
     const myClass = classType as unknown as new () => InstanceOf<T>;
     if (DIService.container) {
       DIService.container.registerSingleton(myClass);
