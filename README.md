@@ -313,7 +313,7 @@ abstract class AppDiscord {
 
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
-**[Please refer to the documentation](https://discord-ts.js.org/installation/#installation)**
+**[Please refer to the documentation](https://discord-ts.js.org/docs/installation#installation)**
 
 # ☎️ Need help?
 
