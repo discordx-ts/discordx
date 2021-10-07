@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - resolver for `argSplitter`
-- `DIService.allServices`: t all the services from the DI container
+- `DIService.allServices`: get all the services from the DI container
 
 ## [6.1.2] - 2021-10-06
 
