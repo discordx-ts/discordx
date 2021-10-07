@@ -19,7 +19,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#612---2021-10-06)`
+`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#620---2021-10-13)`
+
+## [6.2.0] - 2021-10-13
+
+### Changed
+
+- `Client` options, added simpleCommand options, check doc for more info
+
+### Added
+
+- resolver for `argSplitter`
 
 ## [6.1.2] - 2021-10-06
 
