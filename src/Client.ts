@@ -25,6 +25,7 @@ import {
   IGuild,
   InitCommandConfig,
   MetadataStorage,
+  SimpleCommandConfig,
   SimpleCommandMessage,
   resolveIGuild,
 } from ".";
@@ -38,9 +39,7 @@ import {
 export class Client extends ClientJS {
   private _botId: string;
   private _prefix: string | ((message: Message) => Promise<string> | string);
-  private _unauthorizedHandler?:
-    | string
-    | ((command: SimpleCommandMessage) => Promise<void> | void);
+  private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
   private _botGuilds: IGuild[] = [];
   private _guards: GuardFunction[] = [];
@@ -69,19 +68,11 @@ export class Client extends ClientJS {
     this._prefix = value;
   }
 
-  get unauthorizedHandler():
-    | string
-    | ((command: SimpleCommandMessage) => void | Promise<void>)
-    | undefined {
-    return this._unauthorizedHandler;
+  get simpleCommandConfig(): SimpleCommandConfig | undefined {
+    return this._simpleCommandConfig;
   }
-  set unauthorizedHandler(
-    value:
-      | string
-      | ((command: SimpleCommandMessage) => void | Promise<void>)
-      | undefined
-  ) {
-    this._unauthorizedHandler = value;
+  set simpleCommandConfig(value: SimpleCommandConfig | undefined) {
+    this._simpleCommandConfig = value;
   }
 
   get botId(): string {
@@ -185,7 +176,7 @@ export class Client extends ClientJS {
     this.botGuilds = options.botGuilds ?? [];
     this._botId = options.botId ?? "bot";
     this._prefix = options.prefix ?? "!";
-    this._unauthorizedHandler = options.commandUnauthorizedHandler;
+    this._simpleCommandConfig = options.simpleCommand;
   }
 
   /**
@@ -926,12 +917,12 @@ export class Client extends ClientJS {
     prefix: string,
     message: Message,
     caseSensitive = false
-  ): undefined | SimpleCommandMessage {
+  ): "notCommand" | "notFound" | SimpleCommandMessage {
     const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
     const prefixRegex = RegExp(`^${escapePrefix}`);
     const isCommand = prefixRegex.test(message.content);
     if (!isCommand) {
-      return undefined;
+      return "notCommand";
     }
 
     const contentWithoutPrefix =
@@ -946,7 +937,7 @@ export class Client extends ClientJS {
     );
 
     if (!commandRaw) {
-      return undefined;
+      return "notFound";
     }
 
     const commandArgs = contentWithoutPrefix
@@ -958,7 +949,8 @@ export class Client extends ClientJS {
       commandRaw.name,
       commandArgs,
       message,
-      commandRaw.command
+      commandRaw.command,
+      this.simpleCommandConfig?.argSplitter
     );
 
     return command;
@@ -996,7 +988,19 @@ export class Client extends ClientJS {
       message,
       options?.caseSensitive ?? false
     );
-    if (!command) {
+    if (command === "notCommand") {
+      return;
+    }
+
+    if (command === "notFound") {
+      const handleNotFound = this.simpleCommandConfig?.responses?.notFound;
+      if (handleNotFound) {
+        if (typeof handleNotFound === "string") {
+          message.reply(handleNotFound);
+        } else {
+          handleNotFound(message);
+        }
+      }
       return;
     }
 
@@ -1047,12 +1051,15 @@ export class Client extends ClientJS {
 
       // user is not allowed to access this command
       if (isUserIdNotAllowed) {
-        if (this.unauthorizedHandler) {
-          if (typeof this.unauthorizedHandler === "string") {
-            message.reply(this.unauthorizedHandler);
+        const unauthorizedResponse =
+          this.simpleCommandConfig?.responses?.unauthorised;
+
+        if (unauthorizedResponse) {
+          if (typeof unauthorizedResponse === "string") {
+            message.reply(unauthorizedResponse);
             return;
           }
-          await this.unauthorizedHandler(command);
+          await unauthorizedResponse(command);
         }
         return;
       }
@@ -1076,12 +1083,15 @@ export class Client extends ClientJS {
 
       // user does not have any permission to access this command
       if (!isUserIdAllowed) {
-        if (this.unauthorizedHandler) {
-          if (typeof this.unauthorizedHandler === "string") {
-            message.reply(this.unauthorizedHandler);
+        const unauthorizedResponse =
+          this.simpleCommandConfig?.responses?.unauthorised;
+
+        if (unauthorizedResponse) {
+          if (typeof unauthorizedResponse === "string") {
+            message.reply(unauthorizedResponse);
             return;
           }
-          await this.unauthorizedHandler(command);
+          await unauthorizedResponse(command);
         }
         return;
       }

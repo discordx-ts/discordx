@@ -17,22 +17,6 @@ export class Main {
         // glob string to load the classes. If you compile your bot, the file extension will be .js
         `${__dirname}/discords/*.{js,ts}`,
       ],
-
-      // commandUnauthorizedHandler: "you are not authorized to use this command",
-      commandUnauthorizedHandler: (command) => {
-        if (command.message.channel.type === "DM") {
-          command.message.reply(
-            "do you have permission to access this command?"
-          );
-          return;
-        }
-
-        // let's have different message for guild command
-        command.message.reply(
-          `${command.message.member} you are not authorized to access ${command.prefix}${command.name} command`
-        );
-        return;
-      },
       intents: [
         Intents.FLAGS.GUILDS,
         Intents.FLAGS.GUILD_MESSAGES,
@@ -53,6 +37,26 @@ export class Main {
       },
 
       silent: false,
+
+      simpleCommand: {
+        responses: {
+          notFound: "command not found, use !help",
+          unauthorised: (command) => {
+            if (command.message.channel.type === "DM") {
+              command.message.reply(
+                "do you have permission to access this command?"
+              );
+              return;
+            }
+
+            // let's have different message for guild command
+            command.message.reply(
+              `${command.message.member} you are not authorized to access ${command.prefix}${command.name} command`
+            );
+            return;
+          },
+        },
+      },
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).

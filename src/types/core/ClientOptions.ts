@@ -1,5 +1,34 @@
+import {
+  ArgSplitter,
+  GuardFunction,
+  IGuild,
+  SimpleCommandMessage,
+} from "../..";
 import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
-import { GuardFunction, IGuild, SimpleCommandMessage } from "../..";
+
+export interface SimpleCommandConfig {
+  /**
+   * Define global response for cetain conditions
+   */
+  responses?: {
+    /**
+     * Define response for unauthorized command
+     */
+    unauthorised?:
+      | string
+      | ((command: SimpleCommandMessage) => Promise<void> | void);
+
+    /**
+     * Define response for not found command
+     */
+    notFound?: string | ((command: Message) => Promise<void> | void);
+  };
+
+  /**
+   * Global argument splitter for simple command
+   */
+  argSplitter?: ArgSplitter;
+}
 
 export interface ClientOptions extends DiscordJSClientOptions {
   /**
@@ -13,11 +42,9 @@ export interface ClientOptions extends DiscordJSClientOptions {
   prefix?: string | ((message: Message) => Promise<string> | string);
 
   /**
-   * define bot reply, when command is not auhorized
+   * simple command related customization
    */
-  commandUnauthorizedHandler?:
-    | string
-    | ((command: SimpleCommandMessage) => Promise<void> | void);
+  simpleCommand?: SimpleCommandConfig;
 
   /**
    * Do not log anything in the console

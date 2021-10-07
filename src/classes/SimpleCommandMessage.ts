@@ -1,5 +1,10 @@
 import * as crypto from "crypto";
-import { DSimpleCommand, MetadataStorage, SimpleCommandOptionType } from "..";
+import {
+  ArgSplitter,
+  DSimpleCommand,
+  MetadataStorage,
+  SimpleCommandOptionType,
+} from "..";
 import { Message, MessageEmbed } from "discord.js";
 
 /**
@@ -18,14 +23,15 @@ export class SimpleCommandMessage {
     name: string,
     argString: string,
     message: Message,
-    info: DSimpleCommand
+    info: DSimpleCommand,
+    splitter?: ArgSplitter
   ) {
     this.message = message;
     this.prefix = prefix;
     this.info = info;
     this.name = name;
     this.argString = argString;
-    this.options = this.info.parseParamsEx(this);
+    this.options = this.info.parseParamsEx(this, splitter);
   }
 
   /**
@@ -79,7 +85,7 @@ export class SimpleCommandMessage {
         this.name +
         ` ${this.info.options
           .map((op) => `{${op.name}: ${op.type}}`)
-          .join(this.info.argSplitter.toString())}` +
+          .join(" ")}` +
         "```"
     );
 

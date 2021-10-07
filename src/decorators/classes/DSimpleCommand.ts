@@ -26,7 +26,7 @@ export class DSimpleCommand extends Method {
   private _name: string;
   private _defaultPermission: boolean;
   private _directMessage: boolean;
-  private _argSplitter: ArgSplitter;
+  private _argSplitter?: ArgSplitter;
   private _options: DSimpleCommandOption[] = [];
   private _permissions: IPermissions[] = [];
   private _guilds: IGuild[];
@@ -61,10 +61,10 @@ export class DSimpleCommand extends Method {
     this._guilds = value;
   }
 
-  get argSplitter(): ArgSplitter {
+  get argSplitter(): ArgSplitter | undefined {
     return this._argSplitter;
   }
-  set argSplitter(value: ArgSplitter) {
+  set argSplitter(value: ArgSplitter | undefined) {
     this._argSplitter = value;
   }
 
@@ -118,7 +118,7 @@ export class DSimpleCommand extends Method {
     this._description = description ?? this.name;
     this._defaultPermission = defaultPermission ?? true;
     this._directMessage = directMessage ?? true;
-    this._argSplitter = argSplitter ?? " ";
+    this._argSplitter = argSplitter;
     this._options = [];
     this._permissions = [];
     this._guilds = guilds ?? [];
@@ -159,7 +159,8 @@ export class DSimpleCommand extends Method {
   }
 
   parseParamsEx(
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
+    splitter?: ArgSplitter
   ): (
     | string
     | number
@@ -176,11 +177,13 @@ export class DSimpleCommand extends Method {
       return [];
     }
 
+    const splitterEx = this.argSplitter ?? splitter ?? " ";
+
     const args =
-      typeof this.argSplitter === "function"
-        ? this.argSplitter(command)
+      typeof splitterEx === "function"
+        ? splitterEx(command)
         : command.argString
-            .split(this.argSplitter)
+            .split(splitterEx)
             .filter((op) => op?.length)
             .map((op) => op.trim());
 
