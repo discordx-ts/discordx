@@ -8,6 +8,7 @@ import {
   User,
 } from "discord.js";
 import {
+  ArgSplitter,
   DSimpleCommandOption,
   IGuild,
   IPermissions,
@@ -25,7 +26,7 @@ export class DSimpleCommand extends Method {
   private _name: string;
   private _defaultPermission: boolean;
   private _directMessage: boolean;
-  private _argSplitter: string | RegExp;
+  private _argSplitter: ArgSplitter;
   private _options: DSimpleCommandOption[] = [];
   private _permissions: IPermissions[] = [];
   private _guilds: IGuild[];
@@ -60,10 +61,10 @@ export class DSimpleCommand extends Method {
     this._guilds = value;
   }
 
-  get argSplitter(): string | RegExp {
+  get argSplitter(): ArgSplitter {
     return this._argSplitter;
   }
-  set argSplitter(value: string | RegExp) {
+  set argSplitter(value: ArgSplitter) {
     this._argSplitter = value;
   }
 
@@ -105,7 +106,7 @@ export class DSimpleCommand extends Method {
   protected constructor(
     name: string,
     description?: string,
-    argSplitter?: string | RegExp,
+    argSplitter?: ArgSplitter,
     directMessage?: boolean,
     defaultPermission?: boolean,
     guilds?: IGuild[],
@@ -128,7 +129,7 @@ export class DSimpleCommand extends Method {
   static create(
     name: string,
     description?: string,
-    argSplitter?: string | RegExp,
+    argSplitter?: ArgSplitter,
     directMessage?: boolean,
     defaultPermission?: boolean,
     guilds?: IGuild[],
@@ -175,10 +176,13 @@ export class DSimpleCommand extends Method {
       return [];
     }
 
-    const args = command.argString
-      .split(this.argSplitter)
-      .filter((op) => op?.length)
-      .map((op) => op.trim());
+    const args =
+      typeof this.argSplitter === "function"
+        ? this.argSplitter(command)
+        : command.argString
+            .split(this.argSplitter)
+            .filter((op) => op?.length)
+            .map((op) => op.trim());
 
     return this.options
       .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))

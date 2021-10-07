@@ -139,4 +139,19 @@ export abstract class commandTest {
             `Type: ${type}`
         );
   }
+
+  @SimpleCommand("splitme", {
+    argSplitter: (command) => {
+      return command.argString.split("|");
+    },
+  })
+  splitme(
+    @SimpleCommandOption("arg1") arg1: string,
+    @SimpleCommandOption("arg2") arg2: string,
+    command: SimpleCommandMessage
+  ): void {
+    !command.isValid()
+      ? command.sendUsageSyntax()
+      : command.message.reply(`arg1: ${arg1}\n` + `arg2: ${arg2}\n`);
+  }
 }

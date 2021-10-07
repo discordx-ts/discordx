@@ -1,7 +1,12 @@
-import { IGuild } from "../..";
+import { IGuild, SimpleCommandMessage } from "../..";
+
+export type ArgSplitter =
+  | string
+  | RegExp
+  | ((command: SimpleCommandMessage) => string[]);
 
 export interface SimpleCommandParams {
-  argSplitter?: string | RegExp;
+  argSplitter?: ArgSplitter;
   description?: string;
   directMessage?: boolean;
   defaultPermission?: boolean;
