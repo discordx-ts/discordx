@@ -63,7 +63,7 @@ import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js";
 class DiscordBot {
   @Slash("getID")
   getID(
-    @SlashOption("x", { type: "MENTIONABLE" })
+    @SlashOption("x", { type: "MENTIONABLE", required: true })
     mentionable: GuildMember | User | Role,
 
     interaction: CommandInteraction

@@ -15,7 +15,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
 ```ts
   @SimpleCommand("hello")
   async testCommand(
-    @SimpleCommandOption("name") name: string,
+    @SimpleCommandOption("name", { type: "STRING" }) name: string | undefined,
     command: SimpleCommandMessage
   ) {
     if (!name) return message.reply("usage: ``!hello <your name>``");
@@ -28,10 +28,10 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
 ```ts
   @SimpleCommand("add", { argSplitter: "+" })
   async add(
-    @SimpleCommandOption("x") x: number,
-    @SimpleCommandOption("y") y: number,
+    @SimpleCommandOption("x", { type: "INTEGER" }) x: number | undefined,
+    @SimpleCommandOption("y", { type: "INTEGER" }) y: number | undefined,
     command: SimpleCommandMessage
-  ): Promise<unknown> {
+  ) {
     if (!command.isValid()) return command.sendUsageSyntax();
     return command.message.reply(`${x + y}`);
   }
