@@ -213,5 +213,5 @@ On the Discord's developer portal, select your bot, go to the OAuth2 tab and che
 
 ## See also
 
-- [discord.js's documentation with Interactions (Slash commands)](https://discord.js.org/#/docs/main/master/general/welcome)
-- [Discord's Slash commands interactions](https://discord.com/developers/docs/interactions/slash-commands)
+- [Discord.js's documentation](https://discord.js.org/#/docs/main/stable/general/welcome)
+- [Discord's application command interactions](https://discord.com/developers/docs/interactions/application-commands)
