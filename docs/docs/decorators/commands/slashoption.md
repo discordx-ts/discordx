@@ -15,14 +15,16 @@ To declare an option you simply use the `@SlashOption` decorator before a method
 class DiscordBot {
   @Slash("add")
   add(
-    @SlashOption("x", { description: "x value" })
-    x: number,
-    @SlashOption("y", { description: "y value" })
-    y: number,
+    @SlashOption("x", { description: "x value", type: "INTEGER" })
+    x: number | undefined,
+    @SlashOption("y", { description: "y value", type: "INTEGER" })
+    y: number | undefined,
 
     interaction: CommandInteraction
   ) {
-    interaction.reply(String(x + y));
+    x ??= 0;
+    y ??= 0;
+    interaction.reply(x + y);
   }
 }
 ```
@@ -38,14 +40,14 @@ discord.**ts** convert automatically the infered type into discord.**js** option
 class DiscordBot {
   @Slash("add")
   add(
-    @SlashOption("x", { description: "x value" })
-    x: number, // :number, options are both INTEGER
-    @SlashOption("y", { description: "y value" })
-    y: number, // :number, options are both INTEGER
+    @SlashOption("x", { description: "x value", required: true })
+    x: number,
+    @SlashOption("y", { description: "y value", required: true })
+    y: number,
 
     interaction: CommandInteraction
   ) {
-    interaction.reply(String(x + y));
+    interaction.reply(x + y);
   }
 }
 ```
