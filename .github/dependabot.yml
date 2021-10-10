@@ -9,16 +9,16 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      time: "00:00"
+      time: "01:01"
 
   - package-ecosystem: "npm"
     directory: "/docs"
     schedule:
       interval: "daily"
-      time: "00:00"
+      time: "01:01"
 
   - package-ecosystem: "npm"
     directory: "/packages/utilities"
     schedule:
       interval: "daily"
-      time: "00:00"
+      time: "01:01"
