@@ -46,7 +46,7 @@ export class DIService {
     }
   }
 
-  getService<T extends unknown>(classType: T): InstanceOf<T> {
+  getService<T>(classType: T): InstanceOf<T> {
     const myClass = classType as unknown as new () => InstanceOf<T>;
     if (DIService.container) {
       return DIService.container.resolve(myClass) as InstanceOf<T>;
