@@ -978,11 +978,9 @@ export class Client extends ClientJS {
         const option = applicationCommand.options.find(
           (op) => op.name === focusOption.name
         );
-        if (option) {
-          if (typeof option.autocomplete === "function") {
-            option.autocomplete(interaction, applicationCommand);
-            return;
-          }
+        if (option && typeof option.autocomplete === "function")) {
+          option.autocomplete(interaction, applicationCommand);
+          return;
         }
       }
 
