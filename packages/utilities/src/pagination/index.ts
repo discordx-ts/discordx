@@ -29,7 +29,7 @@ export async function sendPaginatedEmbeds(
   sendTo: PaginationInteractions | Message | TextBasedChannels,
   embeds: embedType[] | Pagination,
   options?: PaginationOptions
-): Promise<void> {
+): Promise<Message> {
   // max length
   const maxLength =
     embeds instanceof Pagination ? embeds.maxLength : embeds.length;
@@ -167,4 +167,6 @@ export async function sendPaginatedEmbeds(
       options?.onPaginationTimeout(currentPage);
     }
   });
+
+  return message;
 }
