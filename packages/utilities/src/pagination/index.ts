@@ -136,9 +136,8 @@ export async function sendPaginatedEmbeds(
     ) {
       await collectInteraction.deferUpdate();
 
-      if (currentPage) {
-        currentPage = Number(collectInteraction.values[0] ?? "0");
-      }
+      // eslint-disable-next-line require-atomic-updates
+      currentPage = Number(collectInteraction.values[0]) ?? 0;
 
       if (currentPage === -1) {
         currentPage = 0;
