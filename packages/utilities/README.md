@@ -187,11 +187,12 @@ yarn add @discordx/utilities discord.js
 
 # Options
 
-| Name        | Type                  | Default   | Description                  |
-| ----------- | --------------------- | --------- | ---------------------------- |
-| initialPage | number                | 0         | Initial page                 |
-| time        | number                | 1_800_000 | Timeout for pagination in ms |
-| type        | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |
+| Name                | Type                  | Default   | Description                  |
+| ------------------- | --------------------- | --------- | ---------------------------- |
+| initialPage         | number                | 0         | Initial page                 |
+| onPaginationTimeout | Function              | undefined | Timeout callback             |
+| time                | number                | 1_800_000 | Timeout for pagination in ms |
+| type                | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |
 
 > When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.
 
