@@ -162,5 +162,9 @@ export async function sendPaginatedEmbeds(
     }
 
     await message.edit({ components: [] });
+
+    if (options?.onPaginationTimeout) {
+      options?.onPaginationTimeout(currentPage);
+    }
   });
 }

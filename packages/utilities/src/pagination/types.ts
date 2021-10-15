@@ -34,6 +34,11 @@ interface BasicPaginationOptions {
   initialPage?: number;
 
   /**
+   * Pagination timeout callback
+   */
+  onPaginationTimeout?: (page: number) => void;
+
+  /**
    * In milliseconds, how long should the paginator run. (Default: 30min)
    */
   time?: number;
