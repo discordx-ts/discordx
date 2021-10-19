@@ -257,6 +257,10 @@ class FakeInteraction {
   isSelectMenu() {
     return false;
   }
+
+  isAutocomplete() {
+    return false;
+  }
 }
 
 describe("Slash", () => {
