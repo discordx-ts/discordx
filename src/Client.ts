@@ -175,7 +175,7 @@ export class Client extends ClientJS {
     this.guards = options.guards ?? [];
     this.botGuilds = options.botGuilds ?? [];
     this._botId = options.botId ?? "bot";
-    this._prefix = options.prefix ?? "!";
+    this._prefix = options.simpleCommand?.prefix ?? "!";
     this._simpleCommandConfig = options.simpleCommand;
   }
 

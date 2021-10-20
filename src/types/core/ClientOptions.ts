@@ -8,6 +8,11 @@ import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
 
 export interface SimpleCommandConfig {
   /**
+   * bot prefix or prefix resolver
+   */
+  prefix?: string | ((message: Message) => Promise<string> | string);
+
+  /**
    * Define global response for cetain conditions
    */
   responses?: {
@@ -35,11 +40,6 @@ export interface ClientOptions extends DiscordJSClientOptions {
    * Specifiy bot id (added for multiple bot support)
    */
   botId?: string;
-
-  /**
-   * bot prefix resolver
-   */
-  prefix?: string | ((message: Message) => Promise<string> | string);
 
   /**
    * simple command related customization
