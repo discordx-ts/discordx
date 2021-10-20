@@ -1030,70 +1030,73 @@ export class Client extends ClientJS {
       return;
     }
 
-    // check for member permissions
-    if (command.info.defaultPermission) {
-      // when default perm is on
-      const permissions = await command.info.permissionsPromise(
-        command.message.guild
-      );
-      const userPermissions = permissions.filter(
-        (perm) => perm.type === "USER"
-      );
-      const rolePermissions = permissions.filter(
-        (perm) => perm.type === "ROLE"
-      );
-
-      const isUserIdNotAllowed =
-        userPermissions.some((perm) => perm.id === message.member?.id) ||
-        rolePermissions.some((perm) =>
-          message.member?.roles.cache.has(perm.id)
+    // permission works only if guild persent
+    if (command.message.guild) {
+      // check for member permissions
+      if (command.info.defaultPermission) {
+        // when default perm is on
+        const permissions = await command.info.permissionsPromise(
+          command.message.guild
+        );
+        const userPermissions = permissions.filter(
+          (perm) => perm.type === "USER"
+        );
+        const rolePermissions = permissions.filter(
+          (perm) => perm.type === "ROLE"
         );
 
-      // user is not allowed to access this command
-      if (isUserIdNotAllowed) {
-        const unauthorizedResponse =
-          this.simpleCommandConfig?.responses?.unauthorised;
+        const isUserIdNotAllowed =
+          userPermissions.some((perm) => perm.id === message.member?.id) ||
+          rolePermissions.some((perm) =>
+            message.member?.roles.cache.has(perm.id)
+          );
 
-        if (unauthorizedResponse) {
-          if (typeof unauthorizedResponse === "string") {
-            message.reply(unauthorizedResponse);
-            return;
+        // user is not allowed to access this command
+        if (isUserIdNotAllowed) {
+          const unauthorizedResponse =
+            this.simpleCommandConfig?.responses?.unauthorised;
+
+          if (unauthorizedResponse) {
+            if (typeof unauthorizedResponse === "string") {
+              message.reply(unauthorizedResponse);
+              return;
+            }
+            await unauthorizedResponse(command);
           }
-          await unauthorizedResponse(command);
+          return;
         }
-        return;
-      }
-    } else {
-      // when default perm is off
-      const permissions = await command.info.permissionsPromise(
-        command.message.guild
-      );
-      const userPermissions = permissions.filter(
-        (perm) => perm.type === "USER"
-      );
-      const rolePermissions = permissions.filter(
-        (perm) => perm.type === "ROLE"
-      );
-
-      const isUserIdAllowed =
-        userPermissions.some((perm) => perm.id === message.member?.id) ||
-        rolePermissions.some((perm) =>
-          message.member?.roles.cache.has(perm.id)
+      } else {
+        // when default perm is off
+        const permissions = await command.info.permissionsPromise(
+          command.message.guild
+        );
+        const userPermissions = permissions.filter(
+          (perm) => perm.type === "USER"
+        );
+        const rolePermissions = permissions.filter(
+          (perm) => perm.type === "ROLE"
         );
 
-      // user does not have any permission to access this command
-      if (!isUserIdAllowed) {
-        const unauthorizedResponse =
-          this.simpleCommandConfig?.responses?.unauthorised;
+        const isUserIdAllowed =
+          userPermissions.some((perm) => perm.id === message.member?.id) ||
+          rolePermissions.some((perm) =>
+            message.member?.roles.cache.has(perm.id)
+          );
 
-        if (unauthorizedResponse) {
-          if (typeof unauthorizedResponse === "string") {
-            message.reply(unauthorizedResponse);
-            return;
+        // user does not have any permission to access this command
+        if (!isUserIdAllowed) {
+          const unauthorizedResponse =
+            this.simpleCommandConfig?.responses?.unauthorised;
+
+          if (unauthorizedResponse) {
+            if (typeof unauthorizedResponse === "string") {
+              message.reply(unauthorizedResponse);
+              return;
+            }
+            await unauthorizedResponse(command);
           }
-          await unauthorizedResponse(command);
+          return;
         }
-        return;
       }
     }
 

@@ -149,7 +149,7 @@ export class DSimpleCommand extends Method {
   }
 
   permissionsPromise(
-    guild: Guild | null
+    guild: Guild
   ): Promise<ApplicationCommandPermissionData[]> {
     return resolveIPermission(guild, this.permissions);
   }

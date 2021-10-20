@@ -129,7 +129,7 @@ export class DDiscord extends Decorator {
   }
 
   permissionsPromise(
-    guild: Guild | null
+    guild: Guild
   ): Promise<ApplicationCommandPermissionData[]> {
     return resolveIPermission(guild, this.permissions);
   }
