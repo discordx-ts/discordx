@@ -1033,70 +1033,41 @@ export class Client extends ClientJS {
     // permission works only if guild persent
     if (command.message.guild) {
       // check for member permissions
-      if (command.info.defaultPermission) {
-        // when default perm is on
-        const permissions = await command.info.permissionsPromise(
-          command.message.guild
-        );
-        const userPermissions = permissions.filter(
-          (perm) => perm.type === "USER"
-        );
-        const rolePermissions = permissions.filter(
-          (perm) => perm.type === "ROLE"
+      const permissions = await command.info.permissionsPromise(
+        command.message.guild
+      );
+
+      const userPermissions = permissions.filter((perm) =>
+        perm.type === "USER" && command.info.defaultPermission
+          ? !perm.permission
+          : perm.permission
+      );
+
+      const rolePermissions = permissions.filter((perm) =>
+        perm.type === "ROLE" && command.info.defaultPermission
+          ? !perm.permission
+          : perm.permission
+      );
+
+      const isUserIdPresent =
+        userPermissions.some((perm) => perm.id === message.member?.id) ||
+        rolePermissions.some((perm) =>
+          message.member?.roles.cache.has(perm.id)
         );
 
-        const isUserIdNotAllowed =
-          userPermissions.some((perm) => perm.id === message.member?.id) ||
-          rolePermissions.some((perm) =>
-            message.member?.roles.cache.has(perm.id)
-          );
+      // user is not allowed to access this command
+      if (command.info.defaultPermission ? isUserIdPresent : !isUserIdPresent) {
+        const unauthorizedResponse =
+          this.simpleCommandConfig?.responses?.unauthorised;
 
-        // user is not allowed to access this command
-        if (isUserIdNotAllowed) {
-          const unauthorizedResponse =
-            this.simpleCommandConfig?.responses?.unauthorised;
-
-          if (unauthorizedResponse) {
-            if (typeof unauthorizedResponse === "string") {
-              message.reply(unauthorizedResponse);
-              return;
-            }
-            await unauthorizedResponse(command);
+        if (unauthorizedResponse) {
+          if (typeof unauthorizedResponse === "string") {
+            message.reply(unauthorizedResponse);
+            return;
           }
-          return;
+          await unauthorizedResponse(command);
         }
-      } else {
-        // when default perm is off
-        const permissions = await command.info.permissionsPromise(
-          command.message.guild
-        );
-        const userPermissions = permissions.filter(
-          (perm) => perm.type === "USER"
-        );
-        const rolePermissions = permissions.filter(
-          (perm) => perm.type === "ROLE"
-        );
-
-        const isUserIdAllowed =
-          userPermissions.some((perm) => perm.id === message.member?.id) ||
-          rolePermissions.some((perm) =>
-            message.member?.roles.cache.has(perm.id)
-          );
-
-        // user does not have any permission to access this command
-        if (!isUserIdAllowed) {
-          const unauthorizedResponse =
-            this.simpleCommandConfig?.responses?.unauthorised;
-
-          if (unauthorizedResponse) {
-            if (typeof unauthorizedResponse === "string") {
-              message.reply(unauthorizedResponse);
-              return;
-            }
-            await unauthorizedResponse(command);
-          }
-          return;
-        }
+        return;
       }
     }
 

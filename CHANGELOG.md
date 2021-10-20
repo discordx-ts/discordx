@@ -25,7 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- removed null from guild type (`@Permission`), as guild always defined
+- Removed null from `@permission` resolver type, because guild is always defined
+- Fixed permission check issue with simple command, where allowed permission was considered unauthorized
 
 ## [6.2.0] - 2021-10-13
 
