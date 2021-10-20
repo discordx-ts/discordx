@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [1.4.6] - 2021-10-20
+
+### Fixed
+
+- undefined description, when define new category
+
 ## [1.4.5] - 2021-10-15
 
 ### Fixed

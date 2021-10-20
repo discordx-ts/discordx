@@ -18,6 +18,7 @@ export class Main {
         `${__dirname}/discords/*.{js,ts}`,
       ],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+      prefix: "!",
     });
 
     // In the login method, you must specify the glob string to load your classes (for the framework).
@@ -31,7 +32,7 @@ export class Main {
       console.log("Bot started");
 
       CategoryMetaData.categories.forEach((cat) => {
-        console.log(cat.name, JSON.stringify(cat.items));
+        console.log(cat);
       });
     });
 

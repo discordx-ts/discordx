@@ -80,7 +80,11 @@ export function Category(
   if (!arg || typeof arg === "string") {
     const find = CategoryMetaData.categories.get(name);
     if (!find) {
-      CategoryMetaData.categories.set(name, { items: [], name });
+      CategoryMetaData.categories.set(name, {
+        description: arg,
+        items: [],
+        name,
+      });
     } else {
       find.description = arg;
       CategoryMetaData.categories.set(name, find);
