@@ -1,4 +1,5 @@
 import * as glob from "glob";
+import _ = require("lodash");
 import {
   ArgsOf,
   Client,
@@ -287,8 +288,16 @@ export class MetadataStorage {
     this._applicationCommands = this.groupSlashes();
 
     this._simpleCommands.forEach((cmd) => {
+      if (_.some(this._allSimpleCommands, { command: cmd, name: cmd.name })) {
+        throw Error(`Duplicate simple command name: ${cmd.name}`);
+      }
       this._allSimpleCommands.push({ command: cmd, name: cmd.name });
       cmd.aliases.forEach((al) => {
+        if (_.some(this._allSimpleCommands, { command: cmd, name: al })) {
+          throw Error(
+            `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`
+          );
+        }
         this._allSimpleCommands.push({ command: cmd, name: al });
       });
     });

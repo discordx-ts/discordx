@@ -52,7 +52,7 @@ export abstract class commandTest {
   }
 
   @SimpleCommand("permcheck", { aliases: ["ptest"] })
-  @Permission(true)
+  @Permission(false)
   @Permission({
     id: "462341082919731200",
     permission: true,
