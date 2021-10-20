@@ -1,5 +1,5 @@
+import * as _ from "lodash";
 import * as glob from "glob";
-import _ = require("lodash");
 import {
   ArgsOf,
   Client,
