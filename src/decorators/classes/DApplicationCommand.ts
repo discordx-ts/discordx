@@ -135,7 +135,7 @@ export class DApplicationCommand extends Method {
   }
 
   permissionsPromise(
-    guild: Guild | null
+    guild: Guild
   ): Promise<ApplicationCommandPermissionData[]> {
     return resolveIPermission(guild, this.permissions);
   }

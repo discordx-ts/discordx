@@ -5,7 +5,7 @@ export type IPermissions =
   | ApplicationCommandPermissionData
   | ApplicationCommandPermissionData[]
   | ((
-      guild: Guild | null
+      guild: Guild
     ) =>
       | ApplicationCommandPermissionData
       | ApplicationCommandPermissionData[]

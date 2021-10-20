@@ -14,7 +14,7 @@ export const resolveIGuild = async (
 };
 
 export const resolveIPermission = async (
-  guild: Guild | null,
+  guild: Guild,
   permissions: IPermissions[]
 ): Promise<ApplicationCommandPermissionData[]> => {
   const permissionx = await Promise.all(
