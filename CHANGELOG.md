@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 `[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#620---2021-10-13)`
 
+## [6.2.1] - 2021-10-20
+
+### Fixed
+
+- removed null from guild type (`@Permission`), as guild always defined
+
 ## [6.2.0] - 2021-10-13
 
 ### Changed
