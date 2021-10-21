@@ -1,13 +1,8 @@
 name: Publish - Dev
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "package.json"
-      - "package-lock.json"
+  schedule:
+    - cron: "0 */6 * * *"
 
 jobs:
   build:
@@ -35,6 +30,6 @@ jobs:
       - name: Publish
         run: |
           npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
-          npm publish --tag dev
+          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)") ]]; then echo "skipping release"; else npm publish --tag dev; fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
