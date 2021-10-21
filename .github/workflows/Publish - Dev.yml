@@ -8,12 +8,13 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to npm /
-      - name: Install Node v16
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
         uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
       - name: pre-release
