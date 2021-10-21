@@ -9,13 +9,16 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    versioning-strategy: increase
 
   - package-ecosystem: "npm"
     directory: "/docs"
     schedule:
       interval: "daily"
+    versioning-strategy: increase
 
   - package-ecosystem: "npm"
     directory: "/packages/utilities"
     schedule:
       interval: "daily"
+    versioning-strategy: increase
