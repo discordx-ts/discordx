@@ -18,6 +18,6 @@ jobs:
 
       - name: Check
         run: |
-        echo "$(npm view discordx@dev version)"
-        echo "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)"
-        if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)") ]]; then echo "skipping release"; else echo "publish"; fi
+          echo $(npm view discordx@dev version)
+          echo "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)"
+          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)") ]]; then echo "skipping release"; else echo "publish"; fi
