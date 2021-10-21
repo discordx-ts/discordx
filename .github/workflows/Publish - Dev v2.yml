@@ -21,3 +21,15 @@ jobs:
           echo $(npm view discordx@dev version)
           echo "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)"
           if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)") ]]; then echo "skipping release"; else echo "publish"; fi
+
+      - name: Set selected color
+        run: echo '::set-output name=SELECTED_COLOR::green'
+        id: random-color-generator
+
+      - name: Get color
+        if: ${{ steps.random-color-generator.outputs.SELECTED_COLOR == "red" }}
+        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+        
+      - name: Get color 2
+        if: ${{ steps.random-color-generator.outputs.SELECTED_COLOR == "green" }}
+        run: echo "The selected color 2 is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
