@@ -1,0 +1,23 @@
+name: Publish - Dev v2
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm /
+      - name: Install Node v16
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Check
+        run: |
+        echo "$(npm view discordx@dev version)""
+        echo "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)"
+        if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)") ]]; then echo "skipping release"; else echo "publish"; fi
