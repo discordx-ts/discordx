@@ -1,5 +1,7 @@
 import { ApplicationCommandPermissionData, Guild, Snowflake } from "discord.js";
-import { Client } from "../..";
+import { Client, DefaultPermissionResolver } from "../..";
+
+export type IDefaultPermission = boolean | DefaultPermissionResolver;
 
 export type IPermissions =
   | ApplicationCommandPermissionData

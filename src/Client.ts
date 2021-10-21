@@ -448,11 +448,15 @@ export class Client extends ClientJS {
 
     const addOperation = options?.disable?.add
       ? []
-      : added.map((DCommand) => guild.commands.create(DCommand.toJSON()));
+      : added.map(async (DCommand) =>
+          guild.commands.create(await DCommand.toJSON({ guild }))
+        );
 
     const updateOperation = options?.disable?.update
       ? []
-      : updated.map((command) => command[0].edit(command[1].toJSON()));
+      : updated.map(async (command) =>
+          command[0].edit(await command[1].toJSON({ guild }))
+        );
 
     const deleteOperation = options?.disable?.delete
       ? []
@@ -550,13 +554,13 @@ export class Client extends ClientJS {
         // add
         ...(options?.disable?.add
           ? []
-          : added.map((DCommand) =>
-              this.application?.commands.create(DCommand.toJSON())
+          : added.map(async (DCommand) =>
+              this.application?.commands.create(await DCommand.toJSON())
             )),
         // update
         ...(options?.disable?.update
           ? []
-          : updated.map((ob) => ob[0].edit(ob[1].toJSON()))),
+          : updated.map(async (ob) => ob[0].edit(await ob[1].toJSON()))),
         // delete
         ...(options?.disable?.delete
           ? []
@@ -1037,14 +1041,19 @@ export class Client extends ClientJS {
         command.message.guild
       );
 
-      const userPermissions = permissions.filter((perm) =>
-        perm.type === "USER" && command.info.defaultPermission
+      const defaultPermission =
+        typeof command.info.defaultPermission === "boolean"
+          ? command.info.defaultPermission
+          : command.info.defaultPermission.resolver(command.message.guild);
+
+      const userPermissions = permissions.filter(async (perm) =>
+        perm.type === "USER" && (await defaultPermission)
           ? !perm.permission
           : perm.permission
       );
 
-      const rolePermissions = permissions.filter((perm) =>
-        perm.type === "ROLE" && command.info.defaultPermission
+      const rolePermissions = permissions.filter(async (perm) =>
+        perm.type === "ROLE" && (await defaultPermission)
           ? !perm.permission
           : perm.permission
       );

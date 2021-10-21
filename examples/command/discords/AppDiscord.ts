@@ -1,5 +1,6 @@
 import { Channel, Role, User } from "discord.js";
 import {
+  DefaultPermissionResolver,
   Discord,
   Permission,
   SimpleCommand,
@@ -52,7 +53,14 @@ export abstract class commandTest {
   }
 
   @SimpleCommand("permcheck", { aliases: ["ptest"] })
-  @Permission(false)
+  @Permission(
+    new DefaultPermissionResolver((guild) => {
+      if (!guild) {
+        return false;
+      }
+      return true;
+    })
+  )
   @Permission({
     id: "462341082919731200",
     permission: true,

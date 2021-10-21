@@ -10,6 +10,7 @@ import {
 import {
   ArgSplitter,
   DSimpleCommandOption,
+  IDefaultPermission,
   IGuild,
   IPermissions,
   SimpleCommandMessage,
@@ -24,7 +25,7 @@ import { Method } from "./Method";
 export class DSimpleCommand extends Method {
   private _description: string;
   private _name: string;
-  private _defaultPermission: boolean;
+  private _defaultPermission: IDefaultPermission;
   private _directMessage: boolean;
   private _argSplitter?: ArgSplitter;
   private _options: DSimpleCommandOption[] = [];
@@ -75,10 +76,10 @@ export class DSimpleCommand extends Method {
     this._directMessage = value;
   }
 
-  get defaultPermission(): boolean {
+  get defaultPermission(): IDefaultPermission {
     return this._defaultPermission;
   }
-  set defaultPermission(value: boolean) {
+  set defaultPermission(value: IDefaultPermission) {
     this._defaultPermission = value;
   }
 
