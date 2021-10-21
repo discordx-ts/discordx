@@ -288,12 +288,12 @@ export class MetadataStorage {
     this._applicationCommands = this.groupSlashes();
 
     this._simpleCommands.forEach((cmd) => {
-      if (_.some(this._allSimpleCommands, { command: cmd, name: cmd.name })) {
+      if (_.findIndex(this._allSimpleCommands, { name: cmd.name }) !== -1) {
         throw Error(`Duplicate simple command name: ${cmd.name}`);
       }
       this._allSimpleCommands.push({ command: cmd, name: cmd.name });
       cmd.aliases.forEach((al) => {
-        if (_.some(this._allSimpleCommands, { command: cmd, name: al })) {
+        if (_.findIndex(this._allSimpleCommands, { name: al }) !== -1) {
           throw Error(
             `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`
           );
