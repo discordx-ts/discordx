@@ -8,7 +8,7 @@ on:
       - "docs/**"
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎
