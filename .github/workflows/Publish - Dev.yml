@@ -23,7 +23,7 @@ jobs:
         run: npm run build
 
       - name: Deprecate old versions
-        run: npm deprecate discordx@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        run: if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-7)") ]]; then echo "skipping release"; else npm deprecate discordx@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true; fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
