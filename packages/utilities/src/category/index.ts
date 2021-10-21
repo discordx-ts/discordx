@@ -9,9 +9,9 @@ export type CategoryItemTypes =
 
 interface ICategoryBase {
   botIds?: string[];
+  description?: string;
   examples?: string[];
   name: string;
-  description?: string;
 }
 
 export interface ICategoryItem extends ICategoryBase {
@@ -19,13 +19,22 @@ export interface ICategoryItem extends ICategoryBase {
 }
 
 export interface ICategoryItemOption {
-  name: string;
   description?: string;
-  optional: boolean;
+  name: string;
+  optional?: boolean;
   type: SlashOptionType;
 }
 
+export interface ICategoryAttachment {
+  description?: string;
+  extensions?: string[];
+  name: string;
+  optional?: boolean;
+  type: string;
+}
+
 export interface ICategoryItemCommand extends ICategoryBase {
+  attachments?: ICategoryAttachment[];
   options: ICategoryItemOption[];
   type: Exclude<
     CategoryItemTypes,
