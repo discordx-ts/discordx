@@ -8,6 +8,18 @@ jobs:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
+      - name: Approve PR
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              pull_number: context.payload.pull_request.number,
+              event: 'APPROVE'
+            })
+          github-token: ${{github.token}}
+
       - name: Enable AutoMerge
         uses: actions/github-script@v5
         with:
@@ -49,18 +61,6 @@ jobs:
             const resultTwo = await github.graphql(queryTwo, variablesTwo)
             console.log(resultTwo.enablePullRequestAutoMerge.pullRequest.autoMergeRequest)
           github-token: ${{github.token}}
-
-      # - name: Approve PR
-      #   uses: actions/github-script@v5
-      #   with:
-      #     script: |
-      #       github.rest.pulls.createReview({
-      #         owner: context.payload.repository.owner.login,
-      #         repo: context.payload.repository.name,
-      #         pull_number: context.payload.pull_request.number,
-      #         event: 'APPROVE'
-      #       })
-      #     github-token: ${{github.token}}
 
       # github.rest.pulls.merge({
       #   owner: context.payload.repository.owner.login,
