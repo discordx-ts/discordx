@@ -1,4 +1,4 @@
-name: Publish - Dev
+name: Publish - Dev Utilities
 on:
   workflow_dispatch:
   schedule:
