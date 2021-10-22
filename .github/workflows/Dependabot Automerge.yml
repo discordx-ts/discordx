@@ -12,7 +12,22 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const query = `mutation ($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
+            const queryOne = `query GetPullRequestId($owner: String!, $repo: String!, $pullRequestNumber: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pullRequestNumber) {
+                  id
+                }
+              }
+            }`
+            const variablesOne = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pullRequestNumber: context.payload.pull_request.number
+            }
+            const resultOne = await github.graphql(queryOne, variablesOne)
+            const pullRequestId = resultOne.repository.pullRequest.id
+
+            const queryTwo = `mutation ($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
               enablePullRequestAutoMerge(input: {
                 pullRequestId: $pullRequestId,
                 mergeMethod: $mergeMethod
@@ -27,12 +42,12 @@ jobs:
                 }
               }
             }`
-            const variables = {
-              pullRequestId: context.payload.pull_request.number,
+            const variablesTwo = {
+              pullRequestId: pullRequestId,
               mergeMethod: 'MERGE'
             }
-            const result = await github.graphql(query, variables)
-            console.log(result)
+            const resultTwo = await github.graphql(queryTwo, variablesTwo)
+            console.log(resultTwo.enablePullRequestAutoMerge.pullRequest.autoMergeRequest)
           github-token: ${{github.token}}
 
       - name: Approve PR
