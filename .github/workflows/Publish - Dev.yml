@@ -46,3 +46,38 @@ jobs:
           npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: "Utilities: Install Root Dependencies"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm ci --ignore-scripts
+
+      - name: "Utilities: Install Dependencies"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm ci --ignore-scripts
+        working-directory: ./packages/utilities
+
+      - name: "Utilities: Update discordx"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm install discordx@dev
+        working-directory: ./packages/utilities
+
+      - name: "Utilities: Build"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm run build
+        working-directory: ./packages/utilities
+
+      - name: "Utilities: Deprecate old versions"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm deprecate @discordx/utilities@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        working-directory: ./packages/utilities
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: "Utilities: Publish"
+        if: steps.pre-release.outputs.release == 'true'
+        run: |
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
+          npm publish --tag dev
+        working-directory: ./packages/utilities
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
