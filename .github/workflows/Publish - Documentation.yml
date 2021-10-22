@@ -28,7 +28,9 @@ jobs:
         working-directory: ./docs
 
       - name: Build docs
-        run: npm run build
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          npm run build
         working-directory: ./docs
 
       - name: Add CNAME
