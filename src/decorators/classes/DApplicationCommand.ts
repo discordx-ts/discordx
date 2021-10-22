@@ -156,7 +156,7 @@ export class DApplicationCommand extends Method {
 
   async toJSON(config?: {
     channelString?: boolean;
-    guild?: Guild;
+    command?: DApplicationCommand;
   }): Promise<ApplicationCommandData> {
     const options = [...this.options]
       .reverse()
@@ -167,7 +167,7 @@ export class DApplicationCommand extends Method {
         defaultPermission:
           typeof this.defaultPermission === "boolean"
             ? this.defaultPermission
-            : await this.defaultPermission.resolver(config?.guild),
+            : await this.defaultPermission.resolver(config?.command),
         description: this.description,
         name: this.name,
         options: options,
@@ -179,7 +179,7 @@ export class DApplicationCommand extends Method {
       defaultPermission:
         typeof this.defaultPermission === "boolean"
           ? this.defaultPermission
-          : await this.defaultPermission.resolver(config?.guild),
+          : await this.defaultPermission.resolver(config?.command),
       description: "",
       name: this.name,
       options: [],

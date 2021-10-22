@@ -450,13 +450,13 @@ export class Client extends ClientJS {
     const addOperation = options?.disable?.add
       ? []
       : added.map(async (DCommand) =>
-          guild.commands.create(await DCommand.toJSON({ guild }))
+          guild.commands.create(await DCommand.toJSON({ command: DCommand }))
         );
 
     const updateOperation = options?.disable?.update
       ? []
       : updated.map(async (command) =>
-          command[0].edit(await command[1].toJSON({ guild }))
+          command[0].edit(await command[1].toJSON({ command: command[1] }))
         );
 
     const deleteOperation = options?.disable?.delete
@@ -1047,7 +1047,7 @@ export class Client extends ClientJS {
       const defaultPermission =
         typeof command.info.defaultPermission === "boolean"
           ? command.info.defaultPermission
-          : command.info.defaultPermission.resolver(command.message.guild);
+          : command.info.defaultPermission.resolver(command);
 
       const userPermissions = permissions.filter(async (perm) =>
         perm.type === "USER" && (await defaultPermission)

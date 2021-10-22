@@ -1,8 +1,14 @@
-import { Guild } from "discord.js";
+import { DApplicationCommand, SimpleCommandMessage } from "..";
 
 export class DefaultPermissionResolver {
-  resolver: (guild?: Guild) => boolean | Promise<boolean>;
-  constructor(resolver: (guild?: Guild) => boolean | Promise<boolean>) {
+  resolver: (
+    command?: SimpleCommandMessage | DApplicationCommand
+  ) => boolean | Promise<boolean>;
+  constructor(
+    resolver: (
+      guild?: SimpleCommandMessage | DApplicationCommand
+    ) => boolean | Promise<boolean>
+  ) {
     this.resolver = resolver;
   }
 }

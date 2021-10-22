@@ -54,8 +54,8 @@ export abstract class commandTest {
 
   @SimpleCommand("permcheck", { aliases: ["ptest"] })
   @Permission(
-    new DefaultPermissionResolver((guild) => {
-      if (!guild) {
+    new DefaultPermissionResolver((command) => {
+      if (!command) {
         return false;
       }
       return true;
