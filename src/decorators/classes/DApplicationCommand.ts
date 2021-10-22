@@ -8,6 +8,7 @@ import {
 
 import {
   ApplicationCommandMixin,
+  ApplicationGuildMixin,
   DApplicationCommandOption,
   IDefaultPermission,
   IGuild,
@@ -156,7 +157,7 @@ export class DApplicationCommand extends Method {
 
   async toJSON(config?: {
     channelString?: boolean;
-    command?: DApplicationCommand;
+    command?: ApplicationGuildMixin;
   }): Promise<ApplicationCommandData> {
     const options = [...this.options]
       .reverse()

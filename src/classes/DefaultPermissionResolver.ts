@@ -1,12 +1,13 @@
-import { DApplicationCommand, SimpleCommandMessage } from "..";
+import { ApplicationGuildMixin, SimpleCommandMessage } from "..";
 
 export class DefaultPermissionResolver {
   resolver: (
-    command?: SimpleCommandMessage | DApplicationCommand
+    command?: SimpleCommandMessage | ApplicationGuildMixin
   ) => boolean | Promise<boolean>;
+
   constructor(
     resolver: (
-      guild?: SimpleCommandMessage | DApplicationCommand
+      command?: SimpleCommandMessage | ApplicationGuildMixin
     ) => boolean | Promise<boolean>
   ) {
     this.resolver = resolver;

@@ -11,6 +11,7 @@ import {
 } from "discord.js";
 import {
   ApplicationCommandMixin,
+  ApplicationGuildMixin,
   ClientOptions,
   DApplicationCommand,
   DApplicationCommandOption,
@@ -450,13 +451,21 @@ export class Client extends ClientJS {
     const addOperation = options?.disable?.add
       ? []
       : added.map(async (DCommand) =>
-          guild.commands.create(await DCommand.toJSON({ command: DCommand }))
+          guild.commands.create(
+            await DCommand.toJSON({
+              command: new ApplicationGuildMixin(guild, DCommand),
+            })
+          )
         );
 
     const updateOperation = options?.disable?.update
       ? []
       : updated.map(async (command) =>
-          command[0].edit(await command[1].toJSON({ command: command[1] }))
+          command[0].edit(
+            await command[1].toJSON({
+              command: new ApplicationGuildMixin(guild, command[1]),
+            })
+          )
         );
 
     const deleteOperation = options?.disable?.delete
