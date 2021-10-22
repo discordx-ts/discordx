@@ -20,8 +20,8 @@ jobs:
               }
             }`
             const variablesOne = {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
               pullRequestNumber: context.payload.pull_request.number
             }
             const resultOne = await github.graphql(queryOne, variablesOne)
