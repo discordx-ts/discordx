@@ -84,7 +84,7 @@ jobs:
 
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
-        run: npm deprecate discordx@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        run: npm deprecate @discordx/utilities@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
         working-directory: ./packages/utilities
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
