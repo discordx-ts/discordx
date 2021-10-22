@@ -2,6 +2,9 @@ import * as _ from "lodash";
 import {
   ApplicationCommandMixin,
   Client,
+  DApplicationCommand,
+  DComponentButton,
+  DComponentSelectMenu,
   IGuild,
   IPermissions,
   SimpleCommandMessage,
@@ -10,10 +13,18 @@ import { ApplicationCommandPermissionData, Guild } from "discord.js";
 
 export const resolveIGuild = async (
   client: Client,
+  command:
+    | DApplicationCommand
+    | DComponentButton
+    | SimpleCommandMessage
+    | DComponentSelectMenu
+    | undefined,
   guilds: IGuild[]
 ): Promise<string[]> => {
   const guildx = await Promise.all(
-    guilds.map((guild) => (typeof guild === "function" ? guild(client) : guild))
+    guilds.map((guild) =>
+      typeof guild === "function" ? guild(client, command) : guild
+    )
   );
 
   return _.uniqWith(guildx.flat(1), _.isEqual);

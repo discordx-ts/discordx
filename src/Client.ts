@@ -53,7 +53,7 @@ export class Client extends ClientJS {
     this._botGuilds = value;
   }
   get botGuildsResolved(): Promise<string[]> {
-    return resolveIGuild(this, this._botGuilds);
+    return resolveIGuild(this, undefined, this._botGuilds);
   }
 
   get guards(): GuardFunction[] {
@@ -301,7 +301,7 @@ export class Client extends ClientJS {
     // group single guild commands together
     await Promise.all(
       allGuildDCommands.map(async (DCommand) => {
-        const guilds = await resolveIGuild(this, [
+        const guilds = await resolveIGuild(this, DCommand, [
           ...botGuildsResolved,
           ...DCommand.guilds,
         ]);
@@ -426,9 +426,9 @@ export class Client extends ClientJS {
           return;
         }
 
-        const guilds = await resolveIGuild(this, [
+        const guilds = await resolveIGuild(this, DCommandx, [
           ...botGuildsResolved,
-          ...(DCommandx.guilds ?? []),
+          ...DCommandx.guilds,
         ]);
 
         // delete command if it's not registered for given guild
@@ -817,10 +817,16 @@ export class Client extends ClientJS {
         (DButton) => DButton.id === interaction.customId
       );
 
-      const guilds = await resolveIGuild(this, [
-        ...botGuildsResolved,
-        ...(button?.guilds ?? []),
-      ]);
+      const guilds: string[] = [];
+
+      if (button) {
+        guilds.push(
+          ...(await resolveIGuild(this, button, [
+            ...botGuildsResolved,
+            ...button.guilds,
+          ]))
+        );
+      }
 
       if (
         !button ||
@@ -846,10 +852,16 @@ export class Client extends ClientJS {
         (DSelectMenu) => DSelectMenu.id === interaction.customId
       );
 
-      const guilds = await resolveIGuild(this, [
-        ...botGuildsResolved,
-        ...(menu?.guilds ?? []),
-      ]);
+      const guilds: string[] = [];
+
+      if (menu) {
+        guilds.push(
+          ...(await resolveIGuild(this, menu, [
+            ...botGuildsResolved,
+            ...menu.guilds,
+          ]))
+        );
+      }
 
       if (
         !menu ||
@@ -876,10 +888,16 @@ export class Client extends ClientJS {
           cmd.type !== "CHAT_INPUT" && cmd.name === interaction.commandName
       );
 
-      const guilds = await resolveIGuild(this, [
-        ...botGuildsResolved,
-        ...(applicationCommand?.guilds ?? []),
-      ]);
+      const guilds: string[] = [];
+
+      if (applicationCommand) {
+        guilds.push(
+          ...(await resolveIGuild(this, applicationCommand, [
+            ...botGuildsResolved,
+            ...applicationCommand.guilds,
+          ]))
+        );
+      }
 
       if (
         !applicationCommand ||
@@ -1050,7 +1068,7 @@ export class Client extends ClientJS {
     }
 
     // validate guild id
-    const commandGuilds = await resolveIGuild(this, [
+    const commandGuilds = await resolveIGuild(this, command, [
       ...botGuildsResolved,
       ...command.info.guilds,
     ]);
