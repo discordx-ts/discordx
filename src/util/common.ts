@@ -9,7 +9,7 @@ import {
   IPermissions,
   SimpleCommandMessage,
 } from "..";
-import { ApplicationCommandPermissionData, Guild } from "discord.js";
+import { ApplicationCommandPermissions, Guild } from "discord.js";
 
 export const resolveIGuild = async (
   client: Client,
@@ -34,7 +34,7 @@ export const resolveIPermission = async (
   guild: Guild,
   command: ApplicationCommandMixin | SimpleCommandMessage,
   permissions: IPermissions[]
-): Promise<ApplicationCommandPermissionData[]> => {
+): Promise<ApplicationCommandPermissions[]> => {
   const permissionx = await Promise.all(
     permissions.map((resolver) =>
       typeof resolver === "function" ? resolver(guild, command) : resolver

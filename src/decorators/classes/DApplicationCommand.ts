@@ -1,6 +1,6 @@
 import {
   ApplicationCommandData,
-  ApplicationCommandPermissionData,
+  ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
   Guild,
@@ -140,7 +140,7 @@ export class DApplicationCommand extends Method {
   permissionsPromise(
     guild: Guild,
     command: ApplicationCommandMixin
-  ): Promise<ApplicationCommandPermissionData[]> {
+  ): Promise<ApplicationCommandPermissions[]> {
     return resolveIPermission(guild, command, this.permissions);
   }
 

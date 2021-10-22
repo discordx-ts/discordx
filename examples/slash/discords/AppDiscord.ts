@@ -6,7 +6,9 @@ import {
   User,
 } from "discord.js";
 import {
+  DefaultPermissionResolver,
   Discord,
+  Permission,
   Slash,
   SlashChoice,
   SlashGroup,
@@ -98,6 +100,19 @@ export abstract class AppDiscord1 {
   }
 
   @Slash("voicechannel")
+  @Permission(
+    new DefaultPermissionResolver((command) => {
+      if (!command) {
+        return false;
+      }
+      return true;
+    })
+  )
+  @Permission({
+    id: "462341082919731200",
+    permission: true,
+    type: "USER",
+  })
   voicechannel(
     @SlashOption("channel", {
       channelTypes: [ChannelTypes.GUILD_VOICE],

@@ -7,21 +7,21 @@ import {
   DefaultPermissionResolver,
   SimpleCommandMessage,
 } from "../..";
-import { ApplicationCommandPermissionData, Guild, Snowflake } from "discord.js";
+import { ApplicationCommandPermissions, Guild, Snowflake } from "discord.js";
 
 export type IDefaultPermission = boolean | DefaultPermissionResolver;
 
 export type IPermissions =
-  | ApplicationCommandPermissionData
-  | ApplicationCommandPermissionData[]
+  | ApplicationCommandPermissions
+  | ApplicationCommandPermissions[]
   | ((
       guild: Guild,
       command: ApplicationCommandMixin | SimpleCommandMessage
     ) =>
-      | ApplicationCommandPermissionData
-      | ApplicationCommandPermissionData[]
-      | Promise<ApplicationCommandPermissionData>
-      | Promise<ApplicationCommandPermissionData[]>);
+      | ApplicationCommandPermissions
+      | ApplicationCommandPermissions[]
+      | Promise<ApplicationCommandPermissions>
+      | Promise<ApplicationCommandPermissions[]>);
 
 export type IGuild =
   | Snowflake
