@@ -260,7 +260,7 @@ class FakeInteraction {
 }
 
 describe("Slash", () => {
-  it("Should create the slash structure", () => {
+  it("Should create the slash structure", async () => {
     expect(client.applicationCommands[0]?.guilds).toEqual(["invalid_id"]);
     expect(client.applicationCommands[0]?.permissions).toEqual([
       {
@@ -270,9 +270,10 @@ describe("Slash", () => {
       },
     ]);
 
-    const slashesObjects = client.applicationCommands.map((slash) =>
-      slash.toJSON()
+    const slashesObjects = await Promise.all(
+      client.applicationCommands.map((slash) => slash.toJSON())
     );
+
     expect(slashesObjects).toEqual([
       {
         defaultPermission: true,
