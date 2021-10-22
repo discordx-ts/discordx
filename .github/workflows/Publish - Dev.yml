@@ -6,6 +6,7 @@ on:
 
 jobs:
   publish:
+    name: Publish Main
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎
@@ -24,7 +25,7 @@ jobs:
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
 
-      - name: Install dependencies
+      - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
         run: npm ci --ignore-scripts
 
@@ -43,5 +44,56 @@ jobs:
         run: |
           npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
           npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-utilities:
+    name: Publish Utilities
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: pre-release
+        id: pre-release
+        run: |
+          if [[ $(npm view @discordx/utilities@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-3)") ]]; \
+          then echo '::set-output name=release::false'; \
+          else echo '::set-output name=release::true'; fi
+        working-directory: ./packages/utilities
+
+      - name: Install Root Dependencies
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm ci --ignore-scripts
+
+      - name: Install Dependencies
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm ci --ignore-scripts
+        working-directory: ./packages/utilities
+
+      - name: Build
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm run build
+        working-directory: ./packages/utilities
+
+      - name: Deprecate old versions
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm deprecate discordx@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        working-directory: ./packages/utilities
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish
+        if: steps.pre-release.outputs.release == 'true'
+        run: |
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
+          npm publish --tag dev
+        working-directory: ./packages/utilities
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

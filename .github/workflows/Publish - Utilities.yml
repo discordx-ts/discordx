@@ -1,6 +1,12 @@
 name: Publish - Utilities
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "npm version"
+        default: "patch"
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -15,11 +21,23 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/utilities version)
+        working-directory: ./packages/utilities
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/utilities
+
       - name: Install root dependencies
         run: npm ci
 
       - name: Install utilities dependencies
         run: npm ci
+        working-directory: ./packages/utilities
+
+      - name: Install latest discord.js
+        run: npm install discordx@latest discord.js@latest
         working-directory: ./packages/utilities
 
       - name: Build
