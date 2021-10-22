@@ -13,14 +13,20 @@ import { Message, MessageEmbed } from "discord.js";
 export class SimpleCommandMessage {
   prefix: string;
   info: DSimpleCommand;
-  name: string;
   argString: string;
   message: Message;
   options: SimpleCommandOptionType[];
 
+  get name(): string {
+    return this.info.name;
+  }
+
+  get description(): string {
+    return this.info.description;
+  }
+
   constructor(
     prefix: string,
-    name: string,
     argString: string,
     message: Message,
     info: DSimpleCommand,
@@ -29,7 +35,6 @@ export class SimpleCommandMessage {
     this.message = message;
     this.prefix = prefix;
     this.info = info;
-    this.name = name;
     this.argString = argString;
     this.options = this.info.parseParamsEx(this, splitter);
   }

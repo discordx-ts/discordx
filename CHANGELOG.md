@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - throw error for duplicate simple command
 - resolver for default permission
+- command in IPermission
 
 ## [7.0.0] - 2021-10-20
 

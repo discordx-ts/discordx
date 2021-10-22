@@ -10,6 +10,7 @@ import {
   Snowflake,
 } from "discord.js";
 import {
+  ApplicationCommandMixin,
   ClientOptions,
   DApplicationCommand,
   DApplicationCommandOption,
@@ -600,31 +601,33 @@ export class Client extends ClientJS {
     // fetch already registered application command
     const ApplicationCommands = await guild.commands.fetch();
 
-    const commandToUpdate = DCommands.map<
-      [ApplicationCommand | undefined, DApplicationCommand]
-    >((DCommand) => [
-      ApplicationCommands.find((cmd) => cmd.name === DCommand.name),
-      DCommand,
-    ]).filter<[ApplicationCommand, DApplicationCommand]>(
-      (ob): ob is [ApplicationCommand, DApplicationCommand] =>
-        ob[0] !== undefined
-    );
+    const commandToUpdate: ApplicationCommandMixin[] = [];
+
+    ApplicationCommands.forEach((cmd) => {
+      const findCommand = DCommands.find(
+        (DCommand) => DCommand.name === cmd.name
+      );
+
+      if (findCommand) {
+        commandToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
+      }
+    });
 
     await Promise.all(
-      commandToUpdate.map((command) => {
+      commandToUpdate.map((cmd) => {
         return guild.commands.permissions
-          .fetch({ command: command[0] })
+          .fetch({ command: cmd.command })
           .then(async (permissions) => {
-            if (!_.isEqual(permissions, command[1].permissions)) {
-              await command[0].permissions.set({
-                permissions: await command[1].permissionsPromise(guild),
+            if (!_.isEqual(permissions, cmd.command.permissions)) {
+              await cmd.command.permissions.set({
+                permissions: await cmd.instance.permissionsPromise(guild, cmd),
               });
             }
           })
           .catch(async () => {
-            if (command[1].permissions.length) {
-              await command[0].permissions.set({
-                permissions: await command[1].permissionsPromise(guild),
+            if (cmd.instance.permissions.length) {
+              await cmd.command.permissions.set({
+                permissions: await cmd.instance.permissionsPromise(guild, cmd),
               });
             }
           });
@@ -950,7 +953,6 @@ export class Client extends ClientJS {
 
     const command = new SimpleCommandMessage(
       prefix,
-      commandRaw.name,
       commandArgs,
       message,
       commandRaw.command,
@@ -1038,7 +1040,8 @@ export class Client extends ClientJS {
     if (command.message.guild) {
       // check for member permissions
       const permissions = await command.info.permissionsPromise(
-        command.message.guild
+        command.message.guild,
+        command
       );
 
       const defaultPermission =

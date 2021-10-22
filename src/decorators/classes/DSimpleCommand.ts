@@ -150,9 +150,10 @@ export class DSimpleCommand extends Method {
   }
 
   permissionsPromise(
-    guild: Guild
+    guild: Guild,
+    command: SimpleCommandMessage
   ): Promise<ApplicationCommandPermissionData[]> {
-    return resolveIPermission(guild, this.permissions);
+    return resolveIPermission(guild, command, this.permissions);
   }
 
   parseParams(command: SimpleCommandMessage): SimpleCommandOptionType[] {

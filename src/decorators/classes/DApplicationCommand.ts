@@ -7,6 +7,7 @@ import {
 } from "discord.js";
 
 import {
+  ApplicationCommandMixin,
   DApplicationCommandOption,
   IDefaultPermission,
   IGuild,
@@ -136,9 +137,10 @@ export class DApplicationCommand extends Method {
   }
 
   permissionsPromise(
-    guild: Guild
+    guild: Guild,
+    command: ApplicationCommandMixin
   ): Promise<ApplicationCommandPermissionData[]> {
-    return resolveIPermission(guild, this.permissions);
+    return resolveIPermission(guild, command, this.permissions);
   }
 
   toSubCommand(): DApplicationCommandOption {
