@@ -386,7 +386,7 @@ export class Client extends ClientJS {
       )
       .filter(
         // skip update, if there is no change in command data
-        (cmd) =>
+        async (cmd) =>
           !_.isEqual(
             _.omit(
               cmd[0]?.toJSON() as JSON,
@@ -396,7 +396,10 @@ export class Client extends ClientJS {
               "guildId",
               "version"
             ),
-            cmd[1].toJSON({ channelString: true })
+            await cmd[1].toJSON({
+              channelString: true,
+              command: new ApplicationGuildMixin(guild, cmd[1]),
+            })
           )
       );
 
@@ -519,7 +522,7 @@ export class Client extends ClientJS {
         )
         .filter(
           // skip update, if there is no change in command data
-          (cmd) =>
+          async (cmd) =>
             !_.isEqual(
               _.omit(
                 cmd[0]?.toJSON() as JSON,
@@ -529,7 +532,7 @@ export class Client extends ClientJS {
                 "guildId",
                 "version"
               ),
-              cmd[1].toJSON()
+              await cmd[1].toJSON()
             )
         );
 
