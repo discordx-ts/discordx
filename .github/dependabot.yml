@@ -21,4 +21,6 @@ updates:
     directory: "/packages/utilities"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "discordx"
     versioning-strategy: increase
