@@ -1,13 +1,20 @@
 name: Dependabot Automerge
 on:
   pull_request:
+    branches: [main]
 
 jobs:
   publish:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: automerge
+      - name: Enable Automerge
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Approve PR
         uses: actions/github-script@v5
         with:
           script: |
