@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { Client } from "../../src";
 import { Intents } from "discord.js";
 
+// Main Class
 export class Main {
   private static _client: Client;
 
