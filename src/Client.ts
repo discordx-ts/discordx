@@ -374,34 +374,43 @@ export class Client extends ClientJS {
     );
 
     // filter application command to update
-    const updated = DCommands.map<
-      [ApplicationCommand | undefined, DApplicationCommand]
-    >((DCommand) => [
-      ApplicationCommands.find((cmd) => cmd.name === DCommand.name),
-      DCommand,
-    ])
-      .filter<[ApplicationCommand, DApplicationCommand]>(
-        (cmd): cmd is [ApplicationCommand, DApplicationCommand] =>
-          cmd[0] !== undefined
-      )
-      .filter(
-        // skip update, if there is no change in command data
-        async (cmd) =>
-          !_.isEqual(
-            _.omit(
-              cmd[0]?.toJSON() as JSON,
-              "id",
-              "applicationId",
-              "guild",
-              "guildId",
-              "version"
-            ),
-            await cmd[1].toJSON({
-              channelString: true,
-              command: new ApplicationGuildMixin(guild, cmd[1]),
-            })
-          )
-      );
+
+    const commandToUpdate: ApplicationCommandMixin[] = [];
+
+    await Promise.all(
+      DCommands.map(async (DCommand) => {
+        const findCommand = ApplicationCommands.find(
+          (cmd) => cmd.name === DCommand.name
+        );
+
+        if (!findCommand) {
+          return;
+        }
+
+        const rawData = await DCommand.toJSON({
+          channelString: true,
+          command: new ApplicationGuildMixin(guild, DCommand),
+        });
+
+        const isEqual = _.isEqual(
+          _.omit(
+            findCommand.toJSON() as JSON,
+            "id",
+            "applicationId",
+            "guild",
+            "guildId",
+            "version"
+          ),
+          rawData
+        );
+
+        if (!isEqual) {
+          commandToUpdate.push(
+            new ApplicationCommandMixin(findCommand, DCommand)
+          );
+        }
+      })
+    );
 
     // filter commands to delete
     const deleted: ApplicationCommand[] = [];
@@ -446,8 +455,8 @@ export class Client extends ClientJS {
 
       console.log(
         `${this.user?.username} >> guild: #${guild} >> command >> updating ${
-          updated.length
-        } [${updated.map((cmd) => cmd[1].name).join(", ")}]`
+          commandToUpdate.length
+        } [${commandToUpdate.map((cmd) => cmd.command.name).join(", ")}]`
       );
     }
 
@@ -463,10 +472,10 @@ export class Client extends ClientJS {
 
     const updateOperation = options?.disable?.update
       ? []
-      : updated.map(async (command) =>
-          command[0].edit(
-            await command[1].toJSON({
-              command: new ApplicationGuildMixin(guild, command[1]),
+      : commandToUpdate.map(async (cmd) =>
+          cmd.command.edit(
+            await cmd.instance.toJSON({
+              command: new ApplicationGuildMixin(guild, cmd.instance),
             })
           )
         );
@@ -510,31 +519,39 @@ export class Client extends ClientJS {
         (DCommand) => !AllCommands.find((cmd) => cmd.name === DCommand.name)
       );
 
-      const updated = DCommands.map<
-        [ApplicationCommand | undefined, DApplicationCommand]
-      >((DCommand) => [
-        AllCommands.find((cmd) => cmd.name === DCommand.name),
-        DCommand,
-      ])
-        .filter<[ApplicationCommand, DApplicationCommand]>(
-          (ob): ob is [ApplicationCommand, DApplicationCommand] =>
-            ob[0] !== undefined
-        )
-        .filter(
-          // skip update, if there is no change in command data
-          async (cmd) =>
-            !_.isEqual(
-              _.omit(
-                cmd[0]?.toJSON() as JSON,
-                "id",
-                "applicationId",
-                "guild",
-                "guildId",
-                "version"
-              ),
-              await cmd[1].toJSON()
-            )
-        );
+      const commandToUpdate: ApplicationCommandMixin[] = [];
+
+      await Promise.all(
+        DCommands.map(async (DCommand) => {
+          const findCommand = AllCommands.find(
+            (cmd) => cmd.name === DCommand.name
+          );
+
+          if (!findCommand) {
+            return;
+          }
+
+          const rawData = await DCommand.toJSON();
+
+          const isEqual = _.isEqual(
+            _.omit(
+              findCommand.toJSON() as JSON,
+              "id",
+              "applicationId",
+              "guild",
+              "guildId",
+              "version"
+            ),
+            rawData
+          );
+
+          if (!isEqual) {
+            commandToUpdate.push(
+              new ApplicationCommandMixin(findCommand, DCommand)
+            );
+          }
+        })
+      );
 
       const deleted = AllCommands.filter((cmd) =>
         DCommands.every((DCommand) => DCommand.name !== cmd.name)
@@ -554,8 +571,8 @@ export class Client extends ClientJS {
         );
         console.log(
           `${this.user?.username} >> global >> command >> updating ${
-            updated.length
-          } [${updated.map((cmd) => cmd[1].name).join(", ")}]`
+            commandToUpdate.length
+          } [${commandToUpdate.map((cmd) => cmd.command.name).join(", ")}]`
         );
       }
 
@@ -573,7 +590,9 @@ export class Client extends ClientJS {
         // update
         ...(options?.disable?.update
           ? []
-          : updated.map(async (ob) => ob[0].edit(await ob[1].toJSON()))),
+          : commandToUpdate.map(async (cmd) =>
+              cmd.command.edit(await cmd.instance.toJSON())
+            )),
         // delete
         ...(options?.disable?.delete
           ? []
