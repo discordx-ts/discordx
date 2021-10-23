@@ -35,6 +35,10 @@ jobs:
           npm run build
         working-directory: ./docs
 
+      - name: Get main branch hash
+        id: getMainHash
+        run: echo '::set-output name=hash::${git rev-parse HEAD}';
+
       - name: Check out gh-pages
         uses: actions/checkout@v2
         with:
@@ -47,6 +51,6 @@ jobs:
           git config user.email ${{ secrets.GIT_EMAIL }}
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
-          git commit -m "$(date +%s).$(../../git rev-parse HEAD)"
+          git commit -m "${{ steps.getMainHash.outputs.hash }}"
           git push origin gh-pages
         working-directory: ./docs/document
