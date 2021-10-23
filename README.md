@@ -63,10 +63,10 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 
 - Support multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
-- `@SimpleCommandOption` Parse and define command options like `@SlashOption`
+- `@SimpleCommandOption` parse and define command options like `@SlashOption`
 - `client.initApplicationCommands` to create/update/remove discord application commands
 - `client.initApplicationPermissions` to update discord application commands permissions
-- Support all discord interactions
+- Handler all discord interactions (slash/button/menu/context)
 - Support TSyringe
 
 # 🧮 Packages
