@@ -61,24 +61,22 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 
 # 🆕 New features
 
-- Support for multiple bots in a single nodejs instance (`@Bot`)
+- Support multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
 - `@SimpleCommandOption` Parse and define command options like `@SlashOption`
-- New interactions/decorators: ` @ButtonComponent @SelectMenuComponent @ContextMenu`
-- New method `client.initApplicationCommands` to create/update/remove discord application commands (slash/context menu) for global and defined guilds
-- Lint improved internal source code for better type support
-- Provided more examples for new decorators
+- `client.initApplicationCommands` to create/update/remove discord application commands
+- `client.initApplicationPermissions` to update discord application commands permissions
+- Support all discord interactions
 - Support TSyringe
 
 # 🧮 Packages
 
 Here are more packages from us to extend the functionality of your Discord bot.
 
-| Package                                                                    | Description                         |
-| -------------------------------------------------------------------------- | ----------------------------------- |
-| [`discordx`](https://www.npmjs.com/package/discordx)                       | main package                        |
-| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc.       |
-| [`passwordx`](https://www.npmjs.com/package/passwordx)                     | Password generator for command line |
+| Package                                                                    | Description                   |
+| -------------------------------------------------------------------------- | ----------------------------- |
+| [`discordx`](https://www.npmjs.com/package/discordx)                       | main package                  |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc. |
 
 # 📔 Decorators
 
