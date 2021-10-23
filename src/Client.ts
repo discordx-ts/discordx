@@ -1111,16 +1111,16 @@ export class Client extends ClientJS {
       const defaultPermission =
         typeof command.info.defaultPermission === "boolean"
           ? command.info.defaultPermission
-          : command.info.defaultPermission.resolver(command);
+          : await command.info.defaultPermission.resolver(command);
 
-      const userPermissions = permissions.filter(async (perm) =>
-        perm.type === "USER" && (await defaultPermission)
+      const userPermissions = permissions.filter((perm) =>
+        perm.type === "USER" && defaultPermission
           ? !perm.permission
           : perm.permission
       );
 
-      const rolePermissions = permissions.filter(async (perm) =>
-        perm.type === "ROLE" && (await defaultPermission)
+      const rolePermissions = permissions.filter((perm) =>
+        perm.type === "ROLE" && defaultPermission
           ? !perm.permission
           : perm.permission
       );
@@ -1132,7 +1132,7 @@ export class Client extends ClientJS {
         );
 
       // user is not allowed to access this command
-      if (command.info.defaultPermission ? isUserIdPresent : !isUserIdPresent) {
+      if (defaultPermission ? isUserIdPresent : !isUserIdPresent) {
         const unauthorizedResponse =
           this.simpleCommandConfig?.responses?.unauthorised;
 
