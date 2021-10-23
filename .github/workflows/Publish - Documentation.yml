@@ -13,7 +13,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: check out code 🛎
+      - name: Check out code 🛎
         uses: actions/checkout@v2
 
       - name: Install Node v17
@@ -39,18 +39,18 @@ jobs:
         run: echo discord-ts.js.org > CNAME
         working-directory: ./docs/build
 
-      - name: check out gh-pages
+      - name: Check out gh-pages
         uses: actions/checkout@v2
         with:
           ref: gh-pages
           path: docs/document
 
-      - name: Push update
+      - name: Push Doc
         run: |
           cp -r ../build/* ./
           git config user.email ${{ secrets.GIT_EMAIL }}
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
-          git commit -m '$(date +%s).$(git rev-parse --short HEAD)'
+          git commit -m "$(date +%s).$(git rev-parse --short HEAD)"
           git push origin gh-pages
         working-directory: ./docs/document
