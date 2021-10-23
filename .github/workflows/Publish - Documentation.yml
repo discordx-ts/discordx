@@ -52,6 +52,5 @@ jobs:
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
           git commit -m '$(date +%s).$(git rev-parse --short HEAD)'
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push
+          git push origin gh-pages
         working-directory: ./docs/document
