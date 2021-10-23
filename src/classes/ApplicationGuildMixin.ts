@@ -2,12 +2,7 @@ import { DApplicationCommand } from "..";
 import { Guild } from "discord.js";
 
 export class ApplicationGuildMixin {
-  guild: Guild;
-  instance: DApplicationCommand;
-  constructor(guild: Guild, instance: DApplicationCommand) {
-    this.guild = guild;
-    this.instance = instance;
-  }
+  constructor(public guild: Guild, public instance: DApplicationCommand) {}
 
   get name(): string {
     return this.instance.name;

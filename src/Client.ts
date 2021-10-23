@@ -23,7 +23,6 @@ import {
   DSimpleCommandOption,
   DiscordEvents,
   GuardFunction,
-  GuildNotFoundError,
   IGuild,
   InitCommandConfig,
   MetadataStorage,
@@ -687,12 +686,12 @@ export class Client extends ClientJS {
    * @returns
    */
   fetchApplicationCommands(
-    guildID?: Snowflake
+    guildId?: Snowflake
   ): Promise<Collection<string, ApplicationCommand>> | undefined {
-    if (guildID) {
-      const guild = this.guilds.cache.get(guildID);
+    if (guildId) {
+      const guild = this.guilds.cache.get(guildId);
       if (!guild) {
-        throw new GuildNotFoundError(guildID);
+        throw new Error(`Your bot is not in the guild: ${guildId}`);
       }
       return guild.commands.fetch();
     }
