@@ -29,7 +29,7 @@ import {
   MetadataStorage,
   SimpleCommandConfig,
   SimpleCommandMessage,
-  resolveIGuild,
+  resolveIGuilds,
 } from ".";
 
 /**
@@ -53,7 +53,7 @@ export class Client extends ClientJS {
     this._botGuilds = value;
   }
   get botGuildsResolved(): Promise<string[]> {
-    return resolveIGuild(this, undefined, this._botGuilds);
+    return resolveIGuilds(this, undefined, this._botGuilds);
   }
 
   get guards(): GuardFunction[] {
@@ -301,7 +301,7 @@ export class Client extends ClientJS {
     // group single guild commands together
     await Promise.all(
       allGuildDCommands.map(async (DCommand) => {
-        const guilds = await resolveIGuild(this, DCommand, [
+        const guilds = await resolveIGuilds(this, DCommand, [
           ...botGuildsResolved,
           ...DCommand.guilds,
         ]);
@@ -426,7 +426,7 @@ export class Client extends ClientJS {
           return;
         }
 
-        const guilds = await resolveIGuild(this, DCommandx, [
+        const guilds = await resolveIGuilds(this, DCommandx, [
           ...botGuildsResolved,
           ...DCommandx.guilds,
         ]);
@@ -652,7 +652,7 @@ export class Client extends ClientJS {
             if (
               !_.isEqual(
                 permissions,
-                await cmd.instance.permissionsPromise(guild, cmd)
+                await cmd.instance.resolvePermissions(guild, cmd)
               )
             ) {
               if (!this.silent) {
@@ -661,7 +661,7 @@ export class Client extends ClientJS {
                 );
               }
               await cmd.command.permissions.set({
-                permissions: await cmd.instance.permissionsPromise(guild, cmd),
+                permissions: await cmd.instance.resolvePermissions(guild, cmd),
               });
             }
           })
@@ -673,7 +673,7 @@ export class Client extends ClientJS {
                 );
               }
               await cmd.command.permissions.set({
-                permissions: await cmd.instance.permissionsPromise(guild, cmd),
+                permissions: await cmd.instance.resolvePermissions(guild, cmd),
               });
             }
           });
@@ -836,7 +836,7 @@ export class Client extends ClientJS {
 
       if (button) {
         guilds.push(
-          ...(await resolveIGuild(this, button, [
+          ...(await resolveIGuilds(this, button, [
             ...botGuildsResolved,
             ...button.guilds,
           ]))
@@ -871,7 +871,7 @@ export class Client extends ClientJS {
 
       if (menu) {
         guilds.push(
-          ...(await resolveIGuild(this, menu, [
+          ...(await resolveIGuilds(this, menu, [
             ...botGuildsResolved,
             ...menu.guilds,
           ]))
@@ -907,7 +907,7 @@ export class Client extends ClientJS {
 
       if (applicationCommand) {
         guilds.push(
-          ...(await resolveIGuild(this, applicationCommand, [
+          ...(await resolveIGuilds(this, applicationCommand, [
             ...botGuildsResolved,
             ...applicationCommand.guilds,
           ]))
@@ -1083,7 +1083,7 @@ export class Client extends ClientJS {
     }
 
     // validate guild id
-    const commandGuilds = await resolveIGuild(this, command, [
+    const commandGuilds = await resolveIGuilds(this, command, [
       ...botGuildsResolved,
       ...command.info.guilds,
     ]);
@@ -1103,7 +1103,7 @@ export class Client extends ClientJS {
     // permission works only if guild persent
     if (command.message.guild) {
       // check for member permissions
-      const permissions = await command.info.permissionsPromise(
+      const permissions = await command.info.resolvePermissions(
         command.message.guild,
         command
       );

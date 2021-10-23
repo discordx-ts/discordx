@@ -11,7 +11,7 @@ import {
 } from "..";
 import { ApplicationCommandPermissions, Guild } from "discord.js";
 
-export const resolveIGuild = async (
+export const resolveIGuilds = async (
   client: Client,
   command:
     | DApplicationCommand
@@ -30,7 +30,7 @@ export const resolveIGuild = async (
   return _.uniqWith(guildx.flat(1), _.isEqual);
 };
 
-export const resolveIPermission = async (
+export const resolveIPermissions = async (
   guild: Guild,
   command: ApplicationCommandMixin | SimpleCommandMessage,
   permissions: IPermissions[]

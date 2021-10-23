@@ -15,7 +15,7 @@ import {
   IPermissions,
   SimpleCommandMessage,
   SimpleCommandOptionType,
-  resolveIPermission,
+  resolveIPermissions,
 } from "../..";
 import { Method } from "./Method";
 
@@ -149,11 +149,11 @@ export class DSimpleCommand extends Method {
     );
   }
 
-  permissionsPromise(
+  resolvePermissions(
     guild: Guild,
     command: SimpleCommandMessage
   ): Promise<ApplicationCommandPermissionData[]> {
-    return resolveIPermission(guild, command, this.permissions);
+    return resolveIPermissions(guild, command, this.permissions);
   }
 
   parseParams(command: SimpleCommandMessage): SimpleCommandOptionType[] {

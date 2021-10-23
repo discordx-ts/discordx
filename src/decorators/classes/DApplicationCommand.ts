@@ -13,7 +13,7 @@ import {
   IDefaultPermission,
   IGuild,
   IPermissions,
-  resolveIPermission,
+  resolveIPermissions,
 } from "../..";
 import { Method } from "./Method";
 
@@ -137,11 +137,11 @@ export class DApplicationCommand extends Method {
     );
   }
 
-  permissionsPromise(
+  resolvePermissions(
     guild: Guild,
     command: ApplicationCommandMixin
   ): Promise<ApplicationCommandPermissions[]> {
-    return resolveIPermission(guild, command, this.permissions);
+    return resolveIPermissions(guild, command, this.permissions);
   }
 
   toSubCommand(): DApplicationCommandOption {
