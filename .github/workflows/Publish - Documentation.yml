@@ -2,7 +2,7 @@ name: Publish - Documentation
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 */12 * * *"
   push:
     branches:
       - main
@@ -13,7 +13,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code 🛎
+      - name: check out code 🛎
         uses: actions/checkout@v2
 
       - name: Install Node v17
@@ -35,22 +35,17 @@ jobs:
           npm run build
         working-directory: ./docs
 
-      - name: Get main branch hash
-        id: getMainHash
-        run: echo '::set-output name=hash::$(git rev-parse HEAD)';
+      - name: Add CNAME
+        run: echo discord-ts.js.org > CNAME
+        working-directory: ./docs/build
 
-      - name: Check out gh-pages
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          path: docs/document
-
-      - name: Push Doc
+      - name: Publish git branch
         run: |
-          cp -r ../build/* ./
+          git init -b gh-pages
           git config user.email ${{ secrets.GIT_EMAIL }}
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
-          git commit -m ${{ steps.getMainHash.outputs.hash }}
-          git push origin gh-pages || true
-        working-directory: ./docs/document
+          git commit -m 'docs'
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git push --force --set-upstream origin gh-pages
+        working-directory: ./docs/build
