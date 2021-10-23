@@ -59,14 +59,14 @@ With `discordx`, we intend to provide latest upto date package to build bots wit
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord.gg/yHQY9fexH9)
 
-# 🆕 New features
+# 🆕 Features
 
 - Support multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
 - `@SimpleCommandOption` parse and define command options like `@SlashOption`
 - `client.initApplicationCommands` to create/update/remove discord application commands
 - `client.initApplicationPermissions` to update discord application commands permissions
-- Handler all discord interactions (slash/button/menu/context)
+- Handler for all discord interactions (slash/button/menu/context)
 - Support TSyringe
 
 # 🧮 Packages
