@@ -1,12 +1,13 @@
 name: Publish - Documentation
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
   push:
     branches:
       - main
     paths:
       - "docs/**"
-      - "src/**"
 
 jobs:
   publish:
@@ -38,13 +39,19 @@ jobs:
         run: echo discord-ts.js.org > CNAME
         working-directory: ./docs/build
 
-      - name: Publish git branch
+      - name: check out gh-pages
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: docs/document
+
+      - name: Push update
         run: |
-          git init -b gh-pages
+          cp -r ../build/* ./
           git config user.email ${{ secrets.GIT_EMAIL }}
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
-          git commit -m 'docs'
+          git commit -m '$(date +%s).$(git rev-parse --short HEAD)'
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git push --force --set-upstream origin gh-pages
-        working-directory: ./docs/build
+          git push
+        working-directory: ./docs/document
