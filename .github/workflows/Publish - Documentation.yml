@@ -52,5 +52,5 @@ jobs:
           git config user.name ${{ secrets.GIT_NAME }}
           git add -A
           git commit -m ${{ steps.getMainHash.outputs.hash }}
-          git push origin gh-pages
+          git push origin gh-pages || true
         working-directory: ./docs/document
