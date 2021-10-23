@@ -37,7 +37,7 @@ jobs:
 
       - name: Get main branch hash
         id: getMainHash
-        run: echo '::set-output name=hash::${git rev-parse HEAD}';
+        run: echo '::set-output name=hash::$(git rev-parse HEAD)';
 
       - name: Check out gh-pages
         uses: actions/checkout@v2
