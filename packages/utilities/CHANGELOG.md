@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [1.6.0] - 2021-10-23
+
+### Added
+
+- groupId field
+
 ## [1.5.0] - 2021-10-22
 
 ### Added

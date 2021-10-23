@@ -35,6 +35,7 @@ export interface ICategoryAttachment {
 
 export interface ICategoryItemCommand extends ICategoryBase {
   attachments?: ICategoryAttachment[];
+  groupId?: string;
   options: ICategoryItemOption[];
   type: Exclude<
     CategoryItemTypes,
