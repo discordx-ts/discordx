@@ -648,31 +648,34 @@ export class Client extends ClientJS {
         return guild.commands.permissions
           .fetch({ command: cmd.command })
           .then(async (permissions) => {
-            if (
-              !_.isEqual(
-                permissions,
-                await cmd.instance.resolvePermissions(guild, cmd)
-              )
-            ) {
+            const commandPermissions = await cmd.instance.resolvePermissions(
+              guild,
+              cmd
+            );
+            if (!_.isEqual(permissions, commandPermissions)) {
               if (!this.silent) {
                 console.log(
                   `${this.user?.username} >> guild: #${guild} >> updating permission >> ${cmd.name}`
                 );
               }
               await cmd.command.permissions.set({
-                permissions: await cmd.instance.resolvePermissions(guild, cmd),
+                permissions: commandPermissions,
               });
             }
           })
           .catch(async () => {
             if (cmd.instance.permissions.length) {
+              const commandPermissions = await cmd.instance.resolvePermissions(
+                guild,
+                cmd
+              );
               if (!this.silent) {
                 console.log(
                   `${this.user?.username} >> guild: #${guild} >> updating permission >> ${cmd.name}`
                 );
               }
               await cmd.command.permissions.set({
-                permissions: await cmd.instance.resolvePermissions(guild, cmd),
+                permissions: commandPermissions,
               });
             }
           });
