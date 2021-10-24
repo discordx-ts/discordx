@@ -3,6 +3,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 */6 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
 
 jobs:
   publish:
@@ -22,8 +27,8 @@ jobs:
         id: pre-release
         run: |
           if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-3)") ]]; \
-          then echo '::set-output name=release::false'; \
-          else echo '::set-output name=release::true'; fi
+          then echo '::set-output name=release::true'; \
+          else echo '::set-output name=release::false'; fi
 
       - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
