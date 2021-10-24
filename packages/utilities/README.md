@@ -190,6 +190,7 @@ yarn add @discordx/utilities discord.js
 | Name                | Type                  | Default   | Description                  |
 | ------------------- | --------------------- | --------- | ---------------------------- |
 | initialPage         | number                | 0         | Initial page                 |
+| ephemeral           | boolean               | undefined | Enable ephemeral             |
 | onPaginationTimeout | Function              | undefined | Timeout callback             |
 | time                | number                | 1_800_000 | Timeout for pagination in ms |
 | type                | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |

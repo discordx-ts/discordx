@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import { Interaction, Message, TextBasedChannels } from "discord.js";
 import {
   PaginationInteractions,
@@ -48,7 +49,9 @@ export async function sendPaginatedEmbeds(
   // get page
   const getPage = async (page: number) => {
     const embed =
-      embeds instanceof Pagination ? await embeds.func(page) : embeds[page];
+      embeds instanceof Pagination
+        ? await embeds.func(page)
+        : _.cloneDeep(embeds)[page];
     if (!embed) {
       return undefined;
     }
@@ -56,8 +59,8 @@ export async function sendPaginatedEmbeds(
   };
 
   // prepare intial message
-  const replyOptions = await getPage(currentPage);
-  if (!replyOptions) {
+  const page = await getPage(currentPage);
+  if (!page) {
     throw Error("Pagination: out of bound page");
   }
 
@@ -65,17 +68,17 @@ export async function sendPaginatedEmbeds(
 
   // send embed
   if (sendTo instanceof Message) {
-    message = await sendTo.reply(replyOptions);
+    message = await sendTo.reply(page);
   } else if (sendTo instanceof Interaction) {
     const reply =
       sendTo.deferred || sendTo.replied
         ? await sendTo.followUp({
-            ...replyOptions,
+            ...page,
             ephemeral: options?.ephemeral,
             fetchReply: true,
           })
         : await sendTo.reply({
-            ...replyOptions,
+            ...page,
             ephemeral: options?.ephemeral,
             fetchReply: true,
           });
@@ -86,7 +89,7 @@ export async function sendPaginatedEmbeds(
 
     message = reply;
   } else {
-    message = await sendTo.send(replyOptions);
+    message = await sendTo.send(page);
   }
 
   // check if pages sent
@@ -125,11 +128,11 @@ export async function sendPaginatedEmbeds(
 
       await collectInteraction.deferUpdate();
 
-      const messageOptions = await getPage(currentPage);
-      if (!messageOptions) {
+      const pageEx = await getPage(currentPage);
+      if (!pageEx) {
         throw Error("Pagination: out of bound page");
       }
-      await collectInteraction.editReply(messageOptions);
+      await collectInteraction.editReply(pageEx);
     }
     if (
       collectInteraction.isSelectMenu() &&
@@ -149,11 +152,11 @@ export async function sendPaginatedEmbeds(
         currentPage = maxLength - 1;
       }
 
-      const replyOptionsEx = await getPage(currentPage);
-      if (!replyOptionsEx) {
+      const pageEx = await getPage(currentPage);
+      if (!pageEx) {
         throw Error("Pagination: out of bound page");
       }
-      await collectInteraction.editReply(replyOptionsEx);
+      await collectInteraction.editReply(pageEx);
     }
   });
 
