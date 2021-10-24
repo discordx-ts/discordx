@@ -51,7 +51,7 @@ export async function sendPaginatedEmbeds(
     const embed =
       embeds instanceof Pagination
         ? await embeds.func(page)
-        : _.cloneDeep(embeds)[page];
+        : _.cloneDeep(embeds[page]);
     if (!embed) {
       return undefined;
     }
