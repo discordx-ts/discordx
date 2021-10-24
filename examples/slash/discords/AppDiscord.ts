@@ -105,7 +105,7 @@ export abstract class AppDiscord1 {
       if (!command) {
         return false;
       }
-      return true;
+      return false;
     })
   )
   @Permission({

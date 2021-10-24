@@ -5,6 +5,7 @@ import {
   Collection,
   CommandInteraction,
   CommandInteractionOption,
+  DiscordAPIError,
   Interaction,
   Message,
   Snowflake,
@@ -663,8 +664,8 @@ export class Client extends ClientJS {
               });
             }
           })
-          .catch(async () => {
-            if (cmd.instance.permissions.length) {
+          .catch(async (e: DiscordAPIError) => {
+            if (e.code === 10066 && cmd.instance.permissions.length) {
               const commandPermissions = await cmd.instance.resolvePermissions(
                 guild,
                 cmd
