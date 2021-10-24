@@ -1,52 +1,38 @@
 name: Publish - Documentation
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 */12 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: pre-release
-        id: pre-release
-        run: |
-          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-3)") ]]; \
-          then echo '::set-output name=release::false'; \
-          else echo '::set-output name=release::true'; fi
-
       - name: Install root dependencies
-        if: steps.pre-release.outputs.release == 'true'
         run: npm ci
 
       - name: Install doc dependencies
-        if: steps.pre-release.outputs.release == 'true'
         run: npm ci
         working-directory: ./docs
 
       - name: Build docs
-        if: steps.pre-release.outputs.release == 'true'
-        run: |
-          export NODE_OPTIONS=--openssl-legacy-provider
-          npm run build
+        run: npm run build
         working-directory: ./docs
 
       - name: Add CNAME
-        if: steps.pre-release.outputs.release == 'true'
         run: echo discord-ts.js.org > CNAME
         working-directory: ./docs/build
 
       - name: Publish git branch
-        if: steps.pre-release.outputs.release == 'true'
         run: |
           git init -b gh-pages
           git config user.email ${{ secrets.GIT_EMAIL }}
