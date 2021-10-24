@@ -6,6 +6,7 @@ import {
   MessageEmbed,
   MessageOptions,
 } from "discord.js";
+import { Pagination } from ".";
 
 // By default, it's half an hour.
 export const defaultTime = 1_800_000;
@@ -20,7 +21,10 @@ export enum defaultIds {
 
 export type embedType = string | MessageEmbed | MessageOptions;
 
-export type paginationFunc = (page: number) => embedType | Promise<embedType>;
+export type paginationFunc = (
+  page: number,
+  pagination: Pagination
+) => embedType | Promise<embedType>;
 
 export type PaginationInteractions =
   | CommandInteraction

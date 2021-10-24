@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed } from "discord.js";
 import { Discord, MetadataStorage, Slash } from "discordx";
-import { sendPaginatedEmbeds } from "../../../src";
+import { Pagination } from "../../../src";
 
 @Discord()
 export abstract class SlashExample {
@@ -19,6 +19,6 @@ export abstract class SlashExample {
         .addField("Description", cmd.description);
     });
 
-    sendPaginatedEmbeds(interaction, pages);
+    new Pagination(interaction, pages).send();
   }
 }
