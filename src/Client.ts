@@ -988,8 +988,7 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {
-    const escapePrefix = prefix.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-    const prefixRegex = RegExp(`^${escapePrefix}`);
+    const prefixRegex = RegExp(`^${_.escapeRegExp(prefix)}`);
     const isCommand = prefixRegex.test(message.content);
     if (!isCommand) {
       return "notCommand";
