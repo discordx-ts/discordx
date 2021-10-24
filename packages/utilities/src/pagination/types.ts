@@ -34,6 +34,11 @@ interface BasicPaginationOptions {
   initialPage?: number;
 
   /**
+   * Set ephemeral response
+   */
+  ephemeral?: boolean;
+
+  /**
    * Pagination timeout callback
    */
   onPaginationTimeout?: (page: number) => void;

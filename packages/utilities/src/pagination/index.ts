@@ -71,10 +71,12 @@ export async function sendPaginatedEmbeds(
       sendTo.deferred || sendTo.replied
         ? await sendTo.followUp({
             ...replyOptions,
+            ephemeral: options?.ephemeral,
             fetchReply: true,
           })
         : await sendTo.reply({
             ...replyOptions,
+            ephemeral: options?.ephemeral,
             fetchReply: true,
           });
 
