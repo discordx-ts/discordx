@@ -69,9 +69,9 @@ class buttons {
 
 A unique id for your button interaction to be handled under.
 
-| type   | default | required |
-| ------ | ------- | -------- |
-| string |         | Yes      |
+| type   | default       | required |
+| ------ | ------------- | -------- |
+| string | function name | No       |
 
 :::caution
 As per discord latest annoucement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
