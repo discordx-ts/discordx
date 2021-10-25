@@ -209,7 +209,7 @@ SlashOption(
 
 ### name
 
-The name of your command option
+Define name of this option
 
 | type   | default | required |
 | ------ | ------- | -------- |
@@ -225,7 +225,7 @@ Multiple options, check below.
 
 #### `autocomplete`
 
-The option is autocomplete or not
+Enable autocomplete interactions for this option
 
 | type    | default |
 | ------- | ------- |
@@ -233,7 +233,7 @@ The option is autocomplete or not
 
 #### `Description`
 
-You can set the description of the option
+Set description of this option
 
 | type   | default                   |
 | ------ | ------------------------- |
@@ -241,7 +241,7 @@ You can set the description of the option
 
 #### `Required`
 
-The option is required or not
+Set option required or optional
 
 | type    | default |
 | ------- | ------- |
@@ -249,7 +249,7 @@ The option is required or not
 
 #### `Type`
 
-The type of your command option
+Define type of your command option
 
 | type                                                                             | default   |
 | -------------------------------------------------------------------------------- | --------- |
@@ -257,7 +257,7 @@ The type of your command option
 
 #### `channelTypes`
 
-The type of your command option
+If the option is a channel type, the channels shown will be restricted to these types
 
 | type                                          | default   |
 | --------------------------------------------- | --------- |
