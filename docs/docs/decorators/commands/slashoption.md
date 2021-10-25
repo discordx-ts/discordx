@@ -29,9 +29,9 @@ class DiscordBot {
 }
 ```
 
-## Autocomplete option
+## Example of Autocomplete option
 
-Defining an autocomplete slash option
+When defining an autocomplete slash option, you can define a resolver for autocomplete inside `@SlashOption` to simplify things. If you set autocomplete to true, you have to handle it manually in your main function.
 
 ```ts
 @Discord()
@@ -227,9 +227,9 @@ Multiple options, check below.
 
 Enable autocomplete interactions for this option
 
-| type    | default |
-| ------- | ------- |
-| boolean | false   |
+| type                             | default |
+| -------------------------------- | ------- |
+| boolean \| autocomplete resolver | false   |
 
 #### `Description`
 
