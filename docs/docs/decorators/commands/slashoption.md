@@ -29,6 +29,52 @@ class DiscordBot {
 }
 ```
 
+## Autocomplete option
+
+Defining an autocomplete slash option
+
+```ts
+@Discord()
+class DiscordBot {
+  @Slash("autocomplete")
+  testx(
+    @SlashOption("aoption", {
+      autocomplete: true,
+      required: true,
+      type: "STRING",
+    })
+    aoption: string,
+    @SlashOption("boption", {
+      autocomplete: (interaction) => {
+        // resolver for option b
+        interaction.respond([
+          { name: "option c", value: "d" },
+          { name: "option d", value: "c" },
+        ]);
+      },
+      required: true,
+      type: "STRING",
+    })
+    boption: string,
+    interaction: CommandInteraction | AutocompleteInteraction
+  ): void {
+    if (interaction.isAutocomplete()) {
+      const focusedOption = interaction.options.getFocused(true);
+
+      // resolver for option a
+      if (focusedOption.name === "aoption") {
+        interaction.respond([
+          { name: "option a", value: "a" },
+          { name: "option b", value: "b" },
+        ]);
+      }
+    } else {
+      interaction.reply(`${aoption}-${boption}`);
+    }
+  }
+}
+```
+
 ## Automatic typing
 
 An option infer the type from TypeScript in this example, discord.**ts** knows that your options are both `number` because you typed the parameters
@@ -176,6 +222,14 @@ Multiple options, check below.
 | type   | default   | required |
 | ------ | --------- | -------- |
 | object | undefined | No       |
+
+#### `autocomplete`
+
+The option is autocomplete or not
+
+| type    | default |
+| ------- | ------- |
+| boolean | false   |
 
 #### `Description`
 
