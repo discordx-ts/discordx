@@ -21,7 +21,7 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Initialize gif config
+      - name: Initialize git config
         run: |
           git config user.email ${{ secrets.GIT_EMAIL }}
           git config user.name ${{ secrets.GIT_NAME }}
