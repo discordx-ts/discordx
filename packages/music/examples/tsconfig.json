@@ -4,6 +4,7 @@
     "target": "ES2021",
     "strict": true,
     "noImplicitAny": true,
+    "esModuleInterop": true,
     "noUncheckedIndexedAccess": true,
     "outDir": "build",
     "emitDecoratorMetadata": true,

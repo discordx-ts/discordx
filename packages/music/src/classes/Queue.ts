@@ -371,6 +371,7 @@ export class Queue {
     }
 
     this.currentTrack.volume?.setVolumeLogarithmic(volume / 200);
+    this.player.emit("onVolumeUpdate", volume);
     return true;
   }
 
@@ -438,6 +439,7 @@ export class Queue {
    */
   public mix(): void {
     this._tracks = _.shuffle(this._tracks);
+    this.player.emit("onMix");
   }
 
   /**
@@ -445,6 +447,11 @@ export class Queue {
    */
   public setRepeat(state: boolean): void {
     this.repeatMode = state;
+    if (state) {
+      this.player.emit("onRepeatEnabled");
+    } else {
+      this.player.emit("onRepeatDisabled");
+    }
   }
 
   /**
@@ -452,6 +459,11 @@ export class Queue {
    */
   public setLoop(state: boolean): void {
     this.loopMode = state;
+    if (state) {
+      this.player.emit("onLoopEnabled");
+    } else {
+      this.player.emit("onLoopDisabled");
+    }
   }
 
   /**

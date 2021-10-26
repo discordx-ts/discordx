@@ -7,6 +7,22 @@ export class music {
   player: Player;
   constructor() {
     this.player = new Player();
+    this.player.on("onError", console.log);
+    this.player.on("onFinish", console.log);
+    this.player.on("onStart", console.log);
+    this.player.on("onLoop", console.log);
+    this.player.on("onFinishPlayback", console.log);
+    this.player.on("onRepeat", console.log);
+    this.player.on("onSkip", console.log);
+    this.player.on("onPause", console.log);
+    this.player.on("onResume", console.log);
+    this.player.on("onTrackAdd", console.log);
+    this.player.on("onLoopEnabled", console.log);
+    this.player.on("onLoopDisabled", console.log);
+    this.player.on("onRepeatEnabled", console.log);
+    this.player.on("onRepeatDisabled", console.log);
+    this.player.on("onMix", console.log);
+    this.player.on("onVolumeUpdate", console.log);
   }
 
   @Slash("play", { description: "Play a song" })
