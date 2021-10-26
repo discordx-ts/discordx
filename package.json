@@ -9,7 +9,7 @@
     "build": "tsc",
     "type-check": "tsc --noemit",
     "test": "jest --detectOpenHandles",
-    "lint": "eslint src",
+    "lint": "eslint ./",
     "format": "prettier --write .",
     "format-check": "prettier --check ."
   },
