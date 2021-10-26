@@ -342,6 +342,22 @@ export class Queue {
   }
 
   /**
+   * Clear track queue
+   */
+  public clearTracks(): void {
+    this._tracks = [];
+  }
+
+  /**
+   * Remove indexed track
+   * @param index array of track index
+   * @returns
+   */
+  public removeTracks(index: number[]): Track[] {
+    return _.pullAt(this._tracks, index);
+  }
+
+  /**
    * Set volume
    */
   public setVolume(volume: number): boolean {

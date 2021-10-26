@@ -174,3 +174,15 @@ queue.setVolume(volume: number);
 ```ts
 queue.seek(time: number);
 ```
+
+## Clear queue
+
+```ts
+queue.clearTracks();
+```
+
+## Remove specific tracks
+
+```ts
+queue.removeTracks([1, 3, 5]);
+```
