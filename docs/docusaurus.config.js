@@ -39,19 +39,19 @@ module.exports = {
           type: "doc",
         },
         {
-          docId: "api/index",
+          docId: "api/main/index",
           label: "API",
           position: "left",
           type: "doc",
         },
         {
-          docId: "api2/index",
+          docId: "api/utilities/index",
           label: "Utilities",
           position: "left",
           type: "doc",
         },
         {
-          docId: "api3/index",
+          docId: "api/music/index",
           label: "Music",
           position: "left",
           type: "doc",
