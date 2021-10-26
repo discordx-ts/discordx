@@ -4,7 +4,8 @@
   "description": "discord music player",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "type-check": "tsc --noemit"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.6.0",
+    "ansi-regex": "^6.0.1",
     "discord.js": "^13.3.0-dev.1635163665.ceaf738",
     "ffmpeg-static": "^4.4.0",
     "libsodium-wrappers": "^0.7.9",

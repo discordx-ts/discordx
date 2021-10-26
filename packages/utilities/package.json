@@ -4,7 +4,8 @@
   "description": "discordx utilities",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "type-check": "tsc --noemit"
   },
   "repository": {
     "type": "git",

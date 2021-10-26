@@ -53,6 +53,14 @@ jobs:
       - name: Run TypeScript compiler
         run: npm run type-check
 
+      - name: "Utilities: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/utilities
+
+      - name: "Music: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/music
+
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
