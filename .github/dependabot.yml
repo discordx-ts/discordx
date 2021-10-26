@@ -24,3 +24,11 @@ updates:
     ignore:
       - dependency-name: "discordx"
     versioning-strategy: increase
+
+  - package-ecosystem: "npm"
+    directory: "/packages/music"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "discordx"
+    versioning-strategy: increase
