@@ -30,10 +30,10 @@ jobs:
         working-directory: ./packages/utilities
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Install utilities dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
         working-directory: ./packages/utilities
 
       - name: Install latest discord.js
