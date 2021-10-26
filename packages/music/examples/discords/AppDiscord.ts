@@ -1,6 +1,7 @@
 import { CommandInteraction, GuildMember, TextBasedChannels } from "discord.js";
+import { CustomTrack, Player } from "../../src";
 import { Discord, Slash, SlashOption } from "discordx";
-import { Player } from "../../src";
+import { join } from "path";
 
 @Discord()
 export class music {
@@ -12,7 +13,7 @@ export class music {
 
     this.player.on("onStart", ([track]) => {
       if (this.channel) {
-        this.channel.send(`playing ${track} ${track.url}`);
+        this.channel.send(`playing ${track} ${track.url ? track.url : ""}`);
       }
     });
 
@@ -205,5 +206,36 @@ export class music {
         "The requested spotify song/playlist is being played"
       );
     }
+  }
+
+  @Slash("custom-track", { description: "Play custom track" })
+  async customTrack(interaction: CommandInteraction): Promise<void> {
+    if (!interaction.guild) {
+      return;
+    }
+
+    if (
+      !(interaction.member instanceof GuildMember) ||
+      !interaction.member.voice.channel
+    ) {
+      interaction.reply("You are not in the voice channel");
+      return;
+    }
+
+    await interaction.deferReply();
+    const queue = this.player.queue(interaction.guild);
+    if (!queue.isReady) {
+      this.channel = interaction.channel ?? undefined;
+      await queue.join(interaction.member.voice.channel);
+    }
+
+    queue.playTack(
+      new CustomTrack(
+        this.player,
+        "My Custom Track",
+        join(__dirname, "file.mp3")
+      )
+    );
+    interaction.followUp("queued custom track");
   }
 }

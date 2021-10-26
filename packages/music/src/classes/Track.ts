@@ -1,71 +1,27 @@
-import {
-  AudioResource,
-  StreamType,
-  createAudioResource,
-} from "@discordjs/voice";
-import { Player } from ".";
-import { Video } from "ytsr";
-import { ytdl } from "..";
-import ytpl from "ytpl";
+import { CustomTrack, YoutubeTrack } from ".";
+import { AudioResource } from "@discordjs/voice";
+import internal from "node:stream";
 
-/**
- * Track options
- */
-export interface ITrackOptions {
-  seek?: number;
-  quality?: "lowestaudio" | "highestaudio";
-  ytdlRequestOptions?: object;
-  encoderArgs?: string[];
-}
+export type CommonTrack = YoutubeTrack | CustomTrack;
 
-/**
- * Music track
- */
-export class Track {
-  public title: string;
-  public url: string;
-
+export abstract class Track {
   constructor(
-    public info: Video | ytpl.Item,
-    public player: Player,
-    public options?: ITrackOptions
+    public title: string,
+    public url?: string,
+    public source?: string | internal.Readable
   ) {
-    this.title = info.title;
-    this.url = info.url;
+    // empty constructor
   }
 
-  /**
-   * return title
-   * @returns
-   */
-  toString(): string {
-    return this.title;
+  abstract createAudioResource():
+    | AudioResource<CommonTrack>
+    | Promise<AudioResource<CommonTrack>>;
+
+  isCustomTrack(): this is CustomTrack {
+    return !!this.url;
   }
 
-  /**
-   * Create audio resource
-   * @returns
-   */
-  public createAudioResource(): Promise<AudioResource<Track>> {
-    return new Promise((resolve, reject) => {
-      const stream = ytdl(this.url, {
-        encoderArgs: this.options?.encoderArgs,
-        fmt: "s16le",
-        highWaterMark: 1 << 25,
-        opusEncoded: false,
-        quality: this.options?.quality ?? "highestaudio",
-        requestOptions: this.options?.ytdlRequestOptions,
-        seek: this.options?.seek ? this.options.seek / 1000 : 0,
-      }).on("error", (error: Error) => {
-        reject(error);
-      });
-
-      resolve(
-        createAudioResource(stream, {
-          inputType: StreamType.Raw,
-          metadata: this,
-        })
-      );
-    });
+  isYoutubeTrack(): this is YoutubeTrack {
+    return !!this.source;
   }
 }

@@ -10,8 +10,8 @@ import {
   entersState,
   joinVoiceChannel,
 } from "@discordjs/voice";
+import { CommonTrack, ITrackOptions, Player, YoutubeTrack } from ".";
 import { Guild, StageChannel, VoiceChannel } from "discord.js";
-import { ITrackOptions, Player, Track } from ".";
 import { PlayerErrors, Util } from "..";
 import { Video } from "ytsr";
 import _ from "lodash";
@@ -33,9 +33,9 @@ function wait(time: number) {
  */
 export class Queue {
   private _audioPlayer = createAudioPlayer();
-  private _tracks: Track[] = [];
+  private _tracks: CommonTrack[] = [];
   private _voiceConnection: VoiceConnection | undefined;
-  private lastTrack: Track | undefined;
+  private lastTrack: CommonTrack | undefined;
   private loopMode = false;
   private queueLock = false;
   private readyLock = false;
@@ -113,12 +113,13 @@ export class Queue {
   /**
    * get current track
    */
-  public get currentTrack(): AudioResource<Track> | undefined {
+  public get currentTrack(): AudioResource<CommonTrack> | undefined {
     if (this._audioPlayer.state.status !== AudioPlayerStatus.Playing) {
       return undefined;
     }
 
-    const track = this._audioPlayer.state.resource as AudioResource<Track>;
+    const track = this._audioPlayer.state
+      .resource as AudioResource<CommonTrack>;
 
     return track;
   }
@@ -126,7 +127,7 @@ export class Queue {
   /**
    * get next track
    */
-  public get nextTrack(): Track | undefined {
+  public get nextTrack(): CommonTrack | undefined {
     return this._tracks[0];
   }
 
@@ -160,15 +161,15 @@ export class Queue {
         // If the Idle state is entered from a non-Idle state, it means that an audio resource has finished playing.
         // The queue is then processed to start playing the next track, if one is available.
         //
-        const track = (oldState.resource as AudioResource<Track>)
-          .metadata as Track;
+        const track = (oldState.resource as AudioResource<YoutubeTrack>)
+          .metadata as YoutubeTrack;
         this.player.emit("onFinish", [track]);
         void this.processQueue();
       } else if (newState.status === AudioPlayerStatus.Playing) {
         // If the Playing state has been entered, then a new track has started playback.
 
-        const track = (newState.resource as AudioResource<Track>)
-          .metadata as Track;
+        const track = (newState.resource as AudioResource<YoutubeTrack>)
+          .metadata as YoutubeTrack;
         this.player.emit("onStart", [track]);
       }
     });
@@ -176,7 +177,7 @@ export class Queue {
     this._audioPlayer.on("error", (error) => {
       this.player.emit("onError", [
         error,
-        (error.resource as AudioResource<Track>).metadata,
+        (error.resource as AudioResource<YoutubeTrack>).metadata,
       ]);
     });
   }
@@ -218,7 +219,7 @@ export class Queue {
     this.lastTrack = nextTrack;
 
     try {
-      // Attempt to convert the Track into an AudioResource (i.e. start streaming the video)
+      // Attempt to convert the YoutubeTrack into an AudioResource (i.e. start streaming the video)
       const resource = await nextTrack.createAudioResource();
       this._audioPlayer.play(resource);
       this.queueLock = false;
@@ -227,7 +228,7 @@ export class Queue {
       // If an error occurred, try the next item of the queue instead
       this.player.emit("onError", [
         error,
-        (error.resource as AudioResource<Track>).metadata,
+        (error.resource as AudioResource<CommonTrack>).metadata,
       ]);
       this.queueLock = false;
       return this.processQueue();
@@ -353,7 +354,7 @@ export class Queue {
    * @param index array of track index
    * @returns
    */
-  public removeTracks(index: number[]): Track[] {
+  public removeTracks(index: number[]): CommonTrack[] {
     return _.pullAt(this._tracks, index);
   }
 
@@ -384,6 +385,10 @@ export class Queue {
     }
 
     const track = this.currentTrack.metadata;
+    if (track.isCustomTrack()) {
+      return false;
+    }
+
     track.options ? (track.options.seek = time) : { seek: time };
 
     this.enqueue([track], true);
@@ -467,11 +472,11 @@ export class Queue {
   }
 
   /**
-   * Adds a new Track to the queue.
+   * Adds a new YoutubeTrack to the queue.
    *
    * @param track The track to add to the queue
    */
-  public enqueue(track: Track[], top?: boolean): void {
+  public enqueue(track: CommonTrack[], top?: boolean): void {
     if (top) {
       this._tracks.unshift(...track);
     } else {
@@ -482,23 +487,39 @@ export class Queue {
   }
 
   /**
+   * play custom track
+   * @param track
+   * @param playNow
+   * @returns
+   */
+  public playTack(track: CommonTrack, playNow?: boolean): CommonTrack {
+    this.enqueue([track]);
+    if (this.isPlaying && playNow) {
+      this.audioPlayer.stop();
+    }
+
+    this.processQueue();
+    return track;
+  }
+
+  /**
    * play song
    * @param search
    * @param options
    * @returns
    */
-  async play(
+  public async play(
     search: string | Video,
     options?: ITrackOptions,
     playNow?: boolean
-  ): Promise<Track | undefined> {
+  ): Promise<YoutubeTrack | undefined> {
     const video =
       typeof search === "string" ? await Util.getSong(search) : search;
     if (!video) {
       return;
     }
 
-    const track = new Track(video, this.player, options);
+    const track = new YoutubeTrack(video, this.player, options);
     this.enqueue([track]);
     if (this.isPlaying && playNow) {
       this.audioPlayer.stop();
@@ -514,10 +535,10 @@ export class Queue {
    * @param options
    * @returns
    */
-  async playlist(
+  public async playlist(
     search: string | ytpl.Result,
     options?: ITrackOptions
-  ): Promise<Track[] | undefined> {
+  ): Promise<YoutubeTrack[] | undefined> {
     const playlist =
       typeof search === "string" ? await Util.getPlaylist(search) : search;
     if (!playlist) {
@@ -525,7 +546,7 @@ export class Queue {
     }
 
     const tracks = playlist.items.map(
-      (video) => new Track(video, this.player, options)
+      (video) => new YoutubeTrack(video, this.player, options)
     );
     this.enqueue(tracks);
     this.processQueue();
@@ -538,10 +559,10 @@ export class Queue {
    * @param options
    * @returns
    */
-  async spotify(
+  public async spotify(
     search: string,
     options?: ITrackOptions
-  ): Promise<Track[] | undefined> {
+  ): Promise<YoutubeTrack[] | undefined> {
     const spotifyTracks =
       typeof search === "string" ? await Util.getSpotifyTracks(search) : search;
     if (!spotifyTracks) {
@@ -559,7 +580,7 @@ export class Queue {
     );
     const videos = _.compact(allVideos);
     const tracks = videos.map(
-      (video) => new Track(video, this.player, options)
+      (video) => new YoutubeTrack(video, this.player, options)
     );
     this.enqueue(tracks);
     this.processQueue();
