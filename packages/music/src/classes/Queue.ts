@@ -206,7 +206,7 @@ export class Queue {
     const nextTrack = this._tracks.shift();
     if (!nextTrack) {
       this.queueLock = false;
-      this.player.emit("onFinishPlayback");
+      this.player.emit("onFinishPlayback", []);
       return;
     }
 
@@ -417,7 +417,7 @@ export class Queue {
     }
 
     this._audioPlayer.pause();
-    this.player.emit("onPause");
+    this.player.emit("onPause", []);
     return true;
   }
 
@@ -430,7 +430,7 @@ export class Queue {
     }
 
     this._audioPlayer.unpause();
-    this.player.emit("onResume");
+    this.player.emit("onResume", []);
     return true;
   }
 
@@ -448,9 +448,9 @@ export class Queue {
   public setRepeat(state: boolean): void {
     this.repeatMode = state;
     if (state) {
-      this.player.emit("onRepeatEnabled");
+      this.player.emit("onRepeatEnabled", []);
     } else {
-      this.player.emit("onRepeatDisabled");
+      this.player.emit("onRepeatDisabled", []);
     }
   }
 
@@ -460,9 +460,9 @@ export class Queue {
   public setLoop(state: boolean): void {
     this.loopMode = state;
     if (state) {
-      this.player.emit("onLoopEnabled");
+      this.player.emit("onLoopEnabled", []);
     } else {
-      this.player.emit("onLoopDisabled");
+      this.player.emit("onLoopDisabled", []);
     }
   }
 

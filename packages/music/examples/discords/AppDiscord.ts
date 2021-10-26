@@ -1,28 +1,112 @@
-import { CommandInteraction, GuildMember } from "discord.js";
+import { CommandInteraction, GuildMember, TextBasedChannels } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { Player } from "../../src";
 
 @Discord()
 export class music {
   player: Player;
+  channel: TextBasedChannels | undefined;
+
   constructor() {
     this.player = new Player();
-    this.player.on("onError", console.log);
-    this.player.on("onFinish", console.log);
-    this.player.on("onStart", console.log);
-    this.player.on("onLoop", console.log);
-    this.player.on("onFinishPlayback", console.log);
-    this.player.on("onRepeat", console.log);
-    this.player.on("onSkip", console.log);
-    this.player.on("onPause", console.log);
-    this.player.on("onResume", console.log);
-    this.player.on("onTrackAdd", console.log);
-    this.player.on("onLoopEnabled", console.log);
-    this.player.on("onLoopDisabled", console.log);
-    this.player.on("onRepeatEnabled", console.log);
-    this.player.on("onRepeatDisabled", console.log);
-    this.player.on("onMix", console.log);
-    this.player.on("onVolumeUpdate", console.log);
+
+    this.player.on("onStart", ([track]) => {
+      if (this.channel) {
+        this.channel.send(`playing ${track} ${track.url}`);
+      }
+    });
+
+    this.player.on("onFinishPlayback", ([]) => {
+      if (this.channel) {
+        this.channel.send(
+          "all songs has been played, please queue up more songs :musical_note:"
+        );
+      }
+    });
+
+    this.player.on("onPause", ([]) => {
+      if (this.channel) {
+        this.channel.send("music paused");
+      }
+    });
+
+    this.player.on("onResume", ([]) => {
+      if (this.channel) {
+        this.channel.send("music resumed");
+      }
+    });
+
+    this.player.on("onError", ([err, track]) => {
+      if (this.channel) {
+        this.channel.send(`Track: ${track}Error: ${err.message}`);
+      }
+    });
+
+    this.player.on("onFinish", ([track]) => {
+      if (this.channel) {
+        this.channel.send(`Finished playing: ${track}`);
+      }
+    });
+
+    this.player.on("onLoop", ([]) => {
+      if (this.channel) {
+        this.channel.send("music resumed");
+      }
+    });
+
+    this.player.on("onRepeat", ([]) => {
+      if (this.channel) {
+        this.channel.send("music resumed");
+      }
+    });
+
+    this.player.on("onSkip", ([]) => {
+      if (this.channel) {
+        this.channel.send("music resumed");
+      }
+    });
+
+    this.player.on("onTrackAdd", ([track]) => {
+      if (this.channel) {
+        this.channel.send(`added tracks in queue: ${track.length}`);
+      }
+    });
+
+    this.player.on("onLoopEnabled", ([]) => {
+      if (this.channel) {
+        this.channel.send("loop mode enabled");
+      }
+    });
+
+    this.player.on("onLoopDisabled", ([]) => {
+      if (this.channel) {
+        this.channel.send("loop mode disabled");
+      }
+    });
+
+    this.player.on("onRepeatEnabled", ([]) => {
+      if (this.channel) {
+        this.channel.send("repeat mode enabled");
+      }
+    });
+
+    this.player.on("onRepeatDisabled", ([]) => {
+      if (this.channel) {
+        this.channel.send("repeat mode disabled");
+      }
+    });
+
+    this.player.on("onMix", ([tracks]) => {
+      if (this.channel) {
+        this.channel.send(`mixed tracks: ${tracks.length}`);
+      }
+    });
+
+    this.player.on("onVolumeUpdate", ([volume]) => {
+      if (this.channel) {
+        this.channel.send(`volume changed to: ${volume}`);
+      }
+    });
   }
 
   @Slash("play", { description: "Play a song" })
@@ -45,7 +129,10 @@ export class music {
 
     await interaction.deferReply();
     const queue = this.player.queue(interaction.guild);
-    await queue.join(interaction.member.voice.channel);
+    if (!queue.isReady) {
+      this.channel = interaction.channel ?? undefined;
+      await queue.join(interaction.member.voice.channel);
+    }
     const status = await queue.play(songName);
     if (!status) {
       interaction.followUp("The song could not be found");
@@ -74,7 +161,10 @@ export class music {
 
     await interaction.deferReply();
     const queue = this.player.queue(interaction.guild);
-    await queue.join(interaction.member.voice.channel);
+    if (!queue.isReady) {
+      this.channel = interaction.channel ?? undefined;
+      await queue.join(interaction.member.voice.channel);
+    }
     const status = await queue.playlist(playlistName);
     if (!status) {
       interaction.followUp("The playlist could not be found");
@@ -103,7 +193,10 @@ export class music {
 
     await interaction.deferReply();
     const queue = this.player.queue(interaction.guild);
-    await queue.join(interaction.member.voice.channel);
+    if (!queue.isReady) {
+      this.channel = interaction.channel ?? undefined;
+      await queue.join(interaction.member.voice.channel);
+    }
     const status = await queue.spotify(link);
     if (!status) {
       interaction.followUp("The spotify song/playlist could not be found");
