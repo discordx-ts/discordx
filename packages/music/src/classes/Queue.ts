@@ -113,13 +113,12 @@ export class Queue {
   /**
    * get current track
    */
-  public get currentTrack(): Track | undefined {
+  public get currentTrack(): AudioResource<Track> | undefined {
     if (this._audioPlayer.state.status !== AudioPlayerStatus.Playing) {
       return undefined;
     }
 
-    const track = (this._audioPlayer.state.resource as AudioResource<Track>)
-      .metadata;
+    const track = this._audioPlayer.state.resource as AudioResource<Track>;
 
     return track;
   }
@@ -129,6 +128,27 @@ export class Queue {
    */
   public get nextTrack(): Track | undefined {
     return this._tracks[0];
+  }
+
+  /**
+   * get volume
+   */
+  public get volume(): number {
+    if (!this.currentTrack?.volume) {
+      return 100;
+    }
+    const currentVol = this.currentTrack.volume.volume;
+    return Math.round(Math.pow(currentVol, 1 / 1.661) * 200);
+  }
+
+  /**
+   * Get playbackDuration
+   */
+  public get playbackDuration(): number {
+    if (!this.currentTrack) {
+      return 0;
+    }
+    return this.currentTrack.playbackDuration;
   }
 
   constructor(public player: Player, public guild: Guild) {
@@ -218,7 +238,7 @@ export class Queue {
    * Join voice channel
    * @param channel
    */
-  async join(
+  public async join(
     channel: VoiceChannel | StageChannel,
     force?: boolean
   ): Promise<void> {
@@ -322,6 +342,43 @@ export class Queue {
   }
 
   /**
+   * Set volume
+   */
+  public setVolume(volume: number): boolean {
+    if (
+      !this.currentTrack ||
+      isNaN(volume) ||
+      volume < 0 ||
+      volume >= Infinity
+    ) {
+      return false;
+    }
+
+    this.currentTrack.volume?.setVolumeLogarithmic(volume / 200);
+    return true;
+  }
+
+  /**
+   * Seek current music
+   */
+  public seek(time: number): boolean {
+    if (!this.currentTrack || !this.isPlaying) {
+      return false;
+    }
+
+    const track = this.currentTrack.metadata;
+    track.options ? (track.options.seek = time) : { seek: time };
+
+    this.enqueue([track], true);
+    if (this.isPlaying) {
+      this.audioPlayer.stop();
+    } else {
+      this.processQueue();
+    }
+    return true;
+  }
+
+  /**
    * Skip playback
    */
   public skip(): boolean {
@@ -394,7 +451,6 @@ export class Queue {
     }
 
     this.player.emit("onTrackAdd", track);
-    void this.processQueue();
   }
 
   /**
@@ -405,7 +461,8 @@ export class Queue {
    */
   async play(
     search: string | Video,
-    options?: ITrackOptions
+    options?: ITrackOptions,
+    playNow?: boolean
   ): Promise<Track | undefined> {
     const video =
       typeof search === "string" ? await Util.getSong(search) : search;
@@ -415,6 +472,11 @@ export class Queue {
 
     const track = new Track(video, this.player, options);
     this.enqueue([track]);
+    if (this.isPlaying && playNow) {
+      this.audioPlayer.stop();
+    }
+
+    this.processQueue();
     return track;
   }
 
@@ -438,6 +500,7 @@ export class Queue {
       (video) => new Track(video, this.player, options)
     );
     this.enqueue(tracks);
+    this.processQueue();
     return tracks;
   }
 
@@ -471,6 +534,7 @@ export class Queue {
       (video) => new Track(video, this.player, options)
     );
     this.enqueue(tracks);
+    this.processQueue();
     return tracks;
   }
 }

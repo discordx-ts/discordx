@@ -19,8 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [1.0.0] - 2021-10-26
+## [1.0.2] - 2021-10-26
 
 ### Added
 
-- init
+- volume
+- seek

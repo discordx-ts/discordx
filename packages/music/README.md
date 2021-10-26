@@ -150,3 +150,27 @@ queue.leave();
 ```ts
 queue.mix();
 ```
+
+## Get playback duration
+
+```ts
+queue.playbackDuration;
+```
+
+## Get volume
+
+```ts
+queue.volume;
+```
+
+## Set volume
+
+```ts
+queue.setVolume(volume: number);
+```
+
+## Seek current track
+
+```ts
+queue.seek(time: number);
+```
