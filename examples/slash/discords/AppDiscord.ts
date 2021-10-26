@@ -140,6 +140,7 @@ export abstract class AppDiscord1 {
         this: AppDiscord1,
         interaction: AutocompleteInteraction
       ) {
+        // normal function, have this, so class reference is passed
         console.log(this.myCustomText);
         // resolver for option b
         interaction.respond([
@@ -153,7 +154,7 @@ export abstract class AppDiscord1 {
     searchText2: string,
     @SlashOption("coption", {
       autocomplete: (interaction: AutocompleteInteraction) => {
-        // resolver for option b
+        // arrow function does not have this, so class reference is not available
         interaction.respond([
           { name: "option e", value: "e" },
           { name: "option f", value: "f" },
