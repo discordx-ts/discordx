@@ -70,6 +70,8 @@ export abstract class AppDiscord {
 
 @Discord()
 export abstract class AppDiscord1 {
+  myCustomText = "This resovler has class inbound";
+
   @Slash("hello")
   hello(
     @SlashOption("user", { type: "USER" }) user: GuildMember | User,
@@ -134,7 +136,11 @@ export abstract class AppDiscord1 {
     })
     searchText: string,
     @SlashOption("boption", {
-      autocomplete: (interaction) => {
+      autocomplete: function myResolver(
+        this: AppDiscord1,
+        interaction: AutocompleteInteraction
+      ) {
+        console.log(this.myCustomText);
         // resolver for option b
         interaction.respond([
           { name: "option c", value: "d" },
@@ -145,6 +151,18 @@ export abstract class AppDiscord1 {
       type: "STRING",
     })
     searchText2: string,
+    @SlashOption("coption", {
+      autocomplete: (interaction: AutocompleteInteraction) => {
+        // resolver for option b
+        interaction.respond([
+          { name: "option e", value: "e" },
+          { name: "option f", value: "f" },
+        ]);
+      },
+      required: true,
+      type: "STRING",
+    })
+    searchText3: string,
     interaction: CommandInteraction | AutocompleteInteraction
   ): void {
     if (interaction.isAutocomplete()) {
@@ -158,7 +176,7 @@ export abstract class AppDiscord1 {
         ]);
       }
     } else {
-      interaction.reply(`${searchText}-${searchText2}`);
+      interaction.reply(`${searchText}-${searchText2}-${searchText3}`);
     }
   }
 }
