@@ -17,6 +17,7 @@ import {
   DComponentButton,
   DComponentSelectMenu,
   DDiscord,
+  DIService,
   DOn,
   DSimpleCommand,
   DSimpleCommandOption,
@@ -897,7 +898,11 @@ export class Client extends ClientJS {
           (op) => op.name === focusOption.name
         );
         if (option && typeof option.autocomplete === "function") {
-          option.autocomplete(interaction, applicationCommand);
+          option.autocomplete.call(
+            DIService.instance.getService(option.from),
+            interaction,
+            applicationCommand
+          );
           return;
         }
       }
