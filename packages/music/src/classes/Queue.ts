@@ -1,5 +1,3 @@
-import * as _ from "lodash";
-import * as ytpl from "ytpl";
 import {
   AudioPlayer,
   AudioPlayerStatus,
@@ -16,6 +14,8 @@ import { Guild, StageChannel, VoiceChannel } from "discord.js";
 import { ITrackOptions, Player, Track } from ".";
 import { PlayerErrors, Util } from "..";
 import { Video } from "ytsr";
+import _ from "lodash";
+import ytpl from "ytpl";
 
 /**
  * Wait promise

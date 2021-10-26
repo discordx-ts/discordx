@@ -1,4 +1,3 @@
-import * as ytpl from "ytpl";
 import {
   AudioResource,
   StreamType,
@@ -7,6 +6,7 @@ import {
 import { Player } from ".";
 import { Video } from "ytsr";
 import { ytdl } from "..";
+import ytpl from "ytpl";
 
 /**
  * Track options
