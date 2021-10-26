@@ -6,11 +6,11 @@ export type ArgSplitter =
   | ((command: SimpleCommandMessage) => string[]);
 
 export interface SimpleCommandParams {
+  aliases?: string[];
   argSplitter?: ArgSplitter;
+  botIds?: string[];
+  defaultPermission?: boolean;
   description?: string;
   directMessage?: boolean;
-  defaultPermission?: boolean;
   guilds?: IGuild[];
-  botIds?: string[];
-  aliases?: string[];
 }

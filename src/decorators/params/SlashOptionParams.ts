@@ -7,16 +7,16 @@ interface SlashOptionBase {
 }
 
 interface SlashOptionBaseParams extends SlashOptionBase {
+  channelTypes?: undefined;
   type?: Exclude<
     SlashOptionType,
     "SUB_COMMAND" | "SUB_COMMAND_GROUP" | "CHANNEL"
   >;
-  channelTypes?: undefined;
 }
 
 interface SlashOptionChannelParams extends SlashOptionBase {
-  type: "CHANNEL";
   channelTypes?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[];
+  type: "CHANNEL";
 }
 
 export type SlashOptionParams =

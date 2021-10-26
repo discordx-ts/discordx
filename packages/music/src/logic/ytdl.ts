@@ -22,17 +22,17 @@ const evn = [
 ];
 
 interface YTDLStreamOptions extends ytdl.downloadOptions {
-  seek?: number;
   encoderArgs?: string[];
   fmt?: string;
   opusEncoded?: boolean;
+  seek?: number;
 }
 
 interface StreamOptions {
-  seek?: number;
   encoderArgs?: string[];
   fmt?: string;
   opusEncoded?: boolean;
+  seek?: number;
 }
 
 /**

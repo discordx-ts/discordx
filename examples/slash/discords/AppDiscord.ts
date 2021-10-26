@@ -17,8 +17,8 @@ import {
 import { ChannelTypes } from "discord.js/typings/enums";
 
 enum TextChoices {
-  Hello = "Hello",
   "Good Bye" = "GoodBye",
+  Hello = "Hello",
 }
 
 @Discord()

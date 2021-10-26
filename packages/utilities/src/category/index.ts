@@ -44,9 +44,9 @@ export interface ICategoryItemCommand extends ICategoryBase {
 }
 
 export interface ICategory {
-  name: string;
   description?: string;
   items: (ICategoryItem | ICategoryItemCommand)[];
+  name: string;
 }
 
 export class CategoryMetaData {

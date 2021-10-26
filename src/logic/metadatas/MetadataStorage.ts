@@ -38,7 +38,7 @@ export class MetadataStorage {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _modifiers: Modifier<any>[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
-  private _allSimpleCommands: { name: string; command: DSimpleCommand }[] = [];
+  private _allSimpleCommands: { command: DSimpleCommand; name: string }[] = [];
   private _commandsOptions: DSimpleCommandOption[] = [];
 
   private _groups: DApplicationCommandGroup<DApplicationCommand>[] = [];
@@ -96,8 +96,8 @@ export class MetadataStorage {
     return this._simpleCommands;
   }
   get allSimpleCommands(): readonly {
-    name: string;
     command: DSimpleCommand;
+    name: string;
   }[] {
     return this._allSimpleCommands;
   }

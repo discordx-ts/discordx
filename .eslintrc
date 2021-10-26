@@ -1,12 +1,17 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "typescript-sort-keys"],
   "extends": [
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    // typescript-sort-keys
+    "typescript-sort-keys/interface": "error",
+    "typescript-sort-keys/string-enum": "error",
+
+    // common
     "no-return-await": "error",
     "no-unreachable-loop": "error",
     "no-promise-executor-return": "error",

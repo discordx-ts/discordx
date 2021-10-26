@@ -12,11 +12,11 @@ import { Pagination } from ".";
 export const defaultTime = 1_800_000;
 
 export enum defaultIds {
-  startButton = "discordx@pagination@startButton",
   endButton = "discordx@pagination@endButton",
+  menuId = "discordx@pagination@menu",
   nextButton = "discordx@pagination@nextButton",
   previousButton = "discordx@pagination@previousButton",
-  menuId = "discordx@pagination@menu",
+  startButton = "discordx@pagination@startButton",
 }
 
 export type embedType = string | MessageEmbed | MessageOptions;
@@ -33,14 +33,14 @@ export type PaginationInteractions =
 
 interface BasicPaginationOptions {
   /**
-   * Initial page (default: 0)
-   */
-  initialPage?: number;
-
-  /**
    * Set ephemeral response
    */
   ephemeral?: boolean;
+
+  /**
+   * Initial page (default: 0)
+   */
+  initialPage?: number;
 
   /**
    * Pagination timeout callback
@@ -112,9 +112,9 @@ interface ButtonPaginationOptions extends BasicPaginationOptions {
 
 interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   /**
-   * select pagination type (default: BUTTON)
+   * End label
    */
-  type: "SELECT_MENU";
+  endLabel?: string;
 
   /**
    * custom select menu id (default: 'discordx@pagination@menu')
@@ -138,9 +138,9 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   startLabel?: string;
 
   /**
-   * End label
+   * select pagination type (default: BUTTON)
    */
-  endLabel?: string;
+  type: "SELECT_MENU";
 }
 
 export type PaginationOptions =
@@ -148,13 +148,13 @@ export type PaginationOptions =
   | SelectMenuPaginationOptions;
 
 export interface IPaginate {
-  totalItems: number;
   currentPage: number;
-  pageSize: number;
-  totalPages: number;
-  startPage: number;
-  endPage: number;
-  startIndex: number;
   endIndex: number;
+  endPage: number;
+  pageSize: number;
   pages: number[];
+  startIndex: number;
+  startPage: number;
+  totalItems: number;
+  totalPages: number;
 }

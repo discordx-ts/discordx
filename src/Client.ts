@@ -101,14 +101,14 @@ export class Client extends ClientJS {
   }
 
   static get allSimpleCommands(): readonly {
-    name: string;
     command: DSimpleCommand;
+    name: string;
   }[] {
     return MetadataStorage.instance.allSimpleCommands;
   }
   get allSimpleCommands(): readonly {
-    name: string;
     command: DSimpleCommand;
+    name: string;
   }[] {
     return Client.allSimpleCommands;
   }
@@ -325,8 +325,8 @@ export class Client extends ClientJS {
    * Initialize all the @Slash with their permissions
    */
   async initApplicationCommands(options?: {
-    guild?: InitCommandConfig;
     global?: InitCommandConfig;
+    guild?: InitCommandConfig;
   }): Promise<void> {
     const allGuildPromises: Promise<void>[] = [];
     const guildDCommandStore = await this.CommandByGuild();

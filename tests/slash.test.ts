@@ -23,8 +23,8 @@ import {
 
 type Data = { passed: boolean };
 enum TextChoices {
-  Hello = "Hello",
   "Good Bye" = "GoodBye",
+  Hello = "Hello",
 }
 
 @Discord()

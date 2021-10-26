@@ -24,12 +24,12 @@ export function ButtonComponent(id?: string): MethodDecoratorEx;
  */
 export function ButtonComponent(
   id: string,
-  params?: { guilds?: IGuild[]; botIds?: string[] }
+  params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
 export function ButtonComponent(
   id?: string,
-  params?: { guilds?: IGuild[]; botIds?: string[] }
+  params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return <T>(target: Record<string, T>, key: string) => {
     const button = DComponentButton.create(

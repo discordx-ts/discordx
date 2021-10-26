@@ -12,10 +12,10 @@ import ytpl from "ytpl";
  * Track options
  */
 export interface ITrackOptions {
-  seek?: number;
-  quality?: "lowestaudio" | "highestaudio";
-  ytdlRequestOptions?: object;
   encoderArgs?: string[];
+  quality?: "lowestaudio" | "highestaudio";
+  seek?: number;
+  ytdlRequestOptions?: object;
 }
 
 /**

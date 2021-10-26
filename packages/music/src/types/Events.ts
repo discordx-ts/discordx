@@ -3,19 +3,19 @@ import { Track } from "..";
 export interface PlayerEvents {
   onError: [error: Error, track: Track];
   onFinish: [track: Track];
-  onStart: [track: Track];
-  onLoop: [track: Track];
   onFinishPlayback: [];
-  onRepeat: [track: Track];
-  onSkip: [track: Track];
-  onPause: [];
-  onResume: [];
-  onTrackAdd: [tracks: Track[]];
-  onLoopEnabled: [];
+  onLoop: [track: Track];
   onLoopDisabled: [];
-  onRepeatEnabled: [];
-  onRepeatDisabled: [];
+  onLoopEnabled: [];
   onMix: [tracks: Track[]];
+  onPause: [];
+  onRepeat: [track: Track];
+  onRepeatDisabled: [];
+  onRepeatEnabled: [];
+  onResume: [];
+  onSkip: [track: Track];
+  onStart: [track: Track];
+  onTrackAdd: [tracks: Track[]];
   onVolumeUpdate: [volume: number];
 }
 
