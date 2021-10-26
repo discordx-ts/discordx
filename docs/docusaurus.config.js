@@ -44,6 +44,18 @@ module.exports = {
           position: "left",
           type: "doc",
         },
+        {
+          docId: "api2/index",
+          label: "Utilities",
+          position: "left",
+          type: "doc",
+        },
+        {
+          docId: "api3/index",
+          label: "Music",
+          position: "left",
+          type: "doc",
+        },
         // {
         //   type: "localeDropdown",
         //   position: "right",
@@ -109,8 +121,37 @@ module.exports = {
         excludeExternals: true,
         excludePrivate: true,
         excludeProtected: true,
+        id: "api-1",
         readme: "none",
         tsconfig: "../tsconfig.json",
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      // Plugin / TypeDoc options
+      {
+        entryPoints: ["../packages/utilities/src/index.ts"],
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+        id: "api-2",
+        out: "api2",
+        readme: "none",
+        tsconfig: "../packages/utilities/tsconfig.json",
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      // Plugin / TypeDoc options
+      {
+        entryPoints: ["../packages/music/src/index.ts"],
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+        id: "api-3",
+        out: "api3",
+        readme: "none",
+        tsconfig: "../packages/music/tsconfig.json",
       },
     ],
   ],

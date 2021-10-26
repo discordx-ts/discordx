@@ -16,4 +16,6 @@ yarn-error.log*
 
 
 docs/docs/api
+docs/docs/api2
+docs/docs/api3
 docs/typedoc-sidebar.js
