@@ -1,6 +1,6 @@
 export interface InitCommandConfig {
   /**
-   * Enable console log
+   * Enable logging
    */
   log?: boolean;
   /**

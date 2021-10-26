@@ -5,6 +5,7 @@ import {
   SimpleCommandMessage,
 } from "../..";
 import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
+import { ILogger } from "..";
 
 export interface SimpleCommandConfig {
   /**
@@ -47,7 +48,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   simpleCommand?: SimpleCommandConfig;
 
   /**
-   * Do not log anything in the console
+   * Do not log anything
    */
   silent?: boolean;
 
@@ -65,4 +66,9 @@ export interface ClientOptions extends DiscordJSClientOptions {
    * Set the guilds globally for application commands
    */
   botGuilds?: IGuild[];
+
+  /**
+   * Set custom logger implementation
+   */
+  logger?: ILogger;
 }
