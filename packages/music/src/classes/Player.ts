@@ -1,4 +1,5 @@
 import { Collection, Guild, Snowflake } from "discord.js";
+import { PlayerEventArgOf, PlayerEvents } from "..";
 import { EventEmitter } from "node:events";
 import { Queue } from ".";
 
@@ -12,12 +13,19 @@ export class Player extends EventEmitter {
     super();
   }
 
+  public on<T extends keyof PlayerEvents>(
+    event: T,
+    handler: (...args: PlayerEventArgOf<T>[]) => void
+  ): this {
+    return super.on(event, handler);
+  }
+
   /**
    * get guild queue
    * @param guild
    * @returns
    */
-  queue(guild: Guild): Queue {
+  public queue(guild: Guild): Queue {
     const queue = this.queues.get(guild.id);
 
     // return queue if already exist

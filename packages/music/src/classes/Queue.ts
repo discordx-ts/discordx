@@ -162,22 +162,22 @@ export class Queue {
         //
         const track = (oldState.resource as AudioResource<Track>)
           .metadata as Track;
-        this.player.emit("onFinish", track);
+        this.player.emit("onFinish", [track]);
         void this.processQueue();
       } else if (newState.status === AudioPlayerStatus.Playing) {
         // If the Playing state has been entered, then a new track has started playback.
 
         const track = (newState.resource as AudioResource<Track>)
           .metadata as Track;
-        this.player.emit("onStart", track);
+        this.player.emit("onStart", [track]);
       }
     });
 
     this._audioPlayer.on("error", (error) => {
-      this.player.emit(
-        "onError",
-        (error.resource as AudioResource<Track>).metadata
-      );
+      this.player.emit("onError", [
+        error,
+        (error.resource as AudioResource<Track>).metadata,
+      ]);
     });
   }
 
@@ -198,7 +198,7 @@ export class Queue {
     this.queueLock = true;
 
     if (this.loopMode && this.lastTrack) {
-      this.player.emit("onLoop", this.lastTrack);
+      this.player.emit("onLoop", [this.lastTrack]);
       this.enqueue([this.lastTrack], true);
     }
 
@@ -211,7 +211,7 @@ export class Queue {
     }
 
     if (this.repeatMode) {
-      this.player.emit("onRepeat", nextTrack);
+      this.player.emit("onRepeat", [nextTrack]);
       this.enqueue([nextTrack]);
     }
 
@@ -225,10 +225,10 @@ export class Queue {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // If an error occurred, try the next item of the queue instead
-      this.player.emit(
-        "onError",
-        (error.resource as AudioResource<Track>).metadata
-      );
+      this.player.emit("onError", [
+        error,
+        (error.resource as AudioResource<Track>).metadata,
+      ]);
       this.queueLock = false;
       return this.processQueue();
     }
@@ -371,7 +371,7 @@ export class Queue {
     }
 
     this.currentTrack.volume?.setVolumeLogarithmic(volume / 200);
-    this.player.emit("onVolumeUpdate", volume);
+    this.player.emit("onVolumeUpdate", [volume]);
     return true;
   }
 
@@ -403,7 +403,7 @@ export class Queue {
       return false;
     }
 
-    this.player.emit("onSkip", this.currentTrack);
+    this.player.emit("onSkip", [this.currentTrack]);
     this._audioPlayer.stop();
     return true;
   }
@@ -439,7 +439,7 @@ export class Queue {
    */
   public mix(): void {
     this._tracks = _.shuffle(this._tracks);
-    this.player.emit("onMix");
+    this.player.emit("onMix", [this._tracks]);
   }
 
   /**
@@ -478,7 +478,7 @@ export class Queue {
       this._tracks.push(...track);
     }
 
-    this.player.emit("onTrackAdd", track);
+    this.player.emit("onTrackAdd", [track]);
   }
 
   /**
