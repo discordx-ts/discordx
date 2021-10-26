@@ -33,7 +33,7 @@ jobs:
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
 
       - name: Install root dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
 
       - name: Install latest discord.js
         run: npm install discord.js@latest

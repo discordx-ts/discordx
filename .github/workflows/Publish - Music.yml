@@ -30,10 +30,10 @@ jobs:
         working-directory: ./packages/music
 
       - name: Install root dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
 
       - name: Install music dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
         working-directory: ./packages/music
 
       - name: Install latest discord.js

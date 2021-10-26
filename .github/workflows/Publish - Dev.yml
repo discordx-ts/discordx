@@ -27,7 +27,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
-        run: npm ci --ignore-scripts
+        run: npm ci
 
       - name: Build
         if: steps.pre-release.outputs.release == 'true'
@@ -49,7 +49,7 @@ jobs:
 
       - name: "Utilities: Install Dependencies"
         if: steps.pre-release.outputs.release == 'true'
-        run: npm ci --ignore-scripts
+        run: npm ci
         working-directory: ./packages/utilities
 
       - name: "Utilities: Update discordx"
@@ -80,7 +80,7 @@ jobs:
 
       - name: "Music: Install Dependencies"
         if: steps.pre-release.outputs.release == 'true'
-        run: npm ci --ignore-scripts
+        run: npm ci
         working-directory: ./packages/music
 
       - name: "Music: Update discordx"

@@ -22,10 +22,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install root dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
 
       - name: Install doc dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
         working-directory: ./docs
 
       - name: Build docs
