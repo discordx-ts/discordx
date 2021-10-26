@@ -25,6 +25,7 @@ import {
   DiscordEvents,
   GuardFunction,
   IGuild,
+  ILogger,
   InitCommandConfig,
   MetadataStorage,
   SimpleCommandConfig,
@@ -45,6 +46,7 @@ export class Client extends ClientJS {
   private _silent: boolean;
   private _botGuilds: IGuild[] = [];
   private _guards: GuardFunction[] = [];
+  private logger: ILogger;
 
   get botGuilds(): IGuild[] {
     return this._botGuilds;
@@ -179,6 +181,7 @@ export class Client extends ClientJS {
     this._botId = options.botId ?? "bot";
     this._prefix = options.simpleCommand?.prefix ?? "!";
     this._simpleCommandConfig = options.simpleCommand;
+    this.logger = options.logger ?? console;
   }
 
   /**
@@ -190,25 +193,27 @@ export class Client extends ClientJS {
     await this.decorators.build();
 
     if (!this.silent) {
-      console.log("Events");
+      this.logger.log("Events");
       if (this.events.length) {
         this.events.map((event) => {
           const eventName = event.event;
-          console.log(`>> ${eventName} (${event.classRef.name}.${event.key})`);
+          this.logger.log(
+            `>> ${eventName} (${event.classRef.name}.${event.key})`
+          );
         });
       } else {
-        console.log("   No events detected");
+        this.logger.log("   No events detected");
       }
 
-      console.log("");
+      this.logger.log("");
 
-      console.log("Slashes");
+      this.logger.log("Slashes");
       if (this.applicationCommands.length) {
         this.applicationCommands.map((DCommand) => {
           if (DCommand.botIds.length && !DCommand.botIds.includes(this.botId)) {
             return;
           }
-          console.log(
+          this.logger.log(
             `>> ${DCommand.name} (${DCommand.classRef.name}.${DCommand.key})`
           );
           const printOptions = (
@@ -222,7 +227,7 @@ export class Client extends ClientJS {
             const tab = Array(depth).join("      ");
 
             options.forEach((option) => {
-              console.log(
+              this.logger.log(
                 `${tab}(option) ${option.name}: ${option.type} (${option.classRef.name}.${option.key})`
               );
               printOptions(option.options, depth + 1);
@@ -231,18 +236,18 @@ export class Client extends ClientJS {
 
           printOptions(DCommand.options, 2);
 
-          console.log("");
+          this.logger.log("");
         });
       } else {
-        console.log("   No slashes detected");
+        this.logger.log("   No slashes detected");
       }
 
-      console.log("Simple Commands");
+      this.logger.log("Simple Commands");
       if (this.simpleCommands.length) {
         this.simpleCommands.map((cmd) => {
-          console.log(`>> ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
+          this.logger.log(`>> ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
           if (cmd.aliases.length) {
-            console.log("      aliases:", cmd.aliases.join(", "));
+            this.logger.log("      aliases:", cmd.aliases.join(", "));
           }
 
           const printOptions = (
@@ -255,17 +260,17 @@ export class Client extends ClientJS {
 
             const tab = Array(depth).join("      ");
             options.forEach((option) => {
-              console.log(
+              this.logger.log(
                 `${tab}(option) ${option.name}: ${option.type} (${option.classRef.name}.${option.key})`
               );
             });
           };
 
           printOptions(cmd.options, 2);
-          console.log("");
+          this.logger.log("");
         });
       } else {
-        console.log("   No simple commands detected");
+        this.logger.log("   No simple commands detected");
       }
     }
 
@@ -360,7 +365,9 @@ export class Client extends ClientJS {
 
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
-      console.log(`initGuildApplicationCommands: guild not found: ${guildId}`);
+      this.logger.log(
+        `initGuildApplicationCommands: guild not found: ${guildId}`
+      );
       return;
     }
 
@@ -439,21 +446,21 @@ export class Client extends ClientJS {
       })
     );
 
-    // log the changes to commands in console if enabled by options or silent mode is turned off
+    // log the changes to commands if enabled by options or silent mode is turned off
     if (options?.log || !this.silent) {
-      console.log(
+      this.logger.log(
         `${this.user?.username} >> guild: #${guild} >> command >> adding ${
           added.length
         } [${added.map((DCommand) => DCommand.name).join(", ")}]`
       );
 
-      console.log(
+      this.logger.log(
         `${this.user?.username} >> guild: #${guild} >> command >> deleting ${
           deleted.length
         } [${deleted.map((cmd) => cmd.name).join(", ")}]`
       );
 
-      console.log(
+      this.logger.log(
         `${this.user?.username} >> guild: #${guild} >> command >> updating ${
           commandToUpdate.length
         } [${commandToUpdate.map((cmd) => cmd.command.name).join(", ")}]`
@@ -557,19 +564,19 @@ export class Client extends ClientJS {
         DCommands.every((DCommand) => DCommand.name !== cmd.name)
       );
 
-      // log the changes to commands in console if enabled by options or silent mode is turned off
+      // log the changes to commands if enabled by options or silent mode is turned off
       if (options?.log || !this.silent) {
-        console.log(
+        this.logger.log(
           `${this.user?.username} >> global >> command >> adding ${
             added.length
           } [${added.map((DCommand) => DCommand.name).join(", ")}]`
         );
-        console.log(
+        this.logger.log(
           `${this.user?.username} >> global >> command >> deleting ${
             deleted.size
           } [${deleted.map((cmd) => cmd.name).join(", ")}]`
         );
-        console.log(
+        this.logger.log(
           `${this.user?.username} >> global >> command >> updating ${
             commandToUpdate.length
           } [${commandToUpdate.map((cmd) => cmd.command.name).join(", ")}]`
@@ -623,7 +630,7 @@ export class Client extends ClientJS {
   ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
-      console.log(
+      this.logger.log(
         `initGuildApplicationPermissions: guild not found: ${guildId}`
       );
       return;
@@ -655,7 +662,7 @@ export class Client extends ClientJS {
             );
             if (!_.isEqual(permissions, commandPermissions)) {
               if (!this.silent) {
-                console.log(
+                this.logger.log(
                   `${this.user?.username} >> guild: #${guild} >> updating permission >> ${cmd.name}`
                 );
               }
@@ -671,7 +678,7 @@ export class Client extends ClientJS {
                 cmd
               );
               if (!this.silent) {
-                console.log(
+                this.logger.log(
                   `${this.user?.username} >> guild: #${guild} >> updating permission >> ${cmd.name}`
                 );
               }
@@ -824,7 +831,7 @@ export class Client extends ClientJS {
 
     if (!interaction) {
       if (!this.silent) {
-        console.log("Interaction is undefined");
+        this.logger.log("Interaction is undefined");
       }
       return;
     }
@@ -854,7 +861,7 @@ export class Client extends ClientJS {
         (button.botIds.length && !button.botIds.includes(this.botId))
       ) {
         if (!this.silent) {
-          console.log(
+          this.logger.log(
             `button interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
           );
         }
@@ -889,7 +896,7 @@ export class Client extends ClientJS {
         (menu.botIds.length && !menu.botIds.includes(this.botId))
       ) {
         if (!this.silent) {
-          console.log(
+          this.logger.log(
             `selectMenu interaction not found, interactionID: ${interaction.id} | customID: ${interaction.customId}`
           );
         }
@@ -926,7 +933,7 @@ export class Client extends ClientJS {
           !applicationCommand.botIds.includes(this.botId))
       ) {
         if (!this.silent) {
-          console.log(
+          this.logger.log(
             `context menu interaction not found, name: ${interaction.commandName}`
           );
         }
@@ -955,7 +962,7 @@ export class Client extends ClientJS {
           !applicationCommand.botIds.includes(this.botId))
       ) {
         if (this.silent) {
-          console.log(
+          this.logger.log(
             `interaction not found, commandName: ${interaction.commandName}`
           );
         }
@@ -1042,7 +1049,7 @@ export class Client extends ClientJS {
 
     if (!message) {
       if (!this.silent) {
-        console.log("message is undefined");
+        this.logger.log("message is undefined");
       }
       return;
     }
@@ -1050,7 +1057,7 @@ export class Client extends ClientJS {
     const prefix = await this.getMessagePrefix(message);
     if (!prefix) {
       if (!this.silent) {
-        console.log("command prefix not found");
+        this.logger.log("command prefix not found");
       }
       return;
     }
