@@ -77,6 +77,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 | -------------------------------------------------------------------------- | ----------------------------- |
 | [`discordx`](https://www.npmjs.com/package/discordx)                       | main package                  |
 | [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc. |
+| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)         | Discord music player          |
 
 # 📔 Decorators
 
