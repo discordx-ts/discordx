@@ -17,7 +17,7 @@ module.exports = {
 
   apiMusicSidebar: [
     {
-      id: "readme",
+      id: "api/music",
       label: "Introducation",
       type: "doc",
     },
@@ -48,7 +48,7 @@ module.exports = {
 
   apiUtilitiesSidebar: [
     {
-      id: "readme",
+      id: "api/utilties",
       label: "Introducation",
       type: "doc",
     },

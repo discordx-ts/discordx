@@ -36,10 +36,8 @@ jobs:
       - name: "Copy files"
         run: |
           mkdir docs/docs/api
-          mkdir docs/docs/api/music
-          mkdir docs/docs/api/utilities
-          cp packages/music/README.md docs/docs/api/music/readme.md
-          cp packages/utilities/README.md docs/docs/api/utilities/readme.md
+          cp packages/music/README.md docs/docs/api/music.md
+          cp packages/utilities/README.md docs/docs/api/utilties.md
 
       - name: Build docs
         run: |
