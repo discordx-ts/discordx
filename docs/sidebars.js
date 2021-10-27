@@ -17,6 +17,11 @@ module.exports = {
 
   apiMusicSidebar: [
     {
+      id: "readme",
+      label: "Introducation",
+      type: "doc",
+    },
+    {
       items: [
         {
           dirName: "api/music",
@@ -42,6 +47,11 @@ module.exports = {
   ],
 
   apiUtilitiesSidebar: [
+    {
+      id: "readme",
+      label: "Introducation",
+      type: "doc",
+    },
     {
       items: [
         {

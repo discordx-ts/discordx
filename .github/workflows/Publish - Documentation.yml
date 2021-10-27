@@ -32,6 +32,11 @@ jobs:
         run: npm ci
         working-directory: ./packages/music
 
+      - name: "Copy files"
+        run: |
+          cp packages/music/README.md docs/docs/api/music/readme.md
+          cp packages/utilities/README.md docs/docs/api/utilities/readme.md
+
       - name: Build docs
         run: |
           export NODE_OPTIONS=--openssl-legacy-provider

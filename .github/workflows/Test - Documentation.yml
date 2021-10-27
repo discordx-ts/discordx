@@ -1,6 +1,6 @@
 name: Test - Documentation
 on:
-  # workflow_dispatch:
+  workflow_dispatch:
   pull_request:
     paths:
       - "docs/docs/**"
@@ -8,15 +8,11 @@ on:
       - main
 
 jobs:
-  docs:
-    name: Documentation
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
@@ -28,6 +24,25 @@ jobs:
         run: npm ci
         working-directory: ./docs
 
+      - name: "Utilities: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/utilities
+
+      - name: "Music: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/music
+
+      - name: "Copy files"
+        run: |
+          cp packages/music/README.md docs/docs/api/music/readme.md
+          cp packages/utilities/README.md docs/docs/api/utilities/readme.md
+
       - name: Build docs
-        run: npm run build
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
+          npm run build
         working-directory: ./docs
+
+      - name: Add CNAME
+        run: echo discord-ts.js.org > CNAME
+        working-directory: ./docs/build
