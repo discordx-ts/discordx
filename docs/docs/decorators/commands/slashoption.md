@@ -43,9 +43,14 @@ class DiscordBot {
       required: true,
       type: "STRING",
     })
-    aoption: string,
+    searchText: string,
     @SlashOption("boption", {
-      autocomplete: (interaction) => {
+      autocomplete: function myResolver(
+        this: AppDiscord1,
+        interaction: AutocompleteInteraction
+      ) {
+        // normal function, have this, so class reference is passed
+        console.log(this.myCustomText);
         // resolver for option b
         interaction.respond([
           { name: "option c", value: "d" },
@@ -55,9 +60,22 @@ class DiscordBot {
       required: true,
       type: "STRING",
     })
-    boption: string,
+    searchText2: string,
+    @SlashOption("coption", {
+      autocomplete: (interaction: AutocompleteInteraction) => {
+        // arrow function does not have this, so class reference is not available
+        interaction.respond([
+          { name: "option e", value: "e" },
+          { name: "option f", value: "f" },
+        ]);
+      },
+      required: true,
+      type: "STRING",
+    })
+    searchText3: string,
     interaction: CommandInteraction | AutocompleteInteraction
   ): void {
+    // autocomplete will passed to function if not handle above
     if (interaction.isAutocomplete()) {
       const focusedOption = interaction.options.getFocused(true);
 
@@ -69,7 +87,7 @@ class DiscordBot {
         ]);
       }
     } else {
-      interaction.reply(`${aoption}-${boption}`);
+      interaction.reply(`${searchText}-${searchText2}-${searchText3}`);
     }
   }
 }
