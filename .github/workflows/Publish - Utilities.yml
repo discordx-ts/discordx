@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
+          cache: "npm"
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/utilities version)
