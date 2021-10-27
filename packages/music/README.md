@@ -72,7 +72,7 @@ if (!status) {
 ## Play youtube playlist
 
 ```ts
-const status = await queue.play(playlistLink);
+const status = await queue.playlist(playlistLink);
 if (!status) {
   interaction.followUp("The playlist could not be found");
 } else {
@@ -91,6 +91,16 @@ if (!status) {
 }
 ```
 
+## Get voice config data
+
+```ts
+const audioPlayer = queue.audioPlayer;
+const voiceConnection = queue.voiceConnection;
+const voiceChannelId = queue.voiceChannelId;
+const voiceGroup = queue.voiceGroup;
+const voiceGuildId = queue.voiceGuildId;
+```
+
 ## Get tracks
 
 ```ts
@@ -100,7 +110,7 @@ const tracks = queue.tracks;
 ## Get loop mode
 
 ```ts
-const tracks = queue.loop;
+const state = queue.loop;
 ```
 
 ## Set loop mode
@@ -112,7 +122,7 @@ queue.setLoop(true | false);
 ## Get repeat mode
 
 ```ts
-const tracks = queue.repeat;
+const state = queue.repeat;
 ```
 
 ## Set repeat mode
@@ -185,6 +195,12 @@ queue.clearTracks();
 
 ```ts
 queue.removeTracks([1, 3, 5]);
+```
+
+## Get total tracks
+
+```ts
+const total = queue.size;
 ```
 
 ## Events

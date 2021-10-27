@@ -42,6 +42,14 @@ export class Queue {
   private repeatMode = false;
 
   /**
+   * get total queued of tracks
+   * @returns
+   */
+  public get size(): number {
+    return this._tracks.length;
+  }
+
+  /**
    * get audioPlayer
    * @returns
    */
@@ -55,6 +63,30 @@ export class Queue {
    */
   public get voiceConnection(): VoiceConnection | undefined {
     return this._voiceConnection;
+  }
+
+  /**
+   * get voice channel id
+   * @returns
+   */
+  public get voiceChannelId(): string | undefined {
+    return this._voiceConnection?.joinConfig.channelId ?? undefined;
+  }
+
+  /**
+   * get voice group
+   * @returns
+   */
+  public get voiceGroup(): string | undefined {
+    return this._voiceConnection?.joinConfig.group ?? undefined;
+  }
+
+  /**
+   * get voice group
+   * @returns
+   */
+  public get voiceGuildId(): string | undefined {
+    return this._voiceConnection?.joinConfig.guildId ?? undefined;
   }
 
   /**
