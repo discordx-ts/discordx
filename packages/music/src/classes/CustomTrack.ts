@@ -4,6 +4,7 @@ import {
   createAudioResource,
 } from "@discordjs/voice";
 import { CommonTrack, Player, Track } from ".";
+import { GuildMember, User } from "discord.js";
 import internal from "node:stream";
 
 /**
@@ -14,7 +15,8 @@ export class CustomTrack extends Track {
     public player: Player,
     public title: string,
     public source: string | internal.Readable,
-    public streamType?: StreamType
+    public streamType?: StreamType,
+    public user?: User | GuildMember
   ) {
     super(title, undefined, source);
     // empty constructor

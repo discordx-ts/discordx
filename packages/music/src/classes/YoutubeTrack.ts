@@ -4,6 +4,7 @@ import {
   createAudioResource,
 } from "@discordjs/voice";
 import { CommonTrack, Player, Track } from ".";
+import { GuildMember, User } from "discord.js";
 import { Video } from "ytsr";
 import { ytdl } from "..";
 import ytpl from "ytpl";
@@ -15,6 +16,7 @@ export interface ITrackOptions {
   encoderArgs?: string[];
   quality?: "lowestaudio" | "highestaudio";
   seek?: number;
+  user?: User | GuildMember;
   ytdlRequestOptions?: object;
 }
 
