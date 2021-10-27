@@ -21,6 +21,7 @@ interface SlashOptionChannelParams extends SlashOptionBase {
   channelTypes?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[];
   type: "CHANNEL";
 }
+
 interface SlashOptionAutoCompleteParams extends SlashOptionBase {
   autocomplete?: SlashAutoCompleteOption;
   channelTypes?: undefined;
