@@ -239,7 +239,7 @@ Tell the player to use this custom queue
 
 ```ts
 class MyQueue extends Queue {}
-this.player(guild, new MyQueue(this.player, guild));
+this.player.queue(guild, new MyQueue(this.player, guild));
 ```
 
 ## Custom player
