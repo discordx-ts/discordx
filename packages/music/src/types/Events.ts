@@ -1,26 +1,29 @@
+import { Queue, Track } from "..";
 import { StageChannel, VoiceChannel } from "discord.js";
-import { Track } from "..";
 
-export interface PlayerEvents {
-  onError: [error: Error, track: Track];
-  onFinish: [track: Track];
-  onFinishPlayback: [];
-  onJoin: [channel: VoiceChannel | StageChannel];
-  onLeave: [];
-  onLoop: [track: Track];
-  onLoopDisabled: [];
-  onLoopEnabled: [];
-  onMix: [tracks: Track[]];
-  onPause: [];
-  onRepeat: [track: Track];
-  onRepeatDisabled: [];
-  onRepeatEnabled: [];
-  onResume: [];
-  onSeek: [track: Track, time: number];
-  onSkip: [track: Track];
-  onStart: [track: Track];
-  onTrackAdd: [tracks: Track[]];
-  onVolumeUpdate: [volume: number];
+export interface PlayerEvents<T extends Queue> {
+  onError: (args: [queue: T, error: Error, track: Track]) => void;
+  onFinish: (args: [queue: T, track: Track]) => void;
+  onFinishPlayback: (args: [queue: T]) => void;
+  onJoin: (args: [queue: T, channel: VoiceChannel | StageChannel]) => void;
+  onLeave: (args: [queue: T]) => void;
+  onLoop: (args: [queue: T, track: Track]) => void;
+  onLoopDisabled: (args: [queue: T]) => void;
+  onLoopEnabled: (args: [queue: T]) => void;
+  onMix: (args: [queue: T, trackargs: Track[]]) => void;
+  onPause: (args: [queue: T]) => void;
+  onRepeat: (args: [queue: T, track: Track]) => void;
+  onRepeatDisabled: (args: [queue: T]) => void;
+  onRepeatEnabled: (args: [queue: T]) => void;
+  onResume: (args: [queue: T]) => void;
+  onSeek: (args: [queue: T, track: Track, time: number]) => void;
+  onSkip: (args: [queue: T, track: Track]) => void;
+  onStart: ([queue, track]: [queue: T, track: Track]) => void;
+  onTrackAdd: (args: [queue: T, trackargs: Track[]]) => void;
+  onVolumeUpdate: (args: [queue: T, volume: number]) => void;
 }
 
-export type PlayerEventArgOf<K extends keyof PlayerEvents> = PlayerEvents[K];
+export type PlayerEventArgOf<
+  Q extends Queue,
+  E extends keyof PlayerEvents<Q>
+> = PlayerEvents<Q>[E];

@@ -31,7 +31,7 @@ function wait(time: number) {
 /**
  * Guild queue
  */
-export class Queue {
+export abstract class Queue<T extends Player = Player> {
   private _audioPlayer = createAudioPlayer();
   private _tracks: CommonTrack[] = [];
   private _voiceConnection: VoiceConnection | undefined;
@@ -184,7 +184,7 @@ export class Queue {
     return this.currentTrack.playbackDuration;
   }
 
-  constructor(public player: Player, public guild: Guild) {
+  constructor(public player: T, public guild: Guild) {
     this._audioPlayer.on("stateChange", (oldState, newState) => {
       if (
         newState.status === AudioPlayerStatus.Idle &&
@@ -195,19 +195,20 @@ export class Queue {
         //
         const track = (oldState.resource as AudioResource<YoutubeTrack>)
           .metadata as YoutubeTrack;
-        this.player.emit("onFinish", [track]);
+        this.player.emit("onFinish", [this, track]);
         void this.processQueue();
       } else if (newState.status === AudioPlayerStatus.Playing) {
         // If the Playing state has been entered, then a new track has started playback.
 
         const track = (newState.resource as AudioResource<YoutubeTrack>)
           .metadata as YoutubeTrack;
-        this.player.emit("onStart", [track]);
+        this.player.emit("onStart", [this, track]);
       }
     });
 
     this._audioPlayer.on("error", (error) => {
       this.player.emit("onError", [
+        this,
         error,
         (error.resource as AudioResource<YoutubeTrack>).metadata,
       ]);
@@ -231,7 +232,7 @@ export class Queue {
     this.queueLock = true;
 
     if (this.loopMode && this.lastTrack) {
-      this.player.emit("onLoop", [this.lastTrack]);
+      this.player.emit("onLoop", [this, this.lastTrack]);
       this.enqueue([this.lastTrack], true);
     }
 
@@ -244,7 +245,7 @@ export class Queue {
     }
 
     if (this.repeatMode) {
-      this.player.emit("onRepeat", [nextTrack]);
+      this.player.emit("onRepeat", [this, nextTrack]);
       this.enqueue([nextTrack]);
     }
 
@@ -259,6 +260,7 @@ export class Queue {
     } catch (error: any) {
       // If an error occurred, try the next item of the queue instead
       this.player.emit("onError", [
+        this,
         error,
         (error.resource as AudioResource<CommonTrack>).metadata,
       ]);
@@ -357,7 +359,7 @@ export class Queue {
     }
 
     this._voiceConnection = _voiceConnection;
-    this.player.emit("onJoin", [channel]);
+    this.player.emit("onJoin", [this, channel]);
   }
 
   /**
@@ -375,7 +377,7 @@ export class Queue {
       this._voiceConnection = undefined;
     }
 
-    this.player.emit("onLeave", []);
+    this.player.emit("onLeave", [this]);
   }
 
   /**
@@ -408,7 +410,7 @@ export class Queue {
     }
 
     this.currentTrack.volume?.setVolumeLogarithmic(volume / 200);
-    this.player.emit("onVolumeUpdate", [volume]);
+    this.player.emit("onVolumeUpdate", [this, volume]);
     return true;
   }
 
@@ -428,7 +430,7 @@ export class Queue {
     const newTrack = new YoutubeTrack(track.info, this.player, { seek: time });
     this.enqueue([newTrack], true);
     this._audioPlayer.stop();
-    this.player.emit("onSeek", [newTrack, time]);
+    this.player.emit("onSeek", [this, newTrack, time]);
     return true;
   }
 
@@ -440,7 +442,7 @@ export class Queue {
       return false;
     }
 
-    this.player.emit("onSkip", [this.currentTrack]);
+    this.player.emit("onSkip", [this, this.currentTrack]);
     this._audioPlayer.stop();
     return true;
   }
@@ -454,7 +456,7 @@ export class Queue {
     }
 
     this._audioPlayer.pause();
-    this.player.emit("onPause", []);
+    this.player.emit("onPause", [this]);
     return true;
   }
 
@@ -467,7 +469,7 @@ export class Queue {
     }
 
     this._audioPlayer.unpause();
-    this.player.emit("onResume", []);
+    this.player.emit("onResume", [this]);
     return true;
   }
 
@@ -476,7 +478,7 @@ export class Queue {
    */
   public mix(): void {
     this._tracks = _.shuffle(this._tracks);
-    this.player.emit("onMix", [this._tracks]);
+    this.player.emit("onMix", [this, this._tracks]);
   }
 
   /**
@@ -485,9 +487,9 @@ export class Queue {
   public setRepeat(state: boolean): void {
     this.repeatMode = state;
     if (state) {
-      this.player.emit("onRepeatEnabled", []);
+      this.player.emit("onRepeatEnabled", [this]);
     } else {
-      this.player.emit("onRepeatDisabled", []);
+      this.player.emit("onRepeatDisabled", [this]);
     }
   }
 
@@ -497,9 +499,9 @@ export class Queue {
   public setLoop(state: boolean): void {
     this.loopMode = state;
     if (state) {
-      this.player.emit("onLoopEnabled", []);
+      this.player.emit("onLoopEnabled", [this]);
     } else {
-      this.player.emit("onLoopDisabled", []);
+      this.player.emit("onLoopDisabled", [this]);
     }
   }
 
@@ -515,7 +517,7 @@ export class Queue {
       this._tracks.push(...track);
     }
 
-    this.player.emit("onTrackAdd", [track]);
+    this.player.emit("onTrackAdd", [this, track]);
   }
 
   /**

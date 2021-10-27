@@ -226,3 +226,32 @@ this.player.on("onSeek", console.log);
 this.player.on("onJoin", console.log);
 this.player.on("onLeave", console.log);
 ```
+
+## Custom queue
+
+```ts
+class MyQueue extends Queue {
+  customProp = "custom queue";
+}
+```
+
+Tell the player to use this custom queue
+
+```ts
+class MyQueue extends Queue {}
+this.player(guild, new MyQueue(this.player, guild));
+```
+
+## Custom player
+
+```ts
+class MyPlayer extends Player {
+  // custom player
+}
+```
+
+Let your queue know about custom player
+
+```ts
+const myQueue: Queue<MyPlayer> = new Queue(this, guild);
+```

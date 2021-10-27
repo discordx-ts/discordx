@@ -16,7 +16,7 @@ export class music {
   constructor() {
     this.player = new Player();
 
-    this.player.on("onStart", ([track]) => {
+    this.player.on("onStart", ([, track]) => {
       if (this.channel) {
         this.channel.send(`playing ${track} ${track.url ? track.url : ""}`);
       }
@@ -42,7 +42,7 @@ export class music {
       }
     });
 
-    this.player.on("onError", ([err, track]) => {
+    this.player.on("onError", ([, err, track]) => {
       if (this.channel) {
         this.channel.send(`Track: ${track}Error: ${err.message}`);
       }
@@ -72,7 +72,7 @@ export class music {
       }
     });
 
-    this.player.on("onTrackAdd", ([track]) => {
+    this.player.on("onTrackAdd", ([, track]) => {
       if (this.channel) {
         this.channel.send(`added tracks in queue: ${track.length}`);
       }
@@ -102,7 +102,7 @@ export class music {
       }
     });
 
-    this.player.on("onMix", ([tracks]) => {
+    this.player.on("onMix", ([, tracks]) => {
       if (this.channel) {
         this.channel.send(`mixed tracks: ${tracks.length}`);
       }
@@ -113,6 +113,10 @@ export class music {
         this.channel.send(`volume changed to: ${volume}`);
       }
     });
+  }
+
+  queue(guild: Guild): Queue {
+    return this.player.queue(guild);
   }
 
   @Slash("play", { description: "Play a song" })
@@ -134,7 +138,7 @@ export class music {
     }
 
     await interaction.deferReply();
-    const queue = this.player.queue(interaction.guild);
+    const queue = this.queue(interaction.guild);
     if (!queue.isReady) {
       this.channel = interaction.channel ?? undefined;
       await queue.join(interaction.member.voice.channel);
@@ -166,7 +170,7 @@ export class music {
     }
 
     await interaction.deferReply();
-    const queue = this.player.queue(interaction.guild);
+    const queue = this.queue(interaction.guild);
     if (!queue.isReady) {
       this.channel = interaction.channel ?? undefined;
       await queue.join(interaction.member.voice.channel);
@@ -198,7 +202,7 @@ export class music {
     }
 
     await interaction.deferReply();
-    const queue = this.player.queue(interaction.guild);
+    const queue = this.queue(interaction.guild);
     if (!queue.isReady) {
       this.channel = interaction.channel ?? undefined;
       await queue.join(interaction.member.voice.channel);
@@ -228,7 +232,7 @@ export class music {
     }
 
     await interaction.deferReply();
-    const queue = this.player.queue(interaction.guild);
+    const queue = this.queue(interaction.guild);
     if (!queue.isReady) {
       this.channel = interaction.channel ?? undefined;
       await queue.join(interaction.member.voice.channel);
@@ -257,7 +261,7 @@ export class music {
       return;
     }
 
-    const queue = this.player.queue(interaction.guild);
+    const queue = this.queue(interaction.guild);
 
     if (!queue.isReady) {
       interaction.reply("I'm not ready yet");
@@ -361,5 +365,17 @@ export class music {
       return;
     }
     interaction.reply("current music seeked");
+  }
+
+  @Slash("leave", { description: "stop music" })
+  leave(interaction: CommandInteraction): void {
+    const validate = this.validateInteraction(interaction);
+    if (!validate) {
+      return;
+    }
+
+    const { queue } = validate;
+    queue.leave();
+    interaction.reply("stopped music");
   }
 }

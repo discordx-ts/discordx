@@ -13,9 +13,9 @@ export class Player extends EventEmitter {
     super();
   }
 
-  public on<T extends keyof PlayerEvents>(
+  public on<Q extends Queue, T extends keyof PlayerEvents<Q>>(
     event: T,
-    handler: (...args: PlayerEventArgOf<T>[]) => void
+    handler: PlayerEventArgOf<Q, T>
   ): this {
     return super.on(event, handler);
   }
@@ -25,7 +25,7 @@ export class Player extends EventEmitter {
    * @param guild
    * @returns
    */
-  public queue(guild: Guild): Queue {
+  public queue(guild: Guild, customQueue?: Queue): Queue {
     const queue = this.queues.get(guild.id);
 
     // return queue if already exist
@@ -34,12 +34,13 @@ export class Player extends EventEmitter {
     }
 
     // create new queue
-    const newQueue = new Queue(this, guild);
+    class MyQueue extends Queue {}
+    const queueClass = customQueue ? customQueue : new MyQueue(this, guild);
 
     // store queue
-    this.queues.set(guild.id, newQueue);
+    this.queues.set(guild.id, queueClass);
 
     // return queue
-    return newQueue;
+    return queueClass;
   }
 }
