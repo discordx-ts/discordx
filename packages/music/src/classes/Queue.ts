@@ -273,9 +273,9 @@ export class Queue {
    */
   public async join(
     channel: VoiceChannel | StageChannel,
-    force?: boolean
+    options?: { force?: boolean; group?: string }
   ): Promise<void> {
-    if (this._voiceConnection && !force) {
+    if (this._voiceConnection && !options?.force) {
       return;
     }
 
@@ -292,6 +292,7 @@ export class Queue {
       adapterCreator: channel.guild
         .voiceAdapterCreator as DiscordGatewayAdapterCreator,
       channelId: channel.id,
+      group: options?.group,
       guildId: channel.guild.id,
     });
 
