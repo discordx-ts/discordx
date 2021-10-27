@@ -240,7 +240,7 @@ export abstract class Queue<T extends Player = Player> {
     const nextTrack = this._tracks.shift();
     if (!nextTrack) {
       this.queueLock = false;
-      this.player.emit("onFinishPlayback", []);
+      this.player.emit("onFinishPlayback", [this]);
       return;
     }
 
