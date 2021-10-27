@@ -1,9 +1,12 @@
+import { StageChannel, VoiceChannel } from "discord.js";
 import { Track } from "..";
 
 export interface PlayerEvents {
   onError: [error: Error, track: Track];
   onFinish: [track: Track];
   onFinishPlayback: [];
+  onJoin: [channel: VoiceChannel | StageChannel];
+  onLeave: [];
   onLoop: [track: Track];
   onLoopDisabled: [];
   onLoopEnabled: [];

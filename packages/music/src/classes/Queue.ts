@@ -357,6 +357,7 @@ export class Queue {
     }
 
     this._voiceConnection = _voiceConnection;
+    this.player.emit("onJoin", [channel]);
   }
 
   /**
@@ -373,6 +374,8 @@ export class Queue {
       }
       this._voiceConnection = undefined;
     }
+
+    this.player.emit("onLeave", []);
   }
 
   /**

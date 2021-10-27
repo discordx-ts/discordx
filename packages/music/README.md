@@ -223,4 +223,6 @@ this.player.on("onRepeatDisabled", console.log);
 this.player.on("onMix", console.log);
 this.player.on("onVolumeUpdate", console.log);
 this.player.on("onSeek", console.log);
+this.player.on("onJoin", console.log);
+this.player.on("onLeave", console.log);
 ```
