@@ -2,6 +2,7 @@ import {
   CommandInteraction,
   ContextMenuInteraction,
   InteractionButtonOptions,
+  Message,
   MessageComponentInteraction,
   MessageEmbed,
   MessageOptions,
@@ -45,7 +46,7 @@ interface BasicPaginationOptions {
   /**
    * Pagination timeout callback
    */
-  onPaginationTimeout?: (page: number) => void;
+  onPaginationTimeout?: (page: number, message: Message) => void;
 
   /**
    * In milliseconds, how long should the paginator run. (Default: 30min)

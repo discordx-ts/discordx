@@ -15,7 +15,10 @@ export const GeneratePage = (
   page: number,
   totalPages: number,
   option: PaginationOptions
-): InteractionReplyOptions => {
+): {
+  paginationRow: MessageActionRow;
+  replyOptions: InteractionReplyOptions;
+} => {
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
@@ -71,13 +74,28 @@ export const GeneratePage = (
         : [prevBtn, nextBtn]
     );
 
-    if (cpage.components) {
-      cpage.components.push(row);
-    } else {
-      cpage.components = [row];
+    // reset message payload additional parameters
+    if (!cpage.embeds) {
+      cpage.embeds = [];
     }
 
-    return cpage;
+    if (!cpage.files) {
+      cpage.files = [];
+    }
+
+    if (!cpage.stickers) {
+      cpage.stickers = [];
+    }
+
+    if (!cpage.files) {
+      cpage.files = [];
+    }
+
+    if (!cpage.attachments) {
+      cpage.attachments = [];
+    }
+
+    return { paginationRow: row, replyOptions: cpage };
   } else {
     const paginator = paginate(totalPages, page, 1, 21).pages.map((i) => {
       // const selectMenuOption: MessageSelectOptionData = {
@@ -108,12 +126,6 @@ export const GeneratePage = (
 
     const row = new MessageActionRow().addComponents([menu]);
 
-    if (cpage.components) {
-      cpage.components.push(row);
-    } else {
-      cpage.components = [row];
-    }
-
     // reset message payload additional parameters
     if (!cpage.embeds) {
       cpage.embeds = [];
@@ -134,6 +146,7 @@ export const GeneratePage = (
     if (!cpage.attachments) {
       cpage.attachments = [];
     }
-    return cpage;
+
+    return { paginationRow: row, replyOptions: cpage };
   }
 };

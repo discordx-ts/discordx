@@ -3,6 +3,7 @@ import {
   Interaction,
   InteractionReplyOptions,
   Message,
+  MessageActionRow,
   TextBasedChannels,
 } from "discord.js";
 import {
@@ -39,9 +40,8 @@ export class Pagination {
      * default options
      */
     this.option =
-      config ?? this.maxLength < 20
-        ? { type: "BUTTON" }
-        : { type: "SELECT_MENU" };
+      config ??
+      (this.maxLength < 20 ? { type: "BUTTON" } : { type: "SELECT_MENU" });
 
     /**
      * Current page
@@ -51,7 +51,13 @@ export class Pagination {
 
   getPage = async (
     page: number
-  ): Promise<InteractionReplyOptions | undefined> => {
+  ): Promise<
+    | {
+        paginationRow: MessageActionRow;
+        replyOptions: InteractionReplyOptions;
+      }
+    | undefined
+  > => {
     const embed =
       this.embeds instanceof PaginationResolver
         ? await this.embeds.resolver(page, this)
@@ -70,21 +76,27 @@ export class Pagination {
       throw Error("Pagination: out of bound page");
     }
 
+    if (page.replyOptions.components) {
+      page.replyOptions.components.push(page.paginationRow);
+    } else {
+      page.replyOptions.components = [page.paginationRow];
+    }
+
     let message: Message;
 
     // send embed
     if (this.sendTo instanceof Message) {
-      message = await this.sendTo.reply(page);
+      message = await this.sendTo.reply(page.replyOptions);
     } else if (this.sendTo instanceof Interaction) {
       const reply =
         this.sendTo.deferred || this.sendTo.replied
           ? await this.sendTo.followUp({
-              ...page,
+              ...page.replyOptions,
               ephemeral: this.option.ephemeral,
               fetchReply: true,
             })
           : await this.sendTo.reply({
-              ...page,
+              ...page.replyOptions,
               ephemeral: this.option.ephemeral,
               fetchReply: true,
             });
@@ -95,7 +107,7 @@ export class Pagination {
 
       message = reply;
     } else {
-      message = await this.sendTo.send(page);
+      message = await this.sendTo.send(page.replyOptions);
     }
 
     // check if pages sent
@@ -140,7 +152,12 @@ export class Pagination {
         if (!pageEx) {
           throw Error("Pagination: out of bound page");
         }
-        await collectInteraction.editReply(pageEx);
+        if (pageEx.replyOptions.components) {
+          pageEx.replyOptions.components.push(pageEx.paginationRow);
+        } else {
+          pageEx.replyOptions.components = [pageEx.paginationRow];
+        }
+        await collectInteraction.editReply(pageEx.replyOptions);
       }
       if (
         collectInteraction.isSelectMenu() &&
@@ -165,19 +182,23 @@ export class Pagination {
         if (!pageEx) {
           throw Error("Pagination: out of bound page");
         }
-        await collectInteraction.editReply(pageEx);
+        if (pageEx.replyOptions.components) {
+          pageEx.replyOptions.components.push(pageEx.paginationRow);
+        } else {
+          pageEx.replyOptions.components = [pageEx.paginationRow];
+        }
+        await collectInteraction.editReply(pageEx.replyOptions);
       }
     });
 
     collector.on("end", async () => {
-      if (!message.editable || message.deleted) {
-        return;
+      const finalPage = await this.getPage(this.currentPage);
+      if (message.editable && finalPage) {
+        await message.edit(finalPage.replyOptions);
       }
 
-      await message.edit({ components: [] });
-
       if (this.option.onPaginationTimeout) {
-        this.option.onPaginationTimeout(this.currentPage);
+        this.option.onPaginationTimeout(this.currentPage, message);
       }
     });
 
