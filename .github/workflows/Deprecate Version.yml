@@ -1,6 +1,10 @@
 name: Deprecate - NPM Version
 on:
   workflow_dispatch:
+      package:
+        description: "package"
+        required: true
+        type: string
     inputs:
       version:
         description: "npm version range"
@@ -9,10 +13,6 @@ on:
       message:
         description: "deprecate message"
         default: "no longer supported, update to latest version"
-        required: true
-        type: string
-      package:
-        description: "package"
         required: true
         type: string
 
