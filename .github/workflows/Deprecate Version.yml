@@ -1,11 +1,11 @@
 name: Deprecate - NPM Version
 on:
   workflow_dispatch:
+    inputs:
       package:
         description: "package"
         required: true
         type: string
-    inputs:
       version:
         description: "npm version range"
         required: true
