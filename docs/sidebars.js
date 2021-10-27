@@ -17,8 +17,8 @@ module.exports = {
 
   apiMusicSidebar: [
     {
-      id: "api/music",
-      label: "Introducation",
+      label: "Installation",
+      link: "https://www.npmjs.com/package/@discordx/music",
       type: "doc",
     },
     {
@@ -48,8 +48,8 @@ module.exports = {
 
   apiUtilitiesSidebar: [
     {
-      id: "api/utilties",
-      label: "Introducation",
+      label: "Installation",
+      link: "https://www.npmjs.com/package/@discordx/utilities",
       type: "doc",
     },
     {
