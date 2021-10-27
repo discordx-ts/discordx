@@ -35,6 +35,11 @@ module.exports = {
 
   apiSidebar: [
     {
+      href: "https://www.npmjs.com/package/discordx",
+      label: "Installation",
+      type: "link",
+    },
+    {
       items: [
         {
           dirName: "api/main",
