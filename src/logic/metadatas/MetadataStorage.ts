@@ -1,3 +1,4 @@
+import * as _ from "lodash";
 import * as glob from "glob";
 import {
   ArgsOf,
@@ -37,7 +38,7 @@ export class MetadataStorage {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _modifiers: Modifier<any>[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
-  private _allSimpleCommands: { name: string; command: DSimpleCommand }[] = [];
+  private _allSimpleCommands: { command: DSimpleCommand; name: string }[] = [];
   private _commandsOptions: DSimpleCommandOption[] = [];
 
   private _groups: DApplicationCommandGroup<DApplicationCommand>[] = [];
@@ -95,8 +96,8 @@ export class MetadataStorage {
     return this._simpleCommands;
   }
   get allSimpleCommands(): readonly {
-    name: string;
     command: DSimpleCommand;
+    name: string;
   }[] {
     return this._allSimpleCommands;
   }
@@ -287,8 +288,16 @@ export class MetadataStorage {
     this._applicationCommands = this.groupSlashes();
 
     this._simpleCommands.forEach((cmd) => {
+      if (_.findIndex(this._allSimpleCommands, { name: cmd.name }) !== -1) {
+        throw Error(`Duplicate simple command name: ${cmd.name}`);
+      }
       this._allSimpleCommands.push({ command: cmd, name: cmd.name });
       cmd.aliases.forEach((al) => {
+        if (_.findIndex(this._allSimpleCommands, { name: al }) !== -1) {
+          throw Error(
+            `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`
+          );
+        }
         this._allSimpleCommands.push({ command: cmd, name: al });
       });
     });

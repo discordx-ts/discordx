@@ -63,7 +63,7 @@ const client = new Client({
 
 ### Clear application commands from Discord cache
 
-You can remove application commands from the Discord cache by using `client.clearApplicationCommands(...guildIDs: Snowflake[])`
+You can remove application commands from the Discord cache by using `client.clearApplicationCommands(...guildIds: Snowflake[])`
 
 > If you do not specify the guild id you operate on global application commands
 
@@ -78,7 +78,7 @@ client.once("ready", async () => {
 
 ### Fetch application commands from Discord
 
-or fetch them by using `client.fetchApplicationCommands(guildID: string)`
+or fetch them by using `client.fetchApplicationCommands(guildId: string)`
 
 > If you do not specify the guild id you operate on global application commands
 

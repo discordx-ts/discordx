@@ -23,8 +23,8 @@ import {
 
 type Data = { passed: boolean };
 enum TextChoices {
-  Hello = "Hello",
   "Good Bye" = "GoodBye",
+  Hello = "Hello",
 }
 
 @Discord()
@@ -264,7 +264,7 @@ class FakeInteraction {
 }
 
 describe("Slash", () => {
-  it("Should create the slash structure", () => {
+  it("Should create the slash structure", async () => {
     expect(client.applicationCommands[0]?.guilds).toEqual(["invalid_id"]);
     expect(client.applicationCommands[0]?.permissions).toEqual([
       {
@@ -274,9 +274,10 @@ describe("Slash", () => {
       },
     ]);
 
-    const slashesObjects = client.applicationCommands.map((slash) =>
-      slash.toJSON()
+    const slashesObjects = await Promise.all(
+      client.applicationCommands.map((slash) => slash.toJSON())
     );
+
     expect(slashesObjects).toEqual([
       {
         defaultPermission: true,
@@ -284,6 +285,7 @@ describe("Slash", () => {
         name: "hello",
         options: [
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "text - STRING",
             name: "text",
@@ -300,6 +302,7 @@ describe("Slash", () => {
         name: "inferance",
         options: [
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "text - STRING",
             name: "text",
@@ -308,6 +311,7 @@ describe("Slash", () => {
             type: "STRING",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "bool - BOOLEAN",
             name: "bool",
@@ -316,6 +320,7 @@ describe("Slash", () => {
             type: "BOOLEAN",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "nb - NUMBER",
             name: "nb",
@@ -324,6 +329,7 @@ describe("Slash", () => {
             type: "NUMBER",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "channel - CHANNEL",
             name: "channel",
@@ -332,6 +338,7 @@ describe("Slash", () => {
             type: "CHANNEL",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "textchannel - CHANNEL",
             name: "textchannel",
@@ -340,6 +347,7 @@ describe("Slash", () => {
             type: "CHANNEL",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "voicechannel - CHANNEL",
             name: "voicechannel",
@@ -348,6 +356,7 @@ describe("Slash", () => {
             type: "CHANNEL",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "user - USER",
             name: "user",
@@ -356,6 +365,7 @@ describe("Slash", () => {
             type: "USER",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "role - ROLE",
             name: "role",
@@ -364,6 +374,7 @@ describe("Slash", () => {
             type: "ROLE",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "userorrole - MENTIONABLE",
             name: "userorrole",
@@ -380,24 +391,27 @@ describe("Slash", () => {
         name: "testing",
         options: [
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "text group description",
             name: "text",
             options: [
               {
+                channelTypes: undefined,
                 choices: undefined,
                 description: "hello",
                 name: "hello",
                 options: [
                   {
+                    channelTypes: undefined,
                     choices: [
-                      {
-                        name: "Hello",
-                        value: "Hello",
-                      },
                       {
                         name: "Good Bye",
                         value: "GoodBye",
+                      },
+                      {
+                        name: "Hello",
+                        value: "Hello",
                       },
                     ],
                     description: "text - STRING",
@@ -413,16 +427,19 @@ describe("Slash", () => {
             type: "SUB_COMMAND_GROUP",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "maths group description",
             name: "maths",
             options: [
               {
+                channelTypes: undefined,
                 choices: undefined,
                 description: "Multiply",
                 name: "multiply",
                 options: [
                   {
+                    channelTypes: undefined,
                     choices: undefined,
                     description: "x value",
                     name: "x",
@@ -431,6 +448,7 @@ describe("Slash", () => {
                     type: "NUMBER",
                   },
                   {
+                    channelTypes: undefined,
                     choices: undefined,
                     description: "y value",
                     name: "y",
@@ -442,11 +460,13 @@ describe("Slash", () => {
                 type: "SUB_COMMAND",
               },
               {
+                channelTypes: undefined,
                 choices: undefined,
                 description: "Addition",
                 name: "add",
                 options: [
                   {
+                    channelTypes: undefined,
                     choices: undefined,
                     description: "x value",
                     name: "x",
@@ -455,6 +475,7 @@ describe("Slash", () => {
                     type: "NUMBER",
                   },
                   {
+                    channelTypes: undefined,
                     choices: undefined,
                     description: "y value",
                     name: "y",
@@ -469,11 +490,13 @@ describe("Slash", () => {
             type: "SUB_COMMAND_GROUP",
           },
           {
+            channelTypes: undefined,
             choices: undefined,
             description: "hello",
             name: "hello",
             options: [
               {
+                channelTypes: undefined,
                 choices: undefined,
                 description: "text - STRING",
                 name: "text",
@@ -482,6 +505,7 @@ describe("Slash", () => {
                 type: "STRING",
               },
               {
+                channelTypes: undefined,
                 choices: undefined,
                 description: "text2 - STRING",
                 name: "text2",

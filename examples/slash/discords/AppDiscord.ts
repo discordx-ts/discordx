@@ -7,7 +7,9 @@ import {
   User,
 } from "discord.js";
 import {
+  DefaultPermissionResolver,
   Discord,
+  Permission,
   Slash,
   SlashChoice,
   SlashGroup,
@@ -16,8 +18,8 @@ import {
 import { ChannelTypes } from "discord.js/typings/enums";
 
 enum TextChoices {
-  Hello = "Hello",
   "Good Bye" = "GoodBye",
+  Hello = "Hello",
 }
 
 @Discord()
@@ -101,6 +103,19 @@ export abstract class AppDiscord1 {
   }
 
   @Slash("voicechannel")
+  @Permission(
+    new DefaultPermissionResolver((command) => {
+      if (!command) {
+        return false;
+      }
+      return false;
+    })
+  )
+  @Permission({
+    id: "462341082919731200",
+    permission: true,
+    type: "USER",
+  })
   voicechannel(
     @SlashOption("channel", {
       channelTypes: [ChannelTypes.GUILD_VOICE],

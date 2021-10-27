@@ -25,20 +25,20 @@ export class Main {
       // enable partials to recieve direct messages
       partials: ["CHANNEL", "MESSAGE"],
 
-      // prefix: "!",
-      prefix: (message): string => {
-        // let's use different command prefix for dm
-        if (message.channel.type === "DM") {
-          return "+";
-        }
-
-        // common command prefix for all guild
-        return "!";
-      },
-
       silent: false,
 
       simpleCommand: {
+        // prefix: "!",
+        prefix: (message): string => {
+          // let's use different command prefix for dm
+          if (message.channel.type === "DM") {
+            return "+";
+          }
+
+          // common command prefix for all guild
+          return "!";
+        },
+
         responses: {
           notFound: "command not found, use !help",
           unauthorised: (command) => {

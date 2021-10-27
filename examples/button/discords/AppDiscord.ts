@@ -15,9 +15,9 @@ import {
 import { randomInt } from "crypto";
 
 enum spcChoice {
-  Stone = "Stone",
   Paper = "Paper",
   Scissor = "Scissor",
+  Stone = "Stone",
 }
 
 type spcTypes = "spc-stone" | "spc-paper" | "spc-scissor";

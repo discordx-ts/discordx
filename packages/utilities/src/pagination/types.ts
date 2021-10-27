@@ -2,25 +2,30 @@ import {
   CommandInteraction,
   ContextMenuInteraction,
   InteractionButtonOptions,
+  Message,
   MessageComponentInteraction,
   MessageEmbed,
   MessageOptions,
 } from "discord.js";
+import { Pagination } from ".";
 
 // By default, it's half an hour.
 export const defaultTime = 1_800_000;
 
 export enum defaultIds {
-  startButton = "discordx@pagination@startButton",
   endButton = "discordx@pagination@endButton",
+  menuId = "discordx@pagination@menu",
   nextButton = "discordx@pagination@nextButton",
   previousButton = "discordx@pagination@previousButton",
-  menuId = "discordx@pagination@menu",
+  startButton = "discordx@pagination@startButton",
 }
 
 export type embedType = string | MessageEmbed | MessageOptions;
 
-export type paginationFunc = (page: number) => embedType | Promise<embedType>;
+export type paginationFunc = (
+  page: number,
+  pagination: Pagination
+) => embedType | Promise<embedType>;
 
 export type PaginationInteractions =
   | CommandInteraction
@@ -29,6 +34,11 @@ export type PaginationInteractions =
 
 interface BasicPaginationOptions {
   /**
+   * Set ephemeral response
+   */
+  ephemeral?: boolean;
+
+  /**
    * Initial page (default: 0)
    */
   initialPage?: number;
@@ -36,7 +46,7 @@ interface BasicPaginationOptions {
   /**
    * Pagination timeout callback
    */
-  onPaginationTimeout?: (page: number) => void;
+  onPaginationTimeout?: (page: number, message: Message) => void;
 
   /**
    * In milliseconds, how long should the paginator run. (Default: 30min)
@@ -103,9 +113,9 @@ interface ButtonPaginationOptions extends BasicPaginationOptions {
 
 interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   /**
-   * select pagination type (default: BUTTON)
+   * End label
    */
-  type: "SELECT_MENU";
+  endLabel?: string;
 
   /**
    * custom select menu id (default: 'discordx@pagination@menu')
@@ -129,9 +139,9 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   startLabel?: string;
 
   /**
-   * End label
+   * select pagination type (default: BUTTON)
    */
-  endLabel?: string;
+  type: "SELECT_MENU";
 }
 
 export type PaginationOptions =
@@ -139,13 +149,13 @@ export type PaginationOptions =
   | SelectMenuPaginationOptions;
 
 export interface IPaginate {
-  totalItems: number;
   currentPage: number;
-  pageSize: number;
-  totalPages: number;
-  startPage: number;
-  endPage: number;
-  startIndex: number;
   endIndex: number;
+  endPage: number;
+  pageSize: number;
   pages: number[];
+  startIndex: number;
+  startPage: number;
+  totalItems: number;
+  totalPages: number;
 }

@@ -1,40 +1,110 @@
 name: Publish - Dev
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "package.json"
-      - "package-lock.json"
+  schedule:
+    - cron: "0 */6 * * *"
 
 jobs:
-  build:
+  publish:
+    name: Publish Main
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to npm /
-      - name: Install Node v16
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
         uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
+      - name: pre-release
+        id: pre-release
+        run: |
+          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-3)") ]]; \
+          then echo '::set-output name=release::false'; \
+          else echo '::set-output name=release::true'; fi
+
+      - name: Install Dependencies
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm ci
 
       - name: Build
+        if: steps.pre-release.outputs.release == 'true'
         run: npm run build
 
       - name: Deprecate old versions
+        if: steps.pre-release.outputs.release == 'true'
         run: npm deprecate discordx@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish
+        if: steps.pre-release.outputs.release == 'true'
         run: |
           npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
           npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: "Utilities: Install Dependencies"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm ci
+        working-directory: ./packages/utilities
+
+      - name: "Utilities: Update discordx"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm install discordx@dev
+        working-directory: ./packages/utilities
+
+      - name: "Utilities: Build"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm run build
+        working-directory: ./packages/utilities
+
+      - name: "Utilities: Deprecate old versions"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm deprecate @discordx/utilities@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        working-directory: ./packages/utilities
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: "Utilities: Publish"
+        if: steps.pre-release.outputs.release == 'true'
+        run: |
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
+          npm publish --tag dev
+        working-directory: ./packages/utilities
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: "Music: Install Dependencies"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm ci
+        working-directory: ./packages/music
+
+      - name: "Music: Update discordx"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm install discordx@dev
+        working-directory: ./packages/music
+
+      - name: "Music: Build"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm run build
+        working-directory: ./packages/music
+
+      - name: "Music: Deprecate old versions"
+        if: steps.pre-release.outputs.release == 'true'
+        run: npm deprecate @discordx/music@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        working-directory: ./packages/music
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: "Music: Publish"
+        if: steps.pre-release.outputs.release == 'true'
+        run: |
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
+          npm publish --tag dev
+        working-directory: ./packages/music
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -19,6 +19,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [2.1.1] - 2021-10-28
+
+### Fixed
+
+- Pagination timeout
+- Remove stickers from edit
+
+## [2.0.0] - 2021-10-26
+
+### Added
+
+- added `Pagination` class
+
+### Removed
+
+- sendPaginationEmbeds
+
+## [1.7.0] - 2021-10-24
+
+### Added
+
+- add ephemeral option
+
+## [1.6.0] - 2021-10-23
+
+### Added
+
+- groupId field
+
+## [1.5.0] - 2021-10-22
+
+### Added
+
+- attachments field
+
+## [1.4.6] - 2021-10-20
+
+### Fixed
+
+- undefined description, when define new category
+
 ## [1.4.5] - 2021-10-15
 
 ### Fixed

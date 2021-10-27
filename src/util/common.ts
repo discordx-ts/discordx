@@ -1,25 +1,43 @@
 import * as _ from "lodash";
-import { ApplicationCommandPermissionData, Guild } from "discord.js";
-import { Client, IGuild, IPermissions } from "..";
+import {
+  ApplicationCommandMixin,
+  Client,
+  DApplicationCommand,
+  DComponentButton,
+  DComponentSelectMenu,
+  IGuild,
+  IPermissions,
+  SimpleCommandMessage,
+} from "..";
+import { ApplicationCommandPermissions, Guild } from "discord.js";
 
-export const resolveIGuild = async (
+export const resolveIGuilds = async (
   client: Client,
+  command:
+    | DApplicationCommand
+    | DComponentButton
+    | SimpleCommandMessage
+    | DComponentSelectMenu
+    | undefined,
   guilds: IGuild[]
 ): Promise<string[]> => {
   const guildx = await Promise.all(
-    guilds.map((guild) => (typeof guild === "function" ? guild(client) : guild))
+    guilds.map((guild) =>
+      typeof guild === "function" ? guild(client, command) : guild
+    )
   );
 
   return _.uniqWith(guildx.flat(1), _.isEqual);
 };
 
-export const resolveIPermission = async (
-  guild: Guild | null,
+export const resolveIPermissions = async (
+  guild: Guild,
+  command: ApplicationCommandMixin | SimpleCommandMessage,
   permissions: IPermissions[]
-): Promise<ApplicationCommandPermissionData[]> => {
+): Promise<ApplicationCommandPermissions[]> => {
   const permissionx = await Promise.all(
     permissions.map((resolver) =>
-      typeof resolver === "function" ? resolver(guild) : resolver
+      typeof resolver === "function" ? resolver(guild, command) : resolver
     )
   );
 

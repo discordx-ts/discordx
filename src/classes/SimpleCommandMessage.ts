@@ -11,27 +11,24 @@ import { Message, MessageEmbed } from "discord.js";
  * Simple command message class
  */
 export class SimpleCommandMessage {
-  prefix: string;
-  info: DSimpleCommand;
-  name: string;
-  argString: string;
-  message: Message;
   options: SimpleCommandOptionType[];
 
   constructor(
-    prefix: string,
-    name: string,
-    argString: string,
-    message: Message,
-    info: DSimpleCommand,
-    splitter?: ArgSplitter
+    public prefix: string,
+    public argString: string,
+    public message: Message,
+    public info: DSimpleCommand,
+    public splitter?: ArgSplitter
   ) {
-    this.message = message;
-    this.prefix = prefix;
-    this.info = info;
-    this.name = name;
-    this.argString = argString;
     this.options = this.info.parseParamsEx(this, splitter);
+  }
+
+  get name(): string {
+    return this.info.name;
+  }
+
+  get description(): string {
+    return this.info.description;
   }
 
   /**

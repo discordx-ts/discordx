@@ -31,7 +31,7 @@ export class Main {
       console.log("Bot started");
 
       CategoryMetaData.categories.forEach((cat) => {
-        console.log(cat.name, JSON.stringify(cat.items));
+        console.log(cat);
       });
     });
 

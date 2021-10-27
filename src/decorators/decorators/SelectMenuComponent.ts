@@ -24,12 +24,12 @@ export function SelectMenuComponent(id?: string): MethodDecoratorEx;
  */
 export function SelectMenuComponent(
   id: string,
-  params?: { guilds?: IGuild[]; botIds?: string[] }
+  params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
 export function SelectMenuComponent(
   id?: string,
-  params?: { guilds?: IGuild[]; botIds?: string[] }
+  params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const button = DComponentSelectMenu.create(

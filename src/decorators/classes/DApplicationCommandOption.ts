@@ -165,7 +165,7 @@ export class DApplicationCommandOption extends Decorator {
     });
   }
 
-  toJSON(config?: { channelString: boolean }): ApplicationCommandOptionData {
+  toJSON(config?: { channelString?: boolean }): ApplicationCommandOptionData {
     const options = [...this.options]
       .reverse()
       .map((option) => option.toJSON());

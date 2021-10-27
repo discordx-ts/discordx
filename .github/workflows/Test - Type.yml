@@ -19,13 +19,14 @@ jobs:
     name: ESLint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: check out code 🛎
         uses: actions/checkout@v2
 
-      - name: Install Node v16
+      - name: Install Node v17
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm ci
@@ -37,31 +38,49 @@ jobs:
     name: TypeScript
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: check out code 🛎
         uses: actions/checkout@v2
 
-      - name: Install Node v16
+      - name: Install Node v17
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm ci
 
+      - name: "Utilities: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/utilities
+
+      - name: "Music: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/music
+
       - name: Run TypeScript compiler
         run: npm run type-check
+
+      - name: "Utilities: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/utilities
+
+      - name: "Music: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/music
 
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: check out code 🛎
         uses: actions/checkout@v2
 
-      - name: Install Node v16
+      - name: Install Node v17
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm ci
@@ -73,13 +92,14 @@ jobs:
     name: Jest Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: check out code 🛎
         uses: actions/checkout@v2
 
-      - name: Install Node v16
+      - name: Install Node v17
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm ci

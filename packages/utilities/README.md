@@ -77,12 +77,11 @@ import {
   MessageActionRow,
   MessageButton,
   MessageEmbed,
-  MessageOptions,
 } from "discord.js";
-import { sendPaginatedEmbeds } from "@discordx/utilities";
+import { Pagination, PaginationResolver } from "@discordx/utilities";
 
-function embeds(): MessageOptions[] {
-  const pages = Array.from(Array(20).keys()).map((i) => {
+export function GeneratePages(limit?: number): MessageOptions[] {
+  const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
     return { content: `I am ${i + 1}`, embed: `Demo ${i + 1}` };
   });
   return pages.map((page) => {
@@ -93,59 +92,70 @@ function embeds(): MessageOptions[] {
   });
 }
 
-const embedsResolver = new Pagination((page) => `page ${page}`, 25);
-
 @Discord()
-class Example {
+export abstract class Example {
   // example: message
   @On("messageCreate")
-  async onMessage([message]: ArgsOf<"messageCreate">): Promise<void> {
+  onMessage([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated demo") {
-      await sendPaginatedEmbeds(message, embeds(), {
+      new Pagination(message, GeneratePages(), {
         type: "BUTTON",
-      });
+      }).send();
     }
   }
 
   // example: any text channel
   @On("messageCreate")
-  async onMessageChannel([message]: ArgsOf<"messageCreate">): Promise<void> {
+  onMessageChannel([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated channel demo") {
-      await sendPaginatedEmbeds(message.channel, embeds(), {
+      new Pagination(message.channel, GeneratePages(), {
         type: "BUTTON",
-      });
+      }).send();
     }
   }
 
   // example: simple slash with button pagination
-  @Slash("demoA")
+  @Slash("demoa", { description: "Simple slash with button pagination" })
   async page(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, embedsResolver, {
+    const embedx = new PaginationResolver((page, pagination) => {
+      if (page === 3) {
+        // example to replace pagination with another pagination data
+        pagination.currentPage = 0; // reset current page, because this is gonna be first page
+        pagination.maxLength = 5; // new max length for new paginations
+        pagination.embeds = ["1", "2", "3", "4", "5"]; // page reference can be resolver as well
+        return pagination.embeds[pagination.currentPage] ?? "unknown"; // the first page, must select ourselve
+      }
+      return `page v2 ${page}`;
+    }, 25);
+
+    const pagination = new Pagination(interaction, embedx, {
       type: "BUTTON",
     });
+
+    await pagination.send();
   }
 
   // example: simple slash with menu pagination
-  @Slash("demoB")
-  async pagex(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, embeds(), {
+  @Slash("demob", { description: "Simple slash with menu pagination" })
+  pagex(interaction: CommandInteraction): void {
+    new Pagination(interaction, GeneratePages(), {
       type: "SELECT_MENU",
-    });
+    }).send();
   }
 
   // example: simple string array
-  @Slash("demoC")
-  async pages(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(
+  @Slash("democ", { description: "Simple string array" })
+  pages(interaction: CommandInteraction): void {
+    new Pagination(
       interaction,
       Array.from(Array(20).keys()).map((i) => i.toString())
-    );
+    ).send();
   }
 
   // example: array of custom message options
-  @Slash("demoD")
-  async pagen(interaction: CommandInteraction): Promise<void> {
-    await sendPaginatedEmbeds(interaction, [
+  @Slash("demod", { description: "Array of custom message options" })
+  pagen(interaction: CommandInteraction): void {
+    new Pagination(interaction, [
       {
         content: "Page 1",
       },
@@ -154,19 +164,19 @@ class Example {
         embeds: [new MessageEmbed({ title: "It's me embed 2" })],
       },
       {
-        content: "Page 3",
-        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
         components: [
           new MessageActionRow().addComponents([
             new MessageButton({
               customId: "myCustomId",
-              style: "PRIMARY",
               label: "My Custom Botton",
+              style: "PRIMARY",
             }),
           ]),
         ],
+        content: "Page 3",
+        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
       },
-    ]);
+    ]).send();
   }
 }
 ```
@@ -190,6 +200,7 @@ yarn add @discordx/utilities discord.js
 | Name                | Type                  | Default   | Description                  |
 | ------------------- | --------------------- | --------- | ---------------------------- |
 | initialPage         | number                | 0         | Initial page                 |
+| ephemeral           | boolean               | undefined | Enable ephemeral             |
 | onPaginationTimeout | Function              | undefined | Timeout callback             |
 | time                | number                | 1_800_000 | Timeout for pagination in ms |
 | type                | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |

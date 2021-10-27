@@ -1,10 +1,11 @@
 {
   "name": "@discordx/utilities",
-  "version": "1.4.5",
+  "version": "3.0.0-dev",
   "description": "discordx utilities",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "type-check": "tsc --noemit"
   },
   "repository": {
     "type": "git",
@@ -19,14 +20,18 @@
     "discordx",
     "discord.ts"
   ],
-  "author": "Harry",
+  "author": "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issues"
   },
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
   "dependencies": {
-    "discord.js": "^13.2.0",
-    "discordx": "^6.2.0"
+    "discord.js": "^13.3.0-dev.1635336631.fae4abf",
+    "discordx": "^8.0.0-dev.1635272862.0fbeccb",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.176"
   }
 }

@@ -9,9 +9,9 @@ export type CategoryItemTypes =
 
 interface ICategoryBase {
   botIds?: string[];
+  description?: string;
   examples?: string[];
   name: string;
-  description?: string;
 }
 
 export interface ICategoryItem extends ICategoryBase {
@@ -19,13 +19,23 @@ export interface ICategoryItem extends ICategoryBase {
 }
 
 export interface ICategoryItemOption {
-  name: string;
   description?: string;
-  optional: boolean;
+  name: string;
+  optional?: boolean;
   type: SlashOptionType;
 }
 
+export interface ICategoryAttachment {
+  description?: string;
+  extensions?: string[];
+  name: string;
+  optional?: boolean;
+  type: string;
+}
+
 export interface ICategoryItemCommand extends ICategoryBase {
+  attachments?: ICategoryAttachment[];
+  groupId?: string;
   options: ICategoryItemOption[];
   type: Exclude<
     CategoryItemTypes,
@@ -34,9 +44,9 @@ export interface ICategoryItemCommand extends ICategoryBase {
 }
 
 export interface ICategory {
-  name: string;
   description?: string;
   items: (ICategoryItem | ICategoryItemCommand)[];
+  name: string;
 }
 
 export class CategoryMetaData {
@@ -80,7 +90,11 @@ export function Category(
   if (!arg || typeof arg === "string") {
     const find = CategoryMetaData.categories.get(name);
     if (!find) {
-      CategoryMetaData.categories.set(name, { items: [], name });
+      CategoryMetaData.categories.set(name, {
+        description: arg,
+        items: [],
+        name,
+      });
     } else {
       find.description = arg;
       CategoryMetaData.categories.set(name, find);

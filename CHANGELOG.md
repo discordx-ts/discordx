@@ -19,7 +19,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#620---2021-10-13)`
+`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#700---2021-10-20)`
+
+## [7.1.0] - 2021-10-27
+
+### Added
+
+- throw error for duplicate simple command
+- resolver for default permission
+- command in IPermission
+- command in IGuild
+
+### Fixed
+
+- initApplicationPermission
+- executeCommand
+
+## [7.0.0] - 2021-10-20
+
+### Changed
+
+- moved `prefix` from `ClientOptions` to `SimpleCommandConfig`
+
+### Fixed
+
+- Removed null from `@permission` resolver type, because guild is always defined
+- Fixed permission check issue with simple command, where allowed permission was considered unauthorized
 
 ## [6.2.0] - 2021-10-13
 

@@ -43,6 +43,8 @@ This module is an extension of **[discord.**js**](https://discordjs.guide/)**, s
 
 This library allows you to use TypeScript decorators on discord.**js**, it simplifies your code and improves the readability!
 
+This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) by [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
+
 # 📜 Documentation
 
 > **[discord-ts.js.org](https://discord-ts.js.org)**
@@ -57,26 +59,25 @@ With `discordx`, we intend to provide latest upto date package to build bots wit
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord.gg/yHQY9fexH9)
 
-# 🆕 New features
+# 🆕 Features
 
-- Support for multiple bots in a single nodejs instance (`@Bot`)
+- Support multiple bots in a single nodejs instance (`@Bot`)
 - `@SimpleCommand` to use old fashioned command, such as `!hello world`
-- `@SimpleCommandOption` Parse and define command options like `@SlashOption`
-- New interactions/decorators: ` @ButtonComponent @SelectMenuComponent @ContextMenu`
-- New method `client.initApplicationCommands` to create/update/remove discord application commands (slash/context menu) for global and defined guilds
-- Lint improved internal source code for better type support
-- Provided more examples for new decorators
+- `@SimpleCommandOption` parse and define command options like `@SlashOption`
+- `client.initApplicationCommands` to create/update/remove discord application commands
+- `client.initApplicationPermissions` to update discord application commands permissions
+- Handler for all discord interactions (slash/button/menu/context)
 - Support TSyringe
 
 # 🧮 Packages
 
 Here are more packages from us to extend the functionality of your Discord bot.
 
-| Package                                                                    | Description                         |
-| -------------------------------------------------------------------------- | ----------------------------------- |
-| [`discordx`](https://www.npmjs.com/package/discordx)                       | main package                        |
-| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc.       |
-| [`passwordx`](https://www.npmjs.com/package/passwordx)                     | Password generator for command line |
+| Package                                                                    | Description                   |
+| -------------------------------------------------------------------------- | ----------------------------- |
+| [`discordx`](https://www.npmjs.com/package/discordx)                       | Main package                  |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc. |
+| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)         | Discord music player          |
 
 # 📔 Decorators
 

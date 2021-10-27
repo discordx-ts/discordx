@@ -1,16 +1,19 @@
 import {
   ApplicationCommandData,
-  ApplicationCommandPermissionData,
+  ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
   Guild,
 } from "discord.js";
 
 import {
+  ApplicationCommandMixin,
+  ApplicationGuildMixin,
   DApplicationCommandOption,
+  IDefaultPermission,
   IGuild,
   IPermissions,
-  resolveIPermission,
+  resolveIPermissions,
 } from "../..";
 import { Method } from "./Method";
 
@@ -21,7 +24,7 @@ export class DApplicationCommand extends Method {
   private _name: string;
   private _description: string;
   private _type: ApplicationCommandType;
-  private _defaultPermission: boolean;
+  private _defaultPermission: IDefaultPermission;
   private _options: DApplicationCommandOption[] = [];
   private _permissions: IPermissions[] = [];
   private _guilds: IGuild[];
@@ -71,10 +74,10 @@ export class DApplicationCommand extends Method {
     this._guilds = value;
   }
 
-  get defaultPermission(): boolean {
+  get defaultPermission(): IDefaultPermission {
     return this._defaultPermission;
   }
-  set defaultPermission(value: boolean) {
+  set defaultPermission(value: IDefaultPermission) {
     this._defaultPermission = value;
   }
 
@@ -134,10 +137,11 @@ export class DApplicationCommand extends Method {
     );
   }
 
-  permissionsPromise(
-    guild: Guild | null
-  ): Promise<ApplicationCommandPermissionData[]> {
-    return resolveIPermission(guild, this.permissions);
+  resolvePermissions(
+    guild: Guild,
+    command: ApplicationCommandMixin
+  ): Promise<ApplicationCommandPermissions[]> {
+    return resolveIPermissions(guild, command, this.permissions);
   }
 
   toSubCommand(): DApplicationCommandOption {
@@ -151,14 +155,20 @@ export class DApplicationCommand extends Method {
     return option;
   }
 
-  toJSON(config?: { channelString: boolean }): ApplicationCommandData {
+  async toJSON(config?: {
+    channelString?: boolean;
+    command?: ApplicationGuildMixin;
+  }): Promise<ApplicationCommandData> {
     const options = [...this.options]
       .reverse()
       .map((option) => option.toJSON(config));
 
     if (this.type === "CHAT_INPUT") {
       return {
-        defaultPermission: this.defaultPermission,
+        defaultPermission:
+          typeof this.defaultPermission === "boolean"
+            ? this.defaultPermission
+            : await this.defaultPermission.resolver(config?.command),
         description: this.description,
         name: this.name,
         options: options,
@@ -167,7 +177,10 @@ export class DApplicationCommand extends Method {
     }
 
     return {
-      defaultPermission: this.defaultPermission,
+      defaultPermission:
+        typeof this.defaultPermission === "boolean"
+          ? this.defaultPermission
+          : await this.defaultPermission.resolver(config?.command),
       description: "",
       name: this.name,
       options: [],

@@ -1,4 +1,3 @@
-import { ApplicationCommandPermissionData, Guild } from "discord.js";
 import {
   DApplicationCommand,
   DComponentButton,
@@ -9,7 +8,6 @@ import {
   DSimpleCommand,
   IGuild,
   IPermissions,
-  resolveIPermission,
 } from "../..";
 import { Decorator } from "./Decorator";
 
@@ -126,11 +124,5 @@ export class DDiscord extends Decorator {
 
   static create(name: string, description?: string): DDiscord {
     return new DDiscord(name, description);
-  }
-
-  permissionsPromise(
-    guild: Guild | null
-  ): Promise<ApplicationCommandPermissionData[]> {
-    return resolveIPermission(guild, this.permissions);
   }
 }
