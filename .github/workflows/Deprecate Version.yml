@@ -9,12 +9,11 @@ on:
       message:
         description: "deprecate message"
         default: "no longer supported, update to latest version"
-        required: false
+        required: true
         type: string
       package:
         description: "package"
-        default: "discordx"
-        required: false
+        required: true
         type: string
 
 jobs:
