@@ -25,8 +25,8 @@ export class Player extends EventEmitter {
    * @param guild
    * @returns
    */
-  public queue(guild: Guild, customQueue?: Queue): Queue {
-    const queue = this.queues.get(guild.id);
+  public queue<T extends Queue>(guild: Guild, customQueue?: T): T {
+    const queue = this.queues.get(guild.id) as T | undefined;
 
     // return queue if already exist
     if (queue) {
@@ -35,7 +35,9 @@ export class Player extends EventEmitter {
 
     // create new queue
     class MyQueue extends Queue {}
-    const queueClass = customQueue ? customQueue : new MyQueue(this, guild);
+    const queueClass = customQueue
+      ? customQueue
+      : (new MyQueue(this, guild) as T);
 
     // store queue
     this.queues.set(guild.id, queueClass);
