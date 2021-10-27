@@ -17,8 +17,8 @@ module.exports = {
 
   apiMusicSidebar: [
     {
+      href: "https://www.npmjs.com/package/@discordx/music",
       label: "Installation",
-      link: "https://www.npmjs.com/package/@discordx/music",
       type: "link",
     },
     {
@@ -48,8 +48,8 @@ module.exports = {
 
   apiUtilitiesSidebar: [
     {
+      href: "https://www.npmjs.com/package/@discordx/utilities",
       label: "Installation",
-      link: "https://www.npmjs.com/package/@discordx/utilities",
       type: "link",
     },
     {
