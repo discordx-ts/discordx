@@ -19,7 +19,7 @@ module.exports = {
     {
       label: "Installation",
       link: "https://www.npmjs.com/package/@discordx/music",
-      type: "doc",
+      type: "link",
     },
     {
       items: [
@@ -50,7 +50,7 @@ module.exports = {
     {
       label: "Installation",
       link: "https://www.npmjs.com/package/@discordx/utilities",
-      type: "doc",
+      type: "link",
     },
     {
       items: [
