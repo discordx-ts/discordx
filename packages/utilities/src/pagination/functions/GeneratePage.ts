@@ -83,10 +83,6 @@ export const GeneratePage = (
       cpage.files = [];
     }
 
-    if (!cpage.stickers) {
-      cpage.stickers = [];
-    }
-
     if (!cpage.files) {
       cpage.files = [];
     }
@@ -133,10 +129,6 @@ export const GeneratePage = (
 
     if (!cpage.files) {
       cpage.files = [];
-    }
-
-    if (!cpage.stickers) {
-      cpage.stickers = [];
     }
 
     if (!cpage.files) {
