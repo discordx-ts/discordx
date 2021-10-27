@@ -413,7 +413,6 @@ export class Queue {
    */
   public seek(time: number): boolean {
     if (!this.currentTrack || !this.isPlaying) {
-      console.log(1);
       return false;
     }
 
