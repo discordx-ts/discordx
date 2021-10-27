@@ -222,4 +222,5 @@ this.player.on("onRepeatEnabled", console.log);
 this.player.on("onRepeatDisabled", console.log);
 this.player.on("onMix", console.log);
 this.player.on("onVolumeUpdate", console.log);
+this.player.on("onSeek", console.log);
 ```

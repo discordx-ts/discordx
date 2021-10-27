@@ -13,6 +13,7 @@ export interface PlayerEvents {
   onRepeatDisabled: [];
   onRepeatEnabled: [];
   onResume: [];
+  onSeek: [track: Track, time: number];
   onSkip: [track: Track];
   onStart: [track: Track];
   onTrackAdd: [tracks: Track[]];

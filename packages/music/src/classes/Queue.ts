@@ -413,6 +413,7 @@ export class Queue {
    */
   public seek(time: number): boolean {
     if (!this.currentTrack || !this.isPlaying) {
+      console.log(1);
       return false;
     }
 
@@ -421,14 +422,10 @@ export class Queue {
       return false;
     }
 
-    track.options ? (track.options.seek = time) : { seek: time };
-
-    this.enqueue([track], true);
-    if (this.isPlaying) {
-      this.audioPlayer.stop();
-    } else {
-      this.processQueue();
-    }
+    const newTrack = new YoutubeTrack(track.info, this.player, { seek: time });
+    this.enqueue([newTrack], true);
+    this._audioPlayer.stop();
+    this.player.emit("onSeek", [newTrack, time]);
     return true;
   }
 

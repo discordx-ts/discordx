@@ -1,5 +1,10 @@
-import { CommandInteraction, GuildMember, TextBasedChannels } from "discord.js";
-import { CustomTrack, Player } from "../../src";
+import {
+  CommandInteraction,
+  Guild,
+  GuildMember,
+  TextBasedChannels,
+} from "discord.js";
+import { CustomTrack, Player, Queue } from "../../src";
 import { Discord, Slash, SlashOption } from "discordx";
 import { join } from "path";
 
@@ -237,5 +242,124 @@ export class music {
       )
     );
     interaction.followUp("queued custom track");
+  }
+
+  validateInteraction(
+    interaction: CommandInteraction
+  ): undefined | { guild: Guild; member: GuildMember; queue: Queue } {
+    if (!interaction.guild || !(interaction.member instanceof GuildMember)) {
+      interaction.reply("could not process your reuqest");
+      return;
+    }
+
+    if (!interaction.member.voice.channel) {
+      interaction.reply("You are not in the voice channel");
+      return;
+    }
+
+    const queue = this.player.queue(interaction.guild);
+
+    if (!queue.isReady) {
+      interaction.reply("I'm not ready yet");
+      return;
+    }
+
+    if (interaction.member.voice.channel.id !== queue.voiceChannelId) {
+      interaction.reply("you are not in my voice channel");
+      return;
+    }
+
+    return { guild: interaction.guild, member: interaction.member, queue };
+  }
+
+  @Slash("skip", { description: "skip track" })
+  skip(interaction: CommandInteraction): void {
+    const validate = this.validateInteraction(interaction);
+    if (!validate) {
+      return;
+    }
+
+    const { queue } = validate;
+
+    queue.skip();
+    interaction.reply("skiped current track");
+  }
+
+  @Slash("mix", { description: "mix tracks" })
+  mix(interaction: CommandInteraction): void {
+    const validate = this.validateInteraction(interaction);
+    if (!validate) {
+      return;
+    }
+
+    const { queue } = validate;
+
+    queue.mix();
+    interaction.reply("mixed queue");
+  }
+
+  @Slash("pause", { description: "pause music" })
+  pause(interaction: CommandInteraction): void {
+    const validate = this.validateInteraction(interaction);
+    if (!validate) {
+      return;
+    }
+
+    const { queue } = validate;
+
+    if (queue.isPause) {
+      interaction.reply("already paused");
+      return;
+    }
+
+    queue.pause();
+    interaction.reply("paused music");
+  }
+
+  @Slash("resume", { description: "resume music" })
+  resume(interaction: CommandInteraction): void {
+    const validate = this.validateInteraction(interaction);
+    if (!validate) {
+      return;
+    }
+
+    const { queue } = validate;
+
+    if (queue.isPlaying) {
+      interaction.reply("already playing");
+      return;
+    }
+
+    queue.resume();
+    interaction.reply("resumed music");
+  }
+
+  @Slash("seek", { description: "seek music" })
+  seek(
+    @SlashOption("time", {
+      description: "seek time in seconds",
+      required: true,
+    })
+    time: number,
+    interaction: CommandInteraction
+  ): void {
+    const validate = this.validateInteraction(interaction);
+    if (!validate) {
+      return;
+    }
+
+    const { queue } = validate;
+
+    if (!queue.isPlaying || !queue.currentTrack) {
+      interaction.reply("currently not playing any song");
+      return;
+    }
+
+    const state = queue.seek(time * 1000);
+    if (!state) {
+      interaction.reply("could not seek");
+      return;
+    }
+    interaction.reply("current music seeked");
   }
 }

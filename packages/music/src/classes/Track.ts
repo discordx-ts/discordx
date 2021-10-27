@@ -18,10 +18,10 @@ export abstract class Track {
     | Promise<AudioResource<CommonTrack>>;
 
   isCustomTrack(): this is CustomTrack {
-    return !!this.url;
+    return !!this.source;
   }
 
   isYoutubeTrack(): this is YoutubeTrack {
-    return !!this.source;
+    return !!this.url;
   }
 }
