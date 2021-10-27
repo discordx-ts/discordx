@@ -93,8 +93,8 @@ export abstract class Queue<T extends Player = Player> {
    * get tracks
    * @returns
    */
-  public get tracks(): boolean {
-    return this.tracks;
+  public get tracks(): CommonTrack[] {
+    return this._tracks;
   }
 
   /**
