@@ -523,12 +523,18 @@ export abstract class Queue<T extends Player = Player> {
   /**
    * play custom track
    * @param track
-   * @param playNow
+   * @param options
    * @returns
    */
-  public playTack(track: CommonTrack, playNow?: boolean): CommonTrack {
-    this.enqueue([track]);
-    if (this.isPlaying && playNow) {
+  public playTrack(
+    track: CommonTrack,
+    options?: { enqeueTop?: boolean; playNow?: boolean }
+  ): CommonTrack {
+    // enqueue track
+    this.enqueue([track], options?.enqeueTop);
+
+    // force stop, if play now requested
+    if (this.isPlaying && options?.playNow) {
       this.audioPlayer.stop();
     }
 
@@ -540,12 +546,14 @@ export abstract class Queue<T extends Player = Player> {
    * play song
    * @param search
    * @param options
+   * @param enqueueTop
    * @returns
    */
   public async play(
     search: string | Video,
     options?: ITrackOptions,
-    playNow?: boolean
+    playNow?: boolean,
+    enqueueTop?: boolean
   ): Promise<YoutubeTrack | undefined> {
     const video =
       typeof search === "string" ? await Util.getSong(search) : search;
@@ -554,7 +562,7 @@ export abstract class Queue<T extends Player = Player> {
     }
 
     const track = new YoutubeTrack(video, this.player, options);
-    this.enqueue([track]);
+    this.enqueue([track], enqueueTop);
     if (this.isPlaying && playNow) {
       this.audioPlayer.stop();
     }
@@ -567,11 +575,13 @@ export abstract class Queue<T extends Player = Player> {
    * play playlist
    * @param search
    * @param options
+   * @param enqueueTop
    * @returns
    */
   public async playlist(
     search: string | ytpl.Result,
-    options?: ITrackOptions
+    options?: ITrackOptions,
+    enqueueTop?: boolean
   ): Promise<YoutubeTrack[] | undefined> {
     const playlist =
       typeof search === "string" ? await Util.getPlaylist(search) : search;
@@ -582,7 +592,7 @@ export abstract class Queue<T extends Player = Player> {
     const tracks = playlist.items.map(
       (video) => new YoutubeTrack(video, this.player, options)
     );
-    this.enqueue(tracks);
+    this.enqueue(tracks, enqueueTop);
     this.processQueue();
     return tracks;
   }
@@ -591,11 +601,13 @@ export abstract class Queue<T extends Player = Player> {
    * Play spotify
    * @param search
    * @param options
+   * @param enqueueTop
    * @returns
    */
   public async spotify(
     search: string,
-    options?: ITrackOptions
+    options?: ITrackOptions,
+    enqueueTop?: boolean
   ): Promise<YoutubeTrack[] | undefined> {
     const spotifyTracks =
       typeof search === "string" ? await Util.getSpotifyTracks(search) : search;
@@ -616,7 +628,7 @@ export abstract class Queue<T extends Player = Player> {
     const tracks = videos.map(
       (video) => new YoutubeTrack(video, this.player, options)
     );
-    this.enqueue(tracks);
+    this.enqueue(tracks, enqueueTop);
     this.processQueue();
     return tracks;
   }

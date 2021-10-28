@@ -238,7 +238,7 @@ export class music {
       await queue.join(interaction.member.voice.channel);
     }
 
-    queue.playTack(
+    queue.playTrack(
       new CustomTrack(
         this.player,
         "My Custom Track",

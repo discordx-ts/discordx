@@ -19,6 +19,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [1.3] - 2021-10-29
+
+### Added
+
+- enqueueTop on play, playlist, spotify, playTrack
+
+### Fixed
+
+- playTack to playTrack
+
 ## [1.2.6] - 2021-10-28
 
 ### Added
