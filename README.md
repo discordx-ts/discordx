@@ -49,9 +49,15 @@ This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalv
 
 > **[discord-ts.js.org](https://discord-ts.js.org)**
 
-> **[discord.ts-example](https://github.com/oceanroleplay/discord.ts-example)**
-
 > **[Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)**
+
+# 🤖Bot Examples
+
+> **[discord.ts-example](https://github.com/oceanroleplay/discord.ts-example)** (starter repo)
+
+> **[discord-music-bot](https://github.com/oceanroleplay/discord-music-bot)** from [@oceanroleplay](https://github.com/oceanroleplay)
+
+> **[WeebBot](https://github.com/VictoriqueMoe/WeebBot)** from [@VictoriqueMoe](https://github.com/VictoriqueMoe)
 
 # 💡 Why discordx?
 
