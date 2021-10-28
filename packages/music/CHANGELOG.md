@@ -19,13 +19,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [1.2.2] - 2021-10-28
+## [1.2.6] - 2021-10-28
 
 ### Added
 
 - onJoin event
 - onLeave event
 - allow usage of custom player or queue
+
+### Changes
+
+- move `toString` to Track
 
 ### Fixed
 

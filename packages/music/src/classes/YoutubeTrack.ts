@@ -38,14 +38,6 @@ export class YoutubeTrack extends Track {
   }
 
   /**
-   * return title
-   * @returns
-   */
-  toString(): string {
-    return this.title;
-  }
-
-  /**
    * Create audio resource
    * @returns
    */

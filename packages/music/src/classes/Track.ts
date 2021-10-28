@@ -13,6 +13,14 @@ export abstract class Track {
     // empty constructor
   }
 
+  /**
+   * return title
+   * @returns
+   */
+  toString(): string {
+    return this.title;
+  }
+
   abstract createAudioResource():
     | AudioResource<CommonTrack>
     | Promise<AudioResource<CommonTrack>>;
