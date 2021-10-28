@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [1.2.1] - 2021-10-28
+## [1.2.2] - 2021-10-28
 
 ### Added
 
@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - group config with join voice channel
 - `onFinishPlayback` event argument
+- currentTrack undefined in puase state
 
 ## [1.1.2] - 2021-10-27
 

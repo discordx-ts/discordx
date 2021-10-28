@@ -146,7 +146,7 @@ export abstract class Queue<T extends Player = Player> {
    * get current track
    */
   public get currentTrack(): AudioResource<CommonTrack> | undefined {
-    if (this._audioPlayer.state.status !== AudioPlayerStatus.Playing) {
+    if (this._audioPlayer.state.status === AudioPlayerStatus.Idle) {
       return undefined;
     }
 
