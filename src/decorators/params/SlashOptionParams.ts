@@ -25,7 +25,7 @@ interface SlashOptionChannelParams extends SlashOptionBase {
 interface SlashOptionAutoCompleteParams extends SlashOptionBase {
   autocomplete?: SlashAutoCompleteOption;
   channelTypes?: undefined;
-  type: "STRING";
+  type: "STRING" | "NUMBER";
 }
 
 export type SlashOptionParams =
