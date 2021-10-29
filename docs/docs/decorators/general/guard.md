@@ -182,7 +182,7 @@ abstract class AppDiscord {
   async hello(
     interaction: CommandInteraction,
     client: Client,
-    guardDatas: any
+    guardDatas: { message: string }
   ) {
     console.log(guardDatas.message);
     // > the NotBot guard passed
