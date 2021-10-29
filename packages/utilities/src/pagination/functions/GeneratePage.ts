@@ -30,47 +30,42 @@ export const GeneratePage = (
       : embed;
 
   if (option.type === "BUTTON") {
-    const buttonStyle = option.style ?? "PRIMARY";
-
     const startBtn = new MessageButton()
-      .setCustomId(option.startId ?? defaultIds.startButton)
-      .setLabel(option.startLabel ?? "Start")
-      .setStyle(buttonStyle);
-
-    if (beginning) {
-      startBtn.disabled = true;
-    }
+      .setCustomId(option.start?.id ?? defaultIds.buttons.start)
+      .setLabel(option.start?.label ?? "Start")
+      .setStyle(option.start?.style ?? "PRIMARY")
+      .setDisabled(beginning);
 
     const endBtn = new MessageButton()
-      .setCustomId(option.endId ?? defaultIds.endButton)
-      .setLabel(option.endLabel ?? "End")
-      .setStyle(buttonStyle);
-
-    if (end) {
-      endBtn.disabled = true;
-    }
+      .setCustomId(option.end?.id ?? defaultIds.buttons.end)
+      .setLabel(option.end?.label ?? "End")
+      .setStyle(option.end?.style ?? "PRIMARY")
+      .setDisabled(end);
 
     const nextBtn = new MessageButton()
-      .setCustomId(option.nextId ?? defaultIds.nextButton)
-      .setLabel(option.nextLabel ?? "Next")
-      .setStyle(buttonStyle);
-
-    if (end) {
-      nextBtn.disabled = true;
-    }
+      .setCustomId(option.next?.id ?? defaultIds.buttons.next)
+      .setLabel(option.next?.label ?? "Next")
+      .setStyle(option.next?.style ?? "PRIMARY")
+      .setDisabled(end);
 
     const prevBtn = new MessageButton()
-      .setCustomId(option.previousId ?? defaultIds.previousButton)
-      .setLabel(option.previousLabel ?? "Previous")
-      .setStyle(buttonStyle);
+      .setCustomId(option.previous?.id ?? defaultIds.buttons.previous)
+      .setLabel(option.previous?.label ?? "Previous")
+      .setStyle(option.previous?.style ?? "PRIMARY")
+      .setDisabled(beginning);
 
-    if (beginning) {
-      prevBtn.disabled = true;
-    }
+    const exitBtn = new MessageButton()
+      .setCustomId(option.exit?.id ?? defaultIds.buttons.exit)
+      .setLabel(option.exit?.label ?? "Exit")
+      .setStyle(option.exit?.style ?? "DANGER");
 
     const row = new MessageActionRow().addComponents(
-      totalPages > 10 && (option.startEndButtons ?? true)
-        ? [startBtn, prevBtn, nextBtn, endBtn]
+      totalPages > 10 && (option.showStartEnd ?? true)
+        ? option.enableExit
+          ? [startBtn, prevBtn, nextBtn, endBtn, exitBtn]
+          : [startBtn, prevBtn, nextBtn, endBtn]
+        : option.enableExit
+        ? [prevBtn, nextBtn, exitBtn]
         : [prevBtn, nextBtn]
     );
 
@@ -108,15 +103,25 @@ export const GeneratePage = (
 
     if (totalPages > 21) {
       if (page > 10) {
-        paginator.unshift({ label: option.startLabel ?? "Start", value: "-1" });
+        paginator.unshift({
+          label: option.labels?.start ?? "Start",
+          value: "-1",
+        });
       }
       if (page < totalPages - 10) {
-        paginator.push({ label: option.endLabel ?? "End", value: "-2" });
+        paginator.push({ label: option.labels?.end ?? "End", value: "-2" });
       }
     }
 
+    if (option.enableExit) {
+      paginator.push({
+        label: option.labels?.exit ?? "Exit Pagination",
+        value: "-3",
+      });
+    }
+
     const menu = new MessageSelectMenu()
-      .setCustomId(option.menuId ?? defaultIds.menuId)
+      .setCustomId(option.menuId ?? defaultIds.menu)
       .setPlaceholder(option.placeholder ?? "Select page")
       .setOptions(paginator);
 

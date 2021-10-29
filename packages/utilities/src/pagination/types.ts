@@ -12,13 +12,17 @@ import { Pagination } from ".";
 // By default, it's half an hour.
 export const defaultTime = 1_800_000;
 
-export enum defaultIds {
-  endButton = "discordx@pagination@endButton",
-  menuId = "discordx@pagination@menu",
-  nextButton = "discordx@pagination@nextButton",
-  previousButton = "discordx@pagination@previousButton",
-  startButton = "discordx@pagination@startButton",
-}
+const prefixId = "discordx@pagination@";
+export const defaultIds = {
+  buttons: {
+    end: prefixId + "endButton",
+    exit: prefixId + "closeButton",
+    next: prefixId + "nextButton",
+    previous: prefixId + "previousButton",
+    start: prefixId + "startButton",
+  },
+  menu: prefixId + "menu",
+};
 
 export type embedType = string | MessageEmbed | MessageOptions;
 
@@ -33,6 +37,11 @@ export type PaginationInteractions =
   | ContextMenuInteraction;
 
 interface BasicPaginationOptions {
+  /**
+   * Enable exit button, It will close the pagination before timeout
+   */
+  enableExit?: boolean;
+
   /**
    * Set ephemeral response
    */
@@ -54,56 +63,53 @@ interface BasicPaginationOptions {
   time?: number;
 }
 
+interface ButtonOptions {
+  /**
+   * Button id
+   */
+  id?: string;
+
+  /**
+   * Button label
+   */
+  label?: string;
+
+  /**
+   * Button style
+   */
+  style?: InteractionButtonOptions["style"];
+}
+
 interface ButtonPaginationOptions extends BasicPaginationOptions {
   /**
-   * Custom end button id (default: 'discordx@pagination@endButton')
+   * End button options
    */
-  endId?: string;
+  end?: ButtonOptions;
 
   /**
-   * The text that will appear on the end button (Default: 'End')
+   * Exit button options
    */
-  endLabel?: string;
+  exit?: ButtonOptions;
 
   /**
-   * custom next button id (default: 'discordx@pagination@nextButton')
+   * Exit button options
    */
-  nextId?: string;
+  next?: ButtonOptions;
 
   /**
-   * The text that will appear on the next button (Default: 'Next')
+   * Previous button options
    */
-  nextLabel?: string;
-
-  /**
-   * custom previous button id (default: 'discordx@pagination@previousButton')
-   */
-  previousId?: string;
-
-  /**
-   * The text that will appear on the previous button. (Default: 'Previous').
-   */
-  previousLabel?: string;
+  previous?: ButtonOptions;
 
   /**
    * Show start/end buttons for large list (items more then 10) (default: true)
    */
-  startEndButtons?: boolean;
+  showStartEnd?: boolean;
 
   /**
-   * custom start button id (default: 'discordx@pagination@startButton')
+   * Start button options
    */
-  startId?: string;
-
-  /**
-   * The text that will appear on the start button (Default: 'Start')
-   */
-  startLabel?: string;
-
-  /**
-   * Button style.
-   */
-  style?: InteractionButtonOptions["style"];
+  start?: ButtonOptions;
 
   /**
    * select pagination type (default: BUTTON)
@@ -113,9 +119,13 @@ interface ButtonPaginationOptions extends BasicPaginationOptions {
 
 interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   /**
-   * End label
+   * Various labels
    */
-  endLabel?: string;
+  labels?: {
+    end?: string;
+    exit?: string;
+    start?: string;
+  };
 
   /**
    * custom select menu id (default: 'discordx@pagination@menu')
@@ -132,11 +142,6 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
    * Set placeholder text
    */
   placeholder?: string;
-
-  /**
-   * Start label
-   */
-  startLabel?: string;
 
   /**
    * select pagination type (default: BUTTON)

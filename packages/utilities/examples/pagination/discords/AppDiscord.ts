@@ -45,7 +45,8 @@ export abstract class Example {
     }, 25);
 
     const pagination = new Pagination(interaction, embedx, {
-      type: "BUTTON",
+      enableExit: true,
+      type: "SELECT_MENU",
     });
 
     await pagination.send();

@@ -1,9 +1,12 @@
 import * as _ from "lodash";
 import {
+  CacheType,
   Interaction,
+  InteractionCollector,
   InteractionReplyOptions,
   Message,
   MessageActionRow,
+  MessageComponentInteraction,
   TextBasedChannels,
 } from "discord.js";
 import {
@@ -24,6 +27,13 @@ export class Pagination {
   maxLength: number;
   currentPage: number;
   option: PaginationOptions;
+  collector?: InteractionCollector<MessageComponentInteraction<CacheType>>;
+  message?: Message;
+  private _isSent = false;
+
+  get isSent(): boolean {
+    return this._isSent;
+  }
 
   constructor(
     public sendTo: PaginationInteractions | Message | TextBasedChannels,
@@ -69,7 +79,14 @@ export class Pagination {
     return GeneratePage(embed, this.currentPage, this.maxLength, this.option);
   };
 
-  async send(): Promise<Message> {
+  async send(): Promise<{
+    collector: InteractionCollector<MessageComponentInteraction<CacheType>>;
+    message: Message;
+  }> {
+    if (this._isSent) {
+      throw Error("Pagination: already sent");
+    }
+
     // prepare intial message
     const page = await this.getPage(this.currentPage);
     if (!page) {
@@ -124,22 +141,28 @@ export class Pagination {
       if (collectInteraction.isButton() && this.option.type === "BUTTON") {
         if (
           collectInteraction.customId ===
-          (this.option.startId ?? defaultIds.startButton)
+          (this.option.exit?.id ?? defaultIds.buttons.exit)
+        ) {
+          collector.stop();
+          return;
+        } else if (
+          collectInteraction.customId ===
+          (this.option.start?.id ?? defaultIds.buttons.start)
         ) {
           this.currentPage = 0;
         } else if (
           collectInteraction.customId ===
-          (this.option.endId ?? defaultIds.endButton)
+          (this.option.end?.id ?? defaultIds.buttons.end)
         ) {
           this.currentPage = this.maxLength - 1;
         } else if (
           collectInteraction.customId ===
-          (this.option.nextId ?? defaultIds.nextButton)
+          (this.option.next?.id ?? defaultIds.buttons.next)
         ) {
           this.currentPage++;
         } else if (
           collectInteraction.customId ===
-          (this.option.previousId ?? defaultIds.previousButton)
+          (this.option.previous?.id ?? defaultIds.buttons.previous)
         ) {
           this.currentPage--;
         } else {
@@ -162,21 +185,26 @@ export class Pagination {
       if (
         collectInteraction.isSelectMenu() &&
         this.option.type === "SELECT_MENU" &&
-        collectInteraction.customId ===
-          (this.option.menuId ?? defaultIds.menuId)
+        collectInteraction.customId === (this.option.menuId ?? defaultIds.menu)
       ) {
         await collectInteraction.deferUpdate();
 
-        // eslint-disable-next-line require-atomic-updates
-        this.currentPage = Number(collectInteraction.values[0]) ?? 0;
+        const menuValue = Number(collectInteraction.values[0]) ?? 0;
 
-        if (this.currentPage === -1) {
+        if (menuValue === -3) {
+          collector.stop();
+          return;
+        }
+
+        if (menuValue === -1) {
           this.currentPage = 0;
         }
 
-        if (this.currentPage === -2) {
+        if (menuValue === -2) {
           this.currentPage = this.maxLength - 1;
         }
+
+        this.currentPage = menuValue;
 
         const pageEx = await this.getPage(this.currentPage);
         if (!pageEx) {
@@ -194,6 +222,9 @@ export class Pagination {
     collector.on("end", async () => {
       const finalPage = await this.getPage(this.currentPage);
       if (message.editable && finalPage) {
+        if (!finalPage.replyOptions.components) {
+          finalPage.replyOptions.components = [];
+        }
         await message.edit(finalPage.replyOptions);
       }
 
@@ -202,6 +233,10 @@ export class Pagination {
       }
     });
 
-    return message;
+    this.collector = collector;
+    this.message = message;
+    this._isSent = true;
+
+    return { collector, message };
   }
 }
