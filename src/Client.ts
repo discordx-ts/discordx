@@ -13,6 +13,7 @@ import {
 import {
   ApplicationCommandMixin,
   ApplicationGuildMixin,
+  Awaitable,
   ClientOptions,
   DApplicationCommand,
   DApplicationCommandOption,
@@ -41,7 +42,7 @@ import {
  */
 export class Client extends ClientJS {
   private _botId: string;
-  private _prefix: string | ((message: Message) => Promise<string> | string);
+  private _prefix: string | ((message: Message) => Awaitable<string>);
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
   private _botGuilds: IGuild[] = [];
@@ -65,10 +66,10 @@ export class Client extends ClientJS {
     this._guards = value;
   }
 
-  get prefix(): string | ((message: Message) => string | Promise<string>) {
+  get prefix(): string | ((message: Message) => Awaitable<string>) {
     return this._prefix;
   }
-  set prefix(value: string | ((message: Message) => string | Promise<string>)) {
+  set prefix(value: string | ((message: Message) => Awaitable<string>)) {
     this._prefix = value;
   }
 
@@ -979,7 +980,7 @@ export class Client extends ClientJS {
    * @param message messsage instance
    * @returns
    */
-  getMessagePrefix(message: Message): string | Promise<string> {
+  getMessagePrefix(message: Message): Awaitable<string> {
     if (typeof this.prefix === "string") {
       return this.prefix;
     }

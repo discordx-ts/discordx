@@ -4,8 +4,8 @@ import {
   IGuild,
   SimpleCommandMessage,
 } from "../..";
+import { Awaitable, ILogger } from "..";
 import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
-import { ILogger } from "..";
 
 export interface SimpleCommandConfig {
   /**
@@ -16,7 +16,7 @@ export interface SimpleCommandConfig {
   /**
    * bot prefix or prefix resolver
    */
-  prefix?: string | ((message: Message) => Promise<string> | string);
+  prefix?: string | ((message: Message) => Awaitable<string>);
 
   /**
    * Define global response for cetain conditions
@@ -25,14 +25,14 @@ export interface SimpleCommandConfig {
     /**
      * Define response for not found command
      */
-    notFound?: string | ((command: Message) => Promise<void> | void);
+    notFound?: string | ((command: Message) => Awaitable<void>);
 
     /**
      * Define response for unauthorized command
      */
     unauthorised?:
       | string
-      | ((command: SimpleCommandMessage) => Promise<void> | void);
+      | ((command: SimpleCommandMessage) => Awaitable<void>);
   };
 }
 

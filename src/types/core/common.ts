@@ -9,6 +9,8 @@ import {
 } from "../..";
 import { ApplicationCommandPermissions, Guild, Snowflake } from "discord.js";
 
+export type Awaitable<T> = Promise<T> | T;
+
 export type IDefaultPermission = boolean | DefaultPermissionResolver;
 
 export type IPermissions =
