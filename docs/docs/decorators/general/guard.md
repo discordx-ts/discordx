@@ -153,7 +153,7 @@ import { ArgsOf, GuardFunction } from "discordx";
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
   | CommandInteraction
-> = async (arg, client, next) => {
+> = async (arg, client, next, guardDatas) => {
   const argObj = arg instanceof Array ? arg[0] : arg;
   const user =
     argObj instanceof CommandInteraction
@@ -164,6 +164,7 @@ export const NotBot: GuardFunction<
       ? argObj.member.user
       : argObj.author;
   if (!user?.bot) {
+    guardDatas.message = "the NotBot guard passed";
     await next();
   }
 };
