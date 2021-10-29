@@ -199,9 +199,11 @@ yarn add @discordx/utilities discord.js
 
 | Name                | Type                  | Default   | Description                  |
 | ------------------- | --------------------- | --------- | ---------------------------- |
-| initialPage         | number                | 0         | Initial page                 |
+| enableExit          | boolean               | false     | Enable early exit pagination |
 | ephemeral           | boolean               | undefined | Enable ephemeral             |
+| initialPage         | number                | 0         | Initial page                 |
 | onPaginationTimeout | Function              | undefined | Timeout callback             |
+| showStartEnd        | boolean               | true      | Show start/end               |
 | time                | number                | 1_800_000 | Timeout for pagination in ms |
 | type                | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |
 
@@ -211,30 +213,26 @@ yarn add @discordx/utilities discord.js
 
 The following options are only available, if you have set type to `BUTTON`
 
-| Name            | Type                                      | Default                            | Description            |
-| --------------- | ----------------------------------------- | ---------------------------------- | ---------------------- |
-| endId           | string                                    | discordx@pagination@endButton      | Button custom id       |
-| endLabel        | string                                    | End                                | Button lable           |
-| nextId          | string                                    | discordx@pagination@nextButton     | Button custom id       |
-| nextLabel       | string                                    | Next                               | Button lable           |
-| previousId      | string                                    | discordx@pagination@previousButton | Button custom id       |
-| previousLabel   | string                                    | Previous                           | Button lable           |
-| startId         | string                                    | discordx@pagination@startButton    | Button custom id       |
-| startLabel      | string                                    | Start                              | Button lable           |
-| startEndButtons | boolean                                   | true                               | Show start/end buttons |
-| style           | PRIMARY \| SECONDARY \| SUCCESS \| DANGER | PRIMARY                            | Button style           |
+| Name     | Type          | Default   | Description    |
+| -------- | ------------- | --------- | -------------- |
+| end      | ButtonOptions | undefined | Button options |
+| exit     | ButtonOptions | undefined | Button options |
+| next     | ButtonOptions | undefined | Button options |
+| previous | ButtonOptions | undefined | Button options |
+| start    | ButtonOptions | undefined | Button options |
 
 ## SELECT_MENU Options
 
 The following options are only available, if you have set type to `SELECT_MENU`
 
-| Name        | Type               | Default                  | Description        |
-| ----------- | ------------------ | ------------------------ | ------------------ |
-| menuId      | string             | discordx@pagination@menu | Menu custom id     |
-| pageText    | string \| string[] | Page {page}              | Menu page text     |
-| placeholder | string             | Select page              | Menu placeholder   |
-| startLabel  | string             | Start                    | Start option label |
-| endLabel    | string             | End                      | End option label   |
+| Name         | Type               | Default                  | Description      |
+| ------------ | ------------------ | ------------------------ | ---------------- |
+| labels.end   | string             | End                      | label            |
+| labels.exit  | string             | Exit Pagination          | label            |
+| labels.start | string             | Start                    | label            |
+| menuId       | string             | discordx@pagination@menu | Menu custom id   |
+| pageText     | string \| string[] | Page {page}              | Menu page text   |
+| placeholder  | string             | Select page              | Menu placeholder |
 
 # Thank you
 

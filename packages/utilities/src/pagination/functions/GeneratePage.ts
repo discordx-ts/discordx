@@ -101,7 +101,7 @@ export const GeneratePage = (
       return selectMenuOption;
     });
 
-    if (totalPages > 21) {
+    if (totalPages > 21 && (option.showStartEnd ?? true)) {
       if (page > 10) {
         paginator.unshift({
           label: option.labels?.start ?? "Start",

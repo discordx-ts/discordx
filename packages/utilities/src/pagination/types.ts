@@ -58,6 +58,11 @@ interface BasicPaginationOptions {
   onPaginationTimeout?: (page: number, message: Message) => void;
 
   /**
+   * Show start/end buttons for large list (items more then 10) (default: true)
+   */
+  showStartEnd?: boolean;
+
+  /**
    * In milliseconds, how long should the paginator run. (Default: 30min)
    */
   time?: number;
@@ -100,11 +105,6 @@ interface ButtonPaginationOptions extends BasicPaginationOptions {
    * Previous button options
    */
   previous?: ButtonOptions;
-
-  /**
-   * Show start/end buttons for large list (items more then 10) (default: true)
-   */
-  showStartEnd?: boolean;
 
   /**
    * Start button options
