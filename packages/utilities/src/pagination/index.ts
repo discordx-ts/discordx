@@ -24,11 +24,13 @@ export class PaginationResolver {
 }
 
 export class Pagination {
-  maxLength: number;
-  currentPage: number;
-  option: PaginationOptions;
-  collector?: InteractionCollector<MessageComponentInteraction<CacheType>>;
-  message?: Message;
+  public maxLength: number;
+  public currentPage: number;
+  public option: PaginationOptions;
+  public collector?: InteractionCollector<
+    MessageComponentInteraction<CacheType>
+  >;
+  public message?: Message;
   private _isSent = false;
 
   get isSent(): boolean {
@@ -59,7 +61,7 @@ export class Pagination {
     this.currentPage = config?.initialPage ?? 0;
   }
 
-  getPage = async (
+  public getPage = async (
     page: number
   ): Promise<
     | {
@@ -79,7 +81,7 @@ export class Pagination {
     return GeneratePage(embed, this.currentPage, this.maxLength, this.option);
   };
 
-  async send(): Promise<{
+  public async send(): Promise<{
     collector: InteractionCollector<MessageComponentInteraction<CacheType>>;
     message: Message;
   }> {
