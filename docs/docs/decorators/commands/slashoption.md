@@ -29,7 +29,7 @@ class DiscordBot {
 }
 ```
 
-## Example of Autocomplete option
+## Autocomplete option
 
 When defining an autocomplete slash option, you can define a resolver for autocomplete inside `@SlashOption` to simplify things. If you set autocomplete to true, you have to handle it manually in your main function.
 
