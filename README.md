@@ -51,7 +51,7 @@ This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalv
 
 > **[Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)**
 
-# 🤖Bot Examples
+# 🤖 Bot Examples
 
 > **[discord.ts-example](https://github.com/oceanroleplay/discord.ts-example)** (starter repo)
 
