@@ -5,7 +5,8 @@ import ytsr from "ytsr";
 export class Util {
   static async search(
     searchText: string,
-    type: "Video" | "Playlist"
+    type: "Video" | "Playlist",
+    options?: ytsr.Options
   ): Promise<ytsr.Item[]> {
     const filters = await ytsr.getFilters(searchText);
     const search = filters.get("Type")?.get(type);
@@ -13,7 +14,7 @@ export class Util {
       return [];
     }
 
-    const result = await ytsr(search.url);
+    const result = await ytsr(search.url, options);
     return result.items;
   }
 
