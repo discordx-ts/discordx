@@ -3,13 +3,12 @@ import {
   CacheType,
   Interaction,
   InteractionCollector,
-  InteractionReplyOptions,
   Message,
-  MessageActionRow,
   MessageComponentInteraction,
   TextBasedChannels,
 } from "discord.js";
 import {
+  IGeneratePage,
   PaginationInteractions,
   PaginationOptions,
   defaultIds,
@@ -19,11 +18,11 @@ import {
 } from "./types";
 import { GeneratePage } from "./functions/GeneratePage";
 
-export class PaginationResolver {
-  constructor(public resolver: paginationFunc, public maxLength: number) {}
+export class PaginationResolver<T extends paginationFunc = paginationFunc> {
+  constructor(public resolver: T, public maxLength: number) {}
 }
 
-export class Pagination {
+export class Pagination<T extends PaginationResolver = PaginationResolver> {
   public maxLength: number;
   public currentPage: number;
   public option: PaginationOptions;
@@ -39,14 +38,13 @@ export class Pagination {
 
   constructor(
     public sendTo: PaginationInteractions | Message | TextBasedChannels,
-    public embeds: embedType[] | PaginationResolver,
+    public embeds: embedType[] | T,
     config?: PaginationOptions
   ) {
     /**
      * page length of pagination
      */
-    this.maxLength =
-      embeds instanceof PaginationResolver ? embeds.maxLength : embeds.length;
+    this.maxLength = Array.isArray(embeds) ? embeds.length : embeds.maxLength;
 
     /**
      * default options
@@ -61,19 +59,10 @@ export class Pagination {
     this.currentPage = config?.initialPage ?? 0;
   }
 
-  public getPage = async (
-    page: number
-  ): Promise<
-    | {
-        paginationRow: MessageActionRow;
-        replyOptions: InteractionReplyOptions;
-      }
-    | undefined
-  > => {
-    const embed =
-      this.embeds instanceof PaginationResolver
-        ? await this.embeds.resolver(page, this)
-        : _.cloneDeep(this.embeds[page]);
+  public getPage = async (page: number): Promise<IGeneratePage | undefined> => {
+    const embed = Array.isArray(this.embeds)
+      ? _.cloneDeep<embedType | undefined>(this.embeds[page])
+      : await this.embeds.resolver(page, this);
 
     if (!embed) {
       return undefined;

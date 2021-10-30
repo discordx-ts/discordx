@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [3.0.0] - 2021-10-29
+## [3.0.0] - 2021-10-30
 
 ### Added
 
@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - paginations options
+- discord.js v13.3.0
 
 ## [2.1.1] - 2021-10-28
 

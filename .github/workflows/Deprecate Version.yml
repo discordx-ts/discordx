@@ -12,12 +12,13 @@ on:
         type: string
       message:
         description: "deprecate message"
-        default: "no longer supported, update to latest version"
+        default: "Version no longer supported. Upgrade to @latest"
         required: true
         type: string
 
 jobs:
   deprecate:
+    if: github.actor == 'oceanroleplay'
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎

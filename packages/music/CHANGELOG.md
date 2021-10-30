@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [1.3.1] - 2021-10-29
+## [2.0.0] - 2021-10-29
 
 ### Added
 
@@ -28,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - playTack to playTrack
+
+### Changed
+
+- discord.js v13.3.0
 
 ## [1.2.6] - 2021-10-28
 

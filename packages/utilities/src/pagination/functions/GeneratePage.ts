@@ -1,5 +1,5 @@
+import { IGeneratePage, PaginationOptions, defaultIds } from "../types";
 import {
-  InteractionReplyOptions,
   MessageActionRow,
   MessageButton,
   MessageEmbed,
@@ -7,7 +7,6 @@ import {
   MessageSelectMenu,
   MessageSelectOptionData,
 } from "discord.js";
-import { PaginationOptions, defaultIds } from "../types";
 import { paginate } from "./paginate";
 
 export const GeneratePage = (
@@ -15,10 +14,7 @@ export const GeneratePage = (
   page: number,
   totalPages: number,
   option: PaginationOptions
-): {
-  paginationRow: MessageActionRow;
-  replyOptions: InteractionReplyOptions;
-} => {
+): IGeneratePage => {
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
