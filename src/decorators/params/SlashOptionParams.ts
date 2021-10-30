@@ -1,5 +1,6 @@
+import { DApplicationCommand, SlashOptionType } from "../..";
+import { AutocompleteInteraction } from "discord.js";
 import { ChannelTypes } from "discord.js/typings/enums";
-import { SlashOptionType } from "../..";
 
 interface SlashOptionBase {
   description?: string;
@@ -7,6 +8,7 @@ interface SlashOptionBase {
 }
 
 interface SlashOptionBaseParams extends SlashOptionBase {
+  autocomplete?: undefined;
   channelTypes?: undefined;
   type?: Exclude<
     SlashOptionType,
@@ -15,10 +17,26 @@ interface SlashOptionBaseParams extends SlashOptionBase {
 }
 
 interface SlashOptionChannelParams extends SlashOptionBase {
+  autocomplete?: undefined;
   channelTypes?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[];
   type: "CHANNEL";
 }
 
+interface SlashOptionAutoCompleteParams extends SlashOptionBase {
+  autocomplete?: SlashAutoCompleteOption;
+  channelTypes?: undefined;
+  type: "STRING" | "NUMBER";
+}
+
 export type SlashOptionParams =
   | SlashOptionBaseParams
-  | SlashOptionChannelParams;
+  | SlashOptionChannelParams
+  | SlashOptionAutoCompleteParams;
+
+export type SlashAutoCompleteOption =
+  | undefined
+  | boolean
+  | ((
+      interaction: AutocompleteInteraction,
+      command: DApplicationCommand
+    ) => void | Promise<void>);
