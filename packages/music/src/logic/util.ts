@@ -3,6 +3,20 @@ import ytpl from "ytpl";
 import ytsr from "ytsr";
 
 export class Util {
+  static async search(
+    searchText: string,
+    type: "Video" | "Playlist"
+  ): Promise<ytsr.Item[]> {
+    const filters = await ytsr.getFilters(searchText);
+    const search = filters.get("Type")?.get(type);
+    if (!search || !search.url) {
+      return [];
+    }
+
+    const result = await ytsr(search.url);
+    return result.items;
+  }
+
   static async getSong(searchText: string): Promise<ytsr.Video | undefined> {
     const filters = await ytsr.getFilters(searchText);
     const search = filters.get("Type")?.get("Video");
