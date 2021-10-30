@@ -1,8 +1,9 @@
 {
   "name": "@discordx/utilities",
-  "version": "3.0.0-dev",
+  "version": "0.0.0",
   "description": "discordx utilities",
   "main": "build/index.js",
+  "private": false,
   "scripts": {
     "build": "tsc",
     "type-check": "tsc --noemit"
@@ -27,7 +28,7 @@
   },
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
   "dependencies": {
-    "discord.js": "^13.3.0-dev.1635465892.5d987ee",
+    "discord.js": "^13.4.0-dev.1635552294.761a901",
     "discordx": "^8.0.0-dev.1635445429.c9e9195",
     "lodash": "^4.17.21"
   },

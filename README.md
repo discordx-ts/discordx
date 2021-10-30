@@ -51,7 +51,7 @@ This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalv
 
 > **[Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)**
 
-# 🤖Bot Examples
+# 🤖 Bot Examples
 
 > **[discord.ts-example](https://github.com/oceanroleplay/discord.ts-example)** (starter repo)
 
@@ -61,7 +61,7 @@ This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalv
 
 # 💡 Why discordx?
 
-With `discordx`, we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, pagination etc. **Updated daily with discord.js changes**.
+With `discordx`, we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, pagination, music etc. **Updated daily with discord.js changes**.
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord.gg/yHQY9fexH9)
 

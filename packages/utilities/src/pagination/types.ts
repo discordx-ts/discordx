@@ -2,7 +2,9 @@ import {
   CommandInteraction,
   ContextMenuInteraction,
   InteractionButtonOptions,
+  InteractionReplyOptions,
   Message,
+  MessageActionRow,
   MessageComponentInteraction,
   MessageEmbed,
   MessageOptions,
@@ -164,3 +166,8 @@ export interface IPaginate {
   totalItems: number;
   totalPages: number;
 }
+
+export type IGeneratePage = {
+  paginationRow: MessageActionRow;
+  replyOptions: InteractionReplyOptions;
+};

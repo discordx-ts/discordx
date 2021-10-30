@@ -21,6 +21,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 `[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#700---2021-10-20)`
 
+## [8.0.0] - 2021-10-30
+
+### Added
+
+- autocomplete
+
+### Changed
+
+- discord.js v13.3.0
+
+### Added
+
 ## [7.1.0] - 2021-10-27
 
 ### Added

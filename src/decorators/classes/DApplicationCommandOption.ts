@@ -1,4 +1,8 @@
-import { DApplicationCommandOptionChoice, SlashOptionType } from "../..";
+import {
+  DApplicationCommandOptionChoice,
+  SlashAutoCompleteOption,
+  SlashOptionType,
+} from "../..";
 import { ApplicationCommandOptionData } from "discord.js";
 import { ChannelTypes } from "discord.js/typings/enums";
 import { Decorator } from "./Decorator";
@@ -7,14 +11,15 @@ import { Decorator } from "./Decorator";
  * @category Decorator
  */
 export class DApplicationCommandOption extends Decorator {
-  private _required = false;
-  private _name: string;
-  private _description: string;
-  private _type: SlashOptionType;
-  private _choices: DApplicationCommandOptionChoice[] = [];
-  private _options: DApplicationCommandOption[] = [];
+  private _autocomplete: SlashAutoCompleteOption;
   private _channelTypes: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] = [];
+  private _choices: DApplicationCommandOptionChoice[] = [];
+  private _description: string;
   private _isNode = false;
+  private _name: string;
+  private _options: DApplicationCommandOption[] = [];
+  private _required = false;
+  private _type: SlashOptionType;
 
   get isNode(): boolean {
     return this._isNode;
@@ -51,6 +56,13 @@ export class DApplicationCommandOption extends Decorator {
     this._type = value;
   }
 
+  get autocomplete(): SlashAutoCompleteOption {
+    return this._autocomplete;
+  }
+  set autocomplete(value: SlashAutoCompleteOption) {
+    this._autocomplete = value;
+  }
+
   get description(): string {
     return this._description;
   }
@@ -76,6 +88,7 @@ export class DApplicationCommandOption extends Decorator {
     type?: SlashOptionType,
     description?: string,
     required?: boolean,
+    autocomplete?: SlashAutoCompleteOption,
     channelType?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[],
     index?: number
   ) {
@@ -87,6 +100,7 @@ export class DApplicationCommandOption extends Decorator {
     this._required = required ?? false;
     this._channelTypes = channelType ?? [];
     this._index = index;
+    this._autocomplete = autocomplete;
   }
 
   static create(
@@ -94,6 +108,7 @@ export class DApplicationCommandOption extends Decorator {
     type?: SlashOptionType,
     description?: string,
     required?: boolean,
+    autocomplete?: SlashAutoCompleteOption,
     channelType?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[],
     index?: number
   ): DApplicationCommandOption {
@@ -102,6 +117,7 @@ export class DApplicationCommandOption extends Decorator {
       type,
       description,
       required,
+      autocomplete,
       channelType,
       index
     );
@@ -155,6 +171,7 @@ export class DApplicationCommandOption extends Decorator {
       .map((option) => option.toJSON());
 
     const data: ApplicationCommandOptionData = {
+      autocomplete: this.autocomplete ? true : undefined,
       channelTypes:
         this.channelTypes.length === 0
           ? undefined
