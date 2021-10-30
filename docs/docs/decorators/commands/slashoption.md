@@ -29,6 +29,69 @@ class DiscordBot {
 }
 ```
 
+## Example of Autocomplete option
+
+When defining an autocomplete slash option, you can define a resolver for autocomplete inside `@SlashOption` to simplify things. If you set autocomplete to true, you have to handle it manually in your main function.
+
+```ts
+@Discord()
+class DiscordBot {
+  @Slash("autocomplete")
+  testx(
+    @SlashOption("aoption", {
+      autocomplete: true,
+      required: true,
+      type: "STRING",
+    })
+    searchText: string,
+    @SlashOption("boption", {
+      autocomplete: function myResolver(
+        this: AppDiscord1,
+        interaction: AutocompleteInteraction
+      ) {
+        // normal function, have this, so class reference is passed
+        console.log(this.myCustomText);
+        // resolver for option b
+        interaction.respond([
+          { name: "option c", value: "d" },
+          { name: "option d", value: "c" },
+        ]);
+      },
+      required: true,
+      type: "STRING",
+    })
+    searchText2: string,
+    @SlashOption("coption", {
+      autocomplete: (interaction: AutocompleteInteraction) => {
+        // arrow function does not have this, so class reference is not available
+        interaction.respond([
+          { name: "option e", value: "e" },
+          { name: "option f", value: "f" },
+        ]);
+      },
+      required: true,
+      type: "STRING",
+    })
+    searchText3: string,
+    interaction: CommandInteraction | AutocompleteInteraction
+  ): void {
+    // autocomplete will passed to function if not handle above
+    if (interaction.isAutocomplete()) {
+      const focusedOption = interaction.options.getFocused(true);
+      // resolver for option a
+      if (focusedOption.name === "aoption") {
+        interaction.respond([
+          { name: "option a", value: "a" },
+          { name: "option b", value: "b" },
+        ]);
+      }
+    } else {
+      interaction.reply(`${searchText}-${searchText2}-${searchText3}`);
+    }
+  }
+}
+```
+
 ## Automatic typing
 
 An option infer the type from TypeScript in this example, discord.**ts** knows that your options are both `number` because you typed the parameters
@@ -163,7 +226,7 @@ SlashOption(
 
 ### name
 
-The name of your command option
+Define name of this option
 
 | type   | default | required |
 | ------ | ------- | -------- |
@@ -177,9 +240,16 @@ Multiple options, check below.
 | ------ | --------- | -------- |
 | object | undefined | No       |
 
+#### `autocomplete`
+
+Enable autocomplete interactions for this option
+| type | default |
+| -------------------------------- | ------- |
+| boolean \| autocomplete resolver | false |
+
 #### `Description`
 
-You can set the description of the option
+Set description of this option
 
 | type   | default                   |
 | ------ | ------------------------- |
@@ -187,7 +257,7 @@ You can set the description of the option
 
 #### `Required`
 
-The option is required or not
+Set option required or optional
 
 | type    | default |
 | ------- | ------- |
@@ -195,7 +265,7 @@ The option is required or not
 
 #### `Type`
 
-The type of your command option
+Define type of your command option
 
 | type                                                                             | default   |
 | -------------------------------------------------------------------------------- | --------- |
@@ -203,7 +273,7 @@ The type of your command option
 
 #### `channelTypes`
 
-The type of your command option
+If the option is a channel type, the channels shown will be restricted to these types
 
 | type                                          | default   |
 | --------------------------------------------- | --------- |
