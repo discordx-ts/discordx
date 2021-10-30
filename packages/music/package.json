@@ -31,7 +31,7 @@
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/music#readme",
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
-    "@discordjs/voice": "^0.6.0",
+    "@discordjs/voice": "^0.7.0",
     "ansi-regex": "^6.0.1",
     "discord.js": "^13.4.0-dev.1635552294.761a901",
     "ffmpeg-static": "^4.4.0",
@@ -44,6 +44,6 @@
     "ytsr": "^3.5.3"
   },
   "devDependencies": {
-    "discordx": "^8.0.0-dev.1635445429.c9e9195"
+    "discordx": "^9.0.0-dev.1635597048.f2dfe65"
   }
 }

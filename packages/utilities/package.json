@@ -29,7 +29,7 @@
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
   "dependencies": {
     "discord.js": "^13.4.0-dev.1635552294.761a901",
-    "discordx": "^8.0.0-dev.1635445429.c9e9195",
+    "discordx": "^9.0.0-dev.1635597048.f2dfe65",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
