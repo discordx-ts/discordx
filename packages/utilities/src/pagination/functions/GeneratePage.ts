@@ -55,15 +55,18 @@ export const GeneratePage = (
       .setLabel(option.exit?.label ?? "Exit")
       .setStyle(option.exit?.style ?? "DANGER");
 
-    const row = new MessageActionRow().addComponents(
-      totalPages > 10 && (option.showStartEnd ?? true)
-        ? option.enableExit
-          ? [startBtn, prevBtn, nextBtn, endBtn, exitBtn]
-          : [startBtn, prevBtn, nextBtn, endBtn]
-        : option.enableExit
-        ? [prevBtn, nextBtn, exitBtn]
-        : [prevBtn, nextBtn]
-    );
+    const buttons: MessageButton[] = [prevBtn, nextBtn];
+
+    if (totalPages > 10 && (option.showStartEnd ?? true)) {
+      buttons.unshift(startBtn);
+      buttons.push(endBtn);
+    }
+
+    if (option.enableExit) {
+      buttons.push(exitBtn);
+    }
+
+    const row = new MessageActionRow().addComponents(buttons);
 
     // reset message payload additional parameters
     if (!cpage.embeds) {
