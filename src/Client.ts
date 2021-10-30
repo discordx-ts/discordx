@@ -1,6 +1,7 @@
 import * as _ from "lodash";
 import {
   ApplicationCommand,
+  AutocompleteInteraction,
   Client as ClientJS,
   Collection,
   CommandInteraction,
@@ -750,7 +751,9 @@ export class Client extends ClientJS {
    * @param interaction The targeted slash interaction
    * @returns
    */
-  getApplicationCommandGroupTree(interaction: CommandInteraction): string[] {
+  getApplicationCommandGroupTree(
+    interaction: CommandInteraction | AutocompleteInteraction
+  ): string[] {
     const tree: string[] = [];
 
     const getOptionsTree = (
@@ -952,7 +955,7 @@ export class Client extends ClientJS {
     }
 
     // If the interaction isn't a slash command, return
-    if (interaction.isCommand()) {
+    if (interaction.isCommand() || interaction.isAutocomplete()) {
       // Get the interaction group tree
       const tree = this.getApplicationCommandGroupTree(interaction);
       const applicationCommand = this.getApplicationCommandFromTree(tree);
@@ -968,6 +971,19 @@ export class Client extends ClientJS {
           );
         }
         return;
+      }
+
+      if (interaction.isAutocomplete()) {
+        const focusOption = interaction.options.getFocused(true);
+        const option = applicationCommand.options.find(
+          (op) => op.name === focusOption.name
+        );
+        if (option) {
+          if (typeof option.autocomplete === "function") {
+            option.autocomplete(interaction, applicationCommand);
+            return;
+          }
+        }
       }
 
       // Parse the options values and inject it into the @Slash method
