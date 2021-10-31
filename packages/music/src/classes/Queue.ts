@@ -15,6 +15,7 @@ import { Guild, StageChannel, VoiceChannel } from "discord.js";
 import { PlayerErrors, Util } from "..";
 import { Video } from "ytsr";
 import _ from "lodash";
+import spotify from "spotify-url-info";
 import ytpl from "ytpl";
 
 /**
@@ -605,7 +606,7 @@ export abstract class Queue<T extends Player = Player> {
    * @returns
    */
   public async spotify(
-    search: string,
+    search: string | spotify.Tracks[],
     options?: ITrackOptions,
     enqueueTop?: boolean
   ): Promise<YoutubeTrack[] | undefined> {
