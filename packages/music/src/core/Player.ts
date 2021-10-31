@@ -1,7 +1,6 @@
 import { Collection, Guild, Snowflake } from "discord.js";
-import { PlayerEventArgOf, PlayerEvents } from "..";
+import { PlayerEventArgOf, PlayerEvents, Queue } from "..";
 import { EventEmitter } from "node:events";
-import { Queue } from ".";
 
 /**
  * Music player

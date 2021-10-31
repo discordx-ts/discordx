@@ -1,7 +1,8 @@
-import { Queue, Track } from "..";
 import { StageChannel, VoiceChannel } from "discord.js";
+import { Queue } from "..";
+import { Track } from "../tracks";
 
-export interface PlayerEvents<T extends Queue> {
+export interface PlayerEvents<T extends Queue = Queue> {
   onError: (args: [queue: T, error: Error, track: Track]) => void;
   onFinish: (args: [queue: T, track: Track]) => void;
   onFinishPlayback: (args: [queue: T]) => void;

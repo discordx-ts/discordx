@@ -10,9 +10,15 @@ import {
   entersState,
   joinVoiceChannel,
 } from "@discordjs/voice";
-import { CommonTrack, ITrackOptions, Player, YoutubeTrack } from ".";
+import {
+  CommonTrack,
+  ITrackOptions,
+  Player,
+  PlayerErrors,
+  Util,
+  YoutubeTrack,
+} from "..";
 import { Guild, StageChannel, VoiceChannel } from "discord.js";
-import { PlayerErrors, Util } from "..";
 import { Video } from "ytsr";
 import _ from "lodash";
 import spotify from "spotify-url-info";
