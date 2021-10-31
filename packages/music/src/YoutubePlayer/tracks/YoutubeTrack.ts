@@ -3,8 +3,9 @@ import {
   StreamType,
   createAudioResource,
 } from "@discordjs/voice";
-import { CommonTrack, Player, Track, ytdl } from "..";
+import { CommonTrack, Player, ytdl } from "..";
 import { GuildMember, User } from "discord.js";
+import { Track } from ".";
 import { Video } from "ytsr";
 import ytpl from "ytpl";
 

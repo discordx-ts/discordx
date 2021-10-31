@@ -3,8 +3,9 @@ import {
   StreamType,
   createAudioResource,
 } from "@discordjs/voice";
-import { CommonTrack, Player, Track } from "..";
+import { CommonTrack, Player } from "..";
 import { GuildMember, User } from "discord.js";
+import { Track } from ".";
 import internal from "node:stream";
 
 /**

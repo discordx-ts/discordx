@@ -33,6 +33,7 @@
     "@discordjs/opus": "^0.6.0",
     "@discordjs/voice": "^0.7.2",
     "ansi-regex": "^6.0.1",
+    "backoff": "^2.5.0",
     "discord.js": "^13.4.0-dev.1635552294.761a901",
     "ffmpeg-static": "^4.4.0",
     "libsodium-wrappers": "^0.7.9",
@@ -44,6 +45,7 @@
     "ytsr": "^3.5.3"
   },
   "devDependencies": {
+    "@types/backoff": "^2.5.2",
     "@types/lodash": "^4.14.176",
     "discordx": "^9.0.0-dev.1635597048.f2dfe65"
   }
