@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 `[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#700---2021-10-20)`
 
+## [8.0.0] - 2021-11-03
+
+### Added
+
+- log otpion for initApplicationPermissions
+
 ## [8.0.0] - 2021-10-30
 
 ### Added

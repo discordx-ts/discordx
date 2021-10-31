@@ -613,11 +613,11 @@ export class Client extends ClientJS {
   /**
    * init all guild command permissions
    */
-  async initApplicationPermissions(): Promise<void> {
+  async initApplicationPermissions(log?: boolean): Promise<void> {
     const guildDCommandStore = await this.CommandByGuild();
     const promises: Promise<void>[] = [];
     guildDCommandStore.forEach((cmds, guildId) => {
-      promises.push(this.initGuildApplicationPermissions(guildId, cmds));
+      promises.push(this.initGuildApplicationPermissions(guildId, cmds, log));
     });
     await Promise.all(promises);
   }
@@ -629,7 +629,8 @@ export class Client extends ClientJS {
    */
   async initGuildApplicationPermissions(
     guildId: string,
-    DCommands: DApplicationCommand[]
+    DCommands: DApplicationCommand[],
+    log?: boolean
   ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
@@ -664,7 +665,7 @@ export class Client extends ClientJS {
               cmd
             );
             if (!_.isEqual(permissions, commandPermissions)) {
-              if (!this.silent) {
+              if (!this.silent || log) {
                 this.logger.log(
                   `${this.user?.username} >> guild: #${guild} >> updating permission >> ${cmd.name}`
                 );
@@ -680,7 +681,7 @@ export class Client extends ClientJS {
                 guild,
                 cmd
               );
-              if (!this.silent) {
+              if (!this.silent || log) {
                 this.logger.log(
                   `${this.user?.username} >> guild: #${guild} >> updating permission >> ${cmd.name}`
                 );
