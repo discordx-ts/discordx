@@ -204,7 +204,7 @@ yarn add @discordx/utilities discord.js
 | initialPage         | number                | 0         | Initial page                 |
 | onPaginationTimeout | Function              | undefined | Timeout callback             |
 | showStartEnd        | boolean               | true      | Show start/end               |
-| time                | number                | 1_800_000 | Timeout for pagination in ms |
+| time                | number                | 18e5      | Timeout for pagination in ms |
 | type                | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |
 
 > When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.

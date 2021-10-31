@@ -98,7 +98,7 @@ const StreamDownloader = (url: string, options?: YTDLStreamOptions) => {
   const opus = new Opus.Encoder({
     channels: 2,
     frameSize: 960,
-    rate: 48000,
+    rate: 48e3,
   });
 
   const outputStream = output.pipe(opus);
@@ -195,7 +195,7 @@ const arbitraryStream = (
   const opus = new Opus.Encoder({
     channels: 2,
     frameSize: 960,
-    rate: 48000,
+    rate: 48e3,
   });
 
   const outputStream = transcoder.pipe(opus);

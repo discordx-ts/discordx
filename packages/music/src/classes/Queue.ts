@@ -311,7 +311,7 @@ export abstract class Queue<T extends Player = Player> {
             await entersState(
               _voiceConnection,
               VoiceConnectionStatus.Connecting,
-              5_000
+              5e3
             );
             // Probably moved voice channel
           } catch {
@@ -320,7 +320,7 @@ export abstract class Queue<T extends Player = Player> {
           }
         } else if (_voiceConnection.rejoinAttempts < 5) {
           // The disconnect in this case is recoverable, and we also have <5 repeated attempts so we will reconnect.
-          await wait((_voiceConnection.rejoinAttempts + 1) * 5_000);
+          await wait((_voiceConnection.rejoinAttempts + 1) * 5e3);
           _voiceConnection.rejoin();
         } else {
           // The disconnect in this case may be recoverable, but we have no more remaining attempts - destroy.
@@ -336,11 +336,7 @@ export abstract class Queue<T extends Player = Player> {
       ) {
         this.readyLock = true;
         try {
-          await entersState(
-            _voiceConnection,
-            VoiceConnectionStatus.Ready,
-            20_000
-          );
+          await entersState(_voiceConnection, VoiceConnectionStatus.Ready, 2e4);
         } catch {
           if (
             _voiceConnection.state.status !== VoiceConnectionStatus.Destroyed
@@ -354,7 +350,7 @@ export abstract class Queue<T extends Player = Player> {
     });
 
     try {
-      await entersState(_voiceConnection, VoiceConnectionStatus.Ready, 20e3);
+      await entersState(_voiceConnection, VoiceConnectionStatus.Ready, 2e4);
     } catch (err) {
       throw Error(PlayerErrors.VoiceConnection);
     }

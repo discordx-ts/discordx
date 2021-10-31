@@ -129,7 +129,7 @@ export abstract class StonePaperScissor {
         content: "Ok let's go. 1v1 Stone Paper Scissor. Go choose!",
       });
 
-      setTimeout(() => interaction.deleteReply(), 10 * 60 * 1000);
+      setTimeout(() => interaction.deleteReply(), 6e4);
     }
   }
 
@@ -155,7 +155,7 @@ export abstract class StonePaperScissor {
       } catch (err) {
         console.error(err);
       }
-    }, 30000);
+    }, 3e4);
   }
 
   private static isWinSpc(

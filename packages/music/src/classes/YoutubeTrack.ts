@@ -50,7 +50,7 @@ export class YoutubeTrack extends Track {
         opusEncoded: false,
         quality: this.options?.quality ?? "highestaudio",
         requestOptions: this.options?.ytdlRequestOptions,
-        seek: this.options?.seek ? this.options.seek / 1000 : 0,
+        seek: this.options?.seek ? this.options.seek / 1e3 : 0,
       }).on("error", (error: Error) => {
         reject(error);
       });

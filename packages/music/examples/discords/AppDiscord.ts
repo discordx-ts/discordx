@@ -359,7 +359,7 @@ export class music {
       return;
     }
 
-    const state = queue.seek(time * 1000);
+    const state = queue.seek(time * 1e3);
     if (!state) {
       interaction.reply("could not seek");
       return;

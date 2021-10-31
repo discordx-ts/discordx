@@ -12,7 +12,7 @@ import {
 import { Pagination } from ".";
 
 // By default, it's half an hour.
-export const defaultTime = 1_800_000;
+export const defaultTime = 18e5;
 
 const prefixId = "discordx@pagination@";
 export const defaultIds = {
