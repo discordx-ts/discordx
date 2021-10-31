@@ -4,6 +4,13 @@ import ytpl from "ytpl";
 import ytsr from "ytsr";
 
 export class Util {
+  /**
+   * Search youtube video or playlist
+   * @param input
+   * @param type
+   * @param options
+   * @returns
+   */
   static async search(
     input: string,
     type: "Video" | "Playlist",
@@ -19,6 +26,11 @@ export class Util {
     return result.items;
   }
 
+  /**
+   * Search youtube song by name
+   * @param input
+   * @returns
+   */
   static async getSong(input: string): Promise<ytsr.Video | undefined> {
     const filters = await ytsr.getFilters(input);
     const search = filters.get("Type")?.get("Video");
@@ -37,6 +49,11 @@ export class Util {
     return song;
   }
 
+  /**
+   * Search multiple youtube song by name
+   * @param inputs
+   * @returns
+   */
   static async getSongs(inputs: string[]): Promise<ytsr.Video[]> {
     const results = await Promise.all(
       inputs.map((input) => this.getSong(input))
@@ -44,6 +61,12 @@ export class Util {
     return _.compact(results);
   }
 
+  /**
+   * Search youtube playlist
+   * @param input
+   * @param options
+   * @returns
+   */
   static async getPlaylist(
     input: string,
     options?: ytsr.Options
@@ -68,6 +91,11 @@ export class Util {
     return playlist;
   }
 
+  /**
+   * Get spotify tracks by url
+   * @param url
+   * @returns
+   */
   static async getSpotifyTracks(
     url: string
   ): Promise<spotify.Tracks[] | undefined> {
