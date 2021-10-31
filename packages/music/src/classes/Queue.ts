@@ -612,16 +612,14 @@ export abstract class Queue<T extends Player = Player> {
       return;
     }
 
-    const allVideos = await Promise.all(
-      spotifyTracks.map((sr) =>
-        Util.getSong(
-          sr.name +
-            " - " +
-            `${sr.artists ? sr.artists.map((ar) => ar.name).join(", ") : ""}`
-        )
-      )
+    const allTitles = spotifyTracks.map(
+      (sr) =>
+        sr.name +
+        " - " +
+        `${sr.artists ? sr.artists.map((ar) => ar.name).join(", ") : ""}`
     );
-    const videos = _.compact(allVideos);
+
+    const videos = await Util.getSongs(allTitles);
     const tracks = videos.map(
       (video) => new YoutubeTrack(video, this.player, options)
     );
