@@ -1,7 +1,11 @@
+import {
+  RawApplePlaylist,
+  RawAppleSong,
+  autoGetApple,
+} from "apple-music-metadata";
 import spotify from "spotify-url-info";
 import ytpl from "ytpl";
 import ytsr from "ytsr";
-import { autoGetApple, RawApplePlaylist, RawAppleSong } from "apple-music-metadata"
 
 export class Util {
   static async search(
@@ -72,11 +76,11 @@ export class Util {
 
   static async getAppleTracks(
     url: string
-  ): Promise<RawApplePlaylist|RawAppleSong|undefined>{
+  ): Promise<RawApplePlaylist | RawAppleSong | undefined> {
     try {
-        return await autoGetApple(url);
-      } catch (err) {
-        return undefined;
-      }
+      return await autoGetApple(url);
+    } catch (err) {
+      return undefined;
+    }
   }
 }
