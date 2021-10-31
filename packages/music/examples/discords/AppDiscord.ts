@@ -216,6 +216,39 @@ export class music {
       );
     }
   }
+  @Slash("applemusic", { description: "Play a applemusic link" })
+  async applemusic(
+    @SlashOption("link", { description: "applemusic link", required: true })
+    link: string,
+    interaction: CommandInteraction
+  ): Promise<void> {
+    if (!interaction.guild) {
+      return;
+    }
+
+    if (
+      !(interaction.member instanceof GuildMember) ||
+      !interaction.member.voice.channel
+    ) {
+      interaction.reply("You are not in the voice channel");
+      return;
+    }
+
+    await interaction.deferReply();
+    const queue = this.queue(interaction.guild);
+    if (!queue.isReady) {
+      this.channel = interaction.channel ?? undefined;
+      await queue.join(interaction.member.voice.channel);
+    }
+    const status = await queue.apple(link);
+    if (!status) {
+      interaction.followUp("The spotify song/playlist could not be found");
+    } else {
+      interaction.followUp(
+        "The requested spotify song/playlist is being played"
+      );
+    }
+  }
 
   @Slash("custom-track", { description: "Play custom track" })
   async customTrack(interaction: CommandInteraction): Promise<void> {
