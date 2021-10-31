@@ -44,6 +44,7 @@
     "ytsr": "^3.5.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.176",
     "discordx": "^9.0.0-dev.1635597048.f2dfe65"
   }
 }
