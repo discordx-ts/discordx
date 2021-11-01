@@ -1,4 +1,4 @@
-# @discorx/music
+# @discordx/music
 
 A Discord music player
 
