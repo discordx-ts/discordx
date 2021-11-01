@@ -24,6 +24,7 @@ export class music {
     nodex.on("error", (e) => {
       console.log(e);
     });
+
     client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
       nodex.voiceStateUpdate(data);
     });
