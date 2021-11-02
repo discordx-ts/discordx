@@ -19,13 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-## [4.0.0] - 2021-11-01
+## [3.0.0] - 2021-11-02
 
 ### Added
 
 - support for lava player
 
-## [2.1.1] - 2021-10-30
+## [2.1.7] - 2021-11-01
 
 ### Added
 
