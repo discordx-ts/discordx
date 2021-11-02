@@ -1195,7 +1195,7 @@ export class Client extends ClientJS {
   /**
    * Manually build the app
    */
-  async build(): Promise<void> {
-    await this.decorators.build();
+  async build(classes?: string[]): Promise<void> {
+    await this.decorators.build(classes);
   }
 }

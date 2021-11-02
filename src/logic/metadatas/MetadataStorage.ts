@@ -203,12 +203,17 @@ export class MetadataStorage {
     imports.forEach((file) => require(file));
   }
 
-  async build(): Promise<void> {
+  async build(classes?: string[]): Promise<void> {
     // build the instance if not already built
     if (MetadataStorage.isBuilt) {
       return;
     }
     MetadataStorage.isBuilt = true;
+
+    // this will overwrite any classes defined in Client
+    if (classes) {
+      MetadataStorage.classes = classes;
+    }
 
     // load the classes
     this.loadClasses();

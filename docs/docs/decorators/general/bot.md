@@ -3,24 +3,37 @@
 bot decorator help you manage multiple bot's in single node instance
 
 ```ts
-const alexa = new Client({
-  botId: "alexa", // define botid under Client
-});
-await alexa.login("alexatoken");
-
-const cortana = new Client({
-  botId: "cortana", // define botid under Client
-});
-await cortana.login("cortanatoken");
-
 @Discord()
-@Bot("alexa", "cortana") // now define, which bot can execute following slashes, events or commands
+@Bot("alexa", "cortana") // Define which bot can run the following commands or events
 class simpleCommandExample {
   @SimpleCommand("hello")
   command(command: SimpleCommandMessage) {
     command.message.reply(`👋 ${message.member}`);
   }
 }
+
+const alexa = new Client({
+  // Here, we won't define classes, see below
+  botId: "alexa", // define botid
+});
+
+const cortana = new Client({
+  // Here, we won't define classes, see below
+  botId: "cortana", // define botidF
+});
+
+// We will now build our application to load all the commands/events for both bots.
+MetadataStorage.instance
+  .build([
+    // Whenever this method is used to create an app manually, any predefined classes will be overwritten
+    `${__dirname}/alexa/*.{js,ts}`,
+    `${__dirname}/cortana/*.{js,ts}`,
+  ])
+  .then(() => {
+    // Now that the app is ready, we can login to both bots
+    alexa.login("alexa token");
+    cortana.login("cortana token");
+  });
 ```
 
 ## Signature
