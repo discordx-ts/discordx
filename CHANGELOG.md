@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 `[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#801---2021-11-01)`
 
+## [8.1.0] - 2021-11-03
+
+### Added
+
+- manually build bot with classes arguements
+
 ## [8.0.1] - 2021-11-01
 
 ### Added
