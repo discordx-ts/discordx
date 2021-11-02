@@ -19,9 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#700---2021-10-20)`
+`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#801---2021-11-01)`
 
-## [8.0.0] - 2021-11-03
+## [8.0.1] - 2021-11-01
 
 ### Added
 

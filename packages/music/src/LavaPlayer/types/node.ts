@@ -19,12 +19,16 @@ export interface VoiceServerUpdate {
 }
 
 export interface BaseNodeOptions {
-  host?: string;
-  hosts?: {
-    rest?: string;
-    ws?: string | { options: ConnectionOptions; url: string };
+  host?: {
+    address: string;
+    connectionOptions?: ConnectionOptions;
+    port: number;
+    rest?: {
+      address: string;
+      port: number;
+    };
   };
   password: string;
   shardCount?: number;
-  userID: string;
+  userId: string;
 }

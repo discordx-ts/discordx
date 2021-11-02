@@ -610,6 +610,7 @@ export class Client extends ClientJS {
       ]);
     }
   }
+
   /**
    * init all guild command permissions
    */

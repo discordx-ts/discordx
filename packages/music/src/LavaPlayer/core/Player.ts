@@ -19,13 +19,13 @@ export default class Player<
   T extends BaseNode = BaseNode
 > extends EventEmitter {
   public readonly node: T;
-  public guildID: string;
+  public guildId: string;
   public status: Status = Status.INSTANTIATED;
 
-  constructor(node: T, guildID: string) {
+  constructor(node: T, guildId: string) {
     super();
     this.node = node;
-    this.guildID = guildID;
+    this.guildId = guildId;
 
     this.on("event", (d) => {
       switch (d.type) {
@@ -62,20 +62,20 @@ export default class Player<
   }
 
   public get voiceState(): VoiceStateUpdate | undefined {
-    const session = this.node.voiceStates.get(this.guildID);
+    const session = this.node.voiceStates.get(this.guildId);
     if (!session) {
       return;
     }
 
     return {
-      guild_id: this.guildID,
+      guild_id: this.guildId,
       session_id: session,
       user_id: this.node.userID,
     };
   }
 
   public get voiceServer(): VoiceServerUpdate | undefined {
-    return this.node.voiceServers.get(this.guildID);
+    return this.node.voiceServers.get(this.guildId);
   }
 
   public async moveTo(node: BaseNode): Promise<void> {
@@ -101,13 +101,13 @@ export default class Player<
     channel: string | null,
     { deaf = false, mute = false }: JoinOptions = {}
   ): Promise<any> {
-    this.node.voiceServers.delete(this.guildID);
-    this.node.voiceStates.delete(this.guildID);
+    this.node.voiceServers.delete(this.guildId);
+    this.node.voiceStates.delete(this.guildId);
 
-    return this.node.send(this.guildID, {
+    return this.node.send(this.guildId, {
       d: {
         channel_id: channel,
-        guild_id: this.guildID,
+        guild_id: this.guildId,
         self_deaf: deaf,
         self_mute: mute,
       },
@@ -166,7 +166,7 @@ export default class Player<
       await this.send("destroy");
     }
     this.status = Status.ENDED;
-    this.node.players.delete(this.guildID);
+    this.node.players.delete(this.guildId);
   }
 
   public voiceUpdate(
@@ -185,7 +185,7 @@ export default class Player<
       return conn.send(
         Object.assign(
           {
-            guildId: this.guildID,
+            guildId: this.guildId,
             op,
           },
           d

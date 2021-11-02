@@ -5,8 +5,8 @@ import { EventEmitter } from "events";
 import Player from "../core/Player";
 
 export default abstract class BaseCluster extends EventEmitter {
-  public abstract send: (guildID: string, packet: any) => any;
-  public abstract filter: (node: ClusterNode, guildID: string) => boolean;
+  public abstract send: (guildId: string, packet: any) => any;
+  public abstract filter: (node: ClusterNode, guildId: string) => boolean;
 
   public readonly nodes: ClusterNode[] = [];
 
@@ -52,10 +52,10 @@ export default abstract class BaseCluster extends EventEmitter {
       });
   }
 
-  public getNode(guildID: string): ClusterNode {
-    let node = this.nodes.find((nodex) => nodex.players.has(guildID));
+  public getNode(guildId: string): ClusterNode {
+    let node = this.nodes.find((nodex) => nodex.players.has(guildId));
     if (!node) {
-      node = this.sort().find((nodex) => this.filter(nodex, guildID));
+      node = this.sort().find((nodex) => this.filter(nodex, guildId));
     } else {
       return node;
     }
@@ -64,12 +64,12 @@ export default abstract class BaseCluster extends EventEmitter {
     );
   }
 
-  public has(guildID: string): boolean {
-    return this.nodes.some((node) => node.players.has(guildID));
+  public has(guildId: string): boolean {
+    return this.nodes.some((node) => node.players.has(guildId));
   }
 
-  public get(guildID: string): Player<ClusterNode> {
-    return this.getNode(guildID).players.get(guildID);
+  public get(guildId: string): Player<ClusterNode> {
+    return this.getNode(guildId).players.get(guildId);
   }
 
   public voiceStateUpdate(state: VoiceStateUpdate): Promise<boolean> {

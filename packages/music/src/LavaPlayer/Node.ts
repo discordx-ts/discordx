@@ -3,11 +3,11 @@ import BaseNode from "./base/Node";
 import { BaseNodeOptions } from "./types";
 
 export interface NodeOptions extends BaseNodeOptions {
-  send: (guildID: string, packet: any) => any;
+  send: (guildId: string, packet: any) => any;
 }
 
 export default class Node extends BaseNode {
-  public send: (guildID: string, packet: any) => any;
+  public send: (guildId: string, packet: any) => any;
 
   constructor(options: NodeOptions) {
     super(options);

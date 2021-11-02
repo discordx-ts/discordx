@@ -3,14 +3,14 @@ import ClusterNode, { ClusterNodeOptions } from "./ClusterNode";
 import BaseCluster from "./base/Cluster";
 
 export interface ClusterOptions {
-  filter?: (node: ClusterNode, guildID: string) => boolean;
+  filter?: (node: ClusterNode, guildId: string) => boolean;
   nodes?: ClusterNodeOptions[];
-  send: (guildID: string, packet: any) => any;
+  send: (guildId: string, packet: any) => any;
 }
 
 export default class Cluster extends BaseCluster {
-  public filter: (node: ClusterNode, guildID: string) => boolean;
-  public send: (guildID: string, packet: any) => any;
+  public filter: (node: ClusterNode, guildId: string) => boolean;
+  public send: (guildId: string, packet: any) => any;
 
   constructor(options: ClusterOptions) {
     super(options.nodes);

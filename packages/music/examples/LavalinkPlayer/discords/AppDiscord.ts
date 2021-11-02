@@ -9,8 +9,14 @@ export class music {
   @On("ready")
   onReady([]: ArgsOf<"ready">, client: Client): void {
     const nodex = new Lava.Node({
-      host: process.env.LAVA_HOST ?? "", // a URL to your lavalink instance without protocol (optional, can be used instead of specifying hosts option)
-      password: process.env.LAVA_PASSWORD ?? "", // your Lavalink password
+      host: {
+        address: process.env.LAVA_HOST ?? "",
+        port: Number(process.env.LAVA_PORT) ?? 2333,
+      },
+
+      // your Lavalink password
+      password: process.env.LAVA_PASSWORD ?? "",
+
       send(guildId, packet) {
         const guild = client.guilds.cache.get(guildId);
         if (guild) {
@@ -18,7 +24,7 @@ export class music {
         }
       },
       shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
-      userID: client.user?.id ?? "", // the user ID of your bot
+      userId: client.user?.id ?? "", // the user ID of your bot
     });
 
     nodex.on("error", (e) => {

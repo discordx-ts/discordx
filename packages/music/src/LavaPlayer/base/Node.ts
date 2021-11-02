@@ -14,7 +14,7 @@ import Http from "../core/Http";
 import PlayerStore from "../core/PlayerStore";
 
 export default abstract class BaseNode extends EventEmitter {
-  public abstract send: (guildID: string, packet: any) => Promise<any>;
+  public abstract send: (guildId: string, packet: any) => Promise<any>;
 
   public password: string;
   public userID: string;
@@ -29,26 +29,24 @@ export default abstract class BaseNode extends EventEmitter {
 
   private _expectingConnection: Set<string> = new Set();
 
-  constructor({ password, userID, shardCount, hosts, host }: BaseNodeOptions) {
+  constructor({ password, userId, shardCount, host }: BaseNodeOptions) {
     super();
     this.password = password;
-    this.userID = userID;
+    this.userID = userId;
     this.shardCount = shardCount;
 
-    if (host) {
-      this.http = new Http(this, `http://${host}`);
-      this.connection = new Connection(this, `ws://${host}`);
-    } else if (hosts) {
-      if (hosts.rest) {
-        this.http = new Http(this, hosts.rest);
-      }
-      if (hosts.ws) {
-        this.connection =
-          typeof hosts.ws === "string"
-            ? new Connection(this, hosts.ws)
-            : new Connection(this, hosts.ws.url, hosts.ws.options);
-      }
-    }
+    this.http = new Http(
+      this,
+      `http://${host?.rest?.address ?? host?.address ?? "localhost"}:${
+        host?.rest?.port ?? host?.port ?? 2333
+      }`
+    );
+
+    this.connection = new Connection(
+      this,
+      `ws://${host?.address ?? "localhost"}:${host?.port ?? 2333}`,
+      host?.connectionOptions
+    );
   }
 
   public get connected(): boolean {
@@ -111,15 +109,15 @@ export default abstract class BaseNode extends EventEmitter {
     await this.disconnect(code, data);
   }
 
-  private async _tryConnection(guildID: string): Promise<boolean> {
-    const state = this.voiceStates.get(guildID);
-    const server = this.voiceServers.get(guildID);
-    if (!state || !server || !this._expectingConnection.has(guildID)) {
+  private async _tryConnection(guildId: string): Promise<boolean> {
+    const state = this.voiceStates.get(guildId);
+    const server = this.voiceServers.get(guildId);
+    if (!state || !server || !this._expectingConnection.has(guildId)) {
       return false;
     }
 
-    await this.players.get(guildID).voiceUpdate(state, server);
-    this._expectingConnection.delete(guildID);
+    await this.players.get(guildId).voiceUpdate(state, server);
+    this._expectingConnection.delete(guildId);
     return true;
   }
 }
