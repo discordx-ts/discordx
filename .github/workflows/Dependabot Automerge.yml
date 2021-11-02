@@ -44,7 +44,7 @@ jobs:
             }`
             const variablesTwo = {
               pullRequestId: pullRequestId,
-              mergeMethod: 'MERGE'
+              mergeMethod: 'squash'
             }
             const resultTwo = await github.graphql(queryTwo, variablesTwo)
             console.log(resultTwo.enablePullRequestAutoMerge.pullRequest.autoMergeRequest)
