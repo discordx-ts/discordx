@@ -370,6 +370,11 @@ export abstract class Queue<T extends Player = Player> {
    */
   public leave(): void {
     this._tracks = [];
+    this.loopMode = false;
+    this.queueLock = false;
+    this.readyLock = false;
+    this.repeatMode = false;
+
     this._audioPlayer.stop(true);
     if (this._voiceConnection) {
       if (
@@ -380,6 +385,7 @@ export abstract class Queue<T extends Player = Player> {
       this._voiceConnection = undefined;
     }
 
+    this.player.queues.delete(this.guild.id);
     this.player.emit("onLeave", [this]);
   }
 
