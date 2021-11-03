@@ -1,6 +1,10 @@
 import { Collection, Guild, Snowflake } from "discord.js";
-import { PlayerEventArgOf, PlayerEvents, Queue } from "..";
+import { PlayerEventArgOf, PlayerEvents } from "..";
 import { EventEmitter } from "node:events";
+import { Queue } from "./Queue";
+
+// default queue
+class MyQueue extends Queue {}
 
 /**
  * Music player
@@ -24,7 +28,10 @@ export class Player extends EventEmitter {
    * @param guild
    * @returns
    */
-  public queue<T extends Queue>(guild: Guild, customQueue?: T): T {
+  public queue<T extends Queue = Queue>(
+    guild: Guild,
+    customQueue?: () => T
+  ): T {
     const queue = this.queues.get(guild.id) as T | undefined;
 
     // return queue if already exist
@@ -32,10 +39,8 @@ export class Player extends EventEmitter {
       return queue;
     }
 
-    // create new queue
-    class MyQueue extends Queue {}
     const queueClass = customQueue
-      ? customQueue
+      ? customQueue()
       : (new MyQueue(this, guild) as T);
 
     // store queue
