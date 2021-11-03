@@ -25,13 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- manually build bot with classes arguements
+- manually build bot with classes arguments
 
 ## [8.0.1] - 2021-11-01
 
 ### Added
 
-- log otpion for initApplicationPermissions
+- log option for initApplicationPermissions
 
 ## [8.0.0] - 2021-10-30
 
