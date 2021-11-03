@@ -1,6 +1,6 @@
 name: Publish - Stable
 on:
-  # workflow_dispatch:
+  workflow_dispatch:
   release:
     types: [created]
 
