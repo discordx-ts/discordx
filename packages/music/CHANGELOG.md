@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
+## [3.0.6] - 2021-11-04
+
+### Added
+
+- secure option for socket and rest.
+
 ## [3.0.0] - 2021-11-02
 
 ### Added

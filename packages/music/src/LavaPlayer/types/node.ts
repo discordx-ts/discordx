@@ -26,7 +26,9 @@ export interface BaseNodeOptions {
     rest?: {
       address: string;
       port: number;
+      secure?: boolean;
     };
+    secure?: boolean;
   };
   password: string;
   shardCount?: number;

@@ -35,16 +35,22 @@ export default abstract class BaseNode extends EventEmitter {
     this.userID = userId;
     this.shardCount = shardCount;
 
+    const restIsSecure = host?.rest?.secure ?? host?.secure ?? false;
+    const restAddress = host?.rest?.address ?? host?.address ?? "localhost";
+    const restPort = host?.rest?.port ?? host?.port ?? 2333;
+
     this.http = new Http(
       this,
-      `http://${host?.rest?.address ?? host?.address ?? "localhost"}:${
-        host?.rest?.port ?? host?.port ?? 2333
-      }`
+      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}`
     );
+
+    const wsIsSecure = host?.secure ?? false;
+    const wsAddress = host?.address ?? "localhost";
+    const wsPort = host?.port ?? 2333;
 
     this.connection = new Connection(
       this,
-      `ws://${host?.address ?? "localhost"}:${host?.port ?? 2333}`,
+      `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}`,
       host?.connectionOptions
     );
   }
