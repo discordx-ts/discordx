@@ -29,9 +29,6 @@
         alt="paypal"
     /></a>
   </p>
-  <h1>
-    <p align="center">discord.ts (discordx)</p>
-  </h1>
   <p align="center">
     <b> Create a discord bot with TypeScript and Decorators! </b>
   </p>
