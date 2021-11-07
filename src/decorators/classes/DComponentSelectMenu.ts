@@ -5,7 +5,7 @@ import { Method } from "./Method";
  * @category Decorator
  */
 export class DComponentSelectMenu extends Method {
-  private _id: string;
+  private _id: string | RegExp;
   private _guilds: IGuild[];
   private _botIds: string[];
 
@@ -16,10 +16,10 @@ export class DComponentSelectMenu extends Method {
     this._botIds = value;
   }
 
-  get id(): string {
+  get id(): string | RegExp {
     return this._id;
   }
-  set id(value: string) {
+  set id(value: string | RegExp) {
     this._id = value;
   }
 
@@ -30,7 +30,11 @@ export class DComponentSelectMenu extends Method {
     this._guilds = value;
   }
 
-  protected constructor(id: string, guilds?: IGuild[], botIds?: string[]) {
+  protected constructor(
+    id: string | RegExp,
+    guilds?: IGuild[],
+    botIds?: string[]
+  ) {
     super();
     this._id = id;
     this._guilds = guilds ?? [];
@@ -38,11 +42,15 @@ export class DComponentSelectMenu extends Method {
   }
 
   static create(
-    id: string,
+    id: string | RegExp,
     guilds?: IGuild[],
     botIds?: string[]
   ): DComponentSelectMenu {
     return new DComponentSelectMenu(id, guilds, botIds);
+  }
+
+  isId(text: string): boolean {
+    return typeof this.id === "string" ? this.id === text : this.id.test(text);
   }
 
   parseParams(): never[] {

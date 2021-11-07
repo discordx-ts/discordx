@@ -845,8 +845,8 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isButton()) {
-      const button = this.buttons.find(
-        (DButton) => DButton.id === interaction.customId
+      const button = this.buttons.find((DButton) =>
+        DButton.isId(interaction.customId)
       );
 
       const guilds: string[] = [];
@@ -878,10 +878,10 @@ export class Client extends ClientJS {
       return button.execute(this.guards, interaction, this);
     }
 
-    // if interaction is a button
+    // if interaction is a select menu
     if (interaction.isSelectMenu()) {
-      const menu = this.selectMenus.find(
-        (DSelectMenu) => DSelectMenu.id === interaction.customId
+      const menu = this.selectMenus.find((DSelectMenu) =>
+        DSelectMenu.isId(interaction.customId)
       );
 
       const guilds: string[] = [];

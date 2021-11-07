@@ -1,12 +1,16 @@
 import {
   AutocompleteInteraction,
+  ButtonInteraction,
   Channel,
   CommandInteraction,
   GuildMember,
+  MessageActionRow,
+  MessageButton,
   Role,
   User,
 } from "discord.js";
 import {
+  ButtonComponent,
   DefaultPermissionResolver,
   Discord,
   Permission,
@@ -179,5 +183,23 @@ export abstract class AppDiscord1 {
     } else {
       interaction.reply(`${searchText}-${searchText2}-${searchText3}`);
     }
+  }
+
+  @Slash()
+  testbtn(interaction: CommandInteraction): void {
+    const btn = new MessageButton();
+    btn.setLabel("Test");
+    btn.setStyle("PRIMARY");
+    btn.setCustomId("mytest");
+
+    const row = new MessageActionRow();
+    row.addComponents([btn]);
+
+    interaction.reply({ components: [row], content: "test" });
+  }
+
+  @ButtonComponent(/mytest/)
+  btnHandler(interaction: ButtonInteraction): void {
+    interaction.reply("I am called");
   }
 }

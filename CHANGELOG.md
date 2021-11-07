@@ -19,7 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > `Security` - in case of vulnerabilities.
 
-`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#801---2021-11-01)`
+`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#820---2021-11-10)`
+
+## [8.2.0] - 2021-11-10
+
+### Added
+
+- regex support for button/selectmenu decorator
 
 ## [8.1.0] - 2021-11-03
 

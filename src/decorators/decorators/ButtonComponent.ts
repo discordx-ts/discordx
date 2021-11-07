@@ -12,7 +12,7 @@ import {
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
  * @category Decorator
  */
-export function ButtonComponent(id?: string): MethodDecoratorEx;
+export function ButtonComponent(id?: string | RegExp): MethodDecoratorEx;
 
 /**
  * Define button interaction handler
@@ -23,12 +23,12 @@ export function ButtonComponent(id?: string): MethodDecoratorEx;
  * @category Decorator
  */
 export function ButtonComponent(
-  id: string,
+  id: string | RegExp,
   params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
 export function ButtonComponent(
-  id?: string,
+  id?: string | RegExp,
   params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return <T>(target: Record<string, T>, key: string) => {

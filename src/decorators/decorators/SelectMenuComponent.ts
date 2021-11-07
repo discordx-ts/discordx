@@ -12,7 +12,7 @@ import {
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
  * @category Decorator
  */
-export function SelectMenuComponent(id?: string): MethodDecoratorEx;
+export function SelectMenuComponent(id?: string | RegExp): MethodDecoratorEx;
 
 /**
  * Define a select menu interaction handler
@@ -23,12 +23,12 @@ export function SelectMenuComponent(id?: string): MethodDecoratorEx;
  * @category Decorator
  */
 export function SelectMenuComponent(
-  id: string,
+  id: string | RegExp,
   params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
 export function SelectMenuComponent(
-  id?: string,
+  id?: string | RegExp,
   params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
