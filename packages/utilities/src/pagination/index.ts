@@ -31,6 +31,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   >;
   public message?: Message;
   private _isSent = false;
+  private _isFollowUp = false;
 
   get isSent(): boolean {
     return this._isSent;
@@ -57,6 +58,13 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
      * Current page
      */
     this.currentPage = config?.initialPage ?? 0;
+
+    /**
+     * Since direct editing isn't available on ephemeral, disable exit mode
+     */
+    if (this.option.ephemeral && this.option.enableExit) {
+      throw Error("Ephemeral pagination does not support exit mode");
+    }
   }
 
   public getPage = async (page: number): Promise<IGeneratePage | undefined> => {
@@ -96,6 +104,11 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     if (this.sendTo instanceof Message) {
       message = await this.sendTo.reply(page.replyOptions);
     } else if (this.sendTo instanceof Interaction) {
+      // To ensure pagination is a follow-up
+      if (this.sendTo.deferred || this.sendTo.replied) {
+        this._isFollowUp = true;
+      }
+
       const reply =
         this.sendTo.deferred || this.sendTo.replied
           ? await this.sendTo.followUp({
@@ -118,7 +131,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       message = await this.sendTo.send(page.replyOptions);
     }
 
-    // check if pages sent
+    // Check if pages were sent
     if (!message) {
       throw Error("Pagination: Failed to send pages");
     }
@@ -216,7 +229,15 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         if (!finalPage.replyOptions.components) {
           finalPage.replyOptions.components = [];
         }
-        await message.edit(finalPage.replyOptions);
+
+        // Prevent ephemeral pagination error, since direct editing is not available
+        if (this.option.ephemeral && this.sendTo instanceof Interaction) {
+          if (!this._isFollowUp) {
+            await this.sendTo.editReply(finalPage.replyOptions);
+          }
+        } else {
+          await message.edit(finalPage.replyOptions);
+        }
       }
 
       if (this.option.onTimeout) {
