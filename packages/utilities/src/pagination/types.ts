@@ -57,7 +57,7 @@ interface BasicPaginationOptions {
   /**
    * Pagination timeout callback
    */
-  onPaginationTimeout?: (page: number, message: Message) => void;
+  onTimeout?: (page: number, message: Message) => void;
 
   /**
    * Show start/end buttons for large list (items more then 10) (default: true)

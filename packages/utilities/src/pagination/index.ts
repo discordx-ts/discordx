@@ -219,8 +219,8 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         await message.edit(finalPage.replyOptions);
       }
 
-      if (this.option.onPaginationTimeout) {
-        this.option.onPaginationTimeout(this.currentPage, message);
+      if (this.option.onTimeout) {
+        this.option.onTimeout(this.currentPage, message);
       }
     });
 

@@ -46,6 +46,10 @@ export abstract class Example {
 
     const pagination = new Pagination(interaction, embedx, {
       enableExit: true,
+      onTimeout: (page, message) => {
+        message.delete();
+      },
+      time: 5 * 1000,
       type: "SELECT_MENU",
     });
 
