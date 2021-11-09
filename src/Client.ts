@@ -1,6 +1,7 @@
 import * as _ from "lodash";
 import {
   ApplicationCommand,
+  ApplicationCommandData,
   AutocompleteInteraction,
   Client as ClientJS,
   Collection,
@@ -401,9 +402,38 @@ export class Client extends ClientJS {
           new ApplicationGuildMixin(guild, DCommand)
         );
 
+        const commandJson = findCommand.toJSON() as ApplicationCommandData;
+
+        // Solution for sorting, channel types to ensure equal does not fail
+        if (commandJson.type === "CHAT_INPUT") {
+          commandJson.options?.forEach((op) => {
+            if (op.type === "SUB_COMMAND_GROUP") {
+              op.options?.forEach((op1) => {
+                op1.options?.forEach((op2) => {
+                  if (op2.type === "CHANNEL") {
+                    op2.channelTypes?.sort(); // sort mutate array
+                  }
+                });
+              });
+            }
+
+            if (op.type === "SUB_COMMAND") {
+              op.options?.forEach((op1) => {
+                if (op1.type === "CHANNEL") {
+                  op1.channelTypes?.sort(); // sort mutate array
+                }
+              });
+            }
+
+            if (op.type === "CHANNEL") {
+              op.channelTypes?.sort(); // sort mutate array
+            }
+          });
+        }
+
         const isEqual = _.isEqual(
           _.omit(
-            findCommand.toJSON() as JSON,
+            commandJson,
             "id",
             "applicationId",
             "guild",

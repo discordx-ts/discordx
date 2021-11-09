@@ -31,6 +31,31 @@ enum TextChoices {
   text: "text group description",
 })
 export abstract class AppDiscord {
+  @Slash("voicechannel")
+  @SlashGroup("maths")
+  voicechannel(
+    @SlashOption("channel", {
+      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
+      type: "CHANNEL",
+    })
+    roleOrUser: GuildMember | User | Role,
+    interaction: CommandInteraction
+  ): void {
+    interaction.reply(`${roleOrUser}`);
+  }
+
+  @Slash("voicechannelx")
+  voicechannelx(
+    @SlashOption("channel", {
+      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
+      type: "CHANNEL",
+    })
+    roleOrUser: GuildMember | User | Role,
+    interaction: CommandInteraction
+  ): void {
+    interaction.reply(`${roleOrUser}`);
+  }
+
   @Slash("add")
   @SlashGroup("maths")
   add(
@@ -121,7 +146,7 @@ export abstract class AppDiscord1 {
   })
   voicechannel(
     @SlashOption("channel", {
-      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE"],
+      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
       type: "CHANNEL",
     })
     roleOrUser: GuildMember | User | Role,

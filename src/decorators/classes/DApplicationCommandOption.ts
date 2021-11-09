@@ -12,7 +12,7 @@ import { Decorator } from "./Decorator";
  */
 export class DApplicationCommandOption extends Decorator {
   private _autocomplete: SlashAutoCompleteOption;
-  private _channelTypes: ChannelTypes[] = [];
+  private _channelTypes: ChannelTypes[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
   private _isNode = false;
@@ -35,10 +35,10 @@ export class DApplicationCommandOption extends Decorator {
     this._options = value;
   }
 
-  get channelTypes(): ChannelTypes[] {
+  get channelTypes(): ChannelTypes[] | undefined {
     return this._channelTypes;
   }
-  set channelTypes(value: ChannelTypes[]) {
+  set channelTypes(value: ChannelTypes[] | undefined) {
     this._channelTypes = value;
   }
 
@@ -98,7 +98,7 @@ export class DApplicationCommandOption extends Decorator {
     this._type = type ?? "STRING";
     this._description = description ?? `${name} - ${this.type}`;
     this._required = required ?? false;
-    this._channelTypes = channelType ?? [];
+    this._channelTypes = channelType?.sort();
     this._index = index;
     this._autocomplete = autocomplete;
   }
@@ -130,7 +130,7 @@ export class DApplicationCommandOption extends Decorator {
 
     const data: ApplicationCommandOptionData = {
       autocomplete: this.autocomplete ? true : undefined,
-      channelTypes: this.channelTypes.length ? this.channelTypes : undefined,
+      channelTypes: this.channelTypes,
       choices:
         this.choices.length === 0
           ? undefined
