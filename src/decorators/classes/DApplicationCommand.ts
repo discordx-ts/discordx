@@ -155,20 +155,19 @@ export class DApplicationCommand extends Method {
     return option;
   }
 
-  async toJSON(config?: {
-    channelString?: boolean;
-    command?: ApplicationGuildMixin;
-  }): Promise<ApplicationCommandData> {
+  async toJSON(
+    command?: ApplicationGuildMixin
+  ): Promise<ApplicationCommandData> {
     const options = [...this.options]
       .reverse()
-      .map((option) => option.toJSON(config));
+      .map((option) => option.toJSON());
 
     if (this.type === "CHAT_INPUT") {
       return {
         defaultPermission:
           typeof this.defaultPermission === "boolean"
             ? this.defaultPermission
-            : await this.defaultPermission.resolver(config?.command),
+            : await this.defaultPermission.resolver(command),
         description: this.description,
         name: this.name,
         options: options,
@@ -180,7 +179,7 @@ export class DApplicationCommand extends Method {
       defaultPermission:
         typeof this.defaultPermission === "boolean"
           ? this.defaultPermission
-          : await this.defaultPermission.resolver(config?.command),
+          : await this.defaultPermission.resolver(command),
       description: "",
       name: this.name,
       options: [],

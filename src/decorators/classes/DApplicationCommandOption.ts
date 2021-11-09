@@ -1,11 +1,10 @@
-import * as _ from "lodash";
 import {
+  ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
   SlashOptionType,
 } from "../..";
 import { ApplicationCommandOptionData } from "discord.js";
-import { ChannelTypes } from "discord.js/typings/enums";
 import { Decorator } from "./Decorator";
 
 /**
@@ -13,7 +12,7 @@ import { Decorator } from "./Decorator";
  */
 export class DApplicationCommandOption extends Decorator {
   private _autocomplete: SlashAutoCompleteOption;
-  private _channelTypes: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] = [];
+  private _channelTypes: ChannelTypes[] = [];
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
   private _isNode = false;
@@ -36,10 +35,10 @@ export class DApplicationCommandOption extends Decorator {
     this._options = value;
   }
 
-  get channelTypes(): Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] {
+  get channelTypes(): ChannelTypes[] {
     return this._channelTypes;
   }
-  set channelTypes(value: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[]) {
+  set channelTypes(value: ChannelTypes[]) {
     this._channelTypes = value;
   }
 
@@ -90,7 +89,7 @@ export class DApplicationCommandOption extends Decorator {
     description?: string,
     required?: boolean,
     autocomplete?: SlashAutoCompleteOption,
-    channelType?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[],
+    channelType?: ChannelTypes[],
     index?: number
   ) {
     super();
@@ -110,7 +109,7 @@ export class DApplicationCommandOption extends Decorator {
     description?: string,
     required?: boolean,
     autocomplete?: SlashAutoCompleteOption,
-    channelType?: Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[],
+    channelType?: ChannelTypes[],
     index?: number
   ): DApplicationCommandOption {
     return new DApplicationCommandOption(
@@ -124,62 +123,14 @@ export class DApplicationCommandOption extends Decorator {
     );
   }
 
-  channelTypesEx(): (
-    | "GUILD_TEXT"
-    | "DM"
-    | "GUILD_VOICE"
-    | "GROUP_DM"
-    | "GUILD_CATEGORY"
-    | "GUILD_NEWS"
-    | "GUILD_STORE"
-    | "GUILD_NEWS_THREAD"
-    | "GUILD_PUBLIC_THREAD"
-    | "GUILD_PRIVATE_THREAD"
-    | "GUILD_STAGE_VOICE"
-  )[] {
-    return _.compact(
-      this.channelTypes.map((ch) => {
-        switch (ch) {
-          case 0:
-            return "GUILD_TEXT";
-          case 1:
-            return "DM";
-          case 2:
-            return "GUILD_VOICE";
-          case 3:
-            return "GROUP_DM";
-          case 4:
-            return "GUILD_CATEGORY";
-          case 5:
-            return "GUILD_NEWS";
-          case 6:
-            return "GUILD_STORE";
-          case 10:
-            return "GUILD_NEWS_THREAD";
-          case 11:
-            return "GUILD_PUBLIC_THREAD";
-          case 12:
-            return "GUILD_PRIVATE_THREAD";
-          case 13:
-            return "GUILD_STAGE_VOICE";
-        }
-      })
-    );
-  }
-
-  toJSON(config?: { channelString?: boolean }): ApplicationCommandOptionData {
+  toJSON(): ApplicationCommandOptionData {
     const options = [...this.options]
       .reverse()
       .map((option) => option.toJSON());
 
     const data: ApplicationCommandOptionData = {
       autocomplete: this.autocomplete ? true : undefined,
-      channelTypes:
-        this.channelTypes.length === 0
-          ? undefined
-          : config?.channelString
-          ? this.channelTypesEx()
-          : this.channelTypes,
+      channelTypes: this.channelTypes.length ? this.channelTypes : undefined,
       choices:
         this.choices.length === 0
           ? undefined

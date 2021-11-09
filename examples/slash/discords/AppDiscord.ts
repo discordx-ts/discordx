@@ -19,7 +19,6 @@ import {
   SlashGroup,
   SlashOption,
 } from "../../../src";
-import { ChannelTypes } from "discord.js/typings/enums";
 
 enum TextChoices {
   "Good Bye" = "GoodBye",
@@ -122,7 +121,7 @@ export abstract class AppDiscord1 {
   })
   voicechannel(
     @SlashOption("channel", {
-      channelTypes: [ChannelTypes.GUILD_VOICE],
+      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE"],
       type: "CHANNEL",
     })
     roleOrUser: GuildMember | User | Role,

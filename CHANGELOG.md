@@ -27,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - regex support for button/selectmenu decorator
 
+### Changed
+
+- channel type input for slash options
+
 ## [8.1.0] - 2021-11-03
 
 ### Added

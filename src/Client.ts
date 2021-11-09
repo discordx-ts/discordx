@@ -397,10 +397,9 @@ export class Client extends ClientJS {
           return;
         }
 
-        const rawData = await DCommand.toJSON({
-          channelString: true,
-          command: new ApplicationGuildMixin(guild, DCommand),
-        });
+        const rawData = await DCommand.toJSON(
+          new ApplicationGuildMixin(guild, DCommand)
+        );
 
         const isEqual = _.isEqual(
           _.omit(
@@ -474,9 +473,7 @@ export class Client extends ClientJS {
       ? []
       : added.map(async (DCommand) =>
           guild.commands.create(
-            await DCommand.toJSON({
-              command: new ApplicationGuildMixin(guild, DCommand),
-            })
+            await DCommand.toJSON(new ApplicationGuildMixin(guild, DCommand))
           )
         );
 
@@ -484,9 +481,9 @@ export class Client extends ClientJS {
       ? []
       : commandToUpdate.map(async (cmd) =>
           cmd.command.edit(
-            await cmd.instance.toJSON({
-              command: new ApplicationGuildMixin(guild, cmd.instance),
-            })
+            await cmd.instance.toJSON(
+              new ApplicationGuildMixin(guild, cmd.instance)
+            )
           )
         );
 
