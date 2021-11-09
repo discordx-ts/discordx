@@ -1,5 +1,5 @@
-import { Decorator } from "./Decorator";
-import { SimpleCommandType } from "../..";
+import { Decorator } from "./Decorator.js";
+import { SimpleCommandType } from "../../index.js";
 
 /**
  * @category Decorator

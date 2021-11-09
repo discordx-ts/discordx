@@ -7,7 +7,7 @@ import {
   Modifier,
   SubCommand,
   VerifyName,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Group your slash command

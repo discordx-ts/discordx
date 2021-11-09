@@ -14,8 +14,8 @@ import {
   IGuild,
   IPermissions,
   resolveIPermissions,
-} from "../..";
-import { Method } from "./Method";
+} from "../../index.js";
+import { Method } from "./Method.js";
 
 /**
  * @category Decorator

@@ -1,5 +1,5 @@
-import { IGuild } from "../..";
-import { Method } from "./Method";
+import { IGuild } from "../../index.js";
+import { Method } from "./Method.js";
 
 /**
  * @category Decorator

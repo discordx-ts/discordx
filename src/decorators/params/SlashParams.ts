@@ -1,4 +1,4 @@
-import { IGuild } from "../..";
+import { IGuild } from "../../index.js";
 
 export interface ApplicationCommandParams {
   botIds?: string[];

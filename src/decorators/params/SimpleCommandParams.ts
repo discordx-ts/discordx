@@ -1,4 +1,4 @@
-import { IGuild, SimpleCommandMessage } from "../..";
+import { IGuild, SimpleCommandMessage } from "../../index.js";
 
 export type ArgSplitter =
   | string

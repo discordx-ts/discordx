@@ -8,7 +8,7 @@ import {
   IGuild,
   MetadataStorage,
   Modifier,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Define guild id for your application command, simple command, events, select menu, button

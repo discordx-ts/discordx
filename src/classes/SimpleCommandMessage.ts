@@ -4,7 +4,7 @@ import {
   DSimpleCommand,
   MetadataStorage,
   SimpleCommandOptionType,
-} from "..";
+} from "../index.js";
 import { Message, MessageEmbed } from "discord.js";
 
 /**

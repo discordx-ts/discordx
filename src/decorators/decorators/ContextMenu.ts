@@ -3,7 +3,7 @@ import {
   DApplicationCommand,
   MetadataStorage,
   MethodDecoratorEx,
-} from "../..";
+} from "../../index.js";
 import { ApplicationCommandType } from "discord.js";
 
 /**

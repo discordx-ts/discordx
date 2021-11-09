@@ -8,7 +8,7 @@ import {
   SlashOptionType,
   SlashOptionTypes,
   VerifyName,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Define option for slash command

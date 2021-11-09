@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Decorator } from "./Decorator";
-import { DecoratorUtils } from "../..";
+import { Decorator } from "./Decorator.js";
+import { DecoratorUtils } from "../../index.js";
 
 export type ModifyFunction<ToModify extends Decorator> = (
   original: ToModify

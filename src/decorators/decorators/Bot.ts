@@ -8,7 +8,7 @@ import {
   DSimpleCommand,
   MetadataStorage,
   Modifier,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Execute your application command, button, select menu, simple command or event by defined bot when multiple bots are running in the same instance

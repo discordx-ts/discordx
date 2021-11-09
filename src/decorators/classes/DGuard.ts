@@ -1,5 +1,5 @@
-import { Decorator } from "./Decorator";
-import { GuardFunction } from "../..";
+import { Decorator } from "./Decorator.js";
+import { GuardFunction } from "../../index.js";
 
 /**
  * @category Decorator

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Client, Next } from "../..";
+import { Client, Next } from "../../index.js";
 
 export type GuardFunction<Type = any, DatasType = any> = (
   params: Type,

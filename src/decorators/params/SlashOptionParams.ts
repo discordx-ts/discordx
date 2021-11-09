@@ -1,4 +1,4 @@
-import { ChannelTypes, DApplicationCommand, SlashOptionType } from "../..";
+import { ChannelTypes, DApplicationCommand, SlashOptionType } from "../../index.js";
 import { AutocompleteInteraction } from "discord.js";
 
 interface SlashOptionBase {

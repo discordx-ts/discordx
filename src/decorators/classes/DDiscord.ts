@@ -8,8 +8,8 @@ import {
   DSimpleCommand,
   IGuild,
   IPermissions,
-} from "../..";
-import { Decorator } from "./Decorator";
+} from "../../index.js";
+import { Decorator } from "./Decorator.js";
 
 /**
  * @category Decorator

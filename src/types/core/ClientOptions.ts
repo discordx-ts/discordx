@@ -3,8 +3,8 @@ import {
   GuardFunction,
   IGuild,
   SimpleCommandMessage,
-} from "../..";
-import { Awaitable, ILogger } from "..";
+} from "../../index.js";
+import { Awaitable, ILogger } from "../index.js";
 import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
 
 export interface SimpleCommandConfig {
