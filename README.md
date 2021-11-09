@@ -323,9 +323,7 @@ Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/
 
 # ☎️ Need help?
 
-**[discord server](https://discord.gg/yHQY9fexH9)**
-
-You can also find help with the [examples folder](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or check [code examples](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
 
 # Thank you
 
