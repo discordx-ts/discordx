@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import {
   CacheType,
   Interaction,
@@ -17,6 +16,7 @@ import {
   paginationFunc,
 } from "./types.js";
 import { GeneratePage } from "./functions/GeneratePage.js";
+import _ from "lodash";
 
 export class PaginationResolver<T extends paginationFunc = paginationFunc> {
   constructor(public resolver: T, public maxLength: number) {}

@@ -2,6 +2,10 @@ import "reflect-metadata";
 import { CategoryMetaData } from "../../src/category/index.js";
 import { Client } from "discordx";
 import { Intents } from "discord.js";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export class Main {
   private static _client: Client;

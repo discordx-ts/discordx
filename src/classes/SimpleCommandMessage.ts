@@ -1,4 +1,3 @@
-import * as crypto from "crypto";
 import {
   ArgSplitter,
   DSimpleCommand,
@@ -6,6 +5,7 @@ import {
   SimpleCommandOptionType,
 } from "../index.js";
 import { Message, MessageEmbed } from "discord.js";
+import crypto from "crypto";
 
 /**
  * Simple command message class

@@ -52,7 +52,7 @@ I found success with using this `tsconfig.json`
 If you are receiving errors that complain about imports. Try using the following import where the compiler complains about the import.
 
 ```diff
-- import * as fs from 'fs';
+- import fs from 'fs';
 + import fs = require("fs");
 ```
 
