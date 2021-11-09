@@ -35,7 +35,7 @@ import {
   SimpleCommandConfig,
   SimpleCommandMessage,
   resolveIGuilds,
-} from ".";
+} from "./index.js";
 
 /**
  * Extend original client class of discord.js

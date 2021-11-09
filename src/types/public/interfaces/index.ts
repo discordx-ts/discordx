@@ -1,2 +1,2 @@
-export * from "./InitCommandConfig";
-export * from "./logger";
+export * from "./InitCommandConfig.js";
+export * from "./logger.js";

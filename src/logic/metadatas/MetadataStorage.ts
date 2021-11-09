@@ -17,8 +17,8 @@ import {
   DiscordEvents,
   GuardFunction,
   Modifier,
-} from "../..";
-import { Method } from "../../decorators/classes/Method";
+} from "../../index.js";
+import { Method } from "../../decorators/classes/Method.js";
 
 /**
  * @category Internal

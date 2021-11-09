@@ -2,11 +2,21 @@
   "name": "discordx",
   "version": "0.0.0",
   "description": "Create a discord bot with TypeScript and Decorators!",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "build/esm/index.js",
+  "types": "build/esm/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./build/esm/index.js",
+      "require": "./build/commonjs/index.cjs",
+      "types": "./build/esm/index.d.ts"
+    }
+  },
   "private": false,
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:esm && npm run build:commonjs",
+    "build:esm": "tsc --outDir build/esm",
+    "build:commonjs": "tsc --module commonjs --outDir build/commonjs",
     "type-check": "tsc --noemit",
     "test": "jest --detectOpenHandles",
     "lint": "eslint ./",

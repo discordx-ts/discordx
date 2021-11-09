@@ -1,3 +1,3 @@
-export * from "./metadatas/MetadataStorage";
-export * from "./utils/DecoratorUtils";
-export * from "./di/DIService";
+export * from "./metadatas/MetadataStorage.js";
+export * from "./utils/DecoratorUtils.js";
+export * from "./di/DIService.js";

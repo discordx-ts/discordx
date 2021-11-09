@@ -8,7 +8,7 @@ import {
   IGuild,
   IPermissions,
   SimpleCommandMessage,
-} from "..";
+} from "../index.js";
 import { ApplicationCommandPermissions, Guild } from "discord.js";
 
 export const resolveIGuilds = async (
