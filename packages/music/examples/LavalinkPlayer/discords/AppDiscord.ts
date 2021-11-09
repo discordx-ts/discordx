@@ -1,6 +1,6 @@
 import { ArgsOf, Client, Discord, On, Slash, SlashOption } from "discordx";
 import { CommandInteraction, GuildMember } from "discord.js";
-import { Lava } from "../../../src";
+import { Lava } from "../../../src/index.js";
 
 @Discord()
 export class music {

@@ -1,4 +1,4 @@
-import { ArgsOf, GuardFunction, SimpleCommandMessage } from "../../../src";
+import { ArgsOf, GuardFunction, SimpleCommandMessage } from "../../../src/index.js";
 import {
   ButtonInteraction,
   CommandInteraction,

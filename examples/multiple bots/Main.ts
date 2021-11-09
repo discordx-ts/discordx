@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Client, MetadataStorage } from "../../src";
+import { Client, MetadataStorage } from "../../src/index.js";
 import { Intents } from "discord.js";
 
 const botA = new Client({

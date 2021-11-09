@@ -1,2 +1,2 @@
-export * from "./Player";
-export * from "./Queue";
+export * from "./Player.js";
+export * from "./Queue.js";

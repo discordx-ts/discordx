@@ -1,2 +1,2 @@
-export * as Lava from "./LavaPlayer";
-export * from "./YoutubePlayer";
+export * as Lava from "./LavaPlayer/index.js";
+export * from "./YoutubePlayer/index.js";

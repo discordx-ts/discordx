@@ -5,8 +5,8 @@ import {
   MessageButton,
   MessageEmbed,
 } from "discord.js";
-import { Pagination, PaginationResolver } from "../../../src";
-import { GeneratePages } from "../util/common functions";
+import { Pagination, PaginationResolver } from "../../../src/index.js";
+import { GeneratePages } from "../util/common functions.js";
 
 @Discord()
 export abstract class Example {

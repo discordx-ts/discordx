@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Client } from "../../src";
+import { Client } from "../../src/index.js";
 import { Intents } from "discord.js";
 
 export class Main {

@@ -15,8 +15,8 @@ import {
   defaultTime,
   embedType,
   paginationFunc,
-} from "./types";
-import { GeneratePage } from "./functions/GeneratePage";
+} from "./types.js";
+import { GeneratePage } from "./functions/GeneratePage.js";
 
 export class PaginationResolver<T extends paginationFunc = paginationFunc> {
   constructor(public resolver: T, public maxLength: number) {}

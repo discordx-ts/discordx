@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Client, DIService } from "../../src";
+import { Client, DIService } from "../../src/index.js";
 import { Intents } from "discord.js";
 import { container } from "tsyringe";
 

@@ -1,3 +1,3 @@
-export * from "./Track";
-export * from "./YoutubeTrack";
-export * from "./CustomTrack";
+export * from "./Track.js";
+export * from "./YoutubeTrack.js";
+export * from "./CustomTrack.js";

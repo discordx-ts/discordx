@@ -6,7 +6,7 @@ import {
   SimpleCommand,
   SimpleCommandMessage,
   SimpleCommandOption,
-} from "../../../src";
+} from "../../../src/index.js";
 
 @Discord()
 export abstract class commandTest {
