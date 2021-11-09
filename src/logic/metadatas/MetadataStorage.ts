@@ -187,7 +187,7 @@ export class MetadataStorage {
     DIService.instance.addService(discord.classRef);
   }
 
-  private loadClasses(): void {
+  private async loadClasses(): Promise<void> {
     // collect all import paths
     const imports: string[] = [];
     MetadataStorage.classes.forEach((path) => {
@@ -200,7 +200,7 @@ export class MetadataStorage {
     });
 
     // import all files
-    imports.forEach((file) => require(file));
+    await Promise.all(imports.map((file) => import(file)));
   }
 
   async build(classes?: string[]): Promise<void> {
@@ -216,7 +216,7 @@ export class MetadataStorage {
     }
 
     // load the classes
-    this.loadClasses();
+    await this.loadClasses();
 
     // Link the events with @Discord class instances
     this.discordMembers.forEach((member) => {
