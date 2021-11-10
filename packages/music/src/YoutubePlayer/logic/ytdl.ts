@@ -5,7 +5,8 @@
 */
 
 import { Duplex, Readable } from "stream";
-import { FFmpeg, opus as Opus } from "prism-media";
+import pkg from "prism-media";
+const { FFmpeg, opus: Opus } = pkg;
 import ytdl from "ytdl-core";
 
 // ytdl events
