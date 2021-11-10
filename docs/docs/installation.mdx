@@ -140,7 +140,7 @@ And you should see this in your package.json
 {
   // ...
   "dependencies": {
-    "discordx": "^6.X.X",
+    "discordx": "^9.X.X",
     "discord.js": "^13.X.X",
     "reflect-metadata": "^0.1.13"
   },
@@ -184,7 +184,7 @@ And you should see this in your package.json
 {
   // ...
   "dependencies": {
-    "discordx": "^7.X.X-dev.###",
+    "discordx": "^10.X.X-dev.###",
     "discord.js": "^13.X.X-dev.###.###",
     "reflect-metadata": "^0.1.13"
   },
@@ -243,11 +243,28 @@ client.login(BOT_TOKEN);
 
 Your tsconfig.json file should look like this:
 
+<Tabs
+  defaultValue="cjs"
+  values={[
+    { label: "CommonJs", value: "cjs" },
+    { label: "ECMAScript", value: "esm" },
+  ]}
+>
+<TabItem value="cjs">
+
+```json title="package.json"
+{
+  ...
+  "type": "commonjs",
+  ...
+}
+```
+
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
+    "module": "CommonJS", // required
+    "target": "esnext", // required
     "noImplicitAny": true,
     "sourceMap": true,
     "strict": true,
@@ -263,6 +280,42 @@ Your tsconfig.json file should look like this:
   "exclude": ["node_modules"]
 }
 ```
+
+</TabItem>
+
+<TabItem value="esm">
+
+```json title="package.json"
+{
+  ...
+  "type": "module",
+  ...
+}
+```
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "module": "esnext", // required
+    "target": "esnext", // required
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strict": true,
+    "outDir": "build",
+    "emitDecoratorMetadata": true, // required
+    "experimentalDecorators": true, // required
+    "declaration": false,
+    "importHelpers": true, // required
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node", // required
+    "esModuleInterop": true // required
+  },
+  "exclude": ["node_modules"]
+}
+```
+
+</TabItem>
+</Tabs>
 
 ## reflect-metadata
 
