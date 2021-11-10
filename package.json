@@ -14,7 +14,7 @@
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
     "build:esm": "tsc",
-    "build:cjs": "tsc -p tsconfig-cjs.json",
+    "build:cjs": "tsc --outDir build/cjs",
     "build:fixup": "node --loader ts-node/esm scripts/fixup.mjs",
     "type-check": "tsc --noemit",
     "test": "jest --detectOpenHandles",

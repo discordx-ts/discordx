@@ -1,6 +1,6 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node --loader ts-node/esm Main.ts"
+    "start": "node --loader ts-node/esm/transpile-only Main.ts"
   }
 }
