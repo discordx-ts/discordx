@@ -9,6 +9,6 @@ shell.cp(
 
 shell.cp(
   "-f",
-  path.resolve("./scripts/package-mjs.json"),
-  path.resolve("./build/mjs/package.json")
+  path.resolve("./scripts/package-esm.json"),
+  path.resolve("./build/esm/package.json")
 );
