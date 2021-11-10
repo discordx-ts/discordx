@@ -8,7 +8,7 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "rootDir": "src",
-    "outDir": "build",
+    "outDir": "build/esm",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,

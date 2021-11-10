@@ -2,10 +2,20 @@
   "name": "@discordx/utilities",
   "version": "0.0.0",
   "description": "discordx utilities",
-  "main": "build/index.js",
   "private": false,
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./build/esm/index.js",
+      "require": "./build/cjs/index.js"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --outDir build/cjs",
+    "build:fixup": "node --loader ts-node/esm ../../scripts/fixup-utilities.mjs",
     "type-check": "tsc --noemit"
   },
   "repository": {
@@ -29,7 +39,7 @@
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
   "dependencies": {
     "discord.js": "^13.4.0-dev.1636157105.49e3ce2",
-    "discordx": "^9.0.0-dev.1635597048.f2dfe65",
+    "discordx": "^9.0.0-dev.1636526885.8801b99",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

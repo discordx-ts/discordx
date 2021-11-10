@@ -1,11 +1,12 @@
-import { ArgsOf, Discord, On, Slash } from "discordx";
 import {
   CommandInteraction,
   MessageActionRow,
   MessageButton,
   MessageEmbed,
 } from "discord.js";
+import { Discord, On, Slash } from "discordx";
 import { Pagination, PaginationResolver } from "../../../src/index.js";
+import type { ArgsOf } from "discordx";
 import { GeneratePages } from "../util/common functions.js";
 
 @Discord()
