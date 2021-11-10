@@ -1,4 +1,4 @@
-import { ApplicationGuildMixin, SimpleCommandMessage } from "..";
+import { ApplicationGuildMixin, SimpleCommandMessage } from "../index.js";
 
 export class DefaultPermissionResolver {
   constructor(

@@ -4,7 +4,7 @@ import {
   MetadataStorage,
   MethodDecoratorEx,
   VerifyName,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Define slash command

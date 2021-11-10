@@ -2,11 +2,20 @@
   "name": "discordx",
   "version": "0.0.0",
   "description": "Create a discord bot with TypeScript and Decorators!",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
   "private": false,
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./build/esm/index.js",
+      "require": "./build/cjs/index.js"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --outDir build/cjs",
+    "build:fixup": "node --loader ts-node/esm scripts/fixup.mjs",
     "type-check": "tsc --noemit",
     "test": "jest --detectOpenHandles",
     "lint": "eslint ./",
@@ -36,6 +45,7 @@
     "decorators"
   ],
   "dependencies": {
+    "discord-api-types": "^0.24.0",
     "discord.js": "^13.4.0-dev.1636157105.49e3ce2",
     "glob": "^7.2.0",
     "lodash": "^4.17.21",
@@ -47,12 +57,14 @@
     "@types/glob": "^7.2.0",
     "@types/lodash": "^4.14.176",
     "@types/node": "^16.11.7",
+    "@types/shelljs": "^0.8.9",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "eslint": "^8.2.0",
     "eslint-plugin-typescript-sort-keys": "^2.0.0",
     "jest": "^27.3.1",
     "prettier": "2.4.1",
+    "shelljs": "^0.8.4",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"

@@ -1,6 +1,6 @@
 import { ClientEvents } from "discord.js";
-import { DiscordEvents } from "../..";
-import { Method } from "./Method";
+import { DiscordEvents } from "../../index.js";
+import { Method } from "./Method.js";
 
 /**
  * @category Decorator

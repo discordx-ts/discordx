@@ -1,2 +1,2 @@
-export * from "./ytdl";
-export * from "./util";
+export * from "./ytdl.js";
+export * from "./util.js";

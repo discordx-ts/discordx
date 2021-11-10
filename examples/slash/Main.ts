@@ -1,6 +1,10 @@
 import "reflect-metadata";
-import { Client } from "../../src";
+import { Client } from "../../src/index.js";
 import { Intents } from "discord.js";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export class Main {
   private static _client: Client;
@@ -12,10 +16,7 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-      classes: [
-        // glob string to load the classes. If you compile your bot, the file extension will be .js
-        `${__dirname}/discords/*.{js,ts}`,
-      ],
+      classes: [`${__dirname}/discords/*.{js,ts}`],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
     });
 

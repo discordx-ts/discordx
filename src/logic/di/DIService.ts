@@ -1,5 +1,5 @@
 import { DependencyContainer } from "tsyringe";
-import { InstanceOf } from "../..";
+import { InstanceOf } from "../../index.js";
 
 /**
  * It create on instance of a classe and store it globally using

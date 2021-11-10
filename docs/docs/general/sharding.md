@@ -32,8 +32,8 @@ I found success with using this `tsconfig.json`
 ```json
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2021",
+    "module": "esnext",
+    "target": "esnext",
     "strict": true,
     "noImplicitAny": true,
     "sourceMap": true,
@@ -41,7 +41,6 @@ I found success with using this `tsconfig.json`
     "experimentalDecorators": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["ES2021", "esnext.asynciterable"],
     "moduleResolution": "node",
     "outDir": "./src/build"
   },
@@ -53,7 +52,7 @@ I found success with using this `tsconfig.json`
 If you are receiving errors that complain about imports. Try using the following import where the compiler complains about the import.
 
 ```diff
-- import * as fs from 'fs';
+- import fs from 'fs';
 + import fs = require("fs");
 ```
 

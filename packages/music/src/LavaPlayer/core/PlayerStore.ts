@@ -1,5 +1,5 @@
-import BaseNode from "../base/Node";
-import Player from "./Player";
+import BaseNode from "../base/Node.js";
+import Player from "./Player.js";
 
 export default class PlayerStore<T extends BaseNode = BaseNode> extends Map<
   string,

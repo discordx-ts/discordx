@@ -8,7 +8,7 @@ import {
   IPermissions,
   MetadataStorage,
   Modifier,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Define everyone permission for your application command or simple command.

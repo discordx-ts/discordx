@@ -1,5 +1,3 @@
-import * as _ from "lodash";
-import * as glob from "glob";
 import {
   ArgsOf,
   Client,
@@ -17,8 +15,10 @@ import {
   DiscordEvents,
   GuardFunction,
   Modifier,
-} from "../..";
-import { Method } from "../../decorators/classes/Method";
+} from "../../index.js";
+import { Method } from "../../decorators/classes/Method.js";
+import _ from "lodash";
+import glob from "glob";
 
 /**
  * @category Internal
@@ -194,7 +194,7 @@ export class MetadataStorage {
       const files = glob.sync(path).filter((file) => typeof file === "string");
       files.forEach((file) => {
         if (!imports.includes(file)) {
-          imports.push(file);
+          imports.push("file://" + file);
         }
       });
     });

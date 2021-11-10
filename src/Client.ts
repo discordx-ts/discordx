@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import {
   ApplicationCommand,
   ApplicationCommandData,
@@ -35,7 +34,8 @@ import {
   SimpleCommandConfig,
   SimpleCommandMessage,
   resolveIGuilds,
-} from ".";
+} from "./index.js";
+import _ from "lodash";
 
 /**
  * Extend original client class of discord.js

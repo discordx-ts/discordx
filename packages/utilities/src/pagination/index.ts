@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import {
   CacheType,
   Interaction,
@@ -15,8 +14,9 @@ import {
   defaultTime,
   embedType,
   paginationFunc,
-} from "./types";
-import { GeneratePage } from "./functions/GeneratePage";
+} from "./types.js";
+import { GeneratePage } from "./functions/GeneratePage.js";
+import _ from "lodash";
 
 export class PaginationResolver<T extends paginationFunc = paginationFunc> {
   constructor(public resolver: T, public maxLength: number) {}

@@ -7,7 +7,7 @@ import {
   SimpleCommandType,
   SimpleCommandTypes,
   VerifyName,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Define option for simple commnad

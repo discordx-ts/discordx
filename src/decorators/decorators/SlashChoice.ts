@@ -5,7 +5,7 @@ import {
   Modifier,
   ParameterDecoratorEx,
   SlashChoicesType,
-} from "../..";
+} from "../../index.js";
 
 /**
  * An option of a Slash command can implement an autocompletion feature for ``string`` and ``number`` types

@@ -7,7 +7,7 @@ import {
   SimpleCommand,
   SimpleCommandMessage,
   SimpleCommandOption,
-} from "../src";
+} from "../src/index.js";
 import { Message } from "discord.js";
 
 type Data = { passed: boolean };

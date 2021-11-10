@@ -1,4 +1,4 @@
-import { DIService, Discord, Slash } from "../../../src";
+import { DIService, Discord, Slash } from "../../../src/index.js";
 import { container, injectable, singleton } from "tsyringe";
 import { CommandInteraction } from "discord.js";
 

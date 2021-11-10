@@ -10,8 +10,8 @@ import {
   Track,
   VoiceServerUpdate,
   VoiceStateUpdate,
-} from "../types";
-import BaseNode from "../base/Node";
+} from "../types/index.js";
+import BaseNode from "../base/Node.js";
 import { EventEmitter } from "events";
 import { deprecate } from "util";
 

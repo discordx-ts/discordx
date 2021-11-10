@@ -3,9 +3,9 @@ import {
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
   SlashOptionType,
-} from "../..";
+} from "../../index.js";
 import { ApplicationCommandOptionData } from "discord.js";
-import { Decorator } from "./Decorator";
+import { Decorator } from "./Decorator.js";
 
 /**
  * @category Decorator

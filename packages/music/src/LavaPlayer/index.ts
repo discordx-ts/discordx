@@ -1,4 +1,4 @@
-import {
+import type {
   BaseNodeOptions,
   EqualizerBand,
   JoinOptions,
@@ -10,15 +10,20 @@ import {
   TrackResponse,
   VoiceServerUpdate,
   VoiceStateUpdate,
-} from "./types";
-import Cluster, { ClusterOptions } from "./Cluster";
-import ClusterNode, { ClusterNodeOptions, Stats } from "./ClusterNode";
-import Connection, { ConnectionOptions } from "./core/Connection";
-import Http, { HTTPError } from "./core/Http";
-import Node, { NodeOptions } from "./Node";
-import BaseCluster from "./base/Cluster";
-import BaseNode from "./base/Node";
-import Player from "./core/Player";
+} from "./types/index.js";
+import type { ClusterNodeOptions, Stats } from "./ClusterNode.js";
+import BaseCluster from "./base/Cluster.js";
+import BaseNode from "./base/Node.js";
+import Cluster from "./Cluster.js";
+import ClusterNode from "./ClusterNode.js";
+import type { ClusterOptions } from "./Cluster.js";
+import Connection from "./core/Connection.js";
+import type { ConnectionOptions } from "./core/Connection.js";
+import type { HTTPError } from "./core/Http.js";
+import Http from "./core/Http.js";
+import Node from "./Node.js";
+import type { NodeOptions } from "./Node.js";
+import Player from "./core/Player.js";
 
 export default Node;
 export {

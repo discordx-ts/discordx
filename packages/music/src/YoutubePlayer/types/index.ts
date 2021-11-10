@@ -1,2 +1,2 @@
-export * from "./Errors";
-export * from "./Events";
+export * from "./Errors.js";
+export * from "./Events.js";

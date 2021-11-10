@@ -4,7 +4,7 @@ import {
   EventParams,
   MetadataStorage,
   MethodDecoratorEx,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Trigger a discord event

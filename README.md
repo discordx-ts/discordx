@@ -73,6 +73,7 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 - `client.initApplicationPermissions` to update discord application commands permissions
 - Handler for all discord interactions (slash/button/menu/context)
 - Support TSyringe
+- Support ECMAScript
 
 # 🧮 Packages
 

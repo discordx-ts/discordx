@@ -4,7 +4,7 @@ import {
   EventParams,
   MetadataStorage,
   MethodDecoratorEx,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Trigger a discord event, It's exactly the same behavior as @On but the method is only executed once

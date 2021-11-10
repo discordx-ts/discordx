@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import WebSocket = require("ws");
 import {
   BaseNodeOptions,
   Track,
@@ -7,11 +6,12 @@ import {
   TrackResponse,
   VoiceServerUpdate,
   VoiceStateUpdate,
-} from "../types";
-import Connection from "../core/Connection";
+} from "../types/index.js";
+import Connection from "../core/Connection.js";
 import { EventEmitter } from "events";
-import Http from "../core/Http";
-import PlayerStore from "../core/PlayerStore";
+import Http from "../core/Http.js";
+import PlayerStore from "../core/PlayerStore.js";
+import WebSocket from "ws";
 
 export default abstract class BaseNode extends EventEmitter {
   public abstract send: (guildId: string, packet: any) => Promise<any>;

@@ -4,7 +4,7 @@ import {
   Slash,
   SlashChoice,
   SlashOption,
-} from "../../../src";
+} from "../../../src/index.js";
 import {
   ButtonInteraction,
   CommandInteraction,

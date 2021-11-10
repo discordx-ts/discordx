@@ -9,7 +9,7 @@ import {
   MessageEmbed,
   MessageOptions,
 } from "discord.js";
-import { Pagination } from ".";
+import { Pagination } from "./index.js";
 
 // By default, it's half an hour.
 export const defaultTime = 18e5;

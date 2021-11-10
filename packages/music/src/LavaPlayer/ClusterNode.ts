@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BaseNode from "./base/Node";
-import { BaseNodeOptions } from "./types";
-import Cluster from "./base/Cluster";
+import BaseNode from "./base/Node.js";
+import { BaseNodeOptions } from "./types/index.js";
+import Cluster from "./base/Cluster.js";
 
 export interface ClusterNodeOptions extends BaseNodeOptions {
   tags?: Iterable<string>;

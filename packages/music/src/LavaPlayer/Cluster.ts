@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import ClusterNode, { ClusterNodeOptions } from "./ClusterNode";
-import BaseCluster from "./base/Cluster";
+import ClusterNode, { ClusterNodeOptions } from "./ClusterNode.js";
+import BaseCluster from "./base/Cluster.js";
 
 export interface ClusterOptions {
   filter?: (node: ClusterNode, guildId: string) => boolean;

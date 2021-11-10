@@ -1,5 +1,5 @@
-import { DApplicationCommand, DApplicationCommandOption } from "..";
-import { Decorator } from "./Decorator";
+import { DApplicationCommand, DApplicationCommandOption } from "../index.js";
+import { Decorator } from "./Decorator.js";
 
 /**
  * @category Decorator

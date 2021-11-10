@@ -3,7 +3,7 @@ import {
   IGuild,
   MetadataStorage,
   MethodDecoratorEx,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Define a select menu interaction handler

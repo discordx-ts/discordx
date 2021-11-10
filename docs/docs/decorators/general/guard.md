@@ -145,7 +145,8 @@ export function Prefix(text: string, replace: boolean = true) {
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 
 ```typescript
-import { ArgsOf, GuardFunction, SimpleCommandMessage } from "discordx";
+import type { ArgsOf } from "discordx";
+import { GuardFunction, SimpleCommandMessage } from "discordx";
 import {
   ButtonInteraction,
   CommandInteraction,

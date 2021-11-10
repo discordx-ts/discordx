@@ -1,4 +1,11 @@
-import { ArgsOf, Client, Discord, Guard, On, Slash } from "../../../src";
+import {
+  ArgsOf,
+  Client,
+  Discord,
+  Guard,
+  On,
+  Slash,
+} from "../../../src/index.js";
 import { CommandInteraction } from "discord.js";
 import { ErrorHandler } from "../guards/Error";
 import { NotBot } from "../guards/NotBot";

@@ -6,7 +6,7 @@ import {
   DComponentSelectMenu,
   DefaultPermissionResolver,
   SimpleCommandMessage,
-} from "../..";
+} from "../../index.js";
 import { ApplicationCommandPermissions, Guild, Snowflake } from "discord.js";
 
 export type Awaitable<T> = Promise<T> | T;

@@ -3,7 +3,7 @@ import {
   MetadataStorage,
   MethodDecoratorEx,
   SimpleCommandParams,
-} from "../..";
+} from "../../index.js";
 
 /**
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``

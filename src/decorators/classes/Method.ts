@@ -1,5 +1,5 @@
-import { DDiscord, DGuard, GuardFunction } from "../..";
-import { Decorator } from "./Decorator";
+import { DDiscord, DGuard, GuardFunction } from "../../index.js";
+import { Decorator } from "./Decorator.js";
 
 /**
  * @category Decorator

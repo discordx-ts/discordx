@@ -1,4 +1,4 @@
-import { DApplicationCommand } from "..";
+import { DApplicationCommand } from "../index.js";
 import { Guild } from "discord.js";
 
 export class ApplicationGuildMixin {

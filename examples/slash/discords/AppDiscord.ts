@@ -18,7 +18,7 @@ import {
   SlashChoice,
   SlashGroup,
   SlashOption,
-} from "../../../src";
+} from "../../../src/index.js";
 
 enum TextChoices {
   "Good Bye" = "GoodBye",

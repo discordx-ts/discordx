@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import {
   ApplicationCommandMixin,
   Client,
@@ -8,8 +7,9 @@ import {
   IGuild,
   IPermissions,
   SimpleCommandMessage,
-} from "..";
+} from "../index.js";
 import { ApplicationCommandPermissions, Guild } from "discord.js";
+import _ from "lodash";
 
 export const resolveIGuilds = async (
   client: Client,

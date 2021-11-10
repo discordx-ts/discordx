@@ -1,6 +1,10 @@
 import "reflect-metadata";
-import { Client, MetadataStorage } from "../../src";
+import { Client, MetadataStorage } from "../../src/index.js";
 import { Intents } from "discord.js";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const botA = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],

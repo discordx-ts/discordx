@@ -1,7 +1,11 @@
 import "reflect-metadata";
-import { Client, DIService } from "../../src";
+import { Client, DIService } from "../../src/index.js";
 import { Intents } from "discord.js";
 import { container } from "tsyringe";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // initialize tsyringe container
 // it's important, this done before calling bot.login
