@@ -32,8 +32,8 @@ I found success with using this `tsconfig.json`
 ```json
 {
   "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
+    "module": "ESNext",
+    "target": "ESNext",
     "strict": true,
     "noImplicitAny": true,
     "sourceMap": true,
