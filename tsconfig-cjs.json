@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
     "target": "esnext",
     "noImplicitAny": true,
     "sourceMap": true,
@@ -8,7 +8,7 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "rootDir": "src",
-    "outDir": "build/esm",
+    "outDir": "build/cjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
