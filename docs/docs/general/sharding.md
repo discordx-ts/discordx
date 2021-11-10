@@ -41,7 +41,7 @@ I found success with using this `tsconfig.json`
     "experimentalDecorators": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "outDir": "./src/build"
   },
   "exclude": ["node_modules"],

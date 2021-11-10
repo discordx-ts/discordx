@@ -15,7 +15,7 @@
     "declaration": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    "moduleResolution": "Node"
   },
   "exclude": ["examples", "build"]
 }

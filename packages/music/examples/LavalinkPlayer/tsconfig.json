@@ -11,7 +11,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    "moduleResolution": "Node"
   },
   "exclude": ["node_modules", "tests", "examples"]
 }
