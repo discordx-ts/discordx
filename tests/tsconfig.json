@@ -13,6 +13,7 @@
     "declaration": false,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "esModuleInterop": true
   }
 }

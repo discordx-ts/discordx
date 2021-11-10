@@ -12,7 +12,7 @@
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "tests", "examples"]
 }
