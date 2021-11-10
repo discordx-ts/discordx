@@ -1,5 +1,6 @@
-import { ArgsOf, Client, Discord, On, Slash, SlashOption } from "discordx";
+import { Client, Discord, On, Slash, SlashOption } from "discordx";
 import { CommandInteraction, GuildMember } from "discord.js";
+import type { ArgsOf } from "discordx";
 import { Lava } from "../../../src/index.js";
 
 @Discord()

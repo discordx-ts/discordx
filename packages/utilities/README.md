@@ -71,7 +71,8 @@ CategoryMetaData.categories; // access categories metadata
 ## Example
 
 ```ts
-import { ArgsOf, Discord, On, Slash } from "discordx";
+import type { ArgsOf } from "discordx";
+import { Discord, On, Slash } from "discordx";
 import {
   CommandInteraction,
   MessageActionRow,
