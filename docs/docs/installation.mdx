@@ -244,18 +244,18 @@ client.login(BOT_TOKEN);
 Your tsconfig.json file should look like this:
 
 <Tabs
-  defaultValue="cjs"
+  defaultValue="esm"
   values={[
-    { label: "CommonJs", value: "cjs" },
     { label: "ECMAScript", value: "esm" },
+    { label: "CommonJs", value: "cjs" },
   ]}
 >
-<TabItem value="cjs">
+<TabItem value="esm">
 
 ```json title="package.json"
 {
   ...
-  "type": "commonjs",
+  "type": "module",
   ...
 }
 ```
@@ -263,7 +263,7 @@ Your tsconfig.json file should look like this:
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "module": "CommonJS", // required
+    "module": "ESNext", // required
     "target": "ESNext", // required
     "noImplicitAny": true,
     "sourceMap": true,
@@ -282,13 +282,12 @@ Your tsconfig.json file should look like this:
 ```
 
 </TabItem>
-
-<TabItem value="esm">
+<TabItem value="cjs">
 
 ```json title="package.json"
 {
   ...
-  "type": "module",
+  "type": "commonjs",
   ...
 }
 ```
@@ -296,7 +295,7 @@ Your tsconfig.json file should look like this:
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
-    "module": "ESNext", // required
+    "module": "CommonJS", // required
     "target": "ESNext", // required
     "noImplicitAny": true,
     "sourceMap": true,
