@@ -1,4 +1,8 @@
-import { ClassMethodDecorator, DDiscord, MetadataStorage } from "../../index.js";
+import {
+  ClassMethodDecorator,
+  DDiscord,
+  MetadataStorage,
+} from "../../index.js";
 
 /**
  * Class decorator for discord.ts instance
