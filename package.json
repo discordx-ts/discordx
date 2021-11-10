@@ -2,6 +2,7 @@
   "name": "discordx",
   "version": "0.0.0",
   "description": "Create a discord bot with TypeScript and Decorators!",
+  "private": false,
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
   "exports": {
@@ -10,7 +11,6 @@
       "require": "./build/cjs/index.js"
     }
   },
-  "private": false,
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
     "build:esm": "tsc",
