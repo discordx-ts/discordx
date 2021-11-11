@@ -28,7 +28,10 @@
     "url": "https://github.com/oceanroleplay/discord.ts/issue",
     "email": "indianoceanroleplay@gmail.com"
   },
-  "author": "Owen Calvin | Harry",
+  "contributors": [
+    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)",
+    "Owen Calvin <owen.gombas@gmail.com> (https://github.com/OwenCalvin)"
+  ],
   "license": "MIT",
   "homepage": "https://discord-ts.js.org",
   "repository": {
