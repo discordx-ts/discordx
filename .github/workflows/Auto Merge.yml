@@ -1,4 +1,4 @@
-name: Dependabot Auto Merge
+name: Auto Merge
 on:
   pull_request_target:
     branches: [main]

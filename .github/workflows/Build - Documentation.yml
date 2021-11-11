@@ -1,4 +1,4 @@
-name: Test - Documentation
+name: Build - Documentation
 on:
   workflow_dispatch:
   pull_request:

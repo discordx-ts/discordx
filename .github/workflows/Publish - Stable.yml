@@ -1,4 +1,4 @@
-name: Build - Stable
+name: Publish - Stable
 on:
   workflow_dispatch:
     inputs:
