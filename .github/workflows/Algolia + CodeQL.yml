@@ -1,11 +1,26 @@
-name: "CodeQL Analysis"
-
+name: Algolia + CodeQL
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 1/7 * *"
+    - cron: "0 0 */7 * *"
 
 jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: scrape the site 🧽
+        run: |
+          docker run \
+          -e APPLICATION_ID -e API_KEY \
+          -e CONFIG="$(cat docs/config.json)" \
+          algolia/docsearch-scraper
+        env:
+          APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
+          API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
