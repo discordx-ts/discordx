@@ -2,47 +2,39 @@
 
 > This is adapted from [Angular's commit convention](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular).
 
-#### TL;DR:
+### Examples
 
-Messages must be matched by the following regex:
-
-```js
-/^(revert: )?(feat|fix|docs|style|refactor|perf|test|workflow|build|ci|chore|types|wip)(\(.+\))?: .{1,72}/;
-```
-
-#### Examples
-
-Appears under "Features" header, `GuildMember` subheader:
+Appears under "Features" header, pencil subheader:
 
 ```
-feat(GuildMember): add 'tag' method
+feat(pencil): add 'graphiteWidth' option
 ```
 
-Appears under "Bug Fixes" header, `Guild` subheader, with a link to issue #28:
+Appears under "Bug Fixes" header, graphite subheader, with a link to issue #28:
 
 ```
-fix(Guild): handle events correctly
+fix(graphite): stop graphite breaking when width < 0.1
 
-close #28
+Closes #28
 ```
 
 Appears under "Performance Improvements" header, and under "Breaking Changes" with the breaking change explanation:
 
 ```
-perf(core): improve patching by removing 'bar' option
+perf(pencil): remove graphiteWidth option
 
-BREAKING CHANGE: The 'bar' option has been removed.
+BREAKING CHANGE: The graphiteWidth option has been removed. The default graphite width of 10mm is always used for performance reason.
 ```
 
 The following commit and commit `667ecc1` do not appear in the changelog if they are under the same release. If not, the revert commit appears under the "Reverts" header.
 
 ```
-revert: feat(Managers): add Managers
+revert: feat(pencil): add 'graphiteWidth' option
 
 This reverts commit 667ecc1654a317a13331b17617d973392f415f02.
 ```
 
-### Full Message Format
+### Commit Message Format
 
 A commit message consists of a **header**, **body** and **footer**. The header has a **type**, **scope** and **subject**:
 
@@ -58,17 +50,19 @@ The **header** is mandatory and the **scope** of the header is optional.
 
 ### Revert
 
-If the commit reverts a previous commit, it should begin with `revert:`, followed by the header of the reverted commit. In the body, it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
+If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
 
 ### Type
 
-If the prefix is `feat`, `fix` or `perf`, it will appear in the changelog. However, if there is any [BREAKING CHANGE](#footer), the commit will always appear in the changelog.
+If the prefix is `feat`, `fix` or `perf`, it will appear in the changelog. However if there is any [BREAKING CHANGE](#footer), the commit will always appear in the changelog.
 
-Other prefixes are up to your discretion. Suggested prefixes are `docs`, `chore`, `style`, `refactor`, and `test` for non-changelog related tasks.
+Other prefixes are up to your discretion. Suggested prefixes are `build`, `ci`, `docs` ,`style`, `refactor`, and `test` for non-changelog related tasks.
+
+Details regarding these types can be found in the official [Discord.ts Contributing Guidelines](https://github.com/oceanroleplay/discord.ts/blob/main/.github/CONTRIBUTING.md#type).
 
 ### Scope
 
-The scope could be anything specifying the place of the commit change. For example `GuildMember`, `Guild`, `Message`, `MessageEmbed` etc...
+The scope could be anything specifying the place of the commit change. For example `Decorator`, `Message`, `Embed` etc...
 
 ### Subject
 
