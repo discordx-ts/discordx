@@ -12,3 +12,5 @@ shell.cp(
   path.resolve("../../scripts/package-esm.json"),
   path.resolve("../../packages/music/build/esm/package.json")
 );
+
+console.log("fixup complete...");

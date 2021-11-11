@@ -15,7 +15,7 @@
     "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
     "build:esm": "tsc",
     "build:cjs": "tsc --outDir build/cjs",
-    "build:fixup": "node --loader ts-node/esm ../../scripts/fixup-music.mjs",
+    "build:fixup": "node ../../scripts/fixup-music.mjs",
     "type-check": "tsc --noemit"
   },
   "repository": {

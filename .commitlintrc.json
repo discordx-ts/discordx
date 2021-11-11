@@ -7,7 +7,6 @@
       "always",
       [
         "chore",
-        "build",
         "ci",
         "docs",
         "feat",
