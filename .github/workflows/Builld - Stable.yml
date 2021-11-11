@@ -2,15 +2,21 @@ name: Build - Stable
 on:
   workflow_dispatch:
     inputs:
+      package:
+        description: "package name"
+        required: true
+        type: string
       version:
-        description: "discordx npm version"
+        description: "npm version"
         default: "patch"
         required: true
         type: string
 
 jobs:
   build:
+    name: Build discordx
     runs-on: ubuntu-latest
+    if: github.event.inputs.package == 'discordx'
     steps:
       - name: check out code 🛎
         uses: actions/checkout@v2
@@ -43,5 +49,101 @@ jobs:
       - name: Publish branch
         run: |
           git add -A
-          git commit -m "release $(jq --raw-output '.version' package.json)"
+          git commit -m "release(discordx): v$(jq --raw-output '.version' package.json)"
+          git push --force origin main:stable
+
+  build-music:
+    name: Build @discordx/music
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == '@discordx/music'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Initialize git config
+        run: |
+          git config user.email ${{ secrets.GIT_EMAIL }}
+          git config user.name ${{ secrets.GIT_NAME }}
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/music version)
+        working-directory: ./packages/music
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/music
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install music dependencies
+        run: npm ci
+        working-directory: ./packages/music
+
+      - name: Install latest discord.js
+        run: |
+          npm install discord.js@latest
+          npm install -D discordx@latest
+        working-directory: ./packages/music
+
+      - name: Publish branch
+        run: |
+          git add -A
+          git commit -m "release(music): v$(jq --raw-output '.version' package.json)"
+          git push --force origin main:stable
+
+  build-utilities:
+    name: Build @discordx/utilities
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == '@discordx/utilities'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Initialize git config
+        run: |
+          git config user.email ${{ secrets.GIT_EMAIL }}
+          git config user.name ${{ secrets.GIT_NAME }}
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/utilities version)
+        working-directory: ./packages/utilities
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/utilities
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install utilities dependencies
+        run: npm ci
+        working-directory: ./packages/utilities
+
+      - name: Install latest discord.js
+        run: |
+          npm install discord.js@latest
+          npm install -D discordx@latest
+        working-directory: ./packages/utilities
+
+      - name: Publish branch
+        run: |
+          git add -A
+          git commit -m "release(utilities): v$(jq --raw-output '.version' package.json)"
           git push --force origin main:stable
