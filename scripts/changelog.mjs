@@ -23,14 +23,16 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
     let commits;
     if (index < 1) {
       commits = child
-        .execSync(`git log ${tag} --format=%B%H----DELIMITER---- ${folder}`)
+        .execSync(
+          `git log ${tag} --format=%B----HASH----%H----DELIMITER---- ${folder}`
+        )
         .toString("utf-8");
     } else if (tag === "head") {
       commits = child
         .execSync(
           `git log ${
             tags[index - 1]
-          }..HEAD --format=%B%H----DELIMITER---- ${folder}`
+          }..HEAD --format=%B----HASH----%H----DELIMITER---- ${folder}`
         )
         .toString("utf-8");
     } else {
@@ -38,7 +40,7 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
         .execSync(
           `git log ${
             tags[index - 1]
-          }..${tag} --format=%B%H----DELIMITER---- ${folder}`
+          }..${tag} --format=%B----HASH----%H----DELIMITER---- ${folder}`
         )
         .toString("utf-8");
     }
@@ -46,9 +48,9 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
     const commitsArray = commits
       .split("----DELIMITER----\n")
       .map((commit) => {
-        const [message, sha] = commit.split("\n");
+        const [message, sha] = commit.split("----HASH----");
 
-        return { message, sha };
+        return { message: message.split("\n")[0], sha };
       })
       .filter((commit) => Boolean(commit.sha));
 

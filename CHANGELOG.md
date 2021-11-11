@@ -2,6 +2,7 @@
 
 ## Features
 
+- esm support (#222) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
 - regex support for button/selectmenu ([e703d7](https://github.com/oceanroleplay/discord.ts/commit/e703d708a6ace0a2f280a0a591721ff85a504fd7))
 
 ## Changed
@@ -47,6 +48,7 @@
 ## Untagged
 
 - eslint: sort interface ([59a319](https://github.com/oceanroleplay/discord.ts/commit/59a319e48296fb3bf30ecf242c5e8dfde2a245a5))
+- chore(logger): allow pass custom logger to client instance ([eb420d](https://github.com/oceanroleplay/discord.ts/commit/eb420d0aabac7788a6e7f8127944b598433fd7ba))
 - ignore rate limit for init permissions ([4ab812](https://github.com/oceanroleplay/discord.ts/commit/4ab812074d9150a1104fbd5bbe511c380dfd0e2f))
 - improve init permissions ([c8f0bb](https://github.com/oceanroleplay/discord.ts/commit/c8f0bbe6d6fe919ca4fa92eae64f6d650db62c7f))
 - improve: parseCommand prefix parsing ([93ccd4](https://github.com/oceanroleplay/discord.ts/commit/93ccd43b6926c0ff437608e126f1307159a4d9ae))
@@ -79,12 +81,8 @@
 - updated eslint and removed not needed cast ([943041](https://github.com/oceanroleplay/discord.ts/commit/9430410bd9551e0646259208f9f6336328b64268))
 - update: simple command global config ([2f9588](https://github.com/oceanroleplay/discord.ts/commit/2f9588f7c5ee72fe46adf95056baa3e1ecff8089))
 - simpel command: argument resolver ([cb102f](https://github.com/oceanroleplay/discord.ts/commit/cb102f7714acd99ffd5cda345f4f7e871788e17b))
+- Update DIService.ts ([623914](https://github.com/oceanroleplay/discord.ts/commit/623914edb2deedfbd96a3f5289d4184530fc13ef))
 - added obtaining services from DI container and updated docs ([3ba8f7](https://github.com/oceanroleplay/discord.ts/commit/3ba8f700cbf38d4a6e59e2103e501cae43005084))
-
-# v6.1.2 (2021-10-06)
-
-## Untagged
-
 - fix parseOption ([5a0e58](https://github.com/oceanroleplay/discord.ts/commit/5a0e58037e001ce2d9c84a82a9d21c3d4df4666b))
 - no-explicit-any ([c937fd](https://github.com/oceanroleplay/discord.ts/commit/c937fd08b01b71a22a0338877728166be3e32115))
 - closes #104 ([74e18b](https://github.com/oceanroleplay/discord.ts/commit/74e18b5b930dd921568496ff1d3f6dce72cc624b))
@@ -95,8 +93,10 @@
 - update DApplicationCommandOption ([8a0a60](https://github.com/oceanroleplay/discord.ts/commit/8a0a602a9232ccb563d8d3816d67fb7c0a4d2be4))
 - update DApplicationCommandOption ([aa6903](https://github.com/oceanroleplay/discord.ts/commit/aa690325a6b42becc13c4417126a4725516a8f7f))
 - channelString ([793899](https://github.com/oceanroleplay/discord.ts/commit/7938995cdf14adb8b4c8b095bab7aab909aa77a2))
+- Merge pull request #103 from niekschoemaker/patch-1 ([d84199](https://github.com/oceanroleplay/discord.ts/commit/d84199d9ee64ffc45206c67def3e130e1c42e04f))
 - update DApplicationCommandOption ([c16648](https://github.com/oceanroleplay/discord.ts/commit/c166486d33a2c6fdf529e2379fbf4fcaaaa2694b))
 - ChannelTypes ([6dbf38](https://github.com/oceanroleplay/discord.ts/commit/6dbf38ebde930ac5b8f313c85155c9dbb0577f11))
+- Update literal.ts ([b35bb3](https://github.com/oceanroleplay/discord.ts/commit/b35bb3756bee3885d408707111843eaed1b045bf))
 - command ([883985](https://github.com/oceanroleplay/discord.ts/commit/883985e523551cb9e278dcf167e8fad20edf908b))
 - update di ([f5b543](https://github.com/oceanroleplay/discord.ts/commit/f5b54357139873a2ddfb8e2e2d69f6be1ded3ba3))
 - remove comment ([ce8517](https://github.com/oceanroleplay/discord.ts/commit/ce85170478d6edc9ef26f07785e8e0d58fac7268))
@@ -119,11 +119,6 @@
 - update literal ([c1b5ee](https://github.com/oceanroleplay/discord.ts/commit/c1b5ee1ad6ad94680f13db5cf9e2db504f8d8992))
 - type validation ([50184a](https://github.com/oceanroleplay/discord.ts/commit/50184a8453fd102cff7f527c4b9053d77606ce3b))
 - log global update command names ([88f024](https://github.com/oceanroleplay/discord.ts/commit/88f024f8f7dd79d005a014e72231bdee67ec264a))
-
-# v6.0.0 (2021-09-28)
-
-## Untagged
-
 - remove `@DefaultPermission` ([d09408](https://github.com/oceanroleplay/discord.ts/commit/d094081983cc1910bb71229972491d6afc1a7f6e))
 - resolveIGuild: remove duplicate ([18879d](https://github.com/oceanroleplay/discord.ts/commit/18879d0e9483be6d192418e20e50acbc17d6e970))
 - resolveIPermission: remove duplicates ([51c5ba](https://github.com/oceanroleplay/discord.ts/commit/51c5ba3e45181bafd054550efb4ccea2e94f8ce1))
@@ -255,10 +250,15 @@
 - deprecated initSlashes ([127f3b](https://github.com/oceanroleplay/discord.ts/commit/127f3b0efeb4043839ef6400fae335ddefaab20d))
 - deprecated fetchSlash ([7df476](https://github.com/oceanroleplay/discord.ts/commit/7df4761364172ab755d1cf81b045f08a42284937))
 - doc fix ([2bea31](https://github.com/oceanroleplay/discord.ts/commit/2bea31d7d5363701388217436bebdff531aec197))
+- Massive revamp of docs. ([bd0ae3](https://github.com/oceanroleplay/discord.ts/commit/bd0ae36f505b13e80361b03119e3c0ac91946950))
 - hower to see docs ([2b6425](https://github.com/oceanroleplay/discord.ts/commit/2b64254cde2d11cbe9848e6f72e88657603622e1))
 - doc update: make changes to ([5252e9](https://github.com/oceanroleplay/discord.ts/commit/5252e901ba98ed530e27446ab1ad8a3f6a717469))
 
 # v5.4.0 (2021-08-13)
+
+## Fixed
+
+- ensure number safety when parsing args ([e96e4a](https://github.com/oceanroleplay/discord.ts/commit/e96e4ae26d831d4a95d4ee296f013fcc60ed70f2))
 
 ## Untagged
 
@@ -292,7 +292,7 @@
 - all classes create function reformated ([07b4b9](https://github.com/oceanroleplay/discord.ts/commit/07b4b9089e2d7c5ddd8936085d3f0c8bafa85f9f))
 - fixes for 5.1.3 ([7b11d4](https://github.com/oceanroleplay/discord.ts/commit/7b11d43b49164527676fed7db91ed9a3f9cd77e3))
 - type enhancement for all decorators ([dbacbd](https://github.com/oceanroleplay/discord.ts/commit/dbacbd9247ddef4bd7edf3a06c9e9317d83609c7))
-- - nullish coalescing operator ([* type](https://github.com/oceanroleplay/discord.ts/commit/* type update for DGroup))
+- - nullish coalescing operator ([143161](https://github.com/oceanroleplay/discord.ts/commit/14316138be439d58e21db5b54eb94da97088a74a))
 - interaction options parsing fix ([be3099](https://github.com/oceanroleplay/discord.ts/commit/be30994b3bb151fc5c83f6c0d081cdd269d468db))
 - option type update ([9a40ad](https://github.com/oceanroleplay/discord.ts/commit/9a40ad777b7a296335b5c13dd17a3fe25a0e6bfe))
 - doc update ([1750b6](https://github.com/oceanroleplay/discord.ts/commit/1750b699f6e720994aae88fe3703ee9a4bb00530))
@@ -307,11 +307,11 @@
 - fixed event execute ([1c8ff7](https://github.com/oceanroleplay/discord.ts/commit/1c8ff7a5ed658d2e0673bb58f53730a75f40f2ec))
 - simple command support ([f30173](https://github.com/oceanroleplay/discord.ts/commit/f30173920388e4d80151a5cfbfd5362b593d18a1))
 - jest slash test fix ([60f400](https://github.com/oceanroleplay/discord.ts/commit/60f40087fd1f4396300bb8dd2d643eab9bce1ebe))
-- regular update based on discord.js ([* fixe](https://github.com/oceanroleplay/discord.ts/commit/* fixed interaction.customId))
+- regular update based on discord.js ([d8ab4f](https://github.com/oceanroleplay/discord.ts/commit/d8ab4f9dbe77f3fa3b9f676d54af64186ac93d0f))
 - removed unused variable ([a7587f](https://github.com/oceanroleplay/discord.ts/commit/a7587f4f73418da9cd31b3aa9589194c2e991326))
 - fix multiple imports under multiple clients ([3b7acd](https://github.com/oceanroleplay/discord.ts/commit/3b7acdabb0d83d144b9e9c33c3116fab8a6afd86))
 - revert back last commit ([d83763](https://github.com/oceanroleplay/discord.ts/commit/d83763944b3e4393addcb30456cb295cf58e524f))
-- solution for multiple class import ([under ](https://github.com/oceanroleplay/discord.ts/commit/under multiple Clients))
+- solution for multiple class import ([a06d22](https://github.com/oceanroleplay/discord.ts/commit/a06d22298b0f58951c960b5179924cbabe7aa38c))
 - comment update for initslash ([3a787f](https://github.com/oceanroleplay/discord.ts/commit/3a787fd8967a8f27d42dd310323cdabd81430b11))
 - botid fix for events ([947a0e](https://github.com/oceanroleplay/discord.ts/commit/947a0ef6f500d20c70aa2309d4559dfe876d6493))
 - @Bot fix for @On ([1824ac](https://github.com/oceanroleplay/discord.ts/commit/1824aca49b8fe3df8fd898cc9f9480aeb6f0ed56))
@@ -319,14 +319,14 @@
 - init slash > guild > replace for loop with foreach ([65af9b](https://github.com/oceanroleplay/discord.ts/commit/65af9b4610277835b9f542dd8a8d9adc063dd966))
 - - new decorator @DefaultPermission ([a105dc](https://github.com/oceanroleplay/discord.ts/commit/a105dc51266ab76bb29a0fb062e614c453c1bc3b))
 - removed unwanted greater than condition ([5c3910](https://github.com/oceanroleplay/discord.ts/commit/5c39108efe1f3dd637c504d5a3636168fb200748))
-- developer can set default permission for slash ([this w](https://github.com/oceanroleplay/discord.ts/commit/this will help them constime commands))
+- developer can set default permission for slash ([c283fb](https://github.com/oceanroleplay/discord.ts/commit/c283fbb099152bbabf07b1ed98bf6377ad849f50))
 - update: permission decorator ([445b82](https://github.com/oceanroleplay/discord.ts/commit/445b82ed9e68be790a468aadad1202b293b2010f))
 - gourp permission fix ([61ecc3](https://github.com/oceanroleplay/discord.ts/commit/61ecc3a481dc8f808013be4f22e0b7614b2fc677))
 - removed unwanted filter ([42652d](https://github.com/oceanroleplay/discord.ts/commit/42652d2f7bbc40eeb7fe5fa33b6f0d3daf29c24d))
 - added unknown interaction warning ([5c88ad](https://github.com/oceanroleplay/discord.ts/commit/5c88ad9a3df179c8f6cff869f8c13a26ed93dbaf))
 - requiredByDefault set back to false ([fa563e](https://github.com/oceanroleplay/discord.ts/commit/fa563e7535fd1d48a34cd01f977e7e7fe3511bc5))
 - jest test fix for slash commands ([53017f](https://github.com/oceanroleplay/discord.ts/commit/53017f6023ebc5f311c4ff190995ae771d5f66de))
-- - jest test failed because of buttons ([* remo](https://github.com/oceanroleplay/discord.ts/commit/* removed unwanted asyn from decorator))
+- - jest test failed because of buttons ([fb9866](https://github.com/oceanroleplay/discord.ts/commit/fb9866a8dfee96bf2c41310d33005ac40756ee7e))
 - restored important async on decorators ([16fd3e](https://github.com/oceanroleplay/discord.ts/commit/16fd3e043d3c230e67de353714c26edfb050aad5))
 - update ([60d875](https://github.com/oceanroleplay/discord.ts/commit/60d875979d803f2a0bb37c48a6aa550b45fee3f8))
 - accepted pull OwenCalvin/discord.ts/pull/56 ([ac4493](https://github.com/oceanroleplay/discord.ts/commit/ac44935880107034b9663a8bbbdd271ea0fa52d4))
@@ -335,12 +335,15 @@
 - permissions global comment ([82e122](https://github.com/oceanroleplay/discord.ts/commit/82e122c48699fcef46f1055237a4747e7742c086))
 - fix permissions on init slash ([86773f](https://github.com/oceanroleplay/discord.ts/commit/86773fd202800b0d34f87374f19aabf40c72c68c))
 - fix init slash with permissions ([ad599c](https://github.com/oceanroleplay/discord.ts/commit/ad599cd22951ee95d9b9f3d62ae160d05e02893d))
+- Update menu not found log text ([82d60a](https://github.com/oceanroleplay/discord.ts/commit/82d60ae4536cb0e295d793e7cd7c95b64fb3dbee))
+- Update button not found log ([78d4a4](https://github.com/oceanroleplay/discord.ts/commit/78d4a4ac1c13303444ff7e7a17d69b5215ad520f))
 - fix button/selectmenu ([899551](https://github.com/oceanroleplay/discord.ts/commit/899551d6cda0729246b49a447dd0cb30c42f3c9f))
+- - new featured added: buttons selectmenu ([805f90](https://github.com/oceanroleplay/discord.ts/commit/805f909910162a8fad6812b224cb67a5887485ff))
 - fix multiple bot for groups ([8d2edf](https://github.com/oceanroleplay/discord.ts/commit/8d2edfa10dc3af63c6387a3ebd50823fc30e06df))
 - added `Bot()` decorator ([547a04](https://github.com/oceanroleplay/discord.ts/commit/547a04b6269b7221b07588cf0903e2fdef2e09db))
 - multiple bot support fix for groups ([0d0129](https://github.com/oceanroleplay/discord.ts/commit/0d012963df6bbea41d548593f6404b6f7f524097))
-- - recoded classes again ([* fixe](https://github.com/oceanroleplay/discord.ts/commit/* fixed issue where group does not have guilds))
-- - test update ([* opti](https://github.com/oceanroleplay/discord.ts/commit/* options type update))
+- - recoded classes again ([ee9f47](https://github.com/oceanroleplay/discord.ts/commit/ee9f472dcfaca5e3d9091f1ba6b7656c56477f44))
+- - test update ([6a27fd](https://github.com/oceanroleplay/discord.ts/commit/6a27fd3a5b82f9922fc55a92fd7b1b0ad8ad4f9a))
 - init slash fix ([347412](https://github.com/oceanroleplay/discord.ts/commit/3474122bc04285cc9f3aac891ee0cab50e631b21))
 - execute slash fix ([f4ab38](https://github.com/oceanroleplay/discord.ts/commit/f4ab388834506022bed7fdabd919ddc187c430b5))
 - init slash fix ([c43d6c](https://github.com/oceanroleplay/discord.ts/commit/c43d6c0fb008dae45bc2739b43450b651b49ee7d))
@@ -353,12 +356,12 @@
 - DGroup type fix ([f73bd7](https://github.com/oceanroleplay/discord.ts/commit/f73bd73fb58507a15708da09a028769334a6721d))
 - fix empty constructor ([a0aad8](https://github.com/oceanroleplay/discord.ts/commit/a0aad89a0f25d4dc14e988b06ca5e8158f9f1a89))
 - strong type checking ([0587f8](https://github.com/oceanroleplay/discord.ts/commit/0587f805ffeeaba33af7720fa96ebab3d36d7da9))
-- - formated code with prettier ([* mino](https://github.com/oceanroleplay/discord.ts/commit/* minor fixes based on @AndyClausen suggestion))
+- - formated code with prettier ([0558c4](https://github.com/oceanroleplay/discord.ts/commit/0558c4a9a3863716f647fd693bcc2ce4ebdef2b2))
 - fixes based on @AndyClausen suggestion ([2b5ab4](https://github.com/oceanroleplay/discord.ts/commit/2b5ab41db87223a7cf3690ef117acaf9747dca8d))
 - multi bot support ([d5bf0d](https://github.com/oceanroleplay/discord.ts/commit/d5bf0df1bda2aded10af52b824b1fa12bcba8414))
 - fix github.com/OwenCalvin/discord.ts/issues/49 ([029539](https://github.com/oceanroleplay/discord.ts/commit/029539ba7b1d307696905ac08972067bff4b1943))
 - multiple bot support ([d87ebb](https://github.com/oceanroleplay/discord.ts/commit/d87ebba2f2f571fc1745a4d265aefdad5312cf69))
-- ## init slash for guilds ([> regi](https://github.com/oceanroleplay/discord.ts/commit/> register one time))
+- ## init slash for guilds ([d02a95](https://github.com/oceanroleplay/discord.ts/commit/d02a9536228fff91f9342f20e1d65f632c571ca8))
 - fix type error ([5762d9](https://github.com/oceanroleplay/discord.ts/commit/5762d9a40f7457e81ea63ef7c609e1a4b48c6fec))
 - fix no-inferrable-types ([481596](https://github.com/oceanroleplay/discord.ts/commit/4815968b3ba733d719dbb623604eeb4b2bc93132))
 - fix https://discord.js.org/#/docs/main/master/class/ApplicationCommandPermissionsManager?scrollTo=set ([d66fc7](https://github.com/oceanroleplay/discord.ts/commit/d66fc7101ca5605714a56fd48b57509ba4ca9610))
@@ -366,9 +369,10 @@
 - fix github.com/OwenCalvin/discord.ts/pull/60 ([2138b4](https://github.com/oceanroleplay/discord.ts/commit/2138b4f80e919e2780ab1ea78482295047290914))
 - fix github.com/OwenCalvin/discord.ts/pull/58 ([a9ad6e](https://github.com/oceanroleplay/discord.ts/commit/a9ad6ee05ff0e3d5c4ad64d6e30e5417b680a80a))
 - fix github.com/OwenCalvin/discord.ts/pull/56 ([c0b39d](https://github.com/oceanroleplay/discord.ts/commit/c0b39d7500313d8e5be2aa76de2ade86b53f6380))
-- ### fix ([github](https://github.com/oceanroleplay/discord.ts/commit/github.com/OwenCalvin/discord.ts/pull/55))
+- ### fix ([893798](https://github.com/oceanroleplay/discord.ts/commit/8937987b43ce29e0800363f63a1331518ac272e6))
 - Merge branch 'slash' of https://github.com/owencalvin/discord.ts into slash ([461f4b](https://github.com/oceanroleplay/discord.ts/commit/461f4bddad61c6161835ff436e20bf9d0c3f8843))
 - feature(role for user) ([de5b62](https://github.com/oceanroleplay/discord.ts/commit/de5b622286ca5f6e74930f95a541f16fb523b246))
+- Fix: slash additional info was missing ([2edac1](https://github.com/oceanroleplay/discord.ts/commit/2edac13a45666b254acc1a7f4976bf5eac2534d1))
 - fix(discord.js update) ([f4fcba](https://github.com/oceanroleplay/discord.ts/commit/f4fcba5f9896ff152035c2db12f0e311e261a3e2))
 - fix(silent) ([7b4c46](https://github.com/oceanroleplay/discord.ts/commit/7b4c466aeeb4b20d27b47b3a2b08159045bb49ec))
 - fix(options order for multiple guilds) ([2ae262](https://github.com/oceanroleplay/discord.ts/commit/2ae2628adfdfb19936a34756fd370578701a0cd2))
@@ -401,6 +405,9 @@
 - v5 ([92a37a](https://github.com/oceanroleplay/discord.ts/commit/92a37a87d447ef852e26f96b3d970bfbbfbf7e45))
 - v5 ([ff102a](https://github.com/oceanroleplay/discord.ts/commit/ff102a0105075f31c2d85f4a9e1d13df095c8f91))
 - update(dependencies) & add(prettier) ([63eb4c](https://github.com/oceanroleplay/discord.ts/commit/63eb4cd50d3279debfe6e2cd7428d74553ccb64c))
+- ensure that original args names is properly nullified for the if ([76a225](https://github.com/oceanroleplay/discord.ts/commit/76a225171a0fea18e670a871c2d83b5eacd16d70))
+- Fix: using a command without any args defined, returns empty args value ([cb680e](https://github.com/oceanroleplay/discord.ts/commit/cb680ee34f5a7ec32ecdd0b208bf4fb64ec06a6a))
+- Merge pull request #29 from iDavidB/master ([c09113](https://github.com/oceanroleplay/discord.ts/commit/c09113f96bab82dab0cd56391c7defe559fafb1a))
 - Fixed 'classType is not a constructor' error when passing classes to @Discord import option ([44f307](https://github.com/oceanroleplay/discord.ts/commit/44f307225cccf3769041b26231ee9b2ad15ed79c))
 - feature(commandContent) ([819034](https://github.com/oceanroleplay/discord.ts/commit/819034cffb99ec4539898d9feb7193e0b78ed554))
 - fix(#11 - @Command breaks @On('message')) ([e605e7](https://github.com/oceanroleplay/discord.ts/commit/e605e7bc0d1d16e394c2d0ddada816996be29977))
@@ -437,6 +444,7 @@
 - fix(case sensitivity) ([83220e](https://github.com/oceanroleplay/discord.ts/commit/83220eccb58212ebdae66251a4eb297703094152))
 - fix(case sensitivity) ([4ae6cb](https://github.com/oceanroleplay/discord.ts/commit/4ae6cb239ceb79a190d4579108951869aabe98a8))
 - fix(case sensitivity) ([d6bb1a](https://github.com/oceanroleplay/discord.ts/commit/d6bb1a287851c2f4ee89eb5a379fd56b2600408b))
+- Merge branch 'master' into master ([f38083](https://github.com/oceanroleplay/discord.ts/commit/f38083cdf3a56b58aaa1dcf95ffcd23a4617a684))
 - fix(case sensitivity) ([699127](https://github.com/oceanroleplay/discord.ts/commit/6991274314bd8b174cc1edb2f9cbdef63dccda1a))
 - fix(case sensitivity) ([a5a375](https://github.com/oceanroleplay/discord.ts/commit/a5a37562a9e2a9729dc16e415c606a84b49035d3))
 - fix(case sensitivity) ([03a2e4](https://github.com/oceanroleplay/discord.ts/commit/03a2e4383e3d17c907f67881ffd45eba08a98c63))
