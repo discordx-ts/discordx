@@ -47,7 +47,7 @@
   ],
   "dependencies": {
     "discord-api-types": "^0.24.0",
-    "discord.js": "^13.4.0-dev.1636502714.b256ae1",
+    "discord.js": "^13.4.0-dev.1636632461.3c857a6",
     "glob": "^7.2.0",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
