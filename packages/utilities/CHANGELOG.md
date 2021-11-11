@@ -35,6 +35,7 @@
 
 ## CI
 
+- ignore changelog ([e4e95d](https://github.com/oceanroleplay/discord.ts/commit/e4e95d848be625a3fcb4221c7f9f6e68320ffedb))
 - test ([ae08fc](https://github.com/oceanroleplay/discord.ts/commit/ae08fc775dcf36e926975cc4c370dac7d3afee81))
 
 ## Untagged

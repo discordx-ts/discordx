@@ -226,7 +226,12 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
 }
 
 generateDoc("oceanroleplay/discord.ts", "v*", "src", "./CHANGELOG.md");
-generateDoc("oceanroleplay/discord.ts", "v*", "docs", "./docs/CHANGELOG.md");
+generateDoc(
+  "oceanroleplay/discord.ts",
+  "v*",
+  "docs/docs",
+  "./docs/CHANGELOG.md"
+);
 generateDoc(
   "oceanroleplay/discord.ts",
   "mv*",
