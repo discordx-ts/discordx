@@ -16,11 +16,12 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --outDir build/cjs",
     "build:fixup": "node --loader ts-node/esm scripts/fixup.mjs",
-    "type-check": "tsc --noemit",
-    "test": "jest --detectOpenHandles",
-    "lint": "eslint ./",
     "format": "prettier --write .",
-    "format-check": "prettier --check ."
+    "format-check": "prettier --check .",
+    "lint": "eslint ./",
+    "prepare": "is-ci || husky install",
+    "test": "jest --detectOpenHandles",
+    "type-check": "tsc --noemit"
   },
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issue",
@@ -65,6 +66,7 @@
     "eslint": "^8.2.0",
     "eslint-plugin-typescript-sort-keys": "^2.0.0",
     "husky": "^7.0.4",
+    "is-ci": "^3.0.1",
     "jest": "^27.3.1",
     "prettier": "2.4.1",
     "shelljs": "^0.8.4",
