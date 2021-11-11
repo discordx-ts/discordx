@@ -54,6 +54,8 @@
     "tsyringe": "^4.6.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-angular": "^14.1.0",
     "@types/glob": "^7.2.0",
     "@types/lodash": "^4.14.176",
     "@types/node": "^16.11.7",
@@ -62,6 +64,7 @@
     "@typescript-eslint/parser": "^5.3.1",
     "eslint": "^8.2.0",
     "eslint-plugin-typescript-sort-keys": "^2.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.3.1",
     "prettier": "2.4.1",
     "shelljs": "^0.8.4",
