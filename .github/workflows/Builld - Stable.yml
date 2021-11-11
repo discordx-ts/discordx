@@ -97,7 +97,7 @@ jobs:
       - name: Publish branch
         run: |
           git add -A
-          git commit -m "release(music): v$(jq --raw-output '.version' package.json)"
+          git commit -m "release(music): v$(jq --raw-output '.version' packages/music/package.json)"
           git push --force origin main:stable
 
   build-utilities:
@@ -145,5 +145,5 @@ jobs:
       - name: Publish branch
         run: |
           git add -A
-          git commit -m "release(utilities): v$(jq --raw-output '.version' package.json)"
+          git commit -m "release(utilities): v$(jq --raw-output '.version' packages/utilities/package.json)"
           git push --force origin main:stable
