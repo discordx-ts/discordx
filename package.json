@@ -21,7 +21,7 @@
     "lint": "eslint ./",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
-    "release": "standard-version"
+    "changelog": "lerna exec --concurrency 1 --stream -- \"conventional-changelog --preset angular --release-count 0 --commit-path $PWD --pkg package.json --outfile CHANGELOG.md --verbose --lerna-package $LERNA_PACKAGE_NAME\""
   },
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issue",
@@ -64,9 +64,9 @@
     "eslint": "^8.2.0",
     "eslint-plugin-typescript-sort-keys": "^2.0.0",
     "jest": "^27.3.1",
+    "lerna": "^4.0.0",
     "prettier": "2.4.1",
     "shelljs": "^0.8.4",
-    "standard-version": "^9.3.2",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
