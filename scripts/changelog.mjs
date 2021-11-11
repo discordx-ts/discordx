@@ -3,7 +3,7 @@ import child from "child_process";
 import fs from "fs";
 import prettier from "prettier";
 
-function generateDoc(repo, tagMatcher, folder, filepath) {
+function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
   let completeChangelog = "";
 
   const tags = _.compact(
@@ -122,6 +122,10 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
       new Date(tagDate).toISOString().split("T")[0]
     })\n\n`;
 
+    if (tagReplacer) {
+      newChangelog = newChangelog.replace(tagReplacer, "");
+    }
+
     if (featStore.length) {
       newChangelog += "## Features\n";
       featStore.forEach((cm) => {
@@ -225,23 +229,32 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
   );
 }
 
-generateDoc("oceanroleplay/discord.ts", "v*", "src", "./CHANGELOG.md");
 generateDoc(
   "oceanroleplay/discord.ts",
   "v*",
+  undefined,
+  "src",
+  "./CHANGELOG.md"
+);
+generateDoc(
+  "oceanroleplay/discord.ts",
+  "v*",
+  undefined,
   "docs/docs",
   "./docs/CHANGELOG.md"
 );
 generateDoc(
   "oceanroleplay/discord.ts",
-  "mv*",
-  "packages/music",
+  "m-v*",
+  "m-",
+  "packages/music/src",
   "./packages/music/CHANGELOG.md"
 );
 generateDoc(
   "oceanroleplay/discord.ts",
-  "uv*",
-  "packages/utilities",
+  "u-v*",
+  "u-",
+  "packages/utilities/src",
   "./packages/utilities/CHANGELOG.md"
 );
 
