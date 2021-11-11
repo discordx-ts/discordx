@@ -1,0 +1,32 @@
+name: Feature request
+description: Request a new feature
+title: "[Feature]: "
+labels: [enhancement]
+assignees:
+  - oceanroleplay
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature?
+      description: Please describe the feature you are requesting in detail
+      placeholder: describe....
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      description: Please select the package that the requested feature pertains to.
+      options:
+        - discordx
+        - "@discordx/music"
+        - "@discordx/utilities"
+    validations:
+      required: true
