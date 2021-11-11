@@ -6,6 +6,7 @@
 .eslintrc
 .prettierignore
 .prettierrc.json
+.commitlintrc.json
 jest.config.js
 tsconfig.json
 node_modules

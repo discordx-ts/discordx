@@ -3,13 +3,21 @@
 ## Features
 
 - changelog for docs ([9deeee](https://github.com/oceanroleplay/discord.ts/commit/9deeee5d3cd750923854571cdeaeb92ebf595bc0))
+- esm support ([#222](https://github.com/oceanroleplay/discord.ts/issues/222)) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
+
+## Changed
+
+- rename onPaginationTimeout to onTimeout ([75abbd](https://github.com/oceanroleplay/discord.ts/commit/75abbd84b02cf5ac1d60ee74a6550093380c1856))
 
 ## Fixed
 
 - changelog build ([550224](https://github.com/oceanroleplay/discord.ts/commit/550224b730c37a3f3fbbe79a83eaab88ad5fcc67))
+- pagination ([ef8069](https://github.com/oceanroleplay/discord.ts/commit/ef80694c5648810bc61dc64a40ee1b0d7c93df74))
+- pagination timeout issue ([e47ab2](https://github.com/oceanroleplay/discord.ts/commit/e47ab21aa20dd12a84a00acca10abe3e0020bb67))
 
 ## Routine Tasks
 
+- changelog ([25aab2](https://github.com/oceanroleplay/discord.ts/commit/25aab2d980858e827f0f69c8e0d1e805240ef01f))
 - add link for issues and pulls in changelog ([77e06e](https://github.com/oceanroleplay/discord.ts/commit/77e06ed7c83929b440c13351dc03141d56dc7221))
 - fixup versions ([f73e06](https://github.com/oceanroleplay/discord.ts/commit/f73e06f3beda546e2f2c4b374abf9280aa242a50))
 - add build into tags ([296a32](https://github.com/oceanroleplay/discord.ts/commit/296a32aae092eeaad1dc979bd02c551775e84ec6))
@@ -19,55 +27,25 @@
 - dep update ([d738d4](https://github.com/oceanroleplay/discord.ts/commit/d738d403a8c8e9724760f4f77211489893aa1289))
 - node to Node ([16689e](https://github.com/oceanroleplay/discord.ts/commit/16689ed4639f4d24e6bf047c59c94274975ee6e8))
 - rename esnext to ESNext ([0509ac](https://github.com/oceanroleplay/discord.ts/commit/0509ac1b1d0bf4b048dbf332b84c9a4b82e67c63))
+- change log ([f02503](https://github.com/oceanroleplay/discord.ts/commit/f02503f452f3972747e641682721656576474b17))
+- number improvements ([9b38ee](https://github.com/oceanroleplay/discord.ts/commit/9b38eed20236075a962aa2cfb1c22adff1060a2f))
+- dep update ([b0f01c](https://github.com/oceanroleplay/discord.ts/commit/b0f01c1645e9585c7ae8054218687cf43be1badb))
+- utilities: improve generate page ([a384e9](https://github.com/oceanroleplay/discord.ts/commit/a384e9be043769a82a0b92f3431a02659f4e8788))
+- dep update + workflow ([714018](https://github.com/oceanroleplay/discord.ts/commit/714018c53171bede794c91815c48b0b429682c9d))
+
+## CI
+
+- test ([ae08fc](https://github.com/oceanroleplay/discord.ts/commit/ae08fc775dcf36e926975cc4c370dac7d3afee81))
 
 ## Untagged
 
 - build(deps): bump discord.js in /packages/utilities ([#227](https://github.com/oceanroleplay/discord.ts/issues/227)) ([1a4d36](https://github.com/oceanroleplay/discord.ts/commit/1a4d36db9151e6fd8683a61710fb1158386dc912))
 - build(deps): bump discord.js in /packages/utilities ([#224](https://github.com/oceanroleplay/discord.ts/issues/224)) ([484226](https://github.com/oceanroleplay/discord.ts/commit/4842269030bdecac968c56cd06e91833496d7812))
-
-# v9.0.0 (2021-11-10)
-
-## Features
-
-- esm support ([#222](https://github.com/oceanroleplay/discord.ts/issues/222)) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
-
-## Changed
-
-- rename onPaginationTimeout to onTimeout ([75abbd](https://github.com/oceanroleplay/discord.ts/commit/75abbd84b02cf5ac1d60ee74a6550093380c1856))
-
-## Untagged
-
 - build(deps): bump discord.js in /packages/utilities ([#216](https://github.com/oceanroleplay/discord.ts/issues/216)) ([a92099](https://github.com/oceanroleplay/discord.ts/commit/a92099a8654ed2bf326a745f622d3602ef2ada41))
 - fixes [#212](https://github.com/oceanroleplay/discord.ts/issues/212) ([133578](https://github.com/oceanroleplay/discord.ts/commit/133578ec807b3c0302476b5c388b3e3b34a4c77c))
 - build(deps): bump discord.js in /packages/utilities ([#208](https://github.com/oceanroleplay/discord.ts/issues/208)) ([56f602](https://github.com/oceanroleplay/discord.ts/commit/56f602360238b6f3e023b1ede0f64c9418dbf3b2))
-
-# v8.1.0 (2021-11-03)
-
-## Routine Tasks
-
-- change log ([f02503](https://github.com/oceanroleplay/discord.ts/commit/f02503f452f3972747e641682721656576474b17))
-- number improvements ([9b38ee](https://github.com/oceanroleplay/discord.ts/commit/9b38eed20236075a962aa2cfb1c22adff1060a2f))
-- dep update ([b0f01c](https://github.com/oceanroleplay/discord.ts/commit/b0f01c1645e9585c7ae8054218687cf43be1badb))
-- utilities: improve generate page ([a384e9](https://github.com/oceanroleplay/discord.ts/commit/a384e9be043769a82a0b92f3431a02659f4e8788))
-
-## Untagged
-
 - build(deps): bump discord.js in /packages/utilities ([#201](https://github.com/oceanroleplay/discord.ts/issues/201)) ([f7e660](https://github.com/oceanroleplay/discord.ts/commit/f7e660ccdbe16a46a285f206858459a976aadc48))
 - build(deps): bump discord.js in /packages/utilities ([#198](https://github.com/oceanroleplay/discord.ts/issues/198)) ([63544f](https://github.com/oceanroleplay/discord.ts/commit/63544f838b56f94f54805ba384c9bef5a7ea4da6))
-
-# v8.0.0 (2021-10-30)
-
-## Fixed
-
-- pagination ([ef8069](https://github.com/oceanroleplay/discord.ts/commit/ef80694c5648810bc61dc64a40ee1b0d7c93df74))
-- pagination timeout issue ([e47ab2](https://github.com/oceanroleplay/discord.ts/commit/e47ab21aa20dd12a84a00acca10abe3e0020bb67))
-
-## Routine Tasks
-
-- dep update + workflow ([714018](https://github.com/oceanroleplay/discord.ts/commit/714018c53171bede794c91815c48b0b429682c9d))
-
-## Untagged
-
 - dep update ([290510](https://github.com/oceanroleplay/discord.ts/commit/290510dc27e538c3d466a03a4bd51e9a3636316b))
 - pagination: readme ([0e6b16](https://github.com/oceanroleplay/discord.ts/commit/0e6b16cda97ad57ba8245815d9658979789f0165))
 - pagination: prefix public ([364105](https://github.com/oceanroleplay/discord.ts/commit/364105e743b42190004f61c36a9ed7ff80b96742))
@@ -76,15 +54,6 @@
 - build(deps): bump discord.js in /packages/utilities ([31e742](https://github.com/oceanroleplay/discord.ts/commit/31e7428873da52c82df5165e44d5e054875816ad))
 - dep update ([1d0e41](https://github.com/oceanroleplay/discord.ts/commit/1d0e41bc4d9d186c40ca7dc1b93b2692fb918e24))
 - build(deps): bump discord.js in /packages/utilities ([36b36d](https://github.com/oceanroleplay/discord.ts/commit/36b36df1c24ed162a0fea956eb8c4e96c9a42aeb))
-
-# v7.1.0 (2021-10-27)
-
-## CI
-
-- test ([ae08fc](https://github.com/oceanroleplay/discord.ts/commit/ae08fc775dcf36e926975cc4c370dac7d3afee81))
-
-## Untagged
-
 - eslint: sort interface ([59a319](https://github.com/oceanroleplay/discord.ts/commit/59a319e48296fb3bf30ecf242c5e8dfde2a245a5))
 - build(deps): bump discord.js in /packages/utilities ([515d2c](https://github.com/oceanroleplay/discord.ts/commit/515d2c9c90cb057bce1433a51dbb9d9b6743b819))
 - build(deps): bump discord.js in /packages/utilities ([d9211a](https://github.com/oceanroleplay/discord.ts/commit/d9211a565170dc65124feb5bcfa7f9857fe17fcb))
@@ -104,11 +73,6 @@
 - utilites: dev version ([f95524](https://github.com/oceanroleplay/discord.ts/commit/f95524e7f8b7b750b68314b62f24c9346c81c4d8))
 - category: attachments ([d7d283](https://github.com/oceanroleplay/discord.ts/commit/d7d283a4af9add1d53904609076dc6db7c459272))
 - dep update ([f38435](https://github.com/oceanroleplay/discord.ts/commit/f3843525e56825d755b8b5fa50f7a46e453641ff))
-
-# v7.0.0 (2021-10-20)
-
-## Untagged
-
 - moved `prefix` from `ClientOptions` ([43d85f](https://github.com/oceanroleplay/discord.ts/commit/43d85f3f6c29f51db4675233a42f304f7628aecf))
 - utilities: fix category description undefined ([6a1787](https://github.com/oceanroleplay/discord.ts/commit/6a1787ddb2158b9b5171d24862dc78df335bc4fc))
 - fix pagination ([c36b32](https://github.com/oceanroleplay/discord.ts/commit/c36b328c5374b582b7de9f97fd171f7876030fdc))
@@ -117,11 +81,6 @@
 - add `onPaginationTimeout` ([ab8a72](https://github.com/oceanroleplay/discord.ts/commit/ab8a72c7b97c53d31e5d40d9c4eec94e7922badf))
 - update readme ([89b09c](https://github.com/oceanroleplay/discord.ts/commit/89b09cbee1d154d12d211f810675cd0a700a014e))
 - dep update ([b1db56](https://github.com/oceanroleplay/discord.ts/commit/b1db560f75f6041f72f919689013f8eb2cd61cf9))
-
-# v6.2.0 (2021-10-13)
-
-## Untagged
-
 - dep update ([62b873](https://github.com/oceanroleplay/discord.ts/commit/62b873e56ced6b3f90db585c9a8ee5b2fce2f41a))
 - upgrade dep ([15dee2](https://github.com/oceanroleplay/discord.ts/commit/15dee250551b2db0b7d6c6c5160523146fb20484))
 - utilities: v1.4.0 ([72be78](https://github.com/oceanroleplay/discord.ts/commit/72be785db2e2e292e8de6bbf3aec9f0ce551cffe))
@@ -135,11 +94,6 @@
 - dep update ([80d74b](https://github.com/oceanroleplay/discord.ts/commit/80d74b9f0a4e90583a70c772ed8dbdbafe9bd179))
 - utilities: `@category` decorator ([743964](https://github.com/oceanroleplay/discord.ts/commit/74396465a0af3af158bd747cf4627aef052488be))
 - dep update ([1d19d3](https://github.com/oceanroleplay/discord.ts/commit/1d19d3857110b25641c42618bb920e1a88310ee8))
-
-# v6.0.5 (2021-09-29)
-
-## Untagged
-
 - dep update ([4a4dea](https://github.com/oceanroleplay/discord.ts/commit/4a4dea246e92b9430e689576ea9a9321ebae3eac))
 - utilities: dep update ([3064b4](https://github.com/oceanroleplay/discord.ts/commit/3064b4dc465df4cc17223c2892b6769f062a2f93))
 - dep update ([9ab62d](https://github.com/oceanroleplay/discord.ts/commit/9ab62db551831d648c5765d1b2aa61560461ef28))
@@ -151,32 +105,17 @@
 - utitlities:pagination: added page resolver ([98f11c](https://github.com/oceanroleplay/discord.ts/commit/98f11c5d2964dab93306544af5bb94ea683573ae))
 - initApplicationPermissions ([4275d5](https://github.com/oceanroleplay/discord.ts/commit/4275d5407fb6fa7792fa17395a0b65d9bdd1053e))
 - dep update ([00858e](https://github.com/oceanroleplay/discord.ts/commit/00858e1eeae56903b31eb54930ba3219fc09487f))
-
-# v5.9.4 (2021-09-21)
-
-## Untagged
-
 - sort-keys ([8681a0](https://github.com/oceanroleplay/discord.ts/commit/8681a01b2bb953937b3610e62346d0bcfd61871d))
 - no-shadow ([fe94bd](https://github.com/oceanroleplay/discord.ts/commit/fe94bd14109d51f6b226dd8303d799cc78352765))
 - lint improvement ([81afa4](https://github.com/oceanroleplay/discord.ts/commit/81afa456b3f4afa98f44267d999f68a853c20504))
 - dep update ([1b7b3a](https://github.com/oceanroleplay/discord.ts/commit/1b7b3a71d58f8bc433692a58f224118bdf026ef2))
 - dep update ([4318b5](https://github.com/oceanroleplay/discord.ts/commit/4318b5ca4c04b1d793d2fe80140f0ce2ba2643c3))
 - utilities > dep update ([58e0a8](https://github.com/oceanroleplay/discord.ts/commit/58e0a8e842e78938ceca1d82b0f7cce1029f4959))
-
-# v5.9.0 (2021-09-14)
-
-## Untagged
-
 - removed static botGuilds and guards from Client ([df164f](https://github.com/oceanroleplay/discord.ts/commit/df164f29dfc0e08eb161c2e8c5afb6ae391b4a9e))
 - Removed ephemeral from utilities ([a8e79d](https://github.com/oceanroleplay/discord.ts/commit/a8e79dff9138d2d449a67e2a12d7ec9ec227acec))
 - utilities v1.1.7 ([c19466](https://github.com/oceanroleplay/discord.ts/commit/c19466a5d3dce9fab942080a092c06d098ed99ea))
 - utilities v1.1.6 ([03b306](https://github.com/oceanroleplay/discord.ts/commit/03b306925986532259f2e00e60604f53388bcd11))
 - utilities v1.1.6 ([d89387](https://github.com/oceanroleplay/discord.ts/commit/d89387cf3fabd1d7faa84f077538f22259593725))
-
-# v5.8.2 (2021-09-07)
-
-## Untagged
-
 - utilities v1.1.6 ([429a81](https://github.com/oceanroleplay/discord.ts/commit/429a816b8c88cb9730afda84ea6a6da22a6cc9df))
 - pagination: readme ([3d5421](https://github.com/oceanroleplay/discord.ts/commit/3d54211c1e3a8bca2bafd7bbafa25840bb406d6f))
 - pagination: Additional options for menu ([b04815](https://github.com/oceanroleplay/discord.ts/commit/b04815c9402b853d2e35e70fb167dcdd50f6a96d))

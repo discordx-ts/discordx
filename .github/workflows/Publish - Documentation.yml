@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "docs/**"
+    paths-ignore:
+      - "docs/CHANGELOG.md"
 
 jobs:
   build:

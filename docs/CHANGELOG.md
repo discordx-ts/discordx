@@ -10,6 +10,7 @@
 
 ## Routine Tasks
 
+- changelog ([25aab2](https://github.com/oceanroleplay/discord.ts/commit/25aab2d980858e827f0f69c8e0d1e805240ef01f))
 - add link for issues and pulls in changelog ([77e06e](https://github.com/oceanroleplay/discord.ts/commit/77e06ed7c83929b440c13351dc03141d56dc7221))
 - add build into tags ([296a32](https://github.com/oceanroleplay/discord.ts/commit/296a32aae092eeaad1dc979bd02c551775e84ec6))
 - node to Node ([16689e](https://github.com/oceanroleplay/discord.ts/commit/16689ed4639f4d24e6bf047c59c94274975ee6e8))
