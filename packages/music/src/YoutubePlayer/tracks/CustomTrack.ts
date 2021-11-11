@@ -16,6 +16,7 @@ export class CustomTrack extends Track {
     public player: Player,
     public title: string,
     public source: string | internal.Readable,
+    public duration?: number,
     public streamType?: StreamType,
     public user?: User | GuildMember
   ) {
