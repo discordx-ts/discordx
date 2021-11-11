@@ -4,6 +4,10 @@
 
 - changelog for docs ([9deeee](https://github.com/oceanroleplay/discord.ts/commit/9deeee5d3cd750923854571cdeaeb92ebf595bc0))
 
+## Fixed
+
+- changelog build ([550224](https://github.com/oceanroleplay/discord.ts/commit/550224b730c37a3f3fbbe79a83eaab88ad5fcc67))
+
 ## Routine Tasks
 
 - node to Node ([16689e](https://github.com/oceanroleplay/discord.ts/commit/16689ed4639f4d24e6bf047c59c94274975ee6e8))

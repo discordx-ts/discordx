@@ -5,6 +5,10 @@
 - changelog for docs ([9deeee](https://github.com/oceanroleplay/discord.ts/commit/9deeee5d3cd750923854571cdeaeb92ebf595bc0))
 - add duration filed in custom track ([3d68e2](https://github.com/oceanroleplay/discord.ts/commit/3d68e2ac6528be14d505bdb213a2e61c04d6513d))
 
+## Fixed
+
+- changelog build ([550224](https://github.com/oceanroleplay/discord.ts/commit/550224b730c37a3f3fbbe79a83eaab88ad5fcc67))
+
 ## Routine Tasks
 
 - generate changelog script ([731f09](https://github.com/oceanroleplay/discord.ts/commit/731f09e18556a3fe2900da30e46b20b426da36a8))

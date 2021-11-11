@@ -58,6 +58,7 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
       .execSync(`git log -1 --format=%ai ${tag}`)
       .toString("utf-8");
 
+    const buildStore = [];
     const choreStore = [];
     const ciStore = [];
     const docsStore = [];
@@ -81,6 +82,8 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
 
       if (commit.message.startsWith("chore: ")) {
         choreStore.push(formatedCommit("chore"));
+      } else if (commit.message.startsWith("build: ")) {
+        buildStore.push(formatedCommit("build"));
       } else if (commit.message.startsWith("ci: ")) {
         ciStore.push(formatedCommit("ci"));
       } else if (commit.message.startsWith("docs: ")) {
@@ -147,6 +150,14 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
     if (testStore.length) {
       newChangelog += "## Tests\n";
       testStore.forEach((cm) => {
+        newChangelog += cm;
+      });
+      newChangelog += "\n";
+    }
+
+    if (buildStore.length) {
+      newChangelog += "## Build\n";
+      buildStore.forEach((cm) => {
         newChangelog += cm;
       });
       newChangelog += "\n";
