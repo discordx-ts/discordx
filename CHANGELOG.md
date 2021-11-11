@@ -46,14 +46,14 @@
 
 ## Untagged
 
-- eslintsort interface ([59a319](https://github.com/oceanroleplay/discord.ts/commit/59a319e48296fb3bf30ecf242c5e8dfde2a245a5))
+- eslint: sort interface ([59a319](https://github.com/oceanroleplay/discord.ts/commit/59a319e48296fb3bf30ecf242c5e8dfde2a245a5))
 - ignore rate limit for init permissions ([4ab812](https://github.com/oceanroleplay/discord.ts/commit/4ab812074d9150a1104fbd5bbe511c380dfd0e2f))
 - improve init permissions ([c8f0bb](https://github.com/oceanroleplay/discord.ts/commit/c8f0bbe6d6fe919ca4fa92eae64f6d650db62c7f))
-- improveparseCommand prefix parsing ([93ccd4](https://github.com/oceanroleplay/discord.ts/commit/93ccd43b6926c0ff437608e126f1307159a4d9ae))
+- improve: parseCommand prefix parsing ([93ccd4](https://github.com/oceanroleplay/discord.ts/commit/93ccd43b6926c0ff437608e126f1307159a4d9ae))
 - code improvement ([a5bff8](https://github.com/oceanroleplay/discord.ts/commit/a5bff83277bb9eb608e9c82c085f86fb0aaa6259))
 - rename functions ([884832](https://github.com/oceanroleplay/discord.ts/commit/88483205853763f8e19b2108ac9f3174dfeb8472))
-- updateadd command in IGUILD ([efebaf](https://github.com/oceanroleplay/discord.ts/commit/efebaf7b4f1f28ef0edce59e596d6e16e121a58d))
-- improvedefault permission resolver ([7f45a0](https://github.com/oceanroleplay/discord.ts/commit/7f45a092c05b68901de39716521322f01d5fd863))
+- update: add command in IGUILD ([efebaf](https://github.com/oceanroleplay/discord.ts/commit/efebaf7b4f1f28ef0edce59e596d6e16e121a58d))
+- improve: default permission resolver ([7f45a0](https://github.com/oceanroleplay/discord.ts/commit/7f45a092c05b68901de39716521322f01d5fd863))
 - update GuildNotFoundError.ts ([1ea6a8](https://github.com/oceanroleplay/discord.ts/commit/1ea6a8e716ec2d50c3db29e51c818e17616542b5))
 - fix test ([1ddff0](https://github.com/oceanroleplay/discord.ts/commit/1ddff0b02c37d2500298104b22dd37eb52157fc4))
 - added command in IPermission ([f5417f](https://github.com/oceanroleplay/discord.ts/commit/f5417f75621410bd9720f94d733a9ff083b40b2b))
@@ -77,8 +77,8 @@
 ## Untagged
 
 - updated eslint and removed not needed cast ([943041](https://github.com/oceanroleplay/discord.ts/commit/9430410bd9551e0646259208f9f6336328b64268))
-- updatesimple command global config ([2f9588](https://github.com/oceanroleplay/discord.ts/commit/2f9588f7c5ee72fe46adf95056baa3e1ecff8089))
-- simpel commandargument resolver ([cb102f](https://github.com/oceanroleplay/discord.ts/commit/cb102f7714acd99ffd5cda345f4f7e871788e17b))
+- update: simple command global config ([2f9588](https://github.com/oceanroleplay/discord.ts/commit/2f9588f7c5ee72fe46adf95056baa3e1ecff8089))
+- simpel command: argument resolver ([cb102f](https://github.com/oceanroleplay/discord.ts/commit/cb102f7714acd99ffd5cda345f4f7e871788e17b))
 - added obtaining services from DI container and updated docs ([3ba8f7](https://github.com/oceanroleplay/discord.ts/commit/3ba8f700cbf38d4a6e59e2103e501cae43005084))
 
 # v6.1.2 (2021-10-06)
@@ -100,7 +100,7 @@
 - command ([883985](https://github.com/oceanroleplay/discord.ts/commit/883985e523551cb9e278dcf167e8fad20edf908b))
 - update di ([f5b543](https://github.com/oceanroleplay/discord.ts/commit/f5b54357139873a2ddfb8e2e2d69f6be1ded3ba3))
 - remove comment ([ce8517](https://github.com/oceanroleplay/discord.ts/commit/ce85170478d6edc9ef26f07785e8e0d58fac7268))
-- featuretsyringe support ([287cff](https://github.com/oceanroleplay/discord.ts/commit/287cffe28003bd84ce5ed66fec7422bb3fc33475))
+- feature: tsyringe support ([287cff](https://github.com/oceanroleplay/discord.ts/commit/287cffe28003bd84ce5ed66fec7422bb3fc33475))
 - update doc links ([383365](https://github.com/oceanroleplay/discord.ts/commit/3833655296b35f1ece66dba8e643f3826e933db3))
 - disable interaction logs when silent mode enabled ([0d1dab](https://github.com/oceanroleplay/discord.ts/commit/0d1dab1582dfd29be4498db7ed7fc8359999e7af))
 - format sendUsageSyntax ([52eda3](https://github.com/oceanroleplay/discord.ts/commit/52eda3390b9d89aa79690e286d1c33a64fa8e1a3))
@@ -125,13 +125,13 @@
 ## Untagged
 
 - remove `@DefaultPermission` ([d09408](https://github.com/oceanroleplay/discord.ts/commit/d094081983cc1910bb71229972491d6afc1a7f6e))
-- resolveIGuildremove duplicate ([18879d](https://github.com/oceanroleplay/discord.ts/commit/18879d0e9483be6d192418e20e50acbc17d6e970))
-- resolveIPermissionremove duplicates ([51c5ba](https://github.com/oceanroleplay/discord.ts/commit/51c5ba3e45181bafd054550efb4ccea2e94f8ce1))
-- resolveIPermissionremove duplicate ([495e1b](https://github.com/oceanroleplay/discord.ts/commit/495e1b80412a6551515fff78dc7375bc41f8d84e))
-- resolveIGuildremove duplicate ([2f5e69](https://github.com/oceanroleplay/discord.ts/commit/2f5e6979a1e1ee3228b2c359f39fb2bcbe0c370f))
+- resolveIGuild: remove duplicate ([18879d](https://github.com/oceanroleplay/discord.ts/commit/18879d0e9483be6d192418e20e50acbc17d6e970))
+- resolveIPermission: remove duplicates ([51c5ba](https://github.com/oceanroleplay/discord.ts/commit/51c5ba3e45181bafd054550efb4ccea2e94f8ce1))
+- resolveIPermission: remove duplicate ([495e1b](https://github.com/oceanroleplay/discord.ts/commit/495e1b80412a6551515fff78dc7375bc41f8d84e))
+- resolveIGuild: remove duplicate ([2f5e69](https://github.com/oceanroleplay/discord.ts/commit/2f5e6979a1e1ee3228b2c359f39fb2bcbe0c370f))
 - accept guild resolvers in `@Guild` decorator ([103ec1](https://github.com/oceanroleplay/discord.ts/commit/103ec12a1b1e70910a9ecb82ca3646c4fca76f29))
 - add guild with permission resolver ([93b915](https://github.com/oceanroleplay/discord.ts/commit/93b915d0c68a99a5a4a3680249a18c5d6e127bea))
-- docpermission ([e44268](https://github.com/oceanroleplay/discord.ts/commit/e44268f7b23d4679425e386512034198a8cc992e))
+- doc: permission ([e44268](https://github.com/oceanroleplay/discord.ts/commit/e44268f7b23d4679425e386512034198a8cc992e))
 - accept permission resolvers in `@Permission` ([4e82f0](https://github.com/oceanroleplay/discord.ts/commit/4e82f09f450f65121ac1cea93f9ec9dfdbb1d990))
 - update permissions ([096cf1](https://github.com/oceanroleplay/discord.ts/commit/096cf1cb7a97bb9cbd5825dd4b64cd48debaa2a2))
 - skip guild not found ([ce104e](https://github.com/oceanroleplay/discord.ts/commit/ce104e0d041d74da86910ad9ee2e67749fb5f9f8))
@@ -186,7 +186,7 @@
 ## Untagged
 
 - revert back last commit ([115b95](https://github.com/oceanroleplay/discord.ts/commit/115b95d7c8b09ff2ccb97173807e55792af090ed))
-- DApplicationCommandOptionany to unknown ([413e35](https://github.com/oceanroleplay/discord.ts/commit/413e35867dcd3e5f37fc780c8f108f1a2250a849))
+- DApplicationCommandOption: any to unknown ([413e35](https://github.com/oceanroleplay/discord.ts/commit/413e35867dcd3e5f37fc780c8f108f1a2250a849))
 - init cmds patch + new version of utilities ([f9bb62](https://github.com/oceanroleplay/discord.ts/commit/f9bb62320147bc886deea8e576798f0063e698b3))
 - coment fix ([bfdc76](https://github.com/oceanroleplay/discord.ts/commit/bfdc7679e97b1750b54812db56b87351fdbebf91))
 - initApplicationCommands improvement ([39e2c2](https://github.com/oceanroleplay/discord.ts/commit/39e2c224ed2d0199e4ed3a069fc03b6d5937ee27))
@@ -256,7 +256,7 @@
 - deprecated fetchSlash ([7df476](https://github.com/oceanroleplay/discord.ts/commit/7df4761364172ab755d1cf81b045f08a42284937))
 - doc fix ([2bea31](https://github.com/oceanroleplay/discord.ts/commit/2bea31d7d5363701388217436bebdff531aec197))
 - hower to see docs ([2b6425](https://github.com/oceanroleplay/discord.ts/commit/2b64254cde2d11cbe9848e6f72e88657603622e1))
-- doc updatemake changes to ([5252e9](https://github.com/oceanroleplay/discord.ts/commit/5252e901ba98ed530e27446ab1ad8a3f6a717469))
+- doc update: make changes to ([5252e9](https://github.com/oceanroleplay/discord.ts/commit/5252e901ba98ed530e27446ab1ad8a3f6a717469))
 
 # v5.4.0 (2021-08-13)
 
@@ -320,7 +320,7 @@
 - - new decorator @DefaultPermission ([a105dc](https://github.com/oceanroleplay/discord.ts/commit/a105dc51266ab76bb29a0fb062e614c453c1bc3b))
 - removed unwanted greater than condition ([5c3910](https://github.com/oceanroleplay/discord.ts/commit/5c39108efe1f3dd637c504d5a3636168fb200748))
 - developer can set default permission for slash ([this w](https://github.com/oceanroleplay/discord.ts/commit/this will help them constime commands))
-- updatepermission decorator ([445b82](https://github.com/oceanroleplay/discord.ts/commit/445b82ed9e68be790a468aadad1202b293b2010f))
+- update: permission decorator ([445b82](https://github.com/oceanroleplay/discord.ts/commit/445b82ed9e68be790a468aadad1202b293b2010f))
 - gourp permission fix ([61ecc3](https://github.com/oceanroleplay/discord.ts/commit/61ecc3a481dc8f808013be4f22e0b7614b2fc677))
 - removed unwanted filter ([42652d](https://github.com/oceanroleplay/discord.ts/commit/42652d2f7bbc40eeb7fe5fa33b6f0d3daf29c24d))
 - added unknown interaction warning ([5c88ad](https://github.com/oceanroleplay/discord.ts/commit/5c88ad9a3df179c8f6cff869f8c13a26ed93dbaf))

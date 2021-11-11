@@ -71,7 +71,7 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
     commitsArray.forEach((commit) => {
       const formatedCommit = (replace) =>
         `* ${commit.message.replace(
-          `${replace}: `,
+          replace ? `${replace}: ` : "",
           ""
         )} ([${commit.sha.substring(0, 6)}](https://github.com/${repo}/commit/${
           commit.sha
@@ -98,7 +98,7 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
       } else if (commit.message.startsWith("workflow: ")) {
         workflowStore.push(formatedCommit("workflow"));
       } else {
-        allStore.push(formatedCommit(""));
+        allStore.push(formatedCommit());
       }
     });
 
@@ -206,6 +206,7 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
 }
 
 generateDoc("oceanroleplay/discord.ts", "v*", "src", "./CHANGELOG.md");
+generateDoc("oceanroleplay/discord.ts", "v*", "docs", "./docs/CHANGELOG.md");
 generateDoc(
   "oceanroleplay/discord.ts",
   "v*",
