@@ -10,6 +10,8 @@
 
 ## Routine Tasks
 
+- fixup versions ([f73e06](https://github.com/oceanroleplay/discord.ts/commit/f73e06f3beda546e2f2c4b374abf9280aa242a50))
+- add build into tags ([296a32](https://github.com/oceanroleplay/discord.ts/commit/296a32aae092eeaad1dc979bd02c551775e84ec6))
 - generate changelog script ([731f09](https://github.com/oceanroleplay/discord.ts/commit/731f09e18556a3fe2900da30e46b20b426da36a8))
 - clean changelogs ([0a5ae9](https://github.com/oceanroleplay/discord.ts/commit/0a5ae9346ea21eb5ce1a5ee958ae2b4c327d32e1))
 - init lerna ([833b06](https://github.com/oceanroleplay/discord.ts/commit/833b061f618aaf41b37eba5d1eda3127521dad24))
@@ -19,14 +21,14 @@
 
 ## Untagged
 
-- build(deps): bump discord.js in /packages/utilities (#227) ([1a4d36](https://github.com/oceanroleplay/discord.ts/commit/1a4d36db9151e6fd8683a61710fb1158386dc912))
-- build(deps): bump discord.js in /packages/utilities (#224) ([484226](https://github.com/oceanroleplay/discord.ts/commit/4842269030bdecac968c56cd06e91833496d7812))
+- build(deps): bump discord.js in /packages/utilities ([#227](https://github.com/oceanroleplay/discord.ts/issues/227)) ([1a4d36](https://github.com/oceanroleplay/discord.ts/commit/1a4d36db9151e6fd8683a61710fb1158386dc912))
+- build(deps): bump discord.js in /packages/utilities ([#224](https://github.com/oceanroleplay/discord.ts/issues/224)) ([484226](https://github.com/oceanroleplay/discord.ts/commit/4842269030bdecac968c56cd06e91833496d7812))
 
 # v9.0.0 (2021-11-10)
 
 ## Features
 
-- esm support (#222) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
+- esm support ([#222](https://github.com/oceanroleplay/discord.ts/issues/222)) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
 
 ## Changed
 
@@ -34,9 +36,9 @@
 
 ## Untagged
 
-- build(deps): bump discord.js in /packages/utilities (#216) ([a92099](https://github.com/oceanroleplay/discord.ts/commit/a92099a8654ed2bf326a745f622d3602ef2ada41))
-- fixes #212 ([133578](https://github.com/oceanroleplay/discord.ts/commit/133578ec807b3c0302476b5c388b3e3b34a4c77c))
-- build(deps): bump discord.js in /packages/utilities (#208) ([56f602](https://github.com/oceanroleplay/discord.ts/commit/56f602360238b6f3e023b1ede0f64c9418dbf3b2))
+- build(deps): bump discord.js in /packages/utilities ([#216](https://github.com/oceanroleplay/discord.ts/issues/216)) ([a92099](https://github.com/oceanroleplay/discord.ts/commit/a92099a8654ed2bf326a745f622d3602ef2ada41))
+- fixes [#212](https://github.com/oceanroleplay/discord.ts/issues/212) ([133578](https://github.com/oceanroleplay/discord.ts/commit/133578ec807b3c0302476b5c388b3e3b34a4c77c))
+- build(deps): bump discord.js in /packages/utilities ([#208](https://github.com/oceanroleplay/discord.ts/issues/208)) ([56f602](https://github.com/oceanroleplay/discord.ts/commit/56f602360238b6f3e023b1ede0f64c9418dbf3b2))
 
 # v8.1.0 (2021-11-03)
 
@@ -49,8 +51,8 @@
 
 ## Untagged
 
-- build(deps): bump discord.js in /packages/utilities (#201) ([f7e660](https://github.com/oceanroleplay/discord.ts/commit/f7e660ccdbe16a46a285f206858459a976aadc48))
-- build(deps): bump discord.js in /packages/utilities (#198) ([63544f](https://github.com/oceanroleplay/discord.ts/commit/63544f838b56f94f54805ba384c9bef5a7ea4da6))
+- build(deps): bump discord.js in /packages/utilities ([#201](https://github.com/oceanroleplay/discord.ts/issues/201)) ([f7e660](https://github.com/oceanroleplay/discord.ts/commit/f7e660ccdbe16a46a285f206858459a976aadc48))
+- build(deps): bump discord.js in /packages/utilities ([#198](https://github.com/oceanroleplay/discord.ts/issues/198)) ([63544f](https://github.com/oceanroleplay/discord.ts/commit/63544f838b56f94f54805ba384c9bef5a7ea4da6))
 
 # v8.0.0 (2021-10-30)
 

@@ -11,6 +11,8 @@
 
 ## Routine Tasks
 
+- fixup versions ([f73e06](https://github.com/oceanroleplay/discord.ts/commit/f73e06f3beda546e2f2c4b374abf9280aa242a50))
+- add build into tags ([296a32](https://github.com/oceanroleplay/discord.ts/commit/296a32aae092eeaad1dc979bd02c551775e84ec6))
 - generate changelog script ([731f09](https://github.com/oceanroleplay/discord.ts/commit/731f09e18556a3fe2900da30e46b20b426da36a8))
 - clean changelogs ([0a5ae9](https://github.com/oceanroleplay/discord.ts/commit/0a5ae9346ea21eb5ce1a5ee958ae2b4c327d32e1))
 - init lerna ([833b06](https://github.com/oceanroleplay/discord.ts/commit/833b061f618aaf41b37eba5d1eda3127521dad24))
@@ -21,20 +23,20 @@
 
 ## Untagged
 
-- build(deps): bump discord.js in /packages/music (#228) ([48ca63](https://github.com/oceanroleplay/discord.ts/commit/48ca63ab14254d70b40909512c99abecc64b943a))
-- build(deps): bump discord.js in /packages/music (#225) ([4f6df7](https://github.com/oceanroleplay/discord.ts/commit/4f6df799f6afabb19a5b437ea1fa7fd6bbdc70ac))
+- build(deps): bump discord.js in /packages/music ([#228](https://github.com/oceanroleplay/discord.ts/issues/228)) ([48ca63](https://github.com/oceanroleplay/discord.ts/commit/48ca63ab14254d70b40909512c99abecc64b943a))
+- build(deps): bump discord.js in /packages/music ([#225](https://github.com/oceanroleplay/discord.ts/issues/225)) ([4f6df7](https://github.com/oceanroleplay/discord.ts/commit/4f6df799f6afabb19a5b437ea1fa7fd6bbdc70ac))
 
 # v9.0.0 (2021-11-10)
 
 ## Features
 
-- esm support (#222) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
+- esm support ([#222](https://github.com/oceanroleplay/discord.ts/issues/222)) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
 - secure option for lava player ([c40248](https://github.com/oceanroleplay/discord.ts/commit/c402487ac291c8104673bb3b469d2ef0757a1cc3))
 
 ## Untagged
 
-- build(deps): bump discord.js in /packages/music (#217) ([e7c804](https://github.com/oceanroleplay/discord.ts/commit/e7c804a5afba562ba7ade869f931b994f5a7d0b1))
-- build(deps): bump discord.js in /packages/music (#209) ([6ca1f4](https://github.com/oceanroleplay/discord.ts/commit/6ca1f4c3a365fac648ee7fc6a993b2d49cc0d9b5))
+- build(deps): bump discord.js in /packages/music ([#217](https://github.com/oceanroleplay/discord.ts/issues/217)) ([e7c804](https://github.com/oceanroleplay/discord.ts/commit/e7c804a5afba562ba7ade869f931b994f5a7d0b1))
+- build(deps): bump discord.js in /packages/music ([#209](https://github.com/oceanroleplay/discord.ts/issues/209)) ([6ca1f4](https://github.com/oceanroleplay/discord.ts/commit/6ca1f4c3a365fac648ee7fc6a993b2d49cc0d9b5))
 
 # v8.1.0 (2021-11-03)
 
@@ -69,9 +71,9 @@
 
 ## Untagged
 
-- build(deps): bump discord.js in /packages/music (#205) ([71fbc8](https://github.com/oceanroleplay/discord.ts/commit/71fbc84916e53abe3dd1542048d73b3a60788612))
+- build(deps): bump discord.js in /packages/music ([#205](https://github.com/oceanroleplay/discord.ts/issues/205)) ([71fbc8](https://github.com/oceanroleplay/discord.ts/commit/71fbc84916e53abe3dd1542048d73b3a60788612))
 - readme ([aa1a6c](https://github.com/oceanroleplay/discord.ts/commit/aa1a6cf896218d5b93d9b5b96c95b8776b508c6d))
-- build(deps): bump discord.js in /packages/music (#199) ([bb941a](https://github.com/oceanroleplay/discord.ts/commit/bb941a6edf199334a69e8983bf877d28da11928d))
+- build(deps): bump discord.js in /packages/music ([#199](https://github.com/oceanroleplay/discord.ts/issues/199)) ([bb941a](https://github.com/oceanroleplay/discord.ts/commit/bb941a6edf199334a69e8983bf877d28da11928d))
 - Update README.md ([8c9e48](https://github.com/oceanroleplay/discord.ts/commit/8c9e48290c8d38417348dd6b9de50737f5a37a7d))
 - feat(music): add search ([917150](https://github.com/oceanroleplay/discord.ts/commit/917150d6b61149069f4c381606d16be1b29bc4ac))
 
@@ -126,7 +128,7 @@
 - music: events ([4c98b5](https://github.com/oceanroleplay/discord.ts/commit/4c98b54605d288716a7319a4734e9c2ce54cc9c8))
 - music: clearTracks, removeTracks ([18df07](https://github.com/oceanroleplay/discord.ts/commit/18df07323302cf5d70262c8eb2015e6649b3a0ff))
 - music: seek, volume ([4861af](https://github.com/oceanroleplay/discord.ts/commit/4861af90b06bab6ec66e06add2bf83c09a36c933))
-- Merge pull request #172 from oceanroleplay/dependabot/npm_and_yarn/packages/music/discord.js-13.3.0-dev.1635206705.ceaf738 ([5d3982](https://github.com/oceanroleplay/discord.ts/commit/5d3982266a1e29028956a32decc95fffced431b2))
+- Merge pull request [#172](https://github.com/oceanroleplay/discord.ts/issues/172) from oceanroleplay/dependabot/npm_and_yarn/packages/music/discord.js-13.3.0-dev.1635206705.ceaf738 ([5d3982](https://github.com/oceanroleplay/discord.ts/commit/5d3982266a1e29028956a32decc95fffced431b2))
 - build(deps): bump discord.js in /packages/music ([e7c276](https://github.com/oceanroleplay/discord.ts/commit/e7c276c80dd82cf5223259c30d267fc042b80776))
 - build(deps): bump @discordjs/opus from 0.5.3 to 0.6.0 in /packages/music ([3150c2](https://github.com/oceanroleplay/discord.ts/commit/3150c2125b3fd06d135367ca55b9cdf3c2dd2244))
 - @discordx/music ([9db20b](https://github.com/oceanroleplay/discord.ts/commit/9db20b4095097cd5fc63fc0c2002b9eb6e6db9d4))

@@ -10,6 +10,7 @@
 
 ## Routine Tasks
 
+- add build into tags ([296a32](https://github.com/oceanroleplay/discord.ts/commit/296a32aae092eeaad1dc979bd02c551775e84ec6))
 - node to Node ([16689e](https://github.com/oceanroleplay/discord.ts/commit/16689ed4639f4d24e6bf047c59c94274975ee6e8))
 - doc: installation ([0bc7af](https://github.com/oceanroleplay/discord.ts/commit/0bc7afad22a38e065a5913fdeeec17dca245d38b))
 - rename esnext to ESNext ([0509ac](https://github.com/oceanroleplay/discord.ts/commit/0509ac1b1d0bf4b048dbf332b84c9a4b82e67c63))
@@ -19,13 +20,13 @@
 
 ## Features
 
-- esm support (#222) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
+- esm support ([#222](https://github.com/oceanroleplay/discord.ts/issues/222)) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
 
 ## Untagged
 
 - doc: update guard.md ([89f3c6](https://github.com/oceanroleplay/discord.ts/commit/89f3c64535991e7f19ea7f7ab459cce614f68d38))
 - doc: installation ([c09cf8](https://github.com/oceanroleplay/discord.ts/commit/c09cf8099ce7594558e5398cd9a9b5c60adfe9a3))
-- build(deps): bump typedoc from 0.22.7 to 0.22.8 in /docs (#215) ([c2ee81](https://github.com/oceanroleplay/discord.ts/commit/c2ee812d967b75e3213b6e7b37e83f6dd0cd2036))
+- build(deps): bump typedoc from 0.22.7 to 0.22.8 in /docs ([#215](https://github.com/oceanroleplay/discord.ts/issues/215)) ([c2ee81](https://github.com/oceanroleplay/discord.ts/commit/c2ee812d967b75e3213b6e7b37e83f6dd0cd2036))
 - fix potential security vulnerabilities ([dd935e](https://github.com/oceanroleplay/discord.ts/commit/dd935e56b95643056bb7e3b748aa2cdcc83aa68a))
 
 # v8.1.0 (2021-11-03)
@@ -40,9 +41,9 @@
 
 ## Untagged
 
-- build(deps): bump @docusaurus/core in /docs (#206) ([bd47bf](https://github.com/oceanroleplay/discord.ts/commit/bd47bf687ca3358a3685819c59ba3582276a9fea))
-- build(deps): bump @docusaurus/remark-plugin-npm2yarn in /docs (#204) ([4be731](https://github.com/oceanroleplay/discord.ts/commit/4be731e62fcbdac57eaee5d433a6d718f09f74df))
-- build(deps): bump @docusaurus/preset-classic in /docs (#202) ([f2c9a0](https://github.com/oceanroleplay/discord.ts/commit/f2c9a0d694b7891c8086e2f12b045da01c04cb96))
+- build(deps): bump @docusaurus/core in /docs ([#206](https://github.com/oceanroleplay/discord.ts/issues/206)) ([bd47bf](https://github.com/oceanroleplay/discord.ts/commit/bd47bf687ca3358a3685819c59ba3582276a9fea))
+- build(deps): bump @docusaurus/remark-plugin-npm2yarn in /docs ([#204](https://github.com/oceanroleplay/discord.ts/issues/204)) ([4be731](https://github.com/oceanroleplay/discord.ts/commit/4be731e62fcbdac57eaee5d433a6d718f09f74df))
+- build(deps): bump @docusaurus/preset-classic in /docs ([#202](https://github.com/oceanroleplay/discord.ts/issues/202)) ([f2c9a0](https://github.com/oceanroleplay/discord.ts/commit/f2c9a0d694b7891c8086e2f12b045da01c04cb96))
 - Update client.md ([d72583](https://github.com/oceanroleplay/discord.ts/commit/d72583a09de8e45ff1e3e4cfa558314e7885a51b))
 - Merge branch 'oceanroleplay:main' into patch-1 ([dc7105](https://github.com/oceanroleplay/discord.ts/commit/dc71056dedfa789e5ce88a0af6e74588a3ed5d8e))
 - Update guard.md ([b02aa3](https://github.com/oceanroleplay/discord.ts/commit/b02aa3a4d90deddb5f1beb18246403a33ddca441))
@@ -77,7 +78,7 @@
 - fi: doc ([65d378](https://github.com/oceanroleplay/discord.ts/commit/65d378735e5b111a5381b7af4650d6dc43db56d2))
 - doc: fix dirs ([924c4e](https://github.com/oceanroleplay/discord.ts/commit/924c4e559e954367754092a8a493911ab03b6907))
 - doc: update config ([d61d22](https://github.com/oceanroleplay/discord.ts/commit/d61d228a3c0f14fc423992cd77ab095b52558d68))
-- #168 ([cd3950](https://github.com/oceanroleplay/discord.ts/commit/cd39503b78e0ebd974816306ddd922c9bf5726b7))
+- [#168](https://github.com/oceanroleplay/discord.ts/issues/168) ([cd3950](https://github.com/oceanroleplay/discord.ts/commit/cd39503b78e0ebd974816306ddd922c9bf5726b7))
 - build(deps): bump typedoc from 0.22.6 to 0.22.7 in /docs ([f61beb](https://github.com/oceanroleplay/discord.ts/commit/f61beb02fc6004fd7fd0fa05e01243f9e7a399d8))
 - code improvement ([a5bff8](https://github.com/oceanroleplay/discord.ts/commit/a5bff83277bb9eb608e9c82c085f86fb0aaa6259))
 - update: add command in IGUILD ([efebaf](https://github.com/oceanroleplay/discord.ts/commit/efebaf7b4f1f28ef0edce59e596d6e16e121a58d))
@@ -227,7 +228,7 @@
 
 - doc: ContextMenuInteraction ([95e7cc](https://github.com/oceanroleplay/discord.ts/commit/95e7cca9be3108d8f78225a2ae9aad01e8566405))
 - defer > deferReply ([354069](https://github.com/oceanroleplay/discord.ts/commit/354069e628173ebcbf563ee42e53a821b39f6de9))
-- Merge pull request #39 from oceanroleplay/oceanroleplay-patch-1 ([3777b5](https://github.com/oceanroleplay/discord.ts/commit/3777b5726a5c0a3c389527ebe84bf0d3ded9263a))
+- Merge pull request [#39](https://github.com/oceanroleplay/discord.ts/issues/39) from oceanroleplay/oceanroleplay-patch-1 ([3777b5](https://github.com/oceanroleplay/discord.ts/commit/3777b5726a5c0a3c389527ebe84bf0d3ded9263a))
 - Update installation.mdx ([828981](https://github.com/oceanroleplay/discord.ts/commit/82898151350fc4ab834d48c882bd989b7d9ffbec))
 - Update installation.mdx ([ec1bc5](https://github.com/oceanroleplay/discord.ts/commit/ec1bc5eba9e4e46156fc6922b911ad8a2bd549d7))
 - doc: installation ([982bcf](https://github.com/oceanroleplay/discord.ts/commit/982bcfe7463d8d153434ef2c64b3de2af5790b70))
@@ -259,7 +260,7 @@
 - prettier fix ([e30980](https://github.com/oceanroleplay/discord.ts/commit/e309804f7b9bd5e7901472b060e8f10053871fd8))
 - Merge branch 'main' of github.com:oceanroleplay/discord.ts into main ([ab52c7](https://github.com/oceanroleplay/discord.ts/commit/ab52c702dadc66661938e23455b23c2f35ac9623))
 - doc update ([f768ca](https://github.com/oceanroleplay/discord.ts/commit/f768ca4fe5bb1d144c166f9aa4a286d40ae5f312))
-- Merge pull request #32 from VictoriqueMoe/patch-1 ([229662](https://github.com/oceanroleplay/discord.ts/commit/229662b0fe3ee16ec41edfe927073248fb2f0de5))
+- Merge pull request [#32](https://github.com/oceanroleplay/discord.ts/issues/32) from VictoriqueMoe/patch-1 ([229662](https://github.com/oceanroleplay/discord.ts/commit/229662b0fe3ee16ec41edfe927073248fb2f0de5))
 - doc update ([2dcd0b](https://github.com/oceanroleplay/discord.ts/commit/2dcd0b5bfeb946d63cfc47dbedd8059e44f5c57a))
 - doc ([c5fb8e](https://github.com/oceanroleplay/discord.ts/commit/c5fb8ec9e9cd472071ead9e4c4218ce8924ba163))
 - doc dep fix ([3015fa](https://github.com/oceanroleplay/discord.ts/commit/3015fa9cebcc345a349bf07b12bc41c9325a9baa))

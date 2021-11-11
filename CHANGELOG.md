@@ -2,7 +2,7 @@
 
 ## Features
 
-- esm support (#222) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
+- esm support ([#222](https://github.com/oceanroleplay/discord.ts/issues/222)) ([70c209](https://github.com/oceanroleplay/discord.ts/commit/70c209b967b9786ce0b4caf1762a7e05163bda0c))
 - regex support for button/selectmenu ([e703d7](https://github.com/oceanroleplay/discord.ts/commit/e703d708a6ace0a2f280a0a591721ff85a504fd7))
 
 ## Changed
@@ -85,7 +85,7 @@
 - added obtaining services from DI container and updated docs ([3ba8f7](https://github.com/oceanroleplay/discord.ts/commit/3ba8f700cbf38d4a6e59e2103e501cae43005084))
 - fix parseOption ([5a0e58](https://github.com/oceanroleplay/discord.ts/commit/5a0e58037e001ce2d9c84a82a9d21c3d4df4666b))
 - no-explicit-any ([c937fd](https://github.com/oceanroleplay/discord.ts/commit/c937fd08b01b71a22a0338877728166be3e32115))
-- closes #104 ([74e18b](https://github.com/oceanroleplay/discord.ts/commit/74e18b5b930dd921568496ff1d3f6dce72cc624b))
+- closes [#104](https://github.com/oceanroleplay/discord.ts/issues/104) ([74e18b](https://github.com/oceanroleplay/discord.ts/commit/74e18b5b930dd921568496ff1d3f6dce72cc624b))
 - explicit-module-boundary-types ([a43555](https://github.com/oceanroleplay/discord.ts/commit/a4355550d6e5e36b210b5a1af06a46aa89838a9c))
 - remove explicit-module-boundary-types ([79ef7c](https://github.com/oceanroleplay/discord.ts/commit/79ef7cda2c0a96fd4d59f63d7df7827c28fd0d65))
 - remove explicit-module-boundary-types ([8ddc1b](https://github.com/oceanroleplay/discord.ts/commit/8ddc1bc27b83754dd5b35db111e992aebcff5119))
@@ -93,7 +93,7 @@
 - update DApplicationCommandOption ([8a0a60](https://github.com/oceanroleplay/discord.ts/commit/8a0a602a9232ccb563d8d3816d67fb7c0a4d2be4))
 - update DApplicationCommandOption ([aa6903](https://github.com/oceanroleplay/discord.ts/commit/aa690325a6b42becc13c4417126a4725516a8f7f))
 - channelString ([793899](https://github.com/oceanroleplay/discord.ts/commit/7938995cdf14adb8b4c8b095bab7aab909aa77a2))
-- Merge pull request #103 from niekschoemaker/patch-1 ([d84199](https://github.com/oceanroleplay/discord.ts/commit/d84199d9ee64ffc45206c67def3e130e1c42e04f))
+- Merge pull request [#103](https://github.com/oceanroleplay/discord.ts/issues/103) from niekschoemaker/patch-1 ([d84199](https://github.com/oceanroleplay/discord.ts/commit/d84199d9ee64ffc45206c67def3e130e1c42e04f))
 - update DApplicationCommandOption ([c16648](https://github.com/oceanroleplay/discord.ts/commit/c166486d33a2c6fdf529e2379fbf4fcaaaa2694b))
 - ChannelTypes ([6dbf38](https://github.com/oceanroleplay/discord.ts/commit/6dbf38ebde930ac5b8f313c85155c9dbb0577f11))
 - Update literal.ts ([b35bb3](https://github.com/oceanroleplay/discord.ts/commit/b35bb3756bee3885d408707111843eaed1b045bf))
@@ -407,10 +407,10 @@
 - update(dependencies) & add(prettier) ([63eb4c](https://github.com/oceanroleplay/discord.ts/commit/63eb4cd50d3279debfe6e2cd7428d74553ccb64c))
 - ensure that original args names is properly nullified for the if ([76a225](https://github.com/oceanroleplay/discord.ts/commit/76a225171a0fea18e670a871c2d83b5eacd16d70))
 - Fix: using a command without any args defined, returns empty args value ([cb680e](https://github.com/oceanroleplay/discord.ts/commit/cb680ee34f5a7ec32ecdd0b208bf4fb64ec06a6a))
-- Merge pull request #29 from iDavidB/master ([c09113](https://github.com/oceanroleplay/discord.ts/commit/c09113f96bab82dab0cd56391c7defe559fafb1a))
+- Merge pull request [#29](https://github.com/oceanroleplay/discord.ts/issues/29) from iDavidB/master ([c09113](https://github.com/oceanroleplay/discord.ts/commit/c09113f96bab82dab0cd56391c7defe559fafb1a))
 - Fixed 'classType is not a constructor' error when passing classes to @Discord import option ([44f307](https://github.com/oceanroleplay/discord.ts/commit/44f307225cccf3769041b26231ee9b2ad15ed79c))
 - feature(commandContent) ([819034](https://github.com/oceanroleplay/discord.ts/commit/819034cffb99ec4539898d9feb7193e0b78ed554))
-- fix(#11 - @Command breaks @On('message')) ([e605e7](https://github.com/oceanroleplay/discord.ts/commit/e605e7bc0d1d16e394c2d0ddada816996be29977))
+- fix([#11](https://github.com/oceanroleplay/discord.ts/issues/11) - @Command breaks @On('message')) ([e605e7](https://github.com/oceanroleplay/discord.ts/commit/e605e7bc0d1d16e394c2d0ddada816996be29977))
 - feature(args parsing) ([541578](https://github.com/oceanroleplay/discord.ts/commit/5415783f7961f492ba752516d5e09f802bcaea8a))
 - feature(args parsing) ([7417ca](https://github.com/oceanroleplay/discord.ts/commit/7417caf95f29460180359fee93c93dbc051badef))
 - fix(CommandMessage) ([66a47c](https://github.com/oceanroleplay/discord.ts/commit/66a47c38600fc139d2c823e3a6a5c6158be83827))

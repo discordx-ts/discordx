@@ -50,7 +50,14 @@ function generateDoc(repo, tagMatcher, folder, filepath) {
       .map((commit) => {
         const [message, sha] = commit.split("----HASH----");
 
-        return { message: message.split("\n")[0], sha };
+        const title = message
+          .split("\n")[0]
+          ?.replaceAll(
+            /#([0-9]{1,})/gm,
+            `[#$1](https://github.com/${repo}/issues/$1)`
+          );
+
+        return { message: title, sha: title ? sha : undefined };
       })
       .filter((commit) => Boolean(commit.sha));
 
