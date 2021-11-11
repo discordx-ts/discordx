@@ -30,6 +30,18 @@ body:
       required: true
 
   - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      description: Please select the package that the reported issue pertains to.
+      options:
+        - discordx
+        - "@discordx/music"
+        - "@discordx/utilities"
+    validations:
+      required: true
+
+  - type: dropdown
     id: version
     attributes:
       label: Version
