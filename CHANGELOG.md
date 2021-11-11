@@ -1,25 +1,8 @@
-## Changelog
+# Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-### Types of changes
-
-> `Added` - for new features.
-
-> `Changed` - for changes in existing functionality.
-
-> `Deprecated` - for soon-to-be removed features.
-
-> `Removed` - for now removed features.
-
-> `Fixed` - for any bug fixes.
-
-> `Security` - in case of vulnerabilities.
-
-`[FULL CHANGELOG](https://github.com/oceanroleplay/discord.ts/blob/main/CHANGELOG.md#820---2021-11-10)`
+### [9.0.1](https://github.com/oceanroleplay/discord.ts/compare/v9.1.0...v9.0.1) (2021-11-11)
 
 ## [9.0.0] - 2021-11-10
 
