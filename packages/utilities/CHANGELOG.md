@@ -10,6 +10,7 @@
 
 ## Routine Tasks
 
+- add link for issues and pulls in changelog ([77e06e](https://github.com/oceanroleplay/discord.ts/commit/77e06ed7c83929b440c13351dc03141d56dc7221))
 - fixup versions ([f73e06](https://github.com/oceanroleplay/discord.ts/commit/f73e06f3beda546e2f2c4b374abf9280aa242a50))
 - add build into tags ([296a32](https://github.com/oceanroleplay/discord.ts/commit/296a32aae092eeaad1dc979bd02c551775e84ec6))
 - generate changelog script ([731f09](https://github.com/oceanroleplay/discord.ts/commit/731f09e18556a3fe2900da30e46b20b426da36a8))

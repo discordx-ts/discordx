@@ -229,13 +229,13 @@ generateDoc("oceanroleplay/discord.ts", "v*", "src", "./CHANGELOG.md");
 generateDoc("oceanroleplay/discord.ts", "v*", "docs", "./docs/CHANGELOG.md");
 generateDoc(
   "oceanroleplay/discord.ts",
-  "v*",
+  "mv*",
   "packages/music",
   "./packages/music/CHANGELOG.md"
 );
 generateDoc(
   "oceanroleplay/discord.ts",
-  "v*",
+  "uv*",
   "packages/utilities",
   "./packages/utilities/CHANGELOG.md"
 );
