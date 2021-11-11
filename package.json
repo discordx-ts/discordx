@@ -1,6 +1,6 @@
 {
   "name": "discordx",
-  "version": "9.0.2",
+  "version": "9.0.0",
   "description": "Create a discord bot with TypeScript and Decorators!",
   "private": false,
   "main": "build/cjs/index.js",
@@ -20,8 +20,7 @@
     "test": "jest --detectOpenHandles",
     "lint": "eslint ./",
     "format": "prettier --write .",
-    "format-check": "prettier --check .",
-    "changelog": "lerna exec --concurrency 1 --stream -- \"conventional-changelog --preset angular --release-count 0 --commit-path $PWD --pkg package.json --outfile CHANGELOG.md --verbose --lerna-package $LERNA_PACKAGE_NAME\""
+    "format-check": "prettier --check ."
   },
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issue",
@@ -64,7 +63,6 @@
     "eslint": "^8.2.0",
     "eslint-plugin-typescript-sort-keys": "^2.0.0",
     "jest": "^27.3.1",
-    "lerna": "^4.0.0",
     "prettier": "2.4.1",
     "shelljs": "^0.8.4",
     "ts-jest": "^27.0.7",
