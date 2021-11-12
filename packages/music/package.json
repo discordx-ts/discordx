@@ -29,11 +29,13 @@
   "exports": {
     ".": {
       "import": "./build/esm/index.mjs",
-      "require": "./build/cjs/index.cjs"
+      "require": "./build/cjs/index.cjs",
+      "types": "./build/esm/index.d.ts"
     }
   },
   "main": "build/cjs/index.cjs",
   "module": "build/esm/index.mjs",
+  "types": "./build/esm/index.d.ts",
   "files": [
     "build",
     "LICENSE",
