@@ -18,14 +18,12 @@ import {
 } from "../../index.js";
 import { Method } from "../../decorators/classes/Method.js";
 import _ from "lodash";
-import glob from "glob";
 
 /**
  * @category Internal
  */
 export class MetadataStorage {
   private static isBuilt = false;
-  private static _classesToLoad: string[] = [];
   private static _instance: MetadataStorage;
   private _events: DOn[] = [];
   private _guards: DGuard[] = [];
@@ -74,14 +72,6 @@ export class MetadataStorage {
 
       return prev;
     }, []);
-  }
-
-  static get classes(): string[] {
-    return this._classesToLoad;
-  }
-
-  static set classes(files: string[]) {
-    this._classesToLoad = files;
   }
 
   get discords(): readonly DDiscord[] {
@@ -187,36 +177,12 @@ export class MetadataStorage {
     DIService.instance.addService(discord.classRef);
   }
 
-  private async loadClasses(): Promise<void> {
-    // collect all import paths
-    const imports: string[] = [];
-    MetadataStorage.classes.forEach((path) => {
-      const files = glob.sync(path).filter((file) => typeof file === "string");
-      files.forEach((file) => {
-        if (!imports.includes(file)) {
-          imports.push("file://" + file);
-        }
-      });
-    });
-
-    // import all files
-    await Promise.all(imports.map((file) => import(file)));
-  }
-
-  async build(classes?: string[]): Promise<void> {
+  async build(): Promise<void> {
     // build the instance if not already built
     if (MetadataStorage.isBuilt) {
       return;
     }
     MetadataStorage.isBuilt = true;
-
-    // this will overwrite any classes defined in Client
-    if (classes) {
-      MetadataStorage.classes = classes;
-    }
-
-    // load the classes
-    await this.loadClasses();
 
     // Link the events with @Discord class instances
     this.discordMembers.forEach((member) => {

@@ -13,27 +13,19 @@ class simpleCommandExample {
 }
 
 const alexa = new Client({
-  // Here, we won't define classes, see below
   botId: "alexa", // define botid
 });
 
 const cortana = new Client({
-  // Here, we won't define classes, see below
   botId: "cortana", // define botidF
 });
 
 // We will now build our application to load all the commands/events for both bots.
-MetadataStorage.instance
-  .build([
-    // Whenever this method is used to create an app manually, any predefined classes will be overwritten
-    `${__dirname}/alexa/*.{js,ts}`,
-    `${__dirname}/cortana/*.{js,ts}`,
-  ])
-  .then(() => {
-    // Now that the app is ready, we can login to both bots
-    alexa.login("alexa token");
-    cortana.login("cortana token");
-  });
+MetadataStorage.instance.build().then(() => {
+  // Now that the app is ready, we can login to both bots
+  alexa.login("alexa token");
+  cortana.login("cortana token");
+});
 ```
 
 ## Signature

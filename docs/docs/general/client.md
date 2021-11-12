@@ -39,18 +39,6 @@ define bot reply, when command is not auhorized
 | -------------------------------------------------------------- | ------- | -------- |
 | string \| ((command: SimpleCommandMessage) =\> Promise<void\>) |         | No       |
 
-### classes
-
-Indicate the class jacket of your classes containing the `@Discord` decorator. It accepts a list of classes or of (glob) paths.
-
-:::warning
-In case of multi bot, All classes/functions should be decorated with @Bot to prevent other bots from executing them.
-:::
-
-| type       | default | required |
-| ---------- | ------- | -------- |
-| string [ ] | [ ]     | No       |
-
 ### silent
 
 Allows you to disable your event information at startup
@@ -74,31 +62,6 @@ The application commands are executed only on this list of guilds by default, ex
 | type       | default | required |
 | ---------- | ------- | -------- |
 | IGuild [ ] | [ ]     | No       |
-
-**You must specify the glob path(s) where your decorated classes are**
-
-```ts
-import "reflect-metadata";
-import { Intents } from "discord.js";
-// Use the Client that are provided by discordx NOT discord.js
-import { Client } from "discordx";
-
-async function start() {
-  const client = new Client({
-    botId: "test",
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-    classes: [
-      // glob string to load the classes. If you compile your bot, the file extension will be .js
-      `${__dirname}/discords/*.{js,ts}`,
-    ],
-    silent: false,
-  });
-
-  await client.login("YOUR_TOKEN");
-}
-
-start();
-```
 
 ## Intents
 

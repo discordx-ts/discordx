@@ -75,10 +75,6 @@ import { Client } from "discordx";
 async function start() {
   const client = new Client({
     botId: "test",
-    classes: [
-      // glob string to load the classes. If you compile your bot, the file extension will be .js
-      `${__dirname}/discords/*.{js,ts}`,
-    ],
     silent: false,
     // At instanciation
     guards: [NotBot, Prefix("!")],

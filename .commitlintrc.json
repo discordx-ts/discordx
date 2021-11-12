@@ -6,6 +6,7 @@
       2,
       "always",
       [
+        "breaking change",
         "build",
         "chore",
         "ci",

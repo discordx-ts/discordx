@@ -48,11 +48,6 @@ export interface ClientOptions extends DiscordJSClientOptions {
   botId?: string;
 
   /**
-   * The classes to load for your discord bot
-   */
-  classes?: string[];
-
-  /**
    * The global guards
    */
   guards?: GuardFunction[];
