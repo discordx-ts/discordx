@@ -68,5 +68,9 @@
   "devDependencies": {
     "@types/lodash": "^4.14.176",
     "discordx": "^10.0.0-dev.1636568467.16689ed"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
   }
 }
