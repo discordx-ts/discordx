@@ -1,4 +1,5 @@
 import { SimpleCommandMessage } from "../../src/classes/SimpleCommandMessage";
+// eslint-disable-next-line sort-imports
 import { Client } from "../../src/Client";
 import { Discord } from "../../src/decorators/decorators/Discord";
 import { Guard } from "../../src/decorators/decorators/Guard";
@@ -20,15 +21,15 @@ export abstract class CommandTest {
   @SimpleCommand("add", {
     aliases: ["add1", "add2"],
     argSplitter: "~",
-    description: "Addition"
+    description: "Addition",
   })
   add(
     @SimpleCommandOption("x", { description: "x value" })
-      x: number,
+    x: number,
     @SimpleCommandOption("op", { description: "operation value" })
-      op: string,
+    op: string,
     @SimpleCommandOption("y", { description: "y value" })
-      y: number,
+    y: number,
     command: SimpleCommandMessage,
     client: Client,
     datas: Data
@@ -40,13 +41,13 @@ export abstract class CommandTest {
   }
 
   @SimpleCommand("sub", {
-    argSplitter: "|"
+    argSplitter: "|",
   })
   sub(
     @SimpleCommandOption("x", { description: "x value" })
-      x: string,
+    x: string,
     @SimpleCommandOption("y", { description: "y value" })
-      y: string,
+    y: string,
     command: SimpleCommandMessage,
     client: Client,
     datas: Data
@@ -75,7 +76,7 @@ export abstract class CommandTest {
 
   @SimpleCommand("ban", {
     argSplitter:
-      /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm
+      /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
   })
   ban(
     @SimpleCommandOption("id") id: number,

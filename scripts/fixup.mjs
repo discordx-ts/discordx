@@ -13,4 +13,10 @@ shell.cp(
   path.resolve("./build/esm/package.json")
 );
 
+shell.cp(
+  "-f",
+  path.resolve("./scripts/is-cjs.cjs.js"),
+  path.resolve("./build/cjs/util/is-cjs.js")
+);
+
 console.log("fixup complete...");

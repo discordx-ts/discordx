@@ -19,6 +19,7 @@ import {
 import { Method } from "../../decorators/classes/Method.js";
 import _ from "lodash";
 import glob from "glob";
+import { isCjs } from "../../util/is-cjs.js";
 
 /**
  * @category Internal
@@ -194,7 +195,8 @@ export class MetadataStorage {
       const files = glob.sync(path).filter((file) => typeof file === "string");
       files.forEach((file) => {
         if (!imports.includes(file)) {
-          imports.push("file://" + file);
+          const filePath = isCjs ? file : "file://" + file;
+          imports.push(filePath);
         }
       });
     });

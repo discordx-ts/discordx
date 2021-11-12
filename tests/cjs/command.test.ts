@@ -3,9 +3,7 @@ import { Message } from "discord.js";
 import path from "node:path";
 
 const client = new Client({
-  classes: [
-    path.join(__dirname, "command.class.ts"),
-  ],
+  classes: [path.join(__dirname, "command.class.ts")],
   intents: [],
 });
 
