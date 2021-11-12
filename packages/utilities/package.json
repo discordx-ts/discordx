@@ -2,7 +2,7 @@
   "name": "@discordx/utilities",
   "version": "0.0.0",
   "private": false,
-  "description": "discordx utilities",
+  "description": "Add useful features to discordx",
   "keywords": [
     "discord",
     "typescript",

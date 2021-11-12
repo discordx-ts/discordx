@@ -38,17 +38,19 @@
 
 > You can use this library without discordx
 
-A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.Js](https://nodejs.org). Support youtube/spotify songs and playlist.
+A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
 
 - [Lava Player](#lava-player)
 - [YTDL Player](#ytdl-player)
 
-## ⚓ Requirements
+## 💻 Installation
 
-| Name       | Version   |
-| ---------- | --------- |
-| Node.js    | >= 16.6.0 |
-| TypeScript | >= 4.4.4  |
+Version 16.6.0 or newer of Node.js is required
+
+```
+npm install @discordx/music
+yarn add @discordx/music
+```
 
 # Lava Player
 

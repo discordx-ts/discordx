@@ -2,7 +2,7 @@
   "name": "@discordx/music",
   "version": "0.0.0",
   "private": false,
-  "description": "A powerful discord music library written in TypeScript for Node.Js",
+  "description": "A powerful discord music library written in TypeScript for Node.js",
   "keywords": [
     "discord",
     "discordx",

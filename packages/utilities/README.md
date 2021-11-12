@@ -34,19 +34,21 @@
   </p>
 </div>
 
-# @discordx/utilities - Category Decorator
+# @discordx/utilities
 
 Add useful features to discordx, If a feature isn't available, request it.
 
 - [@Category](#category-decorator)
 - [Pagination](#pagination)
 
-## ⚓ Requirements
+## 💻 Installation
 
-| Name       | Version   |
-| ---------- | --------- |
-| Node.js    | >= 16.6.0 |
-| TypeScript | >= 4.4.4  |
+Version 16.6.0 or newer of Node.js is required
+
+```
+npm install @discordx/utilities
+yarn add @discordx/utilities
+```
 
 # Category Decorator
 
