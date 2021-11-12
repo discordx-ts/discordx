@@ -1,0 +1,55 @@
+{
+  "name": "@discordx/importer",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A solution to import files on the module and commonjs at the same time",
+  "keywords": [
+    "typescript",
+    "javascript",
+    "importer",
+    "mjs",
+    "cjs"
+  ],
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/importer#readme",
+  "bugs": {
+    "url": "https://github.com/oceanroleplay/discord.ts/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+  },
+  "license": "Apache-2.0",
+  "contributors": [
+    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
+  ],
+  "exports": {
+    ".": {
+      "import": "./build/mjs/index.mjs",
+      "require": "./build/cjs/index.cjs"
+    }
+  },
+  "main": "build/cjs/index.cjs",
+  "module": "build/esm/index.mjs",
+  "files": [
+    "build",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "npm run build:mjs && npm run build:cjs",
+    "build:cjs": "tsc --p tsconfig.cjs.json",
+    "build:mjs": "tsc",
+    "type-check": "tsc --noemit"
+  },
+  "dependencies": {
+    "glob": "^7.2.0",
+    "typescript": "^4.5.0-beta"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
