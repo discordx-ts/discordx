@@ -4,6 +4,10 @@
 
 - min max options for slash option ([695a32](https://github.com/oceanroleplay/discord.ts/commit/695a3293575af41bda4831c8cb0f2633c0c5744c))
 
+## Fixed
+
+- jest test and slash option ([630c78](https://github.com/oceanroleplay/discord.ts/commit/630c78a133e12f43bfebe768614c3777be74384f))
+
 # v9.0.0 (2021-11-10)
 
 ## Features
