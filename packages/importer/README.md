@@ -57,5 +57,5 @@ console.log(resolve([`${__dirname}/commands/**.js`]));
 ## Import glob paths
 
 ```ts
-console.log(import([`${__dirname}/commands/**.js`]));
+console.log(importx([`${__dirname}/commands/**.js`]));
 ```
