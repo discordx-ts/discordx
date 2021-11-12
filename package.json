@@ -45,11 +45,12 @@
     "package.json"
   ],
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
+    "build": "npm run build:esm && npm run build:cjs",
     "build:changelog": "node scripts/changelog.mjs",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
-    "build:esm": "tsc",
-    "build:fixup": "node scripts/fixup.mjs",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run build:fixup:cjs",
+    "build:esm": "tsc && npm run build:fixup:mjs",
+    "build:fixup:cjs": "npx renamer --find .js --replace .cjs \"build/cjs/**\"",
+    "build:fixup:mjs": "npx renamer --find .js --replace .mjs \"build/esm/**\"",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",
@@ -81,7 +82,6 @@
     "is-ci": "^3.0.1",
     "jest": "^27.3.1",
     "prettier": "2.4.1",
-    "shelljs": "^0.8.4",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
