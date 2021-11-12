@@ -379,8 +379,14 @@ export class MetadataStorage {
     this._subGroups.forEach((subGroup) => {
       const option = DApplicationCommandOption.create(
         subGroup.name,
-        "SUB_COMMAND_GROUP",
-        subGroup.infos?.description
+        undefined,
+        undefined,
+        subGroup.infos?.description,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        "SUB_COMMAND_GROUP"
       ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup

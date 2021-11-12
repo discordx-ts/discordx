@@ -64,12 +64,14 @@ export function SlashOption(
 
     const option = DApplicationCommandOption.create(
       name,
-      type,
-      params?.description,
-      params?.required,
       params?.autocomplete,
       params?.channelTypes,
-      index
+      params?.description,
+      index,
+      params?.maxValue,
+      params?.minValue,
+      params?.required,
+      type
     ).decorate(target.constructor, key, target[key], target.constructor, index);
 
     option.isNode = true;

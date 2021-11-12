@@ -5,6 +5,7 @@ import {
 } from "discord-api-types/v9.js";
 import {
   ApplicationCommandData,
+  ApplicationCommandOptionData,
   ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
@@ -156,8 +157,14 @@ export class DApplicationCommand extends Method {
   toSubCommand(): DApplicationCommandOption {
     const option = DApplicationCommandOption.create(
       this.name,
-      "SUB_COMMAND",
-      this.description
+      undefined,
+      undefined,
+      this.description,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      "SUB_COMMAND"
     ).decorate(this.classRef, this.key, this.method, this.from, this.index);
     option.options = this.options;
 
@@ -169,7 +176,7 @@ export class DApplicationCommand extends Method {
   ): Promise<ApplicationCommandData> {
     const options = [...this.options]
       .reverse()
-      .map((option) => option.toJSON());
+      .map((option) => option.toJSON() as ApplicationCommandOptionData);
 
     if (this.type === "CHAT_INPUT") {
       return {

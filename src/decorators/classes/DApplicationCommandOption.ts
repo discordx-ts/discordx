@@ -1,10 +1,10 @@
 import {
+  ApplicationCommandOptionDatax,
   ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
   SlashOptionType,
 } from "../../index.js";
-import { ApplicationCommandOptionData } from "discord.js";
 import { Decorator } from "./Decorator.js";
 
 /**
@@ -17,6 +17,8 @@ export class DApplicationCommandOption extends Decorator {
   private _description: string;
   private _isNode = false;
   private _name: string;
+  private _maxValue?: number;
+  private _minValue?: number;
   private _options: DApplicationCommandOption[] = [];
   private _required = false;
   private _type: SlashOptionType;
@@ -47,6 +49,20 @@ export class DApplicationCommandOption extends Decorator {
   }
   set name(value: string) {
     this._name = value;
+  }
+
+  get maxValue(): number | undefined {
+    return this._maxValue;
+  }
+  set maxValue(value: number | undefined) {
+    this._maxValue = value;
+  }
+
+  get minValue(): number | undefined {
+    return this._minValue;
+  }
+  set minValue(value: number | undefined) {
+    this._minValue = value;
   }
 
   get type(): SlashOptionType {
@@ -85,50 +101,58 @@ export class DApplicationCommandOption extends Decorator {
   }
   protected constructor(
     name: string,
-    type?: SlashOptionType,
-    description?: string,
-    required?: boolean,
     autocomplete?: SlashAutoCompleteOption,
     channelType?: ChannelTypes[],
-    index?: number
+    description?: string,
+    index?: number,
+    maxValue?: number,
+    minValue?: number,
+    required?: boolean,
+    type?: SlashOptionType
   ) {
     super();
 
     this._name = name;
-    this._type = type ?? "STRING";
-    this._description = description ?? `${name} - ${this.type}`;
-    this._required = required ?? false;
-    this._channelTypes = channelType?.sort();
-    this._index = index;
     this._autocomplete = autocomplete;
+    this._channelTypes = channelType?.sort();
+    this._description = description ?? `${name} - ${this.type}`;
+    this._index = index;
+    this._maxValue = maxValue;
+    this._minValue = minValue;
+    this._required = required ?? false;
+    this._type = type ?? "STRING";
   }
 
   static create(
     name: string,
-    type?: SlashOptionType,
-    description?: string,
-    required?: boolean,
     autocomplete?: SlashAutoCompleteOption,
     channelType?: ChannelTypes[],
-    index?: number
+    description?: string,
+    index?: number,
+    maxValue?: number,
+    minValue?: number,
+    required?: boolean,
+    type?: SlashOptionType
   ): DApplicationCommandOption {
     return new DApplicationCommandOption(
       name,
-      type,
-      description,
-      required,
       autocomplete,
       channelType,
-      index
+      description,
+      index,
+      maxValue,
+      minValue,
+      required,
+      type
     );
   }
 
-  toJSON(): ApplicationCommandOptionData {
+  toJSON(): ApplicationCommandOptionDatax {
     const options = [...this.options]
       .reverse()
       .map((option) => option.toJSON());
 
-    const data: ApplicationCommandOptionData = {
+    const data: ApplicationCommandOptionDatax = {
       autocomplete: this.autocomplete ? true : undefined,
       channelTypes: this.channelTypes,
       choices:
@@ -136,9 +160,10 @@ export class DApplicationCommandOption extends Decorator {
           ? undefined
           : this.choices.map((choice) => choice.toJSON()),
       description: this.description,
+      maxValue: this.maxValue,
+      minValue: this.minValue,
       name: this.name,
-      options:
-        options.length === 0 ? undefined : (options as unknown as undefined),
+      options: options.length === 0 ? undefined : options,
       required: !this.isNode ? undefined : this.required,
       type: this.type,
     };

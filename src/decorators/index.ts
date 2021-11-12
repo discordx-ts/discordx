@@ -32,3 +32,4 @@ export * from "./params/EventParams.js";
 export * from "./params/SimpleCommandParams.js";
 export * from "./params/SlashOptionParams.js";
 export * from "./params/SlashParams.js";
+export * from "./params/djs.js";
