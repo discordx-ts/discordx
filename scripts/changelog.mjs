@@ -258,5 +258,12 @@ generateDoc(
   "packages/utilities/src",
   "./packages/utilities/CHANGELOG.md"
 );
+generateDoc(
+  "oceanroleplay/discord.ts",
+  "i-v*",
+  "i-",
+  "packages/importer/src",
+  "./packages/importer/CHANGELOG.md"
+);
 
 console.log("Changelog generated...");
