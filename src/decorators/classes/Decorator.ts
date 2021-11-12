@@ -81,7 +81,7 @@ export class Decorator {
     this._classRef = classRef;
     this._key = key;
     this._method = method;
-    this._index = index as number;
+    this._index = index;
     return this;
   }
 }
