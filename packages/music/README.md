@@ -43,6 +43,13 @@ A powerful discord music library written in [TypeScript](https://www.typescriptl
 - [Lava Player](#lava-player)
 - [YTDL Player](#ytdl-player)
 
+## ⚓ Requirements
+
+| Name       | Version   |
+| ---------- | --------- |
+| Node.js    | >= 16.6.0 |
+| TypeScript | >= 4.4.4  |
+
 # Lava Player
 
 ## Getting Started

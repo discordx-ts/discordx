@@ -36,6 +36,20 @@
 
 # @discordx/utilities - Category Decorator
 
+Add useful features to discordx, If a feature isn't available, request it.
+
+- [@Category](#category-decorator)
+- [Pagination](#pagination)
+
+## ⚓ Requirements
+
+| Name       | Version   |
+| ---------- | --------- |
+| Node.js    | >= 16.6.0 |
+| TypeScript | >= 4.4.4  |
+
+# Category Decorator
+
 ## Example
 
 ```ts
@@ -57,7 +71,7 @@ import { CategoryMetaData } from "@discord/utilities";
 CategoryMetaData.categories; // access categories metadata
 ```
 
-# @discordx/utilities - Embed Pagination
+# Pagination
 
 - Embed pagination with discord's new buttons and select menu
 - fully customizable (You can open an issue if you find something missing, so that we can fix it)
