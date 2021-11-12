@@ -1,27 +1,8 @@
 {
   "name": "@discordx/utilities",
   "version": "0.0.0",
-  "description": "discordx utilities",
   "private": false,
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "exports": {
-    ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
-    }
-  },
-  "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
-    "build:fixup": "node ../../scripts/fixup-utilities.mjs",
-    "type-check": "tsc --noemit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
-  },
+  "description": "discordx utilities",
   "keywords": [
     "discord",
     "typescript",
@@ -31,14 +12,41 @@
     "discordx",
     "discord.ts"
   ],
-  "contributors": [
-    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
-  ],
-  "license": "MIT",
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issues"
   },
-  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+  },
+  "license": "Apache-2.0",
+  "contributors": [
+    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
+  ],
+  "exports": {
+    ".": {
+      "import": "./build/esm/index.js",
+      "require": "./build/cjs/index.js"
+    }
+  },
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "files": [
+    "build",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
+    "build:esm": "tsc",
+    "build:fixup": "node ../../scripts/fixup-utilities.mjs",
+    "type-check": "tsc --noemit"
+  },
   "dependencies": {
     "discord.js": "^13.4.0-dev.1636675518.5e0a7d5",
     "discordx": "^10.0.0-dev.1636568467.16689ed",

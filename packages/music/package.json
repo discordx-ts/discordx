@@ -1,27 +1,8 @@
 {
   "name": "@discordx/music",
   "version": "0.0.0",
-  "description": "A powerful discord music library written in TypeScript for Node.Js",
   "private": false,
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "exports": {
-    ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
-    }
-  },
-  "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
-    "build:fixup": "node ../../scripts/fixup-music.mjs",
-    "type-check": "tsc --noemit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
-  },
+  "description": "A powerful discord music library written in TypeScript for Node.Js",
   "keywords": [
     "discord",
     "discordx",
@@ -33,14 +14,41 @@
     "youtube",
     "spotify"
   ],
-  "contributors": [
-    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
-  ],
-  "license": "MIT",
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/music#readme",
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issues"
   },
-  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/music#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+  },
+  "license": "Apache-2.0",
+  "contributors": [
+    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
+  ],
+  "exports": {
+    ".": {
+      "import": "./build/esm/index.js",
+      "require": "./build/cjs/index.js"
+    }
+  },
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "files": [
+    "build",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
+    "build:esm": "tsc",
+    "build:fixup": "node ../../scripts/fixup-music.mjs",
+    "type-check": "tsc --noemit"
+  },
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
     "@discordjs/voice": "^0.7.3",
