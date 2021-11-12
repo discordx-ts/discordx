@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
-    "@discordjs/voice": "^0.7.4",
+    "@discordjs/voice": "^0.7.5",
     "@types/backoff": "^2.5.2",
     "ansi-regex": "^6.0.1",
     "backoff": "^2.5.0",
