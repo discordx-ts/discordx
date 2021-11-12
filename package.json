@@ -14,7 +14,7 @@
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
     "build:esm": "tsc",
-    "build:cjs": "tsc --outDir build/cjs",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
     "build:fixup": "node scripts/fixup.mjs",
     "build:changelog": "node scripts/changelog.mjs",
     "format": "prettier --write .",
