@@ -115,7 +115,7 @@ export class DApplicationCommandOption extends Decorator {
     this._name = name;
     this._autocomplete = autocomplete;
     this._channelTypes = channelType?.sort();
-    this._description = description ?? `${name} - ${this.type}`;
+    this._description = description ?? `${name} - ${type ?? "STRING"}`;
     this._index = index;
     this._maxValue = maxValue;
     this._minValue = minValue;
