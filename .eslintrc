@@ -6,7 +6,6 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "ignorePatterns": ["packages/importer/**"],
   "rules": {
     // typescript-sort-keys
     "typescript-sort-keys/interface": "error",
