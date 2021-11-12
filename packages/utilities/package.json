@@ -41,10 +41,11 @@
     "package.json"
   ],
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
-    "build:esm": "tsc",
-    "build:fixup": "node ../../scripts/fixup-utilities.mjs",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run build:fixup:cjs",
+    "build:esm": "tsc && npm run build:fixup:mjs",
+    "build:fixup:cjs": "npx renamer --find .js --replace .cjs \"build/cjs/**\"",
+    "build:fixup:mjs": "npx renamer --find .js --replace .mjs \"build/esm/**\"",
     "type-check": "tsc --noemit"
   },
   "dependencies": {

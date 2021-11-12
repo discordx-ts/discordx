@@ -174,10 +174,6 @@ export class Client extends ClientJS {
    */
   constructor(options: ClientOptions) {
     super(options);
-    MetadataStorage.classes = [
-      ...MetadataStorage.classes,
-      ...(options?.classes ?? []),
-    ];
 
     this._silent = !!options?.silent;
     this.guards = options.guards ?? [];
@@ -191,7 +187,6 @@ export class Client extends ClientJS {
   /**
    * Start your bot
    * @param token The bot token
-   * @param loadClasses A list of glob path or classes
    */
   async login(token: string): Promise<string> {
     await this.decorators.build();
@@ -1222,7 +1217,7 @@ export class Client extends ClientJS {
   /**
    * Manually build the app
    */
-  async build(classes?: string[]): Promise<void> {
-    await this.decorators.build(classes);
+  async build(): Promise<void> {
+    await this.decorators.build();
   }
 }

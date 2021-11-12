@@ -45,11 +45,12 @@
     "package.json"
   ],
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run build:fixup",
+    "build": "npm run build:esm && npm run build:cjs",
     "build:changelog": "node scripts/changelog.mjs",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs",
-    "build:esm": "tsc",
-    "build:fixup": "node scripts/fixup.mjs",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run build:fixup:cjs",
+    "build:esm": "tsc && npm run build:fixup:mjs",
+    "build:fixup:cjs": "npx renamer --find .js --replace .cjs \"build/cjs/**\"",
+    "build:fixup:mjs": "npx renamer --find .js --replace .mjs \"build/esm/**\"",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",
@@ -60,7 +61,6 @@
   "dependencies": {
     "discord-api-types": "^0.24.0",
     "discord.js": "^13.4.0-dev.1636675518.5e0a7d5",
-    "glob": "^7.2.0",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.3.1",
@@ -69,10 +69,8 @@
   "devDependencies": {
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-angular": "^14.1.0",
-    "@types/glob": "^7.2.0",
     "@types/lodash": "^4.14.176",
     "@types/node": "^16.11.7",
-    "@types/shelljs": "^0.8.9",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "eslint": "^8.2.0",
@@ -81,7 +79,6 @@
     "is-ci": "^3.0.1",
     "jest": "^27.3.1",
     "prettier": "2.4.1",
-    "shelljs": "^0.8.4",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"

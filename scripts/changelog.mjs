@@ -77,6 +77,7 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
     const typesStore = [];
     const workflowStore = [];
     const allStore = [];
+    const breakingStore = [];
 
     commitsArray.forEach((commit) => {
       const formatedCommit = (replace) =>
@@ -89,6 +90,8 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
 
       if (commit.message.startsWith("chore: ")) {
         choreStore.push(formatedCommit("chore"));
+      } else if (commit.message.startsWith("BREAKING CHANGE: ")) {
+        breakingStore.push(formatedCommit("BREAKING CHANGE"));
       } else if (commit.message.startsWith("build: ")) {
         buildStore.push(formatedCommit("build"));
       } else if (commit.message.startsWith("ci: ")) {
@@ -125,6 +128,14 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
 
     if (tagReplacer) {
       newChangelog = newChangelog.replace(tagReplacer, "");
+    }
+
+    if (breakingStore.length) {
+      newChangelog += "## BREAKING CHANGES\n";
+      breakingStore.forEach((cm) => {
+        newChangelog += cm;
+      });
+      newChangelog += "\n";
     }
 
     if (featStore.length) {

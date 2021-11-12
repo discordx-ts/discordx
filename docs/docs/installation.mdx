@@ -214,10 +214,6 @@ Be aware that if you compile your code into JavaScript with `tsc` you have to sp
 
 ```ts
 const client = new Client({
-  classes: [
-    // glob string to load the classes. If you compile your bot, the file extension will be .js
-    `${__dirname}/discords/*.{js,ts}`,
-  ],
   intents: [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
