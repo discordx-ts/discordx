@@ -47,7 +47,7 @@
     "@types/backoff": "^2.5.2",
     "ansi-regex": "^6.0.1",
     "backoff": "^2.5.0",
-    "discord.js": "^13.4.0-dev.1636632461.3c857a6",
+    "discord.js": "^13.4.0-dev.1636675518.5e0a7d5",
     "ffmpeg-static": "^4.4.0",
     "libsodium-wrappers": "^0.7.9",
     "lodash": "^4.17.21",
