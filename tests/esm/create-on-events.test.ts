@@ -1,4 +1,4 @@
-import { Client, Discord, Guard, GuardFunction, On } from "../src/index.js";
+import { Client, Discord, Guard, GuardFunction, On } from "../../src/index.js";
 
 const guard1: GuardFunction = async (
   [message]: [string],

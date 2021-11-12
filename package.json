@@ -54,7 +54,7 @@
     "format-check": "prettier --check .",
     "lint": "eslint ./",
     "prepare": "is-ci || husky install",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles && jest --config=jest.cjs.config.cjs --detectOpenHandles",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
