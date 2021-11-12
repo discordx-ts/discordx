@@ -1,8 +1,16 @@
 # Stage
 
+## BREAKING CHANGES
+
+- removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
+
 ## Features
 
 - min max options for slash option ([695a32](https://github.com/oceanroleplay/discord.ts/commit/695a3293575af41bda4831c8cb0f2633c0c5744c))
+
+## Changed
+
+- decorator.ts ([f7f5e6](https://github.com/oceanroleplay/discord.ts/commit/f7f5e6b856b81bdcef221077ac92db9e6a81c507))
 
 ## Fixed
 
