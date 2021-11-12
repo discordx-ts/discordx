@@ -6,6 +6,7 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
+  "extensions": ["ts", "mts"],
   "rules": {
     // typescript-sort-keys
     "typescript-sort-keys/interface": "error",
