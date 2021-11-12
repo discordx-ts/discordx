@@ -118,9 +118,10 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
       return;
     }
 
-    let newChangelog = `# ${tag === "head" ? "Stage" : tag} (${
-      new Date(tagDate).toISOString().split("T")[0]
-    })\n\n`;
+    let newChangelog =
+      tag === "head"
+        ? "# Stage\n\n"
+        : `# ${tag} (${new Date(tagDate).toISOString().split("T")[0]})\n\n`;
 
     if (tagReplacer) {
       newChangelog = newChangelog.replace(tagReplacer, "");

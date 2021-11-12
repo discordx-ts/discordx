@@ -1,3 +1,9 @@
+# Stage
+
+## Routine Tasks
+
+- readme and package ([069562](https://github.com/oceanroleplay/discord.ts/commit/06956230dabb5f56e37783666549b0737359968a))
+
 # v3.0.9 (2021-11-11)
 
 ## Features

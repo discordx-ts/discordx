@@ -1,4 +1,4 @@
-# Stage (2021-11-11)
+# Stage
 
 ## Routine Tasks
 
