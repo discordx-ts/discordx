@@ -38,7 +38,8 @@
   "scripts": {
     "build": "npm run build:mjs && npm run build:cjs",
     "build:cjs": "tsc --p tsconfig.cjs.json",
-    "build:mjs": "tsc"
+    "build:mjs": "tsc",
+    "type-check": "tsc --noemit"
   },
   "dependencies": {
     "glob": "^7.2.0",
