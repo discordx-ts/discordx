@@ -31,11 +31,13 @@
   "exports": {
     ".": {
       "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
+      "require": "./build/cjs/index.js",
+      "types": "./build/esm/index.d.ts"
     }
   },
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
+  "types": "build/esm/index.d.ts",
   "files": [
     "build",
     "LICENSE",

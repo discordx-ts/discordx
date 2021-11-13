@@ -16,7 +16,9 @@ export function resolve(paths: string[]): string[] {
   return imports;
 }
 
-export function importx(paths: string[]): void {
+// esm and cjs will fail if async is removed from this function
+// eslint-disable-next-line require-await
+export async function importx(paths: string[]): Promise<void> {
   const files = resolve(paths);
   files.map((path) => require(path));
 }
