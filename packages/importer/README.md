@@ -36,6 +36,8 @@
 
 # @discordx/importer
 
+> You can use this library without discordx
+
 Support esm and cjs at the same time
 
 # Usage
