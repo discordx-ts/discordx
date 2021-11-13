@@ -63,9 +63,7 @@ Here is an example that could be used with the commonjs or esm modules
 ### Module - CommonJS
 
 ```ts
-importx(`${__dirname}/commands/**.js`).then(() => {
-  console.log("all classes are loaded");
-});
+importx(`${__dirname}/commands/**.js`);
 ```
 
 ### Module - ESNext
@@ -76,9 +74,7 @@ Remember: In esm, `__dirname` is not defined, so here is a workaround
 import { dirname, importx } from "@discordx/importer";
 const __dirname = dirname(import.meta.url);
 
-importx(`${__dirname}/commands/**.js`).then(() => {
-  console.log("all classes are loaded");
-});
+importx(`${__dirname}/commands/**.js`);
 ```
 
 ### Combine - CommonJS and ESNext
@@ -89,7 +85,5 @@ If you are creating a module or extension of your own library, you can set it to
 import { dirname, importx, isESM } from "@discordx/importer";
 const folder = isESM ? dirname(import.meta.url) : __dirname;
 
-importx(`${folder}/commands/**.js`).then(() => {
-  console.log("all classes are loaded");
-});
+importx(`${folder}/commands/**.js`);
 ```
