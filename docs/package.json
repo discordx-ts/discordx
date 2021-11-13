@@ -23,7 +23,7 @@
     "@svgr/webpack": "^5.5.0",
     "ansi-regex": "^6.0.1",
     "clsx": "^1.1.1",
-    "docusaurus-plugin-typedoc": "^0.16.3",
+    "docusaurus-plugin-typedoc": "^0.16.4",
     "file-loader": "^6.2.0",
     "nth-check": "^2.0.1",
     "prism-react-renderer": "^1.2.1",
