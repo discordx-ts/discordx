@@ -95,6 +95,8 @@ module.exports = {
           remarkPlugins: [
             [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
           ],
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
           sidebarCollapsed: false,
           sidebarCollapsible: true,
           sidebarPath: require.resolve("./sidebars.js"),
@@ -124,21 +126,12 @@ module.exports = {
         id: "api-1",
         out: "api/main",
         readme: "none",
+        sidebar: {
+          categoryLabel: "discordx",
+          fullNames: true,
+          position: 0,
+        },
         tsconfig: "../tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/utilities/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-2",
-        out: "api/utilities",
-        readme: "none",
-        tsconfig: "../packages/utilities/tsconfig.json",
       },
     ],
     [
@@ -152,7 +145,31 @@ module.exports = {
         id: "api-3",
         out: "api/music",
         readme: "none",
+        sidebar: {
+          categoryLabel: "@discordx/music",
+          fullNames: true,
+          position: 0,
+        },
         tsconfig: "../packages/music/tsconfig.json",
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      // Plugin / TypeDoc options
+      {
+        entryPoints: ["../packages/utilities/src/index.ts"],
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+        id: "api-2",
+        out: "api/utilities",
+        readme: "none",
+        sidebar: {
+          categoryLabel: "@discordx/utilities",
+          fullNames: true,
+          position: 0,
+        },
+        tsconfig: "../packages/utilities/tsconfig.json",
       },
     ],
   ],
