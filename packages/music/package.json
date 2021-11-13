@@ -29,13 +29,11 @@
   "exports": {
     ".": {
       "import": "./build/esm/index.mjs",
-      "require": "./build/cjs/index.cjs",
-      "types": "./build/esm/index.d.ts"
+      "require": "./build/cjs/index.cjs"
     }
   },
   "main": "build/cjs/index.cjs",
   "module": "build/esm/index.mjs",
-  "types": "./build/esm/index.d.ts",
   "files": [
     "build",
     "LICENSE",
@@ -46,10 +44,10 @@
   ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run build:fixup:cjs",
-    "build:esm": "tsc && npm run build:fixup:mjs",
-    "build:fixup:cjs": "npx renamer --find .js --replace .cjs \"build/cjs/**\"",
-    "build:fixup:mjs": "npx renamer --find .js --replace .mjs \"build/esm/**\"",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
+    "build:esm": "tsc && npm run postbuild:esm",
+    "postbuild:cjs": "node scripts/postbuild.mjs --module=cjs --path=build/cjs",
+    "postbuild:esm": "node scripts/postbuild.mjs --module=esm --path=build/esm",
     "build:fixup": "node ../../scripts/fixup-music.mjs",
     "type-check": "tsc --noemit"
   },
