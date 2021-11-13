@@ -1,4 +1,4 @@
-import { isESM, resolve, importx } from "../build/esm/index.mjs";
+import { importx, isESM, resolve } from "../build/esm/index.js";
 import { fileURLToPath } from "url";
 import path from "path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

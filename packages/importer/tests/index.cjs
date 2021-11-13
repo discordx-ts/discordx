@@ -1,4 +1,4 @@
-const importer = require("../build/cjs/index.cjs");
+const importer = require("../build/cjs/index.js");
 
 console.log(`isESM: ${importer.isESM}`);
 
