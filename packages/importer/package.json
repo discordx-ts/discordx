@@ -40,8 +40,8 @@
     "build": "npm run build:esm && npm run build:cjs",
     "build:cjs": "tsc --p tsconfig.cjs.json && npm run postbuild:cjs",
     "build:esm": "tsc && npm run postbuild:esm",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --module=cjs --path=packages/importer/build/cjs",
-    "postbuild:esm": "node ../../scripts/postbuild.mjs --module=esm --path=packages/importer/build/esm",
+    "postbuild:cjs": "node ../../scripts/postbuild.mjs --module=cjs --path=build/cjs",
+    "postbuild:esm": "node ../../scripts/postbuild.mjs --module=esm --path=build/esm",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
