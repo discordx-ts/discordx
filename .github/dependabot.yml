@@ -9,26 +9,37 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+      time: "00:15"
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
     directory: "/docs"
     schedule:
       interval: "daily"
+      time: "00:15"
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
-    directory: "/packages/utilities"
+    directory: "/packages/importer"
     schedule:
       interval: "daily"
-    ignore:
-      - dependency-name: "discordx"
+      time: "00:15"
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
     directory: "/packages/music"
     schedule:
       interval: "daily"
+      time: "00:15"
+    ignore:
+      - dependency-name: "discordx"
+    versioning-strategy: increase
+
+  - package-ecosystem: "npm"
+    directory: "/packages/utilities"
+    schedule:
+      interval: "daily"
+      time: "00:15"
     ignore:
       - dependency-name: "discordx"
     versioning-strategy: increase
