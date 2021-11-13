@@ -63,7 +63,9 @@ Here is an example that could be used with the commonjs or esm modules
 ### Module - CommonJS
 
 ```ts
-importx(`${__dirname}/commands/**.js`);
+importx(`${__dirname}/commands/**.js`).then(() =>
+  console.log("All files imported")
+);
 ```
 
 ### Module - ESNext
@@ -74,7 +76,9 @@ Remember: In esm, `__dirname` is not defined, so here is a workaround
 import { dirname, importx } from "@discordx/importer";
 const __dirname = dirname(import.meta.url);
 
-importx(`${__dirname}/commands/**.js`);
+importx(`${__dirname}/commands/**.js`).then(() =>
+  console.log("All files imported")
+);
 ```
 
 ### Combine - CommonJS and ESNext
@@ -85,7 +89,9 @@ If you are creating a module or extension of your own library, you can set it to
 import { dirname, importx, isESM } from "@discordx/importer";
 const folder = isESM ? dirname(import.meta.url) : __dirname;
 
-importx(`${folder}/commands/**.js`);
+importx(`${folder}/commands/**.js`).then(() =>
+  console.log("All files imported")
+);
 ```
 
 ### Use relative path
@@ -96,5 +102,5 @@ You can use relative path, which will be more convinient to write code by elemin
 import { importx } from "@discordx/importer";
 
 // relative path start from root folder
-importx("./tests/commands/**.js");
+importx("./tests/commands/**.js").then(() => console.log("All files imported"));
 ```

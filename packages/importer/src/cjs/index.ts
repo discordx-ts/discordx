@@ -28,7 +28,7 @@ export function resolve(...paths: string[]): string[] {
   return imports;
 }
 
-export function importx(...paths: string[]): void {
+export async function importx(...paths: string[]): Promise<void> {
   const files = resolve(...paths);
-  files.forEach((file) => require(file));
+  await Promise.all(files.map((file) => require(file)));
 }

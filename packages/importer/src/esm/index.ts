@@ -1,9 +1,6 @@
-import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import glob from "glob";
 import path from "path";
-
-const require = createRequire(import.meta.url);
 
 export const isESM = true;
 
@@ -24,7 +21,7 @@ export function resolve(...paths: string[]): string[] {
 
     files.forEach((file) => {
       if (!imports.includes(file)) {
-        imports.push(file);
+        imports.push("file://" + file);
       }
     });
   });
@@ -32,7 +29,7 @@ export function resolve(...paths: string[]): string[] {
   return imports;
 }
 
-export function importx(...paths: string[]): void {
+export async function importx(...paths: string[]): Promise<void> {
   const files = resolve(...paths);
-  files.forEach((file) => require(file));
+  await Promise.all(files.map((file) => import(file)));
 }
