@@ -1,11 +1,17 @@
+import { fileURLToPath } from "url";
 import glob from "glob";
+import path from "path";
 
 export const isESM = false;
 
-export function resolve(paths: string[]): string[] {
+export function dirname(url: string): string {
+  return path.dirname(fileURLToPath(url));
+}
+
+export function resolve(...paths: string[]): string[] {
   const imports: string[] = [];
-  paths.forEach((path) => {
-    const files = glob.sync(path).filter((file) => typeof file === "string");
+  paths.forEach((pathx) => {
+    const files = glob.sync(pathx).filter((file) => typeof file === "string");
     files.forEach((file) => {
       if (!imports.includes(file)) {
         imports.push(file);
@@ -16,9 +22,7 @@ export function resolve(paths: string[]): string[] {
   return imports;
 }
 
-// esm and cjs will fail if async is removed from this function
-// eslint-disable-next-line require-await
-export async function importx(paths: string[]): Promise<void> {
-  const files = resolve(paths);
-  files.map((path) => require(path));
+export function importx(...paths: string[]): void {
+  const files = resolve(...paths);
+  files.forEach((file) => require(file));
 }

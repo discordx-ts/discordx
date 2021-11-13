@@ -51,11 +51,43 @@ console.log(`isESM: ${isESM}`);
 ## Resolve glob paths
 
 ```ts
-console.log(resolve([`${__dirname}/commands/**.js`]));
+console.log(resolve(`${__dirname}/commands/**.js`));
 ```
 
 ## Import glob paths
 
+Here is an example that could be used with the commonjs or esm modules
+
+### Module - CommonJS
+
 ```ts
-console.log(importx([`${__dirname}/commands/**.js`]));
+importx(`${__dirname}/commands/**.js`).then(() => {
+  console.log("all classes are loaded");
+});
+```
+
+### Module - ESNext
+
+Remember: In esm, `__dirname` is not defined, so here is a workaround
+
+```ts
+import { dirname, importx } from "@discordx/importer";
+const __dirname = dirname(import.meta.url);
+
+importx(`${__dirname}/commands/**.js`).then(() => {
+  console.log("all classes are loaded");
+});
+```
+
+### Combine - CommonJS and ESNext
+
+If you are creating a module or extension of your own library, you can set it to auto-import paths based on the user module
+
+```ts
+import { dirname, importx, isESM } from "@discordx/importer";
+const folder = isESM ? dirname(import.meta.url) : __dirname;
+
+importx(`${folder}/commands/**.js`).then(() => {
+  console.log("all classes are loaded");
+});
 ```

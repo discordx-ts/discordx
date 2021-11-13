@@ -1,10 +1,8 @@
-import { importx, isESM, resolve } from "../build/esm/index.js";
-import { fileURLToPath } from "url";
-import path from "path";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { dirname, importx, isESM, resolve } from "../build/esm/index.js";
+const __dirname = dirname(import.meta.url);
 
 console.log(`isESM: ${isESM}`);
 
-console.log(resolve([`${__dirname}/commands/**.js`]));
+console.log(resolve(`${__dirname}/commands/**.js`));
 
-await importx([`${__dirname}/commands/**.js`]);
+importx(`${isESM ? dirname(import.meta.url) : __dirname}/commands/**.js`);
