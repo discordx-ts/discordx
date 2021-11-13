@@ -3,6 +3,6 @@ const __dirname = dirname(import.meta.url);
 
 console.log(`isESM: ${isESM}`);
 
-console.log(resolve(`${__dirname}/commands/**.js`));
+console.log(resolve("./tests/commands/**.js"));
 
 importx(`${isESM ? dirname(import.meta.url) : __dirname}/commands/**.js`);

@@ -87,3 +87,14 @@ const folder = isESM ? dirname(import.meta.url) : __dirname;
 
 importx(`${folder}/commands/**.js`);
 ```
+
+### Use relative path
+
+You can use relative path, which will be more convinient to write code by eleminating DIRNAME
+
+```ts
+import { importx } from "@discordx/importer";
+
+// relative path start from root folder
+importx("./tests/commands/**.js");
+```
