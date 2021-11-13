@@ -11,7 +11,7 @@
 - rename esnext to ESNext ([0509ac](https://github.com/oceanroleplay/discord.ts/commit/0509ac1b1d0bf4b048dbf332b84c9a4b82e67c63))
 - doc: installation ([47e4b0](https://github.com/oceanroleplay/discord.ts/commit/47e4b032643b250155cf2d99698f3f6cc9eaa54e))
 
-# v9.0.0 (2021-11-10)
+# [v9.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.0.0) (2021-11-10)
 
 ## Features
 
@@ -22,7 +22,7 @@
 - doc: update guard.md ([89f3c6](https://github.com/oceanroleplay/discord.ts/commit/89f3c64535991e7f19ea7f7ab459cce614f68d38))
 - doc: installation ([c09cf8](https://github.com/oceanroleplay/discord.ts/commit/c09cf8099ce7594558e5398cd9a9b5c60adfe9a3))
 
-# v8.1.0 (2021-11-03)
+# [v8.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v8.1.0) (2021-11-03)
 
 ## Changed
 
@@ -35,7 +35,7 @@
 - Update guard.md ([b02aa3](https://github.com/oceanroleplay/discord.ts/commit/b02aa3a4d90deddb5f1beb18246403a33ddca441))
 - Fix GuardDatas Incorrect Example ([115b90](https://github.com/oceanroleplay/discord.ts/commit/115b9001ce93adcba64968b9cac217f75b41c50d))
 
-# v8.0.0 (2021-10-30)
+# [v8.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v8.0.0) (2021-10-30)
 
 ## Features
 
@@ -45,7 +45,7 @@
 
 - improve doc ([73ca28](https://github.com/oceanroleplay/discord.ts/commit/73ca284b3bcc0dbbb009af27554227a80842c9aa))
 
-# v7.1.0 (2021-10-27)
+# [v7.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v7.1.0) (2021-10-27)
 
 ## Untagged
 
@@ -53,7 +53,7 @@
 - code improvement ([a5bff8](https://github.com/oceanroleplay/discord.ts/commit/a5bff83277bb9eb608e9c82c085f86fb0aaa6259))
 - update: add command in IGUILD ([efebaf](https://github.com/oceanroleplay/discord.ts/commit/efebaf7b4f1f28ef0edce59e596d6e16e121a58d))
 
-# v7.0.0 (2021-10-20)
+# [v7.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v7.0.0) (2021-10-20)
 
 ## Untagged
 
@@ -61,7 +61,7 @@
 - remove unwanted null ([6b0048](https://github.com/oceanroleplay/discord.ts/commit/6b0048e77a19b9d78b218e34d8dbb0b2106c6e64))
 - update installation.mdx ([9df633](https://github.com/oceanroleplay/discord.ts/commit/9df6335b93014418b89585cf5299b6f33eaed064))
 
-# v6.2.0 (2021-10-13)
+# [v6.2.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v6.2.0) (2021-10-13)
 
 ## Documenations
 
@@ -91,7 +91,7 @@
 - readme ([aca191](https://github.com/oceanroleplay/discord.ts/commit/aca191c1d08ee3aabcad17ce589e8e9b7eaf6adf))
 - doc: simplecommand ([1ccab4](https://github.com/oceanroleplay/discord.ts/commit/1ccab489354c043b62785ebb8329ed1099eb7949))
 
-# v6.0.5 (2021-09-29)
+# [v6.0.5](https://github.com/oceanroleplay/discord.ts/releases/tag/v6.0.5) (2021-09-29)
 
 ## Documenations
 
@@ -114,7 +114,7 @@
 - dep update ([3532c7](https://github.com/oceanroleplay/discord.ts/commit/3532c7935dec8a5d26b7af2845b1f420957fbf72))
 - doc: installation ([abc06a](https://github.com/oceanroleplay/discord.ts/commit/abc06a161f1a11094aeac6e144b7221b36884f80))
 
-# v5.9.4 (2021-09-21)
+# [v5.9.4](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.9.4) (2021-09-21)
 
 ## Untagged
 
@@ -127,14 +127,14 @@
 - doc: permission ([ce1b7b](https://github.com/oceanroleplay/discord.ts/commit/ce1b7b6b1b5589058e5b28f9e02e7ede9adc6c3d))
 - remove @DefaultPermission usage ([2109f8](https://github.com/oceanroleplay/discord.ts/commit/2109f801ccafb474e7fa7bf3aeb432ea8a3a42ea))
 
-# v5.9.0 (2021-09-14)
+# [v5.9.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.9.0) (2021-09-14)
 
 ## Untagged
 
 - doc client ([e0355d](https://github.com/oceanroleplay/discord.ts/commit/e0355dba7c94b348b33216bb0bdb6432c4d7b1d8))
 - removed static botGuilds and guards from Client ([df164f](https://github.com/oceanroleplay/discord.ts/commit/df164f29dfc0e08eb161c2e8c5afb6ae391b4a9e))
 
-# v5.8.2 (2021-09-07)
+# [v5.8.2](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.8.2) (2021-09-07)
 
 ## Documenations
 
@@ -158,7 +158,7 @@
 - fixed simple command mention in DM ([0e4d01](https://github.com/oceanroleplay/discord.ts/commit/0e4d01081e75605c4008f4b36cba09d04f00787b))
 - improved/fixed @SimpleCommandOption ([8f1a9f](https://github.com/oceanroleplay/discord.ts/commit/8f1a9f66cd5926b083404bcc2b798240bd9dc3cc))
 
-# v5.7.0 (2021-08-24)
+# [v5.7.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.7.0) (2021-08-24)
 
 ## Untagged
 
@@ -176,7 +176,7 @@
 - doc: arg splitter example ([0cdd3d](https://github.com/oceanroleplay/discord.ts/commit/0cdd3d4bc9e89e82c2ebbe0f3d61c2f3e43829e2))
 - fixed all tsconfig.json ([926b78](https://github.com/oceanroleplay/discord.ts/commit/926b78bfe06c2097e40631d30e482195b7ab2090))
 
-# v5.6.0 (2021-08-18)
+# [v5.6.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.6.0) (2021-08-18)
 
 ## Untagged
 
@@ -202,7 +202,7 @@
 - doc fix: @SlashOption ([8b0e5c](https://github.com/oceanroleplay/discord.ts/commit/8b0e5c47404f87d7151d0d2f98633bcfdd2e0a63))
 - doc: SlashOption ([0caed4](https://github.com/oceanroleplay/discord.ts/commit/0caed4350b441e9e8d588dae10b943cce9b2f02f))
 
-# v5.5.0 (2021-08-15)
+# [v5.5.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.5.0) (2021-08-15)
 
 ## Documenations
 

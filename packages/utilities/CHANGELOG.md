@@ -1,4 +1,4 @@
-# v3.1.3 (2021-11-11)
+# [v3.1.3](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.1.3) (2021-11-11)
 
 ## Features
 

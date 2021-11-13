@@ -1,4 +1,14 @@
-# v1.1.0 (2021-11-13)
+# Stage
+
+## Fixed
+
+- ems import in importer ([db7671](https://github.com/oceanroleplay/discord.ts/commit/db7671f84fde2d125f4d06036ef6e5eb2efa55ba))
+
+## Routine Tasks
+
+- fix all examples ([e2ce63](https://github.com/oceanroleplay/discord.ts/commit/e2ce632e7961cc9e0a98f52207df6335e0da49ac))
+
+# [v1.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/i-v1.1.0) (2021-11-13)
 
 ## Features
 

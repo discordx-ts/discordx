@@ -4,7 +4,7 @@
 
 - readme and package ([069562](https://github.com/oceanroleplay/discord.ts/commit/06956230dabb5f56e37783666549b0737359968a))
 
-# v3.0.9 (2021-11-11)
+# [v3.0.9](https://github.com/oceanroleplay/discord.ts/releases/tag/m-v3.0.9) (2021-11-11)
 
 ## Features
 
