@@ -24,7 +24,7 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/mjs/index.js",
+      "import": "./build/esm/index.js",
       "require": "./build/cjs/index.js"
     }
   },
