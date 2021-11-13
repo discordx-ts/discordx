@@ -11,9 +11,7 @@ import {
 } from "discord.js";
 import {
   ButtonComponent,
-  DefaultPermissionResolver,
   Discord,
-  Permission,
   Slash,
   SlashOption,
 } from "../../../src/index.js";
@@ -46,31 +44,6 @@ export abstract class AppDiscord {
   @Slash("roleoruser")
   roleorUser(
     @SlashOption("roleoruser", { type: "MENTIONABLE" })
-    roleOrUser: GuildMember | User | Role,
-    interaction: CommandInteraction
-  ): void {
-    interaction.reply(`${roleOrUser}`);
-  }
-
-  @Slash("voicechannel")
-  @Permission(
-    new DefaultPermissionResolver((command) => {
-      if (!command) {
-        return false;
-      }
-      return false;
-    })
-  )
-  @Permission({
-    id: "462341082919731200",
-    permission: true,
-    type: "USER",
-  })
-  voicechannel(
-    @SlashOption("channel", {
-      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
-      type: "CHANNEL",
-    })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {

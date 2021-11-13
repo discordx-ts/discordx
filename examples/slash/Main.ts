@@ -17,8 +17,11 @@ export class Main {
     });
 
     this._client.once("ready", async () => {
-      await this._client.initApplicationCommands();
-      await this._client.initApplicationPermissions();
+      await this._client.initApplicationCommands({
+        global: { log: true },
+        guild: { log: true },
+      });
+      await this._client.initApplicationPermissions(true);
 
       console.log("Bot started");
     });

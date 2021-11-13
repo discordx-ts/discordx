@@ -30,15 +30,6 @@ export function Permission(
  */
 export function Permission(permission: IPermissions): ClassMethodDecorator;
 
-/**
- * Define permission for your application command or simple command
- * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
- * @category Decorator
- */
-export function Permission(...permission: IPermissions[]): ClassMethodDecorator;
-
 export function Permission(
   permission: IDefaultPermission | IPermissions
 ): ClassMethodDecorator {
