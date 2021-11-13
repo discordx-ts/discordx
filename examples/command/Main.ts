@@ -1,9 +1,7 @@
 import "reflect-metadata";
+import { dirname, importx } from "../../packages/importer/src/esm/index.js";
 import { Client } from "../../src/index.js";
 import { Intents } from "discord.js";
-// import { fileURLToPath } from "url";
-// import path from "path";
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export class Main {
   private static _client: Client;
@@ -57,8 +55,6 @@ export class Main {
       },
     });
 
-    await this._client.login(process.env.BOT_TOKEN ?? "");
-
     this._client.on("messageCreate", (message) => {
       this._client.executeCommand(message);
     });
@@ -73,6 +69,9 @@ export class Main {
     this._client.on("interactionCreate", (interaction) => {
       this._client.executeInteraction(interaction);
     });
+
+    await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
+    await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }
 

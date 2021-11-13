@@ -56,6 +56,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@discordx/importer": "^1.1.1",
     "@types/lodash": "^4.14.176"
   },
   "engines": {

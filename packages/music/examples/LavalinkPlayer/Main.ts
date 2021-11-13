@@ -1,9 +1,7 @@
 import "reflect-metadata";
+import { dirname, importx } from "@discordx/importer";
 import { Client } from "discordx";
 import { Intents } from "discord.js";
-// import { fileURLToPath } from "url";
-// import path from "path";
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export class Main {
   private static _client: Client;
@@ -21,8 +19,6 @@ export class Main {
         Intents.FLAGS.GUILD_VOICE_STATES,
       ],
     });
-
-    await this._client.login(process.env.BOT_TOKEN ?? "");
 
     this._client.once("ready", async () => {
       await this._client.initApplicationCommands();
@@ -44,6 +40,9 @@ export class Main {
     this._client.on("messageCreate", (message) => {
       this._client.executeCommand(message);
     });
+
+    await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
+    await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }
 

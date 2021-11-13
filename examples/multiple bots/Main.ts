@@ -1,10 +1,7 @@
 import "reflect-metadata";
 import { Client, MetadataStorage } from "../../src/index.js";
+import { dirname, importx } from "../../packages/importer/src/esm/index.js";
 import { Intents } from "discord.js";
-import { fileURLToPath } from "url";
-import path from "path";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const botA = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
@@ -38,7 +35,9 @@ botB.on("interactionCreate", (interaction) => {
   botB.executeInteraction(interaction);
 });
 
-MetadataStorage.instance.build([`${__dirname}/discords/*.{js,ts}`]).then(() => {
-  botA.login("bot token");
-  botB.login("bot token");
+importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}").then(() => {
+  MetadataStorage.instance.build().then(() => {
+    botA.login("bot token");
+    botB.login("bot token");
+  });
 });

@@ -70,6 +70,7 @@
     "ytsr": "^3.5.3"
   },
   "devDependencies": {
+    "@discordx/importer": "^1.1.1",
     "@types/lodash": "^4.14.176",
     "discordx": "^10.0.0-dev.1636568467.16689ed"
   },
