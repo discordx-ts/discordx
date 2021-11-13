@@ -1,6 +1,3 @@
-// const lightCodeTheme = require('prism-react-renderer/themes/github');
-// const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   baseUrl: "/",
@@ -89,7 +86,6 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          // Please change this to your repo.
           editUrl:
             "https://github.com/oceanroleplay/discord.ts/edit/main/docs/",
           remarkPlugins: [
@@ -101,12 +97,6 @@ module.exports = {
           sidebarCollapsible: true,
           sidebarPath: require.resolve("./sidebars.js"),
         },
-        // blog: {
-        //   showReadingTime: true,
-        //   // Please change this to your repo.
-        //   editUrl:
-        //     "https://github.com/oceanroleplay/discord.ts/edit/main/docs/",
-        // },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
