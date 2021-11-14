@@ -748,22 +748,28 @@ export class Client extends ClientJS {
             }
           })
           .catch(async (e: DiscordAPIError) => {
-            if (e.code === 10066 && cmd.instance.permissions.length) {
-              const commandPermissions = await cmd.instance.resolvePermissions(
-                guild,
-                cmd
-              );
-              if (!this.silent || log) {
-                this.logger.log(
-                  chalk.bold(
-                    `${this.user?.username} >> command: ${cmd.name} >> permissions >> adding >> guild: #${guild}`
-                  )
-                );
-              }
-              await cmd.command.permissions.set({
-                permissions: commandPermissions,
-              });
+            if (e.code !== 10066) {
+              throw e;
             }
+
+            if (!cmd.instance.permissions.length) {
+              return;
+            }
+
+            const commandPermissions = await cmd.instance.resolvePermissions(
+              guild,
+              cmd
+            );
+            if (!this.silent || log) {
+              this.logger.log(
+                chalk.bold(
+                  `${this.user?.username} >> command: ${cmd.name} >> permissions >> adding >> guild: #${guild}`
+                )
+              );
+            }
+            await cmd.command.permissions.set({
+              permissions: commandPermissions,
+            });
           });
       })
     );
