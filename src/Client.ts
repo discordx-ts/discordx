@@ -734,6 +734,7 @@ export class Client extends ClientJS {
               guild,
               cmd
             );
+
             if (!_.isEqual(permissions, commandPermissions)) {
               if (!this.silent || log) {
                 this.logger.log(
@@ -742,6 +743,7 @@ export class Client extends ClientJS {
                   )
                 );
               }
+
               await cmd.command.permissions.set({
                 permissions: commandPermissions,
               });
@@ -760,6 +762,7 @@ export class Client extends ClientJS {
               guild,
               cmd
             );
+
             if (!this.silent || log) {
               this.logger.log(
                 chalk.bold(
@@ -767,6 +770,7 @@ export class Client extends ClientJS {
                 )
               );
             }
+
             await cmd.command.permissions.set({
               permissions: commandPermissions,
             });
