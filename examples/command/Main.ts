@@ -37,7 +37,7 @@ export class Main {
 
         responses: {
           notFound: "command not found, use !help",
-          unauthorised: (command) => {
+          unauthorized: (command) => {
             if (command.message.channel.type === "DM") {
               command.message.reply(
                 "do you have permission to access this command?"

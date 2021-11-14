@@ -1276,7 +1276,7 @@ export class Client extends ClientJS {
       // user is not allowed to access this command
       if (defaultPermission ? isUserIdPresent : !isUserIdPresent) {
         const unauthorizedResponse =
-          this.simpleCommandConfig?.responses?.unauthorised;
+          this.simpleCommandConfig?.responses?.unauthorized;
 
         if (unauthorizedResponse) {
           if (typeof unauthorizedResponse === "string") {
