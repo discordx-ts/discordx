@@ -424,8 +424,8 @@ export class MetadataStorage {
     return async (...params: ArgsOf<Event>) => {
       await Promise.all(
         eventsToExecute.map(async (on) => {
-          const botIDs = on.botIds;
-          if (botIDs.length && !botIDs.includes(client.botId)) {
+          const botIds = on.botIds;
+          if (botIds.length && !botIds.includes(client.botId)) {
             return;
           }
           const res = await on.execute(guards, params, client);

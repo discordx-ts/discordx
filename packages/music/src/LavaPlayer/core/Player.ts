@@ -70,7 +70,7 @@ export default class Player<
     return {
       guild_id: this.guildId,
       session_id: session,
-      user_id: this.node.userID,
+      user_id: this.node.userId,
     };
   }
 

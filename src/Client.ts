@@ -789,7 +789,7 @@ export class Client extends ClientJS {
 
   /**
    * Clear the application commands globally or for some guilds
-   * @param guilds The guild IDs (empty -> globally)
+   * @param guilds The guild Ids (empty -> globally)
    */
   async clearApplicationCommands(...guilds: Snowflake[]): Promise<void> {
     if (guilds.length) {
@@ -948,9 +948,9 @@ export class Client extends ClientJS {
           chalk.redBright(
             `${
               this.user?.username ?? this.botId
-            } >> button interaction not found, interactionID: ${
+            } >> button interaction not found, interactionId: ${
               interaction.id
-            } | customID: ${interaction.customId}`
+            } | customId: ${interaction.customId}`
           );
         }
         return;

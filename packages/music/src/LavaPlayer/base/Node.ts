@@ -17,7 +17,7 @@ export default abstract class BaseNode extends EventEmitter {
   public abstract send: (guildId: string, packet: any) => Promise<any>;
 
   public password: string;
-  public userID: string;
+  public userId: string;
   public shardCount?: number;
 
   public connection?: Connection;
@@ -32,7 +32,7 @@ export default abstract class BaseNode extends EventEmitter {
   constructor({ password, userId, shardCount, host }: BaseNodeOptions) {
     super();
     this.password = password;
-    this.userID = userId;
+    this.userId = userId;
     this.shardCount = shardCount;
 
     const restIsSecure = host?.rest?.secure ?? host?.secure ?? false;
@@ -76,7 +76,7 @@ export default abstract class BaseNode extends EventEmitter {
   }
 
   public voiceStateUpdate(packet: VoiceStateUpdate): Promise<boolean> {
-    if (packet.user_id !== this.userID) {
+    if (packet.user_id !== this.userId) {
       return Promise.resolve(false);
     }
 

@@ -117,7 +117,7 @@ export default class Connection<T extends BaseNode = BaseNode> {
       Authorization: this.node.password,
       "Client-Name": "@discordx/music",
       "Num-Shards": this.node.shardCount || 1,
-      "User-Id": this.node.userID,
+      "User-Id": this.node.userId,
     };
 
     if (this.resumeKey) {
