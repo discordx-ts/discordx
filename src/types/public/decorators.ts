@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type ClassDecoratorEx = <
-  TFunction extends Record<string, FunctionConstructor>
->(
-  target: TFunction
-) => void | TFunction;
+export type ClassDecoratorEx = (target: Record<string, any>) => void;
 
 export type PropertyDecorator = (
   target: Record<string, any>,
@@ -14,7 +10,7 @@ export type MethodDecoratorEx = <T>(
   target: Record<string, any>,
   propertyKey: string,
   descriptor: TypedPropertyDescriptor<T>
-) => TypedPropertyDescriptor<T> | void;
+) => void;
 
 export type ParameterDecoratorEx = (
   target: Record<string, any>,

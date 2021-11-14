@@ -1,8 +1,4 @@
-import {
-  ClassMethodDecorator,
-  DDiscord,
-  MetadataStorage,
-} from "../../index.js";
+import { ClassDecoratorEx, DDiscord, MetadataStorage } from "../../index.js";
 
 /**
  * Class decorator for discord.ts instance
@@ -12,7 +8,7 @@ import {
  * @category Decorator
  */
 
-export function Discord(): ClassMethodDecorator {
+export function Discord(): ClassDecoratorEx {
   return function <T>(target: Record<string, T>) {
     const myClass = target as unknown as new () => unknown;
     const instance = DDiscord.create(myClass.name).decorate(
