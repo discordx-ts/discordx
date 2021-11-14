@@ -4,6 +4,10 @@
 
 - removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
 
+## Changed
+
+- add colors to log ([e777e8](https://github.com/oceanroleplay/discord.ts/commit/e777e86fc995a26eea33ca4a21deef8f33820436))
+
 ## Routine Tasks
 
 - node to Node ([16689e](https://github.com/oceanroleplay/discord.ts/commit/16689ed4639f4d24e6bf047c59c94274975ee6e8))

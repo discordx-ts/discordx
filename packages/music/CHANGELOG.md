@@ -1,5 +1,9 @@
 # Stage
 
+## Changed
+
+- change ID to Id ([62e9ec](https://github.com/oceanroleplay/discord.ts/commit/62e9ec69ea813796d1373a8a5cebd02ad5bd03db))
+
 ## Routine Tasks
 
 - readme and package ([069562](https://github.com/oceanroleplay/discord.ts/commit/06956230dabb5f56e37783666549b0737359968a))

@@ -10,6 +10,8 @@
 
 ## Changed
 
+- change ID to Id ([62e9ec](https://github.com/oceanroleplay/discord.ts/commit/62e9ec69ea813796d1373a8a5cebd02ad5bd03db))
+- add colors to log ([e777e8](https://github.com/oceanroleplay/discord.ts/commit/e777e86fc995a26eea33ca4a21deef8f33820436))
 - decorator.ts ([f7f5e6](https://github.com/oceanroleplay/discord.ts/commit/f7f5e6b856b81bdcef221077ac92db9e6a81c507))
 
 ## Fixed
