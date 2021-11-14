@@ -10,6 +10,9 @@
 
 ## Changed
 
+- improve class decorator type ([db930c](https://github.com/oceanroleplay/discord.ts/commit/db930cb1ffba0971495977256c664c1d2f930867))
+- improve decorator types ([237067](https://github.com/oceanroleplay/discord.ts/commit/237067eac60f78443ad850ee7d37fcbc63737cdc))
+- unauthorised to unauthorized ([034df0](https://github.com/oceanroleplay/discord.ts/commit/034df0a7f19dabd5d29e90441eee5c7c1801752f))
 - change ID to Id ([62e9ec](https://github.com/oceanroleplay/discord.ts/commit/62e9ec69ea813796d1373a8a5cebd02ad5bd03db))
 - add colors to log ([e777e8](https://github.com/oceanroleplay/discord.ts/commit/e777e86fc995a26eea33ca4a21deef8f33820436))
 - decorator.ts ([f7f5e6](https://github.com/oceanroleplay/discord.ts/commit/f7f5e6b856b81bdcef221077ac92db9e6a81c507))
