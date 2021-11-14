@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { dirname, importx } from "../../packages/importer/src/esm/index.js";
 import { Client } from "../../src/index.js";
 import { Intents } from "discord.js";
+import chalk from "chalk";
 
 export class Main {
   private static _client: Client;
@@ -23,7 +24,7 @@ export class Main {
       });
       await this._client.initApplicationPermissions(true);
 
-      console.log("Bot started");
+      console.log(chalk.greenBright(">> Bot started"));
     });
 
     this._client.on("interactionCreate", (interaction) => {

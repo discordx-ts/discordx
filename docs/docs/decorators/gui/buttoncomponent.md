@@ -23,7 +23,7 @@ class buttonExample {
   async hello(interaction: CommandInteraction) {
     await interaction.deferReply();
 
-    // Create the button, giving it the ID: "hello-btn"
+    // Create the button, giving it the id: "hello-btn"
     const helloBtn = new MessageButton()
       .setLabel("Hello")
       .setEmoji("👋")
@@ -39,7 +39,7 @@ class buttonExample {
     });
   }
 
-  // register a handler for the button with ID: "hello-btn"
+  // register a handler for the button with id: "hello-btn"
   @ButtonComponent("hello-btn")
   mybtn(interaction: ButtonInteraction) {
     interaction.reply(`👋 ${interaction.member}`);

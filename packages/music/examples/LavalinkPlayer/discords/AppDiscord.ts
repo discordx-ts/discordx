@@ -25,7 +25,7 @@ export class music {
         }
       },
       shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
-      userId: client.user?.id ?? "", // the user ID of your bot
+      userId: client.user?.id ?? "", // the user id of your bot
     });
 
     nodex.on("error", (e) => {
@@ -48,7 +48,7 @@ export class music {
     @SlashOption("song", { required: true }) song: string,
     interaction: CommandInteraction
   ): Promise<void> {
-    if (!(interaction.member instanceof GuildMember)) {
+    if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
       return;
     }
 

@@ -19,7 +19,7 @@ export abstract class AppDiscord {
     })
   )
   @Permission({
-    id: "462341082919731201",
+    id: "462341082919731200",
     permission: true,
     type: "USER",
   })

@@ -73,7 +73,7 @@ const node = new Lava.Node({
     }
   },
   shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
-  userId: client.user?.id ?? "", // the user ID of your bot
+  userId: client.user?.id ?? "", // the user id of your bot
 });
 
 client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
