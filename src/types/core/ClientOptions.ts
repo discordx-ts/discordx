@@ -30,7 +30,7 @@ export interface SimpleCommandConfig {
     /**
      * Define response for unauthorized command
      */
-    unauthorised?:
+    unauthorized?:
       | string
       | ((command: SimpleCommandMessage) => Awaitable<void>);
   };
