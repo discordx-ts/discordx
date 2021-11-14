@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export type ClassDecoratorEx = (target: Record<string, any>) => void;
+export type ClassDecoratorEx = (
+  target: Record<string, any>,
+  propertyKey?: undefined,
+  descriptor?: undefined
+) => void;
 
 export type PropertyDecorator = (
   target: Record<string, any>,
-  propertyKey: string
+  propertyKey: string,
+  descriptor?: undefined
 ) => void;
 
 export type MethodDecoratorEx = <T>(
