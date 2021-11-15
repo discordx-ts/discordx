@@ -10,6 +10,7 @@
 
 ## Changed
 
+- eslint quotes ([ba259b](https://github.com/oceanroleplay/discord.ts/commit/ba259b2df8db801297e2ca9b87a6f2a412e1f38d))
 - type literal ([7d92cd](https://github.com/oceanroleplay/discord.ts/commit/7d92cdabc44225feb5cd8d1393e953b8db711898))
 - remove allowed character ([626fa9](https://github.com/oceanroleplay/discord.ts/commit/626fa97d91c618aa47370bba5c297c8fee42ed00))
 - improve class decorator type ([db930c](https://github.com/oceanroleplay/discord.ts/commit/db930cb1ffba0971495977256c664c1d2f930867))

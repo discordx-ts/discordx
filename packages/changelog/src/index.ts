@@ -3,12 +3,18 @@ import child from "child_process";
 import fs from "fs";
 import prettier from "prettier";
 
-function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
+export function generateDoc(
+  repo: string,
+  tagMatcher?: string,
+  tagReplacer?: string,
+  folder?: string,
+  filepath?: string
+): void {
   let completeChangelog = "";
 
   const tags = _.compact(
     child
-      .execSync(`git tag --list "${tagMatcher}"`)
+      .execSync(`git tag --list "${tagMatcher ?? "v*"}"`)
       .toString("utf-8")
       .split("\n")
   );
@@ -24,7 +30,9 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
     if (index < 1) {
       commits = child
         .execSync(
-          `git log ${tag} --format=%B----HASH----%H----DELIMITER---- ${folder}`
+          `git log ${tag} --format=%B----HASH----%H----DELIMITER---- ${
+            folder ?? "./"
+          }`
         )
         .toString("utf-8");
     } else if (tag === "head") {
@@ -32,7 +40,7 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
         .execSync(
           `git log ${
             tags[index - 1]
-          }..HEAD --format=%B----HASH----%H----DELIMITER---- ${folder}`
+          }..HEAD --format=%B----HASH----%H----DELIMITER---- ${folder ?? "./"}`
         )
         .toString("utf-8");
     } else {
@@ -40,7 +48,9 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
         .execSync(
           `git log ${
             tags[index - 1]
-          }..${tag} --format=%B----HASH----%H----DELIMITER---- ${folder}`
+          }..${tag} --format=%B----HASH----%H----DELIMITER---- ${
+            folder ?? "./"
+          }`
         )
         .toString("utf-8");
     }
@@ -51,36 +61,39 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
         const [message, sha] = commit.split("----HASH----");
 
         const title = message
-          .split("\n")[0]
+          ?.split("\n")[0]
           ?.replaceAll(
             /#([0-9]{1,})/gm,
             `[#$1](https://github.com/${repo}/issues/$1)`
           );
 
-        return { message: title, sha: title ? sha : undefined };
+        return {
+          message: title as string,
+          sha: (title ? sha : undefined) as string,
+        };
       })
-      .filter((commit) => Boolean(commit.sha));
+      .filter((commit) => Boolean(commit.message) && Boolean(commit.sha));
 
     const tagDate = child
       .execSync(`git log -1 --format=%ai ${tag}`)
       .toString("utf-8");
 
-    const buildStore = [];
-    const choreStore = [];
-    const ciStore = [];
-    const docsStore = [];
-    const featStore = [];
-    const fixStore = [];
-    const refactorStore = [];
-    const revertStore = [];
-    const testStore = [];
-    const typesStore = [];
-    const workflowStore = [];
-    const allStore = [];
-    const breakingStore = [];
+    const buildStore: string[] = [];
+    const choreStore: string[] = [];
+    const ciStore: string[] = [];
+    const docsStore: string[] = [];
+    const featStore: string[] = [];
+    const fixStore: string[] = [];
+    const refactorStore: string[] = [];
+    const revertStore: string[] = [];
+    const testStore: string[] = [];
+    const typesStore: string[] = [];
+    const workflowStore: string[] = [];
+    const allStore: string[] = [];
+    const breakingStore: string[] = [];
 
     commitsArray.forEach((commit) => {
-      const formatedCommit = (replace) =>
+      const formatedCommit = (replace?: string) =>
         `* ${commit.message.replace(
           replace ? `${replace}: ` : "",
           ""
@@ -236,47 +249,9 @@ function generateDoc(repo, tagMatcher, tagReplacer, folder, filepath) {
   });
 
   fs.writeFileSync(
-    filepath,
+    filepath ?? "./CHANGELOG.md",
     `${prettier.format(completeChangelog, {
       parser: "markdown",
     })}`
   );
 }
-
-generateDoc(
-  "oceanroleplay/discord.ts",
-  "v*",
-  undefined,
-  "src",
-  "./CHANGELOG.md"
-);
-generateDoc(
-  "oceanroleplay/discord.ts",
-  "v*",
-  undefined,
-  "docs/docs",
-  "./docs/CHANGELOG.md"
-);
-generateDoc(
-  "oceanroleplay/discord.ts",
-  "m-v*",
-  "m-",
-  "packages/music/src",
-  "./packages/music/CHANGELOG.md"
-);
-generateDoc(
-  "oceanroleplay/discord.ts",
-  "u-v*",
-  "u-",
-  "packages/utilities/src",
-  "./packages/utilities/CHANGELOG.md"
-);
-generateDoc(
-  "oceanroleplay/discord.ts",
-  "i-v*",
-  "i-",
-  "packages/importer/src",
-  "./packages/importer/CHANGELOG.md"
-);
-
-console.log("Changelog generated...");

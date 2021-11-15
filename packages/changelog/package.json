@@ -1,0 +1,44 @@
+{
+  "name": "@discordx/changelog",
+  "version": "1.0.4",
+  "private": false,
+  "description": "changelog generator, written in TypeScript with Node.js",
+  "keywords": [
+    "typescript",
+    "javascript",
+    "importer",
+    "mjs",
+    "cjs"
+  ],
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/changelog#readme",
+  "bugs": {
+    "url": "https://github.com/oceanroleplay/discord.ts/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+  },
+  "license": "Apache-2.0",
+  "contributors": [
+    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
+  ],
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "bin": "build/cli.js",
+  "files": [
+    "build",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noemit"
+  },
+  "dependencies": {
+    "prettier": "^2.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
