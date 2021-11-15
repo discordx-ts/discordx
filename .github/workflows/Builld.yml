@@ -50,32 +50,40 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: "Utilities: Install Dependencies"
+      - name: "Changelog: Install Dependencies"
         run: npm ci
-        working-directory: ./packages/utilities
-
-      - name: "Music: Install Dependencies"
-        run: npm ci
-        working-directory: ./packages/music
+        working-directory: ./packages/changelog
 
       - name: "Importer: Install Dependencies"
         run: npm ci
         working-directory: ./packages/importer
 
+      - name: "Music: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/music
+
+      - name: "Utilities: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/utilities
+
       - name: Run TypeScript compiler
         run: npm run type-check
 
-      - name: "Utilities: Run TypeScript compiler"
+      - name: "Changelog: Run TypeScript compiler"
         run: npm run type-check
-        working-directory: ./packages/utilities
+        working-directory: ./packages/changelog
+
+      - name: "Importer: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/importer
 
       - name: "Music: Run TypeScript compiler"
         run: npm run type-check
         working-directory: ./packages/music
 
-      - name: "Importer: Run TypeScript compiler"
+      - name: "Utilities: Run TypeScript compiler"
         run: npm run type-check
-        working-directory: ./packages/importer
+        working-directory: ./packages/utilities
 
   prettier:
     name: Prettier

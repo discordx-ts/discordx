@@ -20,6 +20,13 @@ updates:
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
+    directory: "/packages/changelog"
+    schedule:
+      interval: "daily"
+      time: "00:15"
+    versioning-strategy: increase
+
+  - package-ecosystem: "npm"
     directory: "/packages/importer"
     schedule:
       interval: "daily"

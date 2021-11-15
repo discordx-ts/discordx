@@ -54,6 +54,92 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+  build-changelog:
+    name: Build @discordx/changelog
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == '@discordx/changelog'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Initialize git config
+        run: |
+          git config user.email ${{ secrets.GIT_EMAIL }}
+          git config user.name ${{ secrets.GIT_NAME }}
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/changelog version)
+        working-directory: ./packages/changelog
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/changelog
+
+      - name: Install changelog dependencies
+        run: npm ci
+        working-directory: ./packages/changelog
+
+      - name: Build
+        run: npm run build
+        working-directory: ./packages/changelog
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/changelog
+
+  build-importer:
+    name: Build @discordx/importer
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == '@discordx/importer'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Initialize git config
+        run: |
+          git config user.email ${{ secrets.GIT_EMAIL }}
+          git config user.name ${{ secrets.GIT_NAME }}
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/importer version)
+        working-directory: ./packages/importer
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/importer
+
+      - name: Install importer dependencies
+        run: npm ci
+        working-directory: ./packages/importer
+
+      - name: Build
+        run: npm run build
+        working-directory: ./packages/importer
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/importer
+
   build-music:
     name: Build @discordx/music
     runs-on: ubuntu-latest
@@ -157,46 +243,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./packages/utilities
-
-  build-importer:
-    name: Build @discordx/importer
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/importer'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-
-      - name: Initialize git config
-        run: |
-          git config user.email ${{ secrets.GIT_EMAIL }}
-          git config user.name ${{ secrets.GIT_NAME }}
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/importer version)
-        working-directory: ./packages/importer
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/importer
-
-      - name: Install importer dependencies
-        run: npm ci
-        working-directory: ./packages/importer
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/importer
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/importer
