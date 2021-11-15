@@ -149,9 +149,6 @@ jobs:
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
         working-directory: ./packages/music
 
-      - name: Install root dependencies
-        run: npm ci
-
       - name: Install music dependencies
         run: npm ci
         working-directory: ./packages/music
@@ -195,9 +192,6 @@ jobs:
       - name: Update version
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
         working-directory: ./packages/utilities
-
-      - name: Install root dependencies
-        run: npm ci
 
       - name: Install utilities dependencies
         run: npm ci

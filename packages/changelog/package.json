@@ -36,6 +36,7 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "prettier": "^2.4.1",
     "tslib": "^2.3.1"
   },
@@ -43,6 +44,8 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^16.11.7"
+    "@types/lodash": "^4.14.176",
+    "@types/node": "^16.11.7",
+    "@types/prettier": "^2.4.2"
   }
 }
