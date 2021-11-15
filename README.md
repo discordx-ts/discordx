@@ -44,7 +44,7 @@ This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalv
 
 # 💻 [Installation](https://discord-ts.js.org/docs/installation)
 
-> Version 16.6.0 or newer of Node.js is required
+> Version 16.6.0 or newer of [Node.js](https://nodejs.org/) is required
 
 ```
 npm install discordx
