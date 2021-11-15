@@ -124,7 +124,7 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
 - [`@ContextMenu`](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
 
-# 📟 [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash) - Discord commands
+# 📟 [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash)
 
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
@@ -145,9 +145,9 @@ abstract class AppDiscord {
 }
 ```
 
-# 📟 [@ButtonComponent](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent) - Discord button component interaction handler
+# 📟 [@ButtonComponent](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
 
-add button interaction handler for your bot using `@ButtonComponent` decorator
+create discord button handler with ease!
 
 ```ts
 @Discord()
@@ -175,9 +175,9 @@ class buttonExample {
 }
 ```
 
-# 📟 [@SelectMenuComponent](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent) - Discord menu component interaction handler
+# 📟 [@SelectMenuComponent](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
 
-add menu interaction handler for your bot using `@SelectMenuComponent` decorator
+create discord select menu handler with ease!
 
 ```ts
 const roles = [
@@ -228,9 +228,9 @@ class buttons {
 }
 ```
 
-# 📟 [@ContextMenu](https://discord-ts.js.org/docs/decorators/gui/contextmenu) - create discord context menu options with ease!
+# 📟 [@ContextMenu](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
 
-add discord context menu for your bot using `@ContextMenu` decorator
+create discord context menu options with ease!
 
 ```ts
 @Discord()
@@ -247,7 +247,7 @@ class contextTest {
 }
 ```
 
-# 📟 [@SimpleCommand](https://discord-ts.js.org/docs/decorators/commands/simplecommand) - Command Processor
+# 📟 [@SimpleCommand](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 
@@ -267,7 +267,9 @@ class commandTest {
 }
 ```
 
-# 💡[@On](https://discord-ts.js.org/docs/decorators/general/on) / [@Once](https://discord-ts.js.org/docs/decorators/general/once) - Discord events
+# 💡[@On](https://discord-ts.js.org/docs/decorators/general/on) / [@Once](https://discord-ts.js.org/docs/decorators/general/once)
+
+> discord event handler
 
 We can declare methods that will be executed whenever a Discord event is triggered.
 
