@@ -42,7 +42,7 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) from [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
 
-## 💻 Installation
+# 💻 Installation
 
 Version 16.6.0 or newer of Node.js is required
 
@@ -100,7 +100,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 
 There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button, select menu, contextmenu etc.
 
-#### General
+## General
 
 - [`@Discord`](https://discord-ts.js.org/docs/decorators/general/discord)
 - [`@Guard`](https://discord-ts.js.org/docs/decorators/general/guard)
@@ -110,7 +110,7 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@On`](https://discord-ts.js.org/docs/decorators/general/on)
 - [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
 
-#### Commands
+## Commands
 
 - [`@Slash`](https://discord-ts.js.org/docs/decorators/commands/slash)
 - [`@SlashChoice`](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
@@ -119,7 +119,7 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@SimpleCommand`](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
 - [`@SimpleCommandOption`](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
 
-#### GUI Interactions
+## GUI Interactions
 
 - [`@ButtonComponent`](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
 - [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)

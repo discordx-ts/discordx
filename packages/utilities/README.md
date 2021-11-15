@@ -41,7 +41,7 @@ Add useful features to discordx, If a feature isn't available, request it.
 - [@Category](#category-decorator)
 - [Pagination](#pagination)
 
-## 💻 Installation
+# 💻 Installation
 
 Version 16.6.0 or newer of Node.js is required
 
