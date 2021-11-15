@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/quotes */
 import fs from "fs";
 // import glob from "glob";
 

@@ -22,7 +22,6 @@ export type SpecialCharacters =
   | "/"
   | ":"
   | ";"
-  // eslint-disable-next-line @typescript-eslint/quotes
   | '"'
   | "'"
   | "<"
