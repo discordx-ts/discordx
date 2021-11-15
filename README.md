@@ -42,14 +42,16 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) from [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
 
-# 💻 Installation
+# 💻 [Installation](https://discord-ts.js.org/docs/installation)
 
-Version 16.6.0 or newer of Node.js is required
+> Version 16.6.0 or newer of Node.js is required
 
 ```
 npm install discordx
 yarn add discordx
 ```
+
+> **[installation guide](https://discord-ts.js.org/docs/installation#installation)**
 
 # 📜 Documentation
 
@@ -326,12 +328,6 @@ abstract class AppDiscord {
   }
 }
 ```
-
-# 📡 [Installation](https://discord-ts.js.org/docs/installation)
-
-Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
-
-**[Please refer to the documentation](https://discord-ts.js.org/docs/installation#installation)**
 
 # ☎️ Need help?
 
