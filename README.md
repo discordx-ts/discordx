@@ -91,9 +91,10 @@ Here are more packages from us to extend the functionality of your Discord bot.
 | Package                                                                    | Description                     |
 | -------------------------------------------------------------------------- | ------------------------------- |
 | [`discordx`](https://www.npmjs.com/package/discordx)                       | Main package                    |
-| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc.   |
-| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)         | Discord music player            |
+| [`@discordx/changelog`](https://www.npmjs.com/package/@discordx/changelog) | Changelog generator             |
 | [`@discordx/importer`](https://www.npmjs.com/package/@discordx/importer)   | Import solution for ESM and CJS |
+| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)         | Discord music player            |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc.   |
 
 # 📔 Decorators
 
