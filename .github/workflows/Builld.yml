@@ -32,59 +32,6 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-  typescript:
-    name: TypeScript
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: "Changelog: Install Dependencies"
-        run: npm ci
-        working-directory: ./packages/changelog
-
-      - name: "Importer: Install Dependencies"
-        run: npm ci
-        working-directory: ./packages/importer
-
-      - name: "Music: Install Dependencies"
-        run: npm ci
-        working-directory: ./packages/music
-
-      - name: "Utilities: Install Dependencies"
-        run: npm ci
-        working-directory: ./packages/utilities
-
-      - name: Run TypeScript compiler
-        run: npm run type-check
-
-      - name: "Changelog: Run TypeScript compiler"
-        run: npm run type-check
-        working-directory: ./packages/changelog
-
-      - name: "Importer: Run TypeScript compiler"
-        run: npm run type-check
-        working-directory: ./packages/importer
-
-      - name: "Music: Run TypeScript compiler"
-        run: npm run type-check
-        working-directory: ./packages/music
-
-      - name: "Utilities: Run TypeScript compiler"
-        run: npm run type-check
-        working-directory: ./packages/utilities
-
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
@@ -126,3 +73,116 @@ jobs:
 
       - name: Run Tests
         run: npm run test
+
+  build:
+    name: Build discordx
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript compiler
+        run: npm run type-check
+
+  build-changelog:
+    name: Build @discordx/changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: "Changelog: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/changelog
+
+      - name: "Changelog: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/changelog
+
+  build-importer:
+    name: Build @discordx/importer
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: "importer: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/importer
+
+      - name: "importer: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/importer
+
+  build-music:
+    name: Build @discordx/music
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: "music: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/music
+
+      - name: "music: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/music
+
+  build-utilities:
+    name: Build @discordx/utilities
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: "utilities: Install Dependencies"
+        run: npm ci
+        working-directory: ./packages/utilities
+
+      - name: "utilities: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/utilities
