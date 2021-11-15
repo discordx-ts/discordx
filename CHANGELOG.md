@@ -10,6 +10,8 @@
 
 ## Changed
 
+- type literal ([7d92cd](https://github.com/oceanroleplay/discord.ts/commit/7d92cdabc44225feb5cd8d1393e953b8db711898))
+- remove allowed character ([626fa9](https://github.com/oceanroleplay/discord.ts/commit/626fa97d91c618aa47370bba5c297c8fee42ed00))
 - improve class decorator type ([db930c](https://github.com/oceanroleplay/discord.ts/commit/db930cb1ffba0971495977256c664c1d2f930867))
 - improve decorator types ([237067](https://github.com/oceanroleplay/discord.ts/commit/237067eac60f78443ad850ee7d37fcbc63737cdc))
 - unauthorised to unauthorized ([034df0](https://github.com/oceanroleplay/discord.ts/commit/034df0a7f19dabd5d29e90441eee5c7c1801752f))
@@ -19,8 +21,13 @@
 
 ## Fixed
 
+- error not throws for permisison api ([cd2fc9](https://github.com/oceanroleplay/discord.ts/commit/cd2fc92210d3f26f7ecc07f0caee74bfa53011f4))
 - permissions decorator ([7746c9](https://github.com/oceanroleplay/discord.ts/commit/7746c99e02ddac00e8ebfb19f1b74e30a83cd341))
 - jest test and slash option ([630c78](https://github.com/oceanroleplay/discord.ts/commit/630c78a133e12f43bfebe768614c3777be74384f))
+
+## Routine Tasks
+
+- spaces ([093e71](https://github.com/oceanroleplay/discord.ts/commit/093e71d56c35608735d7e2ba9e616e1ee2622136))
 
 # [v9.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.0.0) (2021-11-10)
 
