@@ -29,11 +29,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
-      - name: Initialize git config
-        run: |
-          git config user.email ${{ secrets.GIT_EMAIL }}
-          git config user.name ${{ secrets.GIT_NAME }}
-
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view discordx version)
 
@@ -69,11 +64,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-
-      - name: Initialize git config
-        run: |
-          git config user.email ${{ secrets.GIT_EMAIL }}
-          git config user.name ${{ secrets.GIT_NAME }}
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/changelog version)
@@ -113,11 +103,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
-      - name: Initialize git config
-        run: |
-          git config user.email ${{ secrets.GIT_EMAIL }}
-          git config user.name ${{ secrets.GIT_NAME }}
-
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/importer version)
         working-directory: ./packages/importer
@@ -155,11 +140,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-
-      - name: Initialize git config
-        run: |
-          git config user.email ${{ secrets.GIT_EMAIL }}
-          git config user.name ${{ secrets.GIT_NAME }}
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/music version)
@@ -207,11 +187,6 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-
-      - name: Initialize git config
-        run: |
-          git config user.email ${{ secrets.GIT_EMAIL }}
-          git config user.name ${{ secrets.GIT_NAME }}
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/utilities version)
