@@ -269,8 +269,6 @@ class commandTest {
 
 # 💡[@On](https://discord-ts.js.org/docs/decorators/general/on) / [@Once](https://discord-ts.js.org/docs/decorators/general/once)
 
-> discord event handler
-
 We can declare methods that will be executed whenever a Discord event is triggered.
 
 Our methods must be decorated with the `@On(event: string)` or `@Once(event: string)` decorator.
