@@ -4,12 +4,22 @@ import fs from "fs";
 import prettier from "prettier";
 
 export function generateDoc(
-  repo: string,
-  tagMatcher?: string,
-  tagReplacer?: string,
   folder?: string,
-  filepath?: string
-): void {
+  filepath?: string,
+  tagMatcher?: string,
+  tagReplacer?: string
+): string {
+  const remoteurl = child
+    .execSync("git config --get remote.origin.url")
+    .toString("utf-8");
+
+  const reg = /(git@github\.com:|https:\/\/github.com\/)(.*?)\.git/gm;
+  const repo = reg.exec(remoteurl)?.at(2);
+
+  if (!repo) {
+    throw Error("repository not found");
+  }
+
   let completeChangelog = "";
 
   const tags = _.compact(
@@ -254,4 +264,6 @@ export function generateDoc(
       parser: "markdown",
     })}`
   );
+
+  return repo;
 }

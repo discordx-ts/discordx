@@ -42,7 +42,7 @@ changelog generator, written in TypeScript with Node.js
 
 # Usage
 
-> npx @discordx/changelog --repo=oceanroleplay/discord.ts
+> npx @discordx/changelog
 
 ## Options
 
@@ -50,7 +50,6 @@ The following options are only available
 
 | Name          | Required | Default          | Description                |
 | ------------- | -------- | ---------------- | -------------------------- |
-| --repo        | true     | undefined        | repo url                   |
 | --root        | false    | "./"             | root folder path           |
 | --out         | false    | "./CHANGELOG.md" | changelog file path        |
 | --tag         | false    | "v\*"            | tag to match with releases |

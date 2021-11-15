@@ -6,14 +6,14 @@ function getArg(name: string) {
   return find?.replace(`--${name}=`, "");
 }
 
-const repo = getArg("repo");
 const root = getArg("root");
 
-if (!repo) {
-  throw Error("--repo required");
-}
-
-generateDoc(repo, getArg("tag"), getArg("tag-replace"), root, getArg("out"));
+const repo = generateDoc(
+  root,
+  getArg("out"),
+  getArg("tag"),
+  getArg("tag-replace")
+);
 
 console.log(
   `>> changelog generated for repo ${repo}${
