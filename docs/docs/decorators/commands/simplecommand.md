@@ -40,6 +40,9 @@ import { Client } from "discordx";
 async function start() {
   const client = new Client({
     botId: "test",
+    simpleCommand: {
+      prefix: "!", // define your prefix here
+    },
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
   });
 
@@ -51,6 +54,19 @@ async function start() {
 }
 
 start();
+```
+
+### use custom prefix on a single command
+
+:::warning
+Custom prefix on command does not extend client prefix, it simply ignores it.
+:::
+
+```ts
+@SimpleCommand("race", { prefix: ["&", ">"] })
+race(command: SimpleCommandMessage): void {
+  command.sendUsageSyntax();
+}
 ```
 
 ### Execute with case sensitive mode
