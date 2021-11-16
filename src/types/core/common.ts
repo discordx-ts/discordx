@@ -7,9 +7,20 @@ import {
   DefaultPermissionResolver,
   SimpleCommandMessage,
 } from "../../index.js";
-import { ApplicationCommandPermissions, Guild, Snowflake } from "discord.js";
+import {
+  ApplicationCommandPermissions,
+  Guild,
+  Message,
+  Snowflake,
+} from "discord.js";
 
 export type Awaitable<T> = Promise<T> | T;
+
+export type IPrefixEx = string | RegExp;
+export type IPrefix =
+  | string
+  | RegExp
+  | ((message: Message) => Awaitable<string | RegExp>);
 
 export type IDefaultPermission = boolean | DefaultPermissionResolver;
 

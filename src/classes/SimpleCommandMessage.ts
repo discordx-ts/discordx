@@ -14,7 +14,7 @@ export class SimpleCommandMessage {
   options: SimpleCommandOptionType[];
 
   constructor(
-    public prefix: string,
+    public prefix: string | RegExp,
     public argString: string,
     public message: Message,
     public info: DSimpleCommand,

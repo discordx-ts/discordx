@@ -29,6 +29,8 @@ import {
   GuardFunction,
   IGuild,
   ILogger,
+  IPrefix,
+  IPrefixEx,
   InitCommandConfig,
   MetadataStorage,
   SimpleCommandConfig,
@@ -46,7 +48,7 @@ import chalk from "chalk";
  */
 export class Client extends ClientJS {
   private _botId: string;
-  private _prefix: string | ((message: Message) => Awaitable<string>);
+  private _prefix: IPrefix;
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
   private _botGuilds: IGuild[] = [];
@@ -70,10 +72,10 @@ export class Client extends ClientJS {
     this._guards = value;
   }
 
-  get prefix(): string | ((message: Message) => Awaitable<string>) {
+  get prefix(): IPrefix {
     return this._prefix;
   }
-  set prefix(value: string | ((message: Message) => Awaitable<string>)) {
+  set prefix(value: IPrefix) {
     this._prefix = value;
   }
 
@@ -1110,8 +1112,8 @@ export class Client extends ClientJS {
    * @param message messsage instance
    * @returns
    */
-  getMessagePrefix(message: Message): Awaitable<string> {
-    if (typeof this.prefix === "string") {
+  getMessagePrefix(message: Message): Awaitable<IPrefixEx> {
+    if (typeof this.prefix !== "function") {
       return this.prefix;
     }
 
@@ -1126,11 +1128,14 @@ export class Client extends ClientJS {
    * @returns
    */
   parseCommand(
-    prefix: string,
+    prefix: IPrefixEx,
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {
-    const prefixRegex = RegExp(`^${_.escapeRegExp(prefix)}`);
+    const prefixRegex =
+      typeof prefix === "string"
+        ? RegExp(`^${_.escapeRegExp(prefix)}`)
+        : prefix;
     const isCommand = prefixRegex.test(message.content);
     if (!isCommand) {
       return "notCommand";
