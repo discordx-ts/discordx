@@ -4,6 +4,7 @@ import {
   DApplicationCommand,
   DComponentButton,
   DComponentSelectMenu,
+  DSimpleCommand,
   DefaultPermissionResolver,
   SimpleCommandMessage,
 } from "../../index.js";
@@ -48,3 +49,5 @@ export type IGuild =
         | DComponentSelectMenu
         | undefined
     ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
+
+export type ISimpleCommandByName = { command: DSimpleCommand; name: string };

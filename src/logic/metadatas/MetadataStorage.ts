@@ -14,6 +14,7 @@ import {
   DSimpleCommandOption,
   DiscordEvents,
   GuardFunction,
+  ISimpleCommandByName,
   Modifier,
 } from "../../index.js";
 import { Method } from "../../decorators/classes/Method.js";
@@ -36,7 +37,8 @@ export class MetadataStorage {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _modifiers: Modifier<any>[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
-  private _allSimpleCommands: { command: DSimpleCommand; name: string }[] = [];
+  private _allSimpleCommands: ISimpleCommandByName[] = [];
+  private _mappedSimpleCommand = new Map<string, ISimpleCommandByName[]>();
   private _commandsOptions: DSimpleCommandOption[] = [];
 
   private _groups: DApplicationCommandGroup<DApplicationCommand>[] = [];
@@ -85,11 +87,13 @@ export class MetadataStorage {
   get simpleCommands(): readonly DSimpleCommand[] {
     return this._simpleCommands;
   }
-  get allSimpleCommands(): readonly {
-    command: DSimpleCommand;
-    name: string;
-  }[] {
+
+  get allSimpleCommands(): readonly ISimpleCommandByName[] {
     return this._allSimpleCommands;
+  }
+
+  get mappedSimpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
+    return this._mappedSimpleCommand;
   }
 
   get buttonComponents(): readonly DComponentButton[] {
@@ -259,9 +263,39 @@ export class MetadataStorage {
     this._applicationCommands = this.groupSlashes();
 
     this._simpleCommands.forEach((cmd) => {
+      // Separately map special prefix commands
+      if (cmd.prefix) {
+        [...cmd.prefix].forEach((pfx) => {
+          const cmds = this._mappedSimpleCommand.get(pfx) ?? [];
+          const mapCmd: ISimpleCommandByName[] = [
+            { command: cmd, name: cmd.name },
+          ];
+
+          cmd.aliases.forEach((al) => {
+            mapCmd.push({ command: cmd, name: al });
+          });
+
+          mapCmd.forEach((mcmd) => {
+            if (_.findIndex(cmds, { name: mcmd.name }) !== -1) {
+              throw Error(
+                `Duplicate simple command name: ${mcmd.name} (of: ${mcmd.command.name})`
+              );
+            }
+          });
+
+          this._mappedSimpleCommand.set(
+            pfx,
+            [...cmds, ...mapCmd].sort((a, b) => b.name.length - a.name.length)
+          );
+        });
+        return;
+      }
+
+      // To improve search performance, map all commands together
       if (_.findIndex(this._allSimpleCommands, { name: cmd.name }) !== -1) {
         throw Error(`Duplicate simple command name: ${cmd.name}`);
       }
+
       this._allSimpleCommands.push({ command: cmd, name: cmd.name });
       cmd.aliases.forEach((al) => {
         if (_.findIndex(this._allSimpleCommands, { name: al }) !== -1) {

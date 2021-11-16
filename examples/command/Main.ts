@@ -32,7 +32,7 @@ export class Main {
           }
 
           // common command prefix for all guild
-          return ["!", ">"];
+          return ["!"];
         },
 
         responses: {

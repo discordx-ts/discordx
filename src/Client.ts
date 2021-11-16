@@ -30,6 +30,7 @@ import {
   ILogger,
   IPrefix,
   IPrefixResolver,
+  ISimpleCommandByName,
   InitCommandConfig,
   MetadataStorage,
   SimpleCommandConfig,
@@ -106,17 +107,21 @@ export class Client extends ClientJS {
     return Client.simpleCommands;
   }
 
-  static get allSimpleCommands(): readonly {
-    command: DSimpleCommand;
-    name: string;
-  }[] {
+  static get allSimpleCommands(): readonly ISimpleCommandByName[] {
     return MetadataStorage.instance.allSimpleCommands;
   }
-  get allSimpleCommands(): readonly {
-    command: DSimpleCommand;
-    name: string;
-  }[] {
+  get allSimpleCommands(): readonly ISimpleCommandByName[] {
     return Client.allSimpleCommands;
+  }
+
+  static get mappedSimpleCommandByPrefix(): Map<
+    string,
+    ISimpleCommandByName[]
+  > {
+    return MetadataStorage.instance.mappedSimpleCommandByPrefix;
+  }
+  get mappedSimpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
+    return Client.mappedSimpleCommandByPrefix;
   }
 
   static get buttons(): readonly DComponentButton[] {
@@ -1131,8 +1136,11 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {
+    const mappedPrefix = Array.from(this.mappedSimpleCommandByPrefix.keys());
     const prefixRegex = RegExp(
-      `^(${[...prefix].map((pfx) => _.escapeRegExp(pfx)).join("|")})`
+      `^(${[...prefix, ...mappedPrefix]
+        .map((pfx) => _.escapeRegExp(pfx))
+        .join("|")})`
     );
 
     const isCommand = prefixRegex.test(message.content);
@@ -1141,10 +1149,15 @@ export class Client extends ClientJS {
     }
 
     const matchedPrefix = prefixRegex.exec(message.content)?.at(1) ?? "unknown";
+    const isPrefixBaseCommand = mappedPrefix.includes(matchedPrefix);
     const contentWithoutPrefix =
       message.content.replace(prefixRegex, "").trim() + " ";
 
-    const commandRaw = this.allSimpleCommands.find((cmd) => {
+    const commandRaw = (
+      isPrefixBaseCommand
+        ? this.mappedSimpleCommandByPrefix.get(matchedPrefix) ?? []
+        : this.allSimpleCommands
+    ).find((cmd) => {
       if (caseSensitive) {
         return contentWithoutPrefix.startsWith(`${cmd.name} `);
       }
