@@ -1,5 +1,9 @@
 # Stage
 
+## Features
+
+- add breaking change for fix/refactor commit ([181e3c](https://github.com/oceanroleplay/discord.ts/commit/181e3ca625cec64558a5c30022ce8c2b0a36f8fc))
+
 ## Changed
 
 - remove rpeo option from changelog ([2deced](https://github.com/oceanroleplay/discord.ts/commit/2decedaec72f9f1a3c2b349dfa442e485c273965))
