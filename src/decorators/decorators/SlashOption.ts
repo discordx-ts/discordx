@@ -74,8 +74,6 @@ export function SlashOption(
       type
     ).decorate(target.constructor, key, target[key], target.constructor, index);
 
-    option.isNode = true;
-
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand>((original) => {
         original.options = [...original.options, option];

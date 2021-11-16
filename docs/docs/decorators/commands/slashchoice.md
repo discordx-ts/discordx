@@ -18,7 +18,6 @@ class DiscordBot {
     @SlashChoice("Dev", "dev")
     @SlashOption("what", { description: "What are you?" })
     what: string,
-
     interaction: CommandInteraction
   ) {
     interaction.reply(what);

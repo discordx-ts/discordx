@@ -285,6 +285,7 @@ describe("Slash", () => {
         name: "hello",
         options: [
           {
+            autocomplete: undefined,
             channelTypes: undefined,
             choices: undefined,
             description: "text - STRING",
@@ -429,9 +430,12 @@ describe("Slash", () => {
             name: "text",
             options: [
               {
+                autocomplete: undefined,
                 channelTypes: undefined,
                 choices: undefined,
                 description: "hello",
+                maxValue: undefined,
+                minValue: undefined,
                 name: "hello",
                 options: [
                   {
@@ -452,25 +456,33 @@ describe("Slash", () => {
                     minValue: undefined,
                     name: "text",
                     options: undefined,
-                    required: false,
+                    required: true,
                     type: "STRING",
                   },
                 ],
+                required: undefined,
                 type: "SUB_COMMAND",
               },
             ],
+            required: undefined,
             type: "SUB_COMMAND_GROUP",
           },
           {
+            autocomplete: undefined,
             channelTypes: undefined,
             choices: undefined,
             description: "maths group description",
+            maxValue: undefined,
+            minValue: undefined,
             name: "maths",
             options: [
               {
+                autocomplete: undefined,
                 channelTypes: undefined,
                 choices: undefined,
                 description: "Multiply",
+                maxValue: undefined,
+                minValue: undefined,
                 name: "multiply",
                 options: [
                   {
@@ -482,7 +494,7 @@ describe("Slash", () => {
                     minValue: undefined,
                     name: "x",
                     options: undefined,
-                    required: false,
+                    required: true,
                     type: "NUMBER",
                   },
                   {
@@ -494,16 +506,20 @@ describe("Slash", () => {
                     minValue: undefined,
                     name: "y",
                     options: undefined,
-                    required: false,
+                    required: true,
                     type: "NUMBER",
                   },
                 ],
+                required: undefined,
                 type: "SUB_COMMAND",
               },
               {
+                autocomplete: undefined,
                 channelTypes: undefined,
                 choices: undefined,
                 description: "Addition",
+                maxValue: undefined,
+                minValue: undefined,
                 name: "add",
                 options: [
                   {
@@ -515,7 +531,7 @@ describe("Slash", () => {
                     minValue: undefined,
                     name: "x",
                     options: undefined,
-                    required: false,
+                    required: true,
                     type: "NUMBER",
                   },
                   {
@@ -527,19 +543,24 @@ describe("Slash", () => {
                     minValue: undefined,
                     name: "y",
                     options: undefined,
-                    required: false,
+                    required: true,
                     type: "NUMBER",
                   },
                 ],
+                required: undefined,
                 type: "SUB_COMMAND",
               },
             ],
+            required: undefined,
             type: "SUB_COMMAND_GROUP",
           },
           {
+            autocomplete: undefined,
             channelTypes: undefined,
             choices: undefined,
             description: "hello",
+            maxValue: undefined,
+            minValue: undefined,
             name: "hello",
             options: [
               {
@@ -567,6 +588,7 @@ describe("Slash", () => {
                 type: "STRING",
               },
             ],
+            required: undefined,
             type: "SUB_COMMAND",
           },
         ],

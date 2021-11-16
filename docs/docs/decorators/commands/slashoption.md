@@ -15,16 +15,14 @@ To declare an option you simply use the `@SlashOption` decorator before a method
 class DiscordBot {
   @Slash("add")
   add(
-    @SlashOption("x", { description: "x value", type: "INTEGER" })
-    x: number | undefined,
-    @SlashOption("y", { description: "y value", type: "INTEGER" })
-    y: number | undefined,
+    @SlashOption("x", { description: "x value" })
+    x: number,
+    @SlashOption("y", { description: "y value" })
+    y: number,
 
     interaction: CommandInteraction
   ) {
-    x ??= 0;
-    y ??= 0;
-    interaction.reply(x + y);
+    interaction.reply(String(x + y));
   }
 }
 ```
@@ -40,7 +38,6 @@ class DiscordBot {
   testx(
     @SlashOption("aoption", {
       autocomplete: true,
-      required: true,
       type: "STRING",
     })
     searchText: string,
@@ -57,7 +54,6 @@ class DiscordBot {
           { name: "option d", value: "c" },
         ]);
       },
-      required: true,
       type: "STRING",
     })
     searchText2: string,
@@ -69,7 +65,6 @@ class DiscordBot {
           { name: "option f", value: "f" },
         ]);
       },
-      required: true,
       type: "STRING",
     })
     searchText3: string,
@@ -103,14 +98,13 @@ discord.**ts** convert automatically the infered type into discord.**js** option
 class DiscordBot {
   @Slash("add")
   add(
-    @SlashOption("x", { description: "x value", required: true })
+    @SlashOption("x", { description: "x value" })
     x: number,
-    @SlashOption("y", { description: "y value", required: true })
+    @SlashOption("y", { description: "y value" })
     y: number,
-
     interaction: CommandInteraction
   ) {
-    interaction.reply(x + y);
+    interaction.reply(String(x + y));
   }
 }
 ```
@@ -126,9 +120,8 @@ import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js";
 class DiscordBot {
   @Slash("getID")
   getID(
-    @SlashOption("x", { type: "MENTIONABLE", required: true })
+    @SlashOption("x", { type: "MENTIONABLE" })
     mentionable: GuildMember | User | Role,
-
     interaction: CommandInteraction
   ) {
     interaction.reply(mentionable.id);
@@ -261,7 +254,7 @@ Set option required or optional
 
 | type    | default |
 | ------- | ------- |
-| boolean | false   |
+| boolean | true    |
 
 #### `Type`
 
