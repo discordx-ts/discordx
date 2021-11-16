@@ -1132,10 +1132,7 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {
-    const prefixRegex =
-      typeof prefix === "string"
-        ? RegExp(`^${_.escapeRegExp(prefix)}`)
-        : prefix;
+    const prefixRegex = RegExp(`^${_.escapeRegExp(prefix)}`);
     const isCommand = prefixRegex.test(message.content);
     if (!isCommand) {
       return "notCommand";
@@ -1145,17 +1142,6 @@ export class Client extends ClientJS {
       message.content.replace(prefixRegex, "").trim() + " ";
 
     const commandRaw = this.allSimpleCommands.find((cmd) => {
-      if (cmd.command.prefix) {
-        const prefixReg =
-          typeof cmd.command.prefix === "string"
-            ? RegExp(`^${_.escapeRegExp(cmd.command.prefix)}`)
-            : cmd.command.prefix;
-
-        if (!prefixReg.test(message.content)) {
-          return false;
-        }
-      }
-
       if (caseSensitive) {
         return contentWithoutPrefix.startsWith(`${cmd.name} `);
       }
@@ -1192,7 +1178,7 @@ export class Client extends ClientJS {
    */
   async executeCommand(
     message: Message,
-    options?: { caseSensitive?: boolean }
+    options?: { caseSensitive?: boolean; forcePrefixCheck?: boolean }
   ): Promise<unknown> {
     const botGuildsResolved = await this.botGuildsResolved;
 

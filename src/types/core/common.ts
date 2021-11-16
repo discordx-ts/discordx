@@ -16,11 +16,8 @@ import {
 
 export type Awaitable<T> = Promise<T> | T;
 
-export type IPrefixEx = string | RegExp;
-export type IPrefix =
-  | string
-  | RegExp
-  | ((message: Message) => Awaitable<string | RegExp>);
+export type IPrefixEx = string;
+export type IPrefix = string | ((message: Message) => Awaitable<string>);
 
 export type IDefaultPermission = boolean | DefaultPermissionResolver;
 
