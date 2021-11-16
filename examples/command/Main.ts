@@ -25,14 +25,14 @@ export class Main {
 
       simpleCommand: {
         // prefix: "!",
-        prefix: (message): string | RegExp => {
+        prefix: (message): string | string[] => {
           // let's use different command prefix for dm
           if (message.channel.type === "DM") {
             return "+";
           }
 
           // common command prefix for all guild
-          return /^(\$|>)/;
+          return ["!", ">"];
         },
 
         responses: {

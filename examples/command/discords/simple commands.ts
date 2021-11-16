@@ -8,7 +8,7 @@ import { GuildMember, Role, User } from "discord.js";
 
 @Discord()
 export abstract class commandTest {
-  @SimpleCommand("race", { prefix: "&" })
+  @SimpleCommand("race", { prefix: ["&"] })
   race(command: SimpleCommandMessage): void {
     command.sendUsageSyntax();
   }

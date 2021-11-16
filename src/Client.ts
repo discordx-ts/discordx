@@ -14,7 +14,6 @@ import {
 import {
   ApplicationCommandMixin,
   ApplicationGuildMixin,
-  Awaitable,
   ClientOptions,
   DApplicationCommand,
   DApplicationCommandOption,
@@ -182,7 +181,7 @@ export class Client extends ClientJS {
     this.guards = options.guards ?? [];
     this.botGuilds = options.botGuilds ?? [];
     this._botId = options.botId ?? "bot";
-    this._prefix = options.simpleCommand?.prefix ?? "!";
+    this._prefix = options.simpleCommand?.prefix ?? ["!"];
     this._simpleCommandConfig = options.simpleCommand;
     this.logger = options.logger ?? console;
   }
@@ -1112,12 +1111,12 @@ export class Client extends ClientJS {
    * @param message messsage instance
    * @returns
    */
-  getMessagePrefix(message: Message): Awaitable<IPrefixEx> {
+  async getMessagePrefix(message: Message): Promise<IPrefixEx> {
     if (typeof this.prefix !== "function") {
-      return this.prefix;
+      return [...this.prefix];
     }
 
-    return this.prefix(message);
+    return [...(await this.prefix(message))];
   }
 
   /**
@@ -1132,12 +1131,16 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {
-    const prefixRegex = RegExp(`^${_.escapeRegExp(prefix)}`);
+    const prefixRegex = RegExp(
+      `^(${prefix.map((pfx) => _.escapeRegExp(pfx)).join("|")})`
+    );
+
     const isCommand = prefixRegex.test(message.content);
     if (!isCommand) {
       return "notCommand";
     }
 
+    const matchedPrefix = prefixRegex.exec(message.content)?.at(1) ?? "unknown";
     const contentWithoutPrefix =
       message.content.replace(prefixRegex, "").trim() + " ";
 
@@ -1160,7 +1163,7 @@ export class Client extends ClientJS {
       .trim();
 
     const command = new SimpleCommandMessage(
-      prefix,
+      matchedPrefix,
       commandArgs,
       message,
       commandRaw.command,
