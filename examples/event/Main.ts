@@ -13,7 +13,16 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+      intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+      ],
+    });
+
+    this.Client.on("ready", () => {
+      console.log("Bot started...");
     });
 
     await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");

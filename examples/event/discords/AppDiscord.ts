@@ -8,4 +8,13 @@ export abstract class AppDiscord {
   onMessage([message]: ArgsOf<"messageCreate">, client: Client): void {
     console.log(message.content);
   }
+
+  @On("messageReactionAdd")
+  emoji([reaction, user]: ArgsOf<"messageReactionAdd">): void {
+    const member = reaction.message.guild?.members.resolve(user.id);
+    if (member) {
+      console.log(member.roles.cache.map((r) => r.name));
+      // member.roles.add("roleid");
+    }
+  }
 }
