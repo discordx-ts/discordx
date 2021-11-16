@@ -10,6 +10,7 @@
 
 ## Changed
 
+- set slash option required by default ([#244](https://github.com/oceanroleplay/discord.ts/issues/244)) ([1f763c](https://github.com/oceanroleplay/discord.ts/commit/1f763cd94f57902aa81dfe68ce24cafadd09e3a7))
 - eslint quotes ([ba259b](https://github.com/oceanroleplay/discord.ts/commit/ba259b2df8db801297e2ca9b87a6f2a412e1f38d))
 - type literal ([7d92cd](https://github.com/oceanroleplay/discord.ts/commit/7d92cdabc44225feb5cd8d1393e953b8db711898))
 - remove allowed character ([626fa9](https://github.com/oceanroleplay/discord.ts/commit/626fa97d91c618aa47370bba5c297c8fee42ed00))
