@@ -48,7 +48,8 @@
   ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
-    "build:changelog": "npm run build:changelog:main && npm run build:changelog:changelog && npm run build:changelog:importer && npm run build:changelog:music && npm run build:changelog:utilities",
+    "build:changelog": "npm run build:changelog:docs && npm run build:changelog:main && npm run build:changelog:changelog && npm run build:changelog:importer && npm run build:changelog:music && npm run build:changelog:utilities",
+    "build:changelog:docs": "npx @discordx/changelog --root=./docs/docs --out=./docs/CHANGELOG.md",
     "build:changelog:main": "npx @discordx/changelog --root=./src --out=./CHANGELOG.md",
     "build:changelog:changelog": "npx @discordx/changelog --root=./packages/changelog/src --out=./packages/changelog/CHANGELOG.md --tag=c-v* --tag-replace=c-",
     "build:changelog:importer": "npx @discordx/changelog --root=./packages/importer/src --out=./packages/importer/CHANGELOG.md --tag=i-v* --tag-replace=i-",

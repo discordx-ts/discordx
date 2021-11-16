@@ -6,10 +6,17 @@
 
 ## Features
 
+- execute simple command with custom prefix ([8a3eb8](https://github.com/oceanroleplay/discord.ts/commit/8a3eb82bdadb217efd677398e19d586b8f7ed99a))
+- array of string for simeple command prefix ([cae082](https://github.com/oceanroleplay/discord.ts/commit/cae082b2e5c00f2d36ab2c841eece4911574c870))
+- add each command prefix ([a80bec](https://github.com/oceanroleplay/discord.ts/commit/a80bec66d236497c20d54a5bcfc5abf6c502b43e))
+- add regex for simple command prefix ([4654dc](https://github.com/oceanroleplay/discord.ts/commit/4654dc906b5bcbe7507176e5fbd7d3848f20d505))
 - min max options for slash option ([695a32](https://github.com/oceanroleplay/discord.ts/commit/695a3293575af41bda4831c8cb0f2633c0c5744c))
 
 ## Changed
 
+- add string on IPrefix ([cda781](https://github.com/oceanroleplay/discord.ts/commit/cda781a65bfbee864e2f5b12f8e2b033e259ed50))
+- rename prefix type ([de144b](https://github.com/oceanroleplay/discord.ts/commit/de144bf6fa863a3e8f76283450921b54d6e34d2f))
+- remove regex support for simple commands ([452a0f](https://github.com/oceanroleplay/discord.ts/commit/452a0fe5e280a15d029040f67e8105035a4157f0))
 - set slash option required by default ([#244](https://github.com/oceanroleplay/discord.ts/issues/244)) ([1f763c](https://github.com/oceanroleplay/discord.ts/commit/1f763cd94f57902aa81dfe68ce24cafadd09e3a7))
 - eslint quotes ([ba259b](https://github.com/oceanroleplay/discord.ts/commit/ba259b2df8db801297e2ca9b87a6f2a412e1f38d))
 - type literal ([7d92cd](https://github.com/oceanroleplay/discord.ts/commit/7d92cdabc44225feb5cd8d1393e953b8db711898))

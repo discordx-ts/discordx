@@ -6,7 +6,12 @@
 
 ## Changed
 
+- set slash option required by default ([#244](https://github.com/oceanroleplay/discord.ts/issues/244)) ([1f763c](https://github.com/oceanroleplay/discord.ts/commit/1f763cd94f57902aa81dfe68ce24cafadd09e3a7))
 - add colors to log ([e777e8](https://github.com/oceanroleplay/discord.ts/commit/e777e86fc995a26eea33ca4a21deef8f33820436))
+
+## Documenations
+
+- each command prefix ([c20f5b](https://github.com/oceanroleplay/discord.ts/commit/c20f5b04b6057d831f5c98e1a5628e0c4337f61d))
 
 ## Routine Tasks
 
