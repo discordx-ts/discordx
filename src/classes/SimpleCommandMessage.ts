@@ -59,9 +59,11 @@ export class SimpleCommandMessage {
    * @returns
    */
   sendUsageSyntax(): Promise<Message> {
-    const maxLength = this.info.options.reduce((a, b) =>
-      a.name.length > b.name.length ? a : b
-    ).name.length;
+    const maxLength = !this.info.options.length
+      ? 0
+      : this.info.options.reduce((a, b) =>
+          a.name.length > b.name.length ? a : b
+        ).name.length;
 
     const embed = new MessageEmbed();
     embed.setColor(crypto.randomInt(654321));

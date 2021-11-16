@@ -13,6 +13,7 @@ import {
   IDefaultPermission,
   IGuild,
   IPermissions,
+  IPrefixEx,
   SimpleCommandMessage,
   SimpleCommandOptionType,
   resolveIPermissions,
@@ -25,6 +26,7 @@ import { Method } from "./Method.js";
 export class DSimpleCommand extends Method {
   private _description: string;
   private _name: string;
+  private _prefix: IPrefixEx | undefined;
   private _defaultPermission: IDefaultPermission;
   private _directMessage: boolean;
   private _argSplitter?: ArgSplitter;
@@ -46,6 +48,13 @@ export class DSimpleCommand extends Method {
   }
   set botIds(value: string[]) {
     this._botIds = value;
+  }
+
+  get prefix(): IPrefixEx | undefined {
+    return this._prefix;
+  }
+  set prefix(value: IPrefixEx | undefined) {
+    this._prefix = value;
   }
 
   get permissions(): IPermissions[] {
@@ -106,13 +115,14 @@ export class DSimpleCommand extends Method {
 
   protected constructor(
     name: string,
-    description?: string,
+    aliases?: string[],
     argSplitter?: ArgSplitter,
-    directMessage?: boolean,
-    defaultPermission?: boolean,
-    guilds?: IGuild[],
     botIds?: string[],
-    aliases?: string[]
+    defaultPermission?: boolean,
+    description?: string,
+    directMessage?: boolean,
+    guilds?: IGuild[],
+    prefix?: IPrefixEx
   ) {
     super();
     this._name = name;
@@ -122,6 +132,7 @@ export class DSimpleCommand extends Method {
     this._argSplitter = argSplitter;
     this._options = [];
     this._permissions = [];
+    this._prefix = prefix;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
     this._aliases = aliases ?? [];
@@ -129,23 +140,25 @@ export class DSimpleCommand extends Method {
 
   static create(
     name: string,
-    description?: string,
+    aliases?: string[],
     argSplitter?: ArgSplitter,
-    directMessage?: boolean,
-    defaultPermission?: boolean,
-    guilds?: IGuild[],
     botIds?: string[],
-    aliases?: string[]
+    defaultPermission?: boolean,
+    description?: string,
+    directMessage?: boolean,
+    guilds?: IGuild[],
+    prefix?: IPrefixEx
   ): DSimpleCommand {
     return new DSimpleCommand(
       name,
-      description,
+      aliases,
       argSplitter,
-      directMessage,
-      defaultPermission,
-      guilds,
       botIds,
-      aliases
+      defaultPermission,
+      description,
+      directMessage,
+      guilds,
+      prefix
     );
   }
 

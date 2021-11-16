@@ -1144,13 +1144,26 @@ export class Client extends ClientJS {
     const contentWithoutPrefix =
       message.content.replace(prefixRegex, "").trim() + " ";
 
-    const commandRaw = this.allSimpleCommands.find((cmd) =>
-      caseSensitive
-        ? contentWithoutPrefix.startsWith(`${cmd.name} `)
-        : contentWithoutPrefix
-            .toLowerCase()
-            .startsWith(`${cmd.name.toLowerCase()} `)
-    );
+    const commandRaw = this.allSimpleCommands.find((cmd) => {
+      if (cmd.command.prefix) {
+        const prefixReg =
+          typeof cmd.command.prefix === "string"
+            ? RegExp(`^${_.escapeRegExp(cmd.command.prefix)}`)
+            : cmd.command.prefix;
+
+        if (!prefixReg.test(message.content)) {
+          return false;
+        }
+      }
+
+      if (caseSensitive) {
+        return contentWithoutPrefix.startsWith(`${cmd.name} `);
+      }
+
+      return contentWithoutPrefix
+        .toLowerCase()
+        .startsWith(`${cmd.name.toLowerCase()} `);
+    });
 
     if (!commandRaw) {
       return "notFound";

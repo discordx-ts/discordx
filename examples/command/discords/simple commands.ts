@@ -8,23 +8,9 @@ import { GuildMember, Role, User } from "discord.js";
 
 @Discord()
 export abstract class commandTest {
-  @SimpleCommand("race")
+  @SimpleCommand("race", { prefix: ">" })
   race(command: SimpleCommandMessage): void {
-    command.message.reply(
-      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${
-        command.name
-      }\`\`\nargument string: \`\`${
-        !command.argString.length ? " " : command.argString
-      }\`\`` +
-        `\nRelated Commands: \`\`${
-          !command.getRelatedCommands().length
-            ? "none"
-            : command
-                .getRelatedCommands()
-                .map((cmd) => cmd.name)
-                .join(", ")
-        }\`\``
-    );
+    command.sendUsageSyntax();
   }
 
   @SimpleCommand("race car", { description: "simple command example" })

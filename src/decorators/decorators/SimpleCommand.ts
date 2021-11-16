@@ -43,13 +43,14 @@ export function SimpleCommand(
 
     const cmd = DSimpleCommand.create(
       name,
-      params?.description,
+      params?.aliases,
       params?.argSplitter,
-      params?.directMessage,
-      params?.defaultPermission,
-      params?.guilds,
       params?.botIds,
-      params?.aliases
+      params?.defaultPermission,
+      params?.description,
+      params?.directMessage,
+      params?.guilds,
+      params?.prefix
     ).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addSimpleCommand(cmd);
