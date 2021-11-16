@@ -50,7 +50,7 @@ The following options are only available
 
 | Name          | Required | Default          | Description                |
 | ------------- | -------- | ---------------- | -------------------------- |
-| --root        | false    | "./"             | root folder path           |
-| --out         | false    | "./CHANGELOG.md" | changelog file path        |
-| --tag         | false    | "v\*"            | tag to match with releases |
-| --tag-replace | false    | undefined        | repalcement in tag         |
+| --root        | No       | "./"             | root folder path           |
+| --out         | No       | "./CHANGELOG.md" | changelog file path        |
+| --tag         | No       | "v\*"            | tag to match with releases |
+| --tag-replace | No       | undefined        | repalcement in tag         |

@@ -4,11 +4,15 @@
   "private": false,
   "description": "changelog generator, written in TypeScript with Node.js",
   "keywords": [
+    "discordx",
+    "discord",
+    "typescript",
     "typescript",
     "javascript",
-    "importer",
-    "mjs",
-    "cjs"
+    "changelog",
+    "generator",
+    "git",
+    "github"
   ],
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/changelog#readme",
   "bugs": {
