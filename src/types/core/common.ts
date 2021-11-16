@@ -16,8 +16,8 @@ import {
 
 export type Awaitable<T> = Promise<T> | T;
 
-export type IPrefixEx = string[];
-export type IPrefix =
+export type IPrefix = string[];
+export type IPrefixResolver =
   | string
   | string[]
   | ((message: Message) => Awaitable<string | string[]>);

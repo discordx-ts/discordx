@@ -29,7 +29,7 @@ import {
   IGuild,
   ILogger,
   IPrefix,
-  IPrefixEx,
+  IPrefixResolver,
   InitCommandConfig,
   MetadataStorage,
   SimpleCommandConfig,
@@ -47,7 +47,7 @@ import chalk from "chalk";
  */
 export class Client extends ClientJS {
   private _botId: string;
-  private _prefix: IPrefix;
+  private _prefix: IPrefixResolver;
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
   private _botGuilds: IGuild[] = [];
@@ -71,10 +71,10 @@ export class Client extends ClientJS {
     this._guards = value;
   }
 
-  get prefix(): IPrefix {
+  get prefix(): IPrefixResolver {
     return this._prefix;
   }
-  set prefix(value: IPrefix) {
+  set prefix(value: IPrefixResolver) {
     this._prefix = value;
   }
 
@@ -1111,7 +1111,7 @@ export class Client extends ClientJS {
    * @param message messsage instance
    * @returns
    */
-  async getMessagePrefix(message: Message): Promise<IPrefixEx> {
+  async getMessagePrefix(message: Message): Promise<IPrefix> {
     if (typeof this.prefix !== "function") {
       return [...this.prefix];
     }
@@ -1127,7 +1127,7 @@ export class Client extends ClientJS {
    * @returns
    */
   parseCommand(
-    prefix: IPrefixEx,
+    prefix: IPrefix,
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {

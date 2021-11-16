@@ -4,7 +4,7 @@ import {
   IGuild,
   SimpleCommandMessage,
 } from "../../index.js";
-import { Awaitable, ILogger, IPrefix } from "../index.js";
+import { Awaitable, ILogger, IPrefixResolver } from "../index.js";
 import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
 
 export interface SimpleCommandConfig {
@@ -16,7 +16,7 @@ export interface SimpleCommandConfig {
   /**
    * bot prefix or prefix resolver
    */
-  prefix?: IPrefix;
+  prefix?: IPrefixResolver;
 
   /**
    * Define global response for cetain conditions

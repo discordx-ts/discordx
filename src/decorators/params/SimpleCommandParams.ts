@@ -1,4 +1,4 @@
-import { IGuild, IPrefixEx, SimpleCommandMessage } from "../../index.js";
+import { IGuild, IPrefix, SimpleCommandMessage } from "../../index.js";
 
 export type ArgSplitter =
   | string
@@ -13,5 +13,5 @@ export interface SimpleCommandParams {
   description?: string;
   directMessage?: boolean;
   guilds?: IGuild[];
-  prefix?: IPrefixEx;
+  prefix?: IPrefix;
 }

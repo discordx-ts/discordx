@@ -13,7 +13,7 @@ import {
   IDefaultPermission,
   IGuild,
   IPermissions,
-  IPrefixEx,
+  IPrefix,
   SimpleCommandMessage,
   SimpleCommandOptionType,
   resolveIPermissions,
@@ -26,7 +26,7 @@ import { Method } from "./Method.js";
 export class DSimpleCommand extends Method {
   private _description: string;
   private _name: string;
-  private _prefix: IPrefixEx | undefined;
+  private _prefix: IPrefix | undefined;
   private _defaultPermission: IDefaultPermission;
   private _directMessage: boolean;
   private _argSplitter?: ArgSplitter;
@@ -50,10 +50,10 @@ export class DSimpleCommand extends Method {
     this._botIds = value;
   }
 
-  get prefix(): IPrefixEx | undefined {
+  get prefix(): IPrefix | undefined {
     return this._prefix;
   }
-  set prefix(value: IPrefixEx | undefined) {
+  set prefix(value: IPrefix | undefined) {
     this._prefix = value;
   }
 
@@ -122,7 +122,7 @@ export class DSimpleCommand extends Method {
     description?: string,
     directMessage?: boolean,
     guilds?: IGuild[],
-    prefix?: IPrefixEx
+    prefix?: IPrefix
   ) {
     super();
     this._name = name;
@@ -147,7 +147,7 @@ export class DSimpleCommand extends Method {
     description?: string,
     directMessage?: boolean,
     guilds?: IGuild[],
-    prefix?: IPrefixEx
+    prefix?: IPrefix
   ): DSimpleCommand {
     return new DSimpleCommand(
       name,
