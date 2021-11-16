@@ -1,21 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Decorator } from "./Decorator.js";
 import { DecoratorUtils } from "../../index.js";
 
 export type ModifyFunction<ToModify extends Decorator> = (
   original: ToModify
-) => any;
+) => unknown;
 
 /**
  * @category Internal
  */
-export class Modifier<ToModify extends Decorator> extends Decorator {
+export class Modifier<
+  ToModify extends Decorator = Decorator
+> extends Decorator {
   private _toModify: ModifyFunction<ToModify>;
-  private _modifyTypes: any[];
+  private _modifyTypes: unknown[];
 
   protected constructor(
     toModify: ModifyFunction<ToModify>,
-    modifyTypes: any[]
+    modifyTypes: unknown[]
   ) {
     super();
     this._toModify = toModify;
@@ -24,7 +25,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
 
   static create<ToModifyEx extends Decorator>(
     toModify: ModifyFunction<ToModifyEx>,
-    ...modifyTypes: any[]
+    ...modifyTypes: unknown[]
   ): Modifier<ToModifyEx> {
     return new Modifier<ToModifyEx>(toModify, modifyTypes);
   }
@@ -38,7 +39,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
    * @returns
    */
   static applyFromModifierListToList(
-    modifiers: Modifier<any>[],
+    modifiers: Modifier[],
     originals: Decorator[]
   ): Promise<void[]> {
     return Promise.all(
@@ -61,7 +62,7 @@ export class Modifier<ToModify extends Decorator> extends Decorator {
     );
   }
 
-  applyModifications(original: ToModify): (originalEx: ToModify) => any {
+  applyModifications(original: ToModify): unknown {
     return this._toModify(original);
   }
 }
