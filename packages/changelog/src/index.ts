@@ -78,11 +78,12 @@ export function generateDoc(
           );
 
         return {
-          message: title as string,
+          message: message as string,
           sha: (title ? sha : undefined) as string,
+          title: title as string,
         };
       })
-      .filter((commit) => Boolean(commit.message) && Boolean(commit.sha));
+      .filter((commit) => Boolean(commit.title) && Boolean(commit.sha));
 
     const tagDate = child
       .execSync(`git log -1 --format=%ai ${tag}`)
@@ -104,36 +105,44 @@ export function generateDoc(
 
     commitsArray.forEach((commit) => {
       const formatedCommit = (replace?: string) =>
-        `* ${commit.message.replace(
+        `* ${commit.title.replace(
           replace ? `${replace}: ` : "",
           ""
         )} ([${commit.sha.substring(0, 6)}](https://github.com/${repo}/commit/${
           commit.sha
         }))\n`;
 
-      if (commit.message.startsWith("chore: ")) {
+      if (commit.title.startsWith("chore: ")) {
         choreStore.push(formatedCommit("chore"));
-      } else if (commit.message.startsWith("BREAKING CHANGE: ")) {
+      } else if (commit.title.startsWith("BREAKING CHANGE: ")) {
         breakingStore.push(formatedCommit("BREAKING CHANGE"));
-      } else if (commit.message.startsWith("build: ")) {
+      } else if (commit.title.startsWith("build: ")) {
         buildStore.push(formatedCommit("build"));
-      } else if (commit.message.startsWith("ci: ")) {
+      } else if (commit.title.startsWith("ci: ")) {
         ciStore.push(formatedCommit("ci"));
-      } else if (commit.message.startsWith("docs: ")) {
+      } else if (commit.title.startsWith("docs: ")) {
         docsStore.push(formatedCommit("docs"));
-      } else if (commit.message.startsWith("feat: ")) {
+      } else if (commit.title.startsWith("feat: ")) {
         featStore.push(formatedCommit("feat"));
-      } else if (commit.message.startsWith("fix: ")) {
-        fixStore.push(formatedCommit("fix"));
-      } else if (commit.message.startsWith("refactor: ")) {
-        refactorStore.push(formatedCommit("refactor"));
-      } else if (commit.message.startsWith("test: ")) {
+      } else if (commit.title.startsWith("fix: ")) {
+        if (commit.message.includes("BREAKING CHANGE")) {
+          breakingStore.push(formatedCommit("fix"));
+        } else {
+          fixStore.push(formatedCommit("fix"));
+        }
+      } else if (commit.title.startsWith("refactor: ")) {
+        if (commit.message.includes("BREAKING CHANGE")) {
+          breakingStore.push(formatedCommit("refactor"));
+        } else {
+          refactorStore.push(formatedCommit("refactor"));
+        }
+      } else if (commit.title.startsWith("test: ")) {
         testStore.push(formatedCommit("test"));
-      } else if (commit.message.startsWith("revert: ")) {
+      } else if (commit.title.startsWith("revert: ")) {
         revertStore.push(formatedCommit("revert"));
-      } else if (commit.message.startsWith("types: ")) {
+      } else if (commit.title.startsWith("types: ")) {
         typesStore.push(formatedCommit("types"));
-      } else if (commit.message.startsWith("workflow: ")) {
+      } else if (commit.title.startsWith("workflow: ")) {
         workflowStore.push(formatedCommit("workflow"));
       } else {
         allStore.push(formatedCommit());
