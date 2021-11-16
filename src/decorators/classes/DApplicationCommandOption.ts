@@ -15,19 +15,15 @@ export class DApplicationCommandOption extends Decorator {
   private _channelTypes: ChannelTypes[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
-  private _isNode = false;
   private _name: string;
   private _maxValue?: number;
   private _minValue?: number;
   private _options: DApplicationCommandOption[] = [];
-  private _required = false;
+  private _required = true;
   private _type: SlashOptionType;
 
   get isNode(): boolean {
-    return this._isNode;
-  }
-  set isNode(value: boolean) {
-    this._isNode = value;
+    return this.type === "SUB_COMMAND" || this.type === "SUB_COMMAND_GROUP";
   }
 
   get options(): DApplicationCommandOption[] {
@@ -119,7 +115,7 @@ export class DApplicationCommandOption extends Decorator {
     this._index = index;
     this._maxValue = maxValue;
     this._minValue = minValue;
-    this._required = required ?? false;
+    this._required = required ?? true;
     this._type = type ?? "STRING";
   }
 
@@ -155,16 +151,17 @@ export class DApplicationCommandOption extends Decorator {
     const data: ApplicationCommandOptionDatax = {
       autocomplete: this.autocomplete ? true : undefined,
       channelTypes: this.channelTypes,
-      choices:
-        this.choices.length === 0
-          ? undefined
-          : this.choices.map((choice) => choice.toJSON()),
+      choices: this.isNode
+        ? undefined
+        : this.choices.length === 0
+        ? undefined
+        : this.choices.map((choice) => choice.toJSON()),
       description: this.description,
       maxValue: this.maxValue,
       minValue: this.minValue,
       name: this.name,
       options: options.length === 0 ? undefined : options,
-      required: !this.isNode ? undefined : this.required,
+      required: this.isNode ? undefined : this.required,
       type: this.type,
     };
 

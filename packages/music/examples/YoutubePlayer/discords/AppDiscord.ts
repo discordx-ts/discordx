@@ -121,7 +121,7 @@ export class music {
 
   @Slash("play", { description: "Play a song" })
   async play(
-    @SlashOption("song", { description: "song name", required: true })
+    @SlashOption("song", { description: "song name" })
     songName: string,
     interaction: CommandInteraction
   ): Promise<void> {
@@ -153,7 +153,7 @@ export class music {
 
   @Slash("playlist", { description: "Play a playlist" })
   async playlist(
-    @SlashOption("playlist", { description: "playlist name", required: true })
+    @SlashOption("playlist", { description: "playlist name" })
     playlistName: string,
     interaction: CommandInteraction
   ): Promise<void> {
@@ -185,7 +185,7 @@ export class music {
 
   @Slash("spotify", { description: "Play a spotify link" })
   async spotify(
-    @SlashOption("link", { description: "spotify link", required: true })
+    @SlashOption("link", { description: "spotify link" })
     link: string,
     interaction: CommandInteraction
   ): Promise<void> {
@@ -342,7 +342,6 @@ export class music {
   seek(
     @SlashOption("time", {
       description: "seek time in seconds",
-      required: true,
     })
     time: number,
     interaction: CommandInteraction

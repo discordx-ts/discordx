@@ -54,7 +54,6 @@ export abstract class AppDiscord {
   testx(
     @SlashOption("aoption", {
       autocomplete: true,
-      required: true,
       type: "STRING",
     })
     searchText: string,
@@ -71,7 +70,6 @@ export abstract class AppDiscord {
           { name: "option d", value: "c" },
         ]);
       },
-      required: true,
       type: "STRING",
     })
     searchText2: string,
@@ -83,7 +81,6 @@ export abstract class AppDiscord {
           { name: "option f", value: "f" },
         ]);
       },
-      required: true,
       type: "STRING",
     })
     searchText3: string,

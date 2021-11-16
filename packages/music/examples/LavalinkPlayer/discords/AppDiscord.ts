@@ -45,7 +45,7 @@ export class music {
 
   @Slash("play")
   async play(
-    @SlashOption("song", { required: true }) song: string,
+    @SlashOption("song") song: string,
     interaction: CommandInteraction
   ): Promise<void> {
     if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
