@@ -1,4 +1,4 @@
-import { Discord, Slash } from "../../../src/index.js";
+import { Discord, Slash } from "../../../build/cjs/index.cjs";
 import { CommandInteraction } from "discord.js";
 
 @Discord()
