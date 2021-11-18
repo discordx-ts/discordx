@@ -2,13 +2,16 @@ import {
   ApplicationCommand,
   ApplicationCommandData,
   AutocompleteInteraction,
+  ButtonInteraction,
   Client as ClientJS,
   Collection,
   CommandInteraction,
   CommandInteractionOption,
+  ContextMenuInteraction,
   DiscordAPIError,
   Interaction,
   Message,
+  SelectMenuInteraction,
   Snowflake,
 } from "discord.js";
 import {
@@ -195,10 +198,10 @@ export class Client extends ClientJS {
    * Start your bot
    * @param token The bot token
    */
-  async login(token: string): Promise<string> {
+  async login(token: string, log?: boolean): Promise<string> {
     await this.decorators.build();
 
-    if (!this.silent) {
+    if (log ?? !this.silent) {
       this.logger.log(chalk.yellowBright("client >> Events"));
       if (this.events.length) {
         this.events.map((event) => {
@@ -517,7 +520,7 @@ export class Client extends ClientJS {
     );
 
     // log the changes to commands if enabled by options or silent mode is turned off
-    if (options?.log || !this.silent) {
+    if (options?.log ?? !this.silent) {
       let str = chalk.blueBright(
         `${this.user?.username} >> commands >> guild: #${guild}`
       );
@@ -635,7 +638,7 @@ export class Client extends ClientJS {
       );
 
       // log the changes to commands if enabled by options or silent mode is turned off
-      if (options?.log || !this.silent) {
+      if (options?.log ?? !this.silent) {
         let str = chalk.blueBright(
           `${this.user?.username ?? this.botId} >> commands >> global`
         );
@@ -742,7 +745,7 @@ export class Client extends ClientJS {
             );
 
             if (!_.isEqual(permissions, commandPermissions)) {
-              if (!this.silent || log) {
+              if (log ?? !this.silent) {
                 this.logger.log(
                   chalk.bold(
                     `${this.user?.username} >> command: ${cmd.name} >> permissions >> updating >> guild: #${guild}`
@@ -769,7 +772,7 @@ export class Client extends ClientJS {
               cmd
             );
 
-            if (!this.silent || log) {
+            if (log ?? !this.silent) {
               this.logger.log(
                 chalk.bold(
                   `${this.user?.username} >> command: ${cmd.name} >> permissions >> adding >> guild: #${guild}`
@@ -918,15 +921,17 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute the corresponding @Slash @ButtonComponent @SelectMenuComponent based on an Interaction instance
-   * @param interaction The discord.js interaction instance
+   * Execute all types of interaction
+   * @param interaction Interaction
+   * @param log {boolean}
    * @returns
    */
-  async executeInteraction(interaction: Interaction): Promise<unknown> {
-    const botGuildsResolved = await this.botGuildsResolved;
-
+  executeInteraction(
+    interaction: Interaction,
+    log?: boolean
+  ): Awaited<unknown> {
     if (!interaction) {
-      if (!this.silent) {
+      if (log ?? !this.silent) {
         this.logger.log(
           chalk.redBright(
             `${this.user?.username ?? this.botId} >> interaction is undefined`
@@ -938,177 +943,232 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isButton()) {
-      const button = this.buttons.find((DButton) =>
-        DButton.isId(interaction.customId)
-      );
-
-      const guilds: string[] = [];
-
-      if (button) {
-        guilds.push(
-          ...(await resolveIGuilds(this, button, [
-            ...botGuildsResolved,
-            ...button.guilds,
-          ]))
-        );
-      }
-
-      if (
-        !button ||
-        (interaction.guild &&
-          guilds.length &&
-          !guilds.includes(interaction.guild.id)) ||
-        (button.botIds.length && !button.botIds.includes(this.botId))
-      ) {
-        if (!this.silent) {
-          chalk.redBright(
-            `${
-              this.user?.username ?? this.botId
-            } >> button interaction not found, interactionId: ${
-              interaction.id
-            } | customId: ${interaction.customId}`
-          );
-        }
-        return;
-      }
-
-      return button.execute(this.guards, interaction, this);
+      return this.executeButtonInteraction(interaction, log);
     }
 
     // if interaction is a select menu
     if (interaction.isSelectMenu()) {
-      const menu = this.selectMenus.find((DSelectMenu) =>
-        DSelectMenu.isId(interaction.customId)
-      );
-
-      const guilds: string[] = [];
-
-      if (menu) {
-        guilds.push(
-          ...(await resolveIGuilds(this, menu, [
-            ...botGuildsResolved,
-            ...menu.guilds,
-          ]))
-        );
-      }
-
-      if (
-        !menu ||
-        (interaction.guild &&
-          guilds.length &&
-          !guilds.includes(interaction.guild.id)) ||
-        (menu.botIds.length && !menu.botIds.includes(this.botId))
-      ) {
-        if (!this.silent) {
-          this.logger.log(
-            chalk.redBright(
-              `${
-                this.user?.username ?? this.botId
-              } >> selectMenu interaction not found, interactionId: ${
-                interaction.id
-              } | customId: ${interaction.customId}`
-            )
-          );
-        }
-        return;
-      }
-
-      return menu.execute(this.guards, interaction, this);
+      return this.executeSelectMenu(interaction, log);
     }
 
     // if interaction is context menu
     if (interaction.isContextMenu()) {
-      const applicationCommand = this.allApplicationCommands.find(
-        (cmd) =>
-          cmd.type !== "CHAT_INPUT" && cmd.name === interaction.commandName
-      );
-
-      const guilds: string[] = [];
-
-      if (applicationCommand) {
-        guilds.push(
-          ...(await resolveIGuilds(this, applicationCommand, [
-            ...botGuildsResolved,
-            ...applicationCommand.guilds,
-          ]))
-        );
-      }
-
-      if (
-        !applicationCommand ||
-        (interaction.guild &&
-          guilds.length &&
-          !guilds.includes(interaction.guild.id)) ||
-        (applicationCommand.botIds.length &&
-          !applicationCommand.botIds.includes(this.botId))
-      ) {
-        if (!this.silent) {
-          this.logger.log(
-            chalk.redBright(
-              `${
-                this.user?.username ?? this.botId
-              } >> context interaction not found, name: ${
-                interaction.commandName
-              }`
-            )
-          );
-        }
-        return;
-      }
-
-      if (
-        applicationCommand.botIds.length &&
-        !applicationCommand.botIds.includes(this.botId)
-      ) {
-        return;
-      }
-
-      return applicationCommand.execute(this.guards, interaction, this);
+      return this.executeContextMenu(interaction, log);
     }
 
     // If the interaction isn't a slash command, return
     if (interaction.isCommand() || interaction.isAutocomplete()) {
-      // Get the interaction group tree
-      const tree = this.getApplicationCommandGroupTree(interaction);
-      const applicationCommand = this.getApplicationCommandFromTree(tree);
+      return this.executeCommandInteraction(interaction, log);
+    }
+  }
 
-      if (
-        !applicationCommand ||
-        (applicationCommand.botIds.length &&
-          !applicationCommand.botIds.includes(this.botId))
-      ) {
-        if (this.silent) {
-          this.logger.log(
-            chalk.redBright(
-              `${
-                this.user?.username ?? this.botId
-              } >> interaction not found, commandName: ${
-                interaction.commandName
-              }`
-            )
-          );
-        }
+  /**
+   * Execute command interacton
+   * @param interaction CommandInteraction | AutocompleteInteraction
+   * @param log {boolean}
+   * @returns
+   */
+  executeCommandInteraction(
+    interaction: CommandInteraction | AutocompleteInteraction,
+    log?: boolean
+  ): Awaited<unknown> {
+    // Get the interaction group tree
+    const tree = this.getApplicationCommandGroupTree(interaction);
+    const applicationCommand = this.getApplicationCommandFromTree(tree);
+
+    if (
+      !applicationCommand ||
+      (applicationCommand.botIds.length &&
+        !applicationCommand.botIds.includes(this.botId))
+    ) {
+      if (log ?? this.silent) {
+        this.logger.log(
+          chalk.redBright(
+            `${
+              this.user?.username ?? this.botId
+            } >> interaction not found, commandName: ${interaction.commandName}`
+          )
+        );
+      }
+      return;
+    }
+
+    if (interaction.isAutocomplete()) {
+      const focusOption = interaction.options.getFocused(true);
+      const option = applicationCommand.options.find(
+        (op) => op.name === focusOption.name
+      );
+      if (option && typeof option.autocomplete === "function") {
+        option.autocomplete.call(
+          DIService.instance.getService(option.from),
+          interaction,
+          applicationCommand
+        );
         return;
       }
-
-      if (interaction.isAutocomplete()) {
-        const focusOption = interaction.options.getFocused(true);
-        const option = applicationCommand.options.find(
-          (op) => op.name === focusOption.name
-        );
-        if (option && typeof option.autocomplete === "function") {
-          option.autocomplete.call(
-            DIService.instance.getService(option.from),
-            interaction,
-            applicationCommand
-          );
-          return;
-        }
-      }
-
-      // Parse the options values and inject it into the @Slash method
-      return applicationCommand.execute(this.guards, interaction, this);
     }
+
+    // Parse the options values and inject it into the @Slash method
+    return applicationCommand.execute(this.guards, interaction, this);
+  }
+
+  /**
+   * Execute button interacton
+   * @param interaction ButtonInteraction
+   * @param log {boolean}
+   * @returns
+   */
+  async executeButtonInteraction(
+    interaction: ButtonInteraction,
+    log?: boolean
+  ): Promise<unknown> {
+    const botGuildsResolved = await this.botGuildsResolved;
+
+    const button = this.buttons.find((DButton) =>
+      DButton.isId(interaction.customId)
+    );
+
+    const guilds: string[] = [];
+
+    if (button) {
+      guilds.push(
+        ...(await resolveIGuilds(this, button, [
+          ...botGuildsResolved,
+          ...button.guilds,
+        ]))
+      );
+    }
+
+    if (
+      !button ||
+      (interaction.guild &&
+        guilds.length &&
+        !guilds.includes(interaction.guild.id)) ||
+      (button.botIds.length && !button.botIds.includes(this.botId))
+    ) {
+      if (log ?? !this.silent) {
+        chalk.redBright(
+          `${
+            this.user?.username ?? this.botId
+          } >> button interaction not found, interactionId: ${
+            interaction.id
+          } | customId: ${interaction.customId}`
+        );
+      }
+      return;
+    }
+
+    return button.execute(this.guards, interaction, this);
+  }
+
+  /**
+   * Execute select menu interacton
+   * @param interaction SelectMenuInteraction
+   * @param log {boolean}
+   * @returns
+   */
+  async executeSelectMenu(
+    interaction: SelectMenuInteraction,
+    log?: boolean
+  ): Promise<unknown> {
+    const botGuildsResolved = await this.botGuildsResolved;
+
+    const menu = this.selectMenus.find((DSelectMenu) =>
+      DSelectMenu.isId(interaction.customId)
+    );
+
+    const guilds: string[] = [];
+
+    if (menu) {
+      guilds.push(
+        ...(await resolveIGuilds(this, menu, [
+          ...botGuildsResolved,
+          ...menu.guilds,
+        ]))
+      );
+    }
+
+    if (
+      !menu ||
+      (interaction.guild &&
+        guilds.length &&
+        !guilds.includes(interaction.guild.id)) ||
+      (menu.botIds.length && !menu.botIds.includes(this.botId))
+    ) {
+      if (log ?? !this.silent) {
+        this.logger.log(
+          chalk.redBright(
+            `${
+              this.user?.username ?? this.botId
+            } >> selectMenu interaction not found, interactionId: ${
+              interaction.id
+            } | customId: ${interaction.customId}`
+          )
+        );
+      }
+      return;
+    }
+
+    return menu.execute(this.guards, interaction, this);
+  }
+
+  /**
+   * Execute context menu interacton
+   * @param interaction ContextMenuInteraction
+   * @param log {boolean}
+   * @returns
+   */
+  async executeContextMenu(
+    interaction: ContextMenuInteraction,
+    log?: boolean
+  ): Promise<unknown> {
+    const botGuildsResolved = await this.botGuildsResolved;
+
+    const applicationCommand = this.allApplicationCommands.find(
+      (cmd) => cmd.type !== "CHAT_INPUT" && cmd.name === interaction.commandName
+    );
+
+    const guilds: string[] = [];
+
+    if (applicationCommand) {
+      guilds.push(
+        ...(await resolveIGuilds(this, applicationCommand, [
+          ...botGuildsResolved,
+          ...applicationCommand.guilds,
+        ]))
+      );
+    }
+
+    if (
+      !applicationCommand ||
+      (interaction.guild &&
+        guilds.length &&
+        !guilds.includes(interaction.guild.id)) ||
+      (applicationCommand.botIds.length &&
+        !applicationCommand.botIds.includes(this.botId))
+    ) {
+      if (log ?? !this.silent) {
+        this.logger.log(
+          chalk.redBright(
+            `${
+              this.user?.username ?? this.botId
+            } >> context interaction not found, name: ${
+              interaction.commandName
+            }`
+          )
+        );
+      }
+      return;
+    }
+
+    if (
+      applicationCommand.botIds.length &&
+      !applicationCommand.botIds.includes(this.botId)
+    ) {
+      return;
+    }
+
+    return applicationCommand.execute(this.guards, interaction, this);
   }
 
   /**
@@ -1194,12 +1254,16 @@ export class Client extends ClientJS {
    */
   async executeCommand(
     message: Message,
-    options?: { caseSensitive?: boolean; forcePrefixCheck?: boolean }
+    options?: {
+      caseSensitive?: boolean;
+      forcePrefixCheck?: boolean;
+      log?: boolean;
+    }
   ): Promise<unknown> {
     const botGuildsResolved = await this.botGuildsResolved;
 
     if (!message) {
-      if (!this.silent) {
+      if (options?.log ?? !this.silent) {
         this.logger.log(
           chalk.redBright(
             `${
@@ -1213,7 +1277,7 @@ export class Client extends ClientJS {
 
     const prefix = await this.getMessagePrefix(message);
     if (!prefix) {
-      if (!this.silent) {
+      if (options?.log ?? !this.silent) {
         this.logger.log(
           chalk.redBright(
             `${
