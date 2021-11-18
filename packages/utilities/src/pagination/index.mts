@@ -14,8 +14,8 @@ import {
   defaultTime,
   embedType,
   paginationFunc,
-} from "./types.js";
-import { GeneratePage } from "./functions/GeneratePage.js";
+} from "./types.mjs";
+import { GeneratePage } from "./functions/GeneratePage.mjs";
 import _ from "lodash";
 
 export class PaginationResolver<T extends paginationFunc = paginationFunc> {

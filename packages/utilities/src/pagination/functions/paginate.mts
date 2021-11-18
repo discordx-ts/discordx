@@ -1,4 +1,4 @@
-import { IPaginate } from "../types.js";
+import { IPaginate } from "../types.mjs";
 
 export function paginate(
   totalItems: number,
