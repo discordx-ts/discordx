@@ -1,4 +1,4 @@
-import { Queue, Track } from "../index.js";
+import { Queue, Track } from "../index.mjs";
 import { StageChannel, VoiceChannel } from "discord.js";
 
 export interface PlayerEvents<T extends Queue = Queue> {

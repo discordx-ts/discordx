@@ -6,11 +6,11 @@ import {
   TrackResponse,
   VoiceServerUpdate,
   VoiceStateUpdate,
-} from "../types/index.js";
-import Connection from "../core/Connection.js";
+} from "../types/index.mjs";
+import Connection from "../core/Connection.mjs";
 import { EventEmitter } from "events";
-import Http from "../core/Http.js";
-import PlayerStore from "../core/PlayerStore.js";
+import Http from "../core/Http.mjs";
+import PlayerStore from "../core/PlayerStore.mjs";
 import WebSocket from "ws";
 
 export default abstract class BaseNode extends EventEmitter {

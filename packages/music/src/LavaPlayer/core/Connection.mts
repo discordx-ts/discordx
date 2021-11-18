@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BaseNode from "../base/Node.js";
+import BaseNode from "../base/Node.mjs";
 import { IncomingMessage } from "http";
 import WebSocket from "ws";
 import backoff from "backoff";

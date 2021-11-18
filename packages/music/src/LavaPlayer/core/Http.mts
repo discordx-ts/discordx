@@ -5,9 +5,9 @@ import {
   STATUS_CODES,
   request,
 } from "http";
-import { Track, TrackInfo, TrackResponse } from "../types/index.js";
-import BaseNode from "../base/Node.js";
-import RoutePlanner from "./RoutePlanner.js";
+import { Track, TrackInfo, TrackResponse } from "../types/index.mjs";
+import BaseNode from "../base/Node.mjs";
+import RoutePlanner from "./RoutePlanner.mjs";
 import { URL } from "url";
 
 export class HTTPError extends Error {

@@ -17,7 +17,7 @@ import {
   PlayerErrors,
   Util,
   YoutubeTrack,
-} from "../index.js";
+} from "../index.mjs";
 import { Guild, StageChannel, VoiceChannel } from "discord.js";
 import { Video } from "ytsr";
 import _ from "lodash";

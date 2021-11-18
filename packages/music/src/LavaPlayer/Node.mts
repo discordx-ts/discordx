@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BaseNode from "./base/Node.js";
-import { BaseNodeOptions } from "./types/index.js";
+import BaseNode from "./base/Node.mjs";
+import { BaseNodeOptions } from "./types/index.mjs";
 
 export interface NodeOptions extends BaseNodeOptions {
   send: (guildId: string, packet: any) => any;

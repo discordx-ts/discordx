@@ -28,14 +28,14 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js",
-      "types": "./build/esm/index.d.ts"
+      "import": "./build/esm/index.mjs",
+      "require": "./build/cjs/index.cjs",
+      "types": "./build/esm/index.d.mts"
     }
   },
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "types": "build/esm/index.d.ts",
+  "main": "build/cjs/index.cjs",
+  "module": "build/esm/index.mjs",
+  "types": "build/esm/index.d.mts",
   "files": [
     "build",
     "LICENSE",
@@ -45,12 +45,9 @@
     "package.json"
   ],
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs",
+    "build": "tsc && npm run build:cjs",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "build:esm": "tsc && npm run postbuild:esm",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --module=cjs --path=build/cjs",
-    "postbuild:esm": "node ../../scripts/postbuild.mjs --module=esm --path=build/esm",
-    "build:fixup": "node ../../scripts/fixup-music.mjs",
+    "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build/cjs",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
@@ -73,7 +70,8 @@
   "devDependencies": {
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.177",
-    "discordx": "^10.0.0-dev.1636568467.16689ed"
+    "discordx": "^10.0.0-dev.1636568467.16689ed",
+    "typescript": "^4.5.2"
   },
   "engines": {
     "node": ">=16.0.0",

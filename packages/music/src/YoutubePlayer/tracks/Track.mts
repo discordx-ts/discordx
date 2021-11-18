@@ -1,4 +1,4 @@
-import { CustomTrack, YoutubeTrack } from "./index.js";
+import { CustomTrack, YoutubeTrack } from "./index.mjs";
 import { AudioResource } from "@discordjs/voice";
 import internal from "node:stream";
 

@@ -1,5 +1,5 @@
-import Http from "./Http.js";
-import { RoutePlannerStatus } from "../types/index.js";
+import Http from "./Http.mjs";
+import { RoutePlannerStatus } from "../types/index.mjs";
 
 export default class RoutePlanner {
   constructor(public readonly http: Http) {}

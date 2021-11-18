@@ -1,7 +1,7 @@
 import { Collection, Guild, Snowflake } from "discord.js";
-import { PlayerEventArgOf, PlayerEvents } from "../index.js";
+import { PlayerEventArgOf, PlayerEvents } from "../index.mjs";
 import { EventEmitter } from "node:events";
-import { Queue } from "./Queue.js";
+import { Queue } from "./Queue.mjs";
 
 // default queue
 class MyQueue extends Queue {}
