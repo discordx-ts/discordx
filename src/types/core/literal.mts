@@ -50,9 +50,12 @@ export type TruncateTo32<T extends string> = T extends ""
     : never
   : T;
 
-export type NotEmpty<T> = T extends "" ? never : unknown;
+export type NotEmptyCheck<T> = T extends "" ? never : unknown;
+export type NotEmpty<T> = NotEmptyCheck<T> extends never
+  ? "A string of zero length is not allowed"
+  : NotEmptyCheck<T>;
 
-export type VName<S extends string> = NotEmpty<S> &
+export type VName<S extends string> = NotEmptyCheck<S> &
   Lowercase<S> &
   TruncateTo32<S> &
   ForbidCharacter<S, SpecialCharacters>;
