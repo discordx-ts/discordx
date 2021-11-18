@@ -15,6 +15,9 @@
 
 ## Changed
 
+- seperate different interaction execution ([3aea27](https://github.com/oceanroleplay/discord.ts/commit/3aea27845ba80a508a0d134da79d5340391144d1))
+- meta data storage ([7687a3](https://github.com/oceanroleplay/discord.ts/commit/7687a3e5022259b47939ab1f87ea7e5cf5678cdb))
+- add modifier ([20ff9c](https://github.com/oceanroleplay/discord.ts/commit/20ff9c0b9486ffd8d470673377d04de9f8eaf991))
 - add string on IPrefix ([cda781](https://github.com/oceanroleplay/discord.ts/commit/cda781a65bfbee864e2f5b12f8e2b033e259ed50))
 - rename prefix type ([de144b](https://github.com/oceanroleplay/discord.ts/commit/de144bf6fa863a3e8f76283450921b54d6e34d2f))
 - remove regex support for simple commands ([452a0f](https://github.com/oceanroleplay/discord.ts/commit/452a0fe5e280a15d029040f67e8105035a4157f0))
@@ -37,6 +40,11 @@
 
 ## Types
 
+- metadata storage ([abeb55](https://github.com/oceanroleplay/discord.ts/commit/abeb554ad4f5c48c1bb6845613f861d0bff66fff))
+- enforce not empty ([df5fb6](https://github.com/oceanroleplay/discord.ts/commit/df5fb6ef8a3adee011222d2e6211a2e6f38e38a0))
+- not empty ([f70bdb](https://github.com/oceanroleplay/discord.ts/commit/f70bdbc9d0b5e3f70bd479530ba8529da6a3037e))
+- not empty ([cb886c](https://github.com/oceanroleplay/discord.ts/commit/cb886cd87a0546897f426eb462a2c28f890343e4))
+- not empty ([3796c2](https://github.com/oceanroleplay/discord.ts/commit/3796c22192c908de7a1b4a7adbe85273d143b083))
 - any to unknown modifier ([e3ce7c](https://github.com/oceanroleplay/discord.ts/commit/e3ce7caf81df249c45e8d355760e4a9fdc3586f2))
 
 ## Routine Tasks

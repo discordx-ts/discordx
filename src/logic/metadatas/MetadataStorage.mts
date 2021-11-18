@@ -25,7 +25,7 @@ import _ from "lodash";
  * @category Internal
  */
 export class MetadataStorage {
-  private static isBuilt = false;
+  private static _isBuilt = false;
   private static _instance: MetadataStorage;
   private _events: Array<DOn> = [];
   private _guards: Array<DGuard> = [];
@@ -44,6 +44,14 @@ export class MetadataStorage {
   private _groups: Array<DApplicationCommandGroup<DApplicationCommand>> = [];
   private _subGroups: DApplicationCommandGroup<DApplicationCommandOption>[] =
     [];
+
+  static get isBuilt(): boolean {
+    return this._isBuilt;
+  }
+
+  get isBuilt(): boolean {
+    return MetadataStorage._isBuilt;
+  }
 
   static get instance(): MetadataStorage {
     if (!this._instance) {
@@ -185,7 +193,7 @@ export class MetadataStorage {
     if (MetadataStorage.isBuilt) {
       return;
     }
-    MetadataStorage.isBuilt = true;
+    MetadataStorage._isBuilt = true;
 
     // Link the events with @Discord class instances
     this.discordMembers.forEach((member) => {

@@ -202,113 +202,7 @@ export class Client extends ClientJS {
     await this.decorators.build();
 
     if (log ?? !this.silent) {
-      this.logger.log(chalk.yellowBright("client >> Events"));
-      if (this.events.length) {
-        this.events.map((event) => {
-          const eventName = event.event;
-          this.logger.log(
-            `>> ${eventName} (${event.classRef.name}.${event.key})`
-          );
-        });
-      } else {
-        this.logger.log("\tNo events detected");
-      }
-
-      this.logger.log("");
-
-      this.logger.log(chalk.yellowBright("client >> application commands"));
-      if (this.applicationCommands.length) {
-        this.applicationCommands.map((DCommand, index) => {
-          if (DCommand.botIds.length && !DCommand.botIds.includes(this.botId)) {
-            return;
-          }
-          this.logger.log(
-            `${index !== 0 ? "\n" : ""}\t${chalk.redBright(
-              ">>"
-            )} ${chalk.blueBright(DCommand.name)} (${DCommand.classRef.name}.${
-              DCommand.key
-            })`
-          );
-          const printOptions = (
-            options: DApplicationCommandOption[],
-            depth: number
-          ) => {
-            if (!options) {
-              return;
-            }
-
-            const tab = Array(depth).join("\t\t");
-
-            options.forEach((option, oindex) => {
-              this.logger.log(
-                `${
-                  (option.type === "SUB_COMMAND" ||
-                    option.type === "SUB_COMMAND_GROUP") &&
-                  oindex !== 0
-                    ? "\n"
-                    : ""
-                }${tab}${chalk.cyanBright(">>")} ${
-                  option.type === "SUB_COMMAND" ||
-                  option.type === "SUB_COMMAND_GROUP"
-                    ? chalk.blueBright(option.name)
-                    : chalk.yellowBright(option.name)
-                }: ${option.type.toLowerCase()} (${option.classRef.name}.${
-                  option.key
-                })`
-              );
-              printOptions(option.options, depth + 1);
-            });
-          };
-
-          printOptions(DCommand.options, 2);
-        });
-      } else {
-        this.logger.log("\tNo application command detected");
-      }
-
-      this.logger.log("");
-
-      this.logger.log(chalk.yellowBright("client >> simple commands"));
-      if (this.simpleCommands.length) {
-        this.simpleCommands.map((cmd) => {
-          this.logger.log(
-            `\t${chalk.redBright(">>")} ${chalk.blueBright(cmd.name)} (${
-              cmd.classRef.name
-            }.${cmd.key})`
-          );
-          if (cmd.aliases.length) {
-            this.logger.log(
-              `\t\t${chalk.magentaBright("aliases")}:`,
-              cmd.aliases.join(", ")
-            );
-          }
-
-          const printOptions = (
-            options: DSimpleCommandOption[],
-            depth: number
-          ) => {
-            if (!options) {
-              return;
-            }
-
-            const tab = Array(depth).join("\t\t");
-            options.forEach((option) => {
-              this.logger.log(
-                `${tab}${chalk.yellowBright(
-                  option.name
-                )}: ${option.type.toLowerCase()} (${option.classRef.name}.${
-                  option.key
-                })`
-              );
-            });
-          };
-
-          printOptions(cmd.options, 2);
-          this.logger.log("");
-        });
-      } else {
-        this.logger.log("\tNo simple commands detected");
-      }
+      this.printDebug();
 
       this.logger.log(
         chalk.yellowBright("\nclient >> connecting discord...\n")
@@ -327,6 +221,130 @@ export class Client extends ClientJS {
     });
 
     return super.login(token);
+  }
+
+  /**
+   * Print information about all events and commands to your console
+   */
+  printDebug(): void {
+    if (!this.decorators.isBuilt) {
+      this.logger.log(
+        chalk.redBright(
+          `Build the app before running this method with ${chalk.yellowBright(
+            "client.build()"
+          )}`
+        )
+      );
+      return;
+    }
+
+    this.logger.log(chalk.yellowBright("client >> Events"));
+    if (this.events.length) {
+      this.events.map((event) => {
+        const eventName = event.event;
+        this.logger.log(
+          `>> ${eventName} (${event.classRef.name}.${event.key})`
+        );
+      });
+    } else {
+      this.logger.log("\tNo events detected");
+    }
+
+    this.logger.log("");
+
+    this.logger.log(chalk.yellowBright("client >> application commands"));
+    if (this.applicationCommands.length) {
+      this.applicationCommands.map((DCommand, index) => {
+        if (DCommand.botIds.length && !DCommand.botIds.includes(this.botId)) {
+          return;
+        }
+        this.logger.log(
+          `${index !== 0 ? "\n" : ""}\t${chalk.redBright(
+            ">>"
+          )} ${chalk.blueBright(DCommand.name)} (${DCommand.classRef.name}.${
+            DCommand.key
+          })`
+        );
+        const printOptions = (
+          options: DApplicationCommandOption[],
+          depth: number
+        ) => {
+          if (!options) {
+            return;
+          }
+
+          const tab = Array(depth).join("\t\t");
+
+          options.forEach((option, oindex) => {
+            this.logger.log(
+              `${
+                (option.type === "SUB_COMMAND" ||
+                  option.type === "SUB_COMMAND_GROUP") &&
+                oindex !== 0
+                  ? "\n"
+                  : ""
+              }${tab}${chalk.cyanBright(">>")} ${
+                option.type === "SUB_COMMAND" ||
+                option.type === "SUB_COMMAND_GROUP"
+                  ? chalk.blueBright(option.name)
+                  : chalk.yellowBright(option.name)
+              }: ${option.type.toLowerCase()} (${option.classRef.name}.${
+                option.key
+              })`
+            );
+            printOptions(option.options, depth + 1);
+          });
+        };
+
+        printOptions(DCommand.options, 2);
+      });
+    } else {
+      this.logger.log("\tNo application command detected");
+    }
+
+    this.logger.log("");
+
+    this.logger.log(chalk.yellowBright("client >> simple commands"));
+    if (this.simpleCommands.length) {
+      this.simpleCommands.map((cmd) => {
+        this.logger.log(
+          `\t${chalk.redBright(">>")} ${chalk.blueBright(cmd.name)} (${
+            cmd.classRef.name
+          }.${cmd.key})`
+        );
+        if (cmd.aliases.length) {
+          this.logger.log(
+            `\t\t${chalk.magentaBright("aliases")}:`,
+            cmd.aliases.join(", ")
+          );
+        }
+
+        const printOptions = (
+          options: DSimpleCommandOption[],
+          depth: number
+        ) => {
+          if (!options) {
+            return;
+          }
+
+          const tab = Array(depth).join("\t\t");
+          options.forEach((option) => {
+            this.logger.log(
+              `${tab}${chalk.yellowBright(
+                option.name
+              )}: ${option.type.toLowerCase()} (${option.classRef.name}.${
+                option.key
+              })`
+            );
+          });
+        };
+
+        printOptions(cmd.options, 2);
+        this.logger.log("");
+      });
+    } else {
+      this.logger.log("\tNo simple commands detected");
+    }
   }
 
   /**
