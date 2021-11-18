@@ -1,4 +1,4 @@
-import { dirname, importx, isESM, resolve } from "../build/esm/index.js";
+import { dirname, importx, isESM, resolve } from "../build/esm/index.mjs";
 const __dirname = dirname(import.meta.url);
 
 console.log(`isESM: ${isESM}`);

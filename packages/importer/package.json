@@ -8,7 +8,8 @@
     "javascript",
     "importer",
     "mjs",
-    "cjs"
+    "cjs",
+    "esm"
   ],
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/importer#readme",
   "bugs": {
@@ -24,14 +25,14 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js",
-      "types": "./build/esm/index.d.ts"
+      "import": "./build/esm/index.mjs",
+      "require": "./build/cjs/index.cjs",
+      "types": "./build/esm/index.d.mts"
     }
   },
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "types": "build/esm/index.d.ts",
+  "main": "build/cjs/index.cjs",
+  "module": "build/esm/index.mjs",
+  "types": "build/esm/index.d.mts",
   "files": [
     "build",
     "CHANGELOG.md",
@@ -39,11 +40,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs",
-    "build:cjs": "tsc --p tsconfig.cjs.json && npm run postbuild:cjs",
-    "build:esm": "tsc && npm run postbuild:esm",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --module=cjs --path=build/cjs",
-    "postbuild:esm": "node ../../scripts/postbuild.mjs --module=esm --path=build/esm",
+    "build": "tsc && tsc --p tsconfig.cjs.json",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
