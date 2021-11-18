@@ -43,15 +43,13 @@ export function generateDoc(
         ? `${tags[index - 1]}..HEAD`
         : `${tags[index - 1]}..${tag}`;
 
-    const commits = child
+    const commitsArray = child
       .execSync(
         `git log ${tagString} --format=%B----HASH----%H----DELIMITER---- ${
           folder ?? "./"
         }`
       )
-      .toString("utf-8");
-
-    const commitsArray = commits
+      .toString("utf-8")
       .split("----DELIMITER----\n")
       .map((commit) => {
         const [message, sha] = commit.split("----HASH----");
