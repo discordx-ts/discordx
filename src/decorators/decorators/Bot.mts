@@ -8,6 +8,7 @@ import {
   DSimpleCommand,
   MetadataStorage,
   Modifier,
+  NotEmpty,
 } from "../../index.mjs";
 
 /**
@@ -17,7 +18,7 @@ import {
  * [View Documentation](https://discord-ts.mjs.org/docs/decorators/general/bot)
  * @category Decorator
  */
-export function Bot(botId: string): ClassMethodDecorator;
+export function Bot<T extends string>(botId: NotEmpty<T>): ClassMethodDecorator;
 
 /**
  * Make your application command, button, select menu, simple command or event executable by defined bot in case of multiple bot are running in same instance

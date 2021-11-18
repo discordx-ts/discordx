@@ -3,6 +3,7 @@ import {
   DApplicationCommandOptionChoice,
   MetadataStorage,
   Modifier,
+  NotEmpty,
   ParameterDecoratorEx,
   SlashChoicesType,
 } from "../../index.mjs";
@@ -14,7 +15,9 @@ import {
  * [View Documentation](https://discord-ts.mjs.org/docs/decorators/commands/slashchoice)
  * @category Decorator
  */
-export function SlashChoice(name: string): ParameterDecoratorEx;
+export function SlashChoice<T extends string>(
+  name: NotEmpty<T>
+): ParameterDecoratorEx;
 
 /**
  * An option of a Slash command can implement an autocompletion feature for ``string`` and ``number`` types
@@ -33,7 +36,10 @@ export function SlashChoice(name: number): ParameterDecoratorEx;
  * [View Documentation](https://discord-ts.mjs.org/docs/decorators/commands/slashchoice)
  * @category Decorator
  */
-export function SlashChoice(name: string, value: number): ParameterDecoratorEx;
+export function SlashChoice<T extends string>(
+  name: NotEmpty<T>,
+  value: number
+): ParameterDecoratorEx;
 
 /**
  * An option of a Slash command can implement an autocompletion feature for ``string`` and ``number`` types
@@ -43,7 +49,10 @@ export function SlashChoice(name: string, value: number): ParameterDecoratorEx;
  * [View Documentation](https://discord-ts.mjs.org/docs/decorators/commands/slashchoice)
  * @category Decorator
  */
-export function SlashChoice(name: string, value: string): ParameterDecoratorEx;
+export function SlashChoice<T extends string, V extends string>(
+  name: NotEmpty<T>,
+  value: NotEmpty<V>
+): ParameterDecoratorEx;
 
 /**
  * An option of a Slash command can implement an autocompletion feature for ``string`` and ``number`` types

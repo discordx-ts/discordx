@@ -2,6 +2,7 @@ import {
   DSimpleCommand,
   MetadataStorage,
   MethodDecoratorEx,
+  NotEmpty,
   SimpleCommandParams,
 } from "../../index.mjs";
 
@@ -19,7 +20,9 @@ export function SimpleCommand(): MethodDecoratorEx;
  * [View Documentation](https://discord-ts.mjs.org/docs/decorators/commands/simplecommand)
  * @category Decorator
  */
-export function SimpleCommand(name: string): MethodDecoratorEx;
+export function SimpleCommand<T extends string>(
+  name: NotEmpty<T>
+): MethodDecoratorEx;
 
 /**
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
@@ -29,8 +32,8 @@ export function SimpleCommand(name: string): MethodDecoratorEx;
  * [View Documentation](https://discord-ts.mjs.org/docs/decorators/commands/simplecommand)
  * @category Decorator
  */
-export function SimpleCommand(
-  name: string,
+export function SimpleCommand<T extends string>(
+  name: NotEmpty<T>,
   params: SimpleCommandParams
 ): MethodDecoratorEx;
 
