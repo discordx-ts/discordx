@@ -125,7 +125,8 @@ export class MetadataStorage {
     ];
   }
 
-  addModifier(modifier: Modifier): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  addModifier(modifier: Modifier<any>): void {
     this._modifiers.push(modifier);
   }
 
