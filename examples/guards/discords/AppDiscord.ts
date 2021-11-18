@@ -5,7 +5,7 @@ import {
   Guard,
   On,
   Slash,
-} from "../../../src/index.js";
+} from "../../../build/cjs/index.cjs";
 import { CommandInteraction } from "discord.js";
 import { ErrorHandler } from "../guards/Error";
 import { NotBot } from "../guards/NotBot";

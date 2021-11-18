@@ -5,7 +5,7 @@ import {
   SlashChoice,
   SlashGroup,
   SlashOption,
-} from "../../../src/index.js";
+} from "../../../build/cjs/index.cjs";
 
 enum TextChoices {
   "Good Bye" = "GoodBye",

@@ -30,14 +30,14 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js",
-      "types": "./build/esm/index.d.ts"
+      "import": "./build/esm/index.mjs",
+      "require": "./build/cjs/index.cjs",
+      "types": "./build/esm/index.d.mts"
     }
   },
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "types": "build/esm/index.d.ts",
+  "main": "build/cjs/index.cjs",
+  "module": "build/esm/index.mjs",
+  "types": "build/esm/index.d.mts",
   "files": [
     "build",
     "LICENSE",
@@ -48,6 +48,9 @@
   ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
+    "postbuild:cjs": "node scripts/postbuild.mjs --path=build/cjs",
     "build:changelog": "npm run build:changelog:docs && npm run build:changelog:main && npm run build:changelog:changelog && npm run build:changelog:importer && npm run build:changelog:music && npm run build:changelog:utilities",
     "build:changelog:docs": "npx @discordx/changelog --root=./docs/docs --out=./docs/CHANGELOG.md",
     "build:changelog:main": "npx @discordx/changelog --root=./src --out=./CHANGELOG.md",
@@ -55,10 +58,6 @@
     "build:changelog:importer": "npx @discordx/changelog --root=./packages/importer/src --out=./packages/importer/CHANGELOG.md --tag=i-v* --tag-replace=i-",
     "build:changelog:music": "npx @discordx/changelog --root=./packages/music/src --out=./packages/music/CHANGELOG.md --tag=m-v* --tag-replace=m-",
     "build:changelog:utilities": "npx @discordx/changelog --root=./packages/utilities/src --out=./packages/utilities/CHANGELOG.md --tag=u-v* --tag-replace=u-",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "build:esm": "tsc && npm run postbuild:esm",
-    "postbuild:cjs": "node scripts/postbuild.mjs --module=cjs --path=build/cjs",
-    "postbuild:esm": "node scripts/postbuild.mjs --module=esm --path=build/esm",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",

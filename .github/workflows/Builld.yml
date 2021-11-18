@@ -72,6 +72,9 @@ jobs:
         run: npm ci
 
       - name: Run Tests
+        run: npm run build
+
+      - name: Run Tests
         run: npm run test
 
   build:

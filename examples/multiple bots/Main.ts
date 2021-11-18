@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import { Client, MetadataStorage } from "../../src/index.js";
-import { dirname, importx } from "../../packages/importer/src/esm/index.js";
+import { Client, MetadataStorage } from "../../build/cjs/index.cjs";
 import { Intents } from "discord.js";
+import { importx } from "../../packages/importer/build/cjs/index.cjs";
 
 const botA = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
@@ -35,7 +35,7 @@ botB.on("interactionCreate", (interaction) => {
   botB.executeInteraction(interaction);
 });
 
-importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}").then(() => {
+importx(__dirname + "/discords/**/*.{js,ts}").then(() => {
   MetadataStorage.instance.build().then(() => {
     botA.login("bot token");
     botB.login("bot token");

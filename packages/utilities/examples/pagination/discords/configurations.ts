@@ -1,7 +1,7 @@
 import { Discord, Slash } from "discordx";
 import { CommandInteraction } from "discord.js";
 import { GeneratePages } from "../util/common functions.js";
-import { Pagination } from "../../../src/index.js";
+import { Pagination } from "../../../build/cjs/index.cjs";
 
 @Discord()
 export abstract class Example {

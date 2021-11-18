@@ -5,7 +5,7 @@ import {
   MessageEmbed,
 } from "discord.js";
 import { Discord, On, Slash } from "discordx";
-import { Pagination, PaginationResolver } from "../../../src/index.js";
+import { Pagination, PaginationResolver } from "../../../build/cjs/index.cjs";
 import type { ArgsOf } from "discordx";
 import { GeneratePages } from "../util/common functions.js";
 

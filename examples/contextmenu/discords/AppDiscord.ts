@@ -1,4 +1,4 @@
-import { ContextMenu, Discord } from "../../../src/index.js";
+import { ContextMenu, Discord } from "../../../build/cjs/index.cjs";
 import { ContextMenuInteraction } from "discord.js";
 
 @Discord()

@@ -1,4 +1,4 @@
-import { Category } from "../../../src/category/index.js";
+import { Category } from "../../../build/cjs/index.cjs";
 import { Discord } from "discordx";
 
 @Discord()
