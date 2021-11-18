@@ -32,12 +32,12 @@
     ".": {
       "import": "./build/esm/index.mjs",
       "require": "./build/cjs/index.cjs",
-      "types": "./build/esm/index.d.mts"
+      "types": "./build/cjs/index.d.cts"
     }
   },
-  "main": "build/cjs/index.cjs",
-  "module": "build/esm/index.mjs",
-  "types": "build/esm/index.d.mts",
+  "main": "./build/cjs/index.cjs",
+  "module": "./build/esm/index.mjs",
+  "types": "./build/cjs/index.d.cts",
   "files": [
     "build",
     "LICENSE",

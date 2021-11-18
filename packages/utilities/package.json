@@ -28,12 +28,12 @@
     ".": {
       "import": "./build/esm/index.mjs",
       "require": "./build/cjs/index.cjs",
-      "types": "./build/esm/index.d.mts"
+      "types": "./build/cjs/index.d.cts"
     }
   },
-  "main": "build/cjs/index.cjs",
-  "module": "build/esm/index.mjs",
-  "types": "build/esm/index.d.mts",
+  "main": "./build/cjs/index.cjs",
+  "module": "./build/esm/index.mjs",
+  "types": "./build/cjs/index.d.cts",
   "files": [
     "build",
     "LICENSE",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "discord.js": "^13.4.0-dev.1637193918.493e4f9",
-    "discordx": "^10.0.0-dev.1636568467.16689ed",
+    "discordx": "^10.0.0-dev.1637212139.f5476b6",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"
   },
