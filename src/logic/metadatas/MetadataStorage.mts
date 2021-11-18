@@ -17,6 +17,7 @@ import {
   ISimpleCommandByName,
   Modifier,
 } from "../../index.mjs";
+import { Decorator } from "../../decorators/classes/Decorator.mjs";
 import { Method } from "../../decorators/classes/Method.mjs";
 import _ from "lodash";
 
@@ -26,21 +27,21 @@ import _ from "lodash";
 export class MetadataStorage {
   private static isBuilt = false;
   private static _instance: MetadataStorage;
-  private _events: DOn[] = [];
-  private _guards: DGuard[] = [];
-  private _applicationCommands: DApplicationCommand[] = [];
-  private _AllApplicationCommands: DApplicationCommand[] = [];
-  private _buttonComponents: DComponentButton[] = [];
-  private _selectMenuComponents: DComponentSelectMenu[] = [];
-  private _slashOptions: DApplicationCommandOption[] = [];
-  private _discords: DDiscord[] = [];
-  private _modifiers: Modifier[] = [];
-  private _simpleCommands: DSimpleCommand[] = [];
-  private _allSimpleCommands: ISimpleCommandByName[] = [];
+  private _events: Array<DOn> = [];
+  private _guards: Array<DGuard> = [];
+  private _applicationCommands: Array<DApplicationCommand> = [];
+  private _AllApplicationCommands: Array<DApplicationCommand> = [];
+  private _buttonComponents: Array<DComponentButton> = [];
+  private _selectMenuComponents: Array<DComponentSelectMenu> = [];
+  private _slashOptions: Array<DApplicationCommandOption> = [];
+  private _discords: Array<DDiscord> = [];
+  private _modifiers: Array<Modifier<Decorator>> = [];
+  private _simpleCommands: Array<DSimpleCommand> = [];
+  private _allSimpleCommands: Array<ISimpleCommandByName> = [];
   private _mappedSimpleCommand = new Map<string, ISimpleCommandByName[]>();
-  private _commandsOptions: DSimpleCommandOption[] = [];
+  private _commandsOptions: Array<DSimpleCommandOption> = [];
 
-  private _groups: DApplicationCommandGroup<DApplicationCommand>[] = [];
+  private _groups: Array<DApplicationCommandGroup<DApplicationCommand>> = [];
   private _subGroups: DApplicationCommandGroup<DApplicationCommandOption>[] =
     [];
 
@@ -125,9 +126,8 @@ export class MetadataStorage {
     ];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  addModifier(modifier: Modifier<any>): void {
-    this._modifiers.push(modifier);
+  addModifier<T extends Decorator = Decorator>(modifier: Modifier<T>): void {
+    this._modifiers.push(modifier as Modifier<Decorator>);
   }
 
   addOn(on: DOn): void {
@@ -448,7 +448,7 @@ export class MetadataStorage {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): (...params: ArgsOf<Event>) => Promise<any> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const responses: any[] = [];
+    const responses: Array<any> = [];
 
     const eventsToExecute = this._events.filter((on) => {
       return on.event === event && on.once === once;
