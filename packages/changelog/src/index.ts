@@ -36,34 +36,20 @@ export function generateDoc(
   }
 
   tags.forEach((tag, index) => {
-    let commits;
-    if (index < 1) {
-      commits = child
-        .execSync(
-          `git log ${tag} --format=%B----HASH----%H----DELIMITER---- ${
-            folder ?? "./"
-          }`
-        )
-        .toString("utf-8");
-    } else if (tag === "head") {
-      commits = child
-        .execSync(
-          `git log ${
-            tags[index - 1]
-          }..HEAD --format=%B----HASH----%H----DELIMITER---- ${folder ?? "./"}`
-        )
-        .toString("utf-8");
-    } else {
-      commits = child
-        .execSync(
-          `git log ${
-            tags[index - 1]
-          }..${tag} --format=%B----HASH----%H----DELIMITER---- ${
-            folder ?? "./"
-          }`
-        )
-        .toString("utf-8");
-    }
+    const tagString =
+      index < 1
+        ? tag
+        : tag === "head"
+        ? `${tags[index - 1]}..HEAD`
+        : `${tags[index - 1]}..${tag}`;
+
+    const commits = child
+      .execSync(
+        `git log ${tagString} --format=%B----HASH----%H----DELIMITER---- ${
+          folder ?? "./"
+        }`
+      )
+      .toString("utf-8");
 
     const commitsArray = commits
       .split("----DELIMITER----\n")
