@@ -34,8 +34,7 @@ export class MetadataStorage {
   private _selectMenuComponents: DComponentSelectMenu[] = [];
   private _slashOptions: DApplicationCommandOption[] = [];
   private _discords: DDiscord[] = [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _modifiers: Modifier<any>[] = [];
+  private _modifiers: Modifier[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
   private _allSimpleCommands: ISimpleCommandByName[] = [];
   private _mappedSimpleCommand = new Map<string, ISimpleCommandByName[]>();
@@ -126,8 +125,7 @@ export class MetadataStorage {
     ];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  addModifier(modifier: Modifier<any>): void {
+  addModifier(modifier: Modifier): void {
     this._modifiers.push(modifier);
   }
 
