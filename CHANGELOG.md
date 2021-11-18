@@ -2,6 +2,7 @@
 
 ## BREAKING CHANGES
 
+- move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
 - removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
 
 ## Features
@@ -33,6 +34,10 @@
 - error not throws for permisison api ([cd2fc9](https://github.com/oceanroleplay/discord.ts/commit/cd2fc92210d3f26f7ecc07f0caee74bfa53011f4))
 - permissions decorator ([7746c9](https://github.com/oceanroleplay/discord.ts/commit/7746c99e02ddac00e8ebfb19f1b74e30a83cd341))
 - jest test and slash option ([630c78](https://github.com/oceanroleplay/discord.ts/commit/630c78a133e12f43bfebe768614c3777be74384f))
+
+## Types
+
+- any to unknown modifier ([e3ce7c](https://github.com/oceanroleplay/discord.ts/commit/e3ce7caf81df249c45e8d355760e4a9fdc3586f2))
 
 ## Routine Tasks
 

@@ -1,5 +1,9 @@
 # Stage
 
+## BREAKING CHANGES
+
+- move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
+
 ## Fixed
 
 - ems import in importer ([db7671](https://github.com/oceanroleplay/discord.ts/commit/db7671f84fde2d125f4d06036ef6e5eb2efa55ba))
