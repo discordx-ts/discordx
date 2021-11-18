@@ -68,7 +68,7 @@
   "devDependencies": {
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.177",
-    "discordx": "^10.0.0-dev.1637224569.0d70a36",
+    "discordx": "^10.0.0-dev.1637225035.3602a4c",
     "typescript": "^4.5.2"
   },
   "engines": {

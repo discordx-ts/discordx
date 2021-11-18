@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "discord.js": "^13.4.0-dev.1637193918.493e4f9",
-    "discordx": "^10.0.0-dev.1637224569.0d70a36",
+    "discordx": "^10.0.0-dev.1637225035.3602a4c",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"
   },
