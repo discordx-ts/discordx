@@ -50,8 +50,8 @@ export type TruncateTo32<T extends string> = T extends ""
     : never
   : T;
 
-export type NotEmptyCheck<T> = T extends "" ? never : unknown;
-export type NotEmpty<T> = NotEmptyCheck<T> extends never
+export type NotEmptyCheck<T extends string> = T extends "" ? never : unknown;
+export type NotEmpty<T extends string> = NotEmptyCheck<T> extends never
   ? "A string of zero length is not allowed"
   : NotEmptyCheck<T>;
 
