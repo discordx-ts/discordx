@@ -20,18 +20,18 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install doc dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./docs
 
       - name: "Utilities: Install Dependencies"
-        run: npm ci
+        run: npm install
         working-directory: ./packages/utilities
 
       - name: "Music: Install Dependencies"
-        run: npm ci
+        run: npm install
         working-directory: ./packages/music
 
       - name: Build docs

@@ -38,7 +38,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
-        run: npm ci
+        run: npm install
 
       - name: Build
         if: steps.pre-release.outputs.release == 'true'
@@ -67,7 +67,7 @@ jobs:
 
       - name: "Utilities: Install Dependencies"
         if: steps.pre-release.outputs.release == 'true'
-        run: npm ci
+        run: npm install
         working-directory: ./packages/utilities
 
       - name: "Utilities: Build"
@@ -100,7 +100,7 @@ jobs:
 
       - name: "Music: Install Dependencies"
         if: steps.pre-release.outputs.release == 'true'
-        run: npm ci
+        run: npm install
         working-directory: ./packages/music
 
       - name: "Music: Build"

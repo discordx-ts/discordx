@@ -36,7 +36,7 @@ jobs:
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm install
 
       - name: Install latest discord.js
         run: npm install discord.js@latest
@@ -74,7 +74,7 @@ jobs:
         working-directory: ./packages/changelog
 
       - name: Install changelog dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./packages/changelog
 
       - name: Build
@@ -112,7 +112,7 @@ jobs:
         working-directory: ./packages/importer
 
       - name: Install importer dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./packages/importer
 
       - name: Build
@@ -150,7 +150,7 @@ jobs:
         working-directory: ./packages/music
 
       - name: Install music dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./packages/music
 
       - name: Install latest discord.js
@@ -194,7 +194,7 @@ jobs:
         working-directory: ./packages/utilities
 
       - name: Install utilities dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./packages/utilities
 
       - name: Install latest discord.js
