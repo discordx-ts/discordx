@@ -49,12 +49,9 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.7.0",
-    "@discordjs/voice": "^0.7.5",
     "@types/backoff": "^2.5.2",
     "ansi-regex": "^6.0.1",
     "backoff": "^2.5.0",
-    "discord.js": "^13.4.0-dev.1637237217.802a5ac",
     "ffmpeg-static": "^4.4.0",
     "libsodium-wrappers": "^0.7.9",
     "lodash": "^4.17.21",
@@ -66,10 +63,18 @@
     "ytsr": "^3.5.3"
   },
   "devDependencies": {
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/voice": "^0.7.5",
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.177",
+    "discord.js": "^13.4.0-dev.1637237217.802a5ac",
     "discordx": "^10.0.0-dev.1637225035.3602a4c",
     "typescript": "^4.5.2"
+  },
+  "peerDependencies": {
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/voice": "^0.7.5",
+    "discord.js": "^13.3.0"
   },
   "engines": {
     "node": ">=16.0.0",
