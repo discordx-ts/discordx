@@ -23,8 +23,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         run: npm install
@@ -44,8 +42,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         run: npm install
@@ -65,8 +61,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         run: npm install
@@ -89,8 +83,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Install dependencies
         run: npm install
@@ -110,8 +102,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: "Changelog: Install Dependencies"
         run: npm install
@@ -133,8 +123,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: "importer: Install Dependencies"
         run: npm install
@@ -156,8 +144,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: "music: Install Dependencies"
         run: npm install
@@ -179,8 +165,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: "utilities: Install Dependencies"
         run: npm install

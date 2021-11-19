@@ -26,8 +26,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view discordx version)
@@ -62,8 +60,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/changelog version)
@@ -100,8 +96,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/importer version)
@@ -138,8 +132,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/music version)
@@ -182,8 +174,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view @discordx/utilities version)

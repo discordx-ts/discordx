@@ -17,8 +17,6 @@ jobs:
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
 
       - name: Synchronize dev version
         run: |
