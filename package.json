@@ -66,7 +66,7 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "discord-api-types": "^0.24.0",
-    "discord.js": "^13.4.0-dev.1637193918.493e4f9",
+    "discord.js": "^13.4.0-dev.1637237217.802a5ac",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.3.1",
