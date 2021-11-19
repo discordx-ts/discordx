@@ -47,7 +47,7 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "discord.js": "^13.4.0-dev.1637193918.493e4f9",
+    "discord.js": "^13.4.0-dev.1637237217.802a5ac",
     "discordx": "^10.0.0-dev.1637225035.3602a4c",
     "lodash": "^4.17.21",
     "tslib": "^2.3.1"
