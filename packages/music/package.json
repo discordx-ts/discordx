@@ -74,7 +74,7 @@
   "peerDependencies": {
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.7.5",
-    "discord.js": "^13.3.0"
+    "discord.js": ">= 13.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
