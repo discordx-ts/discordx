@@ -70,11 +70,6 @@ jobs:
         run: npm ci
         working-directory: ./packages/utilities
 
-      - name: "Utilities: Update discordx"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm install discordx@dev
-        working-directory: ./packages/utilities
-
       - name: "Utilities: Build"
         if: steps.pre-release.outputs.release == 'true'
         run: npm run build
@@ -106,11 +101,6 @@ jobs:
       - name: "Music: Install Dependencies"
         if: steps.pre-release.outputs.release == 'true'
         run: npm ci
-        working-directory: ./packages/music
-
-      - name: "Music: Update discordx"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm install discordx@dev
         working-directory: ./packages/music
 
       - name: "Music: Build"

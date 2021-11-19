@@ -58,8 +58,8 @@
     "typescript": "^4.5.2"
   },
   "peerDependencies": {
-    "discord.js": "^13.4.x",
-    "discordx": "^9.x.x"
+    "discord.js": "^13.3.0",
+    "discordx": "^9.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
