@@ -72,9 +72,9 @@
     "typescript": "^4.5.2"
   },
   "peerDependencies": {
-    "@discordjs/opus": "*",
-    "@discordjs/voice": "*",
-    "discord.js": "*"
+    "@discordjs/opus": ">=0.5",
+    "@discordjs/voice": ">=0.7",
+    "discord.js": ">=13 || ^13.4.0-dev"
   },
   "engines": {
     "node": ">=16.0.0",
