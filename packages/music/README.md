@@ -40,8 +40,8 @@
 
 A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
 
-- [Lava Player](#lava-player)
 - [YTDL Player](#ytdl-player)
+- [Lava Player](#lava-player)
 
 # 💻 Installation
 
@@ -50,85 +50,6 @@ Version 16.6.0 or newer of Node.js is required
 ```
 npm install @discordx/music
 yarn add @discordx/music
-```
-
-# Lava Player
-
-## Getting Started
-
-```ts
-const node = new Lava.Node({
-  host: {
-    address: process.env.LAVA_HOST ?? "",
-    port: Number(process.env.LAVA_PORT) ?? 2333,
-  },
-
-  // your Lavalink password
-  password: process.env.LAVA_PASSWORD ?? "",
-
-  send(guildId, packet) {
-    const guild = client.guilds.cache.get(guildId);
-    if (guild) {
-      guild.shard.send(packet);
-    }
-  },
-  shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
-  userId: client.user?.id ?? "", // the user id of your bot
-});
-
-client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
-  node.voiceStateUpdate(data);
-});
-
-client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
-  node.voiceServerUpdate(data);
-});
-```
-
-## Get Guild Player
-
-```ts
-const player = node.players.get("guild id");
-```
-
-## Join Voice Channel
-
-```ts
-await player.join("channel id");
-```
-
-## Play Track
-
-```ts
-const res = await voice.load("ytsearch:monstercat");
-await player.play(res.tracks[0]);
-```
-
-## Stop Music
-
-```ts
-await player.stop();
-// or, to destroy the player entirely
-await player.destroy();
-```
-
-## Clustering
-
-```ts
-const cluster = new Lava.Cluster({
-  nodes: [
-    // node options here; see above
-  ],
-  send(guildId, packet) {
-    // send to gateway; same as for single node usage
-  },
-  filter(node, guildId) {
-    // optional
-    // return a boolean indicating whether the given guild can be run on the given node
-    // useful for limiting guilds to specific nodes (for instance, if you setup lavalink edge servers to minimize latency)
-    // this must return true at least once for a given set of nodes, otherwise some methods may error
-  },
-});
 ```
 
 # YTDL Player
@@ -347,4 +268,83 @@ Let your queue know about custom player
 
 ```ts
 const myQueue: Queue<MyPlayer> = new Queue(this, guild);
+```
+
+# Lava Player
+
+## Getting Started
+
+```ts
+const node = new Lava.Node({
+  host: {
+    address: process.env.LAVA_HOST ?? "",
+    port: Number(process.env.LAVA_PORT) ?? 2333,
+  },
+
+  // your Lavalink password
+  password: process.env.LAVA_PASSWORD ?? "",
+
+  send(guildId, packet) {
+    const guild = client.guilds.cache.get(guildId);
+    if (guild) {
+      guild.shard.send(packet);
+    }
+  },
+  shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
+  userId: client.user?.id ?? "", // the user id of your bot
+});
+
+client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
+  node.voiceStateUpdate(data);
+});
+
+client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
+  node.voiceServerUpdate(data);
+});
+```
+
+## Get Guild Player
+
+```ts
+const player = node.players.get("guild id");
+```
+
+## Join Voice Channel
+
+```ts
+await player.join("channel id");
+```
+
+## Play Track
+
+```ts
+const res = await voice.load("ytsearch:monstercat");
+await player.play(res.tracks[0]);
+```
+
+## Stop Music
+
+```ts
+await player.stop();
+// or, to destroy the player entirely
+await player.destroy();
+```
+
+## Clustering
+
+```ts
+const cluster = new Lava.Cluster({
+  nodes: [
+    // node options here; see above
+  ],
+  send(guildId, packet) {
+    // send to gateway; same as for single node usage
+  },
+  filter(node, guildId) {
+    // optional
+    // return a boolean indicating whether the given guild can be run on the given node
+    // useful for limiting guilds to specific nodes (for instance, if you setup lavalink edge servers to minimize latency)
+    // this must return true at least once for a given set of nodes, otherwise some methods may error
+  },
+});
 ```
