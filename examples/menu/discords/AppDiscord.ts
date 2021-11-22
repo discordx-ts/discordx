@@ -8,7 +8,7 @@ import {
   Discord,
   SelectMenuComponent,
   Slash,
-} from "../../../build/cjs/index.cjs";
+} from "../../../build/cjs/index.js";
 
 const roles = [
   { label: "Principal", value: "principal" },

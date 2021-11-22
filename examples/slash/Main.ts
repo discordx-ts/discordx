@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Client } from "../../build/cjs/index.cjs";
+import { Client } from "../../build/cjs/index.js";
 import { Intents } from "discord.js";
 import chalk from "chalk";
 import { importx } from "../../packages/importer/build/cjs/index.cjs";

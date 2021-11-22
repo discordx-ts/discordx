@@ -54,7 +54,7 @@
     "build:changelog:music": "npx @discordx/changelog --root=./packages/music/src --out=./packages/music/CHANGELOG.md --tag=m-v* --tag-replace=m-",
     "build:changelog:utilities": "npx @discordx/changelog --root=./packages/utilities/src --out=./packages/utilities/CHANGELOG.md --tag=u-v* --tag-replace=u-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "postbuild:cjs": "node scripts/postbuild.mjs --path=build/cjs",
+    "postbuild:cjs": "node scripts/postbuild.mjs --path=build",
     "build:esm": "tsc",
     "format": "prettier --write .",
     "format-check": "prettier --check .",

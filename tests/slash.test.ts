@@ -19,7 +19,7 @@ import {
   SlashGroup,
   SlashOption,
   SlashOptionType,
-} from "../build/cjs/index.cjs";
+} from "../build/cjs/index.js";
 
 type Data = { passed: boolean };
 enum TextChoices {
