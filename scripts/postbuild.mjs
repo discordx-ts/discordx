@@ -1,7 +1,6 @@
 import fs from "fs";
-import glob from "glob";
 
-function argResolve(search) {
+function argPath(search) {
   const findPathArg = process.argv.find((arg) => arg.includes(`--${search}=`));
   if (!findPathArg) {
     return undefined;
@@ -10,25 +9,12 @@ function argResolve(search) {
   return findPathArg.replace(`--${search}=`, "");
 }
 
-const buildPath = argResolve("path");
+const path = argPath("path");
 
-if (!buildPath) {
-  console.log("--path is required arg");
+if (!path) {
+  console.log("--path are required args");
 } else {
-  const files = glob.sync(buildPath + "/**/*.{mjs,d.mts,mjs.map}");
-  files.forEach((file) => {
-    const data = fs.readFileSync(file, {
-      encoding: "utf-8",
-    });
-    fs.rmSync(file);
-    fs.writeFileSync(
-      file
-        .replaceAll(/\.d\.mts$/gm, ".d.cts")
-        .replaceAll(/\.mjs\.map$/gm, ".cjs.map")
-        .replaceAll(/\.mjs$/gm, ".cjs"),
-      data.replaceAll(/\.mjs/gm, ".cjs")
-    );
-  });
-
+  fs.writeFileSync(path + "/cjs/package.json", '{"type":"commonjs"}');
+  fs.writeFileSync(path + "/esm/package.json", '{"type":"module"}');
   console.log("postbuild completed...");
 }

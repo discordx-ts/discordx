@@ -15,18 +15,16 @@ const buildPath = argResolve("path");
 if (!buildPath) {
   console.log("--path is required arg");
 } else {
-  const files = glob.sync(buildPath + "/**/*.{mjs,d.mts,mjs.map}");
+  const files = glob.sync(buildPath + "/**/*.mts");
+  console.log(files);
   files.forEach((file) => {
     const data = fs.readFileSync(file, {
       encoding: "utf-8",
     });
     fs.rmSync(file);
     fs.writeFileSync(
-      file
-        .replaceAll(/\.d\.mts$/gm, ".d.cts")
-        .replaceAll(/\.mjs\.map$/gm, ".cjs.map")
-        .replaceAll(/\.mjs$/gm, ".cjs"),
-      data.replaceAll(/\.mjs/gm, ".cjs")
+      file.replaceAll(/\.mts$/gm, ".ts"),
+      data.replaceAll(/\.mjs/gm, ".js")
     );
   });
 
