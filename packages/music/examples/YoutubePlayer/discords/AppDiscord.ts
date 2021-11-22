@@ -4,7 +4,7 @@ import {
   GuildMember,
   TextBasedChannels,
 } from "discord.js";
-import { CustomTrack, Player, Queue } from "../../../build/cjs/index.cjs";
+import { CustomTrack, Player, Queue } from "../../../build/cjs/index.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { join } from "path";
 

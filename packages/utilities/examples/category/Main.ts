@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { CategoryMetaData } from "../../build/cjs/index.cjs";
+import { CategoryMetaData } from "../../build/cjs/index.js";
 import { Client } from "discordx";
 import { Intents } from "discord.js";
 import { importx } from "@discordx/importer";

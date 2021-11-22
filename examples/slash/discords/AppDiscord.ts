@@ -14,7 +14,7 @@ import {
   Discord,
   Slash,
   SlashOption,
-} from "../../../build/cjs/index.cjs";
+} from "../../../build/cjs/index.js";
 
 @Discord()
 export abstract class AppDiscord {

@@ -1,5 +1,5 @@
-import { Client, Discord, On } from "../../../build/cjs/index.cjs";
-import type { ArgsOf } from "../../../build/cjs/index.cjs";
+import { Client, Discord, On } from "../../../build/cjs/index.js";
+import type { ArgsOf } from "../../../build/cjs/index.js";
 
 @Discord()
 export abstract class AppDiscord {
