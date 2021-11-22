@@ -4,7 +4,7 @@ import {
   Guard,
   GuardFunction,
   On,
-} from "../build/cjs/index.cjs";
+} from "../build/cjs/index.js";
 
 const guard1: GuardFunction = async (
   [message]: [string],
