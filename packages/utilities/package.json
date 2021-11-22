@@ -26,12 +26,12 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.mjs",
-      "require": "./build/cjs/index.cjs"
+      "import": "./build/esm/index.js",
+      "require": "./build/cjs/index.js"
     }
   },
-  "main": "./build/cjs/index.cjs",
-  "module": "./build/esm/index.mjs",
+  "main": "./build/cjs/index.js",
+  "module": "./build/esm/index.js",
   "files": [
     "build",
     "LICENSE",
