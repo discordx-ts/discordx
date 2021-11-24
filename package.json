@@ -83,7 +83,7 @@
     "@typescript-eslint/parser": "^5.4.0",
     "discord.js": "^13.4.0-dev.1637237217.802a5ac",
     "eslint": "^8.3.0",
-    "eslint-plugin-typescript-sort-keys": "^2.0.0",
+    "eslint-plugin-typescript-sort-keys": "^2.1.0",
     "glob": "^7.2.0",
     "husky": "^7.0.4",
     "is-ci": "^3.0.1",
