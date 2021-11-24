@@ -98,7 +98,7 @@ jobs:
 
       - name: "Music: Install Dependencies"
         if: steps.pre-release.outputs.release == 'true'
-        run: npm install
+        run: npm install --force
         working-directory: ./packages/music
 
       - name: "Music: Build"
