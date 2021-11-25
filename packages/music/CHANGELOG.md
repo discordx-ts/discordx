@@ -10,6 +10,7 @@
 
 ## Routine Tasks
 
+- revert extension (mts) ([#267](https://github.com/oceanroleplay/discord.ts/issues/267)) ([6a05e4](https://github.com/oceanroleplay/discord.ts/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))
 - readme and package ([069562](https://github.com/oceanroleplay/discord.ts/commit/06956230dabb5f56e37783666549b0737359968a))
 
 # [v3.0.9](https://github.com/oceanroleplay/discord.ts/releases/tag/m-v3.0.9) (2021-11-11)

@@ -15,6 +15,7 @@
 
 ## Changed
 
+- expose printDebug ([243f2b](https://github.com/oceanroleplay/discord.ts/commit/243f2b6a0338f802916dfab7e410257251edb385))
 - seperate different interaction execution ([3aea27](https://github.com/oceanroleplay/discord.ts/commit/3aea27845ba80a508a0d134da79d5340391144d1))
 - meta data storage ([7687a3](https://github.com/oceanroleplay/discord.ts/commit/7687a3e5022259b47939ab1f87ea7e5cf5678cdb))
 - add modifier ([20ff9c](https://github.com/oceanroleplay/discord.ts/commit/20ff9c0b9486ffd8d470673377d04de9f8eaf991))
@@ -49,6 +50,11 @@
 
 ## Routine Tasks
 
+- repo cleanup ([b9dcfe](https://github.com/oceanroleplay/discord.ts/commit/b9dcfe28de74a49760a3234618426df083877dd6))
+- repo cleanup ([ee6395](https://github.com/oceanroleplay/discord.ts/commit/ee6395813665cd1209ed7006e01d61b4b94b41d9))
+- repo cleanup ([7c90cf](https://github.com/oceanroleplay/discord.ts/commit/7c90cfca7a840605c0fc96ca45349d6e54e3e128))
+- repo cleanup ([50068c](https://github.com/oceanroleplay/discord.ts/commit/50068cea88c9ce41217a7df67cf9b2a4cd445617))
+- revert extension (mts) ([#267](https://github.com/oceanroleplay/discord.ts/issues/267)) ([6a05e4](https://github.com/oceanroleplay/discord.ts/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))
 - spaces ([093e71](https://github.com/oceanroleplay/discord.ts/commit/093e71d56c35608735d7e2ba9e616e1ee2622136))
 
 # [v9.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.0.0) (2021-11-10)

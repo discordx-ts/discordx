@@ -4,6 +4,10 @@
 
 - move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
 
+## Routine Tasks
+
+- revert extension (mts) ([#267](https://github.com/oceanroleplay/discord.ts/issues/267)) ([6a05e4](https://github.com/oceanroleplay/discord.ts/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))
+
 # [v3.1.3](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.1.3) (2021-11-11)
 
 ## Features
