@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Install doc dependencies
-        run: npm install --force # remove force after tsdoc support ts4.5
+        run: npm install
         working-directory: ./docs
 
       - name: "Utilities: Install Dependencies"
