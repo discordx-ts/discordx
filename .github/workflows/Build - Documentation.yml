@@ -35,7 +35,7 @@ jobs:
       - name: Build docs
         run: |
           export NODE_OPTIONS=--openssl-legacy-provider
-          npm run build
+          npm run build --force
         working-directory: ./docs
 
       - name: Add CNAME
