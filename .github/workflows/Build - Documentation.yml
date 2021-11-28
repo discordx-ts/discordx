@@ -29,13 +29,13 @@ jobs:
         working-directory: ./packages/utilities
 
       - name: "Music: Install Dependencies"
-        run: npm install
+        run: npm install --force
         working-directory: ./packages/music
 
       - name: Build docs
         run: |
           export NODE_OPTIONS=--openssl-legacy-provider
-          npm run build --force
+          npm run build
         working-directory: ./docs
 
       - name: Add CNAME
