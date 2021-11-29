@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import { Client } from "../../build/cjs/index.js";
 import { Intents } from "discord.js";
-import chalk from "chalk";
 import { importx } from "../../packages/importer/build/cjs/index.cjs";
 
 export class Main {
@@ -28,7 +27,7 @@ export class Main {
       });
       await this._client.initApplicationPermissions(true);
 
-      console.log(chalk.greenBright(">> Bot started"));
+      console.log(">> Bot started");
     });
 
     this._client.on("interactionCreate", (interaction) => {
