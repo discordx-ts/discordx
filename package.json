@@ -64,7 +64,7 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "discord-api-types": "^0.24.0",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
