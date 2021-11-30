@@ -15,6 +15,7 @@
 
 ## Routine Tasks
 
+- update prettier ([0c31d1](https://github.com/oceanroleplay/discord.ts/commit/0c31d1fb19b45de9d44091c9f7a4e4a07175d754))
 - node to Node ([16689e](https://github.com/oceanroleplay/discord.ts/commit/16689ed4639f4d24e6bf047c59c94274975ee6e8))
 - doc: installation ([0bc7af](https://github.com/oceanroleplay/discord.ts/commit/0bc7afad22a38e065a5913fdeeec17dca245d38b))
 - rename esnext to ESNext ([0509ac](https://github.com/oceanroleplay/discord.ts/commit/0509ac1b1d0bf4b048dbf332b84c9a4b82e67c63))

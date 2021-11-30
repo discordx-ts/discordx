@@ -15,6 +15,7 @@
 
 ## Changed
 
+- remove chalk ([d70dfa](https://github.com/oceanroleplay/discord.ts/commit/d70dfa265960208bfdf645c3b5ea6313cb4700e1))
 - expose printDebug ([243f2b](https://github.com/oceanroleplay/discord.ts/commit/243f2b6a0338f802916dfab7e410257251edb385))
 - seperate different interaction execution ([3aea27](https://github.com/oceanroleplay/discord.ts/commit/3aea27845ba80a508a0d134da79d5340391144d1))
 - meta data storage ([7687a3](https://github.com/oceanroleplay/discord.ts/commit/7687a3e5022259b47939ab1f87ea7e5cf5678cdb))
@@ -35,6 +36,7 @@
 
 ## Fixed
 
+- djs typing ([5c7101](https://github.com/oceanroleplay/discord.ts/commit/5c7101901db8c448e1737b6c25d1b23ca0940a3e))
 - error not throws for permisison api ([cd2fc9](https://github.com/oceanroleplay/discord.ts/commit/cd2fc92210d3f26f7ecc07f0caee74bfa53011f4))
 - permissions decorator ([7746c9](https://github.com/oceanroleplay/discord.ts/commit/7746c99e02ddac00e8ebfb19f1b74e30a83cd341))
 - jest test and slash option ([630c78](https://github.com/oceanroleplay/discord.ts/commit/630c78a133e12f43bfebe768614c3777be74384f))
