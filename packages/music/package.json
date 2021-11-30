@@ -63,7 +63,7 @@
     "ytsr": "^3.5.3"
   },
   "devDependencies": {
-    "@discordjs/opus": "^0.7.0",
+    "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.7.5",
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.177",

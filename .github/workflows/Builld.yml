@@ -146,7 +146,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: "music: Install Dependencies"
-        run: npm install --force # remove after prism-media support opus 0.7
+        run: npm install
         working-directory: ./packages/music
 
       - name: "music: Run TypeScript compiler"

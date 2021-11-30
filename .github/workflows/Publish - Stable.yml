@@ -142,7 +142,7 @@ jobs:
         working-directory: ./packages/music
 
       - name: Install music dependencies
-        run: npm install --force # remove after prism-media support opus 0.7
+        run: npm install
         working-directory: ./packages/music
 
       - name: Install latest discord.js
