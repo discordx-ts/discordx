@@ -251,7 +251,7 @@ export class Client extends ClientJS {
           return;
         }
         this.logger.log(
-          `${index !== 0 ? "\n" : ""}\t">>" ${DCommand.name} (${
+          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${
             DCommand.classRef.name
           }.${DCommand.key})`
         );
@@ -273,7 +273,7 @@ export class Client extends ClientJS {
                 oindex !== 0
                   ? "\n"
                   : ""
-              }${tab}">>" ${
+              }${tab}>> ${
                 option.type === "SUB_COMMAND" ||
                 option.type === "SUB_COMMAND_GROUP"
                   ? option.name
@@ -297,7 +297,7 @@ export class Client extends ClientJS {
     this.logger.log("client >> simple commands");
     if (this.simpleCommands.length) {
       this.simpleCommands.map((cmd) => {
-        this.logger.log(`\t">>" ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
+        this.logger.log(`\t>> ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
         if (cmd.aliases.length) {
           this.logger.log(`\t\t${"aliases"}:`, cmd.aliases.join(", "));
         }
@@ -520,15 +520,15 @@ export class Client extends ClientJS {
     if (options?.log ?? !this.silent) {
       let str = `${this.user?.username} >> commands >> guild: #${guild}`;
 
-      str += `\n\t${">>"} adding   ${added.length} [${added
+      str += `\n\t>> adding   ${added.length} [${added
         .map((DCommand) => DCommand.name)
         .join(", ")}]`;
 
-      str += `\n\t${">>"} deleting ${deleted.length} [${deleted
+      str += `\n\t>> deleting ${deleted.length} [${deleted
         .map((cmd) => cmd.name)
         .join(", ")}]`;
 
-      str += `\n\t${">>"} updating ${commandToUpdate.length} [${commandToUpdate
+      str += `\n\t>> updating ${commandToUpdate.length} [${commandToUpdate
         .map((cmd) => cmd.command.name)
         .join(", ")}]`;
 
@@ -636,17 +636,17 @@ export class Client extends ClientJS {
       if (options?.log ?? !this.silent) {
         let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-        str += `\n\t${">>"} adding   ${added.length} [${added
+        str += `\n\t>> adding   ${added.length} [${added
           .map((DCommand) => DCommand.name)
           .join(", ")}]`;
 
-        str += `\n\t${">>"} deleting ${deleted.size} [${deleted
+        str += `\n\t>> deleting ${deleted.size} [${deleted
           .map((cmd) => cmd.name)
           .join(", ")}]`;
 
-        str += `\n\t${">>"} updating ${
-          commandToUpdate.length
-        } [${commandToUpdate.map((cmd) => cmd.command.name).join(", ")}]`;
+        str += `\n\t>> updating ${commandToUpdate.length} [${commandToUpdate
+          .map((cmd) => cmd.command.name)
+          .join(", ")}]`;
 
         str += "\n";
 
