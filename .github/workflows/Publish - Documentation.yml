@@ -33,9 +33,7 @@ jobs:
         working-directory: ./packages/music
 
       - name: Build docs
-        run: |
-          export NODE_OPTIONS=--openssl-legacy-provider
-          npm run build
+        run: npm run build
         working-directory: ./docs
 
       - name: Add CNAME
