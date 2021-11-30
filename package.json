@@ -77,7 +77,7 @@
     "@types/glob": "^7.2.0",
     "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.177",
-    "@types/node": "^16.11.10",
+    "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "discord.js": "^13.4.0-dev.1638230734.e305156",
