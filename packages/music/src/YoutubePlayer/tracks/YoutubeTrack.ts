@@ -57,6 +57,7 @@ export class YoutubeTrack extends Track {
 
       resolve(
         createAudioResource(stream, {
+          inlineVolume: true,
           inputType: StreamType.Raw,
           metadata: this,
         })
