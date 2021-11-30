@@ -4,8 +4,7 @@ import {
   APIRole,
 } from "discord-api-types/v9.js";
 import {
-  ApplicationCommandData,
-  ApplicationCommandOptionData,
+  ApplicationCommandDataResolvable,
   ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
@@ -17,6 +16,7 @@ import {
   User,
 } from "discord.js";
 import {
+  ApplicationCommandDataResolvableX,
   ApplicationCommandMixin,
   ApplicationGuildMixin,
   DApplicationCommandOption,
@@ -173,34 +173,23 @@ export class DApplicationCommand extends Method {
 
   async toJSON(
     command?: ApplicationGuildMixin
-  ): Promise<ApplicationCommandData> {
+  ): Promise<ApplicationCommandDataResolvable> {
     const options = [...this.options]
       .reverse()
-      .map((option) => option.toJSON() as ApplicationCommandOptionData);
+      .map((option) => option.toJSON());
 
-    if (this.type === "CHAT_INPUT") {
-      return {
-        defaultPermission:
-          typeof this.defaultPermission === "boolean"
-            ? this.defaultPermission
-            : await this.defaultPermission.resolver(command),
-        description: this.description,
-        name: this.name,
-        options: options,
-        type: this.type,
-      };
-    }
-
-    return {
+    const data: ApplicationCommandDataResolvableX = {
       defaultPermission:
         typeof this.defaultPermission === "boolean"
           ? this.defaultPermission
           : await this.defaultPermission.resolver(command),
-      description: "",
+      description: this.description,
       name: this.name,
-      options: [],
+      options: options,
       type: this.type,
     };
+
+    return data as unknown as ApplicationCommandDataResolvable;
   }
 
   parseParams(

@@ -13,3 +13,11 @@ export interface ApplicationCommandOptionDatax {
   required?: boolean;
   type: SlashOptionType;
 }
+
+export interface ApplicationCommandDataResolvableX {
+  defaultPermission: boolean;
+  description: string;
+  name: string;
+  options: ApplicationCommandOptionDatax[];
+  type: string;
+}
