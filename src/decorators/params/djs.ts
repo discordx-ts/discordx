@@ -14,7 +14,7 @@ export interface ApplicationCommandOptionDatax {
   type: SlashOptionType;
 }
 
-export interface ApplicationCommandDataResolvableX {
+export interface ApplicationCommandDataX {
   defaultPermission: boolean;
   description: string;
   name: string;
