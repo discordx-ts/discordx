@@ -1,5 +1,5 @@
 import { ContextMenu, Discord } from "../../../build/cjs/index.js";
-import { ContextMenuInteraction } from "discord.js";
+import { UserContextMenuInteraction } from "discord.js";
 
 @Discord()
 export abstract class contextTest {
@@ -9,7 +9,7 @@ export abstract class contextTest {
   }
 
   @ContextMenu("USER", "Hello from discord.ts")
-  userHandler(interaction: ContextMenuInteraction): void {
+  userHandler(interaction: UserContextMenuInteraction): void {
     console.log(`Selected user: ${interaction.targetId}`);
   }
 }

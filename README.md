@@ -239,12 +239,12 @@ create discord context menu options with ease!
 @Discord()
 class contextTest {
   @ContextMenu("MESSAGE", "message context")
-  messageHandler(interaction: ContextMenuInteraction) {
+  messageHandler(interaction: MessageContextMenuInteraction) {
     console.log("I am message");
   }
 
   @ContextMenu("USER", "user context")
-  userHandler(interaction: ContextMenuInteraction) {
+  userHandler(interaction: UserContextMenuInteraction) {
     console.log("I am user");
   }
 }

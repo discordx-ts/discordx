@@ -45,6 +45,6 @@ export function Slash(
       params?.botIds
     ).decorate(target.constructor, key, target[key]);
 
-    MetadataStorage.instance.addApplicationCommand(applicationCommand);
+    MetadataStorage.instance.addApplicationCommandSlash(applicationCommand);
   };
 }

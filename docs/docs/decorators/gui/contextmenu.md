@@ -13,12 +13,12 @@ Here are some example screenshots:
 @Discord()
 export abstract class contextTest {
   @ContextMenu("MESSAGE", "message context")
-  async messageHandler(interaction: ContextMenuInteraction) {
+  async messageHandler(interaction: MessageContextMenuInteraction) {
     console.log("I am message");
   }
 
   @ContextMenu("USER", "user context")
-  async userHandler(interaction: ContextMenuInteraction) {
+  async userHandler(interaction: UserContextMenuInteraction) {
     console.log("I am user");
   }
 }

@@ -25,32 +25,48 @@ import _ from "lodash";
  * @category Internal
  */
 export class MetadataStorage {
+  // internal
   private static _isBuilt = false;
   private static _instance: MetadataStorage;
-  private _events: Array<DOn> = [];
   private _guards: Array<DGuard> = [];
-  private _applicationCommands: Array<DApplicationCommand> = [];
-  private _AllApplicationCommands: Array<DApplicationCommand> = [];
-  private _buttonComponents: Array<DComponentButton> = [];
-  private _selectMenuComponents: Array<DComponentSelectMenu> = [];
-  private _slashOptions: Array<DApplicationCommandOption> = [];
   private _discords: Array<DDiscord> = [];
   private _modifiers: Array<Modifier<Decorator>> = [];
+
+  // events
+  private _events: Array<DOn> = [];
+
+  // custom Handlers
+  private _buttonComponents: Array<DComponentButton> = [];
+  private _selectMenuComponents: Array<DComponentSelectMenu> = [];
+
+  // simple command
   private _simpleCommands: Array<DSimpleCommand> = [];
-  private _allSimpleCommands: Array<ISimpleCommandByName> = [];
-  private _mappedSimpleCommand = new Map<string, ISimpleCommandByName[]>();
+  private _simpleCommandByName: Array<ISimpleCommandByName> = [];
+  private _simpleCommandByPrefix = new Map<string, ISimpleCommandByName[]>();
   private _commandsOptions: Array<DSimpleCommandOption> = [];
 
-  private _groups: Array<DApplicationCommandGroup<DApplicationCommand>> = [];
-  private _subGroups: DApplicationCommandGroup<DApplicationCommandOption>[] =
+  // discord commands
+  private _neatApplicationCommandSlash: Array<DApplicationCommand> = [];
+  private _applicationCommandSlash: Array<DApplicationCommand> = [];
+  private _applicationCommandUser: Array<DApplicationCommand> = [];
+  private _applicationCommandMessage: Array<DApplicationCommand> = [];
+  private _applicationCommandSlashOption: Array<DApplicationCommandOption> = [];
+
+  // groups
+  private _applicationCommandSlashGroups: Array<
+    DApplicationCommandGroup<DApplicationCommand>
+  > = [];
+  private _applicationCommandSlashSubGroups: DApplicationCommandGroup<DApplicationCommandOption>[] =
     [];
+
+  // static getters
+
+  static clear(): void {
+    this._instance = new MetadataStorage();
+  }
 
   static get isBuilt(): boolean {
     return this._isBuilt;
-  }
-
-  get isBuilt(): boolean {
-    return MetadataStorage._isBuilt;
   }
 
   static get instance(): MetadataStorage {
@@ -60,8 +76,10 @@ export class MetadataStorage {
     return this._instance;
   }
 
-  static clear(): void {
-    this._instance = new MetadataStorage();
+  // geters
+
+  get isBuilt(): boolean {
+    return MetadataStorage._isBuilt;
   }
 
   get events(): readonly DOn[] {
@@ -88,20 +106,44 @@ export class MetadataStorage {
     return this._discords;
   }
 
+  get neatApplicationCommandSlash(): readonly DApplicationCommand[] {
+    return this._neatApplicationCommandSlash;
+  }
+
+  get applicationCommandSlash(): readonly DApplicationCommand[] {
+    return this._applicationCommandSlash;
+  }
+
+  get applicationCommandUser(): readonly DApplicationCommand[] {
+    return this._applicationCommandUser;
+  }
+
+  get applicationCommandMessage(): readonly DApplicationCommand[] {
+    return this._applicationCommandMessage;
+  }
+
+  get applicationCommandSlashOption(): readonly DApplicationCommandOption[] {
+    return this._applicationCommandSlashOption;
+  }
+
   get applicationCommands(): readonly DApplicationCommand[] {
-    return this._applicationCommands;
+    return [
+      ...this.applicationCommandSlash,
+      ...this.applicationCommandMessage,
+      ...this.applicationCommandUser,
+    ];
+  }
+
+  get simpleCommandByName(): readonly ISimpleCommandByName[] {
+    return this._simpleCommandByName;
+  }
+
+  get simpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
+    return this._simpleCommandByPrefix;
   }
 
   get simpleCommands(): readonly DSimpleCommand[] {
     return this._simpleCommands;
-  }
-
-  get allSimpleCommands(): readonly ISimpleCommandByName[] {
-    return this._allSimpleCommands;
-  }
-
-  get mappedSimpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
-    return this._mappedSimpleCommand;
   }
 
   get buttonComponents(): readonly DComponentButton[] {
@@ -112,21 +154,17 @@ export class MetadataStorage {
     return this._selectMenuComponents;
   }
 
-  get allApplicationCommands(): readonly DApplicationCommand[] {
-    return this._AllApplicationCommands;
+  get applicationCommandSlashGroups(): readonly DApplicationCommandGroup[] {
+    return this._applicationCommandSlashGroups;
   }
 
-  get slashGroups(): readonly DApplicationCommandGroup[] {
-    return this._groups;
-  }
-
-  get slashSubGroups(): readonly DApplicationCommandGroup[] {
-    return this._subGroups;
+  get applicationCommandSlashSubGroups(): readonly DApplicationCommandGroup[] {
+    return this._applicationCommandSlashSubGroups;
   }
 
   private get discordMembers(): readonly Method[] {
     return [
-      ...this._applicationCommands,
+      ...this._applicationCommandSlash,
       ...this._simpleCommands,
       ...this._events,
       ...this._buttonComponents,
@@ -142,24 +180,32 @@ export class MetadataStorage {
     this._events.push(on);
   }
 
-  addApplicationCommand(slash: DApplicationCommand): void {
-    this._applicationCommands.push(slash);
+  addApplicationCommandSlash(slash: DApplicationCommand): void {
+    this._applicationCommandSlash.push(slash);
   }
 
-  addApplicationCommandOption(option: DApplicationCommandOption): void {
-    this._slashOptions.push(option);
+  addApplicationCommandUser(slash: DApplicationCommand): void {
+    this._applicationCommandUser.push(slash);
   }
 
-  addApplicationCommandGroup(
+  addApplicationCommandMessage(slash: DApplicationCommand): void {
+    this._applicationCommandMessage.push(slash);
+  }
+
+  addApplicationCommandSlashOption(option: DApplicationCommandOption): void {
+    this._applicationCommandSlashOption.push(option);
+  }
+
+  addApplicationCommandSlashGroups(
     group: DApplicationCommandGroup<DApplicationCommand>
   ): void {
-    this._groups.push(group);
+    this._applicationCommandSlashGroups.push(group);
   }
 
-  addApplicationCommandSubGroup(
+  addApplicationCommandSlashSubGroups(
     subGroup: DApplicationCommandGroup<DApplicationCommandOption>
   ): void {
-    this._subGroups.push(subGroup);
+    this._applicationCommandSlashSubGroups.push(subGroup);
   }
 
   addSimpleCommand(cmd: DSimpleCommand): void {
@@ -235,7 +281,15 @@ export class MetadataStorage {
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._applicationCommands
+      this._applicationCommandSlash
+    );
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._applicationCommandMessage
+    );
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._applicationCommandUser
     );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
@@ -247,7 +301,7 @@ export class MetadataStorage {
     );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._slashOptions
+      this._applicationCommandSlashOption
     );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
@@ -256,8 +310,8 @@ export class MetadataStorage {
 
     // Set the class level "group" property of all @Slash
     // Cannot achieve it using modifiers
-    this._groups.forEach((group) => {
-      this._applicationCommands.forEach((slash) => {
+    this._applicationCommandSlashGroups.forEach((group) => {
+      this._applicationCommandSlash.forEach((slash) => {
         if (group.from !== slash.from || slash.type !== "CHAT_INPUT") {
           return;
         }
@@ -266,14 +320,14 @@ export class MetadataStorage {
       });
     });
 
-    this._AllApplicationCommands = this._applicationCommands;
-    this._applicationCommands = this.groupSlashes();
+    this._neatApplicationCommandSlash = this._applicationCommandSlash;
+    this._applicationCommandSlash = this.groupSlashes();
 
     this._simpleCommands.forEach((cmd) => {
       // Separately map special prefix commands
       if (cmd.prefix) {
         [...cmd.prefix].forEach((pfx) => {
-          const cmds = this._mappedSimpleCommand.get(pfx) ?? [];
+          const cmds = this._simpleCommandByPrefix.get(pfx) ?? [];
           const mapCmd: ISimpleCommandByName[] = [
             { command: cmd, name: cmd.name },
           ];
@@ -290,7 +344,7 @@ export class MetadataStorage {
             }
           });
 
-          this._mappedSimpleCommand.set(
+          this._simpleCommandByPrefix.set(
             pfx,
             [...cmds, ...mapCmd].sort((a, b) => b.name.length - a.name.length)
           );
@@ -299,23 +353,23 @@ export class MetadataStorage {
       }
 
       // To improve search performance, map all commands together
-      if (_.findIndex(this._allSimpleCommands, { name: cmd.name }) !== -1) {
+      if (_.findIndex(this._simpleCommandByName, { name: cmd.name }) !== -1) {
         throw Error(`Duplicate simple command name: ${cmd.name}`);
       }
 
-      this._allSimpleCommands.push({ command: cmd, name: cmd.name });
+      this._simpleCommandByName.push({ command: cmd, name: cmd.name });
       cmd.aliases.forEach((al) => {
-        if (_.findIndex(this._allSimpleCommands, { name: al }) !== -1) {
+        if (_.findIndex(this._simpleCommandByName, { name: al }) !== -1) {
           throw Error(
             `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`
           );
         }
-        this._allSimpleCommands.push({ command: cmd, name: al });
+        this._simpleCommandByName.push({ command: cmd, name: al });
       });
     });
 
     // sort simple commands
-    this._allSimpleCommands = this._allSimpleCommands.sort(function (a, b) {
+    this._simpleCommandByName = this._simpleCommandByName.sort(function (a, b) {
       // ASC  -> a.length - b.length
       // DESC -> b.length - a.length
       return b.name.length - a.name.length;
@@ -333,7 +387,7 @@ export class MetadataStorage {
     //    ...comands
     // ]
     //
-    this._groups.forEach((group) => {
+    this._applicationCommandSlashGroups.forEach((group) => {
       const slashParent = DApplicationCommand.create(
         group.name,
         "CHAT_INPUT",
@@ -360,7 +414,7 @@ export class MetadataStorage {
 
       groupedSlashes.set(group.name, slashParent);
 
-      const slashes = this._applicationCommands.filter((slash) => {
+      const slashes = this._applicationCommandSlash.filter((slash) => {
         return slash.group === slashParent.name && !slash.subgroup;
       });
 
@@ -383,7 +437,7 @@ export class MetadataStorage {
     //        ]
     //     }
     // ]
-    this._subGroups.forEach((subGroup) => {
+    this._applicationCommandSlashSubGroups.forEach((subGroup) => {
       const option = DApplicationCommandOption.create(
         subGroup.name,
         undefined,
@@ -397,7 +451,7 @@ export class MetadataStorage {
       ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup
-      const slashes = this._applicationCommands.filter((slash) => {
+      const slashes = this._applicationCommandSlash.filter((slash) => {
         return slash.subgroup === option.name;
       });
 
@@ -437,7 +491,7 @@ export class MetadataStorage {
     });
 
     return [
-      ...this._applicationCommands.filter((s) => !s.group && !s.subgroup),
+      ...this._applicationCommandSlash.filter((s) => !s.group && !s.subgroup),
       ...Array.from(groupedSlashes.values()),
     ];
   }

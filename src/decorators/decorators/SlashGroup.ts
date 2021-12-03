@@ -114,7 +114,7 @@ export function SlashGroup(
                 : undefined,
           }
         ).decorate(myClass, key ?? myClass.name);
-        MetadataStorage.instance.addApplicationCommandGroup(group);
+        MetadataStorage.instance.addApplicationCommandSlashGroups(group);
       }
 
       // Create a subgroup if @SlashGroup decorate a method
@@ -125,7 +125,7 @@ export function SlashGroup(
               description: subCommands?.[subKey],
             }).decorate(myClass, myClass.name);
 
-          MetadataStorage.instance.addApplicationCommandSubGroup(group);
+          MetadataStorage.instance.addApplicationCommandSlashSubGroups(group);
         });
       }
     }

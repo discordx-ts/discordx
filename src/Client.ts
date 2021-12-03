@@ -19,6 +19,7 @@ import {
   ApplicationGuildMixin,
   ClientOptions,
   DApplicationCommand,
+  DApplicationCommandGroup,
   DApplicationCommandOption,
   DComponentButton,
   DComponentSelectMenu,
@@ -57,19 +58,156 @@ export class Client extends ClientJS {
   private _guards: GuardFunction[] = [];
   private logger: ILogger;
 
+  // static getters
+
+  static get neatApplicationCommandSlash(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.neatApplicationCommandSlash;
+  }
+
+  static get applicationCommandSlash(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandSlash;
+  }
+
+  static get applicationCommandUser(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandUser;
+  }
+
+  static get applicationCommandMessage(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandMessage;
+  }
+
+  static get applicationCommandSlashOption(): readonly DApplicationCommandOption[] {
+    return MetadataStorage.instance.applicationCommandSlashOption;
+  }
+
+  static get applicationCommands(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommands;
+  }
+
+  static get applicationCommandSlashGroups(): readonly DApplicationCommandGroup[] {
+    return MetadataStorage.instance.applicationCommandSlashGroups;
+  }
+
+  static get applicationCommandSlashSubGroups(): readonly DApplicationCommandGroup[] {
+    return MetadataStorage.instance.applicationCommandSlashSubGroups;
+  }
+
+  static get simpleCommandByName(): readonly ISimpleCommandByName[] {
+    return MetadataStorage.instance.simpleCommandByName;
+  }
+
+  static get simpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
+    return MetadataStorage.instance.simpleCommandByPrefix;
+  }
+
+  static get simpleCommands(): readonly DSimpleCommand[] {
+    return MetadataStorage.instance.simpleCommands;
+  }
+
+  static get selectMenuComponents(): readonly DComponentSelectMenu[] {
+    return MetadataStorage.instance.selectMenuComponents;
+  }
+
+  static get buttonComponents(): readonly DComponentButton[] {
+    return MetadataStorage.instance.buttonComponents;
+  }
+
+  static get events(): readonly DOn[] {
+    return MetadataStorage.instance.events;
+  }
+
+  static get discords(): readonly DDiscord[] {
+    return MetadataStorage.instance.discords;
+  }
+
+  static get instance(): MetadataStorage {
+    return MetadataStorage.instance;
+  }
+
+  // map static getters
+
+  get neatApplicationCommandSlash(): readonly DApplicationCommand[] {
+    return Client.neatApplicationCommandSlash;
+  }
+
+  get applicationCommandSlash(): readonly DApplicationCommand[] {
+    return Client.applicationCommandSlash;
+  }
+
+  get applicationCommandUser(): readonly DApplicationCommand[] {
+    return Client.applicationCommandUser;
+  }
+
+  get applicationCommandMessage(): readonly DApplicationCommand[] {
+    return Client.applicationCommandMessage;
+  }
+
+  get applicationCommandSlashOption(): readonly DApplicationCommandOption[] {
+    return Client.applicationCommandSlashOption;
+  }
+
+  get applicationCommands(): readonly DApplicationCommand[] {
+    return Client.applicationCommands;
+  }
+
+  get applicationCommandSlashGroups(): readonly DApplicationCommandGroup[] {
+    return Client.applicationCommandSlashGroups;
+  }
+
+  get applicationCommandSlashSubGroups(): readonly DApplicationCommandGroup[] {
+    return Client.applicationCommandSlashSubGroups;
+  }
+
+  get simpleCommandByName(): readonly ISimpleCommandByName[] {
+    return Client.simpleCommandByName;
+  }
+
+  get simpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
+    return Client.simpleCommandByPrefix;
+  }
+
+  get simpleCommands(): readonly DSimpleCommand[] {
+    return Client.simpleCommands;
+  }
+
+  get selectMenus(): readonly DComponentSelectMenu[] {
+    return Client.selectMenuComponents;
+  }
+
+  get buttons(): readonly DComponentButton[] {
+    return Client.buttonComponents;
+  }
+
+  get events(): readonly DOn[] {
+    return Client.events;
+  }
+
+  get discords(): readonly DDiscord[] {
+    return Client.discords;
+  }
+
+  get instance(): MetadataStorage {
+    return Client.instance;
+  }
+
+  // client getters
+
+  get botResolvedGuilds(): Promise<string[]> {
+    return resolveIGuilds(this, undefined, this._botGuilds);
+  }
+
   get botGuilds(): IGuild[] {
     return this._botGuilds;
   }
+
   set botGuilds(value: IGuild[]) {
     this._botGuilds = value;
-  }
-  get botGuildsResolved(): Promise<string[]> {
-    return resolveIGuilds(this, undefined, this._botGuilds);
   }
 
   get guards(): GuardFunction[] {
     return this._guards;
   }
+
   set guards(value: GuardFunction[]) {
     this._guards = value;
   }
@@ -77,6 +215,7 @@ export class Client extends ClientJS {
   get prefix(): IPrefixResolver {
     return this._prefix;
   }
+
   set prefix(value: IPrefixResolver) {
     this._prefix = value;
   }
@@ -84,6 +223,7 @@ export class Client extends ClientJS {
   get simpleCommandConfig(): SimpleCommandConfig | undefined {
     return this._simpleCommandConfig;
   }
+
   set simpleCommandConfig(value: SimpleCommandConfig | undefined) {
     this._simpleCommandConfig = value;
   }
@@ -91,86 +231,15 @@ export class Client extends ClientJS {
   get botId(): string {
     return this._botId;
   }
+
   set botId(value: string) {
     this._botId = value;
-  }
-
-  static get applicationCommands(): readonly DApplicationCommand[] {
-    return MetadataStorage.instance.applicationCommands;
-  }
-  get applicationCommands(): readonly DApplicationCommand[] {
-    return Client.applicationCommands;
-  }
-
-  static get simpleCommands(): readonly DSimpleCommand[] {
-    return MetadataStorage.instance.simpleCommands;
-  }
-  get simpleCommands(): readonly DSimpleCommand[] {
-    return Client.simpleCommands;
-  }
-
-  static get allSimpleCommands(): readonly ISimpleCommandByName[] {
-    return MetadataStorage.instance.allSimpleCommands;
-  }
-  get allSimpleCommands(): readonly ISimpleCommandByName[] {
-    return Client.allSimpleCommands;
-  }
-
-  static get mappedSimpleCommandByPrefix(): Map<
-    string,
-    ISimpleCommandByName[]
-  > {
-    return MetadataStorage.instance.mappedSimpleCommandByPrefix;
-  }
-  get mappedSimpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
-    return Client.mappedSimpleCommandByPrefix;
-  }
-
-  static get buttons(): readonly DComponentButton[] {
-    return MetadataStorage.instance.buttonComponents;
-  }
-  get buttons(): readonly DComponentButton[] {
-    return Client.buttons;
-  }
-
-  static get selectMenus(): readonly DComponentSelectMenu[] {
-    return MetadataStorage.instance.selectMenuComponents;
-  }
-  get selectMenus(): readonly DComponentSelectMenu[] {
-    return Client.selectMenus;
-  }
-
-  static get allApplicationCommands(): readonly DApplicationCommand[] {
-    return MetadataStorage.instance.allApplicationCommands;
-  }
-  get allApplicationCommands(): readonly DApplicationCommand[] {
-    return Client.allApplicationCommands;
-  }
-
-  static get events(): readonly DOn[] {
-    return MetadataStorage.instance.events;
-  }
-  get events(): readonly DOn[] {
-    return Client.events;
-  }
-
-  static get discords(): readonly DDiscord[] {
-    return MetadataStorage.instance.discords;
-  }
-  get discord(): readonly DDiscord[] {
-    return Client.discords;
-  }
-
-  static get decorators(): MetadataStorage {
-    return MetadataStorage.instance;
-  }
-  get decorators(): MetadataStorage {
-    return MetadataStorage.instance;
   }
 
   get silent(): boolean {
     return this._silent;
   }
+
   set silent(value: boolean) {
     this._silent = value;
   }
@@ -198,21 +267,21 @@ export class Client extends ClientJS {
    * @param token The bot token
    */
   async login(token: string, log?: boolean): Promise<string> {
-    await this.decorators.build();
+    await this.instance.build();
 
     if (log ?? !this.silent) {
       this.printDebug();
       this.logger.log("\nclient >> connecting discord...\n");
     }
 
-    this.decorators.usedEvents.map((on) => {
+    this.instance.usedEvents.map((on) => {
       if (on.once) {
         this.once(
           on.event,
-          this.decorators.trigger(this.guards, on.event, this, true)
+          this.instance.trigger(this.guards, on.event, this, true)
         );
       } else {
-        this.on(on.event, this.decorators.trigger(this.guards, on.event, this));
+        this.on(on.event, this.instance.trigger(this.guards, on.event, this));
       }
     });
 
@@ -223,7 +292,7 @@ export class Client extends ClientJS {
    * Print information about all events and commands to your console
    */
   printDebug(): void {
-    if (!this.decorators.isBuilt) {
+    if (!this.instance.isBuilt) {
       this.logger.log(
         "Build the app before running this method with client.build()"
       );
@@ -333,13 +402,13 @@ export class Client extends ClientJS {
    * @returns
    */
   async CommandByGuild(): Promise<Map<string, DApplicationCommand[]>> {
-    const botGuildsResolved = await this.botGuildsResolved;
+    const botResolvedGuilds = await this.botResolvedGuilds;
 
     // # group guild commands by guildId
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
       (DCommand) =>
-        [...botGuildsResolved, ...DCommand.guilds].length &&
+        [...botResolvedGuilds, ...DCommand.guilds].length &&
         (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
     );
 
@@ -347,7 +416,7 @@ export class Client extends ClientJS {
     await Promise.all(
       allGuildDCommands.map(async (DCommand) => {
         const guilds = await resolveIGuilds(this, DCommand, [
-          ...botGuildsResolved,
+          ...botResolvedGuilds,
           ...DCommand.guilds,
         ]);
         guilds.forEach((guild) =>
@@ -401,7 +470,7 @@ export class Client extends ClientJS {
     DCommands: DApplicationCommand[],
     options?: InitCommandConfig
   ): Promise<void> {
-    const botGuildsResolved = await this.botGuildsResolved;
+    const botResolvedGuilds = await this.botResolvedGuilds;
 
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
@@ -504,7 +573,7 @@ export class Client extends ClientJS {
         }
 
         const guilds = await resolveIGuilds(this, DCommandx, [
-          ...botGuildsResolved,
+          ...botResolvedGuilds,
           ...DCommandx.guilds,
         ]);
 
@@ -578,7 +647,7 @@ export class Client extends ClientJS {
   async initGlobalApplicationCommands(
     options?: InitCommandConfig
   ): Promise<void> {
-    const botGuildsResolved = await this.botGuildsResolved;
+    const botResolvedGuilds = await this.botResolvedGuilds;
 
     // # initialize add/update/delete task for global commands
     const AllCommands = (await this.fetchApplicationCommands())?.filter(
@@ -586,7 +655,7 @@ export class Client extends ClientJS {
     );
     const DCommands = this.applicationCommands.filter(
       (DCommand) =>
-        ![...botGuildsResolved, ...DCommand.guilds].length &&
+        ![...botResolvedGuilds, ...DCommand.guilds].length &&
         (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
     );
     if (AllCommands) {
@@ -875,7 +944,7 @@ export class Client extends ClientJS {
     tree: string[]
   ): DApplicationCommand | undefined {
     // Find the corresponding @Slash
-    return this.allApplicationCommands.find((slash) => {
+    return this.neatApplicationCommandSlash.find((slash) => {
       switch (tree.length) {
         case 1:
           // Simple command /hello
@@ -1005,7 +1074,7 @@ export class Client extends ClientJS {
     interaction: ButtonInteraction,
     log?: boolean
   ): Promise<unknown> {
-    const botGuildsResolved = await this.botGuildsResolved;
+    const botResolvedGuilds = await this.botResolvedGuilds;
 
     const button = this.buttons.find((DButton) =>
       DButton.isId(interaction.customId)
@@ -1016,7 +1085,7 @@ export class Client extends ClientJS {
     if (button) {
       guilds.push(
         ...(await resolveIGuilds(this, button, [
-          ...botGuildsResolved,
+          ...botResolvedGuilds,
           ...button.guilds,
         ]))
       );
@@ -1052,7 +1121,7 @@ export class Client extends ClientJS {
     interaction: SelectMenuInteraction,
     log?: boolean
   ): Promise<unknown> {
-    const botGuildsResolved = await this.botGuildsResolved;
+    const botResolvedGuilds = await this.botResolvedGuilds;
 
     const menu = this.selectMenus.find((DSelectMenu) =>
       DSelectMenu.isId(interaction.customId)
@@ -1063,7 +1132,7 @@ export class Client extends ClientJS {
     if (menu) {
       guilds.push(
         ...(await resolveIGuilds(this, menu, [
-          ...botGuildsResolved,
+          ...botResolvedGuilds,
           ...menu.guilds,
         ]))
       );
@@ -1101,18 +1170,22 @@ export class Client extends ClientJS {
     interaction: ContextMenuInteraction,
     log?: boolean
   ): Promise<unknown> {
-    const botGuildsResolved = await this.botGuildsResolved;
+    const botResolvedGuilds = await this.botResolvedGuilds;
 
-    const applicationCommand = this.allApplicationCommands.find(
-      (cmd) => cmd.type !== "CHAT_INPUT" && cmd.name === interaction.commandName
-    );
+    const applicationCommand = interaction.isUserContextMenu()
+      ? this.applicationCommandUser.find(
+          (cmd) => cmd.name === interaction.commandName
+        )
+      : this.applicationCommandMessage.find(
+          (cmd) => cmd.name === interaction.commandName
+        );
 
     const guilds: string[] = [];
 
     if (applicationCommand) {
       guilds.push(
         ...(await resolveIGuilds(this, applicationCommand, [
-          ...botGuildsResolved,
+          ...botResolvedGuilds,
           ...applicationCommand.guilds,
         ]))
       );
@@ -1171,7 +1244,7 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {
-    const mappedPrefix = Array.from(this.mappedSimpleCommandByPrefix.keys());
+    const mappedPrefix = Array.from(this.simpleCommandByPrefix.keys());
     const prefixRegex = RegExp(
       `^(${[...prefix, ...mappedPrefix]
         .map((pfx) => _.escapeRegExp(pfx))
@@ -1190,8 +1263,8 @@ export class Client extends ClientJS {
 
     const commandRaw = (
       isPrefixBaseCommand
-        ? this.mappedSimpleCommandByPrefix.get(matchedPrefix) ?? []
-        : this.allSimpleCommands
+        ? this.simpleCommandByPrefix.get(matchedPrefix) ?? []
+        : this.simpleCommandByName
     ).find((cmd) => {
       if (caseSensitive) {
         return contentWithoutPrefix.startsWith(`${cmd.name} `);
@@ -1235,7 +1308,7 @@ export class Client extends ClientJS {
       log?: boolean;
     }
   ): Promise<unknown> {
-    const botGuildsResolved = await this.botGuildsResolved;
+    const botResolvedGuilds = await this.botResolvedGuilds;
 
     if (!message) {
       if (options?.log ?? !this.silent) {
@@ -1291,7 +1364,7 @@ export class Client extends ClientJS {
 
     // validate guild id
     const commandGuilds = await resolveIGuilds(this, command, [
-      ...botGuildsResolved,
+      ...botResolvedGuilds,
       ...command.info.guilds,
     ]);
     if (
@@ -1365,13 +1438,13 @@ export class Client extends ClientJS {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   trigger(event: DiscordEvents, params: any, once = false): Promise<any[]> {
-    return this.decorators.trigger(this.guards, event, this, once)(params);
+    return this.instance.trigger(this.guards, event, this, once)(params);
   }
 
   /**
    * Manually build the app
    */
   async build(): Promise<void> {
-    await this.decorators.build();
+    await this.instance.build();
   }
 }

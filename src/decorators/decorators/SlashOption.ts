@@ -86,6 +86,6 @@ export function SlashOption(
       )
     );
 
-    MetadataStorage.instance.addApplicationCommandOption(option);
+    MetadataStorage.instance.addApplicationCommandSlashOption(option);
   };
 }

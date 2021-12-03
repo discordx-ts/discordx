@@ -62,6 +62,10 @@ export function ContextMenu(
       params?.botIds
     ).decorate(target.constructor, key, target[key]);
 
-    MetadataStorage.instance.addApplicationCommand(applicationCommand);
+    if (type == "MESSAGE") {
+      MetadataStorage.instance.addApplicationCommandMessage(applicationCommand);
+    } else {
+      MetadataStorage.instance.addApplicationCommandUser(applicationCommand);
+    }
   };
 }
