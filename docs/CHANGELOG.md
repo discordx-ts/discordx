@@ -6,6 +6,7 @@
 
 ## Changed
 
+- nicely name variables ([c96dd7](https://github.com/oceanroleplay/discord.ts/commit/c96dd7461e38b3a33093a1ba454f8385a8de1dd7))
 - set slash option required by default ([#244](https://github.com/oceanroleplay/discord.ts/issues/244)) ([1f763c](https://github.com/oceanroleplay/discord.ts/commit/1f763cd94f57902aa81dfe68ce24cafadd09e3a7))
 - add colors to log ([e777e8](https://github.com/oceanroleplay/discord.ts/commit/e777e86fc995a26eea33ca4a21deef8f33820436))
 

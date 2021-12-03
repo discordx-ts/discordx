@@ -15,6 +15,7 @@
 
 ## Changed
 
+- nicely name variables ([c96dd7](https://github.com/oceanroleplay/discord.ts/commit/c96dd7461e38b3a33093a1ba454f8385a8de1dd7))
 - remove chalk ([d70dfa](https://github.com/oceanroleplay/discord.ts/commit/d70dfa265960208bfdf645c3b5ea6313cb4700e1))
 - expose printDebug ([243f2b](https://github.com/oceanroleplay/discord.ts/commit/243f2b6a0338f802916dfab7e410257251edb385))
 - seperate different interaction execution ([3aea27](https://github.com/oceanroleplay/discord.ts/commit/3aea27845ba80a508a0d134da79d5340391144d1))
@@ -52,6 +53,8 @@
 
 ## Routine Tasks
 
+- fix djs type change ([3a7c4c](https://github.com/oceanroleplay/discord.ts/commit/3a7c4c780b94654cb3913a5f5d7c03a99c47b6f0))
+- remove unecessory quotes ([081634](https://github.com/oceanroleplay/discord.ts/commit/081634d8a074199dd01ebd9d5d7eb690c2c1838c))
 - repo cleanup ([b9dcfe](https://github.com/oceanroleplay/discord.ts/commit/b9dcfe28de74a49760a3234618426df083877dd6))
 - repo cleanup ([ee6395](https://github.com/oceanroleplay/discord.ts/commit/ee6395813665cd1209ed7006e01d61b4b94b41d9))
 - repo cleanup ([7c90cf](https://github.com/oceanroleplay/discord.ts/commit/7c90cfca7a840605c0fc96ca45349d6e54e3e128))

@@ -4,6 +4,10 @@
 
 - move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
 
+## Features
+
+- add inline volume ([c0e252](https://github.com/oceanroleplay/discord.ts/commit/c0e25295bfd5b91f1f3fa5798631bd259978099e))
+
 ## Changed
 
 - change ID to Id ([62e9ec](https://github.com/oceanroleplay/discord.ts/commit/62e9ec69ea813796d1373a8a5cebd02ad5bd03db))
