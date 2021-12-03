@@ -43,7 +43,7 @@ export class MetadataStorage {
   private _simpleCommands: Array<DSimpleCommand> = [];
   private _simpleCommandByName: Array<ISimpleCommandByName> = [];
   private _simpleCommandByPrefix = new Map<string, ISimpleCommandByName[]>();
-  private _commandsOptions: Array<DSimpleCommandOption> = [];
+  private _simpleCommandOptions: Array<DSimpleCommandOption> = [];
 
   // discord commands
   private _neatApplicationCommandSlash: Array<DApplicationCommand> = [];
@@ -213,7 +213,7 @@ export class MetadataStorage {
   }
 
   addSimpleCommandOption(cmdOption: DSimpleCommandOption): void {
-    this._commandsOptions.push(cmdOption);
+    this._simpleCommandOptions.push(cmdOption);
   }
 
   addComponentButton(button: DComponentButton): void {
@@ -285,6 +285,10 @@ export class MetadataStorage {
     );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
+      this._applicationCommandSlashOption
+    );
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
       this._applicationCommandMessage
     );
     await Modifier.applyFromModifierListToList(
@@ -297,11 +301,11 @@ export class MetadataStorage {
     );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._buttonComponents
+      this._simpleCommandOptions
     );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._applicationCommandSlashOption
+      this._buttonComponents
     );
     await Modifier.applyFromModifierListToList(
       this._modifiers,
