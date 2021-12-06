@@ -68,7 +68,7 @@ module.exports = {
           position: "right",
         },
         {
-          href: "https://www.npmjs.com/package/discordx",
+          href: "https://www.npmjs.com/org/discordx",
           label: "NPM",
           position: "right",
         },
