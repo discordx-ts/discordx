@@ -363,4 +363,4 @@ const cluster = new Lava.Cluster({
 
 # Thank you
 
-Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).
+Show your support for [discordx](https://www.npmjs.com/package/discordx) by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).

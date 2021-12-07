@@ -1,3 +1,5 @@
+docs/docs/api/*
+
 node_modules
 build
 .DS_Store
