@@ -54,3 +54,11 @@ The following options are only available
 | --out         | No       | "./CHANGELOG.md" | changelog file path        |
 | --tag         | No       | "v\*"            | tag to match with releases |
 | --tag-replace | No       | undefined        | repalcement in tag         |
+
+# ☎️ Need help?
+
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+
+# Thank you
+
+Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).

@@ -251,6 +251,10 @@ The following options are only available, if you have set type to `SELECT_MENU`
 | pageText     | string \| string[] | Page {page}              | Menu page text   |
 | placeholder  | string             | Select page              | Menu placeholder |
 
+# ☎️ Need help?
+
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+
 # Thank you
 
 Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).

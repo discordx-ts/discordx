@@ -104,3 +104,11 @@ import { importx } from "@discordx/importer";
 // relative path start from root folder
 importx("./tests/commands/**.js").then(() => console.log("All files imported"));
 ```
+
+# ☎️ Need help?
+
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+
+# Thank you
+
+Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).

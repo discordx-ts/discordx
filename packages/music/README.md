@@ -52,6 +52,10 @@ npm install @discordx/music
 yarn add @discordx/music
 ```
 
+# ☎️ Need help?
+
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+
 # YTDL Player
 
 ## Define new player
@@ -348,3 +352,7 @@ const cluster = new Lava.Cluster({
   },
 });
 ```
+
+# Thank you
+
+Show your support for this project by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).
