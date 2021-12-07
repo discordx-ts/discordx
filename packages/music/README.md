@@ -1,6 +1,8 @@
 <div>
   <p align="center">
-    <img src="https://discord-ts.js.org/discord-ts.svg" width="546" />
+    <a href="https://discord-ts.js.org" target="_blank">
+      <img src="https://discord-ts.js.org/discord-ts.svg" width="546" />
+    </a>
   </p>
   <p align="center">
     <a href="https://discord.gg/yHQY9fexH9"
