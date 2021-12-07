@@ -52,6 +52,12 @@ npm install @discordx/music
 yarn add @discordx/music
 ```
 
+# 🤖 Bot Examples
+
+> **[discord-music-bot](https://github.com/oceanroleplay/discord-music-bot)** from [@oceanroleplay](https://github.com/oceanroleplay)
+
+**Note:** Create a pull request to include your bot in the example list.
+
 # ☎️ Need help?
 
 Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
