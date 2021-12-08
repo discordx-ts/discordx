@@ -112,8 +112,8 @@ export abstract class AppDiscord1 {
     return ["/hello", text, interaction, datas.passed];
   }
 
-  @Slash("inferance")
-  inferance(
+  @Slash("inference")
+  inference(
     @SlashOption("text", { required: true })
     text: string,
 
@@ -145,7 +145,7 @@ export abstract class AppDiscord1 {
     client: Client,
     datas: Data
   ): unknown {
-    return ["/inferance", "infer", interaction, datas.passed];
+    return ["/inference", "infer", interaction, datas.passed];
   }
 }
 
@@ -301,8 +301,8 @@ describe("Slash", () => {
       },
       {
         defaultPermission: true,
-        description: "inferance",
-        name: "inferance",
+        description: "inference",
+        name: "inference",
         options: [
           {
             autocomplete: undefined,

@@ -129,7 +129,7 @@ class DiscordBot {
 }
 ```
 
-## Type inferance
+## Type inference
 
 - `"STRING"`
   **Infered from `String`**
@@ -191,7 +191,7 @@ class DiscordBot {
   ```
 
 - `"MENTIONABLE"`
-  **No inferance, use:**
+  **No inference, use:**
 
   ```ts
   fn(
@@ -201,9 +201,9 @@ class DiscordBot {
   ```
 
 - `"SUB_COMMAND"`
-  No inferance, use [@SlashGroup](/docs/decorators/commands/slashgroup)
+  No inference, use [@SlashGroup](/docs/decorators/commands/slashgroup)
 - `"SUB_COMMAND_GROUP"`
-  No inferance, use [@SlashGroup](/docs/decorators/commands/slashgroup)
+  No inference, use [@SlashGroup](/docs/decorators/commands/slashgroup)
 
 ## Signature
 
@@ -262,7 +262,7 @@ Define type of your command option
 
 | type                                                                             | default   |
 | -------------------------------------------------------------------------------- | --------- |
-| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | Inferance |
+| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | inference |
 
 #### `channelTypes`
 

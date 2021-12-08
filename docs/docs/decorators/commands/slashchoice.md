@@ -14,7 +14,7 @@ class DiscordBot {
   @Slash("iam")
   iam(
     @SlashChoice("Human", "human")
-    @SlashChoice("Astraunot", "astro")
+    @SlashChoice("Astronaut", "astronaut")
     @SlashChoice("Dev", "dev")
     @SlashOption("what", { description: "What are you?" })
     what: string,
@@ -78,7 +78,7 @@ You have to set a diplayed name for your choice
 
 ### Value
 
-You have to set a value for your choice, if the user select "Astraunot", you will receive the value "astro"
+You have to set a value for your choice, if the user select "Astronaut", you will receive the value "astronaut"
 
 | type             | default     | required |
 | ---------------- | ----------- | -------- |

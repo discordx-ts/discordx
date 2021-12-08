@@ -37,7 +37,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
   }
 ```
 
-## Type inferance
+## Type inference
 
 - `"STRING"`
   **Infered from `String`**
@@ -99,7 +99,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
   ```
 
 - `"MENTIONABLE"`
-  **No inferance, use:**
+  **No inference, use:**
 
   ```ts
   fn(
@@ -146,4 +146,4 @@ The type of your command option
 
 | type                                                                             | default   |
 | -------------------------------------------------------------------------------- | --------- |
-| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | Inferance |
+| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | inference |
