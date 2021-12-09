@@ -1,7 +1,7 @@
 <div>
-  <p align="center">
+  <p align="center" style="image-rendering: -webkit-optimize-contrast;" >
     <a href="https://discord-ts.js.org" target="_blank" rel="nofollow">
-      <img src="https://discord-ts.js.org/discord-ts.png" width="546" style="image-rendering: -webkit-optimize-contrast;" />
+      <img src="https://discord-ts.js.org/discord-ts.png" width="546"/>
     </a>
   </p>
   <p align="center">
