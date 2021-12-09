@@ -70,7 +70,7 @@ export class Main {
       this._client.executeInteraction(interaction);
     });
 
-    await importx(__dirname + "/discords/**/*.{js,ts}");
+    await importx(__dirname + "/commands/**/*.{js,ts}");
     await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }

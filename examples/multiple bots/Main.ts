@@ -35,7 +35,7 @@ botB.on("interactionCreate", (interaction) => {
   botB.executeInteraction(interaction);
 });
 
-importx(__dirname + "/discords/**/*.{js,ts}").then(() => {
+importx(__dirname + "/commands/**/*.{js,ts}").then(() => {
   MetadataStorage.instance.build().then(() => {
     botA.login("bot token");
     botB.login("bot token");

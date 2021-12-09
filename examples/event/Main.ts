@@ -25,7 +25,7 @@ export class Main {
       console.log("Bot started...");
     });
 
-    await importx(__dirname + "/discords/**/*.{js,ts}");
+    await importx(__dirname + "/commands/**/*.{js,ts}");
     await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }
