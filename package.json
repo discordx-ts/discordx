@@ -80,7 +80,7 @@
     "@types/node": "^16.11.12",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
-    "discord.js": "^13.4.0-dev.1639008339.6e57b65",
+    "discord.js": "^13.4.0-dev.1639137780.ee91f5a",
     "eslint": "^8.4.1",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
     "glob": "^7.2.0",
