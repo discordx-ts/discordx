@@ -18,7 +18,7 @@
     "@docusaurus/core": "2.0.0-beta.9",
     "@docusaurus/preset-classic": "2.0.0-beta.13",
     "@docusaurus/remark-plugin-npm2yarn": "^2.0.0-beta.13",
-    "@docusaurus/theme-search-algolia": "^2.0.0-beta.10",
+    "@docusaurus/theme-search-algolia": "^2.0.0-beta.13",
     "@mdx-js/react": "^1.6.22",
     "@svgr/webpack": "^6.1.1",
     "ansi-regex": "^6.0.1",
