@@ -151,7 +151,7 @@ class DiscordBot {
   )
   ```
 
-- `"INTEGER"`
+- `"NUMBER"`
   **Infered from `Number`**
 
   ```ts
@@ -200,8 +200,12 @@ class DiscordBot {
   )
   ```
 
+- `"INTEGER"`
+  No inference, use [@SlashOption](/docs/decorators/commands/slashoption)
+
 - `"SUB_COMMAND"`
   No inference, use [@SlashGroup](/docs/decorators/commands/slashgroup)
+
 - `"SUB_COMMAND_GROUP"`
   No inference, use [@SlashGroup](/docs/decorators/commands/slashgroup)
 
