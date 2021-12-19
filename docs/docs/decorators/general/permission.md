@@ -60,7 +60,7 @@ Note: In order to refresh application permissions dynamically, run `initApplicat
 ```ts
 @Discord()
 @Permission(false) // We will enable command for specific users/roles only, so disable it for everyone
-@Permission(async (guild: Guild): Promise<ApplicationCommandPermissionData> => {
+@Permission(async (guild, cmd): Promise<ApplicationCommandPermissions[]> => {
   const getResponse = () => {
     return new Promise((resolve) => {
       setTimeout(function () {
@@ -100,15 +100,16 @@ Overwrite default permission (aka permission for everyone) for application/simpl
 
 ```ts
 type IPermissions =
-  | ApplicationCommandPermissionData
-  | ApplicationCommandPermissionData[]
+  | ApplicationCommandPermissions
+  | ApplicationCommandPermissions[]
   | ((
-      guild: Guild
+      guild: Guild,
+      command: ApplicationCommandMixin | SimpleCommandMessage
     ) =>
-      | ApplicationCommandPermissionData
-      | ApplicationCommandPermissionData[]
-      | Promise<ApplicationCommandPermissionData>
-      | Promise<ApplicationCommandPermissionData[]>);
+      | ApplicationCommandPermissions
+      | ApplicationCommandPermissions[]
+      | Promise<ApplicationCommandPermissions>
+      | Promise<ApplicationCommandPermissions[]>);
 ```
 
 ### id
