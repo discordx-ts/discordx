@@ -1,10 +1,12 @@
 import {
   CacheType,
+  CommandInteraction,
+  ContextMenuInteraction,
   Interaction,
   InteractionCollector,
   Message,
   MessageComponentInteraction,
-  TextBasedChannels,
+  TextBasedChannel,
 } from "discord.js";
 import {
   IGeneratePage,
@@ -38,7 +40,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   }
 
   constructor(
-    public sendTo: PaginationInteractions | Message | TextBasedChannels,
+    public sendTo: PaginationInteractions | Message | TextBasedChannel,
     public embeds: embedType[] | T,
     config?: PaginationOptions
   ) {
@@ -103,7 +105,11 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     // send embed
     if (this.sendTo instanceof Message) {
       message = await this.sendTo.reply(page.replyOptions);
-    } else if (this.sendTo instanceof Interaction) {
+    } else if (
+      this.sendTo instanceof CommandInteraction ||
+      this.sendTo instanceof MessageComponentInteraction ||
+      this.sendTo instanceof ContextMenuInteraction
+    ) {
       // To ensure pagination is a follow-up
       if (this.sendTo.deferred || this.sendTo.replied) {
         this._isFollowUp = true;
