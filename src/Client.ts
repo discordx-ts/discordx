@@ -488,7 +488,9 @@ export class Client extends ClientJS {
     // filter only unregistered application command
     const added = DCommands.filter(
       (DCommand) =>
-        !ApplicationCommands.find((cmd) => cmd.name === DCommand.name)
+        !ApplicationCommands.find(
+          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+        )
     );
 
     // filter application command to update
@@ -498,7 +500,7 @@ export class Client extends ClientJS {
     await Promise.all(
       DCommands.map(async (DCommand) => {
         const findCommand = ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name
+          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
         );
 
         if (!findCommand) {
@@ -660,7 +662,10 @@ export class Client extends ClientJS {
     );
     if (AllCommands) {
       const added = DCommands.filter(
-        (DCommand) => !AllCommands.find((cmd) => cmd.name === DCommand.name)
+        (DCommand) =>
+          !AllCommands.find(
+            (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+          )
       );
 
       const commandToUpdate: ApplicationCommandMixin[] = [];
@@ -668,7 +673,7 @@ export class Client extends ClientJS {
       await Promise.all(
         DCommands.map(async (DCommand) => {
           const findCommand = AllCommands.find(
-            (cmd) => cmd.name === DCommand.name
+            (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
           );
 
           if (!findCommand) {

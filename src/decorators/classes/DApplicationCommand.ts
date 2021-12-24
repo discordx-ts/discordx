@@ -180,7 +180,9 @@ export class DApplicationCommand extends Method {
           typeof this.defaultPermission === "boolean"
             ? this.defaultPermission
             : await this.defaultPermission.resolver(command),
+        description: "",
         name: this.name,
+        options: [],
         type: this.type,
       };
       return data;
