@@ -1,4 +1,4 @@
-# [v9.1.4](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.4) (2021-12-24)
+# [v9.1.5](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.5) (2021-12-24)
 
 ## BREAKING CHANGES
 
@@ -41,6 +41,7 @@
 
 ## Fixed
 
+- delete operation for init commands ([620ca7](https://github.com/oceanroleplay/discord.ts/commit/620ca733e065d8716f8d1547572265d33023287e))
 - context menu delete operation ([4ab16d](https://github.com/oceanroleplay/discord.ts/commit/4ab16d4c86d794888d735963bbe7acea23bb2ef4))
 - context menu execution ([aa8e7c](https://github.com/oceanroleplay/discord.ts/commit/aa8e7c94ebca59c122caee0118d3bd5f31cea112))
 - same name context menu execution ([3867d1](https://github.com/oceanroleplay/discord.ts/commit/3867d1a87270a5c7507df1539bd457431e6c02f1))
