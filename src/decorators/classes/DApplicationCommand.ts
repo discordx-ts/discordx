@@ -174,6 +174,18 @@ export class DApplicationCommand extends Method {
   async toJSON(
     command?: ApplicationGuildMixin
   ): Promise<ApplicationCommandData> {
+    if (this.type !== "CHAT_INPUT") {
+      const data: ApplicationCommandData = {
+        defaultPermission:
+          typeof this.defaultPermission === "boolean"
+            ? this.defaultPermission
+            : await this.defaultPermission.resolver(command),
+        name: this.name,
+        type: this.type,
+      };
+      return data;
+    }
+
     const options = [...this.options]
       .reverse()
       .map((option) => option.toJSON());
