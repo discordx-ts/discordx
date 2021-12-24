@@ -81,7 +81,7 @@ export abstract class AppDiscord {
 
   @Slash("hello")
   root(
-    @SlashOption("text", { required: true })
+    @SlashOption("text")
     text: string,
     @SlashOption("text2", { required: false })
     text2: string,
@@ -114,16 +114,16 @@ export abstract class AppDiscord1 {
 
   @Slash("inference")
   inference(
-    @SlashOption("text", { required: true })
+    @SlashOption("text")
     text: string,
 
-    @SlashOption("bool", { required: true })
+    @SlashOption("bool")
     bool: boolean,
 
-    @SlashOption("nb", { required: true })
+    @SlashOption("nb")
     nb: number,
 
-    @SlashOption("channel", { required: true })
+    @SlashOption("channel")
     channel: Channel,
 
     @SlashOption("textchannel", { required: false })
