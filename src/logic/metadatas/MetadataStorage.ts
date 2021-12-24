@@ -165,6 +165,8 @@ export class MetadataStorage {
   private get discordMembers(): readonly Method[] {
     return [
       ...this._applicationCommandSlash,
+      ...this._applicationCommandUser,
+      ...this._applicationCommandMessage,
       ...this._simpleCommands,
       ...this._events,
       ...this._buttonComponents,
