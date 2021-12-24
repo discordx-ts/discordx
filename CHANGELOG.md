@@ -1,4 +1,4 @@
-# [v9.1.3](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.3) (2021-12-24)
+# [v9.1.4](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.4) (2021-12-24)
 
 ## BREAKING CHANGES
 
@@ -15,6 +15,7 @@
 
 ## Changed
 
+- remove description from context menu ([f93bbe](https://github.com/oceanroleplay/discord.ts/commit/f93bbe2d141f1487aeeb75658a81d05c417db5c3))
 - enforce typing ([7238b6](https://github.com/oceanroleplay/discord.ts/commit/7238b63eed9dcf300939f47099cdf45cdaae0269))
 - silent default ([3e7c48](https://github.com/oceanroleplay/discord.ts/commit/3e7c48a4880ca0617dd32d03922d09314dfe8d3a))
 - arrange applyFromModifierListToList ([3ffc9c](https://github.com/oceanroleplay/discord.ts/commit/3ffc9cd2645da0cd5984f0a99526d5ee53df004d))
@@ -40,6 +41,7 @@
 
 ## Fixed
 
+- context menu delete operation ([4ab16d](https://github.com/oceanroleplay/discord.ts/commit/4ab16d4c86d794888d735963bbe7acea23bb2ef4))
 - context menu execution ([aa8e7c](https://github.com/oceanroleplay/discord.ts/commit/aa8e7c94ebca59c122caee0118d3bd5f31cea112))
 - same name context menu execution ([3867d1](https://github.com/oceanroleplay/discord.ts/commit/3867d1a87270a5c7507df1539bd457431e6c02f1))
 - context update/add/remove when same name used ([e6d057](https://github.com/oceanroleplay/discord.ts/commit/e6d057140bafb68ea998f3b863bcad513d8b5a6a))
