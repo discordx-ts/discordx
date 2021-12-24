@@ -4,6 +4,10 @@
 
 - move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
 
+## Fixed
+
+- pagination - discord.js type changes ([be86e1](https://github.com/oceanroleplay/discord.ts/commit/be86e18b5cd986dba8998292e775c7cb74dcc399))
+
 ## Routine Tasks
 
 - revert extension (mts) ([#267](https://github.com/oceanroleplay/discord.ts/issues/267)) ([6a05e4](https://github.com/oceanroleplay/discord.ts/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))

@@ -15,6 +15,7 @@
 
 ## Changed
 
+- arrange applyFromModifierListToList ([3ffc9c](https://github.com/oceanroleplay/discord.ts/commit/3ffc9cd2645da0cd5984f0a99526d5ee53df004d))
 - nicely name variables ([c96dd7](https://github.com/oceanroleplay/discord.ts/commit/c96dd7461e38b3a33093a1ba454f8385a8de1dd7))
 - remove chalk ([d70dfa](https://github.com/oceanroleplay/discord.ts/commit/d70dfa265960208bfdf645c3b5ea6313cb4700e1))
 - expose printDebug ([243f2b](https://github.com/oceanroleplay/discord.ts/commit/243f2b6a0338f802916dfab7e410257251edb385))

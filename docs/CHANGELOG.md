@@ -12,10 +12,14 @@
 
 ## Documenations
 
+- fix permission resolver types ([9a4c76](https://github.com/oceanroleplay/discord.ts/commit/9a4c769c89dffd5ea423ce63a85d436fe049c5af))
+- fix INTEGER inference ([36c85f](https://github.com/oceanroleplay/discord.ts/commit/36c85fa9f8d2fd7ab3529d1594e9009938d90d8e))
 - each command prefix ([c20f5b](https://github.com/oceanroleplay/discord.ts/commit/c20f5b04b6057d831f5c98e1a5628e0c4337f61d))
 
 ## Routine Tasks
 
+- update images ([96c567](https://github.com/oceanroleplay/discord.ts/commit/96c567230d96261c2cc3e3bdd8e6020195955796))
+- fix word spells ([ab1cf2](https://github.com/oceanroleplay/discord.ts/commit/ab1cf2d48fbd3db0e4d792ba3db6a6c3def537e3))
 - update prettier ([0c31d1](https://github.com/oceanroleplay/discord.ts/commit/0c31d1fb19b45de9d44091c9f7a4e4a07175d754))
 - node to Node ([16689e](https://github.com/oceanroleplay/discord.ts/commit/16689ed4639f4d24e6bf047c59c94274975ee6e8))
 - doc: installation ([0bc7af](https://github.com/oceanroleplay/discord.ts/commit/0bc7afad22a38e065a5913fdeeec17dca245d38b))
