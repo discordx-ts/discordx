@@ -42,13 +42,13 @@ export function ContextMenu(
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
   name?: string,
-  params?: ApplicationCommandParams
+  params?: Omit<ApplicationCommandParams, "description">
 ): MethodDecoratorEx;
 
 export function ContextMenu(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
   name?: string,
-  params?: ApplicationCommandParams
+  params?: Omit<ApplicationCommandParams, "description">
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     name = name ?? key;
@@ -56,7 +56,7 @@ export function ContextMenu(
     const applicationCommand = DApplicationCommand.create(
       name,
       type,
-      params?.description,
+      undefined,
       params?.defaultPermission,
       params?.guilds,
       params?.botIds
