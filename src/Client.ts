@@ -1179,10 +1179,11 @@ export class Client extends ClientJS {
 
     const applicationCommand = interaction.isUserContextMenu()
       ? this.applicationCommandUser.find(
-          (cmd) => cmd.name === interaction.commandName
+          (cmd) => cmd.name === interaction.commandName && cmd.type === "USER"
         )
       : this.applicationCommandMessage.find(
-          (cmd) => cmd.name === interaction.commandName
+          (cmd) =>
+            cmd.name === interaction.commandName && cmd.type === "MESSAGE"
         );
 
     const guilds: string[] = [];
