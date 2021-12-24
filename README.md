@@ -42,7 +42,7 @@ This module is an extension of **[discord.**js**](https://discordjs.guide/)**, s
 
 This library allows you to use TypeScript decorators on discord.**js**, it simplifies your code and improves the readability!
 
-This repository is a fork of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) from [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
+This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) from [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
 
 # 💻 [Installation](https://discord-ts.js.org/docs/installation)
 
