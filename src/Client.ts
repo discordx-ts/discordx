@@ -565,7 +565,7 @@ export class Client extends ClientJS {
     await Promise.all(
       ApplicationCommands.map(async (cmd) => {
         const DCommandx = DCommands.find(
-          (DCommand) => DCommand.name === cmd.name
+          (DCommand) => DCommand.name === cmd.name && DCommand.type === cmd.type
         );
 
         // delete command if it's not found
@@ -703,7 +703,9 @@ export class Client extends ClientJS {
       );
 
       const deleted = AllCommands.filter((cmd) =>
-        DCommands.every((DCommand) => DCommand.name !== cmd.name)
+        DCommands.every(
+          (DCommand) => DCommand.name !== cmd.name && DCommand.type !== cmd.type
+        )
       );
 
       // log the changes to commands if enabled by options or silent mode is turned off
