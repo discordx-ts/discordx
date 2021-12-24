@@ -1,4 +1,4 @@
-# [v9.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.0) (2021-12-24)
+# [v9.1.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.1) (2021-12-24)
 
 ## BREAKING CHANGES
 
@@ -39,6 +39,7 @@
 
 ## Fixed
 
+- context menu ([89ac35](https://github.com/oceanroleplay/discord.ts/commit/89ac350bb19fe047843bb0541f30de958a1c1e05))
 - djs typing ([5c7101](https://github.com/oceanroleplay/discord.ts/commit/5c7101901db8c448e1737b6c25d1b23ca0940a3e))
 - error not throws for permisison api ([cd2fc9](https://github.com/oceanroleplay/discord.ts/commit/cd2fc92210d3f26f7ecc07f0caee74bfa53011f4))
 - permissions decorator ([7746c9](https://github.com/oceanroleplay/discord.ts/commit/7746c99e02ddac00e8ebfb19f1b74e30a83cd341))
