@@ -704,7 +704,7 @@ export class Client extends ClientJS {
 
       const deleted = AllCommands.filter((cmd) =>
         DCommands.every(
-          (DCommand) => DCommand.name !== cmd.name && DCommand.type !== cmd.type
+          (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
         )
       );
 
