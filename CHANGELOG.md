@@ -1,4 +1,4 @@
-# Stage
+# [v9.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.0) (2021-12-24)
 
 ## BREAKING CHANGES
 
@@ -15,6 +15,7 @@
 
 ## Changed
 
+- silent default ([3e7c48](https://github.com/oceanroleplay/discord.ts/commit/3e7c48a4880ca0617dd32d03922d09314dfe8d3a))
 - arrange applyFromModifierListToList ([3ffc9c](https://github.com/oceanroleplay/discord.ts/commit/3ffc9cd2645da0cd5984f0a99526d5ee53df004d))
 - nicely name variables ([c96dd7](https://github.com/oceanroleplay/discord.ts/commit/c96dd7461e38b3a33093a1ba454f8385a8de1dd7))
 - remove chalk ([d70dfa](https://github.com/oceanroleplay/discord.ts/commit/d70dfa265960208bfdf645c3b5ea6313cb4700e1))

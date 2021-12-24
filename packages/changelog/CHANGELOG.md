@@ -1,4 +1,4 @@
-# Stage
+# [v1.0.8](https://github.com/oceanroleplay/discord.ts/releases/tag/c-v1.0.8) (2021-12-24)
 
 ## Features
 

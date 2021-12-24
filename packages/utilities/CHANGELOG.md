@@ -1,4 +1,4 @@
-# Stage
+# [v3.1.5](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.1.5) (2021-12-24)
 
 ## BREAKING CHANGES
 
