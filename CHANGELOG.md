@@ -1,4 +1,4 @@
-# [v9.1.2](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.2) (2021-12-24)
+# [v9.1.3](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.3) (2021-12-24)
 
 ## BREAKING CHANGES
 
@@ -40,6 +40,9 @@
 
 ## Fixed
 
+- context menu execution ([aa8e7c](https://github.com/oceanroleplay/discord.ts/commit/aa8e7c94ebca59c122caee0118d3bd5f31cea112))
+- same name context menu execution ([3867d1](https://github.com/oceanroleplay/discord.ts/commit/3867d1a87270a5c7507df1539bd457431e6c02f1))
+- context update/add/remove when same name used ([e6d057](https://github.com/oceanroleplay/discord.ts/commit/e6d057140bafb68ea998f3b863bcad513d8b5a6a))
 - context menu ([89ac35](https://github.com/oceanroleplay/discord.ts/commit/89ac350bb19fe047843bb0541f30de958a1c1e05))
 - djs typing ([5c7101](https://github.com/oceanroleplay/discord.ts/commit/5c7101901db8c448e1737b6c25d1b23ca0940a3e))
 - error not throws for permisison api ([cd2fc9](https://github.com/oceanroleplay/discord.ts/commit/cd2fc92210d3f26f7ecc07f0caee74bfa53011f4))

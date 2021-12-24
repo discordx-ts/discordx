@@ -1,4 +1,4 @@
-# [v9.1.2](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.2) (2021-12-24)
+# [v9.1.3](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.3) (2021-12-24)
 
 ## BREAKING CHANGES
 
