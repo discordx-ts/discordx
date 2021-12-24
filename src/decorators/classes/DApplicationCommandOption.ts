@@ -1,5 +1,5 @@
 import {
-  ApplicationCommandOptionDatax,
+  ApplicationCommandOptionDataX,
   ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
@@ -143,12 +143,12 @@ export class DApplicationCommandOption extends Decorator {
     );
   }
 
-  toJSON(): ApplicationCommandOptionDatax {
+  toJSON(): ApplicationCommandOptionDataX {
     const options = [...this.options]
       .reverse()
       .map((option) => option.toJSON());
 
-    const data: ApplicationCommandOptionDatax = {
+    const data: ApplicationCommandOptionDataX = {
       autocomplete: this.autocomplete ? true : undefined,
       channelTypes: this.channelTypes,
       choices: this.isNode

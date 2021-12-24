@@ -7,7 +7,7 @@ import { AutocompleteInteraction } from "discord.js";
 
 interface SlashOptionBase {
   description?: string;
-  required?: boolean;
+  required?: false;
 }
 
 interface SlashOptionBaseParams extends SlashOptionBase {
