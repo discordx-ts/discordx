@@ -14,7 +14,7 @@ export class Main {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      silent: true,
+      silent: undefined,
     });
 
     this._client.on("messageCreate", (message) => {
