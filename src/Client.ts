@@ -60,24 +60,24 @@ export class Client extends ClientJS {
 
   // static getters
 
-  static get applicationCommandSlashFlat(): readonly DApplicationCommand[] {
-    return MetadataStorage.instance.applicationCommandSlashFlat;
+  static get applicationCommandSlashesFlat(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandSlashesFlat;
   }
 
-  static get applicationCommandSlash(): readonly DApplicationCommand[] {
-    return MetadataStorage.instance.applicationCommandSlash;
+  static get applicationCommandSlashes(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandSlashes;
   }
 
-  static get applicationCommandUser(): readonly DApplicationCommand[] {
-    return MetadataStorage.instance.applicationCommandUser;
+  static get applicationCommandUsers(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandUsers;
   }
 
-  static get applicationCommandMessage(): readonly DApplicationCommand[] {
-    return MetadataStorage.instance.applicationCommandMessage;
+  static get applicationCommandMessages(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandMessages;
   }
 
-  static get applicationCommandSlashOption(): readonly DApplicationCommandOption[] {
-    return MetadataStorage.instance.applicationCommandSlashOption;
+  static get applicationCommandSlashOptions(): readonly DApplicationCommandOption[] {
+    return MetadataStorage.instance.applicationCommandSlashOptions;
   }
 
   static get applicationCommands(): readonly DApplicationCommand[] {
@@ -92,12 +92,12 @@ export class Client extends ClientJS {
     return MetadataStorage.instance.applicationCommandSlashSubGroups;
   }
 
-  static get simpleCommandByName(): readonly ISimpleCommandByName[] {
-    return MetadataStorage.instance.simpleCommandByName;
+  static get simpleCommandsByName(): readonly ISimpleCommandByName[] {
+    return MetadataStorage.instance.simpleCommandsByName;
   }
 
-  static get simpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
-    return MetadataStorage.instance.simpleCommandByPrefix;
+  static get simpleCommandsByPrefix(): Map<string, ISimpleCommandByName[]> {
+    return MetadataStorage.instance.simpleCommandsByPrefix;
   }
 
   static get simpleCommands(): readonly DSimpleCommand[] {
@@ -126,28 +126,16 @@ export class Client extends ClientJS {
 
   // map static getters
 
-  get applicationCommandSlashFlat(): readonly DApplicationCommand[] {
-    return Client.applicationCommandSlashFlat;
+  get applicationCommandSlashes(): readonly DApplicationCommand[] {
+    return Client.applicationCommandSlashes;
   }
 
-  get applicationCommandSlash(): readonly DApplicationCommand[] {
-    return Client.applicationCommandSlash;
+  get applicationCommandSlashesFlat(): readonly DApplicationCommand[] {
+    return Client.applicationCommandSlashesFlat;
   }
 
-  get applicationCommandUser(): readonly DApplicationCommand[] {
-    return Client.applicationCommandUser;
-  }
-
-  get applicationCommandMessage(): readonly DApplicationCommand[] {
-    return Client.applicationCommandMessage;
-  }
-
-  get applicationCommandSlashOption(): readonly DApplicationCommandOption[] {
-    return Client.applicationCommandSlashOption;
-  }
-
-  get applicationCommands(): readonly DApplicationCommand[] {
-    return Client.applicationCommands;
+  get applicationCommandSlashOptions(): readonly DApplicationCommandOption[] {
+    return Client.applicationCommandSlashOptions;
   }
 
   get applicationCommandSlashGroups(): readonly DApplicationCommandGroup[] {
@@ -158,23 +146,35 @@ export class Client extends ClientJS {
     return Client.applicationCommandSlashSubGroups;
   }
 
-  get simpleCommandByName(): readonly ISimpleCommandByName[] {
-    return Client.simpleCommandByName;
+  get applicationCommandUsers(): readonly DApplicationCommand[] {
+    return Client.applicationCommandUsers;
   }
 
-  get simpleCommandByPrefix(): Map<string, ISimpleCommandByName[]> {
-    return Client.simpleCommandByPrefix;
+  get applicationCommandMessages(): readonly DApplicationCommand[] {
+    return Client.applicationCommandMessages;
+  }
+
+  get applicationCommands(): readonly DApplicationCommand[] {
+    return Client.applicationCommands;
+  }
+
+  get simpleCommandsByName(): readonly ISimpleCommandByName[] {
+    return Client.simpleCommandsByName;
+  }
+
+  get simpleCommandsByPrefix(): Map<string, ISimpleCommandByName[]> {
+    return Client.simpleCommandsByPrefix;
   }
 
   get simpleCommands(): readonly DSimpleCommand[] {
     return Client.simpleCommands;
   }
 
-  get selectMenus(): readonly DComponentSelectMenu[] {
+  get selectMenuComponents(): readonly DComponentSelectMenu[] {
     return Client.selectMenuComponents;
   }
 
-  get buttons(): readonly DComponentButton[] {
+  get buttonComponents(): readonly DComponentButton[] {
     return Client.buttonComponents;
   }
 
@@ -951,7 +951,7 @@ export class Client extends ClientJS {
     tree: string[]
   ): DApplicationCommand | undefined {
     // Find the corresponding @Slash
-    return this.applicationCommandSlashFlat.find((slash) => {
+    return this.applicationCommandSlashesFlat.find((slash) => {
       switch (tree.length) {
         case 1:
           // Simple command /hello
@@ -1083,7 +1083,7 @@ export class Client extends ClientJS {
   ): Promise<unknown> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
-    const button = this.buttons.find((DButton) =>
+    const button = this.buttonComponents.find((DButton) =>
       DButton.isId(interaction.customId)
     );
 
@@ -1130,7 +1130,7 @@ export class Client extends ClientJS {
   ): Promise<unknown> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
-    const menu = this.selectMenus.find((DSelectMenu) =>
+    const menu = this.selectMenuComponents.find((DSelectMenu) =>
       DSelectMenu.isId(interaction.customId)
     );
 
@@ -1180,10 +1180,10 @@ export class Client extends ClientJS {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
     const applicationCommand = interaction.isUserContextMenu()
-      ? this.applicationCommandUser.find(
+      ? this.applicationCommandUsers.find(
           (cmd) => cmd.name === interaction.commandName
         )
-      : this.applicationCommandMessage.find(
+      : this.applicationCommandMessages.find(
           (cmd) => cmd.name === interaction.commandName
         );
 
@@ -1251,7 +1251,7 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive = false
   ): "notCommand" | "notFound" | SimpleCommandMessage {
-    const mappedPrefix = Array.from(this.simpleCommandByPrefix.keys());
+    const mappedPrefix = Array.from(this.simpleCommandsByPrefix.keys());
     const prefixRegex = RegExp(
       `^(${[...prefix, ...mappedPrefix]
         .map((pfx) => _.escapeRegExp(pfx))
@@ -1270,8 +1270,8 @@ export class Client extends ClientJS {
 
     const commandRaw = (
       isPrefixBaseCommand
-        ? this.simpleCommandByPrefix.get(matchedPrefix) ?? []
-        : this.simpleCommandByName
+        ? this.simpleCommandsByPrefix.get(matchedPrefix) ?? []
+        : this.simpleCommandsByName
     ).find((cmd) => {
       if (caseSensitive) {
         return contentWithoutPrefix.startsWith(`${cmd.name} `);
