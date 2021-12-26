@@ -1,3 +1,9 @@
+# Stage
+
+## Routine Tasks
+
+- revert svg icon ([10b239](https://github.com/oceanroleplay/discord.ts/commit/10b2392920f57c3ce929839f9ee68c525aa5cec1))
+
 # [v9.1.5](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.5) (2021-12-24)
 
 ## BREAKING CHANGES

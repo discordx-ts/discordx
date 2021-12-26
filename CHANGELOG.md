@@ -1,3 +1,10 @@
+# Stage
+
+## Changed
+
+- fix plural for variable names ([2bf73f](https://github.com/oceanroleplay/discord.ts/commit/2bf73ff6f03e594b11a682d7830e306390b3b07f))
+- rename neatApplicationCommandSlash ([a7ef0c](https://github.com/oceanroleplay/discord.ts/commit/a7ef0cb2fe25ecffb6f780a7d0c1c031a87006c1))
+
 # [v9.1.5](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.5) (2021-12-24)
 
 ## BREAKING CHANGES
