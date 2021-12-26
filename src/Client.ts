@@ -60,8 +60,8 @@ export class Client extends ClientJS {
 
   // static getters
 
-  static get neatApplicationCommandSlash(): readonly DApplicationCommand[] {
-    return MetadataStorage.instance.neatApplicationCommandSlash;
+  static get applicationCommandSlashFlat(): readonly DApplicationCommand[] {
+    return MetadataStorage.instance.applicationCommandSlashFlat;
   }
 
   static get applicationCommandSlash(): readonly DApplicationCommand[] {
@@ -126,8 +126,8 @@ export class Client extends ClientJS {
 
   // map static getters
 
-  get neatApplicationCommandSlash(): readonly DApplicationCommand[] {
-    return Client.neatApplicationCommandSlash;
+  get applicationCommandSlashFlat(): readonly DApplicationCommand[] {
+    return Client.applicationCommandSlashFlat;
   }
 
   get applicationCommandSlash(): readonly DApplicationCommand[] {
@@ -951,7 +951,7 @@ export class Client extends ClientJS {
     tree: string[]
   ): DApplicationCommand | undefined {
     // Find the corresponding @Slash
-    return this.neatApplicationCommandSlash.find((slash) => {
+    return this.applicationCommandSlashFlat.find((slash) => {
       switch (tree.length) {
         case 1:
           // Simple command /hello

@@ -46,8 +46,8 @@ export class MetadataStorage {
   private _simpleCommandOptions: Array<DSimpleCommandOption> = [];
 
   // discord commands
-  private _neatApplicationCommandSlash: Array<DApplicationCommand> = [];
   private _applicationCommandSlash: Array<DApplicationCommand> = [];
+  private _applicationCommandSlashFlat: Array<DApplicationCommand> = [];
   private _applicationCommandUser: Array<DApplicationCommand> = [];
   private _applicationCommandMessage: Array<DApplicationCommand> = [];
   private _applicationCommandSlashOption: Array<DApplicationCommandOption> = [];
@@ -106,8 +106,8 @@ export class MetadataStorage {
     return this._discords;
   }
 
-  get neatApplicationCommandSlash(): readonly DApplicationCommand[] {
-    return this._neatApplicationCommandSlash;
+  get applicationCommandSlashFlat(): readonly DApplicationCommand[] {
+    return this._applicationCommandSlashFlat;
   }
 
   get applicationCommandSlash(): readonly DApplicationCommand[] {
@@ -326,7 +326,7 @@ export class MetadataStorage {
       });
     });
 
-    this._neatApplicationCommandSlash = this._applicationCommandSlash;
+    this._applicationCommandSlashFlat = this._applicationCommandSlash;
     this._applicationCommandSlash = this.groupSlashes();
 
     this._simpleCommands.forEach((cmd) => {
