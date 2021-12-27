@@ -71,7 +71,7 @@
     "tsyringe": "^4.6.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^15.0.0",
+    "@commitlint/cli": "^16.0.0",
     "@commitlint/config-angular": "^15.0.0",
     "@discordx/changelog": "^1.0.8",
     "@types/glob": "^7.2.0",
