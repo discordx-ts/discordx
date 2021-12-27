@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.0",
-    "@commitlint/config-angular": "^15.0.0",
+    "@commitlint/config-angular": "^16.0.0",
     "@discordx/changelog": "^1.0.8",
     "@types/glob": "^7.2.0",
     "@types/jest": "^27.0.3",
