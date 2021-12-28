@@ -173,3 +173,24 @@ jobs:
       - name: "utilities: Run TypeScript compiler"
         run: npm run type-check
         working-directory: ./packages/utilities
+
+  build-pagination:
+    name: Build @discordx/pagination
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: "pagination: Install Dependencies"
+        run: npm install
+        working-directory: ./packages/pagination
+
+      - name: "pagination: Run TypeScript compiler"
+        run: npm run type-check
+        working-directory: ./packages/pagination
