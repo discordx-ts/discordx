@@ -92,13 +92,14 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 
 Here are more packages from us to extend the functionality of your Discord bot.
 
-| Package                                                                    | Description                     |
-| -------------------------------------------------------------------------- | ------------------------------- |
-| [`discordx`](https://www.npmjs.com/package/discordx)                       | Main package                    |
-| [`@discordx/changelog`](https://www.npmjs.com/package/@discordx/changelog) | Changelog generator             |
-| [`@discordx/importer`](https://www.npmjs.com/package/@discordx/importer)   | Import solution for ESM and CJS |
-| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)         | Discord music player            |
-| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities) | `@Category`, pagination, etc.   |
+| Package                                                                      | Description                        |
+| ---------------------------------------------------------------------------- | ---------------------------------- |
+| [`discordx`](https://www.npmjs.com/package/discordx)                         | Main package                       |
+| [`@discordx/changelog`](https://www.npmjs.com/package/@discordx/changelog)   | Changelog generator                |
+| [`@discordx/importer`](https://www.npmjs.com/package/@discordx/importer)     | Import solution for ESM and CJS    |
+| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)           | Discord music player               |
+| [`@discordx/pagination`](https://www.npmjs.com/package/@discordx/pagination) | Add pagination to your discord bot |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities)   | Create own group with `@Category`  |
 
 # 📔 Decorators
 
