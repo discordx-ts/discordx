@@ -1,11 +1,4 @@
-# Stage
-
-## Changed
-
-- fix plural for variable names ([2bf73f](https://github.com/oceanroleplay/discord.ts/commit/2bf73ff6f03e594b11a682d7830e306390b3b07f))
-- rename neatApplicationCommandSlash ([a7ef0c](https://github.com/oceanroleplay/discord.ts/commit/a7ef0cb2fe25ecffb6f780a7d0c1c031a87006c1))
-
-# [v9.1.5](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.5) (2021-12-24)
+# [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 
 ## BREAKING CHANGES
 
@@ -22,6 +15,8 @@
 
 ## Changed
 
+- fix plural for variable names ([2bf73f](https://github.com/oceanroleplay/discord.ts/commit/2bf73ff6f03e594b11a682d7830e306390b3b07f))
+- rename neatApplicationCommandSlash ([a7ef0c](https://github.com/oceanroleplay/discord.ts/commit/a7ef0cb2fe25ecffb6f780a7d0c1c031a87006c1))
 - remove description from context menu ([f93bbe](https://github.com/oceanroleplay/discord.ts/commit/f93bbe2d141f1487aeeb75658a81d05c417db5c3))
 - enforce typing ([7238b6](https://github.com/oceanroleplay/discord.ts/commit/7238b63eed9dcf300939f47099cdf45cdaae0269))
 - silent default ([3e7c48](https://github.com/oceanroleplay/discord.ts/commit/3e7c48a4880ca0617dd32d03922d09314dfe8d3a))

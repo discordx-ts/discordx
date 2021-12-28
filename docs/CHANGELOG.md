@@ -1,10 +1,4 @@
-# Stage
-
-## Routine Tasks
-
-- revert svg icon ([10b239](https://github.com/oceanroleplay/discord.ts/commit/10b2392920f57c3ce929839f9ee68c525aa5cec1))
-
-# [v9.1.5](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.5) (2021-12-24)
+# [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 
 ## BREAKING CHANGES
 
@@ -24,6 +18,7 @@
 
 ## Routine Tasks
 
+- revert svg icon ([10b239](https://github.com/oceanroleplay/discord.ts/commit/10b2392920f57c3ce929839f9ee68c525aa5cec1))
 - update images ([96c567](https://github.com/oceanroleplay/discord.ts/commit/96c567230d96261c2cc3e3bdd8e6020195955796))
 - fix word spells ([ab1cf2](https://github.com/oceanroleplay/discord.ts/commit/ab1cf2d48fbd3db0e4d792ba3db6a6c3def537e3))
 - update prettier ([0c31d1](https://github.com/oceanroleplay/discord.ts/commit/0c31d1fb19b45de9d44091c9f7a4e4a07175d754))
