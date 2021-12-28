@@ -14,7 +14,7 @@ export interface ICategory {
 export abstract class CategoryMetaData {
   static get(
     category?: string
-  ): ((DApplicationCommand | DSimpleCommand) & ICategory)[] {
+  ): readonly ((DApplicationCommand | DSimpleCommand) & ICategory)[] {
     return [
       ...MetadataStorage.instance.applicationCommandSlashes,
       ...MetadataStorage.instance.simpleCommands,
