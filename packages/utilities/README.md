@@ -55,11 +55,7 @@ yarn add @discordx/utilities
 
 ```ts
 @Discord()
-@Category("Admin Commands", "Commands for server admin")
-@Category("Admin Commands", [
-  { description: " kick a user", name: "kick", options: [], type: "SLASH" },
-  { description: " ban a user", name: "ban", options: [], type: "SLASH" },
-])
+@Category("Admin Commands")
 class SlashExample {
   // commands
 }
@@ -69,7 +65,8 @@ class SlashExample {
 // Access data from anywhere
 import { CategoryMetaData } from "@discord/utilities";
 
-CategoryMetaData.categories; // access categories metadata
+// access admin commands
+CategoryMetaData.get("Admin Commands");
 ```
 
 # ☎️ Need help?

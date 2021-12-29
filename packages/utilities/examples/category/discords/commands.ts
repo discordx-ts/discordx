@@ -1,12 +1,12 @@
-import { Category } from "../../../build/cjs/index.js";
-import { Discord } from "discordx";
+import { CommandInteraction } from "discord.js";
+import { Discord, Slash } from "discordx";
+import { Category } from "../../../build/cjs/v2";
 
 @Discord()
-@Category("Admin Commands", "cate description")
-@Category("Admin Commands", [
-  { description: " kick a user", name: "kick", options: [], type: "SLASH" },
-  { description: " ban a user", name: "ban", options: [], type: "SLASH" },
-])
+@Category("Admin Commands")
 export abstract class SlashExample {
-  // commands
+  @Slash("testx")
+  async testx(interaction: CommandInteraction): Promise<void> {
+    interaction.reply("Hey!");
+  }
 }
