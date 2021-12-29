@@ -1,3 +1,13 @@
+# Stage
+
+## Features
+
+- category decorator v2 ([34a75a](https://github.com/oceanroleplay/discord.ts/commit/34a75a07024b9e416a5b729333b91ea532c57c44))
+
+## Changed
+
+- read only category list ([090be6](https://github.com/oceanroleplay/discord.ts/commit/090be6bf8852c6526d574788a60114a51ac06087))
+
 # [v3.2.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.2.0) (2021-12-28)
 
 ## Changed

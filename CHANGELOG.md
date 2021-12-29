@@ -1,3 +1,9 @@
+# [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
+
+## Changed
+
+- set silent default true ([736a13](https://github.com/oceanroleplay/discord.ts/commit/736a13270b361e7a5dd1333fc713c35d25f6e85c))
+
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 
 ## BREAKING CHANGES
