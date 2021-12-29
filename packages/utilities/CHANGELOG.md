@@ -1,4 +1,4 @@
-# Stage
+# [v3.3.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.3.0) (2021-12-29)
 
 ## Features
 
@@ -6,6 +6,7 @@
 
 ## Changed
 
+- move to category v2 ([9c00b2](https://github.com/oceanroleplay/discord.ts/commit/9c00b26250b5796bcdf3a076f6cf789aadd72093))
 - read only category list ([090be6](https://github.com/oceanroleplay/discord.ts/commit/090be6bf8852c6526d574788a60114a51ac06087))
 
 # [v3.2.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.2.0) (2021-12-28)

@@ -38,8 +38,6 @@ updates:
     schedule:
       interval: "daily"
       time: "00:15"
-    ignore:
-      - dependency-name: "discordx"
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
@@ -47,6 +45,4 @@ updates:
     schedule:
       interval: "daily"
       time: "00:15"
-    ignore:
-      - dependency-name: "discordx"
     versioning-strategy: increase
