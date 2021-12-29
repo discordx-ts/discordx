@@ -68,13 +68,13 @@
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.178",
     "discord.js": "^13.4.0",
-    "discordx": "^10.0.0-dev.1637588391.9748892",
+    "discordx": "^9.1.6",
     "typescript": "^4.5.4"
   },
   "peerDependencies": {
     "@discordjs/opus": ">=0.5",
     "@discordjs/voice": ">=0.5",
-    "discord.js": ">=13 || ^13.5.0-dev"
+    "discord.js": ">=13 || ^13.0.0-dev || ^14.0.0-dev || ^15.0.0-dev"
   },
   "engines": {
     "node": ">=16.0.0",
