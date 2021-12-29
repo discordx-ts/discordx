@@ -60,7 +60,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   /**
    * Do not log anything
    */
-  silent?: true;
+  silent?: false;
 
   /**
    * simple command related customization

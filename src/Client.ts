@@ -253,7 +253,7 @@ export class Client extends ClientJS {
   constructor(options: ClientOptions) {
     super(options);
 
-    this._silent = options?.silent ?? false;
+    this._silent = options?.silent ?? true;
     this.guards = options.guards ?? [];
     this.botGuilds = options.botGuilds ?? [];
     this._botId = options.botId ?? "bot";
