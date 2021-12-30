@@ -60,7 +60,7 @@ class SlashExample {
   // commands
 
   @Slash()
-  @CategoryNickName("test")
+  @NickName("test")
   myCommand(interaction: CommandInteraction) {
     //....
   }

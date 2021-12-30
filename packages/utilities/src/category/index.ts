@@ -10,7 +10,7 @@ import {
 
 export interface ICategory {
   category?: string;
-  categoryNickName?: string;
+  nickName?: string;
 }
 
 export abstract class CategoryMetaData {
@@ -61,7 +61,7 @@ export function Category(name: string): ClassMethodDecorator {
   };
 }
 
-export function CategoryNickName(nickname: string): MethodDecoratorEx {
+export function NickName(nickname: string): MethodDecoratorEx {
   return function <T>(
     target: Record<string, T>,
     key?: string,
@@ -70,7 +70,7 @@ export function CategoryNickName(nickname: string): MethodDecoratorEx {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand | DSimpleCommand>(
         (original: (DApplicationCommand | DSimpleCommand) & ICategory) => {
-          original.categoryNickName = nickname;
+          original.nickName = nickname;
         },
         DApplicationCommand,
         DSimpleCommand
