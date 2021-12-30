@@ -61,7 +61,7 @@ export function Category(name: string): ClassMethodDecorator {
   };
 }
 
-export function CategoryNickname(nickname: string): MethodDecoratorEx {
+export function CategoryNickName(nickname: string): MethodDecoratorEx {
   return function <T>(
     target: Record<string, T>,
     key?: string,

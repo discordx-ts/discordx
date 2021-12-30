@@ -58,6 +58,12 @@ yarn add @discordx/utilities
 @Category("Admin Commands")
 class SlashExample {
   // commands
+
+  @Slash()
+  @CategoryNickName("test")
+  myCommand(interaction: CommandInteraction) {
+    //....
+  }
 }
 ```
 
