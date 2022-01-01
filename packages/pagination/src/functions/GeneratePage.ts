@@ -55,6 +55,27 @@ export const GeneratePage = (
       .setLabel(option.exit?.label ?? "Exit")
       .setStyle(option.exit?.style ?? "DANGER");
 
+    // set emoji
+    if (option.start?.emoji) {
+      startBtn.setEmoji(option.start.emoji);
+    }
+
+    if (option.end?.emoji) {
+      endBtn.setEmoji(option.end.emoji);
+    }
+
+    if (option.next?.emoji) {
+      nextBtn.setEmoji(option.next.emoji);
+    }
+
+    if (option.previous?.emoji) {
+      prevBtn.setEmoji(option.previous.emoji);
+    }
+
+    if (option.exit?.emoji) {
+      exitBtn.setEmoji(option.exit.emoji);
+    }
+
     const buttons: MessageButton[] = [prevBtn, nextBtn];
 
     if (totalPages > 10 && (option.showStartEnd ?? true)) {

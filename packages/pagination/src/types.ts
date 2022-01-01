@@ -1,6 +1,7 @@
 import {
   CommandInteraction,
   ContextMenuInteraction,
+  EmojiIdentifierResolvable,
   InteractionButtonOptions,
   InteractionReplyOptions,
   Message,
@@ -71,6 +72,11 @@ interface BasicPaginationOptions {
 }
 
 interface ButtonOptions {
+  /**
+   * Button emoji
+   */
+  emoji?: EmojiIdentifierResolvable;
+
   /**
    * Button id
    */

@@ -202,6 +202,15 @@ The following options are only available, if you have set type to `BUTTON`
 | previous | ButtonOptions | undefined | Button options |
 | start    | ButtonOptions | undefined | Button options |
 
+## Type: ButtonOptions
+
+| Name  | Type                                    | Description  |
+| ----- | --------------------------------------- | ------------ |
+| emoji | EmojiIdentifierResolvable               | Button Emoji |
+| id    | string                                  | Button Id    |
+| label | string                                  | Button Label |
+| style | PRIMARY\| SECONDARY \|SUCCESS \| DANGER | Button Style |
+
 ## SELECT_MENU Options
 
 The following options are only available, if you have set type to `SELECT_MENU`

@@ -7,7 +7,7 @@ import {
 import { Discord, On, Slash } from "discordx";
 import { Pagination, PaginationResolver } from "../../../build/cjs/index.js";
 import type { ArgsOf } from "discordx";
-import { GeneratePages } from "../util/common functions.js";
+import { GeneratePages } from "../util/common functions";
 
 @Discord()
 export abstract class Example {
@@ -49,6 +49,9 @@ export abstract class Example {
       ephemeral: true,
       onTimeout: () => {
         interaction.deleteReply();
+      },
+      start: {
+        emoji: "🙂",
       },
       time: 5 * 1000,
       type: "BUTTON",
