@@ -206,6 +206,10 @@ The guilds where the command is created
 
 ## Authorize your bot to use Slash commands
 
+:::info
+Every bot (Including those already in guild) that uses guild commands must follow this step to avoid getting the _**Missing Access**_ error.
+:::
+
 On the Discord's developer portal, select your bot, go to the OAuth2 tab and check the box **bot** AND **applications.commands**
 
 ![](../../../static/img/authorize1.png)
