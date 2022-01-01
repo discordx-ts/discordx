@@ -30,7 +30,7 @@ jobs:
       - name: pre-release
         id: pre-release
         run: |
-          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD | cut -b1-3)") ]]; \
+          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --pretty=tformat:"%h" -n1 src | cut -b1-3)") ]]; \
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
 
@@ -51,73 +51,7 @@ jobs:
       - name: Publish
         if: steps.pre-release.outputs.release == 'true'
         run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git log --pretty=tformat:"%h" -n1 src)
           npm publish --tag dev
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: "Utilities: Synchronize dev version"
-        run: |
-          npm version --git-tag-version=false $(npm view @discordx/utilities version)
-          npm version --git-tag-version=false major
-          npm version --git-tag-version=false "$(jq --raw-output '.version' package.json)-dev"
-        working-directory: ./packages/utilities
-
-      - name: "Utilities: Install Dependencies"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm install
-        working-directory: ./packages/utilities
-
-      - name: "Utilities: Build"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm run build
-        working-directory: ./packages/utilities
-
-      - name: "Utilities: Deprecate old versions"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npx @favware/npm-deprecate -d --name "*dev*" --package "@discordx/utilities" --message "Version no longer supported. Upgrade to @latest"
-        working-directory: ./packages/utilities
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: "Utilities: Publish"
-        if: steps.pre-release.outputs.release == 'true'
-        run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
-          npm publish --tag dev
-        working-directory: ./packages/utilities
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: "Music: Synchronize dev version"
-        run: |
-          npm version --git-tag-version=false $(npm view @discordx/music version)
-          npm version --git-tag-version=false major
-          npm version --git-tag-version=false "$(jq --raw-output '.version' package.json)-dev"
-        working-directory: ./packages/music
-
-      - name: "Music: Install Dependencies"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm install
-        working-directory: ./packages/music
-
-      - name: "Music: Build"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm run build
-        working-directory: ./packages/music
-
-      - name: "Music: Deprecate old versions"
-        if: steps.pre-release.outputs.release == 'true'
-        run: npx @favware/npm-deprecate -d --name "*dev*" --package "@discordx/music" --message "Version no longer supported. Upgrade to @latest"
-        working-directory: ./packages/music
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: "Music: Publish"
-        if: steps.pre-release.outputs.release == 'true'
-        run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
-          npm publish --tag dev
-        working-directory: ./packages/music
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
