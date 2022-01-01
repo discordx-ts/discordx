@@ -204,10 +204,10 @@ The guilds where the command is created
 | ----------- | ------- |
 | Snowflake[] | [ ]     |
 
-## Authorize your bot to use Slash commands
+## Authorize your bot to use application commands
 
-:::info
-Every bot (Including those already in guild) that uses guild commands must follow this step to avoid getting the _**Missing Access**_ error.
+:::danger
+In order to make commands work within a guild, the guild must authorize your application with the `applications.commands` scope. The `bot` scope is not enough. - _**Discord**_
 :::
 
 On the Discord's developer portal, select your bot, go to the OAuth2 tab and check the box **bot** AND **applications.commands**
@@ -215,7 +215,9 @@ On the Discord's developer portal, select your bot, go to the OAuth2 tab and che
 ![](../../../static/img/authorize1.png)
 ![](../../../static/img/authorize2.png)
 
+[read more at discord](https://discord.com/developers/docs/interactions/application-commands#authorizing-your-application)
+
 ## See also
 
-- [Discord.js's documentation](https://discord.js.org/#/docs/main/stable/general/welcome)
+- [Discord.js's documentation](https://discord.js.org)
 - [Discord's application command interactions](https://discord.com/developers/docs/interactions/application-commands)
