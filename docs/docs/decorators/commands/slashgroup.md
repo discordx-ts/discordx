@@ -29,7 +29,7 @@ Here you create a Slash command group that groups "permissions" commands
 
 The permissions commands also grouped by "user" or "role"
 
-![](https://discord.com/assets/4cfea1bfc6d3ed0396c16cd47e0a7154.png)
+![](../../../static/img/permissions.png)
 
 ## Create a group
 
