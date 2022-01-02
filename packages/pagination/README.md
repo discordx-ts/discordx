@@ -194,13 +194,13 @@ export abstract class Example {
 
 The following options are only available, if you have set type to `BUTTON`
 
-| Name     | Type          | Default   | Description    |
-| -------- | ------------- | --------- | -------------- |
-| end      | ButtonOptions | undefined | Button options |
-| exit     | ButtonOptions | undefined | Button options |
-| next     | ButtonOptions | undefined | Button options |
-| previous | ButtonOptions | undefined | Button options |
-| start    | ButtonOptions | undefined | Button options |
+| Name     | Type          | Description             |
+| -------- | ------------- | ----------------------- |
+| end      | ButtonOptions | End Button options      |
+| exit     | ButtonOptions | Exit Button options     |
+| next     | ButtonOptions | Next Button options     |
+| previous | ButtonOptions | Previous Button options |
+| start    | ButtonOptions | Start Button options    |
 
 ## Type: ButtonOptions
 
