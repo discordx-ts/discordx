@@ -30,7 +30,7 @@ jobs:
       - name: pre-release
         id: pre-release
         run: |
-          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --pretty=tformat:"%h" -n1 src | cut -b1-3)") ]]; \
+          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short head | cut -b1-3)") ]]; \
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
 
@@ -51,7 +51,7 @@ jobs:
       - name: Publish
         if: steps.pre-release.outputs.release == 'true'
         run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git log --pretty=tformat:"%h" -n1 src)
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short head)
           npm publish --tag dev
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
