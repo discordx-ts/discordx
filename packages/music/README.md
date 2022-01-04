@@ -49,6 +49,8 @@ A powerful discord music library written in [TypeScript](https://www.typescriptl
 
 Version 16.6.0 or newer of Node.js is required
 
+> Ensure that [discord.js](https://www.npmjs.com/package/discord.js) and [@discordjs/voice](https://www.npmjs.com/package/@discordjs/voice) have been installed before installing this library
+
 ```
 npm install @discordx/music
 yarn add @discordx/music
