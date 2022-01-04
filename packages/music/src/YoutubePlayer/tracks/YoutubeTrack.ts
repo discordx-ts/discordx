@@ -41,27 +41,21 @@ export class YoutubeTrack extends Track {
    * Create audio resource
    * @returns
    */
-  public createAudioResource(): Promise<AudioResource<CommonTrack>> {
-    return new Promise((resolve, reject) => {
-      const stream = ytdl(this.url, {
-        encoderArgs: this.options?.encoderArgs,
-        fmt: "s16le",
-        highWaterMark: 1 << 25,
-        opusEncoded: false,
-        quality: this.options?.quality ?? "highestaudio",
-        requestOptions: this.options?.ytdlRequestOptions,
-        seek: this.options?.seek ? this.options.seek / 1e3 : 0,
-      }).on("error", (error: Error) => {
-        reject(error);
-      });
+  public createAudioResource(): AudioResource<CommonTrack> {
+    const stream = ytdl(this.url, {
+      encoderArgs: this.options?.encoderArgs,
+      fmt: "s16le",
+      highWaterMark: 1 << 25,
+      opusEncoded: false,
+      quality: this.options?.quality ?? "highestaudio",
+      requestOptions: this.options?.ytdlRequestOptions,
+      seek: this.options?.seek ? this.options.seek / 1e3 : 0,
+    });
 
-      resolve(
-        createAudioResource(stream, {
-          inlineVolume: true,
-          inputType: StreamType.Raw,
-          metadata: this,
-        })
-      );
+    return createAudioResource(stream, {
+      inlineVolume: true,
+      inputType: StreamType.Raw,
+      metadata: this,
     });
   }
 }

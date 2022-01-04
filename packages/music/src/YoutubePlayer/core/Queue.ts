@@ -199,7 +199,6 @@ export abstract class Queue<T extends Player = Player> {
       ) {
         // If the Idle state is entered from a non-Idle state, it means that an audio resource has finished playing.
         // The queue is then processed to start playing the next track, if one is available.
-        //
         const track = (oldState.resource as AudioResource<YoutubeTrack>)
           .metadata as YoutubeTrack;
         this.player.emit("onFinish", [this, track]);
@@ -226,7 +225,7 @@ export abstract class Queue<T extends Player = Player> {
    * Process queue
    * @returns
    */
-  private async processQueue(): Promise<void> {
+  private processQueue(): void {
     // If the queue is locked (already being processed), is empty, or the audio player is already playing something, return
     if (
       this.queueLock ||
@@ -258,22 +257,10 @@ export abstract class Queue<T extends Player = Player> {
 
     this.lastTrack = nextTrack;
 
-    try {
-      // Attempt to convert the YoutubeTrack into an AudioResource (i.e. start streaming the video)
-      const resource = await nextTrack.createAudioResource();
-      this._audioPlayer.play(resource);
-      this.queueLock = false;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      // If an error occurred, try the next item of the queue instead
-      this.player.emit("onError", [
-        this,
-        error,
-        (error.resource as AudioResource<CommonTrack>).metadata,
-      ]);
-      this.queueLock = false;
-      return this.processQueue();
-    }
+    // Attempt to convert the YoutubeTrack into an AudioResource (i.e. start streaming the video)
+    const resource = nextTrack.createAudioResource();
+    this._audioPlayer.play(resource);
+    this.queueLock = false;
   }
 
   /**
