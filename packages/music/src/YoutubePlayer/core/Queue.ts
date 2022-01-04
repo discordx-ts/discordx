@@ -639,7 +639,7 @@ export abstract class Queue<T extends Player = Player> {
     this.processQueue();
     return tracks;
   }
-  
+
   /**
    * Play apple
    * @param search
@@ -647,7 +647,7 @@ export abstract class Queue<T extends Player = Player> {
    * @param enqueueTop
    * @returns
    */
-   public async apple(
+  public async apple(
     search: string,
     options?: ITrackOptions,
     enqueueTop?: boolean
@@ -659,24 +659,17 @@ export abstract class Queue<T extends Player = Player> {
     }
     let allVideos: (Video | undefined)[] = [];
     if (appleTracks.type === "song") {
-        const song = await Util.getSong(
-            appleTracks.title +
-            " - " +
-            appleTracks.artist
-        );
-        allVideos = [song];
-    };
-    if (appleTracks.type === 'playlist' || appleTracks.type === 'album') {
-
-        allVideos = await Promise.all(
-            appleTracks.tracks.map((sr) =>
-            Util.getSong(
-              sr.title +
-                " - " +
-                sr.artist
-            )
-          )
-        );
+      const song = await Util.getSong(
+        appleTracks.title + " - " + appleTracks.artist
+      );
+      allVideos = [song];
+    }
+    if (appleTracks.type === "playlist" || appleTracks.type === "album") {
+      allVideos = await Promise.all(
+        appleTracks.tracks.map((sr) =>
+          Util.getSong(sr.title + " - " + sr.artist)
+        )
+      );
     }
     const videos = _.compact(allVideos);
     const tracks = videos.map(
