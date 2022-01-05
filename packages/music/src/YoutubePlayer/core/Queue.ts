@@ -530,7 +530,7 @@ export abstract class Queue<T extends Player = Player> {
   }
 
   /**
-   * play custom track
+   * Play custom track
    * @param track
    * @param options
    * @returns
@@ -552,7 +552,7 @@ export abstract class Queue<T extends Player = Player> {
   }
 
   /**
-   * play song
+   * Play youtube song
    * @param search
    * @param options
    * @param enqueueTop
@@ -581,7 +581,7 @@ export abstract class Queue<T extends Player = Player> {
   }
 
   /**
-   * play playlist
+   * Play youtube playlist
    * @param search
    * @param options
    * @param enqueueTop
@@ -656,6 +656,7 @@ export abstract class Queue<T extends Player = Player> {
     if (!appleTracks) {
       return;
     }
+
     let allVideos: (Video | undefined)[] = [];
     if (appleTracks.type === "song") {
       const song = await Util.getSong(
@@ -672,10 +673,12 @@ export abstract class Queue<T extends Player = Player> {
         )
       );
     }
+
     const videos = _.compact(allVideos);
     const tracks = videos.map(
       (video) => new YoutubeTrack(video, this.player, options)
     );
+
     this.enqueue(tracks, enqueueTop);
     this.processQueue();
     return tracks;
