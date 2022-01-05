@@ -1,12 +1,12 @@
+import {
+  RawApplePlaylist,
+  RawAppleSong,
+  autoGetApple,
+} from "apple-music-metadata";
 import _ from "lodash";
 import spotify from "spotify-url-info";
 import ytpl from "ytpl";
 import ytsr from "ytsr";
-import {
-  autoGetApple,
-  RawApplePlaylist,
-  RawAppleSong,
-} from "apple-music-metadata";
 
 export class Util {
   /**
@@ -112,7 +112,7 @@ export class Util {
   }
 
   /**
-   * Get spotify tracks by url
+   * Get apple tracks by url
    * @param url
    * @returns
    */

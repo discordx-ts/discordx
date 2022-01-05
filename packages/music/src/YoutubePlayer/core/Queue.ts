@@ -652,8 +652,7 @@ export abstract class Queue<T extends Player = Player> {
     options?: ITrackOptions,
     enqueueTop?: boolean
   ): Promise<YoutubeTrack[] | undefined> {
-    const appleTracks =
-      typeof search === "string" ? await Util.getAppleTracks(search) : search;
+    const appleTracks = await Util.getAppleTracks(search);
     if (!appleTracks) {
       return;
     }
@@ -663,8 +662,10 @@ export abstract class Queue<T extends Player = Player> {
         appleTracks.title + " - " + appleTracks.artist
       );
       allVideos = [song];
-    }
-    if (appleTracks.type === "playlist" || appleTracks.type === "album") {
+    } else if (
+      appleTracks.type === "playlist" ||
+      appleTracks.type === "album"
+    ) {
       allVideos = await Promise.all(
         appleTracks.tracks.map((sr) =>
           Util.getSong(sr.title + " - " + sr.artist)
