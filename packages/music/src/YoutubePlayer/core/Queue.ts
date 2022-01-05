@@ -641,7 +641,7 @@ export abstract class Queue<T extends Player = Player> {
   }
 
   /**
-   * Play apple links
+   * Play apple music links
    * @param search
    * @param options
    * @param enqueueTop
