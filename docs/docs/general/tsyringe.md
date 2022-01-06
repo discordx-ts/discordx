@@ -107,7 +107,7 @@ following code example:
 
 ```ts
 import { container, singleton } from "tsyringe";
-import { DIService } from "./DIService";
+import { DIService } from "discordx";
 
 function getAllDiscordClasses(): unknown[] {
   const appClasses = DIService.allServices;
