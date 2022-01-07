@@ -1,18 +1,18 @@
 # Stage
 
+# [v9.1.9](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.9) (2022-01-07)
+
 ## Features
 
 - add info to logger interface ([9d5283](https://github.com/oceanroleplay/discord.ts/commit/9d52832d52be97daacff6f906f716d5e9bed8729))
 
-## Fixed
-
-- dep issue ([191d94](https://github.com/oceanroleplay/discord.ts/commit/191d94e4d0c5ce57c26de07d3c6373491cca48f0))
-
-# [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
-
 ## Changed
 
 - set silent default true ([736a13](https://github.com/oceanroleplay/discord.ts/commit/736a13270b361e7a5dd1333fc713c35d25f6e85c))
+
+## Fixed
+
+- dep issue ([191d94](https://github.com/oceanroleplay/discord.ts/commit/191d94e4d0c5ce57c26de07d3c6373491cca48f0))
 
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 

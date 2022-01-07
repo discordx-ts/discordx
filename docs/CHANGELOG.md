@@ -1,5 +1,7 @@
 # Stage
 
+# [v9.1.9](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.9) (2022-01-07)
+
 ## Documenations
 
 - update authrize slash commands message ([d43e8e](https://github.com/oceanroleplay/discord.ts/commit/d43e8e4e72222c8c729aebd1f6611081ca0786fd))
@@ -12,8 +14,6 @@
 ## Untagged
 
 - Update tsyringe.md ([e65cdf](https://github.com/oceanroleplay/discord.ts/commit/e65cdf64216a69ac26729df520ef5741e6ed4c61))
-
-# [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
 
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 
