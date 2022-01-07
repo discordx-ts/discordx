@@ -1,8 +1,6 @@
+# Stage
+
 # [v1.1.2](https://github.com/oceanroleplay/discord.ts/releases/tag/i-v1.1.2) (2021-12-24)
-
-## BREAKING CHANGES
-
-- move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
 
 ## Fixed
 
@@ -11,6 +9,10 @@
 ## Routine Tasks
 
 - fix all examples ([e2ce63](https://github.com/oceanroleplay/discord.ts/commit/e2ce632e7961cc9e0a98f52207df6335e0da49ac))
+
+## Untagged
+
+- BREAKING CHANGE: move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
 
 # [v1.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/i-v1.1.0) (2021-11-13)
 

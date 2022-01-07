@@ -1,3 +1,13 @@
+# Stage
+
+## Features
+
+- add info to logger interface ([9d5283](https://github.com/oceanroleplay/discord.ts/commit/9d52832d52be97daacff6f906f716d5e9bed8729))
+
+## Fixed
+
+- dep issue ([191d94](https://github.com/oceanroleplay/discord.ts/commit/191d94e4d0c5ce57c26de07d3c6373491cca48f0))
+
 # [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
 
 ## Changed
@@ -5,11 +15,6 @@
 - set silent default true ([736a13](https://github.com/oceanroleplay/discord.ts/commit/736a13270b361e7a5dd1333fc713c35d25f6e85c))
 
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
-
-## BREAKING CHANGES
-
-- move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
-- removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
 
 ## Features
 
@@ -79,6 +84,11 @@
 - repo cleanup ([50068c](https://github.com/oceanroleplay/discord.ts/commit/50068cea88c9ce41217a7df67cf9b2a4cd445617))
 - revert extension (mts) ([#267](https://github.com/oceanroleplay/discord.ts/issues/267)) ([6a05e4](https://github.com/oceanroleplay/discord.ts/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))
 - spaces ([093e71](https://github.com/oceanroleplay/discord.ts/commit/093e71d56c35608735d7e2ba9e616e1ee2622136))
+
+## Untagged
+
+- BREAKING CHANGE: move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
+- BREAKING CHANGE: removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
 
 # [v9.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.0.0) (2021-11-10)
 

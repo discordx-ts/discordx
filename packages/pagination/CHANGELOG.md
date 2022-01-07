@@ -1,3 +1,9 @@
+# Stage
+
+## Features
+
+- add emoji support for pagination buttons ([285a3b](https://github.com/oceanroleplay/discord.ts/commit/285a3bedbb647bbd39579cf7484f166578513b1b))
+
 # [v1.0.1](https://github.com/oceanroleplay/discord.ts/releases/tag/p-v1.0.1) (2021-12-28)
 
 ## Changed

@@ -1,8 +1,21 @@
+# Stage
+
+## Documenations
+
+- update authrize slash commands message ([d43e8e](https://github.com/oceanroleplay/discord.ts/commit/d43e8e4e72222c8c729aebd1f6611081ca0786fd))
+- add warning for missing access ([a752be](https://github.com/oceanroleplay/discord.ts/commit/a752bef2a70b2d3e8ca52ffba543b9a799313741))
+
+## Routine Tasks
+
+- fix url ([bc4d4d](https://github.com/oceanroleplay/discord.ts/commit/bc4d4ddf202478f9de253a4afada4883976d6030))
+
+## Untagged
+
+- Update tsyringe.md ([e65cdf](https://github.com/oceanroleplay/discord.ts/commit/e65cdf64216a69ac26729df520ef5741e6ed4c61))
+
+# [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
+
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
-
-## BREAKING CHANGES
-
-- removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
 
 ## Changed
 
@@ -26,6 +39,10 @@
 - doc: installation ([0bc7af](https://github.com/oceanroleplay/discord.ts/commit/0bc7afad22a38e065a5913fdeeec17dca245d38b))
 - rename esnext to ESNext ([0509ac](https://github.com/oceanroleplay/discord.ts/commit/0509ac1b1d0bf4b048dbf332b84c9a4b82e67c63))
 - doc: installation ([47e4b0](https://github.com/oceanroleplay/discord.ts/commit/47e4b032643b250155cf2d99698f3f6cc9eaa54e))
+
+## Untagged
+
+- BREAKING CHANGE: removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
 
 # [v9.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.0.0) (2021-11-10)
 
@@ -254,3 +271,5 @@
 - doc fix ([547a95](https://github.com/oceanroleplay/discord.ts/commit/547a95542777b3f9af757fea6d688ff89b256474))
 - doc v2 ([3fbe39](https://github.com/oceanroleplay/discord.ts/commit/3fbe39638ae3ecf411751daa581708101a5f2f40))
 - docs v2 ([c54fdf](https://github.com/oceanroleplay/discord.ts/commit/c54fdf44d7302fdb1e1d021de2ae1632cad14573))
+
+# [v5.4.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.4.0) (2021-08-13)
