@@ -16,14 +16,18 @@ type storeType =
   | "types"
   | "workflow"
   | "all"
-  | "breaking";
+  | "BREAKING CHANGE";
 
 const categories: {
   breaking: boolean;
   storeTypes: storeType[];
   title: string;
 }[] = [
-  { breaking: false, storeTypes: ["breaking"], title: "Breaking Changes" },
+  {
+    breaking: false,
+    storeTypes: ["BREAKING CHANGE"],
+    title: "Breaking Changes",
+  },
   { breaking: false, storeTypes: ["feat"], title: "Features" },
   { breaking: true, storeTypes: ["refactor"], title: "Changed" },
   { breaking: true, storeTypes: ["fix"], title: "Fixed" },
@@ -142,7 +146,7 @@ export function generateDoc(
             store.push({
               text: formatedCommit(st),
               type: commit.message.includes("BREAKING CHANGE")
-                ? "breaking"
+                ? "BREAKING CHANGE"
                 : st,
             });
             isPushed = true;
