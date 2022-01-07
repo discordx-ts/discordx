@@ -40,7 +40,8 @@ const categories: {
 export function getRepoUrl(): string {
   let remoteurl = child
     .execSync("git config --get remote.origin.url")
-    .toString("utf-8");
+    .toString("utf-8")
+    .trim();
 
   if (!remoteurl.length) {
     throw Error(
