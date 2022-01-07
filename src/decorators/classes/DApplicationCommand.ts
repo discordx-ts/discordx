@@ -1,19 +1,9 @@
 import {
-  APIInteractionDataResolvedChannel,
-  APIInteractionDataResolvedGuildMember,
-  APIRole,
-} from "discord-api-types/v9.js";
-import {
   ApplicationCommandData,
   ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
   Guild,
-  GuildChannel,
-  GuildMember,
-  Role,
-  ThreadChannel,
-  User,
 } from "discord.js";
 import {
   ApplicationCommandDataX,
@@ -206,22 +196,8 @@ export class DApplicationCommand extends Method {
     return data as unknown as ApplicationCommandData;
   }
 
-  parseParams(
-    interaction: CommandInteraction
-  ): (
-    | string
-    | number
-    | boolean
-    | Role
-    | APIRole
-    | GuildMember
-    | GuildChannel
-    | ThreadChannel
-    | APIInteractionDataResolvedChannel
-    | APIInteractionDataResolvedGuildMember
-    | User
-    | undefined
-  )[] {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  parseParams(interaction: CommandInteraction) {
     return [...this.options].reverse().map((op) => {
       switch (op.type) {
         case "STRING":
