@@ -138,14 +138,13 @@ export function generateDoc(
       let isPushed = false;
       categories.forEach((cat) => {
         cat.storeTypes.forEach((st) => {
-          if (cat.breaking && commit.message.includes("BREAKING CHANGE")) {
+          if (commit.title.startsWith(`${st}: `)) {
             store.push({
               text: formatedCommit(st),
-              type: "breaking",
+              type: commit.message.includes("BREAKING CHANGE")
+                ? "breaking"
+                : st,
             });
-            isPushed = true;
-          } else if (commit.title.startsWith(`${st}: `)) {
-            store.push({ text: formatedCommit(st), type: st });
             isPushed = true;
           }
         });
@@ -155,10 +154,6 @@ export function generateDoc(
         store.push({ text: formatedCommit(), type: "all" });
       }
     });
-
-    if (!commitsArray.length) {
-      return;
-    }
 
     let finalChangeLog =
       tag === "head"
