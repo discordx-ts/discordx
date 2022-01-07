@@ -1,5 +1,9 @@
 # Stage
 
+## Features
+
+- ignore scopes ([2a610b](https://github.com/oceanroleplay/discord.ts/commit/2a610befe7cc0e2a5abf4a7351c97bc39497ddb0))
+
 ## Changed
 
 - add trim for repo url ([df2847](https://github.com/oceanroleplay/discord.ts/commit/df284702428ee5a021c007e3c44cc2e5c71a332d))
