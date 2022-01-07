@@ -6,6 +6,10 @@
 
 # [v3.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/m-v3.1.0) (2021-12-24)
 
+## Breaking Changes
+
+- move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
+
 ## Features
 
 - add inline volume ([c0e252](https://github.com/oceanroleplay/discord.ts/commit/c0e25295bfd5b91f1f3fa5798631bd259978099e))
@@ -18,10 +22,6 @@
 
 - revert extension (mts) ([#267](https://github.com/oceanroleplay/discord.ts/issues/267)) ([6a05e4](https://github.com/oceanroleplay/discord.ts/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))
 - readme and package ([069562](https://github.com/oceanroleplay/discord.ts/commit/06956230dabb5f56e37783666549b0737359968a))
-
-## Untagged
-
-- BREAKING CHANGE: move to esm ([#256](https://github.com/oceanroleplay/discord.ts/issues/256)) ([f5476b](https://github.com/oceanroleplay/discord.ts/commit/f5476b61ab5a9f7b1cfb6f3593f7efe14c1ed424))
 
 # [v3.0.9](https://github.com/oceanroleplay/discord.ts/releases/tag/m-v3.0.9) (2021-11-11)
 

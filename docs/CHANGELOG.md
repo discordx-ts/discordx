@@ -17,6 +17,10 @@
 
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 
+## Breaking Changes
+
+- removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
+
 ## Changed
 
 - nicely name variables ([c96dd7](https://github.com/oceanroleplay/discord.ts/commit/c96dd7461e38b3a33093a1ba454f8385a8de1dd7))
@@ -39,10 +43,6 @@
 - doc: installation ([0bc7af](https://github.com/oceanroleplay/discord.ts/commit/0bc7afad22a38e065a5913fdeeec17dca245d38b))
 - rename esnext to ESNext ([0509ac](https://github.com/oceanroleplay/discord.ts/commit/0509ac1b1d0bf4b048dbf332b84c9a4b82e67c63))
 - doc: installation ([47e4b0](https://github.com/oceanroleplay/discord.ts/commit/47e4b032643b250155cf2d99698f3f6cc9eaa54e))
-
-## Untagged
-
-- BREAKING CHANGE: removed classes field from client ([#235](https://github.com/oceanroleplay/discord.ts/issues/235)) ([cbcbb1](https://github.com/oceanroleplay/discord.ts/commit/cbcbb1683b5e3bd949401c4342f72e5cde0652a7))
 
 # [v9.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.0.0) (2021-11-10)
 

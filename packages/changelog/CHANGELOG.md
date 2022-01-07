@@ -7,6 +7,7 @@
 
 ## Fixed
 
+- breaking change scope ([79956a](https://github.com/oceanroleplay/discord.ts/commit/79956ad2b8cb83e3fdcdf22ec922328eea56be1e))
 - duplicate changelog issue ([4e0080](https://github.com/oceanroleplay/discord.ts/commit/4e00801d75b447893c779cde1f2215c7dc719223))
 - minor issues ([ffe8f0](https://github.com/oceanroleplay/discord.ts/commit/ffe8f05d0fa03714eaa29504fa9c4deea2d9502b))
 - changelog repo url ([c478b3](https://github.com/oceanroleplay/discord.ts/commit/c478b3a79cc690615180e0e31279d2d957792bc3))
