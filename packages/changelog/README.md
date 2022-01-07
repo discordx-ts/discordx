@@ -46,16 +46,21 @@ changelog generator, written in TypeScript with Node.js
 
 > npx @discordx/changelog
 
+## Supported Scopes
+
+`build, chore, ci, docs, feat, fix, refactor, revert, test, types, workflow, BREAKING CHANGE`
+
 ## Options
 
 The following options are only available
 
-| Name          | Required | Default          | Description                |
-| ------------- | -------- | ---------------- | -------------------------- |
-| --root        | No       | "./"             | root folder path           |
-| --out         | No       | "./CHANGELOG.md" | changelog file path        |
-| --tag         | No       | "v\*"            | tag to match with releases |
-| --tag-replace | No       | undefined        | repalcement in tag         |
+| Name           | Required | Default          | Description                |
+| -------------- | -------- | ---------------- | -------------------------- |
+| --root         | No       | "./"             | root folder path           |
+| --out          | No       | "./CHANGELOG.md" | changelog file path        |
+| --tag          | No       | "v\*"            | tag to match with releases |
+| --tag-replace  | No       | undefined        | repalcement in tag         |
+| --ignore-scope | No       | undefined        | ignore scopes              |
 
 # ☎️ Need help?
 

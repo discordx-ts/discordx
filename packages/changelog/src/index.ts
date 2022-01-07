@@ -3,7 +3,7 @@ import child from "child_process";
 import fs from "fs";
 import prettier from "prettier";
 
-type storeType =
+export type storeType =
   | "build"
   | "chore"
   | "ci"
@@ -15,7 +15,7 @@ type storeType =
   | "test"
   | "types"
   | "workflow"
-  | "all"
+  | "untagged"
   | "BREAKING CHANGE";
 
 const categories: {
@@ -38,7 +38,7 @@ const categories: {
   { breaking: false, storeTypes: ["docs"], title: "Documenations" },
   { breaking: false, storeTypes: ["chore"], title: "Routine Tasks" },
   { breaking: false, storeTypes: ["ci", "workflow"], title: "CI" },
-  { breaking: false, storeTypes: ["all"], title: "Untagged" },
+  { breaking: false, storeTypes: ["untagged"], title: "Untagged" },
 ];
 
 export function getRepoUrl(): string {
@@ -76,8 +76,10 @@ export function generateDoc(
   folder?: string,
   filepath?: string,
   tagMatcher?: string,
-  tagReplacer?: string
+  tagReplacer?: string,
+  ignoreScopeArg?: string[]
 ): string {
+  const ignoreScopes: string[] = ignoreScopeArg ? ignoreScopeArg : [];
   const repo = getRepoUrl();
 
   let completeChangelog = "";
@@ -155,7 +157,7 @@ export function generateDoc(
       });
 
       if (!isPushed) {
-        store.push({ text: formatedCommit(), type: "all" });
+        store.push({ text: formatedCommit(), type: "untagged" });
       }
     });
 
@@ -171,7 +173,9 @@ export function generateDoc(
     }
 
     categories.forEach((cat) => {
-      const items = store.filter((r) => cat.storeTypes.includes(r.type));
+      const items = store.filter(
+        (r) => cat.storeTypes.includes(r.type) && !ignoreScopes.includes(r.type)
+      );
       if (items.length) {
         finalChangeLog += `## ${cat.title}\n`;
         items.forEach((cm) => {
