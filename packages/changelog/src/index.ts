@@ -111,10 +111,7 @@ export function generateDoc(
 
         const title = message
           ?.split("\n")[0]
-          ?.replaceAll(
-            /#([0-9]{1,})/gm,
-            `[#$1](https://github.com/${repo}/issues/$1)`
-          );
+          ?.replaceAll(/#([0-9]{1,})/gm, `[#$1](${repo}/issues/$1)`);
 
         return {
           message: message as string,
@@ -135,9 +132,7 @@ export function generateDoc(
         `* ${commit.title.replace(
           replace ? `${replace}: ` : "",
           ""
-        )} ([${commit.sha.substring(0, 6)}](https://github.com/${repo}/commit/${
-          commit.sha
-        }))\n`;
+        )} ([${commit.sha.substring(0, 6)}](${repo}/commit/${commit.sha}))\n`;
 
       categories.forEach((cat) => {
         cat.storeTypes.forEach((st) => {
@@ -162,7 +157,7 @@ export function generateDoc(
     let finalChangeLog =
       tag === "head"
         ? "# Stage\n\n"
-        : `# [${tag}](https://github.com/${repo}/releases/tag/${tag}) (${
+        : `# [${tag}](${repo}/releases/tag/${tag}) (${
             new Date(tagDate).toISOString().split("T")[0]
           })\n\n`;
 
