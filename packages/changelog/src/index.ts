@@ -3,22 +3,77 @@ import child from "child_process";
 import fs from "fs";
 import prettier from "prettier";
 
+type storeType =
+  | "build"
+  | "chore"
+  | "ci"
+  | "docs"
+  | "feat"
+  | "fix"
+  | "refactor"
+  | "revert"
+  | "test"
+  | "types"
+  | "workflow"
+  | "all"
+  | "breaking";
+
+const categories: {
+  breaking: boolean;
+  storeTypes: storeType[];
+  title: string;
+}[] = [
+  { breaking: false, storeTypes: ["breaking"], title: "BREAKING CHANGES" },
+  { breaking: false, storeTypes: ["feat"], title: "Features" },
+  { breaking: true, storeTypes: ["refactor"], title: "Changed" },
+  { breaking: true, storeTypes: ["fix"], title: "Fixed" },
+  { breaking: false, storeTypes: ["revert"], title: "Reverts" },
+  { breaking: false, storeTypes: ["test"], title: "Tests" },
+  { breaking: false, storeTypes: ["build"], title: "Build" },
+  { breaking: false, storeTypes: ["types"], title: "Types" },
+  { breaking: false, storeTypes: ["docs"], title: "Documenations" },
+  { breaking: false, storeTypes: ["chore"], title: "Routine Tasks" },
+  { breaking: false, storeTypes: ["ci", "workflow"], title: "CI" },
+  { breaking: false, storeTypes: ["all"], title: "Untagged" },
+];
+
+export function getRepoUrl(): string {
+  let remoteurl = child
+    .execSync("git config --get remote.origin.url")
+    .toString("utf-8");
+
+  if (!remoteurl.length) {
+    throw Error(
+      "repo not found, make sure to run the command in the git directory only"
+    );
+  }
+
+  if (!remoteurl.endsWith(".git")) {
+    remoteurl += ".git";
+  }
+
+  if (RegExp(/.*@.*:.*.git/gm).test(remoteurl)) {
+    const r = RegExp(/.*@(.*?):(.*?).git/gm).exec(remoteurl);
+    if (!r) {
+      throw Error("Invalid repo url passed");
+    }
+
+    const domain = r.at(1);
+    const subUrl = r.at(2);
+
+    return `https://${domain}/${subUrl}`;
+  }
+
+  return remoteurl.substring(0, remoteurl.length - 4);
+}
+
 export function generateDoc(
   folder?: string,
   filepath?: string,
   tagMatcher?: string,
   tagReplacer?: string
 ): string {
-  const remoteurl = child
-    .execSync("git config --get remote.origin.url")
-    .toString("utf-8");
-
-  const reg = /(git@github\.com:|https:\/\/github.com\/)(.*?)\.git/gm;
-  const repo = reg.exec(remoteurl)?.at(2);
-
-  if (!repo) {
-    throw Error("repository not found");
-  }
+  const repo = getRepoUrl();
 
   let completeChangelog = "";
 
@@ -73,19 +128,7 @@ export function generateDoc(
       .execSync(`git log -1 --format=%ai ${tag}`)
       .toString("utf-8");
 
-    const buildStore: string[] = [];
-    const choreStore: string[] = [];
-    const ciStore: string[] = [];
-    const docsStore: string[] = [];
-    const featStore: string[] = [];
-    const fixStore: string[] = [];
-    const refactorStore: string[] = [];
-    const revertStore: string[] = [];
-    const testStore: string[] = [];
-    const typesStore: string[] = [];
-    const workflowStore: string[] = [];
-    const allStore: string[] = [];
-    const breakingStore: string[] = [];
+    const store: { text: string; type: storeType }[] = [];
 
     commitsArray.forEach((commit) => {
       const formatedCommit = (replace?: string) =>
@@ -96,48 +139,27 @@ export function generateDoc(
           commit.sha
         }))\n`;
 
-      if (commit.title.startsWith("chore: ")) {
-        choreStore.push(formatedCommit("chore"));
-      } else if (commit.title.startsWith("BREAKING CHANGE: ")) {
-        breakingStore.push(formatedCommit("BREAKING CHANGE"));
-      } else if (commit.title.startsWith("build: ")) {
-        buildStore.push(formatedCommit("build"));
-      } else if (commit.title.startsWith("ci: ")) {
-        ciStore.push(formatedCommit("ci"));
-      } else if (commit.title.startsWith("docs: ")) {
-        docsStore.push(formatedCommit("docs"));
-      } else if (commit.title.startsWith("feat: ")) {
-        featStore.push(formatedCommit("feat"));
-      } else if (commit.title.startsWith("fix: ")) {
-        if (commit.message.includes("BREAKING CHANGE")) {
-          breakingStore.push(formatedCommit("fix"));
-        } else {
-          fixStore.push(formatedCommit("fix"));
-        }
-      } else if (commit.title.startsWith("refactor: ")) {
-        if (commit.message.includes("BREAKING CHANGE")) {
-          breakingStore.push(formatedCommit("refactor"));
-        } else {
-          refactorStore.push(formatedCommit("refactor"));
-        }
-      } else if (commit.title.startsWith("test: ")) {
-        testStore.push(formatedCommit("test"));
-      } else if (commit.title.startsWith("revert: ")) {
-        revertStore.push(formatedCommit("revert"));
-      } else if (commit.title.startsWith("types: ")) {
-        typesStore.push(formatedCommit("types"));
-      } else if (commit.title.startsWith("workflow: ")) {
-        workflowStore.push(formatedCommit("workflow"));
-      } else {
-        allStore.push(formatedCommit());
-      }
+      categories.forEach((cat) => {
+        cat.storeTypes.forEach((st) => {
+          if (cat.breaking && commit.message.includes("BREAKING CHANGE")) {
+            store.push({
+              text: formatedCommit(st),
+              type: "breaking",
+            });
+          } else if (commit.title.startsWith(`${st}: `)) {
+            store.push({ text: formatedCommit(st), type: st });
+          } else {
+            store.push({ text: formatedCommit(), type: "all" });
+          }
+        });
+      });
     });
 
     if (!commitsArray.length) {
       return;
     }
 
-    let newChangelog =
+    let finalChangeLog =
       tag === "head"
         ? "# Stage\n\n"
         : `# [${tag}](https://github.com/${repo}/releases/tag/${tag}) (${
@@ -145,110 +167,31 @@ export function generateDoc(
           })\n\n`;
 
     if (tagReplacer) {
-      newChangelog = newChangelog.replace(tagReplacer, "");
+      finalChangeLog = finalChangeLog.replace(tagReplacer, "");
     }
 
-    if (breakingStore.length) {
-      newChangelog += "## BREAKING CHANGES\n";
-      breakingStore.forEach((cm) => {
-        newChangelog += cm;
+    const breakings = store.filter((s) => s.type === "breaking");
+    if (breakings.length) {
+      finalChangeLog += "## BREAKING CHANGES\n";
+      breakings.forEach((cm) => {
+        finalChangeLog += cm.text;
       });
-      newChangelog += "\n";
+      finalChangeLog += "\n";
     }
 
-    if (featStore.length) {
-      newChangelog += "## Features\n";
-      featStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
+    categories.forEach((cat) => {
+      const items = store.filter((r) => cat.storeTypes.includes(r.type));
+      if (items.length) {
+        finalChangeLog += `## ${cat.title}\n`;
+        items.forEach((cm) => {
+          finalChangeLog += cm.text;
+        });
+        finalChangeLog += "\n";
+      }
+    });
 
-    if (refactorStore.length) {
-      newChangelog += "## Changed\n";
-      refactorStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (fixStore.length) {
-      newChangelog += "## Fixed\n";
-      fixStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (revertStore.length) {
-      newChangelog += "## Reverts\n";
-      revertStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (testStore.length) {
-      newChangelog += "## Tests\n";
-      testStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (buildStore.length) {
-      newChangelog += "## Build\n";
-      buildStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (typesStore.length) {
-      newChangelog += "## Types\n";
-      typesStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (docsStore.length) {
-      newChangelog += "## Documenations\n";
-      docsStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (choreStore.length) {
-      newChangelog += "## Routine Tasks\n";
-      choreStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (ciStore.length || workflowStore.length) {
-      newChangelog += "## CI\n";
-      ciStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      workflowStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    if (allStore.length) {
-      newChangelog += "## Untagged\n";
-      allStore.forEach((cm) => {
-        newChangelog += cm;
-      });
-      newChangelog += "\n";
-    }
-
-    newChangelog += "\n";
-    completeChangelog = newChangelog + completeChangelog;
+    finalChangeLog += "\n";
+    completeChangelog = finalChangeLog + completeChangelog;
   });
 
   fs.writeFileSync(
