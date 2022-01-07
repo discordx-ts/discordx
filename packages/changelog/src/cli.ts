@@ -19,13 +19,16 @@ function getArgs(name: string): string[] {
 
 const root = getArg("root");
 
-const repo = generateDoc(
+const repo = generateDoc({
+  header: getArg("header"),
+  ignoreScopes: getArgs("ignore-scope"),
+  outDir: getArg("out"),
   root,
-  getArg("out"),
-  getArg("tag"),
-  getArg("tag-replace"),
-  getArgs("ignore-scope")
-);
+  tag: {
+    match: getArg("tag"),
+    replace: getArg("tag-replace"),
+  },
+});
 
 console.log(
   `>> changelog generated for repo ${repo}${

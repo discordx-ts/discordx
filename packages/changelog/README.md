@@ -61,6 +61,7 @@ The following options are only available
 | --tag          | No       | "v\*"            | tag to match with releases |
 | --tag-replace  | No       | undefined        | repalcement in tag         |
 | --ignore-scope | No       | undefined        | ignore scopes              |
+| --header       | No       | `# Stage\n\n`    | set custom header          |
 
 # ☎️ Need help?
 

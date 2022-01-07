@@ -72,21 +72,26 @@ export function getRepoUrl(): string {
   return remoteurl.substring(0, remoteurl.length - 4);
 }
 
-export function generateDoc(
-  folder?: string,
-  filepath?: string,
-  tagMatcher?: string,
-  tagReplacer?: string,
-  ignoreScopeArg?: string[]
-): string {
-  const ignoreScopes: string[] = ignoreScopeArg ? ignoreScopeArg : [];
+export function generateDoc(options?: {
+  header?: string;
+  ignoreScopes?: string[];
+  outDir?: string;
+  root?: string;
+  tag?: {
+    match?: string;
+    replace?: string;
+  };
+}): string {
+  const ignoreScopes: string[] = options?.ignoreScopes
+    ? options.ignoreScopes
+    : [];
   const repo = getRepoUrl();
 
   let completeChangelog = "";
 
   const tags = _.compact(
     child
-      .execSync(`git tag --list "${tagMatcher ?? "v*"}"`)
+      .execSync(`git tag --list "${options?.tag?.match ?? "v*"}"`)
       .toString("utf-8")
       .split("\n")
   );
@@ -108,7 +113,7 @@ export function generateDoc(
     const commitsArray = child
       .execSync(
         `git log ${tagString} --format=%B----HASH----%H----DELIMITER---- ${
-          folder ?? "./"
+          options?.root ?? "./"
         }`
       )
       .toString("utf-8")
@@ -163,13 +168,13 @@ export function generateDoc(
 
     let finalChangeLog =
       tag === "head"
-        ? "# Stage\n\n"
+        ? options?.header ?? "# Stage\n\n"
         : `# [${tag}](${repo}/releases/tag/${tag}) (${
             new Date(tagDate).toISOString().split("T")[0]
           })\n\n`;
 
-    if (tagReplacer) {
-      finalChangeLog = finalChangeLog.replace(tagReplacer, "");
+    if (options?.tag?.replace) {
+      finalChangeLog = finalChangeLog.replace(options.tag.replace, "");
     }
 
     categories.forEach((cat) => {
@@ -190,7 +195,7 @@ export function generateDoc(
   });
 
   fs.writeFileSync(
-    filepath ?? "./CHANGELOG.md",
+    options?.outDir ?? "./CHANGELOG.md",
     `${prettier.format(completeChangelog, {
       parser: "markdown",
     })}`
