@@ -23,7 +23,7 @@ const categories: {
   storeTypes: storeType[];
   title: string;
 }[] = [
-  { breaking: false, storeTypes: ["breaking"], title: "BREAKING CHANGES" },
+  { breaking: false, storeTypes: ["breaking"], title: "Breaking Changes" },
   { breaking: false, storeTypes: ["feat"], title: "Features" },
   { breaking: true, storeTypes: ["refactor"], title: "Changed" },
   { breaking: true, storeTypes: ["fix"], title: "Fixed" },
@@ -88,7 +88,7 @@ export function generateDoc(
   tags.push("head");
 
   if (!tags.length) {
-    console.log("Without tags, changelogs could not be generated");
+    throw Error("Without tags, changelogs could not be generated");
   }
 
   tags.forEach((tag, index) => {
@@ -135,6 +135,7 @@ export function generateDoc(
           ""
         )} ([${commit.sha.substring(0, 6)}](${repo}/commit/${commit.sha}))\n`;
 
+      let isPushed = false;
       categories.forEach((cat) => {
         cat.storeTypes.forEach((st) => {
           if (cat.breaking && commit.message.includes("BREAKING CHANGE")) {
@@ -142,13 +143,17 @@ export function generateDoc(
               text: formatedCommit(st),
               type: "breaking",
             });
+            isPushed = true;
           } else if (commit.title.startsWith(`${st}: `)) {
             store.push({ text: formatedCommit(st), type: st });
-          } else {
-            store.push({ text: formatedCommit(), type: "all" });
+            isPushed = true;
           }
         });
       });
+
+      if (!isPushed) {
+        store.push({ text: formatedCommit(), type: "all" });
+      }
     });
 
     if (!commitsArray.length) {
@@ -164,15 +169,6 @@ export function generateDoc(
 
     if (tagReplacer) {
       finalChangeLog = finalChangeLog.replace(tagReplacer, "");
-    }
-
-    const breakings = store.filter((s) => s.type === "breaking");
-    if (breakings.length) {
-      finalChangeLog += "## BREAKING CHANGES\n";
-      breakings.forEach((cm) => {
-        finalChangeLog += cm.text;
-      });
-      finalChangeLog += "\n";
     }
 
     categories.forEach((cat) => {
