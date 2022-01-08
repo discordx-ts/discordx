@@ -65,7 +65,7 @@
     "@discordjs/voice": "^0.7.5",
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.178",
-    "discord.js": "^13.5.0",
+    "discord.js": "^13.5.1",
     "discordx": "^9.1.9",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
