@@ -1,6 +1,6 @@
 {
   "name": "@discordx/internal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "discord.ts internal methods, can be used for external projects",
   "keywords": [
@@ -14,7 +14,7 @@
     "discordx",
     "discord.ts"
   ],
-  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/internals#readme",
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/internal#readme",
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issues"
   },
