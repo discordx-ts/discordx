@@ -5,7 +5,7 @@ import {
   SlashAutoCompleteOption,
   SlashOptionType,
 } from "../../index.js";
-import { Decorator } from "./Decorator.js";
+import { Decorator } from "@discordx/internal";
 
 /**
  * @category Decorator

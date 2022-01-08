@@ -24,7 +24,6 @@ import {
   DComponentButton,
   DComponentSelectMenu,
   DDiscord,
-  DIService,
   DOn,
   DSimpleCommand,
   DSimpleCommandOption,
@@ -41,6 +40,7 @@ import {
   SimpleCommandMessage,
   resolveIGuilds,
 } from "./index.js";
+import { DIService } from "@discordx/di";
 import _ from "lodash";
 
 /**

@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionChoice } from "discord.js";
-import { Decorator } from "./Decorator.js";
+import { Decorator } from "@discordx/internal";
 
 /**
  * @category Decorator

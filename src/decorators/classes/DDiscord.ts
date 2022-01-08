@@ -3,13 +3,13 @@ import {
   DComponentButton,
   DComponentSelectMenu,
   DGuard,
-  DIService,
   DOn,
   DSimpleCommand,
   IGuild,
   IPermissions,
 } from "../../index.js";
-import { Decorator } from "./Decorator.js";
+import { DIService } from "@discordx/di";
+import { Decorator } from "@discordx/internal";
 
 /**
  * @category Decorator

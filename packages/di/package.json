@@ -1,0 +1,56 @@
+{
+  "name": "@discordx/di",
+  "version": "1.0.1",
+  "private": false,
+  "description": "dependency injection service with TSyringe support",
+  "keywords": [
+    "dependency injection",
+    "tsyringe",
+    "framework",
+    "decorators",
+    "typescript",
+    "bot",
+    "javascript",
+    "discordx",
+    "discord.ts"
+  ],
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/di#readme",
+  "bugs": {
+    "url": "https://github.com/oceanroleplay/discord.ts/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+  },
+  "license": "Apache-2.0",
+  "contributors": [
+    "Harry <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
+  ],
+  "main": "./build/index.js",
+  "module": "./build/index.js",
+  "files": [
+    "build",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noemit"
+  },
+  "dependencies": {
+    "tsyringe": "^4.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

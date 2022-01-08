@@ -26,7 +26,6 @@ export * from "./classes/DApplicationCommandOptionChoice.js";
 export * from "./classes/DApplicationCommandGroup.js";
 export * from "./classes/DSimpleCommand.js";
 export * from "./classes/DSimpleCommandOption.js";
-export * from "./classes/Modifier.js";
 
 export * from "./params/EventParams.js";
 export * from "./params/SimpleCommandParams.js";

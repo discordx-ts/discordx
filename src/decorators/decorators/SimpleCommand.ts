@@ -1,10 +1,10 @@
 import {
   DSimpleCommand,
   MetadataStorage,
-  MethodDecoratorEx,
   NotEmpty,
   SimpleCommandParams,
 } from "../../index.js";
+import { MethodDecoratorEx } from "@discordx/internal";
 
 /**
  * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``

@@ -1,4 +1,4 @@
-import { Decorator } from "./Decorator.js";
+import { Decorator } from "@discordx/internal";
 import { GuardFunction } from "../../index.js";
 
 /**

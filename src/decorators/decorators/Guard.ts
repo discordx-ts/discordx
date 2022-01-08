@@ -1,5 +1,5 @@
+import { ClassMethodDecorator, Modifier } from "@discordx/internal";
 import {
-  ClassMethodDecorator,
   DApplicationCommand,
   DComponentButton,
   DComponentSelectMenu,
@@ -9,7 +9,6 @@ import {
   DSimpleCommand,
   GuardFunction,
   MetadataStorage,
-  Modifier,
 } from "../../index.js";
 import { Method } from "../classes/Method.js";
 

@@ -1,4 +1,4 @@
-import { Decorator } from "../../decorators/classes/Decorator.js";
+import { Decorator } from "./classes/Decorator.js";
 
 /**
  * @category Internal

@@ -1,5 +1,7 @@
 import { DependencyContainer } from "tsyringe";
-import { InstanceOf } from "../../index.js";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type InstanceOf<T> = T extends new (...args: any[]) => infer R ? R : any;
 
 /**
  * It create on instance of a classe and store it globally using

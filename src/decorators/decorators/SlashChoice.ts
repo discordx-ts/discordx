@@ -2,11 +2,10 @@ import {
   DApplicationCommandOption,
   DApplicationCommandOptionChoice,
   MetadataStorage,
-  Modifier,
   NotEmpty,
-  ParameterDecoratorEx,
   SlashChoicesType,
 } from "../../index.js";
+import { Modifier, ParameterDecoratorEx } from "@discordx/internal";
 
 /**
  * An option of a Slash command can implement an autocompletion feature for ``string`` and ``number`` types

@@ -1,5 +1,5 @@
+import { ClassMethodDecorator, Modifier } from "@discordx/internal";
 import {
-  ClassMethodDecorator,
   DApplicationCommand,
   DDiscord,
   DSimpleCommand,
@@ -7,7 +7,6 @@ import {
   IDefaultPermission,
   IPermissions,
   MetadataStorage,
-  Modifier,
 } from "../../index.js";
 
 /**

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DecoratorUtils } from "../../index.js";
+import { DecoratorUtils } from "../util.js";
 
 /**
  * @category Decorator

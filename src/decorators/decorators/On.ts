@@ -3,8 +3,8 @@ import {
   DiscordEvents,
   EventParams,
   MetadataStorage,
-  MethodDecoratorEx,
 } from "../../index.js";
+import { MethodDecoratorEx } from "@discordx/internal";
 
 /**
  * Trigger a discord event

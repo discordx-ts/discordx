@@ -1,9 +1,5 @@
-import {
-  DComponentButton,
-  IGuild,
-  MetadataStorage,
-  MethodDecoratorEx,
-} from "../../index.js";
+import { DComponentButton, IGuild, MetadataStorage } from "../../index.js";
+import { MethodDecoratorEx } from "@discordx/internal";
 
 /**
  * Define button interaction handler

@@ -8,16 +8,15 @@ import {
   DComponentSelectMenu,
   DDiscord,
   DGuard,
-  DIService,
   DOn,
   DSimpleCommand,
   DSimpleCommandOption,
   DiscordEvents,
   GuardFunction,
   ISimpleCommandByName,
-  Modifier,
 } from "../../index.js";
-import { Decorator } from "../../decorators/classes/Decorator.js";
+import { Decorator, Modifier } from "@discordx/internal";
+import { DIService } from "@discordx/di";
 import { Method } from "../../decorators/classes/Method.js";
 import _ from "lodash";
 

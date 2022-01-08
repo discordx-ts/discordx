@@ -2,13 +2,12 @@ import {
   DApplicationCommand,
   DApplicationCommandOption,
   MetadataStorage,
-  Modifier,
-  ParameterDecoratorEx,
   SlashOptionParams,
   SlashOptionType,
   SlashOptionTypes,
   VerifyName,
 } from "../../index.js";
+import { Modifier, ParameterDecoratorEx } from "@discordx/internal";
 
 /**
  * Define option for slash command
