@@ -58,7 +58,7 @@ yarn add koa @koa/router @discordx/koa
 - Support TSyringe
 - Support ECMAScript
 
-# @Get / @Post ...
+# 📟 @Get / @Post ...
 
 Decorators for all koa methods, `@Get @Post @All @Delete @Head @Link @Unlink @Options`
 
@@ -77,7 +77,7 @@ class Example {
 }
 ```
 
-# @Middleware
+# 📟 @Middleware
 
 > If you add middleware to a class, it will be executed on each route within it.
 
