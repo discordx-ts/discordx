@@ -18,14 +18,17 @@ async function mdw2(ctx: RouterContext, next: Next) {
 @Middleware(mdw1)
 export class Example {
   @Get("/")
-  handle(ctx: RouterContext): void {
-    ctx.body = "Hello world!";
+  handle(ctx: RouterContext, next: Next, koa: Koa): Promise<Next> {
+    console.log(ctx.URL.host, koa.api);
+    ctx.body = "Hello world";
+    return next();
   }
 
   @Get("/test")
   @Middleware(mdw2)
-  handle2(ctx: RouterContext): void {
+  handle2(ctx: RouterContext, next: Next): Promise<Next> {
     ctx.body = "Hello world!";
+    return next();
   }
 }
 

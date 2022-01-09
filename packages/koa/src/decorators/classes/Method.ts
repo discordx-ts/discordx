@@ -1,5 +1,6 @@
 import { DRouter } from "../index.js";
 import { Decorator } from "@discordx/internal";
+import { Koa } from "../../index.js";
 
 export abstract class Method extends Decorator {
   protected _router!: DRouter;
@@ -12,7 +13,9 @@ export abstract class Method extends Decorator {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get handler(): any {
-    return this._method?.bind(this._router.instance);
+  handler(koa: Koa): any {
+    return (...params: unknown[]) => {
+      return this._method?.bind(this._router.instance)(...params, koa);
+    };
   }
 }

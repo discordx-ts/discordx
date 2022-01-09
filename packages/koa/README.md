@@ -62,14 +62,17 @@ yarn add koa @koa/router @discordx/koa
 
 Decorators for all koa methods, `@Get @Post @All @Delete @Head @Link @Unlink @Options`
 
+> KOA instance available at the end of each handler's arguments
+
 ## Example
 
 ```ts
 @Router()
 class Example {
   @Get("/")
-  handle(ctx: RouterContext): void {
+  handle(ctx: RouterContext, next: Next, koa: Koa): Promise<Next> {
     ctx.body = "Hello world!";
+    return next();
   }
 }
 ```
@@ -96,14 +99,16 @@ function Authenticated(ctx: RouterContext, next: Next) {
 @Middleware(Log) // will execute for all sub routes
 class Example {
   @Get("/")
-  hello(ctx: RouterContext): void {
+  hello(ctx: RouterContext, next: Next): Promise<Next> {
     ctx.body = "Hello world!";
+    return next();
   }
 
   @Get("/auth")
   @Middleware(Authenticated)
-  auth(ctx: RouterContext): void {
+  auth(ctx: RouterContext, next: Next): Promise<Next> {
     ctx.body = "Hello world!";
+    return next();
   }
 }
 ```
