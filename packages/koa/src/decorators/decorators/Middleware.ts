@@ -13,7 +13,11 @@ export function Middleware(
     MetadataStorage.instance.addModifier(
       Modifier.create<DRouter | DReqeuest>(
         (original) => {
-          original.middlewares = [...original.middlewares, ...midddleware];
+          if (original instanceof DRouter) {
+            original.router.use(...midddleware);
+          } else {
+            original.middlewares = [...original.middlewares, ...midddleware];
+          }
         },
         DRouter,
         DReqeuest

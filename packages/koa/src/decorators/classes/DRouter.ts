@@ -13,7 +13,6 @@ export class DRouter extends Decorator {
   private _name: string;
   private _description: string;
   private _router: KoaRouter;
-  private _middleWares: KoaRouter.Middleware[] = [];
 
   get api(): string | undefined {
     return this._api;
@@ -36,13 +35,6 @@ export class DRouter extends Decorator {
 
   get router(): KoaRouter {
     return this._router;
-  }
-
-  get middlewares(): KoaRouter.Middleware[] {
-    return this._middleWares;
-  }
-  set middlewares(value: KoaRouter.Middleware[]) {
-    this._middleWares = value;
   }
 
   protected constructor(data: Args) {

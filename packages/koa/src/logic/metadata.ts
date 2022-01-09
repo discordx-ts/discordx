@@ -84,36 +84,24 @@ export class MetadataStorage {
   private registerRoute(koa: Koa, router: DRouter, route: DReqeuest) {
     switch (route.type) {
       case "ALL":
-        router.router.all(
-          route.path,
-          ...router.middlewares,
-          ...route.middlewares,
-          route.handler(koa)
-        );
+        router.router.all(route.path, ...route.middlewares, route.handler(koa));
         break;
 
       case "DELETE":
         router.router.delete(
           route.path,
-          ...router.middlewares,
           ...route.middlewares,
           route.handler(koa)
         );
         break;
 
       case "GET":
-        router.router.get(
-          route.path,
-          ...router.middlewares,
-          ...route.middlewares,
-          route.handler(koa)
-        );
+        router.router.get(route.path, ...route.middlewares, route.handler(koa));
         break;
 
       case "HEAD":
         router.router.head(
           route.path,
-          ...router.middlewares,
           ...route.middlewares,
           route.handler(koa)
         );
@@ -122,7 +110,6 @@ export class MetadataStorage {
       case "LINK":
         router.router.link(
           route.path,
-          ...router.middlewares,
           ...route.middlewares,
           route.handler(koa)
         );
@@ -131,7 +118,6 @@ export class MetadataStorage {
       case "OPTIONS":
         router.router.options(
           route.path,
-          ...router.middlewares,
           ...route.middlewares,
           route.handler(koa)
         );
@@ -140,7 +126,6 @@ export class MetadataStorage {
       case "PATCH":
         router.router.patch(
           route.path,
-          ...router.middlewares,
           ...route.middlewares,
           route.handler(koa)
         );
@@ -149,7 +134,6 @@ export class MetadataStorage {
       case "POST":
         router.router.post(
           route.path,
-          ...router.middlewares,
           ...route.middlewares,
           route.handler(koa)
         );
@@ -158,7 +142,6 @@ export class MetadataStorage {
       case "UNLINK":
         router.router.unlink(
           route.path,
-          ...router.middlewares,
           ...route.middlewares,
           route.handler(koa)
         );

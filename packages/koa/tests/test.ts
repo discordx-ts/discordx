@@ -27,7 +27,7 @@ export class Example {
   @Get("/test")
   @Middleware(mdw2)
   handle2(ctx: RouterContext, next: Next): Promise<Next> {
-    ctx.body = "Hello world!";
+    ctx.body = "Hello world! 2";
     return next();
   }
 }
