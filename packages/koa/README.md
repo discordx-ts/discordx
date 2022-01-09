@@ -47,8 +47,8 @@ This library allows you to use TypeScript decorators on koa, it simplifies your 
 Version 16.6.0 or newer of Node.js is required
 
 ```
-npm install @discordx/koa
-yarn add @discordx/koa
+npm install koa @koa/router @discordx/koa
+yarn add koa @koa/router @discordx/koa
 ```
 
 # 🆕 Features
