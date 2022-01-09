@@ -7,7 +7,6 @@ function RequestMethod(method: RequestType, path: string | RegExp) {
   return function <T>(target: Record<string, T>, key: string) {
     MetadataStorage.instance.addRequest(
       DReqeuest.create({
-        description: key,
         name: key,
         path: path,
         type: method,

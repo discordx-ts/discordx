@@ -3,7 +3,7 @@ import { Decorator } from "@discordx/internal";
 import KoaRouter from "@koa/router";
 
 type Args = {
-  description: string;
+  description?: string;
   name: string;
   opts?: KoaRouter.RouterOptions;
 };
@@ -11,7 +11,7 @@ type Args = {
 export class DRouter extends Decorator {
   private _api?: string;
   private _name: string;
-  private _description: string;
+  private _description?: string;
   private _router: KoaRouter;
 
   get api(): string | undefined {
@@ -25,7 +25,7 @@ export class DRouter extends Decorator {
     return this._name;
   }
 
-  get description(): string {
+  get description(): string | undefined {
     return this._description;
   }
 
@@ -42,6 +42,14 @@ export class DRouter extends Decorator {
     this._name = data.name;
     this._description = data.description;
     this._router = new KoaRouter(data.opts);
+  }
+
+  setName(value: string): void {
+    this._name = value;
+  }
+
+  setDescription(value: string): void {
+    this._description = value;
   }
 
   static create(data: Args): DRouter {

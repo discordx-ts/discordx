@@ -3,7 +3,7 @@ import { Method } from "./Method.js";
 import { RequestType } from "../../index.js";
 
 type Args = {
-  description: string;
+  description?: string;
   name: string;
   path: string | RegExp;
   type: RequestType;
@@ -12,7 +12,7 @@ type Args = {
 export class DReqeuest extends Method {
   private _api?: string;
   private _name: string;
-  private _description: string;
+  private _description?: string;
   private _type: RequestType;
   private _path: string | RegExp;
   private _middleWares: KoaRouter.Middleware[] = [];
@@ -32,7 +32,7 @@ export class DReqeuest extends Method {
     return this._name;
   }
 
-  get description(): string {
+  get description(): string | undefined {
     return this._description;
   }
 
@@ -53,6 +53,14 @@ export class DReqeuest extends Method {
     this._description = data.description;
     this._type = data.type;
     this._path = data.path;
+  }
+
+  setName(value: string): void {
+    this._name = value;
+  }
+
+  setDescription(value: string): void {
+    this._description = value;
   }
 
   static create(data: Args): DReqeuest {
