@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    name: Build discordx
+    name: Publish discordx
     runs-on: ubuntu-latest
     if: github.event.inputs.package == 'discordx'
     steps:
@@ -54,7 +54,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   build-changelog:
-    name: Build @discordx/changelog
+    name: Publish @discordx/changelog
     runs-on: ubuntu-latest
     if: github.event.inputs.package == '@discordx/changelog'
     steps:
@@ -89,8 +89,44 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./packages/changelog
 
+  build-di:
+    name: Publish @discordx/di
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == '@discordx/di'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/di version)
+        working-directory: ./packages/di
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/di
+
+      - name: Install di dependencies
+        run: npm install
+        working-directory: ./packages/di
+
+      - name: Build
+        run: npm run build
+        working-directory: ./packages/di
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/di
+
   build-importer:
-    name: Build @discordx/importer
+    name: Publish @discordx/importer
     runs-on: ubuntu-latest
     if: github.event.inputs.package == '@discordx/importer'
     steps:
@@ -125,8 +161,80 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./packages/importer
 
+  build-internal:
+    name: Publish @discordx/internal
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == '@discordx/internal'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/internal version)
+        working-directory: ./packages/internal
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/internal
+
+      - name: Install internal dependencies
+        run: npm install
+        working-directory: ./packages/internal
+
+      - name: Build
+        run: npm run build
+        working-directory: ./packages/internal
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/internal
+
+  build-koa:
+    name: Publish @discordx/koa
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == '@discordx/koa'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view @discordx/koa version)
+        working-directory: ./packages/koa
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/koa
+
+      - name: Install koa dependencies
+        run: npm install
+        working-directory: ./packages/koa
+
+      - name: Build
+        run: npm run build
+        working-directory: ./packages/koa
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/koa
+
   build-music:
-    name: Build @discordx/music
+    name: Publish @discordx/music
     runs-on: ubuntu-latest
     if: github.event.inputs.package == '@discordx/music'
     steps:
@@ -168,7 +276,7 @@ jobs:
         working-directory: ./packages/music
 
   build-utilities:
-    name: Build @discordx/utilities
+    name: Publish @discordx/utilities
     runs-on: ubuntu-latest
     if: github.event.inputs.package == '@discordx/utilities'
     steps:
@@ -210,7 +318,7 @@ jobs:
         working-directory: ./packages/utilities
 
   build-pagination:
-    name: Build @discordx/pagination
+    name: Publish @discordx/pagination
     runs-on: ubuntu-latest
     if: github.event.inputs.package == '@discordx/pagination'
     steps:
