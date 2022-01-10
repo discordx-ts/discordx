@@ -32,7 +32,7 @@ jobs:
       - name: pre-release
         id: pre-release
         run: |
-          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD:src | cut -b1-3)") ]]; \
+          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD:packages/discordx/src | cut -b1-3)") ]]; \
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
         working-directory: ./packages/discordx
@@ -57,7 +57,7 @@ jobs:
       - name: Publish
         if: steps.pre-release.outputs.release == 'true'
         run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD:src)
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD:packages/discordx/src)
           npm publish --tag dev
         working-directory: ./packages/discordx
         env:
