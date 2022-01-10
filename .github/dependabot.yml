@@ -27,7 +27,28 @@ updates:
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
+    directory: "/packages/di"
+    schedule:
+      interval: "daily"
+      time: "00:15"
+    versioning-strategy: increase
+
+  - package-ecosystem: "npm"
     directory: "/packages/importer"
+    schedule:
+      interval: "daily"
+      time: "00:15"
+    versioning-strategy: increase
+
+  - package-ecosystem: "npm"
+    directory: "/packages/internal"
+    schedule:
+      interval: "daily"
+      time: "00:15"
+    versioning-strategy: increase
+
+  - package-ecosystem: "npm"
+    directory: "/packages/koa"
     schedule:
       interval: "daily"
       time: "00:15"
