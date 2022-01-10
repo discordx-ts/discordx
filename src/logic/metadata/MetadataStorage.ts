@@ -75,6 +75,9 @@ export class MetadataStorage {
     }
     return this._instance;
   }
+  static set instance(value: MetadataStorage) {
+    this._instance = value;
+  }
 
   // geters
 
