@@ -1,5 +1,10 @@
 # Stage
 
+## Documenations
+
+- fix broken link ([f8b36d](https://github.com/oceanroleplay/discord.ts/commit/f8b36d719d67b2b3ea0303f526a7ff23722afaea))
+- improve structure ([928ef6](https://github.com/oceanroleplay/discord.ts/commit/928ef6d4db7d24433a83d984de8c3935f34b3e2f))
+
 # [v9.1.9](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.9) (2022-01-07)
 
 ## Documenations
@@ -14,6 +19,8 @@
 ## Untagged
 
 - Update tsyringe.md ([e65cdf](https://github.com/oceanroleplay/discord.ts/commit/e65cdf64216a69ac26729df520ef5741e6ed4c61))
+
+# [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
 
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 

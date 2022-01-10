@@ -2,6 +2,7 @@
 
 ## Features
 
+- custom header ([b2e8ad](https://github.com/oceanroleplay/discord.ts/commit/b2e8ad42b41a15d2f3ab43230b37543de0af84a0))
 - ignore scopes ([2a610b](https://github.com/oceanroleplay/discord.ts/commit/2a610befe7cc0e2a5abf4a7351c97bc39497ddb0))
 
 ## Changed

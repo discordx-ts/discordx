@@ -4,6 +4,10 @@
 
 - music - do not catch unwanted errors ([d934c9](https://github.com/oceanroleplay/discord.ts/commit/d934c9986306095891a51b0f7c9fe25b0f9337b6))
 
+## Routine Tasks
+
+- repo cleanup ([3ee0df](https://github.com/oceanroleplay/discord.ts/commit/3ee0df074f23651c26bdbee49f0cbe859967e31e))
+
 # [v3.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/m-v3.1.0) (2021-12-24)
 
 ## Breaking Changes
