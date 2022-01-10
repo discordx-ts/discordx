@@ -29,21 +29,27 @@ jobs:
 
       - name: Synchronize current version
         run: npm version --git-tag-version=false $(npm view discordx version)
+        working-directory: ./packages/discordx
 
       - name: Update version
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/discordx
 
       - name: Install root dependencies
         run: npm install
+        working-directory: ./packages/discordx
 
       - name: Install latest discord.js
         run: npm install discord.js@latest
+        working-directory: ./packages/discordx
 
       - name: Build
         run: npm run build
+        working-directory: ./packages/discordx
 
       - name: Publish
         run: npm publish
+        working-directory: ./packages/discordx
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

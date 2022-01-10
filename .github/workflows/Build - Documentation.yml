@@ -19,6 +19,7 @@ jobs:
 
       - name: Install dependencies for discordx
         run: npm install
+        working-directory: ./packages/discordx
 
       - name: Install dependencies fro documentation
         run: npm install

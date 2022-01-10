@@ -64,12 +64,15 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./packages/discordx
 
       - name: Build
         run: npm run build
+        working-directory: ./packages/discordx
 
       - name: Run Tests
         run: npm run test
+        working-directory: ./packages/discordx
 
   build:
     name: Build discordx
@@ -86,9 +89,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./packages/discordx
 
       - name: Run TypeScript compiler
         run: npm run type-check
+        working-directory: ./packages/discordx
 
   build-changelog:
     name: Build @discordx/changelog

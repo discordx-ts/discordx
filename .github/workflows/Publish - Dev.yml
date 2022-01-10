@@ -23,9 +23,11 @@ jobs:
           npm version --git-tag-version=false $(npm view discordx version)
           npm version --git-tag-version=false major
           npm version --git-tag-version=false "$(jq --raw-output '.version' package.json)-dev"
+        working-directory: ./packages/discordx
 
       - name: Update version
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/discordx
 
       - name: pre-release
         id: pre-release
@@ -33,18 +35,22 @@ jobs:
           if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git rev-parse --short HEAD:src | cut -b1-3)") ]]; \
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
+        working-directory: ./packages/discordx
 
       - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
         run: npm install
+        working-directory: ./packages/discordx
 
       - name: Build
         if: steps.pre-release.outputs.release == 'true'
         run: npm run build
+        working-directory: ./packages/discordx
 
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
         run: npx @favware/npm-deprecate -d --name "*dev*" --package "discordx" --message "Version no longer supported. Upgrade to @latest"
+        working-directory: ./packages/discordx
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -53,5 +59,6 @@ jobs:
         run: |
           npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD:src)
           npm publish --tag dev
+        working-directory: ./packages/discordx
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

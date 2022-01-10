@@ -1,3 +1,5 @@
+* text=auto eol=crlf
+
 node_modules
 build
 .DS_Store
