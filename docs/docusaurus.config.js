@@ -103,7 +103,7 @@ module.exports = {
       "docusaurus-plugin-typedoc",
       // Plugin / TypeDoc options
       {
-        entryPoints: ["../src/index.ts"],
+        entryPoints: ["../packages/discordx/src/index.ts"],
         excludeExternals: true,
         excludePrivate: true,
         excludeProtected: true,
@@ -111,7 +111,7 @@ module.exports = {
         name: "discordx",
         out: "api/main",
         readme: "none",
-        tsconfig: "../tsconfig.json",
+        tsconfig: "../packages/discordx/tsconfig.json",
       },
     ],
     [
