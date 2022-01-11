@@ -26,8 +26,14 @@
   "contributors": [
     "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
   ],
-  "main": "./build/index.js",
-  "module": "./build/index.js",
+  "exports": {
+    ".": {
+      "import": "./build/esm/index.js",
+      "require": "./build/cjs/index.js"
+    }
+  },
+  "main": "./build/cjs/index.js",
+  "module": "./build/esm/index.js",
   "files": [
     "build",
     "LICENSE",
@@ -37,7 +43,9 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run build:cjs",
+    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
+    "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
