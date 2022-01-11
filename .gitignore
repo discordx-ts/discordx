@@ -18,7 +18,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-docs/docs/api
-docs/docs/api2
-docs/docs/api3
+docs/docs/packages/*/api
 docs/typedoc-sidebar.js

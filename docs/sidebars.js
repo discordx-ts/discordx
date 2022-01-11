@@ -22,7 +22,7 @@ module.exports = {
       type: "link",
     },
     {
-      id: "packages/discordx/readme",
+      id: "packages/discordx/README",
       label: "Readme",
       type: "doc",
     },
@@ -181,7 +181,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/changelog/readme",
+          id: "packages/changelog/README",
           label: "Readme",
           type: "doc",
         },
@@ -207,7 +207,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/di/readme",
+          id: "packages/di/README",
           label: "Readme",
           type: "doc",
         },
@@ -233,7 +233,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/importer/readme",
+          id: "packages/importer/README",
           label: "Readme",
           type: "doc",
         },
@@ -249,7 +249,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/internal/readme",
+          id: "packages/internal/README",
           label: "Readme",
           type: "doc",
         },
@@ -275,7 +275,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/koa/readme",
+          id: "packages/koa/README",
           label: "Readme",
           type: "doc",
         },
@@ -301,7 +301,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/music/readme",
+          id: "packages/music/README",
           label: "Readme",
           type: "doc",
         },
@@ -327,7 +327,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/pagination/readme",
+          id: "packages/pagination/README",
           label: "Readme",
           type: "doc",
         },
@@ -353,7 +353,7 @@ module.exports = {
           type: "link",
         },
         {
-          id: "packages/utilities/readme",
+          id: "packages/utilities/README",
           label: "Readme",
           type: "doc",
         },
