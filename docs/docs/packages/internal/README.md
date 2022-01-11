@@ -1,1 +1,0 @@
-../../../../packages/internal/README.md

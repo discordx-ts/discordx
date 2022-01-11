@@ -1,1 +1,0 @@
-../../../../packages/pagination/README.md

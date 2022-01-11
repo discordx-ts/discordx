@@ -1,1 +1,0 @@
-../../../../packages/discordx/README.md
