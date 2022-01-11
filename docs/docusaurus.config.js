@@ -36,7 +36,7 @@ module.exports = {
           type: "doc",
         },
         {
-          docId: "api/main/index",
+          docId: "packages/discordx/README",
           label: "API",
           position: "left",
           type: "doc",
