@@ -91,7 +91,7 @@ jobs:
         run: npm install
         working-directory: ./packages/discordx
 
-      - name: Run TypeScript compiler
+      - name: Build
         run: npm run type-check
         working-directory: ./packages/discordx
 
@@ -108,13 +108,34 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: "Changelog: Install Dependencies"
+      - name: "Install dependencies"
         run: npm install
         working-directory: ./packages/changelog
 
-      - name: "Changelog: Run TypeScript compiler"
+      - name: "Build"
         run: npm run type-check
         working-directory: ./packages/changelog
+
+  build-di:
+    name: Build @discordx/di
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./packages/di
+
+      - name: Build
+        run: npm run type-check
+        working-directory: ./packages/di
 
   build-importer:
     name: Build @discordx/importer
@@ -129,13 +150,55 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: "importer: Install Dependencies"
+      - name: "Install dependencies"
         run: npm install
         working-directory: ./packages/importer
 
-      - name: "importer: Run TypeScript compiler"
+      - name: "Build"
         run: npm run type-check
         working-directory: ./packages/importer
+
+  build-internal:
+    name: Build @discordx/internal
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: "Install dependencies"
+        run: npm install
+        working-directory: ./packages/internal
+
+      - name: "Build"
+        run: npm run type-check
+        working-directory: ./packages/internal
+
+  build-koa:
+    name: Build @discordx/koa
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: "Install dependencies"
+        run: npm install
+        working-directory: ./packages/koa
+
+      - name: "Build"
+        run: npm run type-check
+        working-directory: ./packages/koa
 
   build-music:
     name: Build @discordx/music
@@ -150,11 +213,11 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: "music: Install Dependencies"
+      - name: "Install dependencies"
         run: npm install
         working-directory: ./packages/music
 
-      - name: "music: Run TypeScript compiler"
+      - name: "Build"
         run: npm run type-check
         working-directory: ./packages/music
 
@@ -171,11 +234,11 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: "utilities: Install Dependencies"
+      - name: "Install dependencies"
         run: npm install
         working-directory: ./packages/utilities
 
-      - name: "utilities: Run TypeScript compiler"
+      - name: "Build"
         run: npm run type-check
         working-directory: ./packages/utilities
 
@@ -192,10 +255,10 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: "pagination: Install Dependencies"
+      - name: "Install dependencies"
         run: npm install
         working-directory: ./packages/pagination
 
-      - name: "pagination: Run TypeScript compiler"
+      - name: "Build"
         run: npm run type-check
         working-directory: ./packages/pagination
