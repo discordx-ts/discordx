@@ -42,7 +42,7 @@ module.exports = {
           type: "doc",
         },
         {
-          docId: "packages",
+          docId: "packages/index",
           label: "Packages",
           position: "left",
           type: "doc",
