@@ -30,8 +30,8 @@ export class CustomTrack extends Track {
    */
   public createAudioResource(): AudioResource<CommonTrack> {
     return createAudioResource(this.source, {
-      inputType: this.streamType,
       inlineVolume: true,
+      inputType: this.streamType,
       metadata: this,
     });
   }
