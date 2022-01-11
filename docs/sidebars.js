@@ -169,7 +169,7 @@ module.exports = {
 
   packagesSidebar: [
     {
-      id: "packages",
+      id: "packages/index",
       label: "Packages",
       type: "doc",
     },
