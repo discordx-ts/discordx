@@ -36,7 +36,7 @@
   </p>
 </div>
 
-# @discordx/koa
+# 📖 Introduction
 
 This module is an extension of koa, so the internal behavior (methods, properties, ...) is the same
 

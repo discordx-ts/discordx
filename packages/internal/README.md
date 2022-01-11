@@ -36,7 +36,7 @@
   </p>
 </div>
 
-# @discordx/internal
+# 📖 Introduction
 
 discord.ts internal methods, can be used for external projects.
 

@@ -36,7 +36,7 @@
   </p>
 </div>
 
-# @discordx/utilities
+# 📖 Introduction
 
 Add useful features to discordx, If a feature isn't available, request it.
 
@@ -49,7 +49,9 @@ npm install @discordx/utilities
 yarn add @discordx/utilities
 ```
 
-# @Category - Create group of commands
+# 📟 @Category
+
+Create group of commands
 
 ## Example
 

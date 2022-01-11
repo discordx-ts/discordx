@@ -36,11 +36,20 @@
   </p>
 </div>
 
-# @discordx/importer
+# 📖 Introduction
 
 > You can use this library without discordx
 
 Support esm and cjs at the same time
+
+# 💻 Installation
+
+Version 16.6.0 or newer of Node.js is required
+
+```
+npm install @discordx/importer
+yarn add @discordx/importer
+```
 
 # Usage
 

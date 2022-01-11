@@ -36,9 +36,7 @@
   </p>
 </div>
 
-# @discordx/music - Music Player
-
-> You can use this library without discordx
+# 📖 Introduction
 
 A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
 

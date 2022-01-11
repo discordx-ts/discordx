@@ -36,9 +36,9 @@
   </p>
 </div>
 
-# @discordx/di
+# 📖 Introduction
 
-dependency injection service with TSyringe support.
+Dependency injection service with TSyringe support.
 
 # 💻 Installation
 

@@ -20,7 +20,8 @@ for (const pkg in packages) {
 
   const filePath = dirPath + "/README.md";
   if (!fs.existsSync(filePath)) {
-    fs.copyFileSync(`../packages/${packages[pkg]}/README.md`, filePath);
+    const content = fs.readFileSync(`../packages/${packages[pkg]}/README.md`);
+    fs.writeFileSync(filePath, "#\n\n" + content);
   }
 }
 

@@ -36,21 +36,24 @@
   </p>
 </div>
 
-# @discordx/changelog
-
-> You can use this library without discordx
+# 📖 Introduction
 
 changelog generator, written in TypeScript with Node.js
 
-# Usage
+# 💻 Installation
 
-> npx @discordx/changelog
+> Version 16.6.0 or newer of [Node.js](https://nodejs.org/) is required
 
-## Supported Scopes
+```
+npm install @discordx/changelog
+yarn add @discordx/changelog
+```
+
+# Supported Scopes
 
 `build, chore, ci, docs, feat, fix, refactor, revert, test, types, workflow, BREAKING CHANGE`
 
-## Options
+# Options
 
 The following options are only available
 

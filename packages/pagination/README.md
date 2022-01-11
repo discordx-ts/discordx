@@ -36,9 +36,7 @@
   </p>
 </div>
 
-# @discordx/pagination
-
-> You can use this library without discordx
+# 📖 Introduction
 
 Add pagination to discord using buttons or menu.
 
