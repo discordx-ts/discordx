@@ -1,6 +1,6 @@
 {
   "name": "@discordx/internal",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "private": false,
   "description": "discord.ts internal methods, can be used for external projects",
   "keywords": [

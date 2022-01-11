@@ -1,6 +1,6 @@
 {
   "name": "@discordx/koa",
-  "version": "1.0.4",
+  "version": "0.0.0",
   "private": false,
   "description": "Use decorators with Koa and Tsyringe",
   "keywords": [

@@ -1,6 +1,6 @@
 {
   "name": "@discordx/di",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "private": false,
   "description": "dependency injection service with TSyringe support",
   "keywords": [
