@@ -1,1 +1,1 @@
-../../packages/pagination/utilities.md
+../../../../packages/utilities/README.md

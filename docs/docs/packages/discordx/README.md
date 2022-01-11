@@ -1,1 +1,1 @@
-../../packages/discordx/README.md
+../../../../packages/discordx/README.md

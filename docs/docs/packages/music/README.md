@@ -1,1 +1,1 @@
-../../packages/music/README.md
+../../../../packages/music/README.md

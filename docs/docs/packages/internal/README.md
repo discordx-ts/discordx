@@ -1,1 +1,1 @@
-../../packages/internal/README.md
+../../../../packages/internal/README.md

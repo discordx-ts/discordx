@@ -1,1 +1,1 @@
-../../packages/pagination/README.md
+../../../../packages/pagination/README.md
