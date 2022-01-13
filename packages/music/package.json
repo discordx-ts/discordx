@@ -58,7 +58,7 @@
     "tslib": "^2.3.1",
     "ytdl-core": "^4.10.0",
     "ytpl": "^2.2.3",
-    "ytsr": "^3.5.3"
+    "ytsr": "^3.6.0"
   },
   "devDependencies": {
     "@discordjs/opus": "^0.5.3",
