@@ -19,6 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./docs
 
       - name: Build docs
         run: npm run build
