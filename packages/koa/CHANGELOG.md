@@ -11,3 +11,7 @@
 - infer route path ([3cae68](https://github.com/oceanroleplay/discord.ts/commit/3cae682e10c01f4d71965689da3c5a4726754423))
 - improve rest decorators ([06181e](https://github.com/oceanroleplay/discord.ts/commit/06181e04b71d2223a3fee1e976564f65bf97c412))
 - improve mddleware usage ([569f09](https://github.com/oceanroleplay/discord.ts/commit/569f0994f24789b1a6f0bfbed69359419129dc47))
+
+## Fixed
+
+- koa esm import ([052c5e](https://github.com/oceanroleplay/discord.ts/commit/052c5e2fde468e7b121d524582c9c36361695dde))

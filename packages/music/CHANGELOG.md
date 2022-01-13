@@ -2,6 +2,7 @@
 
 ## Fixed
 
+- .setVolume() not working in custom tracks ([#444](https://github.com/oceanroleplay/discord.ts/issues/444)) ([f11b83](https://github.com/oceanroleplay/discord.ts/commit/f11b8312507b4274c264fe9ad959a3e7de76f505))
 - music - do not catch unwanted errors ([d934c9](https://github.com/oceanroleplay/discord.ts/commit/d934c9986306095891a51b0f7c9fe25b0f9337b6))
 
 ## Routine Tasks

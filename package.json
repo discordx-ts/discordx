@@ -32,6 +32,8 @@
   ],
   "scripts": {
     "build": "turbo run build --parallel",
+    "build:changelog": "npm run build:changelog:docs && turbo run build:changelog --parallel",
+    "build:changelog:docs": "npx @discordx/changelog --root=docs/docs --out=docs/CHANGELOG.md",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",
@@ -58,6 +60,11 @@
         ],
         "outputs": [
           "build/**"
+        ]
+      },
+      "build:changelog": {
+        "dependsOn": [
+          "^build:changelog"
         ]
       },
       "test": {

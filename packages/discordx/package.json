@@ -46,6 +46,7 @@
   ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
+    "build:changelog": "npx @discordx/changelog --root=src",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
     "build:esm": "tsc",

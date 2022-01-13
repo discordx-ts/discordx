@@ -5,6 +5,14 @@
 - fix broken link ([f8b36d](https://github.com/oceanroleplay/discord.ts/commit/f8b36d719d67b2b3ea0303f526a7ff23722afaea))
 - improve structure ([928ef6](https://github.com/oceanroleplay/discord.ts/commit/928ef6d4db7d24433a83d984de8c3935f34b3e2f))
 
+## Routine Tasks
+
+- update doc ([bb2dff](https://github.com/oceanroleplay/discord.ts/commit/bb2dff37aabea3923e71b1ad7e49350726b6f769))
+- update readme ([474fa7](https://github.com/oceanroleplay/discord.ts/commit/474fa7fdcf0cc41793815d5008c93d785e042de5))
+- fix doc ([1c3131](https://github.com/oceanroleplay/discord.ts/commit/1c31317bf629efb6eedabe9b97b9e452af2909ea))
+- update readme ([77a399](https://github.com/oceanroleplay/discord.ts/commit/77a399a31ac8845b2ef048e7ae1b427f714d1356))
+- readme ([98c487](https://github.com/oceanroleplay/discord.ts/commit/98c48781a159d8bc4343d319aeaa52a59257e6fb))
+
 # [v9.1.9](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.9) (2022-01-07)
 
 ## Documenations
@@ -19,8 +27,6 @@
 ## Untagged
 
 - Update tsyringe.md ([e65cdf](https://github.com/oceanroleplay/discord.ts/commit/e65cdf64216a69ac26729df520ef5741e6ed4c61))
-
-# [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
 
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 

@@ -37,6 +37,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=c-v* --tag-replace=c-",
     "type-check": "tsc --noemit"
   },
   "dependencies": {

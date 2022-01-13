@@ -2,11 +2,10 @@
 
 ## Routine Tasks
 
+- update to monorepo ([284b3f](https://github.com/oceanroleplay/discord.ts/commit/284b3f58599df60275ead01bb595a1334358e75b))
 - repo cleanup ([3ee0df](https://github.com/oceanroleplay/discord.ts/commit/3ee0df074f23651c26bdbee49f0cbe859967e31e))
 
 # [v9.1.9](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.9) (2022-01-07)
-
-# [v9.1.7](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.7) (2021-12-29)
 
 # [v9.1.6](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.6) (2021-12-28)
 

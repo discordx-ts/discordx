@@ -39,6 +39,7 @@
   ],
   "scripts": {
     "build": "tsc && tsc --p tsconfig.cjs.json",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=i-v* --tag-replace=i-",
     "type-check": "tsc --noemit"
   },
   "dependencies": {

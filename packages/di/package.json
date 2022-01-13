@@ -44,6 +44,7 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=d-v* --tag-replace=d-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
     "type-check": "tsc --noemit"
