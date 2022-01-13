@@ -36,7 +36,8 @@
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",
-    "prepare": "is-ci || husky install"
+    "prepare": "is-ci || husky install",
+    "test": "turbo run test --parallel"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.0.2",
@@ -60,11 +61,10 @@
           "build/**"
         ]
       },
-      "lint": {
-        "outputs": []
-      },
-      "dev": {
-        "cache": false
+      "test": {
+        "dependsOn": [
+          "^test"
+        ]
       }
     }
   },

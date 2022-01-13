@@ -17,41 +17,8 @@ jobs:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Install dependencies for discordx
+      - name: Install dependencies
         run: npm install
-        working-directory: ./packages/discordx
-
-      - name: Install dependencies fro documentation
-        run: npm install
-        working-directory: ./docs
-
-      - name: "Install dependencies for @discordx/changelog"
-        run: npm install
-        working-directory: ./packages/changelog
-
-      - name: "Install dependencies for @discordx/di"
-        run: npm install
-        working-directory: ./packages/di
-
-      - name: "Install dependencies for @discordx/internal"
-        run: npm install
-        working-directory: ./packages/internal
-
-      - name: "Install dependencies for @discordx/koa"
-        run: npm install
-        working-directory: ./packages/koa
-
-      - name: "Install dependencies for @discordx/music"
-        run: npm install
-        working-directory: ./packages/music
-
-      - name: "Install dependencies for @discordx/pagination"
-        run: npm install
-        working-directory: ./packages/pagination
-
-      - name: "Install dependencies for @discordx/utilities"
-        run: npm install
-        working-directory: ./packages/utilities
 
       - name: Build docs
         run: npm run build
