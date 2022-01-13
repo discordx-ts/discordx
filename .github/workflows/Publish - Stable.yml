@@ -39,10 +39,6 @@ jobs:
         run: npm install
         working-directory: ./packages/discordx
 
-      - name: Install latest discord.js
-        run: npm install discord.js@latest
-        working-directory: ./packages/discordx
-
       - name: Build
         run: npm run build
         working-directory: ./packages/discordx
@@ -259,12 +255,6 @@ jobs:
         run: npm install
         working-directory: ./packages/music
 
-      - name: Install latest discord.js
-        run: |
-          npm install discord.js@latest
-          npm install -D discordx@latest
-        working-directory: ./packages/music
-
       - name: Build
         run: npm run build
         working-directory: ./packages/music
@@ -301,12 +291,6 @@ jobs:
         run: npm install
         working-directory: ./packages/utilities
 
-      - name: Install latest discord.js
-        run: |
-          npm install discord.js@latest
-          npm install -D discordx@latest
-        working-directory: ./packages/utilities
-
       - name: Build
         run: npm run build
         working-directory: ./packages/utilities
@@ -341,12 +325,6 @@ jobs:
 
       - name: Install pagination dependencies
         run: npm install
-        working-directory: ./packages/pagination
-
-      - name: Install latest discord.js
-        run: |
-          npm install discord.js@latest
-          npm install -D discordx@latest
         working-directory: ./packages/pagination
 
       - name: Build
