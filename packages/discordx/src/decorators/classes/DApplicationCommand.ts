@@ -2,7 +2,7 @@ import {
   APIInteractionDataResolvedChannel,
   APIInteractionDataResolvedGuildMember,
   APIRole,
-} from "@discordjs/builders/node_modules/discord-api-types";
+} from "discord-api-types";
 import {
   ApplicationCommandData,
   ApplicationCommandPermissions,
