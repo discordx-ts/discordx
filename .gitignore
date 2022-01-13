@@ -2,6 +2,7 @@
 
 node_modules
 build
+.turbo
 .DS_Store
 .docusaurus
 .cache-loader

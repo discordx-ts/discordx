@@ -2,6 +2,10 @@
   "name": "discordx",
   "version": "0.0.0",
   "private": true,
+  "workspaces": [
+    "docs",
+    "packages/*"
+  ],
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
     "typescript",
@@ -28,17 +32,7 @@
     "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
   ],
   "scripts": {
-    "build:changelog": "npm run build:changelog:docs && npm run build:changelog:main && npm run build:changelog:changelog && npm run build:changelog:di && npm run build:changelog:importer&& npm run build:changelog:internal && npm run build:changelog:koa && npm run build:changelog:music && npm run build:changelog:utilities && npm run build:changelog:pagination",
-    "build:changelog:changelog": "npx @discordx/changelog --root=./packages/changelog/src --out=./packages/changelog/CHANGELOG.md --tag=c-v* --tag-replace=c-",
-    "build:changelog:di": "npx @discordx/changelog --root=./packages/di/src --out=./packages/di/CHANGELOG.md --tag=d-v* --tag-replace=d-",
-    "build:changelog:docs": "npx @discordx/changelog --root=./docs/docs --out=./docs/CHANGELOG.md",
-    "build:changelog:importer": "npx @discordx/changelog --root=./packages/importer/src --out=./packages/importer/CHANGELOG.md --tag=i-v* --tag-replace=i-",
-    "build:changelog:internal": "npx @discordx/changelog --root=./packages/internal/src --out=./packages/internal/CHANGELOG.md --tag=in-v* --tag-replace=in-",
-    "build:changelog:koa": "npx @discordx/changelog --root=./packages/koa/src --out=./packages/koa/CHANGELOG.md --tag=k-v* --tag-replace=k-",
-    "build:changelog:main": "npx @discordx/changelog --root=./packages/discordx/src --out=./packages/discordx/CHANGELOG.md",
-    "build:changelog:music": "npx @discordx/changelog --root=./packages/music/src --out=./packages/music/CHANGELOG.md --tag=m-v* --tag-replace=m-",
-    "build:changelog:utilities": "npx @discordx/changelog --root=./packages/utilities/src --out=./packages/utilities/CHANGELOG.md --tag=u-v* --tag-replace=u-",
-    "build:changelog:pagination": "npx @discordx/changelog --root=./packages/pagination/src --out=./packages/pagination/CHANGELOG.md --tag=p-v* --tag-replace=p-",
+    "build": "turbo run build --parallel",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",
@@ -47,14 +41,32 @@
   "devDependencies": {
     "@commitlint/cli": "^16.0.2",
     "@commitlint/config-angular": "^16.0.0",
-    "@discordx/changelog": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
     "eslint": "^8.6.0",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
     "husky": "^7.0.4",
     "is-ci": "^3.0.1",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "turbo": "latest"
+  },
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "build/**"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "dev": {
+        "cache": false
+      }
+    }
   },
   "engines": {
     "node": ">=16.0.0",
