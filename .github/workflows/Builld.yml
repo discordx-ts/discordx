@@ -30,27 +30,11 @@ jobs:
       - name: Build
         run: npm run build
 
-  lint:
-    name: ESLint
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run ESLint
-        run: npm run lint
-
-  prettier:
-    name: Prettier
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Run prettier
         run: npm run format-check
 
-  jest:
-    name: Jest Tests
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+      - name: Run ESLint
+        run: npm run lint
+
       - name: Run Tests
         run: npm run test
-        working-directory: ./packages/discordx
