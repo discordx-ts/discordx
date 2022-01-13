@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "docs",
     "packages/*"
   ],
   "description": "Create a discord bot with TypeScript and Decorators!",
