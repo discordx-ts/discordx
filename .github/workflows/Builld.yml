@@ -11,69 +11,6 @@ on:
       - main
 
 jobs:
-  lint:
-    name: ESLint
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run ESLint
-        run: npm run lint
-
-  prettier:
-    name: Prettier
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run prettier
-        run: npm run format-check
-
-  jest:
-    name: Jest Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./packages/discordx
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/discordx
-
-      - name: Run Tests
-        run: npm run test
-        working-directory: ./packages/discordx
-
   build:
     name: Build Monorepo
     runs-on: ubuntu-latest
@@ -90,5 +27,27 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run build
+  lint:
+    name: ESLint
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run ESLint
+        run: npm run lint
+
+  prettier:
+    name: Prettier
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run prettier
+        run: npm run format-check
+
+  jest:
+    name: Jest Tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tests
+        run: npm run test
+        working-directory: ./packages/discordx
