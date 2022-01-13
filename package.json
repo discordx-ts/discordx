@@ -61,11 +61,10 @@
           "build/**"
         ]
       },
-      "lint": {
-        "outputs": []
-      },
-      "dev": {
-        "cache": false
+      "test": {
+        "dependsOn": [
+          "^test"
+        ]
       }
     }
   },
