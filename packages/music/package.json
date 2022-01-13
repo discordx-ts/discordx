@@ -62,11 +62,11 @@
     "ytsr": "^3.6.0"
   },
   "devDependencies": {
-    "@discordjs/opus": "^0.5.3",
+    "@discordjs/opus": "^0.7.0",
     "@discordjs/voice": "^0.7.5",
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.178",
-    "discord.js": "^13.5.1",
+    "discord.js": "^13.6.0",
     "discordx": "^9.1.9",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
