@@ -29,12 +29,17 @@ jobs:
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
         working-directory: ./packages/discordx
 
+      - name: Export src hash
+        id: src-hash
+        run: echo ::set-output name=hash::$(git log --max-count=1 --pretty=format:%H packages/discordx/src);
+
       - name: pre-release
         id: pre-release
         run: |
-          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' packages/discordx/package.json).*.$(git log --max-count=1 --pretty=format:%h packages/discordx/src | cut -b1-3)") ]]; \
+          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(${{ steps.src-hash.outputs.hash }} | cut -b1-3)") ]]; \
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
+        working-directory: ./packages/discordx
 
       - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
@@ -56,7 +61,7 @@ jobs:
       - name: Publish
         if: steps.pre-release.outputs.release == 'true'
         run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git log --max-count=1 --pretty=format:%h packages/discordx/src)
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).${{ steps.src-hash.outputs.hash }}
           npm publish --tag dev
         working-directory: ./packages/discordx
         env:
