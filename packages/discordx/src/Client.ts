@@ -1233,7 +1233,7 @@ export class Client extends ClientJS {
    */
   async getMessagePrefix(message: Message): Promise<IPrefix> {
     if (typeof this.prefix !== "function") {
-      return [...this.prefix];
+      return _.isArray(this.prefix) ? [...this.prefix] : [this.prefix];
     }
 
     return [...(await this.prefix(message))];
