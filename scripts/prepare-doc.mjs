@@ -7,6 +7,7 @@ const packages = [
   "importer",
   "internal",
   "koa",
+  "lava-player",
   "music",
   "pagination",
   "utilities",
