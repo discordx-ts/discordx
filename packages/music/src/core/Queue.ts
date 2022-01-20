@@ -256,7 +256,7 @@ export abstract class Queue<T extends Player = Player> {
 
     // Attempt to convert the YoutubeTrack into an AudioResource (i.e. start streaming the video)
     const resource = nextTrack.createAudioResource();
-    resource.volume?.setVolumeLogarithmic(this.volume / 200);
+    resource.volume?.setVolumeLogarithmic(this.volume / 100);
     this._audioPlayer.play(resource);
     this.queueLock = false;
   }
