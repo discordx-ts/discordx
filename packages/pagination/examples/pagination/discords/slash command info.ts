@@ -13,7 +13,7 @@ export abstract class SlashExample {
 
     const pages = commands.map((cmd, i) => {
       return new MessageEmbed()
-        .setFooter(`Page ${i + 1} of ${commands.length}`)
+        .setFooter({ text: `Page ${i + 1} of ${commands.length}` })
         .setTitle("**Slash command info**")
         .addField("Name", cmd.name)
         .addField("Description", cmd.description);

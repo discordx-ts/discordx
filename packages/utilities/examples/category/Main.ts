@@ -1,6 +1,5 @@
 import "reflect-metadata";
-import { CategoryMetaData, ICategory } from "../../build/cjs/v2";
-import { Client, DApplicationCommand, DSimpleCommand } from "discordx";
+import { Client } from "discordx";
 import { Intents } from "discord.js";
 import { importx } from "@discordx/importer";
 
@@ -22,10 +21,6 @@ export class Main {
       await this._client.initApplicationPermissions();
 
       console.log("Bot started");
-      CategoryMetaData.get("Admin Commands").forEach(
-        (cmd: (DApplicationCommand | DSimpleCommand) & ICategory) =>
-          console.log(cmd.name, cmd.description, cmd.category)
-      );
     });
 
     this._client.on("interactionCreate", (interaction) => {
