@@ -19,6 +19,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install dependencies for docs
+        run: npm install
         working-directory: ./docs
 
       - name: Build docs
