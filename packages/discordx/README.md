@@ -100,7 +100,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 | [`@discordx/importer`](https://www.npmjs.com/package/@discordx/importer)       | Import solution for ESM and CJS                                |
 | [`@discordx/internal`](https://www.npmjs.com/package/@discordx/internal)       | discord.ts internal methods, can be used for external projects |
 | [`@discordx/koa`](https://www.npmjs.com/package/@discordx/koa)                 | Create rest api server with Typescript and Decorators          |
-| [`@discordx/lava-player`](https://www.npmjs.com/package/@discordx/lava-player) | Create lavalnk player                                          |
+| [`@discordx/lava-player`](https://www.npmjs.com/package/@discordx/lava-player) | Create lavalink player                                         |
 | [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)             | Create discord music player easly                              |
 | [`@discordx/pagination`](https://www.npmjs.com/package/@discordx/pagination)   | Add pagination to your discord bot                             |
 | [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities)     | Create own group with `@Category`                              |
