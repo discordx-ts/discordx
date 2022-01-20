@@ -219,5 +219,20 @@ module.exports = {
         tsconfig: "../packages/koa/tsconfig.json",
       },
     ],
+    [
+      "docusaurus-plugin-typedoc",
+      // Plugin / TypeDoc options
+      {
+        entryPoints: ["../packages/lava-player/src/index.ts"],
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+        id: "api-10",
+        name: "@discordx/lava-player",
+        out: "packages/lava-player/api",
+        readme: "none",
+        tsconfig: "../packages/lava-player/tsconfig.json",
+      },
+    ],
   ],
 };

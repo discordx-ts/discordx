@@ -40,9 +40,6 @@
 
 A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
 
-- [YTDL Player](#ytdl-player)
-- [Lava Player](#lava-player)
-
 # 💻 Installation
 
 Version 16.6.0 or newer of Node.js is required
@@ -60,31 +57,25 @@ yarn add @discordx/music
 
 **Note:** Create a pull request to include your bot in the example list.
 
-# ☎️ Need help?
-
-Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
-
-# YTDL Player
-
-## Define new player
+# Define new player
 
 ```ts
 const player = new Player();
 ```
 
-## Get queue for guild
+# Get queue for guild
 
 ```ts
 const queue = player.queue(interaction.guild);
 ```
 
-## Join voice server
+# Join voice server
 
 ```ts
 await queue.join(interaction.member.voice.channel);
 ```
 
-## Play youtube song
+# Play youtube song
 
 ```ts
 const status = await queue.play(songName);
@@ -95,7 +86,7 @@ if (!status) {
 }
 ```
 
-## Play youtube playlist
+# Play youtube playlist
 
 ```ts
 const status = await queue.playlist(playlistLink);
@@ -106,7 +97,7 @@ if (!status) {
 }
 ```
 
-## Play spotify song/playlist
+# Play spotify song/playlist
 
 ```ts
 const status = await queue.spotify(spotifyLink);
@@ -117,7 +108,7 @@ if (!status) {
 }
 ```
 
-## Get voice config data
+# Get voice config data
 
 ```ts
 const audioPlayer = queue.audioPlayer;
@@ -127,109 +118,109 @@ const voiceGroup = queue.voiceGroup;
 const voiceGuildId = queue.voiceGuildId;
 ```
 
-## Get tracks
+# Get tracks
 
 ```ts
 const tracks = queue.tracks;
 ```
 
-## Get loop mode
+# Get loop mode
 
 ```ts
 const state = queue.loop;
 ```
 
-## Set loop mode
+# Set loop mode
 
 ```ts
 queue.setLoop(true | false);
 ```
 
-## Get repeat mode
+# Get repeat mode
 
 ```ts
 const state = queue.repeat;
 ```
 
-## Set repeat mode
+# Set repeat mode
 
 ```ts
 queue.setRepeat(true | false);
 ```
 
-## Pause music
+# Pause music
 
 ```ts
 queue.pause();
 ```
 
-## Resume music
+# Resume music
 
 ```ts
 queue.resume();
 ```
 
-## Skip music
+# Skip music
 
 ```ts
 queue.skip();
 ```
 
-## Leave voice channel
+# Leave voice channel
 
 ```ts
 queue.leave();
 ```
 
-## Mix/Shuffle tracks
+# Mix/Shuffle tracks
 
 ```ts
 queue.mix();
 ```
 
-## Get playback duration
+# Get playback duration
 
 ```ts
 queue.playbackDuration;
 ```
 
-## Get volume
+# Get volume
 
 ```ts
 queue.volume;
 ```
 
-## Set volume
+# Set volume
 
 ```ts
 queue.setVolume(volume: number);
 ```
 
-## Seek current track
+# Seek current track
 
 ```ts
 queue.seek(time: number);
 ```
 
-## Clear queue
+# Clear queue
 
 ```ts
 queue.clearTracks();
 ```
 
-## Remove specific tracks
+# Remove specific tracks
 
 ```ts
 queue.removeTracks([1, 3, 5]);
 ```
 
-## Get total tracks
+# Get total tracks
 
 ```ts
 const total = queue.size;
 ```
 
-## Events
+# Events
 
 ```ts
 this.player.on("onError", console.log);
@@ -253,7 +244,7 @@ this.player.on("onJoin", console.log);
 this.player.on("onLeave", console.log);
 ```
 
-## Custom queue
+# Custom queue
 
 ```ts
 class MyQueue extends Queue {
@@ -268,7 +259,7 @@ class MyQueue extends Queue {}
 this.player.queue(guild, () => new MyQueue(this.player, guild));
 ```
 
-## Custom player
+# Custom player
 
 ```ts
 class MyPlayer extends Player {
@@ -284,7 +275,7 @@ const myQueue: Queue<MyPlayer> = new Queue(this, guild);
 
 # Lava Player
 
-## Getting Started
+# Getting Started
 
 ```ts
 const node = new Lava.Node({
@@ -315,26 +306,26 @@ client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
 });
 ```
 
-## Get Guild Player
+# Get Guild Player
 
 ```ts
 const player = node.players.get("guild id");
 ```
 
-## Join Voice Channel
+# Join Voice Channel
 
 ```ts
 await player.join("channel id");
 ```
 
-## Play Track
+# Play Track
 
 ```ts
 const res = await voice.load("ytsearch:monstercat");
 await player.play(res.tracks[0]);
 ```
 
-## Stop Music
+# Stop Music
 
 ```ts
 await player.stop();
@@ -342,7 +333,7 @@ await player.stop();
 await player.destroy();
 ```
 
-## Clustering
+# Clustering
 
 ```ts
 const cluster = new Lava.Cluster({
@@ -360,6 +351,10 @@ const cluster = new Lava.Cluster({
   },
 });
 ```
+
+# ☎️ Need help?
+
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
 
 # Thank you
 
