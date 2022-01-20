@@ -2,11 +2,13 @@
 
 ## Fixed
 
+- volume should persist between tracks ([#461](https://github.com/oceanroleplay/discord.ts/issues/461)) ([e876c2](https://github.com/oceanroleplay/discord.ts/commit/e876c25ef025665399ec6ce40ffcc30eb9fe5b21))
 - .setVolume() not working in custom tracks ([#444](https://github.com/oceanroleplay/discord.ts/issues/444)) ([f11b83](https://github.com/oceanroleplay/discord.ts/commit/f11b8312507b4274c264fe9ad959a3e7de76f505))
 - music - do not catch unwanted errors ([d934c9](https://github.com/oceanroleplay/discord.ts/commit/d934c9986306095891a51b0f7c9fe25b0f9337b6))
 
 ## Routine Tasks
 
+- seperate lava player ([9ad3b4](https://github.com/oceanroleplay/discord.ts/commit/9ad3b4c3fcac0f23b4a6bf998d3cd413092f7cff))
 - repo cleanup ([3ee0df](https://github.com/oceanroleplay/discord.ts/commit/3ee0df074f23651c26bdbee49f0cbe859967e31e))
 
 # [v3.1.0](https://github.com/oceanroleplay/discord.ts/releases/tag/m-v3.1.0) (2021-12-24)

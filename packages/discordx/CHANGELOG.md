@@ -1,7 +1,15 @@
 # Stage
 
+## Fixed
+
+- simple command prefix issue ([caa078](https://github.com/oceanroleplay/discord.ts/commit/caa078a388761e4b04f31043466c344020694b8b))
+
 ## Routine Tasks
 
+- fix build attempt [#1](https://github.com/oceanroleplay/discord.ts/issues/1) ([9fa95b](https://github.com/oceanroleplay/discord.ts/commit/9fa95bde51bf9c55af953bfce5154272f02df4ce))
+- fix import ([0a6759](https://github.com/oceanroleplay/discord.ts/commit/0a675937638436e79ba36b3731823b6419e70404))
+- fix import ([001606](https://github.com/oceanroleplay/discord.ts/commit/0016065061688975813d600db344577ee086a32b))
+- update imports ([d970db](https://github.com/oceanroleplay/discord.ts/commit/d970db2c047db1e91970ca75dc00debfbf802d51))
 - update import ([a94ecc](https://github.com/oceanroleplay/discord.ts/commit/a94eccabad3139aaba88e6a1be12057b25957c91))
 - update to monorepo ([284b3f](https://github.com/oceanroleplay/discord.ts/commit/284b3f58599df60275ead01bb595a1334358e75b))
 - repo cleanup ([3ee0df](https://github.com/oceanroleplay/discord.ts/commit/3ee0df074f23651c26bdbee49f0cbe859967e31e))
