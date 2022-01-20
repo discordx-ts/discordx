@@ -47,6 +47,7 @@ export abstract class Queue<T extends Player = Player> {
   private queueLock = false;
   private readyLock = false;
   private repeatMode = false;
+  private currentVolume = 100;
 
   /**
    * get total queued of tracks
@@ -174,11 +175,7 @@ export abstract class Queue<T extends Player = Player> {
    * get volume
    */
   public get volume(): number {
-    if (!this.currentTrack?.volume) {
-      return 100;
-    }
-    const currentVol = this.currentTrack.volume.volume;
-    return Math.round(Math.pow(currentVol, 1 / 1.661) * 200);
+    return this.currentVolume;
   }
 
   /**
@@ -259,6 +256,7 @@ export abstract class Queue<T extends Player = Player> {
 
     // Attempt to convert the YoutubeTrack into an AudioResource (i.e. start streaming the video)
     const resource = nextTrack.createAudioResource();
+    resource.volume?.setVolumeLogarithmic(this.volume / 200);
     this._audioPlayer.play(resource);
     this.queueLock = false;
   }
@@ -405,6 +403,7 @@ export abstract class Queue<T extends Player = Player> {
       return false;
     }
 
+    this.currentVolume = volume;
     this.currentTrack.volume?.setVolumeLogarithmic(volume / 200);
     this.player.emit("onVolumeUpdate", [this, volume]);
     return true;
