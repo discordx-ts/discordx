@@ -2,16 +2,16 @@ import {
   CommandInteraction,
   Guild,
   GuildMember,
-  TextBasedChannels,
+  TextBasedChannel,
 } from "discord.js";
-import { CustomTrack, Player, Queue } from "../../../build/cjs/index.js";
+import { CustomTrack, Player, Queue } from "../../build/cjs/index.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { join } from "path";
 
 @Discord()
 export class music {
   player: Player;
-  channel: TextBasedChannels | undefined;
+  channel: TextBasedChannel | undefined;
 
   constructor() {
     this.player = new Player();

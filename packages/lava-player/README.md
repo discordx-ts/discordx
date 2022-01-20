@@ -1,0 +1,143 @@
+<div>
+  <p align="center">
+    <a href="https://discord-ts.js.org" target="_blank" rel="nofollow">
+      <img src="https://discord-ts.js.org/discord-ts.svg" width="546" />
+    </a>
+  </p>
+  <p align="center">
+    <a href="https://discord.gg/yHQY9fexH9"
+      ><img
+        src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
+        alt="Discord server"
+    /></a>
+    <a href="https://www.npmjs.com/package/@discordx/music"
+      ><img
+        src="https://img.shields.io/npm/v/@discordx/music.svg?maxAge=3600"
+        alt="NPM version"
+    /></a>
+    <a href="https://www.npmjs.com/package/@discordx/music"
+      ><img
+        src="https://img.shields.io/npm/dt/@discordx/music.svg?maxAge=3600"
+        alt="NPM downloads"
+    /></a>
+    <a href="https://github.com/oceanroleplay/discord.ts/actions"
+      ><img
+        src="https://github.com/oceanroleplay/discord.ts/workflows/Build/badge.svg"
+        alt="Build status"
+    /></a>
+    <a href="https://www.paypal.me/vijayxmeena"
+      ><img
+        src="https://img.shields.io/badge/donate-paypal-F96854.svg"
+        alt="paypal"
+    /></a>
+  </p>
+  <p align="center">
+    <b> Create a discord bot with TypeScript and Decorators! </b>
+  </p>
+</div>
+
+# 📖 Introduction
+
+A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
+
+# 💻 Installation
+
+Version 16.6.0 or newer of Node.js is required
+
+> Ensure that [discord.js](https://www.npmjs.com/package/discord.js) and [@discordjs/voice](https://www.npmjs.com/package/@discordjs/voice) have been installed before installing this library
+
+```
+npm install @discordx/music
+yarn add @discordx/music
+```
+
+# 🤖 Bot Examples
+
+> **[discord-music-bot](https://github.com/oceanroleplay/discord-music-bot)** from [@oceanroleplay](https://github.com/oceanroleplay)
+
+**Note:** Create a pull request to include your bot in the example list.
+
+# Getting Started
+
+```ts
+const node = new Lava.Node({
+  host: {
+    address: process.env.LAVA_HOST ?? "",
+    port: Number(process.env.LAVA_PORT) ?? 2333,
+  },
+
+  // your Lavalink password
+  password: process.env.LAVA_PASSWORD ?? "",
+
+  send(guildId, packet) {
+    const guild = client.guilds.cache.get(guildId);
+    if (guild) {
+      guild.shard.send(packet);
+    }
+  },
+  shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
+  userId: client.user?.id ?? "", // the user id of your bot
+});
+
+client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
+  node.voiceStateUpdate(data);
+});
+
+client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
+  node.voiceServerUpdate(data);
+});
+```
+
+# Get Guild Player
+
+```ts
+const player = node.players.get("guild id");
+```
+
+# Join Voice Channel
+
+```ts
+await player.join("channel id");
+```
+
+# Play Track
+
+```ts
+const res = await voice.load("ytsearch:monstercat");
+await player.play(res.tracks[0]);
+```
+
+# Stop Music
+
+```ts
+await player.stop();
+// or, to destroy the player entirely
+await player.destroy();
+```
+
+# Clustering
+
+```ts
+const cluster = new Lava.Cluster({
+  nodes: [
+    // node options here; see above
+  ],
+  send(guildId, packet) {
+    // send to gateway; same as for single node usage
+  },
+  filter(node, guildId) {
+    // optional
+    // return a boolean indicating whether the given guild can be run on the given node
+    // useful for limiting guilds to specific nodes (for instance, if you setup lavalink edge servers to minimize latency)
+    // this must return true at least once for a given set of nodes, otherwise some methods may error
+  },
+});
+```
+
+# ☎️ Need help?
+
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+
+# Thank you
+
+Show your support for [discordx](https://www.npmjs.com/package/discordx) by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).

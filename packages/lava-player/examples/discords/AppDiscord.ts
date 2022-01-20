@@ -1,7 +1,7 @@
+import * as Lava from "../../build/cjs/index.js";
 import { Client, Discord, On, Slash, SlashOption } from "discordx";
 import { CommandInteraction, GuildMember } from "discord.js";
 import type { ArgsOf } from "discordx";
-import { Lava } from "../../../build/cjs/index.js";
 
 @Discord()
 export class music {
