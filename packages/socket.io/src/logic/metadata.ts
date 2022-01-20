@@ -86,29 +86,26 @@ export class MetadataStorage {
     });
 
     // bind all on calls
-    this.ons.forEach((on) => {
-      if (!on.appId || on.appId === server.appId) {
-        if (on.name === "connection") {
-          server.on("connection", on.handler(server));
-        } else {
-          server.on("connection", (sk) => {
-            sk.on(on.name, on.handler(server, sk));
-          });
-        }
-      }
-    });
+    this.ons
+      .filter((on) => on.name === "connection")
+      .filter((on) => !on.appId || on.appId === server.appId)
+      .forEach((on) => server.on("connection", on.handler(server)));
 
-    // bind all once calls
-    this.onces.forEach((once) => {
-      if (!once.appId || once.appId === server.appId) {
-        if (once.name === "connection") {
-          server.once("connection", once.handler(server));
-        } else {
-          server.on("connection", (sk) => {
-            sk.once(once.name, once.handler(server, sk));
-          });
-        }
-      }
+    this.onces
+      .filter((once) => once.name === "connection")
+      .filter((once) => !once.appId || once.appId === server.appId)
+      .forEach((once) => server.once("connection", once.handler(server)));
+
+    server.on("connection", (sk) => {
+      this.ons
+        .filter((on) => on.name !== "connection")
+        .filter((on) => !on.appId || on.appId === server.appId)
+        .forEach((on) => sk.on(on.name, on.handler(server, sk)));
+
+      this.onces
+        .filter((once) => once.name !== "connection")
+        .filter((once) => !once.appId || once.appId === server.appId)
+        .forEach((once) => sk.once(once.name, once.handler(server, sk)));
     });
   }
 }
