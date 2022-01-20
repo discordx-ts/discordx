@@ -10,14 +10,14 @@
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
         alt="Discord server"
     /></a>
-    <a href="https://www.npmjs.com/package/@discordx/music"
+    <a href="https://www.npmjs.com/package/@discordx/lava-player"
       ><img
-        src="https://img.shields.io/npm/v/@discordx/music.svg?maxAge=3600"
+        src="https://img.shields.io/npm/v/@discordx/lava-player.svg?maxAge=3600"
         alt="NPM version"
     /></a>
-    <a href="https://www.npmjs.com/package/@discordx/music"
+    <a href="https://www.npmjs.com/package/@discordx/lava-player"
       ><img
-        src="https://img.shields.io/npm/dt/@discordx/music.svg?maxAge=3600"
+        src="https://img.shields.io/npm/dt/@discordx/lava-player.svg?maxAge=3600"
         alt="NPM downloads"
     /></a>
     <a href="https://github.com/oceanroleplay/discord.ts/actions"
@@ -38,7 +38,7 @@
 
 # 📖 Introduction
 
-A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
+A powerful lava link player library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
 
 # 💻 Installation
 
@@ -47,13 +47,13 @@ Version 16.6.0 or newer of Node.js is required
 > Ensure that [discord.js](https://www.npmjs.com/package/discord.js) and [@discordjs/voice](https://www.npmjs.com/package/@discordjs/voice) have been installed before installing this library
 
 ```
-npm install @discordx/music
-yarn add @discordx/music
+npm install @discordx/lava-player
+yarn add @discordx/lava-player
 ```
 
 # 🤖 Bot Examples
 
-> **[discord-music-bot](https://github.com/oceanroleplay/discord-music-bot)** from [@oceanroleplay](https://github.com/oceanroleplay)
+None
 
 **Note:** Create a pull request to include your bot in the example list.
 

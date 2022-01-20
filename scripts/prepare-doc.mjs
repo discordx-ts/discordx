@@ -10,6 +10,7 @@ const packages = [
   "lava-player",
   "music",
   "pagination",
+  "socket.io",
   "utilities",
 ];
 

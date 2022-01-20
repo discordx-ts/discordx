@@ -1,20 +1,22 @@
 {
-  "name": "@discordx/lava-player",
+  "name": "@discordx/socket.io",
   "version": "0.0.0",
   "private": false,
-  "description": "A powerful powerful lava link player library written in TypeScript for Node.js",
+  "description": "Use decorators with socket.io and Tsyringe",
   "keywords": [
-    "discord",
-    "discordx",
-    "discord.ts",
+    "socket.io",
+    "api",
+    "tsyringe",
+    "framework",
+    "decorators",
     "typescript",
-    "javascript",
     "bot",
-    "music",
-    "youtube",
-    "spotify"
+    "javascript",
+    "utilities",
+    "discordx",
+    "discord.ts"
   ],
-  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/lava-player#readme",
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/socket.io#readme",
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issues"
   },
@@ -44,21 +46,26 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --root=src --tag=m-v* --tag-replace=m-",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=k-v* --tag-replace=k-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "@types/backoff": "^2.5.2",
-    "backoff": "^2.5.0",
+    "@discordx/di": "^1.0.2",
+    "@discordx/internal": "^1.0.2",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@discordx/importer": "^1.1.2",
-    "discord.js": "^13.6.0",
-    "discordx": "^9.1.11",
+    "express": "^4.17.2",
+    "http": "^0.0.1-security",
+    "koa": "^2.13.4",
+    "socket.io": "^4.4.1",
     "typescript": "^4.5.4"
+  },
+  "peerDependencies": {
+    "socket.io": "^4.4.1"
   },
   "engines": {
     "node": ">=16.0.0",
