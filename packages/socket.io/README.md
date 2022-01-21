@@ -57,6 +57,37 @@ yarn add socket.io @discordx/socket.io
 - Support TSyringe
 - Support ECMAScript
 
+# 📟 @On/@Once
+
+> do not forget to wrap each class with `@Ws()`
+
+```ts
+import { Guard, Next, On, Once, Server, Ws } from "@disocrdx/socket.io";
+import { Socket } from "socket.io";
+
+@Ws()
+class Example {
+  @On("connection")
+  @Guard((socket: Socket, server: Server, xsocket: unknown, next: Next) => {
+    console.log("I am mdw");
+    return next();
+  })
+  on(): void {
+    console.log("I am @onx");
+  }
+
+  @On("disconnect")
+  disconnect(): void {
+    console.log("I am disconnect");
+  }
+
+  @Once("connection")
+  once(): void {
+    console.log("I am @Once");
+  }
+}
+```
+
 # ☎️ Need help?
 
 Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
