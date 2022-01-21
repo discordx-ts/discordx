@@ -7,6 +7,7 @@
 
 ## Routine Tasks
 
+- readme and docs ([1dcfeb](https://github.com/oceanroleplay/discord.ts/commit/1dcfebf53804c6098a03bb745bfb4a4ec33a149a))
 - update doc ([bb2dff](https://github.com/oceanroleplay/discord.ts/commit/bb2dff37aabea3923e71b1ad7e49350726b6f769))
 - update readme ([474fa7](https://github.com/oceanroleplay/discord.ts/commit/474fa7fdcf0cc41793815d5008c93d785e042de5))
 - fix doc ([1c3131](https://github.com/oceanroleplay/discord.ts/commit/1c31317bf629efb6eedabe9b97b9e452af2909ea))
