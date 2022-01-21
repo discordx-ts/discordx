@@ -4,7 +4,7 @@ import { Socket } from "socket.io";
 @Ws()
 export class Example {
   @On("connection")
-  @Guard((socket: Socket, server: Server, xsocket: unknown, next: Next) => {
+  @Guard(([]: [Socket], server: Server, socket: unknown, next: Next) => {
     console.log("I am mdw");
     return next();
   })

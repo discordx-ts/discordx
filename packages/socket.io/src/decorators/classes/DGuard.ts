@@ -8,7 +8,7 @@ export type Next = (...paramsToNext: unknown[]) => Promise<unknown>;
 export type GuardFunction<Type = any> = (
   params: Type,
   server: Server,
-  socket: Socket | undefined,
+  socket: Socket,
   next: Next
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => any;
