@@ -4,11 +4,7 @@ import {
   MessageSelectMenu,
   SelectMenuInteraction,
 } from "discord.js";
-import {
-  Discord,
-  SelectMenuComponent,
-  Slash,
-} from "../../../src/index.js";
+import { Discord, SelectMenuComponent, Slash } from "../../../src/index.js";
 
 const roles = [
   { label: "Principal", value: "principal" },
