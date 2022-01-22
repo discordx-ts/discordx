@@ -1,8 +1,8 @@
 import "reflect-metadata";
-import { Client, DIService } from "../../build/cjs/index.js";
+import { Client, DIService } from "../../src/index.js";
+import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Intents } from "discord.js";
 import { container } from "tsyringe";
-import { importx } from "../../packages/importer/build/cjs/index.cjs";
 
 // initialize tsyringe container
 // it's important, this done before calling bot.login
@@ -32,7 +32,7 @@ export class Main {
       this._client.executeInteraction(interaction);
     });
 
-    await importx(__dirname + "/commands/**/*.{js,ts}");
+    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
     await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }

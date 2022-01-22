@@ -1,10 +1,11 @@
 import {
+  Bot,
   ButtonComponent,
   Discord,
   Slash,
   SlashChoice,
   SlashOption,
-} from "../../../build/cjs/index.js";
+} from "../../../src/index.js";
 import {
   ButtonInteraction,
   CommandInteraction,
@@ -50,22 +51,22 @@ class spcProposition {
   }
 
   public static nameToClass(choice: spcChoice) {
-    return (
-      this.propositions.find((proposition) => choice === proposition.choice) ??
-      this.propositions[0]
+    return this.propositions.find(
+      (proposition) => choice === proposition.choice
     );
   }
 
   public static buttonCustomIDToClass(buttonCustomID: string) {
-    return (
-      this.propositions.find(
-        (proposition) => buttonCustomID === proposition.buttonCustomID
-      ) ?? this.propositions[0]
+    return this.propositions.find(
+      (proposition) => buttonCustomID === proposition.buttonCustomID
     );
   }
 }
 
+const defaultChoice = new spcProposition(spcChoice.Stone, "💎", "spc-stone");
+
 @Discord()
+@Bot("alexa")
 export abstract class StonePaperScissor {
   @Slash("stonepaperscissor", {
     description:
@@ -77,8 +78,9 @@ export abstract class StonePaperScissor {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
       required: false,
+      type: "STRING",
     })
-    choice: spcChoice,
+    choice: spcChoice | undefined,
     interaction: CommandInteraction
   ) {
     await interaction.deferReply();
@@ -86,10 +88,17 @@ export abstract class StonePaperScissor {
     if (choice) {
       const playerChoice = spcProposition.nameToClass(choice);
       const botChoice = StonePaperScissor.spcPlayBot();
-      const result = StonePaperScissor.isWinSpc(playerChoice, botChoice);
+      const result = StonePaperScissor.isWinSpc(
+        playerChoice ?? defaultChoice,
+        botChoice
+      );
 
-      interaction.editReply(
-        StonePaperScissor.spcResultProcess(playerChoice, botChoice, result)
+      interaction.followUp(
+        StonePaperScissor.spcResultProcess(
+          playerChoice ?? defaultChoice,
+          botChoice,
+          result
+        )
       );
     } else {
       const buttonStone = new MessageButton()
@@ -124,12 +133,12 @@ export abstract class StonePaperScissor {
         buttonWell
       );
 
-      interaction.editReply({
+      interaction.followUp({
         components: [buttonRow],
         content: "Ok let's go. 1v1 Stone Paper Scissor. Go choose!",
       });
 
-      setTimeout(() => interaction.deleteReply(), 6e4);
+      setTimeout((inx) => inx.deleteReply(), 10 * 60 * 1000, interaction);
     }
   }
 
@@ -143,19 +152,30 @@ export abstract class StonePaperScissor {
       interaction.customId
     );
     const botChoice = StonePaperScissor.spcPlayBot();
-    const result = StonePaperScissor.isWinSpc(playerChoice, botChoice);
-
-    interaction.editReply(
-      StonePaperScissor.spcResultProcess(playerChoice, botChoice, result)
+    const result = StonePaperScissor.isWinSpc(
+      playerChoice ?? defaultChoice,
+      botChoice
     );
 
-    setTimeout(() => {
-      try {
-        interaction.deleteReply();
-      } catch (err) {
-        console.error(err);
-      }
-    }, 3e4);
+    interaction.followUp(
+      StonePaperScissor.spcResultProcess(
+        playerChoice ?? defaultChoice,
+        botChoice,
+        result
+      )
+    );
+
+    setTimeout(
+      (inx) => {
+        try {
+          inx.deleteReply();
+        } catch (err) {
+          console.error(err);
+        }
+      },
+      30000,
+      interaction
+    );
   }
 
   private static isWinSpc(
@@ -163,41 +183,40 @@ export abstract class StonePaperScissor {
     bot: spcProposition
   ): spcResult {
     switch (player.choice) {
-      case spcChoice.Stone:
+      case spcChoice.Stone: {
         if (bot.choice === spcChoice.Scissor) {
           return spcResult.WIN;
         }
-
         if (bot.choice === spcChoice.Paper) {
           return spcResult.LOSS;
         }
-
         return spcResult.DRAW;
-      case spcChoice.Paper:
+      }
+
+      case spcChoice.Paper: {
         if (bot.choice === spcChoice.Stone) {
           return spcResult.WIN;
         }
-
         if (bot.choice === spcChoice.Scissor) {
           return spcResult.LOSS;
         }
-
         return spcResult.DRAW;
-      case spcChoice.Scissor:
+      }
+
+      case spcChoice.Scissor: {
         if (bot.choice === spcChoice.Paper) {
           return spcResult.WIN;
         }
-
         if (bot.choice === spcChoice.Stone) {
           return spcResult.LOSS;
         }
-
         return spcResult.DRAW;
+      }
     }
   }
 
   private static spcPlayBot(): spcProposition {
-    return spcProposition.propositions[randomInt(3)];
+    return spcProposition.propositions[randomInt(3)] ?? defaultChoice;
   }
 
   private static spcResultProcess(

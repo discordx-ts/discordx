@@ -3,7 +3,7 @@ import {
   SimpleCommand,
   SimpleCommandMessage,
   SimpleCommandOption,
-} from "../../../build/cjs/index.js";
+} from "../../../src/index.js";
 import { GuildMember, Role, User } from "discord.js";
 
 @Discord()

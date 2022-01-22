@@ -5,10 +5,10 @@ import {
   Guard,
   On,
   Slash,
-} from "../../../build/cjs/index.js";
+} from "../../../src/index.js";
 import { CommandInteraction } from "discord.js";
-import { ErrorHandler } from "../guards/Error";
-import { NotBot } from "../guards/NotBot";
+import { ErrorHandler } from "../guards/Error.js";
+import { NotBot } from "../guards/NotBot.js";
 
 @Discord()
 export abstract class AppDiscord {

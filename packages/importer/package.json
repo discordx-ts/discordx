@@ -38,7 +38,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc && tsc --p tsconfig.cjs.json",
+    "build": "tsc && tsc --p tsconfig.cjs.json && npm run postbuild",
+    "postbuild": "node ../../scripts/postbuild.mjs --path=build",
     "build:changelog": "npx @discordx/changelog --root=src --tag=i-v* --tag-replace=i-",
     "type-check": "tsc --noemit"
   },

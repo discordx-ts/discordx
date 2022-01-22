@@ -2,7 +2,7 @@ import {
   ArgsOf,
   GuardFunction,
   SimpleCommandMessage,
-} from "../../../build/cjs/index.js";
+} from "../../../src/index.js";
 import {
   ButtonInteraction,
   CommandInteraction,

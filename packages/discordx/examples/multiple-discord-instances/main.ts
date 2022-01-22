@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import { Client } from "../../build/cjs/index.js";
+import { dirname, importx } from "../../../importer/build/esm/index.mjs";
+import { Client } from "../../src/index.js";
 import { Intents } from "discord.js";
-import { importx } from "../../packages/importer/build/cjs/index.cjs";
 
 export class Main {
   private static _client: Client;
@@ -25,7 +25,7 @@ export class Main {
       this._client.executeInteraction(interaction);
     });
 
-    await importx(__dirname + "/commands/**/*.{js,ts}");
+    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
     await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }

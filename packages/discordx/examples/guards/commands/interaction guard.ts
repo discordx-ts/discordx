@@ -3,7 +3,7 @@ import {
   Discord,
   Guard,
   GuardFunction,
-} from "../../../build/cjs/index.js";
+} from "../../../src/index.js";
 import { ContextMenuInteraction } from "discord.js";
 
 export const InteractionGuard: GuardFunction<ContextMenuInteraction> = async (
