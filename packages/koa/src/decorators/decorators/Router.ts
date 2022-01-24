@@ -5,14 +5,14 @@ import KoaRouter from "@koa/router";
 export function Router(options?: {
   description?: string;
   name?: string;
-  opts?: KoaRouter.RouterOptions;
+  options?: KoaRouter.RouterOptions;
 }): ClassDecoratorEx {
   return function <T>(target: Record<string, T>) {
     const myClass = target as unknown as new () => unknown;
     const instance = DRouter.create({
       description: options?.description,
       name: options?.name ?? myClass.name,
-      opts: options?.opts,
+      options: options?.options,
     }).decorate(myClass, myClass.name);
     MetadataStorage.instance.addRouter(instance);
   };

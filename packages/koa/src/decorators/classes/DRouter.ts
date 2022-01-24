@@ -5,7 +5,7 @@ import KoaRouter from "@koa/router";
 type Args = {
   description?: string;
   name: string;
-  opts?: KoaRouter.RouterOptions;
+  options?: KoaRouter.RouterOptions;
 };
 
 export class DRouter extends Decorator {
@@ -41,7 +41,7 @@ export class DRouter extends Decorator {
     super();
     this._name = data.name;
     this._description = data.description;
-    this._router = new KoaRouter(data.opts);
+    this._router = new KoaRouter(data.options);
   }
 
   setName(value: string): void {
