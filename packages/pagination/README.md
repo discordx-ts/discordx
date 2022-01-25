@@ -38,7 +38,7 @@
 
 # 📖 Introduction
 
-Add pagination to discord using buttons or menu.
+Add pagination to discord bot using buttons or menu.
 
 # 💻 Installation
 

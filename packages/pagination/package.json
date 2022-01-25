@@ -2,7 +2,7 @@
   "name": "@discordx/pagination",
   "version": "0.0.0",
   "private": false,
-  "description": "Add useful features to discordx",
+  "description": "Add pagination to discord bot using buttons or menu",
   "keywords": [
     "pagination",
     "discord",
