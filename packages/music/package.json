@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@discordjs/opus": "^0.7.0",
-    "@discordjs/voice": "^0.7.5",
+    "@discordjs/voice": "^0.8.0",
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.178",
     "discord.js": "^13.6.0",
