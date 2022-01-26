@@ -1,10 +1,11 @@
-import {
+import type {
   ApplicationCommandPermissions,
   CommandInteraction,
   GuildMember,
   Role,
   User,
 } from "discord.js";
+
 import {
   DefaultPermissionResolver,
   Discord,

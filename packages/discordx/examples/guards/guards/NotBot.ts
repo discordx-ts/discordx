@@ -1,9 +1,4 @@
 import {
-  ArgsOf,
-  GuardFunction,
-  SimpleCommandMessage,
-} from "../../../src/index.js";
-import {
   ButtonInteraction,
   CommandInteraction,
   ContextMenuInteraction,
@@ -12,6 +7,9 @@ import {
   SelectMenuInteraction,
   VoiceState,
 } from "discord.js";
+
+import type { ArgsOf, GuardFunction } from "../../../src/index.js";
+import { SimpleCommandMessage } from "../../../src/index.js";
 
 // Example by @AndyClausen
 // Modified @oceanroleplay

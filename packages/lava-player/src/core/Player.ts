@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
-import {
+import { EventEmitter } from "events";
+import { deprecate } from "util";
+
+import type BaseNode from "../base/Node.js";
+import type {
   EqualizerBand,
-  EventType,
   FilterOptions,
   JoinOptions,
   PlayerOptions,
-  Status,
   Track,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
-import BaseNode from "../base/Node.js";
-import { EventEmitter } from "events";
-import { deprecate } from "util";
+import { EventType, Status } from "../types/index.js";
 
 export default class Player<
   T extends BaseNode = BaseNode

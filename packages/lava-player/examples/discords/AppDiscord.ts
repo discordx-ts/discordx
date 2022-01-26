@@ -1,7 +1,9 @@
+import type { CommandInteraction } from "discord.js";
+import { GuildMember } from "discord.js";
+import type { ArgsOf, Client } from "discordx";
+import { Discord, On, Slash, SlashOption } from "discordx";
+
 import * as Lava from "../../build/cjs/index.js";
-import { Client, Discord, On, Slash, SlashOption } from "discordx";
-import { CommandInteraction, GuildMember } from "discord.js";
-import type { ArgsOf } from "discordx";
 
 @Discord()
 export class music {

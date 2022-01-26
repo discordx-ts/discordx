@@ -1,5 +1,7 @@
-import { Guard, Next, On, Server, Ws } from "../../build/cjs/index.js";
-import { Socket } from "socket.io";
+import type { Socket } from "socket.io";
+
+import type { Next, Server } from "../../build/cjs/index.js";
+import { Guard, On, Ws } from "../../build/cjs/index.js";
 
 @Ws()
 export class Example {

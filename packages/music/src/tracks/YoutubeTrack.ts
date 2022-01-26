@@ -1,13 +1,12 @@
-import {
-  AudioResource,
-  StreamType,
-  createAudioResource,
-} from "@discordjs/voice";
-import { CommonTrack, Player, ytdl } from "../index.js";
-import { GuildMember, User } from "discord.js";
+import type { AudioResource } from "@discordjs/voice";
+import { createAudioResource, StreamType } from "@discordjs/voice";
+import type { GuildMember, User } from "discord.js";
+import type ytpl from "ytpl";
+import type { Video } from "ytsr";
+
+import type { CommonTrack, Player } from "../index.js";
+import { ytdl } from "../index.js";
 import { Track } from "./Track.js";
-import { Video } from "ytsr";
-import ytpl from "ytpl";
 
 /**
  * Track options

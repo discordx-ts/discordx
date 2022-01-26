@@ -1,4 +1,6 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
 import { DEvent, DWs, MetadataStorage } from "../../index.js";
 
 export function AppId(id: string): ClassMethodDecorator {

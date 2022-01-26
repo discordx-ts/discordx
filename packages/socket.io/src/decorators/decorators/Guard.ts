@@ -1,12 +1,9 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
-import {
-  DEvent,
-  DGuard,
-  DWs,
-  GuardFunction,
-  MetadataStorage,
-} from "../../index.js";
-import { Method } from "../classes/Method.js";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { GuardFunction } from "../../index.js";
+import { DEvent, DGuard, DWs, MetadataStorage } from "../../index.js";
+import type { Method } from "../classes/Method.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Guard<Type = any>(

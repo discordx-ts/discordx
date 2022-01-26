@@ -1,4 +1,4 @@
-import { DependencyContainer } from "tsyringe";
+import type { DependencyContainer } from "tsyringe";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type InstanceOf<T> = T extends new (...args: any[]) => infer R ? R : any;

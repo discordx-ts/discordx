@@ -1,7 +1,9 @@
 import "reflect-metadata";
+
+import { Intents } from "discord.js";
+
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client } from "../../src/index.js";
-import { Intents } from "discord.js";
 
 export class Main {
   private static _client: Client;

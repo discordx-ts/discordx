@@ -1,19 +1,20 @@
-import {
-  ApplicationCommandMixin,
-  Client,
-  DApplicationCommand,
-  DComponentButton,
-  DComponentSelectMenu,
-  DSimpleCommand,
-  DefaultPermissionResolver,
-  SimpleCommandMessage,
-} from "../../index.js";
-import {
+import type {
   ApplicationCommandPermissions,
   Guild,
   Message,
   Snowflake,
 } from "discord.js";
+
+import type {
+  ApplicationCommandMixin,
+  Client,
+  DApplicationCommand,
+  DComponentButton,
+  DComponentSelectMenu,
+  DefaultPermissionResolver,
+  DSimpleCommand,
+  SimpleCommandMessage,
+} from "../../index.js";
 
 export type Awaitable<T> = Promise<T> | T;
 

@@ -1,10 +1,11 @@
-import { Channel, Role, User } from "discord.js";
+import type { Channel, Role, User } from "discord.js";
+
+import type { SimpleCommandMessage } from "../../../src/index.js";
 import {
   DefaultPermissionResolver,
   Discord,
   Permission,
   SimpleCommand,
-  SimpleCommandMessage,
   SimpleCommandOption,
 } from "../../../src/index.js";
 

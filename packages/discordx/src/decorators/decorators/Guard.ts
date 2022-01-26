@@ -1,4 +1,7 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { GuardFunction } from "../../index.js";
 import {
   DApplicationCommand,
   DComponentButton,
@@ -7,10 +10,9 @@ import {
   DGuard,
   DOn,
   DSimpleCommand,
-  GuardFunction,
   MetadataStorage,
 } from "../../index.js";
-import { Method } from "../classes/Method.js";
+import type { Method } from "../classes/Method.js";
 
 /**
  * Define guard aka middleware for your application command, simple command, events, select menu, button

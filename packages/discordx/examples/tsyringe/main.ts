@@ -1,8 +1,10 @@
 import "reflect-metadata";
-import { Client, DIService } from "../../src/index.js";
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
+
 import { Intents } from "discord.js";
 import { container } from "tsyringe";
+
+import { dirname, importx } from "../../../importer/build/esm/index.mjs";
+import { Client, DIService } from "../../src/index.js";
 
 // initialize tsyringe container
 // it's important, this done before calling bot.login

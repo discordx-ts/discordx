@@ -1,6 +1,6 @@
-import { DRouter } from "../index.js";
 import { Decorator } from "@discordx/internal";
-import { Koa } from "../../index.js";
+
+import type { DRouter, Koa } from "../../index.js";
 
 export abstract class Method extends Decorator {
   protected _router!: DRouter;

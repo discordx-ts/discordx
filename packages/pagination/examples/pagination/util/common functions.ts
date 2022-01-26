@@ -1,4 +1,5 @@
-import { MessageEmbed, MessageOptions } from "discord.js";
+import type { MessageOptions } from "discord.js";
+import { MessageEmbed } from "discord.js";
 
 export function GeneratePages(limit?: number): MessageOptions[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {

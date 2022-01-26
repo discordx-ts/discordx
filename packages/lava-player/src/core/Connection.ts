@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BaseNode from "../base/Node.js";
-import { IncomingMessage } from "http";
-import WebSocket from "ws";
 import backoff from "backoff";
+import type { IncomingMessage } from "http";
+import WebSocket from "ws";
+
+import type BaseNode from "../base/Node.js";
 
 interface Sendable {
   data: Buffer | string;

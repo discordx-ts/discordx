@@ -1,6 +1,7 @@
-import { DEvent } from "../classes/DEvent.js";
+import type { MethodDecoratorEx } from "@discordx/internal";
+
 import { MetadataStorage } from "../../logic/metadata.js";
-import { MethodDecoratorEx } from "@discordx/internal";
+import { DEvent } from "../classes/DEvent.js";
 
 export function Once(
   name?: string,

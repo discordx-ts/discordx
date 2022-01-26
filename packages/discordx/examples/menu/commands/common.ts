@@ -1,9 +1,6 @@
-import {
-  CommandInteraction,
-  MessageActionRow,
-  MessageSelectMenu,
-  SelectMenuInteraction,
-} from "discord.js";
+import type { CommandInteraction, SelectMenuInteraction } from "discord.js";
+import { MessageActionRow, MessageSelectMenu } from "discord.js";
+
 import { Discord, SelectMenuComponent, Slash } from "../../../src/index.js";
 
 const roles = [

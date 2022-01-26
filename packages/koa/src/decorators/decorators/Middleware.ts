@@ -1,6 +1,8 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+import type KoaRouter from "@koa/router";
+
 import { DReqeuest, DRouter, MetadataStorage } from "../../index.js";
-import KoaRouter from "@koa/router";
 
 export function Middleware(
   ...midddleware: KoaRouter.Middleware[]

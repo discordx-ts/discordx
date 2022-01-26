@@ -1,11 +1,12 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { IDefaultPermission, IPermissions } from "../../index.js";
 import {
   DApplicationCommand,
   DDiscord,
-  DSimpleCommand,
   DefaultPermissionResolver,
-  IDefaultPermission,
-  IPermissions,
+  DSimpleCommand,
   MetadataStorage,
 } from "../../index.js";
 

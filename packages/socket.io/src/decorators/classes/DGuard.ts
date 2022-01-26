@@ -1,6 +1,7 @@
 import { Decorator } from "@discordx/internal";
-import { Server } from "../../index.js";
-import { Socket } from "socket.io";
+import type { Socket } from "socket.io";
+
+import type { Server } from "../../index.js";
 
 export type Next = (...paramsToNext: unknown[]) => Promise<unknown>;
 

@@ -1,5 +1,6 @@
+import type { ClassDecoratorEx } from "@discordx/internal";
+
 import { DWs, MetadataStorage } from "../../index.js";
-import { ClassDecoratorEx } from "@discordx/internal";
 
 export function Ws(options?: { appId?: string }): ClassDecoratorEx {
   return function <T>(target: Record<string, T>) {

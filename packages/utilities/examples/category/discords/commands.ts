@@ -1,7 +1,11 @@
-import { Category, CategoryMetaData, ICategory } from "../../../build/cjs";
-import { CommandInteraction, MessageEmbed } from "discord.js";
-import { DApplicationCommand, DSimpleCommand, Discord, Slash } from "discordx";
 import { Pagination } from "@discordx/pagination";
+import type { CommandInteraction } from "discord.js";
+import { MessageEmbed } from "discord.js";
+import type { DSimpleCommand } from "discordx";
+import { DApplicationCommand, Discord, Slash } from "discordx";
+
+import type { ICategory } from "../../../build/cjs";
+import { Category, CategoryMetaData } from "../../../build/cjs";
 
 @Discord()
 @Category("Admin Commands")

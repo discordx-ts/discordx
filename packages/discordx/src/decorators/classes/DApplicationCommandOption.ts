@@ -1,11 +1,12 @@
-import {
+import { Decorator } from "@discordx/internal";
+
+import type {
   ApplicationCommandOptionDataX,
   ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
   SlashOptionType,
 } from "../../index.js";
-import { Decorator } from "@discordx/internal";
 
 /**
  * @category Decorator

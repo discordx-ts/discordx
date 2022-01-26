@@ -1,4 +1,4 @@
-import {
+import type {
   Channel,
   CommandInteraction,
   GuildMember,
@@ -8,6 +8,8 @@ import {
   User,
   VoiceChannel,
 } from "discord.js";
+
+import type { SlashOptionType } from "../build/cjs/index.js";
 import {
   Client,
   Discord,
@@ -18,7 +20,6 @@ import {
   SlashChoice,
   SlashGroup,
   SlashOption,
-  SlashOptionType,
 } from "../build/cjs/index.js";
 
 type Data = { passed: boolean };

@@ -1,7 +1,8 @@
-import { DReqeuest } from "../classes/DRequest.js";
+import type { MethodDecoratorEx } from "@discordx/internal";
+
+import type { RequestType } from "../../index.js";
 import { MetadataStorage } from "../../logic/metadata.js";
-import { MethodDecoratorEx } from "@discordx/internal";
-import { RequestType } from "../../index.js";
+import { DReqeuest } from "../classes/DRequest.js";
 
 function RequestMethod(method: RequestType, path?: string | RegExp) {
   return function <T>(target: Record<string, T>, key: string) {

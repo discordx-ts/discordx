@@ -1,4 +1,4 @@
-import {
+import type {
   GuildChannel,
   GuildMember,
   Role,

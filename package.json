@@ -46,6 +46,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "eslint": "^8.7.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
     "husky": "^7.0.4",
     "is-ci": "^3.0.1",

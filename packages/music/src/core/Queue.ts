@@ -1,28 +1,25 @@
-import {
+import type {
   AudioPlayer,
-  AudioPlayerStatus,
   AudioResource,
   DiscordGatewayAdapterCreator,
   VoiceConnection,
-  VoiceConnectionDisconnectReason,
-  VoiceConnectionStatus,
+} from "@discordjs/voice";
+import {
+  AudioPlayerStatus,
   createAudioPlayer,
   entersState,
   joinVoiceChannel,
+  VoiceConnectionDisconnectReason,
+  VoiceConnectionStatus,
 } from "@discordjs/voice";
-import {
-  CommonTrack,
-  ITrackOptions,
-  Player,
-  PlayerErrors,
-  Util,
-  YoutubeTrack,
-} from "../index.js";
-import { Guild, StageChannel, VoiceChannel } from "discord.js";
-import { Video } from "ytsr";
+import type { Guild, StageChannel, VoiceChannel } from "discord.js";
 import _ from "lodash";
-import spotify from "spotify-url-info";
-import ytpl from "ytpl";
+import type spotify from "spotify-url-info";
+import type ytpl from "ytpl";
+import type { Video } from "ytsr";
+
+import type { CommonTrack, ITrackOptions, Player } from "../index.js";
+import { PlayerErrors, Util, YoutubeTrack } from "../index.js";
 
 /**
  * Wait promise

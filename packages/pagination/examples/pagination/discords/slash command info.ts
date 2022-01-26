@@ -1,5 +1,7 @@
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import type { CommandInteraction } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import { Discord, MetadataStorage, Slash } from "discordx";
+
 import { Pagination } from "../../../build/cjs/index.js";
 
 @Discord()

@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  IncomingHttpHeaders,
-  IncomingMessage,
-  STATUS_CODES,
-  request,
-} from "http";
-import { Track, TrackInfo, TrackResponse } from "../types/index.js";
-import BaseNode from "../base/Node.js";
-import RoutePlanner from "./RoutePlanner.js";
+import type { IncomingHttpHeaders, IncomingMessage } from "http";
+import { request, STATUS_CODES } from "http";
 import { URL } from "url";
+
+import type BaseNode from "../base/Node.js";
+import type { Track, TrackInfo, TrackResponse } from "../types/index.js";
+import RoutePlanner from "./RoutePlanner.js";
 
 export class HTTPError extends Error {
   public readonly statusMessage!: string;

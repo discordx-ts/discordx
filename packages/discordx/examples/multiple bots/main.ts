@@ -1,7 +1,9 @@
 import "reflect-metadata";
-import { Client, MetadataStorage } from "../../src/index.js";
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
+
 import { Intents } from "discord.js";
+
+import { dirname, importx } from "../../../importer/build/esm/index.mjs";
+import { Client, MetadataStorage } from "../../src/index.js";
 
 const botA = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],

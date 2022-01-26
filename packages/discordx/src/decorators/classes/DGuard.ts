@@ -1,5 +1,6 @@
 import { Decorator } from "@discordx/internal";
-import { GuardFunction } from "../../index.js";
+
+import type { GuardFunction } from "../../index.js";
 
 /**
  * @category Decorator

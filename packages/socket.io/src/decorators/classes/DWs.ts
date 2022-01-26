@@ -1,6 +1,7 @@
-import { DGuard } from "../index.js";
 import { DIService } from "@discordx/di";
 import { Decorator } from "@discordx/internal";
+
+import type { DGuard } from "../index.js";
 
 type Args = {
   appId?: string;

@@ -1,12 +1,13 @@
-import { IGeneratePage, PaginationOptions, defaultIds } from "../types.js";
+import type { MessageOptions, MessageSelectOptionData } from "discord.js";
 import {
   MessageActionRow,
   MessageButton,
   MessageEmbed,
-  MessageOptions,
   MessageSelectMenu,
-  MessageSelectOptionData,
 } from "discord.js";
+
+import type { IGeneratePage, PaginationOptions } from "../types.js";
+import { defaultIds } from "../types.js";
 import { paginate } from "./paginate.js";
 
 export const GeneratePage = (

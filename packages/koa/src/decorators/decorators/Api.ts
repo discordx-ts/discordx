@@ -1,4 +1,6 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
 import { DRouter, MetadataStorage } from "../../index.js";
 import { DReqeuest } from "../index.js";
 

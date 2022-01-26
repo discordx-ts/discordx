@@ -1,5 +1,5 @@
-import { Koa } from "../../build/cjs/Koa.js";
 import { importx } from "../../../importer/build/cjs/index.cjs";
+import { Koa } from "../../build/cjs/Koa.js";
 
 const server = new Koa();
 

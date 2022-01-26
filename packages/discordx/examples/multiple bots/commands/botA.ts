@@ -1,5 +1,6 @@
+import type { CommandInteraction } from "discord.js";
+
 import { Bot, Discord, Slash } from "../../../src/index.js";
-import { CommandInteraction } from "discord.js";
 
 @Discord()
 @Bot("botA") // A bot id is crucial

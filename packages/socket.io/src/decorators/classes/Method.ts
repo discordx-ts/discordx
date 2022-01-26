@@ -1,7 +1,9 @@
-import { DGuard, Server } from "../../index.js";
-import { DWs } from "../index.js";
 import { Decorator } from "@discordx/internal";
-import { Socket } from "socket.io";
+import type { Socket } from "socket.io";
+
+import type { Server } from "../../index.js";
+import { DGuard } from "../../index.js";
+import type { DWs } from "../index.js";
 
 export abstract class Method extends Decorator {
   protected _socket!: DWs;

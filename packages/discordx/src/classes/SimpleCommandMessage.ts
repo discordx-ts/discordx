@@ -1,11 +1,13 @@
-import {
+import crypto from "crypto";
+import type { Message } from "discord.js";
+import { MessageEmbed } from "discord.js";
+
+import type {
   ArgSplitter,
   DSimpleCommand,
-  MetadataStorage,
   SimpleCommandOptionType,
 } from "../index.js";
-import { Message, MessageEmbed } from "discord.js";
-import crypto from "crypto";
+import { MetadataStorage } from "../index.js";
 
 /**
  * Simple command message class

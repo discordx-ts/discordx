@@ -1,4 +1,7 @@
-import {
+import type { ApplicationCommandPermissions, Guild } from "discord.js";
+import _ from "lodash";
+
+import type {
   ApplicationCommandMixin,
   Client,
   DApplicationCommand,
@@ -8,8 +11,6 @@ import {
   IPermissions,
   SimpleCommandMessage,
 } from "../index.js";
-import { ApplicationCommandPermissions, Guild } from "discord.js";
-import _ from "lodash";
 
 export const resolveIGuilds = async (
   client: Client,

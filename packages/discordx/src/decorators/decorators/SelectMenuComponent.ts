@@ -1,5 +1,7 @@
-import { DComponentSelectMenu, IGuild, MetadataStorage } from "../../index.js";
-import { MethodDecoratorEx } from "@discordx/internal";
+import type { MethodDecoratorEx } from "@discordx/internal";
+
+import type { IGuild } from "../../index.js";
+import { DComponentSelectMenu, MetadataStorage } from "../../index.js";
 
 /**
  * Define a select menu interaction handler

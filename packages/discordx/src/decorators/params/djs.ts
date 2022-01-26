@@ -1,5 +1,6 @@
-import { ChannelTypes, SlashOptionType } from "../../index.js";
-import { ApplicationCommandOptionChoice } from "discord.js";
+import type { ApplicationCommandOptionChoice } from "discord.js";
+
+import type { ChannelTypes, SlashOptionType } from "../../index.js";
 
 export interface ApplicationCommandOptionDataX {
   autocomplete?: boolean;

@@ -1,5 +1,5 @@
-import { Decorator } from "./Decorator.js";
 import { DecoratorUtils } from "../util.js";
+import { Decorator } from "./Decorator.js";
 
 export type ModifyFunction<ToModify extends Decorator> = (
   original: ToModify

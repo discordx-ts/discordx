@@ -1,10 +1,8 @@
-import {
-  ApplicationCommandParams,
-  DApplicationCommand,
-  MetadataStorage,
-} from "../../index.js";
-import { ApplicationCommandType } from "discord.js";
-import { MethodDecoratorEx } from "@discordx/internal";
+import type { MethodDecoratorEx } from "@discordx/internal";
+import type { ApplicationCommandType } from "discord.js";
+
+import type { ApplicationCommandParams } from "../../index.js";
+import { DApplicationCommand, MetadataStorage } from "../../index.js";
 
 /**
  * define context menu for your bot

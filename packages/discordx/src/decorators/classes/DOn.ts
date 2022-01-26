@@ -1,5 +1,6 @@
-import { ClientEvents } from "discord.js";
-import { DiscordEvents } from "../../index.js";
+import type { ClientEvents } from "discord.js";
+
+import type { DiscordEvents } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**

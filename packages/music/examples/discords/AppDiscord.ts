@@ -1,12 +1,10 @@
-import {
-  CommandInteraction,
-  Guild,
-  GuildMember,
-  TextBasedChannel,
-} from "discord.js";
-import { CustomTrack, Player, Queue } from "../../build/cjs/index.js";
+import type { CommandInteraction, Guild, TextBasedChannel } from "discord.js";
+import { GuildMember } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { join } from "path";
+
+import type { Queue } from "../../build/cjs/index.js";
+import { CustomTrack, Player } from "../../build/cjs/index.js";
 
 @Discord()
 export class music {

@@ -1,4 +1,5 @@
-import { CommandInteraction, GuildMember, Role, User } from "discord.js";
+import type { CommandInteraction, GuildMember, Role, User } from "discord.js";
+
 import {
   Discord,
   Slash,

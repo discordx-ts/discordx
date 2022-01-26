@@ -1,4 +1,4 @@
-import {
+import type {
   ApplicationCommandPermissionData,
   Guild,
   GuildChannel,
@@ -7,7 +7,8 @@ import {
   ThreadChannel,
   User,
 } from "discord.js";
-import {
+
+import type {
   ArgSplitter,
   DSimpleCommandOption,
   IDefaultPermission,
@@ -16,8 +17,8 @@ import {
   IPrefix,
   SimpleCommandMessage,
   SimpleCommandOptionType,
-  resolveIPermissions,
 } from "../../index.js";
+import { resolveIPermissions } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**

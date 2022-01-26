@@ -1,5 +1,7 @@
-import { DDiscord, DGuard, GuardFunction } from "../../index.js";
 import { Decorator } from "@discordx/internal";
+
+import type { DDiscord, GuardFunction } from "../../index.js";
+import { DGuard } from "../../index.js";
 
 /**
  * @category Decorator

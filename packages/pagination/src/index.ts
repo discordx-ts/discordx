@@ -1,24 +1,26 @@
-import {
+import type {
   CacheType,
-  CommandInteraction,
-  ContextMenuInteraction,
-  Interaction,
   InteractionCollector,
-  Message,
-  MessageComponentInteraction,
   TextBasedChannel,
 } from "discord.js";
 import {
+  CommandInteraction,
+  ContextMenuInteraction,
+  Interaction,
+  Message,
+  MessageComponentInteraction,
+} from "discord.js";
+import _ from "lodash";
+
+import { GeneratePage } from "./functions/GeneratePage.js";
+import type {
+  embedType,
   IGeneratePage,
+  paginationFunc,
   PaginationInteractions,
   PaginationOptions,
-  defaultIds,
-  defaultTime,
-  embedType,
-  paginationFunc,
 } from "./types.js";
-import { GeneratePage } from "./functions/GeneratePage.js";
-import _ from "lodash";
+import { defaultIds, defaultTime } from "./types.js";
 
 export class PaginationResolver<T extends paginationFunc = paginationFunc> {
   constructor(public resolver: T, public maxLength: number) {}

@@ -1,11 +1,15 @@
-import {
+import type {
+  ClientOptions as DiscordJSClientOptions,
+  Message,
+} from "discord.js";
+
+import type {
   ArgSplitter,
   GuardFunction,
   IGuild,
   SimpleCommandMessage,
 } from "../../index.js";
-import { Awaitable, ILogger, IPrefixResolver } from "../index.js";
-import { ClientOptions as DiscordJSClientOptions, Message } from "discord.js";
+import type { Awaitable, ILogger, IPrefixResolver } from "../index.js";
 
 export interface SimpleCommandConfig {
   /**

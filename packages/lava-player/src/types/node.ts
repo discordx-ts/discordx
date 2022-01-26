@@ -1,4 +1,4 @@
-import { ConnectionOptions } from "../index.js";
+import type { ConnectionOptions } from "../index.js";
 
 export interface VoiceStateUpdate {
   channel_id?: string;

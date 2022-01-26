@@ -1,12 +1,13 @@
+import type { ParameterDecoratorEx } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { SimpleCommandType, VerifyName } from "../../index.js";
 import {
   DSimpleCommand,
   DSimpleCommandOption,
   MetadataStorage,
-  SimpleCommandType,
   SimpleCommandTypes,
-  VerifyName,
 } from "../../index.js";
-import { Modifier, ParameterDecoratorEx } from "@discordx/internal";
 
 /**
  * Define option for simple commnad

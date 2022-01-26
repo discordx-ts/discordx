@@ -1,9 +1,4 @@
-import {
-  APIInteractionDataResolvedChannel,
-  APIInteractionDataResolvedGuildMember,
-  APIRole,
-} from "discord-api-types";
-import {
+import type {
   ApplicationCommandData,
   ApplicationCommandPermissions,
   ApplicationCommandType,
@@ -14,16 +9,21 @@ import {
   Role,
   User,
 } from "discord.js";
-import {
+import type {
+  APIInteractionDataResolvedChannel,
+  APIInteractionDataResolvedGuildMember,
+  APIRole,
+} from "discord-api-types";
+
+import type {
   ApplicationCommandDataX,
   ApplicationCommandMixin,
   ApplicationGuildMixin,
-  DApplicationCommandOption,
   IDefaultPermission,
   IGuild,
   IPermissions,
-  resolveIPermissions,
 } from "../../index.js";
+import { DApplicationCommandOption, resolveIPermissions } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**

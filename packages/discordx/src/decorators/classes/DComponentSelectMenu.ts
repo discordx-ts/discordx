@@ -1,4 +1,4 @@
-import { IGuild } from "../../index.js";
+import type { IGuild } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**

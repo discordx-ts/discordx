@@ -1,8 +1,9 @@
-import { ContextMenu, Discord } from "../../../src/index.js";
-import {
+import type {
   MessageContextMenuInteraction,
   UserContextMenuInteraction,
 } from "discord.js";
+
+import { ContextMenu, Discord } from "../../../src/index.js";
 
 @Discord()
 export abstract class contextTest {

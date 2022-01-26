@@ -1,11 +1,13 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { IGuild } from "../../index.js";
 import {
   DApplicationCommand,
   DComponentButton,
   DComponentSelectMenu,
   DDiscord,
   DSimpleCommand,
-  IGuild,
   MetadataStorage,
 } from "../../index.js";
 

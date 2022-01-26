@@ -1,10 +1,7 @@
-import {
-  ApplicationCommandParams,
-  DApplicationCommand,
-  MetadataStorage,
-  VerifyName,
-} from "../../index.js";
-import { MethodDecoratorEx } from "@discordx/internal";
+import type { MethodDecoratorEx } from "@discordx/internal";
+
+import type { ApplicationCommandParams, VerifyName } from "../../index.js";
+import { DApplicationCommand, MetadataStorage } from "../../index.js";
 
 /**
  * Define slash command

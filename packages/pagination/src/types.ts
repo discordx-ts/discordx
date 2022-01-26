@@ -1,4 +1,4 @@
-import {
+import type {
   CommandInteraction,
   ContextMenuInteraction,
   EmojiIdentifierResolvable,
@@ -10,7 +10,8 @@ import {
   MessageEmbed,
   MessageOptions,
 } from "discord.js";
-import { Pagination } from "./index.js";
+
+import type { Pagination } from "./index.js";
 
 // By default, it's half an hour.
 export const defaultTime = 18e5;

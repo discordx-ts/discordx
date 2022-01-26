@@ -1,5 +1,9 @@
-import { DApplicationCommand, DApplicationCommandOption } from "../index.js";
 import { Decorator } from "@discordx/internal";
+
+import type {
+  DApplicationCommand,
+  DApplicationCommandOption,
+} from "../index.js";
 
 /**
  * @category Decorator

@@ -1,6 +1,7 @@
+import type { ClassDecoratorEx } from "@discordx/internal";
+import type KoaRouter from "@koa/router";
+
 import { DRouter, MetadataStorage } from "../../index.js";
-import { ClassDecoratorEx } from "@discordx/internal";
-import KoaRouter from "@koa/router";
 
 export function Router(options?: {
   description?: string;

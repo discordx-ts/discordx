@@ -1,6 +1,7 @@
-import KoaRouter from "@koa/router";
+import type KoaRouter from "@koa/router";
+
+import type { RequestType } from "../../index.js";
 import { Method } from "./Method.js";
-import { RequestType } from "../../index.js";
 
 type Args = {
   description?: string;

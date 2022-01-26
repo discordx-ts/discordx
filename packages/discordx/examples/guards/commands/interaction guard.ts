@@ -1,10 +1,7 @@
-import {
-  ContextMenu,
-  Discord,
-  Guard,
-  GuardFunction,
-} from "../../../src/index.js";
-import { ContextMenuInteraction } from "discord.js";
+import type { ContextMenuInteraction } from "discord.js";
+
+import type { GuardFunction } from "../../../src/index.js";
+import { ContextMenu, Discord, Guard } from "../../../src/index.js";
 
 export const InteractionGuard: GuardFunction<ContextMenuInteraction> = async (
   interaction,

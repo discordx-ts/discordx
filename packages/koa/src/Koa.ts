@@ -1,5 +1,6 @@
 import { DIService } from "@discordx/di";
 import KoaClient from "koa";
+
 import { MetadataStorage } from "./logic/metadata.js";
 
 export class Koa extends KoaClient {

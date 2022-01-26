@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import ClusterNode, { ClusterNodeOptions } from "../ClusterNode.js";
-import { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 import { EventEmitter } from "events";
-import Player from "../core/Player.js";
+
+import type { ClusterNodeOptions } from "../ClusterNode.js";
+import ClusterNode from "../ClusterNode.js";
+import type Player from "../core/Player.js";
+import type { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 
 export default abstract class BaseCluster extends EventEmitter {
   public abstract send: (guildId: string, packet: any) => any;

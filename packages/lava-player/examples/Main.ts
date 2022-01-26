@@ -1,7 +1,8 @@
 import "reflect-metadata";
+
 import { dirname, importx } from "@discordx/importer";
-import { Client } from "discordx";
 import { Intents } from "discord.js";
+import { Client } from "discordx";
 
 export class Main {
   private static _client: Client;

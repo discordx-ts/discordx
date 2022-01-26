@@ -1,24 +1,28 @@
-import {
+import { DIService } from "@discordx/di";
+import type { Decorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+import _ from "lodash";
+
+import type { Method } from "../../decorators/classes/Method.js";
+import type {
   ArgsOf,
   Client,
-  DApplicationCommand,
   DApplicationCommandGroup,
-  DApplicationCommandOption,
-  DComponentButton,
-  DComponentSelectMenu,
   DDiscord,
   DGuard,
-  DOn,
-  DSimpleCommand,
-  DSimpleCommandOption,
   DiscordEvents,
+  DSimpleCommandOption,
   GuardFunction,
   ISimpleCommandByName,
 } from "../../index.js";
-import { Decorator, Modifier } from "@discordx/internal";
-import { DIService } from "@discordx/di";
-import { Method } from "../../decorators/classes/Method.js";
-import _ from "lodash";
+import {
+  DApplicationCommand,
+  DApplicationCommandOption,
+  DComponentButton,
+  DComponentSelectMenu,
+  DOn,
+  DSimpleCommand,
+} from "../../index.js";
 
 /**
  * @category Internal

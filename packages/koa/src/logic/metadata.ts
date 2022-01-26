@@ -1,8 +1,10 @@
-import { Decorator, Modifier } from "@discordx/internal";
 import { DIService } from "@discordx/di";
-import { DReqeuest } from "../decorators/classes/DRequest.js";
-import { DRouter } from "../decorators/classes/DRouter.js";
-import { Koa } from "../Koa.js";
+import type { Decorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { DReqeuest } from "../decorators/classes/DRequest.js";
+import type { DRouter } from "../decorators/classes/DRouter.js";
+import type { Koa } from "../Koa.js";
 
 export class MetadataStorage {
   // internal

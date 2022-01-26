@@ -1,9 +1,9 @@
-import {
+import { DIService } from "@discordx/di";
+import type {
   ApplicationCommand,
   ApplicationCommandData,
   AutocompleteInteraction,
   ButtonInteraction,
-  Client as ClientJS,
   Collection,
   CommandInteraction,
   CommandInteractionOption,
@@ -14,9 +14,10 @@ import {
   SelectMenuInteraction,
   Snowflake,
 } from "discord.js";
-import {
-  ApplicationCommandMixin,
-  ApplicationGuildMixin,
+import { Client as ClientJS } from "discord.js";
+import _ from "lodash";
+
+import type {
   ClientOptions,
   DApplicationCommand,
   DApplicationCommandGroup,
@@ -24,24 +25,26 @@ import {
   DComponentButton,
   DComponentSelectMenu,
   DDiscord,
+  DiscordEvents,
   DOn,
   DSimpleCommand,
   DSimpleCommandOption,
-  DiscordEvents,
   GuardFunction,
   IGuild,
   ILogger,
+  InitCommandConfig,
   IPrefix,
   IPrefixResolver,
   ISimpleCommandByName,
-  InitCommandConfig,
-  MetadataStorage,
   SimpleCommandConfig,
-  SimpleCommandMessage,
-  resolveIGuilds,
 } from "./index.js";
-import { DIService } from "@discordx/di";
-import _ from "lodash";
+import {
+  ApplicationCommandMixin,
+  ApplicationGuildMixin,
+  MetadataStorage,
+  resolveIGuilds,
+  SimpleCommandMessage,
+} from "./index.js";
 
 /**
  * Extend original client class of discord.js

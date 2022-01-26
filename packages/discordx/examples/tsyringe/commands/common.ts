@@ -1,6 +1,7 @@
-import { DIService, Discord, Slash } from "../../../src/index.js";
+import type { CommandInteraction } from "discord.js";
 import { container, injectable, singleton } from "tsyringe";
-import { CommandInteraction } from "discord.js";
+
+import { Discord, DIService, Slash } from "../../../src/index.js";
 
 @singleton()
 class Database {

@@ -1,10 +1,7 @@
-import {
-  DOn,
-  DiscordEvents,
-  EventParams,
-  MetadataStorage,
-} from "../../index.js";
-import { MethodDecoratorEx } from "@discordx/internal";
+import type { MethodDecoratorEx } from "@discordx/internal";
+
+import type { DiscordEvents, EventParams } from "../../index.js";
+import { DOn, MetadataStorage } from "../../index.js";
 
 /**
  * Trigger a discord event

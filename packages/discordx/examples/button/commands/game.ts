@@ -1,3 +1,11 @@
+import { randomInt } from "crypto";
+import type {
+  ButtonInteraction,
+  CommandInteraction,
+  EmojiIdentifierResolvable,
+} from "discord.js";
+import { MessageActionRow, MessageButton } from "discord.js";
+
 import {
   Bot,
   ButtonComponent,
@@ -6,14 +14,6 @@ import {
   SlashChoice,
   SlashOption,
 } from "../../../src/index.js";
-import {
-  ButtonInteraction,
-  CommandInteraction,
-  EmojiIdentifierResolvable,
-  MessageActionRow,
-  MessageButton,
-} from "discord.js";
-import { randomInt } from "crypto";
 
 enum spcChoice {
   Paper = "Paper",

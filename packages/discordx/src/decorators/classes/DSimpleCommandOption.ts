@@ -1,5 +1,6 @@
 import { Decorator } from "@discordx/internal";
-import { SimpleCommandType } from "../../index.js";
+
+import type { SimpleCommandType } from "../../index.js";
 
 /**
  * @category Decorator

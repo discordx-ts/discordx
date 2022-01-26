@@ -1,4 +1,7 @@
-import {
+import { DIService } from "@discordx/di";
+import { Decorator } from "@discordx/internal";
+
+import type {
   DApplicationCommand,
   DComponentButton,
   DComponentSelectMenu,
@@ -8,8 +11,6 @@ import {
   IGuild,
   IPermissions,
 } from "../../index.js";
-import { DIService } from "@discordx/di";
-import { Decorator } from "@discordx/internal";
 
 /**
  * @category Decorator

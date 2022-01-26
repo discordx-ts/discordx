@@ -1,11 +1,15 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type {
+  DApplicationCommandOption,
+  SubCommand,
+  VerifyName,
+} from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandGroup,
-  DApplicationCommandOption,
   MetadataStorage,
-  SubCommand,
-  VerifyName,
 } from "../../index.js";
 
 /**

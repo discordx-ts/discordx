@@ -1,7 +1,8 @@
 import { DIService } from "@discordx/di";
-import { GuardFunction } from "./index.js";
-import { MetadataStorage } from "./logic/metadata.js";
 import { Server as ServerClient } from "socket.io";
+
+import type { GuardFunction } from "./index.js";
+import { MetadataStorage } from "./logic/metadata.js";
 
 export class Server extends ServerClient {
   // getters

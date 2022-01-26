@@ -1,6 +1,6 @@
-import _ from "lodash";
 import child from "child_process";
 import fs from "fs";
+import _ from "lodash";
 import prettier from "prettier";
 
 export type storeType =

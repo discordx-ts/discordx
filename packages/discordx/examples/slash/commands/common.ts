@@ -1,14 +1,14 @@
-import {
+import type {
   AutocompleteInteraction,
   ButtonInteraction,
   Channel,
   CommandInteraction,
   GuildMember,
-  MessageActionRow,
-  MessageButton,
   Role,
   User,
 } from "discord.js";
+import { MessageActionRow, MessageButton } from "discord.js";
+
 import {
   ButtonComponent,
   Discord,

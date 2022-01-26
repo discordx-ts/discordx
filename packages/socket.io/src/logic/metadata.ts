@@ -1,8 +1,10 @@
-import { Decorator, Modifier } from "@discordx/internal";
-import { DEvent } from "../decorators/classes/DEvent.js";
 import { DIService } from "@discordx/di";
-import { DWs } from "../decorators/classes/DWs.js";
-import { Server } from "../index.js";
+import type { Decorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { DEvent } from "../decorators/classes/DEvent.js";
+import type { DWs } from "../decorators/classes/DWs.js";
+import type { Server } from "../index.js";
 
 export class MetadataStorage {
   // internal

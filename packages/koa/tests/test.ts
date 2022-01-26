@@ -1,6 +1,7 @@
+import type { RouterContext } from "@koa/router";
+import type { Next } from "koa";
+
 import { Get, Koa, Middleware, Router } from "../build/cjs/index.js";
-import { Next } from "koa";
-import { RouterContext } from "@koa/router";
 
 async function mdw1(ctx: RouterContext, next: Next) {
   console.log("I am mdw 1: start");

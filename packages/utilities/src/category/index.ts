@@ -1,10 +1,9 @@
+import type { ClassMethodDecorator, MethodDecoratorEx } from "discordx";
 import {
-  ClassMethodDecorator,
   DApplicationCommand,
   DDiscord,
   DSimpleCommand,
   MetadataStorage,
-  MethodDecoratorEx,
   Modifier,
 } from "discordx";
 

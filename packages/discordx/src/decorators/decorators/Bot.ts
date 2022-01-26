@@ -1,4 +1,7 @@
-import { ClassMethodDecorator, Modifier } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
+import { Modifier } from "@discordx/internal";
+
+import type { NotEmpty } from "../../index.js";
 import {
   DApplicationCommand,
   DComponentButton,
@@ -7,7 +10,6 @@ import {
   DOn,
   DSimpleCommand,
   MetadataStorage,
-  NotEmpty,
 } from "../../index.js";
 
 /**

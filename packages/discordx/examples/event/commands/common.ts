@@ -1,5 +1,5 @@
-import { Client, Discord, On } from "../../../src/index.js";
-import type { ArgsOf } from "../../../src/index.js";
+import type { ArgsOf, Client } from "../../../src/index.js";
+import { Discord, On } from "../../../src/index.js";
 
 @Discord()
 export abstract class AppDiscord {
