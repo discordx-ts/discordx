@@ -1,4 +1,5 @@
-import type {
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import {
   Channel,
   CommandInteraction,
   GuildMember,
