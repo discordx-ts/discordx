@@ -401,7 +401,7 @@ export abstract class Queue<T extends Player = Player> {
     }
 
     this.currentVolume = volume;
-    this.currentTrack.volume?.setVolumeLogarithmic(volume / 200);
+    this.currentTrack.volume?.setVolumeLogarithmic(volume / 100);
     this.player.emit("onVolumeUpdate", [this, volume]);
     return true;
   }
