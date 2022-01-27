@@ -10,6 +10,8 @@ updates:
     schedule:
       interval: "daily"
       time: "00:15"
+    ignore:
+      - dependency-name: "@discordjs/opus"
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
