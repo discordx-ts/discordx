@@ -12,6 +12,7 @@ updates:
       time: "00:15"
     ignore:
       - dependency-name: "@discordjs/opus"
+      - dependency-name: "discordx"
     versioning-strategy: increase
 
   - package-ecosystem: "npm"
