@@ -1,15 +1,15 @@
 import type {
-  CommandInteraction,
-  ContextMenuInteraction,
-  EmojiIdentifierResolvable,
+  ActionRow,
+  ActionRowComponent,
+  ChatInputCommandInteraction,
+  ContextMenuCommandInteraction,
+  Embed,
   InteractionButtonOptions,
-  InteractionReplyOptions,
   Message,
-  MessageActionRow,
   MessageComponentInteraction,
-  MessageEmbed,
   MessageOptions,
 } from "discord.js";
+import type { APIMessageComponentEmoji } from "discord-api-types/v9";
 
 import type { Pagination } from "./index.js";
 
@@ -28,7 +28,7 @@ export const defaultIds = {
   menu: prefixId + "menu",
 };
 
-export type embedType = string | MessageEmbed | MessageOptions;
+export type embedType = string | Embed | MessageOptions;
 
 export type paginationFunc = (
   page: number,
@@ -36,9 +36,9 @@ export type paginationFunc = (
 ) => embedType | Promise<embedType>;
 
 export type PaginationInteractions =
-  | CommandInteraction
+  | ChatInputCommandInteraction
   | MessageComponentInteraction
-  | ContextMenuInteraction;
+  | ContextMenuCommandInteraction;
 
 interface BasicPaginationOptions {
   /**
@@ -76,7 +76,7 @@ interface ButtonOptions {
   /**
    * Button emoji
    */
-  emoji?: EmojiIdentifierResolvable;
+  emoji?: APIMessageComponentEmoji;
 
   /**
    * Button id
@@ -175,6 +175,6 @@ export interface IPaginate {
 }
 
 export type IGeneratePage = {
-  paginationRow: MessageActionRow;
-  replyOptions: InteractionReplyOptions;
+  paginationRow: ActionRow<ActionRowComponent>;
+  replyOptions: MessageOptions;
 };

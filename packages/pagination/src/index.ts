@@ -3,9 +3,9 @@ import type {
   InteractionCollector,
   TextBasedChannel,
 } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 import {
-  CommandInteraction,
-  ContextMenuInteraction,
+  ContextMenuCommandInteraction,
   Interaction,
   Message,
   MessageComponentInteraction,
@@ -108,9 +108,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     if (this.sendTo instanceof Message) {
       message = await this.sendTo.reply(page.replyOptions);
     } else if (
-      this.sendTo instanceof CommandInteraction ||
+      this.sendTo instanceof ChatInputCommandInteraction ||
       this.sendTo instanceof MessageComponentInteraction ||
-      this.sendTo instanceof ContextMenuInteraction
+      this.sendTo instanceof ContextMenuCommandInteraction
     ) {
       // To ensure pagination is a follow-up
       if (this.sendTo.deferred || this.sendTo.replied) {
@@ -120,14 +120,28 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       const reply =
         this.sendTo.deferred || this.sendTo.replied
           ? await this.sendTo.followUp({
-              ...page.replyOptions,
+              allowedMentions: page.replyOptions.allowedMentions,
+              attachments: page.replyOptions.attachments,
+              components: page.replyOptions.components,
+              content: page.replyOptions.content,
+              embeds: page.replyOptions.embeds,
               ephemeral: this.option.ephemeral,
               fetchReply: true,
+              files: page.replyOptions.files,
+              nonce: page.replyOptions.nonce,
+              tts: page.replyOptions.tts,
             })
           : await this.sendTo.reply({
-              ...page.replyOptions,
+              allowedMentions: page.replyOptions.allowedMentions,
+              attachments: page.replyOptions.attachments,
+              components: page.replyOptions.components,
+              content: page.replyOptions.content,
+              embeds: page.replyOptions.embeds,
               ephemeral: this.option.ephemeral,
               fetchReply: true,
+              files: page.replyOptions.files,
+              nonce: page.replyOptions.nonce,
+              tts: page.replyOptions.tts,
             });
 
       if (!(reply instanceof Message)) {
@@ -244,7 +258,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
             await this.sendTo.editReply(finalPage.replyOptions);
           }
         } else {
-          await message.edit(finalPage.replyOptions);
+          await message.edit({ ...finalPage.replyOptions, flags: undefined });
         }
       }
 
