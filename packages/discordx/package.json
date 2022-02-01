@@ -72,7 +72,7 @@
     "typescript": "^4.5.5"
   },
   "peerDependencies": {
-    "discord.js": ">=13 || ^14.0.0-dev || ^15.0.0-dev"
+    "discord.js": ">=13 || ^13.0.0-dev"
   },
   "engines": {
     "node": ">=16.0.0",
