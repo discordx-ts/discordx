@@ -1,10 +1,11 @@
-import type { CommandInteraction } from "discord.js";
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import type { ArgsOf } from "discordx";
-import { Discord, On, Slash } from "discordx";
+import type { ChatInputCommandInteraction } from "discord.js";
+import { ActionRow, ButtonStyle } from "discord.js";
+import { ButtonComponent, Embed } from "discord.js";
 
-import { Pagination, PaginationResolver } from "../../../build/cjs/index.js";
-import { GeneratePages } from "../util/common functions";
+import type { ArgsOf } from "../../../../discordx/src/index.js";
+import { Discord, On, Slash } from "../../../../discordx/src/index.js";
+import { Pagination, PaginationResolver } from "../../../src/index.js";
+import { GeneratePages } from "../util/common functions.js";
 
 @Discord()
 export abstract class Example {
@@ -30,7 +31,7 @@ export abstract class Example {
 
   // example: simple slash with button pagination
   @Slash("demoa", { description: "Simple slash with button pagination" })
-  async page(interaction: CommandInteraction): Promise<void> {
+  async page(interaction: ChatInputCommandInteraction): Promise<void> {
     const embedx = new PaginationResolver((page, pagination) => {
       if (page === 3) {
         // example to replace pagination with another pagination data
@@ -48,7 +49,7 @@ export abstract class Example {
         interaction.deleteReply();
       },
       start: {
-        emoji: "🙂",
+        emoji: { name: "🙂" },
       },
       time: 5 * 1000,
       type: "BUTTON",
@@ -59,7 +60,7 @@ export abstract class Example {
 
   // example: simple slash with menu pagination
   @Slash("demob", { description: "Simple slash with menu pagination" })
-  pagex(interaction: CommandInteraction): void {
+  pagex(interaction: ChatInputCommandInteraction): void {
     new Pagination(interaction, GeneratePages(), {
       type: "SELECT_MENU",
     }).send();
@@ -67,7 +68,7 @@ export abstract class Example {
 
   // example: simple string array
   @Slash("democ", { description: "Simple string array" })
-  pages(interaction: CommandInteraction): void {
+  pages(interaction: ChatInputCommandInteraction): void {
     new Pagination(
       interaction,
       Array.from(Array(20).keys()).map((i) => i.toString())
@@ -76,27 +77,26 @@ export abstract class Example {
 
   // example: array of custom message options
   @Slash("demod", { description: "Array of custom message options" })
-  pagen(interaction: CommandInteraction): void {
+  pagen(interaction: ChatInputCommandInteraction): void {
     new Pagination(interaction, [
       {
         content: "Page 1",
       },
       {
         content: "Page 2",
-        embeds: [new MessageEmbed({ title: "It's me embed 2" })],
+        embeds: [new Embed({ title: "It's me embed 2" })],
       },
       {
         components: [
-          new MessageActionRow().addComponents([
-            new MessageButton({
-              customId: "myCustomId",
-              label: "My Custom Botton",
-              style: "PRIMARY",
-            }),
-          ]),
+          new ActionRow().addComponents(
+            new ButtonComponent()
+              .setCustomId("myCustomId")
+              .setLabel("My Custom Botton")
+              .setStyle(ButtonStyle.Primary)
+          ),
         ],
         content: "Page 3",
-        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
+        embeds: [new Embed({ title: "It's me embed 3" })],
       },
     ]).send();
   }

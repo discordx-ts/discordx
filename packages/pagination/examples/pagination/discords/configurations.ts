@@ -1,14 +1,14 @@
-import type { CommandInteraction } from "discord.js";
+import type { ChatInputCommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
 
 import { Pagination } from "../../../build/cjs/index.js";
-import { GeneratePages } from "../util/common functions";
+import { GeneratePages } from "../util/common functions.js";
 
 @Discord()
 export abstract class Example {
   // example: simple slash with menu pagination
   @Slash("configexample", { description: "Custom page name for select menu" })
-  pagex(interaction: CommandInteraction): void {
+  pagex(interaction: ChatInputCommandInteraction): void {
     new Pagination(interaction, GeneratePages(), {
       pageText: "My custom page: {page}, Index: {page}",
       type: "SELECT_MENU",

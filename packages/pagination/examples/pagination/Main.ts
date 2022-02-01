@@ -1,8 +1,9 @@
 import "reflect-metadata";
 
-import { importx } from "@discordx/importer";
-import { Intents } from "discord.js";
-import { Client } from "discordx";
+import { dirname, importx } from "@discordx/importer";
+import { IntentsBitField, Interaction } from "discord.js";
+
+import { Client } from "../../../discordx/src/index.js";
 
 export class Main {
   private static _client: Client;
@@ -14,7 +15,10 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+      intents: [
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMessages,
+      ],
     });
 
     this._client.once("ready", async () => {
@@ -31,10 +35,11 @@ export class Main {
           return;
         }
       }
+      console.log(interaction instanceof Interaction);
       this._client.executeInteraction(interaction);
     });
 
-    await importx(__dirname + "/discords/**/*.{js,ts}");
+    await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
     await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }

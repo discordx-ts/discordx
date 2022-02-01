@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   CacheType,
   InteractionCollector,
-  TextBasedChannel,
+  TextBasedChannel} from "discord.js";
+import {
+  CommandInteraction
 } from "discord.js";
 import { ChatInputCommandInteraction } from "discord.js";
 import {
@@ -46,6 +49,12 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     public embeds: embedType[] | T,
     config?: PaginationOptions
   ) {
+    console.log(
+      this.sendTo instanceof ChatInputCommandInteraction,
+      this.sendTo instanceof CommandInteraction,
+      this.sendTo instanceof Interaction
+    );
+
     /**
      * page length of pagination
      */

@@ -1,5 +1,5 @@
 import type { MessageOptions } from "discord.js";
-import { MessageEmbed } from "discord.js";
+import { Embed } from "discord.js";
 
 export function GeneratePages(limit?: number): MessageOptions[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
@@ -8,7 +8,7 @@ export function GeneratePages(limit?: number): MessageOptions[] {
   return pages.map((page) => {
     return {
       content: page.content,
-      embeds: [new MessageEmbed().setTitle(page.embed)],
+      embeds: [new Embed().setTitle(page.embed)],
     };
   });
 }
