@@ -5,7 +5,6 @@ export * from "./core/literal.js";
 export * from "./core/Next.js";
 export * from "./core/SlashChoicesType.js";
 export * from "./public/ArgsOf.js";
-export * from "./public/ChannelType.js";
 export * from "./public/CommandType.js";
 export * from "./public/GuardFunction.js";
 export * from "./public/interfaces/index.js";

@@ -1,5 +1,5 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
-import type { ApplicationCommandType } from "discord.js";
+import { ApplicationCommandType } from "discord.js";
 
 import type { ApplicationCommandParams } from "../../index.js";
 import { DApplicationCommand, MetadataStorage } from "../../index.js";
@@ -60,7 +60,7 @@ export function ContextMenu(
       params?.botIds
     ).decorate(target.constructor, key, target[key]);
 
-    if (type == "MESSAGE") {
+    if (type === ApplicationCommandType.Message) {
       MetadataStorage.instance.addApplicationCommandMessage(applicationCommand);
     } else {
       MetadataStorage.instance.addApplicationCommandUser(applicationCommand);

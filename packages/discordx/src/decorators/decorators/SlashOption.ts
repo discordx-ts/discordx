@@ -1,17 +1,67 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
+import { ApplicationCommandOptionType } from "discord.js";
 
-import type {
-  SlashOptionParams,
-  SlashOptionType,
-  VerifyName,
-} from "../../index.js";
+import type { SlashOptionParams, VerifyName } from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandOption,
   MetadataStorage,
-  SlashOptionTypes,
 } from "../../index.js";
+
+function getSlashType(type: string): ApplicationCommandOptionType {
+  switch (type) {
+    case "STRING": {
+      return ApplicationCommandOptionType.String;
+    }
+
+    case "BOOLEAN": {
+      return ApplicationCommandOptionType.Boolean;
+    }
+
+    case "INTEGER": {
+      return ApplicationCommandOptionType.Integer;
+    }
+
+    case "NUMBER": {
+      return ApplicationCommandOptionType.String;
+    }
+
+    case "CHANNEL": {
+      return ApplicationCommandOptionType.Channel;
+    }
+
+    case "TEXTCHANNEL":
+    case "VOICECHANNEL":
+    case "VOICECHANNEL": {
+      return ApplicationCommandOptionType.Channel;
+    }
+
+    case "ROLE": {
+      return ApplicationCommandOptionType.Role;
+    }
+
+    case "USER":
+    case "GUILDMEMBER": {
+      return ApplicationCommandOptionType.User;
+    }
+
+    case "MENTIONABLE": {
+      return ApplicationCommandOptionType.Mentionable;
+    }
+
+    case "SUB_COMMAND": {
+      return ApplicationCommandOptionType.Subcommand;
+    }
+
+    case "SUB_COMMAND_GROUP": {
+      return ApplicationCommandOptionType.SubcommandGroup;
+    }
+
+    default:
+      throw Error(`invalid slash option: ${type}`);
+  }
+}
 
 /**
  * Define option for slash command
@@ -42,28 +92,15 @@ export function SlashOption(
   params?: SlashOptionParams
 ): ParameterDecoratorEx {
   return function <T>(target: Record<string, T>, key: string, index: number) {
-    const dType = (
-      Reflect.getMetadata("design:paramtypes", target, key)[
-        index
-      ] as () => unknown
-    ).name.toUpperCase();
-
-    const type: SlashOptionType =
+    const dType =
       params?.type ??
-      (dType === "GUILDMEMBER"
-        ? "USER"
-        : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
-        ? "CHANNEL"
-        : (dType as SlashOptionType));
+      (
+        Reflect.getMetadata("design:paramtypes", target, key)[
+          index
+        ] as () => unknown
+      ).name.toUpperCase();
 
-    // throw error if option type is invalid
-    if (!SlashOptionTypes.includes(type)) {
-      throw Error(
-        `invalid slash option: ${type}\nSupported types are: ${SlashOptionTypes.join(
-          ", "
-        )}`
-      );
-    }
+    const type = typeof dType === "string" ? getSlashType(dType) : dType;
 
     const option = DApplicationCommandOption.create(
       name,

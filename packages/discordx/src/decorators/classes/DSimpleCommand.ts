@@ -7,6 +7,7 @@ import type {
   ThreadChannel,
   User,
 } from "discord.js";
+import { ChannelType } from "discord.js";
 
 import type {
   ArgSplitter,
@@ -247,7 +248,7 @@ export class DSimpleCommand extends Method {
             return undefined;
           }
 
-          if (command.message.channel.type === "DM") {
+          if (command.message.channel.type === ChannelType.DM) {
             return command.message.client.user?.id === id
               ? command.message.client.users.resolve(id)
               : command.message.author;
@@ -262,7 +263,7 @@ export class DSimpleCommand extends Method {
             return undefined;
           }
 
-          if (command.message.channel.type === "DM") {
+          if (command.message.channel.type === ChannelType.DM) {
             return command.message.client.user?.id === id
               ? command.message.client.users.resolve(id)
               : command.message.author;

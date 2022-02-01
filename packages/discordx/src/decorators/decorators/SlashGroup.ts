@@ -1,5 +1,6 @@
 import type { ClassMethodDecorator } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
+import { ApplicationCommandType } from "discord.js";
 
 import type {
   DApplicationCommandOption,
@@ -99,7 +100,7 @@ export function SlashGroup(
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
         Modifier.create<DApplicationCommand>((original) => {
-          if (original.type === "CHAT_INPUT") {
+          if (original.type === ApplicationCommandType.ChatInput) {
             original.subgroup = groupOrSubcommands;
           }
         }, DApplicationCommand).decorate(myClass.constructor, key)

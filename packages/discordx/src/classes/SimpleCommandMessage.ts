@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import type { Message } from "discord.js";
-import { MessageEmbed } from "discord.js";
+import { Embed } from "discord.js";
 
 import type {
   ArgSplitter,
@@ -67,39 +67,41 @@ export class SimpleCommandMessage {
           a.name.length > b.name.length ? a : b
         ).name.length;
 
-    const embed = new MessageEmbed();
+    const embed = new Embed();
     embed.setColor(crypto.randomInt(654321));
     embed.setTitle("Command Info");
-    embed.addField("Name", this.info.name);
-    embed.addField("Description", this.info.description);
+    embed.addField({ name: "Name", value: this.info.name });
+    embed.addField({ name: "Description", value: this.info.description });
 
     // add aliases
     if (this.info.aliases.length) {
-      embed.addField("Aliases", this.info.aliases.join(", "));
+      embed.addField({ name: "Aliases", value: this.info.aliases.join(", ") });
     }
 
     // add syntax usage
-    embed.addField(
-      "Command Usage",
-      "```" +
+    embed.addField({
+      name: "Command Usage",
+      value:
+        "```" +
         this.prefix +
         this.name +
         ` ${this.info.options
           .map((op) => `{${op.name}: ${op.type}}`)
           .join(" ")}` +
-        "```"
-    );
+        "```",
+    });
 
     // add options if available
     if (this.info.options.length) {
-      embed.addField(
-        "Options",
-        "```" +
+      embed.addField({
+        name: "Options",
+        value:
+          "```" +
           this.info.options
             .map((op) => `${op.name.padEnd(maxLength + 2)}: ${op.description}`)
             .join("\n") +
-          "```"
-      );
+          "```",
+      });
     }
 
     return this.message.reply({ embeds: [embed] });

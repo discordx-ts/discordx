@@ -1,18 +1,21 @@
-import type { ApplicationCommandOptionChoice } from "discord.js";
-
-import type { ChannelTypes, SlashOptionType } from "../../index.js";
+import type {
+  ApplicationCommandOptionChoice,
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+  ChannelType,
+} from "discord.js";
 
 export interface ApplicationCommandOptionDataX {
   autocomplete?: boolean;
-  channelTypes?: ChannelTypes[];
+  channelTypes?: ChannelType[];
   choices?: ApplicationCommandOptionChoice[];
-  description: string;
+  description: string | undefined;
   maxValue?: number;
   minValue?: number;
   name: string;
   options?: ApplicationCommandOptionDataX[];
   required?: boolean;
-  type: SlashOptionType;
+  type: ApplicationCommandOptionType;
 }
 
 export interface ApplicationCommandDataX {
@@ -20,5 +23,5 @@ export interface ApplicationCommandDataX {
   description: string;
   name: string;
   options: ApplicationCommandOptionDataX[];
-  type: string;
+  type: ApplicationCommandType;
 }

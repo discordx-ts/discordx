@@ -1,13 +1,16 @@
 import type {
   ApplicationCommandData,
   ApplicationCommandPermissions,
-  ApplicationCommandType,
-  CommandInteraction,
+  ChatInputCommandInteraction,
   Guild,
   GuildBasedChannel,
   GuildMember,
   Role,
   User,
+} from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
 } from "discord.js";
 import type {
   APIInteractionDataResolvedChannel,
@@ -163,7 +166,7 @@ export class DApplicationCommand extends Method {
       undefined,
       undefined,
       undefined,
-      "SUB_COMMAND"
+      ApplicationCommandOptionType.Subcommand
     ).decorate(this.classRef, this.key, this.method, this.from, this.index);
     option.options = this.options;
 
@@ -173,7 +176,7 @@ export class DApplicationCommand extends Method {
   async toJSON(
     command?: ApplicationGuildMixin
   ): Promise<ApplicationCommandData> {
-    if (this.type !== "CHAT_INPUT") {
+    if (this.type !== ApplicationCommandType.ChatInput) {
       const data: ApplicationCommandData = {
         defaultPermission:
           typeof this.defaultPermission === "boolean"
@@ -206,7 +209,7 @@ export class DApplicationCommand extends Method {
   }
 
   parseParams(
-    interaction: CommandInteraction
+    interaction: ChatInputCommandInteraction
   ): (
     | string
     | number
@@ -222,28 +225,28 @@ export class DApplicationCommand extends Method {
   )[] {
     return [...this.options].reverse().map((op) => {
       switch (op.type) {
-        case "STRING":
+        case ApplicationCommandOptionType.String:
           return interaction.options.getString(op.name) ?? undefined;
 
-        case "BOOLEAN":
+        case ApplicationCommandOptionType.Boolean:
           return interaction.options.getBoolean(op.name) ?? undefined;
 
-        case "NUMBER":
+        case ApplicationCommandOptionType.Number:
           return interaction.options.getNumber(op.name) ?? undefined;
 
-        case "INTEGER":
+        case ApplicationCommandOptionType.Integer:
           return interaction.options.getInteger(op.name) ?? undefined;
 
-        case "ROLE":
+        case ApplicationCommandOptionType.Role:
           return interaction.options.getRole(op.name) ?? undefined;
 
-        case "CHANNEL":
+        case ApplicationCommandOptionType.Channel:
           return interaction.options.getChannel(op.name) ?? undefined;
 
-        case "MENTIONABLE":
+        case ApplicationCommandOptionType.Mentionable:
           return interaction.options.getMentionable(op.name) ?? undefined;
 
-        case "USER":
+        case ApplicationCommandOptionType.User:
           return (
             interaction.options.getMember(op.name) ??
             interaction.options.getUser(op.name) ??

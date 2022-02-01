@@ -1,10 +1,10 @@
-import type { AutocompleteInteraction } from "discord.js";
-
 import type {
-  ChannelTypes,
-  DApplicationCommand,
-  SlashOptionType,
-} from "../../index.js";
+  ApplicationCommandOptionType,
+  AutocompleteInteraction,
+  ChannelType,
+} from "discord.js";
+
+import type { DApplicationCommand } from "../../index.js";
 
 interface SlashOptionBase {
   description?: string;
@@ -17,14 +17,16 @@ interface SlashOptionBaseParams extends SlashOptionBase {
   maxValue?: undefined;
   minValue?: undefined;
   type?: Exclude<
-    SlashOptionType,
-    "SUB_COMMAND" | "SUB_COMMAND_GROUP" | "CHANNEL"
+    ApplicationCommandOptionType,
+    | ApplicationCommandOptionType.Subcommand
+    | ApplicationCommandOptionType.SubcommandGroup
+    | ApplicationCommandOptionType.Channel
   >;
 }
 
 interface SlashOptionChannelParams extends SlashOptionBase {
   autocomplete?: undefined;
-  channelTypes?: ChannelTypes[];
+  channelTypes?: ChannelType[];
   maxValue?: undefined;
   minValue?: undefined;
   type: "CHANNEL";
