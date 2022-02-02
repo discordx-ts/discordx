@@ -7,6 +7,7 @@
 
 ## Changed
 
+- sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 - add trim for repo url ([df2847](https://github.com/oceanroleplay/discord.ts/commit/df284702428ee5a021c007e3c44cc2e5c71a332d))
 - update code ([95cbe4](https://github.com/oceanroleplay/discord.ts/commit/95cbe4b06c7450a0485ba34774d24488074545d1))
 

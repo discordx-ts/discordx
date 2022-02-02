@@ -2,6 +2,7 @@
 
 ## Documenations
 
+- update @discord ([340d57](https://github.com/oceanroleplay/discord.ts/commit/340d57875dfc134a07f28a573c52d87e804450ef))
 - fix broken link ([f8b36d](https://github.com/oceanroleplay/discord.ts/commit/f8b36d719d67b2b3ea0303f526a7ff23722afaea))
 - improve structure ([928ef6](https://github.com/oceanroleplay/discord.ts/commit/928ef6d4db7d24433a83d984de8c3935f34b3e2f))
 

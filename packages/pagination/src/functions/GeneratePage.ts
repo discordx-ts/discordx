@@ -11,7 +11,7 @@ import { defaultIds } from "../types.js";
 import { paginate } from "./paginate.js";
 
 export const GeneratePage = (
-  embed: string | MessageEmbed | MessageOptions,
+  item: string | MessageEmbed | MessageOptions,
   page: number,
   totalPages: number,
   option: PaginationOptions
@@ -20,11 +20,11 @@ export const GeneratePage = (
   const end = page === totalPages - 1;
 
   const cpage: MessageOptions =
-    typeof embed === "string"
-      ? { content: embed }
-      : embed instanceof MessageEmbed
-      ? { embeds: [embed] }
-      : embed;
+    typeof item === "string"
+      ? { content: item }
+      : item instanceof MessageEmbed
+      ? { embeds: [item] }
+      : item;
 
   if (option.type === "BUTTON") {
     const startBtn = new MessageButton()

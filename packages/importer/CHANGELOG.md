@@ -1,5 +1,9 @@
 # Stage
 
+## Changed
+
+- sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
+
 # [v1.1.2](https://github.com/oceanroleplay/discord.ts/releases/tag/i-v1.1.2) (2021-12-24)
 
 ## Breaking Changes

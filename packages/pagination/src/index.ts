@@ -14,15 +14,15 @@ import _ from "lodash";
 
 import { GeneratePage } from "./functions/GeneratePage.js";
 import type {
-  embedType,
   IGeneratePage,
-  paginationFunc,
   PaginationInteractions,
+  PaginationItem,
   PaginationOptions,
+  Resolver,
 } from "./types.js";
 import { defaultIds, defaultTime } from "./types.js";
 
-export class PaginationResolver<T extends paginationFunc = paginationFunc> {
+export class PaginationResolver<T extends Resolver = Resolver> {
   constructor(public resolver: T, public maxLength: number) {}
 }
 
@@ -43,7 +43,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
   constructor(
     public sendTo: PaginationInteractions | Message | TextBasedChannel,
-    public embeds: embedType[] | T,
+    public embeds: PaginationItem[] | T,
     config?: PaginationOptions
   ) {
     /**
@@ -73,7 +73,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
   public getPage = async (page: number): Promise<IGeneratePage | undefined> => {
     const embed = Array.isArray(this.embeds)
-      ? _.cloneDeep<embedType | undefined>(this.embeds[page])
+      ? _.cloneDeep<PaginationItem | undefined>(this.embeds[page])
       : await this.embeds.resolver(page, this);
 
     if (!embed) {

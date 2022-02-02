@@ -1,7 +1,12 @@
 # Stage
 
+## Changed
+
+- sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
+
 ## Fixed
 
+- volume ([7ff7b6](https://github.com/oceanroleplay/discord.ts/commit/7ff7b62845c32bdc91857a3bfa07c8dd3cd1bf0e))
 - volume should persist between tracks ([#461](https://github.com/oceanroleplay/discord.ts/issues/461)) ([e876c2](https://github.com/oceanroleplay/discord.ts/commit/e876c25ef025665399ec6ce40ffcc30eb9fe5b21))
 - .setVolume() not working in custom tracks ([#444](https://github.com/oceanroleplay/discord.ts/issues/444)) ([f11b83](https://github.com/oceanroleplay/discord.ts/commit/f11b8312507b4274c264fe9ad959a3e7de76f505))
 - music - do not catch unwanted errors ([d934c9](https://github.com/oceanroleplay/discord.ts/commit/d934c9986306095891a51b0f7c9fe25b0f9337b6))

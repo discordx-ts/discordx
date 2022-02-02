@@ -28,12 +28,12 @@ export const defaultIds = {
   menu: prefixId + "menu",
 };
 
-export type embedType = string | MessageEmbed | MessageOptions;
+export type PaginationItem = string | MessageEmbed | MessageOptions;
 
-export type paginationFunc = (
+export type Resolver = (
   page: number,
   pagination: Pagination
-) => embedType | Promise<embedType>;
+) => PaginationItem | Promise<PaginationItem>;
 
 export type PaginationInteractions =
   | CommandInteraction

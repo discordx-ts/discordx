@@ -6,6 +6,7 @@
 
 ## Changed
 
+- sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 - rename categoryNickName to nickName ([b302fb](https://github.com/oceanroleplay/discord.ts/commit/b302fbe678637f3259290db1db4d0ca3ccbd3918))
 
 # [v3.3.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.3.0) (2021-12-29)

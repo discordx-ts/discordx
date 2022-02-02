@@ -1,11 +1,17 @@
 # Stage
 
+## Changed
+
+- throw error for missing `@discord` ([5bc579](https://github.com/oceanroleplay/discord.ts/commit/5bc579564e28d45a6e89fcd339033d31590c38a6))
+- sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
+
 ## Fixed
 
 - simple command prefix issue ([caa078](https://github.com/oceanroleplay/discord.ts/commit/caa078a388761e4b04f31043466c344020694b8b))
 
 ## Routine Tasks
 
+- esm examples ([2e8f3b](https://github.com/oceanroleplay/discord.ts/commit/2e8f3b863f6867c4d196a3104a5a7e792cab82af))
 - fix build attempt [#1](https://github.com/oceanroleplay/discord.ts/issues/1) ([9fa95b](https://github.com/oceanroleplay/discord.ts/commit/9fa95bde51bf9c55af953bfce5154272f02df4ce))
 - fix import ([0a6759](https://github.com/oceanroleplay/discord.ts/commit/0a675937638436e79ba36b3731823b6419e70404))
 - fix import ([001606](https://github.com/oceanroleplay/discord.ts/commit/0016065061688975813d600db344577ee086a32b))

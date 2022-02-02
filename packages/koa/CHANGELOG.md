@@ -8,6 +8,8 @@
 
 ## Changed
 
+- sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
+- rename opts to options ([fae84c](https://github.com/oceanroleplay/discord.ts/commit/fae84c597eb5e8cce225bce77c92192accd644ff))
 - infer route path ([3cae68](https://github.com/oceanroleplay/discord.ts/commit/3cae682e10c01f4d71965689da3c5a4726754423))
 - improve rest decorators ([06181e](https://github.com/oceanroleplay/discord.ts/commit/06181e04b71d2223a3fee1e976564f65bf97c412))
 - improve mddleware usage ([569f09](https://github.com/oceanroleplay/discord.ts/commit/569f0994f24789b1a6f0bfbed69359419129dc47))
