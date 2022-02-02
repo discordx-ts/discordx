@@ -11,8 +11,8 @@
 }
 
 :root[data-theme="light"] {
-  --ifm-menu-color: #999;
-  --ifm-toc-link-color: #999;
+  --ifm-menu-color: #0009;
+  --ifm-toc-link-color: #0009;
 
   --ifm-color-primary: #5865f2;
   --ifm-color-primary-dark: #3949f0;
@@ -28,8 +28,8 @@
 }
 
 :root[data-theme="dark"] {
-  --ifm-menu-color: #666;
-  --ifm-toc-link-color: #666;
+  --ifm-menu-color: #fff9;
+  --ifm-toc-link-color: #fff9;
 
   --ifm-color-primary: #5865f2;
   --ifm-color-primary-dark: #3949f0;
