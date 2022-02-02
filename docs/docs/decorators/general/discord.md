@@ -3,7 +3,7 @@
 This decorator instanciates the class inside the discord.**ts** library to access the class members or to call the methods
 
 :::danger
-you must decorate all classes using discord.ts decorators with the `@Discord` decorator.
+You must decorate all classes that use discordx decorators with the @Discord decorator.
 :::
 
 ```typescript
