@@ -258,7 +258,10 @@ export class MetadataStorage {
       });
 
       if (!discord) {
-        return;
+        throw Error(
+          `Did you forget to use the @discord decorator on your class: ${member.from.name}\n` +
+            "read more at https://discord-ts.js.org/docs/decorators/general/discord\n\n"
+        );
       }
 
       // You can get the @Discord that wrap a @SimpleCommand/@On by using
