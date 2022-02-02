@@ -23,10 +23,6 @@ module.exports = {
     footer: {
       copyright: "Made by discord.ts team with ❤️",
     },
-    gtag: {
-      anonymizeIP: true, // Should IPs be anonymized?
-      trackingID: "G-VD776VLREB",
-    },
     navbar: {
       items: [
         {
@@ -90,6 +86,10 @@ module.exports = {
           sidebarCollapsed: true,
           sidebarCollapsible: true,
           sidebarPath: require.resolve("./sidebars.js"),
+        },
+        gtag: {
+          anonymizeIP: true, // Should IPs be anonymized?
+          trackingID: "G-VD776VLREB",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
