@@ -3,8 +3,8 @@ import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
-import { Pagination, PaginationResolver } from "../../../build/cjs/index.js";
-import { GeneratePages } from "../util/common functions";
+import { Pagination, PaginationResolver } from "../../../src/index.js";
+import { GeneratePages } from "../util/common functions.js";
 
 @Discord()
 export abstract class Example {

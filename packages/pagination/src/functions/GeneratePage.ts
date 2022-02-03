@@ -19,7 +19,7 @@ export const GeneratePage = (
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
-  const cpage: MessageOptions =
+  const newMessage: MessageOptions =
     typeof item === "string"
       ? { content: item }
       : item instanceof MessageEmbed
@@ -91,23 +91,23 @@ export const GeneratePage = (
     const row = new MessageActionRow().addComponents(buttons);
 
     // reset message payload additional parameters
-    if (!cpage.embeds) {
-      cpage.embeds = [];
+    if (!newMessage.embeds) {
+      newMessage.embeds = [];
     }
 
-    if (!cpage.files) {
-      cpage.files = [];
+    if (!newMessage.files) {
+      newMessage.files = [];
     }
 
-    if (!cpage.files) {
-      cpage.files = [];
+    if (!newMessage.files) {
+      newMessage.files = [];
     }
 
-    if (!cpage.attachments) {
-      cpage.attachments = [];
+    if (!newMessage.attachments) {
+      newMessage.attachments = [];
     }
 
-    return { paginationRow: row, replyOptions: cpage };
+    return { newMessage, paginationRow: row };
   } else {
     const paginator = paginate(totalPages, page, 1, 21).pages.map((i) => {
       // const selectMenuOption: MessageSelectOptionData = {
@@ -149,22 +149,22 @@ export const GeneratePage = (
     const row = new MessageActionRow().addComponents([menu]);
 
     // reset message payload additional parameters
-    if (!cpage.embeds) {
-      cpage.embeds = [];
+    if (!newMessage.embeds) {
+      newMessage.embeds = [];
     }
 
-    if (!cpage.files) {
-      cpage.files = [];
+    if (!newMessage.files) {
+      newMessage.files = [];
     }
 
-    if (!cpage.files) {
-      cpage.files = [];
+    if (!newMessage.files) {
+      newMessage.files = [];
     }
 
-    if (!cpage.attachments) {
-      cpage.attachments = [];
+    if (!newMessage.attachments) {
+      newMessage.attachments = [];
     }
 
-    return { paginationRow: row, replyOptions: cpage };
+    return { newMessage, paginationRow: row };
   }
 };

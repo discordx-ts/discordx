@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { importx } from "@discordx/importer";
+import { dirname, importx } from "@discordx/importer";
 import { Intents } from "discord.js";
 import { Client } from "discordx";
 
@@ -34,7 +34,7 @@ export class Main {
       this._client.executeInteraction(interaction);
     });
 
-    await importx(__dirname + "/discords/**/*.{js,ts}");
+    await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
     await this._client.login(process.env.BOT_TOKEN ?? "");
   }
 }

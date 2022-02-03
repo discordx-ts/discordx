@@ -2,7 +2,7 @@ import type { CommandInteraction } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { Discord, MetadataStorage, Slash } from "discordx";
 
-import { Pagination } from "../../../build/cjs/index.js";
+import { Pagination } from "../../../src/index.js";
 
 @Discord()
 export abstract class SlashExample {

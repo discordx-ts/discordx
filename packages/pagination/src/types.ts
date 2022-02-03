@@ -11,8 +11,6 @@ import type {
   MessageOptions,
 } from "discord.js";
 
-import type { Pagination } from "./index.js";
-
 // By default, it's half an hour.
 export const defaultTime = 18e5;
 
@@ -29,11 +27,6 @@ export const defaultIds = {
 };
 
 export type PaginationItem = string | MessageEmbed | MessageOptions;
-
-export type Resolver = (
-  page: number,
-  pagination: Pagination
-) => PaginationItem | Promise<PaginationItem>;
 
 export type PaginationInteractions =
   | CommandInteraction
@@ -175,6 +168,6 @@ export interface IPaginate {
 }
 
 export type IGeneratePage = {
+  newMessage: InteractionReplyOptions;
   paginationRow: MessageActionRow;
-  replyOptions: InteractionReplyOptions;
 };
