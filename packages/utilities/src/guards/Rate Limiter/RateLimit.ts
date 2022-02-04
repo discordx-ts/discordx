@@ -5,7 +5,8 @@ import type {
 import type { GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
-import { TIME_UNIT, TimedSet, TimeOutEntry } from "./index.js";
+import { TIME_UNIT, TimedSet } from "./index.js";
+import { TimeOutEntry } from "./logic/index.js";
 
 /**
  * Rate limit this command, specify the time unit and the value and optionally the threshold and the message
