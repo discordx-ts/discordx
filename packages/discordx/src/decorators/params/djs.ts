@@ -6,7 +6,7 @@ export interface ApplicationCommandOptionDataX {
   autocomplete?: boolean;
   channelTypes?: ChannelTypes[];
   choices?: ApplicationCommandOptionChoice[];
-  description: string;
+  description?: string;
   maxValue?: number;
   minValue?: number;
   name: string;
@@ -17,7 +17,7 @@ export interface ApplicationCommandOptionDataX {
 
 export interface ApplicationCommandDataX {
   defaultPermission: boolean;
-  description: string;
+  description?: string;
   name: string;
   options: ApplicationCommandOptionDataX[];
   type: string;

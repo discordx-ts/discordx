@@ -15,7 +15,7 @@ export class DApplicationCommandOption extends Decorator {
   private _autocomplete: SlashAutoCompleteOption;
   private _channelTypes: ChannelTypes[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
-  private _description: string;
+  private _description?: string;
   private _name: string;
   private _maxValue?: number;
   private _minValue?: number;
@@ -76,10 +76,10 @@ export class DApplicationCommandOption extends Decorator {
     this._autocomplete = value;
   }
 
-  get description(): string {
+  get description(): string | undefined {
     return this._description;
   }
-  set description(value: string) {
+  set description(value: string | undefined) {
     this._description = value;
   }
 
@@ -112,7 +112,7 @@ export class DApplicationCommandOption extends Decorator {
     this._name = name;
     this._autocomplete = autocomplete;
     this._channelTypes = channelType?.sort();
-    this._description = description ?? `${name} - ${type ?? "STRING"}`;
+    this._description = description;
     this._index = index;
     this._maxValue = maxValue;
     this._minValue = minValue;

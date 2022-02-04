@@ -9,7 +9,7 @@ export class ApplicationGuildMixin {
     return this.instance.name;
   }
 
-  get description(): string {
+  get description(): string | undefined {
     return this.instance.description;
   }
 }

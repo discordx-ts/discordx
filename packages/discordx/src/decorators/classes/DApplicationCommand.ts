@@ -31,7 +31,7 @@ import { Method } from "./Method.js";
  */
 export class DApplicationCommand extends Method {
   private _name: string;
-  private _description: string;
+  private _description?: string;
   private _type: ApplicationCommandType;
   private _defaultPermission: IDefaultPermission;
   private _options: DApplicationCommandOption[] = [];
@@ -97,10 +97,10 @@ export class DApplicationCommand extends Method {
     this._name = value;
   }
 
-  get description(): string {
+  get description(): string | undefined {
     return this._description;
   }
-  set description(value: string) {
+  set description(value: string | undefined) {
     this._description = value;
   }
 
@@ -122,7 +122,7 @@ export class DApplicationCommand extends Method {
     super();
     this._name = name;
     this._type = type;
-    this._description = description ?? this.name;
+    this._description = description;
     this._defaultPermission = defaultPermission ?? true;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
