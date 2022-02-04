@@ -18,12 +18,12 @@ import { TimeOutEntry } from "./logic/index.js";
  * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
  * @constructor
  */
-export const RateLimit = (
+export function RateLimit(
   timeout: TIME_UNIT,
   value: number,
   message = "message being rate limited!",
   rateValue = 1
-): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> => {
+): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> {
   function convertToMilli(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
       case TIME_UNIT.seconds:
@@ -118,4 +118,4 @@ export const RateLimit = (
 
     return next();
   };
-};
+}
