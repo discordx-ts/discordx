@@ -20,11 +20,11 @@ export enum TIME_UNIT {
   seconds = "s",
 }
 
-export const RateLimit = (
+export function RateLimit(
   timeout: TIME_UNIT,
   value: number,
   message = "message being rate limited!"
-): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> => {
+): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> {
   const convertToMilli = (timeValue: number, unit: TIME_UNIT): number => {
     switch (unit) {
       case TIME_UNIT.seconds:
@@ -42,25 +42,30 @@ export const RateLimit = (
 
   const millis = convertToMilli(value, timeout);
   const _timer = new TimedSet<TimeOutEntry>(millis);
-  const replyOrFollowUp = (
+
+  async function replyOrFollowUp(
     interaction: BaseCommandInteraction | MessageComponentInteraction,
     content: string,
     ephemeral = false
-  ): Promise<void> => {
+  ): Promise<void> {
     if (interaction.replied) {
-      return interaction.followUp({
+      await interaction.followUp({
         content,
         ephemeral,
-      }) as unknown as Promise<void>;
+      });
+      return;
     }
+
     if (interaction.deferred) {
-      return interaction.editReply(content) as unknown as Promise<void>;
+      await interaction.editReply(content);
+      return;
     }
+
     return interaction.reply({
       content,
       ephemeral,
     });
-  };
+  }
 
   const getFromArray = (
     userId: string,
@@ -79,7 +84,8 @@ export const RateLimit = (
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(msg);
     } else {
-      return replyOrFollowUp(arg, msg);
+      await replyOrFollowUp(arg, msg);
+      return;
     }
   };
 
@@ -109,4 +115,4 @@ export const RateLimit = (
 
     return next();
   };
-};
+}
