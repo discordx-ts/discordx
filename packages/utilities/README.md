@@ -77,10 +77,66 @@ import { CategoryMetaData } from "@discord/utilities";
 CategoryMetaData.get("Admin Commands");
 ```
 
+# ⚔️ guards
+
+Useful guards created by the Discord.ts team to use in your bot!
+
+## Rate limit
+
+This guard will rate limit a user for a specified amount of time. When set, a user can only call a command x amount of
+times after that, a cooldown is applied disallowing any more calls to the command until the cooldown is over.
+
+This cooldown starts from the moment the user sends the last message.
+
+If your cooldown is 10 seconds, and you allow 3 calls of your command, the user will have 10 seconds to call it 3 times,
+with the timer resetting after each call.
+
+### Example
+
+```ts
+@Discord()
+export abstract class RateLimitExample {
+  /**
+   * 1 command every 30 seconds with default message
+   */
+  @Slash("rate_limit_1")
+  @Guard(RateLimit(TIME_UNIT.seconds, 30))
+  rateLimit1(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  /**
+   * Allow 3 command before rate limit of 30 seconds (from last message)
+   */
+  @Slash("rate_limit_3")
+  @Guard(RateLimit(TIME_UNIT.seconds, 30, "Please wait `30` seconds!", 3))
+  rateLimit3(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  /**
+   * Rate limit simple command
+   * @param message
+   * @private
+   */
+  @SimpleCommand("rateLimit")
+  @Guard(RateLimit(TIME_UNIT.seconds, 10))
+  private async rateLimitSimpleCommand({
+    message,
+  }: SimpleCommandMessage): Promise<void> {
+    message.reply("It worked!");
+  }
+}
+```
+
+This will work on both Slash and Simple commands
+
 # ☎️ Need help?
 
-Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open
+a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
 
 # Thank you
 
-Show your support for [discordx](https://www.npmjs.com/package/discordx) by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).
+Show your support for [discordx](https://www.npmjs.com/package/discordx) by giving us a star
+on [github](https://github.com/oceanroleplay/discord.ts).
