@@ -133,12 +133,16 @@ export function SlashGroup(
       }
 
       // support sub commands without description
-      if (!subCommands && subCommandsOrDescription && typeof subCommandsOrDescription !== "string") {
+      if (
+        !subCommands &&
+        subCommandsOrDescription &&
+        typeof subCommandsOrDescription !== "string"
+      ) {
         Object.keys(subCommandsOrDescription).forEach((subKey) => {
           const group =
-              DApplicationCommandGroup.create<DApplicationCommandOption>(subKey, {
-                description: subCommandsOrDescription?.[subKey],
-              }).decorate(myClass, myClass.name);
+            DApplicationCommandGroup.create<DApplicationCommandOption>(subKey, {
+              description: subCommandsOrDescription?.[subKey],
+            }).decorate(myClass, myClass.name);
 
           MetadataStorage.instance.addApplicationCommandSlashSubGroups(group);
         });
