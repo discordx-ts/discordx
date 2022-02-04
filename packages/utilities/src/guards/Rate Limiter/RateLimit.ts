@@ -5,27 +5,25 @@ import type {
 import type { GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
-import { TimedSet } from "./utils/TimedSet.js";
+import { TIME_UNIT, TimedSet, TimeOutEntry } from "./index.js";
 
-class TimeOutEntry {
-  public constructor(public userId: string, public guildId: string) {
-    // empty constructor
-  }
-}
-
-export enum TIME_UNIT {
-  days = "d",
-  hours = "h",
-  minutes = "mi",
-  seconds = "s",
-}
-
-export function RateLimit(
+/**
+ * Rate limit this command, specify the time unit and the value and optionally the threshold and the message
+ * to post when someone calls the command within the rate limit
+ * @param timeout - the time unit to use
+ * @param value - the value for the time unit
+ * @param message - the message to post when a command is called when the
+ * user is in rate limit, defaults = "message being rate limited!"
+ * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
+ * @constructor
+ */
+export const RateLimit = (
   timeout: TIME_UNIT,
   value: number,
-  message = "message being rate limited!"
-): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> {
-  const convertToMilli = (timeValue: number, unit: TIME_UNIT): number => {
+  message = "message being rate limited!",
+  rateValue = 1
+): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> => {
+  function convertToMilli(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
       case TIME_UNIT.seconds:
         return timeValue * 1000;
@@ -38,7 +36,7 @@ export function RateLimit(
       default:
         return 1000;
     }
-  };
+  }
 
   const millis = convertToMilli(value, timeout);
   const _timer = new TimedSet<TimeOutEntry>(millis);
@@ -61,35 +59,34 @@ export function RateLimit(
       return;
     }
 
-    return interaction.reply({
+    await interaction.reply({
       content,
       ephemeral,
     });
   }
 
-  const getFromArray = (
+  function getFromArray(
     userId: string,
     guildId: string
-  ): TimeOutEntry | undefined => {
+  ): TimeOutEntry | undefined {
     const arr = _timer.rawSet;
     return arr.find(
       (v: TimeOutEntry) => v.userId === userId && v.guildId === guildId
     );
-  };
+  }
 
-  const post = async (
+  async function post(
     arg: BaseCommandInteraction | SimpleCommandMessage,
     msg: string
-  ): Promise<void> => {
+  ): Promise<void> {
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(msg);
     } else {
-      await replyOrFollowUp(arg, msg);
-      return;
+      return replyOrFollowUp(arg, msg);
     }
-  };
+  }
 
-  return (arg, client, next) => {
+  return function (arg, client, next) {
     let memberId: string | null | undefined;
     let guildId: string | null;
 
@@ -106,13 +103,18 @@ export function RateLimit(
     }
 
     let fromArray = getFromArray(memberId, guildId);
-    if (fromArray && message) {
-      return post(arg, message);
+    if (fromArray) {
+      fromArray.incrementCallCount();
+      if (fromArray.hasLimitReached()) {
+        return post(arg, message);
+      }
+
+      _timer.refresh(fromArray);
     } else {
-      fromArray = new TimeOutEntry(memberId, guildId);
+      fromArray = new TimeOutEntry(memberId, guildId, rateValue);
       _timer.add(fromArray);
     }
 
     return next();
   };
-}
+};
