@@ -3,7 +3,7 @@ import { GuildMember } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import { Discord, On, Slash, SlashOption } from "discordx";
 
-import * as Lava from "../../build/cjs/index.js";
+import * as Lava from "../../src/index.js";
 
 @Discord()
 export class music {

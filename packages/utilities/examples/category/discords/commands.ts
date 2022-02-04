@@ -4,8 +4,8 @@ import { MessageEmbed } from "discord.js";
 import type { DSimpleCommand } from "discordx";
 import { DApplicationCommand, Discord, Slash } from "discordx";
 
-import type { ICategory } from "../../../build/cjs";
-import { Category, CategoryMetaData } from "../../../build/cjs";
+import type { ICategory } from "../../../src/index.js";
+import { Category, CategoryMetaData } from "../../../src/index.js";
 
 @Discord()
 @Category("Admin Commands")

@@ -29,13 +29,16 @@ export abstract class AppDiscord {
   }
 
   @Slash("role")
-  role(@SlashOption("role") role: Role, interaction: CommandInteraction): void {
+  role(
+    @SlashOption("role", { type: "ROLE" }) role: Role,
+    interaction: CommandInteraction
+  ): void {
     interaction.reply(`${role}`);
   }
 
   @Slash("channel")
   channel(
-    @SlashOption("channel") channel: Channel,
+    @SlashOption("channel", { type: "CHANNEL" }) channel: Channel,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${channel}`);

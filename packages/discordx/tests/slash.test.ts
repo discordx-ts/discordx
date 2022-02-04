@@ -96,6 +96,30 @@ export abstract class AppDiscord {
 }
 
 @Discord()
+@SlashGroup("grouptestwithoutdescription", {
+  line: "text group description",
+})
+@Guard((params, client, next, datas) => {
+  datas.passed = true;
+  return next();
+})
+export abstract class AppDiscord2 {
+  @Slash("add", { description: "Addition" })
+  @SlashGroup("line")
+  add(
+    @SlashOption("x", { description: "x value" })
+    x: number,
+    @SlashOption("y", { description: "y value" })
+    y: number,
+    interaction: CommandInteraction,
+    client: Client,
+    datas: Data
+  ): unknown {
+    return ["/testing line add", x + y, interaction, datas.passed];
+  }
+}
+
+@Discord()
 @Guild("invalid_id")
 @Guard((params, client, next, datas) => {
   datas.passed = true;
@@ -592,6 +616,64 @@ describe("Slash", () => {
             ],
             required: undefined,
             type: "SUB_COMMAND",
+          },
+        ],
+        type: "CHAT_INPUT",
+      },
+      {
+        defaultPermission: true,
+        description: "grouptestwithoutdescription",
+        name: "grouptestwithoutdescription",
+        options: [
+          {
+            autocomplete: undefined,
+            channelTypes: undefined,
+            choices: undefined,
+            description: "text group description",
+            maxValue: undefined,
+            minValue: undefined,
+            name: "line",
+            options: [
+              {
+                autocomplete: undefined,
+                channelTypes: undefined,
+                choices: undefined,
+                description: "Addition",
+                maxValue: undefined,
+                minValue: undefined,
+                name: "add",
+                options: [
+                  {
+                    autocomplete: undefined,
+                    channelTypes: undefined,
+                    choices: undefined,
+                    description: "x value",
+                    maxValue: undefined,
+                    minValue: undefined,
+                    name: "x",
+                    options: undefined,
+                    required: true,
+                    type: "NUMBER",
+                  },
+                  {
+                    autocomplete: undefined,
+                    channelTypes: undefined,
+                    choices: undefined,
+                    description: "y value",
+                    maxValue: undefined,
+                    minValue: undefined,
+                    name: "y",
+                    options: undefined,
+                    required: true,
+                    type: "NUMBER",
+                  },
+                ],
+                required: undefined,
+                type: "SUB_COMMAND",
+              },
+            ],
+            required: undefined,
+            type: "SUB_COMMAND_GROUP",
           },
         ],
         type: "CHAT_INPUT",
