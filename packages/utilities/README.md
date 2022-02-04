@@ -36,6 +36,15 @@
   </p>
 </div>
 
+# Content
+
+- [Introduction](#-introduction)
+- [Installation](#-installation)
+- [@Category](#-category)
+- [guards](#%EF%B8%8F-guards)
+  - [Rate Limit](#rate-limit)
+  - [NotBot](#notbot)
+
 # 📖 Introduction
 
 Add useful features to discordx, If a feature isn't available, request it.
@@ -127,6 +136,18 @@ export abstract class RateLimitExample {
     message.reply("It worked!");
   }
 }
+```
+
+## NotBot
+
+```ts
+...
+@SimpleCommand("hello")
+@Guard(NotBot)
+hello({ message }: SimpleCommandMessage): void {
+  message.reply("It worked!");
+}
+...
 ```
 
 This will work on both Slash and Simple commands

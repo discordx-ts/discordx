@@ -1,7 +1,12 @@
 # Stage
 
+## Features
+
+- add rate limit guard in utilities ([#491](https://github.com/oceanroleplay/discord.ts/issues/491)) ([a78ef0](https://github.com/oceanroleplay/discord.ts/commit/a78ef08f90b2075efe967ca6b5900984976398e9))
+
 ## Changed
 
+- lowercase slash option description ([d9cfe0](https://github.com/oceanroleplay/discord.ts/commit/d9cfe0372a38bf99838f58324d52a9609ed73a19))
 - throw error for missing `@discord` ([5bc579](https://github.com/oceanroleplay/discord.ts/commit/5bc579564e28d45a6e89fcd339033d31590c38a6))
 - sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 

@@ -2,12 +2,22 @@
 
 ## Features
 
+- add NotBot guard ([7c0e37](https://github.com/oceanroleplay/discord.ts/commit/7c0e371aae9bb8563da2b1e9b17fa791a4661ec5))
+- added util guard Rate Limit commands ([#493](https://github.com/oceanroleplay/discord.ts/issues/493)) ([4f2149](https://github.com/oceanroleplay/discord.ts/commit/4f2149979acde4e6a3c826888e1e03776d59e3bf))
+- add rate limit guard in utilities ([#491](https://github.com/oceanroleplay/discord.ts/issues/491)) ([a78ef0](https://github.com/oceanroleplay/discord.ts/commit/a78ef08f90b2075efe967ca6b5900984976398e9))
 - add nickname decorator ([ceb41f](https://github.com/oceanroleplay/discord.ts/commit/ceb41f089b4e7a075e00ca47ce5bb97599496c57))
 
 ## Changed
 
+- convert RateLimit to normal function ([174ac1](https://github.com/oceanroleplay/discord.ts/commit/174ac11fdb693a60f24c7bed697bc9be6b6db871))
+- improve exports ([560179](https://github.com/oceanroleplay/discord.ts/commit/560179da5d6162693045d82bc48398dcd60387dc))
+- improve exports ([d427fd](https://github.com/oceanroleplay/discord.ts/commit/d427fd72113ea1c7c4498eeb00d6942471c8e8bf))
 - sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 - rename categoryNickName to nickName ([b302fb](https://github.com/oceanroleplay/discord.ts/commit/b302fbe678637f3259290db1db4d0ca3ccbd3918))
+
+## Routine Tasks
+
+- improve export ([14eeec](https://github.com/oceanroleplay/discord.ts/commit/14eeecac9877717623beda82e6912584a86346fa))
 
 # [v3.3.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v3.3.0) (2021-12-29)
 
