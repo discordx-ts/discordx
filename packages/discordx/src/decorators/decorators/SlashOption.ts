@@ -41,29 +41,34 @@ export function SlashOption(
   name: string,
   params?: SlashOptionParams
 ): ParameterDecoratorEx {
+  function getType(type: string): SlashOptionType {
+    switch (type) {
+      case "GUILDMEMBER": {
+        return "USER";
+      }
+      case "TEXTCHANNEL":
+      case "VOICECHANNEL": {
+        return "CHANNEL";
+      }
+      case "FUNCTION":
+        throw Error(
+          `invalid slash option (${name}): ${type}\nSupported types are: ${SlashOptionTypes.join(
+            ", "
+          )}\n`
+        );
+      default:
+        return type as SlashOptionType;
+    }
+  }
+
   return function <T>(target: Record<string, T>, key: string, index: number) {
-    const dType = (
+    const reflectedType = (
       Reflect.getMetadata("design:paramtypes", target, key)[
         index
       ] as () => unknown
     ).name.toUpperCase();
 
-    const type: SlashOptionType =
-      params?.type ??
-      (dType === "GUILDMEMBER"
-        ? "USER"
-        : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
-        ? "CHANNEL"
-        : (dType as SlashOptionType));
-
-    // throw error if option type is invalid
-    if (!SlashOptionTypes.includes(type)) {
-      throw Error(
-        `invalid slash option: ${type}\nSupported types are: ${SlashOptionTypes.join(
-          ", "
-        )}`
-      );
-    }
+    const type: SlashOptionType = params?.type ?? getType(reflectedType);
 
     const option = DApplicationCommandOption.create(
       name,

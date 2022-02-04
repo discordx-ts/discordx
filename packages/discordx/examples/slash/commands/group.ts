@@ -68,7 +68,9 @@ export abstract class Group {
   @SlashGroup("text")
   hello(
     @SlashChoice(TextChoices)
-    @SlashOption("text")
+    @SlashOption("text", {
+      type: "STRING",
+    })
     text: TextChoices,
     interaction: CommandInteraction
   ): void {
