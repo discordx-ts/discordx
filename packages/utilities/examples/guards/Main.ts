@@ -1,7 +1,8 @@
-import {importx} from "@discordx/importer";
-import {Intents} from "discord.js";
-import {Client} from "discordx";
 import "reflect-metadata";
+
+import { dirname, importx } from "@discordx/importer";
+import { Intents } from "discord.js";
+import { Client } from "discordx";
 
 export class Main {
   private static _client: Client;
@@ -24,17 +25,16 @@ export class Main {
     });
 
     this._client.on("interactionCreate", (interaction) => {
-      // do not execute interaction, if it's pagination (avoid warning: selectmenu/button interaction not found)
-      if (interaction.isButton() || interaction.isSelectMenu()) {
-        if (interaction.customId.startsWith("discordx@pagination@")) {
-          return;
-        }
-      }
       this._client.executeInteraction(interaction);
     });
 
-    await importx(__dirname + "/discords/**/*.{js,ts}");
-    await this._client.login(process.env.BOT_TOKEN ?? "");
+    await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
+
+    // let's start the bot
+    if (!process.env.BOT_TOKEN) {
+      throw Error("Could not find BOT_TOKEN in your environment");
+    }
+    await this._client.login(process.env.BOT_TOKEN);
   }
 }
 
