@@ -5,40 +5,15 @@ import type {
 import type { GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
-import { TimedSet } from "./utils/TimedSet.js";
-
-class TimeOutEntry {
-  private _currentCallAmount = 0;
-
-  public constructor(
-    public userId: string,
-    public guildId: string,
-    private _rateValue: number = 1
-  ) {
-    this._currentCallAmount++;
-  }
-
-  public hasLimitReached(): boolean {
-    return !(this._currentCallAmount <= this._rateValue);
-  }
-
-  public incrementCallCount(): void {
-    this._currentCallAmount++;
-  }
-}
-
-export enum TIME_UNIT {
-  days,
-  hours,
-  minutes,
-  seconds,
-}
+import { TIME_UNIT, TimedSet, TimeOutEntry } from "./index.js";
 
 /**
- * Rate limit this command, specify the time unit and the value and optionally the threshold and the message to post when someone calls the command within the rate limit
+ * Rate limit this command, specify the time unit and the value and optionally the threshold and the message
+ * to post when someone calls the command within the rate limit
  * @param timeout - the time unit to use
  * @param value - the value for the time unit
- * @param message - the message to post when a command is called when the user is in rate limit, defaults = "message being rate limited!"
+ * @param message - the message to post when a command is called when the
+ * user is in rate limit, defaults = "message being rate limited!"
  * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
  * @constructor
  */
