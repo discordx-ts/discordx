@@ -1,5 +1,5 @@
 import Timeout = NodeJS.Timeout;
-import type { ITimedSet } from "./ITimedSet.js";
+import type { ITimedSet } from "../types/ITimedSet.js";
 
 /**
  * This set will evict items from the array after the set timout.
