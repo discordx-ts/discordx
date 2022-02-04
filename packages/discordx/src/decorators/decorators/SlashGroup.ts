@@ -95,7 +95,7 @@ export function SlashGroup(
   ) {
     const myClass = target as unknown as new () => unknown;
 
-    if (typeof groupOrSubcommands === "string" && key) {
+    if (descriptor && typeof groupOrSubcommands === "string" && key) {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
         Modifier.create<DApplicationCommand>((original) => {
@@ -106,36 +106,35 @@ export function SlashGroup(
       );
     }
 
-    if (!descriptor) {
-      if (typeof groupOrSubcommands === "string") {
-        const group = DApplicationCommandGroup.create<DApplicationCommand>(
-          groupOrSubcommands,
-          {
-            description:
-              typeof subCommandsOrDescription === "string"
-                ? subCommandsOrDescription
-                : undefined,
-          }
-        ).decorate(myClass, key ?? myClass.name);
-        MetadataStorage.instance.addApplicationCommandSlashGroups(group);
-      }
+    if (typeof groupOrSubcommands === "string") {
+      const group = DApplicationCommandGroup.create<DApplicationCommand>(
+        groupOrSubcommands,
+        {
+          description:
+            typeof subCommandsOrDescription === "string"
+              ? subCommandsOrDescription
+              : undefined,
+        }
+      ).decorate(myClass, key ?? myClass.name);
+      MetadataStorage.instance.addApplicationCommandSlashGroups(group);
+    }
 
-      // Create a subgroup if @SlashGroup decorate a method
-      const AnySubCommands =
-        subCommands ?? typeof subCommandsOrDescription === "string"
-          ? undefined
-          : subCommandsOrDescription;
+    // Create a subgroup if @SlashGroup decorate a method
+    const anySubCommands = subCommands
+      ? subCommands
+      : typeof subCommandsOrDescription !== "string"
+      ? subCommandsOrDescription
+      : undefined;
 
-      if (AnySubCommands) {
-        Object.keys(AnySubCommands).forEach((subKey) => {
-          const group =
-            DApplicationCommandGroup.create<DApplicationCommandOption>(subKey, {
-              description: subCommands?.[subKey],
-            }).decorate(myClass, myClass.name);
+    if (anySubCommands) {
+      Object.keys(anySubCommands).forEach((subKey) => {
+        const group =
+          DApplicationCommandGroup.create<DApplicationCommandOption>(subKey, {
+            description: anySubCommands?.[subKey],
+          }).decorate(myClass, myClass.name);
 
-          MetadataStorage.instance.addApplicationCommandSlashSubGroups(group);
-        });
-      }
+        MetadataStorage.instance.addApplicationCommandSlashSubGroups(group);
+      });
     }
   };
 }
