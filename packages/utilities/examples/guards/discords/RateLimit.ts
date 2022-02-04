@@ -43,7 +43,7 @@ export abstract class RateLimitExample {
    */
   @SimpleCommand("rateLimit")
   @Guard(RateLimit(TIME_UNIT.seconds, 10))
-  private rateLimitSimpleCommand({ message }: SimpleCommandMessage): void {
+  rateLimitSimpleCommand({ message }: SimpleCommandMessage): void {
     message.reply("It worked!");
   }
 }

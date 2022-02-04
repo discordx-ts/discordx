@@ -28,6 +28,10 @@ export class Main {
       this._client.executeInteraction(interaction);
     });
 
+    this._client.on("messageCreate", (message) => {
+      this._client.executeCommand(message);
+    });
+
     await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
 
     // let's start the bot
