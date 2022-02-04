@@ -121,8 +121,13 @@ export function SlashGroup(
       }
 
       // Create a subgroup if @SlashGroup decorate a method
-      if (subCommands) {
-        Object.keys(subCommands).forEach((subKey) => {
+      const AnySubCommands =
+        subCommands ?? typeof subCommandsOrDescription === "string"
+          ? undefined
+          : subCommandsOrDescription;
+
+      if (AnySubCommands) {
+        Object.keys(AnySubCommands).forEach((subKey) => {
           const group =
             DApplicationCommandGroup.create<DApplicationCommandOption>(subKey, {
               description: subCommands?.[subKey],

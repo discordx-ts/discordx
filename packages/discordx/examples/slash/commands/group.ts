@@ -14,7 +14,7 @@ enum TextChoices {
 }
 
 @Discord()
-@SlashGroup("testing", "Testing group description", {
+@SlashGroup("testing", {
   maths: "maths group description",
   text: "text group description",
 })
