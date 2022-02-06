@@ -14,6 +14,7 @@ in order to do this, just add the following code anywhere before `client.login()
 
 ```ts
 import { container } from "tsyringe";
+import { DIService } from "discordx";
 
 DIService.container = container;
 ```
@@ -24,7 +25,7 @@ It is recommended to do this in your main class where you define your `new Clien
 import "reflect-metadata";
 import { Intents } from "discord.js";
 import { container } from "tsyringe";
-import { Client } from "discordx";
+import { Client, DIService } from "discordx";
 
 async function start() {
   DIService.container = container;
