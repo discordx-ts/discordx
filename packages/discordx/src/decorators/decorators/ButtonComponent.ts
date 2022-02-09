@@ -1,8 +1,8 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 
 import type { IGuild } from "../../index.js";
+import { ComponentTypeX } from "../../index.js";
 import { DComponent, MetadataStorage } from "../../index.js";
-import { ComponentTypeX } from "../index.js";
 
 /**
  * Define button interaction handler

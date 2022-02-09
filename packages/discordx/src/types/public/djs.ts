@@ -7,7 +7,7 @@ export enum ComponentTypeX {
   SelectMenu,
 }
 
-export interface ApplicationCommandOptionDataX {
+export type ApplicationCommandOptionDataX = {
   autocomplete?: boolean;
   channelTypes?: ChannelTypes[];
   choices?: ApplicationCommandOptionChoice[];
@@ -18,12 +18,12 @@ export interface ApplicationCommandOptionDataX {
   options?: ApplicationCommandOptionDataX[];
   required?: boolean;
   type: SlashOptionType;
-}
+};
 
-export interface ApplicationCommandDataX {
+export type ApplicationCommandDataX = {
   defaultPermission: boolean;
   description: string;
   name: string;
   options: ApplicationCommandOptionDataX[];
   type: string;
-}
+};

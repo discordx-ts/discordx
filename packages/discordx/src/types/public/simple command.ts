@@ -1,11 +1,12 @@
-import type { IGuild, IPrefix, SimpleCommandMessage } from "../../index.js";
+import type { SimpleCommandMessage } from "../../index.js";
+import type { IGuild, IPrefix } from "../index.js";
 
 export type ArgSplitter =
   | string
   | RegExp
   | ((command: SimpleCommandMessage) => string[]);
 
-export interface SimpleCommandParams {
+export type SimpleCommandParams = {
   aliases?: string[];
   argSplitter?: ArgSplitter;
   botIds?: string[];
@@ -14,4 +15,4 @@ export interface SimpleCommandParams {
   directMessage?: boolean;
   guilds?: IGuild[];
   prefix?: IPrefix;
-}
+};
