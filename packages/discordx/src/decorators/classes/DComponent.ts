@@ -1,13 +1,18 @@
-import type { IGuild } from "../../index.js";
+import type { ComponentTypeX, IGuild } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
  * @category Decorator
  */
-export class DComponentButton extends Method {
+export class DComponent extends Method {
+  private _type: ComponentTypeX;
   private _id: string | RegExp;
   private _guilds: IGuild[];
   private _botIds: string[];
+
+  get type(): ComponentTypeX {
+    return this._type;
+  }
 
   get botIds(): string[] {
     return this._botIds;
@@ -31,22 +36,25 @@ export class DComponentButton extends Method {
   }
 
   protected constructor(
+    type: ComponentTypeX,
     id: string | RegExp,
     guilds?: IGuild[],
     botIds?: string[]
   ) {
     super();
+    this._type = type;
     this._id = id;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
   }
 
   static create(
+    type: ComponentTypeX,
     id: string | RegExp,
     guilds?: IGuild[],
     botIds?: string[]
-  ): DComponentButton {
-    return new DComponentButton(id, guilds, botIds);
+  ): DComponent {
+    return new DComponent(type, id, guilds, botIds);
   }
 
   isId(text: string): boolean {

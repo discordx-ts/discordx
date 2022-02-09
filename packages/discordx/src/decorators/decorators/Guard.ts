@@ -4,8 +4,7 @@ import { Modifier } from "@discordx/internal";
 import type { GuardFunction } from "../../index.js";
 import {
   DApplicationCommand,
-  DComponentButton,
-  DComponentSelectMenu,
+  DComponent,
   DDiscord,
   DGuard,
   DOn,
@@ -43,8 +42,7 @@ export function Guard<Type = any, DatasType = any>(
         (original) => {
           original.guards = guards;
         },
-        DComponentSelectMenu,
-        DComponentButton,
+        DComponent,
         DApplicationCommand,
         DSimpleCommand,
         DOn,

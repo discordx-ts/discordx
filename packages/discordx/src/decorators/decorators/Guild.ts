@@ -4,8 +4,7 @@ import { Modifier } from "@discordx/internal";
 import type { IGuild } from "../../index.js";
 import {
   DApplicationCommand,
-  DComponentButton,
-  DComponentSelectMenu,
+  DComponent,
   DDiscord,
   DSimpleCommand,
   MetadataStorage,
@@ -37,11 +36,7 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
-        | DApplicationCommand
-        | DSimpleCommand
-        | DDiscord
-        | DComponentButton
-        | DComponentSelectMenu
+        DApplicationCommand | DSimpleCommand | DDiscord | DComponent
       >(
         (original) => {
           original.guilds = [...original.guilds, ...guildIds];
@@ -60,8 +55,7 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {
         DApplicationCommand,
         DSimpleCommand,
         DDiscord,
-        DComponentButton,
-        DComponentSelectMenu
+        DComponent
       ).decorateUnknown(target, key, descriptor)
     );
   };

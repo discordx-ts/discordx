@@ -65,9 +65,8 @@ type IGuild =
       client: Client,
       command:
         | DApplicationCommand
-        | DComponentButton
+        | DComponent
         | SimpleCommandMessage
-        | DComponentSelectMenu
         | undefined
     ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
 ```

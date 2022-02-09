@@ -15,11 +15,10 @@ import type {
   GuardFunction,
   ISimpleCommandByName,
 } from "../../index.js";
+import { ComponentTypeX, DComponent } from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandOption,
-  DComponentButton,
-  DComponentSelectMenu,
   DOn,
   DSimpleCommand,
 } from "../../index.js";
@@ -39,8 +38,8 @@ export class MetadataStorage {
   private _events: Array<DOn> = [];
 
   // custom Handlers
-  private _buttonComponents: Array<DComponentButton> = [];
-  private _selectMenuComponents: Array<DComponentSelectMenu> = [];
+  private _buttonComponents: Array<DComponent> = [];
+  private _selectMenuComponents: Array<DComponent> = [];
 
   // simple command
   private _simpleCommands: Array<DSimpleCommand> = [];
@@ -161,11 +160,11 @@ export class MetadataStorage {
     return this._simpleCommands;
   }
 
-  get buttonComponents(): readonly DComponentButton[] {
+  get buttonComponents(): readonly DComponent[] {
     return this._buttonComponents;
   }
 
-  get selectMenuComponents(): readonly DComponentSelectMenu[] {
+  get selectMenuComponents(): readonly DComponent[] {
     return this._selectMenuComponents;
   }
 
@@ -225,11 +224,11 @@ export class MetadataStorage {
     this._simpleCommandOptions.push(cmdOption);
   }
 
-  addComponentButton(button: DComponentButton): void {
+  addComponentButton(button: DComponent): void {
     this._buttonComponents.push(button);
   }
 
-  addComponentSelectMenu(selectMenu: DComponentSelectMenu): void {
+  addComponentSelectMenu(selectMenu: DComponent): void {
     this._selectMenuComponents.push(selectMenu);
   }
 
@@ -280,12 +279,12 @@ export class MetadataStorage {
         discord.events.push(member);
       }
 
-      if (member instanceof DComponentButton) {
-        discord.buttons.push(member);
-      }
-
-      if (member instanceof DComponentSelectMenu) {
-        discord.selectMenus.push(member);
+      if (member instanceof DComponent) {
+        if (member.type === ComponentTypeX.Button) {
+          discord.buttons.push(member);
+        } else if (member.type === ComponentTypeX.SelectMenu) {
+          discord.selectMenus.push(member);
+        }
       }
     });
 

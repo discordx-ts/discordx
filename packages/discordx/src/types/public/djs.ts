@@ -2,7 +2,12 @@ import type { ApplicationCommandOptionChoice } from "discord.js";
 
 import type { ChannelTypes, SlashOptionType } from "../../index.js";
 
-export interface ApplicationCommandOptionDataX {
+export enum ComponentTypeX {
+  Button = 0,
+  SelectMenu,
+}
+
+export type ApplicationCommandOptionDataX = {
   autocomplete?: boolean;
   channelTypes?: ChannelTypes[];
   choices?: ApplicationCommandOptionChoice[];
@@ -13,12 +18,12 @@ export interface ApplicationCommandOptionDataX {
   options?: ApplicationCommandOptionDataX[];
   required?: boolean;
   type: SlashOptionType;
-}
+};
 
-export interface ApplicationCommandDataX {
+export type ApplicationCommandDataX = {
   defaultPermission: boolean;
   description: string;
   name: string;
   options: ApplicationCommandOptionDataX[];
   type: string;
-}
+};

@@ -22,8 +22,7 @@ import type {
   DApplicationCommand,
   DApplicationCommandGroup,
   DApplicationCommandOption,
-  DComponentButton,
-  DComponentSelectMenu,
+  DComponent,
   DDiscord,
   DiscordEvents,
   DOn,
@@ -107,11 +106,11 @@ export class Client extends ClientJS {
     return MetadataStorage.instance.simpleCommands;
   }
 
-  static get selectMenuComponents(): readonly DComponentSelectMenu[] {
+  static get selectMenuComponents(): readonly DComponent[] {
     return MetadataStorage.instance.selectMenuComponents;
   }
 
-  static get buttonComponents(): readonly DComponentButton[] {
+  static get buttonComponents(): readonly DComponent[] {
     return MetadataStorage.instance.buttonComponents;
   }
 
@@ -173,11 +172,11 @@ export class Client extends ClientJS {
     return Client.simpleCommands;
   }
 
-  get selectMenuComponents(): readonly DComponentSelectMenu[] {
+  get selectMenuComponents(): readonly DComponent[] {
     return Client.selectMenuComponents;
   }
 
-  get buttonComponents(): readonly DComponentButton[] {
+  get buttonComponents(): readonly DComponent[] {
     return Client.buttonComponents;
   }
 

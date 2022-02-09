@@ -6,7 +6,9 @@ export class ApplicationCommandMixin {
   constructor(
     public command: ApplicationCommand,
     public instance: DApplicationCommand
-  ) {}
+  ) {
+    // empty constructor
+  }
 
   get name(): string {
     return this.command.name;

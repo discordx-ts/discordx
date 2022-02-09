@@ -5,8 +5,7 @@ import type {
   ApplicationCommandMixin,
   Client,
   DApplicationCommand,
-  DComponentButton,
-  DComponentSelectMenu,
+  DComponent,
   IGuild,
   IPermissions,
   SimpleCommandMessage,
@@ -14,12 +13,7 @@ import type {
 
 export const resolveIGuilds = async (
   client: Client,
-  command:
-    | DApplicationCommand
-    | DComponentButton
-    | SimpleCommandMessage
-    | DComponentSelectMenu
-    | undefined,
+  command: DApplicationCommand | DComponent | SimpleCommandMessage | undefined,
   guilds: IGuild[]
 ): Promise<string[]> => {
   const guildx = await Promise.all(
