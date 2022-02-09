@@ -1,7 +1,8 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 
 import type { IGuild } from "../../index.js";
-import { DComponentButton, MetadataStorage } from "../../index.js";
+import { DComponent, MetadataStorage } from "../../index.js";
+import { ComponentTypeX } from "../index.js";
 
 /**
  * Define button interaction handler
@@ -30,7 +31,8 @@ export function ButtonComponent(
   params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    const button = DComponentButton.create(
+    const button = DComponent.create(
+      ComponentTypeX.Button,
       id ?? key,
       params?.guilds,
       params?.botIds

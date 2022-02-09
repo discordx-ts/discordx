@@ -1,7 +1,8 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 
 import type { IGuild } from "../../index.js";
-import { DComponentSelectMenu, MetadataStorage } from "../../index.js";
+import { DComponent, MetadataStorage } from "../../index.js";
+import { ComponentTypeX } from "../index.js";
 
 /**
  * Define a select menu interaction handler
@@ -30,7 +31,8 @@ export function SelectMenuComponent(
   params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    const button = DComponentSelectMenu.create(
+    const button = DComponent.create(
+      ComponentTypeX.SelectMenu,
       id ?? key,
       params?.guilds,
       params?.botIds
