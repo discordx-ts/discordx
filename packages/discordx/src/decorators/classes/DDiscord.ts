@@ -3,8 +3,7 @@ import { Decorator } from "@discordx/internal";
 
 import type {
   DApplicationCommand,
-  DComponentButton,
-  DComponentSelectMenu,
+  DComponent,
   DGuard,
   DOn,
   DSimpleCommand,
@@ -19,8 +18,8 @@ export class DDiscord extends Decorator {
   private _name: string;
   private _description: string;
   private _guards: DGuard[] = [];
-  private _buttonComponents: DComponentButton[] = [];
-  private _selectMenus: DComponentSelectMenu[] = [];
+  private _buttonComponents: DComponent[] = [];
+  private _selectMenus: DComponent[] = [];
   private _applicationCommands: DApplicationCommand[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
   private _events: DOn[] = [];
@@ -92,17 +91,17 @@ export class DDiscord extends Decorator {
     this._simpleCommands = value;
   }
 
-  get buttons(): DComponentButton[] {
+  get buttons(): DComponent[] {
     return this._buttonComponents;
   }
-  set buttons(value: DComponentButton[]) {
+  set buttons(value: DComponent[]) {
     this._buttonComponents = value;
   }
 
-  get selectMenus(): DComponentSelectMenu[] {
+  get selectMenus(): DComponent[] {
     return this._selectMenus;
   }
-  set selectMenus(value: DComponentSelectMenu[]) {
+  set selectMenus(value: DComponent[]) {
     this._selectMenus = value;
   }
 

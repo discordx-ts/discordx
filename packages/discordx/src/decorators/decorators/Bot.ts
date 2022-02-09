@@ -4,8 +4,7 @@ import { Modifier } from "@discordx/internal";
 import type { NotEmpty } from "../../index.js";
 import {
   DApplicationCommand,
-  DComponentButton,
-  DComponentSelectMenu,
+  DComponent,
   DDiscord,
   DOn,
   DSimpleCommand,
@@ -38,12 +37,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
-        | DApplicationCommand
-        | DSimpleCommand
-        | DDiscord
-        | DComponentButton
-        | DComponentSelectMenu
-        | DOn
+        DApplicationCommand | DSimpleCommand | DDiscord | DComponent | DOn
       >(
         (original) => {
           original.botIds = [
@@ -69,8 +63,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
         DApplicationCommand,
         DSimpleCommand,
         DDiscord,
-        DComponentButton,
-        DComponentSelectMenu,
+        DComponent,
         DOn
       ).decorateUnknown(target, key, descriptor)
     );
