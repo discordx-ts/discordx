@@ -19,7 +19,7 @@ export class DDiscord extends Decorator {
   private _description: string;
   private _guards: DGuard[] = [];
   private _buttonComponents: DComponent[] = [];
-  private _selectMenus: DComponent[] = [];
+  private _selectMenuComponents: DComponent[] = [];
   private _applicationCommands: DApplicationCommand[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
   private _events: DOn[] = [];
@@ -99,10 +99,10 @@ export class DDiscord extends Decorator {
   }
 
   get selectMenus(): DComponent[] {
-    return this._selectMenus;
+    return this._selectMenuComponents;
   }
   set selectMenus(value: DComponent[]) {
-    this._selectMenus = value;
+    this._selectMenuComponents = value;
   }
 
   get events(): DOn[] {
