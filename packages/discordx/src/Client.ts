@@ -1006,12 +1006,12 @@ export class Client extends ClientJS {
 
     // if interaction is a button
     if (interaction.isButton()) {
-      return this.executeButtonInteraction(interaction, log);
+      return this.executeComponent(this.buttonComponents, interaction, log);
     }
 
     // if interaction is a select menu
     if (interaction.isSelectMenu()) {
-      return this.executeSelectMenu(interaction, log);
+      return this.executeComponent(this.selectMenuComponents, interaction, log);
     }
 
     // if interaction is context menu
@@ -1074,85 +1074,39 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute button interacton
-   * @param interaction ButtonInteraction
+   * Execute component interacton
+   * @param interaction ButtonInteraction | ModalSubmitInteraction | SelectMenuInteraction
    * @param log {boolean}
    * @returns
    */
-  async executeButtonInteraction(
-    interaction: ButtonInteraction,
+  async executeComponent(
+    components: readonly DComponent[],
+    interaction: ButtonInteraction | SelectMenuInteraction,
     log?: boolean
   ): Promise<unknown> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
-    const button = this.buttonComponents.find((DButton) =>
-      DButton.isId(interaction.customId)
+    const component = components.find((comp) =>
+      comp.isId(interaction.customId)
     );
 
     const guilds: string[] = [];
 
-    if (button) {
+    if (component) {
       guilds.push(
-        ...(await resolveIGuilds(this, button, [
+        ...(await resolveIGuilds(this, component, [
           ...botResolvedGuilds,
-          ...button.guilds,
+          ...component.guilds,
         ]))
       );
     }
 
     if (
-      !button ||
+      !component ||
       (interaction.guild &&
         guilds.length &&
         !guilds.includes(interaction.guild.id)) ||
-      (button.botIds.length && !button.botIds.includes(this.botId))
-    ) {
-      if (log ?? !this.silent) {
-        `${
-          this.user?.username ?? this.botId
-        } >> button interaction not found, interactionId: ${
-          interaction.id
-        } | customId: ${interaction.customId}`;
-      }
-      return;
-    }
-
-    return button.execute(this.guards, interaction, this);
-  }
-
-  /**
-   * Execute select menu interacton
-   * @param interaction SelectMenuInteraction
-   * @param log {boolean}
-   * @returns
-   */
-  async executeSelectMenu(
-    interaction: SelectMenuInteraction,
-    log?: boolean
-  ): Promise<unknown> {
-    const botResolvedGuilds = await this.botResolvedGuilds;
-
-    const menu = this.selectMenuComponents.find((DSelectMenu) =>
-      DSelectMenu.isId(interaction.customId)
-    );
-
-    const guilds: string[] = [];
-
-    if (menu) {
-      guilds.push(
-        ...(await resolveIGuilds(this, menu, [
-          ...botResolvedGuilds,
-          ...menu.guilds,
-        ]))
-      );
-    }
-
-    if (
-      !menu ||
-      (interaction.guild &&
-        guilds.length &&
-        !guilds.includes(interaction.guild.id)) ||
-      (menu.botIds.length && !menu.botIds.includes(this.botId))
+      (component.botIds.length && !component.botIds.includes(this.botId))
     ) {
       if (log ?? !this.silent) {
         this.logger.log(
@@ -1166,7 +1120,7 @@ export class Client extends ClientJS {
       return;
     }
 
-    return menu.execute(this.guards, interaction, this);
+    return component.execute(this.guards, interaction, this);
   }
 
   /**
