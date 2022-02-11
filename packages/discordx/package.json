@@ -64,7 +64,7 @@
     "@types/jest": "^27.4.0",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.17",
-    "discord-api-types": "^0.26.1",
+    "discord-api-types": "^0.27.0",
     "discord.js": "^13.6.0",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.3",
