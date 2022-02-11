@@ -1,7 +1,12 @@
 # Stage
 
+## Changed
+
+- merge component class ([#503](https://github.com/oceanroleplay/discord.ts/issues/503)) ([a3d874](https://github.com/oceanroleplay/discord.ts/commit/a3d874d7a79187715fd53d6b7c5b1d853d8ee6cd))
+
 ## Documenations
 
+- Clarify DIService import for tsyringe docs ([#494](https://github.com/oceanroleplay/discord.ts/issues/494)) ([d310c6](https://github.com/oceanroleplay/discord.ts/commit/d310c626bf93d0e8aedff8939b4ff17300691fe6))
 - update @discord ([340d57](https://github.com/oceanroleplay/discord.ts/commit/340d57875dfc134a07f28a573c52d87e804450ef))
 - fix broken link ([f8b36d](https://github.com/oceanroleplay/discord.ts/commit/f8b36d719d67b2b3ea0303f526a7ff23722afaea))
 - improve structure ([928ef6](https://github.com/oceanroleplay/discord.ts/commit/928ef6d4db7d24433a83d984de8c3935f34b3e2f))

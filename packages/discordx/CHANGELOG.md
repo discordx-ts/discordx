@@ -6,6 +6,9 @@
 
 ## Changed
 
+- rename \_selectMenu var ([f7e0a7](https://github.com/oceanroleplay/discord.ts/commit/f7e0a729099b7f3beca2e81ea4924ba15940c237))
+- executeComponent ([c307b6](https://github.com/oceanroleplay/discord.ts/commit/c307b651f3570e730bed3fa2f792cac915eb1b30))
+- merge component class ([#503](https://github.com/oceanroleplay/discord.ts/issues/503)) ([a3d874](https://github.com/oceanroleplay/discord.ts/commit/a3d874d7a79187715fd53d6b7c5b1d853d8ee6cd))
 - lowercase slash option description ([d9cfe0](https://github.com/oceanroleplay/discord.ts/commit/d9cfe0372a38bf99838f58324d52a9609ed73a19))
 - throw error for missing `@discord` ([5bc579](https://github.com/oceanroleplay/discord.ts/commit/5bc579564e28d45a6e89fcd339033d31590c38a6))
 - sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
