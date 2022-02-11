@@ -15,10 +15,11 @@ import type {
   GuardFunction,
   ISimpleCommandByName,
 } from "../../index.js";
-import { ComponentTypeX, DComponent } from "../../index.js";
 import {
+  ComponentTypeX,
   DApplicationCommand,
   DApplicationCommandOption,
+  DComponent,
   DOn,
   DSimpleCommand,
 } from "../../index.js";

@@ -4,7 +4,8 @@
   "plugins": [
     "@typescript-eslint",
     "typescript-sort-keys",
-    "simple-import-sort"
+    "simple-import-sort",
+    "import"
   ],
   "extends": [
     "plugin:@typescript-eslint/eslint-recommended",
@@ -14,6 +15,9 @@
     // simple-import-sort
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
 
     // typescript-sort-keys
     "typescript-sort-keys/interface": "error",

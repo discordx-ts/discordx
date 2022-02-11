@@ -1,4 +1,5 @@
 import "reflect-metadata";
+
 export * from "./classes/index.js";
 export * from "./Client.js";
 export * from "./decorators/index.js";
