@@ -324,18 +324,6 @@ export class MetadataStorage {
       this._selectMenuComponents
     );
 
-    // Set the class level "group" property of all @Slash
-    // Cannot achieve it using modifiers
-    this._applicationCommandSlashGroups.forEach((group) => {
-      this._applicationCommandSlashes.forEach((slash) => {
-        if (group.from !== slash.from || slash.type !== "CHAT_INPUT") {
-          return;
-        }
-
-        slash.group = group.name;
-      });
-    });
-
     this._applicationCommandSlashesFlat = this._applicationCommandSlashes;
     this._applicationCommandSlashes = this.groupSlashes();
 
