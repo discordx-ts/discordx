@@ -16,7 +16,7 @@ export type ApplicationCommandParams = {
 
 export type SlashOptionBase = {
   description?: string;
-  required?: false;
+  required?: boolean;
 };
 
 export type SlashOptionBaseParams = SlashOptionBase & {
