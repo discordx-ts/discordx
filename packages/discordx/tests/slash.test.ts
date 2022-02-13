@@ -414,6 +414,25 @@ describe("Slash", () => {
         name: "testing",
         options: [
           {
+            description: "hello",
+            name: "hello",
+            options: [
+              {
+                description: "text - string",
+                name: "text",
+                required: true,
+                type: "STRING",
+              },
+              {
+                description: "text2 - string",
+                name: "text2",
+                required: false,
+                type: "STRING",
+              },
+            ],
+            type: "SUB_COMMAND",
+          },
+          {
             description: "maths group description",
             name: "maths",
             options: [
@@ -481,25 +500,6 @@ describe("Slash", () => {
               },
             ],
             type: "SUB_COMMAND_GROUP",
-          },
-          {
-            description: "hello",
-            name: "hello",
-            options: [
-              {
-                description: "text - string",
-                name: "text",
-                required: true,
-                type: "STRING",
-              },
-              {
-                description: "text2 - string",
-                name: "text2",
-                required: false,
-                type: "STRING",
-              },
-            ],
-            type: "SUB_COMMAND",
           },
         ],
         type: "CHAT_INPUT",
