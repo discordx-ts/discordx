@@ -11,6 +11,8 @@
 }
 
 :root[data-theme="light"] {
+  --ifm-codeblock: #f6f8fa;
+
   --ifm-menu-color: #0009;
   --ifm-toc-link-color: #0009;
 
@@ -28,6 +30,10 @@
 }
 
 :root[data-theme="dark"] {
+  --ifm-codeblock: #161b22;
+  --ifm-background-color: #0d1117;
+  --ifm-background-surface-color: #161b22;
+
   --ifm-menu-color: #fff9;
   --ifm-toc-link-color: #fff9;
 
@@ -39,9 +45,14 @@
   --ifm-color-primary-lighter: #868ff6;
   --ifm-color-primary-lightest: #b4baf9;
 
-  --ifm-table-border-color: #282c34;
-  --ifm-table-head-background: #242526;
-  --ifm-table-stripe-background: #101113;
+  --ifm-table-border-color: #30363d;
+  --ifm-table-head-background: #161b22;
+  --ifm-table-stripe-background: #161b22;
+}
+
+pre,
+.codeBlockTitle_node_modules-\@docusaurus-theme-classic-lib-next-theme-CodeBlock-styles-module {
+  background: var(--ifm-codeblock) !important;
 }
 
 .badge {
