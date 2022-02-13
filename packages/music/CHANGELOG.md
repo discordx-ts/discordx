@@ -13,6 +13,7 @@
 
 ## Routine Tasks
 
+- format ([04bf10](https://github.com/oceanroleplay/discord.ts/commit/04bf101659fc1ce75de8d7b2b87578181586d2b9))
 - set default volume to 1 ([8ce167](https://github.com/oceanroleplay/discord.ts/commit/8ce16753c930b00dff2e5a5c55d04de2103e38c0))
 - seperate lava player ([9ad3b4](https://github.com/oceanroleplay/discord.ts/commit/9ad3b4c3fcac0f23b4a6bf998d3cd413092f7cff))
 - repo cleanup ([3ee0df](https://github.com/oceanroleplay/discord.ts/commit/3ee0df074f23651c26bdbee49f0cbe859967e31e))

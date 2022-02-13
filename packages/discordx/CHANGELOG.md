@@ -1,11 +1,14 @@
 # Stage
 
+# [v9.2.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.2.0) (2022-02-13)
+
 ## Features
 
 - add rate limit guard in utilities ([#491](https://github.com/oceanroleplay/discord.ts/issues/491)) ([a78ef0](https://github.com/oceanroleplay/discord.ts/commit/a78ef08f90b2075efe967ca6b5900984976398e9))
 
 ## Changed
 
+- slash group ([#511](https://github.com/oceanroleplay/discord.ts/issues/511)) ([3ad472](https://github.com/oceanroleplay/discord.ts/commit/3ad472f15e311ec25a8c63c4f1282d46e590d33b))
 - rename \_selectMenu var ([f7e0a7](https://github.com/oceanroleplay/discord.ts/commit/f7e0a729099b7f3beca2e81ea4924ba15940c237))
 - executeComponent ([c307b6](https://github.com/oceanroleplay/discord.ts/commit/c307b651f3570e730bed3fa2f792cac915eb1b30))
 - merge component class ([#503](https://github.com/oceanroleplay/discord.ts/issues/503)) ([a3d874](https://github.com/oceanroleplay/discord.ts/commit/a3d874d7a79187715fd53d6b7c5b1d853d8ee6cd))
@@ -19,6 +22,7 @@
 
 ## Routine Tasks
 
+- format ([04bf10](https://github.com/oceanroleplay/discord.ts/commit/04bf101659fc1ce75de8d7b2b87578181586d2b9))
 - esm examples ([2e8f3b](https://github.com/oceanroleplay/discord.ts/commit/2e8f3b863f6867c4d196a3104a5a7e792cab82af))
 - fix build attempt [#1](https://github.com/oceanroleplay/discord.ts/issues/1) ([9fa95b](https://github.com/oceanroleplay/discord.ts/commit/9fa95bde51bf9c55af953bfce5154272f02df4ce))
 - fix import ([0a6759](https://github.com/oceanroleplay/discord.ts/commit/0a675937638436e79ba36b3731823b6419e70404))

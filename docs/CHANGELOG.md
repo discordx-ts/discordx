@@ -1,7 +1,10 @@
 # Stage
 
+# [v9.2.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.2.0) (2022-02-13)
+
 ## Changed
 
+- slash group ([#511](https://github.com/oceanroleplay/discord.ts/issues/511)) ([3ad472](https://github.com/oceanroleplay/discord.ts/commit/3ad472f15e311ec25a8c63c4f1282d46e590d33b))
 - merge component class ([#503](https://github.com/oceanroleplay/discord.ts/issues/503)) ([a3d874](https://github.com/oceanroleplay/discord.ts/commit/a3d874d7a79187715fd53d6b7c5b1d853d8ee6cd))
 
 ## Documenations
