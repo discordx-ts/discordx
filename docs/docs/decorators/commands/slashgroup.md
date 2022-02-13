@@ -51,7 +51,10 @@ maths
 @Discord()
 @SlashGroup({ description: "maths group description", name: "maths" })
 export abstract class AppDiscord {
+  // `@SlashGroup` does not apply to `@Slash` self, you need to assign it manually for each slash command.
+
   @Slash("add")
+  @SlashGroup({ name: "maths" })
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -63,6 +66,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("multiply")
+  @SlashGroup({ name: "maths" })
   multiply(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -104,6 +108,8 @@ testing
 @SlashGroup({ name: "testing" })
 @SlashGroup({ name: "maths", root: "testing" })
 export abstract class Group {
+  // `@SlashGroup` does not apply to `@Slash` self, you need to assign it manually for each slash command.
+
   @Slash("add")
   @SlashGroup({ name: "maths", root: "testing" })
   add(
