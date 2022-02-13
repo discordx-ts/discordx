@@ -37,7 +37,7 @@ We use @SlashGroup at two level, on the class and on methods
 
 ### group on class level
 
-When @SlashGroup decorate a class it groups all the Slash commands in the class
+When @SlashGroup decorate a class it creates a group command entry.
 
 ```
 maths
@@ -83,7 +83,7 @@ export abstract class AppDiscord {
 
 ### SlashGroup on method level
 
-When @SlashGroup decorate a method it creates sub-groups inside the class group
+Mark the slash command as a subcommand of sub_group or group.
 
 **You have to list the groups that are in the class in the @SlashGroup parameters that decorate the class, or they will not appear**
 
