@@ -14,13 +14,12 @@ enum TextChoices {
 }
 
 @Discord()
-@SlashGroup("testing", {
-  maths: "maths group description",
-  text: "text group description",
-})
+@SlashGroup({ name: "testing" })
+@SlashGroup({ name: "maths", root: "testing" })
+@SlashGroup({ name: "text", root: "testing" })
 export abstract class Group {
   @Slash("voicechannel")
-  @SlashGroup("maths")
+  @SlashGroup({ name: "maths", root: "testing" })
   voicechannel(
     @SlashOption("channel", {
       channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
@@ -45,7 +44,7 @@ export abstract class Group {
   }
 
   @Slash("add")
-  @SlashGroup("maths")
+  @SlashGroup({ name: "maths", root: "testing" })
   add(
     @SlashOption("x", { description: "x value" }) x: number,
     @SlashOption("y", { description: "y value" }) y: number,
@@ -55,7 +54,7 @@ export abstract class Group {
   }
 
   @Slash("multiply")
-  @SlashGroup("maths")
+  @SlashGroup({ name: "maths", root: "testing" })
   multiply(
     @SlashOption("x", { description: "x value" }) x: number,
     @SlashOption("y", { description: "y value" }) y: number,
@@ -65,7 +64,7 @@ export abstract class Group {
   }
 
   @Slash("hello")
-  @SlashGroup("text")
+  @SlashGroup({ name: "text", root: "testing" })
   hello(
     @SlashChoice(TextChoices)
     @SlashOption("text", {

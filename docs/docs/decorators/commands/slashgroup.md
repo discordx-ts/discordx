@@ -49,7 +49,7 @@ maths
 
 ```ts
 @Discord()
-@SlashGroup("maths", "maths group description")
+@SlashGroup({ description: "maths group description", name: "maths" })
 export abstract class AppDiscord {
   @Slash("add")
   add(
@@ -84,14 +84,9 @@ When @SlashGroup decorate a method it creates sub-groups inside the class group
 **You have to list the groups that are in the class in the @SlashGroup parameters that decorate the class, or they will not appear**
 
 ```ts
-@SlashGroup(
-  "testing",
-  "Testing group description",
-  {
-    maths: "maths group description", // Specify the groups that are in the class with th description
-    text: "text group description"    // Specify the groups that are in the class with th description
-  }
-)
+@SlashGroup({ name: "testing" })
+@SlashGroup({ name: "maths", root: "testing" })
+@SlashGroup({ name: "text", root: "testing" })
 ```
 
 ```
@@ -102,58 +97,31 @@ testing
     |__ add
     |
     |__ multiply
-|
-|__ text
-    |
-    |__ hello
-|
-|__ root
 ```
 
 ```ts
 @Discord()
-@SlashGroup("testing", "Testing group description", {
-  maths: "maths group description",
-  text: "text group description",
-})
-export abstract class AppDiscord {
+@SlashGroup({ name: "testing" })
+@SlashGroup({ name: "maths", root: "testing" })
+export abstract class Group {
   @Slash("add")
-  @SlashGroup("maths")
+  @SlashGroup({ name: "maths", root: "testing" })
   add(
-    @SlashOption("x", { description: "x value" })
-    x: number,
-    @SlashOption("y", { description: "y value" })
-    y: number,
+    @SlashOption("x", { description: "x value" }) x: number,
+    @SlashOption("y", { description: "y value" }) y: number,
     interaction: CommandInteraction
-  ) {
+  ): void {
     interaction.reply(String(x + y));
   }
 
   @Slash("multiply")
-  @SlashGroup("maths")
+  @SlashGroup({ name: "maths", root: "testing" })
   multiply(
-    @SlashOption("x", { description: "x value" })
-    x: number,
-    @SlashOption("y", { description: "y value" })
-    y: number,
+    @SlashOption("x", { description: "x value" }) x: number,
+    @SlashOption("y", { description: "y value" }) y: number,
     interaction: CommandInteraction
-  ) {
+  ): void {
     interaction.reply(String(x * y));
-  }
-
-  @Slash("hello")
-  @SlashGroup("text")
-  hello(
-    @SlashOption("text")
-    text: string,
-    interaction: CommandInteraction
-  ) {
-    interaction.reply(text);
-  }
-
-  @Slash("root")
-  root(interaction: CommandInteraction) {
-    interaction.reply("root");
   }
 }
 ```
@@ -163,18 +131,12 @@ export abstract class AppDiscord {
 ## Signature
 
 ```ts
-SlashGroup(
-  group: string,
-  description: string,
-  subCommands: SubCommand
-): ClassMethodDecorator;
+SlashGroup(info: SlashGroupParams): ClassMethodDecorator
 ```
 
-## Parameters
+## SlashGroupParams Parameters
 
-### group
-
-The group name
+### name
 
 | type   | default | required |
 | ------ | ------- | -------- |
@@ -182,16 +144,12 @@ The group name
 
 ### description
 
-The group description
-
 | type   | default   | required |
 | ------ | --------- | -------- |
 | string | undefined | No       |
 
-### subCommands
+### root
 
-Define sub commands name with description, [check example here](#slashgroup-on-method-level).
-
-| type                  | default   | required |
-| --------------------- | --------- | -------- |
-| [key: string]: string | undefined | No       |
+| type   | default   | required |
+| ------ | --------- | -------- |
+| string | undefined | No       |

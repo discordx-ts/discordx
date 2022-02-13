@@ -31,9 +31,16 @@ enum TextChoices {
 
 @Discord()
 @Guild("693401527494377482")
-@SlashGroup("testing", "Testing group description", {
-  maths: "maths group description",
-  text: "text group description",
+@SlashGroup({ description: "Testing group description", name: "testing" })
+@SlashGroup({
+  description: "maths group description",
+  name: "maths",
+  root: "testing",
+})
+@SlashGroup({
+  description: "text group description",
+  name: "text",
+  root: "testing",
 })
 @Guard((params, client, next, datas) => {
   datas.passed = true;
@@ -41,7 +48,10 @@ enum TextChoices {
 })
 export abstract class AppDiscord {
   @Slash("add", { description: "Addition" })
-  @SlashGroup("maths")
+  @SlashGroup({
+    name: "maths",
+    root: "testing",
+  })
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -55,7 +65,10 @@ export abstract class AppDiscord {
   }
 
   @Slash("multiply", { description: "Multiply" })
-  @SlashGroup("maths")
+  @SlashGroup({
+    name: "maths",
+    root: "testing",
+  })
   multiply(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -69,7 +82,10 @@ export abstract class AppDiscord {
   }
 
   @Slash("hello")
-  @SlashGroup("text")
+  @SlashGroup({
+    name: "text",
+    root: "testing",
+  })
   hello(
     @SlashChoice(TextChoices)
     @SlashOption("text")
@@ -82,6 +98,9 @@ export abstract class AppDiscord {
   }
 
   @Slash("hello")
+  @SlashGroup({
+    name: "testing",
+  })
   root(
     @SlashOption("text")
     text: string,
@@ -96,8 +115,13 @@ export abstract class AppDiscord {
 }
 
 @Discord()
-@SlashGroup("grouptestwithoutdescription", {
-  line: "text group description",
+@SlashGroup({
+  name: "grouptestwithoutdescription",
+})
+@SlashGroup({
+  description: "text group description",
+  name: "line",
+  root: "grouptestwithoutdescription",
 })
 @Guard((params, client, next, datas) => {
   datas.passed = true;
@@ -105,7 +129,10 @@ export abstract class AppDiscord {
 })
 export abstract class AppDiscord2 {
   @Slash("add", { description: "Addition" })
-  @SlashGroup("line")
+  @SlashGroup({
+    name: "line",
+    root: "grouptestwithoutdescription",
+  })
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -311,14 +338,8 @@ describe("Slash", () => {
         name: "hello",
         options: [
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "text - string",
-            maxValue: undefined,
-            minValue: undefined,
             name: "text",
-            options: undefined,
             required: false,
             type: "STRING",
           },
@@ -331,110 +352,56 @@ describe("Slash", () => {
         name: "inference",
         options: [
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "text - string",
-            maxValue: undefined,
-            minValue: undefined,
             name: "text",
-            options: undefined,
             required: true,
             type: "STRING",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "bool - boolean",
-            maxValue: undefined,
-            minValue: undefined,
             name: "bool",
-            options: undefined,
             required: true,
             type: "BOOLEAN",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "nb - number",
-            maxValue: undefined,
-            minValue: undefined,
             name: "nb",
-            options: undefined,
             required: true,
             type: "NUMBER",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "channel - channel",
-            maxValue: undefined,
-            minValue: undefined,
             name: "channel",
-            options: undefined,
             required: true,
             type: "CHANNEL",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "textchannel - channel",
-            maxValue: undefined,
-            minValue: undefined,
             name: "textchannel",
-            options: undefined,
             required: false,
             type: "CHANNEL",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "voicechannel - channel",
-            maxValue: undefined,
-            minValue: undefined,
             name: "voicechannel",
-            options: undefined,
             required: false,
             type: "CHANNEL",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "user - user",
-            maxValue: undefined,
-            minValue: undefined,
             name: "user",
-            options: undefined,
             required: false,
             type: "USER",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "role - role",
-            maxValue: undefined,
-            minValue: undefined,
             name: "role",
-            options: undefined,
             required: false,
             type: "ROLE",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "userorrole - mentionable",
-            maxValue: undefined,
-            minValue: undefined,
             name: "userorrole",
-            options: undefined,
             required: false,
             type: "MENTIONABLE",
           },
@@ -447,174 +414,91 @@ describe("Slash", () => {
         name: "testing",
         options: [
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
+            description: "maths group description",
+            name: "maths",
+            options: [
+              {
+                description: "Multiply",
+                name: "multiply",
+                options: [
+                  {
+                    description: "x value",
+                    name: "x",
+                    required: true,
+                    type: "NUMBER",
+                  },
+                  {
+                    description: "y value",
+                    name: "y",
+                    required: true,
+                    type: "NUMBER",
+                  },
+                ],
+                type: "SUB_COMMAND",
+              },
+              {
+                description: "Addition",
+                name: "add",
+                options: [
+                  {
+                    description: "x value",
+                    name: "x",
+                    required: true,
+                    type: "NUMBER",
+                  },
+                  {
+                    description: "y value",
+                    name: "y",
+                    required: true,
+                    type: "NUMBER",
+                  },
+                ],
+                type: "SUB_COMMAND",
+              },
+            ],
+            type: "SUB_COMMAND_GROUP",
+          },
+          {
             description: "text group description",
-            maxValue: undefined,
-            minValue: undefined,
             name: "text",
             options: [
               {
-                autocomplete: undefined,
-                channelTypes: undefined,
-                choices: undefined,
                 description: "hello",
-                maxValue: undefined,
-                minValue: undefined,
                 name: "hello",
                 options: [
                   {
-                    autocomplete: undefined,
-                    channelTypes: undefined,
                     choices: [
-                      {
-                        name: "Good Bye",
-                        value: "GoodBye",
-                      },
-                      {
-                        name: "Hello",
-                        value: "Hello",
-                      },
+                      { name: "Good Bye", value: "GoodBye" },
+                      { name: "Hello", value: "Hello" },
                     ],
                     description: "text - string",
-                    maxValue: undefined,
-                    minValue: undefined,
                     name: "text",
-                    options: undefined,
                     required: true,
                     type: "STRING",
                   },
                 ],
-                required: undefined,
                 type: "SUB_COMMAND",
               },
             ],
-            required: undefined,
             type: "SUB_COMMAND_GROUP",
           },
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
-            description: "maths group description",
-            maxValue: undefined,
-            minValue: undefined,
-            name: "maths",
-            options: [
-              {
-                autocomplete: undefined,
-                channelTypes: undefined,
-                choices: undefined,
-                description: "Multiply",
-                maxValue: undefined,
-                minValue: undefined,
-                name: "multiply",
-                options: [
-                  {
-                    autocomplete: undefined,
-                    channelTypes: undefined,
-                    choices: undefined,
-                    description: "x value",
-                    maxValue: undefined,
-                    minValue: undefined,
-                    name: "x",
-                    options: undefined,
-                    required: true,
-                    type: "NUMBER",
-                  },
-                  {
-                    autocomplete: undefined,
-                    channelTypes: undefined,
-                    choices: undefined,
-                    description: "y value",
-                    maxValue: undefined,
-                    minValue: undefined,
-                    name: "y",
-                    options: undefined,
-                    required: true,
-                    type: "NUMBER",
-                  },
-                ],
-                required: undefined,
-                type: "SUB_COMMAND",
-              },
-              {
-                autocomplete: undefined,
-                channelTypes: undefined,
-                choices: undefined,
-                description: "Addition",
-                maxValue: undefined,
-                minValue: undefined,
-                name: "add",
-                options: [
-                  {
-                    autocomplete: undefined,
-                    channelTypes: undefined,
-                    choices: undefined,
-                    description: "x value",
-                    maxValue: undefined,
-                    minValue: undefined,
-                    name: "x",
-                    options: undefined,
-                    required: true,
-                    type: "NUMBER",
-                  },
-                  {
-                    autocomplete: undefined,
-                    channelTypes: undefined,
-                    choices: undefined,
-                    description: "y value",
-                    maxValue: undefined,
-                    minValue: undefined,
-                    name: "y",
-                    options: undefined,
-                    required: true,
-                    type: "NUMBER",
-                  },
-                ],
-                required: undefined,
-                type: "SUB_COMMAND",
-              },
-            ],
-            required: undefined,
-            type: "SUB_COMMAND_GROUP",
-          },
-          {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "hello",
-            maxValue: undefined,
-            minValue: undefined,
             name: "hello",
             options: [
               {
-                autocomplete: undefined,
-                channelTypes: undefined,
-                choices: undefined,
                 description: "text - string",
-                maxValue: undefined,
-                minValue: undefined,
                 name: "text",
-                options: undefined,
                 required: true,
                 type: "STRING",
               },
               {
-                autocomplete: undefined,
-                channelTypes: undefined,
-                choices: undefined,
                 description: "text2 - string",
-                maxValue: undefined,
-                minValue: undefined,
                 name: "text2",
-                options: undefined,
                 required: false,
                 type: "STRING",
               },
             ],
-            required: undefined,
             type: "SUB_COMMAND",
           },
         ],
@@ -626,53 +510,29 @@ describe("Slash", () => {
         name: "grouptestwithoutdescription",
         options: [
           {
-            autocomplete: undefined,
-            channelTypes: undefined,
-            choices: undefined,
             description: "text group description",
-            maxValue: undefined,
-            minValue: undefined,
             name: "line",
             options: [
               {
-                autocomplete: undefined,
-                channelTypes: undefined,
-                choices: undefined,
                 description: "Addition",
-                maxValue: undefined,
-                minValue: undefined,
                 name: "add",
                 options: [
                   {
-                    autocomplete: undefined,
-                    channelTypes: undefined,
-                    choices: undefined,
                     description: "x value",
-                    maxValue: undefined,
-                    minValue: undefined,
                     name: "x",
-                    options: undefined,
                     required: true,
                     type: "NUMBER",
                   },
                   {
-                    autocomplete: undefined,
-                    channelTypes: undefined,
-                    choices: undefined,
                     description: "y value",
-                    maxValue: undefined,
-                    minValue: undefined,
                     name: "y",
-                    options: undefined,
                     required: true,
                     type: "NUMBER",
                   },
                 ],
-                required: undefined,
                 type: "SUB_COMMAND",
               },
             ],
-            required: undefined,
             type: "SUB_COMMAND_GROUP",
           },
         ],

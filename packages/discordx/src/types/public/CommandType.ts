@@ -6,8 +6,10 @@ import type {
   User,
 } from "discord.js";
 
-export type SubCommand = {
-  [key: string]: string;
+export type SlashGroupParams = {
+  description?: string;
+  name: string;
+  root?: string;
 };
 
 export const SlashOptionTypes = [
