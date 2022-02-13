@@ -327,6 +327,10 @@ export class MetadataStorage {
     this._applicationCommandSlashesFlat = this._applicationCommandSlashes;
     this._applicationCommandSlashes = this.groupSlashes();
 
+    this.buildSimpleCommands();
+  }
+
+  private buildSimpleCommands(): void {
     this._simpleCommands.forEach((cmd) => {
       // Separately map special prefix commands
       if (cmd.prefix) {
@@ -427,6 +431,15 @@ export class MetadataStorage {
 
       slashes.forEach((slash) => {
         slashParent.options.push(slash.toSubCommand());
+      });
+
+      this._applicationCommandSlashesFlat.forEach((slash) => {
+        if (slash.group === slashParent.name) {
+          slash.defaultPermission = slashParent.defaultPermission;
+          slash.permissions = slashParent.permissions;
+          slash.guilds = slashParent.guilds;
+          slash.botIds = slashParent.botIds;
+        }
       });
     });
 
