@@ -189,6 +189,16 @@ export class DApplicationCommand extends Method {
 
     const options = [...this.options]
       .reverse()
+      .sort((a, b) => {
+        if (
+          (a.type === "SUB_COMMAND" || a.type === "SUB_COMMAND_GROUP") &&
+          (b.type === "SUB_COMMAND" || b.type === "SUB_COMMAND_GROUP")
+        ) {
+          return a.name < b.name ? -1 : 1;
+        }
+
+        return 0;
+      })
       .map((option) => option.toJSON());
 
     const data: ApplicationCommandDataX = {
