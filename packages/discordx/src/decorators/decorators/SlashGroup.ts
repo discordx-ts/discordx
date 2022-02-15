@@ -6,7 +6,7 @@ import { Modifier } from "@discordx/internal";
 
 import type {
   DApplicationCommandOption,
-  SlashGroupParams,
+  SlashGroupOptions,
 } from "../../index.js";
 import {
   DApplicationCommand,
@@ -18,17 +18,21 @@ import {
 /**
  * Group your slash command
  *
+ * @param options Group options
+ * ___
+ *
  * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ *
  * @category Decorator
  */
 export function SlashGroup(
-  info: Omit<SlashGroupParams, "applyToChild">
+  options: Omit<SlashGroupOptions, "applyToChild">
 ): ClassMethodDecorator;
-export function SlashGroup(info: SlashGroupParams): ClassDecoratorEx;
+export function SlashGroup(options: SlashGroupOptions): ClassDecoratorEx;
 
-export function SlashGroup(info: SlashGroupParams): ClassMethodDecorator {
+export function SlashGroup(options: SlashGroupOptions): ClassMethodDecorator {
   return function <T>(
     target: T,
     key?: string,
@@ -36,19 +40,19 @@ export function SlashGroup(info: SlashGroupParams): ClassMethodDecorator {
   ) {
     const myClass = target as unknown as new () => unknown;
 
-    if (descriptor || info.appendToChild) {
+    if (descriptor || options.appendToChild) {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
         Modifier.create<DApplicationCommand | DDiscord>(
           (original) => {
             if (original instanceof DDiscord) {
               [...original.applicationCommands].forEach((obj) => {
-                obj.group = info.root ?? info.name;
-                obj.subgroup = info.root ? info.name : undefined;
+                obj.group = options.root ?? options.name;
+                obj.subgroup = options.root ? options.name : undefined;
               });
             } else {
-              original.group = info.root ?? info.name;
-              original.subgroup = info.root ? info.name : undefined;
+              original.group = options.root ?? options.name;
+              original.subgroup = options.root ? options.name : undefined;
             }
           },
           DApplicationCommand,
@@ -58,19 +62,17 @@ export function SlashGroup(info: SlashGroupParams): ClassMethodDecorator {
     }
 
     if (!descriptor) {
-      if (info.root) {
+      if (options.root) {
         MetadataStorage.instance.addApplicationCommandSlashSubGroups(
           DApplicationCommandGroup.create<DApplicationCommandOption>(
-            info.name,
-            {
-              description: info.description,
-            }
+            options.name,
+            { description: options.description }
           ).decorate(myClass, myClass.name)
         );
       } else {
         MetadataStorage.instance.addApplicationCommandSlashGroups(
-          DApplicationCommandGroup.create<DApplicationCommand>(info.name, {
-            description: info.description,
+          DApplicationCommandGroup.create<DApplicationCommand>(options.name, {
+            description: options.description,
           }).decorate(myClass, key ?? myClass.name)
         );
       }

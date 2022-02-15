@@ -111,7 +111,7 @@ To declare an option you simply use the `@SimpleCommandOption` decorator before 
 ## Signature
 
 ```ts
-SimpleCommandOption( name: string, params?: { description?: string; type?: "STRING | INTEGER | NUMBER | BOOLEAN | USER | CHANNEL | ROLE | MENTIONABLE" } );
+SimpleCommandOption( name: string, options?: { description?: string; type?: "STRING | INTEGER | NUMBER | BOOLEAN | USER | CHANNEL | ROLE | MENTIONABLE" } );
 ```
 
 ## Parameters
@@ -124,7 +124,7 @@ The name of your command option
 | ------ | ------- | -------- |
 | string |         | Yes      |
 
-### params
+### options
 
 Multiple options, check below.
 

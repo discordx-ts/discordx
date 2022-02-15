@@ -12,12 +12,29 @@ import {
 } from "../../index.js";
 
 /**
- * Execute your application command, button, select menu, simple command or event by defined bot when multiple bots are running in the same instance
+ * Execute your application button, event, select menu, simple command, slash by defined bot
+ * when multiple bots are running simultaneously
+ *
+ * @param botId Bot identifier
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/bot)
+ *
  * @category Decorator
  */
 export function Bot<T extends string>(botId: NotEmpty<T>): ClassMethodDecorator;
+
+/**
+ * Execute your application button, event, select menu, simple command, slash by defined bot
+ * when multiple bots are running simultaneously
+ *
+ * @param botIds Multiple bot identifiers
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/bot)
+ *
+ * @category Decorator
+ */
 export function Bot(...botIds: string[]): ClassMethodDecorator;
 
 export function Bot(...botIds: string[]): ClassMethodDecorator {

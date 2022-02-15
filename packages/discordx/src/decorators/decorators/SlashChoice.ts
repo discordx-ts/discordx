@@ -9,19 +9,58 @@ import {
 } from "../../index.js";
 
 /**
- * An option of a Slash command can implement an autocompletion feature for ``string`` and ``number`` types
+ * The slash command option can implement autocompletion for string and number types
+ *
+ * @param name Choice name/value
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
+ *
  * @category Decorator
  */
 export function SlashChoice<T extends string>(
   name: NotEmpty<T>
 ): ParameterDecoratorEx;
+
+/**
+ * The slash command option can implement autocompletion for string and number types
+ *
+ * @param name Choice name/value
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
+ *
+ * @category Decorator
+ */
 export function SlashChoice(name: number): ParameterDecoratorEx;
+
+/**
+ * The slash command option can implement autocompletion for string and number types
+ *
+ * @param name Choice name
+ * @param value Choice value
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
+ *
+ * @category Decorator
+ */
 export function SlashChoice<T extends string>(
   name: NotEmpty<T>,
   value: number
 ): ParameterDecoratorEx;
+
+/**
+ * The slash command option can implement autocompletion for string and number types
+ *
+ * @param name Choice name
+ * @param value Choice value
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
+ *
+ * @category Decorator
+ */
 export function SlashChoice<T extends string, V extends string>(
   name: NotEmpty<T>,
   value: NotEmpty<V>

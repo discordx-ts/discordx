@@ -215,7 +215,7 @@ class DiscordBot {
 SlashOption(name: string);
 SlashOption(
   name: string,
-  params?: SlashOptionParams
+  options?: SlashOptionOptions
 )
 ```
 
@@ -229,7 +229,7 @@ Define name of this option
 | ------ | ------- | -------- |
 | string |         | Yes      |
 
-### params
+### options
 
 Multiple options, check below.
 

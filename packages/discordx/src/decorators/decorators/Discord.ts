@@ -3,9 +3,11 @@ import type { ClassDecoratorEx } from "@discordx/internal";
 import { DDiscord, MetadataStorage } from "../../index.js";
 
 /**
- * Class decorator for discord.ts instance
+ * Create a metadata instance for the class
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/discord)
+ *
  * @category Decorator
  */
 export function Discord(): ClassDecoratorEx {
