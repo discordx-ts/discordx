@@ -15,7 +15,6 @@ import {
 
 /**
  * Define option for slash command
- * @param name string
  * ___
  * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
  * @category Decorator
@@ -23,15 +22,6 @@ import {
 export function SlashOption<T extends string>(
   name: VerifyName<T>
 ): ParameterDecoratorEx;
-
-/**
- * Define option for slash command
- * @param name string
- * @param params additional configuration
- * ___
- * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
- * @category Decorator
- */
 export function SlashOption<T extends string>(
   name: VerifyName<T>,
   params?: SlashOptionParams

@@ -12,7 +12,6 @@ import {
 
 /**
  * Define everyone permission for your application command or simple command.
- * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
  * ___
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
  * @category Decorator
@@ -20,14 +19,6 @@ import {
 export function Permission(
   permission: IDefaultPermission
 ): ClassMethodDecorator;
-
-/**
- * Define permission for your application command or simple command
- * @param permission https://discord.com/developers/docs/interactions/application-commands#permissions
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
- * @category Decorator
- */
 export function Permission(permission: IPermissions): ClassMethodDecorator;
 
 export function Permission(

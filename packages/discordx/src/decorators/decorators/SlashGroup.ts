@@ -1,4 +1,7 @@
-import type { ClassMethodDecorator } from "@discordx/internal";
+import type {
+  ClassDecoratorEx,
+  ClassMethodDecorator,
+} from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
 import type {
@@ -8,19 +11,22 @@ import type {
 import {
   DApplicationCommand,
   DApplicationCommandGroup,
+  DDiscord,
   MetadataStorage,
 } from "../../index.js";
 
 /**
  * Group your slash command
- * @param subCommands object
- * ___
+ *
  * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
  *
  * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  * @category Decorator
  */
-export function SlashGroup(info: SlashGroupParams): ClassMethodDecorator;
+export function SlashGroup(
+  info: Omit<SlashGroupParams, "applyToChild">
+): ClassMethodDecorator;
+export function SlashGroup(info: SlashGroupParams): ClassDecoratorEx;
 
 export function SlashGroup(info: SlashGroupParams): ClassMethodDecorator {
   return function <T>(
@@ -30,20 +36,28 @@ export function SlashGroup(info: SlashGroupParams): ClassMethodDecorator {
   ) {
     const myClass = target as unknown as new () => unknown;
 
-    if (descriptor) {
+    if (descriptor || info.appendToChild) {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
-        Modifier.create<DApplicationCommand>((original) => {
-          if (original.type === "CHAT_INPUT") {
-            original.group = info.root ?? info.name;
-            original.subgroup = info.root ? info.name : undefined;
-          }
-        }, DApplicationCommand).decorate(
-          myClass.constructor,
-          key ?? myClass.name
-        )
+        Modifier.create<DApplicationCommand | DDiscord>(
+          (original) => {
+            if (original instanceof DDiscord) {
+              [...original.applicationCommands].forEach((obj) => {
+                obj.group = info.root ?? info.name;
+                obj.subgroup = info.root ? info.name : undefined;
+              });
+            } else {
+              original.group = info.root ?? info.name;
+              original.subgroup = info.root ? info.name : undefined;
+            }
+          },
+          DApplicationCommand,
+          DDiscord
+        ).decorateUnknown(target, key, descriptor)
       );
-    } else {
+    }
+
+    if (!descriptor) {
       if (info.root) {
         MetadataStorage.instance.addApplicationCommandSlashSubGroups(
           DApplicationCommandGroup.create<DApplicationCommandOption>(

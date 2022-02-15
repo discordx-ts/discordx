@@ -19,15 +19,6 @@ import {
 export function SimpleCommandOption<T extends string>(
   name: VerifyName<T>
 ): ParameterDecoratorEx;
-
-/**
- * Define option for simple commnad
- * @param name option name
- * @param params additional configuration
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
- * @category Decorator
- */
 export function SimpleCommandOption<T extends string>(
   name: VerifyName<T>,
   params?: { description?: string; type?: SimpleCommandType }

@@ -148,6 +148,12 @@ SlashGroup(info: SlashGroupParams): ClassMethodDecorator
 | ------ | ------- | -------- |
 | string |         | Yes      |
 
+### appendToChild
+
+| type    | default | required |
+| ------- | ------- | -------- |
+| boolean | false   | No       |
+
 ### description
 
 | type   | default   | required |

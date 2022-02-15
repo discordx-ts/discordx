@@ -12,20 +12,11 @@ import {
 
 /**
  * Define guild id for your application command, simple command, events, select menu, button
- * @param guildId guild id
  * ___
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guild)
  * @category Decorator
  */
 export function Guild(guildId: IGuild): ClassMethodDecorator;
-
-/**
- * Define guild id for your application command, simple command, events, select menu, button
- * @param guildIds array of guild id's
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guild)
- * @category Decorator
- */
 export function Guild(...guildIds: IGuild[]): ClassMethodDecorator;
 
 export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {

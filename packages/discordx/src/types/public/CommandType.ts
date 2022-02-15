@@ -7,6 +7,7 @@ import type {
 } from "discord.js";
 
 export type SlashGroupParams = {
+  appendToChild?: true;
   description?: string;
   name: string;
   root?: string;
