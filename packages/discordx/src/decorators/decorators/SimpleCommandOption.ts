@@ -10,23 +10,38 @@ import {
 } from "../../index.js";
 
 /**
- * Define option for simple commnad
- * @param name option name
+ * Add a simple command option
+ *
+ * @param name Option name
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
+ *
  * @category Decorator
  */
 export function SimpleCommandOption<T extends string>(
   name: VerifyName<T>
 ): ParameterDecoratorEx;
+
+/**
+ * Add a simple command option
+ *
+ * @param name Option name
+ * @param options Additional options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
+ *
+ * @category Decorator
+ */
 export function SimpleCommandOption<T extends string>(
   name: VerifyName<T>,
-  params?: { description?: string; type?: SimpleCommandType }
+  options?: { description?: string; type?: SimpleCommandType }
 ): ParameterDecoratorEx;
 
 export function SimpleCommandOption(
   name: string,
-  params?: { description?: string; type?: SimpleCommandType }
+  options?: { description?: string; type?: SimpleCommandType }
 ): ParameterDecoratorEx {
   return function <T>(target: Record<string, T>, key: string, index: number) {
     const dType = (
@@ -36,7 +51,7 @@ export function SimpleCommandOption(
     ).name.toUpperCase();
 
     const type: SimpleCommandType =
-      params?.type ??
+      options?.type ??
       (dType === "GUILDMEMBER"
         ? "USER"
         : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
@@ -55,7 +70,7 @@ export function SimpleCommandOption(
     const option = DSimpleCommandOption.create(
       name,
       type,
-      params?.description
+      options?.description
     ).decorate(target.constructor, key, target[key], target.constructor, index);
 
     MetadataStorage.instance.addModifier(

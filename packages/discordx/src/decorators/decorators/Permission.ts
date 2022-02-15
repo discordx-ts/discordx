@@ -11,14 +11,29 @@ import {
 } from "../../index.js";
 
 /**
- * Define everyone permission for your application command or simple command.
+ * Set default permission for your simple command or slash command
+ *
+ * @param permission Resolver or boolean
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
+ *
  * @category Decorator
  */
 export function Permission(
   permission: IDefaultPermission
 ): ClassMethodDecorator;
+
+/**
+ * Set permissions for your simple command or slash command
+ *
+ * @param permission Resolver or permission object
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
+ *
+ * @category Decorator
+ */
 export function Permission(permission: IPermissions): ClassMethodDecorator;
 
 export function Permission(

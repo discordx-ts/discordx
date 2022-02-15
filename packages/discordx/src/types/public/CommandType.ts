@@ -6,7 +6,7 @@ import type {
   User,
 } from "discord.js";
 
-export type SlashGroupParams = {
+export type SlashGroupOptions = {
   appendToChild?: true;
   description?: string;
   name: string;

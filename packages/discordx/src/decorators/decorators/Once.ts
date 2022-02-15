@@ -4,12 +4,28 @@ import type { DiscordEvents, EventParams } from "../../index.js";
 import { DOn, MetadataStorage } from "../../index.js";
 
 /**
- * Trigger a discord event, It's exactly the same behavior as @On but the method is only executed once
+ * Handle discord events once only with a defined handler
+ *
+ * @param event Event name
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/once)
+ *
  * @category Decorator
  */
 export function Once(event: DiscordEvents): MethodDecoratorEx;
+
+/**
+ * Handle discord events once only with a defined handler
+ *
+ * @param event Event name
+ * @param params Event parameters
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/once)
+ *
+ * @category Decorator
+ */
 export function Once(
   event: DiscordEvents,
   params?: EventParams

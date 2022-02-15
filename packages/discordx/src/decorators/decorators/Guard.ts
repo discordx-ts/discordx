@@ -14,9 +14,11 @@ import {
 import type { Method } from "../classes/Method.js";
 
 /**
- * Define guard aka middleware for your application command, simple command, events, select menu, button
+ * Define middleware for buttons, events, select menus, simple commands, slashes, etc.
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guard)
+ *
  * @category Decorator
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

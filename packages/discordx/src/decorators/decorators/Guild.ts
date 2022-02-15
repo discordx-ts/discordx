@@ -11,12 +11,27 @@ import {
 } from "../../index.js";
 
 /**
- * Define guild id for your application command, simple command, events, select menu, button
+ * Use buttons, events, select menus, simple commands and slashes for a defined guild only
+ *
+ * @param guildId Guild identifier
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guild)
+ *
  * @category Decorator
  */
 export function Guild(guildId: IGuild): ClassMethodDecorator;
+
+/**
+ * Use buttons, events, select menus, simple commands and slashes for a defined guild only
+ *
+ * @param guildIds Guild identifiers
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guild)
+ *
+ * @category Decorator
+ */
 export function Guild(...guildIds: IGuild[]): ClassMethodDecorator;
 
 export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {

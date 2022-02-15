@@ -1394,7 +1394,8 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Manually trigger an event (used for tests)
+   * Trigger an event manually (used for testing)
+   *
    * @param event The event
    * @param params Params to inject
    * @param once Trigger an once event

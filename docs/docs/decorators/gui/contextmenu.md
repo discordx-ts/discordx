@@ -30,7 +30,7 @@ export abstract class contextTest {
 ContextMenu(
   type: "USER" | "MESSAGE",
   name?: string,
-  params?: ApplicationCommandParams
+  options?: ApplicationCommandParams
 )
 ```
 
@@ -52,7 +52,7 @@ Context menu type.
 
 Name of context menu. Name and handler have the same value currently.
 
-### ApplicationCommandParams
+### options
 
 Multiple options, check below.
 

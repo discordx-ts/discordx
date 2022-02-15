@@ -7,7 +7,7 @@ import type {
   SlashOptionType,
 } from "../../index.js";
 
-export type ApplicationCommandParams = {
+export type ApplicationCommandOptions = {
   botIds?: string[];
   defaultPermission?: boolean;
   description?: string;
@@ -19,7 +19,7 @@ export type SlashOptionBase = {
   required?: false;
 };
 
-export type SlashOptionBaseParams = SlashOptionBase & {
+export type SlashOptionBaseOptions = SlashOptionBase & {
   autocomplete?: undefined;
   channelTypes?: undefined;
   maxValue?: undefined;
@@ -30,7 +30,7 @@ export type SlashOptionBaseParams = SlashOptionBase & {
   >;
 };
 
-export type SlashOptionChannelParams = SlashOptionBase & {
+export type SlashOptionChannelOptions = SlashOptionBase & {
   autocomplete?: undefined;
   channelTypes?: ChannelTypes[];
   maxValue?: undefined;
@@ -38,7 +38,7 @@ export type SlashOptionChannelParams = SlashOptionBase & {
   type: "CHANNEL";
 };
 
-export type SlashOptionAutoCompleteParams = SlashOptionBase & {
+export type SlashOptionAutoCompleteOptions = SlashOptionBase & {
   autocomplete?: SlashAutoCompleteOption;
   channelTypes?: undefined;
   maxValue?: undefined;
@@ -46,7 +46,7 @@ export type SlashOptionAutoCompleteParams = SlashOptionBase & {
   type: "STRING" | "NUMBER" | "INTEGER";
 };
 
-export type SlashOptionNumberParams = SlashOptionBase & {
+export type SlashOptionNumberOptions = SlashOptionBase & {
   autocomplete?: SlashAutoCompleteOption;
   channelTypes?: undefined;
   maxValue?: number;
@@ -54,11 +54,11 @@ export type SlashOptionNumberParams = SlashOptionBase & {
   type: "NUMBER" | "INTEGER";
 };
 
-export type SlashOptionParams =
-  | SlashOptionBaseParams
-  | SlashOptionChannelParams
-  | SlashOptionNumberParams
-  | SlashOptionAutoCompleteParams;
+export type SlashOptionOptions =
+  | SlashOptionBaseOptions
+  | SlashOptionChannelOptions
+  | SlashOptionNumberOptions
+  | SlashOptionAutoCompleteOptions;
 
 export type SlashAutoCompleteOption =
   | undefined

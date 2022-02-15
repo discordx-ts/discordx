@@ -88,12 +88,12 @@ client.executeCommand(message, { caseSensitive: true });
 ## Signature
 
 ```ts
-SimpleCommand(name: string, params: SimpleCommandParams)
+SimpleCommand(name: string, options: SimpleCommandOptions)
 ```
 
 ## Parameters
 
-### Name
+### name
 
 The simple command name.
 
@@ -101,7 +101,7 @@ The simple command name.
 | ------ | ------- | -------- |
 | string |         | Yes      |
 
-### SimpleCommandParams
+### options
 
 Multiple options, check below.
 

@@ -6,7 +6,7 @@ export type ArgSplitter =
   | RegExp
   | ((command: SimpleCommandMessage) => string[]);
 
-export type SimpleCommandParams = {
+export type SimpleCommandOptions = {
   aliases?: string[];
   argSplitter?: ArgSplitter;
   botIds?: string[];

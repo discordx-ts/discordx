@@ -150,7 +150,7 @@ abstract class AppDiscord {
 ```ts
 Slash(
   name?: string,
-  params?: ApplicationCommandParams
+  options?: ApplicationCommandOptions
 )
 ```
 
@@ -164,7 +164,7 @@ The Slash command name
 | ------ | ------- | -------- |
 | string |         | YES      |
 
-### ApplicationCommandParams
+### options
 
 Multiple options, check below.
 

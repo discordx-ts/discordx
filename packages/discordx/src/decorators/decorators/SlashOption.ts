@@ -2,7 +2,7 @@ import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
 import type {
-  SlashOptionParams,
+  SlashOptionOptions,
   SlashOptionType,
   VerifyName,
 } from "../../index.js";
@@ -14,22 +14,38 @@ import {
 } from "../../index.js";
 
 /**
- * Define option for slash command
+ * Add a slash command option
+ *
+ * @param name Option name
  * ___
- * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
+ *
  * @category Decorator
  */
 export function SlashOption<T extends string>(
   name: VerifyName<T>
 ): ParameterDecoratorEx;
+
+/**
+ * Add a slash command option
+ *
+ * @param name Option name
+ * @param options Additional options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
+ *
+ * @category Decorator
+ */
 export function SlashOption<T extends string>(
   name: VerifyName<T>,
-  params?: SlashOptionParams
+  options?: SlashOptionOptions
 ): ParameterDecoratorEx;
 
 export function SlashOption(
   name: string,
-  params?: SlashOptionParams
+  options?: SlashOptionOptions
 ): ParameterDecoratorEx {
   function getType(type: string): SlashOptionType {
     switch (type) {
@@ -58,17 +74,17 @@ export function SlashOption(
       ] as () => unknown
     ).name.toUpperCase();
 
-    const type: SlashOptionType = params?.type ?? getType(reflectedType);
+    const type: SlashOptionType = options?.type ?? getType(reflectedType);
 
     const option = DApplicationCommandOption.create(
       name,
-      params?.autocomplete,
-      params?.channelTypes,
-      params?.description,
+      options?.autocomplete,
+      options?.channelTypes,
+      options?.description,
       index,
-      params?.maxValue,
-      params?.minValue,
-      params?.required,
+      options?.maxValue,
+      options?.minValue,
+      options?.required,
       type
     ).decorate(target.constructor, key, target[key], target.constructor, index);
 
