@@ -501,8 +501,8 @@ export class MetadataStorage {
         option.options.push(slash.toSubCommand());
       });
 
-      // The the root option to the root Slash command
-      const groupSlash = slashes?.[0]?.group
+      // Get the first sub command to read root group name
+      const groupSlash = slashes[0]?.group
         ? groupedSlashes.get(slashes[0].group)
         : undefined;
       if (groupSlash) {
