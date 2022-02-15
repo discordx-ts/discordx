@@ -15,7 +15,6 @@ import type { Method } from "../classes/Method.js";
 
 /**
  * Define guard aka middleware for your application command, simple command, events, select menu, button
- * @param fns array of guards
  * ___
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guard)
  * @category Decorator

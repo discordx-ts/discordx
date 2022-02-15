@@ -13,20 +13,11 @@ import {
 
 /**
  * Execute your application command, button, select menu, simple command or event by defined bot when multiple bots are running in the same instance
- * @param botId id of your bot
  * ___
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/bot)
  * @category Decorator
  */
 export function Bot<T extends string>(botId: NotEmpty<T>): ClassMethodDecorator;
-
-/**
- * Make your application command, button, select menu, simple command or event executable by defined bot in case of multiple bot are running in same instance
- * @param botIds array of bot id's
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/bot)
- * @category Decorator
- */
 export function Bot(...botIds: string[]): ClassMethodDecorator;
 
 export function Bot(...botIds: string[]): ClassMethodDecorator {

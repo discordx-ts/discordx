@@ -75,12 +75,4 @@ export abstract class Group {
   ): void {
     interaction.reply(text);
   }
-
-  @Slash("hello")
-  root(
-    @SlashOption("text") text: string,
-    interaction: CommandInteraction
-  ): void {
-    interaction.reply(text);
-  }
 }

@@ -5,21 +5,11 @@ import { DOn, MetadataStorage } from "../../index.js";
 
 /**
  * Trigger a discord event
- * @param event name of event
  * ___
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/on)
  * @category Decorator
  */
 export function On(event: DiscordEvents): MethodDecoratorEx;
-
-/**
- * Trigger a discord event
- * @param event name of event
- * @param params addition configuration
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/on)
- * @category Decorator
- */
 export function On(
   event: DiscordEvents,
   params?: EventParams

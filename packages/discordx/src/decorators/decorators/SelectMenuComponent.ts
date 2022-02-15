@@ -5,21 +5,11 @@ import { ComponentTypeX, DComponent, MetadataStorage } from "../../index.js";
 
 /**
  * Define a select menu interaction handler
- * @param id custom id for your select menu
  * ___
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
  * @category Decorator
  */
 export function SelectMenuComponent(id?: string | RegExp): MethodDecoratorEx;
-
-/**
- * Define a select menu interaction handler
- * @param id custom id for your select menu
- * @param params additional configuration
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
- * @category Decorator
- */
 export function SelectMenuComponent(
   id: string | RegExp,
   params?: { botIds?: string[]; guilds?: IGuild[] }

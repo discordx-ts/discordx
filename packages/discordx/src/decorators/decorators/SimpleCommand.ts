@@ -9,26 +9,9 @@ import { DSimpleCommand, MetadataStorage } from "../../index.js";
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
  */
 export function SimpleCommand(): MethodDecoratorEx;
-
-/**
- * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
- * @param name command name
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
- * @category Decorator
- */
 export function SimpleCommand<T extends string>(
   name: NotEmpty<T>
 ): MethodDecoratorEx;
-
-/**
- * Create a simple command handler for messages using ``@SimpleCommand``. Example ``!hello world``
- * @param name command name
- * @param params additional configuration
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
- * @category Decorator
- */
 export function SimpleCommand<T extends string>(
   name: NotEmpty<T>,
   params: SimpleCommandParams

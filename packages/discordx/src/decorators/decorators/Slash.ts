@@ -13,19 +13,11 @@ import { DApplicationCommand, MetadataStorage } from "../../index.js";
 export function Slash<T extends string>(
   name?: VerifyName<T>
 ): MethodDecoratorEx;
-
-/**
- * Define slash command
- * @param name name of your slash command
- * @param params additional configuration for slash
- * ___
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)
- * @category Decorator
- */
 export function Slash<T extends string>(
   name?: VerifyName<T>,
   params?: ApplicationCommandParams
 ): MethodDecoratorEx;
+
 export function Slash(
   name?: string,
   params?: ApplicationCommandParams
