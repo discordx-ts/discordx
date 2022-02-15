@@ -28,7 +28,7 @@ import {
  * @category Decorator
  */
 export function SlashGroup(
-  options: Omit<SlashGroupOptions, "applyToChild">
+  options: Omit<SlashGroupOptions, "appendToChild">
 ): ClassMethodDecorator;
 export function SlashGroup(options: SlashGroupOptions): ClassDecoratorEx;
 
@@ -38,8 +38,6 @@ export function SlashGroup(options: SlashGroupOptions): ClassMethodDecorator {
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
-    const myClass = target as unknown as new () => unknown;
-
     if (descriptor || options.appendToChild) {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
@@ -59,9 +57,8 @@ export function SlashGroup(options: SlashGroupOptions): ClassMethodDecorator {
           DDiscord
         ).decorateUnknown(target, key, descriptor)
       );
-    }
-
-    if (!descriptor) {
+    } else {
+      const myClass = target as unknown as new () => unknown;
       if (options.root) {
         MetadataStorage.instance.addApplicationCommandSlashSubGroups(
           DApplicationCommandGroup.create<DApplicationCommandOption>(
