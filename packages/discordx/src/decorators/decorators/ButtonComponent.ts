@@ -6,7 +6,7 @@ import { ComponentTypeX, DComponent, MetadataStorage } from "../../index.js";
 /**
  * Interact with buttons with a defined identifier
  *
- * @param id Button identifier
+ * @param id - Button identifier
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
@@ -18,8 +18,8 @@ export function ButtonComponent(id?: string | RegExp): MethodDecoratorEx;
 /**
  * Interact with buttons with a defined identifier
  *
- * @param id Button identifier
- * @param options Options for the button component
+ * @param id - Button identifier
+ * @param options - Options for the button component
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)

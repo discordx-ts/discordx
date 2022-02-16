@@ -69,7 +69,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
   /**
    * Get page
+   *
    * @param page
+   *
    * @returns
    */
   public getPage = async (page: number): Promise<IGeneratePage | undefined> => {

@@ -9,7 +9,7 @@ export class TimedSet<T> implements ITimedSet<T> {
   private _map: Map<T, Timeout>;
 
   /**
-   * @param _timeOut - timeout in milliseconds
+   * @param _timeOut - Timeout in milliseconds
    */
   constructor(private _timeOut: number) {
     if (Number.isNaN(_timeOut)) {

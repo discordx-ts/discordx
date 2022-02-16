@@ -13,7 +13,7 @@ import {
 /**
  * Use buttons, events, select menus, simple commands and slashes for a defined guild only
  *
- * @param guildId Guild identifier
+ * @param guildId - Guild identifier
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guild)
@@ -25,7 +25,7 @@ export function Guild(guildId: IGuild): ClassMethodDecorator;
 /**
  * Use buttons, events, select menus, simple commands and slashes for a defined guild only
  *
- * @param guildIds Guild identifiers
+ * @param guildIds - Guild identifiers
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guild)

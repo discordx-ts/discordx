@@ -518,9 +518,10 @@ export class MetadataStorage {
 
   /**
    * Trigger a discord event
-   * @param event The event to trigger
-   * @param client The discord.ts client instance
-   * @param once Should we execute the event once
+   *
+   * @param event - The event to trigger
+   * @param client - The client instance
+   * @param once - Execute event once
    */
   trigger<Event extends DiscordEvents>(
     guards: GuardFunction[],

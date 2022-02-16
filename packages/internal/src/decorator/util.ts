@@ -32,8 +32,8 @@ export class DecoratorUtils {
    * class X {}
    * ```
    *
-   * @param a The decorator
-   * @param list The list of linked decorators to a
+   * @param a - The decorator
+   * @param list - The list of linked decorators to a
    * @returns
    */
   static getLinkedObjects<Type extends Decorator>(

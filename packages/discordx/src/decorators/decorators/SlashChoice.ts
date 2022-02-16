@@ -11,7 +11,7 @@ import {
 /**
  * The slash command option can implement autocompletion for string and number types
  *
- * @param name Choice name/value
+ * @param name - Choice name/value
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
@@ -25,7 +25,7 @@ export function SlashChoice<T extends string>(
 /**
  * The slash command option can implement autocompletion for string and number types
  *
- * @param name Choice name/value
+ * @param name - Choice name/value
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
@@ -37,8 +37,8 @@ export function SlashChoice(name: number): ParameterDecoratorEx;
 /**
  * The slash command option can implement autocompletion for string and number types
  *
- * @param name Choice name
- * @param value Choice value
+ * @param name - Choice name
+ * @param value - Choice value
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
@@ -53,8 +53,8 @@ export function SlashChoice<T extends string>(
 /**
  * The slash command option can implement autocompletion for string and number types
  *
- * @param name Choice name
- * @param value Choice value
+ * @param name - Choice name
+ * @param value - Choice value
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)

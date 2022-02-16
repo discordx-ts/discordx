@@ -6,12 +6,12 @@ import { DApplicationCommand, MetadataStorage } from "../../index.js";
 /**
  * Handle a slash command with a defined name
  *
- * @param name Slash name
+ * @param name - Slash name
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)
  *
- * @category Decorator
+ * @category Decorator -
  */
 export function Slash<T extends string>(
   name?: VerifyName<T>
@@ -20,8 +20,8 @@ export function Slash<T extends string>(
 /**
  * Handle a slash command with a defined name
  *
- * @param name Slash name
- * @param options Slash options
+ * @param name - Slash name
+ * @param options - Slash options
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)

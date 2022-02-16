@@ -7,7 +7,7 @@ import { DApplicationCommand, MetadataStorage } from "../../index.js";
 /**
  * Interact with context menu with a defined identifier
  *
- * @param type Context menu type
+ * @param type - Context menu type
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
@@ -21,8 +21,8 @@ export function ContextMenu(
 /**
  * Interact with context menu with a defined identifier
  *
- * @param type Context menu type
- * @param name Context menu name
+ * @param type - Context menu type
+ * @param name - Context menu name
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
@@ -37,9 +37,9 @@ export function ContextMenu(
 /**
  * Interact with context menu with a defined identifier
  *
- * @param type Context menu type
- * @param name Context menu name
- * @param options Options for the context menu
+ * @param type - Context menu type
+ * @param name - Context menu name
+ * @param options - Options for the context menu
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)

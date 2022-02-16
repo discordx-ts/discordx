@@ -23,7 +23,9 @@ import { PlayerErrors, Util, YoutubeTrack } from "../index.js";
 
 /**
  * Wait promise
+ *
  * @param time
+ *
  * @returns
  */
 function wait(time: number) {
@@ -260,6 +262,7 @@ export abstract class Queue<T extends Player = Player> {
 
   /**
    * Join voice channel
+   *
    * @param channel
    */
   public async join(
@@ -388,7 +391,9 @@ export abstract class Queue<T extends Player = Player> {
 
   /**
    * Remove indexed track
+   *
    * @param index array of track index
+   *
    * @returns
    */
   public removeTracks(index: number[]): CommonTrack[] {
@@ -522,8 +527,10 @@ export abstract class Queue<T extends Player = Player> {
 
   /**
    * play custom track
+   *
    * @param track
    * @param options
+   *
    * @returns
    */
   public playTrack(
@@ -544,9 +551,11 @@ export abstract class Queue<T extends Player = Player> {
 
   /**
    * play song
+   *
    * @param search
    * @param options
    * @param enqueueTop
+   *
    * @returns
    */
   public async play(
@@ -573,9 +582,11 @@ export abstract class Queue<T extends Player = Player> {
 
   /**
    * play playlist
+   *
    * @param search
    * @param options
    * @param enqueueTop
+   *
    * @returns
    */
   public async playlist(
@@ -599,9 +610,11 @@ export abstract class Queue<T extends Player = Player> {
 
   /**
    * Play spotify
+   *
    * @param search
    * @param options
    * @param enqueueTop
+   *
    * @returns
    */
   public async spotify(

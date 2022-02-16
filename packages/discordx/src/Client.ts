@@ -47,8 +47,10 @@ import {
 
 /**
  * Extend original client class of discord.js
- * @param options object
+ *
+ * @param options - Client options
  * ___
+ *
  * [View Documentation](https://discord-ts.js.org/docs/general/client)
  */
 export class Client extends ClientJS {
@@ -248,8 +250,10 @@ export class Client extends ClientJS {
 
   /**
    * Extend original client class of discord.js
-   * @param options object
+   *
+   * @param options - Client options
    * ___
+   *
    * [View Documentation](https://discord-ts.js.org/docs/general/client)
    */
   constructor(options: ClientOptions) {
@@ -265,8 +269,9 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Start your bot
-   * @param token The bot token
+   * Start bot
+   *
+   * @param token - Bot token
    */
   async login(token: string, log?: boolean): Promise<string> {
     await this.instance.build();
@@ -462,10 +467,10 @@ export class Client extends ClientJS {
   }
 
   /**
-   * init application commands for guild
-   * @param guildId
-   * @param DCommands
-   * @param log
+   * Init application commands for guild
+   * @param guildId - Guild identifier
+   * @param DCommands - Array of commands
+   * @param options - Options
    */
   async initGuildApplicationCommands(
     guildId: string,
@@ -645,8 +650,9 @@ export class Client extends ClientJS {
   }
 
   /**
-   * init global application commands
-   * @param log
+   * Init global application commands
+   *
+   * @param options - Options
    */
   async initGlobalApplicationCommands(
     options?: InitCommandConfig
@@ -770,8 +776,10 @@ export class Client extends ClientJS {
 
   /**
    * Update application commands permission by GuildId
-   * @param guildId guild id
-   * @param DCommands commands
+   *
+   * @param guildId - Guild identifier
+   * @param DCommands - Array of commands
+   * @param log - Enable log
    */
   async initGuildApplicationPermissions(
     guildId: string,
@@ -855,7 +863,9 @@ export class Client extends ClientJS {
 
   /**
    * Fetch the existing application commands of a guild or globally
-   * @param guild The guild id (empty -> globally)
+   *
+   * @param guildId - The guild id (empty -> globally)
+   *
    * @returns
    */
   fetchApplicationCommands(
@@ -873,7 +883,8 @@ export class Client extends ClientJS {
 
   /**
    * Clear the application commands globally or for some guilds
-   * @param guilds The guild Ids (empty -> globally)
+   *
+   * @param guilds - The guild Ids (empty -> globally)
    */
   async clearApplicationCommands(...guilds: Snowflake[]): Promise<void> {
     if (guilds.length) {
@@ -908,7 +919,9 @@ export class Client extends ClientJS {
    * /hello => ["hello"]
    * /test hello => ["test", "hello"]
    * /test hello me => ["test", "hello", "me"]
-   * @param interaction The targeted slash interaction
+   *
+   * @param interaction - The targeted slash interaction
+   *
    * @returns
    */
   getApplicationCommandGroupTree(
@@ -946,7 +959,9 @@ export class Client extends ClientJS {
 
   /**
    * Return the corresponding @Slash from a tree
-   * @param tree
+   *
+   * @param tree - Array of string
+   *
    * @returns
    */
   getApplicationCommandFromTree(
@@ -987,8 +1002,10 @@ export class Client extends ClientJS {
 
   /**
    * Execute all types of interaction
-   * @param interaction Interaction
-   * @param log {boolean}
+   *
+   * @param interaction - Interaction
+   * @param log - Enable logs
+   *
    * @returns
    */
   executeInteraction(
@@ -1027,8 +1044,10 @@ export class Client extends ClientJS {
 
   /**
    * Execute command interacton
-   * @param interaction CommandInteraction | AutocompleteInteraction
-   * @param log {boolean}
+   *
+   * @param interaction - Interaction instance
+   * @param log - Allow logs
+   *
    * @returns
    */
   executeCommandInteraction(
@@ -1075,8 +1094,10 @@ export class Client extends ClientJS {
 
   /**
    * Execute component interacton
-   * @param interaction ButtonInteraction | ModalSubmitInteraction | SelectMenuInteraction
-   * @param log {boolean}
+   *
+   * @param interaction - Interaction instance
+   * @param log - Allow logs
+   *
    * @returns
    */
   async executeComponent(
@@ -1125,8 +1146,10 @@ export class Client extends ClientJS {
 
   /**
    * Execute context menu interacton
-   * @param interaction ContextMenuInteraction
-   * @param log {boolean}
+   *
+   * @param interaction - Interaction instance
+   * @param log - Allow logs
+   *
    * @returns
    */
   async executeContextMenu(
@@ -1184,7 +1207,9 @@ export class Client extends ClientJS {
 
   /**
    * Fetch prefix for message
-   * @param message messsage instance
+   *
+   * @param message - Messsage instance
+   *
    * @returns
    */
   async getMessagePrefix(message: Message): Promise<IPrefix> {
@@ -1196,10 +1221,12 @@ export class Client extends ClientJS {
   }
 
   /**
+   * Parse command message
    *
-   * @param prefix command prefix
-   * @param message original message
-   * @param caseSensitive allow insentive execution for simple commands
+   * @param prefix - Command prefix
+   * @param message - Original message
+   * @param caseSensitive - Allow insentive execution
+   *
    * @returns
    */
   parseCommand(
@@ -1259,8 +1286,10 @@ export class Client extends ClientJS {
 
   /**
    * Execute the corresponding @SimpleCommand based on an message instance
-   * @param message The discord.js message instance
-   * @param options execution options ex. caseSensitive
+   *
+   * @param message - Message instance
+   * @param options - Options
+   *
    * @returns
    */
   async executeCommand(
@@ -1396,9 +1425,11 @@ export class Client extends ClientJS {
   /**
    * Trigger an event manually (used for testing)
    *
-   * @param event The event
-   * @param params Params to inject
-   * @param once Trigger an once event
+   * @param event - The event
+   * @param params - Params to inject
+   * @param once - Trigger an once event
+   *
+   * @returns
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   trigger(event: DiscordEvents, params: any, once = false): Promise<any[]> {

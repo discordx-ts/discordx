@@ -20,7 +20,7 @@ export function SimpleCommand(): MethodDecoratorEx;
  *
  * Example ``!hello world``
  *
- * @param name Command name
+ * @param name - Command name
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
@@ -36,8 +36,8 @@ export function SimpleCommand<T extends string>(
  *
  * Example ``!hello world``
  *
- * @param name Command name
- * @param options Command options
+ * @param name - Command name
+ * @param options - Command options
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
