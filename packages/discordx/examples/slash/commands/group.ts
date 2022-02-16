@@ -19,7 +19,7 @@ enum TextChoices {
 @SlashGroup({ name: "text", root: "testing" })
 export abstract class Group {
   @Slash("voicechannel")
-  @SlashGroup({ name: "maths", root: "testing" })
+  @SlashGroup("maths", "testing")
   voicechannel(
     @SlashOption("channel", {
       channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
@@ -44,7 +44,7 @@ export abstract class Group {
   }
 
   @Slash("add")
-  @SlashGroup({ name: "maths", root: "testing" })
+  @SlashGroup("maths", "testing")
   add(
     @SlashOption("x", { description: "x value" }) x: number,
     @SlashOption("y", { description: "y value" }) y: number,
@@ -54,7 +54,7 @@ export abstract class Group {
   }
 
   @Slash("multiply")
-  @SlashGroup({ name: "maths", root: "testing" })
+  @SlashGroup("maths", "testing")
   multiply(
     @SlashOption("x", { description: "x value" }) x: number,
     @SlashOption("y", { description: "y value" }) y: number,
@@ -64,7 +64,7 @@ export abstract class Group {
   }
 
   @Slash("hello")
-  @SlashGroup({ name: "text", root: "testing" })
+  @SlashGroup("text", "testing")
   hello(
     @SlashChoice(TextChoices)
     @SlashOption("text", {

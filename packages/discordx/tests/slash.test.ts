@@ -48,10 +48,7 @@ enum TextChoices {
 })
 export abstract class AppDiscord {
   @Slash("add", { description: "Addition" })
-  @SlashGroup({
-    name: "maths",
-    root: "testing",
-  })
+  @SlashGroup("maths", "testing")
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -65,10 +62,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("multiply", { description: "Multiply" })
-  @SlashGroup({
-    name: "maths",
-    root: "testing",
-  })
+  @SlashGroup("maths", "testing")
   multiply(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -82,10 +76,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("hello")
-  @SlashGroup({
-    name: "text",
-    root: "testing",
-  })
+  @SlashGroup("text", "testing")
   hello(
     @SlashChoice(TextChoices)
     @SlashOption("text")
@@ -98,9 +89,7 @@ export abstract class AppDiscord {
   }
 
   @Slash("hello")
-  @SlashGroup({
-    name: "testing",
-  })
+  @SlashGroup("testing")
   root(
     @SlashOption("text")
     text: string,
@@ -129,10 +118,7 @@ export abstract class AppDiscord {
 })
 export abstract class AppDiscord2 {
   @Slash("add", { description: "Addition" })
-  @SlashGroup({
-    name: "line",
-    root: "grouptestwithoutdescription",
-  })
+  @SlashGroup("line", "grouptestwithoutdescription")
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -203,7 +189,8 @@ export abstract class AppDiscord1 {
 }
 
 @Discord()
-@SlashGroup({ appendToChild: true, name: "testx" })
+@SlashGroup({ name: "testx" })
+@SlashGroup("testx")
 export abstract class AnotherGroup {
   @Slash()
   m(): unknown {
@@ -219,7 +206,7 @@ export abstract class AnotherGroup {
 @Discord()
 @SlashGroup({ name: "testx" })
 @SlashGroup({ name: "add", root: "testx" })
-@SlashGroup({ appendToChild: true, name: "add", root: "testx" })
+@SlashGroup("add", "testx")
 export abstract class Group {
   @Slash()
   x(): unknown {

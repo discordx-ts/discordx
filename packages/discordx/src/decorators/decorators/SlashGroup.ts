@@ -16,7 +16,7 @@ import {
 } from "../../index.js";
 
 /**
- * Group your slash command
+ * Create slash group
  *
  * @param options Group options
  * ___
@@ -27,30 +27,59 @@ import {
  *
  * @category Decorator
  */
-export function SlashGroup(
-  options: Omit<SlashGroupOptions, "appendToChild">
-): ClassMethodDecorator;
 export function SlashGroup(options: SlashGroupOptions): ClassDecoratorEx;
 
-export function SlashGroup(options: SlashGroupOptions): ClassMethodDecorator {
+/**
+ * Assign a group to a method or class
+ *
+ * @param name Name of group
+ * ___
+ *
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ *
+ * @category Decorator
+ */
+export function SlashGroup(name: string): ClassMethodDecorator;
+
+/**
+ * Assign a group to a method or class
+ *
+ * @param name Name of group
+ * @param root Root name of group
+ * ___
+ *
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ *
+ * @category Decorator
+ */
+export function SlashGroup(name: string, root: string): ClassMethodDecorator;
+
+export function SlashGroup(
+  options: SlashGroupOptions | string,
+  root?: string
+): ClassMethodDecorator {
   return function <T>(
     target: T,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
-    if (descriptor || options.appendToChild) {
+    if (typeof options === "string") {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(
         Modifier.create<DApplicationCommand | DDiscord>(
           (original) => {
             if (original instanceof DDiscord) {
               [...original.applicationCommands].forEach((obj) => {
-                obj.group = options.root ?? options.name;
-                obj.subgroup = options.root ? options.name : undefined;
+                obj.group = root ?? options;
+                obj.subgroup = root ? options : undefined;
               });
             } else {
-              original.group = options.root ?? options.name;
-              original.subgroup = options.root ? options.name : undefined;
+              original.group = root ?? options;
+              original.subgroup = root ? options : undefined;
             }
           },
           DApplicationCommand,
