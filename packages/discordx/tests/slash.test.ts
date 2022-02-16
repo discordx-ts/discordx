@@ -202,6 +202,36 @@ export abstract class AppDiscord1 {
   }
 }
 
+@Discord()
+@SlashGroup({ appendToChild: true, name: "testx" })
+export abstract class AnotherGroup {
+  @Slash()
+  m(): unknown {
+    return ["/testx", "m", true];
+  }
+
+  @Slash()
+  n(): unknown {
+    return ["/testx", "n", true];
+  }
+}
+
+@Discord()
+@SlashGroup({ name: "testx" })
+@SlashGroup({ name: "add", root: "testx" })
+@SlashGroup({ appendToChild: true, name: "add", root: "testx" })
+export abstract class Group {
+  @Slash()
+  x(): unknown {
+    return ["/testx", "add", "x", true];
+  }
+
+  @Slash()
+  y(): unknown {
+    return ["/testx", "add", "y", true];
+  }
+}
+
 const client = new Client({ intents: [] });
 
 beforeAll(async () => {
@@ -535,6 +565,25 @@ describe("Slash", () => {
             ],
             type: "SUB_COMMAND_GROUP",
           },
+        ],
+        type: "CHAT_INPUT",
+      },
+      {
+        defaultPermission: true,
+        description: "testx",
+        name: "testx",
+        options: [
+          {
+            description: "add - sub_command_group",
+            name: "add",
+            options: [
+              { description: "y", name: "y", type: "SUB_COMMAND" },
+              { description: "x", name: "x", type: "SUB_COMMAND" },
+            ],
+            type: "SUB_COMMAND_GROUP",
+          },
+          { description: "m", name: "m", type: "SUB_COMMAND" },
+          { description: "n", name: "n", type: "SUB_COMMAND" },
         ],
         type: "CHAT_INPUT",
       },
