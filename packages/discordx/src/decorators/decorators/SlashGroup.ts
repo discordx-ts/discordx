@@ -18,7 +18,7 @@ import {
 /**
  * Create slash group
  *
- * @param options Group options
+ * @param options - Group options
  * ___
  *
  * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
@@ -32,7 +32,7 @@ export function SlashGroup(options: SlashGroupOptions): ClassDecoratorEx;
 /**
  * Assign a group to a method or class
  *
- * @param name Name of group
+ * @param name - Name of group
  * ___
  *
  * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
@@ -46,8 +46,8 @@ export function SlashGroup(name: string): ClassMethodDecorator;
 /**
  * Assign a group to a method or class
  *
- * @param name Name of group
- * @param root Root name of group
+ * @param name - Name of group
+ * @param root - Root name of group
  * ___
  *
  * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slashgroup)

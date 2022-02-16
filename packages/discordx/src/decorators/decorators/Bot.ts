@@ -15,7 +15,7 @@ import {
  * Execute your application button, event, select menu, simple command, slash by defined bot
  * when multiple bots are running simultaneously
  *
- * @param botId Bot identifier
+ * @param botId - Bot identifier
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/bot)
@@ -28,7 +28,7 @@ export function Bot<T extends string>(botId: NotEmpty<T>): ClassMethodDecorator;
  * Execute your application button, event, select menu, simple command, slash by defined bot
  * when multiple bots are running simultaneously
  *
- * @param botIds Multiple bot identifiers
+ * @param botIds - Multiple bot identifiers
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/bot)

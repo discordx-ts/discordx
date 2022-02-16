@@ -120,8 +120,10 @@ const StreamDownloader = (url: string, options?: YTDLStreamOptions) => {
 
 /**
  * Creates arbitraryStream
- * @param stream Any readable stream source
- * @param options Stream options
+ *
+ * @param stream - Any readable stream source
+ * @param options - Stream options
+ *
  * @example const streamSource = "https://listen.moe/kpop/opus";
  * let stream = ytdl.arbitraryStream(streamSource, {
  *     encoderArgs: ["-af", "asetrate=44100*1.25"],

@@ -9,7 +9,8 @@ export interface ITimedSet<T> extends Set<T> {
 
   /**
    * Refresh the timeout fot this element (resets the timer for this items eviction
-   * @param key
+   *
+   * @param key - Key
    */
   refresh(key: T): boolean;
 }

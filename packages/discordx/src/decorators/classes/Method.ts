@@ -60,7 +60,8 @@ export abstract class Method extends Decorator {
 
   /**
    * Define how to parse the params
-   * @param params The params to parse
+   *
+   * @param params - The params to parse
    */
   abstract parseParams(...params: unknown[]): unknown[];
 

@@ -34,8 +34,10 @@ export class Modifier<
    * Apply the modifier to a list of objects
    * it only applies the modifications to linked objects
    * that are on the targets type of modification
-   * @param modifiers The modifier list
-   * @param originals The list of objects to modify
+   *
+   * @param modifiers - The modifier list
+   * @param originals - The list of objects to modify
+   *
    * @returns
    */
   static applyFromModifierListToList(

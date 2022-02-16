@@ -26,8 +26,10 @@ export class Player extends EventEmitter {
   }
 
   /**
-   * get guild queue
-   * @param guild
+   * Get guild queue
+   *
+   * @param guild - Guild
+   *
    * @returns
    */
   public queue<T extends Queue = Queue>(

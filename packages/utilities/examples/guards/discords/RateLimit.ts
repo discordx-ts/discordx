@@ -8,6 +8,7 @@ import { RateLimit, TIME_UNIT } from "../../../src/index.js";
 export abstract class RateLimitExample {
   /**
    * 1 command every 30 seconds with default message
+   *
    * @param interaction
    */
   @Slash("rate_limit_1")
@@ -18,6 +19,7 @@ export abstract class RateLimitExample {
 
   /**
    * only one command every 30 seconds with custom message
+   *
    * @param interaction
    */
   @Slash("rate_limit_2")
@@ -28,6 +30,7 @@ export abstract class RateLimitExample {
 
   /**
    * Allow 3 command before rate limit of 30 seconds (from last message)
+   *
    * @param interaction
    */
   @Slash("rate_limit_3")
@@ -38,8 +41,8 @@ export abstract class RateLimitExample {
 
   /**
    * Rate limit simple command
+   *
    * @param message
-   * @private
    */
   @SimpleCommand("rateLimit")
   @Guard(RateLimit(TIME_UNIT.seconds, 10))

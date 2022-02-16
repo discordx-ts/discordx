@@ -6,9 +6,11 @@ import ytsr from "ytsr";
 export class Util {
   /**
    * Search youtube video or playlist
+   *
    * @param input
    * @param type
    * @param options
+   *
    * @returns
    */
   static async search(
@@ -28,7 +30,9 @@ export class Util {
 
   /**
    * Search youtube song by name
+   *
    * @param input
+   *
    * @returns
    */
   static async getSong(input: string): Promise<ytsr.Video | undefined> {
@@ -51,7 +55,9 @@ export class Util {
 
   /**
    * Search multiple youtube song by name
+   *
    * @param inputs
+   *
    * @returns
    */
   static async getSongs(inputs: string[]): Promise<ytsr.Video[]> {
@@ -63,6 +69,7 @@ export class Util {
 
   /**
    * Search youtube playlist
+   *
    * @param input
    * @param options
    * @returns
@@ -93,6 +100,7 @@ export class Util {
 
   /**
    * Get spotify tracks by url
+   *
    * @param url
    * @returns
    */

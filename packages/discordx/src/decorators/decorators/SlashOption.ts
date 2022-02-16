@@ -16,7 +16,7 @@ import {
 /**
  * Add a slash command option
  *
- * @param name Option name
+ * @param name - Option name
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)
@@ -30,8 +30,8 @@ export function SlashOption<T extends string>(
 /**
  * Add a slash command option
  *
- * @param name Option name
- * @param options Additional options
+ * @param name - Option name
+ * @param options - Additional options
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashoption)

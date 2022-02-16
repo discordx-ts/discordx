@@ -11,11 +11,13 @@ import { TimeOutEntry } from "./logic/index.js";
 /**
  * Rate limit this command, specify the time unit and the value and optionally the threshold and the message
  * to post when someone calls the command within the rate limit
+ *
  * @param timeout - the time unit to use
  * @param value - the value for the time unit
  * @param message - the message to post when a command is called when the
  * user is in rate limit, defaults = "message being rate limited!"
  * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
+ *
  * @constructor
  */
 export function RateLimit(

@@ -125,8 +125,8 @@ export abstract class RateLimitExample {
 
   /**
    * Rate limit simple command
+   *
    * @param message
-   * @private
    */
   @SimpleCommand("rateLimit")
   @Guard(RateLimit(TIME_UNIT.seconds, 10))

@@ -13,7 +13,7 @@ import {
 /**
  * Set default permission for your simple command or slash command
  *
- * @param permission Resolver or boolean
+ * @param permission - Resolver or boolean
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
@@ -27,7 +27,7 @@ export function Permission(
 /**
  * Set permissions for your simple command or slash command
  *
- * @param permission Resolver or permission object
+ * @param permission - Resolver or permission object
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/general/permission)
