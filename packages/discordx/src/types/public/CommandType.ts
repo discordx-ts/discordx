@@ -7,7 +7,6 @@ import type {
 } from "discord.js";
 
 export type SlashGroupOptions = {
-  appendToChild?: true;
   description?: string;
   name: string;
   root?: string;

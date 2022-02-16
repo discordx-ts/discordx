@@ -5,7 +5,7 @@ import { Discord, Slash, SlashGroup } from "../../../src/index.js";
 @Discord()
 @SlashGroup({ name: "testx" })
 @SlashGroup({ name: "add", root: "testx" })
-@SlashGroup({ appendToChild: true, name: "add", root: "testx" })
+@SlashGroup("add", "testx")
 export abstract class Group {
   @Slash()
   x(interaction: CommandInteraction): void {
@@ -19,7 +19,7 @@ export abstract class Group {
 }
 
 @Discord()
-@SlashGroup({ appendToChild: true, name: "testx" })
+@SlashGroup("testx")
 export abstract class AnotherGroup {
   @Slash()
   m(interaction: CommandInteraction): void {

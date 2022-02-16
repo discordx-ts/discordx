@@ -50,11 +50,11 @@ maths
 ```ts
 @Discord()
 @SlashGroup({ description: "maths group description", name: "maths" })
+@SlashGroup("maths");
 export abstract class AppDiscord {
   // `@SlashGroup` does not apply to `@Slash` self, you need to assign it manually for each slash command.
 
   @Slash("add")
-  @SlashGroup({ name: "maths" })
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -66,7 +66,6 @@ export abstract class AppDiscord {
   }
 
   @Slash("multiply")
-  @SlashGroup({ name: "maths" })
   multiply(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -90,7 +89,6 @@ Mark the slash command as a subcommand of sub_group or group.
 ```ts
 @SlashGroup({ name: "testing" })
 @SlashGroup({ name: "maths", root: "testing" })
-@SlashGroup({ name: "text", root: "testing" })
 ```
 
 ```
@@ -107,11 +105,11 @@ testing
 @Discord()
 @SlashGroup({ name: "testing" })
 @SlashGroup({ name: "maths", root: "testing" })
+@SlashGroup("maths", "testing")
 export abstract class Group {
   // `@SlashGroup` does not apply to `@Slash` self, you need to assign it manually for each slash command.
 
   @Slash("add")
-  @SlashGroup({ name: "maths", root: "testing" })
   add(
     @SlashOption("x", { description: "x value" }) x: number,
     @SlashOption("y", { description: "y value" }) y: number,
@@ -121,7 +119,6 @@ export abstract class Group {
   }
 
   @Slash("multiply")
-  @SlashGroup({ name: "maths", root: "testing" })
   multiply(
     @SlashOption("x", { description: "x value" }) x: number,
     @SlashOption("y", { description: "y value" }) y: number,
@@ -137,22 +134,23 @@ export abstract class Group {
 ## Signature
 
 ```ts
-SlashGroup(info: SlashGroupParams): ClassMethodDecorator
+// Create a new group or subgroup
+SlashGroup(options: SlashGroupOptions): ClassDecoratorEx
+
+// Assign slashes to a group
+SlashGroup(name: string): ClassMethodDecorator
+
+// Assign slashes to a subgroup
+SlashGroup(name: string, root: string): ClassMethodDecorator
 ```
 
-## SlashGroupParams Parameters
+## SlashGroupOptions
 
 ### name
 
 | type   | default | required |
 | ------ | ------- | -------- |
 | string |         | Yes      |
-
-### appendToChild
-
-| type    | default | required |
-| ------- | ------- | -------- |
-| boolean | false   | No       |
 
 ### description
 
