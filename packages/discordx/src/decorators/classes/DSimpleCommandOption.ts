@@ -1,6 +1,6 @@
 import { Decorator } from "@discordx/internal";
 
-import type { SimpleCommandType } from "../../index.js";
+import { SimpleCommandOptionType } from "../../index.js";
 
 /**
  * @category Decorator
@@ -8,7 +8,7 @@ import type { SimpleCommandType } from "../../index.js";
 export class DSimpleCommandOption extends Decorator {
   private _name: string;
   private _description: string;
-  private _type: SimpleCommandType;
+  private _type: SimpleCommandOptionType;
 
   get name(): string {
     return this._name;
@@ -17,10 +17,10 @@ export class DSimpleCommandOption extends Decorator {
     this._name = value;
   }
 
-  get type(): SimpleCommandType {
+  get type(): SimpleCommandOptionType {
     return this._type;
   }
-  set type(value: SimpleCommandType) {
+  set type(value: SimpleCommandOptionType) {
     this._type = value;
   }
 
@@ -33,18 +33,22 @@ export class DSimpleCommandOption extends Decorator {
 
   protected constructor(
     name: string,
-    type?: SimpleCommandType,
+    type?: SimpleCommandOptionType,
     description?: string
   ) {
     super();
     this._name = name;
-    this._description = description ?? `${type ?? "STRING"}`;
-    this._type = type ?? "STRING";
+    this._description =
+      description ??
+      `${
+        SimpleCommandOptionType[type ?? SimpleCommandOptionType.String]
+      }`.toLowerCase();
+    this._type = type ?? SimpleCommandOptionType.String;
   }
 
   static create(
     name: string,
-    type?: SimpleCommandType,
+    type?: SimpleCommandOptionType,
     description?: string
   ): DSimpleCommandOption {
     return new DSimpleCommandOption(name, type, description);

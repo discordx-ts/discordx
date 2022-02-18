@@ -1,7 +1,7 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 
 import type { IGuild } from "../../index.js";
-import { ComponentTypeX, DComponent, MetadataStorage } from "../../index.js";
+import { ComponentType, DComponent, MetadataStorage } from "../../index.js";
 
 /**
  * Interact with buttons with a defined identifier
@@ -37,7 +37,7 @@ export function ButtonComponent(
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const button = DComponent.create(
-      ComponentTypeX.Button,
+      ComponentType.Button,
       id ?? key,
       options?.guilds,
       options?.botIds

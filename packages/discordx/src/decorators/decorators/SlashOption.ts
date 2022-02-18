@@ -10,7 +10,6 @@ import {
   DApplicationCommand,
   DApplicationCommandOption,
   MetadataStorage,
-  SlashOptionTypes,
 } from "../../index.js";
 
 /**
@@ -52,16 +51,15 @@ export function SlashOption(
       case "GUILDMEMBER": {
         return "USER";
       }
+
       case "TEXTCHANNEL":
       case "VOICECHANNEL": {
         return "CHANNEL";
       }
+
       case "FUNCTION":
-        throw Error(
-          `invalid slash option (${name}): ${type}\nSupported types are: ${SlashOptionTypes.join(
-            ", "
-          )}\n`
-        );
+        throw Error(`invalid slash option (${name}): ${type}`);
+
       default:
         return type as SlashOptionType;
     }
