@@ -1,6 +1,10 @@
 # @SlashGroup
 
-You can group your command like this
+Subcommands and groups offer developers an organized and complex way to group commands.
+
+## Blueprint
+
+> We call this grouping Level 1
 
 ```
 command
@@ -10,6 +14,8 @@ command
 |__ subcommand
 
 ```
+
+> We call this grouping Level 2
 
 ```
 command
@@ -25,111 +31,188 @@ command
 
 ## Example
 
-Here you create a Slash command group that groups "permissions" commands
-
-The permissions commands also grouped by "user" or "role"
+In the following example, slash permission commands are grouped together also subgrouped by role and user.
 
 ![](../../../static/img/permissions.png)
 
 ## Create a group
 
-We use @SlashGroup at two level, on the class and on methods
+To create a slash group, you need a class decorated with @Discord. Selected class metadata such as botId, permissions, etc will be used to build slash group command.
 
-### group on class level
+### Group
 
-When @SlashGroup decorate a class it creates a group command entry.
-
-```
-maths
-|
-|__ add
-|
-|__ multiply
-```
+We create a group with a selected class in the following code example
 
 ```ts
 @Discord()
-@SlashGroup({ description: "maths group description", name: "maths" })
-@SlashGroup("maths");
-export abstract class AppDiscord {
-  // `@SlashGroup` does not apply to `@Slash` self, you need to assign it manually for each slash command.
+@SlashGroup({ name: "permission", description: "Manage permissions" })
+class Example {
+  //
+}
+```
 
-  @Slash("add")
-  add(
-    @SlashOption("x", { description: "x value" })
-    x: number,
-    @SlashOption("y", { description: "y value" })
-    y: number,
-    interaction: CommandInteraction
-  ) {
-    interaction.reply(String(x + y));
+### Subgroup
+
+We create a group and subgroup with a selected class in the following code example
+
+```ts
+@Discord()
+@SlashGroup({ name: "permission", description: "Manage permissions" })
+@SlashGroup({
+  name: "user",
+  description: "Manage permissions",
+  root: "permission", // need to specifiy root
+})
+class Example {
+  //
+}
+```
+
+## Assign a group or subgroup
+
+We have created a group and a subgroup in the above steps, It's time to assign our slash commands to groups.
+
+### Slashes can be added to a group in two ways
+
+The following structure will be followed by our group
+
+```
+permission
+|
+|__ user
+    |
+    |__ get
+    |
+    |__ set
+```
+
+#### 1. Class Level
+
+```ts
+@Discord()
+// Create a group
+@SlashGroup({ name: "permission", description: "Manage permissions" })
+// Create a sub group
+@SlashGroup({ name: "user", root: "permission" })
+// Assign all inherit slashes to the subgroup
+@SlashGroup("user", "permission")
+class Example {
+  @Slash()
+  get() {
+    // ...
   }
 
-  @Slash("multiply")
-  multiply(
-    @SlashOption("x", { description: "x value" })
-    x: number,
-    @SlashOption("y", { description: "y value" })
-    y: number,
-    interaction: CommandInteraction
-  ) {
-    interaction.reply(String(x * y));
+  @Slash()
+  set() {
+    // ...
   }
 }
 ```
 
-![](../../../static/img/group1.png)
-
-### SlashGroup on method level
-
-Mark the slash command as a subcommand of sub_group or group.
-
-**You have to list the groups that are in the class in the @SlashGroup parameters that decorate the class, or they will not appear**
-
-```ts
-@SlashGroup({ name: "testing" })
-@SlashGroup({ name: "maths", root: "testing" })
-```
-
-```
-testing
-|
-|__ maths
-    |
-    |__ add
-    |
-    |__ multiply
-```
+#### 2. Method Level
 
 ```ts
 @Discord()
-@SlashGroup({ name: "testing" })
-@SlashGroup({ name: "maths", root: "testing" })
-@SlashGroup("maths", "testing")
-export abstract class Group {
-  // `@SlashGroup` does not apply to `@Slash` self, you need to assign it manually for each slash command.
-
-  @Slash("add")
-  add(
-    @SlashOption("x", { description: "x value" }) x: number,
-    @SlashOption("y", { description: "y value" }) y: number,
-    interaction: CommandInteraction
-  ): void {
-    interaction.reply(String(x + y));
+// Create a group
+@SlashGroup({ name: "permission", description: "Manage permissions" })
+// Create a sub group
+@SlashGroup({ name: "user", root: "permission" })
+class Example {
+  @Slash()
+  // Assign slash to subgroup
+  @SlashGroup("user", "permission")
+  get() {
+    // ...
   }
 
-  @Slash("multiply")
-  multiply(
-    @SlashOption("x", { description: "x value" }) x: number,
-    @SlashOption("y", { description: "y value" }) y: number,
-    interaction: CommandInteraction
-  ): void {
-    interaction.reply(String(x * y));
+  @Slash()
+  // Assign slash to subgroup
+  @SlashGroup("user", "permission")
+  set() {
+    // ...
   }
 }
 ```
 
-![](../../../static/img/group2.png)
+## Structure - Multiple Classes
+
+It's sometimes difficult to use a single class for too many commands. We offer the flexibility to divide your group into multiple classes.
+
+The following structure will be followed by our group
+
+```
+permission
+|
+|__ info
+|
+|__ user
+    |
+    |__ get
+    |
+    |__ set
+|
+|__ role
+    |
+    |__ get
+    |
+    |__ set
+```
+
+:::warning
+Look closely at the code, only Permission class is used to create slash group, all other classes are children.
+
+Other slashes class metadata won't be used and will be overwritten by the root class.
+:::
+
+```ts
+@Discord()
+// Create a group
+@SlashGroup({ name: "permission", description: "Manage permissions" })
+// Assign all inherit slashes to the subgroup
+@SlashGroup("permission")
+class Permission {
+  @Slash()
+  info() {
+    // ...
+  }
+}
+```
+
+```ts
+@Discord()
+// Assign all inherit slashes to the subgroup
+@SlashGroup("user", "permission")
+class UserPermission {
+  @Slash()
+  get() {
+    // ...
+  }
+
+  @Slash()
+  set() {
+    // ...
+  }
+}
+```
+
+```ts
+@Discord()
+// Create a sub group
+@SlashGroup({ name: "role", root: "permission" })
+// Assign all inherit slashes to the subgroup
+@SlashGroup("role", "permission")
+class RolePermission {
+  @Slash()
+  get() {
+    // ...
+  }
+
+  @Slash()
+  set() {
+    // ...
+  }
+}
+```
 
 ## Signature
 
@@ -148,18 +231,18 @@ SlashGroup(name: string, root: string): ClassMethodDecorator
 
 ### name
 
-| type   | default | required |
-| ------ | ------- | -------- |
-| string |         | Yes      |
+| type   | required | default |
+| ------ | -------- | ------- |
+| string | Yes      |         |
 
 ### description
 
-| type   | default   | required |
-| ------ | --------- | -------- |
-| string | undefined | No       |
+| type   | required | default   |
+| ------ | -------- | --------- |
+| string | No       | undefined |
 
 ### root
 
-| type   | default   | required |
-| ------ | --------- | -------- |
-| string | undefined | No       |
+| type   | required | default   |
+| ------ | -------- | --------- |
+| string | No       | undefined |
