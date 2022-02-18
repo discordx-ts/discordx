@@ -125,7 +125,7 @@ describe("Commands", () => {
 
   it("Should execute simple command", async () => {
     const sampleMessage = { content: "!add 2~+~4" } as Message;
-    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const parsedCommand = await client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual(["!add", ["+", 6], parsedCommand, true]);
   });
@@ -138,21 +138,21 @@ describe("Commands", () => {
 
   it("Should execute simple command with space", async () => {
     const sampleMessage = { content: "!add plus" } as Message;
-    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const parsedCommand = await client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual(["!add plus", [], parsedCommand, true]);
   });
 
   it("Should execute simple command with uppercase names", async () => {
     const sampleMessage = { content: "!findSource" } as Message;
-    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const parsedCommand = await client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual(["!findSource", [1], parsedCommand, true]);
   });
 
   it("Should execute simple command with two spaces", async () => {
     const sampleMessage = { content: "!add plus second car" } as Message;
-    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const parsedCommand = await client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual([
       "!add plus second",
@@ -164,7 +164,7 @@ describe("Commands", () => {
 
   it("Should execute simple command aliases", async () => {
     const sampleMessage = { content: "!add2 2~+~4" } as Message;
-    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const parsedCommand = await client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual(["!add", ["+", 6], parsedCommand, true]);
   });
@@ -179,7 +179,7 @@ describe("Commands", () => {
     const contents = ["!sub 2 | 4", "!sub 2 | 4   ", "!sub 2 |4", "!sub 2|4"];
     contents.forEach(async (content) => {
       const sampleMessage = { content } as Message;
-      const parsedCommand = client.parseCommand("!", sampleMessage);
+      const parsedCommand = await client.parseCommand("!", sampleMessage);
       const response = await client.executeCommand(sampleMessage);
       expect(response).toEqual(["!add", ["2", "4"], parsedCommand, true]);
     });
@@ -189,7 +189,7 @@ describe("Commands", () => {
     const sampleMessage = {
       content: "!ban 123 99 'ban reason test' cars",
     } as Message;
-    const parsedCommand = client.parseCommand("!", sampleMessage);
+    const parsedCommand = await client.parseCommand("!", sampleMessage);
     const response = await client.executeCommand(sampleMessage);
     expect(response).toEqual([
       "!ban",

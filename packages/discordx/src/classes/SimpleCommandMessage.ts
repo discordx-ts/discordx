@@ -13,7 +13,7 @@ import { MetadataStorage } from "../index.js";
  * Simple command message class
  */
 export class SimpleCommandMessage {
-  options: SimpleCommandOptionType[];
+  options: SimpleCommandOptionType[] = [];
 
   constructor(
     public prefix: string | RegExp,
@@ -22,7 +22,7 @@ export class SimpleCommandMessage {
     public info: DSimpleCommand,
     public splitter?: ArgSplitter
   ) {
-    this.options = this.info.parseParamsEx(this, splitter);
+    // empty constructor
   }
 
   get name(): string {
@@ -34,7 +34,15 @@ export class SimpleCommandMessage {
   }
 
   /**
+   * Resolve options
+   */
+  resolveOptions(): Promise<SimpleCommandOptionType[]> {
+    return this.info.parseParamsEx(this);
+  }
+
+  /**
    * Verify that all options are valid
+   *
    * @returns
    */
   isValid(): boolean {
@@ -42,7 +50,8 @@ export class SimpleCommandMessage {
   }
 
   /**
-   * get related commands
+   * Get related commands
+   *
    * @returns
    */
   getRelatedCommands(): DSimpleCommand[] {
@@ -57,7 +66,8 @@ export class SimpleCommandMessage {
   }
 
   /**
-   * send usage syntax for command
+   * Send usage syntax for command
+   *
    * @returns
    */
   sendUsageSyntax(): Promise<Message> {

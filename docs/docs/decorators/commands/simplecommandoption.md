@@ -13,29 +13,35 @@ A simple command is dependent on the content of the message but unfortunately, D
 To declare an option you simply use the `@SimpleCommandOption` decorator before a method parameter
 
 ```ts
-  @SimpleCommand("hello")
-  async testCommand(
-    @SimpleCommandOption("name", { type: "STRING" }) name: string | undefined,
-    command: SimpleCommandMessage
-  ) {
-    if (!name) return message.reply("usage: ``!hello <your name>``");
-    command.message.reply(`hello ${name}`);
-  }
+@SimpleCommand("hello")
+async testCommand(
+  @SimpleCommandOption("name", { type: "STRING" }) name: string | undefined,
+  command: SimpleCommandMessage
+) {
+  if (!name) return message.reply("usage: ``!hello <your name>``");
+  command.message.reply(`hello ${name}`);
+}
 ```
 
 ## Use custom arg splitter
 
 ```ts
-  @SimpleCommand("add", { argSplitter: "+" })
-  async add(
-    @SimpleCommandOption("x", { type: "INTEGER" }) x: number | undefined,
-    @SimpleCommandOption("y", { type: "INTEGER" }) y: number | undefined,
-    command: SimpleCommandMessage
-  ) {
-    if (!command.isValid()) return command.sendUsageSyntax();
-    return command.message.reply(`${x + y}`);
-  }
+@SimpleCommand("add", { argSplitter: "+" })
+async add(
+  @SimpleCommandOption("x", { type: "INTEGER" }) x: number | undefined,
+  @SimpleCommandOption("y", { type: "INTEGER" }) y: number | undefined,
+  command: SimpleCommandMessage
+) {
+  if (!command.isValid()) return command.sendUsageSyntax();
+  return command.message.reply(`${x + y}`);
+}
 ```
+
+## User instance inside DM only
+
+You will receive `ClientUser` if the user mentions the bot in DM. If the user mentions himself/herself, you will receive a `User`. Otherwise, you'll receive an error.
+
+When it comes to guilds, it will always be `GuildMember | User`.
 
 ## Type inference
 
