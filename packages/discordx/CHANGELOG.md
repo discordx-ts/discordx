@@ -1,9 +1,10 @@
 # Stage
 
-# [v9.3.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.0) (2022-02-18)
+# [v9.3.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.1) (2022-02-18)
 
 ## Changed
 
+- typings ([#532](https://github.com/oceanroleplay/discord.ts/issues/532)) ([242ac7](https://github.com/oceanroleplay/discord.ts/commit/242ac7c5ba6383c0c5224a414ad03333575b155d))
 - simplecommand - use fetch instead resolve ([#529](https://github.com/oceanroleplay/discord.ts/issues/529)) ([634cba](https://github.com/oceanroleplay/discord.ts/commit/634cbaa09ecdf55f968b906ae5b086653f384c12))
 - params ([#527](https://github.com/oceanroleplay/discord.ts/issues/527)) ([b613a1](https://github.com/oceanroleplay/discord.ts/commit/b613a1dc806cefb272e8f0ae19f82d7dc137ab9e))
 - group ([#526](https://github.com/oceanroleplay/discord.ts/issues/526)) ([8e0d40](https://github.com/oceanroleplay/discord.ts/commit/8e0d4070a3d9e561c57b14c3334f08952da07000))

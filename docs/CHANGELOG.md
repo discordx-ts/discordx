@@ -1,6 +1,6 @@
 # Stage
 
-# [v9.3.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.0) (2022-02-18)
+# [v9.3.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.1) (2022-02-18)
 
 ## Changed
 
@@ -11,6 +11,7 @@
 
 ## Documenations
 
+- slash group ([#531](https://github.com/oceanroleplay/discord.ts/issues/531)) ([a7a776](https://github.com/oceanroleplay/discord.ts/commit/a7a776521d096d8c3d82dda78f8fe60b2a460b54))
 - slash group ([7af7c3](https://github.com/oceanroleplay/discord.ts/commit/7af7c38a2a2fca14853a197d8efaba2ba4a2cc2d))
 - slash group ([13af48](https://github.com/oceanroleplay/discord.ts/commit/13af48f3280444c12061adc9c9e943e30fce1cf0))
 
