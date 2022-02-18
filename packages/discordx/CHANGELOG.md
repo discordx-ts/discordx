@@ -1,5 +1,25 @@
 # Stage
 
+# [v9.3.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.0) (2022-02-18)
+
+## Changed
+
+- simplecommand - use fetch instead resolve ([#529](https://github.com/oceanroleplay/discord.ts/issues/529)) ([634cba](https://github.com/oceanroleplay/discord.ts/commit/634cbaa09ecdf55f968b906ae5b086653f384c12))
+- params ([#527](https://github.com/oceanroleplay/discord.ts/issues/527)) ([b613a1](https://github.com/oceanroleplay/discord.ts/commit/b613a1dc806cefb272e8f0ae19f82d7dc137ab9e))
+- group ([#526](https://github.com/oceanroleplay/discord.ts/issues/526)) ([8e0d40](https://github.com/oceanroleplay/discord.ts/commit/8e0d4070a3d9e561c57b14c3334f08952da07000))
+- decorator comments ([#525](https://github.com/oceanroleplay/discord.ts/issues/525)) ([92f097](https://github.com/oceanroleplay/discord.ts/commit/92f0972503faca079af4ab85ff5094e729af7099))
+- append group option ([#522](https://github.com/oceanroleplay/discord.ts/issues/522)) ([c14dd8](https://github.com/oceanroleplay/discord.ts/commit/c14dd8755ea3087849ab6654eb60103e0eb0408e))
+
+## Fixed
+
+- slash group ([d62a3b](https://github.com/oceanroleplay/discord.ts/commit/d62a3bfa0efadba6758b64804e909a9747e5487d))
+- multi bot executation for groups ([40fd33](https://github.com/oceanroleplay/discord.ts/commit/40fd33091569857a751bb6237216f3273ab0b90f))
+- issue with command updates due to sort ([9a61a4](https://github.com/oceanroleplay/discord.ts/commit/9a61a4007ad4e55c541a9d00004e568dcc36c277))
+
+## Routine Tasks
+
+- update comment ([73fdfd](https://github.com/oceanroleplay/discord.ts/commit/73fdfd30649caf97fc321db9d4dc81cd18c7aaa5))
+
 # [v9.2.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.2.0) (2022-02-13)
 
 ## Features

@@ -9,6 +9,7 @@
 
 ## Changed
 
+- params ([#527](https://github.com/oceanroleplay/discord.ts/issues/527)) ([b613a1](https://github.com/oceanroleplay/discord.ts/commit/b613a1dc806cefb272e8f0ae19f82d7dc137ab9e))
 - convert RateLimit to normal function ([174ac1](https://github.com/oceanroleplay/discord.ts/commit/174ac11fdb693a60f24c7bed697bc9be6b6db871))
 - improve exports ([560179](https://github.com/oceanroleplay/discord.ts/commit/560179da5d6162693045d82bc48398dcd60387dc))
 - improve exports ([d427fd](https://github.com/oceanroleplay/discord.ts/commit/d427fd72113ea1c7c4498eeb00d6942471c8e8bf))
