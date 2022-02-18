@@ -1,6 +1,6 @@
-# @discordx/music
+# @discordx/lava-player
 
-A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
+A powerful lava link player library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
 
 # About
 

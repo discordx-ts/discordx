@@ -51,6 +51,8 @@ npm install @discordx/lava-player
 yarn add @discordx/lava-player
 ```
 
+Note: Required [lavalink](https://github.com/freyacodes/Lavalink) up and running
+
 # 🤖 Bot Examples
 
 None
