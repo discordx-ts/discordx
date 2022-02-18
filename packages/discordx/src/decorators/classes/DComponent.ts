@@ -1,16 +1,16 @@
-import type { ComponentTypeX, IGuild } from "../../index.js";
+import type { ComponentType, IGuild } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
  * @category Decorator
  */
 export class DComponent extends Method {
-  private _type: ComponentTypeX;
+  private _type: ComponentType;
   private _id: string | RegExp;
   private _guilds: IGuild[];
   private _botIds: string[];
 
-  get type(): ComponentTypeX {
+  get type(): ComponentType {
     return this._type;
   }
 
@@ -36,7 +36,7 @@ export class DComponent extends Method {
   }
 
   protected constructor(
-    type: ComponentTypeX,
+    type: ComponentType,
     id: string | RegExp,
     guilds?: IGuild[],
     botIds?: string[]
@@ -49,7 +49,7 @@ export class DComponent extends Method {
   }
 
   static create(
-    type: ComponentTypeX,
+    type: ComponentType,
     id: string | RegExp,
     guilds?: IGuild[],
     botIds?: string[]

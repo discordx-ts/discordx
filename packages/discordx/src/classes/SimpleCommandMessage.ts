@@ -5,15 +5,15 @@ import { MessageEmbed } from "discord.js";
 import type {
   ArgSplitter,
   DSimpleCommand,
-  SimpleCommandOptionType,
+  SimpleOptionType,
 } from "../index.js";
-import { MetadataStorage } from "../index.js";
+import { MetadataStorage, SimpleCommandOptionType } from "../index.js";
 
 /**
- * Simple command message class
+ * Simple command message
  */
 export class SimpleCommandMessage {
-  options: SimpleCommandOptionType[] = [];
+  options: SimpleOptionType[] = [];
 
   constructor(
     public prefix: string | RegExp,
@@ -36,7 +36,7 @@ export class SimpleCommandMessage {
   /**
    * Resolve options
    */
-  resolveOptions(): Promise<SimpleCommandOptionType[]> {
+  resolveOptions(): Promise<SimpleOptionType[]> {
     return this.info.parseParamsEx(this);
   }
 
@@ -95,7 +95,7 @@ export class SimpleCommandMessage {
         this.prefix +
         this.name +
         ` ${this.info.options
-          .map((op) => `{${op.name}: ${op.type}}`)
+          .map((op) => `{${op.name}: ${SimpleCommandOptionType[op.type]}}`)
           .join(" ")}` +
         "```"
     );

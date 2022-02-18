@@ -1,12 +1,4 @@
-import type {
-  ApplicationCommandPermissionData,
-  Guild,
-  GuildChannel,
-  GuildMember,
-  Role,
-  ThreadChannel,
-  User,
-} from "discord.js";
+import type { ApplicationCommandPermissionData, Guild } from "discord.js";
 
 import type {
   ArgSplitter,
@@ -16,9 +8,9 @@ import type {
   IPermissions,
   IPrefix,
   SimpleCommandMessage,
-  SimpleCommandOptionType,
+  SimpleOptionType,
 } from "../../index.js";
-import { resolveIPermissions } from "../../index.js";
+import { resolveIPermissions, SimpleCommandOptionType } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
@@ -170,25 +162,11 @@ export class DSimpleCommand extends Method {
     return resolveIPermissions(guild, command, this.permissions);
   }
 
-  parseParams(command: SimpleCommandMessage): SimpleCommandOptionType[] {
+  parseParams(command: SimpleCommandMessage): SimpleOptionType[] {
     return command.options;
   }
 
-  parseParamsEx(
-    command: SimpleCommandMessage
-  ): Promise<
-    (
-      | string
-      | number
-      | boolean
-      | ThreadChannel
-      | GuildChannel
-      | User
-      | GuildMember
-      | Role
-      | undefined
-    )[]
-  > {
+  parseParamsEx(command: SimpleCommandMessage): Promise<SimpleOptionType[]> {
     if (!this.options.length) {
       return Promise.resolve([]);
     }
@@ -217,17 +195,17 @@ export class DSimpleCommand extends Method {
           }
 
           // Boolean
-          if (op.type === "BOOLEAN") {
+          if (op.type === SimpleCommandOptionType.Boolean) {
             return Boolean(args[index]);
           }
 
           // Number
-          if (op.type === "NUMBER" || op.type === "INTEGER") {
+          if (op.type === SimpleCommandOptionType.Number) {
             return Number(args[index]);
           }
 
           // Channel | undefined
-          if (op.type === "CHANNEL") {
+          if (op.type === SimpleCommandOptionType.Channel) {
             if (!id?.length || id.length < 16 || id.length > 20) {
               return invalidError;
             }
@@ -238,7 +216,7 @@ export class DSimpleCommand extends Method {
           }
 
           // Role | undefined
-          if (op.type === "ROLE") {
+          if (op.type === SimpleCommandOptionType.Role) {
             if (!id?.length || id.length < 16 || id.length > 20) {
               return invalidError;
             }
@@ -247,7 +225,7 @@ export class DSimpleCommand extends Method {
           }
 
           // GuildMember | User | undefined
-          if (op.type === "USER") {
+          if (op.type === SimpleCommandOptionType.User) {
             if (!id?.length || id.length < 16 || id.length > 20) {
               return invalidError;
             }
@@ -264,7 +242,7 @@ export class DSimpleCommand extends Method {
           }
 
           // GuildMember | User | Role | undefined
-          if (op.type === "MENTIONABLE") {
+          if (op.type === SimpleCommandOptionType.Mentionable) {
             if (!id?.length || id.length < 16 || id.length > 20) {
               return invalidError;
             }

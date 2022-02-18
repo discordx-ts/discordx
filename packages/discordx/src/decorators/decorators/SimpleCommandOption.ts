@@ -1,12 +1,12 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
-import type { SimpleCommandType, VerifyName } from "../../index.js";
+import type { VerifyName } from "../../index.js";
 import {
   DSimpleCommand,
   DSimpleCommandOption,
   MetadataStorage,
-  SimpleCommandTypes,
+  SimpleCommandOptionType,
 } from "../../index.js";
 
 /**
@@ -36,13 +36,51 @@ export function SimpleCommandOption<T extends string>(
  */
 export function SimpleCommandOption<T extends string>(
   name: VerifyName<T>,
-  options?: { description?: string; type?: SimpleCommandType }
+  options?: { description?: string; type?: SimpleCommandOptionType }
 ): ParameterDecoratorEx;
 
 export function SimpleCommandOption(
   name: string,
-  options?: { description?: string; type?: SimpleCommandType }
+  options?: { description?: string; type?: SimpleCommandOptionType }
 ): ParameterDecoratorEx {
+  function getType(type: string): SimpleCommandOptionType {
+    switch (type) {
+      case "STRING": {
+        return SimpleCommandOptionType.String;
+      }
+
+      case "NUMBER": {
+        return SimpleCommandOptionType.Number;
+      }
+
+      case "BOOLEAN": {
+        return SimpleCommandOptionType.Boolean;
+      }
+
+      case "CHANNEL":
+      case "TEXTCHANNEL":
+      case "VOICECHANNEL": {
+        return SimpleCommandOptionType.Channel;
+      }
+
+      case "GUILDMEMBER": {
+        return SimpleCommandOptionType.User;
+      }
+
+      case "ROLE": {
+        return SimpleCommandOptionType.Role;
+      }
+
+      case "USER":
+      case "GUILDMEMBER": {
+        return SimpleCommandOptionType.User;
+      }
+
+      default:
+        throw Error(`Invalid simple command option (${name}): ${type}\n`);
+    }
+  }
+
   return function <T>(target: Record<string, T>, key: string, index: number) {
     const dType = (
       Reflect.getMetadata("design:paramtypes", target, key)[
@@ -50,22 +88,7 @@ export function SimpleCommandOption(
       ] as () => unknown
     ).name.toUpperCase();
 
-    const type: SimpleCommandType =
-      options?.type ??
-      (dType === "GUILDMEMBER"
-        ? "USER"
-        : dType === "TEXTCHANNEL" || dType === "VOICECHANNEL"
-        ? "CHANNEL"
-        : (dType as SimpleCommandType));
-
-    // throw error if option type is invalid
-    if (!SimpleCommandTypes.includes(type)) {
-      throw Error(
-        `invalid simple command option: ${type}\nSupported types are: ${SimpleCommandTypes.join(
-          ", "
-        )}`
-      );
-    }
+    const type: SimpleCommandOptionType = options?.type ?? getType(dType);
 
     const option = DSimpleCommandOption.create(
       name,

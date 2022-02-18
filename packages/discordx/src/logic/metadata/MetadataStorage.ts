@@ -16,7 +16,7 @@ import type {
   ISimpleCommandByName,
 } from "../../index.js";
 import {
-  ComponentTypeX,
+  ComponentType,
   DApplicationCommand,
   DApplicationCommandOption,
   DComponent,
@@ -281,9 +281,9 @@ export class MetadataStorage {
       }
 
       if (member instanceof DComponent) {
-        if (member.type === ComponentTypeX.Button) {
+        if (member.type === ComponentType.Button) {
           discord.buttons.push(member);
-        } else if (member.type === ComponentTypeX.SelectMenu) {
+        } else if (member.type === ComponentType.SelectMenu) {
           discord.selectMenus.push(member);
         }
       }
