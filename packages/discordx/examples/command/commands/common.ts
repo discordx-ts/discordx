@@ -19,15 +19,16 @@ export abstract class commandTest {
     prefix: ["&", ">"],
   })
   car(
-    @SimpleCommandOption("user", { type: "USER" }) user: User,
+    @SimpleCommandOption("user", { type: "USER" })
+    user: GuildMember | User | Error | undefined,
     @SimpleCommandOption("role", {
       description: "mention the role you wish to grant",
       type: "ROLE",
     })
-    role: Role,
+    role: Role | Error | undefined,
     command: SimpleCommandMessage
   ): void {
-    !user
+    user instanceof Error
       ? command.sendUsageSyntax()
       : command.message.reply(
           `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
@@ -43,7 +44,8 @@ export abstract class commandTest {
 
   @SimpleCommand("testx", { prefix: ["&", ">"] })
   testx(
-    @SimpleCommandOption("user", { type: "USER" }) user: GuildMember | User,
+    @SimpleCommandOption("user", { type: "USER" })
+    user: GuildMember | User | Error | undefined,
     command: SimpleCommandMessage
   ): void {
     command.message.reply(`${user}`);

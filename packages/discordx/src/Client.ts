@@ -1229,11 +1229,11 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  parseCommand(
+  async parseCommand(
     prefix: IPrefix,
     message: Message,
     caseSensitive = false
-  ): "notCommand" | "notFound" | SimpleCommandMessage {
+  ): Promise<"notCommand" | "notFound" | SimpleCommandMessage> {
     const mappedPrefix = Array.from(this.simpleCommandsByPrefix.keys());
     const prefixRegex = RegExp(
       `^(${[...prefix, ...mappedPrefix]
@@ -1281,6 +1281,8 @@ export class Client extends ClientJS {
       this.simpleCommandConfig?.argSplitter
     );
 
+    command.options = await command.resolveOptions();
+
     return command;
   }
 
@@ -1325,7 +1327,7 @@ export class Client extends ClientJS {
       return;
     }
 
-    const command = this.parseCommand(
+    const command = await this.parseCommand(
       prefix,
       message,
       options?.caseSensitive ?? false

@@ -175,25 +175,25 @@ export class DSimpleCommand extends Method {
   }
 
   parseParamsEx(
-    command: SimpleCommandMessage,
-    splitter?: ArgSplitter
-  ): (
-    | string
-    | number
-    | boolean
-    | ThreadChannel
-    | GuildChannel
-    | User
-    | GuildMember
-    | Role
-    | null
-    | undefined
-  )[] {
+    command: SimpleCommandMessage
+  ): Promise<
+    (
+      | string
+      | number
+      | boolean
+      | ThreadChannel
+      | GuildChannel
+      | User
+      | GuildMember
+      | Role
+      | undefined
+    )[]
+  > {
     if (!this.options.length) {
-      return [];
+      return Promise.resolve([]);
     }
 
-    const splitterEx = this.argSplitter ?? splitter ?? " ";
+    const splitterEx = this.argSplitter ?? command.splitter ?? " ";
 
     const args =
       typeof splitterEx === "function"
@@ -203,79 +203,89 @@ export class DSimpleCommand extends Method {
             .filter((op) => op?.length)
             .map((op) => op.trim());
 
-    return this.options
-      .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-      .map((op, index) => {
-        // only digits
-        const id = args[index]?.replace(/\D/g, "");
+    return Promise.all(
+      this.options
+        .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
+        .map((op, index) => {
+          // only digits
+          const id = args[index]?.replace(/\D/g, "");
+          const invalidError = Error(`Invalid id given: ${args[index]}`);
 
-        // undefined
-        if (!args[index]?.length) {
-          return undefined;
-        }
-
-        // Boolean
-        if (op.type === "BOOLEAN") {
-          return Boolean(args[index]);
-        }
-
-        // Number
-        if (op.type === "NUMBER" || op.type === "INTEGER") {
-          return Number(args[index]);
-        }
-
-        // Channel | undefined
-        if (op.type === "CHANNEL") {
-          if (!id?.length) {
-            return undefined;
-          }
-          return command.message.guild?.channels.resolve(id);
-        }
-
-        // Role | undefined
-        if (op.type === "ROLE") {
-          if (!id?.length) {
+          // undefined
+          if (!args[index]?.length) {
             return undefined;
           }
 
-          return command.message.guild?.roles.resolve(id);
-        }
-
-        // GuildMember | User | undefined
-        if (op.type === "USER") {
-          if (!id?.length) {
-            return undefined;
+          // Boolean
+          if (op.type === "BOOLEAN") {
+            return Boolean(args[index]);
           }
 
-          if (command.message.channel.type === "DM") {
-            return command.message.client.user?.id === id
-              ? command.message.client.users.resolve(id)
-              : command.message.author;
+          // Number
+          if (op.type === "NUMBER" || op.type === "INTEGER") {
+            return Number(args[index]);
           }
 
-          return command.message.guild?.members.resolve(id);
-        }
+          // Channel | undefined
+          if (op.type === "CHANNEL") {
+            if (!id?.length || id.length < 16 || id.length > 20) {
+              return invalidError;
+            }
 
-        // GuildMember | User | Role | undefined
-        if (op.type === "MENTIONABLE") {
-          if (!id?.length) {
-            return undefined;
+            return command.message.guild?.channels
+              .fetch(id)
+              .catch((err) => err);
           }
 
-          if (command.message.channel.type === "DM") {
-            return command.message.client.user?.id === id
-              ? command.message.client.users.resolve(id)
-              : command.message.author;
+          // Role | undefined
+          if (op.type === "ROLE") {
+            if (!id?.length || id.length < 16 || id.length > 20) {
+              return invalidError;
+            }
+
+            return command.message.guild?.roles.fetch(id).catch((err) => err);
           }
 
-          return (
-            command.message.guild?.members.resolve(id) ??
-            command.message.guild?.roles.resolve(id)
-          );
-        }
+          // GuildMember | User | undefined
+          if (op.type === "USER") {
+            if (!id?.length || id.length < 16 || id.length > 20) {
+              return invalidError;
+            }
 
-        // string
-        return args[index];
-      });
+            if (command.message.channel.type === "DM") {
+              return command.message.client.user?.id === id
+                ? command.message.client.user
+                : command.message.author.id === id
+                ? command.message.author
+                : invalidError;
+            }
+
+            return command.message.guild?.members.fetch(id).catch((err) => err);
+          }
+
+          // GuildMember | User | Role | undefined
+          if (op.type === "MENTIONABLE") {
+            if (!id?.length || id.length < 16 || id.length > 20) {
+              return invalidError;
+            }
+
+            if (command.message.channel.type === "DM") {
+              return command.message.client.user?.id === id
+                ? command.message.client.user
+                : command.message.author.id === id
+                ? command.message.author
+                : invalidError;
+            }
+
+            return (
+              command.message.guild?.members.fetch(id).catch((err) => err) ??
+              command.message.guild?.roles.fetch(id).catch((err) => err)
+            );
+          }
+
+          // string
+          return args[index];
+        })
+    );
   }
 }
