@@ -340,7 +340,7 @@ abstract class AppDiscord {
 
 # ☎️ Need help?
 
-Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or check [code examples](https://github.com/oceanroleplay/discord.ts/tree/main/examples)
+Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or check [code examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
 
 # Thank you
 
