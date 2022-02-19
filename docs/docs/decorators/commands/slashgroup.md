@@ -180,6 +180,8 @@ class Permission {
 
 ```ts
 @Discord()
+// Create a sub group
+@SlashGroup({ name: "user", root: "permission" })
 // Assign all inherit slashes to the subgroup
 @SlashGroup("user", "permission")
 class UserPermission {
