@@ -8,7 +8,7 @@
 
 ## Changed
 
-- pagination ([bcd149](https://github.com/oceanroleplay/discord.ts/commit/bcd149ed86b51f0f77e636f72f4a4d847f63f1e8))
+- pagination ([498b6d](https://github.com/oceanroleplay/discord.ts/commit/498b6dbf6cc7fc2c7666bacde43b12f98bd0e1c8))
 - params ([#527](https://github.com/oceanroleplay/discord.ts/issues/527)) ([b613a1](https://github.com/oceanroleplay/discord.ts/commit/b613a1dc806cefb272e8f0ae19f82d7dc137ab9e))
 - improve exports in pagination ([2adb51](https://github.com/oceanroleplay/discord.ts/commit/2adb5183f28c97ba2f1d0a6665aeb373dd877380))
 - update types for pagination ([b1fd2c](https://github.com/oceanroleplay/discord.ts/commit/b1fd2c1d2cf7b699ac257096565e164401a6edff))
