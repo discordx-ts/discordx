@@ -65,7 +65,7 @@ class spcProposition {
 const defaultChoice = new spcProposition(spcChoice.Stone, "💎", "spc-stone");
 
 @Discord()
-export abstract class StonePaperScissor {
+export abstract class RockPaperScissors {
   @Slash("rock-paper-scissors", {
     description:
       "What could be more fun than play Rock Paper Scissors with a bot?",
@@ -85,25 +85,25 @@ export abstract class StonePaperScissor {
 
     if (choice) {
       const playerChoice = spcProposition.nameToClass(choice);
-      const botChoice = StonePaperScissor.spcPlayBot();
-      const result = StonePaperScissor.isWinSpc(
+      const botChoice = RockPaperScissors.spcPlayBot();
+      const result = RockPaperScissors.isWinSpc(
         playerChoice ?? defaultChoice,
         botChoice
       );
 
       interaction.followUp(
-        StonePaperScissor.spcResultProcess(
+        RockPaperScissors.spcResultProcess(
           playerChoice ?? defaultChoice,
           botChoice,
           result
         )
       );
     } else {
-      const buttonStone = new MessageButton()
-        .setLabel("Stone")
+      const buttonRock = new MessageButton()
+        .setLabel("Rock")
         .setEmoji("💎")
         .setStyle("PRIMARY")
-        .setCustomId("spc-stone");
+        .setCustomId("spc-rock");
 
       const buttonPaper = new MessageButton()
         .setLabel("Paper")
@@ -125,7 +125,7 @@ export abstract class StonePaperScissor {
         .setDisabled(true);
 
       const buttonRow = new MessageActionRow().addComponents(
-        buttonStone,
+        buttonRock,
         buttonPaper,
         buttonScissor,
         buttonWell
@@ -133,14 +133,14 @@ export abstract class StonePaperScissor {
 
       interaction.followUp({
         components: [buttonRow],
-        content: "Ok let's go. 1v1 Stone Paper Scissors. Go choose!",
+        content: "Ok let's go. 1v1 Rock Paper Scissors. Go choose!",
       });
 
       setTimeout((inx) => inx.deleteReply(), 10 * 60 * 1000, interaction);
     }
   }
 
-  @ButtonComponent("spc-stone")
+  @ButtonComponent("spc-rock")
   @ButtonComponent("spc-paper")
   @ButtonComponent("spc-scissors")
   private async spcButton(interaction: ButtonInteraction) {
@@ -149,14 +149,14 @@ export abstract class StonePaperScissor {
     const playerChoice = spcProposition.buttonCustomIDToClass(
       interaction.customId
     );
-    const botChoice = StonePaperScissor.spcPlayBot();
-    const result = StonePaperScissor.isWinSpc(
+    const botChoice = RockPaperScissors.spcPlayBot();
+    const result = RockPaperScissors.isWinSpc(
       playerChoice ?? defaultChoice,
       botChoice
     );
 
     interaction.followUp(
-      StonePaperScissor.spcResultProcess(
+      RockPaperScissors.spcResultProcess(
         playerChoice ?? defaultChoice,
         botChoice,
         result
