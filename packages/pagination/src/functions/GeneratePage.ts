@@ -1,4 +1,4 @@
-import type { MessageOptions, MessageSelectOptionData } from "discord.js";
+import type { MessageOptions } from "discord.js";
 import {
   MessageActionRow,
   MessageButton,
@@ -7,15 +7,15 @@ import {
 } from "discord.js";
 
 import type { IGeneratePage, PaginationOptions } from "../types.js";
-import { defaultIds } from "../types.js";
+import { defaultIds, PaginationType, SelectMenuPageId } from "../types.js";
 import { paginate } from "./paginate.js";
 
-export const GeneratePage = (
+export function GeneratePage(
   item: string | MessageEmbed | MessageOptions,
   page: number,
   totalPages: number,
   option: PaginationOptions
-): IGeneratePage => {
+): IGeneratePage {
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
@@ -26,7 +26,7 @@ export const GeneratePage = (
       ? { embeds: [item] }
       : item;
 
-  if (option.type === "BUTTON") {
+  if (option.type === PaginationType.Button) {
     const startBtn = new MessageButton()
       .setCustomId(option.start?.id ?? defaultIds.buttons.start)
       .setLabel(option.start?.label ?? "Start")
@@ -110,34 +110,41 @@ export const GeneratePage = (
     return { newMessage, paginationRow: row };
   } else {
     const paginator = paginate(totalPages, page, 1, 21).pages.map((i) => {
-      // const selectMenuOption: MessageSelectOptionData = {
-      const selectMenuOption: MessageSelectOptionData = {
-        label: (
-          (option.pageText instanceof Array
-            ? option.pageText[i - 1]
-            : option.pageText) ?? "Page {page}"
-        ).replaceAll("{page}", `${i}`),
+      // get custom page title
+      const text =
+        option.pageText instanceof Array
+          ? option.pageText[i - 1]
+          : option.pageText;
+
+      return {
+        label: (text ?? "Page {page}").replaceAll("{page}", `${i}`),
         value: (i - 1).toString(),
       };
-      return selectMenuOption;
     });
 
     if (totalPages > 21 && (option.showStartEnd ?? true)) {
+      // add start option
       if (page > 10) {
         paginator.unshift({
           label: option.labels?.start ?? "Start",
-          value: "-1",
+          value: SelectMenuPageId.Start.toString(),
         });
       }
+
+      // add end option
       if (page < totalPages - 10) {
-        paginator.push({ label: option.labels?.end ?? "End", value: "-2" });
+        paginator.push({
+          label: option.labels?.end ?? "End",
+          value: SelectMenuPageId.End.toString(),
+        });
       }
     }
 
+    // add exit option
     if (option.enableExit) {
       paginator.push({
         label: option.labels?.exit ?? "Exit Pagination",
-        value: "-3",
+        value: SelectMenuPageId.Exit.toString(),
       });
     }
 
@@ -167,4 +174,4 @@ export const GeneratePage = (
 
     return { newMessage, paginationRow: row };
   }
-};
+}

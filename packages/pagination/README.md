@@ -63,15 +63,15 @@ yarn add @discordx/pagination
 ## Example
 
 ```ts
+import {
+  Pagination,
+  PaginationResolver,
+  PaginationType,
+} from "@discordx/pagination";
+import type { CommandInteraction, MessageOptions } from "discord.js";
+import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
-import {
-  CommandInteraction,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
-} from "discord.js";
-import { Pagination, PaginationResolver } from "@discordx/pagination";
 
 export function GeneratePages(limit?: number): MessageOptions[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
@@ -92,7 +92,7 @@ export abstract class Example {
   onMessage([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated demo") {
       new Pagination(message, GeneratePages(), {
-        type: "BUTTON",
+        type: PaginationType.Button,
       }).send();
     }
   }
@@ -102,43 +102,51 @@ export abstract class Example {
   onMessageChannel([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated channel demo") {
       new Pagination(message.channel, GeneratePages(), {
-        type: "BUTTON",
+        type: PaginationType.Button,
       }).send();
     }
   }
 
   // example: simple slash with button pagination
-  @Slash("demoa", { description: "Simple slash with button pagination" })
-  async page(interaction: CommandInteraction): Promise<void> {
-    const embedx = new PaginationResolver((page, pagination) => {
+  @Slash("demo-a", { description: "Simple slash with button pagination" })
+  async demoA(interaction: CommandInteraction): Promise<void> {
+    const embedX = new PaginationResolver((page, pagination) => {
       if (page === 3) {
         // example to replace pagination with another pagination data
         pagination.currentPage = 0; // reset current page, because this is gonna be first page
-        pagination.maxLength = 5; // new max length for new paginations
+        pagination.maxLength = 5; // new max length for new pagination
         pagination.embeds = ["1", "2", "3", "4", "5"]; // page reference can be resolver as well
-        return pagination.embeds[pagination.currentPage] ?? "unknown"; // the first page, must select ourselve
+        return pagination.embeds[pagination.currentPage] ?? "unknown"; // the first page, must select ourselves
       }
       return `page v2 ${page}`;
     }, 25);
 
-    const pagination = new Pagination(interaction, embedx, {
-      type: "BUTTON",
+    const pagination = new Pagination(interaction, embedX, {
+      ephemeral: true,
+      onTimeout: () => {
+        interaction.deleteReply();
+      },
+      start: {
+        emoji: "🙂",
+      },
+      time: 5 * 1000,
+      type: PaginationType.Button,
     });
 
     await pagination.send();
   }
 
   // example: simple slash with menu pagination
-  @Slash("demob", { description: "Simple slash with menu pagination" })
-  pagex(interaction: CommandInteraction): void {
+  @Slash("demo-b", { description: "Simple slash with menu pagination" })
+  demoB(interaction: CommandInteraction): void {
     new Pagination(interaction, GeneratePages(), {
-      type: "SELECT_MENU",
+      type: PaginationType.SelectMenu,
     }).send();
   }
 
   // example: simple string array
-  @Slash("democ", { description: "Simple string array" })
-  pages(interaction: CommandInteraction): void {
+  @Slash("demo-c", { description: "Simple string array" })
+  demoC(interaction: CommandInteraction): void {
     new Pagination(
       interaction,
       Array.from(Array(20).keys()).map((i) => i.toString())
@@ -146,8 +154,8 @@ export abstract class Example {
   }
 
   // example: array of custom message options
-  @Slash("demod", { description: "Array of custom message options" })
-  pagen(interaction: CommandInteraction): void {
+  @Slash("demo-d", { description: "Array of custom message options" })
+  demoD(interaction: CommandInteraction): void {
     new Pagination(interaction, [
       {
         content: "Page 1",
@@ -161,7 +169,7 @@ export abstract class Example {
           new MessageActionRow().addComponents([
             new MessageButton({
               customId: "myCustomId",
-              label: "My Custom Botton",
+              label: "My Custom Button",
               style: "PRIMARY",
             }),
           ]),
@@ -176,15 +184,15 @@ export abstract class Example {
 
 # Options
 
-| Name         | Type                  | Default   | Description                  |
-| ------------ | --------------------- | --------- | ---------------------------- |
-| enableExit   | boolean               | false     | Enable early exit pagination |
-| ephemeral    | boolean               | undefined | Enable ephemeral             |
-| initialPage  | number                | 0         | Initial page                 |
-| onTimeout    | Function              | undefined | Timeout callback             |
-| showStartEnd | boolean               | true      | Show start/end               |
-| time         | number                | 18e5      | Timeout for pagination in ms |
-| type         | BUTTON \| SELECT_MENU | BUTTON    | Pagination type              |
+| Name         | Type           | Default   | Description                  |
+| ------------ | -------------- | --------- | ---------------------------- |
+| enableExit   | boolean        | false     | Enable early exit pagination |
+| ephemeral    | boolean        | undefined | Enable ephemeral             |
+| initialPage  | number         | 0         | Initial page                 |
+| onTimeout    | Function       | undefined | Timeout callback             |
+| showStartEnd | boolean        | true      | Show start/end               |
+| time         | number         | 18e5      | Timeout for pagination in ms |
+| type         | PaginationType | BUTTON    | Pagination type              |
 
 > When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.
 
