@@ -1,5 +1,9 @@
 # Stage
 
+## Changed
+
+- pagination ([498b6d](https://github.com/oceanroleplay/discord.ts/commit/498b6dbf6cc7fc2c7666bacde43b12f98bd0e1c8))
+
 # [v2.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/p-v2.0.0) (2022-02-20)
 
 ## Features
