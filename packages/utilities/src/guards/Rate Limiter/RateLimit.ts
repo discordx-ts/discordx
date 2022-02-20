@@ -26,7 +26,7 @@ export function RateLimit(
   message = "message being rate limited!",
   rateValue = 1
 ): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> {
-  function convertToMilli(timeValue: number, unit: TIME_UNIT): number {
+  function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
       case TIME_UNIT.seconds:
         return timeValue * 1000;
@@ -41,8 +41,8 @@ export function RateLimit(
     }
   }
 
-  const millis = convertToMilli(value, timeout);
-  const _timer = new TimedSet<TimeOutEntry>(millis);
+  const millisecond = convertToMillisecond(value, timeout);
+  const _timer = new TimedSet<TimeOutEntry>(millisecond);
 
   async function replyOrFollowUp(
     interaction: BaseCommandInteraction | MessageComponentInteraction,

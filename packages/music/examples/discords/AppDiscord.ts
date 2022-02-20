@@ -250,7 +250,7 @@ export class music {
     interaction: CommandInteraction
   ): undefined | { guild: Guild; member: GuildMember; queue: Queue } {
     if (!interaction.guild || !(interaction.member instanceof GuildMember)) {
-      interaction.reply("could not process your reuqest");
+      interaction.reply("could not process your request");
       return;
     }
 
@@ -284,7 +284,7 @@ export class music {
     const { queue } = validate;
 
     queue.skip();
-    interaction.reply("skiped current track");
+    interaction.reply("skipped current track");
   }
 
   @Slash("mix", { description: "mix tracks" })

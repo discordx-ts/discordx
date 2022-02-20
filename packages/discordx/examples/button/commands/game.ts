@@ -7,7 +7,6 @@ import type {
 import { MessageActionRow, MessageButton } from "discord.js";
 
 import {
-  Bot,
   ButtonComponent,
   Discord,
   Slash,
@@ -66,9 +65,8 @@ class spcProposition {
 const defaultChoice = new spcProposition(spcChoice.Stone, "💎", "spc-stone");
 
 @Discord()
-@Bot("alexa")
 export abstract class StonePaperScissor {
-  @Slash("stonepaperscissor", {
+  @Slash("rock-paper-scissors", {
     description:
       "What could be more fun than play Rock Paper Scissor with a bot?",
   })

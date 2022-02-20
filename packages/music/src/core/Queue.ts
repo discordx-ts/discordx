@@ -113,7 +113,7 @@ export abstract class Queue<T extends Player = Player> {
   }
 
   /**
-   * get reeat state
+   * get repeat state
    * @returns
    */
   public get repeat(): boolean {
@@ -535,10 +535,10 @@ export abstract class Queue<T extends Player = Player> {
    */
   public playTrack(
     track: CommonTrack,
-    options?: { enqeueTop?: boolean; playNow?: boolean }
+    options?: { enqueueTop?: boolean; playNow?: boolean }
   ): CommonTrack {
     // enqueue track
-    this.enqueue([track], options?.enqeueTop);
+    this.enqueue([track], options?.enqueueTop);
 
     // force stop, if play now requested
     if (this.isPlaying && options?.playNow) {

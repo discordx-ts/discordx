@@ -1,6 +1,6 @@
 # MetadataStorage
 
-The MetadataStorage store all the informations about your decorators, you can get the informations related to them by using `MetadataStorage.instance`
+MetadataStorage stores all the information about your decorators. You can get the information you need by using `MetadataStorage.instance`.
 
 ```ts
 import { MetadataStorage } from "discordx";

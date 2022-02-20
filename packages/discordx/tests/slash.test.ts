@@ -42,8 +42,8 @@ enum TextChoices {
   name: "text",
   root: "testing",
 })
-@Guard((params, client, next, datas) => {
-  datas.passed = true;
+@Guard((params, client, next, data) => {
+  data.passed = true;
   return next();
 })
 export abstract class AppDiscord {
@@ -56,9 +56,9 @@ export abstract class AppDiscord {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["/testing maths add", x + y, interaction, datas.passed];
+    return ["/testing maths add", x + y, interaction, data.passed];
   }
 
   @Slash("multiply", { description: "Multiply" })
@@ -70,9 +70,9 @@ export abstract class AppDiscord {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["/testing maths multiply", x * y, interaction, datas.passed];
+    return ["/testing maths multiply", x * y, interaction, data.passed];
   }
 
   @Slash("hello")
@@ -83,9 +83,9 @@ export abstract class AppDiscord {
     text: TextChoices,
     interaction: CommandInteraction,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["/testing text hello", text, interaction, datas.passed];
+    return ["/testing text hello", text, interaction, data.passed];
   }
 
   @Slash("hello")
@@ -97,28 +97,28 @@ export abstract class AppDiscord {
     text2: string,
     interaction: CommandInteraction,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["/testing hello text", text, text2, interaction, datas.passed];
+    return ["/testing hello text", text, text2, interaction, data.passed];
   }
 }
 
 @Discord()
 @SlashGroup({
-  name: "grouptestwithoutdescription",
+  name: "group-test-without-description",
 })
 @SlashGroup({
   description: "text group description",
   name: "line",
-  root: "grouptestwithoutdescription",
+  root: "group-test-without-description",
 })
-@Guard((params, client, next, datas) => {
-  datas.passed = true;
+@Guard((params, client, next, data) => {
+  data.passed = true;
   return next();
 })
 export abstract class AppDiscord2 {
   @Slash("add", { description: "Addition" })
-  @SlashGroup("line", "grouptestwithoutdescription")
+  @SlashGroup("line", "group-test-without-description")
   add(
     @SlashOption("x", { description: "x value" })
     x: number,
@@ -126,16 +126,16 @@ export abstract class AppDiscord2 {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["/testing line add", x + y, interaction, datas.passed];
+    return ["/testing line add", x + y, interaction, data.passed];
   }
 }
 
 @Discord()
 @Guild("invalid_id")
-@Guard((params, client, next, datas) => {
-  datas.passed = true;
+@Guard((params, client, next, data) => {
+  data.passed = true;
   return next();
 })
 export abstract class AppDiscord1 {
@@ -146,9 +146,9 @@ export abstract class AppDiscord1 {
     text: string,
     interaction: CommandInteraction,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["/hello", text, interaction, datas.passed];
+    return ["/hello", text, interaction, data.passed];
   }
 
   @Slash("inference")
@@ -165,10 +165,10 @@ export abstract class AppDiscord1 {
     @SlashOption("channel")
     channel: Channel,
 
-    @SlashOption("textchannel", { required: false })
+    @SlashOption("text-channel", { required: false })
     textChannel: TextChannel,
 
-    @SlashOption("voicechannel", { required: false })
+    @SlashOption("voice-channel", { required: false })
     voiceChannel: VoiceChannel,
 
     @SlashOption("user", { required: false })
@@ -177,45 +177,44 @@ export abstract class AppDiscord1 {
     @SlashOption("role", { required: false })
     role: Role,
 
-    @SlashOption("userorrole", { required: false, type: "MENTIONABLE" })
-    userorrole: GuildMember | User | Role,
+    @SlashOption("user-or-role", { required: false, type: "MENTIONABLE" })
+    userOrRole: GuildMember | User | Role,
 
     interaction: CommandInteraction,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["/inference", "infer", interaction, datas.passed];
+    return ["/inference", "infer", interaction, data.passed];
   }
 }
 
 @Discord()
-@SlashGroup({ name: "testx" })
-@SlashGroup("testx")
+@SlashGroup({ name: "test-x" })
+@SlashGroup("test-x")
 export abstract class AnotherGroup {
   @Slash()
   m(): unknown {
-    return ["/testx", "m", true];
+    return ["/test-x", "m", true];
   }
 
   @Slash()
   n(): unknown {
-    return ["/testx", "n", true];
+    return ["/test-x", "n", true];
   }
 }
 
 @Discord()
-@SlashGroup({ name: "testx" })
-@SlashGroup({ name: "add", root: "testx" })
-@SlashGroup("add", "testx")
+@SlashGroup({ name: "add", root: "test-x" })
+@SlashGroup("add", "test-x")
 export abstract class Group {
   @Slash()
   x(): unknown {
-    return ["/testx", "add", "x", true];
+    return ["/test-x", "add", "x", true];
   }
 
   @Slash()
   y(): unknown {
-    return ["/testx", "add", "y", true];
+    return ["/test-x", "add", "y", true];
   }
 }
 
@@ -393,14 +392,14 @@ describe("Slash", () => {
             type: "CHANNEL",
           },
           {
-            description: "textchannel - channel",
-            name: "textchannel",
+            description: "text-channel - channel",
+            name: "text-channel",
             required: false,
             type: "CHANNEL",
           },
           {
-            description: "voicechannel - channel",
-            name: "voicechannel",
+            description: "voice-channel - channel",
+            name: "voice-channel",
             required: false,
             type: "CHANNEL",
           },
@@ -417,8 +416,8 @@ describe("Slash", () => {
             type: "ROLE",
           },
           {
-            description: "userorrole - mentionable",
-            name: "userorrole",
+            description: "user-or-role - mentionable",
+            name: "user-or-role",
             required: false,
             type: "MENTIONABLE",
           },
@@ -523,8 +522,8 @@ describe("Slash", () => {
       },
       {
         defaultPermission: true,
-        description: "grouptestwithoutdescription",
-        name: "grouptestwithoutdescription",
+        description: "group-test-without-description",
+        name: "group-test-without-description",
         options: [
           {
             description: "text group description",
@@ -557,8 +556,8 @@ describe("Slash", () => {
       },
       {
         defaultPermission: true,
-        description: "testx",
-        name: "testx",
+        description: "test-x",
+        name: "test-x",
         options: [
           {
             description: "add - sub_command_group",

@@ -2,7 +2,7 @@ import Timeout = NodeJS.Timeout;
 import type { ITimedSet } from "../types/ITimedSet.js";
 
 /**
- * This set will evict items from the array after the set timout.
+ * This set will evict items from the array after the set timeout.
  * This set can only contain unique items, items are unique when === is true
  */
 export class TimedSet<T> implements ITimedSet<T> {

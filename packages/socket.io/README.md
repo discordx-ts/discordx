@@ -62,7 +62,7 @@ yarn add socket.io @discordx/socket.io
 > do not forget to wrap each class with `@Ws()`
 
 ```ts
-import { Guard, Next, On, Once, Server, Ws } from "@disocrdx/socket.io";
+import { Guard, Next, On, Once, Server, Ws } from "@discordx/socket.io";
 import { Socket } from "socket.io";
 
 @Ws()

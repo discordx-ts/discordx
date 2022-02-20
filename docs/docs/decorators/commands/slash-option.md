@@ -35,13 +35,13 @@ When defining an autocomplete slash option, you can define a resolver for autoco
 @Discord()
 class DiscordBot {
   @Slash("autocomplete")
-  testx(
-    @SlashOption("aoption", {
+  autocomplete(
+    @SlashOption("option-a", {
       autocomplete: true,
       type: "STRING",
     })
     searchText: string,
-    @SlashOption("boption", {
+    @SlashOption("option-b", {
       autocomplete: function myResolver(
         this: AppDiscord1,
         interaction: AutocompleteInteraction
@@ -57,7 +57,7 @@ class DiscordBot {
       type: "STRING",
     })
     searchText2: string,
-    @SlashOption("coption", {
+    @SlashOption("option-c", {
       autocomplete: (interaction: AutocompleteInteraction) => {
         // arrow function does not have this, so class reference is not available
         interaction.respond([
@@ -74,7 +74,7 @@ class DiscordBot {
     if (interaction.isAutocomplete()) {
       const focusedOption = interaction.options.getFocused(true);
       // resolver for option a
-      if (focusedOption.name === "aoption") {
+      if (focusedOption.name === "option-a") {
         interaction.respond([
           { name: "option a", value: "a" },
           { name: "option b", value: "b" },
@@ -91,7 +91,7 @@ class DiscordBot {
 
 An option infer the type from TypeScript in this example, discord.**ts** knows that your options are both `number` because you typed the parameters
 
-discord.**ts** convert automatically the infered type into discord.**js** options types
+discord.**ts** convert automatically the inferred type into discord.**js** options types
 
 ```ts
 @Discord()
@@ -132,7 +132,7 @@ class DiscordBot {
 ## Type inference
 
 - `"STRING"`
-  **Infered from `String`**
+  **Inferred from `String`**
 
   ```ts
   fn(
@@ -142,7 +142,7 @@ class DiscordBot {
   ```
 
 - `"BOOLEAN"`
-  **Infered from `Boolean`**
+  **Inferred from `Boolean`**
 
   ```ts
   fn(
@@ -152,7 +152,7 @@ class DiscordBot {
   ```
 
 - `"NUMBER"`
-  **Infered from `Number`**
+  **Inferred from `Number`**
 
   ```ts
   fn(
@@ -162,7 +162,7 @@ class DiscordBot {
   ```
 
 - `"ROLE"`
-  **Infered from `Role`**
+  **Inferred from `Role`**
 
   ```ts
   fn(
@@ -172,7 +172,7 @@ class DiscordBot {
   ```
 
 - `"USER"`
-  **Infered from `User` | `GuildMember` (you will recieve GuildMember if present otherwise User)**
+  **Inferred from `User` | `GuildMember` (you will receive GuildMember if present otherwise User)**
 
   ```ts
   fn(
@@ -182,7 +182,7 @@ class DiscordBot {
   ```
 
 - `"CHANNEL"`
-  **Infered from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
+  **Inferred from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
 
   ```ts
   fn(
@@ -201,13 +201,13 @@ class DiscordBot {
   ```
 
 - `"INTEGER"`
-  No inference, use [@SlashOption](/docs/decorators/commands/slashoption)
+  No inference, use [@SlashOption](/docs/decorators/commands/slash-option)
 
 - `"SUB_COMMAND"`
-  No inference, use [@SlashGroup](/docs/decorators/commands/slashgroup)
+  No inference, use [@SlashGroup](/docs/decorators/commands/slash-group)
 
 - `"SUB_COMMAND_GROUP"`
-  No inference, use [@SlashGroup](/docs/decorators/commands/slashgroup)
+  No inference, use [@SlashGroup](/docs/decorators/commands/slash-group)
 
 ## Signature
 
@@ -278,7 +278,7 @@ If the option is a channel type, the channels shown will be restricted to these 
 
 ## Autocompletion (Option's choices)
 
-You can use the [@SlashChoice](/docs/decorators/commands/slashchoice) decorator
+You can use the [@SlashChoice](/docs/decorators/commands/slash-choice) decorator
 
 ## Option order
 

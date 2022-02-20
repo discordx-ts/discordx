@@ -46,7 +46,7 @@ When it comes to guilds, it will always be `GuildMember | User`.
 ## Type inference
 
 - `"STRING"`
-  **Infered from `String`**
+  **Inferred from `String`**
 
   ```ts
   fn(
@@ -56,7 +56,7 @@ When it comes to guilds, it will always be `GuildMember | User`.
   ```
 
 - `"BOOLEAN"`
-  **Infered from `Boolean`**
+  **Inferred from `Boolean`**
 
   ```ts
   fn(
@@ -66,7 +66,7 @@ When it comes to guilds, it will always be `GuildMember | User`.
   ```
 
 - `"INTEGER"`
-  **Infered from `Number`**
+  **Inferred from `Number`**
 
   ```ts
   fn(
@@ -76,7 +76,7 @@ When it comes to guilds, it will always be `GuildMember | User`.
   ```
 
 - `"ROLE"`
-  **Infered from `Role`**
+  **Inferred from `Role`**
 
   ```ts
   fn(
@@ -86,7 +86,7 @@ When it comes to guilds, it will always be `GuildMember | User`.
   ```
 
 - `"USER"`
-  **Infered from `User` | `GuildMember` (you will recieve GuildMember if present otherwise User)**
+  **Inferred from `User` | `GuildMember` (you will receive GuildMember if present otherwise User)**
 
   ```ts
   fn(
@@ -96,7 +96,7 @@ When it comes to guilds, it will always be `GuildMember | User`.
   ```
 
 - `"CHANNEL"`
-  **Infered from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
+  **Inferred from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
 
   ```ts
   fn(

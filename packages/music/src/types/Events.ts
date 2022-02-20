@@ -11,7 +11,7 @@ export interface PlayerEvents<T extends Queue = Queue> {
   onLoop: (args: [queue: T, track: Track]) => void;
   onLoopDisabled: (args: [queue: T]) => void;
   onLoopEnabled: (args: [queue: T]) => void;
-  onMix: (args: [queue: T, trackargs: Track[]]) => void;
+  onMix: (args: [queue: T, trackArgs: Track[]]) => void;
   onPause: (args: [queue: T]) => void;
   onRepeat: (args: [queue: T, track: Track]) => void;
   onRepeatDisabled: (args: [queue: T]) => void;
@@ -20,7 +20,7 @@ export interface PlayerEvents<T extends Queue = Queue> {
   onSeek: (args: [queue: T, track: Track, time: number]) => void;
   onSkip: (args: [queue: T, track: Track]) => void;
   onStart: ([queue, track]: [queue: T, track: Track]) => void;
-  onTrackAdd: (args: [queue: T, trackargs: Track[]]) => void;
+  onTrackAdd: (args: [queue: T, trackArgs: Track[]]) => void;
   onVolumeUpdate: (args: [queue: T, volume: number]) => void;
 }
 

@@ -17,7 +17,7 @@ abstract class AppDiscord {
 ## Initialize client and application commands
 
 It require a bit of configuration at you Client initialization.
-You have to manualy execute and initialize your application commands by using:
+You have to manually execute and initialize your application commands by using:
 
 - `client.initApplicationCommands()`
 - `client.executeInteraction(interaction)`

@@ -31,16 +31,16 @@ export abstract class buttons {
     return;
   }
 
-  @Slash("myroles", { description: "roles menu" })
-  async myroles(interaction: CommandInteraction): Promise<unknown> {
+  @Slash("my-roles", { description: "roles menu" })
+  async myRoles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.deferReply();
 
-    // create menu for roels
+    // create menu for roles
     const menu = new MessageSelectMenu()
       .addOptions(roles)
       .setCustomId("role-menu");
 
-    // create a row for meessage actions
+    // create a row for message actions
     const buttonRow = new MessageActionRow().addComponents(menu);
 
     // send it

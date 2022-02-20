@@ -10,7 +10,7 @@ type Args = {
   type: RequestType;
 };
 
-export class DReqeuest extends Method {
+export class DRequest extends Method {
   private _api?: string;
   private _name: string;
   private _description?: string;
@@ -64,7 +64,7 @@ export class DReqeuest extends Method {
     this._description = value;
   }
 
-  static create(data: Args): DReqeuest {
-    return new DReqeuest(data);
+  static create(data: Args): DRequest {
+    return new DRequest(data);
   }
 }

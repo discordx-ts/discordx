@@ -2,8 +2,9 @@ import { DIService } from "@discordx/di";
 import type { Decorator } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
-import type { DReqeuest } from "../decorators/classes/DRequest.js";
+import type { DRequest } from "../decorators/classes/DRequest.js";
 import type { DRouter } from "../decorators/classes/DRouter.js";
+import { RequestType } from "../index.js";
 import type { Koa } from "../Koa.js";
 
 export class MetadataStorage {
@@ -16,7 +17,7 @@ export class MetadataStorage {
   // storage
 
   private _routers: DRouter[] = [];
-  private _routes: DReqeuest[] = [];
+  private _routes: DRequest[] = [];
 
   // internal getters
 
@@ -40,7 +41,7 @@ export class MetadataStorage {
     return this._routers;
   }
 
-  get routes(): readonly DReqeuest[] {
+  get routes(): readonly DRequest[] {
     return this._routes;
   }
 
@@ -51,7 +52,7 @@ export class MetadataStorage {
     DIService.instance.addService(router.classRef);
   }
 
-  addRequest(route: DReqeuest): void {
+  addRequest(route: DRequest): void {
     this._routes.push(route);
   }
 
@@ -86,13 +87,13 @@ export class MetadataStorage {
     });
   }
 
-  private registerRoute(koa: Koa, router: DRouter, route: DReqeuest) {
+  private registerRoute(koa: Koa, router: DRouter, route: DRequest) {
     switch (route.type) {
-      case "ALL":
+      case RequestType.All:
         router.router.all(route.path, ...route.middlewares, route.handler(koa));
         break;
 
-      case "DELETE":
+      case RequestType.Delete:
         router.router.delete(
           route.path,
           ...route.middlewares,
@@ -100,11 +101,11 @@ export class MetadataStorage {
         );
         break;
 
-      case "GET":
+      case RequestType.Get:
         router.router.get(route.path, ...route.middlewares, route.handler(koa));
         break;
 
-      case "HEAD":
+      case RequestType.Head:
         router.router.head(
           route.path,
           ...route.middlewares,
@@ -112,7 +113,7 @@ export class MetadataStorage {
         );
         break;
 
-      case "LINK":
+      case RequestType.Link:
         router.router.link(
           route.path,
           ...route.middlewares,
@@ -120,7 +121,7 @@ export class MetadataStorage {
         );
         break;
 
-      case "OPTIONS":
+      case RequestType.Options:
         router.router.options(
           route.path,
           ...route.middlewares,
@@ -128,7 +129,7 @@ export class MetadataStorage {
         );
         break;
 
-      case "PATCH":
+      case RequestType.Patch:
         router.router.patch(
           route.path,
           ...route.middlewares,
@@ -136,7 +137,7 @@ export class MetadataStorage {
         );
         break;
 
-      case "POST":
+      case RequestType.Post:
         router.router.post(
           route.path,
           ...route.middlewares,
@@ -144,7 +145,7 @@ export class MetadataStorage {
         );
         break;
 
-      case "UNLINK":
+      case RequestType.Unlink:
         router.router.unlink(
           route.path,
           ...route.middlewares,

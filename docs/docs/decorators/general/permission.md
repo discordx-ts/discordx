@@ -130,7 +130,7 @@ It specify if the permission is given to a user or a role
 
 ### permission
 
-It specify if the permission is granted or restricated
+It specify if the permission is granted or restricted
 
 | type    | required |
 | ------- | -------- |
@@ -142,6 +142,6 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@Discord](/docs/decorators/general/discord)
 
-[@SimpleCommand](/docs/decorators/commands/simplecommand)
+[@SimpleCommand](/docs/decorators/commands/simple-command)
 
 [@Slash](/docs/decorators/commands/slash)

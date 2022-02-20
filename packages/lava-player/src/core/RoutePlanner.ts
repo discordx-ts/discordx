@@ -10,7 +10,7 @@ export default class RoutePlanner {
     return this.http.do("get", url);
   }
 
-  public unmark(address?: string): Promise<void> {
+  public unMark(address?: string): Promise<void> {
     const url = this.http.url();
     if (address) {
       url.pathname = "/routeplanner/free/address";

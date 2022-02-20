@@ -24,7 +24,7 @@ You also receive other useful arguments after that:
 2. The `Client` instance
 3. The [guards](/docs/decorators/general/guard) payload
 
-> You should use JS desctructuring for `ArgsOf<"YOUR_EVENT">` like in this example
+> You should use JS destructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 
 ```typescript
 import { Discord, On, Client, ArgsOf } from "discordx";

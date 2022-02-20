@@ -343,12 +343,12 @@ export class Client extends ClientJS {
 
           const tab = Array(depth).join("\t\t");
 
-          options.forEach((option, oindex) => {
+          options.forEach((option, optionIndex) => {
             this.logger.log(
               `${
                 (option.type === "SUB_COMMAND" ||
                   option.type === "SUB_COMMAND_GROUP") &&
-                oindex !== 0
+                optionIndex !== 0
                   ? "\n"
                   : ""
               }${tab}>> ${
@@ -407,7 +407,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Get commands mapped by guildid (in case of multi bot, commands are filtered for this client only)
+   * Get commands mapped by guild id (in case of multi bot, commands are filtered for this client only)
    * @returns
    */
   async CommandByGuild(): Promise<Map<string, DApplicationCommand[]>> {
@@ -573,19 +573,19 @@ export class Client extends ClientJS {
     const deleted: ApplicationCommand[] = [];
     await Promise.all(
       ApplicationCommands.map(async (cmd) => {
-        const DCommandx = DCommands.find(
+        const DCommandFind = DCommands.find(
           (DCommand) => DCommand.name === cmd.name && DCommand.type === cmd.type
         );
 
         // delete command if it's not found
-        if (!DCommandx) {
+        if (!DCommandFind) {
           deleted.push(cmd);
           return;
         }
 
-        const guilds = await resolveIGuilds(this, DCommandx, [
+        const guilds = await resolveIGuilds(this, DCommandFind, [
           ...botResolvedGuilds,
-          ...DCommandx.guilds,
+          ...DCommandFind.guilds,
         ]);
 
         // delete command if it's not registered for given guild
@@ -770,8 +770,10 @@ export class Client extends ClientJS {
   async initApplicationPermissions(log?: boolean): Promise<void> {
     const guildDCommandStore = await this.CommandByGuild();
     const promises: Promise<void>[] = [];
-    guildDCommandStore.forEach((cmds, guildId) => {
-      promises.push(this.initGuildApplicationPermissions(guildId, cmds, log));
+    guildDCommandStore.forEach((commands, guildId) => {
+      promises.push(
+        this.initGuildApplicationPermissions(guildId, commands, log)
+      );
     });
     await Promise.all(promises);
   }
@@ -990,7 +992,7 @@ export class Client extends ClientJS {
             slash.type === "CHAT_INPUT"
           );
         case 3:
-          // Grouped and subgroupped command
+          // Grouped and subgrouped command
           // /permission user perm
           return (
             slash.group === tree[0] &&
@@ -1045,7 +1047,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute command interacton
+   * Execute command interaction
    *
    * @param interaction - Interaction instance
    * @param log - Allow logs
@@ -1095,7 +1097,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute component interacton
+   * Execute component interaction
    *
    * @param interaction - Interaction instance
    * @param log - Allow logs
@@ -1147,7 +1149,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Execute context menu interacton
+   * Execute context menu interaction
    *
    * @param interaction - Interaction instance
    * @param log - Allow logs
@@ -1210,7 +1212,7 @@ export class Client extends ClientJS {
   /**
    * Fetch prefix for message
    *
-   * @param message - Messsage instance
+   * @param message - Message instance
    *
    * @returns
    */
@@ -1227,7 +1229,7 @@ export class Client extends ClientJS {
    *
    * @param prefix - Command prefix
    * @param message - Original message
-   * @param caseSensitive - Allow insentive execution
+   * @param caseSensitive - Execute case-sensitively
    *
    * @returns
    */
@@ -1376,7 +1378,7 @@ export class Client extends ClientJS {
       return;
     }
 
-    // permission works only if guild persent
+    // permission works only if guild present
     if (command.message.guild) {
       // check for member permissions
       const permissions = await command.info.resolvePermissions(

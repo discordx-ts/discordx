@@ -4,7 +4,7 @@ bot decorator help you manage multiple bot's in single node instance
 
 ```ts
 @Discord()
-@Bot("alexa", "cortana") // Define which bot can run the following commands or events
+@Bot("alex", "zoe") // Define which bot can run the following commands or events
 class simpleCommandExample {
   @SimpleCommand("hello")
   command(command: SimpleCommandMessage) {
@@ -12,19 +12,19 @@ class simpleCommandExample {
   }
 }
 
-const alexa = new Client({
-  botId: "alexa", // define botid
+const alex = new Client({
+  botId: "alex", // define botId
 });
 
-const cortana = new Client({
-  botId: "cortana", // define botidF
+const zoe = new Client({
+  botId: "zoe", // define botId
 });
 
 // We will now build our application to load all the commands/events for both bots.
 MetadataStorage.instance.build().then(() => {
   // Now that the app is ready, we can login to both bots
-  alexa.login("alexa token");
-  cortana.login("cortana token");
+  alex.login("alex token");
+  zoe.login("zoe token");
 });
 ```
 
@@ -48,11 +48,11 @@ Array of bot ids, for which only the below statement will be executed.
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](/docs/decorators/gui/buttoncomponent)
+[@ButtonComponent](/docs/decorators/gui/button-component)
 
-[@SelectMenuComponent](/docs/decorators/gui/selectmenucomponent)
+[@SelectMenuComponent](/docs/decorators/gui/select-menu-component)
 
-[@ContextMenu](/docs/decorators/gui/contextmenu)
+[@ContextMenu](/docs/decorators/gui/context-menu)
 
 [@Discord](/docs/decorators/general/discord)
 
@@ -60,6 +60,6 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@Once](/docs/decorators/general/once)
 
-[@SimpleCommand](/docs/decorators/commands/simplecommand)
+[@SimpleCommand](/docs/decorators/commands/simple-command)
 
 [@Slash](/docs/decorators/commands/slash)

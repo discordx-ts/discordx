@@ -27,4 +27,4 @@ for (const pkg in packages) {
   }
 }
 
-console.log("doc pepared");
+console.log("doc prepared");

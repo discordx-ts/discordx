@@ -20,7 +20,7 @@ export class Main {
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.DIRECT_MESSAGES,
       ],
-      // enable partials to recieve direct messages
+      // enable partials to receive direct messages
       partials: ["CHANNEL", "MESSAGE"],
 
       silent: false,

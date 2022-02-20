@@ -99,7 +99,7 @@ when running the above code, your `database` will be injected into your `AppDisc
 container for `AppDiscord` you always receive the same instance of the class `container.resolve(AppDiscord);`
 
 If you do not mark the class as `@injectable()` you will get an error thrown from tsyringe telling you where is no
-typeinfo for your class.
+type info for your class.
 
 ## Getting all @Discord classes
 
@@ -130,5 +130,4 @@ Because your container has been populated with all the `@Discord()` instances on
 the `MetadataStorage` object to get all the class refs for all the components and use a unique set of said classes to
 resolve them from your container
 
-Unfortunately, we can not use `@injectall()` with tokanised dependencies, this is due to the fact that `@Discord()` is
-proxying your container and can not dynamically create a registry.
+Unfortunately, we can not use `@injectall()` with tokenized dependencies, because `@Discord()` is proxying your container, it cannot create a registry dynamically.

@@ -11,7 +11,7 @@ import { Category, CategoryMetaData } from "../../../src/index.js";
 @Category("Admin Commands")
 export abstract class SlashExample {
   @Slash()
-  testx(interaction: CommandInteraction): void {
+  test(interaction: CommandInteraction): void {
     interaction.reply("Hey!");
   }
 
