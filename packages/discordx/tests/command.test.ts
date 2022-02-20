@@ -16,8 +16,8 @@ type Data = { passed: boolean };
 @Discord()
 @Permission({ id: "123", permission: true, type: "USER" })
 @Guild("693401527494377482")
-@Guard((params, client, next, datas) => {
-  datas.passed = true;
+@Guard((params, client, next, data) => {
+  data.passed = true;
   return next();
 })
 export abstract class AppDiscord {
@@ -35,12 +35,12 @@ export abstract class AppDiscord {
     y: number,
     command: SimpleCommandMessage,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
     if (!command.isValid()) {
       return "usage: !add x + y";
     }
-    return ["!add", [op, x + y], command, datas.passed];
+    return ["!add", [op, x + y], command, data.passed];
   }
 
   @SimpleCommand("sub", {
@@ -53,18 +53,18 @@ export abstract class AppDiscord {
     y: string,
     command: SimpleCommandMessage,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["!add", [x, y], command, datas.passed];
+    return ["!add", [x, y], command, data.passed];
   }
 
   @SimpleCommand("add plus")
   addExtend(
     command: SimpleCommandMessage,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["!add plus", [], command, datas.passed];
+    return ["!add plus", [], command, data.passed];
   }
 
   @SimpleCommand("add plus second")
@@ -72,9 +72,9 @@ export abstract class AppDiscord {
     @SimpleCommandOption("arg") arg: string,
     command: SimpleCommandMessage,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["!add plus second", [arg], command, datas.passed];
+    return ["!add plus second", [arg], command, data.passed];
   }
 
   @SimpleCommand("ban", {
@@ -88,18 +88,18 @@ export abstract class AppDiscord {
     @SimpleCommandOption("type") type: string,
     command: SimpleCommandMessage,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["!ban", [id, time, reason, type], command, datas.passed];
+    return ["!ban", [id, time, reason, type], command, data.passed];
   }
 
   @SimpleCommand("findSource")
   findSource(
     command: SimpleCommandMessage,
     client: Client,
-    datas: Data
+    data: Data
   ): unknown {
-    return ["!findSource", [1], command, datas.passed];
+    return ["!findSource", [1], command, data.passed];
   }
 }
 

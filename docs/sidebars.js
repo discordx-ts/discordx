@@ -91,27 +91,27 @@ module.exports = {
           items: [
             { id: "decorators/commands/slash", label: "@Slash", type: "doc" },
             {
-              id: "decorators/commands/slashchoice",
+              id: "decorators/commands/slash-choice",
               label: "@SlashChoice",
               type: "doc",
             },
             {
-              id: "decorators/commands/slashgroup",
+              id: "decorators/commands/slash-group",
               label: "@SlashGroup",
               type: "doc",
             },
             {
-              id: "decorators/commands/slashoption",
+              id: "decorators/commands/slash-option",
               label: "@SlashOption",
               type: "doc",
             },
             {
-              id: "decorators/commands/simplecommand",
+              id: "decorators/commands/simple-command",
               label: "@SimpleCommand",
               type: "doc",
             },
             {
-              id: "decorators/commands/simplecommandoption",
+              id: "decorators/commands/simple-command-option",
               label: "@SimpleCommandOption",
               type: "doc",
             },
@@ -143,17 +143,17 @@ module.exports = {
         {
           items: [
             {
-              id: "decorators/gui/buttoncomponent",
+              id: "decorators/gui/button-component",
               label: "@ButtonComponent",
               type: "doc",
             },
             {
-              id: "decorators/gui/contextmenu",
+              id: "decorators/gui/context-menu",
               label: "@ContextMenu",
               type: "doc",
             },
             {
-              id: "decorators/gui/selectmenucomponent",
+              id: "decorators/gui/select-menu-component",
               label: "@SelectMenuComponent",
               type: "doc",
             },

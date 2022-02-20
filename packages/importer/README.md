@@ -107,7 +107,7 @@ importx(`${folder}/commands/**.js`).then(() =>
 
 ### Use relative path
 
-You can use relative path, which will be more convinient to write code by eleminating DIRNAME
+You can use relative path, which will be more convenient to write code by eliminating DIRNAME
 
 ```ts
 import { importx } from "@discordx/importer";

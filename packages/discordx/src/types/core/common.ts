@@ -17,6 +17,8 @@ import type {
 
 export type Awaitable<T> = Promise<T> | T;
 
+export type Next = (...paramsToNext: unknown[]) => Promise<unknown>;
+
 export type IPrefix = string | string[];
 export type IPrefixResolver =
   | string

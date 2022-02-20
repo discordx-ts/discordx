@@ -62,7 +62,7 @@ The following options are only available
 | --root         | No       | "./"             | root folder path           |
 | --out          | No       | "./CHANGELOG.md" | changelog file path        |
 | --tag          | No       | "v\*"            | tag to match with releases |
-| --tag-replace  | No       | undefined        | repalcement in tag         |
+| --tag-replace  | No       | undefined        | replacement in tag         |
 | --ignore-scope | No       | undefined        | ignore scopes              |
 | --header       | No       | `# Stage\n\n`    | set custom header          |
 

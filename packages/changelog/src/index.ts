@@ -35,30 +35,30 @@ const categories: {
   { breaking: false, storeTypes: ["test"], title: "Tests" },
   { breaking: false, storeTypes: ["build"], title: "Build" },
   { breaking: false, storeTypes: ["types"], title: "Types" },
-  { breaking: false, storeTypes: ["docs"], title: "Documenations" },
+  { breaking: false, storeTypes: ["docs"], title: "Documentation" },
   { breaking: false, storeTypes: ["chore"], title: "Routine Tasks" },
   { breaking: false, storeTypes: ["ci", "workflow"], title: "CI" },
   { breaking: false, storeTypes: ["untagged"], title: "Untagged" },
 ];
 
 export function getRepoUrl(): string {
-  let remoteurl = child
+  let remoteUrl = child
     .execSync("git config --get remote.origin.url")
     .toString("utf-8")
     .trim();
 
-  if (!remoteurl.length) {
+  if (!remoteUrl.length) {
     throw Error(
       "repo not found, make sure to run the command in the git directory only"
     );
   }
 
-  if (!remoteurl.endsWith(".git")) {
-    remoteurl += ".git";
+  if (!remoteUrl.endsWith(".git")) {
+    remoteUrl += ".git";
   }
 
-  if (RegExp(/.*@.*:.*.git/gm).test(remoteurl)) {
-    const r = RegExp(/.*@(.*?):(.*?).git/gm).exec(remoteurl);
+  if (RegExp(/.*@.*:.*.git/gm).test(remoteUrl)) {
+    const r = RegExp(/.*@(.*?):(.*?).git/gm).exec(remoteUrl);
     if (!r) {
       throw Error("Invalid repo url passed");
     }
@@ -69,7 +69,7 @@ export function getRepoUrl(): string {
     return `https://${domain}/${subUrl}`;
   }
 
-  return remoteurl.substring(0, remoteurl.length - 4);
+  return remoteUrl.substring(0, remoteUrl.length - 4);
 }
 
 export function generateDoc(options?: {
@@ -140,7 +140,7 @@ export function generateDoc(options?: {
     const store: { text: string; type: storeType }[] = [];
 
     commitsArray.forEach((commit) => {
-      const formatedCommit = (replace?: string) =>
+      const formattedCommit = (replace?: string) =>
         `* ${commit.title.replace(
           replace ? `${replace}: ` : "",
           ""
@@ -151,7 +151,7 @@ export function generateDoc(options?: {
         cat.storeTypes.forEach((st) => {
           if (commit.title.startsWith(`${st}: `)) {
             store.push({
-              text: formatedCommit(st),
+              text: formattedCommit(st),
               type: commit.message.includes("BREAKING CHANGE")
                 ? "BREAKING CHANGE"
                 : st,
@@ -162,7 +162,7 @@ export function generateDoc(options?: {
       });
 
       if (!isPushed) {
-        store.push({ text: formatedCommit(), type: "untagged" });
+        store.push({ text: formattedCommit(), type: "untagged" });
       }
     });
 

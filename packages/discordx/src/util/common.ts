@@ -16,13 +16,13 @@ export const resolveIGuilds = async (
   command: DApplicationCommand | DComponent | SimpleCommandMessage | undefined,
   guilds: IGuild[]
 ): Promise<string[]> => {
-  const guildx = await Promise.all(
+  const guildX = await Promise.all(
     guilds.map((guild) =>
       typeof guild === "function" ? guild(client, command) : guild
     )
   );
 
-  return _.uniqWith(guildx.flat(1), _.isEqual);
+  return _.uniqWith(guildX.flat(1), _.isEqual);
 };
 
 export const resolveIPermissions = async (
@@ -30,14 +30,14 @@ export const resolveIPermissions = async (
   command: ApplicationCommandMixin | SimpleCommandMessage,
   permissions: IPermissions[]
 ): Promise<ApplicationCommandPermissions[]> => {
-  const permissionx = await Promise.all(
+  const permissionX = await Promise.all(
     permissions.map((resolver) =>
       typeof resolver === "function" ? resolver(guild, command) : resolver
     )
   );
 
   const uniqFields = ["id", "type"];
-  return _.uniqWith(permissionx.flat(1), (a, b) =>
+  return _.uniqWith(permissionX.flat(1), (a, b) =>
     _.isEqual(_.pick(a, uniqFields), _.pick(b, uniqFields))
   );
 };

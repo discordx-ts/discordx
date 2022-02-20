@@ -2,7 +2,7 @@ import type { ClassMethodDecorator } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
 import { DRouter, MetadataStorage } from "../../index.js";
-import { DReqeuest } from "../index.js";
+import { DRequest } from "../index.js";
 
 export function Api(name: string): ClassMethodDecorator {
   return function <T>(
@@ -11,12 +11,12 @@ export function Api(name: string): ClassMethodDecorator {
     descriptor?: PropertyDescriptor
   ) {
     MetadataStorage.instance.addModifier(
-      Modifier.create<DRouter | DReqeuest>(
+      Modifier.create<DRouter | DRequest>(
         (original) => {
           original.api = name;
         },
         DRouter,
-        DReqeuest
+        DRequest
       ).decorateUnknown(target, key, descriptor)
     );
   };

@@ -1,5 +1,5 @@
 /**
- * Componenet type enum
+ * Component type enum
  */
 export enum ComponentType {
   Button,
@@ -7,7 +7,7 @@ export enum ComponentType {
 }
 
 /**
- * Componenet type enum
+ * Component type enum
  */
 export enum SimpleCommandParseType {
   notCommand,

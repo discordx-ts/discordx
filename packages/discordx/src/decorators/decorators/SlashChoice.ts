@@ -1,7 +1,7 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
-import type { NotEmpty, SlashChoicesType } from "../../index.js";
+import type { NotEmpty, SlashChoiceType } from "../../index.js";
 import {
   DApplicationCommandOption,
   DApplicationCommandOptionChoice,
@@ -65,10 +65,10 @@ export function SlashChoice<T extends string, V extends string>(
   name: NotEmpty<T>,
   value: NotEmpty<V>
 ): ParameterDecoratorEx;
-export function SlashChoice(choices: SlashChoicesType): ParameterDecoratorEx;
+export function SlashChoice(choices: SlashChoiceType): ParameterDecoratorEx;
 
 export function SlashChoice(
-  name: string | SlashChoicesType | number,
+  name: string | SlashChoiceType | number,
   value?: string | number
 ): ParameterDecoratorEx {
   return function <T>(target: Record<string, T>, key: string, index: number) {

@@ -18,7 +18,7 @@ import {
 
 @Discord()
 export abstract class AppDiscord {
-  myCustomText = "This resovler has class inbound";
+  myCustomText = "This resolver has class inbound";
 
   @Slash("hello")
   hello(
@@ -44,9 +44,9 @@ export abstract class AppDiscord {
     interaction.reply(`${channel}`);
   }
 
-  @Slash("roleoruser")
-  roleorUser(
-    @SlashOption("roleoruser", { type: "MENTIONABLE" })
+  @Slash("role-or-user")
+  roleOrUser(
+    @SlashOption("mention", { type: "MENTIONABLE" })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {
@@ -54,13 +54,13 @@ export abstract class AppDiscord {
   }
 
   @Slash("autocomplete")
-  testx(
-    @SlashOption("aoption", {
+  autocomplete(
+    @SlashOption("option-a", {
       autocomplete: true,
       type: "STRING",
     })
     searchText: string,
-    @SlashOption("boption", {
+    @SlashOption("option-b", {
       autocomplete: function myResolver(
         this: AppDiscord,
         interaction: AutocompleteInteraction
@@ -76,7 +76,7 @@ export abstract class AppDiscord {
       type: "STRING",
     })
     searchText2: string,
-    @SlashOption("coption", {
+    @SlashOption("option-c", {
       autocomplete: (interaction: AutocompleteInteraction) => {
         // arrow function does not have this, so class reference is not available
         interaction.respond([
@@ -93,7 +93,7 @@ export abstract class AppDiscord {
       const focusedOption = interaction.options.getFocused(true);
 
       // resolver for option a
-      if (focusedOption.name === "aoption") {
+      if (focusedOption.name === "option-a") {
         interaction.respond([
           { name: "option a", value: "a" },
           { name: "option b", value: "b" },
@@ -104,12 +104,12 @@ export abstract class AppDiscord {
     }
   }
 
-  @Slash()
-  testbtn(interaction: CommandInteraction): void {
+  @Slash("test-btn")
+  testBtn(interaction: CommandInteraction): void {
     const btn = new MessageButton();
     btn.setLabel("Test");
     btn.setStyle("PRIMARY");
-    btn.setCustomId("mytest");
+    btn.setCustomId("myTest");
 
     const row = new MessageActionRow();
     row.addComponents([btn]);
@@ -117,7 +117,7 @@ export abstract class AppDiscord {
     interaction.reply({ components: [row], content: "test" });
   }
 
-  @ButtonComponent(/mytest/)
+  @ButtonComponent(/myTest/)
   btnHandler(interaction: ButtonInteraction): void {
     interaction.reply("I am called");
   }

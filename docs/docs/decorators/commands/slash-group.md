@@ -31,7 +31,7 @@ command
 
 ## Example
 
-In the following example, slash permission commands are grouped together also subgrouped by role and user.
+In the following example, slash permission commands are grouped under permissions and subgrouped by role and user.
 
 ![](../../../static/img/permissions.png)
 
@@ -61,7 +61,7 @@ We create a group and subgroup with a selected class in the following code examp
 @SlashGroup({
   name: "user",
   description: "Manage permissions",
-  root: "permission", // need to specifiy root
+  root: "permission", // need to specify root
 })
 class Example {
   //

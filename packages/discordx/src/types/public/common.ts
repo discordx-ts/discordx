@@ -11,13 +11,18 @@ import type { Client, Next } from "../../index.js";
 export type ArgsOf<K extends keyof ClientEvents> = ClientEvents[K];
 
 /**
+ * Discord events
+ */
+export type DiscordEvents = keyof ClientEvents;
+
+/**
  * Guard function
  */
-export type GuardFunction<Type = any, DatasType = any> = (
+export type GuardFunction<Type = any, DataType = any> = (
   params: Type,
   client: Client,
   next: Next,
-  datas: DatasType
+  data: DataType
 ) => any;
 
 /**
@@ -31,7 +36,7 @@ export type InitCommandOptions = {
     add?: boolean;
 
     /**
-     * Disable the delete operation, which unregisters application commands with Discord
+     * Disable the delete operation, which unregister application commands with Discord
      */
     delete?: boolean;
 
@@ -75,6 +80,11 @@ export type SlashGroupOptions = {
 export type EventOptions = {
   botIds?: string[];
 };
+
+/**
+ * Slash choice type
+ */
+export type SlashChoiceType = Record<string, string | number>;
 
 /**
  * Slash option types

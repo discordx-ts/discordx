@@ -55,9 +55,9 @@ export default abstract class BaseCluster extends EventEmitter {
   }
 
   public getNode(guildId: string): ClusterNode {
-    let node = this.nodes.find((nodex) => nodex.players.has(guildId));
+    let node = this.nodes.find((nodeX) => nodeX.players.has(guildId));
     if (!node) {
-      node = this.sort().find((nodex) => this.filter(nodex, guildId));
+      node = this.sort().find((nodeX) => this.filter(nodeX, guildId));
     } else {
       return node;
     }

@@ -21,10 +21,10 @@ export abstract class AppDiscord {
     console.log(interaction);
   }
 
-  @Slash("errorguard")
+  @Slash("error-guard")
   @Guard(ErrorHandler, NotBot)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  errorguard(interaction: CommandInteraction, _client: Client): void {
+  errorGuard(interaction: CommandInteraction, _client: Client): void {
     throw Error("My custom error");
   }
 }

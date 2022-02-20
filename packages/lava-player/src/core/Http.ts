@@ -37,7 +37,7 @@ export default class Http {
   public readonly node: BaseNode;
   public input: string;
   public base?: string;
-  public routeplanner: RoutePlanner = new RoutePlanner(this);
+  public routePlanner: RoutePlanner = new RoutePlanner(this);
 
   constructor(node: BaseNode, input: string, base?: string) {
     this.node = node;
@@ -119,8 +119,8 @@ export default class Http {
           message.removeAllListeners();
 
           try {
-            const datax = Buffer.concat(chunks);
-            resolve(JSON.parse(datax.toString()));
+            const dataX = Buffer.concat(chunks);
+            resolve(JSON.parse(dataX.toString()));
           } catch (e) {
             reject(e);
           }

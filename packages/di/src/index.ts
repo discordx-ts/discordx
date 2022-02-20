@@ -4,8 +4,8 @@ import type { DependencyContainer } from "tsyringe";
 export type InstanceOf<T> = T extends new (...args: any[]) => infer R ? R : any;
 
 /**
- * It create on instance of a classe and store it globally using
- * the singleton design pattern
+ * The dependency injection service creates a single instance of a class and stores it globally using the singleton design pattern
+ *
  * @category Internal
  */
 export class DIService {

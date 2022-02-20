@@ -33,7 +33,7 @@ simple commands use this prefix by default, use function to fetch different pref
 
 ### commandUnauthorizedHandler
 
-define bot reply, when command is not auhorized
+define bot reply, when command is not authorized
 
 | type                                                           | default | required |
 | -------------------------------------------------------------- | ------- | -------- |
@@ -57,7 +57,7 @@ Global guards, it's an array of functions
 
 ### botGuilds
 
-The application commands are executed only on this list of guilds by default, ex. slash, button, selectmenu, contextmenu
+The application commands are executed only on this list of guilds by default, ex. slash, button, select-menu, contextmenu
 
 | type       | default | required |
 | ---------- | ------- | -------- |
@@ -65,14 +65,14 @@ The application commands are executed only on this list of guilds by default, ex
 
 ## Intents
 
-You must specify the "**intents**" of your bot when you initialize the Client, it specify which informations your bot receive from the Discord's servers, **it's different from the permissions**
+When you initialize the Client, you must specify the "**intents**" of your bot, which determine what information your bot will receive from the Discord servers, **it's different from the permissions**
 
 _Maintaining a stateful application can be difficult when it comes to the amount of data you're expected to process, especially at scale. Gateway Intents are a system to help you lower that computational burden._
 
 _When identifying to the gateway, you can specify an intents parameter which allows you to conditionally subscribe to pre-defined "intents", groups of events defined by Discord. If you do not specify a certain intent, you will not receive any of the gateway events that are batched into that group._
 
 :::danger
-If an event of your app isn't triggered, you probably missed an Intent
+If an event of your app isn't triggered, you probably missed an **Intent**
 :::
 
 ### Basic intents, just text messages

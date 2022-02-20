@@ -7,7 +7,6 @@ import type {
 import { MessageActionRow, MessageButton } from "discord.js";
 
 import {
-  Bot,
   ButtonComponent,
   Discord,
   Slash,
@@ -15,42 +14,42 @@ import {
   SlashOption,
 } from "../../../src/index.js";
 
-enum spcChoice {
-  Paper = "Paper",
-  Scissor = "Scissor",
-  Stone = "Stone",
+enum RPSChoice {
+  Rock,
+  Paper,
+  Scissors,
 }
 
-type spcTypes = "spc-stone" | "spc-paper" | "spc-scissor";
+type RPSButtonIdType = `RPS-${RPSChoice}`;
 
-enum spcResult {
+enum RPSResult {
   WIN,
   LOSS,
   DRAW,
 }
 
-class spcProposition {
+class RPSProposition {
   public static propositions = [
-    new spcProposition(spcChoice.Stone, "💎", "spc-stone"),
-    new spcProposition(spcChoice.Paper, "🧻", "spc-paper"),
-    new spcProposition(spcChoice.Scissor, "✂️", "spc-scissor"),
+    new RPSProposition(RPSChoice.Rock, "💎", `RPS-${RPSChoice.Rock}`),
+    new RPSProposition(RPSChoice.Paper, "🧻", `RPS-${RPSChoice.Paper}`),
+    new RPSProposition(RPSChoice.Scissors, "✂️", `RPS-${RPSChoice.Scissors}`),
   ];
 
-  public choice: spcChoice;
+  public choice: RPSChoice;
   public emoji: EmojiIdentifierResolvable;
-  public buttonCustomID: spcTypes;
+  public buttonCustomID: RPSButtonIdType;
 
   constructor(
-    choice: spcChoice,
+    choice: RPSChoice,
     emoji: EmojiIdentifierResolvable,
-    buttonCustomID: spcTypes
+    buttonCustomID: RPSButtonIdType
   ) {
     this.choice = choice;
     this.emoji = emoji;
     this.buttonCustomID = buttonCustomID;
   }
 
-  public static nameToClass(choice: spcChoice) {
+  public static nameToClass(choice: RPSChoice) {
     return this.propositions.find(
       (proposition) => choice === proposition.choice
     );
@@ -63,102 +62,97 @@ class spcProposition {
   }
 }
 
-const defaultChoice = new spcProposition(spcChoice.Stone, "💎", "spc-stone");
+const defaultChoice = new RPSProposition(
+  RPSChoice.Rock,
+  "💎",
+  `RPS-${RPSChoice.Rock}`
+);
 
 @Discord()
-@Bot("alexa")
-export abstract class StonePaperScissor {
-  @Slash("stonepaperscissor", {
+export abstract class RockPaperScissors {
+  @Slash("rock-paper-scissors", {
     description:
-      "What could be more fun than play Rock Paper Scissor with a bot?",
+      "What could be more fun than play Rock Paper Scissors with a bot?",
   })
-  private async spc(
-    @SlashChoice(spcChoice)
+  private async RPS(
+    @SlashChoice(RPSChoice)
     @SlashOption("choice", {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
       required: false,
       type: "STRING",
     })
-    choice: spcChoice | undefined,
+    choice: RPSChoice | undefined,
     interaction: CommandInteraction
   ) {
     await interaction.deferReply();
 
     if (choice) {
-      const playerChoice = spcProposition.nameToClass(choice);
-      const botChoice = StonePaperScissor.spcPlayBot();
-      const result = StonePaperScissor.isWinSpc(
+      const playerChoice = RPSProposition.nameToClass(choice);
+      const botChoice = RockPaperScissors.RPSPlayBot();
+      const result = RockPaperScissors.isWinRPS(
         playerChoice ?? defaultChoice,
         botChoice
       );
 
       interaction.followUp(
-        StonePaperScissor.spcResultProcess(
+        RockPaperScissors.RPSResultProcess(
           playerChoice ?? defaultChoice,
           botChoice,
           result
         )
       );
     } else {
-      const buttonStone = new MessageButton()
-        .setLabel("Stone")
+      const buttonRock = new MessageButton()
+        .setLabel("Rock")
         .setEmoji("💎")
         .setStyle("PRIMARY")
-        .setCustomId("spc-stone");
+        .setCustomId(`RPS-${RPSChoice.Rock}`);
 
       const buttonPaper = new MessageButton()
         .setLabel("Paper")
         .setEmoji("🧻")
         .setStyle("PRIMARY")
-        .setCustomId("spc-paper");
+        .setCustomId(`RPS-${RPSChoice.Paper}`);
 
       const buttonScissor = new MessageButton()
-        .setLabel("Scissor")
+        .setLabel("Scissors")
         .setEmoji("✂️")
         .setStyle("PRIMARY")
-        .setCustomId("spc-scissor");
-
-      const buttonWell = new MessageButton()
-        .setLabel("Well")
-        .setEmoji("❓")
-        .setStyle("DANGER")
-        .setCustomId("spc-well")
-        .setDisabled(true);
+        .setCustomId(`RPS-${RPSChoice.Scissors}`);
 
       const buttonRow = new MessageActionRow().addComponents(
-        buttonStone,
+        buttonRock,
         buttonPaper,
-        buttonScissor,
-        buttonWell
+        buttonScissor
       );
 
       interaction.followUp({
         components: [buttonRow],
-        content: "Ok let's go. 1v1 Stone Paper Scissor. Go choose!",
+        content: "Ok let's go. 1v1 Rock Paper Scissors. Go choose!",
       });
 
       setTimeout((inx) => inx.deleteReply(), 10 * 60 * 1000, interaction);
     }
   }
 
-  @ButtonComponent("spc-stone")
-  @ButtonComponent("spc-paper")
-  @ButtonComponent("spc-scissor")
-  private async spcButton(interaction: ButtonInteraction) {
+  @ButtonComponent(`RPS-${RPSChoice.Rock}`)
+  @ButtonComponent(`RPS-${RPSChoice.Paper}`)
+  @ButtonComponent(`RPS-${RPSChoice.Scissors}`)
+  private async RPSButton(interaction: ButtonInteraction) {
     await interaction.deferReply();
 
-    const playerChoice = spcProposition.buttonCustomIDToClass(
+    const playerChoice = RPSProposition.buttonCustomIDToClass(
       interaction.customId
     );
-    const botChoice = StonePaperScissor.spcPlayBot();
-    const result = StonePaperScissor.isWinSpc(
+    const botChoice = RockPaperScissors.RPSPlayBot();
+    const result = RockPaperScissors.isWinRPS(
       playerChoice ?? defaultChoice,
       botChoice
     );
 
     interaction.followUp(
-      StonePaperScissor.spcResultProcess(
+      RockPaperScissors.RPSResultProcess(
         playerChoice ?? defaultChoice,
         botChoice,
         result
@@ -178,62 +172,62 @@ export abstract class StonePaperScissor {
     );
   }
 
-  private static isWinSpc(
-    player: spcProposition,
-    bot: spcProposition
-  ): spcResult {
+  private static isWinRPS(
+    player: RPSProposition,
+    bot: RPSProposition
+  ): RPSResult {
     switch (player.choice) {
-      case spcChoice.Stone: {
-        if (bot.choice === spcChoice.Scissor) {
-          return spcResult.WIN;
+      case RPSChoice.Rock: {
+        if (bot.choice === RPSChoice.Scissors) {
+          return RPSResult.WIN;
         }
-        if (bot.choice === spcChoice.Paper) {
-          return spcResult.LOSS;
+        if (bot.choice === RPSChoice.Paper) {
+          return RPSResult.LOSS;
         }
-        return spcResult.DRAW;
+        return RPSResult.DRAW;
       }
 
-      case spcChoice.Paper: {
-        if (bot.choice === spcChoice.Stone) {
-          return spcResult.WIN;
+      case RPSChoice.Paper: {
+        if (bot.choice === RPSChoice.Rock) {
+          return RPSResult.WIN;
         }
-        if (bot.choice === spcChoice.Scissor) {
-          return spcResult.LOSS;
+        if (bot.choice === RPSChoice.Scissors) {
+          return RPSResult.LOSS;
         }
-        return spcResult.DRAW;
+        return RPSResult.DRAW;
       }
 
-      case spcChoice.Scissor: {
-        if (bot.choice === spcChoice.Paper) {
-          return spcResult.WIN;
+      case RPSChoice.Scissors: {
+        if (bot.choice === RPSChoice.Paper) {
+          return RPSResult.WIN;
         }
-        if (bot.choice === spcChoice.Stone) {
-          return spcResult.LOSS;
+        if (bot.choice === RPSChoice.Rock) {
+          return RPSResult.LOSS;
         }
-        return spcResult.DRAW;
+        return RPSResult.DRAW;
       }
     }
   }
 
-  private static spcPlayBot(): spcProposition {
-    return spcProposition.propositions[randomInt(3)] ?? defaultChoice;
+  private static RPSPlayBot(): RPSProposition {
+    return RPSProposition.propositions[randomInt(3)] ?? defaultChoice;
   }
 
-  private static spcResultProcess(
-    playerChoice: spcProposition,
-    botChoice: spcProposition,
-    result: spcResult
+  private static RPSResultProcess(
+    playerChoice: RPSProposition,
+    botChoice: RPSProposition,
+    result: RPSResult
   ) {
     switch (result) {
-      case spcResult.WIN:
+      case RPSResult.WIN:
         return {
           content: `${botChoice.emoji} ${botChoice.choice} ! Well, noob ${playerChoice.emoji} ${playerChoice.choice} need nerf plz...`,
         };
-      case spcResult.LOSS:
+      case RPSResult.LOSS:
         return {
           content: `${botChoice.emoji} ${botChoice.choice} ! Okay bye, Easy!`,
         };
-      case spcResult.DRAW:
+      case RPSResult.DRAW:
         return {
           content: `${botChoice.emoji} ${botChoice.choice} ! Ha... Draw...`,
         };

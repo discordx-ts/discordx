@@ -11,7 +11,7 @@ export class music {
 
   @On("ready")
   onReady([]: ArgsOf<"ready">, client: Client): void {
-    const nodex = new Lava.Node({
+    const nodeX = new Lava.Node({
       host: {
         address: process.env.LAVA_HOST ?? "",
         port: Number(process.env.LAVA_PORT) ?? 2333,
@@ -30,19 +30,19 @@ export class music {
       userId: client.user?.id ?? "", // the user id of your bot
     });
 
-    nodex.on("error", (e) => {
+    nodeX.on("error", (e) => {
       console.log(e);
     });
 
     client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
-      nodex.voiceStateUpdate(data);
+      nodeX.voiceStateUpdate(data);
     });
 
     client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
-      nodex.voiceServerUpdate(data);
+      nodeX.voiceServerUpdate(data);
     });
 
-    this.node = nodex;
+    this.node = nodeX;
   }
 
   @Slash("play")

@@ -13,7 +13,7 @@ A simple command is dependent on the content of the message but unfortunately, D
 ```ts
 @Discord()
 class commandTest {
-  @SimpleCommand("permcheck", { aliases: ["ptest"] })
+  @SimpleCommand("perm-check", { aliases: ["p-test"] })
   @Permission(false)
   @Permission({
     id: "462341082919731200",
@@ -28,7 +28,7 @@ class commandTest {
 
 ## Execute Commands
 
-You have to manualy execute your simple commands by using:
+You have to manually execute your simple commands by using:
 
 - `client.executeCommand(message)`
 

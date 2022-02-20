@@ -71,7 +71,7 @@ yarn add discordx
 
 # 💡 Why discordx?
 
-With `discordx`, we intend to provide latest upto date package to build bots with many features, such as multi-bot, simple commands, pagination, music etc. **Updated daily with discord.js changes**.
+With `discordx`, we intend to provide the latest up-to-date package to easily build feature-rich bots with multi-bot compatibility, simple commands, pagination, music, and much more. **Updated daily with discord.js changes**.
 
 Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discord.ts-example)
 
@@ -101,7 +101,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 | [`@discordx/internal`](https://www.npmjs.com/package/@discordx/internal)       | discord.ts internal methods, can be used for external projects |
 | [`@discordx/koa`](https://www.npmjs.com/package/@discordx/koa)                 | Create rest api server with Typescript and Decorators          |
 | [`@discordx/lava-player`](https://www.npmjs.com/package/@discordx/lava-player) | Create lavalink player                                         |
-| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)             | Create discord music player easly                              |
+| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)             | Create discord music player easily                             |
 | [`@discordx/pagination`](https://www.npmjs.com/package/@discordx/pagination)   | Add pagination to your discord bot                             |
 | [`@discordx/socket.io`](https://www.npmjs.com/package/@discordx/socket.io)     | Create socket.io server with Typescript and Decorators         |
 | [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities)     | Create own group with `@Category`                              |
@@ -181,7 +181,7 @@ class buttonExample {
   }
 
   @ButtonComponent("hello-btn")
-  mybtn(interaction: ButtonInteraction) {
+  myBtn(interaction: ButtonInteraction) {
     interaction.reply(`👋 ${interaction.member}`);
   }
 }
@@ -219,15 +219,15 @@ class buttons {
   }
 
   @Slash("roles", { description: "role selector menu" })
-  async myroles(interaction: CommandInteraction): Promise<unknown> {
+  async myRoles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.deferReply();
 
-    // create menu for roels
+    // create menu for roles
     const menu = new MessageSelectMenu()
       .addOptions(roles)
       .setCustomId("role-menu");
 
-    // create a row for meessage actions
+    // create a row for message actions
     const buttonRow = new MessageActionRow().addComponents(menu);
 
     // send it
@@ -266,7 +266,7 @@ Create a simple command handler for messages using `@SimpleCommand`. Example `!h
 ```ts
 @Discord()
 class commandTest {
-  @SimpleCommand("permcheck", { aliases: ["ptest"] })
+  @SimpleCommand("perm-check", { aliases: ["p-test"] })
   @Permission(false)
   @Permission({
     id: "462341082919731200",
@@ -323,7 +323,7 @@ import { Prefix } from "./Prefix";
 abstract class AppDiscord {
   @On("messageCreate")
   @Guard(
-    NotBot // You can use multiple guard functions, they are excuted in the same order!
+    NotBot // You can use multiple guard functions, they are executed in the same order!
   )
   onMessage([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {

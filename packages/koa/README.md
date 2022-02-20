@@ -90,7 +90,7 @@ function Log(ctx: RouterContext, next: Next) {
 }
 
 function Authenticated(ctx: RouterContext, next: Next) {
-  ctx.body = "unauthorised required";
+  ctx.body = "unauthorized required";
   // we are not returning next, to avoid further execution
   return;
 }

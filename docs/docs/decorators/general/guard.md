@@ -15,7 +15,7 @@ import { Prefix } from "./Prefix";
 abstract class AppDiscord {
   @On("messageCreate")
   @Guard(
-    NotBot, // You can use multiple guard functions, they are excuted in the same order!
+    NotBot, // You can use multiple guard functions, they are executed in the same order!
     Prefix("!")
   )
   async onMessage([message]: ArgsOf<"messageCreate">) {
@@ -76,7 +76,6 @@ async function start() {
   const client = new Client({
     botId: "test",
     silent: false,
-    // At instanciation
     guards: [NotBot, Prefix("!")],
   });
 
@@ -137,7 +136,7 @@ export function Prefix(text: string, replace: boolean = true) {
 }
 ```
 
-### Guard datas
+### Guard data
 
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 
@@ -164,7 +163,7 @@ export const NotBot: GuardFunction<
   | SelectMenuInteraction
   | ButtonInteraction
   | SimpleCommandMessage
-> = async (arg, client, next, guardDatas) => {
+> = async (arg, client, next, guardData) => {
   const argObj = arg instanceof Array ? arg[0] : arg;
   const user =
     argObj instanceof CommandInteraction
@@ -184,7 +183,7 @@ export const NotBot: GuardFunction<
       ? argObj.member?.user
       : argObj.message.author;
   if (!user?.bot) {
-    guardDatas.message = "the NotBot guard passed";
+    guardData.message = "the NotBot guard passed";
     await next();
   }
 };
@@ -202,9 +201,9 @@ abstract class AppDiscord {
   async hello(
     interaction: CommandInteraction,
     client: Client,
-    guardDatas: { message: string }
+    guardData: { message: string }
   ) {
-    console.log(guardDatas.message);
+    console.log(guardData.message);
     // > the NotBot guard passed
   }
 }
@@ -215,7 +214,7 @@ abstract class AppDiscord {
 ```ts
 @Discord()
 class commandTest {
-  @SimpleCommand("mycmd")
+  @SimpleCommand("my-cmd")
   async myCmd(command: SimpleCommandMessage, client: Client) {
     command.message.reply("Hello :wave_tone1:");
   }
@@ -227,7 +226,7 @@ class commandTest {
 ```ts
 @Discord()
 class commandTest {
-  @SimpleCommand("mycmd")
+  @SimpleCommand("my-cmd")
   async myCmd(command: SimpleCommandMessage, client: Client, guardData: any) {
     command.message.reply("Hello :wave_tone1:");
   }
@@ -237,8 +236,8 @@ class commandTest {
 ## Signature
 
 ```ts
-Guard<Type = any, DatasType = any>(
-  ...fns: GuardFunction<Type, DatasType>[]
+Guard<Type = any, DataType = any>(
+  ...fns: GuardFunction<Type, DataType>[]
 );
 ```
 
@@ -256,9 +255,9 @@ Array of guard functions.
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](/docs/decorators/gui/buttoncomponent)
+[@ButtonComponent](/docs/decorators/gui/button-component)
 
-[@SelectMenuComponent](/docs/decorators/gui/selectmenucomponent)
+[@SelectMenuComponent](/docs/decorators/gui/select-menu-component)
 
 [@Discord](/docs/decorators/general/discord)
 
@@ -266,6 +265,6 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@Once](/docs/decorators/general/once)
 
-[@SimpleCommand](/docs/decorators/commands/simplecommand)
+[@SimpleCommand](/docs/decorators/commands/simple-command)
 
 [@Slash](/docs/decorators/commands/slash)

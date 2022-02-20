@@ -5,21 +5,21 @@ const guard1: GuardFunction = async (
   [message]: [string],
   client,
   next,
-  mwDatas
+  data
 ) => {
-  mwDatas.original = message;
+  data.original = message;
   if (message.includes("hello")) {
-    mwDatas.message = message + "0";
+    data.message = message + "0";
     await next();
   }
 };
 
-const guard2: GuardFunction = async ([]: [string], client, next, mwDatas) => {
-  if (mwDatas.original === "hello0") {
-    mwDatas.message += "1";
+const guard2: GuardFunction = async ([]: [string], client, next, data) => {
+  if (data.original === "hello0") {
+    data.message += "1";
     await next();
   } else {
-    mwDatas.message += "2";
+    data.message += "2";
   }
 };
 

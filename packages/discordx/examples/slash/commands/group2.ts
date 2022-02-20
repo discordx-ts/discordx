@@ -3,9 +3,9 @@ import type { CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashGroup } from "../../../src/index.js";
 
 @Discord()
-@SlashGroup({ name: "testx" })
-@SlashGroup({ name: "add", root: "testx" })
-@SlashGroup("add", "testx")
+@SlashGroup({ name: "test-x" })
+@SlashGroup({ name: "add", root: "test-x" })
+@SlashGroup("add", "test-x")
 export abstract class Group {
   @Slash()
   x(interaction: CommandInteraction): void {
@@ -19,7 +19,7 @@ export abstract class Group {
 }
 
 @Discord()
-@SlashGroup("testx")
+@SlashGroup("test-x")
 export abstract class AnotherGroup {
   @Slash()
   m(interaction: CommandInteraction): void {

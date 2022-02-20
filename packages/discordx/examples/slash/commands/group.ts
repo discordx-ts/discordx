@@ -31,8 +31,8 @@ export abstract class Group {
     interaction.reply(`${roleOrUser}`);
   }
 
-  @Slash("voicechannelx")
-  voicechannelx(
+  @Slash("voice-channel-x")
+  voiceChannelX(
     @SlashOption("channel", {
       channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
       type: "CHANNEL",

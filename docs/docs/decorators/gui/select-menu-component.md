@@ -35,16 +35,16 @@ class buttons {
     return;
   }
 
-  @Slash("myroles", { description: "roles menu" })
-  async myroles(interaction: CommandInteraction): Promise<unknown> {
+  @Slash("my-roles", { description: "roles menu" })
+  async myRoles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.deferReply();
 
-    // create menu for roels
+    // create menu for roles
     const menu = new MessageSelectMenu()
       .addOptions(roles)
       .setCustomId("role-menu");
 
-    // create a row for meessage actions
+    // create a row for message actions
     const buttonRow = new MessageActionRow().addComponents(menu);
 
     // send it
@@ -74,7 +74,7 @@ A unique id for your button interaction to be handled under.
 | string | function name | No       |
 
 :::caution
-As per discord latest annoucement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
+As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
 :::
 
 ### options

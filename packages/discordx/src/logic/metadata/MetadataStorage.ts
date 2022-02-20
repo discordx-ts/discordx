@@ -83,7 +83,7 @@ export class MetadataStorage {
     this._instance = value;
   }
 
-  // geters
+  // getters
 
   get isBuilt(): boolean {
     return MetadataStorage._isBuilt;
@@ -335,7 +335,7 @@ export class MetadataStorage {
       // Separately map special prefix commands
       if (cmd.prefix) {
         [...cmd.prefix].forEach((pfx) => {
-          const cmds = this._simpleCommandsByPrefix.get(pfx) ?? [];
+          const commands = this._simpleCommandsByPrefix.get(pfx) ?? [];
           const mapCmd: ISimpleCommandByName[] = [
             { command: cmd, name: cmd.name },
           ];
@@ -344,17 +344,19 @@ export class MetadataStorage {
             mapCmd.push({ command: cmd, name: al });
           });
 
-          mapCmd.forEach((mcmd) => {
-            if (_.findIndex(cmds, { name: mcmd.name }) !== -1) {
+          mapCmd.forEach((mapCommand) => {
+            if (_.findIndex(commands, { name: mapCommand.name }) !== -1) {
               throw Error(
-                `Duplicate simple command name: ${mcmd.name} (of: ${mcmd.command.name})`
+                `Duplicate simple command name: ${mapCommand.name} (of: ${mapCommand.command.name})`
               );
             }
           });
 
           this._simpleCommandsByPrefix.set(
             pfx,
-            [...cmds, ...mapCmd].sort((a, b) => b.name.length - a.name.length)
+            [...commands, ...mapCmd].sort(
+              (a, b) => b.name.length - a.name.length
+            )
           );
         });
         return;
@@ -395,7 +397,7 @@ export class MetadataStorage {
     // "name": "permissions",
     // "description": "Get or edit permissions for a user or a role",
     // "options": [
-    //    ...comands
+    //    ...commands
     // ]
     //
     this._applicationCommandSlashGroups.forEach((group) => {

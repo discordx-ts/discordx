@@ -23,7 +23,7 @@ export interface SimpleCommandConfig {
   prefix?: IPrefixResolver;
 
   /**
-   * Define global response for cetain conditions
+   * Define global response for certain conditions
    */
   responses?: {
     /**
@@ -47,7 +47,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
   botGuilds?: IGuild[];
 
   /**
-   * Specifiy bot id (added for multiple bot support)
+   * Specify bot id (added for multiple bot support)
    */
   botId?: string;
 

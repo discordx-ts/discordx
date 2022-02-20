@@ -43,8 +43,8 @@ export abstract class commandTest {
     );
   }
 
-  @SimpleCommand("testx", { prefix: ["&", ">"] })
-  testx(
+  @SimpleCommand("test-x", { prefix: ["&", ">"] })
+  testX(
     @SimpleCommandOption("user", { type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
     command: SimpleCommandMessage

@@ -54,7 +54,7 @@ export abstract class commandTest {
     command.message.reply(`${num1} ${operation} ${num2} = ${out}`);
   }
 
-  @SimpleCommand("permcheck", { aliases: ["ptest"] })
+  @SimpleCommand("perm-check", { aliases: ["p-check"] })
   @Permission(
     new DefaultPermissionResolver((command) => {
       if (!command) {
@@ -72,7 +72,7 @@ export abstract class commandTest {
     command.message.reply("access granted");
   }
 
-  @SimpleCommand("hello", { aliases: ["ptest mark"] })
+  @SimpleCommand("hello", { aliases: ["p-test mark"] })
   testCommand(
     @SimpleCommandOption("name") name: string,
 
@@ -85,7 +85,7 @@ export abstract class commandTest {
 
   // mention test
 
-  @SimpleCommand("mentiontestuser")
+  @SimpleCommand("mention-test-user")
   handler(
     @SimpleCommandOption("user", { type: SimpleCommandOptionType.User })
     user: User, //
@@ -96,7 +96,7 @@ export abstract class commandTest {
       : command.message.reply(`${user}`);
   }
 
-  @SimpleCommand("mentiontestrole")
+  @SimpleCommand("mention-test-role")
   handlerRole(
     @SimpleCommandOption("role", { type: SimpleCommandOptionType.Role })
     role: Role, //
@@ -107,7 +107,7 @@ export abstract class commandTest {
       : command.message.reply(`${role}`);
   }
 
-  @SimpleCommand("mentiontestchannel")
+  @SimpleCommand("mention-test-channel")
   handlerChannel(
     @SimpleCommandOption("channel", { type: SimpleCommandOptionType.Channel })
     channel: Channel, //
@@ -150,12 +150,12 @@ export abstract class commandTest {
         );
   }
 
-  @SimpleCommand("splitme", {
+  @SimpleCommand("split-me", {
     argSplitter: (command) => {
       return command.argString.split("|");
     },
   })
-  splitme(
+  splitMe(
     @SimpleCommandOption("arg1") arg1: string,
     @SimpleCommandOption("arg2") arg2: string,
     command: SimpleCommandMessage

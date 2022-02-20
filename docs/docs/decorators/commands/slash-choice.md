@@ -69,7 +69,7 @@ SlashChoice(choices: SlashChoicesType);
 
 ### Name
 
-You have to set a diplayed name for your choice
+You have to set a displayed name for your choice
 
 | type             | default | required |
 | ---------------- | ------- | -------- |

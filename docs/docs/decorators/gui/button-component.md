@@ -41,7 +41,7 @@ class buttonExample {
 
   // register a handler for the button with id: "hello-btn"
   @ButtonComponent("hello-btn")
-  mybtn(interaction: ButtonInteraction) {
+  myBtn(interaction: ButtonInteraction) {
     interaction.reply(`👋 ${interaction.member}`);
   }
 }
@@ -67,7 +67,7 @@ A unique id for your button interaction to be handled under.
 | string | function name | No       |
 
 :::caution
-As per discord latest annoucement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
+As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
 :::
 
 ### options
