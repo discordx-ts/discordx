@@ -1,5 +1,13 @@
 # Stage
 
+## Documenations
+
+- slash group ([9b84f2](https://github.com/oceanroleplay/discord.ts/commit/9b84f2b10b103df13d2fc280b09ff367dc7719f8))
+
+## Routine Tasks
+
+- update examples link ([#534](https://github.com/oceanroleplay/discord.ts/issues/534)) ([905947](https://github.com/oceanroleplay/discord.ts/commit/905947deba33979cf8aca0a0f039ca79fc06938a))
+
 # [v9.3.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.1) (2022-02-18)
 
 ## Changed

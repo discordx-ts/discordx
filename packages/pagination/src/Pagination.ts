@@ -20,7 +20,12 @@ import type {
   PaginationItem,
   PaginationOptions,
 } from "./types.js";
-import { defaultIds, defaultTime } from "./types.js";
+import {
+  defaultIds,
+  defaultTime,
+  PaginationType,
+  SelectMenuPageId,
+} from "./types.js";
 
 export class Pagination<T extends PaginationResolver = PaginationResolver> {
   public maxLength: number;
@@ -52,7 +57,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
      */
     this.option =
       config ??
-      (this.maxLength < 20 ? { type: "BUTTON" } : { type: "SELECT_MENU" });
+      (this.maxLength < 20
+        ? { type: PaginationType.Button }
+        : { type: PaginationType.SelectMenu });
 
     /**
      * Current page
@@ -93,16 +100,18 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     collector: InteractionCollector<MessageComponentInteraction<CacheType>>;
     message: Message;
   }> {
+    // If pagination has already been sent, throw an error
     if (this._isSent) {
       throw Error("Pagination: already sent");
     }
 
-    // prepare intial message
+    // Prepare initial message
     const page = await this.getPage(this.currentPage);
     if (!page) {
       throw Error("Pagination: out of bound page");
     }
 
+    // Add a pagination row to components
     if (page.newMessage.components) {
       page.newMessage.components.push(page.paginationRow);
     } else {
@@ -111,7 +120,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
     let message: Message;
 
-    // send embed
+    // Send embed
     if (this.sendTo instanceof Message) {
       message = await this.sendTo.reply(page.newMessage);
     } else if (
@@ -124,6 +133,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         this._isFollowUp = true;
       }
 
+      // send message
       const reply =
         this.sendTo.deferred || this.sendTo.replied
           ? await this.sendTo.followUp({
@@ -137,6 +147,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
               fetchReply: true,
             });
 
+      // If the message response is not received, throw an error
       if (!(reply instanceof Message)) {
         throw Error("InvalidMessage instance");
       }
@@ -157,32 +168,40 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     });
 
     collector.on("collect", async (collectInteraction) => {
-      if (collectInteraction.isButton() && this.option.type === "BUTTON") {
+      if (
+        collectInteraction.isButton() &&
+        this.option.type === PaginationType.Button
+      ) {
         if (
           collectInteraction.customId ===
           (this.option.exit?.id ?? defaultIds.buttons.exit)
         ) {
+          // Exit pagination if exit is requested
           collector.stop();
           return;
         } else if (
           collectInteraction.customId ===
           (this.option.start?.id ?? defaultIds.buttons.start)
         ) {
+          // Requested start page
           this.currentPage = 0;
         } else if (
           collectInteraction.customId ===
           (this.option.end?.id ?? defaultIds.buttons.end)
         ) {
+          // Requested end page
           this.currentPage = this.maxLength - 1;
         } else if (
           collectInteraction.customId ===
           (this.option.next?.id ?? defaultIds.buttons.next)
         ) {
+          // Requested next page
           this.currentPage++;
         } else if (
           collectInteraction.customId ===
           (this.option.previous?.id ?? defaultIds.buttons.previous)
         ) {
+          // Requested previous page
           this.currentPage--;
         } else {
           return;
@@ -190,43 +209,49 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
         await collectInteraction.deferUpdate();
 
+        // Get page
         const pageEx = await this.getPage(this.currentPage);
         if (!pageEx) {
           throw Error("Pagination: out of bound page");
         }
 
+        // Add pagination row
         if (pageEx.newMessage.components) {
           pageEx.newMessage.components.push(pageEx.paginationRow);
         } else {
           pageEx.newMessage.components = [pageEx.paginationRow];
         }
 
+        // Update message
         await collectInteraction.editReply(pageEx.newMessage);
-      }
-      if (
+      } else if (
         collectInteraction.isSelectMenu() &&
-        this.option.type === "SELECT_MENU" &&
+        this.option.type === PaginationType.SelectMenu &&
         collectInteraction.customId === (this.option.menuId ?? defaultIds.menu)
       ) {
         await collectInteraction.deferUpdate();
 
-        const menuValue = Number(collectInteraction.values[0]) ?? 0;
+        const menuValue = Number(collectInteraction.values[0] ?? 0);
 
-        if (menuValue === -3) {
+        // Exit pagination if exit is requested
+        if (menuValue === SelectMenuPageId.Exit) {
           collector.stop();
           return;
         }
 
-        if (menuValue === -1) {
+        // Requested start page
+        if (menuValue === SelectMenuPageId.Start) {
           this.currentPage = 0;
         }
 
-        if (menuValue === -2) {
+        // Requested end page
+        if (menuValue === SelectMenuPageId.End) {
           this.currentPage = this.maxLength - 1;
         }
 
         this.currentPage = menuValue;
 
+        // Update page
         const pageEx = await this.getPage(this.currentPage);
         if (!pageEx) {
           throw Error("Pagination: out of bound page");
@@ -245,11 +270,12 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     collector.on("end", async () => {
       const finalPage = await this.getPage(this.currentPage);
       if (message.editable && finalPage) {
+        // Reset page components
         if (!finalPage.newMessage.components) {
           finalPage.newMessage.components = [];
         }
 
-        // Prevent ephemeral pagination error, since direct editing is not available
+        // Eliminate the ephemeral pagination error, since direct editing cannot be performed
         if (this.option.ephemeral && this.sendTo instanceof Interaction) {
           if (!this._isFollowUp) {
             await this.sendTo.editReply(finalPage.newMessage);
@@ -259,6 +285,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         }
       }
 
+      // Perform pagination timeout
       if (this.option.onTimeout) {
         this.option.onTimeout(this.currentPage, message);
       }

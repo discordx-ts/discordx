@@ -8,7 +8,7 @@ import { Pagination } from "../../../src/index.js";
 export abstract class SlashExample {
   // example: pagination for all slash command
   @Slash("slashes", { description: "Pagination for all slash command" })
-  pages(interaction: CommandInteraction): void {
+  slashes(interaction: CommandInteraction): void {
     const commands = MetadataStorage.instance.applicationCommands.map((cmd) => {
       return { description: cmd.description, name: cmd.name };
     });

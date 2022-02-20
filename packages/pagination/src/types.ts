@@ -33,6 +33,17 @@ export type PaginationInteractions =
   | MessageComponentInteraction
   | ContextMenuInteraction;
 
+export enum SelectMenuPageId {
+  Start = -1,
+  End = -2,
+  Exit = -3,
+}
+
+export enum PaginationType {
+  Button,
+  SelectMenu,
+}
+
 interface BasicPaginationOptions {
   /**
    * Enable exit button, It will close the pagination before timeout
@@ -116,7 +127,7 @@ interface ButtonPaginationOptions extends BasicPaginationOptions {
   /**
    * select pagination type (default: BUTTON)
    */
-  type: "BUTTON";
+  type: PaginationType.Button;
 }
 
 interface SelectMenuPaginationOptions extends BasicPaginationOptions {
@@ -148,7 +159,7 @@ interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   /**
    * select pagination type (default: BUTTON)
    */
-  type: "SELECT_MENU";
+  type: PaginationType.SelectMenu;
 }
 
 export type PaginationOptions =
