@@ -1,4 +1,5 @@
 ---
+id: esm-vs-cjs
 sidebar_label: ESM vs CJS
 ---
 
