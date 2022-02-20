@@ -16,11 +16,11 @@ import {
 
 enum spcChoice {
   Paper = "Paper",
-  Scissor = "Scissor",
+  Scissors = "Scissors",
   Stone = "Stone",
 }
 
-type spcTypes = "spc-stone" | "spc-paper" | "spc-scissor";
+type spcTypes = "spc-stone" | "spc-paper" | "spc-scissors";
 
 enum spcResult {
   WIN,
@@ -32,7 +32,7 @@ class spcProposition {
   public static propositions = [
     new spcProposition(spcChoice.Stone, "💎", "spc-stone"),
     new spcProposition(spcChoice.Paper, "🧻", "spc-paper"),
-    new spcProposition(spcChoice.Scissor, "✂️", "spc-scissor"),
+    new spcProposition(spcChoice.Scissors, "✂️", "spc-scissors"),
   ];
 
   public choice: spcChoice;
@@ -68,7 +68,7 @@ const defaultChoice = new spcProposition(spcChoice.Stone, "💎", "spc-stone");
 export abstract class StonePaperScissor {
   @Slash("rock-paper-scissors", {
     description:
-      "What could be more fun than play Rock Paper Scissor with a bot?",
+      "What could be more fun than play Rock Paper Scissors with a bot?",
   })
   private async spc(
     @SlashChoice(spcChoice)
@@ -112,10 +112,10 @@ export abstract class StonePaperScissor {
         .setCustomId("spc-paper");
 
       const buttonScissor = new MessageButton()
-        .setLabel("Scissor")
+        .setLabel("Scissors")
         .setEmoji("✂️")
         .setStyle("PRIMARY")
-        .setCustomId("spc-scissor");
+        .setCustomId("spc-scissors");
 
       const buttonWell = new MessageButton()
         .setLabel("Well")
@@ -133,7 +133,7 @@ export abstract class StonePaperScissor {
 
       interaction.followUp({
         components: [buttonRow],
-        content: "Ok let's go. 1v1 Stone Paper Scissor. Go choose!",
+        content: "Ok let's go. 1v1 Stone Paper Scissors. Go choose!",
       });
 
       setTimeout((inx) => inx.deleteReply(), 10 * 60 * 1000, interaction);
@@ -142,7 +142,7 @@ export abstract class StonePaperScissor {
 
   @ButtonComponent("spc-stone")
   @ButtonComponent("spc-paper")
-  @ButtonComponent("spc-scissor")
+  @ButtonComponent("spc-scissors")
   private async spcButton(interaction: ButtonInteraction) {
     await interaction.deferReply();
 
@@ -182,7 +182,7 @@ export abstract class StonePaperScissor {
   ): spcResult {
     switch (player.choice) {
       case spcChoice.Stone: {
-        if (bot.choice === spcChoice.Scissor) {
+        if (bot.choice === spcChoice.Scissors) {
           return spcResult.WIN;
         }
         if (bot.choice === spcChoice.Paper) {
@@ -195,13 +195,13 @@ export abstract class StonePaperScissor {
         if (bot.choice === spcChoice.Stone) {
           return spcResult.WIN;
         }
-        if (bot.choice === spcChoice.Scissor) {
+        if (bot.choice === spcChoice.Scissors) {
           return spcResult.LOSS;
         }
         return spcResult.DRAW;
       }
 
-      case spcChoice.Scissor: {
+      case spcChoice.Scissors: {
         if (bot.choice === spcChoice.Paper) {
           return spcResult.WIN;
         }
