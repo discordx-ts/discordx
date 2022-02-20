@@ -107,32 +107,24 @@ export abstract class RockPaperScissors {
         .setLabel("Rock")
         .setEmoji("💎")
         .setStyle("PRIMARY")
-        .setCustomId("RPS-rock");
+        .setCustomId(`RPS-${RPSChoice.Rock}`);
 
       const buttonPaper = new MessageButton()
         .setLabel("Paper")
         .setEmoji("🧻")
         .setStyle("PRIMARY")
-        .setCustomId("RPS-paper");
+        .setCustomId(`RPS-${RPSChoice.Paper}`);
 
       const buttonScissor = new MessageButton()
         .setLabel("Scissors")
         .setEmoji("✂️")
         .setStyle("PRIMARY")
-        .setCustomId("RPS-scissors");
-
-      const buttonWell = new MessageButton()
-        .setLabel("Well")
-        .setEmoji("❓")
-        .setStyle("DANGER")
-        .setCustomId("RPS-well")
-        .setDisabled(true);
+        .setCustomId(`RPS-${RPSChoice.Scissors}`);
 
       const buttonRow = new MessageActionRow().addComponents(
         buttonRock,
         buttonPaper,
-        buttonScissor,
-        buttonWell
+        buttonScissor
       );
 
       interaction.followUp({
