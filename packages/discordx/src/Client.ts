@@ -57,6 +57,7 @@ import {
  */
 export class Client extends ClientJS {
   private _botId: string;
+  private _isBuilt = false;
   private _prefix: IPrefixResolver;
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
@@ -274,25 +275,14 @@ export class Client extends ClientJS {
    * Start bot
    *
    * @param token - Bot token
+   * @param log - Enable log
    */
-  async login(token: string, log?: boolean): Promise<string> {
-    await this.instance.build();
+  async login(token: string, log?: true): Promise<string> {
+    await this.build(log);
 
-    if (log ?? !this.silent) {
-      this.printDebug();
-      this.logger.log("\nclient >> connecting discord...\n");
-    }
-
-    this.instance.usedEvents.map((on) => {
-      if (on.once) {
-        this.once(
-          on.event,
-          this.instance.trigger(this.guards, on.event, this, true)
-        );
-      } else {
-        this.on(on.event, this.instance.trigger(this.guards, on.event, this));
-      }
-    });
+    this.logger.log(
+      `${this.user?.username ?? this.botId} >> connecting discord...\n`
+    );
 
     return super.login(token);
   }
@@ -404,6 +394,8 @@ export class Client extends ClientJS {
     } else {
       this.logger.log("\tNo simple commands detected");
     }
+
+    this.logger.log("\n");
   }
 
   /**
@@ -766,8 +758,10 @@ export class Client extends ClientJS {
 
   /**
    * init all guild command permissions
+   *
+   * @param log - Enable log
    */
-  async initApplicationPermissions(log?: boolean): Promise<void> {
+  async initApplicationPermissions(log?: true): Promise<void> {
     const guildDCommandStore = await this.CommandByGuild();
     const promises: Promise<void>[] = [];
     guildDCommandStore.forEach((commands, guildId) => {
@@ -788,7 +782,7 @@ export class Client extends ClientJS {
   async initGuildApplicationPermissions(
     guildId: string,
     DCommands: DApplicationCommand[],
-    log?: boolean
+    log?: true
   ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
@@ -828,7 +822,9 @@ export class Client extends ClientJS {
             if (!_.isEqual(permissions, commandPermissions)) {
               if (log ?? !this.silent) {
                 this.logger.log(
-                  `${this.user?.username} >> command: ${cmd.name} >> permissions >> updating >> guild: #${guild}`
+                  `${this.user?.username ?? this.botId} >> command: ${
+                    cmd.name
+                  } >> permissions >> updating >> guild: #${guild}`
                 );
               }
 
@@ -853,7 +849,9 @@ export class Client extends ClientJS {
 
             if (log ?? !this.silent) {
               this.logger.log(
-                `${this.user?.username} >> command: ${cmd.name} >> permissions >> adding >> guild: #${guild}`
+                `${this.user?.username ?? this.botId} >> command: ${
+                  cmd.name
+                } >> permissions >> adding >> guild: #${guild}`
               );
             }
 
@@ -1008,14 +1006,11 @@ export class Client extends ClientJS {
    * Execute all types of interaction
    *
    * @param interaction - Interaction
-   * @param log - Enable logs
+   * @param log - Enable log
    *
    * @returns
    */
-  executeInteraction(
-    interaction: Interaction,
-    log?: boolean
-  ): Awaited<unknown> {
+  executeInteraction(interaction: Interaction, log?: true): Awaited<unknown> {
     if (!interaction) {
       if (log ?? !this.silent) {
         this.logger.log(
@@ -1050,13 +1045,13 @@ export class Client extends ClientJS {
    * Execute command interaction
    *
    * @param interaction - Interaction instance
-   * @param log - Allow logs
+   * @param log - Enable log
    *
    * @returns
    */
   executeCommandInteraction(
     interaction: CommandInteraction | AutocompleteInteraction,
-    log?: boolean
+    log?: true
   ): Awaited<unknown> {
     // Get the interaction group tree
     const tree = this.getApplicationCommandGroupTree(interaction);
@@ -1100,14 +1095,14 @@ export class Client extends ClientJS {
    * Execute component interaction
    *
    * @param interaction - Interaction instance
-   * @param log - Allow logs
+   * @param log - Enable log
    *
    * @returns
    */
   async executeComponent(
     components: readonly DComponent[],
     interaction: ButtonInteraction | SelectMenuInteraction,
-    log?: boolean
+    log?: true
   ): Promise<unknown> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
@@ -1152,13 +1147,13 @@ export class Client extends ClientJS {
    * Execute context menu interaction
    *
    * @param interaction - Interaction instance
-   * @param log - Allow logs
+   * @param log - Enable log
    *
    * @returns
    */
   async executeContextMenu(
     interaction: ContextMenuInteraction,
-    log?: boolean
+    log?: true
   ): Promise<unknown> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
@@ -1443,9 +1438,31 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Manually build the app
+   * Manually build client
+   *
+   * @param log - Enable log
    */
-  async build(): Promise<void> {
+  async build(log?: true): Promise<void> {
+    if (this._isBuilt) {
+      return;
+    }
+
+    this._isBuilt = true;
     await this.instance.build();
+
+    if (log ?? !this.silent) {
+      this.printDebug();
+    }
+
+    this.instance.usedEvents.map((on) => {
+      if (on.once) {
+        this.once(
+          on.event,
+          this.instance.trigger(this.guards, on.event, this, true)
+        );
+      } else {
+        this.on(on.event, this.instance.trigger(this.guards, on.event, this));
+      }
+    });
   }
 }
