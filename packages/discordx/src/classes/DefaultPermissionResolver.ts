@@ -5,5 +5,7 @@ export class DefaultPermissionResolver {
     public resolver: (
       command?: SimpleCommandMessage | ApplicationGuildMixin
     ) => boolean | Promise<boolean>
-  ) {}
+  ) {
+    // empty constructor
+  }
 }

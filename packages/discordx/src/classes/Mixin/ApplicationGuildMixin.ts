@@ -1,6 +1,6 @@
 import type { Guild } from "discord.js";
 
-import type { DApplicationCommand } from "../index.js";
+import type { DApplicationCommand } from "../../index.js";
 
 export class ApplicationGuildMixin {
   constructor(public guild: Guild, public instance: DApplicationCommand) {}

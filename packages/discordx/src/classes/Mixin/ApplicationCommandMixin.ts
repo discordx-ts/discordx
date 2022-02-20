@@ -1,6 +1,6 @@
 import type { ApplicationCommand } from "discord.js";
 
-import type { DApplicationCommand } from "../index.js";
+import type { DApplicationCommand } from "../../index.js";
 
 export class ApplicationCommandMixin {
   constructor(

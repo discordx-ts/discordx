@@ -16,7 +16,7 @@ import {
 
 @Discord()
 export abstract class AppDiscord {
-  @Slash("voicechannel")
+  @Slash("voice-channel")
   @Permission(
     new DefaultPermissionResolver((command) => {
       if (!command) {
@@ -48,7 +48,7 @@ export abstract class AppDiscord {
       },
     ];
   })
-  voicechannel(
+  voiceChannel(
     @SlashOption("channel", {
       channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
       type: "CHANNEL",
