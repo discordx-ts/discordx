@@ -68,7 +68,67 @@ class Example {
 }
 ```
 
-## Assign a group or subgroup
+## Assign a group
+
+We have created a group in the above steps, It's time to assign our slash commands to group.
+
+### Slashes can be added to a group in two ways
+
+The following structure will be followed by our group
+
+```
+get
+|
+|__ role
+|
+|__ user
+```
+
+#### 1. Class Level
+
+```ts
+@Discord()
+// Create a group
+@SlashGroup({ name: "get", description: "Get a role or user" })
+// Assign all inherit slashes to the group
+@SlashGroup("get")
+class Example {
+  @Slash()
+  role() {
+    // ...
+  }
+
+  @Slash()
+  user() {
+    // ...
+  }
+}
+```
+
+#### 2. Method Level
+
+```ts
+@Discord()
+// Create a group
+@SlashGroup({ name: "get", description: "Get a role or user" })
+class Example {
+  @Slash()
+  // Assign slash to the group
+  @SlashGroup("get")
+  role() {
+    // ...
+  }
+
+  @Slash()
+  // Assign slash to the group
+  @SlashGroup("get")
+  user() {
+    // ...
+  }
+}
+```
+
+## Assign a subgroup
 
 We have created a group and a subgroup in the above steps, It's time to assign our slash commands to groups.
 
