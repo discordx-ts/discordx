@@ -6,6 +6,7 @@ import type {
   Guild,
   GuildBasedChannel,
   GuildMember,
+  MessageAttachment,
   Role,
   User,
 } from "discord.js";
@@ -224,6 +225,7 @@ export class DApplicationCommand extends Method {
     | Role
     | APIRole
     | GuildMember
+    | MessageAttachment
     | APIInteractionDataResolvedChannel
     | GuildBasedChannel
     | APIInteractionDataResolvedGuildMember
@@ -232,6 +234,9 @@ export class DApplicationCommand extends Method {
   )[] {
     return [...this.options].reverse().map((op) => {
       switch (op.type) {
+        case "ATTACHMENT":
+          return interaction.options.getAttachment(op.name) ?? undefined;
+
         case "STRING":
           return interaction.options.getString(op.name) ?? undefined;
 

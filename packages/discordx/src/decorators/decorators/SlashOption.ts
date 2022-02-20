@@ -48,6 +48,10 @@ export function SlashOption(
 ): ParameterDecoratorEx {
   function getType(type: string): SlashOptionType {
     switch (type) {
+      case "MessageAttachment": {
+        return "ATTACHMENT";
+      }
+
       case "GUILDMEMBER": {
         return "USER";
       }
