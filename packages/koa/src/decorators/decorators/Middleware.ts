@@ -18,7 +18,7 @@ export function Middleware(
           if (original instanceof DRouter) {
             original.router.use(...middleware);
           } else {
-            original.middlewares = [...original.middlewares, ...middleware];
+            original.middleware = [...original.middleware, ...middleware];
           }
         },
         DRouter,

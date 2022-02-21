@@ -16,7 +16,7 @@ export class DRequest extends Method {
   private _description?: string;
   private _type: RequestType;
   private _path: string | RegExp;
-  private _middleWares: KoaRouter.Middleware[] = [];
+  private _middleware: KoaRouter.Middleware[] = [];
 
   get api(): string | undefined {
     return this._api;
@@ -41,11 +41,11 @@ export class DRequest extends Method {
     return this._path;
   }
 
-  get middlewares(): KoaRouter.Middleware[] {
-    return this._middleWares;
+  get middleware(): KoaRouter.Middleware[] {
+    return this._middleware;
   }
-  set middlewares(value: KoaRouter.Middleware[]) {
-    this._middleWares = value;
+  set middleware(value: KoaRouter.Middleware[]) {
+    this._middleware = value;
   }
 
   protected constructor(data: Args) {
