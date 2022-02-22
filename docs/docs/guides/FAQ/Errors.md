@@ -23,3 +23,20 @@ DiscordAPIError: Missing Access
 #### Solution
 
 [Authorize your bot to use application commands](/docs/decorators/commands/slash#authorize-your-bot-to-use-application-commands)
+
+## SyntaxError: The requested module does not provide an export named
+
+```ts
+import { ArgsOf, Client } from 'discordx';
+         ^^^^^
+SyntaxError: The requested module 'discordx' does not provide an export named 'ArgsOf'
+```
+
+#### Solution
+
+Use import type. [Read it in depth](https://devblogs.microsoft.com/typescript/announcing-typescript-3-8-beta/#type-only-imports-exports).
+
+```ts
+import type { ArgsOf } from "discordx";
+import { Client } from "discordx";
+```
