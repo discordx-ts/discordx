@@ -75,12 +75,14 @@ export abstract class RockPaperScissors {
       "What could be more fun than play Rock Paper Scissors with a bot?",
   })
   private async RPS(
-    @SlashChoice(RPSChoice)
+    @SlashChoice(RPSChoice.Paper)
+    @SlashChoice(RPSChoice.Rock)
+    @SlashChoice(RPSChoice.Scissors)
     @SlashOption("choice", {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
       required: false,
-      type: "STRING",
+      type: "NUMBER",
     })
     choice: RPSChoice | undefined,
     interaction: CommandInteraction
