@@ -37,7 +37,7 @@
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",
-    "prepare": "is-ci || husky install",
+    "prepare": "npx is-ci || npx husky install",
     "test": "turbo run test --parallel"
   },
   "devDependencies": {
