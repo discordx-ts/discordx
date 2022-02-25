@@ -277,12 +277,14 @@ export class Client extends ClientJS {
    * @param token - Bot token
    * @param log - Enable log
    */
-  async login(token: string, log?: true): Promise<string> {
+  async login(token: string, log?: boolean): Promise<string> {
     await this.build(log);
 
-    this.logger.log(
-      `${this.user?.username ?? this.botId} >> connecting discord...\n`
-    );
+    if (log ?? !this.silent) {
+      this.logger.log(
+        `${this.user?.username ?? this.botId} >> connecting discord...\n`
+      );
+    }
 
     return super.login(token);
   }
@@ -761,7 +763,7 @@ export class Client extends ClientJS {
    *
    * @param log - Enable log
    */
-  async initApplicationPermissions(log?: true): Promise<void> {
+  async initApplicationPermissions(log?: boolean): Promise<void> {
     const guildDCommandStore = await this.CommandByGuild();
     const promises: Promise<void>[] = [];
     guildDCommandStore.forEach((commands, guildId) => {
@@ -782,7 +784,7 @@ export class Client extends ClientJS {
   async initGuildApplicationPermissions(
     guildId: string,
     DCommands: DApplicationCommand[],
-    log?: true
+    log?: boolean
   ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
@@ -1010,7 +1012,10 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  executeInteraction(interaction: Interaction, log?: true): Awaited<unknown> {
+  executeInteraction(
+    interaction: Interaction,
+    log?: boolean
+  ): Awaited<unknown> {
     if (!interaction) {
       if (log ?? !this.silent) {
         this.logger.log(
@@ -1051,7 +1056,7 @@ export class Client extends ClientJS {
    */
   executeCommandInteraction(
     interaction: CommandInteraction | AutocompleteInteraction,
-    log?: true
+    log?: boolean
   ): Awaited<unknown> {
     // Get the interaction group tree
     const tree = this.getApplicationCommandGroupTree(interaction);
@@ -1102,7 +1107,7 @@ export class Client extends ClientJS {
   async executeComponent(
     components: readonly DComponent[],
     interaction: ButtonInteraction | SelectMenuInteraction,
-    log?: true
+    log?: boolean
   ): Promise<unknown> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
@@ -1153,7 +1158,7 @@ export class Client extends ClientJS {
    */
   async executeContextMenu(
     interaction: ContextMenuInteraction,
-    log?: true
+    log?: boolean
   ): Promise<unknown> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
@@ -1442,7 +1447,7 @@ export class Client extends ClientJS {
    *
    * @param log - Enable log
    */
-  async build(log?: true): Promise<void> {
+  async build(log?: boolean): Promise<void> {
     if (this._isBuilt) {
       return;
     }
