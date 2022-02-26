@@ -233,9 +233,16 @@ export abstract class Queue<T extends Player = Player> {
     // Lock the queue to guarantee safe access
     this.queueLock = true;
 
+    // If loop mode is enabled, queue the song at the start
     if (this.loopMode && this.lastTrack) {
       this.player.emit("onLoop", [this, this.lastTrack]);
       this.enqueue([this.lastTrack], true);
+    }
+
+    // If repeat mode is enabled, queue the song at the end
+    if (this.repeatMode && this.lastTrack) {
+      this.player.emit("onRepeat", [this, this.lastTrack]);
+      this.enqueue([this.lastTrack]);
     }
 
     // Take the first item from the queue. This is guaranteed to exist due to the non-empty check above.
@@ -244,11 +251,6 @@ export abstract class Queue<T extends Player = Player> {
       this.queueLock = false;
       this.player.emit("onFinishPlayback", [this]);
       return;
-    }
-
-    if (this.repeatMode) {
-      this.player.emit("onRepeat", [this, nextTrack]);
-      this.enqueue([nextTrack]);
     }
 
     this.lastTrack = nextTrack;
