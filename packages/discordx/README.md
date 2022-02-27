@@ -104,8 +104,8 @@ Here are more packages from us to extend the functionality of your Discord bot.
 | [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)             | Create discord music player easily                             |
 | [`@discordx/pagination`](https://www.npmjs.com/package/@discordx/pagination)   | Add pagination to your discord bot                             |
 | [`@discordx/socket.io`](https://www.npmjs.com/package/@discordx/socket.io)     | Create socket.io server with Typescript and Decorators         |
-| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities)     | Create own group with `@Category`                              |
-| [`discord-spams`](https://www.npmjs.com/package/discord-spams)                 | Small but powerful discord spam protection library from us     |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities)     | Create own group with `@Category` and guards                   |
+| [`discord-spams`](https://www.npmjs.com/package/discord-spams)                 | Tiny but powerful discord spam protection library              |
 
 # 📔 Decorators
 
