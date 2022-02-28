@@ -154,7 +154,7 @@ import {
 } from "discord.js";
 
 // Example by @AndyClausen
-// Modified @oceanroleplay
+// Modified by @oceanroleplay
 
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
