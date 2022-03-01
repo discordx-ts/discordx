@@ -67,7 +67,7 @@
     "discordx": "^9.2.6",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
-    "typescript": "^4.5.5"
+    "typescript": "^4.6.2"
   },
   "peerDependencies": {
     "@discordjs/opus": ">=0.5",
