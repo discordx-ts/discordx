@@ -19,9 +19,12 @@ You can decorate your method with one or more @Permission decorators.
 ```ts
 @Discord()
 class DiscordBot {
-  @Permission(false) // We will enable command for specific users/roles only, so disable it for everyone
-  @Permission({ id: "USER_ID", type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
-  @Permission({ id: "ROLE_ID", type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
+  // We will enable command for specific users/roles only, so disable it for everyone
+  @Permission(false)
+  // This command is available only to the user whose USER_ID is mentioned
+  @Permission({ id: "USER_ID", type: "USER", permission: true })
+  // Users with the specified ROLE_ID can run this command
+  @Permission({ id: "ROLE_ID", type: "ROLE", permission: true })
   @Slash("hello")
   private hello() {
     // ...
@@ -35,16 +38,19 @@ You can set the permissions for all @Slash inside the class by decorating the cl
 
 ```ts
 @Discord()
-@Permission(false) // We will enable command for specific users/roles only, so disable it for everyone
-@Permission({ id: "USER_ID", type: "USER", permission: true }) // Only the role that has this USER_ID can use this command
-@Permission({ id: "ROLE_ID", type: "ROLE", permission: true }) // Only the role that has this ROLE_ID can use this command
+// We will enable command for specific users/roles only, so disable it for everyone
+@Permission(false)
+// Below commands are available only to the user whose USER_ID is mentioned
+@Permission({ id: "USER_ID", type: "USER", permission: true })
+// Users with the specified ROLE_ID can run this class commands
+@Permission({ id: "ROLE_ID", type: "ROLE", permission: true })
 class DiscordBot {
-  @Slash("hello") // Only the role that has this ROLE_ID can use this command
+  @Slash("hello")
   private hello() {
     // ...
   }
 
-  @Slash("hello2") // Only the role that has this ROLE_ID can use this command
+  @Slash("hello2")
   private hello2() {
     // ...
   }
