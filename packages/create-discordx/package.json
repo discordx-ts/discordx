@@ -1,0 +1,64 @@
+{
+  "name": "create-discordx",
+  "version": "1.0.8",
+  "description": "create discordx (discord.ts) apps with one command",
+  "keywords": [
+    "discordx",
+    "discord.js",
+    "discord",
+    "framework",
+    "cmd",
+    "command",
+    "generator",
+    "template",
+    "bot"
+  ],
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/create-discordx#readme",
+  "bugs": {
+    "url": "https://github.com/oceanroleplay/discord.ts/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)",
+  "main": "build/index.js",
+  "type": "module",
+  "files": [
+    "build",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
+  "bin": {
+    "create-discordx": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "chalk": "^5.0.0",
+    "got": "^12.0.1",
+    "prompts": "^2.4.2",
+    "rimraf": "^3.0.2",
+    "tar": "^6.1.11",
+    "typescript": "^4.6.2",
+    "update-check": "^1.5.4",
+    "validate-npm-package-name": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/prompts": "^2.0.14",
+    "@types/rimraf": "^3.0.2",
+    "@types/tar": "^6.1.1",
+    "@types/validate-npm-package-name": "^3.0.3"
+  }
+}

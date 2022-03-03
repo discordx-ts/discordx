@@ -408,3 +408,39 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./packages/socket.io
+
+  build-create-discordx:
+    name: Publish create-discordx
+    runs-on: ubuntu-latest
+    if: github.event.inputs.package == 'create-discordx'
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v2
+
+      - name: Install Node v17
+        uses: actions/setup-node@v2
+        with:
+          node-version: "17.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Synchronize current version
+        run: npm version --git-tag-version=false $(npm view create-discordx version)
+        working-directory: ./packages/create-discordx
+
+      - name: Update version
+        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
+        working-directory: ./packages/create-discordx
+
+      - name: Install create-discordx dependencies
+        run: npm install
+        working-directory: ./packages/create-discordx
+
+      - name: Build
+        run: npm run build
+        working-directory: ./packages/create-discordx
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/create-discordx
