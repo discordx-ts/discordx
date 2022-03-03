@@ -21,4 +21,6 @@ updates:
     schedule:
       interval: "daily"
       time: "00:15"
+    ignore:
+      - dependency-name: "typescript"
     versioning-strategy: increase
