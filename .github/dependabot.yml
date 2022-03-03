@@ -12,6 +12,7 @@ updates:
       time: "00:15"
     ignore:
       - dependency-name: "@discordjs/opus"
+      - dependency-name: "ffmpeg-static"
       - dependency-name: "discord-api-types"
     versioning-strategy: increase
 
