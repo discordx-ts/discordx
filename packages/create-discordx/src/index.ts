@@ -160,7 +160,7 @@ if (isWin) {
 console.log("\t> npm run dev");
 console.log();
 console.log(chalk.blue("?"), chalk.bold("Support"));
-console.log("    Discord Server: https://discord.gg/yHQY9fexH9");
+console.log("    Discord Server: https://discord-ts.js.org/discord");
 console.log("     Documentation: https://discord-ts.js.org");
 console.log("            GitHub: https://github.com/oceanroleplay/discord.ts");
 console.log();

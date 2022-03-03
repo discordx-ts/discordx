@@ -20,7 +20,7 @@ Please read and follow our [Code of Conduct][coc].
 ## <a name="question"></a> Got a Question or Problem?
 
 Do not open issues for general support questions as we want to keep GitHub issues for bug reports and feature requests.
-Instead, we recommend using [Discord Server](https://discord.gg/yHQY9fexH9) to ask support-related questions.
+Instead, we recommend using [Discord Server](https://discord-ts.js.org/discord) to ask support-related questions.
 
 Discord is a much better place to ask questions since:
 

@@ -5,7 +5,7 @@
     </a>
   </p>
   <p align="center">
-    <a href="https://discord.gg/yHQY9fexH9"
+    <a href="https://discord-ts.js.org/discord"
       ><img
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
         alt="Discord server"
@@ -75,7 +75,7 @@ With `discordx`, we intend to provide the latest up-to-date package to easily bu
 
 Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discord.ts-example)
 
-If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord.gg/yHQY9fexH9)
+If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord-ts.js.org/discord)
 
 # 🆕 Features
 
@@ -340,7 +340,7 @@ abstract class AppDiscord {
 
 # ☎️ Need help?
 
-Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or check [code examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
+Ask in **[discord server](https://discord-ts.js.org/discord)** or check [code examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
 
 # Thank you
 

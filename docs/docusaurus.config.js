@@ -48,7 +48,7 @@ module.exports = {
         //   position: "right",
         // },
         {
-          href: "https://discord.gg/yHQY9fexH9",
+          href: "https://discord-ts.js.org/discord",
           label: "Discord server",
           position: "right",
         },

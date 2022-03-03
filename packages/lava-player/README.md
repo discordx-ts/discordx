@@ -5,7 +5,7 @@
     </a>
   </p>
   <p align="center">
-    <a href="https://discord.gg/yHQY9fexH9"
+    <a href="https://discord-ts.js.org/discord"
       ><img
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
         alt="Discord server"
@@ -138,7 +138,7 @@ const cluster = new Lava.Cluster({
 
 # ☎️ Need help?
 
-Ask in **[discord server](https://discord.gg/yHQY9fexH9)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+Ask in **[discord server](https://discord-ts.js.org/discord)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
 
 # Thank you
 
