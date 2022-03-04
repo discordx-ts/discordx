@@ -60,7 +60,7 @@ class buttons {
 ## Signature
 
 ```ts
-@SelectMenuComponent(custom_id: string, options?: { guilds?: Snowflake[]; botIds?: string[] )
+@SelectMenuComponent(custom_id: string | RegExp, options?: { guilds?: Snowflake[]; botIds?: string[] )
 ```
 
 ## Parameters
@@ -69,9 +69,9 @@ class buttons {
 
 A unique id for your button interaction to be handled under.
 
-| type   | default       | required |
-| ------ | ------------- | -------- |
-| string | function name | No       |
+| type             | default       | required |
+| ---------------- | ------------- | -------- |
+| string \| RegExp | function name | No       |
 
 :::caution
 As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)

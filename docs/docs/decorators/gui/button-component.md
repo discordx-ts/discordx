@@ -51,7 +51,7 @@ class buttonExample {
 
 ```ts
 ButtonComponent(
-  custom_id: string,
+  custom_id: string | RegExp,
   options?: { guilds?: Snowflake[]; botIds?: string[] }
 )
 ```
@@ -62,9 +62,9 @@ ButtonComponent(
 
 A unique id for your button interaction to be handled under.
 
-| type   | default       | required |
-| ------ | ------------- | -------- |
-| string | function name | No       |
+| type             | default       | required |
+| ---------------- | ------------- | -------- |
+| string \| RegExp | function name | No       |
 
 :::caution
 As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
