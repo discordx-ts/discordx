@@ -1,4 +1,5 @@
 import type { CommandInteraction, GuildMember, Role, User } from "discord.js";
+import { ApplicationCommandOptionType, ChannelType } from "discord.js";
 
 import {
   Discord,
@@ -22,8 +23,12 @@ export abstract class Group {
   @SlashGroup("maths", "testing")
   voicechannel(
     @SlashOption("channel", {
-      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
-      type: "CHANNEL",
+      channelTypes: [
+        ChannelType.GuildCategory,
+        ChannelType.GuildVoice,
+        ChannelType.GuildText,
+      ],
+      type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
@@ -34,8 +39,12 @@ export abstract class Group {
   @Slash("voice-channel-x")
   voiceChannelX(
     @SlashOption("channel", {
-      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
-      type: "CHANNEL",
+      channelTypes: [
+        ChannelType.GuildCategory,
+        ChannelType.GuildVoice,
+        ChannelType.GuildText,
+      ],
+      type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
@@ -68,7 +77,7 @@ export abstract class Group {
   hello(
     @SlashChoice(TextChoices)
     @SlashOption("text", {
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     text: TextChoices,
     interaction: CommandInteraction

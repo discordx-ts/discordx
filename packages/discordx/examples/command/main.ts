@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { Intents } from "discord.js";
+import { ChannelType, IntentsBitField, Partials } from "discord.js";
 
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client } from "../../src/index.js";
@@ -16,12 +16,12 @@ export class Main {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.DIRECT_MESSAGES,
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.DirectMessages,
       ],
       // enable partials to receive direct messages
-      partials: ["CHANNEL", "MESSAGE"],
+      partials: [Partials.Channel, Partials.Message],
 
       silent: false,
 
@@ -29,7 +29,7 @@ export class Main {
         // prefix: "!",
         prefix: (message): string | string[] => {
           // let's use different command prefix for dm
-          if (message.channel.type === "DM") {
+          if (message.channel.type === ChannelType.DM) {
             return "+";
           }
 
@@ -40,7 +40,7 @@ export class Main {
         responses: {
           notFound: "command not found, use !help",
           unauthorized: (command) => {
-            if (command.message.channel.type === "DM") {
+            if (command.message.channel.type === ChannelType.DM) {
               command.message.reply(
                 "do you have permission to access this command?"
               );

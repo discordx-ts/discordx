@@ -4,10 +4,15 @@ import type {
   CommandInteraction,
   EmojiIdentifierResolvable,
 } from "discord.js";
-import { MessageActionRow, MessageButton } from "discord.js";
+import {
+  ActionRow,
+  ApplicationCommandOptionType,
+  ButtonComponent,
+  ButtonStyle,
+} from "discord.js";
 
 import {
-  ButtonComponent,
+  Button,
   Discord,
   Slash,
   SlashChoice,
@@ -82,7 +87,7 @@ export abstract class RockPaperScissors {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
       required: false,
-      type: "NUMBER",
+      type: ApplicationCommandOptionType.String,
     })
     choice: RPSChoice | undefined,
     interaction: CommandInteraction
@@ -105,25 +110,25 @@ export abstract class RockPaperScissors {
         )
       );
     } else {
-      const buttonRock = new MessageButton()
+      const buttonRock = new ButtonComponent()
         .setLabel("Rock")
-        .setEmoji("💎")
-        .setStyle("PRIMARY")
+        .setEmoji({ name: "💎" })
+        .setStyle(ButtonStyle.Primary)
         .setCustomId(`RPS-${RPSChoice.Rock}`);
 
-      const buttonPaper = new MessageButton()
+      const buttonPaper = new ButtonComponent()
         .setLabel("Paper")
-        .setEmoji("🧻")
-        .setStyle("PRIMARY")
+        .setEmoji({ name: "🧻" })
+        .setStyle(ButtonStyle.Primary)
         .setCustomId(`RPS-${RPSChoice.Paper}`);
 
-      const buttonScissor = new MessageButton()
-        .setLabel("Scissors")
-        .setEmoji("✂️")
-        .setStyle("PRIMARY")
+      const buttonScissor = new ButtonComponent()
+        .setLabel("Scissor")
+        .setEmoji({ name: "✂️" })
+        .setStyle(ButtonStyle.Primary)
         .setCustomId(`RPS-${RPSChoice.Scissors}`);
 
-      const buttonRow = new MessageActionRow().addComponents(
+      const buttonRow = new ActionRow().addComponents(
         buttonRock,
         buttonPaper,
         buttonScissor
@@ -138,9 +143,9 @@ export abstract class RockPaperScissors {
     }
   }
 
-  @ButtonComponent(`RPS-${RPSChoice.Rock}`)
-  @ButtonComponent(`RPS-${RPSChoice.Paper}`)
-  @ButtonComponent(`RPS-${RPSChoice.Scissors}`)
+  @Button(`RPS-${RPSChoice.Rock}`)
+  @Button(`RPS-${RPSChoice.Paper}`)
+  @Button(`RPS-${RPSChoice.Scissors}`)
   private async RPSButton(interaction: ButtonInteraction) {
     await interaction.deferReply();
 

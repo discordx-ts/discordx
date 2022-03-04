@@ -1,6 +1,6 @@
-# @ButtonComponent
+# @Button
 
-add button interaction handler for your bot using `@ButtonComponent` decorator
+add button interaction handler for your bot using `@Button` decorator
 
 Here are some example screenshots:
 

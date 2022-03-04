@@ -7,14 +7,14 @@ import type {
   Role,
   User,
 } from "discord.js";
-import { MessageActionRow, MessageButton } from "discord.js";
-
 import {
+  ActionRow,
+  ApplicationCommandOptionType,
   ButtonComponent,
-  Discord,
-  Slash,
-  SlashOption,
-} from "../../../src/index.js";
+  ButtonStyle,
+} from "discord.js";
+
+import { Button, Discord, Slash, SlashOption } from "../../../src/index.js";
 
 @Discord()
 export abstract class AppDiscord {
@@ -22,7 +22,8 @@ export abstract class AppDiscord {
 
   @Slash("hello")
   hello(
-    @SlashOption("user", { type: "USER" }) user: GuildMember | User,
+    @SlashOption("user", { type: ApplicationCommandOptionType.User })
+    user: GuildMember | User,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${user}`);
@@ -30,7 +31,8 @@ export abstract class AppDiscord {
 
   @Slash("role")
   role(
-    @SlashOption("role", { type: "ROLE" }) role: Role,
+    @SlashOption("role", { type: ApplicationCommandOptionType.Role })
+    role: Role,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${role}`);
@@ -38,7 +40,8 @@ export abstract class AppDiscord {
 
   @Slash("channel")
   channel(
-    @SlashOption("channel", { type: "CHANNEL" }) channel: Channel,
+    @SlashOption("channel", { type: ApplicationCommandOptionType.Channel })
+    channel: Channel,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${channel}`);
@@ -46,7 +49,7 @@ export abstract class AppDiscord {
 
   @Slash("role-or-user")
   roleOrUser(
-    @SlashOption("mention", { type: "MENTIONABLE" })
+    @SlashOption("mention", { type: ApplicationCommandOptionType.Mentionable })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {
@@ -57,7 +60,7 @@ export abstract class AppDiscord {
   autocomplete(
     @SlashOption("option-a", {
       autocomplete: true,
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     searchText: string,
     @SlashOption("option-b", {
@@ -73,7 +76,7 @@ export abstract class AppDiscord {
           { name: "option d", value: "c" },
         ]);
       },
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     searchText2: string,
     @SlashOption("option-c", {
@@ -84,7 +87,7 @@ export abstract class AppDiscord {
           { name: "option f", value: "f" },
         ]);
       },
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
     interaction: CommandInteraction | AutocompleteInteraction
@@ -104,20 +107,20 @@ export abstract class AppDiscord {
     }
   }
 
-  @Slash("test-btn")
+  @Slash()
   testBtn(interaction: CommandInteraction): void {
-    const btn = new MessageButton();
+    const btn = new ButtonComponent();
     btn.setLabel("Test");
-    btn.setStyle("PRIMARY");
+    btn.setStyle(ButtonStyle.Primary);
     btn.setCustomId("myTest");
 
-    const row = new MessageActionRow();
-    row.addComponents([btn]);
+    const row = new ActionRow();
+    row.addComponents(btn);
 
     interaction.reply({ components: [row], content: "test" });
   }
 
-  @ButtonComponent(/myTest/)
+  @Button(/mytest/)
   btnHandler(interaction: ButtonInteraction): void {
     interaction.reply("I am called");
   }

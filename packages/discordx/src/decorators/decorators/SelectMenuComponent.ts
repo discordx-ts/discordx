@@ -13,7 +13,7 @@ import { ComponentType, DComponent, MetadataStorage } from "../../index.js";
  *
  * @category Decorator
  */
-export function SelectMenuComponent(id?: string | RegExp): MethodDecoratorEx;
+export function SelectMenu(id?: string | RegExp): MethodDecoratorEx;
 
 /**
  * Interact with select menu with a defined identifier
@@ -26,12 +26,12 @@ export function SelectMenuComponent(id?: string | RegExp): MethodDecoratorEx;
  *
  * @category Decorator
  */
-export function SelectMenuComponent(
+export function SelectMenu(
   id: string | RegExp,
   options?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
-export function SelectMenuComponent(
+export function SelectMenu(
   id?: string | RegExp,
   options?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
