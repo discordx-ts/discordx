@@ -4,11 +4,13 @@ on:
   pull_request:
     branches:
       - main
+      - dev
   push:
     paths-ignore:
       - "docs/docs/**"
     branches:
       - main
+      - dev
 
 jobs:
   build:
