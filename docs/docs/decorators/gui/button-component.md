@@ -9,14 +9,6 @@ Here are some example screenshots:
 ## Example
 
 ```ts
-import {
-  ButtonInteraction,
-  CommandInteraction,
-  MessageButton,
-  MessageActionRow,
-} from "discord.js";
-import { ButtonComponent, Discord, Slash } from "discordx";
-
 @Discord()
 class Example {
   @Slash("hello")

@@ -109,7 +109,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 
 # 📔 Decorators
 
-There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button, select menu, contextmenu etc.
+There is a whole system that allows you to implement complex slash/simple commands and handle interactions like button, select-menu, context-menu etc.
 
 ## General
 
@@ -127,14 +127,14 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@SlashChoice`](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
 - [`@SlashGroup`](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
 - [`@SlashOption`](https://discord-ts.js.org/docs/decorators/commands/slashoption)
-- [`@SimpleCommand`](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
-- [`@SimpleCommandOption`](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
+- [`@SimpleCommand`](https://discord-ts.js.org/docs/decorators/commands/simple-command)
+- [`@SimpleCommandOption`](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
 
 ## GUI Interactions
 
-- [`@ButtonComponent`](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
-- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
-- [`@ContextMenu`](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+- [`@ButtonComponent`](https://discord-ts.js.org/docs/decorators/gui/button-component)
+- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
+- [`@ContextMenu`](https://discord-ts.js.org/docs/decorators/gui/context-menu)
 
 # 📟 [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash)
 
@@ -145,7 +145,7 @@ import { Discord, Slash } from "discordx";
 import { CommandInteraction } from "discord.js";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @Slash("hello")
   private hello(
     @SlashOption("text")
@@ -157,13 +157,13 @@ abstract class AppDiscord {
 }
 ```
 
-# 📟 [@ButtonComponent](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+# 📟 [@ButtonComponent](https://discord-ts.js.org/docs/decorators/gui/button-component)
 
-create discord button handler with ease!
+Create discord button handler with ease!
 
 ```ts
 @Discord()
-class buttonExample {
+class Example {
   @Slash("hello")
   hello(interaction: CommandInteraction) {
     const helloBtn = new MessageButton()
@@ -187,9 +187,9 @@ class buttonExample {
 }
 ```
 
-# 📟 [@SelectMenuComponent](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+# 📟 [@SelectMenuComponent](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
 
-create discord select menu handler with ease!
+Create discord select menu handler with ease!
 
 ```ts
 const roles = [
@@ -199,7 +199,7 @@ const roles = [
 ];
 
 @Discord()
-class buttons {
+class Example {
   @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction) {
     await interaction.deferReply();
@@ -240,13 +240,13 @@ class buttons {
 }
 ```
 
-# 📟 [@ContextMenu](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+# 📟 [@ContextMenu](https://discord-ts.js.org/docs/decorators/gui/context-menu)
 
-create discord context menu options with ease!
+Create discord context menu options with ease!
 
 ```ts
 @Discord()
-class contextTest {
+class Example {
   @ContextMenu("MESSAGE", "message context")
   messageHandler(interaction: MessageContextMenuInteraction) {
     console.log("I am message");
@@ -259,13 +259,13 @@ class contextTest {
 }
 ```
 
-# 📟 [@SimpleCommand](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
+# 📟 [@SimpleCommand](https://discord-ts.js.org/docs/decorators/commands/simple-command)
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 
 ```ts
 @Discord()
-class commandTest {
+class Example {
   @SimpleCommand("perm-check", { aliases: ["p-test"] })
   @Permission(false)
   @Permission({
@@ -291,7 +291,7 @@ That's simple, when the event is triggered, the method is called:
 import { Discord, On, Once } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   private onMessage() {
     // ...
@@ -320,7 +320,7 @@ import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   @Guard(
     NotBot // You can use multiple guard functions, they are executed in the same order!

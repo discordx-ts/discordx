@@ -9,7 +9,7 @@ import { DSimpleCommand, MetadataStorage } from "../../index.js";
  * Example ``!hello world``
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command)
  *
  * @category Decorator
  */
@@ -23,7 +23,7 @@ export function SimpleCommand(): MethodDecoratorEx;
  * @param name - Command name
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command)
  *
  * @category Decorator
  */
@@ -40,7 +40,7 @@ export function SimpleCommand<T extends string>(
  * @param options - Command options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommand)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command)
  *
  * @category Decorator
  */

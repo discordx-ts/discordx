@@ -57,7 +57,7 @@ Global guards, it's an array of functions
 
 ### botGuilds
 
-The application commands are executed only on this list of guilds by default, ex. slash, button, select-menu, contextmenu
+The application commands are executed only on this list of guilds by default, ex. slash, button, select-menu, context-menu
 
 | type       | default | required |
 | ---------- | ------- | -------- |

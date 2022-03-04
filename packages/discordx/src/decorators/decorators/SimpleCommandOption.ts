@@ -15,7 +15,7 @@ import {
  * @param name - Option name
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
  *
  * @category Decorator
  */
@@ -30,7 +30,7 @@ export function SimpleCommandOption<T extends string>(
  * @param options - Additional options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simplecommandoption)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
  *
  * @category Decorator
  */
