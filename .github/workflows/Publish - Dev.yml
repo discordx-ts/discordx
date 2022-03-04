@@ -6,8 +6,20 @@ on:
 
 jobs:
   publish:
-    name: Publish Main
+    name: Publish
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - package: "discordx"
+            folder: "discordx"
+          - package: "@discordx/music"
+            folder: "music"
+          - package: "@discordx/pagination"
+            folder: "pagination"
+          - package: "@discordx/utilities"
+            folder: "utilities"
     steps:
       - name: check out code 🛎
         uses: actions/checkout@v2
@@ -23,37 +35,37 @@ jobs:
 
       - name: Synchronize dev version
         run: |
-          npm version --git-tag-version=false $(npm view discordx version)
+          npm version --git-tag-version=false $(npm view ${{ matrix.package }} version)
           npm version --git-tag-version=false major
           npm version --git-tag-version=false "$(jq --raw-output '.version' package.json)-dev"
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Update version
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: pre-release
         id: pre-release
         run: |
-          if [[ $(npm view discordx@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --max-count=1 --pretty=format:%h src)") ]]; \
+          if [[ $(npm view ${{ matrix.package }}@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --max-count=1 --pretty=format:%h src)") ]]; \
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
         run: npm install
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Build
         if: steps.pre-release.outputs.release == 'true'
         run: npm run build
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
-        run: npx @favware/npm-deprecate -d --name "*dev*" --package "discordx" --message "Version no longer supported. Upgrade to @latest"
-        working-directory: ./packages/discordx
+        run: npx @favware/npm-deprecate -d --name "*dev*" --package "${{ matrix.package }}" --message "Version no longer supported. Upgrade to @latest"
+        working-directory: ./packages/${{ matrix.folder }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -62,189 +74,6 @@ jobs:
         run: |
           npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git log --max-count=1 --pretty=format:%h src)
           npm publish --tag dev
-        working-directory: ./packages/discordx
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  publish-music:
-    name: Publish Music
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-        with:
-          ref: dev
-          fetch-depth: 0
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize dev version
-        run: |
-          npm version --git-tag-version=false $(npm view @discordx/music version)
-          npm version --git-tag-version=false major
-          npm version --git-tag-version=false "$(jq --raw-output '.version' package.json)-dev"
-        working-directory: ./packages/music
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/music
-
-      - name: pre-release
-        id: pre-release
-        run: |
-          if [[ $(npm view @discordx/music@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --max-count=1 --pretty=format:%h src)") ]]; \
-          then echo '::set-output name=release::false'; \
-          else echo '::set-output name=release::true'; fi
-        working-directory: ./packages/music
-
-      - name: Install Dependencies
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm install
-        working-directory: ./packages/music
-
-      - name: Build
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm run build
-        working-directory: ./packages/music
-
-      - name: Deprecate old versions
-        if: steps.pre-release.outputs.release == 'true'
-        run: npx @favware/npm-deprecate -d --name "*dev*" --package "@discordx/music" --message "Version no longer supported. Upgrade to @latest"
-        working-directory: ./packages/music
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish
-        if: steps.pre-release.outputs.release == 'true'
-        run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git log --max-count=1 --pretty=format:%h src)
-          npm publish --tag dev
-        working-directory: ./packages/music
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  publish-pagination:
-    name: Publish Pagination
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-        with:
-          ref: dev
-          fetch-depth: 0
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize dev version
-        run: |
-          npm version --git-tag-version=false $(npm view @discordx/pagination version)
-          npm version --git-tag-version=false major
-          npm version --git-tag-version=false "$(jq --raw-output '.version' package.json)-dev"
-        working-directory: ./packages/pagination
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/pagination
-
-      - name: pre-release
-        id: pre-release
-        run: |
-          if [[ $(npm view @discordx/pagination@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --max-count=1 --pretty=format:%h src)") ]]; \
-          then echo '::set-output name=release::false'; \
-          else echo '::set-output name=release::true'; fi
-        working-directory: ./packages/pagination
-
-      - name: Install Dependencies
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm install
-        working-directory: ./packages/pagination
-
-      - name: Build
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm run build
-        working-directory: ./packages/pagination
-
-      - name: Deprecate old versions
-        if: steps.pre-release.outputs.release == 'true'
-        run: npx @favware/npm-deprecate -d --name "*dev*" --package "@discordx/pagination" --message "Version no longer supported. Upgrade to @latest"
-        working-directory: ./packages/pagination
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish
-        if: steps.pre-release.outputs.release == 'true'
-        run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git log --max-count=1 --pretty=format:%h src)
-          npm publish --tag dev
-        working-directory: ./packages/pagination
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  publish-utilities:
-    name: Publish Utilities
-    runs-on: ubuntu-latest
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-        with:
-          ref: dev
-          fetch-depth: 0
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize dev version
-        run: |
-          npm version --git-tag-version=false $(npm view @discordx/utilities version)
-          npm version --git-tag-version=false major
-          npm version --git-tag-version=false "$(jq --raw-output '.version' package.json)-dev"
-        working-directory: ./packages/utilities
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/utilities
-
-      - name: pre-release
-        id: pre-release
-        run: |
-          if [[ $(npm view @discordx/utilities@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --max-count=1 --pretty=format:%h src)") ]]; \
-          then echo '::set-output name=release::false'; \
-          else echo '::set-output name=release::true'; fi
-        working-directory: ./packages/utilities
-
-      - name: Install Dependencies
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm install
-        working-directory: ./packages/utilities
-
-      - name: Build
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm run build
-        working-directory: ./packages/utilities
-
-      - name: Deprecate old versions
-        if: steps.pre-release.outputs.release == 'true'
-        run: npx @favware/npm-deprecate -d --name "*dev*" --package "@discordx/utilities" --message "Version no longer supported. Upgrade to @latest"
-        working-directory: ./packages/utilities
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish
-        if: steps.pre-release.outputs.release == 'true'
-        run: |
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git log --max-count=1 --pretty=format:%h src)
-          npm publish --tag dev
-        working-directory: ./packages/utilities
+        working-directory: ./packages/${{ matrix.folder }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
