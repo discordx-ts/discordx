@@ -1,11 +1,27 @@
 # Stage
 
+# [v9.4.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.4.1) (2022-03-04)
+
+## Changed
+
+- typo ([#535](https://github.com/oceanroleplay/discord.ts/issues/535)) ([356697](https://github.com/oceanroleplay/discord.ts/commit/356697e0af3e8db832d80d38d671f7e75eae68aa))
+
+## Fixed
+
+- typo ([b16fa4](https://github.com/oceanroleplay/discord.ts/commit/b16fa4a4b20cb5dedf1725f34581991484417196))
+
 ## Documenations
 
+- permission ([675842](https://github.com/oceanroleplay/discord.ts/commit/675842519f969d995e421210e8f202b4d4bfe203))
+- errormodule does not provide an export named ([9ade09](https://github.com/oceanroleplay/discord.ts/commit/9ade092b798a6ef965acd4b230f6cc899023214f))
+- add missing access error ([be4016](https://github.com/oceanroleplay/discord.ts/commit/be40168c44f58332a8a9cade3c6b67afaea503c2))
+- faq ([61f091](https://github.com/oceanroleplay/discord.ts/commit/61f091343c0c308509c7a76309531ef3c94dd1b4))
+- slash group ([e12cf1](https://github.com/oceanroleplay/discord.ts/commit/e12cf157fe958ae52833f2fae38704b596c72729))
 - slash group ([9b84f2](https://github.com/oceanroleplay/discord.ts/commit/9b84f2b10b103df13d2fc280b09ff367dc7719f8))
 
 ## Routine Tasks
 
+- discord invite url ([b426a0](https://github.com/oceanroleplay/discord.ts/commit/b426a0ad431586ceec78652b73de076a31f0ae13))
 - update examples link ([#534](https://github.com/oceanroleplay/discord.ts/issues/534)) ([905947](https://github.com/oceanroleplay/discord.ts/commit/905947deba33979cf8aca0a0f039ca79fc06938a))
 
 # [v9.3.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.1) (2022-02-18)
