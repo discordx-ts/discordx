@@ -18,7 +18,7 @@ import {
 import { ButtonComponent, Discord, Slash } from "discordx";
 
 @Discord()
-class buttonExample {
+class Example {
   @Slash("hello")
   async hello(interaction: CommandInteraction) {
     await interaction.deferReply();

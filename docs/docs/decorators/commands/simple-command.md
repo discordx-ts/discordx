@@ -12,7 +12,7 @@ A simple command is dependent on the content of the message but unfortunately, D
 
 ```ts
 @Discord()
-class commandTest {
+class Example {
   @SimpleCommand("perm-check", { aliases: ["p-test"] })
   @Permission(false)
   @Permission({

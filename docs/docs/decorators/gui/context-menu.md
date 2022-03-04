@@ -11,7 +11,7 @@ Here are some example screenshots:
 
 ```ts
 @Discord()
-export abstract class contextTest {
+class Example {
   @ContextMenu("MESSAGE", "message context")
   async messageHandler(interaction: MessageContextMenuInteraction) {
     console.log("I am message");

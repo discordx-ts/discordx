@@ -77,7 +77,7 @@ Note: In order to refresh application permissions dynamically, run `initApplicat
   await getResponse(); // add delay
   return { id: "462341082919731200", permission: true, type: "USER" };
 })
-class DiscordBot {
+class Example {
   @Slash("hello") // Only the role that has this ROLE_ID can use this command
   private hello() {
     // ...

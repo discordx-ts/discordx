@@ -16,7 +16,7 @@ const roles = [
 ];
 
 @Discord()
-class buttons {
+class Example {
   @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction) {
     await interaction.deferReply();
