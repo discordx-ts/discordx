@@ -4,11 +4,19 @@ on:
   pull_request:
     branches:
       - main
+      - dev
+      - dev-music
+      - dev-pagination
+      - dev-utilities
   push:
     paths-ignore:
       - "docs/docs/**"
     branches:
       - main
+      - dev
+      - dev-music
+      - dev-pagination
+      - dev-utilities
 
 jobs:
   build:
