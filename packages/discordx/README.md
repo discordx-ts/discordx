@@ -132,8 +132,8 @@ There is a whole system that allows you to implement complex slash/simple comman
 
 ## GUI Interactions
 
-- [`@ButtonComponent`](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
-- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+- [`@Button`](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+- [`@SelectMenu`](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
 - [`@ContextMenu`](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
 
 # 📟 [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash)
@@ -157,7 +157,7 @@ abstract class AppDiscord {
 }
 ```
 
-# 📟 [@ButtonComponent](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+# 📟 [@Button](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
 
 create discord button handler with ease!
 
@@ -187,7 +187,7 @@ class buttonExample {
 }
 ```
 
-# 📟 [@SelectMenuComponent](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+# 📟 [@SelectMenu](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
 
 create discord select menu handler with ease!
 
@@ -200,7 +200,7 @@ const roles = [
 
 @Discord()
 class buttons {
-  @SelectMenuComponent("role-menu")
+  @SelectMenu("role-menu")
   async handle(interaction: SelectMenuInteraction) {
     await interaction.deferReply();
 

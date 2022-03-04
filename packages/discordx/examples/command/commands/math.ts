@@ -1,4 +1,5 @@
 import type { Channel, Role, User } from "discord.js";
+import { ApplicationCommandPermissionType } from "discord.js";
 
 import type { SimpleCommandMessage } from "../../../src/index.js";
 import {
@@ -66,7 +67,7 @@ export abstract class commandTest {
   @Permission({
     id: "462341082919731200",
     permission: true,
-    type: "USER",
+    type: ApplicationCommandPermissionType.User,
   })
   permFunc(command: SimpleCommandMessage): void {
     command.message.reply("access granted");

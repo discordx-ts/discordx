@@ -1,4 +1,5 @@
 import type { CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType } from "discord.js";
 
 import { Discord, Slash, SlashOption } from "../../../src/index.js";
 
@@ -8,7 +9,7 @@ export abstract class MinMax {
   min(
     @SlashOption("value", {
       minValue: 5,
-      type: "NUMBER",
+      type: ApplicationCommandOptionType.Number,
     })
     input: number,
     interaction: CommandInteraction
@@ -20,7 +21,7 @@ export abstract class MinMax {
   max(
     @SlashOption("value", {
       maxValue: 5,
-      type: "NUMBER",
+      type: ApplicationCommandOptionType.Number,
     })
     input: number,
     interaction: CommandInteraction
@@ -33,7 +34,7 @@ export abstract class MinMax {
     @SlashOption("value", {
       maxValue: 15,
       minValue: 5,
-      type: "NUMBER",
+      type: ApplicationCommandOptionType.Number,
     })
     input: number,
     interaction: CommandInteraction

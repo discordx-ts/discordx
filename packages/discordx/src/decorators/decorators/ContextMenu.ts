@@ -1,5 +1,5 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
-import type { ApplicationCommandType } from "discord.js";
+import { ApplicationCommandType } from "discord.js";
 
 import type { ApplicationCommandOptions } from "../../index.js";
 import { DApplicationCommand, MetadataStorage } from "../../index.js";
@@ -15,7 +15,7 @@ import { DApplicationCommand, MetadataStorage } from "../../index.js";
  * @category Decorator
  */
 export function ContextMenu(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>
 ): MethodDecoratorEx;
 
 /**
@@ -30,7 +30,7 @@ export function ContextMenu(
  * @category Decorator
  */
 export function ContextMenu(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
   name?: string
 ): MethodDecoratorEx;
 
@@ -47,13 +47,13 @@ export function ContextMenu(
  * @category Decorator
  */
 export function ContextMenu(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
   name?: string,
   options?: Omit<ApplicationCommandOptions, "description">
 ): MethodDecoratorEx;
 
 export function ContextMenu(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
   name?: string,
   options?: Omit<ApplicationCommandOptions, "description">
 ): MethodDecoratorEx {
@@ -69,7 +69,7 @@ export function ContextMenu(
       options?.botIds
     ).decorate(target.constructor, key, target[key]);
 
-    if (type == "MESSAGE") {
+    if (type == ApplicationCommandType.Message) {
       MetadataStorage.instance.addApplicationCommandMessage(applicationCommand);
     } else {
       MetadataStorage.instance.addApplicationCommandUser(applicationCommand);

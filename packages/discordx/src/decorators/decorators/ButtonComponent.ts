@@ -13,7 +13,7 @@ import { ComponentType, DComponent, MetadataStorage } from "../../index.js";
  *
  * @category Decorator
  */
-export function ButtonComponent(id?: string | RegExp): MethodDecoratorEx;
+export function Button(id?: string | RegExp): MethodDecoratorEx;
 
 /**
  * Interact with buttons with a defined identifier
@@ -26,12 +26,12 @@ export function ButtonComponent(id?: string | RegExp): MethodDecoratorEx;
  *
  * @category Decorator
  */
-export function ButtonComponent(
+export function Button(
   id: string | RegExp,
   options?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
-export function ButtonComponent(
+export function Button(
   id?: string | RegExp,
   options?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {

@@ -1,4 +1,5 @@
 import type { Message } from "discord.js";
+import { ApplicationCommandPermissionType } from "discord.js";
 
 import type { SimpleCommandMessage } from "../build/cjs/index.js";
 import {
@@ -14,7 +15,11 @@ import {
 type Data = { passed: boolean };
 
 @Discord()
-@Permission({ id: "123", permission: true, type: "USER" })
+@Permission({
+  id: "123",
+  permission: true,
+  type: ApplicationCommandPermissionType.User,
+})
 @Guild("693401527494377482")
 @Guard((params, client, next, data) => {
   data.passed = true;
@@ -116,7 +121,7 @@ describe("Commands", () => {
       {
         id: "123",
         permission: true,
-        type: "USER",
+        type: ApplicationCommandPermissionType.User,
       },
     ]);
     expect(client.simpleCommands[0]?.aliases).toEqual(["add1", "add2"]);

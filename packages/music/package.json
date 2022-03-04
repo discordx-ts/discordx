@@ -59,12 +59,13 @@
     "ytsr": "^3.6.0"
   },
   "devDependencies": {
+    "@discordjs/builders": "^0.13.0-dev.1646395406.6f7a366",
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.8.0",
     "@discordx/importer": "^1.1.2",
     "@types/lodash": "^4.14.179",
-    "discord.js": "^13.6.0",
-    "discordx": "^9.2.6",
+    "discord.js": "^14.0.0-dev.1646395406.6f7a366",
+    "discordx": "^10.0.0-dev.1645813640.7e1e9201",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.9",
     "typescript": "^4.6.2"
@@ -72,7 +73,7 @@
   "peerDependencies": {
     "@discordjs/opus": ">=0.5",
     "@discordjs/voice": ">=0.5",
-    "discord.js": ">=13 || ^13.0.0-dev || ^14.0.0-dev || ^15.0.0-dev"
+    "discord.js": ">=14 || ^14.0.0-dev"
   },
   "engines": {
     "node": ">=16.0.0",

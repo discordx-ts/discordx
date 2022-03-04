@@ -1,4 +1,5 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
+import { ApplicationCommandType } from "discord.js";
 
 import type { ApplicationCommandOptions, VerifyName } from "../../index.js";
 import { DApplicationCommand, MetadataStorage } from "../../index.js";
@@ -42,7 +43,7 @@ export function Slash(
 
     const applicationCommand = DApplicationCommand.create(
       name,
-      "CHAT_INPUT",
+      ApplicationCommandType.ChatInput,
       options?.description,
       options?.defaultPermission,
       options?.guilds,
