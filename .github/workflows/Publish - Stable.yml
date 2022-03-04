@@ -13,434 +13,72 @@ on:
         type: string
 
 jobs:
-  build:
-    name: Publish discordx
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
-    if: github.event.inputs.package == 'discordx'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - package: "discordx"
+            folder: "discordx"
+          - package: "@discordx/music"
+            folder: "music"
+          - package: "@discordx/pagination"
+            folder: "pagination"
+          - package: "@discordx/utilities"
+            folder: "utilities"
+          - package: "@discordx/changelog"
+            folder: "changelog"
+          - package: "create-discordx"
+            folder: "create-discordx"
+          - package: "@discordx/di"
+            folder: "di"
+          - package: "@discordx/importer"
+            folder: "importer"
+          - package: "@discordx/internal"
+            folder: "internal"
+          - package: "@discordx/koa"
+            folder: "koa"
+          - package: "@discordx/lava-player"
+            folder: "lava-player"
+          - package: "@discordx/socket.io"
+            folder: "socket.io"
     steps:
       - name: check out code 🛎
+        if: github.event.inputs.package == matrix.package
         uses: actions/checkout@v2
 
       - name: Install Node v17
+        if: github.event.inputs.package == matrix.package
         uses: actions/setup-node@v2
         with:
           node-version: "17.x"
           registry-url: "https://registry.npmjs.org"
 
       - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view discordx version)
-        working-directory: ./packages/discordx
+        if: github.event.inputs.package == matrix.package
+        run: npm version --git-tag-version=false $(npm view ${{ matrix.package }} version)
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Update version
+        if: github.event.inputs.package == matrix.package
         run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Install root dependencies
+        if: github.event.inputs.package == matrix.package
         run: npm install
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Build
+        if: github.event.inputs.package == matrix.package
         run: npm run build
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Publish
+        if: github.event.inputs.package == matrix.package
         run: npm publish
-        working-directory: ./packages/discordx
+        working-directory: ./packages/${{ matrix.folder }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  build-changelog:
-    name: Publish @discordx/changelog
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/changelog'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/changelog version)
-        working-directory: ./packages/changelog
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/changelog
-
-      - name: Install changelog dependencies
-        run: npm install
-        working-directory: ./packages/changelog
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/changelog
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/changelog
-
-  build-di:
-    name: Publish @discordx/di
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/di'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/di version)
-        working-directory: ./packages/di
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/di
-
-      - name: Install di dependencies
-        run: npm install
-        working-directory: ./packages/di
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/di
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/di
-
-  build-importer:
-    name: Publish @discordx/importer
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/importer'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/importer version)
-        working-directory: ./packages/importer
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/importer
-
-      - name: Install importer dependencies
-        run: npm install
-        working-directory: ./packages/importer
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/importer
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/importer
-
-  build-internal:
-    name: Publish @discordx/internal
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/internal'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/internal version)
-        working-directory: ./packages/internal
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/internal
-
-      - name: Install internal dependencies
-        run: npm install
-        working-directory: ./packages/internal
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/internal
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/internal
-
-  build-koa:
-    name: Publish @discordx/koa
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/koa'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/koa version)
-        working-directory: ./packages/koa
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/koa
-
-      - name: Install koa dependencies
-        run: npm install
-        working-directory: ./packages/koa
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/koa
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/koa
-
-  build-lava-player:
-    name: Publish @discordx/lava-player
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/lava-player'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/lava-player version)
-        working-directory: ./packages/lava-player
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/lava-player
-
-      - name: Install lava-player dependencies
-        run: npm install
-        working-directory: ./packages/lava-player
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/lava-player
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/lava-player
-
-  build-music:
-    name: Publish @discordx/music
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/music'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/music version)
-        working-directory: ./packages/music
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/music
-
-      - name: Install music dependencies
-        run: npm install
-        working-directory: ./packages/music
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/music
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/music
-
-  build-utilities:
-    name: Publish @discordx/utilities
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/utilities'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/utilities version)
-        working-directory: ./packages/utilities
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/utilities
-
-      - name: Install utilities dependencies
-        run: npm install
-        working-directory: ./packages/utilities
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/utilities
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/utilities
-
-  build-pagination:
-    name: Publish @discordx/pagination
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/pagination'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/pagination version)
-        working-directory: ./packages/pagination
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/pagination
-
-      - name: Install pagination dependencies
-        run: npm install
-        working-directory: ./packages/pagination
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/pagination
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/pagination
-
-  build-socket-io:
-    name: Publish @discordx/socket.io
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == '@discordx/socket.io'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view @discordx/socket.io version)
-        working-directory: ./packages/socket.io
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/socket.io
-
-      - name: Install socket.io dependencies
-        run: npm install
-        working-directory: ./packages/socket.io
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/socket.io
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/socket.io
-
-  build-create-discordx:
-    name: Publish create-discordx
-    runs-on: ubuntu-latest
-    if: github.event.inputs.package == 'create-discordx'
-    steps:
-      - name: check out code 🛎
-        uses: actions/checkout@v2
-
-      - name: Install Node v17
-        uses: actions/setup-node@v2
-        with:
-          node-version: "17.x"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Synchronize current version
-        run: npm version --git-tag-version=false $(npm view create-discordx version)
-        working-directory: ./packages/create-discordx
-
-      - name: Update version
-        run: npm version --git-tag-version=false ${{ github.event.inputs.version }}
-        working-directory: ./packages/create-discordx
-
-      - name: Install create-discordx dependencies
-        run: npm install
-        working-directory: ./packages/create-discordx
-
-      - name: Build
-        run: npm run build
-        working-directory: ./packages/create-discordx
-
-      - name: Publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/create-discordx
