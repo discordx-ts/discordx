@@ -54,7 +54,7 @@ jobs:
 
       - name: Install Dependencies
         if: steps.pre-release.outputs.release == 'true'
-        run: npm install
+        run: npm install --force
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Build
