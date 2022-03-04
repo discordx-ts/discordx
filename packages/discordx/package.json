@@ -1,6 +1,6 @@
 {
   "name": "discordx",
-  "version": "10.0.0-dev.1645813640.7e1e9201",
+  "version": "0.0.0",
   "private": false,
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
