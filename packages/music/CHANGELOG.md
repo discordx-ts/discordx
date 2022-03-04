@@ -2,11 +2,13 @@
 
 ## Changed
 
+- typo ([#535](https://github.com/oceanroleplay/discord.ts/issues/535)) ([356697](https://github.com/oceanroleplay/discord.ts/commit/356697e0af3e8db832d80d38d671f7e75eae68aa))
 - params ([#527](https://github.com/oceanroleplay/discord.ts/issues/527)) ([b613a1](https://github.com/oceanroleplay/discord.ts/commit/b613a1dc806cefb272e8f0ae19f82d7dc137ab9e))
 - sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 
 ## Fixed
 
+- repeat mode ([84865e](https://github.com/oceanroleplay/discord.ts/commit/84865e70ad79bac55b527446158f1a422a4cc4d5))
 - volume ([7ff7b6](https://github.com/oceanroleplay/discord.ts/commit/7ff7b62845c32bdc91857a3bfa07c8dd3cd1bf0e))
 - volume should persist between tracks ([#461](https://github.com/oceanroleplay/discord.ts/issues/461)) ([e876c2](https://github.com/oceanroleplay/discord.ts/commit/e876c25ef025665399ec6ce40ffcc30eb9fe5b21))
 - .setVolume() not working in custom tracks ([#444](https://github.com/oceanroleplay/discord.ts/issues/444)) ([f11b83](https://github.com/oceanroleplay/discord.ts/commit/f11b8312507b4274c264fe9ad959a3e7de76f505))

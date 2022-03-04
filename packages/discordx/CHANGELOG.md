@@ -1,5 +1,21 @@
 # Stage
 
+# [v9.4.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.4.1) (2022-03-04)
+
+## Changed
+
+- mixin classes ([#537](https://github.com/oceanroleplay/discord.ts/issues/537)) ([de2c9a](https://github.com/oceanroleplay/discord.ts/commit/de2c9af6688fd8317fd70d835902b7186afde3af))
+- typo ([#535](https://github.com/oceanroleplay/discord.ts/issues/535)) ([356697](https://github.com/oceanroleplay/discord.ts/commit/356697e0af3e8db832d80d38d671f7e75eae68aa))
+
+## Fixed
+
+- duplicate event issue ([#540](https://github.com/oceanroleplay/discord.ts/issues/540)) ([4da065](https://github.com/oceanroleplay/discord.ts/commit/4da0656f1cc0009684950f489b5da84da331f5d0))
+
+## Types
+
+- revert the force-typed boolean ([6e1e92](https://github.com/oceanroleplay/discord.ts/commit/6e1e9200ce9b15e5201d863ebdf9f9467d6743aa))
+- revert the force-typed boolean ([d0bfe4](https://github.com/oceanroleplay/discord.ts/commit/d0bfe4db9d3de5fe79b51fc11dd90e58e50a29fc))
+
 # [v9.3.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.3.1) (2022-02-18)
 
 ## Changed

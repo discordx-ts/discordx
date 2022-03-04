@@ -9,6 +9,7 @@
 
 ## Changed
 
+- typo ([#535](https://github.com/oceanroleplay/discord.ts/issues/535)) ([356697](https://github.com/oceanroleplay/discord.ts/commit/356697e0af3e8db832d80d38d671f7e75eae68aa))
 - params ([#527](https://github.com/oceanroleplay/discord.ts/issues/527)) ([b613a1](https://github.com/oceanroleplay/discord.ts/commit/b613a1dc806cefb272e8f0ae19f82d7dc137ab9e))
 - convert RateLimit to normal function ([174ac1](https://github.com/oceanroleplay/discord.ts/commit/174ac11fdb693a60f24c7bed697bc9be6b6db871))
 - improve exports ([560179](https://github.com/oceanroleplay/discord.ts/commit/560179da5d6162693045d82bc48398dcd60387dc))
