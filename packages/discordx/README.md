@@ -55,6 +55,8 @@ yarn add discordx
 
 > **[installation guide](https://discord-ts.js.org/docs/installation#installation)**
 
+> **[one-click installation](https://github.com/oceanroleplay/discord.ts/tree/main/packages/create-discordx#-introduction)**
+
 # 📜 Documentation
 
 > **[discord-ts.js.org](https://discord-ts.js.org)**
