@@ -342,7 +342,9 @@ class Example {
 
 # ☎️ Need help?
 
-Ask in **[discord server](https://discord-ts.js.org/discord)** or check [code examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
+- [Check frequently asked questions](https://discord-ts.js.org/docs/guides/FAQ/)
+- [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
+- Ask in **[discord server](https://discord-ts.js.org/discord)**
 
 # Thank you
 
