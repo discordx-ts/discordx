@@ -7,10 +7,14 @@ import { execSync } from "child_process";
 import path from "node:path";
 import prompts from "prompts";
 
-import { MakeDir, ValidateNpmName } from "./helper/common.js";
+import { isFolderEmpty, MakeDir } from "./helper/dir.js";
 import { tryGitInit } from "./helper/git.js";
-import { isFolderEmpty } from "./helper/is-folder-empty.js";
+import { ValidateNpmName } from "./helper/npm.js";
 import { DownloadAndExtractTemplate, GetTemplates } from "./helper/template.js";
+
+/**
+ * Startup
+ */
 
 console.log(`
   ██████╗ ██╗███████╗ ██████╗ ██████╗ ██████╗ ██████╗ ████████╗███████╗

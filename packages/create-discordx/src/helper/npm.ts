@@ -1,4 +1,3 @@
-import fs from "fs/promises";
 import validateProjectName from "validate-npm-package-name";
 
 /**
@@ -23,18 +22,4 @@ export function ValidateNpmName(name: string): {
     ],
     valid: false,
   };
-}
-
-/**
- * Make project directory
- *
- * @param root project path
- * @param options options
- * @returns
- */
-export function MakeDir(
-  root: string,
-  options = { recursive: true }
-): Promise<string | undefined> {
-  return fs.mkdir(root, options);
 }
