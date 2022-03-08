@@ -1,6 +1,21 @@
 import chalk from "chalk";
 import fs from "fs";
+import pfs from "fs/promises";
 import path from "path";
+
+/**
+ * Make project directory
+ *
+ * @param root project path
+ * @param options options
+ * @returns
+ */
+export function MakeDir(
+  root: string,
+  options = { recursive: true }
+): Promise<string | undefined> {
+  return pfs.mkdir(root, options);
+}
 
 /**
  * Verify that the project directory is empty and conflict-free
