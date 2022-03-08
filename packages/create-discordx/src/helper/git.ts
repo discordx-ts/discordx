@@ -2,7 +2,7 @@ import { execSync } from "child_process";
 import path from "path";
 import rimraf from "rimraf";
 
-function isInGitRepository(root: string): boolean {
+function IsInGitRepository(root: string): boolean {
   try {
     execSync("git rev-parse --is-inside-work-tree", {
       cwd: root,
@@ -13,7 +13,7 @@ function isInGitRepository(root: string): boolean {
   return false;
 }
 
-function isInMercurialRepository(root: string): boolean {
+function IsInMercurialRepository(root: string): boolean {
   try {
     execSync("hg --cwd . root", { cwd: root, stdio: "ignore" });
     return true;
@@ -21,11 +21,11 @@ function isInMercurialRepository(root: string): boolean {
   return false;
 }
 
-export function tryGitInit(root: string): boolean {
+export function TryGitInit(root: string): boolean {
   let didInit = false;
   try {
     execSync("git --version", { cwd: root, stdio: "ignore" });
-    if (isInGitRepository(root) || isInMercurialRepository(root)) {
+    if (IsInGitRepository(root) || IsInMercurialRepository(root)) {
       return false;
     }
 

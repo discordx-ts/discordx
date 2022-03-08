@@ -24,7 +24,7 @@ export function MakeDir(
  * @param name project name
  * @returns
  */
-export function isFolderEmpty(root: string, name: string): boolean {
+export function IsFolderEmpty(root: string, name: string): boolean {
   const validFiles = [
     ".DS_Store",
     ".git",

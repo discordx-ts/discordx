@@ -7,8 +7,8 @@ import { execSync } from "child_process";
 import path from "node:path";
 import prompts from "prompts";
 
-import { isFolderEmpty, MakeDir } from "./helper/dir.js";
-import { tryGitInit } from "./helper/git.js";
+import { IsFolderEmpty, MakeDir } from "./helper/dir.js";
+import { TryGitInit } from "./helper/git.js";
 import { ValidateNpmName } from "./helper/npm.js";
 import { DownloadAndExtractTemplate, GetTemplates } from "./helper/template.js";
 
@@ -105,7 +105,7 @@ try {
  * Make sure directory is clean
  */
 
-if (!isFolderEmpty(resolvedProjectPath, projectName)) {
+if (!IsFolderEmpty(resolvedProjectPath, projectName)) {
   process.exit();
 }
 
@@ -140,7 +140,7 @@ try {
  * Init git
  */
 
-tryGitInit(resolvedProjectPath);
+TryGitInit(resolvedProjectPath);
 
 /**
  * End
