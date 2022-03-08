@@ -5,11 +5,17 @@ import "./helper/updater.js";
 import chalk from "chalk";
 import { execSync } from "child_process";
 import path from "node:path";
+import ora from "ora";
 import prompts from "prompts";
 
 import { IsFolderEmpty, MakeDir } from "./helper/dir.js";
 import { TryGitInit } from "./helper/git.js";
 import { ValidateNpmName } from "./helper/npm.js";
+import {
+  GetPackageManager,
+  InstallPackage,
+  PackageManager,
+} from "./helper/package-manager.js";
 import { DownloadAndExtractTemplate, GetTemplates } from "./helper/template.js";
 
 /**
@@ -59,6 +65,16 @@ if (typeof res.path === "string") {
 
 const resolvedProjectPath = path.resolve(projectPath);
 const projectName = path.basename(resolvedProjectPath);
+
+/**
+ * Select package manager
+ */
+
+const packageManager = await GetPackageManager();
+
+if (packageManager === null) {
+  process.exit();
+}
 
 /**
  * Select template prompt
@@ -113,10 +129,15 @@ if (!IsFolderEmpty(resolvedProjectPath, projectName)) {
  * Download and extract template
  */
 
+const spinner = ora({
+  text: chalk.bold("Downloading template..."),
+}).start();
+
 try {
   await DownloadAndExtractTemplate(resolvedProjectPath, response.template);
+  spinner.succeed(chalk.bold("Downloaded template"));
 } catch (err) {
-  console.log(chalk.red("> Failed to download selected template :("));
+  spinner.fail(chalk.bold("Failed to download selected template :("));
   process.exit();
 }
 
@@ -143,33 +164,50 @@ try {
 TryGitInit(resolvedProjectPath);
 
 /**
+ * Install packages
+ */
+
+await InstallPackage(resolvedProjectPath, packageManager);
+
+/**
  * End
  */
 const isWin = process.platform === "win32";
 
 console.log(
-  chalk.green("√"),
+  chalk.greenBright("√"),
   chalk.bold("Created discordx (discord.ts) project"),
   chalk.gray("»"),
-  chalk.green(projectName)
+  chalk.greenBright(projectName)
 );
-console.log(chalk.blue("?"), chalk.bold("Next Steps!"));
+
+console.log(chalk.blueBright("?"), chalk.bold("Next Steps!"));
 console.log(`\t> cd ${projectPath}`);
-console.log("\t> npm install");
+
+if (PackageManager.none === packageManager) {
+  console.log("\t> npm install");
+}
+
 if (isWin) {
   console.log("\t> set BOT_TOKEN = REPLACE_THIS_WITH_TOKEN");
 } else {
   console.log("\t> export BOT_TOKEN = REPLACE_THIS_WITH_TOKEN");
 }
-console.log("\t> npm run dev");
+
+if (PackageManager.none === packageManager) {
+  console.log("\t> npm run dev");
+} else {
+  console.log(`\t> ${PackageManager[packageManager]} run dev`);
+}
+
 console.log();
-console.log(chalk.blue("?"), chalk.bold("Support"));
+console.log(chalk.blueBright("?"), chalk.bold("Support"));
 console.log("    Discord Server: https://discord-ts.js.org/discord");
 console.log("     Documentation: https://discord-ts.js.org");
 console.log("            GitHub: https://github.com/oceanroleplay/discord.ts");
 console.log();
 console.log(
-  chalk.green("√"),
-  chalk.bold("Thank you for using Discordx"),
+  chalk.greenBright("√"),
+  chalk.bold("Thank you for using discordx (discord.ts)"),
   chalk.red("❤️")
 );
