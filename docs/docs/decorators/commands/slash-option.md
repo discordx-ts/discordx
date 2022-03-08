@@ -29,11 +29,45 @@ class Example {
 
 ## Autocomplete option
 
-When defining an autocomplete slash option, you can define a resolver for autocomplete inside `@SlashOption` to simplify things. If you set autocomplete to true, you have to handle it manually in your main function.
+> Autocomplete interactions allow your application to dynamically return option suggestions to a user as they type. - discord
+
+### Method - Resolver
+
+When defining an autocomplete slash option, you can define a resolver for autocomplete inside `@SlashOption` to simplify things.
+
+```ts
+@SlashOption("autocomplete", {
+  autocomplete: function (
+    interaction: AutocompleteInteraction
+  ) {
+  interaction.respond([
+    { name: "option a", value: "a" },
+    { name: "option b", value: "b" },
+  ]);
+},
+type: "STRING",
+interaction: CommandInteraction
+```
+
+### Method - Boolean
+
+Discordx (discord.ts) will call your command handler with autocomplete interaction if you use boolean instead of resolver.
+
+```ts
+@SlashOption("autocomplete", {
+  autocomplete: true,
+  type: "STRING",
+}
+interaction: CommandInteraction | AutocompleteInteraction
+```
+
+### Example - All Methods
 
 ```ts
 @Discord()
 class Example {
+  myCustomText = "Hello discordx (discord.ts)";
+
   @Slash("autocomplete")
   autocomplete(
     @SlashOption("option-a", {
@@ -42,11 +76,11 @@ class Example {
     })
     searchText: string,
     @SlashOption("option-b", {
-      autocomplete: function myResolver(
-        this: AppDiscord1,
+      autocomplete: function (
+        this: Example,
         interaction: AutocompleteInteraction
       ) {
-        // normal function, have this, so class reference is passed
+        // The normal function has this (keyword), therefore class reference is available
         console.log(this.myCustomText);
         // resolver for option b
         interaction.respond([
@@ -59,7 +93,7 @@ class Example {
     searchText2: string,
     @SlashOption("option-c", {
       autocomplete: (interaction: AutocompleteInteraction) => {
-        // arrow function does not have this, so class reference is not available
+        // This is not available for the arrow function, so there is no class reference
         interaction.respond([
           { name: "option e", value: "e" },
           { name: "option f", value: "f" },
@@ -70,7 +104,7 @@ class Example {
     searchText3: string,
     interaction: CommandInteraction | AutocompleteInteraction
   ): void {
-    // autocomplete will passed to function if not handle above
+    // If autocomplete is not handled above, it will be passed to handler (see option-a definition)
     if (interaction.isAutocomplete()) {
       const focusedOption = interaction.options.getFocused(true);
       // resolver for option a

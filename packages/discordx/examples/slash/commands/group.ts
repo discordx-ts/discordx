@@ -18,9 +18,9 @@ enum TextChoices {
 @SlashGroup({ name: "maths", root: "testing" })
 @SlashGroup({ name: "text", root: "testing" })
 export abstract class Group {
-  @Slash("voicechannel")
+  @Slash("voice-channel")
   @SlashGroup("maths", "testing")
-  voicechannel(
+  voiceChannel(
     @SlashOption("channel", {
       channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
       type: "CHANNEL",

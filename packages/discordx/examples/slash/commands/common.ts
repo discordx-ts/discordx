@@ -61,7 +61,7 @@ export abstract class AppDiscord {
     })
     searchText: string,
     @SlashOption("option-b", {
-      autocomplete: function myResolver(
+      autocomplete: function (
         this: AppDiscord,
         interaction: AutocompleteInteraction
       ) {
