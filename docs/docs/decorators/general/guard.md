@@ -12,7 +12,7 @@ import { NotBot } from "./NotBot";
 import { Prefix } from "./Prefix";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   @Guard(
     NotBot, // You can use multiple guard functions, they are executed in the same order!
@@ -49,7 +49,7 @@ import { Prefix } from "./Prefix";
 
 @Discord()
 @Guard(NotBot, Prefix("!"))
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   message([message]: ArgsOf<"messageCreate">) {
     //...
@@ -195,7 +195,7 @@ import { CommandInteraction } from "discord.js";
 import { NotBot } from "./NotBot";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @Slash()
   @Guard(NotBot)
   async hello(
@@ -213,7 +213,7 @@ abstract class AppDiscord {
 
 ```ts
 @Discord()
-class commandTest {
+class Example {
   @SimpleCommand("my-cmd")
   async myCmd(command: SimpleCommandMessage, client: Client) {
     command.message.reply("Hello :wave_tone1:");
@@ -225,7 +225,7 @@ class commandTest {
 
 ```ts
 @Discord()
-class commandTest {
+class Example {
   @SimpleCommand("my-cmd")
   async myCmd(command: SimpleCommandMessage, client: Client, guardData: any) {
     command.message.reply("Hello :wave_tone1:");

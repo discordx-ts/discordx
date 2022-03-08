@@ -18,7 +18,7 @@ You can decorate your method with one or more @Permission decorators.
 
 ```ts
 @Discord()
-class DiscordBot {
+class Example {
   // We will enable command for specific users/roles only, so disable it for everyone
   @Permission(false)
   // This command is available only to the user whose USER_ID is mentioned
@@ -44,7 +44,7 @@ You can set the permissions for all @Slash inside the class by decorating the cl
 @Permission({ id: "USER_ID", type: "USER", permission: true })
 // Users with the specified ROLE_ID can run this class commands
 @Permission({ id: "ROLE_ID", type: "ROLE", permission: true })
-class DiscordBot {
+class Example {
   @Slash("hello")
   private hello() {
     // ...

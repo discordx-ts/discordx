@@ -12,7 +12,7 @@ To declare an option you simply use the `@SlashOption` decorator before a method
 
 ```ts
 @Discord()
-class DiscordBot {
+class Example {
   @Slash("add")
   add(
     @SlashOption("x", { description: "x value" })
@@ -33,7 +33,7 @@ When defining an autocomplete slash option, you can define a resolver for autoco
 
 ```ts
 @Discord()
-class DiscordBot {
+class Example {
   @Slash("autocomplete")
   autocomplete(
     @SlashOption("option-a", {
@@ -95,7 +95,7 @@ discord.**ts** convert automatically the inferred type into discord.**js** optio
 
 ```ts
 @Discord()
-class DiscordBot {
+class Example {
   @Slash("add")
   add(
     @SlashOption("x", { description: "x value" })
@@ -117,7 +117,7 @@ If you want to specify the type manually you can do it:
 import { TextChannel, VoiceChannel, CommandInteraction } from "discord.js";
 
 @Discord()
-class DiscordBot {
+class Example {
   @Slash("getID")
   getID(
     @SlashOption("x", { type: "MENTIONABLE" })

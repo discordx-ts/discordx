@@ -26,7 +26,7 @@ You can set the guild IDs for all @Slash inside the class by decorating the clas
 ```ts
 @Discord()
 @Guild("GUILD_ID", "GUILD_ID2")
-class DiscordBot {
+class Example {
   @Slash("hello") // Only created on the guild GUILD_ID and GUILD_ID2
   private hello() {
     // ...

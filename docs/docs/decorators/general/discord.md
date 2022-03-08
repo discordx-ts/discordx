@@ -10,7 +10,7 @@ You must decorate all classes that use discordx decorators with the @Discord dec
 import { Discord, Slash } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+abstract class Example {
   // We can use member decorators
   // because we decorated the class with @Discord
   @Slash("hello")

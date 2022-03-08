@@ -6,7 +6,7 @@ Discord has it's own command system now, you can simply declare commands and use
 import { Discord, Slash } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @Slash("hello")
   private hello() {
     // ...
@@ -105,7 +105,7 @@ Instead on doing this for all of your @Slash:
 
 ```ts
 @Discord()
-abstract class AppDiscord {
+class Example {
   @Guild("GUILD_ID")
   @Slash("hello")
   private hello() {
@@ -132,7 +132,7 @@ const client = new Client({
 
 ```ts
 @Discord()
-abstract class AppDiscord {
+class Example {
   @Slash("hello") // Applied on GUILD_ID
   private hello() {
     // ...

@@ -6,7 +6,7 @@ It's exactly the same behavior as [@On](/docs/decorators/general/on) but the met
 import { Discord, On, Once } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @Once("messageDelete")
   private onMessageDelete() {
     // ...
@@ -30,7 +30,7 @@ You also receive other useful arguments after that:
 import { Discord, On, Client, ArgsOf } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   private onMessage(
     [message]: ArgsOf<"messageCreate">, // Type message automatically

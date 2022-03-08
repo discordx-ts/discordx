@@ -8,7 +8,7 @@ You can get the list of the events and the payload type in the ["List of events"
 import { Discord, On, Client, ArgsOf } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   private onMessage(
     // The type of message is Message

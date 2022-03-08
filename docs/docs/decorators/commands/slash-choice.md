@@ -10,7 +10,7 @@ You just decorate your parameter with one or multiple @SlashChoice !
 
 ```ts
 @Discord()
-class DiscordBot {
+class Example {
   @Slash("iam")
   iam(
     @SlashChoice("Human", "human")
@@ -41,7 +41,7 @@ enum TextChoices {
 // }
 
 @Discord()
-class DiscordBot {
+class Example {
   @Slash("hello")
   hello(
     @SlashChoice(TextChoices)

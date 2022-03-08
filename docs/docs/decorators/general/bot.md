@@ -5,7 +5,7 @@ bot decorator help you manage multiple bot's in single node instance
 ```ts
 @Discord()
 @Bot("alex", "zoe") // Define which bot can run the following commands or events
-class simpleCommandExample {
+class Example {
   @SimpleCommand("hello")
   command(command: SimpleCommandMessage) {
     command.message.reply(`👋 ${message.member}`);

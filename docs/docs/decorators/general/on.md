@@ -10,7 +10,7 @@ It's that simple, when the event is triggered, the method is called:
 import { Discord, On, Once } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   private onMessage() {
     // ...
@@ -39,7 +39,7 @@ You also receive other useful arguments after that:
 import { Discord, On, Client, ArgsOf } from "discordx";
 
 @Discord()
-abstract class AppDiscord {
+class Example {
   @On("messageCreate")
   private onMessage(
     [message]: ArgsOf<"messageCreate">, // Type message automatically

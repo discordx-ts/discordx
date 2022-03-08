@@ -72,7 +72,7 @@ both `@Discord()` **AND** `@injectable()`: (the order is important)
 ```ts
 @Discord()
 @injectable()
-class AppDiscord {
+class Example {
   constructor(private _database: Database) {
     console.log("constructed me as a singleton and injected _database");
   }
