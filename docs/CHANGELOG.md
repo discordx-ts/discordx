@@ -1,5 +1,13 @@
 # Stage
 
+## Documentation
+
+- update slash option ([5bd63d](https://github.com/oceanroleplay/discord.ts/commit/5bd63de54a59937644276b86d0dda1d467d8b9d7))
+- rename example classes ([3724ad](https://github.com/oceanroleplay/discord.ts/commit/3724ad074e1649e64af5cfff8020c0c3a93dc979))
+- typo ([81fab1](https://github.com/oceanroleplay/discord.ts/commit/81fab1ad139b9bf24ee5dee43ea7fc9251564daf))
+- update class name ([9ffd57](https://github.com/oceanroleplay/discord.ts/commit/9ffd5762918abddfe87eb2b9de69dc84b0510a96))
+- update signature ([9a50a7](https://github.com/oceanroleplay/discord.ts/commit/9a50a785703f2875792aff2b34729fc863543a8e))
+
 # [v9.4.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.4.1) (2022-03-04)
 
 ## Changed
@@ -10,7 +18,7 @@
 
 - typo ([b16fa4](https://github.com/oceanroleplay/discord.ts/commit/b16fa4a4b20cb5dedf1725f34581991484417196))
 
-## Documenations
+## Documentation
 
 - permission ([675842](https://github.com/oceanroleplay/discord.ts/commit/675842519f969d995e421210e8f202b4d4bfe203))
 - errormodule does not provide an export named ([9ade09](https://github.com/oceanroleplay/discord.ts/commit/9ade092b798a6ef965acd4b230f6cc899023214f))
@@ -33,7 +41,7 @@
 - decorator comments ([#525](https://github.com/oceanroleplay/discord.ts/issues/525)) ([92f097](https://github.com/oceanroleplay/discord.ts/commit/92f0972503faca079af4ab85ff5094e729af7099))
 - append group option ([#522](https://github.com/oceanroleplay/discord.ts/issues/522)) ([c14dd8](https://github.com/oceanroleplay/discord.ts/commit/c14dd8755ea3087849ab6654eb60103e0eb0408e))
 
-## Documenations
+## Documentation
 
 - slash group ([#531](https://github.com/oceanroleplay/discord.ts/issues/531)) ([a7a776](https://github.com/oceanroleplay/discord.ts/commit/a7a776521d096d8c3d82dda78f8fe60b2a460b54))
 - slash group ([7af7c3](https://github.com/oceanroleplay/discord.ts/commit/7af7c38a2a2fca14853a197d8efaba2ba4a2cc2d))
@@ -46,7 +54,7 @@
 - slash group ([#511](https://github.com/oceanroleplay/discord.ts/issues/511)) ([3ad472](https://github.com/oceanroleplay/discord.ts/commit/3ad472f15e311ec25a8c63c4f1282d46e590d33b))
 - merge component class ([#503](https://github.com/oceanroleplay/discord.ts/issues/503)) ([a3d874](https://github.com/oceanroleplay/discord.ts/commit/a3d874d7a79187715fd53d6b7c5b1d853d8ee6cd))
 
-## Documenations
+## Documentation
 
 - Clarify DIService import for tsyringe docs ([#494](https://github.com/oceanroleplay/discord.ts/issues/494)) ([d310c6](https://github.com/oceanroleplay/discord.ts/commit/d310c626bf93d0e8aedff8939b4ff17300691fe6))
 - update @discord ([340d57](https://github.com/oceanroleplay/discord.ts/commit/340d57875dfc134a07f28a573c52d87e804450ef))
@@ -64,7 +72,7 @@
 
 # [v9.1.9](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.1.9) (2022-01-07)
 
-## Documenations
+## Documentation
 
 - update authrize slash commands message ([d43e8e](https://github.com/oceanroleplay/discord.ts/commit/d43e8e4e72222c8c729aebd1f6611081ca0786fd))
 - add warning for missing access ([a752be](https://github.com/oceanroleplay/discord.ts/commit/a752bef2a70b2d3e8ca52ffba543b9a799313741))
@@ -89,7 +97,7 @@
 - set slash option required by default ([#244](https://github.com/oceanroleplay/discord.ts/issues/244)) ([1f763c](https://github.com/oceanroleplay/discord.ts/commit/1f763cd94f57902aa81dfe68ce24cafadd09e3a7))
 - add colors to log ([e777e8](https://github.com/oceanroleplay/discord.ts/commit/e777e86fc995a26eea33ca4a21deef8f33820436))
 
-## Documenations
+## Documentation
 
 - fix permission resolver types ([9a4c76](https://github.com/oceanroleplay/discord.ts/commit/9a4c769c89dffd5ea423ce63a85d436fe049c5af))
 - fix INTEGER inference ([36c85f](https://github.com/oceanroleplay/discord.ts/commit/36c85fa9f8d2fd7ab3529d1594e9009938d90d8e))
@@ -158,7 +166,7 @@
 
 # [v6.2.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v6.2.0) (2021-10-13)
 
-## Documenations
+## Documentation
 
 - installation: requirement ([c878fa](https://github.com/oceanroleplay/discord.ts/commit/c878fa94a7f733f6b87811dadcee38f342d29e5b))
 - sidebar TSyringe ([c0a7bd](https://github.com/oceanroleplay/discord.ts/commit/c0a7bd26ce07046586f9cc2dea07c135ec669070))
@@ -188,7 +196,7 @@
 
 # [v6.0.5](https://github.com/oceanroleplay/discord.ts/releases/tag/v6.0.5) (2021-09-29)
 
-## Documenations
+## Documentation
 
 - sidebar ([1a080f](https://github.com/oceanroleplay/discord.ts/commit/1a080f1fe0e0c949f8b5316cfca1ce5dea604450))
 
@@ -231,7 +239,7 @@
 
 # [v5.8.2](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.8.2) (2021-09-07)
 
-## Documenations
+## Documentation
 
 - table for parameters ([b17595](https://github.com/oceanroleplay/discord.ts/commit/b175958c0237cb24524dc34521c2637908b49764))
 
@@ -299,7 +307,7 @@
 
 # [v5.5.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v5.5.0) (2021-08-15)
 
-## Documenations
+## Documentation
 
 - events ([c04d35](https://github.com/oceanroleplay/discord.ts/commit/c04d357d5cb2e7ef175b0deea65677ed33e190d0))
 

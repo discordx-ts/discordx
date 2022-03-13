@@ -1,5 +1,11 @@
 # Stage
 
+# [v4.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v4.0.0) (2022-03-13)
+
+## Breaking Changes
+
+- category improvement ([c426d7](https://github.com/oceanroleplay/discord.ts/commit/c426d7c65f7dbafd7483a377d04f63ee501877b5))
+
 ## Features
 
 - add NotBot guard ([7c0e37](https://github.com/oceanroleplay/discord.ts/commit/7c0e371aae9bb8563da2b1e9b17fa791a4661ec5))

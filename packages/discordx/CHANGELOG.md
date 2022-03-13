@@ -1,5 +1,9 @@
 # Stage
 
+## Documentation
+
+- typo ([81fab1](https://github.com/oceanroleplay/discord.ts/commit/81fab1ad139b9bf24ee5dee43ea7fc9251564daf))
+
 # [v9.4.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.4.1) (2022-03-04)
 
 ## Changed
