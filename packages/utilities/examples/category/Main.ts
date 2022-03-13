@@ -15,6 +15,7 @@ export class Main {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+      silent: false,
     });
 
     this._client.once("ready", async () => {
@@ -34,7 +35,7 @@ export class Main {
       this._client.executeInteraction(interaction);
     });
 
-    await importx(dirname(import.meta.url) + +"/discords/**/*.{js,ts}");
+    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
 
     // let's start the bot
     if (!process.env.BOT_TOKEN) {

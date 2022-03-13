@@ -2,10 +2,10 @@ import { Pagination } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import type { DSimpleCommand } from "discordx";
-import { DApplicationCommand, Discord, Slash } from "discordx";
+import { DApplicationCommand, Discord, MetadataStorage, Slash } from "discordx";
 
 import type { ICategory } from "../../../src/index.js";
-import { Category, CategoryMetaData } from "../../../src/index.js";
+import { Category } from "../../../src/index.js";
 
 @Discord()
 @Category("Admin Commands")
@@ -23,13 +23,16 @@ export abstract class SlashExample {
       type: "slash" | "simple";
     }[] = [];
 
-    CategoryMetaData.get("Admin Commands").forEach(
-      (cmd: (DApplicationCommand | DSimpleCommand) & ICategory) =>
-        commands.push({
-          description: cmd.description,
-          name: cmd.name,
-          type: cmd instanceof DApplicationCommand ? "slash" : "simple",
-        })
+    MetadataStorage.instance.applicationCommands.forEach(
+      (cmd: (DApplicationCommand | DSimpleCommand) & ICategory) => {
+        if (cmd.category === "Admin Commands") {
+          commands.push({
+            description: cmd.description,
+            name: cmd.name,
+            type: cmd instanceof DApplicationCommand ? "slash" : "simple",
+          });
+        }
+      }
     );
 
     const pages = commands.map((cmd, i) => {

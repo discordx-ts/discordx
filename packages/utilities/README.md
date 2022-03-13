@@ -67,11 +67,10 @@ Create group of commands
 ```ts
 @Discord()
 @Category("Admin Commands")
-class SlashExample {
+class Example {
   // commands
 
   @Slash()
-  @NickName("test")
   myCommand(interaction: CommandInteraction) {
     //....
   }
@@ -80,10 +79,13 @@ class SlashExample {
 
 ```ts
 // Access data from anywhere
-import { CategoryMetaData } from "@discord/utilities";
-
-// access admin commands
-CategoryMetaData.get("Admin Commands");
+MetadataStorage.instance.applicationCommands.forEach(
+  (cmd: DApplicationCommand & ICategory) => {
+    if (cmd.category === "Admin Commands") {
+      // access
+    }
+  }
+);
 ```
 
 # ⚔️ guards

@@ -1,4 +1,4 @@
-import type { ClassMethodDecorator, MethodDecoratorEx } from "discordx";
+import type { ClassMethodDecorator } from "discordx";
 import {
   DApplicationCommand,
   DDiscord,
@@ -7,28 +7,13 @@ import {
   Modifier,
 } from "discordx";
 
-export interface ICategory {
-  category?: string;
-  nickName?: string;
+export interface ICategory<T = string> {
+  category?: T;
 }
 
-export abstract class CategoryMetaData {
-  static get(
-    category?: string
-  ): readonly ((DApplicationCommand | DSimpleCommand) & ICategory)[] {
-    return [
-      ...MetadataStorage.instance.applicationCommandSlashes,
-      ...MetadataStorage.instance.simpleCommands,
-    ].filter(
-      (cmd: (DApplicationCommand | DSimpleCommand) & ICategory) =>
-        cmd.category === category
-    );
-  }
-}
-
-export function Category(name: string): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+export function Category<T = string>(data: T): ClassMethodDecorator {
+  return function <D>(
+    target: Record<string, D>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
@@ -36,7 +21,7 @@ export function Category(name: string): ClassMethodDecorator {
       Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord>(
         (
           original:
-            | ((DApplicationCommand | DSimpleCommand) & ICategory)
+            | ((DApplicationCommand | DSimpleCommand) & ICategory<T>)
             | DDiscord
         ) => {
           if (original instanceof DDiscord) {
@@ -44,35 +29,17 @@ export function Category(name: string): ClassMethodDecorator {
               ...original.applicationCommands,
               ...original.simpleCommands,
             ].forEach(
-              (ob: (DApplicationCommand | DSimpleCommand) & ICategory) => {
-                ob.category = name;
+              (ob: (DApplicationCommand | DSimpleCommand) & ICategory<T>) => {
+                ob.category = data;
               }
             );
           } else {
-            original.category = name;
+            original.category = data;
           }
         },
         DApplicationCommand,
         DSimpleCommand,
         DDiscord
-      ).decorateUnknown(target, key, descriptor)
-    );
-  };
-}
-
-export function NickName(nickname: string): MethodDecoratorEx {
-  return function <T>(
-    target: Record<string, T>,
-    key?: string,
-    descriptor?: PropertyDescriptor
-  ) {
-    MetadataStorage.instance.addModifier(
-      Modifier.create<DApplicationCommand | DSimpleCommand>(
-        (original: (DApplicationCommand | DSimpleCommand) & ICategory) => {
-          original.nickName = nickname;
-        },
-        DApplicationCommand,
-        DSimpleCommand
       ).decorateUnknown(target, key, descriptor)
     );
   };
