@@ -53,7 +53,7 @@ export function SelectMenuComponent(id: RegExp): MethodDecoratorEx;
  */
 export function SelectMenuComponent<T extends string>(
   id: NotEmpty<T>,
-  options?: { botIds?: string[]; guilds?: IGuild[] }
+  options: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
 /**
@@ -69,7 +69,7 @@ export function SelectMenuComponent<T extends string>(
  */
 export function SelectMenuComponent(
   id: RegExp,
-  options?: { botIds?: string[]; guilds?: IGuild[] }
+  options: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx;
 
 export function SelectMenuComponent(
