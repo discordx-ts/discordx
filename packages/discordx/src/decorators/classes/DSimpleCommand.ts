@@ -2,6 +2,7 @@ import type { ApplicationCommandPermissionData, Guild } from "discord.js";
 
 import type {
   ArgSplitter,
+  Client,
   DSimpleCommandOption,
   IDefaultPermission,
   IGuild,
@@ -10,7 +11,11 @@ import type {
   SimpleCommandMessage,
   SimpleOptionType,
 } from "../../index.js";
-import { resolveIPermissions, SimpleCommandOptionType } from "../../index.js";
+import {
+  resolveIGuilds,
+  resolveIPermissions,
+  SimpleCommandOptionType,
+} from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
@@ -153,6 +158,40 @@ export class DSimpleCommand extends Method {
       guilds,
       prefix
     );
+  }
+
+  isBotAllowed(botId: string): boolean {
+    if (!this.botIds.length) {
+      return true;
+    }
+
+    return this.botIds.includes(botId);
+  }
+
+  async getGuilds(
+    client: Client,
+    command: SimpleCommandMessage
+  ): Promise<string[]> {
+    const guilds = await resolveIGuilds(client, command, [
+      ...client.botGuilds,
+      ...this.guilds,
+    ]);
+
+    return guilds;
+  }
+
+  async isGuildAllowed(
+    client: Client,
+    command: SimpleCommandMessage,
+    guildId: string | null
+  ): Promise<boolean> {
+    if (!guildId) {
+      return true;
+    }
+
+    const guilds = await this.getGuilds(client, command);
+
+    return guilds.includes(guildId);
   }
 
   resolvePermissions(

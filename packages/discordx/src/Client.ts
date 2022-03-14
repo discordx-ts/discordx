@@ -411,8 +411,8 @@ export class Client extends ClientJS {
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
     const allGuildDCommands = this.applicationCommands.filter(
       (DCommand) =>
-        [...botResolvedGuilds, ...DCommand.guilds].length &&
-        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+        DCommand.isBotAllowed(this.botId) &&
+        [...botResolvedGuilds, ...DCommand.guilds].length
     );
 
     // group single guild commands together
@@ -422,6 +422,7 @@ export class Client extends ClientJS {
           ...botResolvedGuilds,
           ...DCommand.guilds,
         ]);
+
         guilds.forEach((guild) =>
           guildDCommandStore.set(guild, [
             ...(guildDCommandStore.get(guild) ?? []),
@@ -430,6 +431,7 @@ export class Client extends ClientJS {
         );
       })
     );
+
     return guildDCommandStore;
   }
 
@@ -1062,11 +1064,7 @@ export class Client extends ClientJS {
     const tree = this.getApplicationCommandGroupTree(interaction);
     const applicationCommand = this.getApplicationCommandFromTree(tree);
 
-    if (
-      !applicationCommand ||
-      (applicationCommand.botIds.length &&
-        !applicationCommand.botIds.includes(this.botId))
-    ) {
+    if (!applicationCommand || !applicationCommand.isBotAllowed(this.botId)) {
       if (log ?? this.silent) {
         this.logger.log(
           `${
@@ -1109,29 +1107,14 @@ export class Client extends ClientJS {
     interaction: ButtonInteraction | SelectMenuInteraction,
     log?: boolean
   ): Promise<unknown> {
-    const botResolvedGuilds = await this.botResolvedGuilds;
-
     const component = components.find((comp) =>
       comp.isId(interaction.customId)
     );
 
-    const guilds: string[] = [];
-
-    if (component) {
-      guilds.push(
-        ...(await resolveIGuilds(this, component, [
-          ...botResolvedGuilds,
-          ...component.guilds,
-        ]))
-      );
-    }
-
     if (
       !component ||
-      (interaction.guild &&
-        guilds.length &&
-        !guilds.includes(interaction.guild.id)) ||
-      (component.botIds.length && !component.botIds.includes(this.botId))
+      !component.isBotAllowed(this.botId) ||
+      !(await component.isGuildAllowed(this, interaction.guildId))
     ) {
       if (log ?? !this.silent) {
         this.logger.log(
@@ -1160,8 +1143,6 @@ export class Client extends ClientJS {
     interaction: ContextMenuInteraction,
     log?: boolean
   ): Promise<unknown> {
-    const botResolvedGuilds = await this.botResolvedGuilds;
-
     const applicationCommand = interaction.isUserContextMenu()
       ? this.applicationCommandUsers.find(
           (cmd) => cmd.name === interaction.commandName
@@ -1170,24 +1151,10 @@ export class Client extends ClientJS {
           (cmd) => cmd.name === interaction.commandName
         );
 
-    const guilds: string[] = [];
-
-    if (applicationCommand) {
-      guilds.push(
-        ...(await resolveIGuilds(this, applicationCommand, [
-          ...botResolvedGuilds,
-          ...applicationCommand.guilds,
-        ]))
-      );
-    }
-
     if (
       !applicationCommand ||
-      (interaction.guild &&
-        guilds.length &&
-        !guilds.includes(interaction.guild.id)) ||
-      (applicationCommand.botIds.length &&
-        !applicationCommand.botIds.includes(this.botId))
+      !applicationCommand.isBotAllowed(this.botId) ||
+      !(await applicationCommand.isGuildAllowed(this, interaction.guildId))
     ) {
       if (log ?? !this.silent) {
         this.logger.log(
@@ -1306,8 +1273,6 @@ export class Client extends ClientJS {
       log?: boolean;
     }
   ): Promise<unknown> {
-    const botResolvedGuilds = await this.botResolvedGuilds;
-
     if (!message) {
       if (options?.log ?? !this.silent) {
         this.logger.log(
@@ -1353,23 +1318,12 @@ export class Client extends ClientJS {
     }
 
     // validate bot id
-    if (
-      command.info.botIds.length &&
-      !command.info.botIds.includes(this.botId)
-    ) {
+    if (!command.info.isBotAllowed(this.botId)) {
       return;
     }
 
     // validate guild id
-    const commandGuilds = await resolveIGuilds(this, command, [
-      ...botResolvedGuilds,
-      ...command.info.guilds,
-    ]);
-    if (
-      message.guild?.id &&
-      commandGuilds.length &&
-      !commandGuilds.includes(message.guild.id)
-    ) {
+    if (!command.info.isGuildAllowed(this, command, message.guildId)) {
       return;
     }
 

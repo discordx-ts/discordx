@@ -1,4 +1,5 @@
-import type { ComponentType, IGuild } from "../../index.js";
+import type { Client, ComponentType, IGuild } from "../../index.js";
+import { resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
@@ -55,6 +56,36 @@ export class DComponent extends Method {
     botIds?: string[]
   ): DComponent {
     return new DComponent(type, id, guilds, botIds);
+  }
+
+  isBotAllowed(botId: string): boolean {
+    if (!this.botIds.length) {
+      return true;
+    }
+
+    return this.botIds.includes(botId);
+  }
+
+  async getGuilds(client: Client): Promise<string[]> {
+    const guilds = await resolveIGuilds(client, this, [
+      ...client.botGuilds,
+      ...this.guilds,
+    ]);
+
+    return guilds;
+  }
+
+  async isGuildAllowed(
+    client: Client,
+    guildId: string | null
+  ): Promise<boolean> {
+    if (!guildId) {
+      return true;
+    }
+
+    const guilds = await this.getGuilds(client);
+
+    return guilds.includes(guildId);
   }
 
   isId(text: string): boolean {
