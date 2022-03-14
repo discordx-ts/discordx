@@ -3,6 +3,7 @@ import type { ApplicationCommandType } from "discord.js";
 
 import type { ApplicationCommandOptions } from "../../index.js";
 import { DApplicationCommand, MetadataStorage } from "../../index.js";
+import type { NotEmpty } from "../../types/index.js";
 
 /**
  * Interact with context menu with a defined identifier
@@ -29,9 +30,9 @@ export function ContextMenu(
  *
  * @category Decorator
  */
-export function ContextMenu(
+export function ContextMenu<T extends string>(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
-  name?: string
+  name: NotEmpty<T>
 ): MethodDecoratorEx;
 
 /**
@@ -46,10 +47,10 @@ export function ContextMenu(
  *
  * @category Decorator
  */
-export function ContextMenu(
+export function ContextMenu<T extends string>(
   type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
-  name?: string,
-  options?: Omit<ApplicationCommandOptions, "description">
+  name: NotEmpty<T>,
+  options: Omit<ApplicationCommandOptions, "description">
 ): MethodDecoratorEx;
 
 export function ContextMenu(

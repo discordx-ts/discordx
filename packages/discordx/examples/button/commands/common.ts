@@ -5,14 +5,14 @@ import { ButtonComponent, Discord, Slash } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @ButtonComponent("my-btn")
+  @ButtonComponent("hello")
   handler(interaction: ButtonInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @ButtonComponent("my-btn")
+  @ButtonComponent("hello")
   handler2(interaction: ButtonInteraction): void {
-    interaction.channel?.send("it's me");
+    console.log(`${interaction.user} says hello`);
   }
 
   @Slash()
@@ -20,7 +20,7 @@ export class Example {
     const btn = new MessageButton()
       .setLabel("Hello")
       .setStyle("PRIMARY")
-      .setCustomId("my-btn");
+      .setCustomId("hello");
 
     const buttonRow = new MessageActionRow().addComponents(btn);
 
