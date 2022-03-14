@@ -19,11 +19,16 @@ import type {
   ApplicationCommandDataX,
   ApplicationCommandMixin,
   ApplicationGuildMixin,
+  Client,
   IDefaultPermission,
   IGuild,
   IPermissions,
 } from "../../index.js";
-import { DApplicationCommandOption, resolveIPermissions } from "../../index.js";
+import {
+  DApplicationCommandOption,
+  resolveIGuilds,
+  resolveIPermissions,
+} from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
@@ -144,6 +149,36 @@ export class DApplicationCommand extends Method {
       guilds,
       botIds
     );
+  }
+
+  isBotAllowed(botId: string): boolean {
+    if (!this.botIds.length) {
+      return true;
+    }
+
+    return this.botIds.includes(botId);
+  }
+
+  async getGuilds(client: Client): Promise<string[]> {
+    const guilds = await resolveIGuilds(client, this, [
+      ...client.botGuilds,
+      ...this.guilds,
+    ]);
+
+    return guilds;
+  }
+
+  async isGuildAllowed(
+    client: Client,
+    guildId: string | null
+  ): Promise<boolean> {
+    if (!guildId) {
+      return true;
+    }
+
+    const guilds = await this.getGuilds(client);
+
+    return guilds.includes(guildId);
   }
 
   resolvePermissions(
