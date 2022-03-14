@@ -1080,6 +1080,7 @@ export class Client extends ClientJS {
       const option = applicationCommand.options.find(
         (op) => op.name === focusOption.name
       );
+
       if (option && typeof option.autocomplete === "function") {
         option.autocomplete.call(
           DIService.instance.getService(option.from),
@@ -1106,29 +1107,35 @@ export class Client extends ClientJS {
     components: readonly DComponent[],
     interaction: ButtonInteraction | SelectMenuInteraction,
     log?: boolean
-  ): Promise<unknown> {
-    const component = components.find((comp) =>
+  ): Promise<void> {
+    const executes = components.filter((comp) =>
       comp.isId(interaction.customId)
     );
 
-    if (
-      !component ||
-      !component.isBotAllowed(this.botId) ||
-      !(await component.isGuildAllowed(this, interaction.guildId))
-    ) {
-      if (log ?? !this.silent) {
-        this.logger.log(
-          `${
-            this.user?.username ?? this.botId
-          } >> selectMenu interaction not found, interactionId: ${
-            interaction.id
-          } | customId: ${interaction.customId}`
-        );
-      }
-      return;
-    }
+    const results = await Promise.all(
+      executes.map(async (component) => {
+        if (
+          !component ||
+          !component.isBotAllowed(this.botId) ||
+          !(await component.isGuildAllowed(this, interaction.guildId))
+        ) {
+          return false;
+        } else {
+          await component.execute(this.guards, interaction, this);
+          return true;
+        }
+      })
+    );
 
-    return component.execute(this.guards, interaction, this);
+    if ((log ?? !this.silent) && !results.some((res) => res)) {
+      this.logger.log(
+        `${this.user?.username ?? this.botId} >> ${
+          interaction.isButton() ? "button" : "select menu"
+        } component handler not found, interactionId: ${
+          interaction.id
+        } | customId: ${interaction.customId}`
+      );
+    }
   }
 
   /**
