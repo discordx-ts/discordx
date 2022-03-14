@@ -69,7 +69,7 @@ yarn add discordx
 
 > **[discord-music-bot](https://github.com/oceanroleplay/discord-music-bot)** from [@oceanroleplay](https://github.com/oceanroleplay)
 
-> **[WeebBot](https://github.com/VictoriqueMoe/WeebBot)** from [@VictoriqueMoe](https://github.com/VictoriqueMoe)
+> **[Shana](https://github.com/VictoriqueMoe/Shana)** from [@VictoriqueMoe](https://github.com/VictoriqueMoe)
 
 # 💡 Why discordx?
 
