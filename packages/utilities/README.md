@@ -41,6 +41,7 @@
 - [Introduction](#-introduction)
 - [Installation](#-installation)
 - [@Category](#-category)
+- [@Description](#-description)
 - [guards](#%EF%B8%8F-guards)
   - [Rate Limit](#rate-limit)
   - [NotBot](#notbot)
@@ -86,6 +87,35 @@ MetadataStorage.instance.applicationCommands.forEach(
     }
   }
 );
+```
+
+# 📟 @Description
+
+The description property can be set using this decorator
+
+## Example
+
+```ts
+@Discord()
+class Example {
+  @Slash("hello")
+  @Description("say hello to bot")
+  handle(interaction: CommandInteraction) {
+    //....
+  }
+}
+```
+
+Is equivalent to:
+
+```ts
+@Discord()
+class Example {
+  @Slash("hello", { description: "say hello to bot" })
+  handle(interaction: CommandInteraction) {
+    //....
+  }
+}
 ```
 
 # ⚔️ guards

@@ -5,12 +5,13 @@ import type { DSimpleCommand } from "discordx";
 import { DApplicationCommand, Discord, MetadataStorage, Slash } from "discordx";
 
 import type { ICategory } from "../../../src/index.js";
-import { Category } from "../../../src/index.js";
+import { Category, Description } from "../../../src/index.js";
 
 @Discord()
 @Category("Admin Commands")
 export abstract class SlashExample {
   @Slash()
+  @Description("test description decorator")
   test(interaction: CommandInteraction): void {
     interaction.reply("Hey!");
   }
