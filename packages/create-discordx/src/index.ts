@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-import "./helper/updater.js";
-
 import chalk from "chalk";
 import { execSync } from "child_process";
 import path from "node:path";
@@ -17,6 +15,7 @@ import {
   PackageManager,
 } from "./helper/package-manager.js";
 import { DownloadAndExtractTemplate, GetTemplates } from "./helper/template.js";
+import { default as version } from "./helper/updater.js";
 
 /**
  * Startup
@@ -29,6 +28,7 @@ console.log(`
   ██║  ██║██║╚════██║██║     ██║   ██║██╔══██╗██║  ██║   ██║   ╚════██║
   ██████╔╝██║███████║╚██████╗╚██████╔╝██║  ██║██████╔╝██╗██║   ███████║
   ╚═════╝ ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝   ╚══════╝
+  ${chalk.dim(`v${version}`)}
 `);
 
 /**

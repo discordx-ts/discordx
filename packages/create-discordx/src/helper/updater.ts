@@ -55,3 +55,5 @@ if (update) {
     })
   );
 }
+
+export default packageJson.version;
