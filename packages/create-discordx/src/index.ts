@@ -189,9 +189,14 @@ if (PackageManager.none === packageManager) {
 }
 
 if (isWin) {
-  console.log("\t> set BOT_TOKEN = REPLACE_THIS_WITH_TOKEN");
+  console.log(chalk.dim("\t> // Command Prompt (CMD)"));
+  console.log("\t> set BOT_TOKEN = REPLACE_THIS_WITH_YOUR_BOT_TOKEN");
+  console.log(chalk.dim("\t> // Powershell"));
+  console.log(
+    '\t> Set-Variable -Name "BOT_TOKEN" -Value "REPLACE_THIS_WITH_YOUR_BOT_TOKEN"'
+  );
 } else {
-  console.log("\t> export BOT_TOKEN = REPLACE_THIS_WITH_TOKEN");
+  console.log("\t> export BOT_TOKEN = REPLACE_THIS_WITH_YOUR_BOT_TOKEN");
 }
 
 if (PackageManager.none === packageManager) {
