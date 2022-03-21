@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 0
 ---
 
-# Errors
+# Common Errors
 
 The most common errors we hear everyday are listed here to help everyone. If you can't find a common error or its solution, please make a pull request or issue.
 
@@ -65,4 +65,4 @@ Error [DISALLOWED_INTENTS]: Privileged intent provided is not enabled or whiteli
 
 Some [Gateway Intents](https://discord.com/developers/docs/topics/gateway#gateway-intents) require approval if your bot is verified. If your bot is not verified, you can toggle those intents to access them. - _Discord_
 
-![Privileged Gateway Intents](../../static/img/privileged-gateway-intents.png))
+![Privileged Gateway Intents](../../../static/img/privileged-gateway-intents.png))

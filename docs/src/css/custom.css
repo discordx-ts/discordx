@@ -12,6 +12,7 @@
 
 :root[data-theme="light"] {
   --ifm-codeblock: #f6f8fa;
+  --ifm-hr-border-color: #00000011;
 
   --ifm-menu-color: #0009;
   --ifm-toc-link-color: #0009;
@@ -31,6 +32,7 @@
 
 :root[data-theme="dark"] {
   --ifm-codeblock: #161b22;
+  --ifm-hr-border-color: #ffffff11;
   --ifm-background-color: #0d1117;
   --ifm-background-surface-color: #161b22;
 
