@@ -25,8 +25,15 @@ body:
       label: Package
       description: Please select the package that the requested feature pertains to.
       options:
-        - discordx
+        - "discordx"
+        - "@discordx/changelog"
+        - "@discordx/di"
+        - "@discordx/importer"
+        - "@discordx/internal"
+        - "@discordx/koa"
+        - "@discordx/lava-player"
         - "@discordx/music"
+        - "@discordx/pagination"
         - "@discordx/utilities"
     validations:
       required: true

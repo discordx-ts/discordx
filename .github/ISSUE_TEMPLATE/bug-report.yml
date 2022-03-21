@@ -35,8 +35,15 @@ body:
       label: Package
       description: Please select the package that the reported issue pertains to.
       options:
-        - discordx
+        - "discordx"
+        - "@discordx/changelog"
+        - "@discordx/di"
+        - "@discordx/importer"
+        - "@discordx/internal"
+        - "@discordx/koa"
+        - "@discordx/lava-player"
         - "@discordx/music"
+        - "@discordx/pagination"
         - "@discordx/utilities"
     validations:
       required: true
@@ -57,7 +64,7 @@ body:
     attributes:
       label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
+      render: Shell
 
   - type: checkboxes
     id: terms
