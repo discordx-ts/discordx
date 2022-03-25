@@ -73,8 +73,8 @@ module.exports = {
               type: "doc",
             },
             {
-              id: "general/tsyringe",
-              label: "TSyringe",
+              id: "general/dependencyInjection",
+              label: "IOC support via DI",
               type: "doc",
             },
           ],

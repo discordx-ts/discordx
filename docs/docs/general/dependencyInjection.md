@@ -1,22 +1,34 @@
-# TSyringe
+# IOC support via DI
 
-TSyringe is A lightweight dependency injection container for TypeScript/JavaScript for constructor injection.
+Discordx supports multiple DI containers to help you efficiently manage and architect large applications that wish to take advantage of an IOC paradigm
 
-If you have a large codebase and are using Tsyringe to inject dependency, Discordx can now utilise the container
+If you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilise the container
 to register each annotated `@Discord()` class!
 
 In order to use your container, there is some small configuration to do in your code
 
 ## Configuration
 
+**Supported DI containers:**
+
+- tsyringe
+- typedi
+
 before you call your `client.login()` method, you must tell Discordx to use your container for its internal Di solution,
 in order to do this, just add the following code anywhere before `client.login()`:
 
-```ts
+```ts title="tsyringe"
 import { container } from "tsyringe";
 import { DIService } from "discordx";
 
 DIService.container = container;
+```
+
+```ts title="typedi"
+import { DIService } from "discordx";
+import { Container } from "typedi";
+
+DIService.container = Container;
 ```
 
 It is recommended to do this in your main class where you define your `new Client()` code; for example:
@@ -44,8 +56,11 @@ start();
 ## Usage
 
 Once you have told Discordx to use your container for DI, it will then register all of your defined `@Discord()` classes
-with the container as singletons. This is the same as declaring a class in tsyringe as `@singleton()` with one SMALL
-caveat; in tsyringe classes declared with `@singleton()` are automatically `@injectable()` but in Discordx you must add
+with the container as singletons. This is the same as declaring a class in tsyringe as `@singleton()` or with typedi `@Service`.
+
+### Note for tsyringe
+
+in tsyringe classes declared with `@singleton()` are automatically `@injectable()` but in Discordx you must add
 this annotation too if you wish your classes to receive constructor injection.
 
 For example, say you have a Database class you wish to inject into your declared `@Discord()` class:
@@ -101,14 +116,19 @@ container for `AppDiscord` you always receive the same instance of the class `co
 If you do not mark the class as `@injectable()` you will get an error thrown from tsyringe telling you where is no
 type info for your class.
 
+For typedi, you do not need to mark your classes, all DI works as expected, along with `@Inject` for props and constructor overrides with other services.
+
 ## Getting all @Discord classes
 
 If for some reason, you wish to get all instances of the `@Discord` classes in your bot, then you can do so with the
 following code example:
 
+**NOTE**: this will constructor all your classes in the DI container, if you wish to lazy-load your singletons, then you can not do this.
+
 ```ts
-import { container, singleton } from "tsyringe";
+import { container } from "tsyringe";
 import { DIService } from "discordx";
+import { Container } from "typedi";
 
 function getAllDiscordClasses(): unknown[] {
   const appClasses = DIService.allServices;
@@ -118,7 +138,12 @@ function getAllDiscordClasses(): unknown[] {
 
   // resolve all classes
   for (const classRef of appClasses) {
+    // tsyringe
     const instance = container.resolve(classRef as constructor<unknown>);
+
+    // typedi
+    const instance = Container.get(classRef as constructor<unknown>);
+
     commandClasses.push(instance);
   }
 
