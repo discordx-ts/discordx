@@ -87,7 +87,7 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 - `client.initApplicationCommands` to create/update/remove discord application commands
 - `client.initApplicationPermissions` to update discord application commands permissions
 - Handler for all discord interactions (slash/button/menu/context)
-- Support TSyringe
+- Support TSyringe nad TypeDI
 - Support ECMAScript
 
 # 🧮 Packages
