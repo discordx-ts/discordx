@@ -54,7 +54,7 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "@discordx/di": "^1.0.2",
+    "@discordx/di": "^2.0.1",
     "@discordx/internal": "^1.0.2",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
