@@ -44,11 +44,11 @@ class ConstructorInjection {
   @Slash("typedi")
   typedi(interaction: CommandInteraction): void {
     if (DIService.container) {
-      const myClass = Container.get(ConstructorInjection);
+      const clazz = Container.get(ConstructorInjection);
       interaction.reply(
-        `${myClass.database.query()}, same class: ${
-          myClass === this
-        } and ${myClass.namedDatabase.query()} comes from "NamedDatabase"`
+        `${clazz.database.query()}, same class: ${
+          clazz === this
+        } and ${clazz.namedDatabase.query()} comes from "NamedDatabase"`
       );
     } else {
       interaction.reply("Not using typedi");
@@ -77,11 +77,11 @@ class PropertyInjectionExample {
   @Slash("typedi_prop_injection")
   typedi(interaction: CommandInteraction): void {
     if (DIService.container && this.namedDatabase && this.database) {
-      const myClass = Container.get(PropertyInjectionExample);
+      const clazz = Container.get(PropertyInjectionExample);
       interaction.reply(
-        `${myClass.database?.query()}, same class: ${
-          myClass === this
-        } and ${myClass.namedDatabase?.query()} comes from "NamedDatabase"`
+        `${clazz.database?.query()}, same class: ${
+          clazz === this
+        } and ${clazz.namedDatabase?.query()} comes from "NamedDatabase"`
       );
     } else {
       interaction.reply("Not using typedi");

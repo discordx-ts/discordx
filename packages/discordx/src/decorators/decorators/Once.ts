@@ -40,9 +40,9 @@ export function Once(
     key: string,
     descriptor: PropertyDescriptor
   ) {
-    const myClass = target as unknown as new () => unknown;
+    const clazz = target as unknown as new () => unknown;
     const on = DOn.create(event, true, options?.botIds).decorate(
-      myClass.constructor,
+      clazz.constructor,
       key,
       descriptor.value
     );

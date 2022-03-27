@@ -9,12 +9,12 @@ export function Router(options?: {
   options?: KoaRouter.RouterOptions;
 }): ClassDecoratorEx {
   return function <T>(target: Record<string, T>) {
-    const myClass = target as unknown as new () => unknown;
+    const clazz = target as unknown as new () => unknown;
     const instance = DRouter.create({
       description: options?.description,
-      name: options?.name ?? myClass.name,
+      name: options?.name ?? clazz.name,
       options: options?.options,
-    }).decorate(myClass, myClass.name);
+    }).decorate(clazz, clazz.name);
     MetadataStorage.instance.addRouter(instance);
   };
 }

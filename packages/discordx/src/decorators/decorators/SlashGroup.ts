@@ -87,19 +87,19 @@ export function SlashGroup(
         ).decorateUnknown(target, key, descriptor)
       );
     } else {
-      const myClass = target as unknown as new () => unknown;
+      const clazz = target as unknown as new () => unknown;
       if (options.root) {
         MetadataStorage.instance.addApplicationCommandSlashSubGroups(
           DApplicationCommandGroup.create<DApplicationCommandOption>(
             options.name,
             { description: options.description }
-          ).decorate(myClass, myClass.name)
+          ).decorate(clazz, clazz.name)
         );
       } else {
         MetadataStorage.instance.addApplicationCommandSlashGroups(
           DApplicationCommandGroup.create<DApplicationCommand>(options.name, {
             description: options.description,
-          }).decorate(myClass, key ?? myClass.name)
+          }).decorate(clazz, key ?? clazz.name)
         );
       }
     }

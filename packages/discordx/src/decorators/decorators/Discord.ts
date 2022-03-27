@@ -12,11 +12,8 @@ import { DDiscord, MetadataStorage } from "../../index.js";
  */
 export function Discord(): ClassDecoratorEx {
   return function <T>(target: Record<string, T>) {
-    const myClass = target as unknown as new () => unknown;
-    const instance = DDiscord.create(myClass.name).decorate(
-      myClass,
-      myClass.name
-    );
+    const clazz = target as unknown as new () => unknown;
+    const instance = DDiscord.create(clazz.name).decorate(clazz, clazz.name);
     MetadataStorage.instance.addDiscord(instance);
   };
 }

@@ -96,11 +96,11 @@ class Example {
   private tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
       // resolve class
-      const myClass = container.resolve(AppDiscord);
+      const clazz = container.resolve(AppDiscord);
 
       // respond with class test
       interaction.reply(
-        `${myClass._database.query()}, same class: ${myClass === this}`
+        `${clazz._database.query()}, same class: ${clazz === this}`
       );
     } else {
       // warn: TSyringe is not used

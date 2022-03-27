@@ -41,31 +41,31 @@ export class DIService {
   }
 
   addService<T>(classType: T): void {
-    const myClass = classType as unknown as new () => InstanceOf<T>;
-    DIService._ServiceSet.add(myClass);
+    const clazz = classType as unknown as new () => InstanceOf<T>;
+    DIService._ServiceSet.add(clazz);
 
     if (DIService.container) {
       if (this.isTsyringe(DIService.container)) {
-        DIService.container.registerSingleton(myClass);
+        DIService.container.registerSingleton(clazz);
       } else {
         /*
           TypeDI classes MUST use @Service(), setting it on the container ONLY apply to tokenization, this is BY design.
           we call the decorator directly here.
          */
-        Service()(myClass);
+        Service()(clazz);
       }
     } else {
-      const instance = new myClass();
-      this._services.set(myClass, instance);
+      const instance = new clazz();
+      this._services.set(clazz, instance);
     }
   }
 
   getService<T>(classType: T): InstanceOf<T> {
-    const myClass = classType as unknown as new () => InstanceOf<T>;
+    const clazz = classType as unknown as new () => InstanceOf<T>;
 
     if (DIService.container) {
       if (this.isTsyringe(DIService.container)) {
-        return DIService.container.resolve(myClass);
+        return DIService.container.resolve(clazz);
       }
       return DIService.container.get(classType);
     }

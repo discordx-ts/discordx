@@ -28,9 +28,9 @@ class AppDiscord {
   @Slash("tsyringe")
   tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
-      const myClass = container.resolve(AppDiscord);
+      const clazz = container.resolve(AppDiscord);
       interaction.reply(
-        `${myClass.database.query()}, same class: ${myClass === this}`
+        `${clazz.database.query()}, same class: ${clazz === this}`
       );
     } else {
       interaction.reply("Not using tsyringe");
