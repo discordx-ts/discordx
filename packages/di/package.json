@@ -24,7 +24,8 @@
   },
   "license": "Apache-2.0",
   "contributors": [
-    "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
+    "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)",
+    "Victorique Blois <loli@victorique.moe> (https://github.com/VictoriqueMoe)"
   ],
   "exports": {
     ".": {
@@ -50,7 +51,8 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "tsyringe": "^4.6.0"
+    "tsyringe": "^4.6.0",
+    "typedi": "^0.10.0"
   },
   "devDependencies": {
     "typescript": "^4.6.3"

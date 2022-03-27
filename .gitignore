@@ -12,6 +12,7 @@ build
 .env.test.local
 .env.production.local
 .vscode/settings.json
+.idea/**
 
 package-lock.json
 pnpm-lock.yaml
