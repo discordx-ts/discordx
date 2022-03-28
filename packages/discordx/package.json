@@ -25,8 +25,8 @@
   },
   "license": "Apache-2.0",
   "contributors": [
-    "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)",
-    "Owen Calvin <owen.gombas@gmail.com> (https://github.com/OwenCalvin)"
+    "Owen Calvin <owen.gombas@gmail.com> (https://github.com/OwenCalvin)",
+    "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
   ],
   "exports": {
     ".": {
