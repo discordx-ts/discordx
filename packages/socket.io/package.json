@@ -2,7 +2,7 @@
   "name": "@discordx/socket.io",
   "version": "0.0.0",
   "private": false,
-  "description": "Use decorators with socket.io and Tsyringe",
+  "description": "Use decorators with socket.io with IOC",
   "keywords": [
     "socket.io",
     "api",

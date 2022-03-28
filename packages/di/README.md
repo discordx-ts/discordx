@@ -38,7 +38,7 @@
 
 # 📖 Introduction
 
-Dependency injection service with TSyringe and typedi support.
+Dependency injection service with TSyringe and TypeDI support.
 
 # 💻 Installation
 

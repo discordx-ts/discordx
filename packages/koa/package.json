@@ -2,7 +2,7 @@
   "name": "@discordx/koa",
   "version": "0.0.0",
   "private": false,
-  "description": "Use decorators with Koa and Tsyringe",
+  "description": "Use decorators with Koa with IOC",
   "keywords": [
     "koa",
     "api",

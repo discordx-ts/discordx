@@ -6,7 +6,7 @@ import { Container } from "typedi";
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client, DIService } from "../../src/index.js";
 
-// initialize typedi container
+// initialize TypeDI container
 // it's important that this is done before calling client.login
 DIService.container = Container;
 

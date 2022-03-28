@@ -11,20 +11,20 @@ In order to use your container, there is some small configuration to do in your 
 
 **Supported DI containers:**
 
-- tsyringe
-- typedi
+- TSyringe
+- TypeDi
 
 before you call your `client.login()` method, you must tell Discordx to use your container for its internal Di solution,
 in order to do this, just add the following code anywhere before `client.login()`:
 
-```ts title="tsyringe"
+```ts title="TSyringe"
 import { container } from "tsyringe";
 import { DIService } from "discordx";
 
 DIService.container = container;
 ```
 
-```ts title="typedi"
+```ts title="TypeDi"
 import { DIService } from "discordx";
 import { Container } from "typedi";
 
@@ -56,11 +56,11 @@ start();
 ## Usage
 
 Once you have told Discordx to use your container for DI, it will then register all of your defined `@Discord()` classes
-with the container as singletons. This is the same as declaring a class in tsyringe as `@singleton()` or with typedi `@Service`.
+with the container as singletons. This is the same as declaring a class in TSyringe as `@singleton()` or with TypeDI `@Service`.
 
-### Note for tsyringe
+### Note for TSyringe
 
-in tsyringe classes declared with `@singleton()` are automatically `@injectable()` but in Discordx you must add
+In TSyringe classes declared with `@singleton()` are automatically `@injectable()` but in Discordx you must add
 this annotation too if you wish your classes to receive constructor injection.
 
 For example, say you have a Database class you wish to inject into your declared `@Discord()` class:
@@ -113,10 +113,10 @@ class Example {
 when running the above code, your `database` will be injected into your `AppDiscord` class and when you ask your
 container for `AppDiscord` you always receive the same instance of the class `container.resolve(AppDiscord);`
 
-If you do not mark the class as `@injectable()` you will get an error thrown from tsyringe telling you where is no
+If you do not mark the class as `@injectable()` you will get an error thrown from TSyringe telling you where is no
 type info for your class.
 
-For typedi, you do not need to mark your classes, all DI works as expected, along with `@Inject` for props and constructor overrides with other services.
+For TypeDI, you do not need to mark your classes, all DI works as expected, along with `@Inject` for props and constructor overrides with other services.
 
 ## Getting all @Discord classes
 
@@ -138,10 +138,10 @@ function getAllDiscordClasses(): unknown[] {
 
   // resolve all classes
   for (const classRef of appClasses) {
-    // tsyringe
+    // TSyringe
     const instance = container.resolve(classRef as constructor<unknown>);
 
-    // typedi
+    // TypeDI
     const instance = Container.get(classRef as constructor<unknown>);
 
     commandClasses.push(instance);

@@ -51,7 +51,7 @@ class ConstructorInjection {
         } and ${clazz.namedDatabase.query()} comes from "NamedDatabase"`
       );
     } else {
-      interaction.reply("Not using typedi");
+      interaction.reply("Not using TypeDI");
     }
   }
 
@@ -60,7 +60,7 @@ class ConstructorInjection {
     if (DIService.container) {
       interaction.reply(this.database.query());
     } else {
-      interaction.reply("Not using typedi");
+      interaction.reply("Not using TypeDI");
     }
   }
 }
@@ -84,7 +84,7 @@ class PropertyInjectionExample {
         } and ${clazz.namedDatabase?.query()} comes from "NamedDatabase"`
       );
     } else {
-      interaction.reply("Not using typedi");
+      interaction.reply("Not using TypeDI");
     }
   }
   @Slash("typedi_prop_injection")
@@ -94,7 +94,7 @@ class PropertyInjectionExample {
         interaction.reply(this.database.query());
       }
     } else {
-      interaction.reply("Not using typedi");
+      interaction.reply("Not using TypeDI");
     }
   }
 }
