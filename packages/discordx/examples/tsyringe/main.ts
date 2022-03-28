@@ -6,7 +6,7 @@ import { container } from "tsyringe";
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client, DIService } from "../../src/index.js";
 
-// initialize tsyringe container
+// initialize TSyringe container
 // it's important, this done before calling bot.login
 DIService.container = container;
 

@@ -33,7 +33,7 @@ class AppDiscord {
         `${clazz.database.query()}, same class: ${clazz === this}`
       );
     } else {
-      interaction.reply("Not using tsyringe");
+      interaction.reply("Not using TSyringe");
     }
   }
 
@@ -42,7 +42,7 @@ class AppDiscord {
     if (DIService.container) {
       interaction.reply(this.database.query());
     } else {
-      interaction.reply("Not using tsyringe");
+      interaction.reply("Not using TSyringe");
     }
   }
 }
