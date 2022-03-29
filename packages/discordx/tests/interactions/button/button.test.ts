@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { Interaction } from "discord.js";
+import { ButtonInteraction, Interaction } from "discord.js";
 
-import { ButtonComponent, Client, Discord } from "../../../src/index.js";
+import { ButtonComponent, Client, Discord, Guard } from "../../../src/index.js";
 import { FakeInteraction, InteractionType } from "../../interaction.js";
 
 /*
@@ -11,8 +11,21 @@ import { FakeInteraction, InteractionType } from "../../interaction.js";
 @Discord()
 export abstract class AppDiscord {
   @ButtonComponent("hello")
-  handler(): unknown {
-    return [":wave:"];
+  @Guard((params, client, next, data) => {
+    data.passed = true;
+    return next();
+  })
+  handler(
+    interaction: ButtonInteraction,
+    client: Client,
+    data: { passed: boolean }
+  ): unknown {
+    return [":wave:", data.passed];
+  }
+
+  @ButtonComponent("hello")
+  handler2(): unknown {
+    return [":shake:", undefined];
   }
 }
 
@@ -46,6 +59,9 @@ describe("Button", () => {
       interaction as unknown as Interaction
     );
 
-    expect(res).toEqual([[":wave:"]]);
+    expect(res).toEqual([
+      [":wave:", true],
+      [":shake:", undefined],
+    ]);
   });
 });
