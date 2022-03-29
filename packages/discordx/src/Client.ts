@@ -1106,7 +1106,7 @@ export class Client extends ClientJS {
     const applicationCommand = this.getApplicationCommandFromTree(tree);
 
     if (!applicationCommand || !applicationCommand.isBotAllowed(this.botId)) {
-      if (log ?? this.silent) {
+      if (log ?? !this.silent) {
         this.logger.log(
           `${
             this.user?.username ?? this.botId
@@ -1148,7 +1148,7 @@ export class Client extends ClientJS {
     components: readonly DComponent[],
     interaction: ButtonInteraction | SelectMenuInteraction,
     log?: boolean
-  ): Promise<void> {
+  ): Promise<unknown> {
     const executes = components.filter((comp) =>
       comp.isId(interaction.customId)
     );
@@ -1160,10 +1160,9 @@ export class Client extends ClientJS {
           !component.isBotAllowed(this.botId) ||
           !(await component.isGuildAllowed(this, interaction.guildId))
         ) {
-          return false;
+          return undefined;
         } else {
-          await component.execute(this.guards, interaction, this);
-          return true;
+          return component.execute(this.guards, interaction, this);
         }
       })
     );
@@ -1177,6 +1176,8 @@ export class Client extends ClientJS {
         } | customId: ${interaction.customId}`
       );
     }
+
+    return results;
   }
 
   /**

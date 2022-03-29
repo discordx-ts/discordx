@@ -97,19 +97,25 @@ export enum InteractionType {
 }
 
 export type FakeInteractionOption = {
-  commandName: string;
-  options: FakeOption[];
+  commandName?: string;
+  customId?: string;
+  guildId?: string;
+  options?: FakeOption[];
   type: InteractionType;
 };
 
 export class FakeInteraction {
-  commandName: string;
+  commandName?: string;
+  customId?: string;
   options: SlashOptionResolver;
   type: InteractionType;
+  guildId?: string;
 
   constructor(options: FakeInteractionOption) {
     this.commandName = options.commandName;
-    this.options = new SlashOptionResolver(options.options);
+    this.customId = options.customId;
+    this.guildId = options.guildId;
+    this.options = new SlashOptionResolver(options.options ?? []);
     this.type = options.type;
   }
 
