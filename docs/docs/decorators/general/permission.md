@@ -12,6 +12,12 @@ From discord developer docs:
 For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will not be hidden.
 :::
 
+## Supported with
+
+- [@ContextMenu](../gui/context-menu)
+- [@SimpleCommand](../commands/simple-command)
+- [@Slash](../commands/slash)
+
 ## Setup permissions
 
 You can decorate your method with one or more @Permission decorators.

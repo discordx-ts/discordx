@@ -2,6 +2,18 @@
 
 bot decorator help you manage multiple bot's in single node instance
 
+## Supported with
+
+- [@ButtonComponent](../gui/button-component)
+- [@ContextMenu](../gui/context-menu)
+- [@On](./on)
+- [@Once](./once)
+- [@SelectMenuComponent](../gui/select-menu-component)
+- [@SimpleCommand](../commands/simple-command)
+- [@Slash](../commands/slash)
+
+## Example
+
 ```ts
 @Discord()
 @Bot("alex", "zoe") // Define which bot can run the following commands or events
