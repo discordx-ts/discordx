@@ -302,7 +302,7 @@ export class Client extends ClientJS {
 
     this.logger.log("client >> Events");
     if (this.events.length) {
-      this.events.map((event) => {
+      this.events.forEach((event) => {
         const eventName = event.event;
         this.logger.log(
           `>> ${eventName} (${event.classRef.name}.${event.key})`
@@ -310,6 +310,47 @@ export class Client extends ClientJS {
       });
     } else {
       this.logger.log("\tNo events detected");
+    }
+
+    this.logger.log("");
+
+    this.logger.log("client >> buttons");
+
+    if (this.buttonComponents.length) {
+      this.buttonComponents.forEach((btn) => {
+        this.logger.log(`>> ${btn.id} (${btn.classRef.name}.${btn.key})`);
+      });
+    } else {
+      this.logger.log("\tNo buttons detected");
+    }
+
+    this.logger.log("");
+
+    this.logger.log("client >> select menu's");
+
+    if (this.selectMenuComponents.length) {
+      this.selectMenuComponents.forEach((menu) => {
+        this.logger.log(`>> ${menu.id} (${menu.classRef.name}.${menu.key})`);
+      });
+    } else {
+      this.logger.log("\tNo select menu detected");
+    }
+
+    this.logger.log("client >> context menu's");
+
+    const contexts = [
+      ...this.applicationCommandUsers,
+      ...this.applicationCommandMessages,
+    ];
+
+    if (contexts.length) {
+      contexts.forEach((menu) => {
+        this.logger.log(
+          `>> ${menu.name} (${menu.type}) (${menu.classRef.name}.${menu.key})`
+        );
+      });
+    } else {
+      this.logger.log("\tNo context menu detected");
     }
 
     this.logger.log("");
