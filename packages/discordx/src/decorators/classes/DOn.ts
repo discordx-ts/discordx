@@ -47,6 +47,14 @@ export class DOn extends Method {
     return new DOn(event, once, botIds);
   }
 
+  isBotAllowed(botId: string): boolean {
+    if (!this.botIds.length) {
+      return true;
+    }
+
+    return this.botIds.includes(botId);
+  }
+
   parseParams(): never[] {
     return [];
   }

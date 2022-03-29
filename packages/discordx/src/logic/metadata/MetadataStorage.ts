@@ -541,15 +541,16 @@ export class MetadataStorage {
 
     return async (...params: ArgsOf<Event>) => {
       await Promise.all(
-        eventsToExecute.map(async (on) => {
-          const botIds = on.botIds;
-          if (botIds.length && !botIds.includes(client.botId)) {
+        eventsToExecute.map(async (ev) => {
+          if (!ev.isBotAllowed(client.botId)) {
             return;
           }
-          const res = await on.execute(guards, params, client);
+
+          const res = await ev.execute(guards, params, client);
           responses.push(res);
         })
       );
+
       return responses;
     };
   }
