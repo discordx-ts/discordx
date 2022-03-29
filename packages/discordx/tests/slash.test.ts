@@ -10,7 +10,6 @@ import {
   VoiceChannel,
 } from "discord.js";
 
-import type { SlashOptionType } from "../build/cjs/index.js";
 import {
   Client,
   Discord,
@@ -21,7 +20,8 @@ import {
   SlashChoice,
   SlashGroup,
   SlashOption,
-} from "../build/cjs/index.js";
+} from "../src/index.js";
+import { FakeInteraction, FakeOption, InteractionType } from "./interaction.js";
 
 type Data = { passed: boolean };
 enum TextChoices {
@@ -223,114 +223,6 @@ const client = new Client({ intents: [] });
 beforeAll(async () => {
   await client.build();
 });
-
-class FakeOption {
-  name: string;
-  type: SlashOptionType;
-  options: FakeOption[] | undefined;
-  value: string | number;
-
-  constructor(
-    name: string,
-    type: SlashOptionType,
-    value: string | number,
-    options?: FakeOption[]
-  ) {
-    this.type = type;
-    this.name = name;
-    this.options = options || undefined;
-    this.value = value;
-  }
-}
-
-class SlashOptionResolver {
-  data: FakeOption[];
-
-  constructor(options: FakeOption[]) {
-    this.data = options;
-  }
-
-  getLastNestedOption(options: readonly FakeOption[]): readonly FakeOption[] {
-    const arrOptions = options;
-
-    if (!arrOptions?.[0]?.options) {
-      return arrOptions;
-    }
-
-    return this.getLastNestedOption(arrOptions?.[0].options);
-  }
-
-  get(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getString(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getBoolean(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getNumber(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getInteger(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getRole(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getChannel(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getMentionable(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getMember(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-  getUser(name: string) {
-    const options = this.getLastNestedOption(this.data);
-    return options.find((op) => op.name === name)?.value;
-  }
-}
-
-class FakeInteraction {
-  commandName: string;
-  options: SlashOptionResolver;
-
-  constructor(commandName: string, options: FakeOption[]) {
-    this.commandName = commandName;
-    this.options = new SlashOptionResolver(options);
-  }
-
-  isCommand() {
-    return true;
-  }
-
-  isButton() {
-    return false;
-  }
-
-  isContextMenu() {
-    return false;
-  }
-
-  isSelectMenu() {
-    return false;
-  }
-
-  isAutocomplete() {
-    return false;
-  }
-}
 
 describe("Slash", () => {
   it("Should create the slash structure", async () => {
@@ -577,9 +469,11 @@ describe("Slash", () => {
   });
 
   it("Should execute the simple slash", async () => {
-    const interaction = new FakeInteraction("hello", [
-      new FakeOption("text", "STRING", "hello"),
-    ]);
+    const interaction = new FakeInteraction({
+      commandName: "hello",
+      options: [new FakeOption("text", "STRING", "hello")],
+      type: InteractionType.Command,
+    });
 
     const res = await client.executeInteraction(
       interaction as unknown as Interaction
@@ -588,12 +482,16 @@ describe("Slash", () => {
   });
 
   it("Should execute the simple grouped text slash", async () => {
-    const interaction = new FakeInteraction("testing", [
-      new FakeOption("hello", "SUB_COMMAND", "text", [
-        new FakeOption("text", "STRING", "testing hello text"),
-        new FakeOption("text2", "STRING", "testing hello text2"),
-      ]),
-    ]);
+    const interaction = new FakeInteraction({
+      commandName: "testing",
+      options: [
+        new FakeOption("hello", "SUB_COMMAND", "text", [
+          new FakeOption("text", "STRING", "testing hello text"),
+          new FakeOption("text2", "STRING", "testing hello text2"),
+        ]),
+      ],
+      type: InteractionType.Command,
+    });
 
     const res = await client.executeInteraction(
       interaction as unknown as Interaction
@@ -608,13 +506,17 @@ describe("Slash", () => {
   });
 
   it("Should execute the simple subgrouped text slash", async () => {
-    const interaction = new FakeInteraction("testing", [
-      new FakeOption("text", "SUB_COMMAND_GROUP", "text", [
-        new FakeOption("hello", "SUB_COMMAND", "text", [
-          new FakeOption("text", "STRING", "testing text hello"),
+    const interaction = new FakeInteraction({
+      commandName: "testing",
+      options: [
+        new FakeOption("text", "SUB_COMMAND_GROUP", "text", [
+          new FakeOption("hello", "SUB_COMMAND", "text", [
+            new FakeOption("text", "STRING", "testing text hello"),
+          ]),
         ]),
-      ]),
-    ]);
+      ],
+      type: InteractionType.Command,
+    });
 
     const res = await client.executeInteraction(
       interaction as unknown as Interaction
@@ -628,14 +530,18 @@ describe("Slash", () => {
   });
 
   it("Should execute the simple subgrouped multiply slash", async () => {
-    const interaction = new FakeInteraction("testing", [
-      new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-        new FakeOption("multiply", "SUB_COMMAND", "text", [
-          new FakeOption("x", "NUMBER", 2),
-          new FakeOption("y", "NUMBER", 5),
+    const interaction = new FakeInteraction({
+      commandName: "testing",
+      options: [
+        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
+          new FakeOption("multiply", "SUB_COMMAND", "text", [
+            new FakeOption("x", "NUMBER", 2),
+            new FakeOption("y", "NUMBER", 5),
+          ]),
         ]),
-      ]),
-    ]);
+      ],
+      type: InteractionType.Command,
+    });
 
     const res = await client.executeInteraction(
       interaction as unknown as Interaction
@@ -644,14 +550,18 @@ describe("Slash", () => {
   });
 
   it("Should execute the simple subgrouped addition slash", async () => {
-    const interaction = new FakeInteraction("testing", [
-      new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-        new FakeOption("add", "SUB_COMMAND", "text", [
-          new FakeOption("x", "NUMBER", 2),
-          new FakeOption("y", "NUMBER", 5),
+    const interaction = new FakeInteraction({
+      commandName: "testing",
+      options: [
+        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
+          new FakeOption("add", "SUB_COMMAND", "text", [
+            new FakeOption("x", "NUMBER", 2),
+            new FakeOption("y", "NUMBER", 5),
+          ]),
         ]),
-      ]),
-    ]);
+      ],
+      type: InteractionType.Command,
+    });
 
     const res = await client.executeInteraction(
       interaction as unknown as Interaction
@@ -660,7 +570,11 @@ describe("Slash", () => {
   });
 
   it("Should execute the with optional option", async () => {
-    const interaction = new FakeInteraction("hello", []);
+    const interaction = new FakeInteraction({
+      commandName: "hello",
+      options: [],
+      type: InteractionType.Command,
+    });
 
     const res = await client.executeInteraction(
       interaction as unknown as Interaction
@@ -669,14 +583,18 @@ describe("Slash", () => {
   });
 
   it("Should not execute not found slash", async () => {
-    const interaction = new FakeInteraction("testing", [
-      new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-        new FakeOption("notfound", "SUB_COMMAND", "text", [
-          new FakeOption("x", "NUMBER", 2),
-          new FakeOption("y", "NUMBER", 5),
+    const interaction = new FakeInteraction({
+      commandName: "testing",
+      options: [
+        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
+          new FakeOption("notfound", "SUB_COMMAND", "text", [
+            new FakeOption("x", "NUMBER", 2),
+            new FakeOption("y", "NUMBER", 5),
+          ]),
         ]),
-      ]),
-    ]);
+      ],
+      type: InteractionType.Command,
+    });
 
     const res = await client.executeInteraction(
       interaction as unknown as Interaction

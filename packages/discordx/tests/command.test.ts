@@ -1,6 +1,6 @@
 import type { Message } from "discord.js";
 
-import type { SimpleCommandMessage } from "../build/cjs/index.js";
+import type { SimpleCommandMessage } from "../src/index.js";
 import {
   Client,
   Discord,
@@ -9,7 +9,7 @@ import {
   Permission,
   SimpleCommand,
   SimpleCommandOption,
-} from "../build/cjs/index.js";
+} from "../src/index.js";
 
 type Data = { passed: boolean };
 
