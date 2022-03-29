@@ -85,6 +85,10 @@ export class DComponent extends Method {
 
     const guilds = await this.getGuilds(client);
 
+    if (!guilds.length) {
+      return true;
+    }
+
     return guilds.includes(guildId);
   }
 

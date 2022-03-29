@@ -191,6 +191,10 @@ export class DSimpleCommand extends Method {
 
     const guilds = await this.getGuilds(client, command);
 
+    if (!guilds.length) {
+      return true;
+    }
+
     return guilds.includes(guildId);
   }
 

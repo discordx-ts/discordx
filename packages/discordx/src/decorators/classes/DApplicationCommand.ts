@@ -178,6 +178,10 @@ export class DApplicationCommand extends Method {
 
     const guilds = await this.getGuilds(client);
 
+    if (!guilds.length) {
+      return true;
+    }
+
     return guilds.includes(guildId);
   }
 
