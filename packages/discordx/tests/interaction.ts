@@ -89,11 +89,11 @@ export class SlashOptionResolver {
 }
 
 export enum InteractionType {
-  Command,
+  AutoComplete,
   Button,
+  Command,
   ContextMenu,
   SelectMenu,
-  AutoComplete,
 }
 
 export type FakeInteractionOption = {
