@@ -49,7 +49,7 @@
     "tar": "^6.1.11",
     "typescript": "^4.6.3",
     "update-check": "^1.5.4",
-    "validate-npm-package-name": "^3.0.0"
+    "validate-npm-package-name": "^4.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
