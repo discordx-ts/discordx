@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - "docs/docs/**"
+      - "docs/**"
     branches:
       - main
 
@@ -27,7 +27,3 @@ jobs:
       - name: Build docs
         run: npm run build
         working-directory: ./docs
-
-      - name: Add CNAME
-        run: echo discord-ts.js.org > CNAME
-        working-directory: ./docs/build
