@@ -126,9 +126,9 @@ There is a whole system that allows you to implement complex slash/simple comman
 ## Commands
 
 - [`@Slash`](https://discord-ts.js.org/docs/decorators/commands/slash)
-- [`@SlashChoice`](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
-- [`@SlashGroup`](https://discord-ts.js.org/docs/decorators/commands/slashgroup)
-- [`@SlashOption`](https://discord-ts.js.org/docs/decorators/commands/slashoption)
+- [`@SlashChoice`](https://discord-ts.js.org/docs/decorators/commands/slash-choice)
+- [`@SlashGroup`](https://discord-ts.js.org/docs/decorators/commands/slash-group)
+- [`@SlashOption`](https://discord-ts.js.org/docs/decorators/commands/slash-option)
 - [`@SimpleCommand`](https://discord-ts.js.org/docs/decorators/commands/simple-command)
 - [`@SimpleCommandOption`](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
 
