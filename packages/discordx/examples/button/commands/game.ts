@@ -75,9 +75,12 @@ export abstract class RockPaperScissors {
       "What could be more fun than play Rock Paper Scissors with a bot?",
   })
   private async RPS(
-    @SlashChoice(RPSChoice.Paper)
-    @SlashChoice(RPSChoice.Rock)
-    @SlashChoice(RPSChoice.Scissors)
+    @SlashChoice(
+      ...Object.keys(RPSChoice).map((key) => ({
+        name: key,
+        value: RPSChoice[key as keyof typeof RPSChoice],
+      }))
+    )
     @SlashOption("choice", {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
