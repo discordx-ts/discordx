@@ -1,12 +1,39 @@
 # Stage
 
+# [v9.5.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.5.0) (2022-04-01)
+
+## Breaking Changes
+
+- improvement to slash choice ([#611](https://github.com/oceanroleplay/discord.ts/issues/611)) ([440897](https://github.com/oceanroleplay/discord.ts/commit/4408978e94fe1b73540ee06b5b2452030a2bd590))
+
+## Features
+
+- added support for typedi and unified the docs ([#598](https://github.com/oceanroleplay/discord.ts/issues/598)) ([ea8edb](https://github.com/oceanroleplay/discord.ts/commit/ea8edb99974fc8c1604c333283272e893460777b))
+
+## Changed
+
+- rename myClass with clazz ([98b15b](https://github.com/oceanroleplay/discord.ts/commit/98b15bc4638591cb945060d402f8d5d1eb9606f1))
+- improve pagination error ([351abd](https://github.com/oceanroleplay/discord.ts/commit/351abd4b1a20858950542cb1fcb78094a98420a6))
+
+## Fixed
+
+- typo typedi ([0e7784](https://github.com/oceanroleplay/discord.ts/commit/0e7784f679434fae581726fcc90f13f9543e3bd6))
+
 ## Documentation
 
+- add supported decorators list ([b38a5e](https://github.com/oceanroleplay/discord.ts/commit/b38a5ea4050a2147bd7d95f786ad73dbc002a057))
+- faq ([7a04b8](https://github.com/oceanroleplay/discord.ts/commit/7a04b8ee354444b0fc778dd034ce86d2759e69ab))
+- add privilege error ([2b773f](https://github.com/oceanroleplay/discord.ts/commit/2b773fd3790fa22cbde9adba91b7f0bd93c24b5c))
 - update slash option ([5bd63d](https://github.com/oceanroleplay/discord.ts/commit/5bd63de54a59937644276b86d0dda1d467d8b9d7))
 - rename example classes ([3724ad](https://github.com/oceanroleplay/discord.ts/commit/3724ad074e1649e64af5cfff8020c0c3a93dc979))
 - typo ([81fab1](https://github.com/oceanroleplay/discord.ts/commit/81fab1ad139b9bf24ee5dee43ea7fc9251564daf))
 - update class name ([9ffd57](https://github.com/oceanroleplay/discord.ts/commit/9ffd5762918abddfe87eb2b9de69dc84b0510a96))
 - update signature ([9a50a7](https://github.com/oceanroleplay/discord.ts/commit/9a50a785703f2875792aff2b34729fc863543a8e))
+
+## Routine Tasks
+
+- update powershell env syntax ([94328d](https://github.com/oceanroleplay/discord.ts/commit/94328d73b6751f8222ce71f148670705c301fbed))
+- update powershell env command ([eb05a2](https://github.com/oceanroleplay/discord.ts/commit/eb05a238a2509cc87a3b89f4bf8323a62605a966))
 
 # [v9.4.1](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.4.1) (2022-03-04)
 

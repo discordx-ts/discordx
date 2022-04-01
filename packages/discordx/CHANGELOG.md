@@ -1,5 +1,24 @@
 # Stage
 
+# [v9.5.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.5.0) (2022-04-01)
+
+## Breaking Changes
+
+- improvement to slash choice ([#611](https://github.com/oceanroleplay/discord.ts/issues/611)) ([440897](https://github.com/oceanroleplay/discord.ts/commit/4408978e94fe1b73540ee06b5b2452030a2bd590))
+
+## Changed
+
+- add button tests ([a56ee4](https://github.com/oceanroleplay/discord.ts/commit/a56ee40f121922ef629f3112dafbede903db25d3))
+- add isBotAllowed on event ([6f7856](https://github.com/oceanroleplay/discord.ts/commit/6f78567e4edf16be815a28ad0dee5e39a688b02e))
+- log buttons/select menu/context menu ([e32b2d](https://github.com/oceanroleplay/discord.ts/commit/e32b2dac031d5bdd7beb1813945681d50b1caa23))
+- rename myClass with clazz ([98b15b](https://github.com/oceanroleplay/discord.ts/commit/98b15bc4638591cb945060d402f8d5d1eb9606f1))
+- execute multiple component handlers ([#580](https://github.com/oceanroleplay/discord.ts/issues/580)) ([3cd7e0](https://github.com/oceanroleplay/discord.ts/commit/3cd7e04b25c1cff3fd489e2671694be2b40c2f8f))
+- guild check ([#579](https://github.com/oceanroleplay/discord.ts/issues/579)) ([1ef0fd](https://github.com/oceanroleplay/discord.ts/commit/1ef0fd6457ba2b268df482a96a9652047b42ddec))
+
+## Fixed
+
+- isGuildAllowed ([98d7c7](https://github.com/oceanroleplay/discord.ts/commit/98d7c782fbc4a8417a0ac264dab31cd6229b4ce0))
+
 ## Documentation
 
 - typo ([81fab1](https://github.com/oceanroleplay/discord.ts/commit/81fab1ad139b9bf24ee5dee43ea7fc9251564daf))
