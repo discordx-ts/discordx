@@ -1,6 +1,10 @@
 import { DIService } from "@discordx/di";
 import type { Decorator } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} from "discord.js";
 import _ from "lodash";
 
 import type { Method } from "../../decorators/classes/Method.js";
@@ -41,6 +45,7 @@ export class MetadataStorage {
   // custom Handlers
   private _buttonComponents: Array<DComponent> = [];
   private _selectMenuComponents: Array<DComponent> = [];
+  private _modalComponents: Array<DComponent> = [];
 
   // simple command
   private _simpleCommands: Array<DSimpleCommand> = [];
@@ -169,6 +174,10 @@ export class MetadataStorage {
     return this._selectMenuComponents;
   }
 
+  get modalComponents(): readonly DComponent[] {
+    return this._modalComponents;
+  }
+
   private get discordMembers(): readonly Method[] {
     return [
       ...this._applicationCommandSlashes,
@@ -178,6 +187,7 @@ export class MetadataStorage {
       ...this._events,
       ...this._buttonComponents,
       ...this._selectMenuComponents,
+      ...this._modalComponents,
     ];
   }
 
@@ -231,6 +241,10 @@ export class MetadataStorage {
 
   addComponentSelectMenu(selectMenu: DComponent): void {
     this._selectMenuComponents.push(selectMenu);
+  }
+
+  addComponentModal(selectMenu: DComponent): void {
+    this._modalComponents.push(selectMenu);
   }
 
   addGuard(guard: DGuard): void {
@@ -291,37 +305,50 @@ export class MetadataStorage {
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandSlashes
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandSlashOptions
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandMessages
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandUsers
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._simpleCommands
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._simpleCommandOptions
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._buttonComponents
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._selectMenuComponents
+    );
+
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._modalComponents
     );
 
     this._applicationCommandSlashesFlat = this._applicationCommandSlashes;
@@ -403,7 +430,7 @@ export class MetadataStorage {
     this._applicationCommandSlashGroups.forEach((group) => {
       const slashParent = DApplicationCommand.create(
         group.name,
-        "CHAT_INPUT",
+        ApplicationCommandType.ChatInput,
         group.infos?.description
       ).decorate(group.classRef, group.key, group.method);
 
@@ -469,7 +496,7 @@ export class MetadataStorage {
         undefined,
         undefined,
         undefined,
-        "SUB_COMMAND_GROUP"
+        ApplicationCommandOptionType.SubcommandGroup
       ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup

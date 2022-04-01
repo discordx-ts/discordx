@@ -20,6 +20,7 @@ export class DDiscord extends Decorator {
   private _guards: DGuard[] = [];
   private _buttonComponents: DComponent[] = [];
   private _selectMenuComponents: DComponent[] = [];
+  private _modalComponents: DComponent[] = [];
   private _applicationCommands: DApplicationCommand[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
   private _events: DOn[] = [];
@@ -103,6 +104,13 @@ export class DDiscord extends Decorator {
   }
   set selectMenus(value: DComponent[]) {
     this._selectMenuComponents = value;
+  }
+
+  get modal(): DComponent[] {
+    return this._modalComponents;
+  }
+  set modal(value: DComponent[]) {
+    this._modalComponents = value;
   }
 
   get events(): DOn[] {

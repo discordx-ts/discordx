@@ -1,5 +1,13 @@
-import type { CommandInteraction } from "discord.js";
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import type {
+  CommandInteraction,
+  MessageActionRowComponentBuilder,
+} from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
@@ -52,7 +60,7 @@ export abstract class Example {
         interaction.deleteReply();
       },
       start: {
-        emoji: "🙂",
+        emoji: { name: "🙂" },
       },
       time: 5 * 1000,
       type: PaginationType.Button,
@@ -87,20 +95,20 @@ export abstract class Example {
       },
       {
         content: "Page 2",
-        embeds: [new MessageEmbed({ title: "It's me embed 2" })],
+        embeds: [new EmbedBuilder({ title: "It's me embed 2" })],
       },
       {
         components: [
-          new MessageActionRow().addComponents([
-            new MessageButton({
+          new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+            new ButtonBuilder({
               customId: "myCustomId",
               label: "My Custom Button",
-              style: "PRIMARY",
-            }),
-          ]),
+              style: ButtonStyle.Primary,
+            })
+          ),
         ],
         content: "Page 3",
-        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
+        embeds: [new EmbedBuilder({ title: "It's me embed 3" })],
       },
     ]).send();
   }

@@ -5,6 +5,11 @@ import type {
   Role,
   User,
 } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandPermissionType,
+  ChannelType,
+} from "discord.js";
 
 import {
   DefaultPermissionResolver,
@@ -28,7 +33,7 @@ export abstract class AppDiscord {
   @Permission({
     id: "462341082919731200",
     permission: true,
-    type: "USER",
+    type: ApplicationCommandPermissionType.User,
   })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Permission(async (guild, cmd): Promise<ApplicationCommandPermissions[]> => {
@@ -44,14 +49,18 @@ export abstract class AppDiscord {
       {
         id: "462341082919731200",
         permission: true,
-        type: "USER",
+        type: ApplicationCommandPermissionType.User,
       },
     ];
   })
   voiceChannel(
     @SlashOption("channel", {
-      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
-      type: "CHANNEL",
+      channelTypes: [
+        ChannelType.GuildCategory,
+        ChannelType.GuildVoice,
+        ChannelType.GuildText,
+      ],
+      type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction

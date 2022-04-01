@@ -1,5 +1,5 @@
 import type {
-  BaseCommandInteraction,
+  CommandInteraction,
   MessageComponentInteraction,
 } from "discord.js";
 import type { GuardFunction } from "discordx";
@@ -25,7 +25,7 @@ export function RateLimit(
   value: number,
   message = "message being rate limited!",
   rateValue = 1
-): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> {
+): GuardFunction<CommandInteraction | SimpleCommandMessage> {
   function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
       case TIME_UNIT.seconds:
@@ -45,7 +45,7 @@ export function RateLimit(
   const _timer = new TimedSet<TimeOutEntry>(millisecond);
 
   async function replyOrFollowUp(
-    interaction: BaseCommandInteraction | MessageComponentInteraction,
+    interaction: CommandInteraction | MessageComponentInteraction,
     content: string,
     ephemeral = false
   ): Promise<void> {
@@ -79,7 +79,7 @@ export function RateLimit(
   }
 
   async function post(
-    arg: BaseCommandInteraction | SimpleCommandMessage,
+    arg: CommandInteraction | SimpleCommandMessage,
     msg: string
   ): Promise<void> {
     if (arg instanceof SimpleCommandMessage) {

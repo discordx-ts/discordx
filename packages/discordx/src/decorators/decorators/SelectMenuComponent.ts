@@ -8,7 +8,7 @@ import type { NotEmpty } from "../../types/index.js";
  * Interact with select menu with a defined identifier
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */
@@ -20,7 +20,7 @@ export function SelectMenuComponent(): MethodDecoratorEx;
  * @param id - Select menu identifier
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */
@@ -34,7 +34,7 @@ export function SelectMenuComponent<T extends string>(
  * @param id - Select menu identifier
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */
@@ -47,7 +47,7 @@ export function SelectMenuComponent(id: RegExp): MethodDecoratorEx;
  * @param options - Options for the select menu
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */
@@ -63,7 +63,7 @@ export function SelectMenuComponent<T extends string>(
  * @param options - Options for the select menu
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/selectmenucomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */

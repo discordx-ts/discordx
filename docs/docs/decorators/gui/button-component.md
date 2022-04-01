@@ -16,14 +16,17 @@ class Example {
     await interaction.deferReply();
 
     // Create the button, giving it the id: "hello-btn"
-    const helloBtn = new MessageButton()
+    const helloBtn = new ButtonBuilder()
       .setLabel("Hello")
-      .setEmoji("👋")
-      .setStyle("PRIMARY")
+      .setEmoji({ name: "👋" })
+      .setStyle(ButtonStyle.Primary)
       .setCustomId("hello-btn");
 
-    // Create a MessageActionRow and add the button to that row.
-    const row = new MessageActionRow().addComponents(helloBtn);
+    // Create a row and add the button to that row.
+    const row =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        helloBtn
+      );
 
     interaction.editReply({
       content: "Say hello to bot",

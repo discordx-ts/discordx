@@ -1,11 +1,11 @@
 import { Decorator } from "@discordx/internal";
+import type { ChannelType } from "discord.js";
+import { ApplicationCommandOptionType } from "discord.js";
 
 import type {
   ApplicationCommandOptionDataX,
-  ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
-  SlashOptionType,
 } from "../../index.js";
 
 /**
@@ -13,7 +13,7 @@ import type {
  */
 export class DApplicationCommandOption extends Decorator {
   private _autocomplete: SlashAutoCompleteOption;
-  private _channelTypes: ChannelTypes[] | undefined = undefined;
+  private _channelTypes: ChannelType[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
   private _name: string;
@@ -21,10 +21,13 @@ export class DApplicationCommandOption extends Decorator {
   private _minValue?: number;
   private _options: DApplicationCommandOption[] = [];
   private _required = true;
-  private _type: SlashOptionType;
+  private _type: ApplicationCommandOptionType;
 
   get isNode(): boolean {
-    return this.type === "SUB_COMMAND" || this.type === "SUB_COMMAND_GROUP";
+    return (
+      this.type === ApplicationCommandOptionType.Subcommand ||
+      this.type === ApplicationCommandOptionType.SubcommandGroup
+    );
   }
 
   get options(): DApplicationCommandOption[] {
@@ -34,10 +37,10 @@ export class DApplicationCommandOption extends Decorator {
     this._options = value;
   }
 
-  get channelTypes(): ChannelTypes[] | undefined {
+  get channelTypes(): ChannelType[] | undefined {
     return this._channelTypes;
   }
-  set channelTypes(value: ChannelTypes[] | undefined) {
+  set channelTypes(value: ChannelType[] | undefined) {
     this._channelTypes = value;
   }
 
@@ -62,10 +65,10 @@ export class DApplicationCommandOption extends Decorator {
     this._minValue = value;
   }
 
-  get type(): SlashOptionType {
+  get type(): ApplicationCommandOptionType {
     return this._type;
   }
-  set type(value: SlashOptionType) {
+  set type(value: ApplicationCommandOptionType) {
     this._type = value;
   }
 
@@ -96,41 +99,41 @@ export class DApplicationCommandOption extends Decorator {
   set choices(value: DApplicationCommandOptionChoice[]) {
     this._choices = value;
   }
+
   protected constructor(
     name: string,
     autocomplete?: SlashAutoCompleteOption,
-    channelType?: ChannelTypes[],
+    channelType?: ChannelType[],
     description?: string,
     index?: number,
     maxValue?: number,
     minValue?: number,
     required?: boolean,
-    type?: SlashOptionType
+    type?: ApplicationCommandOptionType
   ) {
     super();
 
     this._name = name;
     this._autocomplete = autocomplete;
     this._channelTypes = channelType?.sort();
-    this._description =
-      description ?? `${name} - ${type ?? "STRING"}`.toLowerCase();
+    this._description = description ?? name.toLocaleLowerCase();
     this._index = index;
     this._maxValue = maxValue;
     this._minValue = minValue;
     this._required = required ?? true;
-    this._type = type ?? "STRING";
+    this._type = type ?? ApplicationCommandOptionType.String;
   }
 
   static create(
     name: string,
     autocomplete?: SlashAutoCompleteOption,
-    channelType?: ChannelTypes[],
+    channelType?: ChannelType[],
     description?: string,
     index?: number,
     maxValue?: number,
     minValue?: number,
     required?: boolean,
-    type?: SlashOptionType
+    type?: ApplicationCommandOptionType
   ): DApplicationCommandOption {
     return new DApplicationCommandOption(
       name,

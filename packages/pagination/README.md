@@ -69,7 +69,7 @@ import {
   PaginationType,
 } from "@discordx/pagination";
 import type { CommandInteraction, MessageOptions } from "discord.js";
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, EmbedBuilder } from "discord.js";
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
@@ -162,20 +162,22 @@ export abstract class Example {
       },
       {
         content: "Page 2",
-        embeds: [new MessageEmbed({ title: "It's me embed 2" })],
+        embeds: [new EmbedBuilder({ title: "It's me embed 2" })],
       },
       {
         components: [
-          new MessageActionRow().addComponents([
-            new MessageButton({
-              customId: "myCustomId",
-              label: "My Custom Button",
-              style: "PRIMARY",
-            }),
-          ]),
+          new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+            [
+              new ButtonBuilder({
+                customId: "myCustomId",
+                label: "My Custom Button",
+                style: "PRIMARY",
+              }),
+            ]
+          ),
         ],
         content: "Page 3",
-        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
+        embeds: [new EmbedBuilder({ title: "It's me embed 3" })],
       },
     ]).send();
   }

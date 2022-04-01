@@ -12,12 +12,12 @@ Here are some example screenshots:
 ```ts
 @Discord()
 class Example {
-  @ContextMenu("MESSAGE", "message context")
+  @ContextMenu(ApplicationCommandType.Message, "message context")
   async messageHandler(interaction: MessageContextMenuInteraction) {
     console.log("I am message");
   }
 
-  @ContextMenu("USER", "user context")
+  @ContextMenu(ApplicationCommandType.User, "user context")
   async userHandler(interaction: UserContextMenuInteraction) {
     console.log("I am user");
   }
@@ -28,7 +28,7 @@ class Example {
 
 ```ts
 ContextMenu(
-  type: "USER" | "MESSAGE",
+  type: ApplicationCommandType,
   name?: string,
   options?: ApplicationCommandParams
 )
@@ -40,9 +40,9 @@ ContextMenu(
 
 Context menu type.
 
-| type            | default | required |
-| --------------- | ------- | -------- |
-| USER \| MESSAGE |         | Yes      |
+| type                   | default | required |
+| ---------------------- | ------- | -------- |
+| ApplicationCommandType |         | Yes      |
 
 ### name
 

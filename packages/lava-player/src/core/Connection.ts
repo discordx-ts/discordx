@@ -31,7 +31,7 @@ export default class Connection<T extends BaseNode = BaseNode> {
   public resumeKey?: string;
 
   public ws!: WebSocket;
-  public reconnectTimeout = 100; // TODO: remove in next major version
+  public reconnectTimeout = 100;
 
   private _backoff!: backoff.Backoff;
 

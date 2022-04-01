@@ -135,8 +135,9 @@ There is a whole system that allows you to implement complex slash/simple comman
 ## GUI Interactions
 
 - [`@ButtonComponent`](https://discord-ts.js.org/docs/decorators/gui/button-component)
-- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
 - [`@ContextMenu`](https://discord-ts.js.org/docs/decorators/gui/context-menu)
+- [`@ModalComponent`](https://discord-ts.js.org/docs/decorators/gui/modal-component)
+- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
 
 # 📟 [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash)
 
@@ -168,13 +169,16 @@ Create discord button handler with ease!
 class Example {
   @Slash("hello")
   hello(interaction: CommandInteraction) {
-    const helloBtn = new MessageButton()
+    const helloBtn = new ButtonBuilder()
       .setLabel("Hello")
       .setEmoji("👋")
       .setStyle("PRIMARY")
       .setCustomId("hello-btn");
 
-    const row = new MessageActionRow().addComponents(helloBtn);
+    const row =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        helloBtn
+      );
 
     interaction.reply({
       content: "Say hello to bot",
@@ -225,12 +229,15 @@ class Example {
     await interaction.deferReply();
 
     // create menu for roles
-    const menu = new MessageSelectMenu()
+    const menu = new SelectMenuBuilder()
       .addOptions(roles)
       .setCustomId("role-menu");
 
     // create a row for message actions
-    const buttonRow = new MessageActionRow().addComponents(menu);
+    const buttonRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        menu
+      );
 
     // send it
     interaction.editReply({

@@ -1,15 +1,16 @@
 import type {
+  ActionRowBuilder,
+  ButtonStyle,
   CommandInteraction,
-  ContextMenuInteraction,
-  EmojiIdentifierResolvable,
-  InteractionButtonOptions,
-  InteractionReplyOptions,
+  ContextMenuCommandInteraction,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
+  MessageActionRowComponentBuilder,
   MessageComponentInteraction,
-  MessageEmbed,
   MessageOptions,
+  ReplyMessageOptions,
 } from "discord.js";
+import type { APIMessageComponentEmoji } from "discord-api-types/v9";
 
 // By default, it's half an hour.
 export const defaultTime = 18e5;
@@ -26,12 +27,12 @@ export const defaultIds = {
   menu: prefixId + "menu",
 };
 
-export type PaginationItem = string | MessageEmbed | MessageOptions;
+export type PaginationItem = string | EmbedBuilder | MessageOptions;
 
 export type PaginationInteractions =
   | CommandInteraction
   | MessageComponentInteraction
-  | ContextMenuInteraction;
+  | ContextMenuCommandInteraction;
 
 export enum SelectMenuPageId {
   Start = -1,
@@ -80,7 +81,7 @@ interface ButtonOptions {
   /**
    * Button emoji
    */
-  emoji?: EmojiIdentifierResolvable;
+  emoji?: APIMessageComponentEmoji;
 
   /**
    * Button id
@@ -95,7 +96,7 @@ interface ButtonOptions {
   /**
    * Button style
    */
-  style?: InteractionButtonOptions["style"];
+  style?: ButtonStyle;
 }
 
 interface ButtonPaginationOptions extends BasicPaginationOptions {
@@ -179,6 +180,6 @@ export interface IPaginate {
 }
 
 export type IGeneratePage = {
-  newMessage: InteractionReplyOptions;
-  paginationRow: MessageActionRow;
+  newMessage: Omit<ReplyMessageOptions, "flags">;
+  paginationRow: ActionRowBuilder<MessageActionRowComponentBuilder>;
 };

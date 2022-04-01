@@ -1,5 +1,5 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
-import type { ApplicationCommandType } from "discord.js";
+import { ApplicationCommandType } from "discord.js";
 
 import type { ApplicationCommandOptions } from "../../index.js";
 import { DApplicationCommand, MetadataStorage } from "../../index.js";
@@ -11,12 +11,12 @@ import type { NotEmpty } from "../../types/index.js";
  * @param type - Context menu type
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
  *
  * @category Decorator
  */
 export function ContextMenu(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>
 ): MethodDecoratorEx;
 
 /**
@@ -26,12 +26,12 @@ export function ContextMenu(
  * @param name - Context menu name
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
  *
  * @category Decorator
  */
 export function ContextMenu<T extends string>(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
   name: NotEmpty<T>
 ): MethodDecoratorEx;
 
@@ -43,18 +43,18 @@ export function ContextMenu<T extends string>(
  * @param options - Options for the context menu
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
  *
  * @category Decorator
  */
 export function ContextMenu<T extends string>(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
   name: NotEmpty<T>,
   options: Omit<ApplicationCommandOptions, "description">
 ): MethodDecoratorEx;
 
 export function ContextMenu(
-  type: Exclude<ApplicationCommandType, "CHAT_INPUT">,
+  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
   name?: string,
   options?: Omit<ApplicationCommandOptions, "description">
 ): MethodDecoratorEx {
@@ -70,7 +70,7 @@ export function ContextMenu(
       options?.botIds
     ).decorate(target.constructor, key, target[key]);
 
-    if (type == "MESSAGE") {
+    if (type == ApplicationCommandType.Message) {
       MetadataStorage.instance.addApplicationCommandMessage(applicationCommand);
     } else {
       MetadataStorage.instance.addApplicationCommandUser(applicationCommand);

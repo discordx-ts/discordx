@@ -9,6 +9,7 @@ The order of execution of the guards is done according to their position in the 
 - [@ButtonComponent](../gui/button-component)
 - [@ContextMenu](../gui/context-menu)
 - [@Discord](./discord)
+- [@ModalComponent](../gui/modal-component)
 - [@On](./on)
 - [@Once](./once)
 - [@SelectMenuComponent](../gui/select-menu-component)
@@ -269,6 +270,8 @@ It either extends or overwrites data configured in below decorators, however, th
 [@ButtonComponent](/docs/decorators/gui/button-component)
 
 [@SelectMenuComponent](/docs/decorators/gui/select-menu-component)
+
+[@ModalComponent](/docs/decorators/gui/modal-component)
 
 [@Discord](/docs/decorators/general/discord)
 

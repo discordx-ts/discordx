@@ -1,11 +1,12 @@
 import type {
   CacheType,
   InteractionCollector,
+  MessagePayload,
   TextBasedChannel,
 } from "discord.js";
 import {
   CommandInteraction,
-  ContextMenuInteraction,
+  ContextMenuCommandInteraction,
   Interaction,
   Message,
   MessageComponentInteraction,
@@ -126,7 +127,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     } else if (
       this.sendTo instanceof CommandInteraction ||
       this.sendTo instanceof MessageComponentInteraction ||
-      this.sendTo instanceof ContextMenuInteraction
+      this.sendTo instanceof ContextMenuCommandInteraction
     ) {
       // To ensure pagination is a follow-up
       if (this.sendTo.deferred || this.sendTo.replied) {
@@ -285,7 +286,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
             await this.sendTo.editReply(finalPage.newMessage);
           }
         } else {
-          await message.edit(finalPage.newMessage);
+          await message.edit(finalPage.newMessage as unknown as MessagePayload);
         }
       }
 
