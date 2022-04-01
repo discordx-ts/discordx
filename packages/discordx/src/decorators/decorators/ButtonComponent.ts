@@ -8,7 +8,7 @@ import type { NotEmpty } from "../../types/index.js";
  * Interact with buttons with a defined identifier
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/button-component)
  *
  * @category Decorator
  */
@@ -20,7 +20,7 @@ export function ButtonComponent(): MethodDecoratorEx;
  * @param id - Button identifier
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/button-component)
  *
  * @category Decorator
  */
@@ -34,7 +34,7 @@ export function ButtonComponent<T extends string>(
  * @param id - Button identifier
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/button-component)
  *
  * @category Decorator
  */
@@ -47,7 +47,7 @@ export function ButtonComponent(id: RegExp): MethodDecoratorEx;
  * @param options - Options for the button component
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/button-component)
  *
  * @category Decorator
  */
@@ -63,7 +63,7 @@ export function ButtonComponent<T extends string>(
  * @param options - Options for the button component
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/buttoncomponent)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/button-component)
  *
  * @category Decorator
  */

@@ -11,7 +11,7 @@ import type { NotEmpty } from "../../types/index.js";
  * @param type - Context menu type
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
  *
  * @category Decorator
  */
@@ -26,7 +26,7 @@ export function ContextMenu(
  * @param name - Context menu name
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
  *
  * @category Decorator
  */
@@ -43,7 +43,7 @@ export function ContextMenu<T extends string>(
  * @param options - Options for the context menu
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/contextmenu)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
  *
  * @category Decorator
  */

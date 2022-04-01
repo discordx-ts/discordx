@@ -15,7 +15,7 @@ import type { NotEmpty } from "../../types/index.js";
  * @param choices - choices
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash-choice)
  *
  * @category Decorator
  */
@@ -29,7 +29,7 @@ export function SlashChoice<T extends string>(
  * @param choices - choices
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash-choice)
  *
  * @category Decorator
  */
@@ -41,7 +41,7 @@ export function SlashChoice(...choices: number[]): ParameterDecoratorEx;
  * @param choices - choices
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash-choice)
  *
  * @category Decorator
  */
