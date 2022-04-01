@@ -19,7 +19,7 @@ import {
 */
 
 enum TextChoices {
-  "Good Bye" = "GoodBye",
+  "Good Bye" = "Good Bye",
   Hello = "Hello",
 }
 
@@ -28,10 +28,14 @@ export abstract class AppDiscord {
   @Slash()
   hello(
     @SlashChoice(
-      ...Object.keys(TextChoices).map((key) => ({
-        name: key,
-        value: TextChoices[key as keyof typeof TextChoices],
-      }))
+      {
+        name: TextChoices[TextChoices.Hello],
+        value: TextChoices.Hello,
+      },
+      {
+        name: TextChoices[TextChoices["Good Bye"]],
+        value: TextChoices["Good Bye"],
+      }
     )
     @SlashOption("choice")
     choice: TextChoices,
@@ -91,12 +95,12 @@ describe("Choice", () => {
           {
             choices: [
               {
-                name: "Good Bye",
-                value: "GoodBye",
-              },
-              {
                 name: "Hello",
                 value: "Hello",
+              },
+              {
+                name: "Good Bye",
+                value: "GoodBye",
               },
             ],
             description: "choice - string",

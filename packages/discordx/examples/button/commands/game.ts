@@ -76,10 +76,18 @@ export abstract class RockPaperScissors {
   })
   private async RPS(
     @SlashChoice(
-      ...Object.keys(RPSChoice).map((key) => ({
-        name: key,
-        value: RPSChoice[key as keyof typeof RPSChoice],
-      }))
+      {
+        name: RPSChoice[RPSChoice.Rock] ?? "unknown",
+        value: RPSChoice.Rock,
+      },
+      {
+        name: RPSChoice[RPSChoice.Paper] ?? "unknown",
+        value: RPSChoice.Paper,
+      },
+      {
+        name: RPSChoice[RPSChoice.Scissors] ?? "unknown",
+        value: RPSChoice.Scissors,
+      }
     )
     @SlashOption("choice", {
       description:

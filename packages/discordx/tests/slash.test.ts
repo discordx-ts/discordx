@@ -25,7 +25,7 @@ import { FakeInteraction, FakeOption, InteractionType } from "./interaction.js";
 
 type Data = { passed: boolean };
 enum TextChoices {
-  "Good Bye" = "GoodBye",
+  "Good Bye" = "Good Bye",
   Hello = "Hello",
 }
 
@@ -79,10 +79,14 @@ export abstract class AppDiscord {
   @SlashGroup("text", "testing")
   hello(
     @SlashChoice(
-      ...Object.keys(TextChoices).map((key) => ({
-        name: key,
-        value: TextChoices[key as keyof typeof TextChoices],
-      }))
+      {
+        name: TextChoices[TextChoices.Hello],
+        value: TextChoices.Hello,
+      },
+      {
+        name: TextChoices[TextChoices["Good Bye"]],
+        value: TextChoices["Good Bye"],
+      }
     )
     @SlashOption("text")
     text: TextChoices,
@@ -400,8 +404,8 @@ describe("Slash", () => {
                 options: [
                   {
                     choices: [
-                      { name: "Good Bye", value: "GoodBye" },
                       { name: "Hello", value: "Hello" },
+                      { name: "Good Bye", value: "Good Bye" },
                     ],
                     description: "text - string",
                     name: "text",

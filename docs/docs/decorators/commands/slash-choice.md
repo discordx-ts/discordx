@@ -40,7 +40,7 @@ class Example {
 enum TextChoices {
   // WhatDiscordShows = value
   Hello = "Hello",
-  "Good Bye" = "GoodBye",
+  "Good Bye" = "Good Bye",
 }
 
 // Could be
@@ -54,12 +54,15 @@ class Example {
   @Slash("hello")
   hello(
     @SlashChoice(
-      ...Object.keys(TextChoices).map((key) => ({
-        name: key,
-        value: TextChoices[key as keyof typeof TextChoices],
-      }))
+      {
+        name: TextChoices[TextChoices.Hello],
+        value: TextChoices.Hello,
+      },
+      {
+        name: TextChoices[TextChoices["Good Bye"]],
+        value: TextChoices["Good Bye"],
+      }
     )
-    @SlashChoice(TextChoices)
     @SlashChoice({ name: "How are you", value: "hay" })
     @SlashOption("text")
     text: string,
