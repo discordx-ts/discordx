@@ -43,12 +43,6 @@ enum TextChoices {
   "Good Bye" = "Good Bye",
 }
 
-// Could be
-// const textChoices = {
-//   Hello: "Hello",
-//   ["Good Bye"]: "GoodBye"
-// }
-
 @Discord()
 class Example {
   @Slash("hello")

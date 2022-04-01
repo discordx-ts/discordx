@@ -100,7 +100,7 @@ describe("Choice", () => {
               },
               {
                 name: "Good Bye",
-                value: "GoodBye",
+                value: "Good Bye",
               },
             ],
             description: "choice - string",
