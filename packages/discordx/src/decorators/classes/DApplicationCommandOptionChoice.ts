@@ -1,6 +1,8 @@
 import { Decorator } from "@discordx/internal";
 import type { ApplicationCommandOptionChoice } from "discord.js";
 
+import type { SlashChoiceType } from "../../types/index.js";
+
 /**
  * @category Decorator
  */
@@ -28,11 +30,11 @@ export class DApplicationCommandOptionChoice extends Decorator {
     this._value = value;
   }
 
-  static create(
-    name: string,
-    value: string | number
-  ): DApplicationCommandOptionChoice {
-    return new DApplicationCommandOptionChoice(name, value);
+  static create(data: SlashChoiceType): DApplicationCommandOptionChoice {
+    return new DApplicationCommandOptionChoice(
+      data.name,
+      data.value ?? data.name
+    );
   }
 
   toJSON(): ApplicationCommandOptionChoice {

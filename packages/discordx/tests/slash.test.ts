@@ -78,7 +78,12 @@ export abstract class AppDiscord {
   @Slash("hello")
   @SlashGroup("text", "testing")
   hello(
-    @SlashChoice(TextChoices)
+    @SlashChoice(
+      ...Object.keys(TextChoices).map((key) => ({
+        name: key,
+        value: TextChoices[key as keyof typeof TextChoices],
+      }))
+    )
     @SlashOption("text")
     text: TextChoices,
     interaction: CommandInteraction,
