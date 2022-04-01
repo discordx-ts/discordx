@@ -1,5 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { CommandInteraction, Interaction } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  CommandInteraction,
+  Interaction,
+} from "discord.js";
 
 import {
   Client,
@@ -181,7 +185,9 @@ describe("Choice", () => {
   it("Should execute the enum choice interaction", async () => {
     const interaction = new FakeInteraction({
       commandName: "hello",
-      options: [new FakeOption("choice", "STRING", "hello")],
+      options: [
+        new FakeOption("choice", ApplicationCommandOptionType.String, "hello"),
+      ],
       type: InteractionType.Command,
     });
 
@@ -195,7 +201,9 @@ describe("Choice", () => {
   it("Should execute the string choice interaction", async () => {
     const interaction = new FakeInteraction({
       commandName: "string",
-      options: [new FakeOption("choice", "STRING", "B")],
+      options: [
+        new FakeOption("choice", ApplicationCommandOptionType.String, "B"),
+      ],
       type: InteractionType.Command,
     });
 
@@ -209,7 +217,9 @@ describe("Choice", () => {
   it("Should execute the number choice interaction", async () => {
     const interaction = new FakeInteraction({
       commandName: "number",
-      options: [new FakeOption("choice", "NUMBER", 3)],
+      options: [
+        new FakeOption("choice", ApplicationCommandOptionType.String, 3),
+      ],
       type: InteractionType.Command,
     });
 
