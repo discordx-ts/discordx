@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ClientEvents } from "discord.js";
 
-import type { Client, Next } from "../../index.js";
+import type { Client, Next, NotEmpty } from "../../index.js";
 
 /**
  * Type the arguments of an event
@@ -84,7 +84,10 @@ export type EventOptions = {
 /**
  * Slash choice type
  */
-export type SlashChoiceType = Record<string, string | number>;
+export type SlashChoiceType<T extends string = string, X = string | number> = {
+  name: NotEmpty<T>;
+  value?: X;
+};
 
 /**
  * Slash option types

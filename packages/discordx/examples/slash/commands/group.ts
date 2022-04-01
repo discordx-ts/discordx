@@ -1,17 +1,6 @@
 import type { CommandInteraction, GuildMember, Role, User } from "discord.js";
 
-import {
-  Discord,
-  Slash,
-  SlashChoice,
-  SlashGroup,
-  SlashOption,
-} from "../../../src/index.js";
-
-enum TextChoices {
-  "Good Bye" = "GoodBye",
-  Hello = "Hello",
-}
+import { Discord, Slash, SlashGroup, SlashOption } from "../../../src/index.js";
 
 @Discord()
 @SlashGroup({ name: "testing" })
@@ -61,18 +50,5 @@ export abstract class Group {
     interaction: CommandInteraction
   ): void {
     interaction.reply(String(x * y));
-  }
-
-  @Slash("hello")
-  @SlashGroup("text", "testing")
-  hello(
-    @SlashChoice(TextChoices)
-    @SlashOption("text", {
-      type: "STRING",
-    })
-    text: TextChoices,
-    interaction: CommandInteraction
-  ): void {
-    interaction.reply(text);
   }
 }

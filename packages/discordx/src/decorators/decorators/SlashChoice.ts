@@ -1,17 +1,18 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
-import type { NotEmpty, SlashChoiceType } from "../../index.js";
+import type { SlashChoiceType } from "../../index.js";
 import {
   DApplicationCommandOption,
   DApplicationCommandOptionChoice,
   MetadataStorage,
 } from "../../index.js";
+import type { NotEmpty } from "../../types/index.js";
 
 /**
  * The slash command option can implement autocompletion for string and number types
  *
- * @param name - Choice name/value
+ * @param choices - choices
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
@@ -19,78 +20,53 @@ import {
  * @category Decorator
  */
 export function SlashChoice<T extends string>(
-  name: NotEmpty<T>
+  ...choices: NotEmpty<T>[]
 ): ParameterDecoratorEx;
 
 /**
  * The slash command option can implement autocompletion for string and number types
  *
- * @param name - Choice name/value
+ * @param choices - choices
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
  *
  * @category Decorator
  */
-export function SlashChoice(name: number): ParameterDecoratorEx;
+export function SlashChoice(...choices: number[]): ParameterDecoratorEx;
 
 /**
  * The slash command option can implement autocompletion for string and number types
  *
- * @param name - Choice name
- * @param value - Choice value
+ * @param choices - choices
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
  *
  * @category Decorator
  */
-export function SlashChoice<T extends string>(
-  name: NotEmpty<T>,
-  value: number
+export function SlashChoice<T extends string, X = string | number>(
+  ...choices: SlashChoiceType<T, X>[]
 ): ParameterDecoratorEx;
-
-/**
- * The slash command option can implement autocompletion for string and number types
- *
- * @param name - Choice name
- * @param value - Choice value
- * ___
- *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slashchoice)
- *
- * @category Decorator
- */
-export function SlashChoice<T extends string, V extends string>(
-  name: NotEmpty<T>,
-  value: NotEmpty<V>
-): ParameterDecoratorEx;
-export function SlashChoice(choices: SlashChoiceType): ParameterDecoratorEx;
 
 export function SlashChoice(
-  name: string | SlashChoiceType | number,
-  value?: string | number
+  ...choices: (number | string | SlashChoiceType)[]
 ): ParameterDecoratorEx {
   return function <T>(target: Record<string, T>, key: string, index: number) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommandOption>((original) => {
-        if (typeof name === "string" || typeof name === "number") {
-          original.choices = [
-            ...original.choices,
-            DApplicationCommandOptionChoice.create(
-              name.toString(),
-              value ? value : name
-            ),
-          ];
-        } else {
-          const allChoices = Object.keys(name).map((subKey) => {
-            return DApplicationCommandOptionChoice.create(
-              subKey,
-              name[subKey] ?? "undefined"
-            );
-          });
-          original.choices = [...original.choices, ...allChoices];
-        }
+        const allChoices = choices.map((choice) => {
+          const resolveChoice =
+            typeof choice === "number"
+              ? { name: choice.toString(), value: choice }
+              : typeof choice === "string"
+              ? { name: choice, value: choice }
+              : choice;
+
+          return DApplicationCommandOptionChoice.create(resolveChoice);
+        });
+
+        original.choices = [...allChoices, ...original.choices];
       }, DApplicationCommandOption).decorate(
         target.constructor,
         key,

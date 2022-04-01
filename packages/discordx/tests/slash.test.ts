@@ -25,7 +25,7 @@ import { FakeInteraction, FakeOption, InteractionType } from "./interaction.js";
 
 type Data = { passed: boolean };
 enum TextChoices {
-  "Good Bye" = "GoodBye",
+  "Good Bye" = "Good Bye",
   Hello = "Hello",
 }
 
@@ -78,7 +78,16 @@ export abstract class AppDiscord {
   @Slash("hello")
   @SlashGroup("text", "testing")
   hello(
-    @SlashChoice(TextChoices)
+    @SlashChoice(
+      {
+        name: TextChoices[TextChoices.Hello],
+        value: TextChoices.Hello,
+      },
+      {
+        name: TextChoices[TextChoices["Good Bye"]],
+        value: TextChoices["Good Bye"],
+      }
+    )
     @SlashOption("text")
     text: TextChoices,
     interaction: CommandInteraction,
@@ -395,8 +404,8 @@ describe("Slash", () => {
                 options: [
                   {
                     choices: [
-                      { name: "Good Bye", value: "GoodBye" },
                       { name: "Hello", value: "Hello" },
+                      { name: "Good Bye", value: "Good Bye" },
                     ],
                     description: "text - string",
                     name: "text",
