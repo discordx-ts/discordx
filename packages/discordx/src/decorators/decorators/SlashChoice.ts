@@ -66,7 +66,7 @@ export function SlashChoice(
           return DApplicationCommandOptionChoice.create(resolveChoice);
         });
 
-        original.choices = [...original.choices, ...allChoices];
+        original.choices = [...allChoices, ...original.choices];
       }, DApplicationCommandOption).decorate(
         target.constructor,
         key,

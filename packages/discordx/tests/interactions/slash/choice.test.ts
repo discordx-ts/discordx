@@ -42,8 +42,8 @@ export abstract class AppDiscord {
 
   @Slash()
   number(
-    @SlashChoice(2, 3, 4)
     @SlashChoice<string, number>({ name: "1", value: 1 })
+    @SlashChoice(2, 3, 4)
     @SlashOption("choice")
     choice: number,
     interaction: CommandInteraction
@@ -53,8 +53,8 @@ export abstract class AppDiscord {
 
   @Slash()
   string(
-    @SlashChoice("B", "C", "D")
     @SlashChoice({ name: "A", value: "A" })
+    @SlashChoice("B", "C", "D")
     @SlashOption("choice")
     choice: string,
     interaction: CommandInteraction
