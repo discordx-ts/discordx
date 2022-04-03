@@ -294,7 +294,7 @@ export class Client extends ClientJS {
    */
   printDebug(): void {
     if (!this.instance.isBuilt) {
-      this.logger.log(
+      this.logger.error(
         "Build the app before running this method with client.build()"
       );
       return;
@@ -520,7 +520,7 @@ export class Client extends ClientJS {
 
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
-      this.logger.log(
+      this.logger.error(
         `${
           this.user?.username ?? this.botId
         } >> initGuildApplicationCommands: guild unavailable: ${guildId}`
@@ -651,7 +651,7 @@ export class Client extends ClientJS {
 
       str += "\n";
 
-      this.logger.log(str);
+      this.logger.info(str);
     }
 
     const addOperation = options?.disable?.add
@@ -773,7 +773,7 @@ export class Client extends ClientJS {
 
         str += "\n";
 
-        this.logger.log(str);
+        this.logger.info(str);
       }
 
       // Only available for Guilds
@@ -831,7 +831,7 @@ export class Client extends ClientJS {
   ): Promise<void> {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
-      this.logger.log(
+      this.logger.error(
         `${
           this.user?.username ?? this.botId
         } >> initGuildApplicationPermissions: guild unavailable: ${guildId}`
@@ -866,7 +866,7 @@ export class Client extends ClientJS {
 
             if (!_.isEqual(permissions, commandPermissions)) {
               if (log ?? !this.silent) {
-                this.logger.log(
+                this.logger.info(
                   `${this.user?.username ?? this.botId} >> command: ${
                     cmd.name
                   } >> permissions >> updating >> guild: #${guild}`
@@ -893,7 +893,7 @@ export class Client extends ClientJS {
             );
 
             if (log ?? !this.silent) {
-              this.logger.log(
+              this.logger.info(
                 `${this.user?.username ?? this.botId} >> command: ${
                   cmd.name
                 } >> permissions >> adding >> guild: #${guild}`
@@ -1061,7 +1061,7 @@ export class Client extends ClientJS {
   ): Awaited<unknown> {
     if (!interaction) {
       if (log ?? !this.silent) {
-        this.logger.log(
+        this.logger.error(
           `${this.user?.username ?? this.botId} >> interaction is undefined`
         );
       }
@@ -1107,7 +1107,7 @@ export class Client extends ClientJS {
 
     if (!applicationCommand || !applicationCommand.isBotAllowed(this.botId)) {
       if (log ?? !this.silent) {
-        this.logger.log(
+        this.logger.error(
           `${
             this.user?.username ?? this.botId
           } >> interaction not found, commandName: ${interaction.commandName}`
@@ -1168,7 +1168,7 @@ export class Client extends ClientJS {
     );
 
     if ((log ?? !this.silent) && !results.some((res) => res)) {
-      this.logger.log(
+      this.logger.error(
         `${this.user?.username ?? this.botId} >> ${
           interaction.isButton() ? "button" : "select menu"
         } component handler not found, interactionId: ${
@@ -1206,7 +1206,7 @@ export class Client extends ClientJS {
       !(await applicationCommand.isGuildAllowed(this, interaction.guildId))
     ) {
       if (log ?? !this.silent) {
-        this.logger.log(
+        this.logger.error(
           `${
             this.user?.username ?? this.botId
           } >> context interaction not found, name: ${interaction.commandName}`
@@ -1324,7 +1324,7 @@ export class Client extends ClientJS {
   ): Promise<unknown> {
     if (!message) {
       if (options?.log ?? !this.silent) {
-        this.logger.log(
+        this.logger.error(
           `${
             this.user?.username ?? this.botId
           } >> executeCommand >> message is undefined`
@@ -1336,7 +1336,7 @@ export class Client extends ClientJS {
     const prefix = await this.getMessagePrefix(message);
     if (!prefix) {
       if (options?.log ?? !this.silent) {
-        this.logger.log(
+        this.logger.error(
           `${
             this.user?.username ?? this.botId
           } >> executeCommand >> command prefix not found`
