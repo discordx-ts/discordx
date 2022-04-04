@@ -11,8 +11,7 @@
     "javascript",
     "bot",
     "music",
-    "youtube",
-    "spotify"
+    "youtube"
   ],
   "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/lava-player#readme",
   "bugs": {

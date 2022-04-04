@@ -1,5 +1,13 @@
 # Stage
 
+## Changed
+
+- use proper logger method ([#613](https://github.com/oceanroleplay/discord.ts/issues/613)) ([1628e5](https://github.com/oceanroleplay/discord.ts/commit/1628e5a5740bc9d62f0da159a3dd7efda729a37c))
+
+## Fixed
+
+- broken links ([0c9054](https://github.com/oceanroleplay/discord.ts/commit/0c9054ac20766386b8eddffd20f143fe19d1c497))
+
 # [v9.5.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.5.0) (2022-04-01)
 
 ## Breaking Changes

@@ -38,7 +38,7 @@
 
 # 📖 Introduction
 
-A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube/spotify songs and playlist.
+A powerful discord music library written in [TypeScript](https://www.typescriptlang.org) for [Node.js](https://nodejs.org). Support youtube links.
 
 # 💻 Installation
 
@@ -94,17 +94,6 @@ if (!status) {
   interaction.followUp("The playlist could not be found");
 } else {
   interaction.followUp("playing requested playlist");
-}
-```
-
-# Play spotify song/playlist
-
-```ts
-const status = await queue.spotify(spotifyLink);
-if (!status) {
-  interaction.followUp("The spotify song/playlist could not be found");
-} else {
-  interaction.followUp("The requested spotify song/playlist is being played");
 }
 ```
 

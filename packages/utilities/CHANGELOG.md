@@ -1,5 +1,9 @@
 # Stage
 
+## Features
+
+- add description decorator ([250e32](https://github.com/oceanroleplay/discord.ts/commit/250e32bca8050b0b28d9c86aee15048bbb7d859f))
+
 # [v4.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v4.0.0) (2022-03-13)
 
 ## Breaking Changes
