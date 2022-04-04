@@ -1,8 +1,8 @@
 import type { CommandInteraction, Guild, TextBasedChannel } from "discord.js";
 import { GuildMember } from "discord.js";
-import { Discord, Slash, SlashOption } from "discordx";
 import { join } from "path";
 
+import { Discord, Slash, SlashOption } from "../../../discordx/src/index.js";
 import type { Queue } from "../../build/cjs/index.js";
 import { CustomTrack, Player } from "../../build/cjs/index.js";
 
@@ -191,10 +191,9 @@ export class music {
       return;
     }
 
-    if (
-      !(interaction.member instanceof GuildMember) ||
-      !interaction.member.voice.channel
-    ) {
+    interaction.member = interaction.member as GuildMember | null;
+
+    if (!interaction.member || !interaction.member.voice.channel) {
       interaction.reply("You are not in the voice channel");
       return;
     }

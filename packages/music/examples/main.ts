@@ -1,8 +1,9 @@
 import "reflect-metadata";
 
-import { dirname, importx } from "@discordx/importer";
 import { Intents } from "discord.js";
-import { Client } from "discordx";
+
+import { Client } from "../../discordx/src/index.js";
+import { dirname, importx } from "../../importer/build/esm/index.mjs";
 
 export class Main {
   private static _client: Client;
@@ -16,9 +17,11 @@ export class Main {
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [
         Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_VOICE_STATES,
       ],
+      silent: false,
     });
 
     this._client.once("ready", async () => {
@@ -42,7 +45,7 @@ export class Main {
       this._client.executeCommand(message);
     });
 
-    await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
+    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
 
     // let's start the bot
     if (!process.env.BOT_TOKEN) {

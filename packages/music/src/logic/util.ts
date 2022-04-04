@@ -1,5 +1,4 @@
 import _ from "lodash";
-import spotify from "spotify-url-info";
 import ytpl from "ytpl";
 import ytsr from "ytsr";
 
@@ -96,21 +95,5 @@ export class Util {
     }
 
     return playlist;
-  }
-
-  /**
-   * Get spotify tracks by url
-   *
-   * @param url
-   * @returns
-   */
-  static async getSpotifyTracks(
-    url: string
-  ): Promise<spotify.Tracks[] | undefined> {
-    try {
-      return await spotify.getTracks(url);
-    } catch (err) {
-      return undefined;
-    }
   }
 }
