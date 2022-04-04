@@ -3,8 +3,8 @@ import { GuildMember } from "discord.js";
 import { join } from "path";
 
 import { Discord, Slash, SlashOption } from "../../../discordx/src/index.js";
-import type { Queue } from "../../build/cjs/index.js";
-import { CustomTrack, Player } from "../../build/cjs/index.js";
+import type { Queue } from "../../src/index.js";
+import { CustomTrack, Player } from "../../src/index.js";
 
 @Discord()
 export class music {
@@ -178,39 +178,6 @@ export class music {
       interaction.followUp("The playlist could not be found");
     } else {
       interaction.followUp("The requested playlist is being played");
-    }
-  }
-
-  @Slash("spotify", { description: "Play a spotify link" })
-  async spotify(
-    @SlashOption("link", { description: "spotify link" })
-    link: string,
-    interaction: CommandInteraction
-  ): Promise<void> {
-    if (!interaction.guild) {
-      return;
-    }
-
-    interaction.member = interaction.member as GuildMember | null;
-
-    if (!interaction.member || !interaction.member.voice.channel) {
-      interaction.reply("You are not in the voice channel");
-      return;
-    }
-
-    await interaction.deferReply();
-    const queue = this.queue(interaction.guild);
-    if (!queue.isReady) {
-      this.channel = interaction.channel ?? undefined;
-      await queue.join(interaction.member.voice.channel);
-    }
-    const status = await queue.spotify(link);
-    if (!status) {
-      interaction.followUp("The spotify song/playlist could not be found");
-    } else {
-      interaction.followUp(
-        "The requested spotify song/playlist is being played"
-      );
     }
   }
 
