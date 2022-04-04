@@ -14,7 +14,6 @@ import {
 } from "@discordjs/voice";
 import type { Guild, StageChannel, VoiceChannel } from "discord.js";
 import _ from "lodash";
-import type spotify from "spotify-url-info";
 import type ytpl from "ytpl";
 import type { Video } from "ytsr";
 
@@ -603,42 +602,6 @@ export abstract class Queue<T extends Player = Player> {
     }
 
     const tracks = playlist.items.map(
-      (video) => new YoutubeTrack(video, this.player, options)
-    );
-    this.enqueue(tracks, enqueueTop);
-    this.processQueue();
-    return tracks;
-  }
-
-  /**
-   * Play spotify
-   *
-   * @param search
-   * @param options
-   * @param enqueueTop
-   *
-   * @returns
-   */
-  public async spotify(
-    search: string | spotify.Tracks[],
-    options?: ITrackOptions,
-    enqueueTop?: boolean
-  ): Promise<YoutubeTrack[] | undefined> {
-    const spotifyTracks =
-      typeof search === "string" ? await Util.getSpotifyTracks(search) : search;
-    if (!spotifyTracks) {
-      return;
-    }
-
-    const allTitles = spotifyTracks.map(
-      (sr) =>
-        sr.name +
-        " - " +
-        `${sr.artists ? sr.artists.map((ar) => ar.name).join(", ") : ""}`
-    );
-
-    const videos = await Util.getSongs(allTitles);
-    const tracks = videos.map(
       (video) => new YoutubeTrack(video, this.player, options)
     );
     this.enqueue(tracks, enqueueTop);
