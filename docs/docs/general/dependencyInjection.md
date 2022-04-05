@@ -96,7 +96,7 @@ class Example {
   private tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
       // resolve class
-      const clazz = container.resolve(AppDiscord);
+      const clazz = container.resolve(Example);
 
       // respond with class test
       interaction.reply(
@@ -110,8 +110,8 @@ class Example {
 }
 ```
 
-when running the above code, your `database` will be injected into your `AppDiscord` class and when you ask your
-container for `AppDiscord` you always receive the same instance of the class `container.resolve(AppDiscord);`
+when running the above code, your `database` will be injected into your `Example` class and when you ask your
+container for `Example` you always receive the same instance of the class `container.resolve(Example);`
 
 If you do not mark the class as `@injectable()` you will get an error thrown from TSyringe telling you where is no
 type info for your class.

@@ -25,14 +25,16 @@ export class Main {
     });
 
     this._client.on("interactionCreate", (interaction) => {
+      // do not execute interaction, if it's pagination (avoid warning: select-menu/button interaction not found)
+      if (interaction.isButton() || interaction.isSelectMenu()) {
+        if (interaction.customId.startsWith("discordx@pagination@")) {
+          return;
+        }
+      }
       this._client.executeInteraction(interaction);
     });
 
-    this._client.on("messageCreate", (message) => {
-      this._client.executeCommand(message);
-    });
-
-    await importx(dirname(import.meta.url) + "/discords/**/*.{js,ts}");
+    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
 
     // let's start the bot
     if (!process.env.BOT_TOKEN) {

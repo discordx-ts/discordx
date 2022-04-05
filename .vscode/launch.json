@@ -10,7 +10,7 @@
       "name": "Pagination",
       "protocol": "inspector",
       "args": [
-        "${workspaceRoot}/packages/utilities/examples/pagination/Main.ts"
+        "${workspaceRoot}/packages/utilities/examples/pagination/main.ts"
       ],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register"]
@@ -20,7 +20,7 @@
       "request": "launch",
       "name": "Slash",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/slash/Main.ts"],
+      "args": ["${workspaceRoot}/examples/slash/main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
@@ -30,7 +30,7 @@
       "request": "launch",
       "name": "Guards",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/guards/Main.ts"],
+      "args": ["${workspaceRoot}/examples/guards/main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
@@ -40,7 +40,7 @@
       "request": "launch",
       "name": "Event",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/event/Main.ts"],
+      "args": ["${workspaceRoot}/examples/event/main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"
@@ -50,7 +50,7 @@
       "request": "launch",
       "name": "Multiple discord instances",
       "protocol": "inspector",
-      "args": ["${workspaceRoot}/examples/multiple-discord-instances/Main.ts"],
+      "args": ["${workspaceRoot}/examples/multiple-discord-instances/main.ts"],
       "cwd": "${workspaceRoot}",
       "runtimeArgs": ["-r", "ts-node/register"],
       "internalConsoleOptions": "neverOpen"

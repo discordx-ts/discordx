@@ -20,7 +20,8 @@ type Data = { passed: boolean };
   data.passed = true;
   return next();
 })
-export abstract class AppDiscord {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @SimpleCommand("add", {
     aliases: ["add1", "add2"],
     argSplitter: "~",

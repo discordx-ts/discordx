@@ -24,7 +24,8 @@ enum TextChoices {
 }
 
 @Discord()
-export abstract class AppDiscord {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @Slash()
   hello(
     @SlashChoice(

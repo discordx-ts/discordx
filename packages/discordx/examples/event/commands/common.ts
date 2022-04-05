@@ -2,7 +2,8 @@ import type { ArgsOf, Client } from "../../../src/index.js";
 import { Discord, On } from "../../../src/index.js";
 
 @Discord()
-export abstract class AppDiscord {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @On("messageCreate")
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onMessage([message]: ArgsOf<"messageCreate">, client: Client): void {

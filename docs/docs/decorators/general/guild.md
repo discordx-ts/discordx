@@ -14,7 +14,7 @@ You can use this guard to specify which guilds your @Slash commands are created 
 
 ```ts
 @Discord()
-abstract class AppDiscord {
+class Example {
   @Slash("hello")
   @Guild("GUILD_ID") // Only created on the guild GUILD_ID
   private hello() {

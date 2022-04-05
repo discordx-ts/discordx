@@ -46,7 +46,8 @@ enum TextChoices {
   data.passed = true;
   return next();
 })
-export abstract class AppDiscord {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @Slash("add", { description: "Addition" })
   @SlashGroup("maths", "testing")
   add(
@@ -125,7 +126,8 @@ export abstract class AppDiscord {
   data.passed = true;
   return next();
 })
-export abstract class AppDiscord2 {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example2 {
   @Slash("add", { description: "Addition" })
   @SlashGroup("line", "group-test-without-description")
   add(
@@ -147,7 +149,8 @@ export abstract class AppDiscord2 {
   data.passed = true;
   return next();
 })
-export abstract class AppDiscord1 {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example3 {
   @Slash("hello")
   @Permission({ id: "123", permission: true, type: "USER" })
   add(

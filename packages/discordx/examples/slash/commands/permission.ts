@@ -15,7 +15,8 @@ import {
 } from "../../../src/index.js";
 
 @Discord()
-export abstract class AppDiscord {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @Slash("voice-channel")
   @Permission(
     new DefaultPermissionResolver((command) => {

@@ -20,7 +20,7 @@ class Database {
 @Discord()
 @injectable()
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-class AppDiscord {
+class Example {
   constructor(private database: Database) {
     // I am just a empty constructor :(
   }
@@ -28,7 +28,7 @@ class AppDiscord {
   @Slash("tsyringe")
   tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
-      const clazz = container.resolve(AppDiscord);
+      const clazz = container.resolve(Example);
       interaction.reply(
         `${clazz.database.query()}, same class: ${clazz === this}`
       );

@@ -17,7 +17,8 @@ import {
 } from "../../../src/index.js";
 
 @Discord()
-export abstract class AppDiscord {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   myCustomText = "This resolver has class inbound";
 
   @Slash("hello")
@@ -62,7 +63,7 @@ export abstract class AppDiscord {
     searchText: string,
     @SlashOption("option-b", {
       autocomplete: function (
-        this: AppDiscord,
+        this: Example,
         interaction: AutocompleteInteraction
       ) {
         // normal function, have this, so class reference is passed

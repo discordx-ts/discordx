@@ -6,7 +6,8 @@ import { ErrorHandler } from "../guards/Error.js";
 import { NotBot } from "../guards/NotBot.js";
 
 @Discord()
-export abstract class AppDiscord {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @On("messageCreate")
   @Guard(NotBot)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
