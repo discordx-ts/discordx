@@ -3,7 +3,8 @@ import type { CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashOption } from "../../../src/index.js";
 
 @Discord()
-export abstract class MinMax {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class MinMaxExample {
   @Slash("minmax-min")
   min(
     @SlashOption("value", {

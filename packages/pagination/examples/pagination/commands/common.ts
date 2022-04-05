@@ -11,7 +11,8 @@ import {
 import { GeneratePages } from "../util/common functions.js";
 
 @Discord()
-export abstract class Example {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   // example: message
   @On("messageCreate")
   onMessage([message]: ArgsOf<"messageCreate">): void {

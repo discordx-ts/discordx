@@ -10,7 +10,8 @@ const roles = [
 ];
 
 @Discord()
-export abstract class buttons {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @SelectMenuComponent("role-menu")
   async handle(interaction: SelectMenuInteraction): Promise<unknown> {
     await interaction.deferReply();

@@ -136,7 +136,7 @@ with the timer resetting after each call.
 
 ```ts
 @Discord()
-export abstract class RateLimitExample {
+class RateLimitExample {
   /**
    * 1 command every 30 seconds with default message
    */

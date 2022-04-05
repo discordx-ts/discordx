@@ -5,7 +5,8 @@ import fs from "fs/promises";
 import { Pagination } from "../../../src/index.js";
 
 @Discord()
-export abstract class SlashExample {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class SlashExample {
   // example: pagination for all slash command
   @Slash("pagination-attachment")
   async cmd(interaction: CommandInteraction): Promise<void> {

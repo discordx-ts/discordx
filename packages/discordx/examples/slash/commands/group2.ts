@@ -6,7 +6,8 @@ import { Discord, Slash, SlashGroup } from "../../../src/index.js";
 @SlashGroup({ name: "test-x" })
 @SlashGroup({ name: "add", root: "test-x" })
 @SlashGroup("add", "test-x")
-export abstract class Group {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Group {
   @Slash()
   x(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
@@ -20,7 +21,8 @@ export abstract class Group {
 
 @Discord()
 @SlashGroup("test-x")
-export abstract class AnotherGroup {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class AnotherGroup {
   @Slash()
   m(interaction: CommandInteraction): void {
     interaction.reply(":wave:");

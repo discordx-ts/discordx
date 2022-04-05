@@ -9,7 +9,8 @@ import { Category, Description } from "../../../src/index.js";
 
 @Discord()
 @Category("Admin Commands")
-export abstract class SlashExample {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class SlashExample {
   @Slash()
   @Description("test description decorator")
   test(interaction: CommandInteraction): void {

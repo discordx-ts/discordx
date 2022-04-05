@@ -9,7 +9,8 @@ import {
 } from "../../../src/index.js";
 
 @Discord()
-export abstract class commandTest {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @SimpleCommand("race", { prefix: ["&", ">"] })
   race(command: SimpleCommandMessage): void {
     command.sendUsageSyntax();

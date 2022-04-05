@@ -5,7 +5,8 @@ import { Discord, Guard, SimpleCommand, Slash } from "discordx";
 import { RateLimit, TIME_UNIT } from "../../../src/index.js";
 
 @Discord()
-export abstract class RateLimitExample {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class RateLimitExample {
   /**
    * 1 command every 30 seconds with default message
    *

@@ -86,7 +86,7 @@ export function GeneratePages(limit?: number): MessageOptions[] {
 }
 
 @Discord()
-export abstract class Example {
+class Example {
   // example: message
   @On("messageCreate")
   onMessage([message]: ArgsOf<"messageCreate">): void {

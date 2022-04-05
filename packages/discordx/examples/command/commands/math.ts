@@ -11,7 +11,8 @@ import {
 } from "../../../src/index.js";
 
 @Discord()
-export abstract class commandTest {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   // single whitespace will be used to split options
   // command aliases: !m, !solve
   // string or regex supported for argSplitter

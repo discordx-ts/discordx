@@ -203,7 +203,8 @@ class Example3 {
 @Discord()
 @SlashGroup({ name: "test-x" })
 @SlashGroup("test-x")
-export abstract class AnotherGroup {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class AnotherGroup {
   @Slash()
   m(): unknown {
     return ["/test-x", "m", true];
@@ -218,7 +219,8 @@ export abstract class AnotherGroup {
 @Discord()
 @SlashGroup({ name: "add", root: "test-x" })
 @SlashGroup("add", "test-x")
-export abstract class Group {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Group {
   @Slash()
   x(): unknown {
     return ["/test-x", "add", "x", true];

@@ -6,7 +6,7 @@ import { Discord, On, Slash, SlashOption } from "discordx";
 import * as Lava from "../../src/index.js";
 
 @Discord()
-export class music {
+export class MusicPlayer {
   node: Lava.Node | undefined;
 
   @On("ready")

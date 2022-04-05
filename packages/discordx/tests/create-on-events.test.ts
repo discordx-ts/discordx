@@ -24,7 +24,8 @@ const guard2: GuardFunction = async ([]: [string], client, next, data) => {
 };
 
 @Discord()
-export abstract class Bot {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+class Example {
   @On("messageCreate")
   private onMessage([message]: [string]) {
     return message;
