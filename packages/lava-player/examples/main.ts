@@ -19,6 +19,7 @@ export class Main {
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_VOICE_STATES,
       ],
+      silent: false,
     });
 
     this._client.once("ready", async () => {
