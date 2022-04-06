@@ -9,11 +9,11 @@ export enum Status {
 }
 
 export enum EventType {
-  TRACK_END = "TrackEndEvent",
-  TRACK_EXCEPTION = "TrackExceptionEvent",
-  TRACK_START = "TrackStartEvent",
-  TRACK_STUCK = "TrackStuckEvent",
-  WEBSOCKET_CLOSED = "WebSocketClosedEvent",
+  TrackEndEvent = "TrackEndEvent",
+  TrackExceptionEvent = "TrackExceptionEvent",
+  TrackStartEvent = "TrackStartEvent",
+  TrackStuckEvent = "TrackStuckEvent",
+  WebSocketClosedEvent = "WebSocketClosedEvent",
 }
 
 export interface PlayerOptions {

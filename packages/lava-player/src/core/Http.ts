@@ -3,28 +3,27 @@ import type { IncomingHttpHeaders, IncomingMessage } from "http";
 import { request, STATUS_CODES } from "http";
 import { URL } from "url";
 
-import type BaseNode from "../base/Node.js";
+import type { BaseNode } from "../base/Node.js";
 import type { Track, TrackInfo, TrackResponse } from "../types/index.js";
 import RoutePlanner from "./RoutePlanner.js";
 
 export class HTTPError extends Error {
-  public readonly statusMessage!: string;
   public method: string;
   public statusCode: number;
   public headers: IncomingHttpHeaders;
   public path: string;
+
+  get statusMessage(): string | undefined {
+    return STATUS_CODES[this.statusCode];
+  }
+
   constructor(httpMessage: IncomingMessage, method: string, url: URL) {
     super(
       `${httpMessage.statusCode} ${
         STATUS_CODES[httpMessage.statusCode as number]
       }`
     );
-    Object.defineProperty(this, "statusMessage", {
-      enumerable: true,
-      get: function () {
-        return STATUS_CODES[httpMessage.statusCode as number];
-      },
-    });
+
     this.statusCode = httpMessage.statusCode as number;
     this.headers = httpMessage.headers;
     this.name = this.constructor.name;
@@ -33,7 +32,7 @@ export class HTTPError extends Error {
   }
 }
 
-export default class Http {
+export class Http {
   public readonly node: BaseNode;
   public input: string;
   public base?: string;
@@ -97,6 +96,7 @@ export default class Http {
       if (data) {
         req.write(data);
       }
+
       req.end();
     });
 

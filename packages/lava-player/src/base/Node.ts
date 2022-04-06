@@ -2,8 +2,8 @@
 import { EventEmitter } from "events";
 import WebSocket from "ws";
 
-import Connection from "../core/Connection.js";
-import Http from "../core/Http.js";
+import { Connection } from "../core/Connection.js";
+import { Http } from "../core/Http.js";
 import PlayerStore from "../core/PlayerStore.js";
 import type {
   BaseNodeOptions,
@@ -14,16 +14,16 @@ import type {
   VoiceStateUpdate,
 } from "../types/index.js";
 
-export default abstract class BaseNode extends EventEmitter {
+export abstract class BaseNode extends EventEmitter {
   public abstract send: (guildId: string, packet: any) => Promise<any>;
 
   public password: string;
   public userId: string;
   public shardCount?: number;
 
-  public connection?: Connection;
+  public connection: Connection;
   public players: PlayerStore<this> = new PlayerStore(this);
-  public http?: Http;
+  public http: Http;
 
   public voiceStates: Map<string, string> = new Map();
   public voiceServers: Map<string, VoiceServerUpdate> = new Map();
@@ -64,6 +64,7 @@ export default abstract class BaseNode extends EventEmitter {
     if (this.http) {
       return this.http.load(identifier);
     }
+
     throw new Error("no available http module");
   }
 

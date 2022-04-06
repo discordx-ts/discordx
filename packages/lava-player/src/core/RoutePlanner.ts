@@ -1,5 +1,5 @@
 import type { RoutePlannerStatus } from "../types/index.js";
-import type Http from "./Http.js";
+import type { Http } from "./Http.js";
 
 export default class RoutePlanner {
   constructor(public readonly http: Http) {}

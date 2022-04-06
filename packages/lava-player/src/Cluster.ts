@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BaseCluster from "./base/Cluster.js";
+import { BaseCluster } from "./base/Cluster.js";
 import type { ClusterNodeOptions } from "./ClusterNode.js";
 import type ClusterNode from "./ClusterNode.js";
 
@@ -9,7 +9,7 @@ export interface ClusterOptions {
   send: (guildId: string, packet: any) => any;
 }
 
-export default class Cluster extends BaseCluster {
+export class Cluster extends BaseCluster {
   public filter: (node: ClusterNode, guildId: string) => boolean;
   public send: (guildId: string, packet: any) => any;
 

@@ -3,7 +3,7 @@ import backoff from "backoff";
 import type { IncomingMessage } from "http";
 import WebSocket from "ws";
 
-import type BaseNode from "../base/Node.js";
+import type { BaseNode } from "../base/Node.js";
 
 interface Sendable {
   data: Buffer | string;
@@ -24,7 +24,7 @@ export interface ConnectionOptions extends WebSocket.ClientOptions {
   resumeTimeout?: number;
 }
 
-export default class Connection<T extends BaseNode = BaseNode> {
+export class Connection<T extends BaseNode = BaseNode> {
   public readonly node: T;
   public url: string;
   public options: ConnectionOptions;
@@ -124,6 +124,7 @@ export default class Connection<T extends BaseNode = BaseNode> {
     if (this.resumeKey) {
       headers["Resume-Key"] = this.resumeKey;
     }
+
     this.ws = new WebSocket(this.url, Object.assign({ headers }, this.options));
     this._registerWSEventListeners();
   }

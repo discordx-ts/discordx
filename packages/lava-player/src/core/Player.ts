@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
 import { EventEmitter } from "events";
-import { deprecate } from "util";
 
-import type BaseNode from "../base/Node.js";
+import type { BaseNode } from "../base/Node.js";
 import type {
   EqualizerBand,
   FilterOptions,
@@ -15,9 +14,7 @@ import type {
 } from "../types/index.js";
 import { EventType, Status } from "../types/index.js";
 
-export default class Player<
-  T extends BaseNode = BaseNode
-> extends EventEmitter {
+export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
   public readonly node: T;
   public guildId: string;
   public status: Status = Status.INSTANTIATED;
@@ -29,23 +26,28 @@ export default class Player<
 
     this.on("event", (d) => {
       switch (d.type) {
-        case EventType.TRACK_START:
+        case EventType.TrackStartEvent:
           this.status = Status.PLAYING;
           break;
-        case EventType.TRACK_END:
+
+        case EventType.TrackEndEvent:
           if (d.reason !== "REPLACED") {
             this.status = Status.ENDED;
           }
           break;
-        case EventType.TRACK_EXCEPTION:
+
+        case EventType.TrackExceptionEvent:
           this.status = Status.ERRORED;
           break;
-        case EventType.TRACK_STUCK:
+
+        case EventType.TrackStuckEvent:
           this.status = Status.STUCK;
           break;
-        case EventType.WEBSOCKET_CLOSED:
+
+        case EventType.WebSocketClosedEvent:
           this.status = Status.ENDED;
           break;
+
         default:
           this.status = Status.UNKNOWN;
           break;
@@ -82,6 +84,7 @@ export default class Player<
     if (this.node === node) {
       return;
     }
+
     if (!this.voiceServer || !this.voiceState) {
       throw new Error("no voice state/server data to move");
     }
@@ -196,13 +199,3 @@ export default class Player<
     }
   }
 }
-
-Player.prototype.setVolume = deprecate(
-  Player.prototype.setVolume,
-  "Player#setVolume: use setFilters instead"
-);
-
-Player.prototype.setEqualizer = deprecate(
-  Player.prototype.setEqualizer,
-  "Player#setEqualizer: use setFilters instead"
-);

@@ -4,6 +4,7 @@ import type { ArgsOf, Client } from "discordx";
 import { Discord, Once, Slash, SlashOption } from "discordx";
 
 import * as Lava from "../../src/index.js";
+import { EventType } from "../../src/index.js";
 
 @Discord()
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,15 +35,26 @@ class MusicPlayer {
 
     nodeX.on("event", (e) => {
       switch (e.type) {
-        case "TrackStartEvent":
+        case EventType.TrackStartEvent:
           console.log(e);
           break;
-        case "TrackEndEvent":
+
+        case EventType.TrackEndEvent:
           console.log(e);
           break;
-        case "WebSocketClosedEvent":
+
+        case EventType.TrackExceptionEvent:
           console.log(e);
           break;
+
+        case EventType.TrackStuckEvent:
+          console.log(e);
+          break;
+
+        case EventType.WebSocketClosedEvent:
+          console.log(e);
+          break;
+
         default:
           console.log(e);
           break;

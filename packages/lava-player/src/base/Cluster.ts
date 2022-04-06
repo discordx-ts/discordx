@@ -3,10 +3,10 @@ import { EventEmitter } from "events";
 
 import type { ClusterNodeOptions } from "../ClusterNode.js";
 import ClusterNode from "../ClusterNode.js";
-import type Player from "../core/Player.js";
+import type { Player } from "../core/Player.js";
 import type { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 
-export default abstract class BaseCluster extends EventEmitter {
+export abstract class BaseCluster extends EventEmitter {
   public abstract send: (guildId: string, packet: any) => any;
   public abstract filter: (node: ClusterNode, guildId: string) => boolean;
 
@@ -56,11 +56,13 @@ export default abstract class BaseCluster extends EventEmitter {
 
   public getNode(guildId: string): ClusterNode {
     let node = this.nodes.find((nodeX) => nodeX.players.has(guildId));
+
     if (!node) {
       node = this.sort().find((nodeX) => this.filter(nodeX, guildId));
     } else {
       return node;
     }
+
     throw new Error(
       "unable to find appropriate node; please check your filter"
     );

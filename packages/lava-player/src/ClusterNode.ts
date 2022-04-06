@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type Cluster from "./base/Cluster.js";
-import BaseNode from "./base/Node.js";
+import type { BaseCluster } from "./base/Cluster.js";
+import { BaseNode } from "./base/Node.js";
 import type { BaseNodeOptions } from "./types/index.js";
 
 export interface ClusterNodeOptions extends BaseNodeOptions {
@@ -33,7 +33,10 @@ export default class ClusterNode extends BaseNode {
   public tags: Set<string>;
   public stats?: Stats;
 
-  constructor(public readonly cluster: Cluster, options: ClusterNodeOptions) {
+  constructor(
+    public readonly cluster: BaseCluster,
+    options: ClusterNodeOptions
+  ) {
     super(options);
     this.tags = new Set(options.tags || []);
     this.on("stats", (stats) => (this.stats = stats));
