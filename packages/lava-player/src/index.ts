@@ -7,5 +7,3 @@ export * from "./core/Http.js";
 export * from "./core/Player.js";
 export * from "./Node.js";
 export * from "./types/index.js";
-
-export default Node;
