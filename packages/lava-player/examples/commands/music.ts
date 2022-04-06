@@ -4,7 +4,6 @@ import type { ArgsOf, Client } from "discordx";
 import { Discord, Once, Slash, SlashOption } from "discordx";
 
 import * as Lava from "../../src/index.js";
-import { EventType } from "../../src/index.js";
 
 @Discord()
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,32 +32,9 @@ class MusicPlayer {
       userId: client.user?.id ?? "", // the user id of your bot
     });
 
-    nodeX.on("event", (e) => {
-      switch (e.type) {
-        case EventType.TrackStartEvent:
-          console.log(e);
-          break;
-
-        case EventType.TrackEndEvent:
-          console.log(e);
-          break;
-
-        case EventType.TrackExceptionEvent:
-          console.log(e);
-          break;
-
-        case EventType.TrackStuckEvent:
-          console.log(e);
-          break;
-
-        case EventType.WebSocketClosedEvent:
-          console.log(e);
-          break;
-
-        default:
-          console.log(e);
-          break;
-      }
+    nodeX.connection.ws.on("message", (data) => {
+      const raw = JSON.parse(data.toString()) as Lava.WRawEventType;
+      console.log("ws>>", raw);
     });
 
     nodeX.on("error", (e) => {
@@ -76,7 +52,34 @@ class MusicPlayer {
     this.node = nodeX;
   }
 
-  @Slash("play")
+  @Slash()
+  async join(interaction: CommandInteraction): Promise<void> {
+    await interaction.deferReply();
+
+    if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
+      interaction.followUp("could not process this command, try again");
+      return;
+    }
+
+    if (!this.node) {
+      interaction.followUp("lavalink player is not ready");
+      return;
+    }
+
+    if (!interaction.member.voice.channelId) {
+      interaction.followUp("please join a voice channel first");
+      return;
+    }
+
+    const player = this.node.players.get(interaction.guildId);
+    await player.join(interaction.member.voice.channelId, { deaf: true });
+
+    interaction.followUp("I am ready to rock :smile:");
+
+    return;
+  }
+
+  @Slash()
   async play(
     @SlashOption("song") song: string,
     interaction: CommandInteraction
@@ -94,11 +97,9 @@ class MusicPlayer {
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("lavalink player is not ready");
+      interaction.followUp("please join a voice channel first");
       return;
     }
-
-    await interaction.deferReply();
 
     const player = this.node.players.get(interaction.guildId);
 

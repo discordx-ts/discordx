@@ -8,14 +8,6 @@ export enum Status {
   UNKNOWN,
 }
 
-export enum EventType {
-  TrackEndEvent = "TrackEndEvent",
-  TrackExceptionEvent = "TrackExceptionEvent",
-  TrackStartEvent = "TrackStartEvent",
-  TrackStuckEvent = "TrackStuckEvent",
-  WebSocketClosedEvent = "WebSocketClosedEvent",
-}
-
 export interface PlayerOptions {
   end?: number;
   noReplace?: boolean;
