@@ -96,6 +96,7 @@ export class Queue {
 
     const track = this.tracks.shift();
     if (!track) {
+      this._lastTrack = undefined;
       return false;
     }
 
