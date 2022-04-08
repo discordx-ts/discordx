@@ -6,11 +6,24 @@ export enum LoadType {
   TRACK_LOADED = "TRACK_LOADED",
 }
 
-export interface TrackResponse {
-  loadType: LoadType;
+export interface TrackResponseTypeBase {
   playlistInfo: PlaylistInfo;
   tracks: Track[];
 }
+
+export interface TrackResponseTypeCommon extends TrackResponseTypeBase {
+  loadType: Exclude<LoadType, LoadType.LOAD_FAILED>;
+}
+
+export interface TrackResponseTypeError extends TrackResponseTypeBase {
+  exception: {
+    message: string;
+    severity: string;
+  };
+  loadType: LoadType.LOAD_FAILED;
+}
+
+export type TrackResponse = TrackResponseTypeCommon | TrackResponseTypeError;
 
 export interface PlaylistInfo {
   name?: string;

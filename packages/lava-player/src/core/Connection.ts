@@ -106,6 +106,7 @@ export class Connection<T extends BaseNode = BaseNode> {
     if (this._backoff) {
       this._backoff.removeAllListeners();
     }
+
     this._backoff = b;
   }
 
@@ -116,7 +117,7 @@ export class Connection<T extends BaseNode = BaseNode> {
 
     const headers: Headers = {
       Authorization: this.node.password,
-      "Client-Name": "@discordx/music",
+      "Client-Name": "@discordx/lava-player",
       "Num-Shards": this.node.shardCount || 1,
       "User-Id": this.node.userId,
     };

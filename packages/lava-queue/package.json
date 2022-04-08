@@ -1,8 +1,8 @@
 {
-  "name": "@discordx/lava-player",
+  "name": "@discordx/lava-queue",
   "version": "0.0.0",
   "private": false,
-  "description": "A powerful powerful lava link player library written in TypeScript for Node.js",
+  "description": "A powerful queue system for @discordx/lava-player",
   "keywords": [
     "discord",
     "discordx",
@@ -13,9 +13,10 @@
     "music",
     "youtube",
     "lavalink",
-    "lava-player"
+    "lava-player",
+    "queue"
   ],
-  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/lava-player#readme",
+  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/lava-queue#readme",
   "bugs": {
     "url": "https://github.com/oceanroleplay/discord.ts/issues"
   },
@@ -45,21 +46,27 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --root=src --tag=lp-v* --tag-replace=lp-",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=lq-v* --tag-replace=lq-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "@types/backoff": "^2.5.2",
-    "backoff": "^2.5.0",
+    "lodash": "^4.17.21",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@discordx/importer": "^1.1.2",
+    "@discordx/lava-player": "^1.0.6",
+    "@discordx/pagination": "^2.0.1",
+    "@types/lodash": "^4.14.181",
     "discord.js": "^13.6.0",
-    "discordx": "^9.4.1",
+    "discordx": "^9.5.1",
     "typescript": "^4.6.3"
+  },
+  "peerDependencies": {
+    "@discordx/lava-player": ">=1",
+    "discord.js": ">=13"
   },
   "engines": {
     "node": ">=16.0.0",
