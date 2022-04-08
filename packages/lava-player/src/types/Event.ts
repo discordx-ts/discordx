@@ -12,7 +12,7 @@ export interface RawEventBase {
 }
 
 export interface RawEventTypeTrackEndEvent extends RawEventBase {
-  reason: "LOAD_FAILED" | "FINISHED";
+  reason: "LOAD_FAILED" | "FINISHED" | "REPLACED";
   track: string;
   type: "TrackEndEvent";
 }
