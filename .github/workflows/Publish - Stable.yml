@@ -42,6 +42,8 @@ jobs:
             folder: "koa"
           - package: "@discordx/lava-player"
             folder: "lava-player"
+          - package: "@discordx/lava-queue"
+            folder: "lava-queue"
           - package: "@discordx/socket.io"
             folder: "socket.io"
     steps:
