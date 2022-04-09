@@ -65,9 +65,11 @@ yarn add discordx
 
 # 🤖 Bot Examples
 
-> **[discord.ts-example](https://github.com/oceanroleplay/discord.ts-example)** (starter repo)
+> **[discordx-templates](https://github.com/oceanroleplay/discordx-templates)** (starter repo)
 
-> **[discord-music-bot](https://github.com/oceanroleplay/discord-music-bot)** from [@oceanroleplay](https://github.com/oceanroleplay)
+> **[music bot (ytdl)](https://github.com/oceanroleplay/discordx-templates/tree/main/4-music-player-ytdl)**
+
+> **[lavalink bot](https://github.com/oceanroleplay/discordx-templates/tree/main/5-music-player-lavalink)**
 
 > **[Shana](https://github.com/VictoriqueMoe/Shana)** from [@VictoriqueMoe](https://github.com/VictoriqueMoe)
 
@@ -75,7 +77,7 @@ yarn add discordx
 
 With `discordx`, we intend to provide the latest up-to-date package to easily build feature-rich bots with multi-bot compatibility, simple commands, pagination, music, and much more. **Updated daily with discord.js changes**.
 
-Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discord.ts-example)
+Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discordx-templates)
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord-ts.js.org/discord)
 
@@ -103,6 +105,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 | [`@discordx/internal`](https://www.npmjs.com/package/@discordx/internal)       | discord.ts internal methods, can be used for external projects |
 | [`@discordx/koa`](https://www.npmjs.com/package/@discordx/koa)                 | Create rest api server with Typescript and Decorators          |
 | [`@discordx/lava-player`](https://www.npmjs.com/package/@discordx/lava-player) | Create lavalink player                                         |
+| [`@discordx/lava-queue`](https://www.npmjs.com/package/@discordx/lava-queue)   | Create queue system for lavalink player                        |
 | [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)             | Create discord music player easily                             |
 | [`@discordx/pagination`](https://www.npmjs.com/package/@discordx/pagination)   | Add pagination to your discord bot                             |
 | [`@discordx/socket.io`](https://www.npmjs.com/package/@discordx/socket.io)     | Create socket.io server with Typescript and Decorators         |

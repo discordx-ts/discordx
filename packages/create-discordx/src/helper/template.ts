@@ -18,7 +18,7 @@ export async function GetTemplates(): Promise<
     )
     .then((res) =>
       res.data
-        .filter((row) => row.type === "dir")
+        .filter((row) => row.type === "dir" && /^[0-9].+/.test(row.name))
         .map((row) => ({ title: row.name, value: row.path }))
     )
     .catch(() => []);
