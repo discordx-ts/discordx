@@ -9,8 +9,19 @@ import { Collection } from "discord.js";
 
 import { Queue } from "./queue.js";
 
+type PlayerOptions = {
+  leaveOnFinish: boolean;
+};
+
 export class Player {
   public queues = new Collection<Snowflake, Queue>();
+  private _options: PlayerOptions = {
+    leaveOnFinish: true,
+  };
+
+  get options(): PlayerOptions {
+    return this._options;
+  }
 
   constructor(public node: Node) {
     node.on("playerUpdate", (e: WsRawEventPlayerUpdate) => {
@@ -23,11 +34,25 @@ export class Player {
     node.on("event", (raw: RawEventType) => {
       if (raw.type === EventType.TrackEndEvent && raw.reason === "FINISHED") {
         const queue = this.queues.get(raw.guildId);
-        if (queue?.autoPlay) {
-          queue.playNext();
+        if (!queue) {
+          return;
+        }
+
+        queue.playNext();
+
+        if (
+          this.options.leaveOnFinish &&
+          !queue.currentTrack &&
+          !queue.tracks.length
+        ) {
+          queue.lavaPlayer.leave();
         }
       }
     });
+  }
+
+  public setOptions(options: PlayerOptions): void {
+    this._options = options;
   }
 
   public queue<T extends Queue = Queue>(

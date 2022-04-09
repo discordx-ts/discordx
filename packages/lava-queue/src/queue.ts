@@ -11,7 +11,6 @@ export class Queue {
   private _tracks: Track[] = [];
   private _lastTrack?: Track;
   private _position = 0;
-  private _autoPlay = true;
   private _loop = false;
   private _repeat = false;
 
@@ -29,10 +28,6 @@ export class Queue {
 
   get position(): number {
     return this._position;
-  }
-
-  get autoPlay(): boolean {
-    return this._autoPlay;
   }
 
   get loop(): boolean {
@@ -117,10 +112,6 @@ export class Queue {
 
   setPosition(position: number): void {
     this._position = position;
-  }
-
-  setAutoPlay(state: boolean): void {
-    this._autoPlay = state;
   }
 
   setLoop(state: boolean): void {
