@@ -336,6 +336,8 @@ export class Client extends ClientJS {
       this.logger.log("\tNo select menu detected");
     }
 
+    this.logger.log("");
+
     this.logger.log("client >> context menu's");
 
     const contexts = [
@@ -532,7 +534,7 @@ export class Client extends ClientJS {
     const ApplicationCommands = await guild.commands.fetch();
 
     // filter only unregistered application command
-    const added = DCommands.filter(
+    const commandsToAdd = DCommands.filter(
       (DCommand) =>
         !ApplicationCommands.find(
           (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
@@ -541,7 +543,8 @@ export class Client extends ClientJS {
 
     // filter application command to update
 
-    const commandToUpdate: ApplicationCommandMixin[] = [];
+    const commandsToUpdate: ApplicationCommandMixin[] = [];
+    const commandsToSkip: ApplicationCommandMixin[] = [];
 
     await Promise.all(
       DCommands.map(async (DCommand) => {
@@ -599,7 +602,11 @@ export class Client extends ClientJS {
         );
 
         if (!isEqual) {
-          commandToUpdate.push(
+          commandsToUpdate.push(
+            new ApplicationCommandMixin(findCommand, DCommand)
+          );
+        } else {
+          commandsToSkip.push(
             new ApplicationCommandMixin(findCommand, DCommand)
           );
         }
@@ -607,7 +614,7 @@ export class Client extends ClientJS {
     );
 
     // filter commands to delete
-    const deleted: ApplicationCommand[] = [];
+    const commandsToDelete: ApplicationCommand[] = [];
     await Promise.all(
       ApplicationCommands.map(async (cmd) => {
         const DCommandFind = DCommands.find(
@@ -616,7 +623,7 @@ export class Client extends ClientJS {
 
         // delete command if it's not found
         if (!DCommandFind) {
-          deleted.push(cmd);
+          commandsToDelete.push(cmd);
           return;
         }
 
@@ -627,7 +634,7 @@ export class Client extends ClientJS {
 
         // delete command if it's not registered for given guild
         if (!cmd.guildId || !guilds.includes(cmd.guildId)) {
-          deleted.push(cmd);
+          commandsToDelete.push(cmd);
           return;
         }
       })
@@ -637,16 +644,20 @@ export class Client extends ClientJS {
     if (options?.log ?? !this.silent) {
       let str = `${this.user?.username} >> commands >> guild: #${guild}`;
 
-      str += `\n\t>> adding   ${added.length} [${added
+      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
         .map((DCommand) => DCommand.name)
         .join(", ")}]`;
 
-      str += `\n\t>> deleting ${deleted.length} [${deleted
+      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
+        .map((cmd) => cmd.command.name)
+        .join(", ")}]`;
+
+      str += `\n\t>> deleting ${commandsToDelete.length} [${commandsToDelete
         .map((cmd) => cmd.name)
         .join(", ")}]`;
 
-      str += `\n\t>> updating ${commandToUpdate.length} [${commandToUpdate
-        .map((cmd) => cmd.command.name)
+      str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
+        .map((cmd) => cmd.name)
         .join(", ")}]`;
 
       str += "\n";
@@ -654,17 +665,17 @@ export class Client extends ClientJS {
       this.logger.info(str);
     }
 
-    const addOperation = options?.disable?.add
+    const commandsAddOperation = options?.disable?.add
       ? []
-      : added.map(async (DCommand) =>
+      : commandsToAdd.map(async (DCommand) =>
           guild.commands.create(
             await DCommand.toJSON(new ApplicationGuildMixin(guild, DCommand))
           )
         );
 
-    const updateOperation = options?.disable?.update
+    const commandsUpdateOperation = options?.disable?.update
       ? []
-      : commandToUpdate.map(async (cmd) =>
+      : commandsToUpdate.map(async (cmd) =>
           cmd.command.edit(
             await cmd.instance.toJSON(
               new ApplicationGuildMixin(guild, cmd.instance)
@@ -672,19 +683,19 @@ export class Client extends ClientJS {
           )
         );
 
-    const deleteOperation = options?.disable?.delete
+    const commandsDeleteOperation = options?.disable?.delete
       ? []
-      : deleted.map((cmd) => guild.commands.delete(cmd));
+      : commandsToDelete.map((cmd) => guild.commands.delete(cmd));
 
     await Promise.all([
       // add
-      ...addOperation,
+      ...commandsAddOperation,
 
       // update
-      ...updateOperation,
+      ...commandsUpdateOperation,
 
       // delete
-      ...deleteOperation,
+      ...commandsDeleteOperation,
     ]);
   }
 
@@ -699,27 +710,30 @@ export class Client extends ClientJS {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
     // # initialize add/update/delete task for global commands
-    const AllCommands = (await this.fetchApplicationCommands())?.filter(
+    const ApplicationCommands = (await this.fetchApplicationCommands())?.filter(
       (cmd) => !cmd.guild
     );
+
     const DCommands = this.applicationCommands.filter(
       (DCommand) =>
         ![...botResolvedGuilds, ...DCommand.guilds].length &&
         (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
     );
-    if (AllCommands) {
-      const added = DCommands.filter(
+
+    if (ApplicationCommands) {
+      const commandToAdd = DCommands.filter(
         (DCommand) =>
-          !AllCommands.find(
+          !ApplicationCommands.find(
             (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
           )
       );
 
       const commandToUpdate: ApplicationCommandMixin[] = [];
+      const commandsToSkip: ApplicationCommandMixin[] = [];
 
       await Promise.all(
         DCommands.map(async (DCommand) => {
-          const findCommand = AllCommands.find(
+          const findCommand = ApplicationCommands.find(
             (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
           );
 
@@ -745,11 +759,15 @@ export class Client extends ClientJS {
             commandToUpdate.push(
               new ApplicationCommandMixin(findCommand, DCommand)
             );
+          } else {
+            commandsToSkip.push(
+              new ApplicationCommandMixin(findCommand, DCommand)
+            );
           }
         })
       );
 
-      const deleted = AllCommands.filter((cmd) =>
+      const commandToDelete = ApplicationCommands.filter((cmd) =>
         DCommands.every(
           (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
         )
@@ -759,16 +777,20 @@ export class Client extends ClientJS {
       if (options?.log ?? !this.silent) {
         let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-        str += `\n\t>> adding   ${added.length} [${added
+        str += `\n\t>> adding   ${commandToAdd.length} [${commandToAdd
           .map((DCommand) => DCommand.name)
-          .join(", ")}]`;
-
-        str += `\n\t>> deleting ${deleted.size} [${deleted
-          .map((cmd) => cmd.name)
           .join(", ")}]`;
 
         str += `\n\t>> updating ${commandToUpdate.length} [${commandToUpdate
           .map((cmd) => cmd.command.name)
+          .join(", ")}]`;
+
+        str += `\n\t>> deleting ${commandToDelete.size} [${commandToDelete
+          .map((cmd) => cmd.name)
+          .join(", ")}]`;
+
+        str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
+          .map((cmd) => cmd.name)
           .join(", ")}]`;
 
         str += "\n";
@@ -780,23 +802,31 @@ export class Client extends ClientJS {
       // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
       // if (slash.permissions.length <= 0) return;
 
+      const commandsAddOperation = options?.disable?.add
+        ? []
+        : commandToAdd.map(async (DCommand) =>
+            this.application?.commands.create(await DCommand.toJSON())
+          );
+
+      const commandsUpdateOperation = options?.disable?.update
+        ? []
+        : commandToUpdate.map(async (cmd) =>
+            cmd.command.edit(await cmd.instance.toJSON())
+          );
+
+      const commandsDeleteOperation = options?.disable?.delete
+        ? []
+        : commandToDelete.map((cmd) => this.application?.commands.delete(cmd));
+
       await Promise.all([
         // add
-        ...(options?.disable?.add
-          ? []
-          : added.map(async (DCommand) =>
-              this.application?.commands.create(await DCommand.toJSON())
-            )),
+        ...commandsAddOperation,
+
         // update
-        ...(options?.disable?.update
-          ? []
-          : commandToUpdate.map(async (cmd) =>
-              cmd.command.edit(await cmd.instance.toJSON())
-            )),
+        ...commandsUpdateOperation,
+
         // delete
-        ...(options?.disable?.delete
-          ? []
-          : deleted.map((cmd) => this.application?.commands.delete(cmd))),
+        ...commandsDeleteOperation,
       ]);
     }
   }
@@ -809,11 +839,13 @@ export class Client extends ClientJS {
   async initApplicationPermissions(log?: boolean): Promise<void> {
     const guildDCommandStore = await this.CommandByGuild();
     const promises: Promise<void>[] = [];
+
     guildDCommandStore.forEach((commands, guildId) => {
       promises.push(
         this.initGuildApplicationPermissions(guildId, commands, log)
       );
     });
+
     await Promise.all(promises);
   }
 
