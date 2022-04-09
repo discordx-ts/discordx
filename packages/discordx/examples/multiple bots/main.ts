@@ -24,6 +24,7 @@ botA.on("interactionCreate", (interaction) => {
 const botB = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  silent: false,
 });
 
 botB.once("ready", async () => {

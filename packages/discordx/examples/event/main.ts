@@ -21,6 +21,7 @@ export class Main {
         Intents.FLAGS.GUILD_MEMBERS,
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
       ],
+      silent: false,
     });
 
     this.Client.on("ready", () => {

@@ -20,6 +20,7 @@ export class Main {
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_MEMBERS,
       ],
+      silent: false,
     });
 
     this._client.once("ready", async () => {
