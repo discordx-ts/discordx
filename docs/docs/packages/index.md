@@ -11,6 +11,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 | [`@discordx/internal`](/docs/packages/internal)       | discord.ts internal methods, can be used for external projects |
 | [`@discordx/koa`](/docs/packages/koa)                 | Create rest api server with Typescript and Decorators          |
 | [`@discordx/lava-player`](/docs/packages/lava-player) | Create lava link music player easly                            |
+| [`@discordx/lava-queue`](/docs/packages/lava-queue)   | Create queue system for lavalink                               |
 | [`@discordx/music`](/docs/packages/music)             | Create discord music player easly                              |
 | [`@discordx/pagination`](/docs/packages/pagination)   | Add pagination to your discord bot                             |
 | [`@discordx/utilities`](/docs/packages/utilities)     | Create own group with `@Category`                              |

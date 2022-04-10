@@ -238,11 +238,26 @@ module.exports = {
       "docusaurus-plugin-typedoc",
       // Plugin / TypeDoc options
       {
-        entryPoints: ["../packages/socket.io/src/index.ts"],
+        entryPoints: ["../packages/lava-queue/src/index.ts"],
         excludeExternals: true,
         excludePrivate: true,
         excludeProtected: true,
         id: "api-11",
+        name: "@discordx/lava-queue",
+        out: "packages/lava-queue/api",
+        readme: "none",
+        tsconfig: "../packages/lava-queue/tsconfig.json",
+      },
+    ],
+    [
+      "docusaurus-plugin-typedoc",
+      // Plugin / TypeDoc options
+      {
+        entryPoints: ["../packages/socket.io/src/index.ts"],
+        excludeExternals: true,
+        excludePrivate: true,
+        excludeProtected: true,
+        id: "api-12",
         name: "@discordx/socket.io",
         out: "packages/socket.io/api",
         readme: "none",
