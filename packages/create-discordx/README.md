@@ -40,6 +40,8 @@
 
 Create discordx (discord.ts) apps with one command. Inspired by [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+![create-discordx](https://raw.githubusercontent.com/oceanroleplay/discord.ts/main/packages/create-discordx/images/create-discordx.png)
+
 # 💻 Installation
 
 ```
