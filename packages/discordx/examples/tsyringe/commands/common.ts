@@ -19,8 +19,7 @@ class Database {
 
 @Discord()
 @injectable()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   constructor(private database: Database) {
     // I am just a empty constructor :(
   }

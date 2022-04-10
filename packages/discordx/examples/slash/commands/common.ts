@@ -17,8 +17,7 @@ import {
 } from "../../../src/index.js";
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   myCustomText = "This resolver has class inbound";
 
   @Slash("hello")

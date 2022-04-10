@@ -9,8 +9,7 @@ import { FakeInteraction, InteractionType } from "../../interaction.js";
 */
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @ButtonComponent("hello")
   @Guard((params, client, next, data) => {
     data.passed = true;

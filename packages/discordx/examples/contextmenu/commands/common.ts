@@ -6,8 +6,7 @@ import type {
 import { ContextMenu, Discord } from "../../../src/index.js";
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @ContextMenu("MESSAGE", "Hello from discord.ts")
   messageHandler(interaction: MessageContextMenuInteraction): void {
     console.log("I am message");

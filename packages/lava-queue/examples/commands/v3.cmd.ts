@@ -1,5 +1,10 @@
 import * as Lava from "@discordx/lava-player";
-import type { ButtonInteraction, CommandInteraction } from "discord.js";
+import type {
+  ButtonInteraction,
+  CommandInteraction,
+  Guild,
+  TextBasedChannel,
+} from "discord.js";
 import { GuildMember, MessageEmbed } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import {
@@ -22,8 +27,7 @@ function wait(ms: number) {
 }
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class MusicPlayer {
+export class MusicPlayer {
   player: Record<string, Player> = {};
 
   // utils
@@ -42,7 +46,15 @@ class MusicPlayer {
     client: Client,
     interaction: CommandInteraction | ButtonInteraction,
     skipBotChannel = false
-  ) {
+  ): Promise<
+    | {
+        channel: TextBasedChannel;
+        guild: Guild;
+        member: GuildMember;
+        queue: MusicQueue;
+      }
+    | undefined
+  > {
     await interaction.deferReply();
 
     if (
@@ -313,7 +325,7 @@ class MusicPlayer {
 
     const { queue } = cmd;
 
-    queue.view(interaction as unknown as CommandInteraction, client);
+    queue.view(interaction as unknown as CommandInteraction);
   }
 
   @ButtonComponent("btn-mix")

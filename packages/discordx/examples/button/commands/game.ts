@@ -69,8 +69,7 @@ const defaultChoice = new RPSProposition(
 );
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class RockPaperScissors {
+export class RockPaperScissors {
   @Slash("rock-paper-scissors", {
     description:
       "What could be more fun than play Rock Paper Scissors with a bot?",

@@ -15,8 +15,7 @@ import {
 } from "../../../src/index.js";
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @Slash("voice-channel")
   @Permission(
     new DefaultPermissionResolver((command) => {
@@ -31,8 +30,7 @@ class Example {
     permission: true,
     type: "USER",
   })
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  @Permission(async (guild, cmd): Promise<ApplicationCommandPermissions[]> => {
+  @Permission(async (): Promise<ApplicationCommandPermissions[]> => {
     const getResponse = () => {
       return new Promise((resolve) => {
         setTimeout(function () {

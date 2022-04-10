@@ -32,8 +32,7 @@ class NamedDatabase {
 }
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class ConstructorInjection {
+export class ConstructorInjection {
   constructor(
     private database: Database,
     @Inject("myDb") private namedDatabase: NamedDatabase
@@ -66,8 +65,7 @@ class ConstructorInjection {
 }
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class PropertyInjectionExample {
+export class PropertyInjectionExample {
   @Inject()
   private database!: Database;
 

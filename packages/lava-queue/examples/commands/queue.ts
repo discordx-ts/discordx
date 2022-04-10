@@ -15,7 +15,6 @@ import {
   MessageButton,
   MessageEmbed,
 } from "discord.js";
-import type { Client } from "discordx";
 
 import type { Player } from "../../src/index.js";
 import { Queue } from "../../src/index.js";
@@ -187,9 +186,7 @@ export class MusicQueue extends Queue {
   }
 
   public async view(
-    interaction: CommandInteraction | ContextMenuInteraction,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    client: Client
+    interaction: CommandInteraction | ContextMenuInteraction
   ): Promise<void> {
     if (!this.currentTrack) {
       const pMsg = await interaction.followUp({

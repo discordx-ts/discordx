@@ -12,8 +12,7 @@ export const InteractionGuard: GuardFunction<ContextMenuInteraction> = async (
 };
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @ContextMenu("USER", "Check details")
   @Guard(InteractionGuard)
   userHandler(interaction: ContextMenuInteraction): void {

@@ -24,8 +24,7 @@ const guard2: GuardFunction = async ([]: [string], client, next, data) => {
 };
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @On("messageCreate")
   private onMessage([message]: [string]) {
     return message;

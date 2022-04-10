@@ -5,8 +5,7 @@ import { Discord, MetadataStorage, Slash } from "discordx";
 import { Pagination } from "../../../src/index.js";
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   // example: pagination for all slash command
   @Slash("slashes", { description: "Pagination for all slash command" })
   slashes(interaction: CommandInteraction): void {

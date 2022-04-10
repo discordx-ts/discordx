@@ -6,8 +6,7 @@ import { Discord, Once, Slash, SlashOption } from "discordx";
 import * as Lava from "../../src/index.js";
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class MusicPlayer {
+export class MusicPlayer {
   node: Lava.Node | undefined;
 
   @Once("ready")

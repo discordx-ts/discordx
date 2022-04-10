@@ -8,17 +8,19 @@ function Log(ctx: RouterContext, next: Next) {
   return next();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Authenticated(ctx: RouterContext, next: Next) {
-  ctx.body = "unauthorised required";
+  if (Number("4") === 3) {
+    return next();
+  }
+
+  ctx.body = "unauthorized required";
   // we are not returning next, to avoid further execution
   return;
 }
 
 @Router()
 @Middleware(Log) // will execute for all sub routes
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-abstract class Example {
+export class Example {
   @Get("/")
   hello(ctx: RouterContext): void {
     ctx.body = "Hello world!";

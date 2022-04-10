@@ -1,12 +1,10 @@
-import type { ArgsOf, Client } from "../../../src/index.js";
+import type { ArgsOf } from "../../../src/index.js";
 import { Discord, On } from "../../../src/index.js";
 
 @Discord()
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @On("messageCreate")
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onMessage([message]: ArgsOf<"messageCreate">, client: Client): void {
+  onMessage([message]: ArgsOf<"messageCreate">): void {
     console.log(message.content);
   }
 

@@ -46,8 +46,7 @@ enum TextChoices {
   data.passed = true;
   return next();
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @Slash("add", { description: "Addition" })
   @SlashGroup("maths", "testing")
   add(
@@ -126,8 +125,7 @@ class Example {
   data.passed = true;
   return next();
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example2 {
+export class Example2 {
   @Slash("add", { description: "Addition" })
   @SlashGroup("line", "group-test-without-description")
   add(
@@ -149,8 +147,7 @@ class Example2 {
   data.passed = true;
   return next();
 })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example3 {
+export class Example3 {
   @Slash("hello")
   @Permission({ id: "123", permission: true, type: "USER" })
   add(
@@ -203,8 +200,7 @@ class Example3 {
 @Discord()
 @SlashGroup({ name: "test-x" })
 @SlashGroup("test-x")
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class AnotherGroup {
+export class AnotherGroup {
   @Slash()
   m(): unknown {
     return ["/test-x", "m", true];
@@ -219,8 +215,7 @@ class AnotherGroup {
 @Discord()
 @SlashGroup({ name: "add", root: "test-x" })
 @SlashGroup("add", "test-x")
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Group {
+export class Group {
   @Slash()
   x(): unknown {
     return ["/test-x", "add", "x", true];

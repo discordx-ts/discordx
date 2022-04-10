@@ -6,8 +6,7 @@ import { Discord, Slash, SlashGroup, SlashOption } from "../../../src/index.js";
 @SlashGroup({ name: "testing" })
 @SlashGroup({ name: "maths", root: "testing" })
 @SlashGroup({ name: "text", root: "testing" })
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Example {
+export class Example {
   @Slash("voice-channel")
   @SlashGroup("maths", "testing")
   voiceChannel(
