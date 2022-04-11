@@ -32,12 +32,6 @@ module.exports = {
           type: "doc",
         },
         {
-          docId: "packages/discordx/README",
-          label: "API",
-          position: "left",
-          type: "doc",
-        },
-        {
           docId: "packages/index",
           label: "Packages",
           position: "left",
@@ -89,6 +83,7 @@ module.exports = {
         },
         gtag: {
           anonymizeIP: true, // Should IPs be anonymized?
+          // code-spell: disable
           trackingID: "G-VD776VLREB",
         },
         theme: {
@@ -98,171 +93,5 @@ module.exports = {
     ],
   ],
   // eslint-disable-next-line sort-keys
-  plugins: [
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/discordx/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-1",
-        name: "discordx",
-        out: "packages/discordx/api",
-        readme: "none",
-        tsconfig: "../packages/discordx/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/music/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-2",
-        name: "@discordx/music",
-        out: "packages/music/api",
-        readme: "none",
-        tsconfig: "../packages/music/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/utilities/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-3",
-        name: "@discordx/utilities",
-        out: "packages/utilities/api",
-        readme: "none",
-        tsconfig: "../packages/utilities/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/pagination/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-4",
-        name: "@discordx/pagination",
-        out: "packages/pagination/api",
-        readme: "none",
-        tsconfig: "../packages/pagination/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/changelog/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-5",
-        name: "@discordx/changelog",
-        out: "packages/changelog/api",
-        readme: "none",
-        tsconfig: "../packages/changelog/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/di/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-6",
-        name: "@discordx/di",
-        out: "packages/di/api",
-        readme: "none",
-        tsconfig: "../packages/di/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/internal/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-8",
-        name: "@discordx/internal",
-        out: "packages/internal/api",
-        readme: "none",
-        tsconfig: "../packages/internal/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/koa/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-9",
-        name: "@discordx/koa",
-        out: "packages/koa/api",
-        readme: "none",
-        tsconfig: "../packages/koa/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/lava-player/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-10",
-        name: "@discordx/lava-player",
-        out: "packages/lava-player/api",
-        readme: "none",
-        tsconfig: "../packages/lava-player/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/lava-queue/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-11",
-        name: "@discordx/lava-queue",
-        out: "packages/lava-queue/api",
-        readme: "none",
-        tsconfig: "../packages/lava-queue/tsconfig.json",
-      },
-    ],
-    [
-      "docusaurus-plugin-typedoc",
-      // Plugin / TypeDoc options
-      {
-        entryPoints: ["../packages/socket.io/src/index.ts"],
-        excludeExternals: true,
-        excludePrivate: true,
-        excludeProtected: true,
-        id: "api-12",
-        name: "@discordx/socket.io",
-        out: "packages/socket.io/api",
-        readme: "none",
-        tsconfig: "../packages/socket.io/tsconfig.json",
-      },
-    ],
-  ],
+  plugins: [],
 };

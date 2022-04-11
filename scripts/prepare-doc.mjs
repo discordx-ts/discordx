@@ -2,12 +2,14 @@ import fs from "fs";
 
 const packages = [
   "changelog",
+  "create-discordx",
   "di",
   "discordx",
   "importer",
   "internal",
   "koa",
   "lava-player",
+  "lava-queue",
   "music",
   "pagination",
   "socket.io",
