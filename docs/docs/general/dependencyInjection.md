@@ -4,7 +4,7 @@ Discordx supports multiple DI containers to help you efficiently manage and arch
 
 Another use for this approach is that sometimes, you will find yourself wanting to get hold of objects and instances and might have been tempted to just put them on the Client, or extend the Client object with your own custom Client class and just put everything there. This is fine in a pure JS way, but causes issues especially with maintenance and managing, as well as having to unsafely cast your Client.
 
-so, if you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilise the container
+so, if you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilize the container
 to register each annotated `@Discord()` class!
 
 In order to use your container, there is some small configuration to do in your code
@@ -15,8 +15,8 @@ In order to use your container, there is some small configuration to do in your 
 
 - TSyringe
 - TypeDi
-- you first need to bind your di container to discordx before you import/define any `@Discord` classes (eg. be it from importx or another custom loader)
-  in order to do this, just add `DIService.container = container` beofre the aforementioned importer:
+
+you first need to bind your di container to discordx before you import/define any `@Discord` classes (eg. be it from importx or another custom loader). In order to do this, just add `DIService.container = container` before the aforementioned importer:
 
 eg
 
