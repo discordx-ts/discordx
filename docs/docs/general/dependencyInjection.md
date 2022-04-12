@@ -4,7 +4,7 @@ Discordx supports multiple DI containers to help you efficiently manage and arch
 
 Another use for this approach is that sometimes, you will find yourself wanting to get hold of objects and instances and might have been tempted to just put them on the Client, or extend the Client object with your own custom Client class and just put everything there. This is fine in a pure JS way, but causes issues especially with maintenance and managing, as well as having to unsafely cast your Client.
 
-so, if you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilize the container
+So, if you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilize the container
 to register each annotated `@Discord()` class!
 
 In order to use your container, there is some small configuration to do in your code
@@ -16,7 +16,7 @@ In order to use your container, there is some small configuration to do in your 
 - TSyringe
 - TypeDi
 
-you first need to bind your di container to discordx before you import/define any `@Discord` classes (eg. be it from importx or another custom loader). In order to do this, just add `DIService.container = container` before the aforementioned importer:
+You first need to bind your di container to discordx before you import/define any `@Discord` classes (eg. be it from importx or another custom loader). In order to do this, just add `DIService.container = container` before the aforementioned importer:
 
 eg
 
@@ -113,7 +113,7 @@ class Example {
 }
 ```
 
-when running the above code, your `database` will be injected into your `Example` class and when you ask your
+When running the above code, your `database` will be injected into your `Example` class and when you ask your
 container for `Example` you always receive the same instance of the class `container.resolve(Example);`
 
 If you do not mark the class as `@injectable()` you will get an error thrown from TSyringe telling you where is no
