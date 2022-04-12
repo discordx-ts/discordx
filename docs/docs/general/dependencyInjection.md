@@ -15,9 +15,11 @@ In order to use your container, there is some small configuration to do in your 
 
 - TSyringe
 - TypeDi
+- 
+you first need to bind your di container to discordx before you import/define any @Discord classes (eg. be it from importx or another custom loader)
+in order to do this, just add `DIService.container = container` beofre the aforementioned importer:
 
-before you call your `importx()` method, you must tell Discordx to use your container for its internal Di solution,
-in order to do this, just add `DIService.container = container` to your code anywhere before `importx()`:
+eg
 
 ```ts title="TSyringe"
 import { container } from "tsyringe";
