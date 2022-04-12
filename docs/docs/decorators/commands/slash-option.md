@@ -36,17 +36,24 @@ class Example {
 When defining an autocomplete slash option, you can define a resolver for autocomplete inside `@SlashOption` to simplify things.
 
 ```ts
-@SlashOption("autocomplete", {
-  autocomplete: function (
-    interaction: AutocompleteInteraction
-  ) {
+function resolver(interaction: AutocompleteInteraction): void {
   interaction.respond([
     { name: "option a", value: "a" },
     { name: "option b", value: "b" },
   ]);
-},
-type: "STRING",
-interaction: CommandInteraction
+}
+
+@Discord()
+export class Example {
+  @Slash()
+  autocomplete(
+    @SlashOption("choice", { autocomplete: resolver, type: "STRING" })
+    choice: string,
+    interaction: CommandInteraction
+  ): void {
+    interaction.reply(choice);
+  }
+}
 ```
 
 ### Method - Boolean
@@ -54,11 +61,32 @@ interaction: CommandInteraction
 Discordx (discord.ts) will call your command handler with autocomplete interaction if you use boolean instead of resolver.
 
 ```ts
-@SlashOption("autocomplete", {
-  autocomplete: true,
-  type: "STRING",
+@Discord()
+export class Example {
+  @Slash("autocomplete")
+  autocomplete(
+    @SlashOption("choice", {
+      autocomplete: true,
+      type: "STRING",
+    })
+    searchText: string,
+    interaction: CommandInteraction | AutocompleteInteraction
+  ): void {
+    if (interaction.isAutocomplete()) {
+      const focusedOption = interaction.options.getFocused(true);
+
+      // resolver for option a
+      if (focusedOption.name === "choice") {
+        interaction.respond([
+          { name: "option a", value: "a" },
+          { name: "option b", value: "b" },
+        ]);
+      }
+    } else {
+      interaction.reply(`${searchText}`);
+    }
+  }
 }
-interaction: CommandInteraction | AutocompleteInteraction
 ```
 
 ### Example - All Methods
