@@ -16,8 +16,8 @@ In order to use your container, there is some small configuration to do in your 
 - TSyringe
 - TypeDi
 
-before you call your `client.login()` method, you must tell Discordx to use your container for its internal Di solution,
-in order to do this, just add the following code anywhere before `importx()`:
+before you call your `importx()` method, you must tell Discordx to use your container for its internal Di solution,
+in order to do this, just add `DIService.container = container` to your code anywhere before `importx()`:
 
 ```ts title="TSyringe"
 import { container } from "tsyringe";
