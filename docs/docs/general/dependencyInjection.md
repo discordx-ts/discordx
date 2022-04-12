@@ -2,7 +2,9 @@
 
 Discordx supports multiple DI containers to help you efficiently manage and architect large applications that wish to take advantage of an IOC paradigm
 
-If you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilise the container
+Another use for this approach is that sometimes, you will find yourself wanting to get hold of objects and instances and might have been tempted to just put them on the Client, or extend the Client object with your own custom Client class and just put everything there. This is fine in a pure JS way, but causes issues especially with maintenance and managing, as well as having to unsafely cast your Client.
+
+so, if you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilise the container
 to register each annotated `@Discord()` class!
 
 In order to use your container, there is some small configuration to do in your code
@@ -15,7 +17,7 @@ In order to use your container, there is some small configuration to do in your 
 - TypeDi
 
 before you call your `client.login()` method, you must tell Discordx to use your container for its internal Di solution,
-in order to do this, just add the following code anywhere before `client.login()`:
+in order to do this, just add the following code anywhere before `importx()`:
 
 ```ts title="TSyringe"
 import { container } from "tsyringe";
