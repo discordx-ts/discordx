@@ -6,6 +6,7 @@ import type {
   InteractionReplyOptions,
   Message,
   MessageActionRow,
+  MessageCollectorOptions,
   MessageComponentInteraction,
   MessageEmbed,
   MessageOptions,
@@ -44,7 +45,7 @@ export enum PaginationType {
   SelectMenu,
 }
 
-interface BasicPaginationOptions {
+interface BasicPaginationOptions extends MessageCollectorOptions {
   /**
    * Enable exit button, It will close the pagination before timeout
    */
@@ -69,11 +70,6 @@ interface BasicPaginationOptions {
    * Show start/end buttons for large list (items more then 10) (default: true)
    */
   showStartEnd?: boolean;
-
-  /**
-   * In milliseconds, how long should the paginator run. (Default: 30min)
-   */
-  time?: number;
 }
 
 interface ButtonOptions {
