@@ -45,6 +45,8 @@
 - [guards](#%EF%B8%8F-guards)
   - [Rate Limit](#rate-limit)
   - [NotBot](#notbot)
+- [Useful](#-useful)
+  - [EnumChoice](#enumchoice)
 
 # 📖 Introduction
 
@@ -183,6 +185,22 @@ hello({ message }: SimpleCommandMessage): void {
 ```
 
 This will work on both Slash and Simple commands
+
+# 🧰 Useful
+
+Here are some helpful functions for accelerating your development.
+
+## EnumChoice
+
+```ts
+enum RPS {
+  Rock = "0",
+  Paper = "1",
+  scissors = "2",
+}
+
+@SlashChoice(...EnumChoice(RPS))
+```
 
 # ☎️ Need help?
 
