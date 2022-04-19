@@ -1,5 +1,5 @@
 import type { CommandInteraction } from "discord.js";
-import { PermissionString } from "discord.js";
+import type { PermissionString } from "discord.js";
 import { Discord, Guard, Slash } from "discordx";
 
 import { PermissionGuard } from "../../../src/index.js";
