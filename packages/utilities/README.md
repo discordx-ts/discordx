@@ -45,6 +45,7 @@
 - [guards](#%EF%B8%8F-guards)
   - [Rate Limit](#rate-limit)
   - [NotBot](#notbot)
+  - [PermissionGuard](#PermissionGuard)
 - [Useful](#-useful)
   - [EnumChoice](#enumchoice)
 
