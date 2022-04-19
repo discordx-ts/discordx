@@ -2,7 +2,7 @@ import type { CommandInteraction } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { Discord, MetadataStorage, Slash } from "discordx";
 
-import { Pagination } from "../../../src/index.js";
+import { Pagination, PaginationType } from "../../../src/index.js";
 
 @Discord()
 export class Example {
@@ -21,6 +21,9 @@ export class Example {
         .addField("Description", cmd.description);
     });
 
-    new Pagination(interaction, pages).send();
+    new Pagination(interaction, pages, {
+      filter: (interact) => interact.user.id === interaction.user.id,
+      type: PaginationType.Button,
+    }).send();
   }
 }

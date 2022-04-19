@@ -6,8 +6,9 @@ import type {
   InteractionReplyOptions,
   Message,
   MessageActionRow,
-  MessageCollectorOptions,
+  MessageCollectorOptionsParams,
   MessageComponentInteraction,
+  MessageComponentTypeResolvable,
   MessageEmbed,
   MessageOptions,
 } from "discord.js";
@@ -45,7 +46,8 @@ export enum PaginationType {
   SelectMenu,
 }
 
-interface BasicPaginationOptions extends MessageCollectorOptions {
+interface BasicPaginationOptions
+  extends MessageCollectorOptionsParams<MessageComponentTypeResolvable> {
   /**
    * Enable exit button, It will close the pagination before timeout
    */

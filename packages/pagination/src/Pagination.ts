@@ -168,6 +168,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
     // create collector
     const collector = message.createMessageComponentCollector({
+      ...this.option,
       time: this.option.time ?? defaultTime,
     });
 
