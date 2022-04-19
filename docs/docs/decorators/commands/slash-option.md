@@ -302,9 +302,10 @@ Multiple options, check below.
 #### `autocomplete`
 
 Enable autocomplete interactions for this option
-| type | default |
+
+| type                             | default |
 | -------------------------------- | ------- |
-| boolean \| autocomplete resolver | false |
+| boolean \| autocomplete resolver | false   |
 
 #### `Description`
 
