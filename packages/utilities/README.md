@@ -45,6 +45,7 @@
 - [guards](#%EF%B8%8F-guards)
   - [Rate Limit](#rate-limit)
   - [NotBot](#notbot)
+  - [PermissionGuard](#permissionguard)
 - [Useful](#-useful)
   - [EnumChoice](#enumchoice)
 
@@ -175,16 +176,71 @@ class RateLimitExample {
 ## NotBot
 
 ```ts
-...
 @SimpleCommand("hello")
 @Guard(NotBot)
 hello({ message }: SimpleCommandMessage): void {
   message.reply("It worked!");
 }
-...
 ```
 
 This will work on both Slash and Simple commands
+
+## PermissionGuard
+
+When you are using global commands, but still wish to restrict commands to permissions from roles, then you can use this guard to easily supply an array of Permissions that a user must have in order to execute the command.
+
+The guard can take an array of permissions or an async resolver to the permission array
+
+### Example
+
+```ts
+@Discord()
+export class PermissionGuards {
+  /**
+   * Only allow users with the role "BAN_MEMBERS"
+   *
+   * @param interaction
+   */
+  @Slash("permission_ban_members")
+  @Guard(PermissionGuard(["BAN_MEMBERS"]))
+  banMembers1(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  /**
+   * Only allow users with the role "BAN_MEMBERS" with a custom message
+   *
+   * @param interaction
+   */
+  @Slash("permission_ban_members")
+  @Guard(
+    PermissionGuard(["BAN_MEMBERS"], "You do not have the role `BAN_MEMBERS`")
+  )
+  banMembers2(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  /**
+   * get the permissions from an async resolver
+   *
+   * @param interaction
+   */
+  @Slash("permission_ban_members")
+  @Guard(
+    PermissionGuard(
+      PermissionGuards.resolvePermission,
+      "You do not have the role `BAN_MEMBERS`"
+    )
+  )
+  banMembers3(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  private static resolvePermission(): Promise<PermissionString[]> {
+    return Promise.resolve(["BAN_MEMBERS"]);
+  }
+}
+```
 
 # 🧰 Useful
 
