@@ -11,10 +11,17 @@ import { promisify } from "util";
 export async function GetTemplates(): Promise<
   { title: string; value: string }[]
 > {
-  const request = await fetch("https://api.github.com/repos/oceanroleplay/discordx-templates/contents");
-  const response = await request.json() as Array<{ name: string; path: string; type: string }>;
+  const request = await fetch(
+    "https://api.github.com/repos/oceanroleplay/discordx-templates/contents"
+  );
+  const response = (await request.json()) as Array<{
+    name: string;
+    path: string;
+    type: string;
+  }>;
 
-  return response.filter((row) => row.type === "dir" && /^[0-9].+/.test(row.name))
+  return response
+    .filter((row) => row.type === "dir" && /^[0-9].+/.test(row.name))
     .map((row) => ({ title: row.name, value: row.path }));
 }
 
@@ -31,7 +38,9 @@ export async function DownloadAndExtractTemplate(
 ): Promise<void> {
   const pipeline = promisify(Stream.pipeline);
 
-  const request = await fetch("https://codeload.github.com/oceanroleplay/discordx-templates/tar.gz/main");
+  const request = await fetch(
+    "https://codeload.github.com/oceanroleplay/discordx-templates/tar.gz/main"
+  );
   const readableWebStream = request.body as AsyncIterable<unknown>;
 
   return pipeline(
