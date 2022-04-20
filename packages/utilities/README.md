@@ -236,7 +236,15 @@ export class PermissionGuards {
     interaction.reply("It worked!");
   }
 
-  private static resolvePermission(): Promise<PermissionString[]> {
+  private static resolvePermission(
+    interaction: PermissionHandlerInteraction
+  ): Promise<PermissionString[]> {
+    if (interaction instanceof CommandInteraction) {
+      // if guild id is 123
+      if (interaction.guildId === "123") {
+        return Promise.resolve(["ADD_REACTIONS"]);
+      }
+    }
     return Promise.resolve(["BAN_MEMBERS"]);
   }
 }
