@@ -189,7 +189,7 @@ This will work on both Slash and Simple commands
 
 When you are using global commands, but still wish to restrict commands to permissions from roles, then you can use this guard to easily supply an array of Permissions that a user must have in order to execute the command.
 
-The guard can take an array of permissions or an async resolver to the permission array and a PermissionGuardOptions object with `content` and `ephemeral` values.
+Permission guards can take an array of permissions or an async resolver to the permission array, as well as a PermissionGuardOptions object that contains `content` and `ephemeral` values.
 
 ### Example
 
