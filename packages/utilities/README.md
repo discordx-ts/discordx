@@ -189,7 +189,7 @@ This will work on both Slash and Simple commands
 
 When you are using global commands, but still wish to restrict commands to permissions from roles, then you can use this guard to easily supply an array of Permissions that a user must have in order to execute the command.
 
-The guard can take an array of permissions or an async resolver to the permission array
+The guard can take an array of permissions or an async resolver to the permission array and a PermissionGuardOptions object with `content` and `ephemeral` values.
 
 ### Example
 
@@ -214,7 +214,9 @@ export class PermissionGuards {
    */
   @Slash("permission_ban_members")
   @Guard(
-    PermissionGuard(["BAN_MEMBERS"], "You do not have the role `BAN_MEMBERS`")
+    PermissionGuard(["BAN_MEMBERS"], {
+      content: "You do not have the role `BAN_MEMBERS`",
+    })
   )
   banMembers2(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -227,10 +229,9 @@ export class PermissionGuards {
    */
   @Slash("permission_ban_members")
   @Guard(
-    PermissionGuard(
-      PermissionGuards.resolvePermission,
-      "You do not have the role `BAN_MEMBERS`"
-    )
+    PermissionGuard(PermissionGuards.resolvePermission, {
+      content: "You do not have the role `BAN_MEMBERS`",
+    })
   )
   banMembers3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -264,10 +265,9 @@ export class PermissionGuards {
   }
 
   private static genEmbed() {
-    let embed = new MessageEmbed()
+    return new MessageEmbed()
       .setColor("RED")
       .setDescription("You do not have the role `BAN_MEMBERS`");
-    return embed;
   }
 }
 ```

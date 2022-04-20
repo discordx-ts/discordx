@@ -19,7 +19,7 @@ import type {
 /**
  * Set an array of permissions that this command is allowed to use, this is useful for global commands that can not use the `@Permission` decorator, until Permissions 2v is out
  * @param permissions - an array of Permissions or a function to resolve the permissions
- * @param messageIfNotAllowed - message to post when the member using this command does not have the correct permissions, defaults to "No permissions"
+ * @param options - Options for the guard repl. Available options are: `content` (string or MessageEmbed) and `ephemeral` (boolean) defaults to `content`: "No permissions" and `ephemeral`: false
  */
 export function PermissionGuard(
   permissions:
@@ -27,7 +27,10 @@ export function PermissionGuard(
     | ((
         interaction: PermissionHandlerInteraction
       ) => Promise<PermissionString[]>),
-  options: PermissionGuardOptions
+  options: PermissionGuardOptions = {
+    content: "No permissions",
+    ephemeral: false,
+  }
 ): GuardFunction<
   CommandInteraction | SimpleCommandMessage | ContextMenuInteraction
 > {
