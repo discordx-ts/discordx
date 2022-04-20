@@ -1,5 +1,5 @@
 import type { PermissionString } from "discord.js";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 import { Discord, Guard, Slash } from "discordx";
 
 import type { PermissionHandlerInteraction } from "../../../src/index.js";
@@ -57,5 +57,27 @@ export class PermissionGuards {
       }
     }
     return Promise.resolve(["BAN_MEMBERS"]);
+  }
+
+  /**
+   * Only allow users with the role "BAN_MEMBERS" with a custom embed
+   *
+   * @param interaction
+   */
+
+  
+  @Slash("permission_ban_members")
+  @Guard(
+    PermissionGuard(["BAN_MEMBERS"], PermissionGuards.genEmbed())
+  )
+  banMembers4(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  private static genEmbed() {
+    let embed = new MessageEmbed()
+    .setColor("RED")
+    .setDescription("You do not have the role `BAN_MEMBERS`");
+    return embed;
   }
 }

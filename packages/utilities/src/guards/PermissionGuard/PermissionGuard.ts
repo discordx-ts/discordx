@@ -4,13 +4,13 @@ import type {
   ContextMenuInteraction,
   Guild,
   MessageComponentInteraction,
-  PermissionString,
+  PermissionString
 } from "discord.js";
-import { GuildMember } from "discord.js";
+import { GuildMember, MessageEmbed } from 'discord.js';
 import type { Client, GuardFunction, Next } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
-import type { PermissionHandlerInteraction } from "./types";
+import type { PermissionHandlerInteraction, PermissionGuardOptions } from "./types";
 
 /**
  * Set an array of permissions that this command is allowed to use, this is useful for global commands that can not use the `@Permission` decorator, until Permissions 2v is out
@@ -23,20 +23,16 @@ export function PermissionGuard(
     | ((
         interaction: PermissionHandlerInteraction
       ) => Promise<PermissionString[]>),
-  messageIfNotAllowed = "No permissions"
+  options: PermissionGuardOptions
 ): GuardFunction<
   CommandInteraction | SimpleCommandMessage | ContextMenuInteraction
 > {
   async function replyOrFollowUp(
     interaction: BaseCommandInteraction | MessageComponentInteraction,
-    content: string,
-    ephemeral = false
+    content: object
   ): Promise<void> {
     if (interaction.replied) {
-      await interaction.followUp({
-        content,
-        ephemeral,
-      });
+      await interaction.followUp(content);
       return;
     }
 
@@ -45,15 +41,12 @@ export function PermissionGuard(
       return;
     }
 
-    await interaction.reply({
-      content,
-      ephemeral,
-    });
+    await interaction.reply(content);
   }
 
   async function post(
     arg: BaseCommandInteraction | SimpleCommandMessage,
-    msg: string
+    msg: object
   ): Promise<void> {
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(msg);
@@ -69,6 +62,8 @@ export function PermissionGuard(
   ) {
     let guild: Guild | null = null;
     let callee: GuildMember | null = null;
+    if (!options.content)
+      options.content = "No permissions";
     if (arg instanceof SimpleCommandMessage) {
       if (arg.message.inGuild()) {
         guild = arg.message.guild;
@@ -82,7 +77,6 @@ export function PermissionGuard(
         }
       }
     }
-
     if (!guild || !callee) {
       return next();
     }
@@ -94,6 +88,9 @@ export function PermissionGuard(
       return next();
     }
 
-    return post(arg, messageIfNotAllowed);
+    if (options.content instanceof MessageEmbed)
+      return post(arg, { embeds: [options.content], ephemeral: options.ephemeral ? true : false });
+    else
+      return post(arg, { content: options.content, ephemeral: options.ephemeral ? true : false });
   };
 }
