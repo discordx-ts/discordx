@@ -247,6 +247,26 @@ export class PermissionGuards {
     }
     return Promise.resolve(["BAN_MEMBERS"]);
   }
+  
+  /**
+   * Only allow users with the role "BAN_MEMBERS" with a custom embed
+   *
+   * @param interaction
+   */
+  @Slash("permission_ban_members")
+  @Guard(
+    PermissionGuard(["BAN_MEMBERS"], PermissionGuards.genEmbed())
+  )
+  banMembers4(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  private static genEmbed() {
+    let embed = new MessageEmbed()
+    .setColor("RED")
+    .setDescription("You do not have the role `BAN_MEMBERS`");
+    return embed;
+  }
 }
 ```
 
