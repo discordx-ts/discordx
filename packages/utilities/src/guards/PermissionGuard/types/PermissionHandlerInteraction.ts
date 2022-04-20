@@ -14,9 +14,3 @@ export type PermissionGuardOptions = {
   content?: string | MessageEmbed;
   ephemeral?: boolean;
 };
-
-export type PermissionReplyOptions = {
-  content?: string;
-  embeds?: MessageEmbed[];
-  ephemeral?: boolean;
-};

@@ -13,13 +13,12 @@ import { SimpleCommandMessage } from "discordx";
 import type {
   PermissionGuardOptions,
   PermissionHandlerInteraction,
-  PermissionReplyOptions,
 } from "./types";
 
 /**
  * Set an array of permissions that this command is allowed to use, this is useful for global commands that can not use the `@Permission` decorator, until Permissions 2v is out
  * @param permissions - an array of Permissions or a function to resolve the permissions
- * @param options - Options for the guard repl. Available options are: `content` (string or MessageEmbed) and `ephemeral` (boolean) defaults to `content`: "No permissions" and `ephemeral`: false
+ * @param options - Options for the guard reply. Available options are: `content` (string or MessageEmbed) and `ephemeral` (boolean) defaults to `content`: "No permissions" and `ephemeral`: false
  */
 export function PermissionGuard(
   permissions:
@@ -34,6 +33,12 @@ export function PermissionGuard(
 ): GuardFunction<
   CommandInteraction | SimpleCommandMessage | ContextMenuInteraction
 > {
+  type PermissionReplyOptions = {
+    content?: string;
+    embeds?: MessageEmbed[];
+    ephemeral?: boolean;
+  };
+
   async function replyOrFollowUp(
     interaction: BaseCommandInteraction | MessageComponentInteraction,
     content: PermissionReplyOptions
