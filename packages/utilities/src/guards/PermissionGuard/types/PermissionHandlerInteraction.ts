@@ -1,4 +1,8 @@
-import type { CommandInteraction, ContextMenuInteraction, MessageEmbed } from "discord.js";
+import type {
+  CommandInteraction,
+  ContextMenuInteraction,
+  MessageEmbed,
+} from "discord.js";
 import type { SimpleCommandMessage } from "discordx";
 
 export type PermissionHandlerInteraction =

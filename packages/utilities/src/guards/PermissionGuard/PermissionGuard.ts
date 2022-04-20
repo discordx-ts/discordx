@@ -4,13 +4,16 @@ import type {
   ContextMenuInteraction,
   Guild,
   MessageComponentInteraction,
-  PermissionString
+  PermissionString,
 } from "discord.js";
-import { GuildMember, MessageEmbed } from 'discord.js';
+import { GuildMember, MessageEmbed } from "discord.js";
 import type { Client, GuardFunction, Next } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
-import type { PermissionHandlerInteraction, PermissionGuardOptions } from "./types";
+import type {
+  PermissionGuardOptions,
+  PermissionHandlerInteraction,
+} from "./types";
 
 /**
  * Set an array of permissions that this command is allowed to use, this is useful for global commands that can not use the `@Permission` decorator, until Permissions 2v is out
@@ -62,8 +65,9 @@ export function PermissionGuard(
   ) {
     let guild: Guild | null = null;
     let callee: GuildMember | null = null;
-    if (!options.content)
+    if (!options.content) {
       options.content = "No permissions";
+    }
     if (arg instanceof SimpleCommandMessage) {
       if (arg.message.inGuild()) {
         guild = arg.message.guild;
@@ -88,9 +92,16 @@ export function PermissionGuard(
       return next();
     }
 
-    if (options.content instanceof MessageEmbed)
-      return post(arg, { embeds: [options.content], ephemeral: options.ephemeral ? true : false });
-    else
-      return post(arg, { content: options.content, ephemeral: options.ephemeral ? true : false });
+    if (options.content instanceof MessageEmbed) {
+      return post(arg, {
+        embeds: [options.content],
+        ephemeral: options.ephemeral ? true : false,
+      });
+    } else {
+      return post(arg, {
+        content: options.content,
+        ephemeral: options.ephemeral ? true : false,
+      });
+    }
   };
 }
