@@ -1,6 +1,8 @@
-import type { CommandInteraction, PermissionString } from "discord.js";
+import type { PermissionString } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { Discord, Guard, Slash } from "discordx";
 
+import type { PermissionHandlerInteraction } from "../../../src/index.js";
 import { PermissionGuard } from "../../../src/index.js";
 
 @Discord()
@@ -45,7 +47,15 @@ export class PermissionGuards {
     interaction.reply("It worked!");
   }
 
-  private static resolvePermission(): Promise<PermissionString[]> {
+  private static resolvePermission(
+    interaction: PermissionHandlerInteraction
+  ): Promise<PermissionString[]> {
+    if (interaction instanceof CommandInteraction) {
+      // if guild id is 123
+      if (interaction.guildId === "123") {
+        return Promise.resolve(["ADD_REACTIONS"]);
+      }
+    }
     return Promise.resolve(["BAN_MEMBERS"]);
   }
 }
