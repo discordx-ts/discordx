@@ -254,7 +254,11 @@ export class PermissionGuards {
    * @param interaction
    */
   @Slash("permission_ban_members")
-  @Guard(PermissionGuard(["BAN_MEMBERS"], PermissionGuards.genEmbed()))
+  @Guard(
+    PermissionGuard(["BAN_MEMBERS"], {
+      content: PermissionGuards.genEmbed(),
+    })
+  )
   banMembers4(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
   }

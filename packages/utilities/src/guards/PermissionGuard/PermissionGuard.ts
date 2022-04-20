@@ -13,6 +13,7 @@ import { SimpleCommandMessage } from "discordx";
 import type {
   PermissionGuardOptions,
   PermissionHandlerInteraction,
+  PermissionReplyOptions,
 } from "./types";
 
 /**
@@ -32,7 +33,7 @@ export function PermissionGuard(
 > {
   async function replyOrFollowUp(
     interaction: BaseCommandInteraction | MessageComponentInteraction,
-    content: object
+    content: PermissionReplyOptions
   ): Promise<void> {
     if (interaction.replied) {
       await interaction.followUp(content);
@@ -49,7 +50,7 @@ export function PermissionGuard(
 
   async function post(
     arg: BaseCommandInteraction | SimpleCommandMessage,
-    msg: object
+    msg: PermissionReplyOptions
   ): Promise<void> {
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(msg);
@@ -92,16 +93,14 @@ export function PermissionGuard(
       return next();
     }
 
+    const postOptions: PermissionReplyOptions = {
+      ephemeral: !!options.ephemeral,
+    };
     if (options.content instanceof MessageEmbed) {
-      return post(arg, {
-        embeds: [options.content],
-        ephemeral: options.ephemeral ? true : false,
-      });
+      postOptions["embeds"] = [options.content];
     } else {
-      return post(arg, {
-        content: options.content,
-        ephemeral: options.ephemeral ? true : false,
-      });
+      postOptions["content"] = options.content;
     }
+    return post(arg, postOptions);
   };
 }
