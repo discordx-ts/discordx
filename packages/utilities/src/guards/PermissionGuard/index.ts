@@ -1,4 +1,10 @@
-import type { CommandInteraction, Guild, PermissionString } from "discord.js";
+import type {
+  CommandInteraction,
+  Guild,
+  InteractionReplyOptions,
+  MessageOptions,
+  PermissionString,
+} from "discord.js";
 import { GuildMember } from "discord.js";
 import type { Client, GuardFunction, Next } from "discordx";
 import { SimpleCommandMessage } from "discordx";
@@ -10,7 +16,7 @@ export type PermissionsType =
   | ((interaction: PermissionHandler) => Promise<PermissionString[]>);
 
 export type PermissionOptions = {
-  content: string;
+  content: string | MessageOptions;
   ephemeral?: boolean;
 };
 
@@ -27,14 +33,16 @@ export function PermissionGuard(
   // reply or followup, if used on interactions
   async function replyOrFollowUp(
     interaction: CommandInteraction,
-    content: string
+    content: string | MessageOptions
   ): Promise<void> {
+    const replyMessage: InteractionReplyOptions =
+      typeof content === "string"
+        ? { content, ephemeral: options?.ephemeral }
+        : { ...content, ephemeral: options?.ephemeral };
+
     // if interaction is already replied
     if (interaction.replied) {
-      await interaction.followUp({
-        content,
-        ephemeral: options?.ephemeral,
-      });
+      await interaction.followUp(replyMessage);
       return;
     }
 
@@ -45,10 +53,7 @@ export function PermissionGuard(
     }
 
     // if interaction is not handled yet
-    await interaction.reply({
-      content,
-      ephemeral: options?.ephemeral,
-    });
+    await interaction.reply(replyMessage);
 
     return;
   }
