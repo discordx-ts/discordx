@@ -1,6 +1,5 @@
 import axios from "axios";
-import got from "got";
-import { Stream } from "stream";
+import { Readable, Stream } from "stream";
 import tar from "tar";
 import { promisify } from "util";
 
@@ -50,16 +49,19 @@ export async function IsTemplateExist(name: string): Promise<boolean> {
  * @param name project name
  * @returns
  */
-export function DownloadAndExtractTemplate(
+export async function DownloadAndExtractTemplate(
   root: string,
   name: string
 ): Promise<void> {
   const pipeline = promisify(Stream.pipeline);
 
+  const request = await axios({
+    responseType: "stream",
+    url: "https://codeload.github.com/oceanroleplay/discordx-templates/tar.gz/main",
+  });
+
   return pipeline(
-    got.stream(
-      "https://codeload.github.com/oceanroleplay/discordx-templates/tar.gz/main"
-    ),
+    Readable.from(request.data),
     tar.extract({ cwd: root, strip: 2 }, [`discordx-templates-main/${name}`])
   );
 }
