@@ -214,7 +214,9 @@ export class PermissionGuards {
    */
   @Slash("permission_ban_members")
   @Guard(
-    PermissionGuard(["BAN_MEMBERS"], "You do not have the role `BAN_MEMBERS`")
+    PermissionGuard(["BAN_MEMBERS"], {
+      content: "You do not have the role `BAN_MEMBERS`",
+    })
   )
   banMembers2(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -227,17 +229,16 @@ export class PermissionGuards {
    */
   @Slash("permission_ban_members")
   @Guard(
-    PermissionGuard(
-      PermissionGuards.resolvePermission,
-      "You do not have the role `BAN_MEMBERS`"
-    )
+    PermissionGuard(PermissionGuards.resolvePermission, {
+      content: "You do not have the role `BAN_MEMBERS`",
+    })
   )
   banMembers3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
   }
 
   private static resolvePermission(
-    interaction: PermissionHandlerInteraction
+    interaction: PermissionHandler
   ): Promise<PermissionString[]> {
     if (interaction instanceof CommandInteraction) {
       // if guild id is 123

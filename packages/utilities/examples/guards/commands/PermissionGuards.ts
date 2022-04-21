@@ -2,7 +2,7 @@ import type { PermissionString } from "discord.js";
 import { CommandInteraction } from "discord.js";
 import { Discord, Guard, Slash } from "discordx";
 
-import type { PermissionHandlerInteraction } from "../../../src/index.js";
+import type { PermissionHandler } from "../../../src/index.js";
 import { PermissionGuard } from "../../../src/index.js";
 
 @Discord()
@@ -25,7 +25,10 @@ export class PermissionGuards {
    */
   @Slash("permission_ban_members")
   @Guard(
-    PermissionGuard(["BAN_MEMBERS"], "You do not have the role `BAN_MEMBERS`")
+    PermissionGuard(["BAN_MEMBERS"], {
+      content: "You do not have the role `BAN_MEMBERS`",
+      ephemeral: true,
+    })
   )
   banMembers2(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -38,17 +41,17 @@ export class PermissionGuards {
    */
   @Slash("permission_ban_members")
   @Guard(
-    PermissionGuard(
-      PermissionGuards.resolvePermission,
-      "You do not have the role `BAN_MEMBERS`"
-    )
+    PermissionGuard(PermissionGuards.resolvePermission, {
+      content: "You do not have the role `BAN_MEMBERS`",
+      ephemeral: true,
+    })
   )
   banMembers3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
   }
 
   private static resolvePermission(
-    interaction: PermissionHandlerInteraction
+    interaction: PermissionHandler
   ): Promise<PermissionString[]> {
     if (interaction instanceof CommandInteraction) {
       // if guild id is 123
