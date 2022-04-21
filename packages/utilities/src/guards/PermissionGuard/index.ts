@@ -1,7 +1,6 @@
 import type {
   CommandInteraction,
   Guild,
-  InteractionReplyOptions,
   MessageOptions,
   PermissionString,
 } from "discord.js";
@@ -15,8 +14,7 @@ export type PermissionsType =
   | PermissionString[]
   | ((interaction: PermissionHandler) => Promise<PermissionString[]>);
 
-export type PermissionOptions = {
-  content: string | MessageOptions;
+export type PermissionOptions = MessageOptions & {
   ephemeral?: boolean;
 };
 
@@ -33,27 +31,22 @@ export function PermissionGuard(
   // reply or followup, if used on interactions
   async function replyOrFollowUp(
     interaction: CommandInteraction,
-    content: string | MessageOptions
+    replyOptions: PermissionOptions
   ): Promise<void> {
-    const replyMessage: InteractionReplyOptions =
-      typeof content === "string"
-        ? { content, ephemeral: options?.ephemeral }
-        : { ...content, ephemeral: options?.ephemeral };
-
     // if interaction is already replied
     if (interaction.replied) {
-      await interaction.followUp(replyMessage);
+      await interaction.followUp(replyOptions);
       return;
     }
 
     // if interaction is deferred but not replied
     if (interaction.deferred) {
-      await interaction.editReply(content);
+      await interaction.editReply(replyOptions);
       return;
     }
 
     // if interaction is not handled yet
-    await interaction.reply(replyMessage);
+    await interaction.reply(replyOptions);
 
     return;
   }
@@ -63,9 +56,11 @@ export function PermissionGuard(
     arg: PermissionHandler,
     perms: PermissionString[]
   ): Promise<void> {
-    const finalResponse =
-      options?.content ??
-      `you need \`\`${perms.join(", ")}\`\` permissions for this command`;
+    const finalResponse = options ?? {
+      content: `you need \`\`${perms.join(
+        ", "
+      )}\`\` permissions for this command`,
+    };
 
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(finalResponse);
