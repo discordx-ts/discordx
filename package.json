@@ -52,7 +52,7 @@
     "husky": "^7.0.4",
     "is-ci": "^3.0.1",
     "prettier": "^2.6.2",
-    "turbo": "^1.2.4"
+    "turbo": "^1.2.5"
   },
   "turbo": {
     "pipeline": {
