@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "tslib": "^2.3.1"
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@discordx/importer": "^1.1.2",
