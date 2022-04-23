@@ -13,7 +13,7 @@ import type {
   APIInteractionDataResolvedChannel,
   APIInteractionDataResolvedGuildMember,
   APIRole,
-} from "discord-api-types";
+} from "discord-api-types/v9";
 
 import type {
   ApplicationCommandDataX,
