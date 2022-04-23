@@ -2,6 +2,7 @@
 
 ## Changed
 
+- log skipped commands ([9448c5](https://github.com/oceanroleplay/discord.ts/commit/9448c5e8da013e3bb4655e10e718a14d60c02214))
 - use proper logger method ([#613](https://github.com/oceanroleplay/discord.ts/issues/613)) ([1628e5](https://github.com/oceanroleplay/discord.ts/commit/1628e5a5740bc9d62f0da159a3dd7efda729a37c))
 
 ## Fixed

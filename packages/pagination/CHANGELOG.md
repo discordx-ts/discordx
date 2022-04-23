@@ -1,9 +1,17 @@
 # Stage
 
+## Features
+
+- expose pagination collector options ([24c39c](https://github.com/oceanroleplay/discord.ts/commit/24c39c24f92f7f253b40bf56003ee41898a4ed42))
+
 ## Changed
 
 - improve pagination error ([351abd](https://github.com/oceanroleplay/discord.ts/commit/351abd4b1a20858950542cb1fcb78094a98420a6))
 - pagination ([#536](https://github.com/oceanroleplay/discord.ts/issues/536)) ([0f9da8](https://github.com/oceanroleplay/discord.ts/commit/0f9da8e3d57e220e089a48ccbc3f6b0989a5c754))
+
+## Fixed
+
+- pagination collector options ([4c028f](https://github.com/oceanroleplay/discord.ts/commit/4c028f7e81e42a49ffdfb0521aa91de562565ec9))
 
 # [v2.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/p-v2.0.0) (2022-02-20)
 

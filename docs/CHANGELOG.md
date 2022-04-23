@@ -1,5 +1,23 @@
 # Stage
 
+## Changed
+
+- remove typedoc ([235c27](https://github.com/oceanroleplay/discord.ts/commit/235c275167a9dcaf2e3ef5ff88858a261dfe568c))
+
+## Documentation
+
+- slash option ([b4901d](https://github.com/oceanroleplay/discord.ts/commit/b4901da8b08e7a88e3b56c6e2def8d785611879a))
+- fix autocomplete example ([55efdc](https://github.com/oceanroleplay/discord.ts/commit/55efdcbe6f083461532b58c60e078e537c3cba99))
+
+## Routine Tasks
+
+- add lava-queue on docs ([a5e85c](https://github.com/oceanroleplay/discord.ts/commit/a5e85c1169cc1bba4a44817b30888bcccfac734a))
+- repo cleanup ([df82f0](https://github.com/oceanroleplay/discord.ts/commit/df82f067bc87bef3510796f50eee966a7955d0bf))
+
+## Untagged
+
+- Update dependencyInjection.md ([#632](https://github.com/oceanroleplay/discord.ts/issues/632)) ([7d2334](https://github.com/oceanroleplay/discord.ts/commit/7d233472db5b61fc69489ab28cfc95cca2167452))
+
 # [v9.5.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.5.0) (2022-04-01)
 
 ## Breaking Changes

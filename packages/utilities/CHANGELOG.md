@@ -2,7 +2,19 @@
 
 ## Features
 
+- added Permission guard ([#642](https://github.com/oceanroleplay/discord.ts/issues/642)) ([3661ed](https://github.com/oceanroleplay/discord.ts/commit/3661ed15a3e229f913858a66fbccfca06df51717))
+- add EnumChoice in utilities ([aae30d](https://github.com/oceanroleplay/discord.ts/commit/aae30d1f262694b3aa084c21ce757be8afa0b85c))
 - add description decorator ([250e32](https://github.com/oceanroleplay/discord.ts/commit/250e32bca8050b0b28d9c86aee15048bbb7d859f))
+
+## Changed
+
+- improve permission guard ([641fba](https://github.com/oceanroleplay/discord.ts/commit/641fba58183f6d84e94878f5e44980a899f3cb04))
+- permissions guard ([ee9eb7](https://github.com/oceanroleplay/discord.ts/commit/ee9eb75cbc7f42c068c08afe157545c8d20bf00e))
+
+## Routine Tasks
+
+- permission guard - use MessageOptions ([070433](https://github.com/oceanroleplay/discord.ts/commit/07043351fee7f06b85b9a51da23257ed215bfbe9))
+- added the ability to check the interaction ([#644](https://github.com/oceanroleplay/discord.ts/issues/644)) ([c5416b](https://github.com/oceanroleplay/discord.ts/commit/c5416b38ffcee1ba7b888adc8e7d515dd31ffdc0))
 
 # [v4.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v4.0.0) (2022-03-13)
 
