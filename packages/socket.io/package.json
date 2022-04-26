@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@discordx/importer": "^1.1.2",
-    "express": "^4.17.3",
+    "express": "^4.18.0",
     "http": "^0.0.1-security",
     "koa": "^2.13.4",
     "socket.io": "^4.5.0",
