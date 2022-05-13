@@ -12,9 +12,5 @@
     "moduleResolution": "Node",
     "esModuleInterop": true
   },
-  "exclude": [
-    "node_modules",
-    "tests",
-    "examples"
-  ]
+  "exclude": ["node_modules", "tests", "examples"]
 }
