@@ -161,6 +161,15 @@ export class MetadataStorage {
         );
         break;
 
+      case RequestType.Put:
+        router.router.put(
+          route.path,
+          ...koa.globalMiddlewares,
+          ...route.middleware,
+          route.handler(koa)
+        );
+        break;
+
       case RequestType.Unlink:
         router.router.unlink(
           route.path,

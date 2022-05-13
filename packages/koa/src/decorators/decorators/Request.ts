@@ -40,6 +40,14 @@ export function Link(path?: string | RegExp): MethodDecoratorEx {
   return RequestMethod(RequestType.Link, path);
 }
 
+export function Patch(path?: string | RegExp): MethodDecoratorEx {
+  return RequestMethod(RequestType.Patch, path);
+}
+
+export function Put(path?: string | RegExp): MethodDecoratorEx {
+  return RequestMethod(RequestType.Put, path);
+}
+
 export function Unlink(path?: string | RegExp): MethodDecoratorEx {
   return RequestMethod(RequestType.Unlink, path);
 }

@@ -8,6 +8,7 @@ export enum RequestType {
   Link,
   Options,
   Patch,
+  Put,
   Post,
   Unlink,
 }
