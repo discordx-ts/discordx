@@ -44,7 +44,7 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "glob": "^8.0.1",
+    "glob": "^8.0.2",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
