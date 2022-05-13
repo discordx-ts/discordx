@@ -49,6 +49,11 @@ export enum PaginationType {
 interface BasicPaginationOptions
   extends MessageCollectorOptionsParams<MessageComponentTypeResolvable> {
   /**
+   * Debug log
+   */
+  debug?: boolean;
+
+  /**
    * Enable exit button, It will close the pagination before timeout
    */
   enableExit?: boolean;

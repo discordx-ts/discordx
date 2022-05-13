@@ -75,6 +75,15 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   }
 
   /**
+   * Unable to update pagination error
+   */
+  private unableToUpdate(): void {
+    if (this.option.debug) {
+      console.log("pagination: unable to update pagination");
+    }
+  }
+
+  /**
    * Get page
    *
    * @param page
@@ -228,7 +237,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         }
 
         // Update message
-        await collectInteraction.editReply(pageEx.newMessage);
+        await collectInteraction
+          .editReply(pageEx.newMessage)
+          .catch(() => this.unableToUpdate());
       } else if (
         collectInteraction.isSelectMenu() &&
         this.option.type === PaginationType.SelectMenu &&
@@ -268,7 +279,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
           pageEx.newMessage.components = [pageEx.paginationRow];
         }
 
-        await collectInteraction.editReply(pageEx.newMessage);
+        await collectInteraction
+          .editReply(pageEx.newMessage)
+          .catch(() => this.unableToUpdate());
       }
     });
 
@@ -283,10 +296,14 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         // Eliminate the ephemeral pagination error, since direct editing cannot be performed
         if (this.option.ephemeral && this.sendTo instanceof Interaction) {
           if (!this._isFollowUp) {
-            await this.sendTo.editReply(finalPage.newMessage);
+            await this.sendTo
+              .editReply(finalPage.newMessage)
+              .catch(() => this.unableToUpdate());
           }
         } else {
-          await message.edit(finalPage.newMessage);
+          await message
+            .edit(finalPage.newMessage)
+            .catch(() => this.unableToUpdate());
         }
       }
 
