@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "ESNext",
     "target": "ESNext",
     "strict": true,
     "noImplicitAny": true,
@@ -12,5 +12,9 @@
     "moduleResolution": "Node",
     "esModuleInterop": true
   },
-  "exclude": ["node_modules", "tests", "examples"]
+  "exclude": [
+    "node_modules",
+    "tests",
+    "examples"
+  ]
 }

@@ -90,32 +90,54 @@ export class MetadataStorage {
   private registerRoute(koa: Koa, router: DRouter, route: DRequest) {
     switch (route.type) {
       case RequestType.All:
-        router.router.all(route.path, ...route.middleware, route.handler(koa));
+        router.router.all(
+          route.path,
+          ...koa.globalMiddlewares,
+          ...route.middleware,
+          route.handler(koa)
+        );
         break;
 
       case RequestType.Delete:
         router.router.delete(
           route.path,
+          ...koa.globalMiddlewares,
           ...route.middleware,
           route.handler(koa)
         );
         break;
 
       case RequestType.Get:
-        router.router.get(route.path, ...route.middleware, route.handler(koa));
+        router.router.get(
+          route.path,
+          ...koa.globalMiddlewares,
+          ...route.middleware,
+          route.handler(koa)
+        );
         break;
 
       case RequestType.Head:
-        router.router.head(route.path, ...route.middleware, route.handler(koa));
+        router.router.head(
+          route.path,
+          ...koa.globalMiddlewares,
+          ...route.middleware,
+          route.handler(koa)
+        );
         break;
 
       case RequestType.Link:
-        router.router.link(route.path, ...route.middleware, route.handler(koa));
+        router.router.link(
+          route.path,
+          ...koa.globalMiddlewares,
+          ...route.middleware,
+          route.handler(koa)
+        );
         break;
 
       case RequestType.Options:
         router.router.options(
           route.path,
+          ...koa.globalMiddlewares,
           ...route.middleware,
           route.handler(koa)
         );
@@ -124,18 +146,25 @@ export class MetadataStorage {
       case RequestType.Patch:
         router.router.patch(
           route.path,
+          ...koa.globalMiddlewares,
           ...route.middleware,
           route.handler(koa)
         );
         break;
 
       case RequestType.Post:
-        router.router.post(route.path, ...route.middleware, route.handler(koa));
+        router.router.post(
+          route.path,
+          ...koa.globalMiddlewares,
+          ...route.middleware,
+          route.handler(koa)
+        );
         break;
 
       case RequestType.Unlink:
         router.router.unlink(
           route.path,
+          ...koa.globalMiddlewares,
           ...route.middleware,
           route.handler(koa)
         );
