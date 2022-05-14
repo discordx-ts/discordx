@@ -1,5 +1,5 @@
-import glob from "glob";
-import path from "path";
+import * as glob from "glob";
+import * as path from "path";
 import { fileURLToPath } from "url";
 
 export const isESM = false;
@@ -10,14 +10,10 @@ export function dirname(url: string): string {
 
 export function resolve(...paths: string[]): string[] {
   const imports: string[] = [];
-  paths.forEach((ps) => {
-    const resolvedPath = ps.startsWith("./")
-      ? ps.replace(/^\.\//, path.resolve() + "/")
-      : ps;
 
-    const files = glob
-      .sync(resolvedPath)
-      .filter((file) => typeof file === "string");
+  paths.forEach((ps) => {
+    const files: string[] = glob.sync(ps);
+
     files.forEach((file) => {
       if (!imports.includes(file)) {
         imports.push(file);

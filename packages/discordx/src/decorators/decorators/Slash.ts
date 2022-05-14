@@ -46,7 +46,9 @@ export function Slash(
       options?.description,
       options?.defaultPermission,
       options?.guilds,
-      options?.botIds
+      options?.botIds,
+      options?.descriptionLocalizations,
+      options?.nameLocalizations
     ).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addApplicationCommandSlash(applicationCommand);

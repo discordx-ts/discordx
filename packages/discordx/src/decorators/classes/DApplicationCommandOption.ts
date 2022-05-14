@@ -1,11 +1,14 @@
 import { Decorator } from "@discordx/internal";
+import type {
+  ApplicationCommandOptionData,
+  ApplicationCommandOptionType,
+} from "discord.js";
+import type { LocalizationMap } from "discord-api-types/v9";
 
 import type {
-  ApplicationCommandOptionDataX,
   ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
-  SlashOptionType,
 } from "../../index.js";
 
 /**
@@ -16,22 +19,20 @@ export class DApplicationCommandOption extends Decorator {
   private _channelTypes: ChannelTypes[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
+  private _descriptionLocalizations?: LocalizationMap;
   private _name: string;
+  private _nameLocalizations?: LocalizationMap;
   private _maxValue?: number;
   private _minValue?: number;
   private _options: DApplicationCommandOption[] = [];
   private _required = true;
-  private _type: SlashOptionType;
+  private _type: ApplicationCommandOptionType;
 
-  get isNode(): boolean {
-    return this.type === "SUB_COMMAND" || this.type === "SUB_COMMAND_GROUP";
+  get autocomplete(): SlashAutoCompleteOption {
+    return this._autocomplete;
   }
-
-  get options(): DApplicationCommandOption[] {
-    return this._options;
-  }
-  set options(value: DApplicationCommandOption[]) {
-    this._options = value;
+  set autocomplete(value: SlashAutoCompleteOption) {
+    this._autocomplete = value;
   }
 
   get channelTypes(): ChannelTypes[] | undefined {
@@ -41,11 +42,29 @@ export class DApplicationCommandOption extends Decorator {
     this._channelTypes = value;
   }
 
-  get name(): string {
-    return this._name;
+  get choices(): DApplicationCommandOptionChoice[] {
+    return this._choices;
   }
-  set name(value: string) {
-    this._name = value;
+  set choices(value: DApplicationCommandOptionChoice[]) {
+    this._choices = value;
+  }
+
+  get description(): string {
+    return this._description;
+  }
+  set description(value: string) {
+    this._description = value;
+  }
+
+  get descriptionLocalizations(): LocalizationMap | undefined {
+    return this._descriptionLocalizations;
+  }
+  set descriptionLocalizations(value: LocalizationMap | undefined) {
+    this._descriptionLocalizations = value;
+  }
+
+  get isNode(): boolean {
+    return this.type === "SUB_COMMAND" || this.type === "SUB_COMMAND_GROUP";
   }
 
   get maxValue(): number | undefined {
@@ -62,25 +81,25 @@ export class DApplicationCommandOption extends Decorator {
     this._minValue = value;
   }
 
-  get type(): SlashOptionType {
-    return this._type;
+  get name(): string {
+    return this._name;
   }
-  set type(value: SlashOptionType) {
-    this._type = value;
-  }
-
-  get autocomplete(): SlashAutoCompleteOption {
-    return this._autocomplete;
-  }
-  set autocomplete(value: SlashAutoCompleteOption) {
-    this._autocomplete = value;
+  set name(value: string) {
+    this._name = value;
   }
 
-  get description(): string {
-    return this._description;
+  get nameLocalizations(): LocalizationMap | undefined {
+    return this._nameLocalizations;
   }
-  set description(value: string) {
-    this._description = value;
+  set nameLocalizations(value: LocalizationMap | undefined) {
+    this._nameLocalizations = value;
+  }
+
+  get options(): DApplicationCommandOption[] {
+    return this._options;
+  }
+  set options(value: DApplicationCommandOption[]) {
+    this._options = value;
   }
 
   get required(): boolean {
@@ -90,12 +109,13 @@ export class DApplicationCommandOption extends Decorator {
     this._required = value;
   }
 
-  get choices(): DApplicationCommandOptionChoice[] {
-    return this._choices;
+  get type(): ApplicationCommandOptionType {
+    return this._type;
   }
-  set choices(value: DApplicationCommandOptionChoice[]) {
-    this._choices = value;
+  set type(value: ApplicationCommandOptionType) {
+    this._type = value;
   }
+
   protected constructor(
     name: string,
     autocomplete?: SlashAutoCompleteOption,
@@ -105,7 +125,9 @@ export class DApplicationCommandOption extends Decorator {
     maxValue?: number,
     minValue?: number,
     required?: boolean,
-    type?: SlashOptionType
+    type?: ApplicationCommandOptionType,
+    descriptionLocalizations?: LocalizationMap,
+    nameLocalizations?: LocalizationMap
   ) {
     super();
 
@@ -119,6 +141,8 @@ export class DApplicationCommandOption extends Decorator {
     this._minValue = minValue;
     this._required = required ?? true;
     this._type = type ?? "STRING";
+    this._descriptionLocalizations = descriptionLocalizations;
+    this._nameLocalizations = nameLocalizations;
   }
 
   static create(
@@ -130,7 +154,9 @@ export class DApplicationCommandOption extends Decorator {
     maxValue?: number,
     minValue?: number,
     required?: boolean,
-    type?: SlashOptionType
+    type?: ApplicationCommandOptionType,
+    descriptionLocalizations?: LocalizationMap,
+    nameLocalizations?: LocalizationMap
   ): DApplicationCommandOption {
     return new DApplicationCommandOption(
       name,
@@ -141,16 +167,18 @@ export class DApplicationCommandOption extends Decorator {
       maxValue,
       minValue,
       required,
-      type
+      type,
+      descriptionLocalizations,
+      nameLocalizations
     );
   }
 
-  toJSON(): ApplicationCommandOptionDataX {
+  toJSON(): ApplicationCommandOptionData {
     const options = [...this.options]
       .reverse()
       .map((option) => option.toJSON());
 
-    const data: ApplicationCommandOptionDataX = {
+    const data: ApplicationCommandOptionData = {
       autocomplete: this.autocomplete ? true : undefined,
       channelTypes: this.channelTypes,
       choices: this.isNode
@@ -159,13 +187,15 @@ export class DApplicationCommandOption extends Decorator {
         ? undefined
         : this.choices.map((choice) => choice.toJSON()),
       description: this.description,
+      descriptionLocalizations: this.descriptionLocalizations,
       maxValue: this.maxValue,
       minValue: this.minValue,
       name: this.name,
+      nameLocalizations: this.nameLocalizations,
       options: options.length === 0 ? undefined : options,
       required: this.isNode ? undefined : this.required,
       type: this.type,
-    };
+    } as ApplicationCommandOptionData;
 
     return data;
   }

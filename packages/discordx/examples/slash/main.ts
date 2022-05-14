@@ -28,7 +28,7 @@ export class Main {
         global: { log: true },
         guild: { log: true },
       });
-      await this._client.initApplicationPermissions(true);
+      // await this._client.initApplicationPermissions(true);
 
       console.log(">> Bot started");
     });

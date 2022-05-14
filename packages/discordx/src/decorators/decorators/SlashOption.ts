@@ -1,11 +1,8 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
+import type { ApplicationCommandOptionType } from "discord.js";
 
-import type {
-  SlashOptionOptions,
-  SlashOptionType,
-  VerifyName,
-} from "../../index.js";
+import type { SlashOptionOptions, VerifyName } from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandOption,
@@ -46,7 +43,7 @@ export function SlashOption(
   name: string,
   options?: SlashOptionOptions
 ): ParameterDecoratorEx {
-  function getType(type: string): SlashOptionType {
+  function getType(type: string): ApplicationCommandOptionType {
     switch (type) {
       case "GUILDMEMBER": {
         return "USER";
@@ -61,7 +58,7 @@ export function SlashOption(
         throw Error(`invalid slash option (${name}): ${type}`);
 
       default:
-        return type as SlashOptionType;
+        return type as ApplicationCommandOptionType;
     }
   }
 
@@ -72,7 +69,8 @@ export function SlashOption(
       ] as () => unknown
     ).name.toUpperCase();
 
-    const type: SlashOptionType = options?.type ?? getType(reflectedType);
+    const type: ApplicationCommandOptionType =
+      options?.type ?? getType(reflectedType);
 
     const option = DApplicationCommandOption.create(
       name,
@@ -83,7 +81,9 @@ export function SlashOption(
       options?.maxValue,
       options?.minValue,
       options?.required,
-      type
+      type,
+      options?.descriptionLocalizations,
+      options?.nameLocalizations
     ).decorate(target.constructor, key, target[key], target.constructor, index);
 
     MetadataStorage.instance.addModifier(

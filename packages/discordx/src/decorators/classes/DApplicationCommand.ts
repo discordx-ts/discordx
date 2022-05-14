@@ -1,11 +1,13 @@
 import type {
   ApplicationCommandData,
+  ApplicationCommandOptionData,
   ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
   Guild,
   GuildBasedChannel,
   GuildMember,
+  MessageAttachment,
   Role,
   User,
 } from "discord.js";
@@ -13,10 +15,10 @@ import type {
   APIInteractionDataResolvedChannel,
   APIInteractionDataResolvedGuildMember,
   APIRole,
+  LocalizationMap,
 } from "discord-api-types/v9";
 
 import type {
-  ApplicationCommandDataX,
   ApplicationCommandMixin,
   ApplicationGuildMixin,
   Client,
@@ -35,57 +37,24 @@ import { Method } from "./Method.js";
  * @category Decorator
  */
 export class DApplicationCommand extends Method {
+  private _botIds: string[];
   private _name: string;
-  private _description: string;
-  private _type: ApplicationCommandType;
+  private _nameLocalizations?: LocalizationMap;
   private _defaultPermission: IDefaultPermission;
-  private _options: DApplicationCommandOption[] = [];
-  private _permissions: IPermissions[] = [];
+  private _description: string;
+  private _descriptionLocalizations?: LocalizationMap;
   private _guilds: IGuild[];
   private _group?: string;
+  private _options: DApplicationCommandOption[] = [];
+  private _permissions: IPermissions[] = [];
   private _subgroup?: string;
-  private _botIds: string[];
-
-  get type(): ApplicationCommandType {
-    return this._type;
-  }
-  set type(value: ApplicationCommandType) {
-    this._type = value;
-  }
+  private _type: ApplicationCommandType;
 
   get botIds(): string[] {
     return this._botIds;
   }
   set botIds(value: string[]) {
     this._botIds = value;
-  }
-
-  get group(): string | undefined {
-    return this._group;
-  }
-  set group(value: string | undefined) {
-    this._group = value;
-  }
-
-  get subgroup(): string | undefined {
-    return this._subgroup;
-  }
-  set subgroup(value: string | undefined) {
-    this._subgroup = value;
-  }
-
-  get permissions(): IPermissions[] {
-    return this._permissions;
-  }
-  set permissions(value: IPermissions[]) {
-    this._permissions = value;
-  }
-
-  get guilds(): IGuild[] {
-    return this._guilds;
-  }
-  set guilds(value: IGuild[]) {
-    this._guilds = value;
   }
 
   get defaultPermission(): IDefaultPermission {
@@ -95,6 +64,34 @@ export class DApplicationCommand extends Method {
     this._defaultPermission = value;
   }
 
+  get description(): string {
+    return this._description;
+  }
+  set description(value: string) {
+    this._description = value;
+  }
+
+  get descriptionLocalizations(): LocalizationMap | undefined {
+    return this._descriptionLocalizations;
+  }
+  set descriptionLocalizations(value: LocalizationMap | undefined) {
+    this._descriptionLocalizations = value;
+  }
+
+  get group(): string | undefined {
+    return this._group;
+  }
+  set group(value: string | undefined) {
+    this._group = value;
+  }
+
+  get guilds(): IGuild[] {
+    return this._guilds;
+  }
+  set guilds(value: IGuild[]) {
+    this._guilds = value;
+  }
+
   get name(): string {
     return this._name;
   }
@@ -102,11 +99,11 @@ export class DApplicationCommand extends Method {
     this._name = value;
   }
 
-  get description(): string {
-    return this._description;
+  get nameLocalizations(): LocalizationMap | undefined {
+    return this._nameLocalizations;
   }
-  set description(value: string) {
-    this._description = value;
+  set nameLocalizations(value: LocalizationMap | undefined) {
+    this._nameLocalizations = value;
   }
 
   get options(): DApplicationCommandOption[] {
@@ -116,13 +113,36 @@ export class DApplicationCommand extends Method {
     this._options = value;
   }
 
+  get permissions(): IPermissions[] {
+    return this._permissions;
+  }
+  set permissions(value: IPermissions[]) {
+    this._permissions = value;
+  }
+
+  get subgroup(): string | undefined {
+    return this._subgroup;
+  }
+  set subgroup(value: string | undefined) {
+    this._subgroup = value;
+  }
+
+  get type(): ApplicationCommandType {
+    return this._type;
+  }
+  set type(value: ApplicationCommandType) {
+    this._type = value;
+  }
+
   protected constructor(
     name: string,
     type: ApplicationCommandType,
     description?: string,
     defaultPermission?: boolean,
     guilds?: IGuild[],
-    botIds?: string[]
+    botIds?: string[],
+    descriptionLocalizations?: LocalizationMap,
+    nameLocalizations?: LocalizationMap
   ) {
     super();
     this._name = name;
@@ -131,6 +151,8 @@ export class DApplicationCommand extends Method {
     this._defaultPermission = defaultPermission ?? true;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
+    this._descriptionLocalizations = descriptionLocalizations;
+    this._nameLocalizations = nameLocalizations;
   }
 
   static create(
@@ -139,7 +161,9 @@ export class DApplicationCommand extends Method {
     description?: string,
     defaultPermission?: boolean,
     guilds?: IGuild[],
-    botIds?: string[]
+    botIds?: string[],
+    descriptionLocalizations?: LocalizationMap,
+    nameLocalizations?: LocalizationMap
   ): DApplicationCommand {
     return new DApplicationCommand(
       name,
@@ -147,7 +171,9 @@ export class DApplicationCommand extends Method {
       description,
       defaultPermission,
       guilds,
-      botIds
+      botIds,
+      descriptionLocalizations,
+      nameLocalizations
     );
   }
 
@@ -220,6 +246,8 @@ export class DApplicationCommand extends Method {
             : await this.defaultPermission.resolver(command),
         description: "",
         name: this.name,
+        nameLocalizations:
+          this.nameLocalizations ?? (null as unknown as undefined),
         options: [],
         type: this.type,
       };
@@ -240,14 +268,18 @@ export class DApplicationCommand extends Method {
       })
       .map((option) => option.toJSON());
 
-    const data: ApplicationCommandDataX = {
+    const data: ApplicationCommandData = {
       defaultPermission:
         typeof this.defaultPermission === "boolean"
           ? this.defaultPermission
           : await this.defaultPermission.resolver(command),
       description: this.description,
+      descriptionLocalizations:
+        this.descriptionLocalizations ?? (null as unknown as undefined),
       name: this.name,
-      options: options,
+      nameLocalizations:
+        this.nameLocalizations ?? (null as unknown as undefined),
+      options: options as ApplicationCommandOptionData[],
       type: this.type,
     };
 
@@ -263,6 +295,7 @@ export class DApplicationCommand extends Method {
     | Role
     | APIRole
     | GuildMember
+    | MessageAttachment
     | APIInteractionDataResolvedChannel
     | GuildBasedChannel
     | APIInteractionDataResolvedGuildMember
@@ -271,6 +304,9 @@ export class DApplicationCommand extends Method {
   )[] {
     return [...this.options].reverse().map((op) => {
       switch (op.type) {
+        case "ATTACHMENT":
+          return interaction.options.getAttachment(op.name) ?? undefined;
+
         case "STRING":
           return interaction.options.getString(op.name) ?? undefined;
 
