@@ -61,7 +61,7 @@
     "@discordx/pagination": "^2.0.1",
     "@types/lodash": "^4.14.182",
     "discord.js": "^13.7.0",
-    "discordx": "^9.5.1",
+    "discordx": "^9.5.4",
     "typescript": "^4.6.4"
   },
   "peerDependencies": {
