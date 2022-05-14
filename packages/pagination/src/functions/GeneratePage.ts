@@ -19,7 +19,7 @@ export function GeneratePage(
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
-  const newMessage: MessageOptions =
+  const newMessage: Omit<MessageOptions, "flags"> =
     typeof item === "string"
       ? { content: item }
       : item instanceof MessageEmbed

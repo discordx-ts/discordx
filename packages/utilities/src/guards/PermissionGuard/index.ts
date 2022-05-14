@@ -14,7 +14,7 @@ export type PermissionsType =
   | PermissionString[]
   | ((interaction: PermissionHandler) => Promise<PermissionString[]>);
 
-export type PermissionOptions = MessageOptions & {
+export type PermissionOptions = Omit<MessageOptions, "flags"> & {
   ephemeral?: boolean;
 };
 

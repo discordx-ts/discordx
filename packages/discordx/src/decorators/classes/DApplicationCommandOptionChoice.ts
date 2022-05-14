@@ -1,5 +1,5 @@
 import { Decorator } from "@discordx/internal";
-import type { ApplicationCommandOptionChoice } from "discord.js";
+import type { ApplicationCommandOptionChoiceData } from "discord.js";
 
 import type { SlashChoiceType } from "../../types/index.js";
 
@@ -37,7 +37,7 @@ export class DApplicationCommandOptionChoice extends Decorator {
     );
   }
 
-  toJSON(): ApplicationCommandOptionChoice {
+  toJSON(): ApplicationCommandOptionChoiceData {
     return {
       name: this.name,
       value: this.value,

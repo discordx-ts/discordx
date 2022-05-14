@@ -182,6 +182,6 @@ export interface IPaginate {
 }
 
 export type IGeneratePage = {
-  newMessage: InteractionReplyOptions;
+  newMessage: Omit<InteractionReplyOptions, "flags">;
   paginationRow: MessageActionRow;
 };

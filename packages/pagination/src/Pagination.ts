@@ -1,6 +1,9 @@
 import type {
+  ButtonInteraction,
   CacheType,
   InteractionCollector,
+  ModalSubmitInteraction,
+  SelectMenuInteraction,
   TextBasedChannel,
 } from "discord.js";
 import {
@@ -32,7 +35,10 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   public currentPage: number;
   public option: PaginationOptions;
   public collector?: InteractionCollector<
-    MessageComponentInteraction<CacheType>
+    | MessageComponentInteraction<CacheType>
+    | ButtonInteraction<CacheType>
+    | SelectMenuInteraction<CacheType>
+    | ModalSubmitInteraction<CacheType>
   >;
   public message?: Message;
   private _isSent = false;
@@ -106,7 +112,12 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    * @returns
    */
   public async send(): Promise<{
-    collector: InteractionCollector<MessageComponentInteraction<CacheType>>;
+    collector: InteractionCollector<
+      | MessageComponentInteraction<CacheType>
+      | ButtonInteraction<CacheType>
+      | SelectMenuInteraction<CacheType>
+      | ModalSubmitInteraction<CacheType>
+    >;
     message: Message;
   }> {
     // If pagination has already been sent, throw an error
