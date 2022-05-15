@@ -7,7 +7,7 @@ export class Example {
   @Slash("hello", {
     description: "say hello",
     nameLocalizations: {
-      "en-GB": "hellox",
+      "en-GB": "hello-x",
     },
   })
   voiceChannel(

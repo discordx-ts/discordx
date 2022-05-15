@@ -572,66 +572,7 @@ export class Client extends ClientJS {
 
         const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
-        // Solution for sorting, channel types to ensure equal does not fail
-        if (commandJson.type === "CHAT_INPUT") {
-          commandJson.options?.forEach((op) => {
-            if (op.type === "SUB_COMMAND_GROUP") {
-              op.options?.forEach((op1) => {
-                op1.options?.forEach((op2) => {
-                  if (op2.type === "CHANNEL") {
-                    op2.channelTypes?.sort(); // sort mutate array
-                  }
-                });
-              });
-            }
-
-            if (op.type === "SUB_COMMAND") {
-              op.options?.forEach((op1) => {
-                if (op1.type === "CHANNEL") {
-                  op1.channelTypes?.sort(); // sort mutate array
-                }
-              });
-            }
-
-            if (op.type === "CHANNEL") {
-              op.channelTypes?.sort(); // sort mutate array
-            }
-          });
-        }
-
-        if (commandJson.type === "CHAT_INPUT" && commandJson.options) {
-          commandJson.options = _.map(commandJson.options, (object) =>
-            _.omit(object, ["descriptionLocalized", "nameLocalized"])
-          ) as ApplicationCommandOptionData[];
-        }
-
-        const isEqual = _.isEqual(
-          _.omit(
-            commandJson,
-            "id",
-            "applicationId",
-            "guild",
-            "guildId",
-            "version",
-            "nameLocalized",
-            "descriptionLocalized"
-          ),
-          rawData
-        );
-
-        console.log(
-          _.omit(
-            commandJson,
-            "id",
-            "applicationId",
-            "guild",
-            "guildId",
-            "version"
-          ),
-          rawData
-        );
-
-        if (!isEqual) {
+        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
           commandsToUpdate.push(
             new ApplicationCommandMixin(findCommand, DCommand)
           );
@@ -729,6 +670,92 @@ export class Client extends ClientJS {
     ]);
   }
 
+  private isApplicationCommandEqual(
+    commandJson: ApplicationCommandData,
+    rawData: ApplicationCommandData
+  ) {
+    // Solution for sorting, channel types to ensure equal does not fail
+    if (commandJson.type === "CHAT_INPUT") {
+      commandJson.options?.forEach((op) => {
+        if (op.type === "SUB_COMMAND_GROUP") {
+          op.options?.forEach((op1) => {
+            op1.options?.forEach((op2) => {
+              if (op2.type === "CHANNEL") {
+                op2.channelTypes?.sort(); // sort mutate array
+              }
+            });
+          });
+        }
+
+        if (op.type === "SUB_COMMAND") {
+          op.options?.forEach((op1) => {
+            if (op1.type === "CHANNEL") {
+              op1.channelTypes?.sort(); // sort mutate array
+            }
+          });
+        }
+
+        if (op.type === "CHANNEL") {
+          op.channelTypes?.sort(); // sort mutate array
+        }
+      });
+    }
+
+    // remove unwanted fields from options
+    if (commandJson.type === "CHAT_INPUT" && commandJson.options) {
+      commandJson.options = _.map(commandJson.options, (object) =>
+        _.omit(object, [
+          "descriptionLocalizations",
+          "descriptionLocalized",
+          "nameLocalizations",
+          "nameLocalized",
+        ])
+      ) as ApplicationCommandOptionData[];
+    }
+
+    // remove unwanted fields from options
+    if (rawData.type === "CHAT_INPUT" && rawData.options) {
+      rawData.options = _.map(rawData.options, (object) =>
+        _.omit(object, [
+          "descriptionLocalizations",
+          "descriptionLocalized",
+          "nameLocalizations",
+          "nameLocalized",
+        ])
+      ) as ApplicationCommandOptionData[];
+    }
+
+    return _.isEqual(
+      JSON.parse(
+        JSON.stringify(
+          _.omit(
+            commandJson,
+            "id",
+            "applicationId",
+            "guild",
+            "guildId",
+            "version",
+            "descriptionLocalizations",
+            "descriptionLocalized",
+            "nameLocalizations",
+            "nameLocalized"
+          )
+        )
+      ),
+      JSON.parse(
+        JSON.stringify(
+          _.omit(
+            rawData,
+            "descriptionLocalizations",
+            "descriptionLocalized",
+            "nameLocalizations",
+            "nameLocalized"
+          )
+        )
+      )
+    );
+  }
+
   /**
    * Init global application commands
    *
@@ -772,20 +799,9 @@ export class Client extends ClientJS {
           }
 
           const rawData = await DCommand.toJSON();
+          const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
-          const isEqual = _.isEqual(
-            _.omit(
-              findCommand.toJSON() as JSON,
-              "id",
-              "applicationId",
-              "guild",
-              "guildId",
-              "version"
-            ),
-            rawData
-          );
-
-          if (!isEqual) {
+          if (!this.isApplicationCommandEqual(commandJson, rawData)) {
             commandToUpdate.push(
               new ApplicationCommandMixin(findCommand, DCommand)
             );
