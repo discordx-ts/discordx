@@ -1,7 +1,6 @@
 import "reflect-metadata";
 
 import { Intents } from "discord.js";
-import path from "path";
 
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client } from "../../src/index.js";
@@ -39,11 +38,7 @@ export class Main {
       this._client.executeInteraction(interaction);
     });
 
-    await importx(
-      path
-        .join(dirname(import.meta.url), "/commands/**/*.{js,ts}")
-        .replaceAll("\\", "/")
-    );
+    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
 
     // let's start the bot
     if (!process.env.BOT_TOKEN) {

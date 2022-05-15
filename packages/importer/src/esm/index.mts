@@ -12,7 +12,7 @@ export function resolve(...paths: string[]): string[] {
   const imports: string[] = [];
 
   paths.forEach((ps) => {
-    const files = glob.sync(ps);
+    const files = glob.sync(ps.split(path.sep).join("/"));
 
     files.forEach((file) => {
       if (!imports.includes(file)) {
