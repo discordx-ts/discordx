@@ -141,6 +141,11 @@ module.exports = {
               type: "doc",
             },
             {
+              id: "decorators/gui/modal-component",
+              label: "@ModalComponent",
+              type: "doc",
+            },
+            {
               id: "decorators/gui/select-menu-component",
               label: "@SelectMenuComponent",
               type: "doc",
