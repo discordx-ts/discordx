@@ -543,9 +543,6 @@ export class Client extends ClientJS {
     // fetch already registered guild commands
     const ApplicationCommands = await guild.commands.fetch();
 
-    // We don't have anything to do since this guild doesn't have any commands
-    if (!ApplicationCommands?.size) return;
-
     // filter only unregistered application command
     const commandsToAdd = DCommands.filter(
       (DCommand) =>
