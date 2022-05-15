@@ -4,6 +4,7 @@
 export enum ComponentType {
   Button,
   SelectMenu,
+  Modal,
 }
 
 /**

@@ -90,31 +90,6 @@ export type SlashChoiceType<T extends string = string, X = string | number> = {
 };
 
 /**
- * Slash option types
- *
- * note: type will be removed in djs v14
- */
-export const SlashOptionTypes = [
-  "STRING",
-  "BOOLEAN",
-  "INTEGER",
-  "NUMBER",
-  "CHANNEL",
-  "ROLE",
-  "USER",
-  "MENTIONABLE",
-  "SUB_COMMAND",
-  "SUB_COMMAND_GROUP",
-] as const;
-
-/**
- * Slash option type
- *
- * note: type will be removed in djs v14
- */
-export type SlashOptionType = typeof SlashOptionTypes[number];
-
-/**
  * Channel Types
  *
  * note: type will be removed in djs v14

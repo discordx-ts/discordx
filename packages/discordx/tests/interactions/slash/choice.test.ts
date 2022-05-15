@@ -90,7 +90,9 @@ describe("Choice", () => {
       {
         defaultPermission: true,
         description: "hello",
+        descriptionLocalizations: null,
         name: "hello",
+        nameLocalizations: null,
         options: [
           {
             choices: [
@@ -104,7 +106,9 @@ describe("Choice", () => {
               },
             ],
             description: "choice - string",
+            descriptionLocalizations: undefined,
             name: "choice",
+            nameLocalizations: undefined,
             required: true,
             type: "STRING",
           },
@@ -114,7 +118,9 @@ describe("Choice", () => {
       {
         defaultPermission: true,
         description: "number",
+        descriptionLocalizations: null,
         name: "number",
+        nameLocalizations: null,
         options: [
           {
             choices: [
@@ -136,7 +142,9 @@ describe("Choice", () => {
               },
             ],
             description: "choice - number",
+            descriptionLocalizations: undefined,
             name: "choice",
+            nameLocalizations: undefined,
             required: true,
             type: "NUMBER",
           },
@@ -146,7 +154,9 @@ describe("Choice", () => {
       {
         defaultPermission: true,
         description: "string",
+        descriptionLocalizations: null,
         name: "string",
+        nameLocalizations: null,
         options: [
           {
             choices: [
@@ -168,6 +178,7 @@ describe("Choice", () => {
               },
             ],
             description: "choice - string",
+            descriptionLocalizations: undefined,
             name: "choice",
             required: true,
             type: "STRING",

@@ -15,24 +15,25 @@ import type {
  * @category Decorator
  */
 export class DDiscord extends Decorator {
-  private _name: string;
-  private _description: string;
-  private _guards: DGuard[] = [];
-  private _buttonComponents: DComponent[] = [];
-  private _selectMenuComponents: DComponent[] = [];
   private _applicationCommands: DApplicationCommand[] = [];
-  private _simpleCommands: DSimpleCommand[] = [];
-  private _events: DOn[] = [];
-  private _defaultPermission = true;
-  private _permissions: IPermissions[] = [];
-  private _guilds: IGuild[] = [];
   private _botIds: string[] = [];
+  private _buttonComponents: DComponent[] = [];
+  private _defaultPermission = true;
+  private _description: string;
+  private _events: DOn[] = [];
+  private _guards: DGuard[] = [];
+  private _guilds: IGuild[] = [];
+  private _modalComponents: DComponent[] = [];
+  private _name: string;
+  private _permissions: IPermissions[] = [];
+  private _selectMenuComponents: DComponent[] = [];
+  private _simpleCommands: DSimpleCommand[] = [];
 
-  get permissions(): IPermissions[] {
-    return this._permissions;
+  get applicationCommands(): DApplicationCommand[] {
+    return this._applicationCommands;
   }
-  set permissions(value: IPermissions[]) {
-    this._permissions = value;
+  set applicationCommands(value: DApplicationCommand[]) {
+    this._applicationCommands = value;
   }
 
   get botIds(): string[] {
@@ -42,11 +43,11 @@ export class DDiscord extends Decorator {
     this._botIds = value;
   }
 
-  get guilds(): IGuild[] {
-    return this._guilds;
+  get buttons(): DComponent[] {
+    return this._buttonComponents;
   }
-  set guilds(value: IGuild[]) {
-    this._guilds = value;
+  set buttons(value: DComponent[]) {
+    this._buttonComponents = value;
   }
 
   get defaultPermission(): boolean {
@@ -63,11 +64,11 @@ export class DDiscord extends Decorator {
     this._description = value;
   }
 
-  get name(): string {
-    return this._name;
+  get events(): DOn[] {
+    return this._events;
   }
-  set name(value: string) {
-    this._name = value;
+  set events(value: DOn[]) {
+    this._events = value;
   }
 
   get guards(): DGuard[] {
@@ -77,25 +78,36 @@ export class DDiscord extends Decorator {
     this._guards = value;
   }
 
-  get applicationCommands(): DApplicationCommand[] {
-    return this._applicationCommands;
+  get guilds(): IGuild[] {
+    return this._guilds;
   }
-  set applicationCommands(value: DApplicationCommand[]) {
-    this._applicationCommands = value;
-  }
-
-  get simpleCommands(): DSimpleCommand[] {
-    return this._simpleCommands;
-  }
-  set simpleCommands(value: DSimpleCommand[]) {
-    this._simpleCommands = value;
+  set guilds(value: IGuild[]) {
+    this._guilds = value;
   }
 
-  get buttons(): DComponent[] {
-    return this._buttonComponents;
+  get instance(): unknown {
+    return DIService.instance.getService(this.from);
   }
-  set buttons(value: DComponent[]) {
-    this._buttonComponents = value;
+
+  get modal(): DComponent[] {
+    return this._modalComponents;
+  }
+  set modal(value: DComponent[]) {
+    this._modalComponents = value;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+  set name(value: string) {
+    this._name = value;
+  }
+
+  get permissions(): IPermissions[] {
+    return this._permissions;
+  }
+  set permissions(value: IPermissions[]) {
+    this._permissions = value;
   }
 
   get selectMenus(): DComponent[] {
@@ -105,15 +117,11 @@ export class DDiscord extends Decorator {
     this._selectMenuComponents = value;
   }
 
-  get events(): DOn[] {
-    return this._events;
+  get simpleCommands(): DSimpleCommand[] {
+    return this._simpleCommands;
   }
-  set events(value: DOn[]) {
-    this._events = value;
-  }
-
-  get instance(): unknown {
-    return DIService.instance.getService(this.from);
+  set simpleCommands(value: DSimpleCommand[]) {
+    this._simpleCommands = value;
   }
 
   protected constructor(name: string, description?: string) {

@@ -4,6 +4,7 @@ export * from "./ContextMenu.js";
 export * from "./Discord.js";
 export * from "./Guard.js";
 export * from "./Guild.js";
+export * from "./ModalComponent.js";
 export * from "./On.js";
 export * from "./Once.js";
 export * from "./Permission.js";

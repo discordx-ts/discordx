@@ -139,8 +139,9 @@ There is a whole system that allows you to implement complex slash/simple comman
 ## GUI Interactions
 
 - [`@ButtonComponent`](https://discord-ts.js.org/docs/decorators/gui/button-component)
-- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
 - [`@ContextMenu`](https://discord-ts.js.org/docs/decorators/gui/context-menu)
+- [`@ModalComponent`](https://discord-ts.js.org/docs/decorators/gui/modal-component)
+- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
 
 # 📟 [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash)
 

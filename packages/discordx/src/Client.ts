@@ -2,15 +2,17 @@ import { DIService } from "@discordx/di";
 import type {
   ApplicationCommand,
   ApplicationCommandData,
+  ApplicationCommandOptionData,
   AutocompleteInteraction,
   ButtonInteraction,
   Collection,
   CommandInteraction,
   CommandInteractionOption,
   ContextMenuInteraction,
-  DiscordAPIError,
+  //  DiscordAPIError,
   Interaction,
   Message,
+  ModalSubmitInteraction,
   SelectMenuInteraction,
   Snowflake,
 } from "discord.js";
@@ -99,6 +101,30 @@ export class Client extends ClientJS {
     return MetadataStorage.instance.applicationCommandSlashSubGroups;
   }
 
+  static get buttonComponents(): readonly DComponent[] {
+    return MetadataStorage.instance.buttonComponents;
+  }
+
+  static get discords(): readonly DDiscord[] {
+    return MetadataStorage.instance.discords;
+  }
+
+  static get events(): readonly DOn[] {
+    return MetadataStorage.instance.events;
+  }
+
+  static get instance(): MetadataStorage {
+    return MetadataStorage.instance;
+  }
+
+  static get modalComponents(): readonly DComponent[] {
+    return MetadataStorage.instance.modalComponents;
+  }
+
+  static get selectMenuComponents(): readonly DComponent[] {
+    return MetadataStorage.instance.selectMenuComponents;
+  }
+
   static get simpleCommandsByName(): readonly ISimpleCommandByName[] {
     return MetadataStorage.instance.simpleCommandsByName;
   }
@@ -109,26 +135,6 @@ export class Client extends ClientJS {
 
   static get simpleCommands(): readonly DSimpleCommand[] {
     return MetadataStorage.instance.simpleCommands;
-  }
-
-  static get selectMenuComponents(): readonly DComponent[] {
-    return MetadataStorage.instance.selectMenuComponents;
-  }
-
-  static get buttonComponents(): readonly DComponent[] {
-    return MetadataStorage.instance.buttonComponents;
-  }
-
-  static get events(): readonly DOn[] {
-    return MetadataStorage.instance.events;
-  }
-
-  static get discords(): readonly DDiscord[] {
-    return MetadataStorage.instance.discords;
-  }
-
-  static get instance(): MetadataStorage {
-    return MetadataStorage.instance;
   }
 
   // map static getters
@@ -165,6 +171,30 @@ export class Client extends ClientJS {
     return Client.applicationCommands;
   }
 
+  get buttonComponents(): readonly DComponent[] {
+    return Client.buttonComponents;
+  }
+
+  get discords(): readonly DDiscord[] {
+    return Client.discords;
+  }
+
+  get events(): readonly DOn[] {
+    return Client.events;
+  }
+
+  get instance(): MetadataStorage {
+    return Client.instance;
+  }
+
+  get modalComponents(): readonly DComponent[] {
+    return Client.modalComponents;
+  }
+
+  get selectMenuComponents(): readonly DComponent[] {
+    return Client.selectMenuComponents;
+  }
+
   get simpleCommandsByName(): readonly ISimpleCommandByName[] {
     return Client.simpleCommandsByName;
   }
@@ -175,26 +205,6 @@ export class Client extends ClientJS {
 
   get simpleCommands(): readonly DSimpleCommand[] {
     return Client.simpleCommands;
-  }
-
-  get selectMenuComponents(): readonly DComponent[] {
-    return Client.selectMenuComponents;
-  }
-
-  get buttonComponents(): readonly DComponent[] {
-    return Client.buttonComponents;
-  }
-
-  get events(): readonly DOn[] {
-    return Client.events;
-  }
-
-  get discords(): readonly DDiscord[] {
-    return Client.discords;
-  }
-
-  get instance(): MetadataStorage {
-    return Client.instance;
   }
 
   // client getters
@@ -209,6 +219,14 @@ export class Client extends ClientJS {
 
   set botGuilds(value: IGuild[]) {
     this._botGuilds = value;
+  }
+
+  get botId(): string {
+    return this._botId;
+  }
+
+  set botId(value: string) {
+    this._botId = value;
   }
 
   get guards(): GuardFunction[] {
@@ -233,14 +251,6 @@ export class Client extends ClientJS {
 
   set simpleCommandConfig(value: SimpleCommandConfig | undefined) {
     this._simpleCommandConfig = value;
-  }
-
-  get botId(): string {
-    return this._botId;
-  }
-
-  set botId(value: string) {
-    this._botId = value;
   }
 
   get silent(): boolean {
@@ -562,46 +572,7 @@ export class Client extends ClientJS {
 
         const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
-        // Solution for sorting, channel types to ensure equal does not fail
-        if (commandJson.type === "CHAT_INPUT") {
-          commandJson.options?.forEach((op) => {
-            if (op.type === "SUB_COMMAND_GROUP") {
-              op.options?.forEach((op1) => {
-                op1.options?.forEach((op2) => {
-                  if (op2.type === "CHANNEL") {
-                    op2.channelTypes?.sort(); // sort mutate array
-                  }
-                });
-              });
-            }
-
-            if (op.type === "SUB_COMMAND") {
-              op.options?.forEach((op1) => {
-                if (op1.type === "CHANNEL") {
-                  op1.channelTypes?.sort(); // sort mutate array
-                }
-              });
-            }
-
-            if (op.type === "CHANNEL") {
-              op.channelTypes?.sort(); // sort mutate array
-            }
-          });
-        }
-
-        const isEqual = _.isEqual(
-          _.omit(
-            commandJson,
-            "id",
-            "applicationId",
-            "guild",
-            "guildId",
-            "version"
-          ),
-          rawData
-        );
-
-        if (!isEqual) {
+        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
           commandsToUpdate.push(
             new ApplicationCommandMixin(findCommand, DCommand)
           );
@@ -699,6 +670,92 @@ export class Client extends ClientJS {
     ]);
   }
 
+  private isApplicationCommandEqual(
+    commandJson: ApplicationCommandData,
+    rawData: ApplicationCommandData
+  ) {
+    // Solution for sorting, channel types to ensure equal does not fail
+    if (commandJson.type === "CHAT_INPUT") {
+      commandJson.options?.forEach((op) => {
+        if (op.type === "SUB_COMMAND_GROUP") {
+          op.options?.forEach((op1) => {
+            op1.options?.forEach((op2) => {
+              if (op2.type === "CHANNEL") {
+                op2.channelTypes?.sort(); // sort mutate array
+              }
+            });
+          });
+        }
+
+        if (op.type === "SUB_COMMAND") {
+          op.options?.forEach((op1) => {
+            if (op1.type === "CHANNEL") {
+              op1.channelTypes?.sort(); // sort mutate array
+            }
+          });
+        }
+
+        if (op.type === "CHANNEL") {
+          op.channelTypes?.sort(); // sort mutate array
+        }
+      });
+    }
+
+    // remove unwanted fields from options
+    if (commandJson.type === "CHAT_INPUT" && commandJson.options) {
+      commandJson.options = _.map(commandJson.options, (object) =>
+        _.omit(object, [
+          "descriptionLocalizations",
+          "descriptionLocalized",
+          "nameLocalizations",
+          "nameLocalized",
+        ])
+      ) as ApplicationCommandOptionData[];
+    }
+
+    // remove unwanted fields from options
+    if (rawData.type === "CHAT_INPUT" && rawData.options) {
+      rawData.options = _.map(rawData.options, (object) =>
+        _.omit(object, [
+          "descriptionLocalizations",
+          "descriptionLocalized",
+          "nameLocalizations",
+          "nameLocalized",
+        ])
+      ) as ApplicationCommandOptionData[];
+    }
+
+    return _.isEqual(
+      JSON.parse(
+        JSON.stringify(
+          _.omit(
+            commandJson,
+            "id",
+            "applicationId",
+            "guild",
+            "guildId",
+            "version",
+            "descriptionLocalizations",
+            "descriptionLocalized",
+            "nameLocalizations",
+            "nameLocalized"
+          )
+        )
+      ),
+      JSON.parse(
+        JSON.stringify(
+          _.omit(
+            rawData,
+            "descriptionLocalizations",
+            "descriptionLocalized",
+            "nameLocalizations",
+            "nameLocalized"
+          )
+        )
+      )
+    );
+  }
+
   /**
    * Init global application commands
    *
@@ -742,20 +799,9 @@ export class Client extends ClientJS {
           }
 
           const rawData = await DCommand.toJSON();
+          const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
-          const isEqual = _.isEqual(
-            _.omit(
-              findCommand.toJSON() as JSON,
-              "id",
-              "applicationId",
-              "guild",
-              "guildId",
-              "version"
-            ),
-            rawData
-          );
-
-          if (!isEqual) {
+          if (!this.isApplicationCommandEqual(commandJson, rawData)) {
             commandToUpdate.push(
               new ApplicationCommandMixin(findCommand, DCommand)
             );
@@ -837,17 +883,35 @@ export class Client extends ClientJS {
    * @param log - Enable log
    */
   async initApplicationPermissions(log?: boolean): Promise<void> {
-    const guildDCommandStore = await this.CommandByGuild();
-    const promises: Promise<void>[] = [];
-
-    guildDCommandStore.forEach((commands, guildId) => {
-      promises.push(
-        this.initGuildApplicationPermissions(guildId, commands, log)
-      );
+    await new Promise((resolve) => {
+      log;
+      resolve(true);
     });
 
-    await Promise.all(promises);
+    this.logger.warn("\n\n");
+    this.logger.warn(
+      "************************************************************"
+    );
+    this.logger.warn(
+      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
+    );
+    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
+    this.logger.warn(
+      "************************************************************"
+    );
+    this.logger.warn("\n\n");
   }
+  //    const guildDCommandStore = await this.CommandByGuild();
+  //    const promises: Promise<void>[] = [];
+  //
+  //    guildDCommandStore.forEach((commands, guildId) => {
+  //      promises.push(
+  //        this.initGuildApplicationPermissions(guildId, commands, log)
+  //      );
+  //    });
+  //
+  //    await Promise.all(promises);
+  //  }
 
   /**
    * Update application commands permission by GuildId
@@ -861,84 +925,102 @@ export class Client extends ClientJS {
     DCommands: DApplicationCommand[],
     log?: boolean
   ): Promise<void> {
-    const guild = this.guilds.cache.get(guildId);
-    if (!guild) {
-      this.logger.error(
-        `${
-          this.user?.username ?? this.botId
-        } >> initGuildApplicationPermissions: guild unavailable: ${guildId}`
-      );
-      return;
-    }
-
-    // fetch already registered application command
-    const ApplicationCommands = await guild.commands.fetch();
-
-    const commandToUpdate: ApplicationCommandMixin[] = [];
-
-    ApplicationCommands.forEach((cmd) => {
-      const findCommand = DCommands.find(
-        (DCommand) => DCommand.name === cmd.name
-      );
-
-      if (findCommand) {
-        commandToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
-      }
+    await new Promise((resolve) => {
+      log;
+      resolve(true);
     });
 
-    await Promise.all(
-      commandToUpdate.map((cmd) => {
-        return guild.commands.permissions
-          .fetch({ command: cmd.command })
-          .then(async (permissions) => {
-            const commandPermissions = await cmd.instance.resolvePermissions(
-              guild,
-              cmd
-            );
-
-            if (!_.isEqual(permissions, commandPermissions)) {
-              if (log ?? !this.silent) {
-                this.logger.info(
-                  `${this.user?.username ?? this.botId} >> command: ${
-                    cmd.name
-                  } >> permissions >> updating >> guild: #${guild}`
-                );
-              }
-
-              await cmd.command.permissions.set({
-                permissions: commandPermissions,
-              });
-            }
-          })
-          .catch(async (e: DiscordAPIError) => {
-            if (e.code !== 10066) {
-              throw e;
-            }
-
-            if (!cmd.instance.permissions.length) {
-              return;
-            }
-
-            const commandPermissions = await cmd.instance.resolvePermissions(
-              guild,
-              cmd
-            );
-
-            if (log ?? !this.silent) {
-              this.logger.info(
-                `${this.user?.username ?? this.botId} >> command: ${
-                  cmd.name
-                } >> permissions >> adding >> guild: #${guild}`
-              );
-            }
-
-            await cmd.command.permissions.set({
-              permissions: commandPermissions,
-            });
-          });
-      })
+    this.logger.warn("\n\n");
+    this.logger.warn(
+      "************************************************************"
     );
+    this.logger.warn(
+      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
+    );
+    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
+    this.logger.warn(
+      "************************************************************"
+    );
+    this.logger.warn("\n\n");
   }
+  //    const guild = this.guilds.cache.get(guildId);
+  //    if (!guild) {
+  //      this.logger.error(
+  //        `${
+  //          this.user?.username ?? this.botId
+  //        } >> initGuildApplicationPermissions: guild unavailable: ${guildId}`
+  //      );
+  //      return;
+  //    }
+  //
+  //    // fetch already registered application command
+  //    const ApplicationCommands = await guild.commands.fetch();
+  //
+  //    const commandToUpdate: ApplicationCommandMixin[] = [];
+  //
+  //    ApplicationCommands.forEach((cmd) => {
+  //      const findCommand = DCommands.find(
+  //        (DCommand) => DCommand.name === cmd.name
+  //      );
+  //
+  //      if (findCommand) {
+  //        commandToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
+  //      }
+  //    });
+  //
+  //    await Promise.all(
+  //      commandToUpdate.map((cmd) => {
+  //        return guild.commands.permissions
+  //          .fetch({ command: cmd.command })
+  //          .then(async (permissions) => {
+  //            const commandPermissions = await cmd.instance.resolvePermissions(
+  //              guild,
+  //              cmd
+  //            );
+  //
+  //            if (!_.isEqual(permissions, commandPermissions)) {
+  //              if (log ?? !this.silent) {
+  //                this.logger.info(
+  //                  `${this.user?.username ?? this.botId} >> command: ${
+  //                    cmd.name
+  //                  } >> permissions >> updating >> guild: #${guild}`
+  //                );
+  //              }
+  //
+  //              await cmd.command.permissions.set({
+  //                permissions: commandPermissions,
+  //              });
+  //            }
+  //          })
+  //          .catch(async (e: DiscordAPIError) => {
+  //            if (e.code !== 10066) {
+  //              throw e;
+  //            }
+  //
+  //            if (!cmd.instance.permissions.length) {
+  //              return;
+  //            }
+  //
+  //            const commandPermissions = await cmd.instance.resolvePermissions(
+  //              guild,
+  //              cmd
+  //            );
+  //
+  //            if (log ?? !this.silent) {
+  //              this.logger.info(
+  //                `${this.user?.username ?? this.botId} >> command: ${
+  //                  cmd.name
+  //                } >> permissions >> adding >> guild: #${guild}`
+  //              );
+  //            }
+  //
+  //            await cmd.command.permissions.set({
+  //              permissions: commandPermissions,
+  //            });
+  //          });
+  //      })
+  //    );
+  //  }
 
   /**
    * Fetch the existing application commands of a guild or globally
@@ -1105,6 +1187,11 @@ export class Client extends ClientJS {
       return this.executeComponent(this.buttonComponents, interaction, log);
     }
 
+    // if interaction is a modal
+    if (interaction.isModalSubmit()) {
+      return this.executeComponent(this.modalComponents, interaction, log);
+    }
+
     // if interaction is a select menu
     if (interaction.isSelectMenu()) {
       return this.executeComponent(this.selectMenuComponents, interaction, log);
@@ -1178,7 +1265,10 @@ export class Client extends ClientJS {
    */
   async executeComponent(
     components: readonly DComponent[],
-    interaction: ButtonInteraction | SelectMenuInteraction,
+    interaction:
+      | ButtonInteraction
+      | ModalSubmitInteraction
+      | SelectMenuInteraction,
     log?: boolean
   ): Promise<unknown> {
     const executes = components.filter((comp) =>

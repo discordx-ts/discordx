@@ -10,14 +10,9 @@ export function dirname(url: string): string {
 
 export function resolve(...paths: string[]): string[] {
   const imports: string[] = [];
-  paths.forEach((ps) => {
-    const resolvedPath = ps.startsWith("./")
-      ? ps.replace(/^\.\//, path.resolve() + "/")
-      : ps;
 
-    const files = glob
-      .sync(resolvedPath)
-      .filter((file) => typeof file === "string");
+  paths.forEach((ps) => {
+    const files = glob.sync(ps.split(path.sep).join("/"));
 
     files.forEach((file) => {
       if (!imports.includes(file)) {

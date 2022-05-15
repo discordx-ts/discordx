@@ -1,21 +1,24 @@
-import type { AutocompleteInteraction } from "discord.js";
-
 import type {
-  ChannelTypes,
-  DApplicationCommand,
-  IGuild,
-  SlashOptionType,
-} from "../../index.js";
+  ApplicationCommandOptionType,
+  AutocompleteInteraction,
+} from "discord.js";
+import type { LocalizationMap } from "discord-api-types/v9";
+
+import type { ChannelTypes, DApplicationCommand, IGuild } from "../../index.js";
 
 export type ApplicationCommandOptions = {
   botIds?: string[];
   defaultPermission?: boolean;
   description?: string;
+  descriptionLocalizations?: LocalizationMap;
   guilds?: IGuild[];
+  nameLocalizations?: LocalizationMap;
 };
 
 export type SlashOptionBase = {
   description?: string;
+  descriptionLocalizations?: LocalizationMap;
+  nameLocalizations?: LocalizationMap;
   required?: boolean;
 };
 
@@ -25,7 +28,7 @@ export type SlashOptionBaseOptions = SlashOptionBase & {
   maxValue?: undefined;
   minValue?: undefined;
   type?: Exclude<
-    SlashOptionType,
+    ApplicationCommandOptionType,
     "SUB_COMMAND" | "SUB_COMMAND_GROUP" | "CHANNEL"
   >;
 };

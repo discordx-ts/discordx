@@ -31,8 +31,9 @@ export class MetadataStorage {
   // internal
   private static _isBuilt = false;
   private static _instance: MetadataStorage;
-  private _guards: Array<DGuard> = [];
+
   private _discords: Array<DDiscord> = [];
+  private _guards: Array<DGuard> = [];
   private _modifiers: Array<Modifier<Decorator>> = [];
 
   // events
@@ -40,21 +41,22 @@ export class MetadataStorage {
 
   // custom Handlers
   private _buttonComponents: Array<DComponent> = [];
+  private _modalComponents: Array<DComponent> = [];
   private _selectMenuComponents: Array<DComponent> = [];
 
   // simple command
+  private _simpleCommandOptions: Array<DSimpleCommandOption> = [];
   private _simpleCommands: Array<DSimpleCommand> = [];
   private _simpleCommandsByName: Array<ISimpleCommandByName> = [];
   private _simpleCommandsByPrefix = new Map<string, ISimpleCommandByName[]>();
-  private _simpleCommandOptions: Array<DSimpleCommandOption> = [];
 
   // discord commands
+  private _applicationCommandMessages: Array<DApplicationCommand> = [];
   private _applicationCommandSlashes: Array<DApplicationCommand> = [];
   private _applicationCommandSlashesFlat: Array<DApplicationCommand> = [];
-  private _applicationCommandUsers: Array<DApplicationCommand> = [];
-  private _applicationCommandMessages: Array<DApplicationCommand> = [];
   private _applicationCommandSlashOptions: Array<DApplicationCommandOption> =
     [];
+  private _applicationCommandUsers: Array<DApplicationCommand> = [];
 
   // groups
   private _applicationCommandSlashGroups: Array<
@@ -84,34 +86,6 @@ export class MetadataStorage {
   }
 
   // getters
-
-  get isBuilt(): boolean {
-    return MetadataStorage._isBuilt;
-  }
-
-  get events(): readonly DOn[] {
-    return this._events;
-  }
-
-  /**
-   * Get the list of used events without duplications
-   */
-  get usedEvents(): readonly DOn[] {
-    return this.events.reduce<DOn[]>((prev, event, index) => {
-      const found = this.events.find((event2) => event.event === event2.event);
-      const foundIndex = found ? this.events.indexOf(found) : -1;
-
-      if (foundIndex === index || found?.once !== event.once) {
-        prev.push(event);
-      }
-
-      return prev;
-    }, []);
-  }
-
-  get discords(): readonly DDiscord[] {
-    return this._discords;
-  }
 
   get applicationCommandSlashes(): readonly DApplicationCommand[] {
     return this._applicationCommandSlashes;
@@ -149,6 +123,43 @@ export class MetadataStorage {
     ];
   }
 
+  get buttonComponents(): readonly DComponent[] {
+    return this._buttonComponents;
+  }
+
+  get discords(): readonly DDiscord[] {
+    return this._discords;
+  }
+
+  private get discordMembers(): readonly Method[] {
+    return [
+      ...this._applicationCommandSlashes,
+      ...this._applicationCommandUsers,
+      ...this._applicationCommandMessages,
+      ...this._simpleCommands,
+      ...this._events,
+      ...this._buttonComponents,
+      ...this._modalComponents,
+      ...this._selectMenuComponents,
+    ];
+  }
+
+  get events(): readonly DOn[] {
+    return this._events;
+  }
+
+  get isBuilt(): boolean {
+    return MetadataStorage._isBuilt;
+  }
+
+  get modalComponents(): readonly DComponent[] {
+    return this._modalComponents;
+  }
+
+  get selectMenuComponents(): readonly DComponent[] {
+    return this._selectMenuComponents;
+  }
+
   get simpleCommandsByName(): readonly ISimpleCommandByName[] {
     return this._simpleCommandsByName;
   }
@@ -161,32 +172,20 @@ export class MetadataStorage {
     return this._simpleCommands;
   }
 
-  get buttonComponents(): readonly DComponent[] {
-    return this._buttonComponents;
-  }
+  /**
+   * Get the list of used events without duplications
+   */
+  get usedEvents(): readonly DOn[] {
+    return this.events.reduce<DOn[]>((prev, event, index) => {
+      const found = this.events.find((event2) => event.event === event2.event);
+      const foundIndex = found ? this.events.indexOf(found) : -1;
 
-  get selectMenuComponents(): readonly DComponent[] {
-    return this._selectMenuComponents;
-  }
+      if (foundIndex === index || found?.once !== event.once) {
+        prev.push(event);
+      }
 
-  private get discordMembers(): readonly Method[] {
-    return [
-      ...this._applicationCommandSlashes,
-      ...this._applicationCommandUsers,
-      ...this._applicationCommandMessages,
-      ...this._simpleCommands,
-      ...this._events,
-      ...this._buttonComponents,
-      ...this._selectMenuComponents,
-    ];
-  }
-
-  addModifier<T extends Decorator = Decorator>(modifier: Modifier<T>): void {
-    this._modifiers.push(modifier as Modifier<Decorator>);
-  }
-
-  addOn(on: DOn): void {
-    this._events.push(on);
+      return prev;
+    }, []);
   }
 
   addApplicationCommandSlash(slash: DApplicationCommand): void {
@@ -217,20 +216,21 @@ export class MetadataStorage {
     this._applicationCommandSlashSubGroups.push(subGroup);
   }
 
-  addSimpleCommand(cmd: DSimpleCommand): void {
-    this._simpleCommands.push(cmd);
-  }
-
-  addSimpleCommandOption(cmdOption: DSimpleCommandOption): void {
-    this._simpleCommandOptions.push(cmdOption);
-  }
-
   addComponentButton(button: DComponent): void {
     this._buttonComponents.push(button);
   }
 
+  addComponentModal(selectMenu: DComponent): void {
+    this._modalComponents.push(selectMenu);
+  }
+
   addComponentSelectMenu(selectMenu: DComponent): void {
     this._selectMenuComponents.push(selectMenu);
+  }
+
+  addDiscord(discord: DDiscord): void {
+    this._discords.push(discord);
+    DIService.instance.addService(discord.classRef);
   }
 
   addGuard(guard: DGuard): void {
@@ -238,9 +238,20 @@ export class MetadataStorage {
     DIService.instance.addService(guard.classRef);
   }
 
-  addDiscord(discord: DDiscord): void {
-    this._discords.push(discord);
-    DIService.instance.addService(discord.classRef);
+  addModifier<T extends Decorator = Decorator>(modifier: Modifier<T>): void {
+    this._modifiers.push(modifier as Modifier<Decorator>);
+  }
+
+  addOn(on: DOn): void {
+    this._events.push(on);
+  }
+
+  addSimpleCommand(cmd: DSimpleCommand): void {
+    this._simpleCommands.push(cmd);
+  }
+
+  addSimpleCommandOption(cmdOption: DSimpleCommandOption): void {
+    this._simpleCommandOptions.push(cmdOption);
   }
 
   async build(): Promise<void> {
@@ -291,34 +302,47 @@ export class MetadataStorage {
 
     await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
     await Modifier.applyFromModifierListToList(this._modifiers, this._events);
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandSlashes
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandSlashOptions
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandMessages
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._applicationCommandUsers
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._simpleCommands
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._simpleCommandOptions
     );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._buttonComponents
     );
+
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._modalComponents
+    );
+
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._selectMenuComponents

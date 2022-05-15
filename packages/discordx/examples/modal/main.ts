@@ -44,6 +44,7 @@ export class Main {
     if (!process.env.BOT_TOKEN) {
       throw Error("Could not find BOT_TOKEN in your environment");
     }
+
     await this._client.login(process.env.BOT_TOKEN);
   }
 }
