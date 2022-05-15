@@ -31,7 +31,10 @@ enum TextChoices {
 
 @Discord()
 @Guild("693401527494377482")
-@SlashGroup({ description: "Testing group description", name: "testing" })
+@SlashGroup({
+  description: "Testing group description",
+  name: "testing",
+})
 @SlashGroup({
   description: "maths group description",
   name: "maths",
@@ -252,11 +255,15 @@ describe("Slash", () => {
       {
         defaultPermission: true,
         description: "hello",
+        descriptionLocalizations: null,
         name: "hello",
+        nameLocalizations: null,
         options: [
           {
             description: "text - string",
+            descriptionLocalizations: undefined,
             name: "text",
+            nameLocalizations: undefined,
             required: false,
             type: "STRING",
           },
@@ -266,59 +273,79 @@ describe("Slash", () => {
       {
         defaultPermission: true,
         description: "inference",
+        descriptionLocalizations: null,
         name: "inference",
+        nameLocalizations: null,
         options: [
           {
             description: "text - string",
+            descriptionLocalizations: undefined,
             name: "text",
+            nameLocalizations: undefined,
             required: true,
             type: "STRING",
           },
           {
             description: "bool - boolean",
+            descriptionLocalizations: undefined,
             name: "bool",
+            nameLocalizations: undefined,
             required: true,
             type: "BOOLEAN",
           },
           {
             description: "nb - number",
+            descriptionLocalizations: undefined,
             name: "nb",
+            nameLocalizations: undefined,
             required: true,
             type: "NUMBER",
           },
           {
             description: "channel - channel",
+            descriptionLocalizations: undefined,
             name: "channel",
+            nameLocalizations: undefined,
             required: true,
             type: "CHANNEL",
           },
           {
             description: "text-channel - channel",
+            descriptionLocalizations: undefined,
             name: "text-channel",
+            nameLocalizations: undefined,
             required: false,
             type: "CHANNEL",
           },
           {
             description: "voice-channel - channel",
+            descriptionLocalizations: undefined,
             name: "voice-channel",
+            nameLocalizations: undefined,
             required: false,
             type: "CHANNEL",
           },
           {
             description: "user - user",
+            descriptionLocalizations: undefined,
             name: "user",
+            nameLocalizations: undefined,
             required: false,
             type: "USER",
           },
           {
             description: "role - role",
+            descriptionLocalizations: undefined,
             name: "role",
+            nameLocalizations: undefined,
             required: false,
             type: "ROLE",
           },
           {
             description: "user-or-role - mentionable",
+            descriptionLocalizations: undefined,
             name: "user-or-role",
+            nameLocalizations: undefined,
             required: false,
             type: "MENTIONABLE",
           },
@@ -328,21 +355,29 @@ describe("Slash", () => {
       {
         defaultPermission: true,
         description: "Testing group description",
+        descriptionLocalizations: null,
         name: "testing",
+        nameLocalizations: null,
         options: [
           {
             description: "hello",
+            descriptionLocalizations: undefined,
             name: "hello",
+            nameLocalizations: undefined,
             options: [
               {
                 description: "text - string",
+                descriptionLocalizations: undefined,
                 name: "text",
+                nameLocalizations: undefined,
                 required: true,
                 type: "STRING",
               },
               {
                 description: "text2 - string",
+                descriptionLocalizations: undefined,
                 name: "text2",
+                nameLocalizations: undefined,
                 required: false,
                 type: "STRING",
               },
@@ -351,21 +386,29 @@ describe("Slash", () => {
           },
           {
             description: "maths group description",
+            descriptionLocalizations: undefined,
             name: "maths",
+            nameLocalizations: undefined,
             options: [
               {
                 description: "Multiply",
+                descriptionLocalizations: undefined,
                 name: "multiply",
+                nameLocalizations: undefined,
                 options: [
                   {
                     description: "x value",
+                    descriptionLocalizations: undefined,
                     name: "x",
+                    nameLocalizations: undefined,
                     required: true,
                     type: "NUMBER",
                   },
                   {
                     description: "y value",
+                    descriptionLocalizations: undefined,
                     name: "y",
+                    nameLocalizations: undefined,
                     required: true,
                     type: "NUMBER",
                   },
@@ -374,17 +417,23 @@ describe("Slash", () => {
               },
               {
                 description: "Addition",
+                descriptionLocalizations: undefined,
                 name: "add",
+                nameLocalizations: undefined,
                 options: [
                   {
                     description: "x value",
+                    descriptionLocalizations: undefined,
                     name: "x",
+                    nameLocalizations: undefined,
                     required: true,
                     type: "NUMBER",
                   },
                   {
                     description: "y value",
+                    descriptionLocalizations: undefined,
                     name: "y",
+                    nameLocalizations: undefined,
                     required: true,
                     type: "NUMBER",
                   },
@@ -396,19 +445,31 @@ describe("Slash", () => {
           },
           {
             description: "text group description",
+            descriptionLocalizations: undefined,
             name: "text",
+            nameLocalizations: undefined,
             options: [
               {
                 description: "hello",
+                descriptionLocalizations: undefined,
                 name: "hello",
+                nameLocalizations: undefined,
                 options: [
                   {
                     choices: [
-                      { name: "Hello", value: "Hello" },
-                      { name: "Good Bye", value: "Good Bye" },
+                      {
+                        name: "Hello",
+                        value: "Hello",
+                      },
+                      {
+                        name: "Good Bye",
+                        value: "Good Bye",
+                      },
                     ],
                     description: "text - string",
+                    descriptionLocalizations: undefined,
                     name: "text",
+                    nameLocalizations: undefined,
                     required: true,
                     type: "STRING",
                   },
@@ -424,25 +485,35 @@ describe("Slash", () => {
       {
         defaultPermission: true,
         description: "group-test-without-description",
+        descriptionLocalizations: null,
         name: "group-test-without-description",
+        nameLocalizations: null,
         options: [
           {
             description: "text group description",
+            descriptionLocalizations: undefined,
             name: "line",
+            nameLocalizations: undefined,
             options: [
               {
                 description: "Addition",
+                descriptionLocalizations: undefined,
                 name: "add",
+                nameLocalizations: undefined,
                 options: [
                   {
                     description: "x value",
+                    descriptionLocalizations: undefined,
                     name: "x",
+                    nameLocalizations: undefined,
                     required: true,
                     type: "NUMBER",
                   },
                   {
                     description: "y value",
+                    descriptionLocalizations: undefined,
                     name: "y",
+                    nameLocalizations: undefined,
                     required: true,
                     type: "NUMBER",
                   },
@@ -458,19 +529,47 @@ describe("Slash", () => {
       {
         defaultPermission: true,
         description: "test-x",
+        descriptionLocalizations: null,
         name: "test-x",
+        nameLocalizations: null,
         options: [
           {
             description: "add - sub_command_group",
+            descriptionLocalizations: undefined,
             name: "add",
+            nameLocalizations: undefined,
             options: [
-              { description: "y", name: "y", type: "SUB_COMMAND" },
-              { description: "x", name: "x", type: "SUB_COMMAND" },
+              {
+                description: "y",
+                descriptionLocalizations: undefined,
+                name: "y",
+                nameLocalizations: undefined,
+                type: "SUB_COMMAND",
+              },
+              {
+                description: "x",
+                descriptionLocalizations: undefined,
+                name: "x",
+                nameLocalizations: undefined,
+                type: "SUB_COMMAND",
+              },
             ],
             type: "SUB_COMMAND_GROUP",
           },
-          { description: "m", name: "m", type: "SUB_COMMAND" },
-          { description: "n", name: "n", type: "SUB_COMMAND" },
+          {
+            description: "m",
+            descriptionLocalizations: undefined,
+            name: "m",
+            nameLocalizations: undefined,
+            type: "SUB_COMMAND",
+          },
+          {
+            description: "n",
+            descriptionLocalizations: undefined,
+            name: "n",
+            nameLocalizations: undefined,
+            type: "SUB_COMMAND",
+          },
         ],
         type: "CHAT_INPUT",
       },

@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import type { SlashOptionType } from "../src/index.js";
+import type { ApplicationCommandOptionType } from "discord.js";
 
 export class FakeOption {
   name: string;
-  type: SlashOptionType;
+  type: ApplicationCommandOptionType;
   options: FakeOption[] | undefined;
   value: string | number;
 
   constructor(
     name: string,
-    type: SlashOptionType,
+    type: ApplicationCommandOptionType,
     value: string | number,
     options?: FakeOption[]
   ) {
@@ -94,6 +94,7 @@ export enum InteractionType {
   Command,
   ContextMenu,
   SelectMenu,
+  Modal,
 }
 
 export type FakeInteractionOption = {
@@ -137,5 +138,9 @@ export class FakeInteraction {
 
   isAutocomplete() {
     return this.type === InteractionType.AutoComplete;
+  }
+
+  isModalSubmit() {
+    return this.type === InteractionType.Modal;
   }
 }
