@@ -642,39 +642,29 @@ export class Client extends ClientJS {
     if (!commandsToAdd.length && !commandsToUpdate.length && !commandsToDelete.length) return;
 
     // Skipped commands should ALWAYS be added to the commands list.
-    const commands: ApplicationCommandData[] = [...await Promise.all(
-        commandsToSkip.map(async (cmd) => await cmd.instance.toJSON() as ApplicationCommandData)
-    )];
+    const commands: Promise<ApplicationCommandData>[] = [...commandsToSkip.map(async (cmd) => await cmd.instance.toJSON() as ApplicationCommandData)];
 
     // If adding is ENABLED we add the new commands to the set, therefor creating the commands.
     // If adding is DISABLED we don't do anything, therefor skipping the new commands.
     if (!options?.disable?.add) {
-        commands.push(...await Promise.all(
-            commandsToAdd.map(async (DCommand) => await DCommand.toJSON())
-        ));
+      commands.push(...commandsToAdd.map(async (DCommand) => await DCommand.toJSON()));
     }
 
     // If updating is ENABLED we add the current commands to the set, therefor updating the commands.
     // If updating is DISABLED we add the original commands back to the set, therefor skipping the commands.
     if (!options?.disable?.update) {
-        commands.push(...await Promise.all(
-            commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON())
-        ));
+      commands.push(...commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON()));
     } else {
-        commands.push(...await Promise.all(
-            commandsWithChanges.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData)
-        ));
+      commands.push(...commandsWithChanges.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
     }
 
     // If deleting is ENABLED we DON'T add the commands to the set, therefor deleting them from Discord.
     // If deleting is DISABLED we DO add the commands to the set, therefor ignoring the deletion.
     if (options?.disable?.delete) {
-        commands.push(...await Promise.all(
-            commandsToDelete.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData)
-        ));
+      commands.push(...commandsToDelete.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
     }
 
-    this.application?.commands.set(commands, guildId);
+    this.application?.commands.set(await Promise.all(commands), guildId);
   }
 
   private isApplicationCommandEqual(
@@ -859,39 +849,29 @@ export class Client extends ClientJS {
     if (!commandsToAdd.length && !commandsToUpdate.length && !commandsToDelete.size) return;
 
     // Skipped commands should ALWAYS be added to the commands list.
-    const commands: ApplicationCommandData[] = [...await Promise.all(
-        commandsToSkip.map(async (cmd) => await cmd.instance.toJSON() as ApplicationCommandData)
-    )];
+    const commands: Promise<ApplicationCommandData>[] = [...commandsToSkip.map(async (cmd) => await cmd.instance.toJSON() as ApplicationCommandData)];
 
     // If adding is ENABLED we add the new commands to the set, therefor creating the commands.
     // If adding is DISABLED we don't do anything, therefor skipping the new commands.
     if (!options?.disable?.add) {
-        commands.push(...await Promise.all(
-            commandsToAdd.map(async (DCommand) => await DCommand.toJSON())
-        ));
+        commands.push(...commandsToAdd.map(async (DCommand) => await DCommand.toJSON()));
     }
 
     // If updating is ENABLED we add the current commands to the set, therefor updating the commands.
     // If updating is DISABLED we add the original commands back to the set, therefor skipping the commands.
     if (!options?.disable?.update) {
-        commands.push(...await Promise.all(
-            commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON())
-        ));
+        commands.push(...commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON()));
     } else {
-        commands.push(...await Promise.all(
-            commandsWithChanges.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData)
-        ));
+        commands.push(...commandsWithChanges.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
     }
 
     // If deleting is ENABLED we DON'T add the commands to the set, therefor deleting them from Discord.
     // If deleting is DISABLED we DO add the commands to the set, therefor ignoring the deletion.
     if (options?.disable?.delete) {
-        commands.push(...await Promise.all(
-            commandsToDelete.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData)
-        ));
+        commands.push(...commandsToDelete.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
     }
 
-    this.application?.commands.set(commands);
+    this.application?.commands.set(await Promise.all(commands));
   }
 
   /**
