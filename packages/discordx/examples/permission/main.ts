@@ -28,6 +28,9 @@ export class Main {
         global: { log: true },
         guild: { log: true },
       });
+
+      // permissions are disabled in favour of discord permission version 2
+      // see https://github.com/discordjs/discord.js/pull/7857
       // await this._client.initApplicationPermissions(true);
 
       console.log(">> Bot started");
