@@ -778,15 +778,15 @@ export class Client extends ClientJS {
     );
 
     const commandsToAdd = DCommands.filter((DCommand) =>
-        !ApplicationCommands.find(
-            (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
-        )
+      !ApplicationCommands.find(
+        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+      )
     );
 
     const commandsToDelete = ApplicationCommands.filter((cmd) =>
-        DCommands.every(
-            (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
-        )
+      DCommands.every(
+        (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
+      )
     );
 
     const commandsWithChanges: ApplicationCommand[] = [];
@@ -794,55 +794,55 @@ export class Client extends ClientJS {
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
     await Promise.all(
-    DCommands.map(async (DCommand) => {
+      DCommands.map(async (DCommand) => {
         const findCommand = ApplicationCommands.find(
-        (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
+          (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
         );
 
         if (!findCommand) {
-        return;
+          return;
         }
 
-        
+
         const rawData = await DCommand.toJSON();
         const commandJson = findCommand.toJSON() as ApplicationCommandData;
-        
+
         if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-            commandsWithChanges.push(findCommand);
-            commandsToUpdate.push(
-                new ApplicationCommandMixin(findCommand, DCommand)
-            );
+          commandsWithChanges.push(findCommand);
+          commandsToUpdate.push(
+            new ApplicationCommandMixin(findCommand, DCommand)
+          );
         } else {
-            commandsToSkip.push(
-                new ApplicationCommandMixin(findCommand, DCommand)
-            );
+          commandsToSkip.push(
+            new ApplicationCommandMixin(findCommand, DCommand)
+          );
         }
-    })
+      })
     );
 
     // log the changes to commands if enabled by options or silent mode is turned off
     if (options?.log ?? !this.silent) {
-    let str = `${this.user?.username ?? this.botId} >> commands >> global`;
+      let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-    str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
+      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
         .map((DCommand) => DCommand.name)
         .join(", ")}]`;
 
-    str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
+      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
         .map((cmd) => cmd.command.name)
         .join(", ")}]`;
 
-    str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
+      str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
         .map((cmd) => cmd.name)
         .join(", ")}]`;
 
-    str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
+      str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
         .map((cmd) => cmd.name)
         .join(", ")}]`;
 
-    str += "\n";
+      str += "\n";
 
-    this.logger.info(str);
+      this.logger.info(str);
     }
 
     // We don't have anything to do as everything is just skipped.
@@ -854,21 +854,21 @@ export class Client extends ClientJS {
     // If adding is ENABLED we add the new commands to the set, therefor creating the commands.
     // If adding is DISABLED we don't do anything, therefor skipping the new commands.
     if (!options?.disable?.add) {
-        commands.push(...commandsToAdd.map(async (DCommand) => await DCommand.toJSON()));
+      commands.push(...commandsToAdd.map(async (DCommand) => await DCommand.toJSON()));
     }
 
     // If updating is ENABLED we add the current commands to the set, therefor updating the commands.
     // If updating is DISABLED we add the original commands back to the set, therefor skipping the commands.
     if (!options?.disable?.update) {
-        commands.push(...commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON()));
+      commands.push(...commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON()));
     } else {
-        commands.push(...commandsWithChanges.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
+      commands.push(...commandsWithChanges.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
     }
 
     // If deleting is ENABLED we DON'T add the commands to the set, therefor deleting them from Discord.
     // If deleting is DISABLED we DO add the commands to the set, therefor ignoring the deletion.
     if (options?.disable?.delete) {
-        commands.push(...commandsToDelete.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
+      commands.push(...commandsToDelete.map(async (cmd) => await cmd.toJSON() as ApplicationCommandData));
     }
 
     this.application?.commands.set(await Promise.all(commands));
