@@ -1,7 +1,12 @@
 # Stage
 
+# [v9.6.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.6.0) (2022-05-15)
+
 ## Changed
 
+- djs v13.7.0 ([#699](https://github.com/oceanroleplay/discord.ts/issues/699)) ([170d99](https://github.com/oceanroleplay/discord.ts/commit/170d99b9b51101810f6ab73f32100d364611957d))
+- update djs ([ed294e](https://github.com/oceanroleplay/discord.ts/commit/ed294e3e588ac2c5095011bc2760f463da426265))
+- use specific version of discord api (discord-api-types) ([9a9cb3](https://github.com/oceanroleplay/discord.ts/commit/9a9cb3c08b47bfc30e92857acff259c5f78481a4))
 - log skipped commands ([9448c5](https://github.com/oceanroleplay/discord.ts/commit/9448c5e8da013e3bb4655e10e718a14d60c02214))
 - use proper logger method ([#613](https://github.com/oceanroleplay/discord.ts/issues/613)) ([1628e5](https://github.com/oceanroleplay/discord.ts/commit/1628e5a5740bc9d62f0da159a3dd7efda729a37c))
 

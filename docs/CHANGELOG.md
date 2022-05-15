@@ -1,16 +1,21 @@
 # Stage
 
+# [v9.6.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.6.0) (2022-05-15)
+
 ## Changed
 
+- djs v13.7.0 ([#699](https://github.com/oceanroleplay/discord.ts/issues/699)) ([170d99](https://github.com/oceanroleplay/discord.ts/commit/170d99b9b51101810f6ab73f32100d364611957d))
 - remove typedoc ([235c27](https://github.com/oceanroleplay/discord.ts/commit/235c275167a9dcaf2e3ef5ff88858a261dfe568c))
 
 ## Documentation
 
+- fix broken cmd environment variable set and added quotes for consistency. ([#667](https://github.com/oceanroleplay/discord.ts/issues/667)) ([ca6d56](https://github.com/oceanroleplay/discord.ts/commit/ca6d569b7d4320667f6b754903bc10f560bbfcdf))
 - slash option ([b4901d](https://github.com/oceanroleplay/discord.ts/commit/b4901da8b08e7a88e3b56c6e2def8d785611879a))
 - fix autocomplete example ([55efdc](https://github.com/oceanroleplay/discord.ts/commit/55efdcbe6f083461532b58c60e078e537c3cba99))
 
 ## Routine Tasks
 
+- fix env example ([040a2c](https://github.com/oceanroleplay/discord.ts/commit/040a2c7d71878426e46c66efc64599af551215c6))
 - add lava-queue on docs ([a5e85c](https://github.com/oceanroleplay/discord.ts/commit/a5e85c1169cc1bba4a44817b30888bcccfac734a))
 - repo cleanup ([df82f0](https://github.com/oceanroleplay/discord.ts/commit/df82f067bc87bef3510796f50eee966a7955d0bf))
 

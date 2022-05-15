@@ -2,6 +2,8 @@
 
 ## Features
 
+- add Patch, Put decorators ([04b3c5](https://github.com/oceanroleplay/discord.ts/commit/04b3c59cbc2659ff4e924f6e8132dae0ecc5b339))
+- global middleware ([8283de](https://github.com/oceanroleplay/discord.ts/commit/8283de2e13ccebf90159e986be870fe710266260))
 - allow external meta store ([cd3a28](https://github.com/oceanroleplay/discord.ts/commit/cd3a28ae329057273965327d34a2e37d2724ee61))
 - add koa instance as last arugment ([1a9ae0](https://github.com/oceanroleplay/discord.ts/commit/1a9ae0ad6fd4b3605757a9f8474434f866157b07))
 - release @discordx/koa ([02cb5d](https://github.com/oceanroleplay/discord.ts/commit/02cb5d0e150015faef803c15d788e8c8e319c977))

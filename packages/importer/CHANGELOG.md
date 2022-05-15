@@ -2,6 +2,7 @@
 
 ## Changed
 
+- djs v13.7.0 ([#699](https://github.com/oceanroleplay/discord.ts/issues/699)) ([170d99](https://github.com/oceanroleplay/discord.ts/commit/170d99b9b51101810f6ab73f32100d364611957d))
 - sort imports ([fb5b0f](https://github.com/oceanroleplay/discord.ts/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 
 # [v1.1.2](https://github.com/oceanroleplay/discord.ts/releases/tag/i-v1.1.2) (2021-12-24)
