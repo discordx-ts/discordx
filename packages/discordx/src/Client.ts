@@ -648,17 +648,19 @@ export class Client extends ClientJS {
     }
 
     // Skipped commands should ALWAYS be added to the commands list.
-    const commands: Promise<ApplicationCommandData>[] = [
-      ...commandsToSkip.map(
-        async (cmd) => (await cmd.instance.toJSON()) as ApplicationCommandData
-      ),
+    const commands: ApplicationCommandData[] = [
+      ...(await Promise.all(
+        commandsToSkip.map((cmd) => cmd.instance.toJSON())
+      )),
     ];
 
     // If adding is ENABLED we add the new commands to the set, therefor creating the commands.
     // If adding is DISABLED we don't do anything, therefor skipping the new commands.
     if (!options?.disable?.add) {
       commands.push(
-        ...commandsToAdd.map(async (DCommand) => await DCommand.toJSON())
+        ...(await Promise.all(
+          commandsToAdd.map((DCommand) => DCommand.toJSON())
+        ))
       );
     }
 
@@ -666,12 +668,14 @@ export class Client extends ClientJS {
     // If updating is DISABLED we add the original commands back to the set, therefor skipping the commands.
     if (!options?.disable?.update) {
       commands.push(
-        ...commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON())
+        ...(await Promise.all(
+          commandsToUpdate.map((cmd) => cmd.instance.toJSON())
+        ))
       );
     } else {
       commands.push(
         ...commandsWithChanges.map(
-          async (cmd) => (await cmd.toJSON()) as ApplicationCommandData
+          (cmd) => cmd.toJSON() as ApplicationCommandData
         )
       );
     }
@@ -680,13 +684,11 @@ export class Client extends ClientJS {
     // If deleting is DISABLED we DO add the commands to the set, therefor ignoring the deletion.
     if (options?.disable?.delete) {
       commands.push(
-        ...commandsToDelete.map(
-          async (cmd) => (await cmd.toJSON()) as ApplicationCommandData
-        )
+        ...commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
       );
     }
 
-    this.application?.commands.set(await Promise.all(commands), guildId);
+    this.application?.commands.set(commands, guildId);
   }
 
   private isApplicationCommandEqual(
@@ -879,17 +881,19 @@ export class Client extends ClientJS {
     }
 
     // Skipped commands should ALWAYS be added to the commands list.
-    const commands: Promise<ApplicationCommandData>[] = [
-      ...commandsToSkip.map(
-        async (cmd) => (await cmd.instance.toJSON()) as ApplicationCommandData
-      ),
+    const commands: ApplicationCommandData[] = [
+      ...(await Promise.all(
+        commandsToSkip.map((cmd) => cmd.instance.toJSON())
+      )),
     ];
 
     // If adding is ENABLED we add the new commands to the set, therefor creating the commands.
     // If adding is DISABLED we don't do anything, therefor skipping the new commands.
     if (!options?.disable?.add) {
       commands.push(
-        ...commandsToAdd.map(async (DCommand) => await DCommand.toJSON())
+        ...(await Promise.all(
+          commandsToAdd.map((DCommand) => DCommand.toJSON())
+        ))
       );
     }
 
@@ -897,12 +901,14 @@ export class Client extends ClientJS {
     // If updating is DISABLED we add the original commands back to the set, therefor skipping the commands.
     if (!options?.disable?.update) {
       commands.push(
-        ...commandsToUpdate.map(async (cmd) => await cmd.instance.toJSON())
+        ...(await Promise.all(
+          commandsToUpdate.map((cmd) => cmd.instance.toJSON())
+        ))
       );
     } else {
       commands.push(
         ...commandsWithChanges.map(
-          async (cmd) => (await cmd.toJSON()) as ApplicationCommandData
+          (cmd) => cmd.toJSON() as ApplicationCommandData
         )
       );
     }
@@ -911,9 +917,7 @@ export class Client extends ClientJS {
     // If deleting is DISABLED we DO add the commands to the set, therefor ignoring the deletion.
     if (options?.disable?.delete) {
       commands.push(
-        ...commandsToDelete.map(
-          async (cmd) => (await cmd.toJSON()) as ApplicationCommandData
-        )
+        ...commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
       );
     }
 
