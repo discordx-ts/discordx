@@ -620,12 +620,12 @@ export class Client extends ClientJS {
       return;
     }
 
-    const commands = this.getApplicationCommandsUsingOptions(
+    const commands = this.getApplicationCommandsToSetUsingOptions(
       options,
       await Promise.all(commandsToSkip.map((cmd) => cmd.instance.toJSON())),
       await Promise.all(commandsToAdd.map((DCommand) => DCommand.toJSON())),
-      originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData),
       await Promise.all(commandsToUpdate.map((cmd) => cmd.instance.toJSON())),
+      originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData),
       commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
     );
 
@@ -762,12 +762,12 @@ export class Client extends ClientJS {
       return;
     }
 
-    const commands = this.getApplicationCommandsUsingOptions(
+    const commands = this.getApplicationCommandsToSetUsingOptions(
       options,
       await Promise.all(commandsToSkip.map((cmd) => cmd.instance.toJSON())),
       await Promise.all(commandsToAdd.map((DCommand) => DCommand.toJSON())),
-      originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData),
       await Promise.all(commandsToUpdate.map((cmd) => cmd.instance.toJSON())),
+      originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData),
       commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
     );
 
@@ -860,12 +860,12 @@ export class Client extends ClientJS {
     );
   }
 
-  private getApplicationCommandsUsingOptions(
+  private getApplicationCommandsToSetUsingOptions(
     options: InitCommandOptions | undefined,
     commandsToSkip: ApplicationCommandData[],
     commandsToAdd: ApplicationCommandData[],
-    originalCommands: ApplicationCommandData[],
     commandsToUpdate: ApplicationCommandData[],
+    originalCommands: ApplicationCommandData[],
     commandsToDelete: ApplicationCommandData[]
   ): ApplicationCommandData[] {
     const commands: ApplicationCommandData[] = commandsToSkip;
