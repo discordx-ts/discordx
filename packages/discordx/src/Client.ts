@@ -674,9 +674,7 @@ export class Client extends ClientJS {
       );
     } else {
       commands.push(
-        ...originalCommands.map(
-          (cmd) => cmd.toJSON() as ApplicationCommandData
-        )
+        ...originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData)
       );
     }
 
@@ -907,9 +905,7 @@ export class Client extends ClientJS {
       );
     } else {
       commands.push(
-        ...originalCommands.map(
-          (cmd) => cmd.toJSON() as ApplicationCommandData
-        )
+        ...originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData)
       );
     }
 
