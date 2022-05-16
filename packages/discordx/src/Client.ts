@@ -921,7 +921,7 @@ export class Client extends ClientJS {
       );
     }
 
-    await this.application?.commands.set(await Promise.all(commands));
+    await this.application?.commands.set(commands);
   }
 
   /**
