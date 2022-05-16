@@ -518,6 +518,121 @@ export class Client extends ClientJS {
   }
 
   /**
+   * Init global application commands
+   *
+   * @param options - Options
+   */
+  async initGlobalApplicationCommands(
+    options?: InitCommandOptions
+  ): Promise<void> {
+    const botResolvedGuilds = await this.botResolvedGuilds;
+
+    // fetch already registered global commands
+    const ApplicationCommands = (await this.fetchApplicationCommands())?.filter(
+      (cmd) => !cmd.guild
+    );
+
+    // We don't have anything to do since our app doesn't have any global commands
+    if (!ApplicationCommands?.size) {
+      return;
+    }
+
+    const DCommands = this.applicationCommands.filter(
+      (DCommand) =>
+        ![...botResolvedGuilds, ...DCommand.guilds].length &&
+        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+    );
+
+    const commandsToAdd = DCommands.filter(
+      (DCommand) =>
+        !ApplicationCommands.find(
+          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+        )
+    );
+
+    const commandsToDelete = ApplicationCommands.filter((cmd) =>
+      DCommands.every(
+        (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
+      )
+    );
+
+    const originalCommands: ApplicationCommand[] = [];
+    const commandsToUpdate: ApplicationCommandMixin[] = [];
+    const commandsToSkip: ApplicationCommandMixin[] = [];
+
+    await Promise.all(
+      DCommands.map(async (DCommand) => {
+        const findCommand = ApplicationCommands.find(
+          (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
+        );
+
+        if (!findCommand) {
+          return;
+        }
+
+        const rawData = await DCommand.toJSON();
+        const commandJson = findCommand.toJSON() as ApplicationCommandData;
+
+        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
+          originalCommands.push(findCommand);
+          commandsToUpdate.push(
+            new ApplicationCommandMixin(findCommand, DCommand)
+          );
+        } else {
+          commandsToSkip.push(
+            new ApplicationCommandMixin(findCommand, DCommand)
+          );
+        }
+      })
+    );
+
+    // log the changes to commands if enabled by options or silent mode is turned off
+    if (options?.log ?? !this.silent) {
+      let str = `${this.user?.username ?? this.botId} >> commands >> global`;
+
+      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
+        .map((DCommand) => DCommand.name)
+        .join(", ")}]`;
+
+      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
+        .map((cmd) => cmd.command.name)
+        .join(", ")}]`;
+
+      str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
+        .map((cmd) => cmd.name)
+        .join(", ")}]`;
+
+      str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
+        .map((cmd) => cmd.name)
+        .join(", ")}]`;
+
+      str += "\n";
+
+      this.logger.info(str);
+    }
+
+    // We don't have anything to do as everything is just skipped.
+    if (
+      !commandsToAdd.length &&
+      !commandsToUpdate.length &&
+      !commandsToDelete.size
+    ) {
+      return;
+    }
+
+    const commands = this.getApplicationCommandsUsingOptions(
+      options,
+      await Promise.all(commandsToSkip.map((cmd) => cmd.instance.toJSON())),
+      await Promise.all(commandsToAdd.map((DCommand) => DCommand.toJSON())),
+      originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData),
+      await Promise.all(commandsToUpdate.map((cmd) => cmd.instance.toJSON())),
+      commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
+    );
+
+    await this.application?.commands.set(commands);
+  }
+
+  /**
    * Init application commands for guild
    * @param guildId - Guild identifier
    * @param DCommands - Array of commands
@@ -647,44 +762,14 @@ export class Client extends ClientJS {
       return;
     }
 
-    // Skipped commands should ALWAYS be added to the commands list.
-    const commands: ApplicationCommandData[] = [
-      ...(await Promise.all(
-        commandsToSkip.map((cmd) => cmd.instance.toJSON())
-      )),
-    ];
-
-    // If adding is ENABLED we add the new commands to the set, therefor creating the commands.
-    // If adding is DISABLED we don't do anything, therefor skipping the new commands.
-    if (!options?.disable?.add) {
-      commands.push(
-        ...(await Promise.all(
-          commandsToAdd.map((DCommand) => DCommand.toJSON())
-        ))
-      );
-    }
-
-    // If updating is ENABLED we add the current commands to the set, therefor updating the commands.
-    // If updating is DISABLED we add the original commands back to the set, therefor skipping the commands.
-    if (!options?.disable?.update) {
-      commands.push(
-        ...(await Promise.all(
-          commandsToUpdate.map((cmd) => cmd.instance.toJSON())
-        ))
-      );
-    } else {
-      commands.push(
-        ...originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData)
-      );
-    }
-
-    // If deleting is ENABLED we DON'T add the commands to the set, therefor deleting them from Discord.
-    // If deleting is DISABLED we DO add the commands to the set, therefor ignoring the deletion.
-    if (options?.disable?.delete) {
-      commands.push(
-        ...commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
-      );
-    }
+    const commands = this.getApplicationCommandsUsingOptions(
+      options,
+      await Promise.all(commandsToSkip.map((cmd) => cmd.instance.toJSON())),
+      await Promise.all(commandsToAdd.map((DCommand) => DCommand.toJSON())),
+      originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData),
+      await Promise.all(commandsToUpdate.map((cmd) => cmd.instance.toJSON())),
+      commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
+    );
 
     await this.application?.commands.set(commands, guildId);
   }
@@ -775,149 +860,37 @@ export class Client extends ClientJS {
     );
   }
 
-  /**
-   * Init global application commands
-   *
-   * @param options - Options
-   */
-  async initGlobalApplicationCommands(
-    options?: InitCommandOptions
-  ): Promise<void> {
-    const botResolvedGuilds = await this.botResolvedGuilds;
-
-    // fetch already registered global commands
-    const ApplicationCommands = (await this.fetchApplicationCommands())?.filter(
-      (cmd) => !cmd.guild
-    );
-
-    // We don't have anything to do since our app doesn't have any global commands
-    if (!ApplicationCommands?.size) {
-      return;
-    }
-
-    const DCommands = this.applicationCommands.filter(
-      (DCommand) =>
-        ![...botResolvedGuilds, ...DCommand.guilds].length &&
-        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
-    );
-
-    const commandsToAdd = DCommands.filter(
-      (DCommand) =>
-        !ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
-        )
-    );
-
-    const commandsToDelete = ApplicationCommands.filter((cmd) =>
-      DCommands.every(
-        (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
-      )
-    );
-
-    const originalCommands: ApplicationCommand[] = [];
-    const commandsToUpdate: ApplicationCommandMixin[] = [];
-    const commandsToSkip: ApplicationCommandMixin[] = [];
-
-    await Promise.all(
-      DCommands.map(async (DCommand) => {
-        const findCommand = ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
-        );
-
-        if (!findCommand) {
-          return;
-        }
-
-        const rawData = await DCommand.toJSON();
-        const commandJson = findCommand.toJSON() as ApplicationCommandData;
-
-        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-          originalCommands.push(findCommand);
-          commandsToUpdate.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        } else {
-          commandsToSkip.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        }
-      })
-    );
-
-    // log the changes to commands if enabled by options or silent mode is turned off
-    if (options?.log ?? !this.silent) {
-      let str = `${this.user?.username ?? this.botId} >> commands >> global`;
-
-      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
-        .map((DCommand) => DCommand.name)
-        .join(", ")}]`;
-
-      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
-        .map((cmd) => cmd.command.name)
-        .join(", ")}]`;
-
-      str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
-        .map((cmd) => cmd.name)
-        .join(", ")}]`;
-
-      str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
-        .map((cmd) => cmd.name)
-        .join(", ")}]`;
-
-      str += "\n";
-
-      this.logger.info(str);
-    }
-
-    // We don't have anything to do as everything is just skipped.
-    if (
-      !commandsToAdd.length &&
-      !commandsToUpdate.length &&
-      !commandsToDelete.size
-    ) {
-      return;
-    }
-
-    // Skipped commands should ALWAYS be added to the commands list.
-    const commands: ApplicationCommandData[] = [
-      ...(await Promise.all(
-        commandsToSkip.map((cmd) => cmd.instance.toJSON())
-      )),
-    ];
+  private getApplicationCommandsUsingOptions(
+    options: InitCommandOptions | undefined,
+    commandsToSkip: ApplicationCommandData[],
+    commandsToAdd: ApplicationCommandData[],
+    originalCommands: ApplicationCommandData[],
+    commandsToUpdate: ApplicationCommandData[],
+    commandsToDelete: ApplicationCommandData[]
+  ): ApplicationCommandData[] {
+    const commands: ApplicationCommandData[] = commandsToSkip;
 
     // If adding is ENABLED we add the new commands to the set, therefor creating the commands.
     // If adding is DISABLED we don't do anything, therefor skipping the new commands.
     if (!options?.disable?.add) {
-      commands.push(
-        ...(await Promise.all(
-          commandsToAdd.map((DCommand) => DCommand.toJSON())
-        ))
-      );
+      commands.push(...commandsToAdd);
     }
 
     // If updating is ENABLED we add the current commands to the set, therefor updating the commands.
     // If updating is DISABLED we add the original commands back to the set, therefor skipping the commands.
     if (!options?.disable?.update) {
-      commands.push(
-        ...(await Promise.all(
-          commandsToUpdate.map((cmd) => cmd.instance.toJSON())
-        ))
-      );
+      commands.push(...commandsToUpdate);
     } else {
-      commands.push(
-        ...originalCommands.map((cmd) => cmd.toJSON() as ApplicationCommandData)
-      );
+      commands.push(...originalCommands);
     }
 
     // If deleting is ENABLED we DON'T add the commands to the set, therefor deleting them from Discord.
     // If deleting is DISABLED we DO add the commands to the set, therefor ignoring the deletion.
     if (options?.disable?.delete) {
-      commands.push(
-        ...commandsToDelete.map((cmd) => cmd.toJSON() as ApplicationCommandData)
-      );
+      commands.push(...commandsToDelete);
     }
 
-    await this.application?.commands.set(commands);
+    return commands;
   }
 
   /**
