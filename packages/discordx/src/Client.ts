@@ -553,7 +553,7 @@ export class Client extends ClientJS {
 
     // filter application command to update
 
-    const commandsWithChanges: ApplicationCommand[] = [];
+    const originalCommands: ApplicationCommand[] = [];
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
@@ -574,7 +574,7 @@ export class Client extends ClientJS {
         const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
         if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-          commandsWithChanges.push(findCommand);
+          originalCommands.push(findCommand);
           commandsToUpdate.push(
             new ApplicationCommandMixin(findCommand, DCommand)
           );
@@ -674,7 +674,7 @@ export class Client extends ClientJS {
       );
     } else {
       commands.push(
-        ...commandsWithChanges.map(
+        ...originalCommands.map(
           (cmd) => cmd.toJSON() as ApplicationCommandData
         )
       );
@@ -688,7 +688,7 @@ export class Client extends ClientJS {
       );
     }
 
-    this.application?.commands.set(commands, guildId);
+    await this.application?.commands.set(commands, guildId);
   }
 
   private isApplicationCommandEqual(
@@ -816,7 +816,7 @@ export class Client extends ClientJS {
       )
     );
 
-    const commandsWithChanges: ApplicationCommand[] = [];
+    const originalCommands: ApplicationCommand[] = [];
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
@@ -834,7 +834,7 @@ export class Client extends ClientJS {
         const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
         if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-          commandsWithChanges.push(findCommand);
+          originalCommands.push(findCommand);
           commandsToUpdate.push(
             new ApplicationCommandMixin(findCommand, DCommand)
           );
@@ -907,7 +907,7 @@ export class Client extends ClientJS {
       );
     } else {
       commands.push(
-        ...commandsWithChanges.map(
+        ...originalCommands.map(
           (cmd) => cmd.toJSON() as ApplicationCommandData
         )
       );
