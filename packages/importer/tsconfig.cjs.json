@@ -11,7 +11,7 @@
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": false,
+    "declaration": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
