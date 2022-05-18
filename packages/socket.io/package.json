@@ -61,11 +61,11 @@
     "express": "^4.18.1",
     "http": "^0.0.1-security",
     "koa": "^2.13.4",
-    "socket.io": "^4.5.0",
+    "socket.io": "^4.5.1",
     "typescript": "^4.6.4"
   },
   "peerDependencies": {
-    "socket.io": "^4.5.0"
+    "socket.io": "^4.5.1"
   },
   "engines": {
     "node": ">=16.0.0",
