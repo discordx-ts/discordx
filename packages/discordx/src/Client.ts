@@ -778,14 +778,14 @@ export class Client extends ClientJS {
     );
 
     if (ApplicationCommands) {
-      const commandToAdd = DCommands.filter(
+      const commandsToAdd = DCommands.filter(
         (DCommand) =>
           !ApplicationCommands.find(
             (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
           )
       );
 
-      const commandToUpdate: ApplicationCommandMixin[] = [];
+      const commandsToUpdate: ApplicationCommandMixin[] = [];
       const commandsToSkip: ApplicationCommandMixin[] = [];
 
       await Promise.all(
@@ -802,7 +802,7 @@ export class Client extends ClientJS {
           const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
           if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-            commandToUpdate.push(
+            commandsToUpdate.push(
               new ApplicationCommandMixin(findCommand, DCommand)
             );
           } else {
@@ -813,30 +813,49 @@ export class Client extends ClientJS {
         })
       );
 
-      const commandToDelete = ApplicationCommands.filter((cmd) =>
+      const commandsToDelete = ApplicationCommands.filter((cmd) =>
         DCommands.every(
           (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
         )
       );
 
+      const defaultStr = "0 []";
+
       // log the changes to commands if enabled by options or silent mode is turned off
       if (options?.log ?? !this.silent) {
         let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-        str += `\n\t>> adding   ${commandToAdd.length} [${commandToAdd
+        str += `\n\t>> adding   ${options?.disable?.add ? defaultStr : `${commandsToAdd.length} [${commandsToAdd
           .map((DCommand) => DCommand.name)
-          .join(", ")}]`;
+          .join(", ")}]`}`;
 
-        str += `\n\t>> updating ${commandToUpdate.length} [${commandToUpdate
+        str += `\n\t>> updating ${options?.disable?.update ? defaultStr : `${commandsToUpdate.length} [${commandsToUpdate
           .map((cmd) => cmd.command.name)
-          .join(", ")}]`;
+          .join(", ")}]`}`;
 
-        str += `\n\t>> deleting ${commandToDelete.size} [${commandToDelete
+        str += `\n\t>> deleting ${options?.disable?.delete ? defaultStr : `${commandsToDelete.size} [${commandsToDelete
           .map((cmd) => cmd.name)
-          .join(", ")}]`;
+          .join(", ")}]`}`;
 
-        str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
-          .map((cmd) => cmd.name)
+        const commandsToSkipSize = 
+          commandsToSkip.length + 
+          (options?.disable?.add ? commandsToUpdate.length : 0) +
+          (options?.disable?.update ? commandsToUpdate.length : 0) + 
+          (options?.disable?.delete ? commandsToDelete.size : 0);
+
+        const commandsToSkipNames = commandsToSkip.map((cmd) => cmd.name);
+
+        if (options?.disable?.add) {
+          commandsToAdd.forEach((DCommand) => commandsToSkipNames.push(DCommand.name));
+        }
+        if (options?.disable?.update) {
+          commandsToUpdate.forEach((cmd) => commandsToSkipNames.push(cmd.command.name));
+        }
+        if (options?.disable?.delete) {
+          commandsToDelete.forEach((cmd) => commandsToSkipNames.push(cmd.name));        
+        }
+
+        str += `\n\t>> skipping ${commandsToSkipSize} [${commandsToSkipNames
           .join(", ")}]`;
 
         str += "\n";
@@ -850,19 +869,19 @@ export class Client extends ClientJS {
 
       const commandsAddOperation = options?.disable?.add
         ? []
-        : commandToAdd.map(async (DCommand) =>
+        : commandsToAdd.map(async (DCommand) =>
             this.application?.commands.create(await DCommand.toJSON())
           );
 
       const commandsUpdateOperation = options?.disable?.update
         ? []
-        : commandToUpdate.map(async (cmd) =>
+        : commandsToUpdate.map(async (cmd) =>
             cmd.command.edit(await cmd.instance.toJSON())
           );
 
       const commandsDeleteOperation = options?.disable?.delete
         ? []
-        : commandToDelete.map((cmd) => this.application?.commands.delete(cmd));
+        : commandsToDelete.map((cmd) => this.application?.commands.delete(cmd));
 
       await Promise.all([
         // add
