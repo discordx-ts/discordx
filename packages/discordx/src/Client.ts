@@ -825,38 +825,55 @@ export class Client extends ClientJS {
       if (options?.log ?? !this.silent) {
         let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-        str += `\n\t>> adding   ${options?.disable?.add ? defaultStr : `${commandsToAdd.length} [${commandsToAdd
-          .map((DCommand) => DCommand.name)
-          .join(", ")}]`}`;
+        str += `\n\t>> adding   ${
+          options?.disable?.add
+            ? defaultStr
+            : `${commandsToAdd.length} [${commandsToAdd
+                .map((DCommand) => DCommand.name)
+                .join(", ")}]`
+        }`;
 
-        str += `\n\t>> updating ${options?.disable?.update ? defaultStr : `${commandsToUpdate.length} [${commandsToUpdate
-          .map((cmd) => cmd.command.name)
-          .join(", ")}]`}`;
+        str += `\n\t>> updating ${
+          options?.disable?.update
+            ? defaultStr
+            : `${commandsToUpdate.length} [${commandsToUpdate
+                .map((cmd) => cmd.command.name)
+                .join(", ")}]`
+        }`;
 
-        str += `\n\t>> deleting ${options?.disable?.delete ? defaultStr : `${commandsToDelete.size} [${commandsToDelete
-          .map((cmd) => cmd.name)
-          .join(", ")}]`}`;
+        str += `\n\t>> deleting ${
+          options?.disable?.delete
+            ? defaultStr
+            : `${commandsToDelete.size} [${commandsToDelete
+                .map((cmd) => cmd.name)
+                .join(", ")}]`
+        }`;
 
-        const commandsToSkipSize = 
-          commandsToSkip.length + 
+        const commandsToSkipSize =
+          commandsToSkip.length +
           (options?.disable?.add ? commandsToUpdate.length : 0) +
-          (options?.disable?.update ? commandsToUpdate.length : 0) + 
+          (options?.disable?.update ? commandsToUpdate.length : 0) +
           (options?.disable?.delete ? commandsToDelete.size : 0);
 
         const commandsToSkipNames = commandsToSkip.map((cmd) => cmd.name);
 
         if (options?.disable?.add) {
-          commandsToAdd.forEach((DCommand) => commandsToSkipNames.push(DCommand.name));
+          commandsToAdd.forEach((DCommand) =>
+            commandsToSkipNames.push(DCommand.name)
+          );
         }
         if (options?.disable?.update) {
-          commandsToUpdate.forEach((cmd) => commandsToSkipNames.push(cmd.command.name));
+          commandsToUpdate.forEach((cmd) =>
+            commandsToSkipNames.push(cmd.command.name)
+          );
         }
         if (options?.disable?.delete) {
-          commandsToDelete.forEach((cmd) => commandsToSkipNames.push(cmd.name));        
+          commandsToDelete.forEach((cmd) => commandsToSkipNames.push(cmd.name));
         }
 
-        str += `\n\t>> skipping ${commandsToSkipSize} [${commandsToSkipNames
-          .join(", ")}]`;
+        str += `\n\t>> skipping ${commandsToSkipSize} [${commandsToSkipNames.join(
+          ", "
+        )}]`;
 
         str += "\n";
 
