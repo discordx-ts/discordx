@@ -615,15 +615,19 @@ export class Client extends ClientJS {
     if (options?.log ?? !this.silent) {
       let str = `${this.user?.username} >> commands >> guild: #${guild}`;
 
-      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
-        .map((DCommand) => DCommand.name)
-        .join(", ")}]`;
+      str += `\n\t>> ${options?.disable?.add ? "need to add" : "adding"}   ${
+        commandsToAdd.length
+      } [${commandsToAdd.map((DCommand) => DCommand.name).join(", ")}]`;
 
-      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
+      str += `\n\t>> ${
+        options?.disable?.update ? "need to update" : "updating"
+      } ${commandsToUpdate.length} [${commandsToUpdate
         .map((cmd) => cmd.command.name)
         .join(", ")}]`;
 
-      str += `\n\t>> deleting ${commandsToDelete.length} [${commandsToDelete
+      str += `\n\t>> ${
+        options?.disable?.delete ? "need to delete" : "deleting"
+      } ${commandsToDelete.length} [${commandsToDelete
         .map((cmd) => cmd.name)
         .join(", ")}]`;
 
@@ -675,6 +679,12 @@ export class Client extends ClientJS {
           )
         );
 
+    const operationToDelete = options?.disable?.delete
+      ? commandsToDelete.map(async (cmd) =>
+          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+        )
+      : [];
+
     await Promise.all([
       // skipped
       ...operationToSkip,
@@ -684,6 +694,9 @@ export class Client extends ClientJS {
 
       // update
       ...operationToUpdate,
+
+      // delete
+      ...operationToDelete,
     ]);
 
     await guild.commands.set(bulkUpdate);
@@ -842,15 +855,19 @@ export class Client extends ClientJS {
       if (options?.log ?? !this.silent) {
         let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-        str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
-          .map((DCommand) => DCommand.name)
-          .join(", ")}]`;
+        str += `\n\t>> ${options?.disable?.add ? "need to add" : "adding"}   ${
+          commandsToAdd.length
+        } [${commandsToAdd.map((DCommand) => DCommand.name).join(", ")}]`;
 
-        str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
+        str += `\n\t>> ${
+          options?.disable?.update ? "need to update" : "updating"
+        } ${commandsToUpdate.length} [${commandsToUpdate
           .map((cmd) => cmd.command.name)
           .join(", ")}]`;
 
-        str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
+        str += `\n\t>> ${
+          options?.disable?.delete ? "need to delete" : "deleting"
+        } ${commandsToDelete.size} [${commandsToDelete
           .map((cmd) => cmd.name)
           .join(", ")}]`;
 
@@ -896,6 +913,12 @@ export class Client extends ClientJS {
             bulkUpdate.push(await cmd.instance.toJSON())
           );
 
+      const operationToDelete = options?.disable?.delete
+        ? commandsToDelete.map(async (cmd) =>
+            bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+          )
+        : [];
+
       await Promise.all([
         // skipped
         ...operationToSkip,
@@ -905,6 +928,9 @@ export class Client extends ClientJS {
 
         // update
         ...operationToUpdate,
+
+        // delete
+        ...operationToDelete,
       ]);
 
       await this.application?.commands.set(bulkUpdate);
