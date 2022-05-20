@@ -848,32 +848,36 @@ export class Client extends ClientJS {
       // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
       // if (slash.permissions.length <= 0) return;
 
-      const commandsAddOperation = options?.disable?.add
+      const bulkUpdate: ApplicationCommandData[] = [];
+
+      const operationToSkip = commandsToSkip.map(async (cmd) =>
+        bulkUpdate.push(await cmd.instance.toJSON())
+      );
+
+      const operationToAdd = options?.disable?.add
         ? []
         : commandToAdd.map(async (DCommand) =>
-            this.application?.commands.create(await DCommand.toJSON())
+            bulkUpdate.push(await DCommand.toJSON())
           );
 
-      const commandsUpdateOperation = options?.disable?.update
+      const operationToUpdate = options?.disable?.update
         ? []
         : commandToUpdate.map(async (cmd) =>
-            cmd.command.edit(await cmd.instance.toJSON())
+            bulkUpdate.push(await cmd.instance.toJSON())
           );
 
-      const commandsDeleteOperation = options?.disable?.delete
-        ? []
-        : commandToDelete.map((cmd) => this.application?.commands.delete(cmd));
-
       await Promise.all([
+        // skipped
+        ...operationToSkip,
+
         // add
-        ...commandsAddOperation,
+        ...operationToAdd,
 
         // update
-        ...commandsUpdateOperation,
-
-        // delete
-        ...commandsDeleteOperation,
+        ...operationToUpdate,
       ]);
+
+      await this.application?.commands.set(bulkUpdate);
     }
   }
 
