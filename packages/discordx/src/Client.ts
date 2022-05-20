@@ -615,21 +615,17 @@ export class Client extends ClientJS {
     if (options?.log ?? !this.silent) {
       let str = `${this.user?.username} >> commands >> guild: #${guild}`;
 
-      str += `\n\t>> ${options?.disable?.add ? "need to add" : "adding"}   ${
-        commandsToAdd.length
-      } [${commandsToAdd.map((DCommand) => DCommand.name).join(", ")}]`;
+      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
+        .map((DCommand) => DCommand.name)
+        .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> ${
-        options?.disable?.update ? "need to update" : "updating"
-      } ${commandsToUpdate.length} [${commandsToUpdate
+      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
         .map((cmd) => cmd.command.name)
-        .join(", ")}]`;
+        .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> ${
-        options?.disable?.delete ? "need to delete" : "deleting"
-      } ${commandsToDelete.length} [${commandsToDelete
+      str += `\n\t>> deleting ${commandsToDelete.length} [${commandsToDelete
         .map((cmd) => cmd.name)
-        .join(", ")}]`;
+        .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
 
       str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
         .map((cmd) => cmd.name)
@@ -855,21 +851,17 @@ export class Client extends ClientJS {
       if (options?.log ?? !this.silent) {
         let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-        str += `\n\t>> ${options?.disable?.add ? "need to add" : "adding"}   ${
-          commandsToAdd.length
-        } [${commandsToAdd.map((DCommand) => DCommand.name).join(", ")}]`;
+        str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
+          .map((DCommand) => DCommand.name)
+          .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
 
-        str += `\n\t>> ${
-          options?.disable?.update ? "need to update" : "updating"
-        } ${commandsToUpdate.length} [${commandsToUpdate
+        str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
           .map((cmd) => cmd.command.name)
-          .join(", ")}]`;
+          .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
 
-        str += `\n\t>> ${
-          options?.disable?.delete ? "need to delete" : "deleting"
-        } ${commandsToDelete.size} [${commandsToDelete
+        str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
           .map((cmd) => cmd.name)
-          .join(", ")}]`;
+          .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
 
         str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
           .map((cmd) => cmd.name)
