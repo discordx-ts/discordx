@@ -666,7 +666,11 @@ export class Client extends ClientJS {
         );
 
     const operationToUpdate = options?.disable?.update
-      ? []
+      ? commandsToUpdate.map(async (cmd) =>
+          bulkUpdate.push(
+            (await cmd.command.toJSON()) as ApplicationCommandData
+          )
+        )
       : commandsToUpdate.map(async (cmd) =>
           bulkUpdate.push(
             await cmd.instance.toJSON(
@@ -900,7 +904,11 @@ export class Client extends ClientJS {
           );
 
       const operationToUpdate = options?.disable?.update
-        ? []
+        ? commandsToUpdate.map(async (cmd) =>
+            bulkUpdate.push(
+              (await cmd.command.toJSON()) as ApplicationCommandData
+            )
+          )
         : commandsToUpdate.map(async (cmd) =>
             bulkUpdate.push(await cmd.instance.toJSON())
           );
