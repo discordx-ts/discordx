@@ -646,6 +646,7 @@ export class Client extends ClientJS {
       return;
     }
 
+    // perform bulk update with discord using set operation
     const bulkUpdate: ApplicationCommandData[] = [];
 
     const operationToSkip = commandsToSkip.map(async (cmd) =>
@@ -876,6 +877,7 @@ export class Client extends ClientJS {
         return;
       }
 
+      // perform bulk update with discord using set operation
       const bulkUpdate: ApplicationCommandData[] = [];
 
       const operationToSkip = commandsToSkip.map(async (cmd) =>
