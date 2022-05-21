@@ -13,7 +13,7 @@ export interface ITimedSet<T> extends Set<T> {
   isEmpty(): boolean;
 
   /**
-   * Refresh the timeout fot this element (resets the timer for the items' eviction)
+   * Refresh the timeout for this element (resets the timer for the items eviction)
    *
    * @param key - Key
    */
