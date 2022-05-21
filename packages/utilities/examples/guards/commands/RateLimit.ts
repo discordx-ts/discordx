@@ -40,6 +40,23 @@ export class RateLimitExample {
   }
 
   /**
+   * only one command every 30 seconds with custom message including time
+   *
+   * @param interaction
+   */
+  @Slash("rate_limit_4")
+  @Guard(
+    RateLimit(
+      TIME_UNIT.seconds,
+      30,
+      "Slow Down, please try at {until}, if you do not try at {until} then this command will not work"
+    )
+  )
+  rateLimit4(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  /**
    * Rate limit simple command
    *
    * @param message

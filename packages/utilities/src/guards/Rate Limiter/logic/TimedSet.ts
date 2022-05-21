@@ -1,12 +1,12 @@
-import Timeout = NodeJS.Timeout;
-import type { ITimedSet } from "../types/ITimedSet.js";
+import type { ITimedSet } from "../types";
+import { Timer } from "./index.js";
 
 /**
  * This set will evict items from the array after the set timeout.
  * This set can only contain unique items, items are unique when === is true
  */
 export class TimedSet<T> implements ITimedSet<T> {
-  private _map: Map<T, Timeout>;
+  private _map: Map<T, Timer>;
 
   /**
    * @param _timeOut - Timeout in milliseconds
@@ -40,12 +40,10 @@ export class TimedSet<T> implements ITimedSet<T> {
   }
 
   public add(key: T): this {
-    this._map.set(
-      key,
-      setTimeout(() => {
-        this._map.delete(key);
-      }, this._timeOut)
-    );
+    const timer = new Timer(() => {
+      this._map.delete(key);
+    }, this._timeOut);
+    this._map.set(key, timer);
     return this;
   }
 
@@ -58,8 +56,8 @@ export class TimedSet<T> implements ITimedSet<T> {
       return false;
     }
 
-    const timeoutFunction = this._map.get(key) as Timeout;
-    clearTimeout(timeoutFunction);
+    const timeoutFunction = this._map.get(key) as Timer;
+    timeoutFunction.clearTimer();
     return this._map.delete(key);
   }
 
@@ -68,21 +66,21 @@ export class TimedSet<T> implements ITimedSet<T> {
       return false;
     }
 
-    const timeoutFunction = this._map.get(key) as Timeout;
-    clearTimeout(timeoutFunction);
+    const timeoutFunction = this._map.get(key) as Timer;
+    timeoutFunction.clearTimer();
     this.add(key);
     return true;
   }
 
   public clear(): void {
     for (const [, value] of this._map) {
-      clearTimeout(value);
+      value.clearTimer();
     }
 
     this._map = new Map();
   }
 
-  [Symbol.iterator](): IterableIterator<T> {
+  public [Symbol.iterator](): IterableIterator<T> {
     return new Set(this._map.keys())[Symbol.iterator]();
   }
 
@@ -105,5 +103,13 @@ export class TimedSet<T> implements ITimedSet<T> {
 
   public values(): IterableIterator<T> {
     return this._map.keys();
+  }
+
+  public getTimeRemaining(key: T): number {
+    const item = this._map.get(key);
+    if (!item) {
+      return -1;
+    }
+    return item.timeLeft;
   }
 }
