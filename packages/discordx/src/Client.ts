@@ -617,15 +617,15 @@ export class Client extends ClientJS {
 
       str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
         .map((DCommand) => DCommand.name)
-        .join(", ")}]`;
+        .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
 
       str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
         .map((cmd) => cmd.command.name)
-        .join(", ")}]`;
+        .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
 
       str += `\n\t>> deleting ${commandsToDelete.length} [${commandsToDelete
         .map((cmd) => cmd.name)
-        .join(", ")}]`;
+        .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
 
       str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
         .map((cmd) => cmd.name)
@@ -857,15 +857,15 @@ export class Client extends ClientJS {
 
         str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
           .map((DCommand) => DCommand.name)
-          .join(", ")}]`;
+          .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
 
         str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
           .map((cmd) => cmd.command.name)
-          .join(", ")}]`;
+          .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
 
         str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
           .map((cmd) => cmd.name)
-          .join(", ")}]`;
+          .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
 
         str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
           .map((cmd) => cmd.name)
