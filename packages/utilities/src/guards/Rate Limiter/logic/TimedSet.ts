@@ -1,4 +1,4 @@
-import type { ITimedSet } from "../types";
+import type { ITimedSet } from "../types/index.js";
 import { Timer } from "./index.js";
 
 /**
