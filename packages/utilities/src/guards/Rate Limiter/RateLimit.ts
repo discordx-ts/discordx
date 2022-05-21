@@ -15,7 +15,8 @@ import { TimeOutEntry } from "./logic/index.js";
  * @param timeout - the time unit to use
  * @param value - the value for the time unit
  * @param message - the message to post when a command is called when the
- * user is in rate limit, defaults = "message being rate limited!, please try again at {until}". use the placeholder {until} in your string to get time you can next call it `<t:epoch:T>`
+ * user is in rate limit, defaults = "message being rate limited!, please try again at {until}".
+ * use the placeholder {until} in your string to get the time you can next call it `<t:epoch:T>`
  * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
  *
  * @constructor
