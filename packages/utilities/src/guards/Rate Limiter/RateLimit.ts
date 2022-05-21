@@ -15,7 +15,8 @@ import { TimeOutEntry } from "./logic/index.js";
  * @param timeout - the time unit to use
  * @param value - the value for the time unit
  * @param message - the message to post when a command is called when the
- * user is in rate limit, defaults = "message being rate limited!"
+ * user is in rate limit, defaults = "message being rate limited!, please try again at {until}".
+ * use the placeholder {until} in your string to get the time you can next call it `<t:epoch:T>`
  * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
  *
  * @constructor
@@ -23,7 +24,7 @@ import { TimeOutEntry } from "./logic/index.js";
 export function RateLimit(
   timeout: TIME_UNIT,
   value: number,
-  message = "message being rate limited!",
+  message = "message being rate limited!, please try again at {until}",
   rateValue = 1
 ): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> {
   function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
@@ -41,8 +42,8 @@ export function RateLimit(
     }
   }
 
-  const millisecond = convertToMillisecond(value, timeout);
-  const _timer = new TimedSet<TimeOutEntry>(millisecond);
+  const _millisecond = convertToMillisecond(value, timeout);
+  const _timer = new TimedSet<TimeOutEntry>(_millisecond);
 
   async function replyOrFollowUp(
     interaction: BaseCommandInteraction | MessageComponentInteraction,
@@ -78,6 +79,10 @@ export function RateLimit(
     );
   }
 
+  function getTimeLeft(item: TimeOutEntry): number {
+    return _timer.getTimeRemaining(item);
+  }
+
   async function post(
     arg: BaseCommandInteraction | SimpleCommandMessage,
     msg: string
@@ -109,6 +114,16 @@ export function RateLimit(
     if (fromArray) {
       fromArray.incrementCallCount();
       if (fromArray.hasLimitReached()) {
+        if (message.includes("{until}")) {
+          const whenWillExecute = Date.now() + getTimeLeft(fromArray);
+          return post(
+            arg,
+            message.replaceAll(
+              "{until}",
+              `<t:${Math.round(whenWillExecute / 1000)}:T>`
+            )
+          );
+        }
         return post(arg, message);
       }
 
