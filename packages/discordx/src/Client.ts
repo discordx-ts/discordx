@@ -636,38 +636,70 @@ export class Client extends ClientJS {
       this.logger.info(str);
     }
 
-    const commandsAddOperation = options?.disable?.add
+    // If there are no changes to share with Discord, cancel the task
+    if (
+      commandsToAdd.length +
+        commandsToUpdate.length +
+        commandsToDelete.length ===
+      0
+    ) {
+      return;
+    }
+
+    // perform bulk update with discord using set operation
+    const bulkUpdate: ApplicationCommandData[] = [];
+
+    const operationToSkip = commandsToSkip.map(async (cmd) =>
+      bulkUpdate.push(
+        await cmd.instance.toJSON(
+          new ApplicationGuildMixin(guild, cmd.instance)
+        )
+      )
+    );
+
+    const operationToAdd = options?.disable?.add
       ? []
       : commandsToAdd.map(async (DCommand) =>
-          guild.commands.create(
+          bulkUpdate.push(
             await DCommand.toJSON(new ApplicationGuildMixin(guild, DCommand))
           )
         );
 
-    const commandsUpdateOperation = options?.disable?.update
-      ? []
+    const operationToUpdate = options?.disable?.update
+      ? commandsToUpdate.map(async (cmd) =>
+          bulkUpdate.push(
+            (await cmd.command.toJSON()) as ApplicationCommandData
+          )
+        )
       : commandsToUpdate.map(async (cmd) =>
-          cmd.command.edit(
+          bulkUpdate.push(
             await cmd.instance.toJSON(
               new ApplicationGuildMixin(guild, cmd.instance)
             )
           )
         );
 
-    const commandsDeleteOperation = options?.disable?.delete
-      ? []
-      : commandsToDelete.map((cmd) => guild.commands.delete(cmd));
+    const operationToDelete = options?.disable?.delete
+      ? commandsToDelete.map(async (cmd) =>
+          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+        )
+      : [];
 
     await Promise.all([
+      // skipped
+      ...operationToSkip,
+
       // add
-      ...commandsAddOperation,
+      ...operationToAdd,
 
       // update
-      ...commandsUpdateOperation,
+      ...operationToUpdate,
 
       // delete
-      ...commandsDeleteOperation,
+      ...operationToDelete,
     ]);
+
+    await guild.commands.set(bulkUpdate);
   }
 
   private isApplicationCommandEqual(
@@ -778,14 +810,14 @@ export class Client extends ClientJS {
     );
 
     if (ApplicationCommands) {
-      const commandToAdd = DCommands.filter(
+      const commandsToAdd = DCommands.filter(
         (DCommand) =>
           !ApplicationCommands.find(
             (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
           )
       );
 
-      const commandToUpdate: ApplicationCommandMixin[] = [];
+      const commandsToUpdate: ApplicationCommandMixin[] = [];
       const commandsToSkip: ApplicationCommandMixin[] = [];
 
       await Promise.all(
@@ -802,7 +834,7 @@ export class Client extends ClientJS {
           const commandJson = findCommand.toJSON() as ApplicationCommandData;
 
           if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-            commandToUpdate.push(
+            commandsToUpdate.push(
               new ApplicationCommandMixin(findCommand, DCommand)
             );
           } else {
@@ -813,7 +845,7 @@ export class Client extends ClientJS {
         })
       );
 
-      const commandToDelete = ApplicationCommands.filter((cmd) =>
+      const commandsToDelete = ApplicationCommands.filter((cmd) =>
         DCommands.every(
           (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
         )
@@ -823,15 +855,15 @@ export class Client extends ClientJS {
       if (options?.log ?? !this.silent) {
         let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-        str += `\n\t>> adding   ${commandToAdd.length} [${commandToAdd
+        str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
           .map((DCommand) => DCommand.name)
           .join(", ")}]`;
 
-        str += `\n\t>> updating ${commandToUpdate.length} [${commandToUpdate
+        str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
           .map((cmd) => cmd.command.name)
           .join(", ")}]`;
 
-        str += `\n\t>> deleting ${commandToDelete.size} [${commandToDelete
+        str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
           .map((cmd) => cmd.name)
           .join(", ")}]`;
 
@@ -848,32 +880,60 @@ export class Client extends ClientJS {
       // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
       // if (slash.permissions.length <= 0) return;
 
-      const commandsAddOperation = options?.disable?.add
+      // If there are no changes to share with Discord, cancel the task
+      if (
+        commandsToAdd.length +
+          commandsToUpdate.length +
+          commandsToDelete.size ===
+        0
+      ) {
+        return;
+      }
+
+      // perform bulk update with discord using set operation
+      const bulkUpdate: ApplicationCommandData[] = [];
+
+      const operationToSkip = commandsToSkip.map(async (cmd) =>
+        bulkUpdate.push(await cmd.instance.toJSON())
+      );
+
+      const operationToAdd = options?.disable?.add
         ? []
-        : commandToAdd.map(async (DCommand) =>
-            this.application?.commands.create(await DCommand.toJSON())
+        : commandsToAdd.map(async (DCommand) =>
+            bulkUpdate.push(await DCommand.toJSON())
           );
 
-      const commandsUpdateOperation = options?.disable?.update
-        ? []
-        : commandToUpdate.map(async (cmd) =>
-            cmd.command.edit(await cmd.instance.toJSON())
+      const operationToUpdate = options?.disable?.update
+        ? commandsToUpdate.map(async (cmd) =>
+            bulkUpdate.push(
+              (await cmd.command.toJSON()) as ApplicationCommandData
+            )
+          )
+        : commandsToUpdate.map(async (cmd) =>
+            bulkUpdate.push(await cmd.instance.toJSON())
           );
 
-      const commandsDeleteOperation = options?.disable?.delete
-        ? []
-        : commandToDelete.map((cmd) => this.application?.commands.delete(cmd));
+      const operationToDelete = options?.disable?.delete
+        ? commandsToDelete.map(async (cmd) =>
+            bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+          )
+        : [];
 
       await Promise.all([
+        // skipped
+        ...operationToSkip,
+
         // add
-        ...commandsAddOperation,
+        ...operationToAdd,
 
         // update
-        ...commandsUpdateOperation,
+        ...operationToUpdate,
 
         // delete
-        ...commandsDeleteOperation,
+        ...operationToDelete,
       ]);
+
+      await this.application?.commands.set(bulkUpdate);
     }
   }
 
@@ -956,7 +1016,7 @@ export class Client extends ClientJS {
   //    // fetch already registered application command
   //    const ApplicationCommands = await guild.commands.fetch();
   //
-  //    const commandToUpdate: ApplicationCommandMixin[] = [];
+  //    const commandsToUpdate: ApplicationCommandMixin[] = [];
   //
   //    ApplicationCommands.forEach((cmd) => {
   //      const findCommand = DCommands.find(
@@ -964,12 +1024,12 @@ export class Client extends ClientJS {
   //      );
   //
   //      if (findCommand) {
-  //        commandToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
+  //        commandsToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
   //      }
   //    });
   //
   //    await Promise.all(
-  //      commandToUpdate.map((cmd) => {
+  //      commandsToUpdate.map((cmd) => {
   //        return guild.commands.permissions
   //          .fetch({ command: cmd.command })
   //          .then(async (permissions) => {
