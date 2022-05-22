@@ -2,7 +2,7 @@ import type {
   BaseCommandInteraction,
   MessageComponentInteraction,
 } from "discord.js";
-import type { GuardFunction } from "discordx";
+import type { Awaitable, GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
 import { TIME_UNIT, TimedSet } from "./index.js";
@@ -28,7 +28,7 @@ export function RateLimit<
   timeout: TIME_UNIT,
   value: number,
   message:
-    | ((interaction: T, timeLeft: number) => Promise<string> | string)
+    | ((interaction: T, timeLeft: number) => Awaitable<string>)
     | string = "message being rate limited!, please try again at {until}",
   rateValue = 1
 ): GuardFunction<T> {
