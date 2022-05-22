@@ -266,6 +266,46 @@ class Example {
 }
 ```
 
+# 📟 [@ModalComponent](https://discord-ts.js.org/docs/decorators/gui/modal-component)
+
+Create discord modal with ease!
+
+```ts
+@Discord()
+class Example {
+  @ModalComponent("AwesomeForm")
+  async handle(interaction: ModalSubmitInteraction): Promise<void> {
+    const name = interaction.fields.getTextInputValue("name");
+    await interaction.reply(`name: ${name}`);
+    return;
+  }
+
+  @Slash()
+  modal(interaction: CommandInteraction): void {
+    // Create the modal
+    const modal = new Modal()
+      .setTitle("My Awesome Form")
+      .setCustomId("AwesomeForm");
+
+    // Create text input fields
+    const nameInputComponent = new TextInputComponent()
+      .setCustomId("name")
+      .setLabel("Name")
+      .setStyle("SHORT");
+
+    const row = new MessageActionRow<ModalActionRowComponent>().addComponents(
+      nameInputComponent
+    );
+
+    // Add action rows to form
+    modal.addComponents(row);
+
+    // Present the modal to the user
+    interaction.showModal(modal);
+  }
+}
+```
+
 # 📟 [@SimpleCommand](https://discord-ts.js.org/docs/decorators/commands/simple-command)
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
