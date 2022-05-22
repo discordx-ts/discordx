@@ -2,7 +2,7 @@ import type {
   BaseCommandInteraction,
   MessageComponentInteraction,
 } from "discord.js";
-import type { GuardFunction } from "discordx";
+import type { Awaitable, GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
 import { TIME_UNIT, TimedSet } from "./index.js";
@@ -17,16 +17,21 @@ import { TimeOutEntry } from "./logic/index.js";
  * @param message - the message to post when a command is called when the
  * user is in rate limit, defaults = "message being rate limited!, please try again at {until}".
  * use the placeholder {until} in your string to get the time you can next call it `<t:epoch:T>`
+ * If a function is supplied, it will pass both the interaction and how many milliseconds are left until the rate limit is over
  * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
  *
  * @constructor
  */
-export function RateLimit(
+export function RateLimit<
+  T extends BaseCommandInteraction | SimpleCommandMessage
+>(
   timeout: TIME_UNIT,
   value: number,
-  message = "message being rate limited!, please try again at {until}",
+  message:
+    | ((interaction: T, timeLeft: number) => Awaitable<string>)
+    | string = "message being rate limited!, please try again at {until}",
   rateValue = 1
-): GuardFunction<BaseCommandInteraction | SimpleCommandMessage> {
+): GuardFunction<T> {
   function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
       case TIME_UNIT.seconds:
@@ -94,7 +99,7 @@ export function RateLimit(
     }
   }
 
-  return function (arg, client, next) {
+  return async function (arg, client, next) {
     let memberId: string | null | undefined;
     let guildId: string | null;
 
@@ -113,18 +118,23 @@ export function RateLimit(
     let fromArray = getFromArray(memberId, guildId);
     if (fromArray) {
       fromArray.incrementCallCount();
+      const timeLeft = getTimeLeft(fromArray);
+      const whenWillExecute = Date.now() + timeLeft;
       if (fromArray.hasLimitReached()) {
-        if (message.includes("{until}")) {
-          const whenWillExecute = Date.now() + getTimeLeft(fromArray);
+        const messageString =
+          typeof message === "function"
+            ? await message(arg, timeLeft)
+            : message;
+        if (messageString.includes("{until}")) {
           return post(
             arg,
-            message.replaceAll(
+            messageString.replaceAll(
               "{until}",
               `<t:${Math.round(whenWillExecute / 1000)}:T>`
             )
           );
         }
-        return post(arg, message);
+        return post(arg, messageString);
       }
 
       _timer.refresh(fromArray);

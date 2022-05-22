@@ -57,6 +57,36 @@ export class RateLimitExample {
   }
 
   /**
+   * only one command every 30 seconds with custom message function resolver including time
+   *
+   * @param interaction
+   */
+  @Slash("rate_limit_5")
+  @Guard(
+    RateLimit<CommandInteraction>(
+      TIME_UNIT.seconds,
+      30,
+      RateLimitExample.getMessage
+    )
+  )
+  rateLimit5(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  private static getMessage(
+    interaction: CommandInteraction,
+    timeLeft: number
+  ): Promise<string> {
+    return Promise.resolve(
+      `${
+        interaction.commandName
+      } will be available again at {until}, this is in ${Math.round(
+        timeLeft / 1000
+      )} seconds`
+    );
+  }
+
+  /**
    * Rate limit simple command
    *
    * @param message
