@@ -13,8 +13,8 @@ import type {
   MessageOptions,
 } from "discord.js";
 
-// By default, it's half an hour.
-export const defaultTime = 18e5;
+// By default, five minute.
+export const defaultTime = 3e5;
 
 const prefixId = "discordx@pagination@";
 export const defaultIds = {

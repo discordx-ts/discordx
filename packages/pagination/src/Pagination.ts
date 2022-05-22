@@ -192,6 +192,13 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       time: this.option.time ?? defaultTime,
     });
 
+    const resetCollectorTimer = () => {
+      collector.resetTimer({
+        idle: this.option.idle,
+        time: this.option.time ?? defaultTime,
+      });
+    };
+
     collector.on("collect", async (collectInteraction) => {
       if (
         collectInteraction.isButton() &&
@@ -233,6 +240,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         }
 
         await collectInteraction.deferUpdate();
+        resetCollectorTimer();
 
         // Get page
         const pageEx = await this.getPage(this.currentPage);
@@ -257,6 +265,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         collectInteraction.customId === (this.option.menuId ?? defaultIds.menu)
       ) {
         await collectInteraction.deferUpdate();
+        resetCollectorTimer();
 
         const menuValue = Number(collectInteraction.values[0] ?? 0);
 

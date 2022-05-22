@@ -191,7 +191,7 @@ class Example {
 | initialPage  | number         | 0         | Initial page                 |
 | onTimeout    | Function       | undefined | Timeout callback             |
 | showStartEnd | boolean        | true      | Show start/end               |
-| time         | number         | 18e5      | Timeout for pagination in ms |
+| time         | number         | 3e5       | Timeout for pagination in ms |
 | type         | PaginationType | BUTTON    | Pagination type              |
 
 > When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.

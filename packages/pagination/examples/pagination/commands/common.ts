@@ -47,10 +47,7 @@ export class Example {
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {
-      ephemeral: true,
-      onTimeout: () => {
-        interaction.deleteReply();
-      },
+      onTimeout: () => interaction.deleteReply(),
       start: {
         emoji: "🙂",
       },
@@ -65,6 +62,7 @@ export class Example {
   @Slash("demo-b", { description: "Simple slash with menu pagination" })
   demoB(interaction: CommandInteraction): void {
     new Pagination(interaction, GeneratePages(), {
+      time: 5 * 1000,
       type: PaginationType.SelectMenu,
     }).send();
   }
