@@ -1110,28 +1110,13 @@ export class Client extends ClientJS {
   async clearApplicationCommands(...guilds: Snowflake[]): Promise<void> {
     if (guilds.length) {
       await Promise.all(
-        guilds.map(async (guild) => {
-          // Select and delete the commands of each guild
-          const commands = await this.fetchApplicationCommands(guild);
-          if (commands) {
-            await Promise.all(
-              commands.map((value) => {
-                this.guilds.cache.get(guild)?.commands.delete(value);
-              })
-            );
-          }
+        // Select and delete the commands of each guild
+        guilds.map((guild) => {
+          this.guilds.cache.get(guild)?.commands.set([]);
         })
       );
     } else {
-      // Select and delete the commands of each guild
-      const commands = await this.fetchApplicationCommands();
-      if (commands) {
-        await Promise.all(
-          commands.map(async (command) => {
-            await this.application?.commands.delete(command);
-          })
-        );
-      }
+      await this.application?.commands.set([]);
     }
   }
 
