@@ -52,7 +52,7 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "tsyringe": "^4.6.0",
+    "tsyringe": "^4.7.0",
     "typedi": "^0.10.0"
   },
   "devDependencies": {
