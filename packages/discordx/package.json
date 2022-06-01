@@ -63,7 +63,7 @@
   "devDependencies": {
     "@types/jest": "^27.5.1",
     "@types/lodash": "^4.14.182",
-    "@types/node": "^17.0.36",
+    "@types/node": "^17.0.38",
     "discord-api-types": "^0.30.0",
     "discord.js": "^13.7.0",
     "jest": "^27.5.1",
