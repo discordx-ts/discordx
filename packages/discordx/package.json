@@ -61,7 +61,7 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@types/jest": "^27.5.1",
+    "@types/jest": "^28.1.0",
     "@types/lodash": "^4.14.182",
     "@types/node": "^17.0.38",
     "discord-api-types": "^0.30.0",
