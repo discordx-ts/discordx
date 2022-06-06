@@ -92,13 +92,19 @@ export function SlashGroup(
         MetadataStorage.instance.addApplicationCommandSlashSubGroups(
           DApplicationCommandGroup.create<DApplicationCommandOption>(
             options.name,
-            { description: options.description }
+            {
+              description: options.description,
+              descriptionLocalizations: options.descriptionLocalizations,
+              nameLocalizations: options.nameLocalizations,
+            }
           ).decorate(clazz, clazz.name)
         );
       } else {
         MetadataStorage.instance.addApplicationCommandSlashGroups(
           DApplicationCommandGroup.create<DApplicationCommand>(options.name, {
             description: options.description,
+            descriptionLocalizations: options.descriptionLocalizations,
+            nameLocalizations: options.nameLocalizations,
           }).decorate(clazz, key ?? clazz.name)
         );
       }

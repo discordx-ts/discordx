@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ClientEvents } from "discord.js";
+import type { LocalizationMap } from "discord-api-types/v9";
 
 import type { Client, Next, NotEmpty } from "../../index.js";
 
@@ -70,7 +71,9 @@ export type ILogger = {
  */
 export type SlashGroupOptions = {
   description?: string;
+  descriptionLocalizations?: LocalizationMap;
   name: string;
+  nameLocalizations?: LocalizationMap;
   root?: string;
 };
 
