@@ -5,18 +5,8 @@ import type {
   ApplicationCommandType,
   CommandInteraction,
   Guild,
-  GuildBasedChannel,
-  GuildMember,
-  MessageAttachment,
-  Role,
-  User,
 } from "discord.js";
-import type {
-  APIInteractionDataResolvedChannel,
-  APIInteractionDataResolvedGuildMember,
-  APIRole,
-  LocalizationMap,
-} from "discord-api-types/v9";
+import type { LocalizationMap } from "discord-api-types/v9";
 
 import type {
   ApplicationCommandMixin,
@@ -286,22 +276,7 @@ export class DApplicationCommand extends Method {
     return data as unknown as ApplicationCommandData;
   }
 
-  parseParams(
-    interaction: CommandInteraction
-  ): (
-    | string
-    | number
-    | boolean
-    | Role
-    | APIRole
-    | GuildMember
-    | MessageAttachment
-    | APIInteractionDataResolvedChannel
-    | GuildBasedChannel
-    | APIInteractionDataResolvedGuildMember
-    | User
-    | undefined
-  )[] {
+  parseParams(interaction: CommandInteraction): unknown[] {
     return [...this.options].reverse().map((op) => {
       switch (op.type) {
         case "ATTACHMENT":
