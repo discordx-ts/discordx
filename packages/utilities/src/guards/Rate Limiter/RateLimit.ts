@@ -2,9 +2,10 @@ import type {
   BaseCommandInteraction,
   MessageComponentInteraction,
 } from "discord.js";
-import type { Awaitable, GuardFunction } from "discordx";
+import type { GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
+import type { RateLimitOption } from "./index.js";
 import { TIME_UNIT, TimedSet } from "./index.js";
 import { TimeOutEntry } from "./logic/index.js";
 
@@ -14,11 +15,7 @@ import { TimeOutEntry } from "./logic/index.js";
  *
  * @param timeout - the time unit to use
  * @param value - the value for the time unit
- * @param message - the message to post when a command is called when the
- * user is in rate limit, defaults = "message being rate limited!, please try again at {until}".
- * use the placeholder {until} in your string to get the time you can next call it `<t:epoch:T>`
- * If a function is supplied, it will pass both the interaction and how many milliseconds are left until the rate limit is over
- * @param rateValue - the value to specify how many messages can be called before it is rate limited, defaults to 1
+ * @param options - rate limit options
  *
  * @constructor
  */
@@ -27,11 +24,13 @@ export function RateLimit<
 >(
   timeout: TIME_UNIT,
   value: number,
-  message:
-    | ((interaction: T, timeLeft: number) => Awaitable<string>)
-    | string = "message being rate limited!, please try again at {until}",
-  rateValue = 1
+  options?: RateLimitOption<T>
 ): GuardFunction<T> {
+  const rateValue = options?.rateValue ?? 1;
+  const rateMessage =
+    options?.message ??
+    "message being rate limited!, please try again at {until}";
+
   function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
       case TIME_UNIT.seconds:
@@ -53,7 +52,7 @@ export function RateLimit<
   async function replyOrFollowUp(
     interaction: BaseCommandInteraction | MessageComponentInteraction,
     content: string,
-    ephemeral = false
+    ephemeral: boolean
   ): Promise<void> {
     if (interaction.replied) {
       await interaction.followUp({
@@ -95,7 +94,7 @@ export function RateLimit<
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(msg);
     } else {
-      return replyOrFollowUp(arg, msg);
+      return replyOrFollowUp(arg, msg, options?.ephemeral ?? false);
     }
   }
 
@@ -122,9 +121,10 @@ export function RateLimit<
       const whenWillExecute = Date.now() + timeLeft;
       if (fromArray.hasLimitReached()) {
         const messageString =
-          typeof message === "function"
-            ? await message(arg, timeLeft)
-            : message;
+          typeof rateMessage === "function"
+            ? await rateMessage(arg, timeLeft)
+            : rateMessage;
+
         if (messageString.includes("{until}")) {
           return post(
             arg,
