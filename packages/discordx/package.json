@@ -62,7 +62,7 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@types/jest": "^28.1.0",
+    "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.182",
     "@types/node": "^17.0.40",
     "discord.js": "^13.8.0",
