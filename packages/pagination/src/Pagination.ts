@@ -267,25 +267,23 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         await collectInteraction.deferUpdate();
         resetCollectorTimer();
 
-        const menuValue = Number(collectInteraction.values[0] ?? 0);
+        this.currentPage = Number(collectInteraction.values[0] ?? 0);
 
         // Exit pagination if exit is requested
-        if (menuValue === SelectMenuPageId.Exit) {
+        if (this.currentPage === SelectMenuPageId.Exit) {
           collector.stop();
           return;
         }
 
         // Requested start page
-        if (menuValue === SelectMenuPageId.Start) {
+        if (this.currentPage === SelectMenuPageId.Start) {
           this.currentPage = 0;
         }
 
         // Requested end page
-        if (menuValue === SelectMenuPageId.End) {
+        if (this.currentPage === SelectMenuPageId.End) {
           this.currentPage = this.maxLength - 1;
         }
-
-        this.currentPage = menuValue;
 
         // Update page
         const pageEx = await this.getPage(this.currentPage);

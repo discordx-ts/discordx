@@ -184,15 +184,15 @@ class Example {
 
 # Options
 
-| Name         | Type           | Default   | Description                  |
-| ------------ | -------------- | --------- | ---------------------------- |
-| enableExit   | boolean        | false     | Enable early exit pagination |
-| ephemeral    | boolean        | undefined | Enable ephemeral             |
-| initialPage  | number         | 0         | Initial page                 |
-| onTimeout    | Function       | undefined | Timeout callback             |
-| showStartEnd | boolean        | true      | Show start/end               |
-| time         | number         | 3e5       | Timeout for pagination in ms |
-| type         | PaginationType | BUTTON    | Pagination type              |
+| Name         | Type              | Default   | Description                  |
+| ------------ | ----------------- | --------- | ---------------------------- |
+| enableExit   | boolean           | false     | Enable early exit pagination |
+| ephemeral    | boolean           | undefined | Enable ephemeral             |
+| initialPage  | number            | 0         | Initial page                 |
+| onTimeout    | Function          | undefined | Timeout callback             |
+| showStartEnd | boolean \| number | true      | Show start/end               |
+| time         | number            | 3e5       | Timeout for pagination in ms |
+| type         | PaginationType    | BUTTON    | Pagination type              |
 
 > When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.
 
