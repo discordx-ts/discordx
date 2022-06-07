@@ -26,6 +26,18 @@ export function GeneratePage(
       ? { embeds: [item] }
       : item;
 
+  function isStartEndAllowed(): boolean {
+    if (option.showStartEnd === undefined) {
+      return true;
+    }
+
+    if (typeof option.showStartEnd === "number") {
+      return totalPages >= option.showStartEnd;
+    }
+
+    return option.showStartEnd;
+  }
+
   if (option.type === PaginationType.Button) {
     const startBtn = new MessageButton()
       .setCustomId(option.start?.id ?? defaultIds.buttons.start)
@@ -79,7 +91,7 @@ export function GeneratePage(
 
     const buttons: MessageButton[] = [prevBtn, nextBtn];
 
-    if (totalPages > 10 && (option.showStartEnd ?? true)) {
+    if (isStartEndAllowed()) {
       buttons.unshift(startBtn);
       buttons.push(endBtn);
     }
@@ -122,22 +134,18 @@ export function GeneratePage(
       };
     });
 
-    if (totalPages > 21 && (option.showStartEnd ?? true)) {
+    if (isStartEndAllowed()) {
       // add start option
-      if (page > 10) {
-        paginator.unshift({
-          label: option.labels?.start ?? "Start",
-          value: SelectMenuPageId.Start.toString(),
-        });
-      }
+      paginator.unshift({
+        label: option.labels?.start ?? "Start",
+        value: SelectMenuPageId.Start.toString(),
+      });
 
       // add end option
-      if (page < totalPages - 10) {
-        paginator.push({
-          label: option.labels?.end ?? "End",
-          value: SelectMenuPageId.End.toString(),
-        });
-      }
+      paginator.push({
+        label: option.labels?.end ?? "End",
+        value: SelectMenuPageId.End.toString(),
+      });
     }
 
     // add exit option

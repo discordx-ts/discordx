@@ -74,9 +74,10 @@ interface BasicPaginationOptions
   onTimeout?: (page: number, message: Message) => void;
 
   /**
-   * Show start/end buttons for large list (items more then 10) (default: true)
+   * Show start/end button/option (default: true)
+   * Use number to limit based on minimum pages
    */
-  showStartEnd?: boolean;
+  showStartEnd?: boolean | number;
 }
 
 interface ButtonOptions {
