@@ -183,11 +183,7 @@ class RateLimitExample {
 ```ts
 @SimpleCommand("hello")
 @Guard(NotBot)
-hello({ message }
-:
-SimpleCommandMessage
-):
-void {
+hello({ message }: SimpleCommandMessage): void {
   message.reply("It worked!");
 }
 ```
