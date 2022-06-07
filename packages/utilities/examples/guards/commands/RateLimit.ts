@@ -72,7 +72,7 @@ export class RateLimitExample {
   @Slash("rate_limit_5")
   @Guard(
     RateLimit<CommandInteraction>(TIME_UNIT.seconds, 30, {
-      message: RateLimitExample.getMessag,
+      message: RateLimitExample.getMessage,
     })
   )
   rateLimit5(interaction: CommandInteraction): void {
