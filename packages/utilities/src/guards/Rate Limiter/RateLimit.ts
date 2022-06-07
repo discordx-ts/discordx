@@ -19,7 +19,9 @@ import { TimeOutEntry } from "./logic/index.js";
  *
  * @constructor
  */
-export function RateLimit<T extends BaseCommandInteraction | SimpleCommandMessage>(
+export function RateLimit<
+  T extends BaseCommandInteraction | SimpleCommandMessage
+>(
   timeout: TIME_UNIT,
   value: number,
   options: RateLimitOption<T> = {
