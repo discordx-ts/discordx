@@ -153,7 +153,10 @@ class RateLimitExample {
    * Allow 3 command before rate limit of 30 seconds (from last message)
    */
   @Slash("rate_limit_3")
-  @Guard(RateLimit(TIME_UNIT.seconds, 30, "Please wait `30` seconds!", 3))
+  @Guard(RateLimit(TIME_UNIT.seconds, 30, {
+    message: "Please wait `30` seconds!",
+    rateValue: 3
+  }))
   rateLimit3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
   }
@@ -166,8 +169,8 @@ class RateLimitExample {
   @SimpleCommand("rateLimit")
   @Guard(RateLimit(TIME_UNIT.seconds, 10))
   private async rateLimitSimpleCommand({
-    message,
-  }: SimpleCommandMessage): Promise<void> {
+                                         message,
+                                       }: SimpleCommandMessage): Promise<void> {
     message.reply("It worked!");
   }
 }
@@ -178,7 +181,11 @@ class RateLimitExample {
 ```ts
 @SimpleCommand("hello")
 @Guard(NotBot)
-hello({ message }: SimpleCommandMessage): void {
+hello({ message }
+:
+SimpleCommandMessage
+):
+void {
   message.reply("It worked!");
 }
 ```
@@ -187,7 +194,8 @@ This will work on both Slash and Simple commands
 
 ## PermissionGuard
 
-When you are using global commands, but still wish to restrict commands to permissions from roles, then you can use this guard to easily supply an array of Permissions that a user must have in order to execute the command.
+When you are using global commands, but still wish to restrict commands to permissions from roles, then you can use this
+guard to easily supply an array of Permissions that a user must have in order to execute the command.
 
 The guard can take an array of permissions or an async resolver to the permission array
 

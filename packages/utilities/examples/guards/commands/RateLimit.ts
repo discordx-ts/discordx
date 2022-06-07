@@ -41,7 +41,7 @@ export class RateLimitExample {
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Please wait `30` seconds!",
-      rateValue: ,
+      rateValue: 3
     })
   )
   rateLimit3(interaction: CommandInteraction): void {
@@ -57,7 +57,7 @@ export class RateLimitExample {
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message:
-        "Slow Down, please try at {until}, if you do not try at {until} then this command will not work"
+        "Slow Down, please try at {until}, if you do not try at {until} then this command will not work,
     })
   )
   rateLimit4(interaction: CommandInteraction): void {
