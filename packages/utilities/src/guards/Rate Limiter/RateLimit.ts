@@ -24,7 +24,11 @@ export function RateLimit<
 >(
   timeout: TIME_UNIT,
   value: number,
-  options?: RateLimitOption<T>
+  options: RateLimitOption<T> = {
+    ephemeral: false,
+    message: "message being rate limited!, please try again at {until}",
+    rateValue: 1,
+  }
 ): GuardFunction<T> {
   const rateValue = options?.rateValue ?? 1;
   const rateMessage =
