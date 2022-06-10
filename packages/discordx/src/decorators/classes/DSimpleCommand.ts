@@ -239,7 +239,19 @@ export class DSimpleCommand extends Method {
 
           // Boolean
           if (op.type === SimpleCommandOptionType.Boolean) {
-            return Boolean(args[index]);
+            const option = args[index];
+            if (option === undefined) {
+              return undefined;
+            }
+
+            if (
+              option.toLocaleLowerCase() === "false" ||
+              option.toLocaleLowerCase() === "0"
+            ) {
+              return false;
+            }
+
+            return Boolean(option);
           }
 
           // Number

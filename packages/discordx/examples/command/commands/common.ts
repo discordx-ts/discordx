@@ -10,6 +10,14 @@ import {
 
 @Discord()
 export class Example {
+  @SimpleCommand("bool")
+  bool(
+    @SimpleCommandOption("state") bool: boolean,
+    command: SimpleCommandMessage
+  ): void {
+    command.message.reply(String(bool));
+  }
+
   @SimpleCommand("race", { prefix: ["&", ">"] })
   race(command: SimpleCommandMessage): void {
     command.sendUsageSyntax();
