@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "prettier": "^2.7.0",
+    "prettier": "^2.7.1",
     "tslib": "^2.4.0"
   },
   "publishConfig": {
