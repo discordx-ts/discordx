@@ -26,7 +26,8 @@
   "exports": {
     ".": {
       "import": "./build/esm/index.mjs",
-      "require": "./build/cjs/index.cjs"
+      "require": "./build/cjs/index.cjs",
+      "types": "./index.d.ts"
     }
   },
   "main": "./build/cjs/index.cjs",
