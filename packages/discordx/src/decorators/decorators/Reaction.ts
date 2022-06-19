@@ -4,22 +4,52 @@ import type { NotEmpty, ReactionOptions } from "../../index.js";
 import { MetadataStorage } from "../../index.js";
 import { DReaction } from "../classes/DReaction.js";
 
+/**
+ * Handle a reaction with a specified emoji
+ *
+ * @param emoji - Emoji, in the form of a Unicode string, custom name, or Snowflake.
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/reaction)
+ *
+ * @category Decorator
+ */
 export function Reaction<T extends string>(
-  name: NotEmpty<T>
+  emoji: NotEmpty<T>
 ): MethodDecoratorEx;
 
+/**
+ * Handle a reaction with a specified emoji
+ *
+ * @param emoji - Emoji, in the form of a Unicode string, custom name, or Snowflake.
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/reaction)
+ *
+ * @category Decorator
+ */
 export function Reaction<T extends string>(
-  name: NotEmpty<T>,
+  emoji: NotEmpty<T>,
   options: ReactionOptions
 ): MethodDecoratorEx;
 
+/**
+ * Handle a reaction with a specified emoji
+ *
+ * @param emoji - Emoji, in the form of a Unicode string, custom name, or Snowflake.
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/reaction)
+ *
+ * @category Decorator
+ */
 export function Reaction(
-  name: string,
+  emoji: string,
   options?: ReactionOptions
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const react = DReaction.create(
-      name,
+      emoji,
       options?.aliases,
       options?.botIds,
       options?.description,

@@ -1603,7 +1603,7 @@ export class Client extends ClientJS {
     message: MessageReaction | PartialMessageReaction
   ): DReaction | undefined {
     const reaction = this.reactions.find((react) => {
-      const validNames = [react.name, ...react.aliases];
+      const validNames = [react.emoji, ...react.aliases];
       const { emoji } = message;
 
       return (

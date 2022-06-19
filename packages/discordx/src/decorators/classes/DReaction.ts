@@ -6,7 +6,7 @@ import { Method } from "./Method.js";
  * @category Decorator
  */
 export class DReaction extends Method {
-  private _name: string;
+  private _emoji: string;
   private _description: string;
   private _directMessage: boolean;
   private _guilds: IGuild[];
@@ -43,11 +43,11 @@ export class DReaction extends Method {
     this._directMessage = value;
   }
 
-  get name(): string {
-    return this._name;
+  get emoji(): string {
+    return this._emoji;
   }
-  set name(value: string) {
-    this._name = value;
+  set emoji(value: string) {
+    this._emoji = value;
   }
 
   get description(): string {
@@ -72,7 +72,7 @@ export class DReaction extends Method {
   }
 
   protected constructor(
-    name: string,
+    emoji: string,
     aliases?: string[],
     botIds?: string[],
     description?: string,
@@ -82,8 +82,8 @@ export class DReaction extends Method {
     partial?: boolean
   ) {
     super();
-    this._name = name;
-    this._description = description ?? this.name;
+    this._emoji = emoji;
+    this._description = description ?? this.emoji;
     this._directMessage = directMessage ?? true;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
@@ -93,7 +93,7 @@ export class DReaction extends Method {
   }
 
   static create(
-    name: string,
+    emoji: string,
     aliases?: string[],
     botIds?: string[],
     description?: string,
@@ -103,7 +103,7 @@ export class DReaction extends Method {
     partial?: boolean
   ): DReaction {
     return new DReaction(
-      name,
+      emoji,
       aliases,
       botIds,
       description,
