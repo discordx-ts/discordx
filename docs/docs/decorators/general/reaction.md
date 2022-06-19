@@ -42,6 +42,7 @@ start();
 ```
 
 ### Aliasing Reactions
+
 ```ts
 @Reaction("📌", { aliases: ["📍", "custom_emoji"] })
 async pin(reaction: MessageReaction): Promise<void> {
@@ -88,9 +89,9 @@ Multiple options, check below.
 
 Whether or not to remove the reaction upon execution.
 
-| type      | default |
-| --------- | ------- |
-| boolean   | true    |
+| type    | default |
+| ------- | ------- |
+| boolean | true    |
 
 #### `aliases`
 
@@ -104,17 +105,17 @@ Alternative emojis for this reaction handler.
 
 If enabled, discord.ts will not fetch the reaction or user when they are partial.
 
-| type      | default |
-| --------- | ------- |
-| boolean   | false   |
+| type    | default |
+| ------- | ------- |
+| boolean | false   |
 
 #### `Description`
 
 A description of what the reaction does.
 
-| type   | default      |
-| ------ | ------------ |
-| string |              |
+| type   | default |
+| ------ | ------- |
+| string |         |
 
 #### `botIds`
 
