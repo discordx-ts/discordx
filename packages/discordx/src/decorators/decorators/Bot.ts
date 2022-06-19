@@ -7,6 +7,7 @@ import {
   DComponent,
   DDiscord,
   DOn,
+  DReaction,
   DSimpleCommand,
   MetadataStorage,
 } from "../../index.js";
@@ -45,7 +46,12 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
-        DApplicationCommand | DSimpleCommand | DDiscord | DComponent | DOn
+        | DApplicationCommand
+        | DSimpleCommand
+        | DReaction
+        | DDiscord
+        | DComponent
+        | DOn
       >(
         (original) => {
           original.botIds = [
@@ -57,6 +63,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
             [
               ...original.applicationCommands,
               ...original.simpleCommands,
+              ...original.reactions,
               ...original.buttons,
               ...original.selectMenus,
               ...original.events,
@@ -70,6 +77,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
         },
         DApplicationCommand,
         DSimpleCommand,
+        DReaction,
         DDiscord,
         DComponent,
         DOn

@@ -6,6 +6,7 @@ import type {
   DComponent,
   DGuard,
   DOn,
+  DReaction,
   DSimpleCommand,
   IGuild,
   IPermissions,
@@ -28,6 +29,7 @@ export class DDiscord extends Decorator {
   private _permissions: IPermissions[] = [];
   private _selectMenuComponents: DComponent[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
+  private _reactions: DReaction[] = [];
 
   get applicationCommands(): DApplicationCommand[] {
     return this._applicationCommands;
@@ -122,6 +124,13 @@ export class DDiscord extends Decorator {
   }
   set simpleCommands(value: DSimpleCommand[]) {
     this._simpleCommands = value;
+  }
+
+  get reactions(): DReaction[] {
+    return this._reactions;
+  }
+  set reactions(value: DReaction[]) {
+    this._reactions = value;
   }
 
   protected constructor(name: string, description?: string) {

@@ -21,6 +21,7 @@ import {
   DApplicationCommandOption,
   DComponent,
   DOn,
+  DReaction,
   DSimpleCommand,
 } from "../../index.js";
 
@@ -49,6 +50,9 @@ export class MetadataStorage {
   private _simpleCommands: Array<DSimpleCommand> = [];
   private _simpleCommandsByName: Array<ISimpleCommandByName> = [];
   private _simpleCommandsByPrefix = new Map<string, ISimpleCommandByName[]>();
+
+  // reactions
+  private _reactions: Array<DReaction> = [];
 
   // discord commands
   private _applicationCommandMessages: Array<DApplicationCommand> = [];
@@ -137,6 +141,7 @@ export class MetadataStorage {
       ...this._applicationCommandUsers,
       ...this._applicationCommandMessages,
       ...this._simpleCommands,
+      ...this.reactions,
       ...this._events,
       ...this._buttonComponents,
       ...this._modalComponents,
@@ -170,6 +175,10 @@ export class MetadataStorage {
 
   get simpleCommands(): readonly DSimpleCommand[] {
     return this._simpleCommands;
+  }
+
+  get reactions(): readonly DReaction[] {
+    return this._reactions;
   }
 
   /**
@@ -254,6 +263,10 @@ export class MetadataStorage {
     this._simpleCommandOptions.push(cmdOption);
   }
 
+  addReaction(reaction: DReaction): void {
+    this._reactions.push(reaction);
+  }
+
   async build(): Promise<void> {
     // build the instance if not already built
     if (MetadataStorage.isBuilt) {
@@ -285,6 +298,10 @@ export class MetadataStorage {
 
       if (member instanceof DSimpleCommand) {
         discord.simpleCommands.push(member);
+      }
+
+      if (member instanceof DReaction) {
+        discord.reactions.push(member);
       }
 
       if (member instanceof DOn) {
@@ -331,6 +348,11 @@ export class MetadataStorage {
     await Modifier.applyFromModifierListToList(
       this._modifiers,
       this._simpleCommandOptions
+    );
+
+    await Modifier.applyFromModifierListToList(
+      this._modifiers,
+      this._reactions
     );
 
     await Modifier.applyFromModifierListToList(

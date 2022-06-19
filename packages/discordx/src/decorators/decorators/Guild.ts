@@ -6,6 +6,7 @@ import {
   DApplicationCommand,
   DComponent,
   DDiscord,
+  DReaction,
   DSimpleCommand,
   MetadataStorage,
 } from "../../index.js";
@@ -42,7 +43,7 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
-        DApplicationCommand | DSimpleCommand | DDiscord | DComponent
+        DApplicationCommand | DSimpleCommand | DReaction | DDiscord | DComponent
       >(
         (original) => {
           original.guilds = [...original.guilds, ...guildIds];
@@ -60,6 +61,7 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {
         },
         DApplicationCommand,
         DSimpleCommand,
+        DReaction,
         DDiscord,
         DComponent
       ).decorateUnknown(target, key, descriptor)

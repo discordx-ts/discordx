@@ -6,5 +6,6 @@ export * from "./DComponent.js";
 export * from "./DDiscord.js";
 export * from "./DGuard.js";
 export * from "./DOn.js";
+export * from "./DReaction.js";
 export * from "./DSimpleCommand.js";
 export * from "./DSimpleCommandOption.js";
