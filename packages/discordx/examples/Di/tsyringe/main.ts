@@ -1,14 +1,13 @@
 import "reflect-metadata";
 
-import { IntentsBitField } from "discord.js";
-import { container } from "tsyringe";
+import {Intents} from "discord.js";
 
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
-import { Client, DIService } from "../../src/index.js";
+import {dirname, importx} from "../../../importer/build/esm/index.mjs";
+import {Client, DIService, tsyringeDependencyRegistryEngine,} from "../../../src/index.js";
 
 // initialize TSyringe container
 // it's important, this done before calling bot.login
-DIService.container = container;
+DIService.engine = tsyringeDependencyRegistryEngine;
 
 export class Main {
   private static _client: Client;
@@ -20,15 +19,13 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-      intents: [
-        IntentsBitField.Flags.Guilds,
-        IntentsBitField.Flags.GuildMessages,
-      ],
+      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
       silent: false,
     });
 
     this._client.once("ready", async () => {
       await this._client.initApplicationCommands();
+      await this._client.initApplicationPermissions();
 
       console.log("Bot started");
     });
