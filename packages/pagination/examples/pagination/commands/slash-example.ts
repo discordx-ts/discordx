@@ -10,6 +10,7 @@ export class SlashExample {
   @Slash("pagination-attachment")
   async cmd(interaction: CommandInteraction): Promise<void> {
     const filename = "tmp/hello.txt";
+    await fs.mkdir("tmp").catch(() => null);
     await fs.writeFile(filename, "test string");
     const pages: MessageOptions[] = [
       {
