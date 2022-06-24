@@ -8,6 +8,7 @@ import {
   DDiscord,
   DGuard,
   DOn,
+  DReaction,
   DSimpleCommand,
   MetadataStorage,
 } from "../../index.js";
@@ -46,6 +47,7 @@ export function Guard<Type = any, DataType = any>(
         DComponent,
         DApplicationCommand,
         DSimpleCommand,
+        DReaction,
         DOn,
         DDiscord
       ).decorateUnknown(target, key, descriptor)
