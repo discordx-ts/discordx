@@ -57,11 +57,8 @@ export abstract class BaseCluster extends EventEmitter {
   public getNode(guildId: string): ClusterNode {
     let node = this.nodes.find((nodeX) => nodeX.players.has(guildId));
 
-    if (!node) {
-      node = this.sort().find((nodeX) => this.filter(nodeX, guildId));
-    } else {
-      return node;
-    }
+    if (!node) node = this.sort().find((nodeX) => this.filter(nodeX, guildId));
+    if (node) return node;
 
     throw new Error(
       "unable to find appropriate node; please check your filter"
