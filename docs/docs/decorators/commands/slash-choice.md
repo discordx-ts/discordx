@@ -72,7 +72,7 @@ class Example {
 ```ts
 SlashChoice(...choices: string[]);
 SlashChoice(...choices: number[]);
-SlashChoice(...choices: SlashChoicesType[]);
+SlashChoice(...choices: SlashChoiceType[]);
 ```
 
 ## Parameters
