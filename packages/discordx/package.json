@@ -66,8 +66,8 @@
     "@types/lodash": "^4.14.182",
     "@types/node": "^18.0.0",
     "discord.js": "^13.8.1",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.4",
+    "jest": "^28.1.1",
+    "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.4"
   },
