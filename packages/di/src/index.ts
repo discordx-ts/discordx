@@ -3,7 +3,7 @@ import {
   TsyringeDependencyRegistryEngine,
   TypeDiDependencyRegistryEngine,
 } from "./logic/impl/index.js";
-import type {IDependencyRegistryEngine} from "./logic/index.js";
+import type { IDependencyRegistryEngine } from "./logic/index.js";
 
 // util instances of built-in engines
 export const typeDiDependencyRegistryEngine =
