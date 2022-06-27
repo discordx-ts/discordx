@@ -1,4 +1,4 @@
-import type { ApplicationCommandPermissions, Guild } from "discord.js";
+import type { Guild } from "discord.js";
 import _ from "lodash";
 
 import type {
@@ -9,6 +9,7 @@ import type {
   IGuild,
   IPermissions,
   SimpleCommandMessage,
+  SimpleCommandPermissionData,
 } from "../index.js";
 
 export const resolveIGuilds = async (
@@ -29,7 +30,7 @@ export const resolveIPermissions = async (
   guild: Guild,
   command: ApplicationCommandMixin | SimpleCommandMessage,
   permissions: IPermissions[]
-): Promise<ApplicationCommandPermissions[]> => {
+): Promise<SimpleCommandPermissionData[]> => {
   const permissionX = await Promise.all(
     permissions.map((resolver) =>
       typeof resolver === "function" ? resolver(guild, command) : resolver

@@ -1,26 +1,16 @@
 import type {
   ApplicationCommandData,
   ApplicationCommandOptionData,
-  ApplicationCommandPermissions,
+  ChatInputCommandInteraction,
+} from "discord.js";
+import {
+  ApplicationCommandOptionType,
   ApplicationCommandType,
-  CommandInteraction,
-  Guild,
 } from "discord.js";
 import type { LocalizationMap } from "discord-api-types/v9";
 
-import type {
-  ApplicationCommandMixin,
-  ApplicationGuildMixin,
-  Client,
-  IDefaultPermission,
-  IGuild,
-  IPermissions,
-} from "../../index.js";
-import {
-  DApplicationCommandOption,
-  resolveIGuilds,
-  resolveIPermissions,
-} from "../../index.js";
+import type { Client, IGuild } from "../../index.js";
+import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
@@ -30,13 +20,11 @@ export class DApplicationCommand extends Method {
   private _botIds: string[];
   private _name: string;
   private _nameLocalizations?: LocalizationMap;
-  private _defaultPermission: IDefaultPermission;
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
   private _guilds: IGuild[];
   private _group?: string;
   private _options: DApplicationCommandOption[] = [];
-  private _permissions: IPermissions[] = [];
   private _subgroup?: string;
   private _type: ApplicationCommandType;
 
@@ -45,13 +33,6 @@ export class DApplicationCommand extends Method {
   }
   set botIds(value: string[]) {
     this._botIds = value;
-  }
-
-  get defaultPermission(): IDefaultPermission {
-    return this._defaultPermission;
-  }
-  set defaultPermission(value: IDefaultPermission) {
-    this._defaultPermission = value;
   }
 
   get description(): string {
@@ -103,13 +84,6 @@ export class DApplicationCommand extends Method {
     this._options = value;
   }
 
-  get permissions(): IPermissions[] {
-    return this._permissions;
-  }
-  set permissions(value: IPermissions[]) {
-    this._permissions = value;
-  }
-
   get subgroup(): string | undefined {
     return this._subgroup;
   }
@@ -128,7 +102,6 @@ export class DApplicationCommand extends Method {
     name: string,
     type: ApplicationCommandType,
     description?: string,
-    defaultPermission?: boolean,
     guilds?: IGuild[],
     botIds?: string[],
     descriptionLocalizations?: LocalizationMap,
@@ -138,7 +111,6 @@ export class DApplicationCommand extends Method {
     this._name = name;
     this._type = type;
     this._description = description ?? this.name;
-    this._defaultPermission = defaultPermission ?? true;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
     this._descriptionLocalizations = descriptionLocalizations;
@@ -149,7 +121,6 @@ export class DApplicationCommand extends Method {
     name: string,
     type: ApplicationCommandType,
     description?: string,
-    defaultPermission?: boolean,
     guilds?: IGuild[],
     botIds?: string[],
     descriptionLocalizations?: LocalizationMap,
@@ -159,7 +130,6 @@ export class DApplicationCommand extends Method {
       name,
       type,
       description,
-      defaultPermission,
       guilds,
       botIds,
       descriptionLocalizations,
@@ -201,13 +171,6 @@ export class DApplicationCommand extends Method {
     return guilds.includes(guildId);
   }
 
-  resolvePermissions(
-    guild: Guild,
-    command: ApplicationCommandMixin
-  ): Promise<ApplicationCommandPermissions[]> {
-    return resolveIPermissions(guild, command, this.permissions);
-  }
-
   toSubCommand(): DApplicationCommandOption {
     const option = DApplicationCommandOption.create(
       this.name,
@@ -218,22 +181,17 @@ export class DApplicationCommand extends Method {
       undefined,
       undefined,
       undefined,
-      "SUB_COMMAND"
+      ApplicationCommandOptionType.Subcommand
     ).decorate(this.classRef, this.key, this.method, this.from, this.index);
     option.options = this.options;
 
     return option;
   }
 
-  async toJSON(
-    command?: ApplicationGuildMixin
-  ): Promise<ApplicationCommandData> {
-    if (this.type !== "CHAT_INPUT") {
+  // eslint-disable-next-line require-await
+  toJSON(): ApplicationCommandData {
+    if (this.type !== ApplicationCommandType.ChatInput) {
       const data: ApplicationCommandData = {
-        defaultPermission:
-          typeof this.defaultPermission === "boolean"
-            ? this.defaultPermission
-            : await this.defaultPermission.resolver(command),
         description: "",
         name: this.name,
         nameLocalizations:
@@ -248,8 +206,10 @@ export class DApplicationCommand extends Method {
       .reverse()
       .sort((a, b) => {
         if (
-          (a.type === "SUB_COMMAND" || a.type === "SUB_COMMAND_GROUP") &&
-          (b.type === "SUB_COMMAND" || b.type === "SUB_COMMAND_GROUP")
+          (a.type === ApplicationCommandOptionType.Subcommand ||
+            a.type === ApplicationCommandOptionType.SubcommandGroup) &&
+          (b.type === ApplicationCommandOptionType.Subcommand ||
+            b.type === ApplicationCommandOptionType.SubcommandGroup)
         ) {
           return a.name < b.name ? -1 : 1;
         }
@@ -259,10 +219,6 @@ export class DApplicationCommand extends Method {
       .map((option) => option.toJSON());
 
     const data: ApplicationCommandData = {
-      defaultPermission:
-        typeof this.defaultPermission === "boolean"
-          ? this.defaultPermission
-          : await this.defaultPermission.resolver(command),
       description: this.description,
       descriptionLocalizations:
         this.descriptionLocalizations ?? (null as unknown as undefined),
@@ -276,34 +232,34 @@ export class DApplicationCommand extends Method {
     return data as unknown as ApplicationCommandData;
   }
 
-  parseParams(interaction: CommandInteraction): unknown[] {
+  parseParams(interaction: ChatInputCommandInteraction): unknown[] {
     return [...this.options].reverse().map((op) => {
       switch (op.type) {
-        case "ATTACHMENT":
+        case ApplicationCommandOptionType.Attachment:
           return interaction.options.getAttachment(op.name) ?? undefined;
 
-        case "STRING":
+        case ApplicationCommandOptionType.String:
           return interaction.options.getString(op.name) ?? undefined;
 
-        case "BOOLEAN":
+        case ApplicationCommandOptionType.Boolean:
           return interaction.options.getBoolean(op.name) ?? undefined;
 
-        case "NUMBER":
+        case ApplicationCommandOptionType.Number:
           return interaction.options.getNumber(op.name) ?? undefined;
 
-        case "INTEGER":
+        case ApplicationCommandOptionType.Integer:
           return interaction.options.getInteger(op.name) ?? undefined;
 
-        case "ROLE":
+        case ApplicationCommandOptionType.Role:
           return interaction.options.getRole(op.name) ?? undefined;
 
-        case "CHANNEL":
+        case ApplicationCommandOptionType.Channel:
           return interaction.options.getChannel(op.name) ?? undefined;
 
-        case "MENTIONABLE":
+        case ApplicationCommandOptionType.Mentionable:
           return interaction.options.getMentionable(op.name) ?? undefined;
 
-        case "USER":
+        case ApplicationCommandOptionType.User:
           return (
             interaction.options.getMember(op.name) ??
             interaction.options.getUser(op.name) ??

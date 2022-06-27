@@ -1,9 +1,10 @@
 import {
   ButtonInteraction,
   CommandInteraction,
-  ContextMenuInteraction,
+  ContextMenuCommandInteraction,
   Message,
   MessageReaction,
+  ModalSubmitInteraction,
   SelectMenuInteraction,
   VoiceState,
 } from "discord.js";
@@ -13,7 +14,7 @@ import { SimpleCommandMessage } from "discordx";
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
   | CommandInteraction
-  | ContextMenuInteraction
+  | ContextMenuCommandInteraction
   | SelectMenuInteraction
   | ButtonInteraction
   | SimpleCommandMessage
@@ -31,7 +32,8 @@ export const NotBot: GuardFunction<
       : argObj instanceof SimpleCommandMessage
       ? argObj.message.author
       : argObj instanceof CommandInteraction ||
-        argObj instanceof ContextMenuInteraction ||
+        argObj instanceof ContextMenuCommandInteraction ||
+        argObj instanceof ModalSubmitInteraction ||
         argObj instanceof SelectMenuInteraction ||
         argObj instanceof ButtonInteraction
       ? argObj.member?.user

@@ -123,7 +123,7 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@Guard`](https://discord-ts.js.org/docs/decorators/general/guard)
 - [`@Guild`](https://discord-ts.js.org/docs/decorators/general/guild)
 - [`@Bot`](https://discord-ts.js.org/docs/decorators/general/bot)
-- [`@Permission`](https://discord-ts.js.org/docs/decorators/general/permission)
+- [`@SimplePermission`](https://discord-ts.js.org/docs/decorators/general/simple-permission)
 - [`@On`](https://discord-ts.js.org/docs/decorators/general/on)
 - [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
 

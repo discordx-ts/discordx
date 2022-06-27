@@ -1,9 +1,7 @@
 import { Decorator } from "@discordx/internal";
-import type {
-  ApplicationCommandOptionData,
-  ApplicationCommandOptionType,
-} from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v9";
+import type { ApplicationCommandOptionData } from "discord.js";
+import { ApplicationCommandOptionType } from "discord.js";
+import type { LocalizationMap } from "discord-api-types/v10";
 
 import type {
   ChannelTypes,
@@ -64,7 +62,10 @@ export class DApplicationCommandOption extends Decorator {
   }
 
   get isNode(): boolean {
-    return this.type === "SUB_COMMAND" || this.type === "SUB_COMMAND_GROUP";
+    return (
+      this.type === ApplicationCommandOptionType.Subcommand ||
+      this.type === ApplicationCommandOptionType.SubcommandGroup
+    );
   }
 
   get maxValue(): number | undefined {
@@ -135,12 +136,17 @@ export class DApplicationCommandOption extends Decorator {
     this._autocomplete = autocomplete;
     this._channelTypes = channelType?.sort();
     this._description =
-      description ?? `${name} - ${type ?? "STRING"}`.toLowerCase();
+      description ??
+      `${name} - ${
+        ApplicationCommandOptionType[
+          type ?? ApplicationCommandOptionType.String
+        ]
+      }`.toLowerCase();
     this._index = index;
     this._maxValue = maxValue;
     this._minValue = minValue;
     this._required = required ?? true;
-    this._type = type ?? "STRING";
+    this._type = type ?? ApplicationCommandOptionType.String;
     this._descriptionLocalizations = descriptionLocalizations;
     this._nameLocalizations = nameLocalizations;
   }

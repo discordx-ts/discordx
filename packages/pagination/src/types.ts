@@ -1,17 +1,18 @@
 import type {
+  ActionRowBuilder,
+  ButtonStyle,
   CommandInteraction,
-  ContextMenuInteraction,
-  EmojiIdentifierResolvable,
-  InteractionButtonOptions,
-  InteractionReplyOptions,
+  ContextMenuCommandInteraction,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
+  MessageActionRowComponentBuilder,
   MessageCollectorOptionsParams,
   MessageComponentInteraction,
-  MessageComponentTypeResolvable,
-  MessageEmbed,
+  MessageComponentType,
   MessageOptions,
+  ReplyMessageOptions,
 } from "discord.js";
+import type { APIMessageComponentEmoji } from "discord-api-types/v10";
 
 // By default, five minute.
 export const defaultTime = 3e5;
@@ -28,12 +29,12 @@ export const defaultIds = {
   menu: prefixId + "menu",
 };
 
-export type PaginationItem = string | MessageEmbed | MessageOptions;
+export type PaginationItem = string | EmbedBuilder | MessageOptions;
 
 export type PaginationInteractions =
   | CommandInteraction
   | MessageComponentInteraction
-  | ContextMenuInteraction;
+  | ContextMenuCommandInteraction;
 
 export enum SelectMenuPageId {
   Start = -1,
@@ -47,9 +48,9 @@ export enum PaginationType {
 }
 
 interface BasicPaginationOptions
-  extends MessageCollectorOptionsParams<MessageComponentTypeResolvable> {
+  extends MessageCollectorOptionsParams<MessageComponentType> {
   /**
-   * Debug log
+   * Enable debug logs
    */
   debug?: boolean;
 
@@ -84,7 +85,7 @@ interface ButtonOptions {
   /**
    * Button emoji
    */
-  emoji?: EmojiIdentifierResolvable;
+  emoji?: APIMessageComponentEmoji;
 
   /**
    * Button id
@@ -99,7 +100,7 @@ interface ButtonOptions {
   /**
    * Button style
    */
-  style?: InteractionButtonOptions["style"];
+  style?: ButtonStyle;
 }
 
 interface ButtonPaginationOptions extends BasicPaginationOptions {
@@ -183,6 +184,6 @@ export interface IPaginate {
 }
 
 export type IGeneratePage = {
-  newMessage: Omit<InteractionReplyOptions, "flags">;
-  paginationRow: MessageActionRow;
+  newMessage: Omit<ReplyMessageOptions, "flags">;
+  paginationRow: ActionRowBuilder<MessageActionRowComponentBuilder>;
 };

@@ -1,18 +1,13 @@
-import type {
-  CommandInteraction,
-  Guild,
-  MessageOptions,
-  PermissionString,
-} from "discord.js";
-import { GuildMember } from "discord.js";
+import type { Guild, MessageOptions, PermissionsString } from "discord.js";
+import { CommandInteraction, GuildMember } from "discord.js";
 import type { Client, GuardFunction, Next } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
 export type PermissionHandler = CommandInteraction | SimpleCommandMessage;
 
 export type PermissionsType =
-  | PermissionString[]
-  | ((interaction: PermissionHandler) => Promise<PermissionString[]>);
+  | PermissionsString[]
+  | ((interaction: PermissionHandler) => Promise<PermissionsString[]>);
 
 export type PermissionOptions = Omit<MessageOptions, "flags"> & {
   ephemeral?: boolean;
@@ -54,7 +49,7 @@ export function PermissionGuard(
   // send message
   async function post(
     arg: PermissionHandler,
-    perms: PermissionString[]
+    perms: PermissionsString[]
   ): Promise<void> {
     const finalResponse = options ?? {
       content: `you need \`\`${perms.join(
@@ -81,7 +76,7 @@ export function PermissionGuard(
         callee = arg.message.member;
       }
     } else {
-      if (arg.inGuild() && arg.isCommand()) {
+      if (arg.inGuild() && arg instanceof CommandInteraction) {
         guild = arg.guild;
         if (arg.member instanceof GuildMember) {
           callee = arg.member;

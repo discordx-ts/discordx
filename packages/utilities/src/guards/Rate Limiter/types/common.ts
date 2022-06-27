@@ -1,9 +1,9 @@
-import type { BaseCommandInteraction } from "discord.js";
+import type { CommandInteraction } from "discord.js";
 import type { Awaitable, SimpleCommandMessage } from "discordx";
 
-export type RateLimitOption<
-  T extends BaseCommandInteraction | SimpleCommandMessage
-> = {
+export interface RateLimitOption<
+  T extends CommandInteraction | SimpleCommandMessage
+> {
   /**
    * for interaction only
    */
@@ -19,4 +19,4 @@ export type RateLimitOption<
    * the value to specify how many messages can be called before it is rate limited, defaults to 1
    */
   rateValue?: number;
-};
+}

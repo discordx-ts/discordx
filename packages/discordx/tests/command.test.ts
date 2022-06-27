@@ -6,15 +6,20 @@ import {
   Discord,
   Guard,
   Guild,
-  Permission,
   SimpleCommand,
   SimpleCommandOption,
+  SimpleCommandPermissionTypes,
+  SimplePermission,
 } from "../src/index.js";
 
 type Data = { passed: boolean };
 
 @Discord()
-@Permission({ id: "123", permission: true, type: "USER" })
+@SimplePermission({
+  id: "123",
+  permission: true,
+  type: SimpleCommandPermissionTypes.User,
+})
 @Guild("693401527494377482")
 @Guard((params, client, next, data) => {
   data.passed = true;
@@ -116,7 +121,7 @@ describe("Commands", () => {
       {
         id: "123",
         permission: true,
-        type: "USER",
+        type: SimpleCommandPermissionTypes.User,
       },
     ]);
     expect(client.simpleCommands[0]?.aliases).toEqual(["add1", "add2"]);

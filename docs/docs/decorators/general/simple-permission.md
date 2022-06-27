@@ -1,37 +1,27 @@
-# @Permission
+# @SimplePermission
 
-Define permission for your application command or simple command.
+Define permission for your simple command.
 
-The permissions are based on a **role id** or **user id** that you specify on the @Permission decorator
-
-The permissions will be set when you call `client.initApplicationPermissions()`
-
-:::warning
-From discord developer docs:
-
-For now, if you don't have permission to use a command, they'll show up in the command picker as disabled and unusable. They will not be hidden.
-:::
+The permissions are based on a **role id** or **user id** that you specify on the @SimplePermission decorator
 
 ## Supported with
 
-- [@ContextMenu](../gui/context-menu)
 - [@SimpleCommand](../commands/simple-command)
-- [@Slash](../commands/slash)
 
 ## Setup permissions
 
-You can decorate your method with one or more @Permission decorators.
+You can decorate your method with one or more @SimplePermission decorators.
 
 ```ts
 @Discord()
 class Example {
   // We will enable command for specific users/roles only, so disable it for everyone
-  @Permission(false)
+  @SimplePermission(false)
   // This command is available only to the user whose USER_ID is mentioned
-  @Permission({ id: "USER_ID", type: "USER", permission: true })
+  @SimplePermission({ id: "USER_ID", type: "USER", permission: true })
   // Users with the specified ROLE_ID can run this command
-  @Permission({ id: "ROLE_ID", type: "ROLE", permission: true })
-  @Slash("hello")
+  @SimplePermission({ id: "ROLE_ID", type: "ROLE", permission: true })
+  @SimpleCommand("hello")
   private hello() {
     // ...
   }
@@ -40,23 +30,23 @@ class Example {
 
 ## Permissions at class level
 
-You can set the permissions for all @Slash inside the class by decorating the class with @Permission
+You can set the permissions for all @SimpleCommand inside the class by decorating the class with @SimplePermission
 
 ```ts
 @Discord()
 // We will enable command for specific users/roles only, so disable it for everyone
-@Permission(false)
+@SimplePermission(false)
 // Below commands are available only to the user whose USER_ID is mentioned
-@Permission({ id: "USER_ID", type: "USER", permission: true })
+@SimplePermission({ id: "USER_ID", type: "USER", permission: true })
 // Users with the specified ROLE_ID can run this class commands
-@Permission({ id: "ROLE_ID", type: "ROLE", permission: true })
+@SimplePermission({ id: "ROLE_ID", type: "ROLE", permission: true })
 class Example {
-  @Slash("hello")
+  @SimpleCommand("hello")
   private hello() {
     // ...
   }
 
-  @Slash("hello2")
+  @SimpleCommand("hello2")
   private hello2() {
     // ...
   }
@@ -71,25 +61,27 @@ Note: In order to refresh application permissions dynamically, run `initApplicat
 
 ```ts
 @Discord()
-@Permission(false) // We will enable command for specific users/roles only, so disable it for everyone
-@Permission(async (guild, cmd): Promise<ApplicationCommandPermissions[]> => {
-  const getResponse = () => {
-    return new Promise((resolve) => {
-      setTimeout(function () {
-        resolve(true);
-      }, 5000);
-    });
-  };
-  await getResponse(); // add delay
-  return { id: "462341082919731200", permission: true, type: "USER" };
-})
+@SimplePermission(false) // We will enable command for specific users/roles only, so disable it for everyone
+@SimplePermission(
+  async (guild, cmd): Promise<ApplicationCommandPermissions[]> => {
+    const getResponse = () => {
+      return new Promise((resolve) => {
+        setTimeout(function () {
+          resolve(true);
+        }, 5000);
+      });
+    };
+    await getResponse(); // add delay
+    return { id: "462341082919731200", permission: true, type: "USER" };
+  }
+)
 class Example {
-  @Slash("hello") // Only the role that has this ROLE_ID can use this command
+  @SimpleCommand("hello") // Only the role that has this ROLE_ID can use this command
   private hello() {
     // ...
   }
 
-  @Slash("hello2") // Only the role that has this ROLE_ID can use this command
+  @SimpleCommand("hello2") // Only the role that has this ROLE_ID can use this command
   private hello2() {
     // ...
   }
@@ -99,14 +91,14 @@ class Example {
 ## Signature
 
 ```ts
-@Permission(
+@SimplePermission(
   permission: boolean | IPermissions
 ): ClassMethodDecorator
 ```
 
 ## type: Boolean
 
-Overwrite default permission (aka permission for everyone) for application/simple command. When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
+Overwrite default permission (aka permission for everyone) for simple command. When true, the command can be used by anyone except those who have been denied by the @SimplePermission decorator, vice versa.
 
 ## type: IPermissions
 
@@ -155,5 +147,3 @@ It either extends or overwrites data configured in below decorators, however, th
 [@Discord](/docs/decorators/general/discord)
 
 [@SimpleCommand](/docs/decorators/commands/simple-command)
-
-[@Slash](/docs/decorators/commands/slash)

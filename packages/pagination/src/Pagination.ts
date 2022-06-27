@@ -2,14 +2,13 @@ import type {
   ButtonInteraction,
   CacheType,
   InteractionCollector,
-  ModalSubmitInteraction,
   SelectMenuInteraction,
   TextBasedChannel,
 } from "discord.js";
 import {
+  BaseInteraction,
   CommandInteraction,
-  ContextMenuInteraction,
-  Interaction,
+  ContextMenuCommandInteraction,
   Message,
   MessageComponentInteraction,
 } from "discord.js";
@@ -35,10 +34,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   public currentPage: number;
   public option: PaginationOptions;
   public collector?: InteractionCollector<
-    | MessageComponentInteraction<CacheType>
-    | ButtonInteraction<CacheType>
-    | SelectMenuInteraction<CacheType>
-    | ModalSubmitInteraction<CacheType>
+    ButtonInteraction<CacheType> | SelectMenuInteraction<CacheType>
   >;
   public message?: Message;
   private _isSent = false;
@@ -113,10 +109,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    */
   public async send(): Promise<{
     collector: InteractionCollector<
-      | MessageComponentInteraction<CacheType>
-      | ButtonInteraction<CacheType>
-      | SelectMenuInteraction<CacheType>
-      | ModalSubmitInteraction<CacheType>
+      ButtonInteraction<CacheType> | SelectMenuInteraction<CacheType>
     >;
     message: Message;
   }> {
@@ -146,7 +139,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     } else if (
       this.sendTo instanceof CommandInteraction ||
       this.sendTo instanceof MessageComponentInteraction ||
-      this.sendTo instanceof ContextMenuInteraction
+      this.sendTo instanceof ContextMenuCommandInteraction
     ) {
       // To ensure pagination is a follow-up
       if (this.sendTo.deferred || this.sendTo.replied) {
@@ -312,7 +305,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         }
 
         // Eliminate the ephemeral pagination error, since direct editing cannot be performed
-        if (this.option.ephemeral && this.sendTo instanceof Interaction) {
+        if (this.option.ephemeral && this.sendTo instanceof BaseInteraction) {
           if (!this._isFollowUp) {
             await this.sendTo
               .editReply(finalPage.newMessage)

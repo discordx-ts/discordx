@@ -1,4 +1,5 @@
-import type { ApplicationCommandPermissionData, Guild } from "discord.js";
+import type { Guild } from "discord.js";
+import { ChannelType } from "discord.js";
 
 import type {
   ArgSplitter,
@@ -9,6 +10,7 @@ import type {
   IPermissions,
   IPrefix,
   SimpleCommandMessage,
+  SimpleCommandPermissionData,
   SimpleOptionType,
 } from "../../index.js";
 import {
@@ -201,7 +203,7 @@ export class DSimpleCommand extends Method {
   resolvePermissions(
     guild: Guild,
     command: SimpleCommandMessage
-  ): Promise<ApplicationCommandPermissionData[]> {
+  ): Promise<SimpleCommandPermissionData[]> {
     return resolveIPermissions(guild, command, this.permissions);
   }
 
@@ -285,7 +287,7 @@ export class DSimpleCommand extends Method {
               return invalidError;
             }
 
-            if (command.message.channel.type === "DM") {
+            if (command.message.channel.type === ChannelType.DM) {
               return command.message.client.user?.id === id
                 ? command.message.client.user
                 : command.message.author.id === id
@@ -302,7 +304,7 @@ export class DSimpleCommand extends Method {
               return invalidError;
             }
 
-            if (command.message.channel.type === "DM") {
+            if (command.message.channel.type === ChannelType.DM) {
               return command.message.client.user?.id === id
                 ? command.message.client.user
                 : command.message.author.id === id

@@ -1,9 +1,13 @@
-import type { MessageOptions } from "discord.js";
+import type {
+  MessageActionRowComponentBuilder,
+  ReplyMessageOptions,
+} from "discord.js";
 import {
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
-  MessageSelectMenu,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+  SelectMenuBuilder,
 } from "discord.js";
 
 import type { IGeneratePage, PaginationOptions } from "../types.js";
@@ -11,7 +15,7 @@ import { defaultIds, PaginationType, SelectMenuPageId } from "../types.js";
 import { paginate } from "./paginate.js";
 
 export function GeneratePage(
-  item: string | MessageEmbed | MessageOptions,
+  item: string | EmbedBuilder | Omit<ReplyMessageOptions, "flags">,
   page: number,
   totalPages: number,
   option: PaginationOptions
@@ -19,10 +23,10 @@ export function GeneratePage(
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
-  const newMessage: Omit<MessageOptions, "flags"> =
+  const newMessage: Omit<ReplyMessageOptions, "flags"> =
     typeof item === "string"
       ? { content: item }
-      : item instanceof MessageEmbed
+      : item instanceof EmbedBuilder
       ? { embeds: [item] }
       : item;
 
@@ -39,34 +43,34 @@ export function GeneratePage(
   }
 
   if (option.type === PaginationType.Button) {
-    const startBtn = new MessageButton()
+    const startBtn = new ButtonBuilder()
       .setCustomId(option.start?.id ?? defaultIds.buttons.start)
       .setLabel(option.start?.label ?? "Start")
-      .setStyle(option.start?.style ?? "PRIMARY")
+      .setStyle(option.start?.style ?? ButtonStyle.Primary)
       .setDisabled(beginning);
 
-    const endBtn = new MessageButton()
+    const endBtn = new ButtonBuilder()
       .setCustomId(option.end?.id ?? defaultIds.buttons.end)
       .setLabel(option.end?.label ?? "End")
-      .setStyle(option.end?.style ?? "PRIMARY")
+      .setStyle(option.end?.style ?? ButtonStyle.Primary)
       .setDisabled(end);
 
-    const nextBtn = new MessageButton()
+    const nextBtn = new ButtonBuilder()
       .setCustomId(option.next?.id ?? defaultIds.buttons.next)
       .setLabel(option.next?.label ?? "Next")
-      .setStyle(option.next?.style ?? "PRIMARY")
+      .setStyle(option.next?.style ?? ButtonStyle.Primary)
       .setDisabled(end);
 
-    const prevBtn = new MessageButton()
+    const prevBtn = new ButtonBuilder()
       .setCustomId(option.previous?.id ?? defaultIds.buttons.previous)
       .setLabel(option.previous?.label ?? "Previous")
-      .setStyle(option.previous?.style ?? "PRIMARY")
+      .setStyle(option.previous?.style ?? ButtonStyle.Primary)
       .setDisabled(beginning);
 
-    const exitBtn = new MessageButton()
+    const exitBtn = new ButtonBuilder()
       .setCustomId(option.exit?.id ?? defaultIds.buttons.exit)
       .setLabel(option.exit?.label ?? "Exit")
-      .setStyle(option.exit?.style ?? "DANGER");
+      .setStyle(option.exit?.style ?? ButtonStyle.Danger);
 
     // set emoji
     if (option.start?.emoji) {
@@ -89,7 +93,7 @@ export function GeneratePage(
       exitBtn.setEmoji(option.exit.emoji);
     }
 
-    const buttons: MessageButton[] = [prevBtn, nextBtn];
+    const buttons = [prevBtn, nextBtn];
 
     if (isStartEndAllowed()) {
       buttons.unshift(startBtn);
@@ -100,7 +104,10 @@ export function GeneratePage(
       buttons.push(exitBtn);
     }
 
-    const row = new MessageActionRow().addComponents(buttons);
+    const row =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        buttons
+      );
 
     // reset message payload additional parameters
     if (!newMessage.embeds) {
@@ -156,12 +163,15 @@ export function GeneratePage(
       });
     }
 
-    const menu = new MessageSelectMenu()
+    const menu = new SelectMenuBuilder()
       .setCustomId(option.menuId ?? defaultIds.menu)
       .setPlaceholder(option.placeholder ?? "Select page")
-      .setOptions(paginator);
+      .addOptions(paginator);
 
-    const row = new MessageActionRow().addComponents([menu]);
+    const row =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents([
+        menu,
+      ]);
 
     // reset message payload additional parameters
     if (!newMessage.embeds) {

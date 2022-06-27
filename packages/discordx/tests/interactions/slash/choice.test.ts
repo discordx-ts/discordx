@@ -1,5 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { CommandInteraction, Interaction } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+  CommandInteraction,
+  Interaction,
+} from "discord.js";
 
 import {
   Client,
@@ -110,10 +115,10 @@ describe("Choice", () => {
             name: "choice",
             nameLocalizations: undefined,
             required: true,
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
       {
         defaultPermission: true,
@@ -146,10 +151,10 @@ describe("Choice", () => {
             name: "choice",
             nameLocalizations: undefined,
             required: true,
-            type: "NUMBER",
+            type: ApplicationCommandOptionType.Number,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
       {
         defaultPermission: true,
@@ -181,10 +186,10 @@ describe("Choice", () => {
             descriptionLocalizations: undefined,
             name: "choice",
             required: true,
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
     ]);
   });
@@ -192,7 +197,9 @@ describe("Choice", () => {
   it("Should execute the enum choice interaction", async () => {
     const interaction = new FakeInteraction({
       commandName: "hello",
-      options: [new FakeOption("choice", "STRING", "hello")],
+      options: [
+        new FakeOption("choice", ApplicationCommandOptionType.String, "hello"),
+      ],
       type: InteractionType.Command,
     });
 
@@ -206,7 +213,9 @@ describe("Choice", () => {
   it("Should execute the string choice interaction", async () => {
     const interaction = new FakeInteraction({
       commandName: "string",
-      options: [new FakeOption("choice", "STRING", "B")],
+      options: [
+        new FakeOption("choice", ApplicationCommandOptionType.String, "B"),
+      ],
       type: InteractionType.Command,
     });
 
@@ -220,7 +229,9 @@ describe("Choice", () => {
   it("Should execute the number choice interaction", async () => {
     const interaction = new FakeInteraction({
       commandName: "number",
-      options: [new FakeOption("choice", "NUMBER", 3)],
+      options: [
+        new FakeOption("choice", ApplicationCommandOptionType.Number, 3),
+      ],
       type: InteractionType.Command,
     });
 

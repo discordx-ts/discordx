@@ -2,6 +2,7 @@ import type {
   GuildChannel,
   GuildMember,
   Role,
+  Snowflake,
   ThreadChannel,
   User,
 } from "discord.js";
@@ -44,4 +45,15 @@ export enum SimpleCommandOptionType {
   Channel,
   Role,
   Mentionable,
+}
+
+export const enum SimpleCommandPermissionTypes {
+  Role,
+  User,
+}
+
+export interface SimpleCommandPermissionData {
+  id: Snowflake;
+  permission: boolean;
+  type: SimpleCommandPermissionTypes;
 }

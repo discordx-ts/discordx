@@ -1,5 +1,5 @@
 import type {
-  BaseCommandInteraction,
+  ChatInputCommandInteraction,
   MessageComponentInteraction,
 } from "discord.js";
 import type { GuardFunction } from "discordx";
@@ -20,7 +20,7 @@ import { TimeOutEntry } from "./logic/index.js";
  * @constructor
  */
 export function RateLimit<
-  T extends BaseCommandInteraction | SimpleCommandMessage
+  T extends ChatInputCommandInteraction | SimpleCommandMessage
 >(
   timeout: TIME_UNIT,
   value: number,
@@ -54,7 +54,7 @@ export function RateLimit<
   const _timer = new TimedSet<TimeOutEntry>(_millisecond);
 
   async function replyOrFollowUp(
-    interaction: BaseCommandInteraction | MessageComponentInteraction,
+    interaction: ChatInputCommandInteraction | MessageComponentInteraction,
     content: string,
     ephemeral: boolean
   ): Promise<void> {
@@ -92,7 +92,7 @@ export function RateLimit<
   }
 
   async function post(
-    arg: BaseCommandInteraction | SimpleCommandMessage,
+    arg: ChatInputCommandInteraction | SimpleCommandMessage,
     msg: string
   ): Promise<void> {
     if (arg instanceof SimpleCommandMessage) {
