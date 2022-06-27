@@ -174,7 +174,7 @@ export class Example3 {
     @SlashOption("nb")
     nb: number,
 
-    @SlashOption("channel")
+    @SlashOption("channel", { type: ApplicationCommandOptionType.Channel })
     channel: Channel,
 
     @SlashOption("text-channel", { required: false })
@@ -249,7 +249,6 @@ describe("Slash", () => {
 
     expect(slashesObjects).toEqual([
       {
-        defaultPermission: true,
         description: "hello",
         descriptionLocalizations: null,
         name: "hello",
@@ -267,7 +266,6 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultPermission: true,
         description: "inference",
         descriptionLocalizations: null,
         name: "inference",
@@ -349,7 +347,6 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultPermission: true,
         description: "Testing group description",
         descriptionLocalizations: null,
         name: "testing",
@@ -479,7 +476,6 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultPermission: true,
         description: "group-test-without-description",
         descriptionLocalizations: null,
         name: "group-test-without-description",
@@ -523,7 +519,6 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultPermission: true,
         description: "test-x",
         descriptionLocalizations: null,
         name: "test-x",

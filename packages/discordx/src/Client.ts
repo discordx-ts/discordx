@@ -3,22 +3,22 @@ import type {
   ApplicationCommand,
   ApplicationCommandData,
   ApplicationCommandOptionData,
+  AutocompleteInteraction,
   ButtonInteraction,
+  CommandInteraction,
   CommandInteractionOption,
   ContextMenuCommandInteraction,
-  //  DiscordAPIError,
   Interaction,
   Message,
+  ModalSubmitInteraction,
   SelectMenuInteraction,
   Snowflake,
 } from "discord.js";
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  AutocompleteInteraction,
   Client as ClientJS,
-  CommandInteraction,
-  ModalSubmitInteraction,
+  InteractionType,
 } from "discord.js";
 import _ from "lodash";
 
@@ -925,151 +925,6 @@ export class Client extends ClientJS {
   }
 
   /**
-   * init all guild command permissions
-   *
-   * @param log - Enable log
-   */
-  async initApplicationPermissions(log?: boolean): Promise<void> {
-    await new Promise((resolve) => {
-      log;
-      resolve(true);
-    });
-
-    this.logger.warn("\n\n");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn(
-      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
-    );
-    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn("\n\n");
-  }
-  //    const guildDCommandStore = await this.CommandByGuild();
-  //    const promises: Promise<void>[] = [];
-  //
-  //    guildDCommandStore.forEach((commands, guildId) => {
-  //      promises.push(
-  //        this.initGuildApplicationPermissions(guildId, commands, log)
-  //      );
-  //    });
-  //
-  //    await Promise.all(promises);
-  //  }
-
-  /**
-   * Update application commands permission by GuildId
-   *
-   * @param guildId - Guild identifier
-   * @param DCommands - Array of commands
-   * @param log - Enable log
-   */
-  async initGuildApplicationPermissions(
-    guildId: string,
-    DCommands: DApplicationCommand[],
-    log?: boolean
-  ): Promise<void> {
-    await new Promise((resolve) => {
-      log;
-      resolve(true);
-    });
-
-    this.logger.warn("\n\n");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn(
-      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
-    );
-    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn("\n\n");
-  }
-  //    const guild = this.guilds.cache.get(guildId);
-  //    if (!guild) {
-  //      this.logger.error(
-  //        `${
-  //          this.user?.username ?? this.botId
-  //        } >> initGuildApplicationPermissions: guild unavailable: ${guildId}`
-  //      );
-  //      return;
-  //    }
-  //
-  //    // fetch already registered application command
-  //    const ApplicationCommands = await guild.commands.fetch();
-  //
-  //    const commandsToUpdate: ApplicationCommandMixin[] = [];
-  //
-  //    ApplicationCommands.forEach((cmd) => {
-  //      const findCommand = DCommands.find(
-  //        (DCommand) => DCommand.name === cmd.name
-  //      );
-  //
-  //      if (findCommand) {
-  //        commandsToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
-  //      }
-  //    });
-  //
-  //    await Promise.all(
-  //      commandsToUpdate.map((cmd) => {
-  //        return guild.commands.permissions
-  //          .fetch({ command: cmd.command })
-  //          .then(async (permissions) => {
-  //            const commandPermissions = await cmd.instance.resolvePermissions(
-  //              guild,
-  //              cmd
-  //            );
-  //
-  //            if (!_.isEqual(permissions, commandPermissions)) {
-  //              if (log ?? !this.silent) {
-  //                this.logger.info(
-  //                  `${this.user?.username ?? this.botId} >> command: ${
-  //                    cmd.name
-  //                  } >> permissions >> updating >> guild: #${guild}`
-  //                );
-  //              }
-  //
-  //              await cmd.command.permissions.set({
-  //                permissions: commandPermissions,
-  //              });
-  //            }
-  //          })
-  //          .catch(async (e: DiscordAPIError) => {
-  //            if (e.code !== 10066) {
-  //              throw e;
-  //            }
-  //
-  //            if (!cmd.instance.permissions.length) {
-  //              return;
-  //            }
-  //
-  //            const commandPermissions = await cmd.instance.resolvePermissions(
-  //              guild,
-  //              cmd
-  //            );
-  //
-  //            if (log ?? !this.silent) {
-  //              this.logger.info(
-  //                `${this.user?.username ?? this.botId} >> command: ${
-  //                  cmd.name
-  //                } >> permissions >> adding >> guild: #${guild}`
-  //              );
-  //            }
-  //
-  //            await cmd.command.permissions.set({
-  //              permissions: commandPermissions,
-  //            });
-  //          });
-  //      })
-  //    );
-  //  }
-
-  /**
    * Clear the application commands globally or for some guilds
    *
    * @param guilds - The guild Ids (empty -> globally)
@@ -1200,7 +1055,7 @@ export class Client extends ClientJS {
     }
 
     // if interaction is a modal
-    if (interaction instanceof ModalSubmitInteraction) {
+    if (interaction.type === InteractionType.ModalSubmit) {
       return this.executeComponent(this.modalComponents, interaction, log);
     }
 
@@ -1216,10 +1071,9 @@ export class Client extends ClientJS {
 
     // If the interaction isn't a slash command, return
     if (
-      interaction instanceof CommandInteraction ||
-      interaction instanceof AutocompleteInteraction
+      interaction.type === InteractionType.ApplicationCommand ||
+      interaction.type === InteractionType.ApplicationCommandAutocomplete
     ) {
-      interaction;
       return this.executeCommandInteraction(interaction, log);
     }
   }
@@ -1251,7 +1105,7 @@ export class Client extends ClientJS {
       return;
     }
 
-    if (interaction instanceof AutocompleteInteraction) {
+    if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
       const focusOption = interaction.options.getFocused(true);
       const option = applicationCommand.options.find(
         (op) => op.name === focusOption.name

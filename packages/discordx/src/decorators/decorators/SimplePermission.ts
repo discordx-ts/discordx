@@ -50,27 +50,31 @@ export function SimplePermission(
       permission instanceof DefaultPermissionResolver;
     const isArray = permission instanceof Array;
     MetadataStorage.instance.addModifier(
-      Modifier.create<DSimpleCommand | DDiscord>((original) => {
-        if (isDefaultPermission) {
-          original.defaultPermission = permission;
-        } else if (isArray) {
-          original.permissions = [...original.permissions, ...permission];
-        } else {
-          original.permissions = [...original.permissions, permission];
-        }
+      Modifier.create<DSimpleCommand | DDiscord>(
+        (original) => {
+          if (isDefaultPermission) {
+            original.defaultPermission = permission;
+          } else if (isArray) {
+            original.permissions = [...original.permissions, ...permission];
+          } else {
+            original.permissions = [...original.permissions, permission];
+          }
 
-        if (original instanceof DDiscord) {
-          [...original.simpleCommands].forEach((obj) => {
-            if (isDefaultPermission) {
-              obj.defaultPermission = permission;
-            } else if (isArray) {
-              obj.permissions = [...obj.permissions, ...permission];
-            } else {
-              obj.permissions = [...obj.permissions, permission];
-            }
-          });
-        }
-      }, DSimpleCommand).decorateUnknown(target, key, descriptor)
+          if (original instanceof DDiscord) {
+            [...original.simpleCommands].forEach((obj) => {
+              if (isDefaultPermission) {
+                obj.defaultPermission = permission;
+              } else if (isArray) {
+                obj.permissions = [...obj.permissions, ...permission];
+              } else {
+                obj.permissions = [...obj.permissions, permission];
+              }
+            });
+          }
+        },
+        DSimpleCommand,
+        DDiscord
+      ).decorateUnknown(target, key, descriptor)
     );
   };
 }
