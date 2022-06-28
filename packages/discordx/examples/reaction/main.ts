@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { Intents } from "discord.js";
+import { IntentsBitField, Partials } from "discord.js";
 
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client } from "../../src/index.js";
@@ -16,12 +16,12 @@ export class Main {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.GuildMessageReactions,
       ],
-      partials: ["MESSAGE", "CHANNEL", "REACTION"],
+      partials: [Partials.Message, Partials.Channel, Partials.Reaction],
       silent: false,
     });
 
