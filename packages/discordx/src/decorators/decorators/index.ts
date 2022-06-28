@@ -8,6 +8,7 @@ export * from "./ModalComponent.js";
 export * from "./On.js";
 export * from "./Once.js";
 export * from "./Permission.js";
+export * from "./Reaction.js";
 export * from "./SelectMenuComponent.js";
 export * from "./SimpleCommand.js";
 export * from "./SimpleCommandOption.js";

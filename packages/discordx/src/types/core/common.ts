@@ -11,6 +11,7 @@ import type {
   DApplicationCommand,
   DComponent,
   DefaultPermissionResolver,
+  DReaction,
   DSimpleCommand,
   SimpleCommandMessage,
 } from "../../index.js";
@@ -47,6 +48,7 @@ export type IGuild =
       command:
         | DApplicationCommand
         | DComponent
+        | DReaction
         | SimpleCommandMessage
         | undefined
     ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);

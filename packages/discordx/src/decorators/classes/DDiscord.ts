@@ -6,6 +6,7 @@ import type {
   DComponent,
   DGuard,
   DOn,
+  DReaction,
   DSimpleCommand,
   IGuild,
   IPermissions,
@@ -26,6 +27,7 @@ export class DDiscord extends Decorator {
   private _modalComponents: DComponent[] = [];
   private _name: string;
   private _permissions: IPermissions[] = [];
+  private _reactions: DReaction[] = [];
   private _selectMenuComponents: DComponent[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
 
@@ -108,6 +110,13 @@ export class DDiscord extends Decorator {
   }
   set permissions(value: IPermissions[]) {
     this._permissions = value;
+  }
+
+  get reactions(): DReaction[] {
+    return this._reactions;
+  }
+  set reactions(value: DReaction[]) {
+    this._reactions = value;
   }
 
   get selectMenus(): DComponent[] {
