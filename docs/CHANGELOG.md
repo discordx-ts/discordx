@@ -1,5 +1,19 @@
 # Stage
 
+# [v9.7.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.7.0) (2022-06-28)
+
+## Features
+
+- `@Reaction` ([#793](https://github.com/oceanroleplay/discord.ts/issues/793)) ([9be181](https://github.com/oceanroleplay/discord.ts/commit/9be181af33c62a758d1773d4a785a546870c28bb))
+
+## Documentation
+
+- syntax SlashChoicesType to SlashChoiceType ([#782](https://github.com/oceanroleplay/discord.ts/issues/782)) ([5275eb](https://github.com/oceanroleplay/discord.ts/commit/5275ebbf6e098b3bb7bb205a64be660d16ed941d))
+
+## Routine Tasks
+
+- doc ([4dc78f](https://github.com/oceanroleplay/discord.ts/commit/4dc78f765cae6a869f69e31cfd632976b5c8ba84))
+
 # [v9.6.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.6.0) (2022-05-15)
 
 ## Changed

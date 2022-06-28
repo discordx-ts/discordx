@@ -15,6 +15,7 @@
 
 ## Fixed
 
+- cannot get node for lava players ([#783](https://github.com/oceanroleplay/discord.ts/issues/783)) ([46419e](https://github.com/oceanroleplay/discord.ts/commit/46419ea30019a05aa60ad80582c3bc44f4091b3a))
 - lava export ([7e0de5](https://github.com/oceanroleplay/discord.ts/commit/7e0de583a57b01b53f08ccbfdad4b01e0b182ba0))
 
 ## Routine Tasks

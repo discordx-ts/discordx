@@ -6,6 +6,7 @@
 
 ## Changed
 
+- pagination timeout based on last interaction ([b9b27c](https://github.com/oceanroleplay/discord.ts/commit/b9b27c973eda33417e83b208bca5812ba5fb4791))
 - update djs ([ed294e](https://github.com/oceanroleplay/discord.ts/commit/ed294e3e588ac2c5095011bc2760f463da426265))
 - pagination - catch error and log ([894400](https://github.com/oceanroleplay/discord.ts/commit/8944002b6701280f9e9cfc999d48cf4855fa45a9))
 - improve pagination error ([351abd](https://github.com/oceanroleplay/discord.ts/commit/351abd4b1a20858950542cb1fcb78094a98420a6))
@@ -13,6 +14,7 @@
 
 ## Fixed
 
+- pagination bug and [#758](https://github.com/oceanroleplay/discord.ts/issues/758) ([f3f5b2](https://github.com/oceanroleplay/discord.ts/commit/f3f5b284cc5836b4eb024f8100a3662a4b42ae07))
 - pagination collector options ([4c028f](https://github.com/oceanroleplay/discord.ts/commit/4c028f7e81e42a49ffdfb0521aa91de562565ec9))
 
 # [v2.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/p-v2.0.0) (2022-02-20)

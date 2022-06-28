@@ -1,5 +1,26 @@
 # Stage
 
+# [v9.7.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.7.0) (2022-06-28)
+
+## Features
+
+- `@Reaction` ([#793](https://github.com/oceanroleplay/discord.ts/issues/793)) ([9be181](https://github.com/oceanroleplay/discord.ts/commit/9be181af33c62a758d1773d4a785a546870c28bb))
+- add group localization ([7b37be](https://github.com/oceanroleplay/discord.ts/commit/7b37be0b6e44159feadf52e5bb446689e44d368f))
+
+## Changed
+
+- upgrade djs ([9773e0](https://github.com/oceanroleplay/discord.ts/commit/9773e01fe4ac5bdc400b7a4ceb0b0ce71a07c8b1))
+- init applications - use set operation ([#701](https://github.com/oceanroleplay/discord.ts/issues/701)) ([e6b96b](https://github.com/oceanroleplay/discord.ts/commit/e6b96b8c8df2f9043783b689bd414c63741efd85))
+
+## Fixed
+
+- resolve [#761](https://github.com/oceanroleplay/discord.ts/issues/761) ([68096f](https://github.com/oceanroleplay/discord.ts/commit/68096f7f6c6bb1b3af9aac89780d857bd10cb198))
+- solve rate limits in clear commands ([#726](https://github.com/oceanroleplay/discord.ts/issues/726)) ([a2552b](https://github.com/oceanroleplay/discord.ts/commit/a2552bf37baa19cfb32419723d4a83327c902ef2))
+
+## Routine Tasks
+
+- add task disabled note ([3d0a95](https://github.com/oceanroleplay/discord.ts/commit/3d0a95cb1d6d5c986ed5f154c07e3a0b2556134b))
+
 # [v9.6.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.6.0) (2022-05-15)
 
 ## Changed

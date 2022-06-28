@@ -2,6 +2,8 @@
 
 ## Features
 
+- rate limit message now includes a resolver ([#718](https://github.com/oceanroleplay/discord.ts/issues/718)) ([ee32d9](https://github.com/oceanroleplay/discord.ts/commit/ee32d9d21378e2d5023e59383a4d25610eab7fe9))
+- include a custom message placeholder for time remaining ([#717](https://github.com/oceanroleplay/discord.ts/issues/717)) ([cb98b9](https://github.com/oceanroleplay/discord.ts/commit/cb98b9415e532883a2d83645b967f5a6a4a1084a))
 - added Permission guard ([#642](https://github.com/oceanroleplay/discord.ts/issues/642)) ([3661ed](https://github.com/oceanroleplay/discord.ts/commit/3661ed15a3e229f913858a66fbccfca06df51717))
 - add EnumChoice in utilities ([aae30d](https://github.com/oceanroleplay/discord.ts/commit/aae30d1f262694b3aa084c21ce757be8afa0b85c))
 - add description decorator ([250e32](https://github.com/oceanroleplay/discord.ts/commit/250e32bca8050b0b28d9c86aee15048bbb7d859f))
@@ -11,6 +13,11 @@
 - update djs ([ed294e](https://github.com/oceanroleplay/discord.ts/commit/ed294e3e588ac2c5095011bc2760f463da426265))
 - improve permission guard ([641fba](https://github.com/oceanroleplay/discord.ts/commit/641fba58183f6d84e94878f5e44980a899f3cb04))
 - permissions guard ([ee9eb7](https://github.com/oceanroleplay/discord.ts/commit/ee9eb75cbc7f42c068c08afe157545c8d20bf00e))
+
+## Fixed
+
+- fixed optional types ([#759](https://github.com/oceanroleplay/discord.ts/issues/759)) ([f8aa0c](https://github.com/oceanroleplay/discord.ts/commit/f8aa0cab5dd96b6955f9d9b35337168d50747629))
+- resolve [#732](https://github.com/oceanroleplay/discord.ts/issues/732) ([e9a999](https://github.com/oceanroleplay/discord.ts/commit/e9a9992e9b204e1419e508ef8630851632e64b20))
 
 ## Routine Tasks
 
