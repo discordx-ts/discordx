@@ -2,10 +2,6 @@
 
 Create a reaction handler for messages using `@Reaction`.
 
-:::warning
-Reaction handlers do not currently support permissions. Guards may be used instead.
-:::
-
 ## Example
 
 ```ts
