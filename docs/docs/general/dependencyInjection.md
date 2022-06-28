@@ -40,7 +40,7 @@ DIService.engine = typeDiDependencyRegistryEngine;
 ```ts title="customEngine"
 import { DIService } from "discordx";
 import { Container } from "typedi";
-import { myCustomEngine } from "./MyCustomEngine.js"
+import { myCustomEngine } from "./MyCustomEngine.js";
 
 DIService.engine = myCustomEngine;
 ```
@@ -68,7 +68,7 @@ start();
 
 ## Usage
 
-Once you have told Discordx to use your engine for DI, it will then ask your engine for all the `@Discord()` services when it needs to both register and retrieve them. 
+Once you have told Discordx to use your engine for DI, it will then ask your engine for all the `@Discord()` services when it needs to both register and retrieve them.
 
 ### Note for TSyringe using `tsyringeDependencyRegistryEngine`
 
@@ -132,7 +132,7 @@ the `tsyringeDependencyRegistryEngine` and `typeDiDependencyRegistryEngine` both
 
 This means that in order to get a class from the container of these, you will need to supply a token or call `DIService.instance.getService(DiscordService);`.
 
-Because of thw way that tsyringe deals with tokens, if you simply inject a `@Discord` class it will create a NEW instance of that class, and it will not be a singleton, this is because any class registered with a token can only be retrieved with that token. 
+Because of thw way that tsyringe deals with tokens, if you simply inject a `@Discord` class it will create a NEW instance of that class, and it will not be a singleton, this is because any class registered with a token can only be retrieved with that token.
 
 So, by default, tokens on tsyringe are disabled, to enable them, call `tsyringeDependencyRegistryEngine.useTokenization = true;`
 
@@ -144,17 +144,20 @@ For example, if you wanted to get the `OnReady.ts` class:
 @Discord()
 class OnReady {
   private bar = "bar";
-  public foo(){
+  public foo() {
     console.log(this.bar);
   }
 }
 
 @injectable()
 class TsClass {
-  private onReady:OnReady | null;
-  
-  public constructor(@injectAll(tsyringeDependencyRegistryEngine.token) discordClasses: unknown[]) {
-    this.onReady = discordClasses.find(service => service.constructor === OnReady) ?? null;
+  private onReady: OnReady | null;
+
+  public constructor(
+    @injectAll(tsyringeDependencyRegistryEngine.token) discordClasses: unknown[]
+  ) {
+    this.onReady =
+      discordClasses.find((service) => service.constructor === OnReady) ?? null;
     // or
     this.onReady = DIService.getService(OnReady);
 
@@ -167,7 +170,7 @@ class TsClass {
 @Discord()
 class OnReady {
   private bar = "bar";
-  public foo(){
+  public foo() {
     console.log(this.bar);
   }
 }
