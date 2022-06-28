@@ -10,9 +10,13 @@ import type {
   ContextMenuCommandInteraction,
   Interaction,
   Message,
+  MessageReaction,
   ModalSubmitInteraction,
+  PartialMessageReaction,
+  PartialUser,
   SelectMenuInteraction,
   Snowflake,
+  User,
 } from "discord.js";
 import {
   ApplicationCommandOptionType,
@@ -31,6 +35,7 @@ import type {
   DDiscord,
   DiscordEvents,
   DOn,
+  DReaction,
   DSimpleCommand,
   DSimpleCommandOption,
   GuardFunction,
@@ -124,6 +129,10 @@ export class Client extends ClientJS {
     return MetadataStorage.instance.modalComponents;
   }
 
+  static get reactions(): readonly DReaction[] {
+    return MetadataStorage.instance.reactions;
+  }
+
   static get selectMenuComponents(): readonly DComponent[] {
     return MetadataStorage.instance.selectMenuComponents;
   }
@@ -192,6 +201,10 @@ export class Client extends ClientJS {
 
   get modalComponents(): readonly DComponent[] {
     return Client.modalComponents;
+  }
+
+  get reactions(): readonly DReaction[] {
+    return Client.reactions;
   }
 
   get selectMenuComponents(): readonly DComponent[] {
@@ -1418,6 +1431,92 @@ export class Client extends ClientJS {
     }
 
     return command.info.execute(this.guards, command, this);
+  }
+
+  /**
+   * Parse reaction
+   *
+   * @param message - Original reaction
+   *
+   * @returns
+   */
+  parseReaction(
+    message: MessageReaction | PartialMessageReaction
+  ): DReaction | undefined {
+    const reaction = this.reactions.find((react) => {
+      const validNames = [react.emoji, ...react.aliases];
+      const { emoji } = message;
+
+      return (
+        (emoji.id ? validNames.includes(emoji.id) : false) ||
+        (emoji.name ? validNames.includes(emoji.name) : false)
+      );
+    });
+
+    return reaction;
+  }
+
+  /**
+   * Execute the corresponding @Reaction based on an message reaction instance
+   *
+   * @param reaction - MessageReaction instance
+   * @param options - Options
+   *
+   * @returns
+   */
+  async executeReaction(
+    reaction: MessageReaction | PartialMessageReaction,
+    user: User | PartialUser,
+    options?: {
+      log?: boolean;
+    }
+  ): Promise<unknown> {
+    if (!reaction) {
+      if (options?.log ?? !this.silent) {
+        this.logger.error(
+          `${
+            this.user?.username ?? this.botId
+          } >> executeReaction >> reaction is undefined`
+        );
+      }
+      return;
+    }
+
+    const action = await this.parseReaction(reaction);
+    if (!action) {
+      return;
+    }
+
+    // validate bot id
+    if (!action.isBotAllowed(this.botId)) {
+      return;
+    }
+
+    // validate guild id
+    if (!action.isGuildAllowed(this, reaction.message.guildId)) {
+      return;
+    }
+
+    // check dm allowed or not
+    if (!action.directMessage && !reaction.message.guild) {
+      return;
+    }
+
+    // fetch reaction or user if partial is not enabled
+    if (!action.partial && reaction.partial) {
+      reaction = await reaction.fetch();
+    }
+
+    if (!action.partial && user.partial) {
+      user = await user.fetch();
+    }
+
+    // remove reaction if remove is enabled
+    if (action.remove) {
+      await reaction.users.remove(user.id);
+    }
+
+    return action.execute(this.guards, reaction, user, this);
   }
 
   /**

@@ -5,6 +5,7 @@ import type {
   Client,
   DApplicationCommand,
   DComponent,
+  DReaction,
   DSimpleCommand,
   SimpleCommandMessage,
   SimpleCommandPermissionData,
@@ -40,6 +41,7 @@ export type IGuild =
       command:
         | DApplicationCommand
         | DComponent
+        | DReaction
         | SimpleCommandMessage
         | undefined
     ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);

@@ -124,6 +124,11 @@ module.exports = {
               label: "@Permission",
               type: "doc",
             },
+            {
+              id: "decorators/general/reaction",
+              label: "@Reaction",
+              type: "doc",
+            },
           ],
           label: "General",
           type: "category",

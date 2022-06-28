@@ -125,6 +125,9 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@SimplePermission`](https://discord-ts.js.org/docs/decorators/general/simple-permission)
 - [`@On`](https://discord-ts.js.org/docs/decorators/general/on)
 - [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
+- [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
+- [`@Permission`](https://discord-ts.js.org/docs/decorators/general/permission)
+- [`@Reaction`](https://discord-ts.js.org/docs/decorators/general/reaction)
 
 ## Commands
 
@@ -346,6 +349,20 @@ class Example {
   @Once("messageDelete")
   private onMessageDelete() {
     // ...
+  }
+}
+```
+
+# 💡[@Reaction](https://discord-ts.js.org/docs/decorators/general/reaction)
+
+Create a reaction handler for messages using `@Reaction`.
+
+```typescript
+@Discord()
+class Example {
+  @Reaction("📌")
+  async pin(reaction: MessageReaction): Promise<void> {
+    await reaction.message.pin();
   }
 }
 ```
