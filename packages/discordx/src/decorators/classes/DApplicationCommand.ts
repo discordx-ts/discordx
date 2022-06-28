@@ -2,12 +2,12 @@ import type {
   ApplicationCommandData,
   ApplicationCommandOptionData,
   ChatInputCommandInteraction,
+  LocalizationMap,
 } from "discord.js";
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v9";
 
 import type { Client, IGuild } from "../../index.js";
 import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";

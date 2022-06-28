@@ -1,5 +1,9 @@
-import type { CommandInteraction, SelectMenuInteraction } from "discord.js";
-import { MessageActionRow, MessageSelectMenu } from "discord.js";
+import type {
+  CommandInteraction,
+  MessageActionRowComponentBuilder,
+  SelectMenuInteraction,
+} from "discord.js";
+import { ActionRowBuilder, SelectMenuBuilder } from "discord.js";
 
 import { Discord, SelectMenuComponent, Slash } from "../../../src/index.js";
 
@@ -36,12 +40,15 @@ export class Example {
     await interaction.deferReply();
 
     // create menu for roles
-    const menu = new MessageSelectMenu()
+    const menu = new SelectMenuBuilder()
       .addOptions(roles)
       .setCustomId("role-menu");
 
     // create a row for message actions
-    const buttonRow = new MessageActionRow().addComponents(menu);
+    const buttonRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        menu
+      );
 
     // send it
     interaction.editReply({

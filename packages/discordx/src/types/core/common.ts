@@ -5,7 +5,6 @@ import type {
   Client,
   DApplicationCommand,
   DComponent,
-  DefaultPermissionResolver,
   DSimpleCommand,
   SimpleCommandMessage,
   SimpleCommandPermissionData,
@@ -20,8 +19,6 @@ export type IPrefixResolver =
   | string
   | string[]
   | ((message: Message) => Awaitable<string | string[]>);
-
-export type IDefaultPermission = boolean | DefaultPermissionResolver;
 
 export type IPermissions =
   | SimpleCommandPermissionData

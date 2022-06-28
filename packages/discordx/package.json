@@ -57,7 +57,6 @@
     "@discordjs/builders": "^0.14.0",
     "@discordx/di": "^2.0.1",
     "@discordx/internal": "^1.0.2",
-    "discord-api-types": "^0.33.3",
     "lodash": "^4.17.21",
     "reflect-metadata": "^0.1.13",
     "tslib": "^2.4.0"

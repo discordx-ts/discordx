@@ -1,15 +1,11 @@
-import type {
-  ApplicationCommandPermissions,
-  CommandInteraction,
-  GuildMember,
-  Role,
-  User,
-} from "discord.js";
+import type { CommandInteraction, GuildMember, Role, User } from "discord.js";
+import { ApplicationCommandOptionType, ChannelType } from "discord.js";
 
+import type { SimpleCommandPermissionData } from "../../../src/index.js";
 import {
-  DefaultPermissionResolver,
   Discord,
-  Permission,
+  SimpleCommandPermissionTypes,
+  SimplePermission,
   Slash,
   SlashOption,
 } from "../../../src/index.js";
@@ -17,20 +13,13 @@ import {
 @Discord()
 export class Example {
   @Slash("voice-channel")
-  @Permission(
-    new DefaultPermissionResolver((command) => {
-      if (!command) {
-        return false;
-      }
-      return false;
-    })
-  )
-  @Permission({
+  @SimplePermission(false)
+  @SimplePermission({
     id: "462341082919731200",
     permission: true,
-    type: "USER",
+    type: SimpleCommandPermissionTypes.User,
   })
-  @Permission(async (): Promise<ApplicationCommandPermissions[]> => {
+  @SimplePermission(async (): Promise<SimpleCommandPermissionData[]> => {
     const getResponse = () => {
       return new Promise((resolve) => {
         setTimeout(function () {
@@ -43,14 +32,18 @@ export class Example {
       {
         id: "462341082919731200",
         permission: true,
-        type: "USER",
+        type: SimpleCommandPermissionTypes.User,
       },
     ];
   })
   voiceChannel(
     @SlashOption("channel", {
-      channelTypes: ["GUILD_CATEGORY", "GUILD_VOICE", "GUILD_TEXT"],
-      type: "CHANNEL",
+      channelTypes: [
+        ChannelType.GuildCategory,
+        ChannelType.GuildVoice,
+        ChannelType.GuildText,
+      ],
+      type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction

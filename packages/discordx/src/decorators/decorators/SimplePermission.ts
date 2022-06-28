@@ -1,13 +1,8 @@
 import type { ClassMethodDecorator } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
-import type { IDefaultPermission, IPermissions } from "../../index.js";
-import {
-  DDiscord,
-  DefaultPermissionResolver,
-  DSimpleCommand,
-  MetadataStorage,
-} from "../../index.js";
+import type { IPermissions } from "../../index.js";
+import { DDiscord, DSimpleCommand, MetadataStorage } from "../../index.js";
 
 /**
  * Set default permission for your simple command
@@ -19,9 +14,7 @@ import {
  *
  * @category Decorator
  */
-export function SimplePermission(
-  permission: IDefaultPermission
-): ClassMethodDecorator;
+export function SimplePermission(permission: boolean): ClassMethodDecorator;
 
 /**
  * Set permissions for your simple command
@@ -38,16 +31,14 @@ export function SimplePermission(
 ): ClassMethodDecorator;
 
 export function SimplePermission(
-  permission: IDefaultPermission | IPermissions
+  permission: boolean | IPermissions
 ): ClassMethodDecorator {
   return function <T>(
     target: Record<string, T>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {
-    const isDefaultPermission =
-      typeof permission === "boolean" ||
-      permission instanceof DefaultPermissionResolver;
+    const isDefaultPermission = typeof permission === "boolean";
     const isArray = permission instanceof Array;
     MetadataStorage.instance.addModifier(
       Modifier.create<DSimpleCommand | DDiscord>(

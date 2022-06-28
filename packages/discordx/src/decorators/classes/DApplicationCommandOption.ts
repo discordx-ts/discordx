@@ -1,10 +1,12 @@
 import { Decorator } from "@discordx/internal";
-import type { ApplicationCommandOptionData } from "discord.js";
+import type {
+  ApplicationCommandOptionData,
+  ChannelType,
+  LocalizationMap,
+} from "discord.js";
 import { ApplicationCommandOptionType } from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v10";
 
 import type {
-  ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
 } from "../../index.js";
@@ -14,7 +16,7 @@ import type {
  */
 export class DApplicationCommandOption extends Decorator {
   private _autocomplete: SlashAutoCompleteOption;
-  private _channelTypes: ChannelTypes[] | undefined = undefined;
+  private _channelTypes: ChannelType[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
@@ -33,10 +35,10 @@ export class DApplicationCommandOption extends Decorator {
     this._autocomplete = value;
   }
 
-  get channelTypes(): ChannelTypes[] | undefined {
+  get channelTypes(): ChannelType[] | undefined {
     return this._channelTypes;
   }
-  set channelTypes(value: ChannelTypes[] | undefined) {
+  set channelTypes(value: ChannelType[] | undefined) {
     this._channelTypes = value;
   }
 
@@ -120,7 +122,7 @@ export class DApplicationCommandOption extends Decorator {
   protected constructor(
     name: string,
     autocomplete?: SlashAutoCompleteOption,
-    channelType?: ChannelTypes[],
+    channelType?: ChannelType[],
     description?: string,
     index?: number,
     maxValue?: number,
@@ -154,7 +156,7 @@ export class DApplicationCommandOption extends Decorator {
   static create(
     name: string,
     autocomplete?: SlashAutoCompleteOption,
-    channelType?: ChannelTypes[],
+    channelType?: ChannelType[],
     description?: string,
     index?: number,
     maxValue?: number,

@@ -3,8 +3,14 @@ import type {
   ButtonInteraction,
   CommandInteraction,
   EmojiIdentifierResolvable,
+  MessageActionRowComponentBuilder,
 } from "discord.js";
-import { MessageActionRow, MessageButton } from "discord.js";
+import {
+  ActionRowBuilder,
+  ApplicationCommandOptionType,
+  ButtonBuilder,
+  ButtonStyle,
+} from "discord.js";
 
 import {
   ButtonComponent,
@@ -93,7 +99,7 @@ export class RockPaperScissors {
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
       required: false,
-      type: "NUMBER",
+      type: ApplicationCommandOptionType.Number,
     })
     choice: RPSChoice | undefined,
     interaction: CommandInteraction
@@ -116,29 +122,30 @@ export class RockPaperScissors {
         )
       );
     } else {
-      const buttonRock = new MessageButton()
+      const buttonRock = new ButtonBuilder()
         .setLabel("Rock")
         .setEmoji("💎")
-        .setStyle("PRIMARY")
+        .setStyle(ButtonStyle.Primary)
         .setCustomId(`RPS-${RPSChoice.Rock}`);
 
-      const buttonPaper = new MessageButton()
+      const buttonPaper = new ButtonBuilder()
         .setLabel("Paper")
         .setEmoji("🧻")
-        .setStyle("PRIMARY")
+        .setStyle(ButtonStyle.Primary)
         .setCustomId(`RPS-${RPSChoice.Paper}`);
 
-      const buttonScissor = new MessageButton()
+      const buttonScissor = new ButtonBuilder()
         .setLabel("Scissors")
         .setEmoji("✂️")
-        .setStyle("PRIMARY")
+        .setStyle(ButtonStyle.Primary)
         .setCustomId(`RPS-${RPSChoice.Scissors}`);
 
-      const buttonRow = new MessageActionRow().addComponents(
-        buttonRock,
-        buttonPaper,
-        buttonScissor
-      );
+      const buttonRow =
+        new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+          buttonRock,
+          buttonPaper,
+          buttonScissor
+        );
 
       interaction.followUp({
         components: [buttonRow],

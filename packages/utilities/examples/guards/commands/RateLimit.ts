@@ -1,4 +1,4 @@
-import type { CommandInteraction } from "discord.js";
+import type { ChatInputCommandInteraction } from "discord.js";
 import type { SimpleCommandMessage } from "discordx";
 import { Discord, Guard, SimpleCommand, Slash } from "discordx";
 
@@ -13,7 +13,7 @@ export class RateLimitExample {
    */
   @Slash("rate_limit_1")
   @Guard(RateLimit(TIME_UNIT.seconds, 30))
-  rateLimit1(interaction: CommandInteraction): void {
+  rateLimit1(interaction: ChatInputCommandInteraction): void {
     interaction.reply("It worked!");
   }
 
@@ -28,7 +28,7 @@ export class RateLimitExample {
       message: "Slow Down",
     })
   )
-  rateLimit2(interaction: CommandInteraction): void {
+  rateLimit2(interaction: ChatInputCommandInteraction): void {
     interaction.reply("It worked!");
   }
 
@@ -44,7 +44,7 @@ export class RateLimitExample {
       rateValue: 3,
     })
   )
-  rateLimit3(interaction: CommandInteraction): void {
+  rateLimit3(interaction: ChatInputCommandInteraction): void {
     interaction.reply("It worked!");
   }
 
@@ -60,7 +60,7 @@ export class RateLimitExample {
         "Slow Down, please try at {until}, if you do not try at {until} then this command will not work",
     })
   )
-  rateLimit4(interaction: CommandInteraction): void {
+  rateLimit4(interaction: ChatInputCommandInteraction): void {
     interaction.reply("It worked!");
   }
 
@@ -71,16 +71,16 @@ export class RateLimitExample {
    */
   @Slash("rate_limit_5")
   @Guard(
-    RateLimit<CommandInteraction>(TIME_UNIT.seconds, 30, {
+    RateLimit<ChatInputCommandInteraction>(TIME_UNIT.seconds, 30, {
       message: RateLimitExample.getMessage,
     })
   )
-  rateLimit5(interaction: CommandInteraction): void {
+  rateLimit5(interaction: ChatInputCommandInteraction): void {
     interaction.reply("It worked!");
   }
 
   private static getMessage(
-    interaction: CommandInteraction,
+    interaction: ChatInputCommandInteraction,
     timeLeft: number
   ): Promise<string> {
     return Promise.resolve(

@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { Intents } from "discord.js";
+import { IntentsBitField } from "discord.js";
 
 import { Client } from "../../discordx/src/index.js";
 import { dirname, importx } from "../../importer/build/esm/index.mjs";
@@ -16,17 +16,16 @@ export class Main {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MEMBERS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_VOICE_STATES,
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildVoiceStates,
       ],
       silent: false,
     });
 
     this._client.once("ready", async () => {
       await this._client.initApplicationCommands();
-      await this._client.initApplicationPermissions();
 
       console.log("Bot started");
     });

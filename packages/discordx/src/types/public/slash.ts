@@ -1,10 +1,11 @@
 import type {
   ApplicationCommandOptionType,
   AutocompleteInteraction,
+  ChannelType,
+  LocalizationMap,
 } from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v10";
 
-import type { ChannelTypes, DApplicationCommand, IGuild } from "../../index.js";
+import type { DApplicationCommand, IGuild } from "../../index.js";
 
 export type ApplicationCommandOptions = {
   botIds?: string[];
@@ -36,7 +37,7 @@ export type SlashOptionBaseOptions = SlashOptionBase & {
 
 export type SlashOptionChannelOptions = SlashOptionBase & {
   autocomplete?: undefined;
-  channelTypes?: ChannelTypes[];
+  channelTypes?: ChannelType[];
   maxValue?: undefined;
   minValue?: undefined;
   type: ApplicationCommandOptionType.Channel;

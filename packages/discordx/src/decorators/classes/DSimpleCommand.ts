@@ -5,7 +5,6 @@ import type {
   ArgSplitter,
   Client,
   DSimpleCommandOption,
-  IDefaultPermission,
   IGuild,
   IPermissions,
   IPrefix,
@@ -27,7 +26,7 @@ export class DSimpleCommand extends Method {
   private _description: string;
   private _name: string;
   private _prefix: IPrefix | undefined;
-  private _defaultPermission: IDefaultPermission;
+  private _defaultPermission: boolean;
   private _directMessage: boolean;
   private _argSplitter?: ArgSplitter;
   private _options: DSimpleCommandOption[] = [];
@@ -85,10 +84,10 @@ export class DSimpleCommand extends Method {
     this._directMessage = value;
   }
 
-  get defaultPermission(): IDefaultPermission {
+  get defaultPermission(): boolean {
     return this._defaultPermission;
   }
-  set defaultPermission(value: IDefaultPermission) {
+  set defaultPermission(value: boolean) {
     this._defaultPermission = value;
   }
 

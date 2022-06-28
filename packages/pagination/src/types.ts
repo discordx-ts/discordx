@@ -1,5 +1,6 @@
 import type {
   ActionRowBuilder,
+  APIMessageComponentEmoji,
   ButtonStyle,
   CommandInteraction,
   ContextMenuCommandInteraction,
@@ -12,7 +13,6 @@ import type {
   MessageOptions,
   ReplyMessageOptions,
 } from "discord.js";
-import type { APIMessageComponentEmoji } from "discord-api-types/v10";
 
 // By default, five minute.
 export const defaultTime = 3e5;

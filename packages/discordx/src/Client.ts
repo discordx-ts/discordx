@@ -1381,10 +1381,7 @@ export class Client extends ClientJS {
         command
       );
 
-      const defaultPermission =
-        typeof command.info.defaultPermission === "boolean"
-          ? command.info.defaultPermission
-          : await command.info.defaultPermission.resolver(command);
+      const defaultPermission = command.info.defaultPermission;
 
       const userPermissions = permissions.filter((perm) =>
         perm.type === SimpleCommandPermissionTypes.User && defaultPermission

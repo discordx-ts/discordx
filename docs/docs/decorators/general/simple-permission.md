@@ -55,15 +55,13 @@ class Example {
 
 ## Example - Dynamic permission resolver
 
-Whenever permissions are required, dynamic resolvers are called. Such as, When `initApplicationPermissions` or simple command execution is performed. A dynamic permission resolver is helpful for saving permissions in the database.
-
-Note: In order to refresh application permissions dynamically, run `initApplicationPermissions` anywhere.
+Whenever permissions are required, dynamic resolvers are called. Such as, When simple command execution is performed. A dynamic permission resolver is helpful for saving permissions in the database.
 
 ```ts
 @Discord()
 @SimplePermission(false) // We will enable command for specific users/roles only, so disable it for everyone
 @SimplePermission(
-  async (guild, cmd): Promise<ApplicationCommandPermissions[]> => {
+  async (guild, cmd): Promise<SimpleCommandPermissionData[]> => {
     const getResponse = () => {
       return new Promise((resolve) => {
         setTimeout(function () {
