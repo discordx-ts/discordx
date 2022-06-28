@@ -2,7 +2,7 @@
 import type { ClientEvents } from "discord.js";
 import type { LocalizationMap } from "discord-api-types/v9";
 
-import type { Client, Next, NotEmpty } from "../../index.js";
+import type { Client, IGuild, Next, NotEmpty } from "../../index.js";
 
 /**
  * Type the arguments of an event
@@ -82,6 +82,19 @@ export type SlashGroupOptions = {
  */
 export type EventOptions = {
   botIds?: string[];
+};
+
+/**
+ * Reaction options
+ */
+export type ReactionOptions = {
+  aliases?: string[];
+  botIds?: string[];
+  description?: string;
+  directMessage?: boolean;
+  guilds?: IGuild[];
+  partial?: boolean;
+  remove?: boolean;
 };
 
 /**
