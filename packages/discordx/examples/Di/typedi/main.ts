@@ -3,11 +3,7 @@ import "reflect-metadata";
 import { Intents } from "discord.js";
 
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
-import {
-  Client,
-  DIService,
-  typeDiDependencyRegistryEngine,
-} from "../../../src/index.js";
+import { Client, DIService } from "../../../src/index.js";
 
 // initialize TypeDI container
 // it's important that this is done before calling client.login

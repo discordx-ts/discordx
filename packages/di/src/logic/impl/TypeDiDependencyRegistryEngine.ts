@@ -34,7 +34,9 @@ export class TypeDiDependencyRegistryEngine
   public getService<T>(classType: T): InstanceOf<T> | null {
     return (
       (Container.getMany(TypeDiDependencyRegistryEngine.token).find(
-        (clazz) => clazz === classType
+        (clazz) =>
+          ((clazz as Record<string, unknown>).constructor as unknown as T) ===
+          classType
       ) as InstanceOf<T>) ?? null
     );
   }

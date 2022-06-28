@@ -6,47 +6,57 @@ Another use for this approach is that sometimes, you will find yourself wanting 
 
 So, if you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now utilize the container to register each annotated `@Discord()` class!
 
-In order to use your container, there is some small configuration to do in your code
+In order to use your container, there is some small configuration to do in your code.
+
+The way that Discordx does this is my defining an engine interface `IDependencyRegistryEngine`, an implementation of this interface is used on the `DIService` to handle the retrieval and resolution of services.
+
+In order to use a custom IOC framework like Nestjs, simply implement the `IDependencyRegistryEngine` interface and set it on the `DIService` (see below).
 
 ## Configuration
 
-**Supported DI containers:**
+**Pre-configured DI containers:**
 
-- TSyringe
-- TypeDi
+We have default implementations of the `IDependencyRegistryEngine` for the following frameworks:
 
-Before you import or define any `@Discord` classes, you must bind your di container to discordx (Whether imported from `importx` or another custom loader). To accomplish this, simply add `DIService.container = container` before the aforementioned importer, As shown in the examples below.
+- TSyringe (`tsyringeDependencyRegistryEngine`)
+- TypeDi (`typeDiDependencyRegistryEngine`)
+
+Before you import or define any `@Discord` classes, you must bind your di engine to discordx (Whether imported from `importx` or another custom loader). To accomplish this, simply add `DIService.engine = implemntation` before the aforementioned importer, As shown in the examples below.
 
 ```ts title="TSyringe"
 import { container } from "tsyringe";
-import { DIService } from "discordx";
+import { DIService, tsyringeDependencyRegistryEngine } from "discordx";
 
-DIService.container = container;
+DIService.engine = tsyringeDependencyRegistryEngine;
 ```
 
 ```ts title="TypeDi"
-import { DIService } from "discordx";
+import { DIService, typeDiDependencyRegistryEngine } from "discordx";
 import { Container } from "typedi";
 
-DIService.container = Container;
+DIService.engine = typeDiDependencyRegistryEngine;
+```
+
+```ts title="customEngine"
+import { DIService } from "discordx";
+import { Container } from "typedi";
+import { myCustomEngine } from "./MyCustomEngine.js"
+
+DIService.engine = myCustomEngine;
 ```
 
 It is recommended to do this in your main class where you define your `new Client()` code; for example:
 
 ```ts
 import "reflect-metadata";
-import { IntentsBitField } from "discord.js";
-import { container } from "tsyringe";
-import { Client, DIService } from "discordx";
+import { Intents } from "discord.js";
+import { Client, DIService, tsyringeDependencyRegistryEngine } from "discordx";
 
 async function start() {
-  DIService.container = container;
+  DIService.engine = tsyringeDependencyRegistryEngine;
   const client = new Client({
     botId: "test",
-    intents: [
-      IntentsBitField.Flags.Guilds,
-      IntentsBitField.Flags.GuildMessages,
-    ],
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
     silent: false,
   });
 
@@ -58,11 +68,11 @@ start();
 
 ## Usage
 
-Once you have told Discordx to use your container for DI, it will then register all of your defined `@Discord()` classes with the container as singletons. This is the same as declaring a class in TSyringe as `@singleton()` or with TypeDI `@Service`.
+Once you have told Discordx to use your engine for DI, it will then ask your engine for all the `@Discord()` services when it needs to both register and retrieve them. 
 
-### Note for TSyringe
+### Note for TSyringe using `tsyringeDependencyRegistryEngine`
 
-In TSyringe classes declared with `@singleton()` are automatically `@injectable()` but in Discordx you must add this annotation too if you wish your classes to receive constructor injection.
+If you are using our `tsyringeDependencyRegistryEngine` for TSyringe classes declared with `@singleton()` are automatically `@injectable()` but in Discordx you must add this annotation too if you wish your classes to receive constructor injection.
 
 For example, say you have a Database class you wish to inject into your declared `@Discord()` class:
 
@@ -114,40 +124,72 @@ When running the above code, your `database` will be injected into your `Example
 
 If you do not mark the class as `@injectable()` you will get an error thrown from TSyringe telling you where is no type info for your class.
 
-For TypeDI, you do not need to mark your classes, all DI works as expected, along with `@Inject` for props and constructor overrides with other services.
+For TypeDI using the `typeDiDependencyRegistryEngine`, you do not need to mark your classes, all DI works as expected, along with `@Inject` for props and constructor overrides with other services.
 
-## Getting all @Discord classes
+## Tokenization
 
-If for some reason, you wish to get all instances of the `@Discord` classes in your bot, then you can do so with the following code example:
+the `tsyringeDependencyRegistryEngine` and `typeDiDependencyRegistryEngine` both by can register all the `@Discord` services with tokens, the tokens are available by static props on the classes: e.g `tsyringeDependencyRegistryEngine.token`.
 
-**NOTE**: this will constructor all your classes in the DI container, if you wish to lazy-load your singletons, then you can not do this.
+This means that in order to get a class from the container of these, you will need to supply a token or call `DIService.instance.getService(DiscordService);`.
 
-```ts
-import { container } from "tsyringe";
-import { DIService } from "discordx";
-import { Container } from "typedi";
+Because of thw way that tsyringe deals with tokens, if you simply inject a `@Discord` class it will create a NEW instance of that class, and it will not be a singleton, this is because any class registered with a token can only be retrieved with that token. 
 
-function getAllDiscordClasses(): unknown[] {
-  const appClasses = DIService.allServices;
+So, by default, tokens on tsyringe are disabled, to enable them, call `tsyringeDependencyRegistryEngine.useTokenization = true;`
 
-  // store resolved classes from TSyringe resolve
-  const commandClasses = [];
+If you enable tokens on tsyringe, it would mean that you would have to use `@InjectAll` then do a filter on that array to find the class.
 
-  // resolve all classes
-  for (const classRef of appClasses) {
-    // TSyringe
-    const instance = container.resolve(classRef as constructor<unknown>);
+For example, if you wanted to get the `OnReady.ts` class:
 
-    // TypeDI
-    const instance = Container.get(classRef as constructor<unknown>);
-
-    commandClasses.push(instance);
+```ts title="useTokenization=true"
+@Discord()
+class OnReady {
+  private bar = "bar";
+  public foo(){
+    console.log(this.bar);
   }
+}
 
-  return commandClasses;
+@injectable()
+class TsClass {
+  private onReady:OnReady | null;
+  
+  public constructor(@injectAll(tsyringeDependencyRegistryEngine.token) discordClasses: unknown[]) {
+    this.onReady = discordClasses.find(service => service.constructor === OnReady) ?? null;
+    // or
+    this.onReady = DIService.getService(OnReady);
+
+    this.onReady.foo();
+  }
 }
 ```
 
-Because your container has been populated with all the `@Discord()` instances on startup, you can use the `MetadataStorage` object to get all the class refs for all the components and use a unique set of said classes to resolve them from your container
+```ts title="useTokenization=false"
+@Discord()
+class OnReady {
+  private bar = "bar";
+  public foo(){
+    console.log(this.bar);
+  }
+}
 
-Unfortunately, we can not use `@injectall()` with tokenized dependencies, because `@Discord()` is proxying your container, it cannot create a registry dynamically.
+@injectable()
+class TsClass {
+  public constructor(private onReady: OnReady) {
+    onReady.foo();
+  }
+}
+```
+
+## Getting all @Discord classes
+
+If for some reason, you wish to get all instances of the `@Discord` classes in your bot, then you can simple call `DIService.getAllServices();`
+
+**NOTE**: this will construct all your classes in the DI container, if you wish to lazy-load your Discord classes, then you can not do this.
+
+```ts
+import { DIService } from "discordx";
+
+function getAllDiscordClasses(): Set<unknown> {
+  return DIService.getAllServices();
+}
+```
