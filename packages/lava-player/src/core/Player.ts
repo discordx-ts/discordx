@@ -64,16 +64,12 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
   }
 
   public get voiceState(): VoiceStateUpdate | undefined {
-    const session = this.node.voiceStates.get(this.guildId);
-    if (!session) {
+    const state = this.node.voiceStates.get(this.guildId);
+    if (!state) {
       return;
     }
 
-    return {
-      guild_id: this.guildId,
-      session_id: session,
-      user_id: this.node.userId,
-    };
+    return state;
   }
 
   public get voiceServer(): VoiceServerUpdate | undefined {
