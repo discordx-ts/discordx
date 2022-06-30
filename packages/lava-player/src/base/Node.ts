@@ -25,7 +25,7 @@ export abstract class BaseNode extends EventEmitter {
   public players: PlayerStore<this> = new PlayerStore(this);
   public http: Http;
 
-  public voiceStates: Map<string, string> = new Map();
+  public voiceStates: Map<string, VoiceStateUpdate> = new Map();
   public voiceServers: Map<string, VoiceServerUpdate> = new Map();
 
   private _expectingConnection: Set<string> = new Set();
@@ -83,7 +83,7 @@ export abstract class BaseNode extends EventEmitter {
     }
 
     if (packet.channel_id) {
-      this.voiceStates.set(packet.guild_id, packet.session_id);
+      this.voiceStates.set(packet.guild_id, packet);
       return this._tryConnection(packet.guild_id);
     } else {
       this.voiceServers.delete(packet.guild_id);
@@ -124,7 +124,7 @@ export abstract class BaseNode extends EventEmitter {
       return false;
     }
 
-    await this.players.get(guildId).voiceUpdate(state, server);
+    await this.players.get(guildId).voiceUpdate(state.session_id, server);
     this._expectingConnection.delete(guildId);
     return true;
   }
