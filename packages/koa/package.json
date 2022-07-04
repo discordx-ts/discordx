@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@discordx/importer": "^1.1.9",
-    "@koa/router": "^10.1.1",
+    "@koa/router": "^11.0.1",
     "@types/koa": "^2.13.4",
     "@types/koa__router": "^8.0.11",
     "koa": "^2.13.4",
