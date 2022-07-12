@@ -44,7 +44,7 @@
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-angular": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^5.30.4",
-    "@typescript-eslint/parser": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.6",
     "eslint": "^8.19.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
