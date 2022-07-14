@@ -66,3 +66,23 @@ Error [DISALLOWED_INTENTS]: Privileged intent provided is not enabled or whiteli
 Some [Gateway Intents](https://discord.com/developers/docs/topics/gateway#gateway-intents) require approval if your bot is verified. If your bot is not verified, you can toggle those intents to access them. - _Discord_
 
 ![Privileged Gateway Intents](../../../static/img/privileged-gateway-intents.png))
+
+---
+
+# TS2344 -- node_modules/@discordjs -- Type does not satisfy constraint 'unknown[]'
+
+```ts
+node_modules/@discordjs/builders/dist/index.d.ts:14:78 - error TS2344: Type '{ name: string; value: string; inline: boolean | undefined; }' does not satisfy the constraint 'unknown[]'.
+  Type '{ name: string; value: string; inline: boolean | undefined; }' is missing the following properties from type 'unknown[]': length, pop, push, concat, and 29 more.
+
+  // ... More Stack Trace Information
+```
+
+#### Solution
+
+In your tsconfig.json, add:
+```json
+skipLibCheck: true
+```
+
+This is a bug thrown by discord.js, this field needs to be added to your tsconfig until it is fixed
