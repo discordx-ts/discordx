@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
-    "discordx": "^10.0.0-dev.1656316909.33974524",
+    "discordx": "^10.0.0-dev.1656397813.51981f56",
     "lodash": "^4.17.21",
     "prism-media": "^1.3.2",
     "tslib": "^2.4.0",
@@ -62,7 +62,7 @@
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.10.0",
     "@types/lodash": "^4.14.182",
-    "discord.js": "^14.0.0-dev.1656158629-c4653f9",
+    "discord.js": "^14.0.0-dev.1657757514-fe34f48",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.10",
     "typescript": "^4.7.4"

@@ -56,8 +56,8 @@
   "devDependencies": {
     "@discordx/importer": "^1.1.9",
     "@types/lodash": "^4.14.182",
-    "discord.js": "^14.0.0-dev.1656158629-c4653f9",
-    "discordx": "^10.0.0-dev.1656316909.33974524",
+    "discord.js": "^14.0.0-dev.1657757514-fe34f48",
+    "discordx": "^10.0.0-dev.1656397813.51981f56",
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
