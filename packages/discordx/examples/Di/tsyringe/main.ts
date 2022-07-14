@@ -1,11 +1,14 @@
 import "reflect-metadata";
 
+import { tsyringeDependencyRegistryEngine } from "@discordx/di";
+import { container } from "tsyringe";
+
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client, DIService } from "../../../src/index.js";
 
 // initialize TSyringe container
 // it's important, this done before calling bot.login
-DIService.engine = tsyringeDependencyRegistryEngine;
+DIService.engine = tsyringeDependencyRegistryEngine.setContainer(container);
 
 export class Main {
   private static _client: Client;

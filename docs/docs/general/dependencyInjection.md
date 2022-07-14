@@ -21,13 +21,18 @@ We have default implementations of the `IDependencyRegistryEngine` for the follo
 - TSyringe (`tsyringeDependencyRegistryEngine`)
 - TypeDi (`typeDiDependencyRegistryEngine`)
 
-Before you import or define any `@Discord` classes, you must bind your di engine to discordx (Whether imported from `importx` or another custom loader). To accomplish this, simply add `DIService.engine = implemntation` before the aforementioned importer, As shown in the examples below.
+Before you import or define any `@Discord` classes, you must bind your di engine to discordx (Whether imported
+from `importx` or another custom loader). To accomplish this, simply add `DIService.engine = implemntation` before the
+aforementioned importer, As shown in the examples below.
+
+In the case of `tsyringeDependencyRegistryEngine` because of how shared containers work, you MUST set the container
+reference from your side.
 
 ```ts title="TSyringe"
 import { container } from "tsyringe";
 import { DIService, tsyringeDependencyRegistryEngine } from "discordx";
 
-DIService.engine = tsyringeDependencyRegistryEngine;
+DIService.engine = tsyringeDependencyRegistryEngine.setContainer(container); // set the container
 ```
 
 ```ts title="TypeDi"
