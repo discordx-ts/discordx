@@ -4,7 +4,9 @@ import type { constructor } from "tsyringe/dist/typings/types/index.js";
 import type { InstanceOf } from "../../index.js";
 import type { IDependencyRegistryEngine } from "../IDependencyRegistryEngine.js";
 
-export class TsyringeDependencyRegistryEngine implements IDependencyRegistryEngine {
+export class TsyringeDependencyRegistryEngine
+  implements IDependencyRegistryEngine
+{
   public static readonly token = Symbol("discordx");
 
   private static useToken = false;
