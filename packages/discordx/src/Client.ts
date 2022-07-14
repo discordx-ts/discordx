@@ -335,7 +335,7 @@ export class Client extends ClientJS {
         );
       });
     } else {
-      this.logger.log("\tNo events detected");
+      this.logger.log("\tNo event detected");
     }
 
     this.logger.log("");
@@ -360,6 +360,30 @@ export class Client extends ClientJS {
       });
     } else {
       this.logger.log("\tNo select menu detected");
+    }
+
+    this.logger.log("");
+
+    this.logger.log("client >> modals");
+
+    if (this.modalComponents.length) {
+      this.modalComponents.forEach((menu) => {
+        this.logger.log(`>> ${menu.id} (${menu.classRef.name}.${menu.key})`);
+      });
+    } else {
+      this.logger.log("\tNo modal detected");
+    }
+
+    this.logger.log("");
+
+    this.logger.log("client >> reactions");
+
+    if (this.reactions.length) {
+      this.reactions.forEach((menu) => {
+        this.logger.log(`>> ${menu.emoji} (${menu.classRef.name}.${menu.key})`);
+      });
+    } else {
+      this.logger.log("\tNo reaction detected");
     }
 
     this.logger.log("");
@@ -464,7 +488,7 @@ export class Client extends ClientJS {
         this.logger.log("");
       });
     } else {
-      this.logger.log("\tNo simple commands detected");
+      this.logger.log("\tNo simple command detected");
     }
 
     this.logger.log("\n");
@@ -1175,7 +1199,11 @@ export class Client extends ClientJS {
     if ((log ?? !this.silent) && !results.some((res) => res)) {
       this.logger.error(
         `${this.user?.username ?? this.botId} >> ${
-          interaction.isButton() ? "button" : "select menu"
+          interaction.isButton()
+            ? "button"
+            : interaction.isSelectMenu()
+            ? "select menu"
+            : "modal"
         } component handler not found, interactionId: ${
           interaction.id
         } | customId: ${interaction.customId}`

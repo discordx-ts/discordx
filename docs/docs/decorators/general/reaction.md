@@ -26,11 +26,14 @@ async function start() {
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
     partials: ["MESSAGE", "CHANNEL", "REACTION"], // Necessary to receive reactions for uncached messages
   });
+
   client.on("messageReactionAdd", (reaction, user) => {
     this.Client.executeReaction(reaction, user);
   });
+
   await client.login("YOUR_TOKEN");
 }
+
 start();
 ```
 
@@ -65,62 +68,71 @@ Reaction(name: string, options: ReactionOptions)
 ### name
 
 The reaction emoji, either unicode, custom emoji name, or custom emoji snowflake.
-| type | default | required |
+
+| type   | default | required |
 | ------ | ------- | -------- |
-| string | | Yes |
+| string |         | Yes      |
 
 ### options
 
 Multiple options, check below.
-| type | default | required |
+
+| type   | default   | required |
 | ------ | --------- | -------- |
-| object | undefined | No |
+| object | undefined | No       |
 
 #### `remove`
 
 Whether or not to remove the reaction upon execution.
-| type | default |
+
+| type    | default |
 | ------- | ------- |
-| boolean | true |
+| boolean | true    |
 
 #### `aliases`
 
 Alternative emojis for this reaction handler.
-| type | default |
+
+| type      | default |
 | --------- | ------- |
-| string[ ] | [ ] |
+| string[ ] | [ ]     |
 
 #### `partial`
 
 If enabled, discord.ts will not fetch the reaction or user when they are partial.
-| type | default |
+
+| type    | default |
 | ------- | ------- |
-| boolean | false |
+| boolean | false   |
 
 #### `Description`
 
 A description of what the reaction does.
-| type | default |
+
+| type   | default |
 | ------ | ------- |
-| string | |
+| string |         |
 
 #### `botIds`
 
 Array of bot ids which the reaction will be executed on.
-| type | default |
+
+| type      | default |
 | --------- | ------- |
-| string[ ] | [ ] |
+| string[ ] | [ ]     |
 
 #### `directMessage`
 
 Allow reaction execution from direct messages.
-| type | default |
+
+| type    | default |
 | ------- | ------- |
-| boolean | true |
+| boolean | true    |
 
 #### `guilds`
 
 Array of guild ids which the reaction will be executed in.
-| type | default |
+
+| type         | default |
 | ------------ | ------- |
-| Snowflake[ ] | [ ] |
+| Snowflake[ ] | [ ]     |
