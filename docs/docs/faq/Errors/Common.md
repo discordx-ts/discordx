@@ -81,6 +81,7 @@ node_modules/@discordjs/builders/dist/index.d.ts:14:78 - error TS2344: Type '{ n
 #### Solution
 
 In your tsconfig.json, add:
+
 ```json
 skipLibCheck: true
 ```
