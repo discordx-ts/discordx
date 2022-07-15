@@ -1,13 +1,16 @@
 import "reflect-metadata";
 
 import { Intents } from "discord.js";
+import { Container, Service } from "typedi";
 
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client, DIService } from "../../../src/index.js";
 
 // initialize TypeDI container
 // it's important that this is done before calling client.login
-DIService.engine = typeDiDependencyRegistryEngine;
+DIService.engine = typeDiDependencyRegistryEngine
+  .setService(Service)
+  .setInjector(Container);
 
 export class Main {
   private static _client: Client;

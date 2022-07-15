@@ -8,7 +8,7 @@ import { Client, DIService } from "../../../src/index.js";
 
 // initialize TSyringe container
 // it's important, this done before calling bot.login
-DIService.engine = tsyringeDependencyRegistryEngine.setContainer(container);
+DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 
 export class Main {
   private static _client: Client;

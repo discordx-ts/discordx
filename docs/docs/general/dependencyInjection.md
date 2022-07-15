@@ -32,14 +32,16 @@ reference from your side.
 import { container } from "tsyringe";
 import { DIService, tsyringeDependencyRegistryEngine } from "discordx";
 
-DIService.engine = tsyringeDependencyRegistryEngine.setContainer(container); // set the container
+DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container); // set the container
 ```
+
+For TypeDi, both the service Method and the container must be set
 
 ```ts title="TypeDi"
 import { DIService, typeDiDependencyRegistryEngine } from "discordx";
-import { Container } from "typedi";
+import { Container, Service } from "typedi";
 
-DIService.engine = typeDiDependencyRegistryEngine;
+DIService.engine = typeDiDependencyRegistryEngine.setService(Service).setInjector(Container);
 ```
 
 ```ts title="customEngine"

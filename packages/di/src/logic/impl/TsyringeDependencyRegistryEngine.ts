@@ -2,9 +2,11 @@ import type { DependencyContainer } from "tsyringe";
 import type { constructor } from "tsyringe/dist/typings/types/index.js";
 
 import type { InstanceOf } from "../../index.js";
+import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
 import type { IDependencyRegistryEngine } from "../IDependencyRegistryEngine.js";
 
 export class TsyringeDependencyRegistryEngine
+  extends AbstractConfigurableDependencyInjector<DependencyContainer>
   implements IDependencyRegistryEngine
 {
   public static readonly token = Symbol("discordx");
@@ -14,7 +16,6 @@ export class TsyringeDependencyRegistryEngine
   private static _instance: TsyringeDependencyRegistryEngine;
 
   private _serviceSet = new Set<unknown>();
-  private container: DependencyContainer | undefined;
 
   public static get instance(): TsyringeDependencyRegistryEngine {
     if (!TsyringeDependencyRegistryEngine._instance) {
@@ -25,38 +26,33 @@ export class TsyringeDependencyRegistryEngine
     return TsyringeDependencyRegistryEngine._instance;
   }
 
-  public setContainer(tsContainer: DependencyContainer): this {
-    this.container = tsContainer;
-    return this;
-  }
-
   public set useTokenization(useToken: boolean) {
     TsyringeDependencyRegistryEngine.useToken = useToken;
   }
 
   public addService<T>(classType: T): void {
-    if (!this.container) {
+    if (!this.injector) {
       throw new Error("Please set the container!");
     }
     const clazz = classType as unknown as new () => InstanceOf<T>;
     if (TsyringeDependencyRegistryEngine.useToken) {
-      this.container.registerSingleton(
+      this.injector.registerSingleton(
         TsyringeDependencyRegistryEngine.token,
         clazz
       );
       return;
     }
     this._serviceSet.add(classType);
-    this.container.registerSingleton(clazz);
+    this.injector.registerSingleton(clazz);
   }
 
   public getService<T>(classType: T): InstanceOf<T> | null {
-    if (!this.container) {
+    if (!this.injector) {
       throw new Error("Please set the container!");
     }
     const clazz = classType as unknown as new () => InstanceOf<T>;
     return (
-      (this.container
+      (this.injector
         .resolveAll(TsyringeDependencyRegistryEngine.token)
         .find(
           (instance) =>
@@ -66,17 +62,17 @@ export class TsyringeDependencyRegistryEngine
   }
 
   public getAllServices(): Set<unknown> {
-    if (!this.container) {
+    if (!this.injector) {
       throw new Error("Please set the container!");
     }
     if (TsyringeDependencyRegistryEngine.useToken) {
       return new Set(
-        this.container.resolveAll(TsyringeDependencyRegistryEngine.token)
+        this.injector.resolveAll(TsyringeDependencyRegistryEngine.token)
       );
     }
     const retSet = new Set<unknown>();
     for (const classRef of this._serviceSet) {
-      retSet.add(this.container.resolve(classRef as constructor<unknown>));
+      retSet.add(this.injector.resolve(classRef as constructor<unknown>));
     }
     return retSet;
   }
