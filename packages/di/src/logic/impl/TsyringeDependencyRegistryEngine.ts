@@ -3,12 +3,8 @@ import type { constructor } from "tsyringe/dist/typings/types/index.js";
 
 import type { InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
-import type { IDependencyRegistryEngine } from "../IDependencyRegistryEngine.js";
 
-export class TsyringeDependencyRegistryEngine
-  extends AbstractConfigurableDependencyInjector<DependencyContainer>
-  implements IDependencyRegistryEngine
-{
+export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<DependencyContainer> {
   public static readonly token = Symbol("discordx");
 
   private static useToken = false;

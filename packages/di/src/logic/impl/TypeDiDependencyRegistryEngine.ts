@@ -3,12 +3,10 @@ import { Token } from "typedi";
 
 import type { InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
-import type { IDependencyRegistryEngine } from "../IDependencyRegistryEngine.js";
 
-export class TypeDiDependencyRegistryEngine
-  extends AbstractConfigurableDependencyInjector<typeof Container>
-  implements IDependencyRegistryEngine
-{
+export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<
+  typeof Container
+> {
   public static readonly token = new Token<unknown>("discordx");
 
   private static _instance: TypeDiDependencyRegistryEngine;
