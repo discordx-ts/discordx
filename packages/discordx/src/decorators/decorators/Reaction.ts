@@ -48,16 +48,16 @@ export function Reaction(
   options?: ReactionOptions
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    const react = DReaction.create(
-      emoji,
-      options?.aliases,
-      options?.botIds,
-      options?.description,
-      options?.directMessage,
-      options?.guilds,
-      options?.remove,
-      options?.partial
-    ).decorate(target.constructor, key, target[key]);
+    const react = DReaction.create({
+      aliases: options?.aliases,
+      botIds: options?.botIds,
+      description: options?.description,
+      directMessage: options?.directMessage,
+      emoji: emoji,
+      guilds: options?.guilds,
+      partial: options?.partial,
+      remove: options?.remove,
+    }).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addReaction(react);
   };

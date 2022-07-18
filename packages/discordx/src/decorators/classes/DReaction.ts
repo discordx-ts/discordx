@@ -2,6 +2,17 @@ import type { Client, IGuild } from "../../index.js";
 import { resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
+type CreateStructure = {
+  aliases?: string[];
+  botIds?: string[];
+  description?: string;
+  directMessage?: boolean;
+  emoji: string;
+  guilds?: IGuild[];
+  partial?: boolean;
+  remove?: boolean;
+};
+
 /**
  * @category Decorator
  */
@@ -71,47 +82,20 @@ export class DReaction extends Method {
     this._partial = value;
   }
 
-  protected constructor(
-    emoji: string,
-    aliases?: string[],
-    botIds?: string[],
-    description?: string,
-    directMessage?: boolean,
-    guilds?: IGuild[],
-    remove?: boolean,
-    partial?: boolean
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
-    this._emoji = emoji;
-    this._description = description ?? this.emoji;
-    this._directMessage = directMessage ?? true;
-    this._guilds = guilds ?? [];
-    this._botIds = botIds ?? [];
-    this._aliases = aliases ?? [];
-    this._remove = remove ?? true;
-    this._partial = partial ?? false;
+    this._emoji = data.emoji;
+    this._description = data.description ?? this.emoji;
+    this._directMessage = data.directMessage ?? true;
+    this._guilds = data.guilds ?? [];
+    this._botIds = data.botIds ?? [];
+    this._aliases = data.aliases ?? [];
+    this._remove = data.remove ?? true;
+    this._partial = data.partial ?? false;
   }
 
-  static create(
-    emoji: string,
-    aliases?: string[],
-    botIds?: string[],
-    description?: string,
-    directMessage?: boolean,
-    guilds?: IGuild[],
-    remove?: boolean,
-    partial?: boolean
-  ): DReaction {
-    return new DReaction(
-      emoji,
-      aliases,
-      botIds,
-      description,
-      directMessage,
-      guilds,
-      remove,
-      partial
-    );
+  static create(data: CreateStructure): DReaction {
+    return new DReaction(data);
   }
 
   isBotAllowed(botId: string): boolean {

@@ -10,6 +10,17 @@ import type {
 import { resolveIGuilds, SimpleCommandOptionType } from "../../index.js";
 import { Method } from "./Method.js";
 
+type CreateStructure = {
+  aliases?: string[];
+  argSplitter?: ArgSplitter;
+  botIds?: string[];
+  description?: string;
+  directMessage?: boolean;
+  guilds?: IGuild[];
+  name: string;
+  prefix?: IPrefix;
+};
+
 /**
  * @category Decorator
  */
@@ -87,48 +98,21 @@ export class DSimpleCommand extends Method {
     this._options = value;
   }
 
-  protected constructor(
-    name: string,
-    aliases?: string[],
-    argSplitter?: ArgSplitter,
-    botIds?: string[],
-    description?: string,
-    directMessage?: boolean,
-    guilds?: IGuild[],
-    prefix?: IPrefix
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
-    this._name = name;
-    this._description = description ?? this.name;
-    this._directMessage = directMessage ?? true;
-    this._argSplitter = argSplitter;
+    this._name = data.name;
+    this._description = data.description ?? this.name;
+    this._directMessage = data.directMessage ?? true;
+    this._argSplitter = data.argSplitter;
     this._options = [];
-    this._prefix = prefix;
-    this._guilds = guilds ?? [];
-    this._botIds = botIds ?? [];
-    this._aliases = aliases ?? [];
+    this._prefix = data.prefix;
+    this._guilds = data.guilds ?? [];
+    this._botIds = data.botIds ?? [];
+    this._aliases = data.aliases ?? [];
   }
 
-  static create(
-    name: string,
-    aliases?: string[],
-    argSplitter?: ArgSplitter,
-    botIds?: string[],
-    description?: string,
-    directMessage?: boolean,
-    guilds?: IGuild[],
-    prefix?: IPrefix
-  ): DSimpleCommand {
-    return new DSimpleCommand(
-      name,
-      aliases,
-      argSplitter,
-      botIds,
-      description,
-      directMessage,
-      guilds,
-      prefix
-    );
+  static create(data: CreateStructure): DSimpleCommand {
+    return new DSimpleCommand(data);
   }
 
   isBotAllowed(botId: string): boolean {

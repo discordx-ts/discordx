@@ -3,6 +3,12 @@ import type { ClientEvents } from "discord.js";
 import type { DiscordEvents } from "../../index.js";
 import { Method } from "./Method.js";
 
+type CreateStructure = {
+  botIds?: string[];
+  event: DiscordEvents;
+  once: boolean;
+};
+
 /**
  * @category Decorator
  */
@@ -32,19 +38,15 @@ export class DOn extends Method {
     this._once = value;
   }
 
-  protected constructor(
-    event: DiscordEvents,
-    once: boolean,
-    botIds?: string[]
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
-    this._event = event;
-    this._once = once;
-    this._botIds = botIds ?? [];
+    this._event = data.event;
+    this._once = data.once;
+    this._botIds = data.botIds ?? [];
   }
 
-  static create(event: DiscordEvents, once: boolean, botIds?: string[]): DOn {
-    return new DOn(event, once, botIds);
+  static create(data: CreateStructure): DOn {
+    return new DOn(data);
   }
 
   isBotAllowed(botId: string): boolean {

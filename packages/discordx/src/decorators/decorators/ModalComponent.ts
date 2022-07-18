@@ -36,12 +36,12 @@ export function ModalComponent(
   params?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    const button = DComponent.create(
-      ComponentType.Modal,
-      id ?? key,
-      params?.guilds,
-      params?.botIds
-    ).decorate(target.constructor, key, target[key]);
+    const button = DComponent.create({
+      botIds: params?.botIds,
+      guilds: params?.guilds,
+      id: id ?? key,
+      type: ComponentType.Modal,
+    }).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addComponentModal(button);
   };

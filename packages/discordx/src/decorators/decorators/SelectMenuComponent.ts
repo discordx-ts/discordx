@@ -77,12 +77,12 @@ export function SelectMenuComponent(
   options?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    const button = DComponent.create(
-      ComponentType.SelectMenu,
-      id ?? key,
-      options?.guilds,
-      options?.botIds
-    ).decorate(target.constructor, key, target[key]);
+    const button = DComponent.create({
+      botIds: options?.botIds,
+      guilds: options?.guilds,
+      id: id ?? key,
+      type: ComponentType.SelectMenu,
+    }).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addComponentSelectMenu(button);
   };

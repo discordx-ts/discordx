@@ -40,15 +40,15 @@ export function Slash(
   return function <T>(target: Record<string, T>, key: string) {
     name = name ?? key;
 
-    const applicationCommand = DApplicationCommand.create(
-      name,
-      "CHAT_INPUT",
-      options?.description,
-      options?.guilds,
-      options?.botIds,
-      options?.descriptionLocalizations,
-      options?.nameLocalizations
-    ).decorate(target.constructor, key, target[key]);
+    const applicationCommand = DApplicationCommand.create({
+      botIds: options?.botIds,
+      description: options?.description,
+      descriptionLocalizations: options?.descriptionLocalizations,
+      guilds: options?.guilds,
+      name: name,
+      nameLocalizations: options?.nameLocalizations,
+      type: "CHAT_INPUT",
+    }).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addApplicationCommandSlash(applicationCommand);
   };

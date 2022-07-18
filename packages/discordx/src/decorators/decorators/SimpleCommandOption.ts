@@ -90,11 +90,17 @@ export function SimpleCommandOption(
 
     const type: SimpleCommandOptionType = options?.type ?? getType(dType);
 
-    const option = DSimpleCommandOption.create(
+    const option = DSimpleCommandOption.create({
+      description: options?.description,
       name,
       type,
-      options?.description
-    ).decorate(target.constructor, key, target[key], target.constructor, index);
+    }).decorate(
+      target.constructor,
+      key,
+      target[key],
+      target.constructor,
+      index
+    );
 
     MetadataStorage.instance.addModifier(
       Modifier.create<DSimpleCommand>((original) => {

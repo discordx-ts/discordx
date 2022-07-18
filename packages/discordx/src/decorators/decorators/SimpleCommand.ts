@@ -56,16 +56,16 @@ export function SimpleCommand(
   return function <T>(target: Record<string, T>, key: string) {
     name = name ?? key;
 
-    const cmd = DSimpleCommand.create(
-      name,
-      options?.aliases,
-      options?.argSplitter,
-      options?.botIds,
-      options?.description,
-      options?.directMessage,
-      options?.guilds,
-      options?.prefix
-    ).decorate(target.constructor, key, target[key]);
+    const cmd = DSimpleCommand.create({
+      aliases: options?.aliases,
+      argSplitter: options?.argSplitter,
+      botIds: options?.botIds,
+      description: options?.description,
+      directMessage: options?.directMessage,
+      guilds: options?.guilds,
+      name: name,
+      prefix: options?.prefix,
+    }).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addSimpleCommand(cmd);
   };

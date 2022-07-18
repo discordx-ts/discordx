@@ -727,6 +727,18 @@ export class Client extends ClientJS {
     commandJson: ApplicationCommandDataEx,
     rawData: ApplicationCommandDataEx
   ) {
+    // reformat some data
+    commandJson.defaultMemberPermissions =
+      commandJson.defaultMemberPermissions ?? undefined;
+    commandJson.defaultPermission = commandJson.defaultPermission ?? undefined;
+    commandJson.dmPermission = commandJson.dmPermission ?? undefined;
+
+    rawData.defaultMemberPermissions =
+      rawData.defaultMemberPermissions ?? commandJson.defaultMemberPermissions;
+    rawData.defaultPermission =
+      commandJson.defaultPermission ?? commandJson.defaultPermission;
+    rawData.dmPermission = commandJson.dmPermission ?? commandJson.dmPermission;
+
     // remove nulled localization fields from options
     commandJson.options.forEach((op) => {
       if (op.descriptionLocalizations === null) {
@@ -782,10 +794,7 @@ export class Client extends ClientJS {
             "guildId",
             "version",
             "descriptionLocalized",
-            "nameLocalized",
-            "defaultMemberPermissions",
-            "defaultPermission",
-            "dmPermission"
+            "nameLocalized"
           )
         )
       ),

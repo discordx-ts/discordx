@@ -72,19 +72,25 @@ export function SlashOption(
     const type: ApplicationCommandOptionType =
       options?.type ?? getType(reflectedType);
 
-    const option = DApplicationCommandOption.create(
-      name,
-      options?.autocomplete,
-      options?.channelTypes,
-      options?.description,
-      index,
-      options?.maxValue,
-      options?.minValue,
-      options?.required,
-      type,
-      options?.descriptionLocalizations,
-      options?.nameLocalizations
-    ).decorate(target.constructor, key, target[key], target.constructor, index);
+    const option = DApplicationCommandOption.create({
+      autocomplete: options?.autocomplete,
+      channelType: options?.channelTypes,
+      description: options?.description,
+      descriptionLocalizations: options?.descriptionLocalizations,
+      index: index,
+      maxValue: options?.maxValue,
+      minValue: options?.minValue,
+      name: name,
+      nameLocalizations: options?.nameLocalizations,
+      required: options?.required,
+      type: type,
+    }).decorate(
+      target.constructor,
+      key,
+      target[key],
+      target.constructor,
+      index
+    );
 
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand>((original) => {

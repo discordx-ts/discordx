@@ -41,11 +41,11 @@ export function Once(
     descriptor: PropertyDescriptor
   ) {
     const clazz = target as unknown as new () => unknown;
-    const on = DOn.create(event, true, options?.botIds).decorate(
-      clazz.constructor,
-      key,
-      descriptor.value
-    );
+    const on = DOn.create({
+      botIds: options?.botIds,
+      event,
+      once: true,
+    }).decorate(clazz.constructor, key, descriptor.value);
 
     MetadataStorage.instance.addOn(on);
   };
