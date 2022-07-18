@@ -606,13 +606,9 @@ export class Client extends ClientJS {
 
       const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
       commandJson.descriptionLocalizations =
-        findCommand.descriptionLocalizations === null
-          ? undefined
-          : findCommand.descriptionLocalizations;
+        findCommand.descriptionLocalizations ?? undefined;
       commandJson.nameLocalizations =
-        findCommand.nameLocalizations === null
-          ? undefined
-          : findCommand.nameLocalizations;
+        findCommand.nameLocalizations ?? undefined;
 
       if (!this.isApplicationCommandEqual(commandJson, rawData)) {
         commandsToUpdate.push(
