@@ -244,10 +244,13 @@ describe("Slash", () => {
 
     expect(slashesObjects).toEqual([
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "hello",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "hello",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             description: "text - string",
@@ -261,10 +264,13 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "inference",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "inference",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             description: "text - string",
@@ -342,10 +348,13 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "Testing group description",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "testing",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             description: "hello",
@@ -471,10 +480,13 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "group-test-without-description",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "group-test-without-description",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             description: "text group description",
@@ -514,10 +526,13 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "test-x",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "test-x",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             description: "add - sub_command_group",

@@ -88,10 +88,13 @@ describe("Choice", () => {
     );
     expect(slashesObjects).toEqual([
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "hello",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "hello",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             choices: [
@@ -115,10 +118,13 @@ describe("Choice", () => {
         type: "CHAT_INPUT",
       },
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "number",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "number",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             choices: [
@@ -150,10 +156,13 @@ describe("Choice", () => {
         type: "CHAT_INPUT",
       },
       {
+        defaultMemberPermissions: undefined,
+        defaultPermission: undefined,
         description: "string",
-        descriptionLocalizations: null,
+        descriptionLocalizations: undefined,
+        dmPermission: undefined,
         name: "string",
-        nameLocalizations: null,
+        nameLocalizations: undefined,
         options: [
           {
             choices: [
