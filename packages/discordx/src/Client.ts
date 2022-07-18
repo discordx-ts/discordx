@@ -8,7 +8,6 @@ import type {
   CommandInteraction,
   CommandInteractionOption,
   ContextMenuInteraction,
-  //  DiscordAPIError,
   Interaction,
   Message,
   MessageReaction,
