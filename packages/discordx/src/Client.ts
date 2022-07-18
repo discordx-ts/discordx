@@ -736,8 +736,8 @@ export class Client extends ClientJS {
     rawData.defaultMemberPermissions =
       rawData.defaultMemberPermissions ?? commandJson.defaultMemberPermissions;
     rawData.defaultPermission =
-      commandJson.defaultPermission ?? commandJson.defaultPermission;
-    rawData.dmPermission = commandJson.dmPermission ?? commandJson.dmPermission;
+      rawData.defaultPermission ?? commandJson.defaultPermission;
+    rawData.dmPermission = rawData.dmPermission ?? commandJson.dmPermission;
 
     // remove nulled localization fields from options
     commandJson.options.forEach((op) => {
