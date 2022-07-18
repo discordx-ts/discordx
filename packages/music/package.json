@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@discordjs/opus": "^0.5.3",
-    "@discordjs/voice": "^0.10.0",
+    "@discordjs/voice": "^0.11.0",
     "@types/lodash": "^4.14.182",
     "discord.js": "^13.9.0",
     "ffmpeg-static": "^4.4.1",
