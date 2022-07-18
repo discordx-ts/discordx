@@ -732,6 +732,7 @@ export class Client extends ClientJS {
     commandJson: ApplicationCommandDataEx,
     rawData: ApplicationCommandDataEx
   ) {
+    // remove nulled localization fields from options
     commandJson.options.forEach((op) => {
       if (op.descriptionLocalizations === null) {
         op.descriptionLocalizations = undefined;
@@ -775,13 +776,6 @@ export class Client extends ClientJS {
       ) as ApplicationCommandOptionData[];
     }
 
-    // remove unwanted fields from options
-    if (rawData.type === "CHAT_INPUT" && rawData.options) {
-      rawData.options = _.map(rawData.options, (object) =>
-        _.omit(object, ["descriptionLocalized", "nameLocalized"])
-      ) as ApplicationCommandOptionData[];
-    }
-
     return _.isEqual(
       JSON.parse(
         JSON.stringify(
@@ -800,9 +794,7 @@ export class Client extends ClientJS {
           )
         )
       ),
-      JSON.parse(
-        JSON.stringify(_.omit(rawData, "descriptionLocalized", "nameLocalized"))
-      )
+      JSON.parse(JSON.stringify(rawData))
     );
   }
 
