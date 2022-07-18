@@ -102,8 +102,11 @@ export function SlashGroup(
       } else {
         MetadataStorage.instance.addApplicationCommandSlashGroups(
           DApplicationCommandGroup.create<DApplicationCommand>(options.name, {
+            defaultMemberPermissions: options.defaultMemberPermissions,
+            defaultPermission: options.defaultPermission,
             description: options.description,
             descriptionLocalizations: options.descriptionLocalizations,
+            dmPermission: options.dmPermission,
             nameLocalizations: options.nameLocalizations,
           }).decorate(clazz, key ?? clazz.name)
         );

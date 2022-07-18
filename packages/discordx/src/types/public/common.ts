@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ClientEvents } from "discord.js";
+import type { ClientEvents, PermissionResolvable } from "discord.js";
 import type { LocalizationMap } from "discord-api-types/v9";
 
 import type { Client, IGuild, Next, NotEmpty } from "../../index.js";
@@ -69,13 +69,29 @@ export type ILogger = {
 /**
  * Slash group options
  */
-export type SlashGroupOptions = {
+
+export type SlashGroupBase = {
   description?: string;
   descriptionLocalizations?: LocalizationMap;
   name: string;
   nameLocalizations?: LocalizationMap;
+};
+
+export type SlashGroupRoot = SlashGroupBase & {
+  defaultMemberPermissions?: PermissionResolvable;
+  defaultPermission?: boolean;
+  dmPermission?: boolean;
+  root?: undefined;
+};
+
+export type SlashGroupSubRoot = SlashGroupBase & {
+  defaultMemberPermissions?: undefined;
+  defaultPermission?: undefined;
+  dmPermission?: undefined;
   root?: string;
 };
+
+export type SlashGroupOptions = SlashGroupRoot | SlashGroupSubRoot;
 
 /**
  * Event options
