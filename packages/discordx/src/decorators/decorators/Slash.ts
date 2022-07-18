@@ -44,7 +44,6 @@ export function Slash(
       name,
       "CHAT_INPUT",
       options?.description,
-      options?.defaultPermission,
       options?.guilds,
       options?.botIds,
       options?.descriptionLocalizations,

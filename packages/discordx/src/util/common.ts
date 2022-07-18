@@ -1,14 +1,11 @@
-import type { ApplicationCommandPermissions, Guild } from "discord.js";
 import _ from "lodash";
 
 import type {
-  ApplicationCommandMixin,
   Client,
   DApplicationCommand,
   DComponent,
   DReaction,
   IGuild,
-  IPermissions,
   SimpleCommandMessage,
 } from "../index.js";
 
@@ -29,21 +26,4 @@ export const resolveIGuilds = async (
   );
 
   return _.uniqWith(guildX.flat(1), _.isEqual);
-};
-
-export const resolveIPermissions = async (
-  guild: Guild,
-  command: ApplicationCommandMixin | SimpleCommandMessage,
-  permissions: IPermissions[]
-): Promise<ApplicationCommandPermissions[]> => {
-  const permissionX = await Promise.all(
-    permissions.map((resolver) =>
-      typeof resolver === "function" ? resolver(guild, command) : resolver
-    )
-  );
-
-  const uniqFields = ["id", "type"];
-  return _.uniqWith(permissionX.flat(1), (a, b) =>
-    _.isEqual(_.pick(a, uniqFields), _.pick(b, uniqFields))
-  );
 };

@@ -3,12 +3,7 @@ import type {
   Message,
 } from "discord.js";
 
-import type {
-  ArgSplitter,
-  GuardFunction,
-  IGuild,
-  SimpleCommandMessage,
-} from "../../index.js";
+import type { ArgSplitter, GuardFunction, IGuild } from "../../index.js";
 import type { Awaitable, ILogger, IPrefixResolver } from "../index.js";
 
 export interface SimpleCommandConfig {
@@ -30,13 +25,6 @@ export interface SimpleCommandConfig {
      * Define response for not found command
      */
     notFound?: string | ((command: Message) => Awaitable<void>);
-
-    /**
-     * Define response for unauthorized command
-     */
-    unauthorized?:
-      | string
-      | ((command: SimpleCommandMessage) => Awaitable<void>);
   };
 }
 

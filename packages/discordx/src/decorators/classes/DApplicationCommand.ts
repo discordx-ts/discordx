@@ -1,26 +1,13 @@
 import type {
   ApplicationCommandData,
   ApplicationCommandOptionData,
-  ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
-  Guild,
 } from "discord.js";
 import type { LocalizationMap } from "discord-api-types/v9";
 
-import type {
-  ApplicationCommandMixin,
-  ApplicationGuildMixin,
-  Client,
-  IDefaultPermission,
-  IGuild,
-  IPermissions,
-} from "../../index.js";
-import {
-  DApplicationCommandOption,
-  resolveIGuilds,
-  resolveIPermissions,
-} from "../../index.js";
+import type { Client, IGuild } from "../../index.js";
+import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
 /**
@@ -30,13 +17,11 @@ export class DApplicationCommand extends Method {
   private _botIds: string[];
   private _name: string;
   private _nameLocalizations?: LocalizationMap;
-  private _defaultPermission: IDefaultPermission;
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
   private _guilds: IGuild[];
   private _group?: string;
   private _options: DApplicationCommandOption[] = [];
-  private _permissions: IPermissions[] = [];
   private _subgroup?: string;
   private _type: ApplicationCommandType;
 
@@ -45,13 +30,6 @@ export class DApplicationCommand extends Method {
   }
   set botIds(value: string[]) {
     this._botIds = value;
-  }
-
-  get defaultPermission(): IDefaultPermission {
-    return this._defaultPermission;
-  }
-  set defaultPermission(value: IDefaultPermission) {
-    this._defaultPermission = value;
   }
 
   get description(): string {
@@ -103,13 +81,6 @@ export class DApplicationCommand extends Method {
     this._options = value;
   }
 
-  get permissions(): IPermissions[] {
-    return this._permissions;
-  }
-  set permissions(value: IPermissions[]) {
-    this._permissions = value;
-  }
-
   get subgroup(): string | undefined {
     return this._subgroup;
   }
@@ -128,7 +99,6 @@ export class DApplicationCommand extends Method {
     name: string,
     type: ApplicationCommandType,
     description?: string,
-    defaultPermission?: boolean,
     guilds?: IGuild[],
     botIds?: string[],
     descriptionLocalizations?: LocalizationMap,
@@ -138,7 +108,6 @@ export class DApplicationCommand extends Method {
     this._name = name;
     this._type = type;
     this._description = description ?? this.name;
-    this._defaultPermission = defaultPermission ?? true;
     this._guilds = guilds ?? [];
     this._botIds = botIds ?? [];
     this._descriptionLocalizations = descriptionLocalizations;
@@ -149,7 +118,6 @@ export class DApplicationCommand extends Method {
     name: string,
     type: ApplicationCommandType,
     description?: string,
-    defaultPermission?: boolean,
     guilds?: IGuild[],
     botIds?: string[],
     descriptionLocalizations?: LocalizationMap,
@@ -159,7 +127,6 @@ export class DApplicationCommand extends Method {
       name,
       type,
       description,
-      defaultPermission,
       guilds,
       botIds,
       descriptionLocalizations,
@@ -201,13 +168,6 @@ export class DApplicationCommand extends Method {
     return guilds.includes(guildId);
   }
 
-  resolvePermissions(
-    guild: Guild,
-    command: ApplicationCommandMixin
-  ): Promise<ApplicationCommandPermissions[]> {
-    return resolveIPermissions(guild, command, this.permissions);
-  }
-
   toSubCommand(): DApplicationCommandOption {
     const option = DApplicationCommandOption.create(
       this.name,
@@ -225,15 +185,9 @@ export class DApplicationCommand extends Method {
     return option;
   }
 
-  async toJSON(
-    command?: ApplicationGuildMixin
-  ): Promise<ApplicationCommandData> {
+  toJSON(): ApplicationCommandData {
     if (this.type !== "CHAT_INPUT") {
       const data: ApplicationCommandData = {
-        defaultPermission:
-          typeof this.defaultPermission === "boolean"
-            ? this.defaultPermission
-            : await this.defaultPermission.resolver(command),
         description: "",
         name: this.name,
         nameLocalizations:
@@ -259,10 +213,6 @@ export class DApplicationCommand extends Method {
       .map((option) => option.toJSON());
 
     const data: ApplicationCommandData = {
-      defaultPermission:
-        typeof this.defaultPermission === "boolean"
-          ? this.defaultPermission
-          : await this.defaultPermission.resolver(command),
       description: this.description,
       descriptionLocalizations:
         this.descriptionLocalizations ?? (null as unknown as undefined),

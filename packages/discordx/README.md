@@ -125,7 +125,6 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@On`](https://discord-ts.js.org/docs/decorators/general/on)
 - [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
 - [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
-- [`@Permission`](https://discord-ts.js.org/docs/decorators/general/permission)
 - [`@Reaction`](https://discord-ts.js.org/docs/decorators/general/reaction)
 
 ## Commands
@@ -315,12 +314,6 @@ Create a simple command handler for messages using `@SimpleCommand`. Example `!h
 @Discord()
 class Example {
   @SimpleCommand("perm-check", { aliases: ["p-test"] })
-  @Permission(false)
-  @Permission({
-    id: "462341082919731200",
-    type: "USER",
-    permission: true,
-  })
   permFunc(command: SimpleCommandMessage) {
     command.message.reply("access granted");
   }

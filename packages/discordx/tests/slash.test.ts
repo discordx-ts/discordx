@@ -15,7 +15,6 @@ import {
   Discord,
   Guard,
   Guild,
-  Permission,
   Slash,
   SlashChoice,
   SlashGroup,
@@ -152,7 +151,6 @@ export class Example2 {
 })
 export class Example3 {
   @Slash("hello")
-  @Permission({ id: "123", permission: true, type: "USER" })
   add(
     @SlashOption("text", { required: false })
     text: string,
@@ -239,13 +237,6 @@ beforeAll(async () => {
 describe("Slash", () => {
   it("Should create the slash structure", async () => {
     expect(client.applicationCommands[0]?.guilds).toEqual(["invalid_id"]);
-    expect(client.applicationCommands[0]?.permissions).toEqual([
-      {
-        id: "123",
-        permission: true,
-        type: "USER",
-      },
-    ]);
 
     const slashesObjects = await Promise.all(
       client.applicationCommands.map((slash) => slash.toJSON())
@@ -253,7 +244,6 @@ describe("Slash", () => {
 
     expect(slashesObjects).toEqual([
       {
-        defaultPermission: true,
         description: "hello",
         descriptionLocalizations: null,
         name: "hello",
@@ -271,7 +261,6 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
-        defaultPermission: true,
         description: "inference",
         descriptionLocalizations: null,
         name: "inference",
@@ -353,7 +342,6 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
-        defaultPermission: true,
         description: "Testing group description",
         descriptionLocalizations: null,
         name: "testing",
@@ -483,7 +471,6 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
-        defaultPermission: true,
         description: "group-test-without-description",
         descriptionLocalizations: null,
         name: "group-test-without-description",
@@ -527,7 +514,6 @@ describe("Slash", () => {
         type: "CHAT_INPUT",
       },
       {
-        defaultPermission: true,
         description: "test-x",
         descriptionLocalizations: null,
         name: "test-x",

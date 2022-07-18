@@ -465,11 +465,6 @@ export class MetadataStorage {
 
       slashParent.guilds = [...slashParent.discord.guilds];
       slashParent.botIds = [...slashParent.discord.botIds];
-      slashParent.permissions = [
-        ...slashParent.permissions,
-        ...slashParent.discord.permissions,
-      ];
-      slashParent.defaultPermission = slashParent.discord.defaultPermission;
 
       groupedSlashes.set(group.name, slashParent);
 
@@ -483,8 +478,6 @@ export class MetadataStorage {
 
       this._applicationCommandSlashesFlat.forEach((slash) => {
         if (slash.group === slashParent.name) {
-          slash.defaultPermission = slashParent.defaultPermission;
-          slash.permissions = slashParent.permissions;
           slash.guilds = slashParent.guilds;
           slash.botIds = slashParent.botIds;
         }

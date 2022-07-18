@@ -14,12 +14,6 @@ A simple command is dependent on the content of the message but unfortunately, D
 @Discord()
 class Example {
   @SimpleCommand("perm-check", { aliases: ["p-test"] })
-  @Permission(false)
-  @Permission({
-    id: "462341082919731200",
-    type: "USER",
-    permission: true,
-  })
   async permFunc(command: SimpleCommandMessage) {
     command.message.reply("access granted");
   }
@@ -140,14 +134,6 @@ Array of bot ids, for which only the command will be executed.
 | type      | default |
 | --------- | ------- |
 | string[ ] | [ ]     |
-
-#### `defaultPermission`
-
-When true, the command can be used by anyone except those who have been denied by the @Permission decorator, vice versa.
-
-| type    | default |
-| ------- | ------- |
-| boolean | true    |
 
 #### `directMessage`
 

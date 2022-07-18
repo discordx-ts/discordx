@@ -8,7 +8,6 @@ import type { ChannelTypes, DApplicationCommand, IGuild } from "../../index.js";
 
 export type ApplicationCommandOptions = {
   botIds?: string[];
-  defaultPermission?: boolean;
   description?: string;
   descriptionLocalizations?: LocalizationMap;
   guilds?: IGuild[];

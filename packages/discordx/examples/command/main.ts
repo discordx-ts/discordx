@@ -39,20 +39,6 @@ export class Main {
 
         responses: {
           notFound: "command not found, use !help",
-          unauthorized: (command) => {
-            if (command.message.channel.type === "DM") {
-              command.message.reply(
-                "do you have permission to access this command?"
-              );
-              return;
-            }
-
-            // let's have different message for guild command
-            command.message.reply(
-              `${command.message.member} you are not authorized to access ${command.prefix}${command.name} command`
-            );
-            return;
-          },
         },
       },
     });

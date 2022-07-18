@@ -61,7 +61,6 @@ export function SimpleCommand(
       options?.aliases,
       options?.argSplitter,
       options?.botIds,
-      options?.defaultPermission,
       options?.description,
       options?.directMessage,
       options?.guilds,

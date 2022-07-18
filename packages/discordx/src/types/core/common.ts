@@ -1,16 +1,9 @@
-import type {
-  ApplicationCommandPermissions,
-  Guild,
-  Message,
-  Snowflake,
-} from "discord.js";
+import type { Message, Snowflake } from "discord.js";
 
 import type {
-  ApplicationCommandMixin,
   Client,
   DApplicationCommand,
   DComponent,
-  DefaultPermissionResolver,
   DReaction,
   DSimpleCommand,
   SimpleCommandMessage,
@@ -25,20 +18,6 @@ export type IPrefixResolver =
   | string
   | string[]
   | ((message: Message) => Awaitable<string | string[]>);
-
-export type IDefaultPermission = boolean | DefaultPermissionResolver;
-
-export type IPermissions =
-  | ApplicationCommandPermissions
-  | ApplicationCommandPermissions[]
-  | ((
-      guild: Guild,
-      command: ApplicationCommandMixin | SimpleCommandMessage
-    ) =>
-      | ApplicationCommandPermissions
-      | ApplicationCommandPermissions[]
-      | Promise<ApplicationCommandPermissions>
-      | Promise<ApplicationCommandPermissions[]>);
 
 export type IGuild =
   | Snowflake

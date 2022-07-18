@@ -65,7 +65,6 @@ export function ContextMenu(
       name,
       type,
       undefined,
-      options?.defaultPermission,
       options?.guilds,
       options?.botIds
     ).decorate(target.constructor, key, target[key]);

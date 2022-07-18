@@ -45,7 +45,6 @@ import type {
 } from "./index.js";
 import {
   ApplicationCommandMixin,
-  ApplicationGuildMixin,
   MetadataStorage,
   resolveIGuilds,
   SimpleCommandMessage,
@@ -525,7 +524,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Initialize all the @Slash with their permissions
+   * Initialize all the @Slash
    */
   async initApplicationCommands(options?: {
     global?: InitCommandOptions;
@@ -592,33 +591,27 @@ export class Client extends ClientJS {
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
-    await Promise.all(
-      DCommands.map(async (DCommand) => {
-        const findCommand = ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+    DCommands.map((DCommand) => {
+      const findCommand = ApplicationCommands.find(
+        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+      );
+
+      if (!findCommand) {
+        return;
+      }
+
+      const rawData = DCommand.toJSON();
+
+      const commandJson = findCommand.toJSON() as ApplicationCommandData;
+
+      if (!this.isApplicationCommandEqual(commandJson, rawData)) {
+        commandsToUpdate.push(
+          new ApplicationCommandMixin(findCommand, DCommand)
         );
-
-        if (!findCommand) {
-          return;
-        }
-
-        const rawData = await DCommand.toJSON(
-          new ApplicationGuildMixin(guild, DCommand)
-        );
-
-        const commandJson = findCommand.toJSON() as ApplicationCommandData;
-
-        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-          commandsToUpdate.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        } else {
-          commandsToSkip.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        }
-      })
-    );
+      } else {
+        commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
+      }
+    });
 
     // filter commands to delete
     const commandsToDelete: ApplicationCommand[] = [];
@@ -685,21 +678,13 @@ export class Client extends ClientJS {
     // perform bulk update with discord using set operation
     const bulkUpdate: ApplicationCommandData[] = [];
 
-    const operationToSkip = commandsToSkip.map(async (cmd) =>
-      bulkUpdate.push(
-        await cmd.instance.toJSON(
-          new ApplicationGuildMixin(guild, cmd.instance)
-        )
-      )
+    const operationToSkip = commandsToSkip.map((cmd) =>
+      bulkUpdate.push(cmd.instance.toJSON())
     );
 
     const operationToAdd = options?.disable?.add
       ? []
-      : commandsToAdd.map(async (DCommand) =>
-          bulkUpdate.push(
-            await DCommand.toJSON(new ApplicationGuildMixin(guild, DCommand))
-          )
-        );
+      : commandsToAdd.map((DCommand) => bulkUpdate.push(DCommand.toJSON()));
 
     const operationToUpdate = options?.disable?.update
       ? commandsToUpdate.map(async (cmd) =>
@@ -707,13 +692,7 @@ export class Client extends ClientJS {
             (await cmd.command.toJSON()) as ApplicationCommandData
           )
         )
-      : commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(
-            await cmd.instance.toJSON(
-              new ApplicationGuildMixin(guild, cmd.instance)
-            )
-          )
-        );
+      : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
       ? commandsToDelete.map(async (cmd) =>
@@ -917,10 +896,6 @@ export class Client extends ClientJS {
       this.logger.info(str);
     }
 
-    // Only available for Guilds
-    // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
-    // if (slash.permissions.length <= 0) return;
-
     // If there are no changes to share with Discord, cancel the task
     if (
       commandsToAdd.length + commandsToUpdate.length + commandsToDelete.size ===
@@ -974,115 +949,6 @@ export class Client extends ClientJS {
 
     await this.application?.commands.set(bulkUpdate);
   }
-
-  /**
-   * Update application commands permission by GuildId
-   *
-   * @param guildId - Guild identifier
-   * @param DCommands - Array of commands
-   * @param log - Enable log
-   */
-  async initGuildApplicationPermissions(
-    guildId: string,
-    DCommands: DApplicationCommand[],
-    log?: boolean
-  ): Promise<void> {
-    await new Promise((resolve) => {
-      log;
-      resolve(true);
-    });
-
-    this.logger.warn("\n\n");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn(
-      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
-    );
-    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn("\n\n");
-  }
-  //    const guild = this.guilds.cache.get(guildId);
-  //    if (!guild) {
-  //      this.logger.error(
-  //        `${
-  //          this.user?.username ?? this.botId
-  //        } >> initGuildApplicationPermissions: guild unavailable: ${guildId}`
-  //      );
-  //      return;
-  //    }
-  //
-  //    // fetch already registered application command
-  //    const ApplicationCommands = await guild.commands.fetch();
-  //
-  //    const commandsToUpdate: ApplicationCommandMixin[] = [];
-  //
-  //    ApplicationCommands.forEach((cmd) => {
-  //      const findCommand = DCommands.find(
-  //        (DCommand) => DCommand.name === cmd.name
-  //      );
-  //
-  //      if (findCommand) {
-  //        commandsToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
-  //      }
-  //    });
-  //
-  //    await Promise.all(
-  //      commandsToUpdate.map((cmd) => {
-  //        return guild.commands.permissions
-  //          .fetch({ command: cmd.command })
-  //          .then(async (permissions) => {
-  //            const commandPermissions = await cmd.instance.resolvePermissions(
-  //              guild,
-  //              cmd
-  //            );
-  //
-  //            if (!_.isEqual(permissions, commandPermissions)) {
-  //              if (log ?? !this.silent) {
-  //                this.logger.info(
-  //                  `${this.user?.username ?? this.botId} >> command: ${
-  //                    cmd.name
-  //                  } >> permissions >> updating >> guild: #${guild}`
-  //                );
-  //              }
-  //
-  //              await cmd.command.permissions.set({
-  //                permissions: commandPermissions,
-  //              });
-  //            }
-  //          })
-  //          .catch(async (e: DiscordAPIError) => {
-  //            if (e.code !== 10066) {
-  //              throw e;
-  //            }
-  //
-  //            if (!cmd.instance.permissions.length) {
-  //              return;
-  //            }
-  //
-  //            const commandPermissions = await cmd.instance.resolvePermissions(
-  //              guild,
-  //              cmd
-  //            );
-  //
-  //            if (log ?? !this.silent) {
-  //              this.logger.info(
-  //                `${this.user?.username ?? this.botId} >> command: ${
-  //                  cmd.name
-  //                } >> permissions >> adding >> guild: #${guild}`
-  //              );
-  //            }
-  //
-  //            await cmd.command.permissions.set({
-  //              permissions: commandPermissions,
-  //            });
-  //          });
-  //      })
-  //    );
-  //  }
 
   /**
    * Clear the application commands globally or for some guilds
@@ -1532,53 +1398,6 @@ export class Client extends ClientJS {
     // check dm allowed or not
     if (!command.info.directMessage && !message.guild) {
       return;
-    }
-
-    // permission works only if guild present
-    if (command.message.guild) {
-      // check for member permissions
-      const permissions = await command.info.resolvePermissions(
-        command.message.guild,
-        command
-      );
-
-      const defaultPermission =
-        typeof command.info.defaultPermission === "boolean"
-          ? command.info.defaultPermission
-          : await command.info.defaultPermission.resolver(command);
-
-      const userPermissions = permissions.filter((perm) =>
-        perm.type === "USER" && defaultPermission
-          ? !perm.permission
-          : perm.permission
-      );
-
-      const rolePermissions = permissions.filter((perm) =>
-        perm.type === "ROLE" && defaultPermission
-          ? !perm.permission
-          : perm.permission
-      );
-
-      const isUserIdPresent =
-        userPermissions.some((perm) => perm.id === message.member?.id) ||
-        rolePermissions.some((perm) =>
-          message.member?.roles.cache.has(perm.id)
-        );
-
-      // user is not allowed to access this command
-      if (defaultPermission ? isUserIdPresent : !isUserIdPresent) {
-        const unauthorizedResponse =
-          this.simpleCommandConfig?.responses?.unauthorized;
-
-        if (unauthorizedResponse) {
-          if (typeof unauthorizedResponse === "string") {
-            message.reply(unauthorizedResponse);
-            return;
-          }
-          await unauthorizedResponse(command);
-        }
-        return;
-      }
     }
 
     return command.info.execute(this.guards, command, this);

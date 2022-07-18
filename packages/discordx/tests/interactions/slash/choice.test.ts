@@ -88,7 +88,6 @@ describe("Choice", () => {
     );
     expect(slashesObjects).toEqual([
       {
-        defaultPermission: true,
         description: "hello",
         descriptionLocalizations: null,
         name: "hello",
@@ -116,7 +115,6 @@ describe("Choice", () => {
         type: "CHAT_INPUT",
       },
       {
-        defaultPermission: true,
         description: "number",
         descriptionLocalizations: null,
         name: "number",
@@ -152,7 +150,6 @@ describe("Choice", () => {
         type: "CHAT_INPUT",
       },
       {
-        defaultPermission: true,
         description: "string",
         descriptionLocalizations: null,
         name: "string",

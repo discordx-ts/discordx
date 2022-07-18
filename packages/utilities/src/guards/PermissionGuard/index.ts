@@ -19,7 +19,7 @@ export type PermissionOptions = Omit<MessageOptions, "flags"> & {
 };
 
 /**
- * This is useful for global commands that cannot use the `@Permission` decorator until Permissions 2v is released.
+ * This is useful for global commands
  *
  * @param permissions - Permissions array or a function that resolves permissions
  * @param options - options

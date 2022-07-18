@@ -178,14 +178,6 @@ Array of bot ids, for which only the event will be executed.
 | --------- | ------- |
 | string[ ] | [ ]     |
 
-#### `defaultPermission`
-
-"You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
-
-| type    | default |
-| ------- | ------- |
-| boolean | true    |
-
 #### `Description`
 
 The Slash command description
