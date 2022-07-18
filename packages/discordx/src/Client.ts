@@ -976,42 +976,6 @@ export class Client extends ClientJS {
   }
 
   /**
-   * init all guild command permissions
-   *
-   * @param log - Enable log
-   */
-  async initApplicationPermissions(log?: boolean): Promise<void> {
-    await new Promise((resolve) => {
-      log;
-      resolve(true);
-    });
-
-    this.logger.warn("\n\n");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn(
-      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
-    );
-    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn("\n\n");
-  }
-  //    const guildDCommandStore = await this.CommandByGuild();
-  //    const promises: Promise<void>[] = [];
-  //
-  //    guildDCommandStore.forEach((commands, guildId) => {
-  //      promises.push(
-  //        this.initGuildApplicationPermissions(guildId, commands, log)
-  //      );
-  //    });
-  //
-  //    await Promise.all(promises);
-  //  }
-
-  /**
    * Update application commands permission by GuildId
    *
    * @param guildId - Guild identifier

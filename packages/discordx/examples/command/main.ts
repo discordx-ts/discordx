@@ -63,7 +63,6 @@ export class Main {
 
     this._client.once("ready", async () => {
       await this._client.initApplicationCommands();
-      await this._client.initApplicationPermissions();
 
       console.log("Bot started");
     });
