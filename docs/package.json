@@ -16,7 +16,7 @@
     "dev": "docusaurus start"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.22",
+    "@docusaurus/core": "2.0.0-rc.1",
     "@docusaurus/preset-classic": "2.0.0-beta.22",
     "@docusaurus/remark-plugin-npm2yarn": "^2.0.0-beta.22",
     "@docusaurus/theme-search-algolia": "^2.0.0-beta.22",
