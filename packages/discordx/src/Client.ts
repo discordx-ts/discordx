@@ -23,6 +23,7 @@ import { Client as ClientJS } from "discord.js";
 import _ from "lodash";
 
 import type {
+  ApplicationCommandDataEx,
   ClientOptions,
   DApplicationCommand,
   DApplicationCommandGroup,
@@ -576,7 +577,9 @@ export class Client extends ClientJS {
     }
 
     // fetch already registered application command
-    const ApplicationCommands = await guild.commands.fetch();
+    const ApplicationCommands = await guild.commands.fetch({
+      withLocalizations: true,
+    });
 
     // filter only unregistered application command
     const commandsToAdd = DCommands.filter(
@@ -602,7 +605,15 @@ export class Client extends ClientJS {
 
       const rawData = DCommand.toJSON();
 
-      const commandJson = findCommand.toJSON() as ApplicationCommandData;
+      const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
+      commandJson.descriptionLocalizations =
+        findCommand.descriptionLocalizations === null
+          ? undefined
+          : findCommand.descriptionLocalizations;
+      commandJson.nameLocalizations =
+        findCommand.nameLocalizations === null
+          ? undefined
+          : findCommand.nameLocalizations;
 
       if (!this.isApplicationCommandEqual(commandJson, rawData)) {
         commandsToUpdate.push(
@@ -676,7 +687,7 @@ export class Client extends ClientJS {
     }
 
     // perform bulk update with discord using set operation
-    const bulkUpdate: ApplicationCommandData[] = [];
+    const bulkUpdate: ApplicationCommandDataEx[] = [];
 
     const operationToSkip = commandsToSkip.map((cmd) =>
       bulkUpdate.push(cmd.instance.toJSON())
@@ -689,14 +700,14 @@ export class Client extends ClientJS {
     const operationToUpdate = options?.disable?.update
       ? commandsToUpdate.map(async (cmd) =>
           bulkUpdate.push(
-            (await cmd.command.toJSON()) as ApplicationCommandData
+            (await cmd.command.toJSON()) as ApplicationCommandDataEx
           )
         )
       : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
       ? commandsToDelete.map(async (cmd) =>
-          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandDataEx)
         )
       : [];
 
@@ -714,13 +725,22 @@ export class Client extends ClientJS {
       ...operationToDelete,
     ]);
 
-    await guild.commands.set(bulkUpdate);
+    await guild.commands.set(bulkUpdate as ApplicationCommandData[]);
   }
 
   private isApplicationCommandEqual(
-    commandJson: ApplicationCommandData,
-    rawData: ApplicationCommandData
+    commandJson: ApplicationCommandDataEx,
+    rawData: ApplicationCommandDataEx
   ) {
+    commandJson.options.forEach((op) => {
+      if (op.descriptionLocalizations === null) {
+        op.descriptionLocalizations = undefined;
+      }
+      if (op.nameLocalizations === null) {
+        op.nameLocalizations = undefined;
+      }
+    });
+
     // Solution for sorting, channel types to ensure equal does not fail
     if (commandJson.type === "CHAT_INPUT") {
       commandJson.options?.forEach((op) => {
@@ -751,24 +771,14 @@ export class Client extends ClientJS {
     // remove unwanted fields from options
     if (commandJson.type === "CHAT_INPUT" && commandJson.options) {
       commandJson.options = _.map(commandJson.options, (object) =>
-        _.omit(object, [
-          "descriptionLocalizations",
-          "descriptionLocalized",
-          "nameLocalizations",
-          "nameLocalized",
-        ])
+        _.omit(object, ["descriptionLocalized", "nameLocalized"])
       ) as ApplicationCommandOptionData[];
     }
 
     // remove unwanted fields from options
     if (rawData.type === "CHAT_INPUT" && rawData.options) {
       rawData.options = _.map(rawData.options, (object) =>
-        _.omit(object, [
-          "descriptionLocalizations",
-          "descriptionLocalized",
-          "nameLocalizations",
-          "nameLocalized",
-        ])
+        _.omit(object, ["descriptionLocalized", "nameLocalized"])
       ) as ApplicationCommandOptionData[];
     }
 
@@ -782,23 +792,16 @@ export class Client extends ClientJS {
             "guild",
             "guildId",
             "version",
-            "descriptionLocalizations",
             "descriptionLocalized",
-            "nameLocalizations",
-            "nameLocalized"
+            "nameLocalized",
+            "defaultMemberPermissions",
+            "defaultPermission",
+            "dmPermission"
           )
         )
       ),
       JSON.parse(
-        JSON.stringify(
-          _.omit(
-            rawData,
-            "descriptionLocalizations",
-            "descriptionLocalized",
-            "nameLocalizations",
-            "nameLocalized"
-          )
-        )
+        JSON.stringify(_.omit(rawData, "descriptionLocalized", "nameLocalized"))
       )
     );
   }
@@ -840,30 +843,34 @@ export class Client extends ClientJS {
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
-    await Promise.all(
-      DCommands.map(async (DCommand) => {
-        const findCommand = ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
+    DCommands.map((DCommand) => {
+      const findCommand = ApplicationCommands.find(
+        (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
+      );
+
+      if (!findCommand) {
+        return;
+      }
+
+      const rawData = DCommand.toJSON();
+      const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
+      commandJson.descriptionLocalizations =
+        findCommand.descriptionLocalizations === null
+          ? undefined
+          : findCommand.descriptionLocalizations;
+      commandJson.nameLocalizations =
+        findCommand.nameLocalizations === null
+          ? undefined
+          : findCommand.nameLocalizations;
+
+      if (!this.isApplicationCommandEqual(commandJson, rawData)) {
+        commandsToUpdate.push(
+          new ApplicationCommandMixin(findCommand, DCommand)
         );
-
-        if (!findCommand) {
-          return;
-        }
-
-        const rawData = await DCommand.toJSON();
-        const commandJson = findCommand.toJSON() as ApplicationCommandData;
-
-        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-          commandsToUpdate.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        } else {
-          commandsToSkip.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        }
-      })
-    );
+      } else {
+        commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
+      }
+    });
 
     const commandsToDelete = ApplicationCommands.filter((cmd) =>
       DCommands.every(
@@ -905,31 +912,25 @@ export class Client extends ClientJS {
     }
 
     // perform bulk update with discord using set operation
-    const bulkUpdate: ApplicationCommandData[] = [];
+    const bulkUpdate: ApplicationCommandDataEx[] = [];
 
-    const operationToSkip = commandsToSkip.map(async (cmd) =>
-      bulkUpdate.push(await cmd.instance.toJSON())
+    const operationToSkip = commandsToSkip.map((cmd) =>
+      bulkUpdate.push(cmd.instance.toJSON())
     );
 
     const operationToAdd = options?.disable?.add
       ? []
-      : commandsToAdd.map(async (DCommand) =>
-          bulkUpdate.push(await DCommand.toJSON())
-        );
+      : commandsToAdd.map((DCommand) => bulkUpdate.push(DCommand.toJSON()));
 
     const operationToUpdate = options?.disable?.update
-      ? commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(
-            (await cmd.command.toJSON()) as ApplicationCommandData
-          )
+      ? commandsToUpdate.map((cmd) =>
+          bulkUpdate.push(cmd.command.toJSON() as ApplicationCommandDataEx)
         )
-      : commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(await cmd.instance.toJSON())
-        );
+      : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
-      ? commandsToDelete.map(async (cmd) =>
-          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+      ? commandsToDelete.map((cmd) =>
+          bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx)
         )
       : [];
 
@@ -947,7 +948,9 @@ export class Client extends ClientJS {
       ...operationToDelete,
     ]);
 
-    await this.application?.commands.set(bulkUpdate);
+    await this.application?.commands.set(
+      bulkUpdate as ApplicationCommandData[]
+    );
   }
 
   /**

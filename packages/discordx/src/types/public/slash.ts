@@ -1,4 +1,5 @@
 import type {
+  ApplicationCommandOptionData,
   ApplicationCommandOptionType,
   AutocompleteInteraction,
 } from "discord.js";
@@ -69,3 +70,12 @@ export type SlashAutoCompleteOption =
       interaction: AutocompleteInteraction,
       command: DApplicationCommand
     ) => void | Promise<void>);
+
+export type ApplicationCommandDataEx = {
+  description: string;
+  descriptionLocalizations?: LocalizationMap;
+  name: string;
+  nameLocalizations?: LocalizationMap;
+  options: ApplicationCommandOptionData[];
+  type: string;
+};

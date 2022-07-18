@@ -1,12 +1,11 @@
 import type {
-  ApplicationCommandData,
   ApplicationCommandOptionData,
   ApplicationCommandType,
   CommandInteraction,
 } from "discord.js";
 import type { LocalizationMap } from "discord-api-types/v9";
 
-import type { Client, IGuild } from "../../index.js";
+import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
 import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
@@ -185,13 +184,12 @@ export class DApplicationCommand extends Method {
     return option;
   }
 
-  toJSON(): ApplicationCommandData {
+  toJSON(): ApplicationCommandDataEx {
     if (this.type !== "CHAT_INPUT") {
-      const data: ApplicationCommandData = {
+      const data: ApplicationCommandDataEx = {
         description: "",
         name: this.name,
-        nameLocalizations:
-          this.nameLocalizations ?? (null as unknown as undefined),
+        nameLocalizations: this.nameLocalizations,
         options: [],
         type: this.type,
       };
@@ -212,18 +210,16 @@ export class DApplicationCommand extends Method {
       })
       .map((option) => option.toJSON());
 
-    const data: ApplicationCommandData = {
+    const data: ApplicationCommandDataEx = {
       description: this.description,
-      descriptionLocalizations:
-        this.descriptionLocalizations ?? (null as unknown as undefined),
+      descriptionLocalizations: this.descriptionLocalizations,
       name: this.name,
-      nameLocalizations:
-        this.nameLocalizations ?? (null as unknown as undefined),
+      nameLocalizations: this.nameLocalizations,
       options: options as ApplicationCommandOptionData[],
       type: this.type,
     };
 
-    return data as unknown as ApplicationCommandData;
+    return data;
   }
 
   parseParams(interaction: CommandInteraction): unknown[] {
