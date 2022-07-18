@@ -7,6 +7,15 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Tests",
+      "args": ["--detectOpenHandles"],
+      "program": "${workspaceRoot}/packages/discordx/node_modules/jest/bin/jest.js",
+      "cwd": "${workspaceRoot}/packages/discordx",
+      "runtimeArgs": []
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Pagination",
       "args": [
         "${workspaceRoot}/packages/discordx/examples/localization/main.ts"
