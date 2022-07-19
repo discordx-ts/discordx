@@ -22,3 +22,7 @@
 
 - readme ([4d3bd2](https://github.com/oceanroleplay/discord.ts/commit/4d3bd2a10370013b6f3e9f7e5ad2773dc341305b))
 - seperate lava player ([9ad3b4](https://github.com/oceanroleplay/discord.ts/commit/9ad3b4c3fcac0f23b4a6bf998d3cd413092f7cff))
+
+## Untagged
+
+- fix(lava-player): the VoiceStateUpdate event payload was not completely saved ([#794](https://github.com/oceanroleplay/discord.ts/issues/794)) ([0d5aab](https://github.com/oceanroleplay/discord.ts/commit/0d5aab524782fdf5d21007ec7c228f619beb68cb))

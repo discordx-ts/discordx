@@ -10,6 +10,7 @@
 
 ## Changed
 
+- djs v13.9.0 ([#821](https://github.com/oceanroleplay/discord.ts/issues/821)) ([b82d28](https://github.com/oceanroleplay/discord.ts/commit/b82d28fcedb7687ff5364e0154307ee9855f646e))
 - update djs ([ed294e](https://github.com/oceanroleplay/discord.ts/commit/ed294e3e588ac2c5095011bc2760f463da426265))
 - improve permission guard ([641fba](https://github.com/oceanroleplay/discord.ts/commit/641fba58183f6d84e94878f5e44980a899f3cb04))
 - permissions guard ([ee9eb7](https://github.com/oceanroleplay/discord.ts/commit/ee9eb75cbc7f42c068c08afe157545c8d20bf00e))

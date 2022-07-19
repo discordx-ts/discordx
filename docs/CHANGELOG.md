@@ -1,6 +1,16 @@
 # Stage
 
-# [v9.7.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.7.0) (2022-06-28)
+# [v9.9.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.9.0) (2022-07-19)
+
+## Changed
+
+- djs v13.9.0 ([#821](https://github.com/oceanroleplay/discord.ts/issues/821)) ([b82d28](https://github.com/oceanroleplay/discord.ts/commit/b82d28fcedb7687ff5364e0154307ee9855f646e))
+
+## Documentation
+
+- fix alignments ([04c922](https://github.com/oceanroleplay/discord.ts/commit/04c922368e72a55e1f6094ed58ef19cf27776243))
+
+# [v9.8.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v9.8.0) (2022-06-28)
 
 ## Features
 
