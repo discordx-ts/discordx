@@ -2,6 +2,13 @@ import type { Client, ComponentType, IGuild } from "../../index.js";
 import { resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
+type CreateStructure = {
+  botIds?: string[];
+  guilds?: IGuild[];
+  id: string | RegExp;
+  type: ComponentType;
+};
+
 /**
  * @category Decorator
  */
@@ -36,26 +43,16 @@ export class DComponent extends Method {
     this._guilds = value;
   }
 
-  protected constructor(
-    type: ComponentType,
-    id: string | RegExp,
-    guilds?: IGuild[],
-    botIds?: string[]
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
-    this._type = type;
-    this._id = id;
-    this._guilds = guilds ?? [];
-    this._botIds = botIds ?? [];
+    this._type = data.type;
+    this._id = data.id;
+    this._guilds = data.guilds ?? [];
+    this._botIds = data.botIds ?? [];
   }
 
-  static create(
-    type: ComponentType,
-    id: string | RegExp,
-    guilds?: IGuild[],
-    botIds?: string[]
-  ): DComponent {
-    return new DComponent(type, id, guilds, botIds);
+  static create(data: CreateStructure): DComponent {
+    return new DComponent(data);
   }
 
   isBotAllowed(botId: string): boolean {

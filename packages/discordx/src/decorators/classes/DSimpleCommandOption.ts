@@ -2,6 +2,12 @@ import { Decorator } from "@discordx/internal";
 
 import { SimpleCommandOptionType } from "../../index.js";
 
+type CreateStructure = {
+  description?: string;
+  name: string;
+  type?: SimpleCommandOptionType;
+};
+
 /**
  * @category Decorator
  */
@@ -31,26 +37,18 @@ export class DSimpleCommandOption extends Decorator {
     this._description = value;
   }
 
-  protected constructor(
-    name: string,
-    type?: SimpleCommandOptionType,
-    description?: string
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
-    this._name = name;
+    this._name = data.name;
     this._description =
-      description ??
+      data.description ??
       `${
-        SimpleCommandOptionType[type ?? SimpleCommandOptionType.String]
+        SimpleCommandOptionType[data.type ?? SimpleCommandOptionType.String]
       }`.toLowerCase();
-    this._type = type ?? SimpleCommandOptionType.String;
+    this._type = data.type ?? SimpleCommandOptionType.String;
   }
 
-  static create(
-    name: string,
-    type?: SimpleCommandOptionType,
-    description?: string
-  ): DSimpleCommandOption {
-    return new DSimpleCommandOption(name, type, description);
+  static create(data: CreateStructure): DSimpleCommandOption {
+    return new DSimpleCommandOption(data);
   }
 }

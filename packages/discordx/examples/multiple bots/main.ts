@@ -12,7 +12,6 @@ const botA = new Client({
 
 botA.once("ready", async () => {
   await botA.initApplicationCommands();
-  await botA.initApplicationPermissions();
 
   console.log("Bot started");
 });
@@ -29,7 +28,6 @@ const botB = new Client({
 
 botB.once("ready", async () => {
   await botB.initApplicationCommands();
-  await botB.initApplicationPermissions();
 
   console.log("Bot started");
 });

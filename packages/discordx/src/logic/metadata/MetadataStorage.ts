@@ -447,11 +447,11 @@ export class MetadataStorage {
     // ]
     //
     this._applicationCommandSlashGroups.forEach((group) => {
-      const slashParent = DApplicationCommand.create(
-        group.name,
-        "CHAT_INPUT",
-        group.infos?.description
-      ).decorate(group.classRef, group.key, group.method);
+      const slashParent = DApplicationCommand.create({
+        description: group.infos?.description,
+        name: group.name,
+        type: "CHAT_INPUT",
+      }).decorate(group.classRef, group.key, group.method);
 
       const discord = this._discords.find((instance) => {
         return instance.from === slashParent.from;
@@ -465,11 +465,6 @@ export class MetadataStorage {
 
       slashParent.guilds = [...slashParent.discord.guilds];
       slashParent.botIds = [...slashParent.discord.botIds];
-      slashParent.permissions = [
-        ...slashParent.permissions,
-        ...slashParent.discord.permissions,
-      ];
-      slashParent.defaultPermission = slashParent.discord.defaultPermission;
 
       groupedSlashes.set(group.name, slashParent);
 
@@ -483,8 +478,6 @@ export class MetadataStorage {
 
       this._applicationCommandSlashesFlat.forEach((slash) => {
         if (slash.group === slashParent.name) {
-          slash.defaultPermission = slashParent.defaultPermission;
-          slash.permissions = slashParent.permissions;
           slash.guilds = slashParent.guilds;
           slash.botIds = slashParent.botIds;
         }
@@ -506,17 +499,11 @@ export class MetadataStorage {
     //     }
     // ]
     this._applicationCommandSlashSubGroups.forEach((subGroup) => {
-      const option = DApplicationCommandOption.create(
-        subGroup.name,
-        undefined,
-        undefined,
-        subGroup.infos?.description,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        "SUB_COMMAND_GROUP"
-      ).decorate(subGroup.classRef, subGroup.key, subGroup.method);
+      const option = DApplicationCommandOption.create({
+        description: subGroup.infos?.description,
+        name: subGroup.name,
+        type: "SUB_COMMAND_GROUP",
+      }).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup
       const slashes = this._applicationCommandSlashes.filter((slash) => {

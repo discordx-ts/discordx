@@ -9,7 +9,6 @@ import type {
   DReaction,
   DSimpleCommand,
   IGuild,
-  IPermissions,
 } from "../../index.js";
 
 /**
@@ -19,14 +18,12 @@ export class DDiscord extends Decorator {
   private _applicationCommands: DApplicationCommand[] = [];
   private _botIds: string[] = [];
   private _buttonComponents: DComponent[] = [];
-  private _defaultPermission = true;
   private _description: string;
   private _events: DOn[] = [];
   private _guards: DGuard[] = [];
   private _guilds: IGuild[] = [];
   private _modalComponents: DComponent[] = [];
   private _name: string;
-  private _permissions: IPermissions[] = [];
   private _reactions: DReaction[] = [];
   private _selectMenuComponents: DComponent[] = [];
   private _simpleCommands: DSimpleCommand[] = [];
@@ -50,13 +47,6 @@ export class DDiscord extends Decorator {
   }
   set buttons(value: DComponent[]) {
     this._buttonComponents = value;
-  }
-
-  get defaultPermission(): boolean {
-    return this._defaultPermission;
-  }
-  set defaultPermission(value: boolean) {
-    this._defaultPermission = value;
   }
 
   get description(): string {
@@ -103,13 +93,6 @@ export class DDiscord extends Decorator {
   }
   set name(value: string) {
     this._name = value;
-  }
-
-  get permissions(): IPermissions[] {
-    return this._permissions;
-  }
-  set permissions(value: IPermissions[]) {
-    this._permissions = value;
   }
 
   get reactions(): DReaction[] {

@@ -35,7 +35,6 @@ async function start() {
 
   client.once("ready", async () => {
     await client.initApplicationCommands();
-    await client.initApplicationPermissions();
   });
 
   client.on("interactionCreate", (interaction) => {
@@ -72,7 +71,6 @@ client.once("ready", async () => {
   await client.clearApplicationCommands();
   await client.clearApplicationCommands("546281071751331840");
   await client.initApplicationCommands();
-  await client.initApplicationPermissions();
 });
 ```
 
@@ -179,14 +177,6 @@ Array of bot ids, for which only the event will be executed.
 | type      | default |
 | --------- | ------- |
 | string[ ] | [ ]     |
-
-#### `defaultPermission`
-
-"You can also set a default_permission on your commands if you want them to be disabled by default when your app is added to a new guild. Setting default_permission to false will disallow anyone in a guild from using the command--even Administrators and guild owners--unless a specific overwrite is configured. It will also disable the command from being usable in DMs."
-
-| type    | default |
-| ------- | ------- |
-| boolean | true    |
 
 #### `Description`
 

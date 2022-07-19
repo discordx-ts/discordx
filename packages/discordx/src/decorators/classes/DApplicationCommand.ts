@@ -1,27 +1,27 @@
 import type {
-  ApplicationCommandData,
   ApplicationCommandOptionData,
-  ApplicationCommandPermissions,
   ApplicationCommandType,
   CommandInteraction,
-  Guild,
+  PermissionResolvable,
 } from "discord.js";
 import type { LocalizationMap } from "discord-api-types/v9";
 
-import type {
-  ApplicationCommandMixin,
-  ApplicationGuildMixin,
-  Client,
-  IDefaultPermission,
-  IGuild,
-  IPermissions,
-} from "../../index.js";
-import {
-  DApplicationCommandOption,
-  resolveIGuilds,
-  resolveIPermissions,
-} from "../../index.js";
+import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
+import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
+
+type CreateStructure = {
+  botIds?: string[];
+  defaultMemberPermissions?: PermissionResolvable;
+  defaultPermission?: boolean;
+  description?: string;
+  descriptionLocalizations?: LocalizationMap;
+  dmPermission?: boolean;
+  guilds?: IGuild[];
+  name: string;
+  nameLocalizations?: LocalizationMap;
+  type: ApplicationCommandType;
+};
 
 /**
  * @category Decorator
@@ -30,13 +30,14 @@ export class DApplicationCommand extends Method {
   private _botIds: string[];
   private _name: string;
   private _nameLocalizations?: LocalizationMap;
-  private _defaultPermission: IDefaultPermission;
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
+  private _defaultMemberPermissions?: PermissionResolvable;
+  private _defaultPermission?: boolean;
+  private _dmPermission?: boolean;
   private _guilds: IGuild[];
   private _group?: string;
   private _options: DApplicationCommandOption[] = [];
-  private _permissions: IPermissions[] = [];
   private _subgroup?: string;
   private _type: ApplicationCommandType;
 
@@ -47,18 +48,32 @@ export class DApplicationCommand extends Method {
     this._botIds = value;
   }
 
-  get defaultPermission(): IDefaultPermission {
-    return this._defaultPermission;
-  }
-  set defaultPermission(value: IDefaultPermission) {
-    this._defaultPermission = value;
-  }
-
   get description(): string {
     return this._description;
   }
   set description(value: string) {
     this._description = value;
+  }
+
+  get defaultMemberPermissions(): PermissionResolvable | undefined {
+    return this._defaultMemberPermissions;
+  }
+  set defaultMemberPermissions(value: PermissionResolvable | undefined) {
+    this._defaultMemberPermissions = value;
+  }
+
+  get defaultPermission(): boolean | undefined {
+    return this._defaultPermission;
+  }
+  set defaultPermission(value: boolean | undefined) {
+    this._defaultPermission = value;
+  }
+
+  get dmPermission(): boolean | undefined {
+    return this._dmPermission;
+  }
+  set dmPermission(value: boolean | undefined) {
+    this._dmPermission = value;
   }
 
   get descriptionLocalizations(): LocalizationMap | undefined {
@@ -103,13 +118,6 @@ export class DApplicationCommand extends Method {
     this._options = value;
   }
 
-  get permissions(): IPermissions[] {
-    return this._permissions;
-  }
-  set permissions(value: IPermissions[]) {
-    this._permissions = value;
-  }
-
   get subgroup(): string | undefined {
     return this._subgroup;
   }
@@ -124,47 +132,22 @@ export class DApplicationCommand extends Method {
     this._type = value;
   }
 
-  protected constructor(
-    name: string,
-    type: ApplicationCommandType,
-    description?: string,
-    defaultPermission?: boolean,
-    guilds?: IGuild[],
-    botIds?: string[],
-    descriptionLocalizations?: LocalizationMap,
-    nameLocalizations?: LocalizationMap
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
-    this._name = name;
-    this._type = type;
-    this._description = description ?? this.name;
-    this._defaultPermission = defaultPermission ?? true;
-    this._guilds = guilds ?? [];
-    this._botIds = botIds ?? [];
-    this._descriptionLocalizations = descriptionLocalizations;
-    this._nameLocalizations = nameLocalizations;
+    this._name = data.name;
+    this._type = data.type;
+    this._description = data.description ?? this.name;
+    this._guilds = data.guilds ?? [];
+    this._botIds = data.botIds ?? [];
+    this._descriptionLocalizations = data.descriptionLocalizations;
+    this._nameLocalizations = data.nameLocalizations;
+    this._dmPermission = data.dmPermission;
+    this._defaultMemberPermissions = data.defaultMemberPermissions;
+    this._defaultPermission = data.defaultPermission;
   }
 
-  static create(
-    name: string,
-    type: ApplicationCommandType,
-    description?: string,
-    defaultPermission?: boolean,
-    guilds?: IGuild[],
-    botIds?: string[],
-    descriptionLocalizations?: LocalizationMap,
-    nameLocalizations?: LocalizationMap
-  ): DApplicationCommand {
-    return new DApplicationCommand(
-      name,
-      type,
-      description,
-      defaultPermission,
-      guilds,
-      botIds,
-      descriptionLocalizations,
-      nameLocalizations
-    );
+  static create(data: CreateStructure): DApplicationCommand {
+    return new DApplicationCommand(data);
   }
 
   isBotAllowed(botId: string): boolean {
@@ -201,43 +184,26 @@ export class DApplicationCommand extends Method {
     return guilds.includes(guildId);
   }
 
-  resolvePermissions(
-    guild: Guild,
-    command: ApplicationCommandMixin
-  ): Promise<ApplicationCommandPermissions[]> {
-    return resolveIPermissions(guild, command, this.permissions);
-  }
-
   toSubCommand(): DApplicationCommandOption {
-    const option = DApplicationCommandOption.create(
-      this.name,
-      undefined,
-      undefined,
-      this.description,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      "SUB_COMMAND"
-    ).decorate(this.classRef, this.key, this.method, this.from, this.index);
-    option.options = this.options;
+    const option = DApplicationCommandOption.create({
+      description: this.description,
+      name: this.name,
+      type: "SUB_COMMAND",
+    }).decorate(this.classRef, this.key, this.method, this.from, this.index);
 
+    option.options = this.options;
     return option;
   }
 
-  async toJSON(
-    command?: ApplicationGuildMixin
-  ): Promise<ApplicationCommandData> {
+  toJSON(): ApplicationCommandDataEx {
     if (this.type !== "CHAT_INPUT") {
-      const data: ApplicationCommandData = {
-        defaultPermission:
-          typeof this.defaultPermission === "boolean"
-            ? this.defaultPermission
-            : await this.defaultPermission.resolver(command),
+      const data: ApplicationCommandDataEx = {
+        defaultMemberPermissions: this.defaultMemberPermissions,
+        defaultPermission: this.defaultPermission,
         description: "",
+        dmPermission: this.dmPermission,
         name: this.name,
-        nameLocalizations:
-          this.nameLocalizations ?? (null as unknown as undefined),
+        nameLocalizations: this.nameLocalizations,
         options: [],
         type: this.type,
       };
@@ -258,22 +224,19 @@ export class DApplicationCommand extends Method {
       })
       .map((option) => option.toJSON());
 
-    const data: ApplicationCommandData = {
-      defaultPermission:
-        typeof this.defaultPermission === "boolean"
-          ? this.defaultPermission
-          : await this.defaultPermission.resolver(command),
+    const data: ApplicationCommandDataEx = {
+      defaultMemberPermissions: this.defaultMemberPermissions,
+      defaultPermission: this.defaultPermission,
       description: this.description,
-      descriptionLocalizations:
-        this.descriptionLocalizations ?? (null as unknown as undefined),
+      descriptionLocalizations: this.descriptionLocalizations,
+      dmPermission: this.dmPermission,
       name: this.name,
-      nameLocalizations:
-        this.nameLocalizations ?? (null as unknown as undefined),
+      nameLocalizations: this.nameLocalizations,
       options: options as ApplicationCommandOptionData[],
       type: this.type,
     };
 
-    return data as unknown as ApplicationCommandData;
+    return data;
   }
 
   parseParams(interaction: CommandInteraction): unknown[] {

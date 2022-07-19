@@ -61,14 +61,12 @@ export function ContextMenu(
   return function <T>(target: Record<string, T>, key: string) {
     name = name ?? key;
 
-    const applicationCommand = DApplicationCommand.create(
-      name,
-      type,
-      undefined,
-      options?.defaultPermission,
-      options?.guilds,
-      options?.botIds
-    ).decorate(target.constructor, key, target[key]);
+    const applicationCommand = DApplicationCommand.create({
+      botIds: options?.botIds,
+      guilds: options?.guilds,
+      name: name,
+      type: type,
+    }).decorate(target.constructor, key, target[key]);
 
     if (type == "MESSAGE") {
       MetadataStorage.instance.addApplicationCommandMessage(applicationCommand);

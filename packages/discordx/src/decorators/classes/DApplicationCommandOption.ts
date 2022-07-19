@@ -11,6 +11,20 @@ import type {
   SlashAutoCompleteOption,
 } from "../../index.js";
 
+type CreateStructure = {
+  autocomplete?: SlashAutoCompleteOption;
+  channelType?: ChannelTypes[];
+  description?: string;
+  descriptionLocalizations?: LocalizationMap;
+  index?: number;
+  maxValue?: number;
+  minValue?: number;
+  name: string;
+  nameLocalizations?: LocalizationMap;
+  required?: boolean;
+  type?: ApplicationCommandOptionType;
+};
+
 /**
  * @category Decorator
  */
@@ -116,61 +130,26 @@ export class DApplicationCommandOption extends Decorator {
     this._type = value;
   }
 
-  protected constructor(
-    name: string,
-    autocomplete?: SlashAutoCompleteOption,
-    channelType?: ChannelTypes[],
-    description?: string,
-    index?: number,
-    maxValue?: number,
-    minValue?: number,
-    required?: boolean,
-    type?: ApplicationCommandOptionType,
-    descriptionLocalizations?: LocalizationMap,
-    nameLocalizations?: LocalizationMap
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
 
-    this._name = name;
-    this._autocomplete = autocomplete;
-    this._channelTypes = channelType?.sort();
+    this._name = data.name;
+    this._autocomplete = data.autocomplete;
+    this._channelTypes = data.channelType?.sort();
     this._description =
-      description ?? `${name} - ${type ?? "STRING"}`.toLowerCase();
-    this._index = index;
-    this._maxValue = maxValue;
-    this._minValue = minValue;
-    this._required = required ?? true;
-    this._type = type ?? "STRING";
-    this._descriptionLocalizations = descriptionLocalizations;
-    this._nameLocalizations = nameLocalizations;
+      data.description ??
+      `${data.name} - ${data.type ?? "STRING"}`.toLowerCase();
+    this._index = data.index;
+    this._maxValue = data.maxValue;
+    this._minValue = data.minValue;
+    this._required = data.required ?? true;
+    this._type = data.type ?? "STRING";
+    this._descriptionLocalizations = data.descriptionLocalizations;
+    this._nameLocalizations = data.nameLocalizations;
   }
 
-  static create(
-    name: string,
-    autocomplete?: SlashAutoCompleteOption,
-    channelType?: ChannelTypes[],
-    description?: string,
-    index?: number,
-    maxValue?: number,
-    minValue?: number,
-    required?: boolean,
-    type?: ApplicationCommandOptionType,
-    descriptionLocalizations?: LocalizationMap,
-    nameLocalizations?: LocalizationMap
-  ): DApplicationCommandOption {
-    return new DApplicationCommandOption(
-      name,
-      autocomplete,
-      channelType,
-      description,
-      index,
-      maxValue,
-      minValue,
-      required,
-      type,
-      descriptionLocalizations,
-      nameLocalizations
-    );
+  static create(data: CreateStructure): DApplicationCommandOption {
+    return new DApplicationCommandOption(data);
   }
 
   toJSON(): ApplicationCommandOptionData {

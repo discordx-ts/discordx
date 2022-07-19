@@ -29,8 +29,6 @@ export class Main {
         guild: { log: true },
       });
 
-      await this._client.initApplicationPermissions();
-
       console.log(">> Bot started");
     });
 

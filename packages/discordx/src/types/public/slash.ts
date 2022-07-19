@@ -1,6 +1,8 @@
 import type {
+  ApplicationCommandOptionData,
   ApplicationCommandOptionType,
   AutocompleteInteraction,
+  PermissionResolvable,
 } from "discord.js";
 import type { LocalizationMap } from "discord-api-types/v9";
 
@@ -8,9 +10,11 @@ import type { ChannelTypes, DApplicationCommand, IGuild } from "../../index.js";
 
 export type ApplicationCommandOptions = {
   botIds?: string[];
+  defaultMemberPermissions?: PermissionResolvable;
   defaultPermission?: boolean;
   description?: string;
   descriptionLocalizations?: LocalizationMap;
+  dmPermission?: boolean;
   guilds?: IGuild[];
   nameLocalizations?: LocalizationMap;
 };
@@ -70,3 +74,15 @@ export type SlashAutoCompleteOption =
       interaction: AutocompleteInteraction,
       command: DApplicationCommand
     ) => void | Promise<void>);
+
+export type ApplicationCommandDataEx = {
+  defaultMemberPermissions?: PermissionResolvable;
+  defaultPermission?: boolean;
+  description: string;
+  descriptionLocalizations?: LocalizationMap;
+  dmPermission?: boolean;
+  name: string;
+  nameLocalizations?: LocalizationMap;
+  options: ApplicationCommandOptionData[];
+  type: string;
+};

@@ -8,7 +8,6 @@ import type {
   CommandInteraction,
   CommandInteractionOption,
   ContextMenuInteraction,
-  //  DiscordAPIError,
   Interaction,
   Message,
   MessageReaction,
@@ -23,6 +22,7 @@ import { Client as ClientJS } from "discord.js";
 import _ from "lodash";
 
 import type {
+  ApplicationCommandDataEx,
   ClientOptions,
   DApplicationCommand,
   DApplicationCommandGroup,
@@ -45,7 +45,6 @@ import type {
 } from "./index.js";
 import {
   ApplicationCommandMixin,
-  ApplicationGuildMixin,
   MetadataStorage,
   resolveIGuilds,
   SimpleCommandMessage,
@@ -525,7 +524,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Initialize all the @Slash with their permissions
+   * Initialize all the @Slash
    */
   async initApplicationCommands(options?: {
     global?: InitCommandOptions;
@@ -577,7 +576,9 @@ export class Client extends ClientJS {
     }
 
     // fetch already registered application command
-    const ApplicationCommands = await guild.commands.fetch();
+    const ApplicationCommands = await guild.commands.fetch({
+      withLocalizations: true,
+    });
 
     // filter only unregistered application command
     const commandsToAdd = DCommands.filter(
@@ -592,33 +593,31 @@ export class Client extends ClientJS {
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
-    await Promise.all(
-      DCommands.map(async (DCommand) => {
-        const findCommand = ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+    DCommands.map((DCommand) => {
+      const findCommand = ApplicationCommands.find(
+        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+      );
+
+      if (!findCommand) {
+        return;
+      }
+
+      const rawData = DCommand.toJSON();
+
+      const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
+      commandJson.descriptionLocalizations =
+        findCommand.descriptionLocalizations ?? undefined;
+      commandJson.nameLocalizations =
+        findCommand.nameLocalizations ?? undefined;
+
+      if (!this.isApplicationCommandEqual(commandJson, rawData)) {
+        commandsToUpdate.push(
+          new ApplicationCommandMixin(findCommand, DCommand)
         );
-
-        if (!findCommand) {
-          return;
-        }
-
-        const rawData = await DCommand.toJSON(
-          new ApplicationGuildMixin(guild, DCommand)
-        );
-
-        const commandJson = findCommand.toJSON() as ApplicationCommandData;
-
-        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-          commandsToUpdate.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        } else {
-          commandsToSkip.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        }
-      })
-    );
+      } else {
+        commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
+      }
+    });
 
     // filter commands to delete
     const commandsToDelete: ApplicationCommand[] = [];
@@ -683,41 +682,27 @@ export class Client extends ClientJS {
     }
 
     // perform bulk update with discord using set operation
-    const bulkUpdate: ApplicationCommandData[] = [];
+    const bulkUpdate: ApplicationCommandDataEx[] = [];
 
-    const operationToSkip = commandsToSkip.map(async (cmd) =>
-      bulkUpdate.push(
-        await cmd.instance.toJSON(
-          new ApplicationGuildMixin(guild, cmd.instance)
-        )
-      )
+    const operationToSkip = commandsToSkip.map((cmd) =>
+      bulkUpdate.push(cmd.instance.toJSON())
     );
 
     const operationToAdd = options?.disable?.add
       ? []
-      : commandsToAdd.map(async (DCommand) =>
-          bulkUpdate.push(
-            await DCommand.toJSON(new ApplicationGuildMixin(guild, DCommand))
-          )
-        );
+      : commandsToAdd.map((DCommand) => bulkUpdate.push(DCommand.toJSON()));
 
     const operationToUpdate = options?.disable?.update
       ? commandsToUpdate.map(async (cmd) =>
           bulkUpdate.push(
-            (await cmd.command.toJSON()) as ApplicationCommandData
+            (await cmd.command.toJSON()) as ApplicationCommandDataEx
           )
         )
-      : commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(
-            await cmd.instance.toJSON(
-              new ApplicationGuildMixin(guild, cmd.instance)
-            )
-          )
-        );
+      : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
       ? commandsToDelete.map(async (cmd) =>
-          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandDataEx)
         )
       : [];
 
@@ -735,13 +720,35 @@ export class Client extends ClientJS {
       ...operationToDelete,
     ]);
 
-    await guild.commands.set(bulkUpdate);
+    await guild.commands.set(bulkUpdate as ApplicationCommandData[]);
   }
 
   private isApplicationCommandEqual(
-    commandJson: ApplicationCommandData,
-    rawData: ApplicationCommandData
+    commandJson: ApplicationCommandDataEx,
+    rawData: ApplicationCommandDataEx
   ) {
+    // reformat some data
+    commandJson.defaultMemberPermissions =
+      commandJson.defaultMemberPermissions ?? undefined;
+    commandJson.defaultPermission = commandJson.defaultPermission ?? undefined;
+    commandJson.dmPermission = commandJson.dmPermission ?? undefined;
+
+    rawData.defaultMemberPermissions =
+      rawData.defaultMemberPermissions ?? commandJson.defaultMemberPermissions;
+    rawData.defaultPermission =
+      rawData.defaultPermission ?? commandJson.defaultPermission;
+    rawData.dmPermission = rawData.dmPermission ?? commandJson.dmPermission;
+
+    // remove nulled localization fields from options
+    commandJson.options.forEach((op) => {
+      if (op.descriptionLocalizations === null) {
+        op.descriptionLocalizations = undefined;
+      }
+      if (op.nameLocalizations === null) {
+        op.nameLocalizations = undefined;
+      }
+    });
+
     // Solution for sorting, channel types to ensure equal does not fail
     if (commandJson.type === "CHAT_INPUT") {
       commandJson.options?.forEach((op) => {
@@ -772,24 +779,7 @@ export class Client extends ClientJS {
     // remove unwanted fields from options
     if (commandJson.type === "CHAT_INPUT" && commandJson.options) {
       commandJson.options = _.map(commandJson.options, (object) =>
-        _.omit(object, [
-          "descriptionLocalizations",
-          "descriptionLocalized",
-          "nameLocalizations",
-          "nameLocalized",
-        ])
-      ) as ApplicationCommandOptionData[];
-    }
-
-    // remove unwanted fields from options
-    if (rawData.type === "CHAT_INPUT" && rawData.options) {
-      rawData.options = _.map(rawData.options, (object) =>
-        _.omit(object, [
-          "descriptionLocalizations",
-          "descriptionLocalized",
-          "nameLocalizations",
-          "nameLocalized",
-        ])
+        _.omit(object, ["descriptionLocalized", "nameLocalized"])
       ) as ApplicationCommandOptionData[];
     }
 
@@ -803,24 +793,12 @@ export class Client extends ClientJS {
             "guild",
             "guildId",
             "version",
-            "descriptionLocalizations",
             "descriptionLocalized",
-            "nameLocalizations",
             "nameLocalized"
           )
         )
       ),
-      JSON.parse(
-        JSON.stringify(
-          _.omit(
-            rawData,
-            "descriptionLocalizations",
-            "descriptionLocalized",
-            "nameLocalizations",
-            "nameLocalized"
-          )
-        )
-      )
+      JSON.parse(JSON.stringify(rawData))
     );
   }
 
@@ -861,30 +839,34 @@ export class Client extends ClientJS {
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
-    await Promise.all(
-      DCommands.map(async (DCommand) => {
-        const findCommand = ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
+    DCommands.map((DCommand) => {
+      const findCommand = ApplicationCommands.find(
+        (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
+      );
+
+      if (!findCommand) {
+        return;
+      }
+
+      const rawData = DCommand.toJSON();
+      const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
+      commandJson.descriptionLocalizations =
+        findCommand.descriptionLocalizations === null
+          ? undefined
+          : findCommand.descriptionLocalizations;
+      commandJson.nameLocalizations =
+        findCommand.nameLocalizations === null
+          ? undefined
+          : findCommand.nameLocalizations;
+
+      if (!this.isApplicationCommandEqual(commandJson, rawData)) {
+        commandsToUpdate.push(
+          new ApplicationCommandMixin(findCommand, DCommand)
         );
-
-        if (!findCommand) {
-          return;
-        }
-
-        const rawData = await DCommand.toJSON();
-        const commandJson = findCommand.toJSON() as ApplicationCommandData;
-
-        if (!this.isApplicationCommandEqual(commandJson, rawData)) {
-          commandsToUpdate.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        } else {
-          commandsToSkip.push(
-            new ApplicationCommandMixin(findCommand, DCommand)
-          );
-        }
-      })
-    );
+      } else {
+        commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
+      }
+    });
 
     const commandsToDelete = ApplicationCommands.filter((cmd) =>
       DCommands.every(
@@ -917,10 +899,6 @@ export class Client extends ClientJS {
       this.logger.info(str);
     }
 
-    // Only available for Guilds
-    // https://discord.js.org/#/docs/main/master/class/ApplicationCommand?scrollTo=setPermissions
-    // if (slash.permissions.length <= 0) return;
-
     // If there are no changes to share with Discord, cancel the task
     if (
       commandsToAdd.length + commandsToUpdate.length + commandsToDelete.size ===
@@ -930,31 +908,25 @@ export class Client extends ClientJS {
     }
 
     // perform bulk update with discord using set operation
-    const bulkUpdate: ApplicationCommandData[] = [];
+    const bulkUpdate: ApplicationCommandDataEx[] = [];
 
-    const operationToSkip = commandsToSkip.map(async (cmd) =>
-      bulkUpdate.push(await cmd.instance.toJSON())
+    const operationToSkip = commandsToSkip.map((cmd) =>
+      bulkUpdate.push(cmd.instance.toJSON())
     );
 
     const operationToAdd = options?.disable?.add
       ? []
-      : commandsToAdd.map(async (DCommand) =>
-          bulkUpdate.push(await DCommand.toJSON())
-        );
+      : commandsToAdd.map((DCommand) => bulkUpdate.push(DCommand.toJSON()));
 
     const operationToUpdate = options?.disable?.update
-      ? commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(
-            (await cmd.command.toJSON()) as ApplicationCommandData
-          )
+      ? commandsToUpdate.map((cmd) =>
+          bulkUpdate.push(cmd.command.toJSON() as ApplicationCommandDataEx)
         )
-      : commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(await cmd.instance.toJSON())
-        );
+      : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
-      ? commandsToDelete.map(async (cmd) =>
-          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandData)
+      ? commandsToDelete.map((cmd) =>
+          bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx)
         )
       : [];
 
@@ -972,153 +944,10 @@ export class Client extends ClientJS {
       ...operationToDelete,
     ]);
 
-    await this.application?.commands.set(bulkUpdate);
+    await this.application?.commands.set(
+      bulkUpdate as ApplicationCommandData[]
+    );
   }
-
-  /**
-   * init all guild command permissions
-   *
-   * @param log - Enable log
-   */
-  async initApplicationPermissions(log?: boolean): Promise<void> {
-    await new Promise((resolve) => {
-      log;
-      resolve(true);
-    });
-
-    this.logger.warn("\n\n");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn(
-      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
-    );
-    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn("\n\n");
-  }
-  //    const guildDCommandStore = await this.CommandByGuild();
-  //    const promises: Promise<void>[] = [];
-  //
-  //    guildDCommandStore.forEach((commands, guildId) => {
-  //      promises.push(
-  //        this.initGuildApplicationPermissions(guildId, commands, log)
-  //      );
-  //    });
-  //
-  //    await Promise.all(promises);
-  //  }
-
-  /**
-   * Update application commands permission by GuildId
-   *
-   * @param guildId - Guild identifier
-   * @param DCommands - Array of commands
-   * @param log - Enable log
-   */
-  async initGuildApplicationPermissions(
-    guildId: string,
-    DCommands: DApplicationCommand[],
-    log?: boolean
-  ): Promise<void> {
-    await new Promise((resolve) => {
-      log;
-      resolve(true);
-    });
-
-    this.logger.warn("\n\n");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn(
-      "Discord has deprecated permissions v1 api in favour permissions v2, await future updates"
-    );
-    this.logger.warn("see https://github.com/discordjs/discord.js/pull/7857");
-    this.logger.warn(
-      "************************************************************"
-    );
-    this.logger.warn("\n\n");
-  }
-  //    const guild = this.guilds.cache.get(guildId);
-  //    if (!guild) {
-  //      this.logger.error(
-  //        `${
-  //          this.user?.username ?? this.botId
-  //        } >> initGuildApplicationPermissions: guild unavailable: ${guildId}`
-  //      );
-  //      return;
-  //    }
-  //
-  //    // fetch already registered application command
-  //    const ApplicationCommands = await guild.commands.fetch();
-  //
-  //    const commandsToUpdate: ApplicationCommandMixin[] = [];
-  //
-  //    ApplicationCommands.forEach((cmd) => {
-  //      const findCommand = DCommands.find(
-  //        (DCommand) => DCommand.name === cmd.name
-  //      );
-  //
-  //      if (findCommand) {
-  //        commandsToUpdate.push(new ApplicationCommandMixin(cmd, findCommand));
-  //      }
-  //    });
-  //
-  //    await Promise.all(
-  //      commandsToUpdate.map((cmd) => {
-  //        return guild.commands.permissions
-  //          .fetch({ command: cmd.command })
-  //          .then(async (permissions) => {
-  //            const commandPermissions = await cmd.instance.resolvePermissions(
-  //              guild,
-  //              cmd
-  //            );
-  //
-  //            if (!_.isEqual(permissions, commandPermissions)) {
-  //              if (log ?? !this.silent) {
-  //                this.logger.info(
-  //                  `${this.user?.username ?? this.botId} >> command: ${
-  //                    cmd.name
-  //                  } >> permissions >> updating >> guild: #${guild}`
-  //                );
-  //              }
-  //
-  //              await cmd.command.permissions.set({
-  //                permissions: commandPermissions,
-  //              });
-  //            }
-  //          })
-  //          .catch(async (e: DiscordAPIError) => {
-  //            if (e.code !== 10066) {
-  //              throw e;
-  //            }
-  //
-  //            if (!cmd.instance.permissions.length) {
-  //              return;
-  //            }
-  //
-  //            const commandPermissions = await cmd.instance.resolvePermissions(
-  //              guild,
-  //              cmd
-  //            );
-  //
-  //            if (log ?? !this.silent) {
-  //              this.logger.info(
-  //                `${this.user?.username ?? this.botId} >> command: ${
-  //                  cmd.name
-  //                } >> permissions >> adding >> guild: #${guild}`
-  //              );
-  //            }
-  //
-  //            await cmd.command.permissions.set({
-  //              permissions: commandPermissions,
-  //            });
-  //          });
-  //      })
-  //    );
-  //  }
 
   /**
    * Clear the application commands globally or for some guilds
@@ -1568,53 +1397,6 @@ export class Client extends ClientJS {
     // check dm allowed or not
     if (!command.info.directMessage && !message.guild) {
       return;
-    }
-
-    // permission works only if guild present
-    if (command.message.guild) {
-      // check for member permissions
-      const permissions = await command.info.resolvePermissions(
-        command.message.guild,
-        command
-      );
-
-      const defaultPermission =
-        typeof command.info.defaultPermission === "boolean"
-          ? command.info.defaultPermission
-          : await command.info.defaultPermission.resolver(command);
-
-      const userPermissions = permissions.filter((perm) =>
-        perm.type === "USER" && defaultPermission
-          ? !perm.permission
-          : perm.permission
-      );
-
-      const rolePermissions = permissions.filter((perm) =>
-        perm.type === "ROLE" && defaultPermission
-          ? !perm.permission
-          : perm.permission
-      );
-
-      const isUserIdPresent =
-        userPermissions.some((perm) => perm.id === message.member?.id) ||
-        rolePermissions.some((perm) =>
-          message.member?.roles.cache.has(perm.id)
-        );
-
-      // user is not allowed to access this command
-      if (defaultPermission ? isUserIdPresent : !isUserIdPresent) {
-        const unauthorizedResponse =
-          this.simpleCommandConfig?.responses?.unauthorized;
-
-        if (unauthorizedResponse) {
-          if (typeof unauthorizedResponse === "string") {
-            message.reply(unauthorizedResponse);
-            return;
-          }
-          await unauthorizedResponse(command);
-        }
-        return;
-      }
     }
 
     return command.info.execute(this.guards, command, this);

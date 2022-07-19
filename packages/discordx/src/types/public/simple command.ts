@@ -18,7 +18,6 @@ export type SimpleCommandOptions = {
   aliases?: string[];
   argSplitter?: ArgSplitter;
   botIds?: string[];
-  defaultPermission?: boolean;
   description?: string;
   directMessage?: boolean;
   guilds?: IGuild[];

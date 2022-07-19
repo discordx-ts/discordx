@@ -120,11 +120,6 @@ module.exports = {
             { id: "decorators/general/on", label: "@On", type: "doc" },
             { id: "decorators/general/once", label: "@Once", type: "doc" },
             {
-              id: "decorators/general/permission",
-              label: "@Permission",
-              type: "doc",
-            },
-            {
               id: "decorators/general/reaction",
               label: "@Reaction",
               type: "doc",

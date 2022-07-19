@@ -2,9 +2,7 @@ import type { Channel, Role, User } from "discord.js";
 
 import type { SimpleCommandMessage } from "../../../src/index.js";
 import {
-  DefaultPermissionResolver,
   Discord,
-  Permission,
   SimpleCommand,
   SimpleCommandOption,
   SimpleCommandOptionType,
@@ -55,19 +53,6 @@ export class Example {
   }
 
   @SimpleCommand("perm-check", { aliases: ["p-check"] })
-  @Permission(
-    new DefaultPermissionResolver((command) => {
-      if (!command) {
-        return false;
-      }
-      return true;
-    })
-  )
-  @Permission({
-    id: "462341082919731200",
-    permission: true,
-    type: "USER",
-  })
   permFunc(command: SimpleCommandMessage): void {
     command.message.reply("access granted");
   }

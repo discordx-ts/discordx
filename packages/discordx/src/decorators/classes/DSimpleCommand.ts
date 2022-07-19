@@ -1,22 +1,25 @@
-import type { ApplicationCommandPermissionData, Guild } from "discord.js";
-
 import type {
   ArgSplitter,
   Client,
   DSimpleCommandOption,
-  IDefaultPermission,
   IGuild,
-  IPermissions,
   IPrefix,
   SimpleCommandMessage,
   SimpleOptionType,
 } from "../../index.js";
-import {
-  resolveIGuilds,
-  resolveIPermissions,
-  SimpleCommandOptionType,
-} from "../../index.js";
+import { resolveIGuilds, SimpleCommandOptionType } from "../../index.js";
 import { Method } from "./Method.js";
+
+type CreateStructure = {
+  aliases?: string[];
+  argSplitter?: ArgSplitter;
+  botIds?: string[];
+  description?: string;
+  directMessage?: boolean;
+  guilds?: IGuild[];
+  name: string;
+  prefix?: IPrefix;
+};
 
 /**
  * @category Decorator
@@ -25,11 +28,9 @@ export class DSimpleCommand extends Method {
   private _description: string;
   private _name: string;
   private _prefix: IPrefix | undefined;
-  private _defaultPermission: IDefaultPermission;
   private _directMessage: boolean;
   private _argSplitter?: ArgSplitter;
   private _options: DSimpleCommandOption[] = [];
-  private _permissions: IPermissions[] = [];
   private _guilds: IGuild[];
   private _botIds: string[];
   private _aliases: string[];
@@ -55,13 +56,6 @@ export class DSimpleCommand extends Method {
     this._prefix = value;
   }
 
-  get permissions(): IPermissions[] {
-    return this._permissions;
-  }
-  set permissions(value: IPermissions[]) {
-    this._permissions = value;
-  }
-
   get guilds(): IGuild[] {
     return this._guilds;
   }
@@ -81,13 +75,6 @@ export class DSimpleCommand extends Method {
   }
   set directMessage(value: boolean) {
     this._directMessage = value;
-  }
-
-  get defaultPermission(): IDefaultPermission {
-    return this._defaultPermission;
-  }
-  set defaultPermission(value: IDefaultPermission) {
-    this._defaultPermission = value;
   }
 
   get name(): string {
@@ -111,53 +98,21 @@ export class DSimpleCommand extends Method {
     this._options = value;
   }
 
-  protected constructor(
-    name: string,
-    aliases?: string[],
-    argSplitter?: ArgSplitter,
-    botIds?: string[],
-    defaultPermission?: boolean,
-    description?: string,
-    directMessage?: boolean,
-    guilds?: IGuild[],
-    prefix?: IPrefix
-  ) {
+  protected constructor(data: CreateStructure) {
     super();
-    this._name = name;
-    this._description = description ?? this.name;
-    this._defaultPermission = defaultPermission ?? true;
-    this._directMessage = directMessage ?? true;
-    this._argSplitter = argSplitter;
+    this._name = data.name;
+    this._description = data.description ?? this.name;
+    this._directMessage = data.directMessage ?? true;
+    this._argSplitter = data.argSplitter;
     this._options = [];
-    this._permissions = [];
-    this._prefix = prefix;
-    this._guilds = guilds ?? [];
-    this._botIds = botIds ?? [];
-    this._aliases = aliases ?? [];
+    this._prefix = data.prefix;
+    this._guilds = data.guilds ?? [];
+    this._botIds = data.botIds ?? [];
+    this._aliases = data.aliases ?? [];
   }
 
-  static create(
-    name: string,
-    aliases?: string[],
-    argSplitter?: ArgSplitter,
-    botIds?: string[],
-    defaultPermission?: boolean,
-    description?: string,
-    directMessage?: boolean,
-    guilds?: IGuild[],
-    prefix?: IPrefix
-  ): DSimpleCommand {
-    return new DSimpleCommand(
-      name,
-      aliases,
-      argSplitter,
-      botIds,
-      defaultPermission,
-      description,
-      directMessage,
-      guilds,
-      prefix
-    );
+  static create(data: CreateStructure): DSimpleCommand {
+    return new DSimpleCommand(data);
   }
 
   isBotAllowed(botId: string): boolean {
@@ -196,13 +151,6 @@ export class DSimpleCommand extends Method {
     }
 
     return guilds.includes(guildId);
-  }
-
-  resolvePermissions(
-    guild: Guild,
-    command: SimpleCommandMessage
-  ): Promise<ApplicationCommandPermissionData[]> {
-    return resolveIPermissions(guild, command, this.permissions);
   }
 
   parseParams(command: SimpleCommandMessage): SimpleOptionType[] {

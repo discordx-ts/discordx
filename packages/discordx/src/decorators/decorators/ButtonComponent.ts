@@ -77,12 +77,12 @@ export function ButtonComponent(
   options?: { botIds?: string[]; guilds?: IGuild[] }
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    const button = DComponent.create(
-      ComponentType.Button,
-      id ?? key,
-      options?.guilds,
-      options?.botIds
-    ).decorate(target.constructor, key, target[key]);
+    const button = DComponent.create({
+      botIds: options?.botIds,
+      guilds: options?.guilds,
+      id: id ?? key,
+      type: ComponentType.Button,
+    }).decorate(target.constructor, key, target[key]);
     MetadataStorage.instance.addComponentButton(button);
   };
 }
