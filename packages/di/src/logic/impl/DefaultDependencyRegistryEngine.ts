@@ -18,7 +18,7 @@ export class DefaultDependencyRegistryEngine
   }
 
   public getAllServices(): Set<unknown> {
-    return new Set(...this._services.values());
+    return new Set(this._services.values());
   }
 
   public addService<T>(classType: T): void {

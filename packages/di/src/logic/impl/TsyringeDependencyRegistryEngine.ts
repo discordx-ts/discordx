@@ -7,11 +7,7 @@ import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableD
 export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<DependencyContainer> {
   public static readonly token = Symbol("discordx");
 
-  private static useToken = false;
-
   private static _instance: TsyringeDependencyRegistryEngine;
-
-  private _serviceSet = new Set<unknown>();
 
   public static get instance(): TsyringeDependencyRegistryEngine {
     if (!TsyringeDependencyRegistryEngine._instance) {
@@ -22,16 +18,12 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     return TsyringeDependencyRegistryEngine._instance;
   }
 
-  public set useTokenization(useToken: boolean) {
-    TsyringeDependencyRegistryEngine.useToken = useToken;
-  }
-
   public addService<T>(classType: T): void {
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
     const clazz = classType as unknown as new () => InstanceOf<T>;
-    if (TsyringeDependencyRegistryEngine.useToken) {
+    if (this.useToken) {
       this.injector.registerSingleton(
         TsyringeDependencyRegistryEngine.token,
         clazz
@@ -47,21 +39,24 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
       throw new Error("Please set the container!");
     }
     const clazz = classType as unknown as new () => InstanceOf<T>;
-    return (
-      (this.injector
-        .resolveAll(TsyringeDependencyRegistryEngine.token)
-        .find(
-          (instance) =>
-            (instance as Record<string, unknown>).constructor === clazz
-        ) as InstanceOf<T>) ?? null
-    );
+    if (this.useToken) {
+      return (
+        (this.injector
+          .resolveAll(TsyringeDependencyRegistryEngine.token)
+          .find(
+            (instance) =>
+              (instance as Record<string, unknown>).constructor === clazz
+          ) as InstanceOf<T>) ?? null
+      );
+    }
+    return this.injector.resolve(clazz);
   }
 
   public getAllServices(): Set<unknown> {
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
-    if (TsyringeDependencyRegistryEngine.useToken) {
+    if (this.useToken) {
       return new Set(
         this.injector.resolveAll(TsyringeDependencyRegistryEngine.token)
       );

@@ -6,8 +6,17 @@ export abstract class AbstractConfigurableDependencyInjector<I>
 {
   protected injector: I | undefined;
 
+  protected useToken = false;
+
+  protected _serviceSet = new Set<unknown>();
+
   public setInjector(injector: I): this {
     this.injector = injector;
+    return this;
+  }
+
+  public setUseTokenization(useToken: boolean): this {
+    this.useToken = useToken;
     return this;
   }
 
