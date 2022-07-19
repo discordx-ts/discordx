@@ -4,10 +4,17 @@ import type {
   Channel,
   CommandInteraction,
   GuildMember,
+  MessageActionRowComponentBuilder,
   Role,
   User,
 } from "discord.js";
-import { MessageActionRow, MessageButton } from "discord.js";
+import {
+  ActionRowBuilder,
+  ApplicationCommandOptionType,
+  ButtonBuilder,
+  ButtonStyle,
+  InteractionType,
+} from "discord.js";
 
 import {
   ButtonComponent,
@@ -22,7 +29,8 @@ export class Example {
 
   @Slash("hello")
   hello(
-    @SlashOption("user", { type: "USER" }) user: GuildMember | User,
+    @SlashOption("user", { type: ApplicationCommandOptionType.User })
+    user: GuildMember | User,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${user}`);
@@ -30,7 +38,8 @@ export class Example {
 
   @Slash("role")
   role(
-    @SlashOption("role", { type: "ROLE" }) role: Role,
+    @SlashOption("role", { type: ApplicationCommandOptionType.Role })
+    role: Role,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${role}`);
@@ -38,7 +47,8 @@ export class Example {
 
   @Slash("channel")
   channel(
-    @SlashOption("channel", { type: "CHANNEL" }) channel: Channel,
+    @SlashOption("channel", { type: ApplicationCommandOptionType.Channel })
+    channel: Channel,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${channel}`);
@@ -46,7 +56,7 @@ export class Example {
 
   @Slash("role-or-user")
   roleOrUser(
-    @SlashOption("mention", { type: "MENTIONABLE" })
+    @SlashOption("mention", { type: ApplicationCommandOptionType.Mentionable })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {
@@ -57,7 +67,7 @@ export class Example {
   autocomplete(
     @SlashOption("option-a", {
       autocomplete: true,
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     searchText: string,
     @SlashOption("option-b", {
@@ -73,7 +83,7 @@ export class Example {
           { name: "option d", value: "c" },
         ]);
       },
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     searchText2: string,
     @SlashOption("option-c", {
@@ -84,12 +94,12 @@ export class Example {
           { name: "option f", value: "f" },
         ]);
       },
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
     interaction: CommandInteraction | AutocompleteInteraction
   ): void {
-    if (interaction.isAutocomplete()) {
+    if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
       const focusedOption = interaction.options.getFocused(true);
 
       // resolver for option a
@@ -106,12 +116,12 @@ export class Example {
 
   @Slash("test-btn")
   testBtn(interaction: CommandInteraction): void {
-    const btn = new MessageButton();
+    const btn = new ButtonBuilder();
     btn.setLabel("Test");
-    btn.setStyle("PRIMARY");
+    btn.setStyle(ButtonStyle.Primary);
     btn.setCustomId("myTest");
 
-    const row = new MessageActionRow();
+    const row = new ActionRowBuilder<MessageActionRowComponentBuilder>();
     row.addComponents([btn]);
 
     interaction.reply({ components: [row], content: "test" });
