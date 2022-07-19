@@ -1,4 +1,5 @@
 import * as Lava from "@discordx/lava-player";
+import { GatewayDispatchEvents } from "discord.js";
 import type { Client } from "discordx";
 
 export function getNode(client: Client): Lava.Node {
@@ -22,13 +23,19 @@ export function getNode(client: Client): Lava.Node {
     userId: client.user?.id ?? "", // the user id of your bot
   });
 
-  client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
-    nodeX.voiceStateUpdate(data);
-  });
+  client.ws.on(
+    GatewayDispatchEvents.VoiceStateUpdate,
+    (data: Lava.VoiceStateUpdate) => {
+      nodeX.voiceStateUpdate(data);
+    }
+  );
 
-  client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
-    nodeX.voiceServerUpdate(data);
-  });
+  client.ws.on(
+    GatewayDispatchEvents.VoiceServerUpdate,
+    (data: Lava.VoiceServerUpdate) => {
+      nodeX.voiceServerUpdate(data);
+    }
+  );
 
   return nodeX;
 }

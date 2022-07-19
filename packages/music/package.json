@@ -60,7 +60,7 @@
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.10.0",
     "@types/lodash": "^4.14.182",
-    "discord.js": "^13.9.0",
+    "discord.js": "^14.0.2",
     "ffmpeg-static": "^4.4.1",
     "libsodium-wrappers": "^0.7.10",
     "typescript": "^4.7.4"
@@ -68,7 +68,7 @@
   "peerDependencies": {
     "@discordjs/opus": ">=0.5",
     "@discordjs/voice": ">=0.5",
-    "discord.js": ">=13 || ^13.0.0-dev"
+    "discord.js": ">=14 || ^14.0.0-dev"
   },
   "engines": {
     "node": ">=16.0.0",

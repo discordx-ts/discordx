@@ -1,19 +1,19 @@
 import { Decorator } from "@discordx/internal";
 import type {
   ApplicationCommandOptionData,
-  ApplicationCommandOptionType,
+  ChannelType,
+  LocalizationMap,
 } from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v9";
+import { ApplicationCommandOptionType } from "discord.js";
 
 import type {
-  ChannelTypes,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
 } from "../../index.js";
 
 type CreateStructure = {
   autocomplete?: SlashAutoCompleteOption;
-  channelType?: ChannelTypes[];
+  channelType?: ChannelType[];
   description?: string;
   descriptionLocalizations?: LocalizationMap;
   index?: number;
@@ -30,7 +30,7 @@ type CreateStructure = {
  */
 export class DApplicationCommandOption extends Decorator {
   private _autocomplete: SlashAutoCompleteOption;
-  private _channelTypes: ChannelTypes[] | undefined = undefined;
+  private _channelTypes: ChannelType[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
@@ -49,10 +49,10 @@ export class DApplicationCommandOption extends Decorator {
     this._autocomplete = value;
   }
 
-  get channelTypes(): ChannelTypes[] | undefined {
+  get channelTypes(): ChannelType[] | undefined {
     return this._channelTypes;
   }
-  set channelTypes(value: ChannelTypes[] | undefined) {
+  set channelTypes(value: ChannelType[] | undefined) {
     this._channelTypes = value;
   }
 
@@ -78,7 +78,10 @@ export class DApplicationCommandOption extends Decorator {
   }
 
   get isNode(): boolean {
-    return this.type === "SUB_COMMAND" || this.type === "SUB_COMMAND_GROUP";
+    return (
+      this.type === ApplicationCommandOptionType.Subcommand ||
+      this.type === ApplicationCommandOptionType.SubcommandGroup
+    );
   }
 
   get maxValue(): number | undefined {
@@ -138,12 +141,16 @@ export class DApplicationCommandOption extends Decorator {
     this._channelTypes = data.channelType?.sort();
     this._description =
       data.description ??
-      `${data.name} - ${data.type ?? "STRING"}`.toLowerCase();
+      `${data.name} - ${
+        ApplicationCommandOptionType[
+          data.type ?? ApplicationCommandOptionType.String
+        ]
+      }`.toLowerCase();
     this._index = data.index;
     this._maxValue = data.maxValue;
     this._minValue = data.minValue;
     this._required = data.required ?? true;
-    this._type = data.type ?? "STRING";
+    this._type = data.type ?? ApplicationCommandOptionType.String;
     this._descriptionLocalizations = data.descriptionLocalizations;
     this._nameLocalizations = data.nameLocalizations;
   }

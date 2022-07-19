@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ClientEvents, PermissionResolvable } from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v9";
+import type {
+  ClientEvents,
+  LocalizationMap,
+  PermissionResolvable,
+} from "discord.js";
 
 import type { Client, IGuild, Next, NotEmpty } from "../../index.js";
 
@@ -120,21 +123,3 @@ export type SlashChoiceType<T extends string = string, X = string | number> = {
   name: NotEmpty<T>;
   value?: X;
 };
-
-/**
- * Channel Types
- *
- * note: type will be removed in djs v14
- */
-export type ChannelTypes =
-  | "GUILD_TEXT"
-  | "DM"
-  | "GUILD_VOICE"
-  | "GROUP_DM"
-  | "GUILD_CATEGORY"
-  | "GUILD_NEWS"
-  | "GUILD_STORE"
-  | "GUILD_NEWS_THREAD"
-  | "GUILD_PUBLIC_THREAD"
-  | "GUILD_PRIVATE_THREAD"
-  | "GUILD_STAGE_VOICE";

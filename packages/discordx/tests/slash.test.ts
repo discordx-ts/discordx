@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
   Channel,
   CommandInteraction,
   GuildMember,
@@ -172,13 +174,19 @@ export class Example3 {
     @SlashOption("nb")
     nb: number,
 
-    @SlashOption("channel")
+    @SlashOption("channel", { type: ApplicationCommandOptionType.Channel })
     channel: Channel,
 
-    @SlashOption("text-channel", { required: false })
+    @SlashOption("text-channel", {
+      required: false,
+      type: ApplicationCommandOptionType.Channel,
+    })
     textChannel: TextChannel,
 
-    @SlashOption("voice-channel", { required: false })
+    @SlashOption("voice-channel", {
+      required: false,
+      type: ApplicationCommandOptionType.Channel,
+    })
     voiceChannel: VoiceChannel,
 
     @SlashOption("user", { required: false })
@@ -187,7 +195,10 @@ export class Example3 {
     @SlashOption("role", { required: false })
     role: Role,
 
-    @SlashOption("user-or-role", { required: false, type: "MENTIONABLE" })
+    @SlashOption("user-or-role", {
+      required: false,
+      type: ApplicationCommandOptionType.Mentionable,
+    })
     userOrRole: GuildMember | User | Role,
 
     interaction: CommandInteraction,
@@ -258,10 +269,10 @@ describe("Slash", () => {
             name: "text",
             nameLocalizations: undefined,
             required: false,
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
       {
         defaultMemberPermissions: undefined,
@@ -278,7 +289,7 @@ describe("Slash", () => {
             name: "text",
             nameLocalizations: undefined,
             required: true,
-            type: "STRING",
+            type: ApplicationCommandOptionType.String,
           },
           {
             description: "bool - boolean",
@@ -286,7 +297,7 @@ describe("Slash", () => {
             name: "bool",
             nameLocalizations: undefined,
             required: true,
-            type: "BOOLEAN",
+            type: ApplicationCommandOptionType.Boolean,
           },
           {
             description: "nb - number",
@@ -294,7 +305,7 @@ describe("Slash", () => {
             name: "nb",
             nameLocalizations: undefined,
             required: true,
-            type: "NUMBER",
+            type: ApplicationCommandOptionType.Number,
           },
           {
             description: "channel - channel",
@@ -302,7 +313,7 @@ describe("Slash", () => {
             name: "channel",
             nameLocalizations: undefined,
             required: true,
-            type: "CHANNEL",
+            type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "text-channel - channel",
@@ -310,7 +321,7 @@ describe("Slash", () => {
             name: "text-channel",
             nameLocalizations: undefined,
             required: false,
-            type: "CHANNEL",
+            type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "voice-channel - channel",
@@ -318,7 +329,7 @@ describe("Slash", () => {
             name: "voice-channel",
             nameLocalizations: undefined,
             required: false,
-            type: "CHANNEL",
+            type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "user - user",
@@ -326,7 +337,7 @@ describe("Slash", () => {
             name: "user",
             nameLocalizations: undefined,
             required: false,
-            type: "USER",
+            type: ApplicationCommandOptionType.User,
           },
           {
             description: "role - role",
@@ -334,7 +345,7 @@ describe("Slash", () => {
             name: "role",
             nameLocalizations: undefined,
             required: false,
-            type: "ROLE",
+            type: ApplicationCommandOptionType.Role,
           },
           {
             description: "user-or-role - mentionable",
@@ -342,10 +353,10 @@ describe("Slash", () => {
             name: "user-or-role",
             nameLocalizations: undefined,
             required: false,
-            type: "MENTIONABLE",
+            type: ApplicationCommandOptionType.Mentionable,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
       {
         defaultMemberPermissions: undefined,
@@ -368,7 +379,7 @@ describe("Slash", () => {
                 name: "text",
                 nameLocalizations: undefined,
                 required: true,
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
               },
               {
                 description: "text2 - string",
@@ -376,10 +387,10 @@ describe("Slash", () => {
                 name: "text2",
                 nameLocalizations: undefined,
                 required: false,
-                type: "STRING",
+                type: ApplicationCommandOptionType.String,
               },
             ],
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
           },
           {
             description: "maths group description",
@@ -399,7 +410,7 @@ describe("Slash", () => {
                     name: "x",
                     nameLocalizations: undefined,
                     required: true,
-                    type: "NUMBER",
+                    type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
@@ -407,10 +418,10 @@ describe("Slash", () => {
                     name: "y",
                     nameLocalizations: undefined,
                     required: true,
-                    type: "NUMBER",
+                    type: ApplicationCommandOptionType.Number,
                   },
                 ],
-                type: "SUB_COMMAND",
+                type: ApplicationCommandOptionType.Subcommand,
               },
               {
                 description: "Addition",
@@ -424,7 +435,7 @@ describe("Slash", () => {
                     name: "x",
                     nameLocalizations: undefined,
                     required: true,
-                    type: "NUMBER",
+                    type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
@@ -432,13 +443,13 @@ describe("Slash", () => {
                     name: "y",
                     nameLocalizations: undefined,
                     required: true,
-                    type: "NUMBER",
+                    type: ApplicationCommandOptionType.Number,
                   },
                 ],
-                type: "SUB_COMMAND",
+                type: ApplicationCommandOptionType.Subcommand,
               },
             ],
-            type: "SUB_COMMAND_GROUP",
+            type: ApplicationCommandOptionType.SubcommandGroup,
           },
           {
             description: "text group description",
@@ -468,16 +479,16 @@ describe("Slash", () => {
                     name: "text",
                     nameLocalizations: undefined,
                     required: true,
-                    type: "STRING",
+                    type: ApplicationCommandOptionType.String,
                   },
                 ],
-                type: "SUB_COMMAND",
+                type: ApplicationCommandOptionType.Subcommand,
               },
             ],
-            type: "SUB_COMMAND_GROUP",
+            type: ApplicationCommandOptionType.SubcommandGroup,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
       {
         defaultMemberPermissions: undefined,
@@ -506,7 +517,7 @@ describe("Slash", () => {
                     name: "x",
                     nameLocalizations: undefined,
                     required: true,
-                    type: "NUMBER",
+                    type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
@@ -514,16 +525,16 @@ describe("Slash", () => {
                     name: "y",
                     nameLocalizations: undefined,
                     required: true,
-                    type: "NUMBER",
+                    type: ApplicationCommandOptionType.Number,
                   },
                 ],
-                type: "SUB_COMMAND",
+                type: ApplicationCommandOptionType.Subcommand,
               },
             ],
-            type: "SUB_COMMAND_GROUP",
+            type: ApplicationCommandOptionType.SubcommandGroup,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
       {
         defaultMemberPermissions: undefined,
@@ -535,7 +546,7 @@ describe("Slash", () => {
         nameLocalizations: undefined,
         options: [
           {
-            description: "add - sub_command_group",
+            description: "add - subcommandgroup",
             descriptionLocalizations: undefined,
             name: "add",
             nameLocalizations: undefined,
@@ -545,34 +556,34 @@ describe("Slash", () => {
                 descriptionLocalizations: undefined,
                 name: "y",
                 nameLocalizations: undefined,
-                type: "SUB_COMMAND",
+                type: ApplicationCommandOptionType.Subcommand,
               },
               {
                 description: "x",
                 descriptionLocalizations: undefined,
                 name: "x",
                 nameLocalizations: undefined,
-                type: "SUB_COMMAND",
+                type: ApplicationCommandOptionType.Subcommand,
               },
             ],
-            type: "SUB_COMMAND_GROUP",
+            type: ApplicationCommandOptionType.SubcommandGroup,
           },
           {
             description: "m",
             descriptionLocalizations: undefined,
             name: "m",
             nameLocalizations: undefined,
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
           },
           {
             description: "n",
             descriptionLocalizations: undefined,
             name: "n",
             nameLocalizations: undefined,
-            type: "SUB_COMMAND",
+            type: ApplicationCommandOptionType.Subcommand,
           },
         ],
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       },
     ]);
   });
@@ -580,7 +591,9 @@ describe("Slash", () => {
   it("Should execute the simple slash", async () => {
     const interaction = new FakeInteraction({
       commandName: "hello",
-      options: [new FakeOption("text", "STRING", "hello")],
+      options: [
+        new FakeOption("text", ApplicationCommandOptionType.String, "hello"),
+      ],
       type: InteractionType.Command,
     });
 
@@ -595,10 +608,23 @@ describe("Slash", () => {
     const interaction = new FakeInteraction({
       commandName: "testing",
       options: [
-        new FakeOption("hello", "SUB_COMMAND", "text", [
-          new FakeOption("text", "STRING", "testing hello text"),
-          new FakeOption("text2", "STRING", "testing hello text2"),
-        ]),
+        new FakeOption(
+          "hello",
+          ApplicationCommandOptionType.Subcommand,
+          "text",
+          [
+            new FakeOption(
+              "text",
+              ApplicationCommandOptionType.String,
+              "testing hello text"
+            ),
+            new FakeOption(
+              "text2",
+              ApplicationCommandOptionType.String,
+              "testing hello text2"
+            ),
+          ]
+        ),
       ],
       type: InteractionType.Command,
     });
@@ -620,11 +646,25 @@ describe("Slash", () => {
     const interaction = new FakeInteraction({
       commandName: "testing",
       options: [
-        new FakeOption("text", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("hello", "SUB_COMMAND", "text", [
-            new FakeOption("text", "STRING", "testing text hello"),
-          ]),
-        ]),
+        new FakeOption(
+          "text",
+          ApplicationCommandOptionType.SubcommandGroup,
+          "text",
+          [
+            new FakeOption(
+              "hello",
+              ApplicationCommandOptionType.Subcommand,
+              "text",
+              [
+                new FakeOption(
+                  "text",
+                  ApplicationCommandOptionType.String,
+                  "testing text hello"
+                ),
+              ]
+            ),
+          ]
+        ),
       ],
       type: InteractionType.Command,
     });
@@ -645,12 +685,22 @@ describe("Slash", () => {
     const interaction = new FakeInteraction({
       commandName: "testing",
       options: [
-        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("multiply", "SUB_COMMAND", "text", [
-            new FakeOption("x", "NUMBER", 2),
-            new FakeOption("y", "NUMBER", 5),
-          ]),
-        ]),
+        new FakeOption(
+          "maths",
+          ApplicationCommandOptionType.SubcommandGroup,
+          "text",
+          [
+            new FakeOption(
+              "multiply",
+              ApplicationCommandOptionType.Subcommand,
+              "text",
+              [
+                new FakeOption("x", ApplicationCommandOptionType.Number, 2),
+                new FakeOption("y", ApplicationCommandOptionType.Number, 5),
+              ]
+            ),
+          ]
+        ),
       ],
       type: InteractionType.Command,
     });
@@ -666,12 +716,22 @@ describe("Slash", () => {
     const interaction = new FakeInteraction({
       commandName: "testing",
       options: [
-        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("add", "SUB_COMMAND", "text", [
-            new FakeOption("x", "NUMBER", 2),
-            new FakeOption("y", "NUMBER", 5),
-          ]),
-        ]),
+        new FakeOption(
+          "maths",
+          ApplicationCommandOptionType.SubcommandGroup,
+          "text",
+          [
+            new FakeOption(
+              "add",
+              ApplicationCommandOptionType.Subcommand,
+              "text",
+              [
+                new FakeOption("x", ApplicationCommandOptionType.Number, 2),
+                new FakeOption("y", ApplicationCommandOptionType.Number, 5),
+              ]
+            ),
+          ]
+        ),
       ],
       type: InteractionType.Command,
     });
@@ -701,12 +761,22 @@ describe("Slash", () => {
     const interaction = new FakeInteraction({
       commandName: "testing",
       options: [
-        new FakeOption("maths", "SUB_COMMAND_GROUP", "text", [
-          new FakeOption("notfound", "SUB_COMMAND", "text", [
-            new FakeOption("x", "NUMBER", 2),
-            new FakeOption("y", "NUMBER", 5),
-          ]),
-        ]),
+        new FakeOption(
+          "maths",
+          ApplicationCommandOptionType.SubcommandGroup,
+          "text",
+          [
+            new FakeOption(
+              "notfound",
+              ApplicationCommandOptionType.Subcommand,
+              "text",
+              [
+                new FakeOption("x", ApplicationCommandOptionType.Number, 2),
+                new FakeOption("y", ApplicationCommandOptionType.Number, 5),
+              ]
+            ),
+          ]
+        ),
       ],
       type: InteractionType.Command,
     });

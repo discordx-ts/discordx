@@ -1,9 +1,10 @@
-import type {
-  CommandInteraction,
-  ModalActionRowComponent,
-  ModalSubmitInteraction,
+import type { CommandInteraction, ModalSubmitInteraction } from "discord.js";
+import {
+  ActionRowBuilder,
+  ModalBuilder,
+  TextInputBuilder,
+  TextInputStyle,
 } from "discord.js";
-import { MessageActionRow, Modal, TextInputComponent } from "discord.js";
 
 import { Discord, ModalComponent, Slash } from "../../../src/index.js";
 
@@ -12,26 +13,26 @@ export class Example {
   @Slash("modal")
   attachment(interaction: CommandInteraction): void {
     // Create the modal
-    const modal = new Modal()
+    const modal = new ModalBuilder()
       .setTitle("My Awesome Form")
       .setCustomId("AwesomeForm");
 
     // Create text input fields
-    const tvShowInputComponent = new TextInputComponent()
+    const tvShowInputComponent = new TextInputBuilder()
       .setCustomId("tvField")
       .setLabel("Favorite TV show")
-      .setStyle("SHORT");
+      .setStyle(TextInputStyle.Short);
 
-    const haikuInputComponent = new TextInputComponent()
+    const haikuInputComponent = new TextInputBuilder()
       .setCustomId("haikuField")
       .setLabel("Write down your favorite haiku")
-      .setStyle("PARAGRAPH");
+      .setStyle(TextInputStyle.Paragraph);
 
-    const row1 = new MessageActionRow<ModalActionRowComponent>().addComponents(
+    const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(
       tvShowInputComponent
     );
 
-    const row2 = new MessageActionRow<ModalActionRowComponent>().addComponents(
+    const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents(
       haikuInputComponent
     );
 

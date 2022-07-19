@@ -6,14 +6,16 @@ import {
 } from "@discordx/pagination";
 import type {
   CommandInteraction,
-  ContextMenuInteraction,
+  ContextMenuCommandInteraction,
+  MessageActionRowComponentBuilder,
   TextBasedChannel,
 } from "discord.js";
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
   Message,
-  MessageActionRow,
-  MessageButton,
-  MessageEmbed,
 } from "discord.js";
 
 import type { Player } from "../../src/index.js";
@@ -34,69 +36,71 @@ export class MusicQueue extends Queue {
     setInterval(() => this.updateControlMessage(), 1e4);
   }
 
-  private controlsRow(): MessageActionRow[] {
-    const nextButton = new MessageButton()
+  private controlsRow(): ActionRowBuilder<MessageActionRowComponentBuilder>[] {
+    const nextButton = new ButtonBuilder()
       .setLabel("Next")
       .setEmoji("⏭")
-      .setStyle("PRIMARY")
+      .setStyle(ButtonStyle.Primary)
       .setDisabled(!this.isPlaying)
       .setCustomId("btn-next");
 
-    const pauseButton = new MessageButton()
+    const pauseButton = new ButtonBuilder()
       .setLabel(this.isPlaying ? "Pause" : "Resume")
       .setEmoji(this.isPlaying ? "⏸️" : "▶️")
-      .setStyle("PRIMARY")
+      .setStyle(ButtonStyle.Primary)
       .setCustomId("btn-pause");
 
-    const stopButton = new MessageButton()
+    const stopButton = new ButtonBuilder()
       .setLabel("Stop")
-      .setStyle("DANGER")
+      .setStyle(ButtonStyle.Danger)
       .setCustomId("btn-leave");
 
-    const repeatButton = new MessageButton()
+    const repeatButton = new ButtonBuilder()
       .setLabel("Repeat")
       .setEmoji("🔂")
       .setDisabled(!this.isPlaying)
-      .setStyle(this.repeat ? "DANGER" : "PRIMARY")
+      .setStyle(this.repeat ? ButtonStyle.Danger : ButtonStyle.Primary)
       .setCustomId("btn-repeat");
 
-    const loopButton = new MessageButton()
+    const loopButton = new ButtonBuilder()
       .setLabel("Loop")
       .setEmoji("🔁")
       .setDisabled(!this.isPlaying)
-      .setStyle(this.loop ? "DANGER" : "PRIMARY")
+      .setStyle(this.loop ? ButtonStyle.Danger : ButtonStyle.Primary)
       .setCustomId("btn-loop");
 
-    const row1 = new MessageActionRow().addComponents(
-      stopButton,
-      pauseButton,
-      nextButton,
-      repeatButton
-    );
+    const row1 =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        stopButton,
+        pauseButton,
+        nextButton,
+        repeatButton
+      );
 
-    const queueButton = new MessageButton()
+    const queueButton = new ButtonBuilder()
       .setLabel("Queue")
       .setEmoji("🎵")
-      .setStyle("PRIMARY")
+      .setStyle(ButtonStyle.Primary)
       .setCustomId("btn-queue");
-    const mixButton = new MessageButton()
+    const mixButton = new ButtonBuilder()
       .setLabel("Shuffle")
       .setEmoji("🎛️")
       .setDisabled(!this.isPlaying)
-      .setStyle("PRIMARY")
+      .setStyle(ButtonStyle.Primary)
       .setCustomId("btn-mix");
-    const controlsButton = new MessageButton()
+    const controlsButton = new ButtonBuilder()
       .setLabel("Controls")
       .setEmoji("🔄")
-      .setStyle("PRIMARY")
+      .setStyle(ButtonStyle.Primary)
       .setCustomId("btn-controls");
 
-    const row2 = new MessageActionRow().addComponents(
-      loopButton,
-      queueButton,
-      mixButton,
-      controlsButton
-    );
+    const row2 =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        loopButton,
+        queueButton,
+        mixButton,
+        controlsButton
+      );
     return [row1, row2];
   }
 
@@ -109,7 +113,7 @@ export class MusicQueue extends Queue {
     }
 
     this.lockUpdate = true;
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle("Music Controls");
     const currentTrack = this.currentTrack;
     const nextTrack = this.nextTrack;
@@ -124,11 +128,12 @@ export class MusicQueue extends Queue {
       return;
     }
 
-    embed.addField(
-      "Now Playing" +
+    embed.addFields({
+      name:
+        "Now Playing" +
         (this.size > 2 ? ` (Total: ${this.size} tracks queued)` : ""),
-      `[${currentTrack.info.title}](${currentTrack.info.uri})`
-    );
+      value: `[${currentTrack.info.title}](${currentTrack.info.uri})`,
+    });
 
     const progressBarOptions = {
       arrow: "🔘",
@@ -153,14 +158,14 @@ export class MusicQueue extends Queue {
     const time =
       "`" + currentTime + " ".repeat(spacing * 3 - 2) + endTime + "`";
 
-    embed.addField(bar, time);
+    embed.addFields({ name: bar, value: time });
 
-    embed.addField(
-      "Next Song",
-      nextTrack
+    embed.addFields({
+      name: "Next Song",
+      value: nextTrack
         ? `[${nextTrack.info.title}](${nextTrack.info.uri})`
-        : "No upcoming song"
-    );
+        : "No upcoming song",
+    });
 
     const pMsg = {
       components: [...this.controlsRow()],
@@ -186,7 +191,7 @@ export class MusicQueue extends Queue {
   }
 
   public async view(
-    interaction: CommandInteraction | ContextMenuInteraction
+    interaction: CommandInteraction | ContextMenuCommandInteraction
   ): Promise<void> {
     if (!this.currentTrack) {
       const pMsg = await interaction.followUp({

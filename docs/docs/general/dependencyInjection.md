@@ -35,7 +35,7 @@ It is recommended to do this in your main class where you define your `new Clien
 
 ```ts
 import "reflect-metadata";
-import { Intents } from "discord.js";
+import { IntentsBitField } from "discord.js";
 import { container } from "tsyringe";
 import { Client, DIService } from "discordx";
 
@@ -43,7 +43,7 @@ async function start() {
   DIService.container = container;
   const client = new Client({
     botId: "test",
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+    intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
     silent: false,
   });
 

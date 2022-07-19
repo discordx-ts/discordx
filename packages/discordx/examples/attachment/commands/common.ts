@@ -1,4 +1,5 @@
-import type { CommandInteraction, MessageAttachment } from "discord.js";
+import type { Attachment, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType } from "discord.js";
 
 import { Discord, Slash, SlashOption } from "../../../src/index.js";
 
@@ -6,8 +7,8 @@ import { Discord, Slash, SlashOption } from "../../../src/index.js";
 export class Example {
   @Slash("attachment")
   attachment(
-    @SlashOption("image", { type: "ATTACHMENT" })
-    attachment: MessageAttachment,
+    @SlashOption("image", { type: ApplicationCommandOptionType.Attachment })
+    attachment: Attachment,
     interaction: CommandInteraction
   ): void {
     interaction.reply(attachment.url);

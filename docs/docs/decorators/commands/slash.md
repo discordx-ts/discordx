@@ -30,7 +30,7 @@ import { Client } from "discordx";
 async function start() {
   const client = new Client({
     botId: "test",
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+    intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
   });
 
   client.once("ready", async () => {
@@ -53,7 +53,7 @@ start();
 ```ts
 const client = new Client({
   botId: "test",
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
   botGuilds: process.DEV ? ["GUILD_ID"] : undefined,
 });
 ```
@@ -123,7 +123,7 @@ You can do:
 ```ts
 const client = new Client({
   botId: "test",
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
   botGuilds: ["GUILD_ID"],
 });
 ```

@@ -37,7 +37,7 @@ async function start() {
     simpleCommand: {
       prefix: "!", // define your prefix here
     },
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+    intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
   });
 
   client.on("messageCreate", (message) => {

@@ -128,7 +128,7 @@ export class FakeInteraction {
     return this.type === InteractionType.Button;
   }
 
-  isContextMenu() {
+  isContextMenuCommand() {
     return this.type === InteractionType.ContextMenu;
   }
 

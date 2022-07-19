@@ -1,13 +1,13 @@
 import "reflect-metadata";
 
-import { Intents } from "discord.js";
+import { IntentsBitField } from "discord.js";
 
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client, MetadataStorage } from "../../src/index.js";
 
 const botA = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
 });
 
 botA.once("ready", async () => {
@@ -22,7 +22,7 @@ botA.on("interactionCreate", (interaction) => {
 
 const botB = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
   silent: false,
 });
 

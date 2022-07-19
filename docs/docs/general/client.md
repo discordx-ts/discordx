@@ -78,11 +78,11 @@ If an event of your app isn't triggered, you probably missed an **Intent**
 ### Basic intents, just text messages
 
 ```ts
-import { Intents } from "discord.js";
+import { IntentsBitField } from "discord.js";
 
 const client = new Client({
   botId: "test",
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
   // ...
 });
 ```
@@ -90,16 +90,16 @@ const client = new Client({
 ### Enable direct messages from user
 
 ```ts
-import { Intents } from "discord.js";
+import { IntentsBitField } from "discord.js";
 
 const client = new Client({
   botId: "test",
   // partial configuration required to enable direct messages
   partials: ["CHANNEL", "MESSAGE"],
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGES,
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.DirectMessages,
   ],
   // ...
 });
@@ -108,14 +108,14 @@ const client = new Client({
 ### Voice activity intent, the ability to speak
 
 ```ts
-import { Intents } from "discord.js";
+import { IntentsBitField } from "discord.js";
 
 const client = new Client({
   botId: "test",
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES, // Can speak
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.GUILD_VOICE_STATES, // Can speak
   ],
   // ...
 });
@@ -144,24 +144,24 @@ const client = new Client({
 - DIRECT_MESSAGE_TYPING
 
 ```ts
-import { Intents } from "discord.js";
+import { IntentsBitField } from "discord.js";
 
 const client = new Client({
   botId: "test",
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES,
-    Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-    Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGE_TYPING,
-    Intents.FLAGS.GUILD_INTEGRATIONS,
-    Intents.FLAGS.GUILD_PRESENCES,
-    Intents.FLAGS.GUILD_WEBHOOKS,
-    Intents.FLAGS.GUILD_MEMBERS,
-    Intents.FLAGS.GUILD_INVITES,
-    Intents.FLAGS.GUILD_BANS,
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.GUILD_VOICE_STATES,
+    IntentsBitField.Flags.GUILD_EMOJIS_AND_STICKERS,
+    IntentsBitField.Flags.DIRECT_MESSAGE_REACTIONS,
+    IntentsBitField.Flags.DirectMessages,
+    IntentsBitField.Flags.DIRECT_MESSAGE_TYPING,
+    IntentsBitField.Flags.GUILD_INTEGRATIONS,
+    IntentsBitField.Flags.GUILD_PRESENCES,
+    IntentsBitField.Flags.GUILD_WEBHOOKS,
+    IntentsBitField.Flags.GuildMembers,
+    IntentsBitField.Flags.GUILD_INVITES,
+    IntentsBitField.Flags.GUILD_BANS,
   ],
   // ...
 });
