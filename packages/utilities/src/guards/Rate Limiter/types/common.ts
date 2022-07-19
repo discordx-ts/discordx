@@ -1,8 +1,8 @@
-import type { BaseCommandInteraction } from "discord.js";
+import type { CommandInteraction } from "discord.js";
 import type { Awaitable, SimpleCommandMessage } from "discordx";
 
 export type RateLimitOption<
-  T extends BaseCommandInteraction | SimpleCommandMessage
+  T extends CommandInteraction | SimpleCommandMessage
 > = {
   /**
    * for interaction only
