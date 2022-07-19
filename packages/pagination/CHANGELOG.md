@@ -6,6 +6,7 @@
 
 ## Changed
 
+- djs v14 ([#836](https://github.com/oceanroleplay/discord.ts/issues/836)) ([b198ea](https://github.com/oceanroleplay/discord.ts/commit/b198ea53ee7a64a8c5e5a1fb19c23a27a4734de6))
 - pagination timeout based on last interaction ([b9b27c](https://github.com/oceanroleplay/discord.ts/commit/b9b27c973eda33417e83b208bca5812ba5fb4791))
 - update djs ([ed294e](https://github.com/oceanroleplay/discord.ts/commit/ed294e3e588ac2c5095011bc2760f463da426265))
 - pagination - catch error and log ([894400](https://github.com/oceanroleplay/discord.ts/commit/8944002b6701280f9e9cfc999d48cf4855fa45a9))
