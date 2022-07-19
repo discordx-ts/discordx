@@ -43,7 +43,10 @@ async function start() {
   DIService.container = container;
   const client = new Client({
     botId: "test",
-    intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
+    intents: [
+      IntentsBitField.Flags.Guilds,
+      IntentsBitField.Flags.GuildMessages,
+    ],
     silent: false,
   });
 

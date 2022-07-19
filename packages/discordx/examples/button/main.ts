@@ -15,7 +15,10 @@ export class Main {
   static async start(): Promise<void> {
     this._client = new Client({
       botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
-      intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
+      intents: [
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMessages,
+      ],
       silent: false,
     });
 

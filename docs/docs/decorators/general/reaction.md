@@ -23,7 +23,10 @@ import { Client } from "discordx";
 async function start() {
   const client = new Client({
     botId: "test",
-    intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
+    intents: [
+      IntentsBitField.Flags.Guilds,
+      IntentsBitField.Flags.GuildMessages,
+    ],
     partials: ["MESSAGE", "CHANNEL", "REACTION"], // Necessary to receive reactions for uncached messages
   });
 
