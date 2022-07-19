@@ -187,7 +187,7 @@ export abstract class Queue<T extends Player = Player> {
   }
 
   constructor(public player: T, public guild: Guild) {
-    this._audioPlayer.on<"stateChange">("stateChange", (oldState, newState) => {
+    this._audioPlayer.on("stateChange", (oldState, newState) => {
       if (
         newState.status === AudioPlayerStatus.Idle &&
         oldState.status !== AudioPlayerStatus.Idle
@@ -293,61 +293,53 @@ export abstract class Queue<T extends Player = Player> {
 
     _voiceConnection.subscribe(this._audioPlayer);
 
-    _voiceConnection.on<"stateChange">(
-      "stateChange",
-      async (oldState, newState) => {
-        if (newState.status === VoiceConnectionStatus.Disconnected) {
-          if (
-            newState.reason ===
-              VoiceConnectionDisconnectReason.WebSocketClose &&
-            newState.closeCode === 4014
-          ) {
-            try {
-              await entersState(
-                _voiceConnection,
-                VoiceConnectionStatus.Connecting,
-                5e3
-              );
-              // Probably moved voice channel
-            } catch {
-              _voiceConnection.destroy();
-              // Probably removed from voice channel
-            }
-          } else if (_voiceConnection.rejoinAttempts < 5) {
-            // The disconnect in this case is recoverable, and we also have <5 repeated attempts so we will reconnect.
-            await wait((_voiceConnection.rejoinAttempts + 1) * 5e3);
-            _voiceConnection.rejoin();
-          } else {
-            // The disconnect in this case may be recoverable, but we have no more remaining attempts - destroy.
-            _voiceConnection.destroy();
-          }
-        } else if (newState.status === VoiceConnectionStatus.Destroyed) {
-          // Once destroyed, stop the subscription
-          this.leave();
-        } else if (
-          !this.readyLock &&
-          (newState.status === VoiceConnectionStatus.Connecting ||
-            newState.status === VoiceConnectionStatus.Signalling)
+    _voiceConnection.on("stateChange", async (oldState, newState) => {
+      if (newState.status === VoiceConnectionStatus.Disconnected) {
+        if (
+          newState.reason === VoiceConnectionDisconnectReason.WebSocketClose &&
+          newState.closeCode === 4014
         ) {
-          this.readyLock = true;
           try {
             await entersState(
               _voiceConnection,
-              VoiceConnectionStatus.Ready,
-              2e4
+              VoiceConnectionStatus.Connecting,
+              5e3
             );
+            // Probably moved voice channel
           } catch {
-            if (
-              _voiceConnection.state.status !== VoiceConnectionStatus.Destroyed
-            ) {
-              _voiceConnection.destroy();
-            }
-          } finally {
-            this.readyLock = false;
+            _voiceConnection.destroy();
+            // Probably removed from voice channel
           }
+        } else if (_voiceConnection.rejoinAttempts < 5) {
+          // The disconnect in this case is recoverable, and we also have <5 repeated attempts so we will reconnect.
+          await wait((_voiceConnection.rejoinAttempts + 1) * 5e3);
+          _voiceConnection.rejoin();
+        } else {
+          // The disconnect in this case may be recoverable, but we have no more remaining attempts - destroy.
+          _voiceConnection.destroy();
+        }
+      } else if (newState.status === VoiceConnectionStatus.Destroyed) {
+        // Once destroyed, stop the subscription
+        this.leave();
+      } else if (
+        !this.readyLock &&
+        (newState.status === VoiceConnectionStatus.Connecting ||
+          newState.status === VoiceConnectionStatus.Signalling)
+      ) {
+        this.readyLock = true;
+        try {
+          await entersState(_voiceConnection, VoiceConnectionStatus.Ready, 2e4);
+        } catch {
+          if (
+            _voiceConnection.state.status !== VoiceConnectionStatus.Destroyed
+          ) {
+            _voiceConnection.destroy();
+          }
+        } finally {
+          this.readyLock = false;
         }
       }
-    );
+    });
 
     try {
       await entersState(_voiceConnection, VoiceConnectionStatus.Ready, 2e4);
