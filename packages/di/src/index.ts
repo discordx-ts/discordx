@@ -16,6 +16,7 @@ export const defaultDependencyRegistryEngine =
 export type InstanceOf<T> = T extends new (...args: unknown[]) => infer R
   ? R
   : unknown;
+
 /**
  * The dependency injection service creates a single instance of a class and stores it globally using the singleton design pattern
  *
