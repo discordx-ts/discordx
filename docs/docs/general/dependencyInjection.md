@@ -48,7 +48,9 @@ For TypeDi, both the service Method and the container must be set
 import { DIService, typeDiDependencyRegistryEngine } from "discordx";
 import { Container, Service } from "typedi";
 
-DIService.engine = typeDiDependencyRegistryEngine.setService(Service).setInjector(Container);
+DIService.engine = typeDiDependencyRegistryEngine
+  .setService(Service)
+  .setInjector(Container);
 ```
 
 ```ts title="customEngine"
