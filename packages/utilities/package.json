@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev",
-    "discordx": ">=9 || ^9.0.0-dev"
+    "discordx": ">=10 || ^10.0.0-dev"
   },
   "engines": {
     "node": ">=16.0.0",
