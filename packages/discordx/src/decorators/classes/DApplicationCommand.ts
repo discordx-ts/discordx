@@ -1,10 +1,13 @@
 import type {
   ApplicationCommandOptionData,
-  ApplicationCommandType,
-  CommandInteraction,
+  ChatInputCommandInteraction,
+  LocalizationMap,
   PermissionResolvable,
 } from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v9";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} from "discord.js";
 
 import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
 import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
@@ -188,7 +191,7 @@ export class DApplicationCommand extends Method {
     const option = DApplicationCommandOption.create({
       description: this.description,
       name: this.name,
-      type: "SUB_COMMAND",
+      type: ApplicationCommandOptionType.Subcommand,
     }).decorate(this.classRef, this.key, this.method, this.from, this.index);
 
     option.options = this.options;
@@ -196,7 +199,7 @@ export class DApplicationCommand extends Method {
   }
 
   toJSON(): ApplicationCommandDataEx {
-    if (this.type !== "CHAT_INPUT") {
+    if (this.type !== ApplicationCommandType.ChatInput) {
       const data: ApplicationCommandDataEx = {
         defaultMemberPermissions: this.defaultMemberPermissions,
         defaultPermission: this.defaultPermission,
@@ -214,8 +217,10 @@ export class DApplicationCommand extends Method {
       .reverse()
       .sort((a, b) => {
         if (
-          (a.type === "SUB_COMMAND" || a.type === "SUB_COMMAND_GROUP") &&
-          (b.type === "SUB_COMMAND" || b.type === "SUB_COMMAND_GROUP")
+          (a.type === ApplicationCommandOptionType.Subcommand ||
+            a.type === ApplicationCommandOptionType.SubcommandGroup) &&
+          (b.type === ApplicationCommandOptionType.Subcommand ||
+            b.type === ApplicationCommandOptionType.SubcommandGroup)
         ) {
           return a.name < b.name ? -1 : 1;
         }
@@ -239,34 +244,34 @@ export class DApplicationCommand extends Method {
     return data;
   }
 
-  parseParams(interaction: CommandInteraction): unknown[] {
+  parseParams(interaction: ChatInputCommandInteraction): unknown[] {
     return [...this.options].reverse().map((op) => {
       switch (op.type) {
-        case "ATTACHMENT":
+        case ApplicationCommandOptionType.Attachment:
           return interaction.options.getAttachment(op.name) ?? undefined;
 
-        case "STRING":
+        case ApplicationCommandOptionType.String:
           return interaction.options.getString(op.name) ?? undefined;
 
-        case "BOOLEAN":
+        case ApplicationCommandOptionType.Boolean:
           return interaction.options.getBoolean(op.name) ?? undefined;
 
-        case "NUMBER":
+        case ApplicationCommandOptionType.Number:
           return interaction.options.getNumber(op.name) ?? undefined;
 
-        case "INTEGER":
+        case ApplicationCommandOptionType.Integer:
           return interaction.options.getInteger(op.name) ?? undefined;
 
-        case "ROLE":
+        case ApplicationCommandOptionType.Role:
           return interaction.options.getRole(op.name) ?? undefined;
 
-        case "CHANNEL":
+        case ApplicationCommandOptionType.Channel:
           return interaction.options.getChannel(op.name) ?? undefined;
 
-        case "MENTIONABLE":
+        case ApplicationCommandOptionType.Mentionable:
           return interaction.options.getMentionable(op.name) ?? undefined;
 
-        case "USER":
+        case ApplicationCommandOptionType.User:
           return (
             interaction.options.getMember(op.name) ??
             interaction.options.getUser(op.name) ??

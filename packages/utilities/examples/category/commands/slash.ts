@@ -1,6 +1,6 @@
 import { Pagination } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import type { DSimpleCommand } from "discordx";
 import { DApplicationCommand, Discord, MetadataStorage, Slash } from "discordx";
 
@@ -37,12 +37,12 @@ export class SlashExample {
     );
 
     const pages = commands.map((cmd, i) => {
-      return new MessageEmbed()
+      return new EmbedBuilder()
         .setFooter({ text: `Page ${i + 1} of ${commands.length}` })
         .setTitle("**Slash command info**")
-        .addField("Name", cmd.name)
-        .addField("Description", cmd.description)
-        .addField("Type", cmd.type);
+        .addFields({ name: "Name", value: cmd.name })
+        .addFields({ name: "Description", value: cmd.description })
+        .addFields({ name: "Type", value: cmd.type });
     });
 
     new Pagination(interaction, pages).send();

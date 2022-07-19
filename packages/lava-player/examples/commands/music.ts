@@ -1,5 +1,5 @@
 import type { CommandInteraction } from "discord.js";
-import { GuildMember } from "discord.js";
+import { GatewayDispatchEvents, GuildMember } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import { Discord, Once, Slash, SlashOption } from "discordx";
 
@@ -40,13 +40,19 @@ export class MusicPlayer {
       console.log(e);
     });
 
-    client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
-      nodeX.voiceStateUpdate(data);
-    });
+    client.ws.on(
+      GatewayDispatchEvents.VoiceStateUpdate,
+      (data: Lava.VoiceStateUpdate) => {
+        nodeX.voiceStateUpdate(data);
+      }
+    );
 
-    client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
-      nodeX.voiceServerUpdate(data);
-    });
+    client.ws.on(
+      GatewayDispatchEvents.VoiceServerUpdate,
+      (data: Lava.VoiceServerUpdate) => {
+        nodeX.voiceServerUpdate(data);
+      }
+    );
 
     this.node = nodeX;
   }

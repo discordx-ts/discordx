@@ -1,21 +1,20 @@
-import type { ContextMenuInteraction } from "discord.js";
+import type { ContextMenuCommandInteraction } from "discord.js";
+import { ApplicationCommandType } from "discord.js";
 
 import type { GuardFunction } from "../../../src/index.js";
 import { ContextMenu, Discord, Guard } from "../../../src/index.js";
 
-export const InteractionGuard: GuardFunction<ContextMenuInteraction> = async (
-  interaction,
-  client,
-  next
-) => {
+export const InteractionGuard: GuardFunction<
+  ContextMenuCommandInteraction
+> = async (interaction, client, next) => {
   await next();
 };
 
 @Discord()
 export class Example {
-  @ContextMenu("USER", "Check details")
+  @ContextMenu(ApplicationCommandType.User, "Check details")
   @Guard(InteractionGuard)
-  userHandler(interaction: ContextMenuInteraction): void {
+  userHandler(interaction: ContextMenuCommandInteraction): void {
     console.log(`Selected user: ${interaction.targetId}`);
   }
 }

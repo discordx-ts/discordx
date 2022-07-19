@@ -1,5 +1,9 @@
-import type { ButtonInteraction, CommandInteraction } from "discord.js";
-import { MessageActionRow, MessageButton } from "discord.js";
+import type {
+  ButtonInteraction,
+  CommandInteraction,
+  MessageActionRowComponentBuilder,
+} from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 
 import { ButtonComponent, Discord, Slash } from "../../../src/index.js";
 
@@ -17,12 +21,15 @@ export class Example {
 
   @Slash()
   test(interaction: CommandInteraction): void {
-    const btn = new MessageButton()
+    const btn = new ButtonBuilder()
       .setLabel("Hello")
-      .setStyle("PRIMARY")
+      .setStyle(ButtonStyle.Primary)
       .setCustomId("hello");
 
-    const buttonRow = new MessageActionRow().addComponents(btn);
+    const buttonRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        btn
+      );
 
     interaction.reply({
       components: [buttonRow],

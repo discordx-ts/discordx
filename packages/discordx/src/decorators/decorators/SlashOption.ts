@@ -1,6 +1,6 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
-import type { ApplicationCommandOptionType } from "discord.js";
+import { ApplicationCommandOptionType } from "discord.js";
 
 import type { SlashOptionOptions, VerifyName } from "../../index.js";
 import {
@@ -45,20 +45,43 @@ export function SlashOption(
 ): ParameterDecoratorEx {
   function getType(type: string): ApplicationCommandOptionType {
     switch (type) {
-      case "GUILDMEMBER": {
-        return "USER";
+      case "STRING": {
+        return ApplicationCommandOptionType.String;
       }
 
+      case "NUMBER": {
+        return ApplicationCommandOptionType.Number;
+      }
+
+      case "BOOLEAN": {
+        return ApplicationCommandOptionType.Boolean;
+      }
+
+      case "CHANNEL":
       case "TEXTCHANNEL":
       case "VOICECHANNEL": {
-        return "CHANNEL";
+        return ApplicationCommandOptionType.Channel;
       }
 
-      case "FUNCTION":
-        throw Error(`invalid slash option (${name}): ${type}`);
+      case "GUILDMEMBER": {
+        return ApplicationCommandOptionType.User;
+      }
+
+      case "ROLE": {
+        return ApplicationCommandOptionType.Role;
+      }
+
+      case "USER":
+      case "GUILDMEMBER": {
+        return ApplicationCommandOptionType.User;
+      }
+
+      case "MessageAttachment": {
+        return ApplicationCommandOptionType.Attachment;
+      }
 
       default:
-        return type as ApplicationCommandOptionType;
+        throw Error(`invalid slash option (${name}): ${type}\n`);
     }
   }
 

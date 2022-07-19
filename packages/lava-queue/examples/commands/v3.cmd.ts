@@ -5,7 +5,7 @@ import type {
   Guild,
   TextBasedChannel,
 } from "discord.js";
-import { GuildMember, MessageEmbed } from "discord.js";
+import { EmbedBuilder, GuildMember } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import {
   ButtonComponent,
@@ -167,7 +167,7 @@ export class MusicPlayer {
       queue.playNext();
     }
 
-    const embed = new MessageEmbed();
+    const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
     if (response.playlistInfo.name) {
       embed.setDescription(

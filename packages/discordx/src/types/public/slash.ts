@@ -1,12 +1,14 @@
 import type {
   ApplicationCommandOptionData,
   ApplicationCommandOptionType,
+  ApplicationCommandType,
   AutocompleteInteraction,
+  ChannelType,
+  LocalizationMap,
   PermissionResolvable,
 } from "discord.js";
-import type { LocalizationMap } from "discord-api-types/v9";
 
-import type { ChannelTypes, DApplicationCommand, IGuild } from "../../index.js";
+import type { DApplicationCommand, IGuild } from "../../index.js";
 
 export type ApplicationCommandOptions = {
   botIds?: string[];
@@ -33,16 +35,18 @@ export type SlashOptionBaseOptions = SlashOptionBase & {
   minValue?: undefined;
   type?: Exclude<
     ApplicationCommandOptionType,
-    "SUB_COMMAND" | "SUB_COMMAND_GROUP" | "CHANNEL"
+    | ApplicationCommandOptionType.Subcommand
+    | ApplicationCommandOptionType.SubcommandGroup
+    | ApplicationCommandOptionType.Channel
   >;
 };
 
 export type SlashOptionChannelOptions = SlashOptionBase & {
   autocomplete?: undefined;
-  channelTypes?: ChannelTypes[];
+  channelTypes?: ChannelType[];
   maxValue?: undefined;
   minValue?: undefined;
-  type: "CHANNEL";
+  type: ApplicationCommandOptionType.Channel;
 };
 
 export type SlashOptionAutoCompleteOptions = SlashOptionBase & {
@@ -50,7 +54,10 @@ export type SlashOptionAutoCompleteOptions = SlashOptionBase & {
   channelTypes?: undefined;
   maxValue?: undefined;
   minValue?: undefined;
-  type: "STRING" | "NUMBER" | "INTEGER";
+  type:
+    | ApplicationCommandOptionType.String
+    | ApplicationCommandOptionType.Number
+    | ApplicationCommandOptionType.Integer;
 };
 
 export type SlashOptionNumberOptions = SlashOptionBase & {
@@ -58,7 +65,9 @@ export type SlashOptionNumberOptions = SlashOptionBase & {
   channelTypes?: undefined;
   maxValue?: number;
   minValue?: number;
-  type: "NUMBER" | "INTEGER";
+  type:
+    | ApplicationCommandOptionType.Number
+    | ApplicationCommandOptionType.Integer;
 };
 
 export type SlashOptionOptions =
@@ -84,5 +93,5 @@ export type ApplicationCommandDataEx = {
   name: string;
   nameLocalizations?: LocalizationMap;
   options: ApplicationCommandOptionData[];
-  type: string;
+  type: ApplicationCommandType;
 };

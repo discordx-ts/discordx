@@ -1,4 +1,5 @@
 import type { CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType } from "discord.js";
 
 import { Discord, Slash, SlashOption } from "../../../src/index.js";
 
@@ -13,7 +14,7 @@ export class Example {
   })
   voiceChannel(
     @SlashOption("message", {
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     })
     message: string,
     interaction: CommandInteraction

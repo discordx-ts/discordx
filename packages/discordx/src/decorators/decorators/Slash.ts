@@ -1,4 +1,5 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
+import { ApplicationCommandType } from "discord.js";
 
 import type { ApplicationCommandOptions, VerifyName } from "../../index.js";
 import { DApplicationCommand, MetadataStorage } from "../../index.js";
@@ -50,7 +51,7 @@ export function Slash(
       guilds: options?.guilds,
       name: name,
       nameLocalizations: options?.nameLocalizations,
-      type: "CHAT_INPUT",
+      type: ApplicationCommandType.ChatInput,
     }).decorate(target.constructor, key, target[key]);
 
     MetadataStorage.instance.addApplicationCommandSlash(applicationCommand);

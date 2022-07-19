@@ -7,7 +7,7 @@ import type {
   ButtonInteraction,
   CommandInteraction,
   CommandInteractionOption,
-  ContextMenuInteraction,
+  ContextMenuCommandInteraction,
   Interaction,
   Message,
   MessageReaction,
@@ -18,7 +18,12 @@ import type {
   Snowflake,
   User,
 } from "discord.js";
-import { Client as ClientJS } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+  Client as ClientJS,
+  InteractionType,
+} from "discord.js";
 import _ from "lodash";
 
 import type {
@@ -426,19 +431,20 @@ export class Client extends ClientJS {
           options.forEach((option, optionIndex) => {
             this.logger.log(
               `${
-                (option.type === "SUB_COMMAND" ||
-                  option.type === "SUB_COMMAND_GROUP") &&
+                (option.type === ApplicationCommandOptionType.Subcommand ||
+                  option.type ===
+                    ApplicationCommandOptionType.SubcommandGroup) &&
                 optionIndex !== 0
                   ? "\n"
                   : ""
               }${tab}>> ${
-                option.type === "SUB_COMMAND" ||
-                option.type === "SUB_COMMAND_GROUP"
+                option.type === ApplicationCommandOptionType.Subcommand ||
+                option.type === ApplicationCommandOptionType.SubcommandGroup
                   ? option.name
                   : option.name
-              }: ${option.type.toLowerCase()} (${option.classRef.name}.${
-                option.key
-              })`
+              }: ${ApplicationCommandOptionType[option.type]?.toLowerCase()} (${
+                option.classRef.name
+              }.${option.key})`
             );
             printOptions(option.options, depth + 1);
           });
@@ -750,34 +756,37 @@ export class Client extends ClientJS {
     });
 
     // Solution for sorting, channel types to ensure equal does not fail
-    if (commandJson.type === "CHAT_INPUT") {
+    if (commandJson.type === ApplicationCommandType.ChatInput) {
       commandJson.options?.forEach((op) => {
-        if (op.type === "SUB_COMMAND_GROUP") {
+        if (op.type === ApplicationCommandOptionType.SubcommandGroup) {
           op.options?.forEach((op1) => {
             op1.options?.forEach((op2) => {
-              if (op2.type === "CHANNEL") {
+              if (op2.type === ApplicationCommandOptionType.Channel) {
                 op2.channelTypes?.sort(); // sort mutate array
               }
             });
           });
         }
 
-        if (op.type === "SUB_COMMAND") {
+        if (op.type === ApplicationCommandOptionType.Subcommand) {
           op.options?.forEach((op1) => {
-            if (op1.type === "CHANNEL") {
+            if (op1.type === ApplicationCommandOptionType.Channel) {
               op1.channelTypes?.sort(); // sort mutate array
             }
           });
         }
 
-        if (op.type === "CHANNEL") {
+        if (op.type === ApplicationCommandOptionType.Channel) {
           op.channelTypes?.sort(); // sort mutate array
         }
       });
     }
 
     // remove unwanted fields from options
-    if (commandJson.type === "CHAT_INPUT" && commandJson.options) {
+    if (
+      commandJson.type === ApplicationCommandType.ChatInput &&
+      commandJson.options
+    ) {
       commandJson.options = _.map(commandJson.options, (object) =>
         _.omit(object, ["descriptionLocalized", "nameLocalized"])
       ) as ApplicationCommandOptionData[];
@@ -991,8 +1000,8 @@ export class Client extends ClientJS {
 
       if (
         !option.type ||
-        option.type === "SUB_COMMAND_GROUP" ||
-        option.type === "SUB_COMMAND"
+        option.type === ApplicationCommandOptionType.SubcommandGroup ||
+        option.type === ApplicationCommandOptionType.Subcommand
       ) {
         if (option.name) {
           tree.push(option.name);
@@ -1029,7 +1038,7 @@ export class Client extends ClientJS {
             slash.group === undefined &&
             slash.subgroup === undefined &&
             slash.name === tree[0] &&
-            slash.type === "CHAT_INPUT"
+            slash.type === ApplicationCommandType.ChatInput
           );
         case 2:
           // Simple grouped command
@@ -1038,7 +1047,7 @@ export class Client extends ClientJS {
             slash.group === tree[0] &&
             slash.subgroup === undefined &&
             slash.name === tree[1] &&
-            slash.type === "CHAT_INPUT"
+            slash.type === ApplicationCommandType.ChatInput
           );
         case 3:
           // Grouped and subgrouped command
@@ -1047,7 +1056,7 @@ export class Client extends ClientJS {
             slash.group === tree[0] &&
             slash.subgroup === tree[1] &&
             slash.name === tree[2] &&
-            slash.type === "CHAT_INPUT"
+            slash.type === ApplicationCommandType.ChatInput
           );
       }
     });
@@ -1080,7 +1089,7 @@ export class Client extends ClientJS {
     }
 
     // if interaction is a modal
-    if (interaction.isModalSubmit()) {
+    if (interaction.type === InteractionType.ModalSubmit) {
       return this.executeComponent(this.modalComponents, interaction, log);
     }
 
@@ -1090,12 +1099,15 @@ export class Client extends ClientJS {
     }
 
     // if interaction is context menu
-    if (interaction.isContextMenu()) {
+    if (interaction.isContextMenuCommand()) {
       return this.executeContextMenu(interaction, log);
     }
 
     // If the interaction isn't a slash command, return
-    if (interaction.isCommand() || interaction.isAutocomplete()) {
+    if (
+      interaction.type === InteractionType.ApplicationCommand ||
+      interaction.type === InteractionType.ApplicationCommandAutocomplete
+    ) {
       return this.executeCommandInteraction(interaction, log);
     }
   }
@@ -1127,7 +1139,7 @@ export class Client extends ClientJS {
       return;
     }
 
-    if (interaction.isAutocomplete()) {
+    if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
       const focusOption = interaction.options.getFocused(true);
       const option = applicationCommand.options.find(
         (op) => op.name === focusOption.name
@@ -1207,10 +1219,10 @@ export class Client extends ClientJS {
    * @returns
    */
   async executeContextMenu(
-    interaction: ContextMenuInteraction,
+    interaction: ContextMenuCommandInteraction,
     log?: boolean
   ): Promise<unknown> {
-    const applicationCommand = interaction.isUserContextMenu()
+    const applicationCommand = interaction.isUserContextMenuCommand()
       ? this.applicationCommandUsers.find(
           (cmd) => cmd.name === interaction.commandName
         )

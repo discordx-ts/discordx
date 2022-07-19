@@ -1,6 +1,10 @@
 import { DIService } from "@discordx/di";
 import type { Decorator } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} from "discord.js";
 import _ from "lodash";
 
 import type { Method } from "../../decorators/classes/Method.js";
@@ -450,7 +454,7 @@ export class MetadataStorage {
       const slashParent = DApplicationCommand.create({
         description: group.infos?.description,
         name: group.name,
-        type: "CHAT_INPUT",
+        type: ApplicationCommandType.ChatInput,
       }).decorate(group.classRef, group.key, group.method);
 
       const discord = this._discords.find((instance) => {
@@ -502,7 +506,7 @@ export class MetadataStorage {
       const option = DApplicationCommandOption.create({
         description: subGroup.infos?.description,
         name: subGroup.name,
-        type: "SUB_COMMAND_GROUP",
+        type: ApplicationCommandOptionType.SubcommandGroup,
       }).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup
