@@ -1,8 +1,8 @@
 import "reflect-metadata";
 
+import { dirname, importx } from "@discordx/importer";
 import { ChannelType, IntentsBitField, Partials } from "discord.js";
 
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client } from "../../src/index.js";
 
 export class Main {

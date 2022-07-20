@@ -1,7 +1,7 @@
 import type { RouterContext } from "@koa/router";
 import type { Next } from "koa";
 
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
+import { dirname, importx } from "@discordx/importer";
 import { Koa } from "../../src/index.js";
 
 // example of global middleware

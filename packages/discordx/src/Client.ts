@@ -803,7 +803,8 @@ export class Client extends ClientJS {
             "guildId",
             "version",
             "descriptionLocalized",
-            "nameLocalized"
+            "nameLocalized",
+            "permissions"
           )
         )
       ),

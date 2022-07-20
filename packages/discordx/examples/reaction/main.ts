@@ -1,8 +1,8 @@
 import "reflect-metadata";
 
-import { IntentsBitField } from "discord.js";
+import { dirname, importx } from "@discordx/importer";
+import { IntentsBitField, Partials } from "discord.js";
 
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
 import { Client } from "../../src/index.js";
 
 export class Main {
@@ -19,9 +19,9 @@ export class Main {
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.GuildMembers,
-        IntentsBitField.Flags.GUILD_MESSAGE_REACTIONS,
+        IntentsBitField.Flags.GuildMessageReactions,
       ],
-      partials: ["MESSAGE", "CHANNEL", "REACTION"],
+      partials: [Partials.Message, Partials.Channel, Partials.Reaction],
       silent: false,
     });
 
