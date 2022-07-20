@@ -1,3 +1,4 @@
+import { tsyringeDependencyRegistryEngine } from "@discordx/di";
 import type { CommandInteraction } from "discord.js";
 import { container, injectable, singleton } from "tsyringe";
 
@@ -26,7 +27,7 @@ export class Example {
 
   @Slash("tsyringe")
   tsyringe(interaction: CommandInteraction): void {
-    if (DIService.container) {
+    if (DIService.engine === tsyringeDependencyRegistryEngine) {
       const clazz = container.resolve(Example);
       interaction.reply(
         `${clazz.database.query()}, same class: ${clazz === this}`
@@ -38,7 +39,7 @@ export class Example {
 
   @Slash("tsyringe2")
   tsyringe2(interaction: CommandInteraction): void {
-    if (DIService.container) {
+    if (DIService.engine === tsyringeDependencyRegistryEngine) {
       interaction.reply(this.database.query());
     } else {
       interaction.reply("Not using TSyringe");
