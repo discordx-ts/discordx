@@ -5,7 +5,6 @@ import {
   Discord,
   DIService,
   Slash,
-  tsyringeDependencyRegistryEngine,
   typeDiDependencyRegistryEngine,
 } from "../../../../src/index.js";
 
@@ -62,7 +61,7 @@ export class ConstructorInjection {
 
   @Slash("typedi2")
   typedi2(interaction: CommandInteraction): void {
-    if (DIService.engine === tsyringeDependencyRegistryEngine) {
+    if (DIService.engine === typeDiDependencyRegistryEngine) {
       interaction.reply(this.database.query());
     } else {
       interaction.reply("Not using TypeDI");
