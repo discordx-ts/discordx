@@ -1,7 +1,13 @@
 import type { CommandInteraction } from "discord.js";
 import { Container, Inject, Service } from "typedi";
 
-import { Discord, DIService, Slash } from "../../../../src/index.js";
+import {
+  Discord,
+  DIService,
+  Slash,
+  tsyringeDependencyRegistryEngine,
+  typeDiDependencyRegistryEngine,
+} from "../../../../src/index.js";
 
 @Service()
 class Database {
@@ -73,7 +79,7 @@ export class PropertyInjectionExample {
   private namedDatabase!: NamedDatabase;
 
   @Slash("typedi_prop_injection")
-  typedi(interaction: CommandInteraction): Promise<void> {
+  typedi(interaction: CommandInteraction): void {
     if (
       DIService.engine === typeDiDependencyRegistryEngine &&
       this.namedDatabase &&
@@ -89,6 +95,7 @@ export class PropertyInjectionExample {
       interaction.reply("Not using TypeDI");
     }
   }
+
   @Slash("typedi_prop_injection2")
   typedi2(interaction: CommandInteraction): void {
     if (DIService.engine === typeDiDependencyRegistryEngine) {

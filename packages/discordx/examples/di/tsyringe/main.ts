@@ -4,7 +4,7 @@ import { tsyringeDependencyRegistryEngine } from "@discordx/di";
 import { IntentsBitField } from "discord.js";
 import { container } from "tsyringe";
 
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
+import { dirname, importx } from "../../../../importer/build/esm/index.mjs";
 import { Client, DIService } from "../../../src/index.js";
 
 // initialize TSyringe container
