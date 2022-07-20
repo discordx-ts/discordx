@@ -1,10 +1,21 @@
-import type { DependencyContainer } from "tsyringe";
-import type { Container } from "typedi";
-import { Service } from "typedi";
+import {
+  DefaultDependencyRegistryEngine,
+  TsyringeDependencyRegistryEngine,
+  TypeDiDependencyRegistryEngine,
+} from "./logic/impl/index.js";
+import type { IDependencyRegistryEngine } from "./logic/index.js";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type InstanceOf<T> = T extends new (...args: any[]) => infer R ? R : any;
-export type DIServiceContainer = DependencyContainer | typeof Container;
+// util instances of built-in engines
+export const typeDiDependencyRegistryEngine =
+  TypeDiDependencyRegistryEngine.instance;
+export const tsyringeDependencyRegistryEngine =
+  TsyringeDependencyRegistryEngine.instance;
+export const defaultDependencyRegistryEngine =
+  DefaultDependencyRegistryEngine.instance;
+
+export type InstanceOf<T> = T extends new (...args: unknown[]) => infer R
+  ? R
+  : unknown;
 
 /**
  * The dependency injection service creates a single instance of a class and stores it globally using the singleton design pattern
@@ -12,15 +23,17 @@ export type DIServiceContainer = DependencyContainer | typeof Container;
  * @category Internal
  */
 export class DIService {
-  private static _instance: DIService;
-  private static _container?: DIServiceContainer;
+  private static _diEngineToUse: IDependencyRegistryEngine =
+    defaultDependencyRegistryEngine;
 
-  static get container(): DIServiceContainer | undefined {
-    return this._container;
+  private static _instance: DIService;
+
+  static get engine(): IDependencyRegistryEngine {
+    return DIService._diEngineToUse;
   }
 
-  static set container(container: DIServiceContainer | undefined) {
-    this._container = container;
+  static set engine(engine: IDependencyRegistryEngine) {
+    DIService._diEngineToUse = engine;
   }
 
   static get instance(): DIService {
@@ -30,52 +43,28 @@ export class DIService {
     return this._instance;
   }
 
-  private _services = new Map();
-  private static _ServiceSet = new Set();
-
   /**
-   * Get all the services from the DI container
+   * Get all Discord service classes
+   * @returns {Set<unknown>}
    */
   static get allServices(): Set<unknown> {
-    return DIService._ServiceSet;
+    return DIService.engine.getAllServices();
   }
 
+  /**
+   * Add a service from the IOC container.
+   * @param {T} classType - The type of service to add
+   */
   addService<T>(classType: T): void {
-    const clazz = classType as unknown as new () => InstanceOf<T>;
-    DIService._ServiceSet.add(clazz);
-
-    if (DIService.container) {
-      if (this.isTsyringe(DIService.container)) {
-        DIService.container.registerSingleton(clazz);
-      } else {
-        /*
-          TypeDI classes MUST use @Service(), setting it on the container ONLY apply to tokenization, this is BY design.
-          we call the decorator directly here.
-         */
-        Service()(clazz);
-      }
-    } else {
-      const instance = new clazz();
-      this._services.set(clazz, instance);
-    }
+    DIService.engine.addService(classType);
   }
 
-  getService<T>(classType: T): InstanceOf<T> {
-    const clazz = classType as unknown as new () => InstanceOf<T>;
-
-    if (DIService.container) {
-      if (this.isTsyringe(DIService.container)) {
-        return DIService.container.resolve(clazz);
-      }
-      return DIService.container.get(classType);
-    }
-
-    return this._services.get(classType);
-  }
-
-  private isTsyringe(
-    diContainer: DIServiceContainer
-  ): diContainer is DependencyContainer {
-    return "registerSingleton" in diContainer;
+  /**
+   * Get a service from the IOC container
+   * @param {T} classType - the Class of the service to retrieve
+   * @returns {InstanceOf<T> | null} the instance of this service or null if there is no instance
+   */
+  getService<T>(classType: T): InstanceOf<T> | null {
+    return DIService.engine.getService(classType);
   }
 }

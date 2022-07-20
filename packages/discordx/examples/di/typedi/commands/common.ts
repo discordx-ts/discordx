@@ -1,7 +1,12 @@
 import type { CommandInteraction } from "discord.js";
 import { Container, Inject, Service } from "typedi";
 
-import { Discord, DIService, Slash } from "../../../src/index.js";
+import {
+  Discord,
+  DIService,
+  Slash,
+  typeDiDependencyRegistryEngine,
+} from "../../../../src/index.js";
 
 @Service()
 class Database {
@@ -37,12 +42,12 @@ export class ConstructorInjection {
     private database: Database,
     @Inject("myDb") private namedDatabase: NamedDatabase
   ) {
-    // I am just a empty constructor :(
+    console.log(namedDatabase);
   }
 
   @Slash("typedi")
   typedi(interaction: CommandInteraction): void {
-    if (DIService.container) {
+    if (DIService.engine === typeDiDependencyRegistryEngine) {
       const clazz = Container.get(ConstructorInjection);
       interaction.reply(
         `${clazz.database.query()}, same class: ${
@@ -56,7 +61,7 @@ export class ConstructorInjection {
 
   @Slash("typedi2")
   typedi2(interaction: CommandInteraction): void {
-    if (DIService.container) {
+    if (DIService.engine === typeDiDependencyRegistryEngine) {
       interaction.reply(this.database.query());
     } else {
       interaction.reply("Not using TypeDI");
@@ -74,7 +79,11 @@ export class PropertyInjectionExample {
 
   @Slash("typedi_prop_injection")
   typedi(interaction: CommandInteraction): void {
-    if (DIService.container && this.namedDatabase && this.database) {
+    if (
+      DIService.engine === typeDiDependencyRegistryEngine &&
+      this.namedDatabase &&
+      this.database
+    ) {
       const clazz = Container.get(PropertyInjectionExample);
       interaction.reply(
         `${clazz.database?.query()}, same class: ${
@@ -85,9 +94,10 @@ export class PropertyInjectionExample {
       interaction.reply("Not using TypeDI");
     }
   }
-  @Slash("typedi_prop_injection")
+
+  @Slash("typedi_prop_injection2")
   typedi2(interaction: CommandInteraction): void {
-    if (DIService.container) {
+    if (DIService.engine === typeDiDependencyRegistryEngine) {
       if (this.database) {
         interaction.reply(this.database.query());
       }

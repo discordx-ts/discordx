@@ -1,14 +1,15 @@
 import "reflect-metadata";
 
+import { tsyringeDependencyRegistryEngine } from "@discordx/di";
 import { IntentsBitField } from "discord.js";
 import { container } from "tsyringe";
 
-import { dirname, importx } from "../../../importer/build/esm/index.mjs";
-import { Client, DIService } from "../../src/index.js";
+import { dirname, importx } from "../../../../importer/build/esm/index.mjs";
+import { Client, DIService } from "../../../src/index.js";
 
 // initialize TSyringe container
 // it's important, this done before calling bot.login
-DIService.container = container;
+DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 
 export class Main {
   private static _client: Client;
