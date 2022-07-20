@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { Intents, IntentsBitField } from "discord.js";
+import { IntentsBitField } from "discord.js";
 import { Container, Service } from "typedi";
 
 import { dirname, importx } from "../../../importer/build/esm/index.mjs";
