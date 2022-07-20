@@ -73,7 +73,7 @@ export class PropertyInjectionExample {
   private namedDatabase!: NamedDatabase;
 
   @Slash("typedi_prop_injection")
-  async typedi(interaction: CommandInteraction): Promise<void> {
+  typedi(interaction: CommandInteraction): Promise<void> {
     if (
       DIService.engine === typeDiDependencyRegistryEngine &&
       this.namedDatabase &&
