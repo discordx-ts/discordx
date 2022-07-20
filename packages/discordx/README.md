@@ -171,25 +171,26 @@ Create discord button handler with ease!
 ```ts
 @Discord()
 class Example {
-  @Slash("hello")
-  hello(interaction: CommandInteraction) {
-    const helloBtn = new MessageButton()
-      .setLabel("Hello")
-      .setEmoji("👋")
-      .setStyle("PRIMARY")
-      .setCustomId("hello-btn");
-
-    const row = new MessageActionRow().addComponents(helloBtn);
-
-    interaction.reply({
-      content: "Say hello to bot",
-      components: [row],
-    });
+  @ButtonComponent("hello")
+  handler(interaction: ButtonInteraction): void {
+    interaction.reply(":wave:");
   }
 
-  @ButtonComponent("hello-btn")
-  myBtn(interaction: ButtonInteraction) {
-    interaction.reply(`👋 ${interaction.member}`);
+  @Slash()
+  hello(interaction: CommandInteraction): void {
+    const btn = new ButtonBuilder()
+      .setLabel("Hello")
+      .setStyle(ButtonStyle.Primary)
+      .setCustomId("hello");
+
+    const buttonRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        btn
+      );
+
+    interaction.reply({
+      components: [buttonRow],
+    });
   }
 }
 ```
@@ -208,39 +209,44 @@ const roles = [
 @Discord()
 class Example {
   @SelectMenuComponent("role-menu")
-  async handle(interaction: SelectMenuInteraction) {
+  async handle(interaction: SelectMenuInteraction): Promise<unknown> {
     await interaction.deferReply();
 
     // extract selected value by member
     const roleValue = interaction.values?.[0];
 
     // if value not found
-    if (!roleValue)
-      return await interaction.followUp("invalid role id, select again");
-    await interaction.followUp(
+    if (!roleValue) {
+      return interaction.followUp("invalid role id, select again");
+    }
+
+    interaction.followUp(
       `you have selected role: ${
-        roles.find((r) => r.value === roleValue).label
+        roles.find((r) => r.value === roleValue)?.label ?? "unknown"
       }`
     );
     return;
   }
 
-  @Slash("roles", { description: "role selector menu" })
+  @Slash("my-roles", { description: "roles menu" })
   async myRoles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.deferReply();
 
     // create menu for roles
-    const menu = new MessageSelectMenu()
+    const menu = new SelectMenuBuilder()
       .addOptions(roles)
       .setCustomId("role-menu");
 
     // create a row for message actions
-    const buttonRow = new MessageActionRow().addComponents(menu);
+    const buttonRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        menu
+      );
 
     // send it
     interaction.editReply({
-      content: "select your role!",
       components: [buttonRow],
+      content: "select your role!",
     });
     return;
   }
@@ -254,14 +260,16 @@ Create discord context menu options with ease!
 ```ts
 @Discord()
 class Example {
-  @ContextMenu("MESSAGE", "message context")
-  messageHandler(interaction: MessageContextMenuInteraction) {
+  @ContextMenu(ApplicationCommandType.Message, "Hello from discord.ts")
+  messageHandler(interaction: MessageContextMenuCommandInteraction): void {
     console.log("I am message");
+    interaction.reply("message interaction works");
   }
 
-  @ContextMenu("USER", "user context")
-  userHandler(interaction: UserContextMenuInteraction) {
-    console.log("I am user");
+  @ContextMenu(ApplicationCommandType.User, "Hello from discord.ts")
+  userHandler(interaction: UserContextMenuCommandInteraction): void {
+    console.log(`Selected user: ${interaction.targetId}`);
+    interaction.reply("user interaction works");
   }
 }
 ```
@@ -273,35 +281,52 @@ Create discord modal with ease!
 ```ts
 @Discord()
 class Example {
-  @ModalComponent("AwesomeForm")
-  async handle(interaction: ModalSubmitInteraction): Promise<void> {
-    const name = interaction.fields.getTextInputValue("name");
-    await interaction.reply(`name: ${name}`);
-    return;
-  }
-
-  @Slash()
-  modal(interaction: CommandInteraction): void {
+  @Slash("modal")
+  attachment(interaction: CommandInteraction): void {
     // Create the modal
-    const modal = new Modal()
+    const modal = new ModalBuilder()
       .setTitle("My Awesome Form")
       .setCustomId("AwesomeForm");
 
     // Create text input fields
-    const nameInputComponent = new TextInputComponent()
-      .setCustomId("name")
-      .setLabel("Name")
-      .setStyle("SHORT");
+    const tvShowInputComponent = new TextInputBuilder()
+      .setCustomId("tvField")
+      .setLabel("Favorite TV show")
+      .setStyle(TextInputStyle.Short);
 
-    const row = new MessageActionRow<ModalActionRowComponent>().addComponents(
-      nameInputComponent
+    const haikuInputComponent = new TextInputBuilder()
+      .setCustomId("haikuField")
+      .setLabel("Write down your favorite haiku")
+      .setStyle(TextInputStyle.Paragraph);
+
+    const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(
+      tvShowInputComponent
+    );
+
+    const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents(
+      haikuInputComponent
     );
 
     // Add action rows to form
-    modal.addComponents(row);
+    modal.addComponents(row1, row2);
+
+    // --- snip ---
 
     // Present the modal to the user
     interaction.showModal(modal);
+  }
+
+  @ModalComponent("AwesomeForm")
+  async handle(interaction: ModalSubmitInteraction): Promise<void> {
+    const [favTVShow, favHaiku] = ["tvField", "haikuField"].map((id) =>
+      interaction.fields.getTextInputValue(id)
+    );
+
+    await interaction.reply(
+      `Favorite TV Show: ${favTVShow}, Favorite haiku: ${favHaiku}`
+    );
+
+    return;
   }
 }
 ```
@@ -351,8 +376,13 @@ Create a reaction handler for messages using `@Reaction`.
 
 ```typescript
 @Discord()
-class Example {
-  @Reaction("📌")
+export class Example {
+  @Reaction("⭐", { remove: false })
+  async starReaction(reaction: MessageReaction, user: User): Promise<void> {
+    await reaction.message.reply(`Received a ${reaction.emoji} from ${user}`);
+  }
+
+  @Reaction("📌", { aliases: ["📍", "custom_emoji"] })
   async pin(reaction: MessageReaction): Promise<void> {
     await reaction.message.pin();
   }
