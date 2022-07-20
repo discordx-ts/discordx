@@ -13,7 +13,7 @@ export class PermissionGuards {
    * @param interaction
    */
   @Slash("permission_ban_members")
-  @Guard(PermissionGuard(["BAN_MEMBERS"]))
+  @Guard(PermissionGuard(["BanMembers"]))
   banMembers1(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
   }
@@ -25,8 +25,8 @@ export class PermissionGuards {
    */
   @Slash("permission_ban_members")
   @Guard(
-    PermissionGuard(["BAN_MEMBERS"], {
-      content: "You do not have the role `BAN_MEMBERS`",
+    PermissionGuard(["BanMembers"], {
+      content: "You do not have the role `BanMembers`",
       ephemeral: true,
     })
   )
@@ -42,7 +42,7 @@ export class PermissionGuards {
   @Slash("permission_ban_members")
   @Guard(
     PermissionGuard(PermissionGuards.resolvePermission, {
-      content: "You do not have the role `BAN_MEMBERS`",
+      content: "You do not have the role `BanMembers`",
       ephemeral: true,
     })
   )

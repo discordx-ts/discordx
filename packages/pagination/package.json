@@ -53,7 +53,7 @@
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@discordx/importer": "^1.1.9",
+    "@discordx/importer": "^1.1.10",
     "@types/lodash": "^4.14.182",
     "discord.js": "^14.0.3",
     "discordx": "^10.0.0",
