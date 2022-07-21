@@ -5,6 +5,8 @@ import {
 } from "./logic/impl/index.js";
 import type { IDependencyRegistryEngine } from "./logic/index.js";
 
+export * from "./logic/index.js";
+
 // util instances of built-in engines
 export const typeDiDependencyRegistryEngine =
   TypeDiDependencyRegistryEngine.instance;
