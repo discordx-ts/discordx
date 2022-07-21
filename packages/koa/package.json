@@ -52,7 +52,7 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "@discordx/di": "^3.0.0",
+    "@discordx/di": "^3.0.1",
     "@discordx/internal": "^1.0.2",
     "tslib": "^2.4.0"
   },
