@@ -68,3 +68,5 @@ export class DIService {
     return DIService.engine.getService(classType);
   }
 }
+
+export * from "./logic/index.js";
