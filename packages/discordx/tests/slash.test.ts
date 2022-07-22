@@ -256,7 +256,6 @@ describe("Slash", () => {
     expect(slashesObjects).toEqual([
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "hello",
         descriptionLocalizations: undefined,
         dmPermission: undefined,
@@ -276,7 +275,6 @@ describe("Slash", () => {
       },
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "inference",
         descriptionLocalizations: undefined,
         dmPermission: undefined,
@@ -360,7 +358,6 @@ describe("Slash", () => {
       },
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "Testing group description",
         descriptionLocalizations: undefined,
         dmPermission: undefined,
@@ -492,7 +489,6 @@ describe("Slash", () => {
       },
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "group-test-without-description",
         descriptionLocalizations: undefined,
         dmPermission: undefined,
@@ -538,7 +534,6 @@ describe("Slash", () => {
       },
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "test-x",
         descriptionLocalizations: undefined,
         dmPermission: undefined,

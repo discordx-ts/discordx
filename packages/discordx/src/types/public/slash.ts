@@ -13,7 +13,6 @@ import type { DApplicationCommand, IGuild } from "../../index.js";
 export type ApplicationCommandOptions = {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable;
-  defaultPermission?: boolean;
   description?: string;
   descriptionLocalizations?: LocalizationMap;
   dmPermission?: boolean;
@@ -86,7 +85,6 @@ export type SlashAutoCompleteOption =
 
 export type ApplicationCommandDataEx = {
   defaultMemberPermissions?: PermissionResolvable;
-  defaultPermission?: boolean;
   description: string;
   descriptionLocalizations?: LocalizationMap;
   dmPermission?: boolean;

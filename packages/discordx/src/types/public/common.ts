@@ -82,14 +82,12 @@ export type SlashGroupBase = {
 
 export type SlashGroupRoot = SlashGroupBase & {
   defaultMemberPermissions?: PermissionResolvable;
-  defaultPermission?: boolean;
   dmPermission?: boolean;
   root?: undefined;
 };
 
 export type SlashGroupSubRoot = SlashGroupBase & {
   defaultMemberPermissions?: undefined;
-  defaultPermission?: undefined;
   dmPermission?: undefined;
   root?: string;
 };

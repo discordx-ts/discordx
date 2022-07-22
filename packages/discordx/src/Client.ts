@@ -611,12 +611,20 @@ export class Client extends ClientJS {
       const rawData = DCommand.toJSON();
 
       const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
+
+      // weird hacks, required improvements
       commandJson.descriptionLocalizations =
         findCommand.descriptionLocalizations ?? undefined;
       commandJson.nameLocalizations =
         findCommand.nameLocalizations ?? undefined;
+      // end of weird hacks
 
-      if (!this.isApplicationCommandEqual(commandJson, rawData)) {
+      if (
+        !this.isApplicationCommandEqual(commandJson, rawData, {
+          isGuild: true,
+          log: options?.log,
+        })
+      ) {
         commandsToUpdate.push(
           new ApplicationCommandMixin(findCommand, DCommand)
         );
@@ -731,19 +739,25 @@ export class Client extends ClientJS {
 
   private isApplicationCommandEqual(
     commandJson: ApplicationCommandDataEx,
-    rawData: ApplicationCommandDataEx
+    rawData: ApplicationCommandDataEx,
+    options?: {
+      isGuild?: boolean;
+      log?: boolean;
+    }
   ) {
-    // reformat some data
+    // weird hacks, required improvements
     commandJson.defaultMemberPermissions =
       commandJson.defaultMemberPermissions ?? undefined;
-    commandJson.defaultPermission = commandJson.defaultPermission ?? undefined;
     commandJson.dmPermission = commandJson.dmPermission ?? undefined;
+
+    if (options?.isGuild) {
+      commandJson.dmPermission = rawData.dmPermission;
+    }
 
     rawData.defaultMemberPermissions =
       rawData.defaultMemberPermissions ?? commandJson.defaultMemberPermissions;
-    rawData.defaultPermission =
-      rawData.defaultPermission ?? commandJson.defaultPermission;
     rawData.dmPermission = rawData.dmPermission ?? commandJson.dmPermission;
+    // end of weird hacks
 
     // remove nulled localization fields from options
     commandJson.options.forEach((op) => {
@@ -792,24 +806,32 @@ export class Client extends ClientJS {
       ) as ApplicationCommandOptionData[];
     }
 
-    return _.isEqual(
-      JSON.parse(
-        JSON.stringify(
-          _.omit(
-            commandJson,
-            "id",
-            "applicationId",
-            "guild",
-            "guildId",
-            "version",
-            "descriptionLocalized",
-            "nameLocalized",
-            "permissions"
-          )
+    const firstJson = JSON.parse(
+      JSON.stringify(
+        _.omit(
+          commandJson,
+          "id",
+          "applicationId",
+          "guild",
+          "guildId",
+          "version",
+          "descriptionLocalized",
+          "nameLocalized",
+          "permissions",
+          "defaultPermission"
         )
-      ),
-      JSON.parse(JSON.stringify(rawData))
+      )
     );
+
+    const secondJson = JSON.parse(JSON.stringify(rawData));
+
+    const response = _.isEqual(firstJson, secondJson);
+
+    if (!response && options?.log) {
+      console.log("Update required", firstJson, secondJson);
+    }
+
+    return response;
   }
 
   /**
@@ -860,6 +882,8 @@ export class Client extends ClientJS {
 
       const rawData = DCommand.toJSON();
       const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
+
+      // weird hacks, required improvements
       commandJson.descriptionLocalizations =
         findCommand.descriptionLocalizations === null
           ? undefined
@@ -868,8 +892,13 @@ export class Client extends ClientJS {
         findCommand.nameLocalizations === null
           ? undefined
           : findCommand.nameLocalizations;
+      // end of weird hacks
 
-      if (!this.isApplicationCommandEqual(commandJson, rawData)) {
+      if (
+        !this.isApplicationCommandEqual(commandJson, rawData, {
+          log: options?.log,
+        })
+      ) {
         commandsToUpdate.push(
           new ApplicationCommandMixin(findCommand, DCommand)
         );

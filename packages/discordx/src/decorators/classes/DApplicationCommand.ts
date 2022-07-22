@@ -16,7 +16,6 @@ import { Method } from "./Method.js";
 type CreateStructure = {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable;
-  defaultPermission?: boolean;
   description?: string;
   descriptionLocalizations?: LocalizationMap;
   dmPermission?: boolean;
@@ -36,7 +35,6 @@ export class DApplicationCommand extends Method {
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
   private _defaultMemberPermissions?: PermissionResolvable;
-  private _defaultPermission?: boolean;
   private _dmPermission?: boolean;
   private _guilds: IGuild[];
   private _group?: string;
@@ -63,13 +61,6 @@ export class DApplicationCommand extends Method {
   }
   set defaultMemberPermissions(value: PermissionResolvable | undefined) {
     this._defaultMemberPermissions = value;
-  }
-
-  get defaultPermission(): boolean | undefined {
-    return this._defaultPermission;
-  }
-  set defaultPermission(value: boolean | undefined) {
-    this._defaultPermission = value;
   }
 
   get dmPermission(): boolean | undefined {
@@ -146,7 +137,6 @@ export class DApplicationCommand extends Method {
     this._nameLocalizations = data.nameLocalizations;
     this._dmPermission = data.dmPermission;
     this._defaultMemberPermissions = data.defaultMemberPermissions;
-    this._defaultPermission = data.defaultPermission;
   }
 
   static create(data: CreateStructure): DApplicationCommand {
@@ -202,7 +192,6 @@ export class DApplicationCommand extends Method {
     if (this.type !== ApplicationCommandType.ChatInput) {
       const data: ApplicationCommandDataEx = {
         defaultMemberPermissions: this.defaultMemberPermissions,
-        defaultPermission: this.defaultPermission,
         description: "",
         dmPermission: this.dmPermission,
         name: this.name,
@@ -231,7 +220,6 @@ export class DApplicationCommand extends Method {
 
     const data: ApplicationCommandDataEx = {
       defaultMemberPermissions: this.defaultMemberPermissions,
-      defaultPermission: this.defaultPermission,
       description: this.description,
       descriptionLocalizations: this.descriptionLocalizations,
       dmPermission: this.dmPermission,

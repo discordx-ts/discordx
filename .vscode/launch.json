@@ -9,18 +9,28 @@
       "request": "launch",
       "name": "Tests",
       "args": ["--detectOpenHandles"],
-      "program": "${workspaceRoot}/packages/discordx/node_modules/jest/bin/jest.js",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
       "cwd": "${workspaceRoot}/packages/discordx",
       "runtimeArgs": []
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Localization",
+      "name": "Localization Example",
       "args": [
         "${workspaceRoot}/packages/discordx/examples/localization/main.ts"
       ],
       "cwd": "${workspaceRoot}/packages/discordx/examples/localization",
+      "runtimeArgs": ["--loader", "ts-node/esm"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Permission Example",
+      "args": [
+        "${workspaceRoot}/packages/discordx/examples/permission/main.ts"
+      ],
+      "cwd": "${workspaceRoot}/packages/discordx/examples/permission",
       "runtimeArgs": ["--loader", "ts-node/esm"]
     }
   ]

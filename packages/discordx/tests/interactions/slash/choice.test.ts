@@ -94,7 +94,6 @@ describe("Choice", () => {
     expect(slashesObjects).toEqual([
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "hello",
         descriptionLocalizations: undefined,
         dmPermission: undefined,
@@ -124,7 +123,6 @@ describe("Choice", () => {
       },
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "number",
         descriptionLocalizations: undefined,
         dmPermission: undefined,
@@ -162,7 +160,6 @@ describe("Choice", () => {
       },
       {
         defaultMemberPermissions: undefined,
-        defaultPermission: undefined,
         description: "string",
         descriptionLocalizations: undefined,
         dmPermission: undefined,

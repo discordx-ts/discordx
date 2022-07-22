@@ -44,7 +44,6 @@ export function Slash(
     const applicationCommand = DApplicationCommand.create({
       botIds: options?.botIds,
       defaultMemberPermissions: options?.defaultMemberPermissions,
-      defaultPermission: options?.defaultPermission,
       description: options?.description,
       descriptionLocalizations: options?.descriptionLocalizations,
       dmPermission: options?.dmPermission,

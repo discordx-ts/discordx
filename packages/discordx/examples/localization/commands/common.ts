@@ -6,7 +6,6 @@ import { Discord, Slash, SlashOption } from "../../../src/index.js";
 @Discord()
 export class Example {
   @Slash("hello", {
-    defaultPermission: false,
     description: "say hello",
     nameLocalizations: {
       "en-GB": "hello-x",
