@@ -376,7 +376,7 @@ Create a reaction handler for messages using `@Reaction`.
 
 ```typescript
 @Discord()
-export class Example {
+class Example {
   @Reaction("⭐", { remove: false })
   async starReaction(reaction: MessageReaction, user: User): Promise<void> {
     await reaction.message.reply(`Received a ${reaction.emoji} from ${user}`);
