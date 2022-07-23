@@ -258,7 +258,7 @@ describe("Slash", () => {
         defaultMemberPermissions: undefined,
         description: "hello",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "hello",
         nameLocalizations: undefined,
         options: [
@@ -277,7 +277,7 @@ describe("Slash", () => {
         defaultMemberPermissions: undefined,
         description: "inference",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "inference",
         nameLocalizations: undefined,
         options: [
@@ -360,7 +360,7 @@ describe("Slash", () => {
         defaultMemberPermissions: undefined,
         description: "Testing group description",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "testing",
         nameLocalizations: undefined,
         options: [
@@ -491,7 +491,7 @@ describe("Slash", () => {
         defaultMemberPermissions: undefined,
         description: "group-test-without-description",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "group-test-without-description",
         nameLocalizations: undefined,
         options: [
@@ -536,7 +536,7 @@ describe("Slash", () => {
         defaultMemberPermissions: undefined,
         description: "test-x",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "test-x",
         nameLocalizations: undefined,
         options: [

@@ -96,7 +96,7 @@ describe("Choice", () => {
         defaultMemberPermissions: undefined,
         description: "hello",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "hello",
         nameLocalizations: undefined,
         options: [
@@ -125,7 +125,7 @@ describe("Choice", () => {
         defaultMemberPermissions: undefined,
         description: "number",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "number",
         nameLocalizations: undefined,
         options: [
@@ -162,7 +162,7 @@ describe("Choice", () => {
         defaultMemberPermissions: undefined,
         description: "string",
         descriptionLocalizations: undefined,
-        dmPermission: undefined,
+        dmPermission: true,
         name: "string",
         nameLocalizations: undefined,
         options: [
