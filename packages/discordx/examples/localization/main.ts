@@ -5,6 +5,11 @@ import { IntentsBitField } from "discord.js";
 
 import { Client } from "../../src/index.js";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
+
 export class Main {
   private static _client: Client;
 

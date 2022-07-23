@@ -84,10 +84,10 @@ export type SlashAutoCompleteOption =
     ) => void | Promise<void>);
 
 export type ApplicationCommandDataEx = {
-  defaultMemberPermissions?: PermissionResolvable;
+  defaultMemberPermissions?: PermissionResolvable | null;
   description: string;
   descriptionLocalizations?: LocalizationMap;
-  dmPermission?: boolean;
+  dmPermission?: boolean | null;
   name: string;
   nameLocalizations?: LocalizationMap;
   options: ApplicationCommandOptionData[];

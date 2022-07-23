@@ -35,7 +35,7 @@ export class DApplicationCommand extends Method {
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
   private _defaultMemberPermissions?: PermissionResolvable;
-  private _dmPermission?: boolean;
+  private _dmPermission: boolean;
   private _guilds: IGuild[];
   private _group?: string;
   private _options: DApplicationCommandOption[] = [];
@@ -63,10 +63,10 @@ export class DApplicationCommand extends Method {
     this._defaultMemberPermissions = value;
   }
 
-  get dmPermission(): boolean | undefined {
+  get dmPermission(): boolean {
     return this._dmPermission;
   }
-  set dmPermission(value: boolean | undefined) {
+  set dmPermission(value: boolean) {
     this._dmPermission = value;
   }
 
@@ -135,7 +135,7 @@ export class DApplicationCommand extends Method {
     this._botIds = data.botIds ?? [];
     this._descriptionLocalizations = data.descriptionLocalizations;
     this._nameLocalizations = data.nameLocalizations;
-    this._dmPermission = data.dmPermission;
+    this._dmPermission = data.dmPermission ?? true;
     this._defaultMemberPermissions = data.defaultMemberPermissions;
   }
 

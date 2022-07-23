@@ -1,15 +1,25 @@
-import type {
-  ApplicationCommand,
-  ApplicationCommandOptionData,
-} from "discord.js";
-import {
-  ApplicationCommandOptionType,
-  ApplicationCommandType,
-} from "discord.js";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { ApplicationCommand } from "discord.js";
 import _ from "lodash";
 
 import type { DApplicationCommand } from "../decorators/index.js";
 import type { ApplicationCommandDataEx } from "../types/index.js";
+
+export function RecursivelyMatchField(
+  object: Record<string, any>,
+  keys: string[],
+  onMatch: (object: any, key: string) => void
+): void {
+  Object.keys(object).some(function (k) {
+    if (keys.includes(k)) {
+      onMatch(object, k);
+    }
+
+    if (object[k] && typeof object[k] === "object") {
+      RecursivelyMatchField(object[k], keys, onMatch);
+    }
+  });
+}
 
 export function isApplicationCommandEqual(
   findCommand: ApplicationCommand,
@@ -19,79 +29,36 @@ export function isApplicationCommandEqual(
     log?: boolean;
   }
 ): boolean {
-  const rawData = DCommand.toJSON();
   const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
+  const rawData = DCommand.toJSON();
 
-  // weird hacks, required improvements
-  commandJson.descriptionLocalizations =
-    findCommand.descriptionLocalizations === null
-      ? undefined
-      : findCommand.descriptionLocalizations;
-  commandJson.nameLocalizations =
-    findCommand.nameLocalizations === null
-      ? undefined
-      : findCommand.nameLocalizations;
-  // end of weird hacks
+  // replace null fields with undefined
+  RecursivelyMatchField(
+    commandJson,
+    [
+      "descriptionLocalizations",
+      "nameLocalizations",
+      "descriptionLocalized",
+      "nameLocalized",
+      "dmPermission",
+      "defaultMemberPermissions",
+    ],
+    (object: any, key: string) => {
+      if (object[key] === null) {
+        object[key] = undefined;
+      }
+    }
+  );
 
-  // weird hacks, required improvements
-  commandJson.defaultMemberPermissions =
-    commandJson.defaultMemberPermissions ?? undefined;
-  commandJson.dmPermission = commandJson.dmPermission ?? undefined;
-
+  // remove unwanted fields
   if (options?.isGuild) {
-    commandJson.dmPermission = rawData.dmPermission;
-  }
-
-  rawData.defaultMemberPermissions =
-    rawData.defaultMemberPermissions ?? commandJson.defaultMemberPermissions;
-  rawData.dmPermission = rawData.dmPermission ?? commandJson.dmPermission;
-  // end of weird hacks
-
-  // remove nulled localization fields from options
-  commandJson.options.forEach((op) => {
-    if (op.descriptionLocalizations === null) {
-      op.descriptionLocalizations = undefined;
-    }
-    if (op.nameLocalizations === null) {
-      op.nameLocalizations = undefined;
-    }
-  });
-
-  // Solution for sorting, channel types to ensure equal does not fail
-  if (commandJson.type === ApplicationCommandType.ChatInput) {
-    commandJson.options?.forEach((op) => {
-      if (op.type === ApplicationCommandOptionType.SubcommandGroup) {
-        op.options?.forEach((op1) => {
-          op1.options?.forEach((op2) => {
-            if (op2.type === ApplicationCommandOptionType.Channel) {
-              op2.channelTypes?.sort(); // sort mutate array
-            }
-          });
-        });
+    RecursivelyMatchField(
+      rawData,
+      ["dmPermission"],
+      (object: any, key: string) => {
+        object[key] = undefined;
       }
-
-      if (op.type === ApplicationCommandOptionType.Subcommand) {
-        op.options?.forEach((op1) => {
-          if (op1.type === ApplicationCommandOptionType.Channel) {
-            op1.channelTypes?.sort(); // sort mutate array
-          }
-        });
-      }
-
-      if (op.type === ApplicationCommandOptionType.Channel) {
-        op.channelTypes?.sort(); // sort mutate array
-      }
-    });
-  }
-
-  // remove unwanted fields from options
-  if (
-    commandJson.type === ApplicationCommandType.ChatInput &&
-    commandJson.options
-  ) {
-    commandJson.options = _.map(commandJson.options, (object) =>
-      _.omit(object, ["descriptionLocalized", "nameLocalized"])
-    ) as ApplicationCommandOptionData[];
+    );
   }
 
   const firstJson = JSON.parse(
