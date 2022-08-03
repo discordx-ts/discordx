@@ -5,6 +5,12 @@ import _ from "lodash";
 import type { DApplicationCommand } from "../decorators/index.js";
 import type { ApplicationCommandDataEx } from "../types/index.js";
 
+function jsonToString(obj: unknown): string {
+  return JSON.stringify(obj, (key, value) =>
+    typeof value === "bigint" ? value.toString() : value
+  );
+}
+
 export function RecursivelyMatchField(
   object: Record<string, any>,
   keys: string[],
@@ -62,7 +68,7 @@ export function isApplicationCommandEqual(
   }
 
   const firstJson = JSON.parse(
-    JSON.stringify(
+    jsonToString(
       _.omit(
         commandJson,
         "id",
@@ -78,7 +84,7 @@ export function isApplicationCommandEqual(
     )
   );
 
-  const secondJson = JSON.parse(JSON.stringify(rawData));
+  const secondJson = JSON.parse(jsonToString(rawData));
 
   const response = _.isEqual(firstJson, secondJson);
 
