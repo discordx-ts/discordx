@@ -93,12 +93,9 @@ describe("Choice", () => {
     );
     expect(slashesObjects).toEqual([
       {
-        defaultMemberPermissions: undefined,
         description: "hello",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "hello",
-        nameLocalizations: undefined,
         options: [
           {
             choices: [
@@ -112,9 +109,7 @@ describe("Choice", () => {
               },
             ],
             description: "choice - string",
-            descriptionLocalizations: undefined,
             name: "choice",
-            nameLocalizations: undefined,
             required: true,
             type: ApplicationCommandOptionType.String,
           },
@@ -122,12 +117,9 @@ describe("Choice", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: undefined,
         description: "number",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "number",
-        nameLocalizations: undefined,
         options: [
           {
             choices: [
@@ -149,9 +141,7 @@ describe("Choice", () => {
               },
             ],
             description: "choice - number",
-            descriptionLocalizations: undefined,
             name: "choice",
-            nameLocalizations: undefined,
             required: true,
             type: ApplicationCommandOptionType.Number,
           },
@@ -159,12 +149,9 @@ describe("Choice", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: undefined,
         description: "string",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "string",
-        nameLocalizations: undefined,
         options: [
           {
             choices: [
@@ -186,7 +173,6 @@ describe("Choice", () => {
               },
             ],
             description: "choice - string",
-            descriptionLocalizations: undefined,
             name: "choice",
             required: true,
             type: ApplicationCommandOptionType.String,

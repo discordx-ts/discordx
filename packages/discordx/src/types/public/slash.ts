@@ -21,17 +21,19 @@ export type ApplicationCommandOptions = {
 };
 
 export type SlashOptionBase = {
+  autocomplete?: undefined;
+  channelTypes?: undefined;
   description?: string;
   descriptionLocalizations?: LocalizationMap;
+  maxLength?: undefined;
+  maxValue?: undefined;
+  minLength?: undefined;
+  minValue?: undefined;
   nameLocalizations?: LocalizationMap;
   required?: boolean;
 };
 
 export type SlashOptionBaseOptions = SlashOptionBase & {
-  autocomplete?: undefined;
-  channelTypes?: undefined;
-  maxValue?: undefined;
-  minValue?: undefined;
   type?: Exclude<
     ApplicationCommandOptionType,
     | ApplicationCommandOptionType.Subcommand
@@ -40,28 +42,30 @@ export type SlashOptionBaseOptions = SlashOptionBase & {
   >;
 };
 
-export type SlashOptionChannelOptions = SlashOptionBase & {
-  autocomplete?: undefined;
+export type SlashOptionChannelOptions = Omit<
+  SlashOptionBase,
+  "channelTypes"
+> & {
   channelTypes?: ChannelType[];
-  maxValue?: undefined;
-  minValue?: undefined;
   type: ApplicationCommandOptionType.Channel;
 };
 
-export type SlashOptionAutoCompleteOptions = SlashOptionBase & {
+export type SlashOptionAutoCompleteOptions = Omit<
+  SlashOptionBase,
+  "autocomplete"
+> & {
   autocomplete?: SlashAutoCompleteOption;
-  channelTypes?: undefined;
-  maxValue?: undefined;
-  minValue?: undefined;
   type:
     | ApplicationCommandOptionType.String
     | ApplicationCommandOptionType.Number
     | ApplicationCommandOptionType.Integer;
 };
 
-export type SlashOptionNumberOptions = SlashOptionBase & {
+export type SlashOptionNumberOptions = Omit<
+  SlashOptionBase,
+  "maxValue" | "minValue" | "autocomplete"
+> & {
   autocomplete?: SlashAutoCompleteOption;
-  channelTypes?: undefined;
   maxValue?: number;
   minValue?: number;
   type:
@@ -69,10 +73,21 @@ export type SlashOptionNumberOptions = SlashOptionBase & {
     | ApplicationCommandOptionType.Integer;
 };
 
+export type SlashOptionStringOptions = Omit<
+  SlashOptionBase,
+  "maxLength" | "minLength" | "autocomplete"
+> & {
+  autocomplete?: SlashAutoCompleteOption;
+  maxLength?: number;
+  minLength?: number;
+  type: ApplicationCommandOptionType.String;
+};
+
 export type SlashOptionOptions =
   | SlashOptionBaseOptions
   | SlashOptionChannelOptions
   | SlashOptionNumberOptions
+  | SlashOptionStringOptions
   | SlashOptionAutoCompleteOptions;
 
 export type SlashAutoCompleteOption =

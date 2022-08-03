@@ -54,9 +54,19 @@ export class Example {
   @Slash("add", { description: "Addition" })
   @SlashGroup("maths", "testing")
   add(
-    @SlashOption("x", { description: "x value" })
+    @SlashOption("x", {
+      description: "x value",
+      maxValue: 10,
+      minValue: 1,
+      type: ApplicationCommandOptionType.Number,
+    })
     x: number,
-    @SlashOption("y", { description: "y value" })
+    @SlashOption("y", {
+      description: "y value",
+      maxValue: 10,
+      minValue: 1,
+      type: ApplicationCommandOptionType.Number,
+    })
     y: number,
     interaction: CommandInteraction,
     client: Client,
@@ -255,18 +265,13 @@ describe("Slash", () => {
 
     expect(slashesObjects).toEqual([
       {
-        defaultMemberPermissions: undefined,
         description: "hello",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "hello",
-        nameLocalizations: undefined,
         options: [
           {
             description: "text - string",
-            descriptionLocalizations: undefined,
             name: "text",
-            nameLocalizations: undefined,
             required: false,
             type: ApplicationCommandOptionType.String,
           },
@@ -274,82 +279,61 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: undefined,
         description: "inference",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "inference",
-        nameLocalizations: undefined,
         options: [
           {
             description: "text - string",
-            descriptionLocalizations: undefined,
             name: "text",
-            nameLocalizations: undefined,
             required: true,
             type: ApplicationCommandOptionType.String,
           },
           {
             description: "bool - boolean",
-            descriptionLocalizations: undefined,
             name: "bool",
-            nameLocalizations: undefined,
             required: true,
             type: ApplicationCommandOptionType.Boolean,
           },
           {
             description: "nb - number",
-            descriptionLocalizations: undefined,
             name: "nb",
-            nameLocalizations: undefined,
             required: true,
             type: ApplicationCommandOptionType.Number,
           },
           {
             description: "channel - channel",
-            descriptionLocalizations: undefined,
             name: "channel",
-            nameLocalizations: undefined,
             required: true,
             type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "text-channel - channel",
-            descriptionLocalizations: undefined,
             name: "text-channel",
-            nameLocalizations: undefined,
             required: false,
             type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "voice-channel - channel",
-            descriptionLocalizations: undefined,
             name: "voice-channel",
-            nameLocalizations: undefined,
             required: false,
             type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "user - user",
-            descriptionLocalizations: undefined,
             name: "user",
-            nameLocalizations: undefined,
             required: false,
             type: ApplicationCommandOptionType.User,
           },
           {
             description: "role - role",
-            descriptionLocalizations: undefined,
             name: "role",
-            nameLocalizations: undefined,
             required: false,
             type: ApplicationCommandOptionType.Role,
           },
           {
             description: "user-or-role - mentionable",
-            descriptionLocalizations: undefined,
             name: "user-or-role",
-            nameLocalizations: undefined,
             required: false,
             type: ApplicationCommandOptionType.Mentionable,
           },
@@ -357,32 +341,23 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: undefined,
         description: "Testing group description",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "testing",
-        nameLocalizations: undefined,
         options: [
           {
             description: "hello",
-            descriptionLocalizations: undefined,
             name: "hello",
-            nameLocalizations: undefined,
             options: [
               {
                 description: "text - string",
-                descriptionLocalizations: undefined,
                 name: "text",
-                nameLocalizations: undefined,
                 required: true,
                 type: ApplicationCommandOptionType.String,
               },
               {
                 description: "text2 - string",
-                descriptionLocalizations: undefined,
                 name: "text2",
-                nameLocalizations: undefined,
                 required: false,
                 type: ApplicationCommandOptionType.String,
               },
@@ -391,29 +366,21 @@ describe("Slash", () => {
           },
           {
             description: "maths group description",
-            descriptionLocalizations: undefined,
             name: "maths",
-            nameLocalizations: undefined,
             options: [
               {
                 description: "Multiply",
-                descriptionLocalizations: undefined,
                 name: "multiply",
-                nameLocalizations: undefined,
                 options: [
                   {
                     description: "x value",
-                    descriptionLocalizations: undefined,
                     name: "x",
-                    nameLocalizations: undefined,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
-                    descriptionLocalizations: undefined,
                     name: "y",
-                    nameLocalizations: undefined,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
@@ -422,23 +389,21 @@ describe("Slash", () => {
               },
               {
                 description: "Addition",
-                descriptionLocalizations: undefined,
                 name: "add",
-                nameLocalizations: undefined,
                 options: [
                   {
                     description: "x value",
-                    descriptionLocalizations: undefined,
+                    maxValue: 10,
+                    minValue: 1,
                     name: "x",
-                    nameLocalizations: undefined,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
-                    descriptionLocalizations: undefined,
+                    maxValue: 10,
+                    minValue: 1,
                     name: "y",
-                    nameLocalizations: undefined,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
@@ -450,15 +415,11 @@ describe("Slash", () => {
           },
           {
             description: "text group description",
-            descriptionLocalizations: undefined,
             name: "text",
-            nameLocalizations: undefined,
             options: [
               {
                 description: "hello",
-                descriptionLocalizations: undefined,
                 name: "hello",
-                nameLocalizations: undefined,
                 options: [
                   {
                     choices: [
@@ -472,9 +433,7 @@ describe("Slash", () => {
                       },
                     ],
                     description: "text - string",
-                    descriptionLocalizations: undefined,
                     name: "text",
-                    nameLocalizations: undefined,
                     required: true,
                     type: ApplicationCommandOptionType.String,
                   },
@@ -488,38 +447,27 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: undefined,
         description: "group-test-without-description",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "group-test-without-description",
-        nameLocalizations: undefined,
         options: [
           {
             description: "text group description",
-            descriptionLocalizations: undefined,
             name: "line",
-            nameLocalizations: undefined,
             options: [
               {
                 description: "Addition",
-                descriptionLocalizations: undefined,
                 name: "add",
-                nameLocalizations: undefined,
                 options: [
                   {
                     description: "x value",
-                    descriptionLocalizations: undefined,
                     name: "x",
-                    nameLocalizations: undefined,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
-                    descriptionLocalizations: undefined,
                     name: "y",
-                    nameLocalizations: undefined,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
@@ -533,31 +481,22 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: undefined,
         description: "test-x",
-        descriptionLocalizations: undefined,
         dmPermission: true,
         name: "test-x",
-        nameLocalizations: undefined,
         options: [
           {
             description: "add - subcommandgroup",
-            descriptionLocalizations: undefined,
             name: "add",
-            nameLocalizations: undefined,
             options: [
               {
                 description: "y",
-                descriptionLocalizations: undefined,
                 name: "y",
-                nameLocalizations: undefined,
                 type: ApplicationCommandOptionType.Subcommand,
               },
               {
                 description: "x",
-                descriptionLocalizations: undefined,
                 name: "x",
-                nameLocalizations: undefined,
                 type: ApplicationCommandOptionType.Subcommand,
               },
             ],
@@ -565,16 +504,12 @@ describe("Slash", () => {
           },
           {
             description: "m",
-            descriptionLocalizations: undefined,
             name: "m",
-            nameLocalizations: undefined,
             type: ApplicationCommandOptionType.Subcommand,
           },
           {
             description: "n",
-            descriptionLocalizations: undefined,
             name: "n",
-            nameLocalizations: undefined,
             type: ApplicationCommandOptionType.Subcommand,
           },
         ],

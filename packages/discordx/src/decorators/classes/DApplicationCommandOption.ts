@@ -17,7 +17,9 @@ type CreateStructure = {
   description?: string;
   descriptionLocalizations?: LocalizationMap;
   index?: number;
+  maxLength?: number;
   maxValue?: number;
+  minLength?: number;
   minValue?: number;
   name: string;
   nameLocalizations?: LocalizationMap;
@@ -38,6 +40,8 @@ export class DApplicationCommandOption extends Decorator {
   private _nameLocalizations?: LocalizationMap;
   private _maxValue?: number;
   private _minValue?: number;
+  private _maxLength?: number;
+  private _minLength?: number;
   private _options: DApplicationCommandOption[] = [];
   private _required = true;
   private _type: ApplicationCommandOptionType;
@@ -98,6 +102,20 @@ export class DApplicationCommandOption extends Decorator {
     this._minValue = value;
   }
 
+  get maxLength(): number | undefined {
+    return this._maxLength;
+  }
+  set maxLength(value: number | undefined) {
+    this._maxLength = value;
+  }
+
+  get minLength(): number | undefined {
+    return this._minLength;
+  }
+  set minLength(value: number | undefined) {
+    this._minLength = value;
+  }
+
   get name(): string {
     return this._name;
   }
@@ -149,6 +167,8 @@ export class DApplicationCommandOption extends Decorator {
     this._index = data.index;
     this._maxValue = data.maxValue;
     this._minValue = data.minValue;
+    this._maxLength = data.maxLength;
+    this._minLength = data.minLength;
     this._required = data.required ?? true;
     this._type = data.type ?? ApplicationCommandOptionType.String;
     this._descriptionLocalizations = data.descriptionLocalizations;
@@ -174,7 +194,9 @@ export class DApplicationCommandOption extends Decorator {
         : this.choices.map((choice) => choice.toJSON()),
       description: this.description,
       descriptionLocalizations: this.descriptionLocalizations,
+      maxLength: this.maxLength,
       maxValue: this.maxValue,
+      minLength: this.minLength,
       minValue: this.minValue,
       name: this.name,
       nameLocalizations: this.nameLocalizations,
