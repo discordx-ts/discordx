@@ -30,10 +30,7 @@ export function RecursivelyMatchField(
 export function isApplicationCommandEqual(
   findCommand: ApplicationCommand,
   DCommand: DApplicationCommand,
-  options?: {
-    isGuild?: boolean;
-    log?: boolean;
-  }
+  isGuild?: true
 ): boolean {
   const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
   const rawData = DCommand.toJSON();
@@ -57,7 +54,7 @@ export function isApplicationCommandEqual(
   );
 
   // remove unwanted fields
-  if (options?.isGuild) {
+  if (isGuild) {
     RecursivelyMatchField(
       rawData,
       ["dmPermission"],

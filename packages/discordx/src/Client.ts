@@ -608,12 +608,7 @@ export class Client extends ClientJS {
         return;
       }
 
-      if (
-        !isApplicationCommandEqual(findCommand, DCommand, {
-          isGuild: true,
-          log: options?.log,
-        })
-      ) {
+      if (!isApplicationCommandEqual(findCommand, DCommand, true)) {
         commandsToUpdate.push(
           new ApplicationCommandMixin(findCommand, DCommand)
         );
@@ -772,11 +767,7 @@ export class Client extends ClientJS {
         return;
       }
 
-      if (
-        !isApplicationCommandEqual(findCommand, DCommand, {
-          log: options?.log,
-        })
-      ) {
+      if (!isApplicationCommandEqual(findCommand, DCommand)) {
         commandsToUpdate.push(
           new ApplicationCommandMixin(findCommand, DCommand)
         );
