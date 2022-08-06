@@ -88,9 +88,5 @@ export function isApplicationCommandEqual(
 
   const response = _.isEqual(firstJson, secondJson);
 
-  if (!response && options?.log) {
-    console.log("Update required", firstJson, secondJson);
-  }
-
   return response;
 }
