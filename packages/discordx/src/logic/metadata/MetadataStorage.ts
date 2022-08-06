@@ -452,7 +452,9 @@ export class MetadataStorage {
     //
     this._applicationCommandSlashGroups.forEach((group) => {
       const slashParent = DApplicationCommand.create({
-        description: group.infos?.description,
+        defaultMemberPermissions: group.infos.defaultMemberPermissions,
+        description: group.infos.description,
+        dmPermission: group.infos.dmPermission,
         name: group.name,
         type: ApplicationCommandType.ChatInput,
       }).decorate(group.classRef, group.key, group.method);
