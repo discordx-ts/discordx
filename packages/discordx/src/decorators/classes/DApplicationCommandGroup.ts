@@ -14,7 +14,7 @@ export class DApplicationCommandGroup<
   name: string;
   infos: Partial<InfoType>;
 
-  protected constructor(name: string, infos?: Partial<InfoType>) {
+  protected constructor(name: string, infos: Partial<InfoType>) {
     super();
     this.name = name;
     this.infos = infos ?? {};
@@ -22,7 +22,7 @@ export class DApplicationCommandGroup<
 
   static create<InfoTypeEx = DApplicationCommand | DApplicationCommandOption>(
     name: string,
-    infos?: Partial<InfoTypeEx>
+    infos: Partial<InfoTypeEx>
   ): DApplicationCommandGroup<InfoTypeEx> {
     return new DApplicationCommandGroup<InfoTypeEx>(name, infos);
   }

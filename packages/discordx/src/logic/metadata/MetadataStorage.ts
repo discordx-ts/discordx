@@ -454,8 +454,10 @@ export class MetadataStorage {
       const slashParent = DApplicationCommand.create({
         defaultMemberPermissions: group.infos.defaultMemberPermissions,
         description: group.infos.description,
+        descriptionLocalizations: group.infos.descriptionLocalizations,
         dmPermission: group.infos.dmPermission,
         name: group.name,
+        nameLocalizations: group.infos.nameLocalizations,
         type: ApplicationCommandType.ChatInput,
       }).decorate(group.classRef, group.key, group.method);
 
@@ -506,8 +508,10 @@ export class MetadataStorage {
     // ]
     this._applicationCommandSlashSubGroups.forEach((subGroup) => {
       const option = DApplicationCommandOption.create({
-        description: subGroup.infos?.description,
+        description: subGroup.infos.description,
+        descriptionLocalizations: subGroup.infos.descriptionLocalizations,
         name: subGroup.name,
+        nameLocalizations: subGroup.infos.nameLocalizations,
         type: ApplicationCommandOptionType.SubcommandGroup,
       }).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
@@ -546,6 +550,7 @@ export class MetadataStorage {
       const groupSlash = slashes[0]?.group
         ? groupedSlashes.get(slashes[0].group)
         : undefined;
+
       if (groupSlash) {
         groupSlash.options.push(option);
       }
