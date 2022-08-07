@@ -1,5 +1,9 @@
 # Stage
 
+## Routine Tasks
+
+- update music dep ([0983cb](https://github.com/oceanroleplay/discord.ts/commit/0983cb6a3dd728adc0ff88295f99b606aff8b2c2))
+
 # [v4.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/m-v4.0.0) (2022-04-04)
 
 ## Changed

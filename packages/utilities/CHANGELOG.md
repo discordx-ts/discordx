@@ -1,5 +1,7 @@
 # Stage
 
+# [v5.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/u-v5.0.0) (2022-08-07)
+
 ## Features
 
 - rate limit message now includes a resolver ([#718](https://github.com/oceanroleplay/discord.ts/issues/718)) ([ee32d9](https://github.com/oceanroleplay/discord.ts/commit/ee32d9d21378e2d5023e59383a4d25610eab7fe9))

@@ -1,5 +1,7 @@
 # Stage
 
+# [v1.0.11](https://github.com/oceanroleplay/discord.ts/releases/tag/lp-v1.0.11) (2022-08-07)
+
 ## Features
 
 - package - lava-queue ([#622](https://github.com/oceanroleplay/discord.ts/issues/622)) ([faa7bb](https://github.com/oceanroleplay/discord.ts/commit/faa7bb982974286736cedddfff3c679ddaffefb3))

@@ -1,5 +1,7 @@
 # Stage
 
+# [v3.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/p-v3.0.0) (2022-08-07)
+
 ## Features
 
 - expose pagination collector options ([24c39c](https://github.com/oceanroleplay/discord.ts/commit/24c39c24f92f7f253b40bf56003ee41898a4ed42))

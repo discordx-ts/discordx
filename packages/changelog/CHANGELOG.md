@@ -1,5 +1,7 @@
 # Stage
 
+# [v2.0.9](https://github.com/oceanroleplay/discord.ts/releases/tag/c-v2.0.9) (2022-08-07)
+
 ## Features
 
 - custom header ([b2e8ad](https://github.com/oceanroleplay/discord.ts/commit/b2e8ad42b41a15d2f3ab43230b37543de0af84a0))
@@ -14,6 +16,7 @@
 
 ## Fixed
 
+- changelog ([1ee40f](https://github.com/oceanroleplay/discord.ts/commit/1ee40f417a44cbacc891bb642a8f9e7358c73823))
 - breaking change scope ([79956a](https://github.com/oceanroleplay/discord.ts/commit/79956ad2b8cb83e3fdcdf22ec922328eea56be1e))
 - duplicate changelog issue ([4e0080](https://github.com/oceanroleplay/discord.ts/commit/4e00801d75b447893c779cde1f2215c7dc719223))
 - minor issues ([ffe8f0](https://github.com/oceanroleplay/discord.ts/commit/ffe8f05d0fa03714eaa29504fa9c4deea2d9502b))
