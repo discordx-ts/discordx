@@ -9,6 +9,7 @@ export type storeType =
   | "ci"
   | "docs"
   | "feat"
+  | "feature"
   | "fix"
   | "refactor"
   | "revert"
@@ -28,7 +29,7 @@ const categories: {
     storeTypes: ["BREAKING CHANGE"],
     title: "Breaking Changes",
   },
-  { breaking: false, storeTypes: ["feat"], title: "Features" },
+  { breaking: false, storeTypes: ["feat", "feature"], title: "Features" },
   { breaking: true, storeTypes: ["refactor"], title: "Changed" },
   { breaking: true, storeTypes: ["fix"], title: "Fixed" },
   { breaking: false, storeTypes: ["revert"], title: "Reverts" },
