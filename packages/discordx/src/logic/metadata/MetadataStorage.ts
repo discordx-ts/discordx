@@ -68,10 +68,11 @@ export class MetadataStorage {
 
   // groups
   private _applicationCommandSlashGroups: Array<
-    DApplicationCommandGroup<DApplicationCommand>
+    DApplicationCommandGroup<Partial<DApplicationCommand>>
   > = [];
-  private _applicationCommandSlashSubGroups: DApplicationCommandGroup<DApplicationCommandOption>[] =
-    [];
+  private _applicationCommandSlashSubGroups: DApplicationCommandGroup<
+    Partial<DApplicationCommandOption>
+  >[] = [];
 
   // static getters
 
@@ -218,13 +219,13 @@ export class MetadataStorage {
   }
 
   addApplicationCommandSlashGroups(
-    group: DApplicationCommandGroup<DApplicationCommand>
+    group: DApplicationCommandGroup<Partial<DApplicationCommand>>
   ): void {
     this._applicationCommandSlashGroups.push(group);
   }
 
   addApplicationCommandSlashSubGroups(
-    subGroup: DApplicationCommandGroup<DApplicationCommandOption>
+    subGroup: DApplicationCommandGroup<Partial<DApplicationCommandOption>>
   ): void {
     this._applicationCommandSlashSubGroups.push(subGroup);
   }
