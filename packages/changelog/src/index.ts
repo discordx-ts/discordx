@@ -91,7 +91,9 @@ export function generateDoc(options?: {
 
   const tags = _.compact(
     child
-      .execSync(`git tag --list "${options?.tag?.match ?? "v*"}"`)
+      .execSync(
+        `git tag --list --sort=v:refname "${options?.tag?.match ?? "v*"}"`
+      )
       .toString("utf-8")
       .split("\n")
   );
