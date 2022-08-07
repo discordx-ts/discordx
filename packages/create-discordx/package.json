@@ -60,7 +60,7 @@
   "devDependencies": {
     "@types/prompts": "^2.0.14",
     "@types/rimraf": "^3.0.2",
-    "@types/tar": "^6.1.1",
+    "@types/tar": "^6.1.2",
     "@types/validate-npm-package-name": "^4.0.0"
   }
 }
