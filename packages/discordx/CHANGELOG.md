@@ -2,6 +2,10 @@
 
 # [v11.0.8](https://github.com/oceanroleplay/discord.ts/releases/tag/v11.0.8) (2022-08-07)
 
+## Features
+
+- add min/max length for string option ([#841](https://github.com/oceanroleplay/discord.ts/issues/841)) ([81b76d](https://github.com/oceanroleplay/discord.ts/commit/81b76d3129fedd5cdbb41fc273d5c0e60312313b))
+
 ## Changed
 
 - remove unwanted log ([b23b2f](https://github.com/oceanroleplay/discord.ts/commit/b23b2ff6b1566da7e636735710cf140679677a32))
@@ -21,10 +25,6 @@
 - cleanup ([ede45b](https://github.com/oceanroleplay/discord.ts/commit/ede45bf0cd71a228886ecb65e4ec89bf46d8d679))
 - rever changes ([0d859f](https://github.com/oceanroleplay/discord.ts/commit/0d859f6973082c285a747b6ea9dc44c7335d5293))
 - update dep & examples ([a41145](https://github.com/oceanroleplay/discord.ts/commit/a411455742aa16579dcee12c7a916842c5da3077))
-
-## Untagged
-
-- feature: add min/max length for string option ([#841](https://github.com/oceanroleplay/discord.ts/issues/841)) ([81b76d](https://github.com/oceanroleplay/discord.ts/commit/81b76d3129fedd5cdbb41fc273d5c0e60312313b))
 
 # [v10.0.0](https://github.com/oceanroleplay/discord.ts/releases/tag/v10.0.0) (2022-07-19)
 

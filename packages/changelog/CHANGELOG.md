@@ -1,5 +1,9 @@
 # Stage
 
+## Features
+
+- add feature in changelog ([a6e418](https://github.com/oceanroleplay/discord.ts/commit/a6e4188348e9bd450fdd9c160d7b18e039557e5c))
+
 # [v2.0.9](https://github.com/oceanroleplay/discord.ts/releases/tag/c-v2.0.9) (2022-08-07)
 
 ## Features
