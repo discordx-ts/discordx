@@ -85,7 +85,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 5. In your forked repository, make your changes in a new git branch:
 
    ```shell
-   git checkout -b my-fix-branch master
+   git checkout -b my-fix-branch main
    ```
 
 6. Create your patch, **including appropriate test cases**.
@@ -171,10 +171,10 @@ After your pull request is merged, you can safely delete your branch and pull th
   git push origin --delete my-fix-branch
   ```
 
-- Check out the master branch:
+- Check out the main branch:
 
   ```shell
-  git checkout master -f
+  git checkout main -f
   ```
 
 - Delete the local branch:
@@ -183,10 +183,10 @@ After your pull request is merged, you can safely delete your branch and pull th
   git branch -D my-fix-branch
   ```
 
-- Update your master with the latest upstream version:
+- Update your main with the latest upstream version:
 
   ```shell
-  git pull --ff upstream master
+  git pull --ff upstream main
   ```
 
 ## <a name="rules"></a> Coding Rules
