@@ -45,7 +45,7 @@ jobs:
         run: npm list
 
       - name: Install dependencies
-        run: npm install --force
+        run: npm install
 
       - name: Run prettier
         run: npm run format-check
