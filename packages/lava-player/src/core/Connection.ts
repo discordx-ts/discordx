@@ -187,11 +187,11 @@ export class Connection<T extends BaseNode = BaseNode> {
   }
 
   private async _flush() {
-    await Promise.all(this._queue.map(this._send));
+    await Promise.all(this._queue.map((queue) => this._send(queue)));
     this._queue = [];
   }
 
-  private _send(this: Connection, { resolve, reject, data }: Sendable) {
+  private _send({ resolve, reject, data }: Sendable) {
     this.ws.send(data, (err) => {
       if (err) {
         reject(err);
