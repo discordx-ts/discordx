@@ -46,19 +46,19 @@ This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/Owen
 
 # 🗂 Packages
 
-- [discordx](./packages/discordx/README.md)
-- [create-discordx](./packages/create-discordx/README.md)
-- [@discordx/changelog](./packages/changelog/README.md)
-- [@discordx/di](./packages/di/README.md)
-- [@discordx/importer](./packages/importer/README.md)
-- [@discordx/internal](./packages/internal/README.md)
-- [@discordx/koa](./packages/koa/README.md)
-- [@discordx/lava-player](./packages/lava-player/README.md)
-- [@discordx/lava-queue](./packages/lava-queue/README.md)
-- [@discordx/music](./packages/music/README.md)
-- [@discordx/pagination](./packages/pagination/README.md)
-- [@discordx/socket.io](./packages/socket.io/README.md)
-- [@discordx/utilities](./packages/utilities/README.md)
+- [discordx](./packages/discordx/README.md) - Discord framework for building a discord.js bot using typescript decorators.
+- [create-discordx](./packages/create-discordx/README.md) - CLI tool for generating a Discordx project using templates.
+- [@discordx/changelog](./packages/changelog/README.md) - A changelog generation tool built with Typescript and Node.
+- [@discordx/di](./packages/di/README.md) - Dependency injection service with support for agnostic IOC.
+- [@discordx/importer](./packages/importer/README.md) - Import solution for both ESM and CJS.
+- [@discordx/internal](./packages/internal/README.md) - Discordx internal methods, Can be used for external projects.
+- [@discordx/koa](./packages/koa/README.md) - Koa framework for building a rest API using typescript decorators.
+- [@discordx/lava-player](./packages/lava-player/README.md) - A Lavalink player.
+- [@discordx/lava-queue](./packages/lava-queue/README.md) - A queue system for lava-player.
+- [@discordx/music](./packages/music/README.md) - An easy way to create a Discord music bot.
+- [@discordx/pagination](./packages/pagination/README.md) - An easy way to create pagination messages.
+- [@discordx/socket.io](./packages/socket.io/README.md) - Socket.io framework for building WebSocket server with typescript decorators.
+- [@discordx/utilities](./packages/utilities/README.md) - A utilities package for Discordx.
 
 # 📜 Documentation
 
