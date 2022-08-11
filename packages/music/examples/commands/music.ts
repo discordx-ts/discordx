@@ -16,7 +16,7 @@ export class music {
 
     this.player.on("onStart", ([, track]) => {
       if (this.channel) {
-        this.channel.send(`playing ${track} ${track.url ? track.url : ""}`);
+        this.channel.send(`playing ${track.title} ${track.url ?? ""}`);
       }
     });
 
@@ -42,13 +42,15 @@ export class music {
 
     this.player.on("onError", ([, err, track]) => {
       if (this.channel) {
-        this.channel.send(`Track: ${track}Error: ${err.message}`);
+        this.channel.send(
+          `Track: ${track.source}\nError: \`\`\`${err.message}\`\`\``
+        );
       }
     });
 
-    this.player.on("onFinish", ([track]) => {
+    this.player.on("onFinish", ([, track]) => {
       if (this.channel) {
-        this.channel.send(`Finished playing: ${track}`);
+        this.channel.send(`Finished playing: ${track.title}`);
       }
     });
 
@@ -106,7 +108,7 @@ export class music {
       }
     });
 
-    this.player.on("onVolumeUpdate", ([volume]) => {
+    this.player.on("onVolumeUpdate", ([, volume]) => {
       if (this.channel) {
         this.channel.send(`volume changed to: ${volume}`);
       }

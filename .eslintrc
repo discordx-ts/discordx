@@ -11,6 +11,7 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
+  "ignorePatterns": ["**/*.js"],
   "rules": {
     // simple-import-sort
     "simple-import-sort/imports": "error",
