@@ -1,4 +1,4 @@
-import * as Lava from "@discordx/lava-player";
+import { Status } from "@discordx/lava-player";
 import {
   Pagination,
   PaginationResolver,
@@ -28,7 +28,7 @@ export class MusicQueue extends Queue {
   channel?: TextBasedChannel;
 
   get isPlaying(): boolean {
-    return this.lavaPlayer.status === Lava.Status.PLAYING;
+    return this.lavaPlayer.status === Status.PLAYING;
   }
 
   constructor(player: Player, guildId: string) {

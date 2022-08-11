@@ -3,15 +3,20 @@ import { GatewayDispatchEvents, GuildMember } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import { Discord, Once, Slash, SlashOption } from "discordx";
 
-import * as Lava from "../../src/index.js";
+import type {
+  VoiceServerUpdate,
+  VoiceStateUpdate,
+  WRawEventType,
+} from "../../src/index.js";
+import { Node } from "../../src/index.js";
 
 @Discord()
 export class MusicPlayer {
-  node: Lava.Node | undefined;
+  node: Node | undefined;
 
   @Once("ready")
   onReady([]: ArgsOf<"ready">, client: Client): void {
-    const nodeX = new Lava.Node({
+    const nodeX = new Node({
       host: {
         address: process.env.LAVA_HOST ?? "localhost",
         connectionOptions: { resumeKey: "discordx", resumeTimeout: 15 },
@@ -32,7 +37,7 @@ export class MusicPlayer {
     });
 
     nodeX.connection.ws.on("message", (data) => {
-      const raw = JSON.parse(data.toString()) as Lava.WRawEventType;
+      const raw = JSON.parse(data.toString()) as WRawEventType;
       console.log("ws>>", raw);
     });
 
@@ -42,14 +47,14 @@ export class MusicPlayer {
 
     client.ws.on(
       GatewayDispatchEvents.VoiceStateUpdate,
-      (data: Lava.VoiceStateUpdate) => {
+      (data: VoiceStateUpdate) => {
         nodeX.voiceStateUpdate(data);
       }
     );
 
     client.ws.on(
       GatewayDispatchEvents.VoiceServerUpdate,
-      (data: Lava.VoiceServerUpdate) => {
+      (data: VoiceServerUpdate) => {
         nodeX.voiceServerUpdate(data);
       }
     );
