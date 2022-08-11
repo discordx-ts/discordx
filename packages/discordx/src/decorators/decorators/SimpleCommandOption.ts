@@ -72,7 +72,6 @@ export function SimpleCommandOption(
       }
 
       case "USER":
-      
 
       default:
         throw Error(`Invalid simple command option (${name}): ${type}\n`);

@@ -72,7 +72,6 @@ export function SlashOption(
       }
 
       case "USER":
-      
 
       case "MessageAttachment": {
         return ApplicationCommandOptionType.Attachment;
