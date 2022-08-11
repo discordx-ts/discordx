@@ -38,7 +38,7 @@
 
 # 📖 Introduction
 
-Dependency injection service with TSyringe and TypeDI support.
+Dependency injection service with support for agnostic IOC.
 
 # 💻 Installation
 
@@ -49,10 +49,17 @@ npm install @discordx/di
 yarn add @discordx/di
 ```
 
+# 📜 Documentation
+
+- [discord-ts.js.org](https://discord-ts.js.org)
+- [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
+
 # ☎️ Need help?
 
-Ask in **[discord server](https://discord-ts.js.org/discord)** or open a **[issue](https://github.com/oceanroleplay/discord.ts/issues)**
+- [Check frequently asked questions](https://discord-ts.js.org/docs/faq)
+- [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
+- Ask in the community [Discord server](https://discord-ts.js.org/discord)
 
-# Thank you
+# 💖 Thank you
 
-Show your support for [discordx](https://www.npmjs.com/package/discordx) by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).
+You can support [Discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/oceanroleplay/discord.ts) star.
