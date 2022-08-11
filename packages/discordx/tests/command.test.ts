@@ -166,14 +166,25 @@ describe("Commands", () => {
     expect(response).toEqual(undefined);
   });
 
-  it("Should avoid splitter space for options", () => {
+  it("Should avoid splitter space for options", async () => {
     const contents = ["!sub 2 | 4", "!sub 2 | 4   ", "!sub 2 |4", "!sub 2|4"];
-    contents.forEach(async (content) => {
-      const sampleMessage = { content } as Message;
-      const parsedCommand = await client.parseCommand("!", sampleMessage);
-      const response = await client.executeCommand(sampleMessage);
-      expect(response).toEqual(["!add", ["2", "4"], parsedCommand, true]);
-    });
+    const results = await Promise.all(
+      contents.map(async (content) => {
+        const sampleMessage = { content } as Message;
+        const parsedCommand = await client.parseCommand("!", sampleMessage);
+        const response = await client.executeCommand(sampleMessage);
+        return { parsedCommand, response };
+      })
+    );
+
+    for (const result of results) {
+      expect(result.response).toEqual([
+        "!add",
+        ["2", "4"],
+        result.parsedCommand,
+        true,
+      ]);
+    }
   });
 
   it("Should execute arg splitter regex", async () => {

@@ -80,6 +80,7 @@ export class RateLimitExample {
   }
 
   private static getMessage(
+    this: void,
     interaction: CommandInteraction,
     timeLeft: number
   ): Promise<string> {

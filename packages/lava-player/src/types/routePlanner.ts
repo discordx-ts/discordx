@@ -1,7 +1,4 @@
-export type RoutePlannerStatus =
-  | RotatingIpRoutePlanner
-  | NanoIpRoutePlanner
-  | RotatingIpRoutePlanner;
+export type RoutePlannerStatus = NanoIpRoutePlanner | RotatingIpRoutePlanner;
 
 export interface BaseRoutePlannerStatusDetails {
   failingAddresses: {

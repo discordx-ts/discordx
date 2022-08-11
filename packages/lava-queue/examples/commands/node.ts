@@ -1,9 +1,13 @@
-import * as Lava from "@discordx/lava-player";
+import type {
+  VoiceServerUpdate,
+  VoiceStateUpdate,
+} from "@discordx/lava-player";
+import { Node } from "@discordx/lava-player";
 import { GatewayDispatchEvents } from "discord.js";
 import type { Client } from "discordx";
 
-export function getNode(client: Client): Lava.Node {
-  const nodeX = new Lava.Node({
+export function getNode(client: Client): Node {
+  const nodeX = new Node({
     host: {
       address: process.env.LAVA_HOST ?? "localhost",
       connectionOptions: { resumeKey: client.botId, resumeTimeout: 15 },
@@ -25,14 +29,14 @@ export function getNode(client: Client): Lava.Node {
 
   client.ws.on(
     GatewayDispatchEvents.VoiceStateUpdate,
-    (data: Lava.VoiceStateUpdate) => {
+    (data: VoiceStateUpdate) => {
       nodeX.voiceStateUpdate(data);
     }
   );
 
   client.ws.on(
     GatewayDispatchEvents.VoiceServerUpdate,
-    (data: Lava.VoiceServerUpdate) => {
+    (data: VoiceServerUpdate) => {
       nodeX.voiceServerUpdate(data);
     }
   );

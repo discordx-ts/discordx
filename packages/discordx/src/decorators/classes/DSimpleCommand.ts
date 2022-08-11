@@ -180,7 +180,9 @@ export class DSimpleCommand extends Method {
         .map((op, index) => {
           // only digits
           const id = args[index]?.replace(/\D/g, "");
-          const invalidError = Error(`Invalid id given: ${args[index]}`);
+          const invalidError = Error(
+            `Invalid id given: ${args[index] ?? "unknown"}`
+          );
 
           // undefined
           if (!args[index]?.length) {

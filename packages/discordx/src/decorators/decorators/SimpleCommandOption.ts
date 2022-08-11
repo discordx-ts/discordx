@@ -63,10 +63,6 @@ export function SimpleCommandOption(
         return SimpleCommandOptionType.Channel;
       }
 
-      case "GUILDMEMBER": {
-        return SimpleCommandOptionType.User;
-      }
-
       case "ROLE": {
         return SimpleCommandOptionType.Role;
       }

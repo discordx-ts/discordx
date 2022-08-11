@@ -1,11 +1,16 @@
-import * as Lava from "@discordx/lava-player";
+import type { TrackResponse } from "@discordx/lava-player";
+import { LoadType, Status } from "@discordx/lava-player";
 import type {
   ButtonInteraction,
   CommandInteraction,
   Guild,
   TextBasedChannel,
 } from "discord.js";
-import { EmbedBuilder, GuildMember } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  EmbedBuilder,
+  GuildMember,
+} from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import {
   ButtonComponent,
@@ -119,9 +124,9 @@ export class MusicPlayer {
   @Slash()
   async play(
     @SlashChoice("URL", "SEARCH")
-    @SlashOption("type", { type: "STRING" })
+    @SlashOption("type", { type: ApplicationCommandOptionType.String })
     type: "URL" | "SEARCH",
-    @SlashOption("input", { type: "STRING" })
+    @SlashOption("input", { type: ApplicationCommandOptionType.String })
     input: string,
     interaction: CommandInteraction,
     client: Client
@@ -139,7 +144,7 @@ export class MusicPlayer {
 
     queue.channel = channel;
 
-    let response: Lava.TrackResponse;
+    let response: TrackResponse;
 
     if (type === "URL") {
       response = await queue.enqueue(input);
@@ -153,16 +158,16 @@ export class MusicPlayer {
 
       queue.tracks.push(track);
       response = {
-        loadType: Lava.LoadType.TRACK_LOADED,
+        loadType: LoadType.TRACK_LOADED,
         playlistInfo: {},
         tracks: [track],
       };
     }
 
     if (
-      queue.lavaPlayer.status === Lava.Status.INSTANTIATED ||
-      queue.lavaPlayer.status === Lava.Status.UNKNOWN ||
-      queue.lavaPlayer.status === Lava.Status.ENDED
+      queue.lavaPlayer.status === Status.INSTANTIATED ||
+      queue.lavaPlayer.status === Status.UNKNOWN ||
+      queue.lavaPlayer.status === Status.ENDED
     ) {
       queue.playNext();
     }

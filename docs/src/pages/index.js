@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
-import clsx from "clsx";
-import React from "react";
-
 import HomepageFeatures from "../components/HomepageFeatures";
+import Layout from "@theme/Layout";
+import Link from "@docusaurus/Link";
+import React from "react";
+import clsx from "clsx";
 import styles from "./index.module.css";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();

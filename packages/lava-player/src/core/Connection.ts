@@ -187,7 +187,7 @@ export class Connection<T extends BaseNode = BaseNode> {
   }
 
   private async _flush() {
-    await Promise.all(this._queue.map(this._send));
+    await Promise.all(this._queue.map((queue) => this._send(queue)));
     this._queue = [];
   }
 

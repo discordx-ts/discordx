@@ -1362,7 +1362,7 @@ export class Client extends ClientJS {
       return;
     }
 
-    const action = await this.parseReaction(reaction);
+    const action = this.parseReaction(reaction);
     if (!action) {
       return;
     }
@@ -1373,7 +1373,7 @@ export class Client extends ClientJS {
     }
 
     // validate guild id
-    if (!action.isGuildAllowed(this, reaction.message.guildId)) {
+    if (!(await action.isGuildAllowed(this, reaction.message.guildId))) {
       return;
     }
 

@@ -164,9 +164,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       // If the message response is not received, throw an error
       if (!(reply instanceof Message)) {
         throw Error(
-          "Missing Intent: GUILD_MESSAGES\n\
-          Without guild message intent, pagination does not work, Consider adding GUILD_MESSAGES as an intent\n\
-          read more at https://discord-ts.js.org/docs/faq/Errors/Pagination#missing-intent-guild_messages"
+          "Missing Intent: GUILD_MESSAGES\nWithout guild message intent, pagination does not work, Consider adding GUILD_MESSAGES as an intent\nread more at https://discord-ts.js.org/docs/faq/Errors/Pagination#missing-intent-guild_messages"
         );
       }
 

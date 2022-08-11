@@ -14,10 +14,6 @@ class MyQueue extends Queue {}
 export class Player extends EventEmitter {
   public queues = new Collection<Snowflake, Queue>();
 
-  constructor() {
-    super();
-  }
-
   public on<Q extends Queue, T extends keyof PlayerEvents<Q>>(
     event: T,
     handler: PlayerEventArgOf<Q, T>

@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import clsx from "clsx";
 import React from "react";
+import clsx from "clsx";
 
 import styles from "./HomepageFeatures.module.css";
 
@@ -10,7 +9,7 @@ const FeatureList = [
     title: "Decorators",
   },
   {
-    description: <>Implement a Discord's Slash commands system simply !</>,
+    description: <>Implement a Discord&apos;s Slash commands system simply !</>,
     title: "Slash commands",
   },
   {

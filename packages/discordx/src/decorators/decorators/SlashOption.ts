@@ -63,10 +63,6 @@ export function SlashOption(
         return ApplicationCommandOptionType.Channel;
       }
 
-      case "GUILDMEMBER": {
-        return ApplicationCommandOptionType.User;
-      }
-
       case "ROLE": {
         return ApplicationCommandOptionType.Role;
       }

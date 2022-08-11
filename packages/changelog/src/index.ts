@@ -59,13 +59,13 @@ export function getRepoUrl(): string {
   }
 
   if (RegExp(/.*@.*:.*.git/gm).test(remoteUrl)) {
-    const r = RegExp(/.*@(.*?):(.*?).git/gm).exec(remoteUrl);
-    if (!r) {
+    const regExp = RegExp(/.*@(.*?):(.*?).git/gm).exec(remoteUrl);
+    if (!regExp) {
       throw Error("Invalid repo url passed");
     }
 
-    const domain = r.at(1);
-    const subUrl = r.at(2);
+    const domain = regExp.at(1);
+    const subUrl = regExp.at(2);
 
     return `https://${domain}/${subUrl}`;
   }
