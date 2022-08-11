@@ -10,7 +10,7 @@ const FeatureList = [
     title: "Decorators",
   },
   {
-    description: <>Implement a Discord's Slash commands system simply !</>,
+    description: <>Implement a Discord&apos;s Slash commands system simply !</>,
     title: "Slash commands",
   },
   {

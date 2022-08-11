@@ -49,7 +49,7 @@ const res = await prompts(
         return true;
       }
 
-      return "Invalid project name: " + validation.problems?.[0] ?? "unknown";
+      return `"Invalid project name: ${validation.problems?.[0] ?? "unknown"}`;
     },
   },
   {

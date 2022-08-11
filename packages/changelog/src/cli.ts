@@ -1,4 +1,5 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
+
 import { generateDoc } from "./index.js";
 
 function getArg(name: string): string | undefined {

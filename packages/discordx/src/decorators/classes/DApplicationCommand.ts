@@ -1,5 +1,4 @@
 import type {
-  ApplicationCommandOptionData,
   ChatInputCommandInteraction,
   LocalizationMap,
   PermissionResolvable,
@@ -225,7 +224,7 @@ export class DApplicationCommand extends Method {
       dmPermission: this.dmPermission,
       name: this.name,
       nameLocalizations: this.nameLocalizations,
-      options: options as ApplicationCommandOptionData[],
+      options: options,
       type: this.type,
     };
 

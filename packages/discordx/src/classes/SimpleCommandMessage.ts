@@ -91,14 +91,9 @@ export class SimpleCommandMessage {
     // add syntax usage
     embed.addFields({
       name: "Command Usage",
-      value:
-        "```" +
-        this.prefix +
-        this.name +
-        ` ${this.info.options
-          .map((op) => `{${op.name}: ${SimpleCommandOptionType[op.type]}}`)
-          .join(" ")}` +
-        "```",
+      value: `\`\`\`${this.prefix}${this.name} ${this.info.options
+        .map((op) => `{${op.name}: ${SimpleCommandOptionType[op.type]}}`)
+        .join(" ")}\`\`\``,
     });
 
     // add options if available
