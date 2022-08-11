@@ -1,11 +1,10 @@
+import HomepageFeatures from "../components/HomepageFeatures";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import React from "react";
 import clsx from "clsx";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-
-import HomepageFeatures from "../components/HomepageFeatures";
 import styles from "./index.module.css";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
