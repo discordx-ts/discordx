@@ -230,6 +230,11 @@ The following options are only available, if you have set type to `SELECT_MENU`
 | pageText     | string \| string[] | Page {page}              | Menu page text   |
 | placeholder  | string             | Select page              | Menu placeholder |
 
+# 📜 Documentation
+
+- [discord-ts.js.org](https://discord-ts.js.org)
+- [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
+
 # ☎️ Need help?
 
 - [Check frequently asked questions](https://discord-ts.js.org/docs/faq)

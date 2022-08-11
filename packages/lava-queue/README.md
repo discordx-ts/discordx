@@ -55,6 +55,11 @@ yarn add @discordx/lava-queue
 
 **Note:** Create a pull request to include your bot in the example list.
 
+# 📜 Documentation
+
+- [discord-ts.js.org](https://discord-ts.js.org)
+- [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
+
 # ☎️ Need help?
 
 - [Check frequently asked questions](https://discord-ts.js.org/docs/faq)

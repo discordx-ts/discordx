@@ -49,6 +49,11 @@ npm install @discordx/di
 yarn add @discordx/di
 ```
 
+# 📜 Documentation
+
+- [discord-ts.js.org](https://discord-ts.js.org)
+- [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
+
 # ☎️ Need help?
 
 - [Check frequently asked questions](https://discord-ts.js.org/docs/faq)

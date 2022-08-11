@@ -48,6 +48,11 @@ Create discordx (discord.ts) apps with one command. Inspired by [create-next-app
 npx create-discordx
 ```
 
+# 📜 Documentation
+
+- [discord-ts.js.org](https://discord-ts.js.org)
+- [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
+
 # ☎️ Need help?
 
 - [Check frequently asked questions](https://discord-ts.js.org/docs/faq)
