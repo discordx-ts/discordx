@@ -275,6 +275,8 @@ enum RPS {
 
 # ☎️ Need help?
 
+- [Check frequently asked questions](https://discord-ts.js.org/docs/faq)
+- [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
 - Ask in the community [Discord server](https://discord-ts.js.org/discord)
 
 # 💖 Thank you
