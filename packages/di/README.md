@@ -38,7 +38,7 @@
 
 # 📖 Introduction
 
-Dependency injection service with TSyringe and TypeDI support.
+Dependency injection service with support for agnostic IOC.
 
 # 💻 Installation
 
