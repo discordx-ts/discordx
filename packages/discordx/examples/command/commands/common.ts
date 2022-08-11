@@ -40,14 +40,18 @@ export class Example {
     !user || user instanceof Error
       ? command.sendUsageSyntax()
       : command.message.reply(
-          `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
+          `command prefix: \`\`${command.prefix.toString()}\`\`\ncommand name: \`\`${
+            command.name
+          }\`\`\nargument string: \`\`${command.argString}\`\``
         );
   }
 
   @SimpleCommand("race bike", { prefix: ["&", ">"] })
   bike(command: SimpleCommandMessage): void {
     command.message.reply(
-      `command prefix: \`\`${command.prefix}\`\`\ncommand name: \`\`${command.name}\`\`\nargument string: \`\`${command.argString}\`\``
+      `command prefix: \`\`${command.prefix.toString()}\`\`\ncommand name: \`\`${
+        command.name
+      }\`\`\nargument string: \`\`${command.argString}\`\``
     );
   }
 
