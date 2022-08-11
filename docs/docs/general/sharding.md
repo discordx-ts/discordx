@@ -6,7 +6,7 @@ Sharding your bot with `discordx`.
 
 Sharding is the process of splitting your main discord process into multiple shards to help with the load when your bot is in 2,500+ guilds. discord.**js** has recommended to start making updates for sharding at around 2,000 guilds.
 
-[Discord.js Sharding Guide](https://discordjs.guide/sharding/#when-to-shard)
+[discord.js Sharding Guide](https://discordjs.guide/sharding/#when-to-shard)
 
 When you hit that milestone and need to begin the sharding process this guide will serve as a starting document to help you get set up.
 

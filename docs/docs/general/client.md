@@ -169,5 +169,5 @@ const client = new Client({
 
 ## See also
 
-- [Discord.js documentation](https://discord.js.org/#/docs/main/stable/class/Intents)
+- [discord.js documentation](https://discord.js.org/#/docs/main/stable/class/Intents)
 - [Discord's documentation](https://discord.com/developers/docs/topics/gateway#list-of-intents)

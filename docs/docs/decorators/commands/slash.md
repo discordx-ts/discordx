@@ -212,5 +212,5 @@ On the Discord's developer portal, select your bot, go to the OAuth2 tab and che
 
 ## See also
 
-- [Discord.js's documentation](https://discord.js.org)
+- [discord.js's documentation](https://discord.js.org)
 - [Discord's application command interactions](https://discord.com/developers/docs/interactions/application-commands)

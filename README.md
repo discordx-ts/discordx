@@ -38,24 +38,24 @@
 
 # 📖 Introduction
 
-This module is an extension of [Discord.js](https://discord.js.org), so the internal behavior (methods, properties, ...) is the same.
+This module is an extension of [discord.js](https://discord.js.org), so the internal behavior (methods, properties, ...) is the same.
 
-This library allows you to use TypeScript decorators on [Discord.js](https://discord.js.org), it simplifies your code and improves the readability!
+This library allows you to use TypeScript decorators on [discord.js](https://discord.js.org), it simplifies your code and improves the readability!
 
 This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) from [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
 
 # 🗂 Packages
 
-- [discordx](./packages/discordx/README.md) - Discord framework for building a discord.js bot using Typescript decorators.
+- [discordx](./packages/discordx/README.md) - discord framework for building a discord.js bot using Typescript decorators.
 - [create-discordx](./packages/create-discordx/README.md) - CLI tool for generating a Discordx project using templates.
 - [@discordx/changelog](./packages/changelog/README.md) - A changelog generation tool built with Typescript and Node.
 - [@discordx/di](./packages/di/README.md) - Dependency injection service with support for agnostic IOC.
 - [@discordx/importer](./packages/importer/README.md) - Import solution for both ESM and CJS.
-- [@discordx/internal](./packages/internal/README.md) - Discordx internal methods, Can be used for external projects.
+- [@discordx/internal](./packages/internal/README.md) - discordx internal methods, Can be used for external projects.
 - [@discordx/koa](./packages/koa/README.md) - Koa framework for building a rest API using Typescript decorators.
 - [@discordx/lava-player](./packages/lava-player/README.md) - A Lavalink player.
 - [@discordx/lava-queue](./packages/lava-queue/README.md) - A queue system for lava-player.
-- [@discordx/music](./packages/music/README.md) - An easy way to create a Discord music bot.
+- [@discordx/music](./packages/music/README.md) - An easy way to create a discord music bot.
 - [@discordx/pagination](./packages/pagination/README.md) - An easy way to create pagination messages.
 - [@discordx/socket.io](./packages/socket.io/README.md) - Socket.io framework for building WebSocket server with Typescript decorators.
 - [@discordx/utilities](./packages/utilities/README.md) - A utilities package for Discordx.
