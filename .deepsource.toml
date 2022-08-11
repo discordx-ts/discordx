@@ -23,7 +23,7 @@ enabled = true
         "nodejs",
     ]
     dialect = "typescript"
-    skip_doc_coverage = ["class-expression", "method-definition"]
+    skip_doc_coverage = []
 
 [[transformers]]
 name = "prettier"
