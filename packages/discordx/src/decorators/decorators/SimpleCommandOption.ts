@@ -72,9 +72,7 @@ export function SimpleCommandOption(
       }
 
       case "USER":
-      case "GUILDMEMBER": {
-        return SimpleCommandOptionType.User;
-      }
+      
 
       default:
         throw Error(`Invalid simple command option (${name}): ${type}\n`);

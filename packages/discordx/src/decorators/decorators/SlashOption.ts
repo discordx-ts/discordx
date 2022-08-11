@@ -72,9 +72,7 @@ export function SlashOption(
       }
 
       case "USER":
-      case "GUILDMEMBER": {
-        return ApplicationCommandOptionType.User;
-      }
+      
 
       case "MessageAttachment": {
         return ApplicationCommandOptionType.Attachment;
