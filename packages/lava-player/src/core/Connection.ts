@@ -191,7 +191,7 @@ export class Connection<T extends BaseNode = BaseNode> {
     this._queue = [];
   }
 
-  private _send({ resolve, reject, data }: Sendable) {
+  private _send(this: Connection, { resolve, reject, data }: Sendable) {
     this.ws.send(data, (err) => {
       if (err) {
         reject(err);

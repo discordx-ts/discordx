@@ -51,6 +51,7 @@ export class PermissionGuards {
   }
 
   private static resolvePermission(
+    this: void,
     interaction: PermissionHandler
   ): Promise<PermissionsString[]> {
     if (interaction instanceof CommandInteraction) {
