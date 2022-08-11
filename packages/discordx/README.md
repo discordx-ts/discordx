@@ -427,8 +427,8 @@ class Example {
 
 - [Check frequently asked questions](https://discord-ts.js.org/docs/faq)
 - [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
-- Ask in **[discord server](https://discord-ts.js.org/discord)**
+- Ask in the community [Discord server](https://discord-ts.js.org/discord)
 
-# Thank you
+# 💖 Thank you
 
-Show your support for [discordx](https://www.npmjs.com/package/discordx) by giving us a star on [github](https://github.com/oceanroleplay/discord.ts).
+You can support [Discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/oceanroleplay/discord.ts) star.
