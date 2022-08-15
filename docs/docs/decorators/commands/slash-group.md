@@ -289,46 +289,48 @@ SlashGroup(name: string): ClassMethodDecorator
 SlashGroup(name: string, root: string): ClassMethodDecorator
 ```
 
-## SlashGroupOptions
+## Parameters
 
-### `name`
+### root
+
+| type   | required | default   |
+| ------ | -------- | --------- |
+| string | No       | undefined |
+
+### options
+
+#### `name`
 
 | type   | required | default |
 | ------ | -------- | ------- |
 | string | Yes      |         |
 
-### `nameLocalizations`
-
-| type   | required | default |
-| ------ | -------- | ------- |
-| LocalizationMap | No      | undefined         |
-
-### `description`
-
-| type   | required | default   |
-| ------ | -------- | --------- |
-| string | No       | undefined |
-
-### `descriptionLocalizations`
+#### `nameLocalizations`
 
 | type            | required | default   |
 | --------------- | -------- | --------- |
 | LocalizationMap | No       | undefined |
 
-### `defaultMemberPermissions`
-
-| type            | required | default   |
-| --------------- | -------- | --------- |
-| PermissionResolvable \| undefined | No       | undefined |
-
-### `dmPermission`
-
-| type            | required | default   |
-| --------------- | -------- | --------- |
-| boolean \| undefined | No       | undefined |
-
-### `root`
+#### `description`
 
 | type   | required | default   |
 | ------ | -------- | --------- |
 | string | No       | undefined |
+
+#### `descriptionLocalizations`
+
+| type            | required | default   |
+| --------------- | -------- | --------- |
+| LocalizationMap | No       | undefined |
+
+#### `defaultMemberPermissions`
+
+| type                              | required | default   |
+| --------------------------------- | -------- | --------- |
+| PermissionResolvable \| undefined | No       | undefined |
+
+#### `dmPermission`
+
+| type                 | required | default   |
+| -------------------- | -------- | --------- |
+| boolean \| undefined | No       | undefined |
