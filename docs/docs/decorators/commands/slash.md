@@ -177,11 +177,19 @@ Multiple options, check below.
 
 Array of bot ids, for which only the event will be executed.
 
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
+| type     | default |
+| -------- | ------- |
+| string[] | []      |
 
-#### `Description`
+#### `defaultMemberPermissions`
+
+The default member permissions.
+
+| type                 | default   |
+| -------------------- | --------- |
+| PermissionResolvable | undefined |
+
+#### `description`
 
 The Slash command description
 
@@ -189,13 +197,35 @@ The Slash command description
 | ------ | --------------------------- |
 | string | Command name - Command type |
 
-#### Guilds
+#### `descriptionLocalizations`
+
+The localized commmand descriptions
+
+| type            | default   |
+| --------------- | --------- |
+| LocalizationMap | undefined |
+
+#### `dmPermission`
+
+| type    | default   |
+| ------- | --------- |
+| boolean | undefined |
+
+#### `guilds`
 
 The guilds where the command is created
 
 | type        | default |
 | ----------- | ------- |
-| Snowflake[] | [ ]     |
+| Snowflake[] | []      |
+
+#### `nameLocalizations`
+
+The localized commmand names
+
+| type              | default |
+| ----------------- | ------- |
+| LocalizationMap[] | []      |
 
 ## Authorize your bot to use application commands
 
