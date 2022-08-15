@@ -291,19 +291,43 @@ SlashGroup(name: string, root: string): ClassMethodDecorator
 
 ## SlashGroupOptions
 
-### name
+### `name`
 
 | type   | required | default |
 | ------ | -------- | ------- |
 | string | Yes      |         |
 
-### description
+### `nameLocalizations`
+
+| type   | required | default |
+| ------ | -------- | ------- |
+| LocalizationMap | No      | undefined         |
+
+### `description`
 
 | type   | required | default   |
 | ------ | -------- | --------- |
 | string | No       | undefined |
 
-### root
+### `descriptionLocalizations`
+
+| type            | required | default   |
+| --------------- | -------- | --------- |
+| LocalizationMap | No       | undefined |
+
+### `defaultMemberPermissions`
+
+| type            | required | default   |
+| --------------- | -------- | --------- |
+| PermissionResolvable \| undefined | No       | undefined |
+
+### `dmPermission`
+
+| type            | required | default   |
+| --------------- | -------- | --------- |
+| boolean \| undefined | No       | undefined |
+
+### `root`
 
 | type   | required | default   |
 | ------ | -------- | --------- |
