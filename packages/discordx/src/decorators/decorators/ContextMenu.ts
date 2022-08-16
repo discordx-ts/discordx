@@ -20,14 +20,17 @@ export function ContextMenu<TName extends string>(
     ApplicationCommandOptions<NotEmpty<TName>> & {
       type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
     },
-    "description"
+    "description" | "descriptionLocalizations"
   >
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const applicationCommand = DApplicationCommand.create({
       botIds: options.botIds,
+      defaultMemberPermissions: options.defaultMemberPermissions,
+      dmPermission: options.dmPermission,
       guilds: options.guilds,
       name: options.name ?? key,
+      nameLocalizations: options.nameLocalizations,
       type: options.type,
     }).decorate(target.constructor, key, target[key]);
 
