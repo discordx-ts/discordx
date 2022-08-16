@@ -7,7 +7,10 @@ import { GeneratePages } from "../util/common functions.js";
 @Discord()
 export class Example {
   // example: simple slash with menu pagination
-  @Slash("config-example", { description: "Custom page name for select menu" })
+  @Slash({
+    description: "Custom page name for select menu",
+    name: "config-example",
+  })
   configExample(interaction: CommandInteraction): void {
     new Pagination(interaction, GeneratePages(), {
       pageText: "My custom page: {page}, Index: {page}",

@@ -27,10 +27,10 @@ jobs:
           ref: dev
           fetch-depth: 0
 
-      - name: Install Node v17
+      - name: Install Node v18
         uses: actions/setup-node@v2
         with:
-          node-version: "17.x"
+          node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
 
       - name: Synchronize dev version

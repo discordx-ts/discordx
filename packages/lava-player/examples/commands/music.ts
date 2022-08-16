@@ -14,8 +14,8 @@ import { Node } from "../../src/index.js";
 export class MusicPlayer {
   node: Node | undefined;
 
-  @Once("ready")
-  onReady([]: ArgsOf<"ready">, client: Client): void {
+  @Once()
+  ready([]: ArgsOf<"ready">, client: Client): void {
     const nodeX = new Node({
       host: {
         address: process.env.LAVA_HOST ?? "localhost",
@@ -91,7 +91,7 @@ export class MusicPlayer {
 
   @Slash()
   async play(
-    @SlashOption("song") song: string,
+    @SlashOption({ name: "song" }) song: string,
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply();

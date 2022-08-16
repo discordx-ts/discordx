@@ -7,7 +7,7 @@ import { Pagination, PaginationType } from "../../../src/index.js";
 @Discord()
 export class Example {
   // example: pagination for all slash command
-  @Slash("slashes", { description: "Pagination for all slash command" })
+  @Slash({ description: "Pagination for all slash command", name: "slashes" })
   slashes(interaction: CommandInteraction): void {
     const commands = MetadataStorage.instance.applicationCommands.map((cmd) => {
       return { description: cmd.description, name: cmd.name };

@@ -11,7 +11,7 @@ export class RateLimitExample {
    *
    * @param interaction
    */
-  @Slash("rate_limit_1")
+  @Slash({ name: "rate_limit_1" })
   @Guard(RateLimit(TIME_UNIT.seconds, 30))
   rateLimit1(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -22,7 +22,7 @@ export class RateLimitExample {
    *
    * @param interaction
    */
-  @Slash("rate_limit_2")
+  @Slash({ name: "rate_limit_2" })
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Slow Down",
@@ -37,7 +37,7 @@ export class RateLimitExample {
    *
    * @param interaction
    */
-  @Slash("rate_limit_3")
+  @Slash({ name: "rate_limit_3" })
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Please wait `30` seconds!",
@@ -53,7 +53,7 @@ export class RateLimitExample {
    *
    * @param interaction
    */
-  @Slash("rate_limit_4")
+  @Slash({ name: "rate_limit_4" })
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message:
@@ -69,7 +69,7 @@ export class RateLimitExample {
    *
    * @param interaction
    */
-  @Slash("rate_limit_5")
+  @Slash({ name: "rate_limit_5" })
   @Guard(
     RateLimit<CommandInteraction>(TIME_UNIT.seconds, 30, {
       message: RateLimitExample.getMessage,
@@ -98,7 +98,7 @@ export class RateLimitExample {
    *
    * @param message
    */
-  @SimpleCommand("rateLimit")
+  @SimpleCommand({ name: "rateLimit" })
   @Guard(RateLimit(TIME_UNIT.seconds, 10))
   rateLimitSimpleCommand({ message }: SimpleCommandMessage): void {
     message.reply("It worked!");

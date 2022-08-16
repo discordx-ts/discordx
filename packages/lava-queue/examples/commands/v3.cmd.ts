@@ -113,8 +113,8 @@ export class MusicPlayer {
 
   // events
 
-  @Once("ready")
-  async onReady([]: ArgsOf<"ready">, client: Client): Promise<void> {
+  @Once()
+  async ready([]: ArgsOf<"ready">, client: Client): Promise<void> {
     await wait(5e3);
     this.player[client.botId] = new Player(getNode(client));
   }
@@ -124,9 +124,9 @@ export class MusicPlayer {
   @Slash()
   async play(
     @SlashChoice("URL", "SEARCH")
-    @SlashOption("type", { type: ApplicationCommandOptionType.String })
+    @SlashOption({ name: "type", type: ApplicationCommandOptionType.String })
     type: "URL" | "SEARCH",
-    @SlashOption("input", { type: ApplicationCommandOptionType.String })
+    @SlashOption({ name: "input", type: ApplicationCommandOptionType.String })
     input: string,
     interaction: CommandInteraction,
     client: Client
@@ -192,7 +192,7 @@ export class MusicPlayer {
 
   @Slash()
   async seek(
-    @SlashOption("seconds") seconds: number,
+    @SlashOption({ name: "seconds" }) seconds: number,
     interaction: CommandInteraction,
     client: Client
   ): Promise<void> {
@@ -222,7 +222,7 @@ export class MusicPlayer {
 
   // buttons
 
-  @ButtonComponent("btn-next")
+  @ButtonComponent({ id: "btn-next" })
   async nextControl(
     interaction: ButtonInteraction,
     client: Client
@@ -241,7 +241,7 @@ export class MusicPlayer {
     interaction.deleteReply();
   }
 
-  @ButtonComponent("btn-pause")
+  @ButtonComponent({ id: "btn-pause" })
   async pauseControl(
     interaction: ButtonInteraction,
     client: Client
@@ -260,7 +260,7 @@ export class MusicPlayer {
     interaction.deleteReply();
   }
 
-  @ButtonComponent("btn-leave")
+  @ButtonComponent({ id: "btn-leave" })
   async leaveControl(
     interaction: ButtonInteraction,
     client: Client
@@ -280,7 +280,7 @@ export class MusicPlayer {
     interaction.deleteReply();
   }
 
-  @ButtonComponent("btn-repeat")
+  @ButtonComponent({ id: "btn-repeat" })
   async repeatControl(
     interaction: ButtonInteraction,
     client: Client
@@ -299,7 +299,7 @@ export class MusicPlayer {
     interaction.deleteReply();
   }
 
-  @ButtonComponent("btn-loop")
+  @ButtonComponent({ id: "btn-loop" })
   async loopControl(
     interaction: ButtonInteraction,
     client: Client
@@ -318,7 +318,7 @@ export class MusicPlayer {
     interaction.deleteReply();
   }
 
-  @ButtonComponent("btn-queue")
+  @ButtonComponent({ id: "btn-queue" })
   async queueControl(
     interaction: ButtonInteraction,
     client: Client
@@ -333,7 +333,7 @@ export class MusicPlayer {
     queue.view(interaction as unknown as CommandInteraction);
   }
 
-  @ButtonComponent("btn-mix")
+  @ButtonComponent({ id: "btn-mix" })
   async mixControl(
     interaction: ButtonInteraction,
     client: Client
@@ -352,7 +352,7 @@ export class MusicPlayer {
     await interaction.deleteReply();
   }
 
-  @ButtonComponent("btn-controls")
+  @ButtonComponent({ id: "btn-controls" })
   async controlsControl(
     interaction: ButtonInteraction,
     client: Client

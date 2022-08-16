@@ -21,8 +21,8 @@ import { GeneratePages } from "../util/common functions.js";
 @Discord()
 export class Example {
   // example: message
-  @On("messageCreate")
-  onMessage([message]: ArgsOf<"messageCreate">): void {
+  @On({ event: "messageCreate" })
+  messageCreate([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated demo") {
       new Pagination(message, GeneratePages(), {
         type: PaginationType.Button,
@@ -31,8 +31,8 @@ export class Example {
   }
 
   // example: any text channel
-  @On("messageCreate")
-  onMessageChannel([message]: ArgsOf<"messageCreate">): void {
+  @On({ event: "messageCreate" })
+  messageCreateChannel([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated channel demo") {
       new Pagination(message.channel, GeneratePages(), {
         type: PaginationType.Button,
@@ -41,7 +41,7 @@ export class Example {
   }
 
   // example: simple slash with button pagination
-  @Slash("demo-a", { description: "Simple slash with button pagination" })
+  @Slash({ description: "Simple slash with button pagination", name: "demo-a" })
   async demoA(interaction: CommandInteraction): Promise<void> {
     const embedX = new PaginationResolver((page, pagination) => {
       if (page === 3) {
@@ -67,7 +67,7 @@ export class Example {
   }
 
   // example: simple slash with menu pagination
-  @Slash("demo-b", { description: "Simple slash with menu pagination" })
+  @Slash({ description: "Simple slash with menu pagination", name: "demo-b" })
   demoB(interaction: CommandInteraction): void {
     new Pagination(interaction, GeneratePages(), {
       time: 5 * 1000,
@@ -76,7 +76,7 @@ export class Example {
   }
 
   // example: simple string array
-  @Slash("demo-c", { description: "Simple string array" })
+  @Slash({ description: "Simple string array", name: "demo-c" })
   demoC(interaction: CommandInteraction): void {
     new Pagination(
       interaction,
@@ -85,7 +85,7 @@ export class Example {
   }
 
   // example: array of custom message options
-  @Slash("demo-d", { description: "Array of custom message options" })
+  @Slash({ description: "Array of custom message options", name: "demo-d" })
   demoD(interaction: CommandInteraction): void {
     new Pagination(interaction, [
       {

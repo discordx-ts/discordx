@@ -20,10 +20,10 @@ jobs:
       - name: check out code 🛎
         uses: actions/checkout@v3
 
-      - name: Install Node v17
+      - name: Install Node v18
         uses: actions/setup-node@v3
         with:
-          node-version: "17.x"
+          node-version: "18.x"
           registry-url: "https://registry.npmjs.org"
 
       - name: Cache node modules
