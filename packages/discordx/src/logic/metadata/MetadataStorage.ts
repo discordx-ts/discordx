@@ -9,12 +9,10 @@ import _ from "lodash";
 
 import type { Method } from "../../decorators/classes/Method.js";
 import type {
-  ArgsOf,
   Client,
   DApplicationCommandGroup,
   DDiscord,
   DGuard,
-  DiscordEvents,
   DSimpleCommandOption,
   GuardFunction,
   ISimpleCommandByName,
@@ -570,21 +568,23 @@ export class MetadataStorage {
    * @param client - The client instance
    * @param once - Execute event once
    */
-  trigger<Event extends DiscordEvents>(
+  trigger(
     guards: GuardFunction[],
-    event: Event,
+    event: string,
     client: Client,
-    once = false
+    once = false,
+    rest = false
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): (...params: ArgsOf<Event>) => Promise<any> {
+  ): (...params: any[]) => Promise<any> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responses: Array<any> = [];
 
     const eventsToExecute = this._events.filter((on) => {
-      return on.event === event && on.once === once;
+      return on.event === event && on.once === once && on.rest === rest;
     });
 
-    return async (...params: ArgsOf<Event>) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return async (...params: any[]) => {
       await Promise.all(
         eventsToExecute.map(async (ev) => {
           if (!ev.isBotAllowed(client.botId)) {

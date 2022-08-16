@@ -1,20 +1,19 @@
-import type { ClientEvents } from "discord.js";
-
-import type { DiscordEvents } from "../../index.js";
 import { Method } from "./Method.js";
 
 type CreateStructure = {
   botIds?: string[];
-  event: DiscordEvents;
+  event: string;
   once: boolean;
+  rest: boolean;
 };
 
 /**
  * @category Decorator
  */
 export class DOn extends Method {
-  protected _event: DiscordEvents;
+  protected _event: string;
   protected _once: boolean;
+  protected _rest: boolean;
   protected _botIds: string[];
 
   get botIds(): string[] {
@@ -24,10 +23,10 @@ export class DOn extends Method {
     this._botIds = value;
   }
 
-  get event(): keyof ClientEvents {
+  get event(): string {
     return this._event;
   }
-  set event(value: DiscordEvents) {
+  set event(value: string) {
     this._event = value;
   }
 
@@ -38,10 +37,18 @@ export class DOn extends Method {
     this._once = value;
   }
 
+  get rest(): boolean {
+    return this._rest;
+  }
+  set rest(value: boolean) {
+    this._rest = value;
+  }
+
   protected constructor(data: CreateStructure) {
     super();
     this._event = data.event;
     this._once = data.once;
+    this._rest = data.rest;
     this._botIds = data.botIds ?? [];
   }
 
