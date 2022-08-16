@@ -344,7 +344,9 @@ export class Client extends ClientJS {
 
     if (this.buttonComponents.length) {
       this.buttonComponents.forEach((btn) => {
-        this.logger.log(`>> ${btn.id} (${btn.classRef.name}.${btn.key})`);
+        this.logger.log(
+          `>> ${btn.id.toString()} (${btn.classRef.name}.${btn.key})`
+        );
       });
     } else {
       this.logger.log("\tNo buttons detected");
@@ -356,7 +358,9 @@ export class Client extends ClientJS {
 
     if (this.selectMenuComponents.length) {
       this.selectMenuComponents.forEach((menu) => {
-        this.logger.log(`>> ${menu.id} (${menu.classRef.name}.${menu.key})`);
+        this.logger.log(
+          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`
+        );
       });
     } else {
       this.logger.log("\tNo select menu detected");
@@ -368,7 +372,9 @@ export class Client extends ClientJS {
 
     if (this.modalComponents.length) {
       this.modalComponents.forEach((menu) => {
-        this.logger.log(`>> ${menu.id} (${menu.classRef.name}.${menu.key})`);
+        this.logger.log(
+          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`
+        );
       });
     } else {
       this.logger.log("\tNo modal detected");
@@ -477,9 +483,9 @@ export class Client extends ClientJS {
           const tab = Array(depth).join("\t\t");
           options.forEach((option) => {
             this.logger.log(
-              `${tab}${option.name}: ${SimpleCommandOptionType[option.type]} (${
-                option.classRef.name
-              }.${option.key})`
+              `${tab}${option.name}: ${
+                SimpleCommandOptionType[option.type] ?? "unknown"
+              } (${option.classRef.name}.${option.key})`
             );
           });
         };
@@ -1301,7 +1307,7 @@ export class Client extends ClientJS {
     }
 
     // validate guild id
-    if (!command.info.isGuildAllowed(this, command, message.guildId)) {
+    if (!(await command.info.isGuildAllowed(this, command, message.guildId))) {
       return;
     }
 

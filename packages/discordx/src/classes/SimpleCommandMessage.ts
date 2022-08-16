@@ -92,7 +92,10 @@ export class SimpleCommandMessage {
     embed.addFields({
       name: "Command Usage",
       value: `\`\`\`${this.prefix}${this.name} ${this.info.options
-        .map((op) => `{${op.name}: ${SimpleCommandOptionType[op.type]}}`)
+        .map(
+          (op) =>
+            `{${op.name}: ${SimpleCommandOptionType[op.type] ?? "unknown"}}`
+        )
         .join(" ")}\`\`\``,
     });
 
@@ -100,12 +103,9 @@ export class SimpleCommandMessage {
     if (this.info.options.length) {
       embed.addFields({
         name: "Options",
-        value:
-          "```" +
-          this.info.options
-            .map((op) => `${op.name.padEnd(maxLength + 2)}: ${op.description}`)
-            .join("\n") +
-          "```",
+        value: `\`\`\`${this.info.options
+          .map((op) => `${op.name.padEnd(maxLength + 2)}: ${op.description}`)
+          .join("\n")}\`\`\``,
       });
     }
 

@@ -67,7 +67,7 @@ export function getRepoUrl(): string {
     const domain = regExp.at(1);
     const subUrl = regExp.at(2);
 
-    return `https://${domain}/${subUrl}`;
+    return `https://${domain ?? ""}/${subUrl ?? ""}`;
   }
 
   return remoteUrl.substring(0, remoteUrl.length - 4);
@@ -173,7 +173,7 @@ export function generateDoc(options?: {
       tag === "head"
         ? options?.header ?? "# Stage\n\n"
         : `# [${tag}](${repo}/releases/tag/${tag}) (${
-            new Date(tagDate).toISOString().split("T")[0]
+            new Date(tagDate).toISOString().split("T")[0] ?? ""
           })\n\n`;
 
     if (options?.tag?.replace) {
