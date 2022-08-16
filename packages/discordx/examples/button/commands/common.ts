@@ -9,12 +9,12 @@ import { ButtonComponent, Discord, Slash } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @ButtonComponent("hello")
+  @ButtonComponent({ id: "hello" })
   handler(interaction: ButtonInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @ButtonComponent("hello")
+  @ButtonComponent({ id: "hello" })
   handler2(interaction: ButtonInteraction): void {
     console.log(`${interaction.user} says hello`);
   }

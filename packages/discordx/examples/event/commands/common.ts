@@ -3,13 +3,13 @@ import { Discord, On } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @On("messageCreate")
-  onMessage([message]: ArgsOf<"messageCreate">): void {
+  @On()
+  messageCreate([message]: ArgsOf<"messageCreate">): void {
     console.log(message.content);
   }
 
-  @On("messageReactionAdd")
-  emoji([reaction, user]: ArgsOf<"messageReactionAdd">): void {
+  @On()
+  messageReactionAdd([reaction, user]: ArgsOf<"messageReactionAdd">): void {
     const member = reaction.message.guild?.members.resolve(user.id);
     if (member) {
       console.log(member.roles.cache.map((r) => r.name));

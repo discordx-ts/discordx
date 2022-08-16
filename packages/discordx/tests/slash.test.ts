@@ -51,20 +51,22 @@ enum TextChoices {
   return next();
 })
 export class Example {
-  @Slash("add", { description: "Addition" })
+  @Slash({ description: "Addition" })
   @SlashGroup("maths", "testing")
   add(
-    @SlashOption("x", {
+    @SlashOption({
       description: "x value",
       maxValue: 10,
       minValue: 1,
+      name: "x",
       type: ApplicationCommandOptionType.Number,
     })
     x: number,
-    @SlashOption("y", {
+    @SlashOption({
       description: "y value",
       maxValue: 10,
       minValue: 1,
+      name: "y",
       type: ApplicationCommandOptionType.Number,
     })
     y: number,
@@ -75,12 +77,12 @@ export class Example {
     return ["/testing maths add", x + y, interaction, data.passed];
   }
 
-  @Slash("multiply", { description: "Multiply" })
+  @Slash({ description: "Multiply" })
   @SlashGroup("maths", "testing")
   multiply(
-    @SlashOption("x", { description: "x value" })
+    @SlashOption({ description: "x value", name: "x" })
     x: number,
-    @SlashOption("y", { description: "y value" })
+    @SlashOption({ description: "y value", name: "y" })
     y: number,
     interaction: CommandInteraction,
     client: Client,
@@ -89,7 +91,7 @@ export class Example {
     return ["/testing maths multiply", x * y, interaction, data.passed];
   }
 
-  @Slash("hello")
+  @Slash()
   @SlashGroup("text", "testing")
   hello(
     @SlashChoice(
@@ -102,7 +104,7 @@ export class Example {
         value: TextChoices["Good Bye"],
       }
     )
-    @SlashOption("text")
+    @SlashOption({ name: "text" })
     text: TextChoices,
     interaction: CommandInteraction,
     client: Client,
@@ -111,12 +113,12 @@ export class Example {
     return ["/testing text hello", text, interaction, data.passed];
   }
 
-  @Slash("hello")
+  @Slash({ name: "hello" })
   @SlashGroup("testing")
   root(
-    @SlashOption("text")
+    @SlashOption({ name: "text" })
     text: string,
-    @SlashOption("text2", { required: false })
+    @SlashOption({ name: "text2", required: false })
     text2: string,
     interaction: CommandInteraction,
     client: Client,
@@ -140,12 +142,12 @@ export class Example {
   return next();
 })
 export class Example2 {
-  @Slash("add", { description: "Addition" })
+  @Slash({ description: "Addition" })
   @SlashGroup("line", "group-test-without-description")
   add(
-    @SlashOption("x", { description: "x value" })
+    @SlashOption({ description: "x value", name: "x" })
     x: number,
-    @SlashOption("y", { description: "y value" })
+    @SlashOption({ description: "y value", name: "y" })
     y: number,
     interaction: CommandInteraction,
     client: Client,
@@ -162,9 +164,9 @@ export class Example2 {
   return next();
 })
 export class Example3 {
-  @Slash("hello")
-  add(
-    @SlashOption("text", { required: false })
+  @Slash()
+  hello(
+    @SlashOption({ name: "text", required: false })
     text: string,
     interaction: CommandInteraction,
     client: Client,
@@ -173,39 +175,45 @@ export class Example3 {
     return ["/hello", text, interaction, data.passed];
   }
 
-  @Slash("inference")
+  @Slash()
   inference(
-    @SlashOption("text")
+    @SlashOption({ name: "text" })
     text: string,
 
-    @SlashOption("bool")
+    @SlashOption({ name: "bool" })
     bool: boolean,
 
-    @SlashOption("nb")
+    @SlashOption({ name: "nb" })
     nb: number,
 
-    @SlashOption("channel", { type: ApplicationCommandOptionType.Channel })
+    @SlashOption({
+      name: "channel",
+      type: ApplicationCommandOptionType.Channel,
+    })
     channel: Channel,
 
-    @SlashOption("text-channel", {
+    @SlashOption({
+      name: "text-channel",
       required: false,
       type: ApplicationCommandOptionType.Channel,
     })
     textChannel: TextChannel,
 
-    @SlashOption("voice-channel", {
+    @SlashOption({
+      name: "voice-channel",
       required: false,
       type: ApplicationCommandOptionType.Channel,
     })
     voiceChannel: VoiceChannel,
 
-    @SlashOption("user", { required: false })
+    @SlashOption({ name: "user", required: false })
     clientUser: User,
 
-    @SlashOption("role", { required: false })
+    @SlashOption({ name: "role", required: false })
     role: Role,
 
-    @SlashOption("user-or-role", {
+    @SlashOption({
+      name: "user-or-role",
       required: false,
       type: ApplicationCommandOptionType.Mentionable,
     })

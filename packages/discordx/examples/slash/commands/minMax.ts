@@ -5,10 +5,11 @@ import { Discord, Slash, SlashOption } from "../../../src/index.js";
 
 @Discord()
 export class MinMaxExample {
-  @Slash("minmax-min")
+  @Slash({ name: "minmax-min" })
   min(
-    @SlashOption("value", {
+    @SlashOption({
       minValue: 5,
+      name: "value",
       type: ApplicationCommandOptionType.Number,
     })
     input: number,
@@ -17,10 +18,11 @@ export class MinMaxExample {
     interaction.reply(`${input}`);
   }
 
-  @Slash("minmax-max")
+  @Slash({ name: "minmax-max" })
   max(
-    @SlashOption("value", {
+    @SlashOption({
       maxValue: 5,
+      name: "value",
       type: ApplicationCommandOptionType.Number,
     })
     input: number,
@@ -29,11 +31,12 @@ export class MinMaxExample {
     interaction.reply(`${input}`);
   }
 
-  @Slash("minmax-both")
+  @Slash({ name: "minmax-both" })
   MinMax(
-    @SlashOption("value", {
+    @SlashOption({
       maxValue: 15,
       minValue: 5,
+      name: "value",
       type: ApplicationCommandOptionType.Number,
     })
     input: number,

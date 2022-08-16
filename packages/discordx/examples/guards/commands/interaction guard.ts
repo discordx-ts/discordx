@@ -12,7 +12,7 @@ export const InteractionGuard: GuardFunction<
 
 @Discord()
 export class Example {
-  @ContextMenu(ApplicationCommandType.User, "Check details")
+  @ContextMenu({ name: "Check details", type: ApplicationCommandType.User })
   @Guard(InteractionGuard)
   userHandler(interaction: ContextMenuCommandInteraction): void {
     console.log(`Selected user: ${interaction.targetId}`);

@@ -5,9 +5,12 @@ import { Discord, Slash, SlashOption } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @Slash("attachment")
+  @Slash()
   attachment(
-    @SlashOption("image", { type: ApplicationCommandOptionType.Attachment })
+    @SlashOption({
+      name: "image",
+      type: ApplicationCommandOptionType.Attachment,
+    })
     attachment: Attachment,
     interaction: CommandInteraction
   ): void {

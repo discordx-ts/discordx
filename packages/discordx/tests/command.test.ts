@@ -19,17 +19,17 @@ type Data = { passed: boolean };
   return next();
 })
 export class Example {
-  @SimpleCommand("add", {
+  @SimpleCommand({
     aliases: ["add1", "add2"],
     argSplitter: "~",
     description: "Addition",
   })
   add(
-    @SimpleCommandOption("x", { description: "x value" })
+    @SimpleCommandOption({ description: "x value", name: "x" })
     x: number,
-    @SimpleCommandOption("op", { description: "operation value" })
+    @SimpleCommandOption({ description: "operation value", name: "op" })
     op: string,
-    @SimpleCommandOption("y", { description: "y value" })
+    @SimpleCommandOption({ description: "y value", name: "y" })
     y: number,
     command: SimpleCommandMessage,
     client: Client,
@@ -41,13 +41,13 @@ export class Example {
     return ["!add", [op, x + y], command, data.passed];
   }
 
-  @SimpleCommand("sub", {
+  @SimpleCommand({
     argSplitter: "|",
   })
   sub(
-    @SimpleCommandOption("x", { description: "x value" })
+    @SimpleCommandOption({ description: "x value", name: "x" })
     x: string,
-    @SimpleCommandOption("y", { description: "y value" })
+    @SimpleCommandOption({ description: "y value", name: "y" })
     y: string,
     command: SimpleCommandMessage,
     client: Client,
@@ -56,7 +56,7 @@ export class Example {
     return ["!add", [x, y], command, data.passed];
   }
 
-  @SimpleCommand("add plus")
+  @SimpleCommand({ name: "add plus" })
   addExtend(
     command: SimpleCommandMessage,
     client: Client,
@@ -65,9 +65,9 @@ export class Example {
     return ["!add plus", [], command, data.passed];
   }
 
-  @SimpleCommand("add plus second")
+  @SimpleCommand({ name: "add plus second" })
   addExtendSecond(
-    @SimpleCommandOption("arg") arg: string,
+    @SimpleCommandOption({ name: "arg" }) arg: string,
     command: SimpleCommandMessage,
     client: Client,
     data: Data
@@ -75,15 +75,15 @@ export class Example {
     return ["!add plus second", [arg], command, data.passed];
   }
 
-  @SimpleCommand("ban", {
+  @SimpleCommand({
     argSplitter:
       /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
   })
   ban(
-    @SimpleCommandOption("id") id: number,
-    @SimpleCommandOption("time") time: number,
-    @SimpleCommandOption("reason") reason: string,
-    @SimpleCommandOption("type") type: string,
+    @SimpleCommandOption({ name: "id" }) id: number,
+    @SimpleCommandOption({ name: "time" }) time: number,
+    @SimpleCommandOption({ name: "reason" }) reason: string,
+    @SimpleCommandOption({ name: "type" }) type: string,
     command: SimpleCommandMessage,
     client: Client,
     data: Data
@@ -91,7 +91,7 @@ export class Example {
     return ["!ban", [id, time, reason, type], command, data.passed];
   }
 
-  @SimpleCommand("findSource")
+  @SimpleCommand()
   findSource(
     command: SimpleCommandMessage,
     client: Client,

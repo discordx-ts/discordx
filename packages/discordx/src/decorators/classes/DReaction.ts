@@ -90,7 +90,7 @@ export class DReaction extends Method {
     this._guilds = data.guilds ?? [];
     this._botIds = data.botIds ?? [];
     this._aliases = data.aliases ?? [];
-    this._remove = data.remove ?? true;
+    this._remove = data.remove ?? false;
     this._partial = data.partial ?? false;
   }
 

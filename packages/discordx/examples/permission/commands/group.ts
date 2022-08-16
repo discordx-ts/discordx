@@ -10,12 +10,12 @@ import { Discord, Slash, SlashGroup } from "../../../src/index.js";
 })
 @SlashGroup("vital")
 export class Example {
-  @Slash("perm1")
+  @Slash()
   perm1(interaction: ChatInputCommandInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @Slash("perm2")
+  @Slash()
   perm2(interaction: ChatInputCommandInteraction): void {
     interaction.reply(":wave:");
   }

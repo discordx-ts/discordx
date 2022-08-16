@@ -7,19 +7,19 @@ import { NotBot } from "../guards/NotBot.js";
 
 @Discord()
 export class Example {
-  @On("messageCreate")
+  @On()
   @Guard(NotBot)
-  onMessage([message]: ArgsOf<"messageCreate">): void {
+  messageCreate([message]: ArgsOf<"messageCreate">): void {
     console.log(message.content);
   }
 
-  @Slash("hello")
+  @Slash()
   @Guard(NotBot)
   hello(interaction: CommandInteraction): void {
     console.log(interaction);
   }
 
-  @Slash("error-guard")
+  @Slash({ name: "error-guard" })
   @Guard(ErrorHandler, NotBot)
   errorGuard(): void {
     throw Error("My custom error");

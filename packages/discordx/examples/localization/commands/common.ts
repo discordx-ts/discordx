@@ -5,14 +5,15 @@ import { Discord, Slash, SlashOption } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @Slash("hello", {
+  @Slash({
     description: "say hello",
     nameLocalizations: {
       "en-GB": "hello-x",
     },
   })
-  voiceChannel(
-    @SlashOption("message", {
+  hello(
+    @SlashOption({
+      name: "message",
       type: ApplicationCommandOptionType.String,
     })
     message: string,

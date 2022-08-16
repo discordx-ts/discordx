@@ -25,23 +25,23 @@ const guard2: GuardFunction = async ([]: [string], client, next, data) => {
 
 @Discord()
 export class Example {
-  @On("messageCreate")
-  private onMessage([message]: [string]) {
+  @On()
+  messageCreate([message]: [string]): string {
     return message;
   }
 
-  @On("messageCreate")
-  private onMessage2([message]: [string]) {
+  @On({ event: "messageCreate" })
+  messageCreate2([message]: [string]): string {
     return message;
   }
 
-  @On("messageDelete")
+  @On()
   @Guard(guard1, guard2)
-  private onMessageDelete(
+  messageDelete(
     []: [string],
     client: Client,
     guardParams: { message: string }
-  ) {
+  ): void {
     guardParams.message += "3";
   }
 }

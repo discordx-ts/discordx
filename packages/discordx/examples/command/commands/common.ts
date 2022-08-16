@@ -10,28 +10,34 @@ import {
 
 @Discord()
 export class Example {
-  @SimpleCommand("bool")
+  @SimpleCommand()
   bool(
-    @SimpleCommandOption("state") bool: boolean,
+    @SimpleCommandOption({
+      name: "state",
+      type: SimpleCommandOptionType.Boolean,
+    })
+    state: boolean | undefined,
     command: SimpleCommandMessage
   ): void {
-    command.message.reply(String(bool));
+    command.message.reply(state ? String(state) : "state is required");
   }
 
-  @SimpleCommand("race", { prefix: ["&", ">"] })
+  @SimpleCommand({ prefix: ["&", ">"] })
   race(command: SimpleCommandMessage): void {
     command.sendUsageSyntax();
   }
 
-  @SimpleCommand("race car", {
+  @SimpleCommand({
     description: "simple command example",
+    name: "race car",
     prefix: ["&", ">"],
   })
   car(
-    @SimpleCommandOption("user", { type: SimpleCommandOptionType.User })
+    @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
-    @SimpleCommandOption("role", {
+    @SimpleCommandOption({
       description: "mention the role you wish to grant",
+      name: "role",
       type: SimpleCommandOptionType.Role,
     })
     role: Role | Error | undefined,
@@ -46,7 +52,7 @@ export class Example {
         );
   }
 
-  @SimpleCommand("race bike", { prefix: ["&", ">"] })
+  @SimpleCommand({ name: "race bike", prefix: ["&", ">"] })
   bike(command: SimpleCommandMessage): void {
     command.message.reply(
       `command prefix: \`\`${command.prefix.toString()}\`\`\ncommand name: \`\`${
@@ -55,9 +61,9 @@ export class Example {
     );
   }
 
-  @SimpleCommand("test-x", { prefix: ["&", ">"] })
+  @SimpleCommand({ name: "test-x", prefix: ["&", ">"] })
   testX(
-    @SimpleCommandOption("user", { type: SimpleCommandOptionType.User })
+    @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
     command: SimpleCommandMessage
   ): void {

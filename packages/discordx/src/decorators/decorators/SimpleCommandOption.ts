@@ -1,7 +1,7 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
-import type { VerifyName } from "../../index.js";
+import type { SimpleCommandOptionOptions } from "../../index.js";
 import {
   DSimpleCommand,
   DSimpleCommandOption,
@@ -12,36 +12,15 @@ import {
 /**
  * Add a simple command option
  *
- * @param name - Option name
+ * @param options - Command option options
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
  *
  * @category Decorator
  */
-export function SimpleCommandOption<T extends string>(
-  name: VerifyName<T>
-): ParameterDecoratorEx;
-
-/**
- * Add a simple command option
- *
- * @param name - Option name
- * @param options - Additional options
- * ___
- *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
- *
- * @category Decorator
- */
-export function SimpleCommandOption<T extends string>(
-  name: VerifyName<T>,
-  options?: { description?: string; type?: SimpleCommandOptionType }
-): ParameterDecoratorEx;
-
-export function SimpleCommandOption(
-  name: string,
-  options?: { description?: string; type?: SimpleCommandOptionType }
+export function SimpleCommandOption<TName extends string>(
+  options: SimpleCommandOptionOptions<TName>
 ): ParameterDecoratorEx {
   function getType(type: string): SimpleCommandOptionType {
     switch (type) {
@@ -87,8 +66,8 @@ export function SimpleCommandOption(
     const type: SimpleCommandOptionType = options?.type ?? getType(dType);
 
     const option = DSimpleCommandOption.create({
-      description: options?.description,
-      name,
+      description: options.description,
+      name: options.name,
       type,
     }).decorate(
       target.constructor,

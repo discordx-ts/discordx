@@ -4,8 +4,8 @@ import { Discord, Slash } from "../../../src/index.js";
 
 @Discord()
 export class CommandB {
-  @Slash("hi")
-  hello1(interaction: CommandInteraction): void {
+  @Slash()
+  hi(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 }
