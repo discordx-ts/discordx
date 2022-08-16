@@ -75,13 +75,13 @@ npm run build
 3. Setup bot token
 
 <Tabs
-  defaultValue="win"
-  values={[
-    { label: "Windows", value: "win" },
-    { label: "Linux", value: "linux" },
-  ]}
->
-<TabItem value="win">
+defaultValue="win"
+values={[
+{ label: "Windows", value: "win" },
+{ label: "Linux", value: "linux" },
+]}
+
+> <TabItem value="win">
 
 ```bash
 // cmd
@@ -113,13 +113,13 @@ npm run start
 ## Installation
 
 <Tabs
-  defaultValue="stable"
-  values={[
-    { label: "Stable", value: "stable" },
-    { label: "Development", value: "dev" },
-  ]}
->
-<TabItem value="stable">
+defaultValue="stable"
+values={[
+{ label: "Stable", value: "stable" },
+{ label: "Development", value: "dev" },
+]}
+
+> <TabItem value="stable">
 
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
@@ -243,13 +243,13 @@ client.login(BOT_TOKEN);
 Your tsconfig.json file should look like this:
 
 <Tabs
-  defaultValue="esm"
-  values={[
-    { label: "ECMAScript", value: "esm" },
-    { label: "CommonJs", value: "cjs" },
-  ]}
->
-<TabItem value="esm">
+defaultValue="esm"
+values={[
+{ label: "ECMAScript", value: "esm" },
+{ label: "CommonJs", value: "cjs" },
+]}
+
+> <TabItem value="esm">
 
 ```json title="package.json"
 {
