@@ -12,7 +12,7 @@ import {
 /**
  * Add a slash command option
  *
- * @param name - Option name
+ * @param options - Slash option options
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash-option)
@@ -20,29 +20,10 @@ import {
  * @category Decorator
  */
 export function SlashOption<T extends string>(
-  name: VerifyName<T>
+  options: SlashOptionOptions<VerifyName<T>>
 ): ParameterDecoratorEx;
 
-/**
- * Add a slash command option
- *
- * @param name - Option name
- * @param options - Additional options
- * ___
- *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash-option)
- *
- * @category Decorator
- */
-export function SlashOption<T extends string>(
-  name: VerifyName<T>,
-  options?: SlashOptionOptions
-): ParameterDecoratorEx;
-
-export function SlashOption(
-  name: string,
-  options?: SlashOptionOptions
-): ParameterDecoratorEx {
+export function SlashOption(options: SlashOptionOptions): ParameterDecoratorEx {
   function getType(type: string): ApplicationCommandOptionType {
     switch (type) {
       case "STRING": {
@@ -101,7 +82,7 @@ export function SlashOption(
       maxValue: options?.maxValue,
       minLength: options?.minLength,
       minValue: options?.minValue,
-      name: name,
+      name: options.name,
       nameLocalizations: options?.nameLocalizations,
       required: options?.required,
       type: type,

@@ -13,16 +13,31 @@ export class Example {
   // single whitespace will be used to split options
   // command aliases: !m, !solve
   // string or regex supported for argSplitter
-  @SimpleCommand("calc math add", {
+  @SimpleCommand({
     aliases: ["m", "solve"],
     argSplitter: /s/,
     directMessage: true,
+    name: "calc math add",
   })
   cmd(
-    @SimpleCommandOption("num1", { description: "first value" }) num1: number,
-    @SimpleCommandOption("operation", { description: "Operation (+, -, *, /)" })
-    operation: string,
-    @SimpleCommandOption("num2", { description: "second value" }) num2: number,
+    @SimpleCommandOption({
+      description: "first value",
+      name: "num1",
+      type: SimpleCommandOptionType.Number,
+    })
+    num1: number | undefined,
+    @SimpleCommandOption({
+      description: "Operation (+, -, *, /)",
+      name: "operation",
+      type: SimpleCommandOptionType.String,
+    })
+    operation: string | undefined,
+    @SimpleCommandOption({
+      description: "second value",
+      name: "num2",
+      type: SimpleCommandOptionType.Number,
+    })
+    num2: number | undefined,
     command: SimpleCommandMessage
   ): unknown {
     if (
@@ -52,14 +67,14 @@ export class Example {
     command.message.reply(`${num1} ${operation} ${num2} = ${out}`);
   }
 
-  @SimpleCommand("perm-check", { aliases: ["p-check"] })
+  @SimpleCommand({ aliases: ["p-check"], name: "perm-check" })
   permFunc(command: SimpleCommandMessage): void {
     command.message.reply("access granted");
   }
 
-  @SimpleCommand("hello", { aliases: ["p-test mark"] })
+  @SimpleCommand({ aliases: ["p-test mark"], name: "hello" })
   testCommand(
-    @SimpleCommandOption("name") name: string,
+    @SimpleCommandOption({ name: "name" }) name: string | undefined,
 
     command: SimpleCommandMessage
   ): unknown {
@@ -70,10 +85,10 @@ export class Example {
 
   // mention test
 
-  @SimpleCommand("mention-test-user")
+  @SimpleCommand({ name: "mention-test-user" })
   handler(
-    @SimpleCommandOption("user", { type: SimpleCommandOptionType.User })
-    user: User, //
+    @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
+    user: User | undefined, //
     command: SimpleCommandMessage
   ): void {
     !user
@@ -81,10 +96,10 @@ export class Example {
       : command.message.reply(`${user}`);
   }
 
-  @SimpleCommand("mention-test-role")
+  @SimpleCommand({ name: "mention-test-role" })
   handlerRole(
-    @SimpleCommandOption("role", { type: SimpleCommandOptionType.Role })
-    role: Role, //
+    @SimpleCommandOption({ name: "role", type: SimpleCommandOptionType.Role })
+    role: Role | undefined, //
     command: SimpleCommandMessage
   ): void {
     !role
@@ -92,10 +107,13 @@ export class Example {
       : command.message.reply(`${role}`);
   }
 
-  @SimpleCommand("mention-test-channel")
+  @SimpleCommand({ name: "mention-test-channel" })
   handlerChannel(
-    @SimpleCommandOption("channel", { type: SimpleCommandOptionType.Channel })
-    channel: Channel, //
+    @SimpleCommandOption({
+      name: "channel",
+      type: SimpleCommandOptionType.Channel,
+    })
+    channel: Channel | undefined, //
     command: SimpleCommandMessage
   ): void {
     !channel
@@ -103,50 +121,60 @@ export class Example {
       : command.message.reply(`${channel}`);
   }
 
-  @SimpleCommand("add", { argSplitter: "+" })
+  @SimpleCommand({ argSplitter: "+", name: "add" })
   add(
-    @SimpleCommandOption("x") x: number,
-    @SimpleCommandOption("y") y: number,
+    @SimpleCommandOption({ name: "x" }) x: number,
+    @SimpleCommandOption({ name: "y" }) y: number,
     command: SimpleCommandMessage
   ): void {
-    !command.isValid()
-      ? command.sendUsageSyntax()
-      : command.message.reply(`${x + y}`);
+    if (!command.isValid()) {
+      command.sendUsageSyntax();
+      return;
+    }
+
+    command.message.reply(`${x + y}`);
   }
 
-  @SimpleCommand("ban", {
+  @SimpleCommand({
     argSplitter:
       /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
   })
   ban(
-    @SimpleCommandOption("id") id: number,
-    @SimpleCommandOption("time") time: number,
-    @SimpleCommandOption("reason") reason: string,
-    @SimpleCommandOption("type") type: string,
+    @SimpleCommandOption({ name: "id" }) id: number,
+    @SimpleCommandOption({ name: "time" }) time: number,
+    @SimpleCommandOption({ name: "reason" }) reason: string,
+    @SimpleCommandOption({ name: "type" }) type: string,
     command: SimpleCommandMessage
   ): void {
-    !command.isValid()
-      ? command.sendUsageSyntax()
-      : command.message.reply(
-          `id: ${id}\n` +
-            `time: ${time} seconds\n` +
-            `reason: ${reason}\n` +
-            `Type: ${type}`
-        );
+    if (!command.isValid()) {
+      command.sendUsageSyntax();
+      return;
+    }
+
+    command.message.reply(
+      `id: ${id}\n` +
+        `time: ${time} seconds\n` +
+        `reason: ${reason}\n` +
+        `Type: ${type}`
+    );
   }
 
-  @SimpleCommand("split-me", {
+  @SimpleCommand({
     argSplitter: (command) => {
       return command.argString.split("|");
     },
+    name: "split-me",
   })
   splitMe(
-    @SimpleCommandOption("arg1") arg1: string,
-    @SimpleCommandOption("arg2") arg2: string,
+    @SimpleCommandOption({ name: "arg1" }) arg1: string,
+    @SimpleCommandOption({ name: "arg2" }) arg2: string,
     command: SimpleCommandMessage
   ): void {
-    !command.isValid()
-      ? command.sendUsageSyntax()
-      : command.message.reply(`arg1: ${arg1}\n` + `arg2: ${arg2}\n`);
+    if (!command.isValid()) {
+      command.sendUsageSyntax();
+      return;
+    }
+
+    command.message.reply(`arg1: ${arg1}\n` + `arg2: ${arg2}\n`);
   }
 }

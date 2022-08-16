@@ -45,7 +45,7 @@ export class ConstructorInjection {
     console.log(namedDatabase);
   }
 
-  @Slash("typedi")
+  @Slash()
   typedi(interaction: CommandInteraction): void {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
       const clazz = Container.get(ConstructorInjection);
@@ -59,7 +59,7 @@ export class ConstructorInjection {
     }
   }
 
-  @Slash("typedi2")
+  @Slash()
   typedi2(interaction: CommandInteraction): void {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
       interaction.reply(this.database.query());
@@ -77,7 +77,7 @@ export class PropertyInjectionExample {
   @Inject("myDb")
   private namedDatabase!: NamedDatabase;
 
-  @Slash("typedi_prop_injection")
+  @Slash({ name: "typedi_prop_injection" })
   typedi(interaction: CommandInteraction): void {
     if (
       DIService.engine === typeDiDependencyRegistryEngine &&
@@ -95,7 +95,7 @@ export class PropertyInjectionExample {
     }
   }
 
-  @Slash("typedi_prop_injection2")
+  @Slash({ name: "typedi_prop_injection2" })
   typedi2(interaction: CommandInteraction): void {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
       if (this.database) {

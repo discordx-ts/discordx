@@ -42,7 +42,7 @@ export class Example {
         value: TextChoices["Good Bye"],
       }
     )
-    @SlashOption("choice")
+    @SlashOption({ name: "choice" })
     choice: TextChoices,
     interaction: CommandInteraction
   ): unknown {
@@ -53,7 +53,7 @@ export class Example {
   number(
     @SlashChoice<string, number>({ name: "1", value: 1 })
     @SlashChoice(2, 3, 4)
-    @SlashOption("choice")
+    @SlashOption({ name: "choice" })
     choice: number,
     interaction: CommandInteraction
   ): unknown {
@@ -64,7 +64,7 @@ export class Example {
   string(
     @SlashChoice({ name: "A", value: "A" })
     @SlashChoice("B", "C", "D")
-    @SlashOption("choice")
+    @SlashOption({ name: "choice" })
     choice: string,
     interaction: CommandInteraction
   ): unknown {

@@ -99,16 +99,18 @@ export type SlashGroupOptions = SlashGroupRoot | SlashGroupSubRoot;
  */
 export type EventOptions = {
   botIds?: string[];
+  event: DiscordEvents;
 };
 
 /**
  * Reaction options
  */
-export type ReactionOptions = {
+export type ReactionOptions<T extends string = string> = {
   aliases?: string[];
   botIds?: string[];
   description?: string;
   directMessage?: boolean;
+  emoji: NotEmpty<T>;
   guilds?: IGuild[];
   partial?: boolean;
   remove?: boolean;
@@ -120,4 +122,14 @@ export type ReactionOptions = {
 export type SlashChoiceType<T extends string = string, X = string | number> = {
   name: NotEmpty<T>;
   value?: X;
+};
+
+/**
+ * Component type
+ */
+
+export type ComponentOptions<T extends string = string> = {
+  botIds?: string[];
+  guilds?: IGuild[];
+  id?: NotEmpty<T> | RegExp;
 };

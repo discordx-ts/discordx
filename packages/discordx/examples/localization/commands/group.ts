@@ -8,15 +8,16 @@ import { Discord, Slash, SlashGroup, SlashOption } from "../../../src/index.js";
 @SlashGroup({ name: "maths", root: "testing" })
 @SlashGroup({ name: "text", root: "testing" })
 export class Example {
-  @Slash("voice-channel")
+  @Slash({ name: "voice-channel" })
   @SlashGroup("maths", "testing")
   voiceChannel(
-    @SlashOption("channel", {
+    @SlashOption({
       channelTypes: [
         ChannelType.GuildCategory,
         ChannelType.GuildVoice,
         ChannelType.GuildText,
       ],
+      name: "channel",
       type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
@@ -25,14 +26,15 @@ export class Example {
     interaction.reply(`${roleOrUser}`);
   }
 
-  @Slash("voice-channel-x")
+  @Slash({ name: "voice-channel-x" })
   voiceChannelX(
-    @SlashOption("channel", {
+    @SlashOption({
       channelTypes: [
         ChannelType.GuildCategory,
         ChannelType.GuildVoice,
         ChannelType.GuildText,
       ],
+      name: "channel",
       type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
@@ -41,21 +43,21 @@ export class Example {
     interaction.reply(`${roleOrUser}`);
   }
 
-  @Slash("add")
+  @Slash()
   @SlashGroup("maths", "testing")
   add(
-    @SlashOption("x", { description: "x value" }) x: number,
-    @SlashOption("y", { description: "y value" }) y: number,
+    @SlashOption({ description: "x value", name: "x" }) x: number,
+    @SlashOption({ description: "y value", name: "y" }) y: number,
     interaction: CommandInteraction
   ): void {
     interaction.reply(String(x + y));
   }
 
-  @Slash("multiply")
+  @Slash()
   @SlashGroup("maths", "testing")
   multiply(
-    @SlashOption("x", { description: "x value" }) x: number,
-    @SlashOption("y", { description: "y value" }) y: number,
+    @SlashOption({ description: "x value", name: "x" }) x: number,
+    @SlashOption({ description: "y value", name: "y" }) y: number,
     interaction: CommandInteraction
   ): void {
     interaction.reply(String(x * y));

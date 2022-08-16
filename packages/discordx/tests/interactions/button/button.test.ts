@@ -10,7 +10,7 @@ import { FakeInteraction, InteractionType } from "../../interaction.js";
 
 @Discord()
 export class Example {
-  @ButtonComponent("hello")
+  @ButtonComponent({ id: "hello" })
   @Guard((params, client, next, data) => {
     data.passed = true;
     return next();
@@ -23,7 +23,7 @@ export class Example {
     return [":wave:", data.passed];
   }
 
-  @ButtonComponent("hello")
+  @ButtonComponent({ id: "hello" })
   handler2(): unknown {
     return [":shake:", undefined];
   }

@@ -27,50 +27,57 @@ import {
 export class Example {
   myCustomText = "This resolver has class inbound";
 
-  @Slash("hello")
+  @Slash({ name: "hello" })
   hello(
-    @SlashOption("user", { type: ApplicationCommandOptionType.User })
+    @SlashOption({ name: "user", type: ApplicationCommandOptionType.User })
     user: GuildMember | User,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${user}`);
   }
 
-  @Slash("role")
+  @Slash({ name: "role" })
   role(
-    @SlashOption("role", { type: ApplicationCommandOptionType.Role })
+    @SlashOption({ name: "role", type: ApplicationCommandOptionType.Role })
     role: Role,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${role}`);
   }
 
-  @Slash("channel")
+  @Slash({ name: "channel" })
   channel(
-    @SlashOption("channel", { type: ApplicationCommandOptionType.Channel })
+    @SlashOption({
+      name: "channel",
+      type: ApplicationCommandOptionType.Channel,
+    })
     channel: Channel,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${channel}`);
   }
 
-  @Slash("role-or-user")
+  @Slash({ name: "role-or-user" })
   roleOrUser(
-    @SlashOption("mention", { type: ApplicationCommandOptionType.Mentionable })
+    @SlashOption({
+      name: "mention",
+      type: ApplicationCommandOptionType.Mentionable,
+    })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${roleOrUser}`);
   }
 
-  @Slash("autocomplete")
+  @Slash({ name: "autocomplete" })
   autocomplete(
-    @SlashOption("option-a", {
+    @SlashOption({
       autocomplete: true,
+      name: "option-a",
       type: ApplicationCommandOptionType.String,
     })
     searchText: string,
-    @SlashOption("option-b", {
+    @SlashOption({
       autocomplete: function (
         this: Example,
         interaction: AutocompleteInteraction
@@ -83,10 +90,11 @@ export class Example {
           { name: "option d", value: "c" },
         ]);
       },
+      name: "option-b",
       type: ApplicationCommandOptionType.String,
     })
     searchText2: string,
-    @SlashOption("option-c", {
+    @SlashOption({
       autocomplete: (interaction: AutocompleteInteraction) => {
         // arrow function does not have this, so class reference is not available
         interaction.respond([
@@ -94,6 +102,7 @@ export class Example {
           { name: "option f", value: "f" },
         ]);
       },
+      name: "option-c",
       type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
@@ -114,7 +123,7 @@ export class Example {
     }
   }
 
-  @Slash("test-btn")
+  @Slash({ name: "test-btn" })
   testBtn(interaction: CommandInteraction): void {
     const btn = new ButtonBuilder();
     btn.setLabel("Test");

@@ -8,22 +8,7 @@ import type { NotEmpty } from "../../types/index.js";
 /**
  * Interact with context menu with a defined identifier
  *
- * @param type - Context menu type
- * ___
- *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
- *
- * @category Decorator
- */
-export function ContextMenu(
-  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>
-): MethodDecoratorEx;
-
-/**
- * Interact with context menu with a defined identifier
- *
- * @param type - Context menu type
- * @param name - Context menu name
+ * @param options - Application command options
  * ___
  *
  * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
@@ -31,44 +16,31 @@ export function ContextMenu(
  * @category Decorator
  */
 export function ContextMenu<T extends string>(
-  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
-  name: NotEmpty<T>
-): MethodDecoratorEx;
-
-/**
- * Interact with context menu with a defined identifier
- *
- * @param type - Context menu type
- * @param name - Context menu name
- * @param options - Options for the context menu
- * ___
- *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
- *
- * @category Decorator
- */
-export function ContextMenu<T extends string>(
-  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
-  name: NotEmpty<T>,
-  options: Omit<ApplicationCommandOptions, "description">
+  options: Omit<
+    ApplicationCommandOptions<NotEmpty<T>> & {
+      type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
+    },
+    "description"
+  >
 ): MethodDecoratorEx;
 
 export function ContextMenu(
-  type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>,
-  name?: string,
-  options?: Omit<ApplicationCommandOptions, "description">
+  options: Omit<
+    ApplicationCommandOptions & {
+      type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
+    },
+    "description"
+  >
 ): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    name = name ?? key;
-
     const applicationCommand = DApplicationCommand.create({
-      botIds: options?.botIds,
-      guilds: options?.guilds,
-      name: name,
-      type: type,
+      botIds: options.botIds,
+      guilds: options.guilds,
+      name: options.name ?? key,
+      type: options.type,
     }).decorate(target.constructor, key, target[key]);
 
-    if (type === ApplicationCommandType.Message) {
+    if (options.type === ApplicationCommandType.Message) {
       MetadataStorage.instance.addApplicationCommandMessage(applicationCommand);
     } else {
       MetadataStorage.instance.addApplicationCommandUser(applicationCommand);

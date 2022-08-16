@@ -10,8 +10,8 @@ import { Discord, ModalComponent, Slash } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @Slash("modal")
-  attachment(interaction: CommandInteraction): void {
+  @Slash()
+  modal(interaction: CommandInteraction): void {
     // Create the modal
     const modal = new ModalBuilder()
       .setTitle("My Awesome Form")
@@ -45,8 +45,8 @@ export class Example {
     interaction.showModal(modal);
   }
 
-  @ModalComponent("AwesomeForm")
-  async handle(interaction: ModalSubmitInteraction): Promise<void> {
+  @ModalComponent()
+  async AwesomeForm(interaction: ModalSubmitInteraction): Promise<void> {
     const [favTVShow, favHaiku] = ["tvField", "haikuField"].map((id) =>
       interaction.fields.getTextInputValue(id)
     );

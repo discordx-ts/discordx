@@ -76,9 +76,10 @@ const defaultChoice = new RPSProposition(
 
 @Discord()
 export class RockPaperScissors {
-  @Slash("rock-paper-scissors", {
+  @Slash({
     description:
       "What could be more fun than play Rock Paper Scissors with a bot?",
+    name: "rock-paper-scissors",
   })
   private async RPS(
     @SlashChoice(
@@ -95,9 +96,10 @@ export class RockPaperScissors {
         value: RPSChoice.Scissors,
       }
     )
-    @SlashOption("choice", {
+    @SlashOption({
       description:
         "Your choose. If empty, it will send a message with buttons to choose and play instead.",
+      name: "choice",
       required: false,
       type: ApplicationCommandOptionType.Number,
     })
@@ -156,9 +158,9 @@ export class RockPaperScissors {
     }
   }
 
-  @ButtonComponent(`RPS-${RPSChoice.Rock}`)
-  @ButtonComponent(`RPS-${RPSChoice.Paper}`)
-  @ButtonComponent(`RPS-${RPSChoice.Scissors}`)
+  @ButtonComponent({ id: `RPS-${RPSChoice.Rock}` })
+  @ButtonComponent({ id: `RPS-${RPSChoice.Paper}` })
+  @ButtonComponent({ id: `RPS-${RPSChoice.Scissors}` })
   private async RPSButton(interaction: ButtonInteraction) {
     await interaction.deferReply();
 
