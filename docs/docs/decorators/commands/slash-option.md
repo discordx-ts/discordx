@@ -277,11 +277,19 @@ Multiple options, check below.
 
 Enable autocomplete interactions for this option
 
-| type                             | default |
-| -------------------------------- | ------- |
-| boolean \| autocomplete resolver | false   |
+| type                                                                                             | default |
+| ------------------------------------------------------------------------------------------------ | ------- |
+| boolean \| undefined \| (AutocompleteInteraction, DApplicationCommand) => void \| Promise<void\> | false   |
 
-#### `Description`
+#### `channelTypes`
+
+The channel types, only applies when type is CHANNEL otherwise leave undefined
+
+| type            | default   |
+| --------------- | --------- |
+| undefined \| ChannelType | undefined |
+
+#### `description`
 
 Set description of this option
 
@@ -289,7 +297,55 @@ Set description of this option
 | ------ | ------------------------- |
 | string | OPTION_NAME - OPTION_TYPE |
 
-#### `Required`
+#### `descriptionLocalizations`
+
+The option description localizations
+
+| type            | default   |
+| --------------- | --------- |
+| LocalizationMap | undefined |
+
+#### `maxLength`
+
+The max length, only applies when type is STRING otherwise leave undefined
+
+| type                | default   |
+| ------------------- | --------- |
+| undefined \| number | undefined |
+
+#### `maxValue`
+
+The max value only, applies when type is NUMBER or INTEGER otherwise leave undefined
+
+| type                | default   |
+| ------------------- | --------- |
+| undefined \| number | undefined |
+
+#### `minLength`
+
+The min length only, applies when type is STRING otherwise leave undefined
+
+| type                | default   |
+| ------------------- | --------- |
+| undefined \| number | undefined |
+
+#### `minValue`
+
+The min value only, applies when type is NUMBER or INTEGER otherwise leave undefined
+
+| type                | default   |
+| ------------------- | --------- |
+| undefined \| number | undefined |
+
+#### `nameLocalizations`
+
+The option name localizations
+
+| type            | default   |
+| --------------- | --------- |
+| LocalizationMap | undefined |
+
+#### `required`
 
 Set option required or optional
 
@@ -297,21 +353,13 @@ Set option required or optional
 | ------- | ------- |
 | boolean | true    |
 
-#### `Type`
+#### `type`
 
 Define type of your command option
 
 | type                                                                             | default   |
 | -------------------------------------------------------------------------------- | --------- |
-| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | inference |
-
-#### `channelTypes`
-
-If the option is a channel type, the channels shown will be restricted to these types
-
-| type                                          | default   |
-| --------------------------------------------- | --------- |
-| Exclude<ChannelTypes, ChannelTypes.UNKNOWN>[] | undefined |
+| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | inferance |
 
 ## Autocompletion (Option's choices)
 
