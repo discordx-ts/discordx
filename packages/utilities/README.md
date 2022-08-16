@@ -74,7 +74,7 @@ Create group of commands
 class Example {
   // commands
 
-  @Slash()
+  @Slash({ name: "my-command" })
   myCommand(interaction: CommandInteraction) {
     //....
   }
@@ -101,7 +101,7 @@ The description property can be set using this decorator
 ```ts
 @Discord()
 class Example {
-  @Slash("hello")
+  @Slash({ name: "hello" })
   @Description("say hello to bot")
   handle(interaction: CommandInteraction) {
     //....
@@ -114,7 +114,7 @@ Is equivalent to:
 ```ts
 @Discord()
 class Example {
-  @Slash("hello", { description: "say hello to bot" })
+  @Slash({ description: "say hello to bot", name: "hello" })
   handle(interaction: CommandInteraction) {
     //....
   }
@@ -143,7 +143,7 @@ class RateLimitExample {
   /**
    * 1 command every 30 seconds with default message
    */
-  @Slash("rate_limit_1")
+  @Slash({ name: "rate_limit_1" })
   @Guard(RateLimit(TIME_UNIT.seconds, 30))
   rateLimit1(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -152,7 +152,7 @@ class RateLimitExample {
   /**
    * Allow 3 command before rate limit of 30 seconds (from last message)
    */
-  @Slash("rate_limit_3")
+  @Slash({ name: "rate_limit_3" })
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Please wait `30` seconds!",
@@ -168,7 +168,7 @@ class RateLimitExample {
    *
    * @param message
    */
-  @SimpleCommand("rateLimit")
+  @SimpleCommand({ name: "rateLimit" })
   @Guard(RateLimit(TIME_UNIT.seconds, 10))
   private async rateLimitSimpleCommand({
     message,
@@ -181,7 +181,7 @@ class RateLimitExample {
 ## NotBot
 
 ```ts
-@SimpleCommand("hello")
+@SimpleCommand()
 @Guard(NotBot)
 hello({ message }: SimpleCommandMessage): void {
   message.reply("It worked!");
@@ -207,7 +207,7 @@ export class PermissionGuards {
    *
    * @param interaction
    */
-  @Slash("permission_ban_members")
+  @Slash({ name: "permission_ban_members" })
   @Guard(PermissionGuard(["BAN_MEMBERS"]))
   banMembers1(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -218,7 +218,7 @@ export class PermissionGuards {
    *
    * @param interaction
    */
-  @Slash("permission_ban_members")
+  @Slash({ name: "permission_ban_members" })
   @Guard(
     PermissionGuard(["BAN_MEMBERS"], {
       content: "You do not have the role `BAN_MEMBERS`",
@@ -233,7 +233,7 @@ export class PermissionGuards {
    *
    * @param interaction
    */
-  @Slash("permission_ban_members")
+  @Slash({ name: "permission_ban_members" })
   @Guard(
     PermissionGuard(PermissionGuards.resolvePermission, {
       content: "You do not have the role `BAN_MEMBERS`",

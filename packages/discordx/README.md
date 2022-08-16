@@ -148,18 +148,14 @@ There is a whole system that allows you to implement complex slash/simple comman
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
 ```ts
-import { Discord, Slash } from "discordx";
-import { CommandInteraction } from "discord.js";
-
 @Discord()
 class Example {
-  @Slash("hello")
-  private hello(
-    @SlashOption("text")
-    text: string,
+  @Slash({ name: "hello" })
+  hello(
+    @SlashOption({ name: "message" }) message: string,
     interaction: CommandInteraction
-  ) {
-    // ...
+  ): void {
+    interaction.reply(`:wave: from ${interaction.user}: ${message}`);
   }
 }
 ```
@@ -171,13 +167,18 @@ Create discord button handler with ease!
 ```ts
 @Discord()
 class Example {
-  @ButtonComponent("hello")
+  @ButtonComponent({ id: "hello" })
   handler(interaction: ButtonInteraction): void {
     interaction.reply(":wave:");
   }
 
+  @ButtonComponent({ id: "hello" })
+  handler2(interaction: ButtonInteraction): void {
+    console.log(`${interaction.user} says hello`);
+  }
+
   @Slash()
-  hello(interaction: CommandInteraction): void {
+  test(interaction: CommandInteraction): void {
     const btn = new ButtonBuilder()
       .setLabel("Hello")
       .setStyle(ButtonStyle.Primary)
@@ -208,7 +209,7 @@ const roles = [
 
 @Discord()
 class Example {
-  @SelectMenuComponent("role-menu")
+  @SelectMenuComponent({ id: "role-menu" })
   async handle(interaction: SelectMenuInteraction): Promise<unknown> {
     await interaction.deferReply();
 
@@ -228,7 +229,7 @@ class Example {
     return;
   }
 
-  @Slash("my-roles", { description: "roles menu" })
+  @Slash({ description: "roles menu", name: "my-roles" })
   async myRoles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.deferReply();
 
@@ -260,13 +261,19 @@ Create discord context menu options with ease!
 ```ts
 @Discord()
 class Example {
-  @ContextMenu(ApplicationCommandType.Message, "Hello from discord.ts")
+  @ContextMenu({
+    name: "Hello from discord.ts",
+    type: ApplicationCommandType.Message,
+  })
   messageHandler(interaction: MessageContextMenuCommandInteraction): void {
     console.log("I am message");
     interaction.reply("message interaction works");
   }
 
-  @ContextMenu(ApplicationCommandType.User, "Hello from discord.ts")
+  @ContextMenu({
+    name: "Hello from discord.ts",
+    type: ApplicationCommandType.User,
+  })
   userHandler(interaction: UserContextMenuCommandInteraction): void {
     console.log(`Selected user: ${interaction.targetId}`);
     interaction.reply("user interaction works");
@@ -281,8 +288,8 @@ Create discord modal with ease!
 ```ts
 @Discord()
 class Example {
-  @Slash("modal")
-  attachment(interaction: CommandInteraction): void {
+  @Slash()
+  modal(interaction: CommandInteraction): void {
     // Create the modal
     const modal = new ModalBuilder()
       .setTitle("My Awesome Form")
@@ -316,8 +323,8 @@ class Example {
     interaction.showModal(modal);
   }
 
-  @ModalComponent("AwesomeForm")
-  async handle(interaction: ModalSubmitInteraction): Promise<void> {
+  @ModalComponent()
+  async AwesomeForm(interaction: ModalSubmitInteraction): Promise<void> {
     const [favTVShow, favHaiku] = ["tvField", "haikuField"].map((id) =>
       interaction.fields.getTextInputValue(id)
     );
@@ -338,9 +345,9 @@ Create a simple command handler for messages using `@SimpleCommand`. Example `!h
 ```ts
 @Discord()
 class Example {
-  @SimpleCommand("perm-check", { aliases: ["p-test"] })
-  permFunc(command: SimpleCommandMessage) {
-    command.message.reply("access granted");
+  @SimpleCommand({ aliases: ["hey", "hi"], name: "hello" })
+  hello(command: SimpleCommandMessage): void {
+    command.message.reply(":wave:");
   }
 }
 ```
@@ -354,17 +361,15 @@ Our methods must be decorated with the `@On(event: string)` or `@Once(event: str
 That's simple, when the event is triggered, the method is called:
 
 ```typescript
-import { Discord, On, Once } from "discordx";
-
 @Discord()
 class Example {
-  @On("messageCreate")
-  private onMessage() {
+  @On({ name: "messageCreate" })
+  messageCreate() {
     // ...
   }
 
-  @Once("messageDelete")
-  private onMessageDelete() {
+  @Once({ name: "messageDelete" })
+  messageDelete() {
     // ...
   }
 }
@@ -377,12 +382,12 @@ Create a reaction handler for messages using `@Reaction`.
 ```typescript
 @Discord()
 class Example {
-  @Reaction("⭐", { remove: false })
+  @Reaction({ emoji: "⭐", remove: true })
   async starReaction(reaction: MessageReaction, user: User): Promise<void> {
     await reaction.message.reply(`Received a ${reaction.emoji} from ${user}`);
   }
 
-  @Reaction("📌", { aliases: ["📍", "custom_emoji"] })
+  @Reaction({ aliases: ["📍", "custom_emoji"], emoji: "📌" })
   async pin(reaction: MessageReaction): Promise<void> {
     await reaction.message.pin();
   }
@@ -406,11 +411,11 @@ import { Prefix } from "./Prefix";
 
 @Discord()
 class Example {
-  @On("messageCreate")
+  @On()
   @Guard(
     NotBot // You can use multiple guard functions, they are executed in the same order!
   )
-  onMessage([message]: ArgsOf<"messageCreate">) {
+  messageCreate([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {
       case "hello":
         message.reply("Hello!");

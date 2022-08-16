@@ -68,12 +68,21 @@ import {
   PaginationResolver,
   PaginationType,
 } from "@discordx/pagination";
-import type { CommandInteraction, MessageOptions } from "discord.js";
-import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
+import type {
+  CommandInteraction,
+  MessageActionRowComponentBuilder,
+  MessageOptions,
+} from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  EmbedBuilder,
+} from "discord.js";
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
-export function GeneratePages(limit?: number): MessageOptions[] {
+function GeneratePages(limit?: number): MessageOptions[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
     return { content: `I am ${i + 1}`, embed: `Demo ${i + 1}` };
   });
@@ -86,10 +95,10 @@ export function GeneratePages(limit?: number): MessageOptions[] {
 }
 
 @Discord()
-class Example {
+export class Example {
   // example: message
-  @On("messageCreate")
-  onMessage([message]: ArgsOf<"messageCreate">): void {
+  @On({ event: "messageCreate" })
+  messageCreate([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated demo") {
       new Pagination(message, GeneratePages(), {
         type: PaginationType.Button,
@@ -98,8 +107,8 @@ class Example {
   }
 
   // example: any text channel
-  @On("messageCreate")
-  onMessageChannel([message]: ArgsOf<"messageCreate">): void {
+  @On({ event: "messageCreate" })
+  messageCreateChannel([message]: ArgsOf<"messageCreate">): void {
     if (message.content === "paginated channel demo") {
       new Pagination(message.channel, GeneratePages(), {
         type: PaginationType.Button,
@@ -108,7 +117,7 @@ class Example {
   }
 
   // example: simple slash with button pagination
-  @Slash("demo-a", { description: "Simple slash with button pagination" })
+  @Slash({ description: "Simple slash with button pagination", name: "demo-a" })
   async demoA(interaction: CommandInteraction): Promise<void> {
     const embedX = new PaginationResolver((page, pagination) => {
       if (page === 3) {
@@ -122,12 +131,9 @@ class Example {
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {
-      ephemeral: true,
-      onTimeout: () => {
-        interaction.deleteReply();
-      },
+      onTimeout: () => interaction.deleteReply(),
       start: {
-        emoji: "🙂",
+        emoji: { name: "🙂" },
       },
       time: 5 * 1000,
       type: PaginationType.Button,
@@ -137,15 +143,16 @@ class Example {
   }
 
   // example: simple slash with menu pagination
-  @Slash("demo-b", { description: "Simple slash with menu pagination" })
+  @Slash({ description: "Simple slash with menu pagination", name: "demo-b" })
   demoB(interaction: CommandInteraction): void {
     new Pagination(interaction, GeneratePages(), {
+      time: 5 * 1000,
       type: PaginationType.SelectMenu,
     }).send();
   }
 
   // example: simple string array
-  @Slash("demo-c", { description: "Simple string array" })
+  @Slash({ description: "Simple string array", name: "demo-c" })
   demoC(interaction: CommandInteraction): void {
     new Pagination(
       interaction,
@@ -154,7 +161,7 @@ class Example {
   }
 
   // example: array of custom message options
-  @Slash("demo-d", { description: "Array of custom message options" })
+  @Slash({ description: "Array of custom message options", name: "demo-d" })
   demoD(interaction: CommandInteraction): void {
     new Pagination(interaction, [
       {
@@ -162,20 +169,22 @@ class Example {
       },
       {
         content: "Page 2",
-        embeds: [new MessageEmbed({ title: "It's me embed 2" })],
+        embeds: [new EmbedBuilder({ title: "It's me embed 2" })],
       },
       {
         components: [
-          new MessageActionRow().addComponents([
-            new MessageButton({
-              customId: "myCustomId",
-              label: "My Custom Button",
-              style: "PRIMARY",
-            }),
-          ]),
+          new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+            [
+              new ButtonBuilder({
+                customId: "myCustomId",
+                label: "My Custom Button",
+                style: ButtonStyle.Primary,
+              }),
+            ]
+          ),
         ],
         content: "Page 3",
-        embeds: [new MessageEmbed({ title: "It's me embed 3" })],
+        embeds: [new EmbedBuilder({ title: "It's me embed 3" })],
       },
     ]).send();
   }
