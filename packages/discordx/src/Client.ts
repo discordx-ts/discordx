@@ -1446,22 +1446,25 @@ export class Client extends ClientJS {
         if (on.once) {
           this.rest.once(
             on.event,
-            this.instance.trigger(this.guards, on.event, this, true)
+            this.instance.trigger(this.guards, on.event, this, true, true)
           );
         } else {
           this.rest.on(
             on.event,
-            this.instance.trigger(this.guards, on.event, this)
+            this.instance.trigger(this.guards, on.event, this, false, true)
           );
         }
       } else {
         if (on.once) {
           this.once(
             on.event,
-            this.instance.trigger(this.guards, on.event, this, true)
+            this.instance.trigger(this.guards, on.event, this, true, false)
           );
         } else {
-          this.on(on.event, this.instance.trigger(this.guards, on.event, this));
+          this.on(
+            on.event,
+            this.instance.trigger(this.guards, on.event, this, false, false)
+          );
         }
       }
     });
