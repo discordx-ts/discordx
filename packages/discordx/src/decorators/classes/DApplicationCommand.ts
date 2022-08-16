@@ -33,7 +33,7 @@ export class DApplicationCommand extends Method {
   private _nameLocalizations?: LocalizationMap;
   private _description: string;
   private _descriptionLocalizations?: LocalizationMap;
-  private _defaultMemberPermissions?: PermissionResolvable;
+  private _defaultMemberPermissions: PermissionResolvable;
   private _dmPermission: boolean;
   private _guilds: IGuild[];
   private _group?: string;
@@ -55,10 +55,10 @@ export class DApplicationCommand extends Method {
     this._description = value;
   }
 
-  get defaultMemberPermissions(): PermissionResolvable | undefined {
+  get defaultMemberPermissions(): PermissionResolvable {
     return this._defaultMemberPermissions;
   }
-  set defaultMemberPermissions(value: PermissionResolvable | undefined) {
+  set defaultMemberPermissions(value: PermissionResolvable) {
     this._defaultMemberPermissions = value;
   }
 
@@ -135,7 +135,7 @@ export class DApplicationCommand extends Method {
     this._descriptionLocalizations = data.descriptionLocalizations;
     this._nameLocalizations = data.nameLocalizations;
     this._dmPermission = data.dmPermission ?? true;
-    this._defaultMemberPermissions = data.defaultMemberPermissions;
+    this._defaultMemberPermissions = data.defaultMemberPermissions ?? 0n;
   }
 
   static create(data: CreateStructure): DApplicationCommand {
