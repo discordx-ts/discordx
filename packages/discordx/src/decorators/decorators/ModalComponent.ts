@@ -24,9 +24,19 @@ export function ModalComponent(): MethodDecoratorEx;
  * @category Decorator
  */
 export function ModalComponent<T extends string>(
-  options?: ComponentOptions<T>
+  options: ComponentOptions<T>
 ): MethodDecoratorEx;
 
+/**
+ * Create modal interaction handler
+ *
+ * @param options - Component options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/modal-component)
+ *
+ * @category Decorator
+ */
 export function ModalComponent(options?: ComponentOptions): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const button = DComponent.create({

@@ -49,6 +49,16 @@ export function SlashChoice<T extends string, X = string | number>(
   ...choices: SlashChoiceType<T, X>[]
 ): ParameterDecoratorEx;
 
+/**
+ * The slash command option can implement autocompletion for string and number types
+ *
+ * @param choices - choices
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash-choice)
+ *
+ * @category Decorator
+ */
 export function SlashChoice(
   ...choices: (number | string | SlashChoiceType)[]
 ): ParameterDecoratorEx {

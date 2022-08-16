@@ -24,9 +24,29 @@ export function ButtonComponent(): MethodDecoratorEx;
  * @category Decorator
  */
 export function ButtonComponent<T extends string>(
-  options?: ComponentOptions<T>
+  options: ComponentOptions<T>
 ): MethodDecoratorEx;
 
+/**
+ * Interact with buttons with a defined identifier
+ *
+ * @param options - Component options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/button-component)
+ *
+ * @category Decorator
+ */
+/**
+ * Interact with buttons with a defined identifier
+ *
+ * @param options - Component options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/button-component)
+ *
+ * @category Decorator
+ */
 export function ButtonComponent(options?: ComponentOptions): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const button = DComponent.create({

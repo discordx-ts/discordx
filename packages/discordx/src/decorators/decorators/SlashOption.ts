@@ -19,11 +19,9 @@ import {
  *
  * @category Decorator
  */
-export function SlashOption<T extends string>(
-  options: SlashOptionOptions<VerifyName<T>>
-): ParameterDecoratorEx;
-
-export function SlashOption(options: SlashOptionOptions): ParameterDecoratorEx {
+export function SlashOption<TName extends string>(
+  options: SlashOptionOptions<VerifyName<TName>>
+): ParameterDecoratorEx {
   function getType(type: string): ApplicationCommandOptionType {
     switch (type) {
       case "STRING": {

@@ -24,9 +24,19 @@ export function SelectMenuComponent(): MethodDecoratorEx;
  * @category Decorator
  */
 export function SelectMenuComponent<T extends string>(
-  options?: ComponentOptions<T>
+  options: ComponentOptions<T>
 ): MethodDecoratorEx;
 
+/**
+ * Interact with select menu with a defined identifier
+ *
+ * @param options - Component options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
+ *
+ * @category Decorator
+ */
 export function SelectMenuComponent(
   options?: ComponentOptions
 ): MethodDecoratorEx {

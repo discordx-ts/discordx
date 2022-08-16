@@ -58,8 +58,21 @@ export function SlashGroup(name: string): ClassMethodDecorator;
  */
 export function SlashGroup(name: string, root: string): ClassMethodDecorator;
 
+/**
+ * Assign a group to a method or class
+ *
+ * @param options - Group options or name
+ * @param root - Root name of group
+ * ___
+ *
+ * [View Discord.ts Documentation](https://discord-ts.js.org/docs/decorators/commands/slash-group)
+ *
+ * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ *
+ * @category Decorator
+ */
 export function SlashGroup(
-  options: SlashGroupOptions | string,
+  options: string | SlashGroupOptions,
   root?: string
 ): ClassMethodDecorator {
   return function <T>(

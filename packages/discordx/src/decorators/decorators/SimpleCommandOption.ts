@@ -19,12 +19,8 @@ import {
  *
  * @category Decorator
  */
-export function SimpleCommandOption<T extends string>(
-  options: SimpleCommandOptionOptions<T>
-): ParameterDecoratorEx;
-
-export function SimpleCommandOption(
-  options: SimpleCommandOptionOptions
+export function SimpleCommandOption<TName extends string>(
+  options: SimpleCommandOptionOptions<TName>
 ): ParameterDecoratorEx {
   function getType(type: string): SimpleCommandOptionType {
     switch (type) {

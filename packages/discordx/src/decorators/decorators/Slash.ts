@@ -25,9 +25,19 @@ export function Slash(): MethodDecoratorEx;
  * @category Decorator
  */
 export function Slash<T extends string>(
-  options?: ApplicationCommandOptions<VerifyName<T>>
+  options: ApplicationCommandOptions<VerifyName<T>>
 ): MethodDecoratorEx;
 
+/**
+ * Handle a slash command with a defined name
+ *
+ * @param options - Application command options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)
+ *
+ * @category Decorator
+ */
 export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const applicationCommand = DApplicationCommand.create({

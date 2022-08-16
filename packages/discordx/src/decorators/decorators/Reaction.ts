@@ -25,9 +25,19 @@ export function Reaction(): MethodDecoratorEx;
  * @category Decorator
  */
 export function Reaction<T extends string>(
-  options?: ReactionOptions<T>
+  options: ReactionOptions<T>
 ): MethodDecoratorEx;
 
+/**
+ * Handle a reaction with a specified emoji (a Unicode string, custom name, or Snowflake)
+ *
+ * @param options - reaction options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/reaction)
+ *
+ * @category Decorator
+ */
 export function Reaction(options?: ReactionOptions): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
     const react = DReaction.create({

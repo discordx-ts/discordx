@@ -15,18 +15,9 @@ import type { NotEmpty } from "../../types/index.js";
  *
  * @category Decorator
  */
-export function ContextMenu<T extends string>(
+export function ContextMenu<TName extends string>(
   options: Omit<
-    ApplicationCommandOptions<NotEmpty<T>> & {
-      type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
-    },
-    "description"
-  >
-): MethodDecoratorEx;
-
-export function ContextMenu(
-  options: Omit<
-    ApplicationCommandOptions & {
+    ApplicationCommandOptions<NotEmpty<TName>> & {
       type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
     },
     "description"

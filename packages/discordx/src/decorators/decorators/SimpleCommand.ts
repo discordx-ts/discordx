@@ -28,9 +28,21 @@ export function SimpleCommand(): MethodDecoratorEx;
  * @category Decorator
  */
 export function SimpleCommand<T extends string>(
-  options?: SimpleCommandOptions<T>
+  options: SimpleCommandOptions<T>
 ): MethodDecoratorEx;
 
+/**
+ * Handle a simple command with a defined name
+ *
+ * Example ``!hello world``
+ *
+ * @param options - Command options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/simple-command)
+ *
+ * @category Decorator
+ */
 export function SimpleCommand(
   options?: SimpleCommandOptions
 ): MethodDecoratorEx {

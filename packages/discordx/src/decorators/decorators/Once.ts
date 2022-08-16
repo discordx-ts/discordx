@@ -24,8 +24,18 @@ export function Once(): MethodDecoratorEx;
  *
  * @category Decorator
  */
-export function Once(options?: EventOptions): MethodDecoratorEx;
+export function Once(options: EventOptions): MethodDecoratorEx;
 
+/**
+ * Handle discord events once only with a defined handler
+ *
+ * @param options - Event parameters
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/once)
+ *
+ * @category Decorator
+ */
 export function Once(options?: EventOptions): MethodDecoratorEx {
   return function <T>(
     target: Record<string, T>,
