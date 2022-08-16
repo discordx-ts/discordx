@@ -7,21 +7,6 @@ import { DApplicationCommand, MetadataStorage } from "../../index.js";
 /**
  * Handle a slash command with a defined name
  *
- * @param name - Slash name
- * ___
- *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)
- *
- * @category Decorator -
- */
-export function Slash<T extends string>(
-  name?: VerifyName<T>
-): MethodDecoratorEx;
-
-/**
- * Handle a slash command with a defined name
- *
- * @param name - Slash name
  * @param options - Slash options
  * ___
  *
@@ -30,17 +15,11 @@ export function Slash<T extends string>(
  * @category Decorator
  */
 export function Slash<T extends string>(
-  name?: VerifyName<T>,
-  options?: ApplicationCommandOptions
+  options?: ApplicationCommandOptions<VerifyName<T>>
 ): MethodDecoratorEx;
 
-export function Slash(
-  name?: string,
-  options?: ApplicationCommandOptions
-): MethodDecoratorEx {
+export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    name = name ?? key;
-
     const applicationCommand = DApplicationCommand.create({
       botIds: options?.botIds,
       defaultMemberPermissions: options?.defaultMemberPermissions,
@@ -48,7 +27,7 @@ export function Slash(
       descriptionLocalizations: options?.descriptionLocalizations,
       dmPermission: options?.dmPermission,
       guilds: options?.guilds,
-      name: name,
+      name: options?.name ?? key,
       nameLocalizations: options?.nameLocalizations,
       type: ApplicationCommandType.ChatInput,
     }).decorate(target.constructor, key, target[key]);

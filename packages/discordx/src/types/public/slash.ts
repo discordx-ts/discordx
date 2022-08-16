@@ -10,13 +10,14 @@ import type {
 
 import type { DApplicationCommand, IGuild } from "../../index.js";
 
-export type ApplicationCommandOptions = {
+export type ApplicationCommandOptions<TName extends string = string> = {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable;
   description?: string;
   descriptionLocalizations?: LocalizationMap;
   dmPermission?: boolean;
   guilds?: IGuild[];
+  name: TName;
   nameLocalizations?: LocalizationMap;
 };
 
