@@ -3,6 +3,7 @@ import type {
   ClientEvents,
   LocalizationMap,
   PermissionResolvable,
+  RestEvents,
 } from "discord.js";
 
 import type { Client, IGuild, Next, NotEmpty } from "../../index.js";
@@ -15,9 +16,27 @@ import type { Client, IGuild, Next, NotEmpty } from "../../index.js";
 export type ArgsOf<K extends keyof ClientEvents> = ClientEvents[K];
 
 /**
- * Discord events
+ * Type the arguments of an event
+ * ___
+ * [View Documentation](https://discord-ts.js.org/docs/general/restargsof)
  */
-export type DiscordEvents = keyof ClientEvents;
+export type RestArgsOf<K extends keyof RestEvents> = RestEvents[K];
+
+/**
+ * Event options
+ */
+export type EventOptions = {
+  botIds?: string[];
+  event: keyof ClientEvents;
+};
+
+/**
+ * Rest event options
+ */
+export type RestEventOptions = {
+  botIds?: string[];
+  event: keyof RestEvents;
+};
 
 /**
  * Guard function
@@ -93,14 +112,6 @@ export type SlashGroupSubRoot = SlashGroupBase & {
 };
 
 export type SlashGroupOptions = SlashGroupRoot | SlashGroupSubRoot;
-
-/**
- * Event options
- */
-export type EventOptions = {
-  botIds?: string[];
-  event: DiscordEvents;
-};
 
 /**
  * Reaction options

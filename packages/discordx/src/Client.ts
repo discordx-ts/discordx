@@ -33,7 +33,6 @@ import type {
   DApplicationCommandOption,
   DComponent,
   DDiscord,
-  DiscordEvents,
   DOn,
   DReaction,
   DSimpleCommand,
@@ -1414,9 +1413,15 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  trigger(event: DiscordEvents, params: any, once = false): Promise<any[]> {
-    return this.instance.trigger(this.guards, event, this, once)(params);
+  trigger(
+    event: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+    params: any,
+    once = false,
+    rest = false
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any[]> {
+    return this.instance.trigger(this.guards, event, this, once, rest)(params);
   }
 
   /**
@@ -1437,13 +1442,30 @@ export class Client extends ClientJS {
     }
 
     this.instance.usedEvents.map((on) => {
-      if (on.once) {
-        this.once(
-          on.event,
-          this.instance.trigger(this.guards, on.event, this, true)
-        );
+      if (on.rest) {
+        if (on.once) {
+          this.rest.once(
+            on.event,
+            this.instance.trigger(this.guards, on.event, this, true, true)
+          );
+        } else {
+          this.rest.on(
+            on.event,
+            this.instance.trigger(this.guards, on.event, this, false, true)
+          );
+        }
       } else {
-        this.on(on.event, this.instance.trigger(this.guards, on.event, this));
+        if (on.once) {
+          this.once(
+            on.event,
+            this.instance.trigger(this.guards, on.event, this, true, false)
+          );
+        } else {
+          this.on(
+            on.event,
+            this.instance.trigger(this.guards, on.event, this, false, false)
+          );
+        }
       }
     });
   }

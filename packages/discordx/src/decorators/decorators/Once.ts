@@ -1,7 +1,6 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
-import type { ClientEvents } from "discord.js";
 
-import type { EventOptions } from "../../index.js";
+import type { EventOptions, RestEventOptions } from "../../index.js";
 import { DOn, MetadataStorage } from "../../index.js";
 
 /**
@@ -45,10 +44,39 @@ export function Once(options?: EventOptions): MethodDecoratorEx {
     const clazz = target as unknown as new () => unknown;
     const on = DOn.create({
       botIds: options?.botIds,
-      event: options?.event ?? (key as keyof ClientEvents),
+      event: options?.event ?? key,
       once: true,
+      rest: false,
     }).decorate(clazz.constructor, key, descriptor.value);
 
     MetadataStorage.instance.addOn(on);
   };
 }
+
+/**
+ * Handle discord rest events with a defined handler
+ *
+ * @param options - Rest event options
+ * ___
+ *
+ * [View Documentation](https://discord-ts.js.org/docs/decorators/general/once#rest)
+ *
+ * @category Decorator
+ */
+Once.rest = function (options?: RestEventOptions): MethodDecoratorEx {
+  return function <T>(
+    target: Record<string, T>,
+    key: string,
+    descriptor?: PropertyDescriptor
+  ) {
+    const clazz = target as unknown as new () => unknown;
+    const on = DOn.create({
+      botIds: options?.botIds,
+      event: options?.event ?? key,
+      once: true,
+      rest: true,
+    }).decorate(clazz.constructor, key, descriptor?.value);
+
+    MetadataStorage.instance.addOn(on);
+  };
+};
