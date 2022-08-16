@@ -93,6 +93,7 @@ describe("Choice", () => {
     );
     expect(slashesObjects).toEqual([
       {
+        defaultMemberPermissions: 0n,
         description: "hello",
         dmPermission: true,
         name: "hello",
@@ -117,6 +118,7 @@ describe("Choice", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
+        defaultMemberPermissions: 0n,
         description: "number",
         dmPermission: true,
         name: "number",
@@ -149,6 +151,7 @@ describe("Choice", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
+        defaultMemberPermissions: 0n,
         description: "string",
         dmPermission: true,
         name: "string",

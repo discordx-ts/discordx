@@ -273,6 +273,7 @@ describe("Slash", () => {
 
     expect(slashesObjects).toEqual([
       {
+        defaultMemberPermissions: 0n,
         description: "hello",
         dmPermission: true,
         name: "hello",
@@ -287,6 +288,7 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
+        defaultMemberPermissions: 0n,
         description: "inference",
         dmPermission: true,
         name: "inference",
@@ -349,6 +351,7 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
+        defaultMemberPermissions: 0n,
         description: "Testing group description",
         dmPermission: true,
         name: "testing",
@@ -455,6 +458,7 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
+        defaultMemberPermissions: 0n,
         description: "group-test-without-description",
         dmPermission: true,
         name: "group-test-without-description",
@@ -489,6 +493,7 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
+        defaultMemberPermissions: 0n,
         description: "test-x",
         dmPermission: true,
         name: "test-x",
