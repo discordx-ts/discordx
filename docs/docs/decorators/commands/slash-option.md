@@ -285,8 +285,8 @@ Enable autocomplete interactions for this option
 
 The channel types, only applies when type is CHANNEL otherwise leave undefined
 
-| type            | default   |
-| --------------- | --------- |
+| type                     | default   |
+| ------------------------ | --------- |
 | undefined \| ChannelType | undefined |
 
 #### `description`
