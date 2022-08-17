@@ -9,13 +9,12 @@ import _ from "lodash";
 
 import type { Method } from "../../decorators/classes/Method.js";
 import type {
-  Client,
   DApplicationCommandGroup,
   DDiscord,
   DGuard,
   DSimpleCommandOption,
-  GuardFunction,
   ISimpleCommandByName,
+  ITriggerEventData,
 } from "../../index.js";
 import {
   ComponentType,
@@ -564,34 +563,30 @@ export class MetadataStorage {
   /**
    * Trigger a discord event
    *
-   * @param event - The event to trigger
-   * @param client - The client instance
-   * @param once - Execute event once
+   * @param options - Even data
    */
-  trigger(
-    guards: GuardFunction[],
-    event: string,
-    client: Client,
-    once = false,
-    rest = false
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): (...params: any[]) => Promise<any> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  trigger(options: ITriggerEventData): (...params: any[]) => Promise<any> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responses: Array<any> = [];
 
     const eventsToExecute = this._events.filter((on) => {
-      return on.event === event && on.once === once && on.rest === rest;
+      return (
+        on.event === options.event &&
+        on.once === options.once &&
+        on.rest === options.rest
+      );
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return async (...params: any[]) => {
       await Promise.all(
         eventsToExecute.map(async (ev) => {
-          if (!ev.isBotAllowed(client.botId)) {
+          if (!ev.isBotAllowed(options.client.botId)) {
             return;
           }
 
-          const res = await ev.execute(guards, params, client);
+          const res = await ev.execute(options.guards, params, options.client);
           responses.push(res);
         })
       );

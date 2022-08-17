@@ -44,6 +44,7 @@ import type {
   IPrefix,
   IPrefixResolver,
   ISimpleCommandByName,
+  ITriggerEventData,
   SimpleCommandConfig,
 } from "./index.js";
 import {
@@ -1407,21 +1408,14 @@ export class Client extends ClientJS {
   /**
    * Trigger an event manually (used for testing)
    *
-   * @param event - The event
+   * @param options - Event data
    * @param params - Params to inject
-   * @param once - Trigger an once event
    *
    * @returns
    */
-  trigger(
-    event: string,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-    params: any,
-    once = false,
-    rest = false
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): Promise<any[]> {
-    return this.instance.trigger(this.guards, event, this, once, rest)(params);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  trigger(options: ITriggerEventData, params: any[]): Promise<any[]> {
+    return this.instance.trigger(options)(params);
   }
 
   /**
@@ -1446,24 +1440,48 @@ export class Client extends ClientJS {
         if (on.once) {
           this.rest.once(
             on.event,
-            this.instance.trigger(this.guards, on.event, this, true, true)
+            this.instance.trigger({
+              client: this,
+              event: on.event,
+              guards: this.guards,
+              once: true,
+              rest: true,
+            })
           );
         } else {
           this.rest.on(
             on.event,
-            this.instance.trigger(this.guards, on.event, this, false, true)
+            this.instance.trigger({
+              client: this,
+              event: on.event,
+              guards: this.guards,
+              once: false,
+              rest: true,
+            })
           );
         }
       } else {
         if (on.once) {
           this.once(
             on.event,
-            this.instance.trigger(this.guards, on.event, this, true, false)
+            this.instance.trigger({
+              client: this,
+              event: on.event,
+              guards: this.guards,
+              once: true,
+              rest: false,
+            })
           );
         } else {
           this.on(
             on.event,
-            this.instance.trigger(this.guards, on.event, this, false, false)
+            this.instance.trigger({
+              client: this,
+              event: on.event,
+              guards: this.guards,
+              once: false,
+              rest: false,
+            })
           );
         }
       }

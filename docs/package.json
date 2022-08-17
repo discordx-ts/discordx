@@ -16,11 +16,11 @@
     "dev": "docusaurus start"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-rc.1",
-    "@docusaurus/preset-classic": "2.0.0-rc.1",
-    "@docusaurus/remark-plugin-npm2yarn": "^2.0.0-rc.1",
-    "@docusaurus/theme-search-algolia": "^2.0.0-rc.1",
-    "@svgr/webpack": "^6.2.1",
+    "@docusaurus/core": "2.0.1",
+    "@docusaurus/preset-classic": "2.0.1",
+    "@docusaurus/remark-plugin-npm2yarn": "^2.0.1",
+    "@docusaurus/theme-search-algolia": "^2.0.1",
+    "@svgr/webpack": "^6.3.1",
     "ansi-regex": "^6.0.1",
     "clsx": "^1.2.1",
     "file-loader": "^6.2.0",

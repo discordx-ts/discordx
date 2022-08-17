@@ -6,6 +6,7 @@ import type {
   DComponent,
   DReaction,
   DSimpleCommand,
+  GuardFunction,
   SimpleCommandMessage,
 } from "../../index.js";
 
@@ -33,3 +34,11 @@ export type IGuild =
     ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
 
 export type ISimpleCommandByName = { command: DSimpleCommand; name: string };
+
+export type ITriggerEventData = {
+  client: Client;
+  event: string;
+  guards: GuardFunction[];
+  once: boolean;
+  rest: boolean;
+};
