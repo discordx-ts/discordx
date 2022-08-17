@@ -6,6 +6,7 @@ import type {
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
+  PermissionsBitField,
 } from "discord.js";
 
 import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
@@ -135,7 +136,8 @@ export class DApplicationCommand extends Method {
     this._descriptionLocalizations = data.descriptionLocalizations;
     this._nameLocalizations = data.nameLocalizations;
     this._dmPermission = data.dmPermission ?? true;
-    this._defaultMemberPermissions = data.defaultMemberPermissions ?? 0n;
+    this._defaultMemberPermissions =
+      data.defaultMemberPermissions ?? PermissionsBitField.Default;
   }
 
   static create(data: CreateStructure): DApplicationCommand {
