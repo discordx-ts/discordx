@@ -13,8 +13,8 @@ import { Discord, Slash } from "discordx";
 abstract class Example {
   // We can use member decorators
   // because we decorated the class with @Discord
-  @Slash("hello")
-  private hello() {
+  @Slash()
+  hello() {
     // ...
   }
 }

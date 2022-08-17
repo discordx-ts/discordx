@@ -7,7 +7,7 @@ Create a reaction handler for messages using `@Reaction`.
 ```ts
 @Discord()
 class Example {
-  @Reaction("📌")
+  @Reaction({ emoji: "📌" })
   async pin(reaction: MessageReaction): Promise<void> {
     await reaction.message.pin();
   }
@@ -20,6 +20,7 @@ You have to manually execute your reactions by using `client.executeReaction(rea
 
 ```ts
 import { Client } from "discordx";
+
 async function start() {
   const client = new Client({
     botId: "test",
@@ -43,56 +44,48 @@ start();
 ### Aliasing Reactions
 
 ```ts
-@Reaction("📌", { aliases: ["📍", "custom_emoji"] })
-async pin(reaction: MessageReaction): Promise<void> {
-  await reaction.message.pin();
+@Discord()
+class Example {
+  @Reaction({ aliases: ["📍", "custom_emoji"], emoji: "📌" })
+  async pin(reaction: MessageReaction): Promise<void> {
+    await reaction.message.pin();
+  }
 }
 ```
 
-### Retain Reactions
+### Remove Reactions
 
-By default, reactions will be removed when being executed. To prevent this, set the `delete` option to `false`.
+By default, reactions will not be removed when being executed. To prevent this, set the `remove` option to `true`.
 
 ```ts
-@Reaction("⭐", { remove: false })
-async starReaction(reaction: MessageReaction, user: User): Promise<void> {
-  await reaction.message.reply(`Received a ${reaction.emoji} from ${user}`);
+@Discord()
+class Example {
+  @Reaction({ emoji: "⭐", remove: true })
+  async starReaction(reaction: MessageReaction, user: User): Promise<void> {
+    await reaction.message.reply(`Received a ${reaction.emoji} from ${user}`);
+  }
 }
 ```
 
 ## Signature
 
 ```ts
-Reaction(name: string, options: ReactionOptions)
+Reaction(options?: ReactionOptions)
 ```
 
 ## Parameters
 
-### name
-
-The reaction emoji, either unicode, custom emoji name, or custom emoji snowflake.
-
-| type   | default | required |
-| ------ | ------- | -------- |
-| string |         | Yes      |
-
 ### options
 
-Multiple options, check below.
+The reaction options
 
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
+| type            | default   | required |
+| --------------- | --------- | -------- |
+| ReactionOptions | undefined | No       |
 
-#### `remove`
+## Type: ReactionOptions
 
-Whether or not to remove the reaction upon execution.
-
-| type    | default |
-| ------- | ------- |
-| boolean | true    |
-
-#### `aliases`
+### aliases
 
 Alternative emojis for this reaction handler.
 
@@ -100,23 +93,7 @@ Alternative emojis for this reaction handler.
 | --------- | ------- |
 | string[ ] | [ ]     |
 
-#### `partial`
-
-If enabled, discord.ts will not fetch the reaction or user when they are partial.
-
-| type    | default |
-| ------- | ------- |
-| boolean | false   |
-
-#### `Description`
-
-A description of what the reaction does.
-
-| type   | default |
-| ------ | ------- |
-| string |         |
-
-#### `botIds`
+### botIds
 
 Array of bot ids which the reaction will be executed on.
 
@@ -124,7 +101,15 @@ Array of bot ids which the reaction will be executed on.
 | --------- | ------- |
 | string[ ] | [ ]     |
 
-#### `directMessage`
+### description
+
+A description of what the reaction does.
+
+| type   | default |
+| ------ | ------- |
+| string |         |
+
+### directMessage
 
 Allow reaction execution from direct messages.
 
@@ -132,10 +117,34 @@ Allow reaction execution from direct messages.
 | ------- | ------- |
 | boolean | true    |
 
-#### `guilds`
+### emoji
+
+The reaction emoji, either unicode, custom emoji name, or custom emoji snowflake.
+
+| type   | default     |
+| ------ | ----------- |
+| string | method name |
+
+### guilds
 
 Array of guild ids which the reaction will be executed in.
 
 | type         | default |
 | ------------ | ------- |
 | Snowflake[ ] | [ ]     |
+
+### partial
+
+If enabled, discord.ts will not fetch the reaction or user when they are partial.
+
+| type    | default |
+| ------- | ------- |
+| boolean | false   |
+
+### remove
+
+Whether or not to remove the reaction upon execution.
+
+| type    | default |
+| ------- | ------- |
+| boolean | true    |

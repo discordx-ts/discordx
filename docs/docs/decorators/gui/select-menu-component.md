@@ -17,40 +17,45 @@ const roles = [
 
 @Discord()
 class Example {
-  @SelectMenuComponent("role-menu")
-  async handle(interaction: SelectMenuInteraction) {
+  @SelectMenuComponent({ id: "role-menu" })
+  async handle(interaction: SelectMenuInteraction): Promise<unknown> {
     await interaction.deferReply();
 
     // extract selected value by member
     const roleValue = interaction.values?.[0];
 
     // if value not found
-    if (!roleValue)
-      return await interaction.followUp("invalid role id, select again");
-    await interaction.followUp(
+    if (!roleValue) {
+      return interaction.followUp("invalid role id, select again");
+    }
+
+    interaction.followUp(
       `you have selected role: ${
-        roles.find((r) => r.value === roleValue).label
+        roles.find((r) => r.value === roleValue)?.label ?? "unknown"
       }`
     );
     return;
   }
 
-  @Slash("my-roles", { description: "roles menu" })
+  @Slash({ description: "roles menu", name: "my-roles" })
   async myRoles(interaction: CommandInteraction): Promise<unknown> {
     await interaction.deferReply();
 
     // create menu for roles
-    const menu = new MessageSelectMenu()
+    const menu = new SelectMenuBuilder()
       .addOptions(roles)
       .setCustomId("role-menu");
 
     // create a row for message actions
-    const buttonRow = new MessageActionRow().addComponents(menu);
+    const buttonRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        menu
+      );
 
     // send it
     interaction.editReply({
-      content: "select your role!",
       components: [buttonRow],
+      content: "select your role!",
     });
     return;
   }
@@ -60,32 +65,20 @@ class Example {
 ## Signature
 
 ```ts
-@SelectMenuComponent(custom_id: string | RegExp, options?: { guilds?: Snowflake[]; botIds?: string[] )
+@SelectMenuComponent(options: ComponentOptions)
 ```
-
-## Parameters
-
-### custom_id
-
-A unique id for your button interaction to be handled under.
-
-| type             | default       | required |
-| ---------------- | ------------- | -------- |
-| string \| RegExp | function name | No       |
-
-:::caution
-As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
-:::
 
 ### options
 
-Multiple options, check below.
+The button options
 
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
+| type             | default   | required |
+| ---------------- | --------- | -------- |
+| ComponentOptions | undefined | NO       |
 
-#### `botIds`
+## Type: ComponentOptions
+
+### botIds
 
 Array of bot ids, for which only the event will be executed.
 
@@ -93,10 +86,18 @@ Array of bot ids, for which only the event will be executed.
 | --------- | ------- |
 | string[ ] | [ ]     |
 
-#### `Guilds`
+### Guilds
 
 The guilds where the command is created
 
 | type      | default |
 | --------- | ------- |
 | string[ ] | [ ]     |
+
+### id
+
+A unique id for your button interaction to be handled under.
+
+| type             | default       | required |
+| ---------------- | ------------- | -------- |
+| string \| RegExp | function name | No       |

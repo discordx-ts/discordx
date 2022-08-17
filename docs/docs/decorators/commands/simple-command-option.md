@@ -13,9 +13,9 @@ A simple command is dependent on the content of the message but unfortunately, D
 To declare an option you simply use the `@SimpleCommandOption` decorator before a method parameter
 
 ```ts
-@SimpleCommand("hello")
-async testCommand(
-  @SimpleCommandOption("name", { type: "STRING" }) name: string | undefined,
+@SimpleCommand()
+hello(
+  @SimpleCommandOption({ name: "name", type: SimpleCommandOptionType.String }) name: string | undefined,
   command: SimpleCommandMessage
 ) {
   if (!name) return message.reply("usage: ``!hello <your name>``");
@@ -26,10 +26,10 @@ async testCommand(
 ## Use custom arg splitter
 
 ```ts
-@SimpleCommand("add", { argSplitter: "+" })
+@SimpleCommand({ argSplitter: "+" })
 async add(
-  @SimpleCommandOption("x", { type: "INTEGER" }) x: number | undefined,
-  @SimpleCommandOption("y", { type: "INTEGER" }) y: number | undefined,
+  @SimpleCommandOption({ name: "x", type: SimpleCommandOptionType.Integer }) x: number | undefined,
+  @SimpleCommandOption({ name: "y", type: SimpleCommandOptionType.Integer }) y: number | undefined,
   command: SimpleCommandMessage
 ) {
   if (!command.isValid()) return command.sendUsageSyntax();
@@ -45,71 +45,65 @@ When it comes to guilds, it will always be `GuildMember | User`.
 
 ## Type inference
 
-- `"STRING"`
+- `SimpleCommandOptionType.String`
   **Inferred from `String`**
 
   ```ts
   fn(
-    @SimpleCommandOption("x")
-    channel: string,
+    @SimpleCommandOption({ name: "x" }) channel: string,
   )
   ```
 
-- `"BOOLEAN"`
+- `SimpleCommandOptionType.Boolean`
   **Inferred from `Boolean`**
 
   ```ts
   fn(
-    @SimpleCommandOption("x")
-    channel: boolean,
+    @SimpleCommandOption({ name: "x" }) channel: boolean,
   )
   ```
 
-- `"INTEGER"`
+- `SimpleCommandOptionType.Number`
   **Inferred from `Number`**
 
   ```ts
   fn(
-    @SimpleCommandOption("x")
-    channel: number,
+    @SimpleCommandOption({ name: "x" }) channel: number,
   )
   ```
 
-- `"ROLE"`
+- `SimpleCommandOptionType.Role`
   **Inferred from `Role`**
 
   ```ts
   fn(
-    @SimpleCommandOption("x")
-    channel: Role,
+    @SimpleCommandOption({ name: "x" }) channel: Role,
   )
   ```
 
-- `"USER"`
+- `SimpleCommandOptionType.User`
   **Inferred from `User` | `GuildMember` (you will receive GuildMember if present otherwise User)**
 
   ```ts
   fn(
-    @SimpleCommandOption("x")
-    channel: User,
+    @SimpleCommandOption({ name: "x" }) channel: User,
   )
   ```
 
-- `"CHANNEL"`
+- `SimpleCommandOptionType.Channel`
   **Inferred from `Channel` (or `TextChannel` / `VoiceChannel`, not recommended)**
 
   ```ts
   fn(
-    @SimpleCommandOption("x")
-    channel: Channel,
+    @SimpleCommandOption({ name: "x" }) channel: Channel,
   ```
 
-- `"MENTIONABLE"`
+- `SimpleCommandOptionType.Mentionable`
   **No inference, use:**
 
   ```ts
   fn(
-    @SimpleCommandOption("x", { type: "MENTIONABLE" })
+    @SimpleCommandOption({ name: "x", type: SimpleCommandOptionType.Mentionable })
     channel: GuildMember | User | Role,
   )
   ```
@@ -117,39 +111,41 @@ When it comes to guilds, it will always be `GuildMember | User`.
 ## Signature
 
 ```ts
-SimpleCommandOption( name: string, options?: { description?: string; type?: "STRING | INTEGER | NUMBER | BOOLEAN | USER | CHANNEL | ROLE | MENTIONABLE" } );
+SimpleCommandOption(options: SimpleCommandOptionOptions);
 ```
 
 ## Parameters
 
+### options
+
+The simple command options
+
+| type                       | default | required |
+| -------------------------- | ------- | -------- |
+| SimpleCommandOptionOptions |         | Yes      |
+
+## Type: SimpleCommandOptionOptions
+
+### description
+
+The description of command option
+
+| type   | default      | required |
+| ------ | ------------ | -------- |
+| string | Command type | No       |
+
 ### name
 
-The name of your command option
+The name of command option
 
 | type   | default | required |
 | ------ | ------- | -------- |
 | string |         | Yes      |
 
-### options
-
-Multiple options, check below.
-
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
-
-#### `description`
-
-The description of command option
-
-| type   | default      |
-| ------ | ------------ |
-| string | Command type |
-
-#### `type`
+### type
 
 The type of your command option
 
-| type                                                                             | default   |
-| -------------------------------------------------------------------------------- | --------- |
-| STRING \| INTEGER \| NUMBER \| BOOLEAN \| USER \| CHANNEL \| ROLE \| MENTIONABLE | inference |
+| type                    | default   | required |
+| ----------------------- | --------- | -------- |
+| SimpleCommandOptionType | inference | No       |

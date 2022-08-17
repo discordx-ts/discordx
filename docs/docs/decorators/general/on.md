@@ -2,22 +2,20 @@
 
 You can use this decorator to declare methods that will be executed whenever a Discord event is triggered.
 
-Our methods must be decorated with the `@On(event: string)` or [@Once(event: string)](/docs/decorators/general/once) decorator.
+Our methods must be decorated with the `@On` or [@Once](/docs/decorators/general/once) decorator.
 
 It's that simple, when the event is triggered, the method is called:
 
 ```typescript
-import { Discord, On, Once } from "discordx";
-
 @Discord()
 class Example {
-  @On("messageCreate")
-  private onMessage() {
+  @On({ event: "messageCreate" })
+  onMessage() {
     // ...
   }
 
-  @Once("messageDelete")
-  private onMessageDelete() {
+  @Once({ event: "messageDelete" })
+  onMessageDelete() {
     // ...
   }
 }
@@ -40,8 +38,8 @@ import { Discord, On, Client, ArgsOf } from "discordx";
 
 @Discord()
 class Example {
-  @On("messageCreate")
-  private onMessage(
+  @On({ event: "messageCreate" })
+  onMessage(
     [message]: ArgsOf<"messageCreate">, // Type message automatically
     client: Client, // Client instance injected here,
     guardPayload: any
@@ -51,34 +49,48 @@ class Example {
 }
 ```
 
+## Rest
+
+To handle rest events
+
+```ts
+@Discord()
+class Example {
+  @On.rest()
+  rateLimited([data]: RestArgsOf<"rateLimited">): void {
+    console.log(data.limit);
+  }
+}
+```
+
 ## Signature
 
 ```ts
-On(event: DiscordEvents, params?: EventParams)
+On(options?: EventOptions)
 ```
 
 ## Parameters
 
-### Name
+### options
 
-The event name.
+The event options.
 
-| type   | default | required |
-| ------ | ------- | -------- |
-| string |         | Yes      |
+| type         | default   | required |
+| ------------ | --------- | -------- |
+| EventOptions | undefined | No       |
 
-### EventParams
+## Type: EventOptions
 
-Multiple options, check below.
-
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
-
-#### botIds
-
-Array of bot ids, for which only the event will be executed.
+Array of bot ids, for which only the event will be executed
 
 | type      | default |
 | --------- | ------- |
 | string[ ] | [ ]     |
+
+### event
+
+The event name
+
+| type   | default |
+| ------ | ------- |
+| string |         |

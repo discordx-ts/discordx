@@ -18,8 +18,8 @@ bot decorator help you manage multiple bot's in single node instance
 @Discord()
 @Bot("alex", "zoe") // Define which bot can run the following commands or events
 class Example {
-  @SimpleCommand("hello")
-  command(command: SimpleCommandMessage) {
+  @SimpleCommand()
+  hello(command: SimpleCommandMessage) {
     command.message.reply(`👋 ${message.member}`);
   }
 }

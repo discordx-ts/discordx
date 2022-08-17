@@ -7,8 +7,8 @@ import { Discord, Slash } from "discordx";
 
 @Discord()
 class Example {
-  @Slash("hello")
-  private hello() {
+  @Slash({ name: "hello" })
+  hello(interaction: CommandInteraction) {
     // ...
   }
 }
@@ -102,20 +102,20 @@ const applicationCommands = client.applicationCommands;
 
 Instead on doing this for all of your @Slash:
 
-> You can manage it by yourself using your own the Slashes `Client` API and creating your own `client.initApplicationCommands()` implementation
+> You can manage it by yourself using your own The slashes `Client` API and creating your own `client.initApplicationCommands()` implementation
 
 ```ts
 @Discord()
 class Example {
   @Guild("GUILD_ID")
-  @Slash("hello")
-  private hello() {
+  @Slash({ name: "hello" })
+  hello(interaction: CommandInteraction) {
     // ...
   }
 
   @Guild("GUILD_ID")
-  @Slash("bye")
-  private bye() {
+  @Slash({ name: "bye" })
+  bye(interaction: CommandInteraction) {
     // ...
   }
 }
@@ -134,13 +134,13 @@ const client = new Client({
 ```ts
 @Discord()
 class Example {
-  @Slash("hello") // Applied on GUILD_ID
-  private hello() {
+  @Slash({ name: "hello" }) // Applied on GUILD_ID
+  hello(interaction: CommandInteraction) {
     // ...
   }
 
-  @Slash("bye") // Applied on GUILD_ID
-  private bye() {
+  @Slash({ name: "bye" }) // Applied on GUILD_ID
+  bye(interaction: CommandInteraction) {
     // ...
   }
 }
@@ -149,31 +149,22 @@ class Example {
 ## Signature
 
 ```ts
-Slash(
-  name?: string,
-  options?: ApplicationCommandOptions
-)
+Slash(options?: ApplicationCommandOptions)
 ```
 
 ## Parameters
 
-### Name
-
-The Slash command name
-
-| type   | default | required |
-| ------ | ------- | -------- |
-| string |         | YES      |
-
 ### options
 
-Multiple options, check below.
+Slash command options
 
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
+| type                      | default   | required |
+| ------------------------- | --------- | -------- |
+| ApplicationCommandOptions | undefined | NO       |
 
-#### `botIds`
+## Type: ApplicationCommandOptions
+
+### botIds
 
 Array of bot ids, for which only the event will be executed.
 
@@ -181,21 +172,61 @@ Array of bot ids, for which only the event will be executed.
 | --------- | ------- |
 | string[ ] | [ ]     |
 
-#### `Description`
+### defaultMemberPermissions
 
-The Slash command description
+The slash command default member permissions
+
+| type   | default |
+| ------ | ------- |
+| bigint | 0n      |
+
+### description
+
+The slash command description
 
 | type   | default                     |
 | ------ | --------------------------- |
 | string | Command name - Command type |
 
-#### Guilds
+### descriptionLocalizations
+
+The slash command description localizations
+
+| type            | default   |
+| --------------- | --------- |
+| LocalizationMap | undefined |
+
+### dmPermission
+
+The slash command dm permission
+
+| type    | default |
+| ------- | ------- |
+| boolean | true    |
+
+### guilds
 
 The guilds where the command is created
 
 | type        | default |
 | ----------- | ------- |
 | Snowflake[] | [ ]     |
+
+### name
+
+The slash command name
+
+| type   | default     |
+| ------ | ----------- |
+| string | method name |
+
+### nameLocalizations
+
+The slash command name localizations
+
+| type            | default   |
+| --------------- | --------- |
+| LocalizationMap | undefined |
 
 ## Authorize your bot to use application commands
 

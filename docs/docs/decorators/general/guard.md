@@ -122,9 +122,6 @@ export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = async (
 If you have to indicate parameters for a guard function you can simple use the "function that returns a function" pattern like this:
 
 ```typescript
-import { CommandInteraction } from "discord.js";
-import { GuardFunction } from "discordx";
-
 export function Prefix(text: string, replace: boolean = true) {
   const guard: GuardFunction<
     ArgsOf<"messageCreate"> | CommandInteraction
@@ -153,25 +150,13 @@ export function Prefix(text: string, replace: boolean = true) {
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 
 ```typescript
-import type { ArgsOf } from "discordx";
-import { GuardFunction, SimpleCommandMessage } from "discordx";
-import {
-  ButtonInteraction,
-  CommandInteraction,
-  ContextMenuInteraction,
-  Message,
-  MessageReaction,
-  SelectMenuInteraction,
-  VoiceState,
-} from "discord.js";
-
 // Example by @AndyClausen
 // Modified by @oceanroleplay
 
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
   | CommandInteraction
-  | ContextMenuInteraction
+  | ContextMenuCommandInteraction
   | SelectMenuInteraction
   | ButtonInteraction
   | SimpleCommandMessage
@@ -189,7 +174,7 @@ export const NotBot: GuardFunction<
       : argObj instanceof SimpleCommandMessage
       ? argObj.message.author
       : argObj instanceof CommandInteraction ||
-        argObj instanceof ContextMenuInteraction ||
+        argObj instanceof ContextMenuCommandInteraction ||
         argObj instanceof SelectMenuInteraction ||
         argObj instanceof ButtonInteraction
       ? argObj.member?.user
@@ -226,7 +211,7 @@ class Example {
 ```ts
 @Discord()
 class Example {
-  @SimpleCommand("my-cmd")
+  @SimpleCommand({ name: "my-cmd" })
   async myCmd(command: SimpleCommandMessage, client: Client) {
     command.message.reply("Hello :wave_tone1:");
   }
@@ -238,7 +223,7 @@ class Example {
 ```ts
 @Discord()
 class Example {
-  @SimpleCommand("my-cmd")
+  @SimpleCommand({ name: "my-cmd" })
   async myCmd(command: SimpleCommandMessage, client: Client, guardData: any) {
     command.message.reply("Hello :wave_tone1:");
   }

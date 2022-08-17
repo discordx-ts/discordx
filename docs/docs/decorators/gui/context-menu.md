@@ -12,14 +12,22 @@ Here are some example screenshots:
 ```ts
 @Discord()
 class Example {
-  @ContextMenu("MESSAGE", "message context")
-  async messageHandler(interaction: MessageContextMenuInteraction) {
+  @ContextMenu({
+    name: "Hello from discord.ts",
+    type: ApplicationCommandType.Message,
+  })
+  messageHandler(interaction: MessageContextMenuCommandInteraction): void {
     console.log("I am message");
+    interaction.reply("message interaction works");
   }
 
-  @ContextMenu("USER", "user context")
-  async userHandler(interaction: UserContextMenuInteraction) {
-    console.log("I am user");
+  @ContextMenu({
+    name: "Hello from discord.ts",
+    type: ApplicationCommandType.User,
+  })
+  userHandler(interaction: UserContextMenuCommandInteraction): void {
+    console.log(`Selected user: ${interaction.targetId}`);
+    interaction.reply("user interaction works");
   }
 }
 ```
@@ -28,58 +36,79 @@ class Example {
 
 ```ts
 ContextMenu(
-  type: "USER" | "MESSAGE",
-  name?: string,
-  options?: ApplicationCommandParams
+  options: Omit<
+    ApplicationCommandOptions & {
+      type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
+    },
+    "description" | "descriptionLocalizations"
+  >
 )
 ```
 
 ## Parameters
 
-### type
-
-Context menu type.
-
-| type            | default | required |
-| --------------- | ------- | -------- |
-| USER \| MESSAGE |         | Yes      |
-
-### name
-
-| type   | default | required |
-| ------ | ------- | -------- |
-| string | name    | Yes      |
-
-Name of context menu. Name and handler have the same value currently.
-
 ### options
 
-Multiple options, check below.
+Context menu options
 
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
+| type                      | default | required |
+| ------------------------- | ------- | -------- |
+| ApplicationCommandOptions |         | yes      |
 
-#### `botIds`
+## Type: ApplicationCommandOptions
+
+### botIds
 
 Array of bot ids, for which only the event will be executed.
 
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
+| type      | default | required |
+| --------- | ------- | -------- |
+| string[ ] | [ ]     | false    |
 
-#### `Description`
+### defaultMemberPermissions
 
-The Slash command description
+The slash command default member permissions
 
-| type   | default |
-| ------ | ------- |
-| string | true    |
+| type   | default | required |
+| ------ | ------- | -------- |
+| bigint | 0n      | false    |
 
-#### `Guilds`
+### dmPermission
+
+The slash command dm permission
+
+| type    | default | required |
+| ------- | ------- | -------- |
+| boolean | true    | false    |
+
+### guilds
 
 The guilds where the command is created
 
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
+| type        | default | required |
+| ----------- | ------- | -------- |
+| Snowflake[] | [ ]     | false    |
+
+### name
+
+The slash command name
+
+| type   | default     | required |
+| ------ | ----------- | -------- |
+| string | method name | false    |
+
+### nameLocalizations
+
+The slash command name localizations
+
+| type            | default   | required |
+| --------------- | --------- | -------- |
+| LocalizationMap | undefined | false    |
+
+### type
+
+Context menu type
+
+| type                                                              | default | required |
+| ----------------------------------------------------------------- | ------- | -------- |
+| Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput> |         | Yes      |

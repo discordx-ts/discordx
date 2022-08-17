@@ -289,21 +289,59 @@ SlashGroup(name: string): ClassMethodDecorator
 SlashGroup(name: string, root: string): ClassMethodDecorator
 ```
 
-## SlashGroupOptions
+## Type: SlashGroupOptions
 
-### name
+### defaultMemberPermissions
+
+The slash command default member permission
 
 | type   | required | default |
 | ------ | -------- | ------- |
-| string | Yes      |         |
+| bigint | No       | 0n      |
 
 ### description
+
+The slash command description
 
 | type   | required | default   |
 | ------ | -------- | --------- |
 | string | No       | undefined |
 
+### descriptionLocalizations
+
+The slash command description localizations
+
+| type            | default   |
+| --------------- | --------- |
+| LocalizationMap | undefined |
+
+### dmPermission
+
+The slash command dm permission
+
+| type    | required | default |
+| ------- | -------- | ------- |
+| boolean | No       | true    |
+
+### name
+
+The slash command name
+
+| type   | required | default |
+| ------ | -------- | ------- |
+| string | Yes      |         |
+
+### nameLocalizations
+
+The slash command name localizations
+
+| type            | default   |
+| --------------- | --------- |
+| LocalizationMap | undefined |
+
 ### root
+
+The slash command root group name
 
 | type   | required | default   |
 | ------ | -------- | --------- |

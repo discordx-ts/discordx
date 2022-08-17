@@ -66,7 +66,6 @@ It is recommended to do this in your main class where you define your `new Clien
 ```ts
 import "reflect-metadata";
 import { IntentsBitField } from "discord.js";
-import { Intents } from "discord.js";
 import { Client, DIService, tsyringeDependencyRegistryEngine } from "discordx";
 
 async function start() {
@@ -127,7 +126,7 @@ class Example {
   }
 
   @Slash({ name: "tsyringe" })
-  private tsyringe(interaction: CommandInteraction): void {
+  tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
       // resolve class
       const clazz = container.resolve(Example);

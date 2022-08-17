@@ -11,30 +11,26 @@ Here are some example screenshots:
 ```ts
 @Discord()
 class Example {
-  @Slash("hello")
-  async hello(interaction: CommandInteraction) {
-    await interaction.deferReply();
-
-    // Create the button, giving it the id: "hello-btn"
-    const helloBtn = new MessageButton()
-      .setLabel("Hello")
-      .setEmoji("👋")
-      .setStyle("PRIMARY")
-      .setCustomId("hello-btn");
-
-    // Create a MessageActionRow and add the button to that row.
-    const row = new MessageActionRow().addComponents(helloBtn);
-
-    interaction.editReply({
-      content: "Say hello to bot",
-      components: [row],
-    });
+  @ButtonComponent({ id: "hello" })
+  handler(interaction: ButtonInteraction): void {
+    interaction.reply(":wave:");
   }
 
-  // register a handler for the button with id: "hello-btn"
-  @ButtonComponent("hello-btn")
-  myBtn(interaction: ButtonInteraction) {
-    interaction.reply(`👋 ${interaction.member}`);
+  @Slash()
+  test(interaction: CommandInteraction): void {
+    const btn = new ButtonBuilder()
+      .setLabel("Hello")
+      .setStyle(ButtonStyle.Primary)
+      .setCustomId("hello");
+
+    const buttonRow =
+      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+        btn
+      );
+
+    interaction.reply({
+      components: [buttonRow],
+    });
   }
 }
 ```
@@ -42,15 +38,38 @@ class Example {
 ## Signature
 
 ```ts
-ButtonComponent(
-  custom_id: string | RegExp,
-  options?: { guilds?: Snowflake[]; botIds?: string[] }
-)
+ButtonComponent(options: ComponentOptions)
 ```
 
 ## Parameters
 
-### custom_id
+### options
+
+The button options
+
+| type             | default   | required |
+| ---------------- | --------- | -------- |
+| ComponentOptions | undefined | NO       |
+
+## Type: ComponentOptions
+
+### botIds
+
+Array of bot ids, for which only the event will be executed.
+
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |
+
+### Guilds
+
+The guilds where the command is created
+
+| type      | default |
+| --------- | ------- |
+| string[ ] | [ ]     |
+
+### id
 
 A unique id for your button interaction to be handled under.
 
@@ -61,27 +80,3 @@ A unique id for your button interaction to be handled under.
 :::caution
 As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
 :::
-
-### options
-
-Multiple options, check below.
-
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
-
-#### `botIds`
-
-Array of bot ids, for which only the event will be executed.
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-#### `Guilds`
-
-The guilds where the command is created
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |

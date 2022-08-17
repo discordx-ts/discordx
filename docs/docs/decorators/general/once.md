@@ -3,12 +3,10 @@
 It's exactly the same behavior as [@On](/docs/decorators/general/on) but the method is only executed once
 
 ```typescript
-import { Discord, On, Once } from "discordx";
-
 @Discord()
 class Example {
-  @Once("messageDelete")
-  private onMessageDelete() {
+  @Once({ event: "messageDelete" })
+  onMessageDelete() {
     // ...
   }
 }
@@ -27,12 +25,10 @@ You also receive other useful arguments after that:
 > You should use JS destructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 
 ```typescript
-import { Discord, On, Client, ArgsOf } from "discordx";
-
 @Discord()
 class Example {
-  @On("messageCreate")
-  private onMessage(
+  @Once({ event: "messageCreate" })
+  onMessage(
     [message]: ArgsOf<"messageCreate">, // Type message automatically
     client: Client, // Client instance injected here,
     guardPayload: any
@@ -42,34 +38,48 @@ class Example {
 }
 ```
 
+## Rest
+
+To handle rest events
+
+```ts
+@Discord()
+class Example {
+  @Once.rest()
+  rateLimited([data]: RestArgsOf<"rateLimited">): void {
+    console.log(data.limit);
+  }
+}
+```
+
 ## Signature
 
 ```ts
-Once(event: DiscordEvents, params?: EventParams)
+Once(options?: EventOptions)
 ```
 
 ## Parameters
 
-### Name
+### options
 
-The event name.
+The event options.
 
-| type   | default | required |
-| ------ | ------- | -------- |
-| string |         | Yes      |
+| type         | default   | required |
+| ------------ | --------- | -------- |
+| EventOptions | undefined | No       |
 
-### EventParams
+## Type: EventOptions
 
-Multiple options, check below.
-
-| type   | default   | required |
-| ------ | --------- | -------- |
-| object | undefined | No       |
-
-#### botIds
-
-Array of bot ids, for which only the event will be executed.
+Array of bot ids, for which only the event will be executed
 
 | type      | default |
 | --------- | ------- |
 | string[ ] | [ ]     |
+
+### event
+
+The event name
+
+| type   | default |
+| ------ | ------- |
+| string |         |
