@@ -31,8 +31,13 @@ module.exports = {
         {
           items: [
             {
-              id: "general/argsof",
+              id: "general/args-of",
               label: "ArgsOf",
+              type: "doc",
+            },
+            {
+              id: "general/rest-args-of",
+              label: "RestArgsOf",
               type: "doc",
             },
             {
@@ -43,11 +48,6 @@ module.exports = {
             {
               id: "general/debugging",
               label: "Debugging",
-              type: "doc",
-            },
-            {
-              id: "general/events",
-              label: "List of the events",
               type: "doc",
             },
             {

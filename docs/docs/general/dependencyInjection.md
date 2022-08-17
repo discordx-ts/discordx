@@ -126,7 +126,7 @@ class Example {
     console.log("constructed me as a singleton and injected _database");
   }
 
-  @Slash("tsyringe")
+  @Slash({ name: "tsyringe" })
   private tsyringe(interaction: CommandInteraction): void {
     if (DIService.container) {
       // resolve class

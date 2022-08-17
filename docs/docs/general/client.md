@@ -121,52 +121,6 @@ const client = new Client({
 });
 ```
 
-### List of all the intents
-
-[You can find the complete list here](https://discord.com/developers/docs/topics/gateway#list-of-intents)
-
-**Most used ones**
-
-- GUILDS
-- GUILD_MEMBERS
-- GUILD_BANS
-- GUILD_EMOJIS_AND_STICKERS
-- GUILD_INTEGRATIONS
-- GUILD_WEBHOOKS
-- GUILD_INVITES
-- GUILD_VOICE_STATES
-- GUILD_PRESENCES
-- GUILD_MESSAGES
-- GUILD_MESSAGE_REACTIONS
-- GUILD_MESSAGE_TYPING
-- DIRECT_MESSAGES
-- DIRECT_MESSAGE_REACTIONS
-- DIRECT_MESSAGE_TYPING
-
-```ts
-import { IntentsBitField } from "discord.js";
-
-const client = new Client({
-  botId: "test",
-  intents: [
-    IntentsBitField.Flags.Guilds,
-    IntentsBitField.Flags.GuildMessages,
-    IntentsBitField.Flags.GUILD_VOICE_STATES,
-    IntentsBitField.Flags.GUILD_EMOJIS_AND_STICKERS,
-    IntentsBitField.Flags.DIRECT_MESSAGE_REACTIONS,
-    IntentsBitField.Flags.DirectMessages,
-    IntentsBitField.Flags.DIRECT_MESSAGE_TYPING,
-    IntentsBitField.Flags.GUILD_INTEGRATIONS,
-    IntentsBitField.Flags.GUILD_PRESENCES,
-    IntentsBitField.Flags.GUILD_WEBHOOKS,
-    IntentsBitField.Flags.GuildMembers,
-    IntentsBitField.Flags.GUILD_INVITES,
-    IntentsBitField.Flags.GUILD_BANS,
-  ],
-  // ...
-});
-```
-
 ## See also
 
 - [discord.js documentation](https://discord.js.org/#/docs/main/stable/class/Intents)
