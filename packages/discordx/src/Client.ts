@@ -1413,8 +1413,8 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  trigger(options: ITriggerEventData, params: any[]): Promise<any[]> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  trigger(options: ITriggerEventData, params: any): Promise<any[]> {
     return this.instance.trigger(options)(params);
   }
 

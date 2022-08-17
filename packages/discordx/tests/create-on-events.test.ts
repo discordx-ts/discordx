@@ -54,20 +54,56 @@ beforeAll(async () => {
 
 describe("Create on event", () => {
   it("Should create and execute two messages events", async () => {
-    const res = await client.trigger("messageCreate", "test");
+    const res = await client.trigger(
+      {
+        client: client,
+        event: "messageCreate",
+        guards: [],
+        once: false,
+        rest: false,
+      },
+      "test"
+    );
     expect(res).toEqual(["test", "test"]);
   });
 
   it("Should pass through guard", async () => {
-    const res = await client.trigger("messageDelete", "test");
+    const res = await client.trigger(
+      {
+        client: client,
+        event: "messageDelete",
+        guards: [],
+        once: false,
+        rest: false,
+      },
+      "test"
+    );
     expect(res[0].original).toEqual("test");
     expect(res[0].message).toEqual(undefined);
 
-    const res2 = await client.trigger("messageDelete", "hello");
+    const res2 = await client.trigger(
+      {
+        client: client,
+        event: "messageDelete",
+        guards: [],
+        once: false,
+        rest: false,
+      },
+      "hello"
+    );
     expect(res2[0].original).toEqual("hello");
     expect(res2[0].message).toEqual("hello02");
 
-    const res3 = await client.trigger("messageDelete", "hello0");
+    const res3 = await client.trigger(
+      {
+        client: client,
+        event: "messageDelete",
+        guards: [],
+        once: false,
+        rest: false,
+      },
+      "hello0"
+    );
     expect(res3[0].original).toEqual("hello0");
     expect(res3[0].message).toEqual("hello0013");
   });
