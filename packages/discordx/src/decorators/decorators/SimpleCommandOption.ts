@@ -52,7 +52,9 @@ export function SimpleCommandOption<TName extends string>(
       }
 
       default:
-        throw Error(`Invalid simple command option (${name}): ${type}\n`);
+        throw Error(
+          `Invalid simple command option (${options.name}): ${type}\n`
+        );
     }
   }
 

@@ -56,7 +56,7 @@ export function SlashOption<TName extends string>(
       }
 
       default:
-        throw Error(`invalid slash option (${name}): ${type}\n`);
+        throw Error(`invalid slash option (${options.name}): ${type}\n`);
     }
   }
 
