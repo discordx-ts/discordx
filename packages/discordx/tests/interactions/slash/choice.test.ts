@@ -93,10 +93,12 @@ describe("Choice", () => {
     );
     expect(slashesObjects).toEqual([
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "hello",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "hello",
+        nameLocalizations: null,
         options: [
           {
             choices: [
@@ -118,10 +120,12 @@ describe("Choice", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "number",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "number",
+        nameLocalizations: null,
         options: [
           {
             choices: [
@@ -151,10 +155,12 @@ describe("Choice", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "string",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "string",
+        nameLocalizations: null,
         options: [
           {
             choices: [

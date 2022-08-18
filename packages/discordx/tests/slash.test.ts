@@ -273,10 +273,12 @@ describe("Slash", () => {
 
     expect(slashesObjects).toEqual([
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "hello",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "hello",
+        nameLocalizations: null,
         options: [
           {
             description: "text - string",
@@ -288,10 +290,12 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "inference",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "inference",
+        nameLocalizations: null,
         options: [
           {
             description: "text - string",
@@ -351,10 +355,12 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "Testing group description",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "testing",
+        nameLocalizations: null,
         options: [
           {
             description: "hello",
@@ -458,10 +464,12 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "group-test-without-description",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "group-test-without-description",
+        nameLocalizations: null,
         options: [
           {
             description: "text group description",
@@ -493,10 +501,12 @@ describe("Slash", () => {
         type: ApplicationCommandType.ChatInput,
       },
       {
-        defaultMemberPermissions: 0n,
+        defaultMemberPermissions: null,
         description: "test-x",
+        descriptionLocalizations: null,
         dmPermission: true,
         name: "test-x",
+        nameLocalizations: null,
         options: [
           {
             description: "add - subcommandgroup",
