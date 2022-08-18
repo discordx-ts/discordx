@@ -17,11 +17,6 @@ module.exports = {
 
   docSidebar: [
     {
-      href: "https://www.npmjs.com/package/discordx",
-      label: "NPM",
-      type: "link",
-    },
-    {
       id: "installation",
       label: "Installation",
       type: "doc",
