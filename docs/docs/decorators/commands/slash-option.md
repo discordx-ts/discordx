@@ -50,7 +50,7 @@ input: string,
 
 ### Method - Boolean
 
-Discordx (discord.ts) will call your command handler with autocomplete interaction if you use boolean instead of resolver.
+discordx (discord.ts) will call your command handler with autocomplete interaction if you use boolean instead of resolver.
 
 ```ts
 @SlashOption({

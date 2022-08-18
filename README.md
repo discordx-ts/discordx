@@ -47,7 +47,7 @@ This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/Owen
 # 🗂 Packages
 
 - [discordx](./packages/discordx#readme) - discord framework for building a discord.js bot using Typescript decorators.
-- [create-discordx](./packages/create-discordx#readme) - CLI tool for generating a Discordx project using templates.
+- [create-discordx](./packages/create-discordx#readme) - CLI tool for generating a discordx project using templates.
 - [@discordx/changelog](./packages/changelog#readme) - A changelog generation tool built with Typescript and Node.
 - [@discordx/di](./packages/di#readme) - Dependency injection service with support for agnostic IOC.
 - [@discordx/importer](./packages/importer#readme) - Import solution for both ESM and CJS.
@@ -58,7 +58,7 @@ This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/Owen
 - [@discordx/music](./packages/music#readme) - An easy way to create a discord music bot.
 - [@discordx/pagination](./packages/pagination#readme) - An easy way to create pagination messages.
 - [@discordx/socket.io](./packages/socket.io#readme) - Socket.io framework for building WebSocket server with Typescript decorators.
-- [@discordx/utilities](./packages/utilities#readme) - A utilities package for Discordx.
+- [@discordx/utilities](./packages/utilities#readme) - A utilities package for discordx.
 
 # 📜 Documentation
 
@@ -73,4 +73,4 @@ This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/Owen
 
 # 💖 Thank you
 
-You can support [Discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/discordx-ts/discordx) star.
+You can support [discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/discordx-ts/discordx) star.

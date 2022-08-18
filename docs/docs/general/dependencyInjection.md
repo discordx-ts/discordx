@@ -1,6 +1,6 @@
 # IOC support via DI
 
-Discordx supports multiple DI containers to help you efficiently manage and architect large applications that wish to
+discordx supports multiple DI containers to help you efficiently manage and architect large applications that wish to
 take advantage of an IOC paradigm
 
 Another use for this approach is that sometimes, you will find yourself wanting to get hold of objects and instances and
@@ -8,12 +8,12 @@ might have been tempted to just put them on the Client, or extend the Client obj
 and just put everything there. This is fine in a pure JS way, but causes issues especially with maintenance and
 managing, as well as having to unsafely cast your Client.
 
-So, if you have a large codebase and are using one of our supported DI containers to inject dependency, Discordx can now
+So, if you have a large codebase and are using one of our supported DI containers to inject dependency, discordx can now
 utilize the container to register each annotated `@Discord()` class!
 
 In order to use your container, there is some small configuration to do in your code.
 
-The way that Discordx does this is my defining an engine interface `IDependencyRegistryEngine`, an implementation of
+The way that discordx does this is my defining an engine interface `IDependencyRegistryEngine`, an implementation of
 this interface is used on the `DIService` to handle the retrieval and resolution of services.
 
 In order to use a custom IOC framework like Nestjs, simply implement the `IDependencyRegistryEngine` interface and set
@@ -87,13 +87,13 @@ start();
 
 ## Usage
 
-Once you have told Discordx to use your engine for DI, it will then ask your engine for all the `@Discord()` services
+Once you have told discordx to use your engine for DI, it will then ask your engine for all the `@Discord()` services
 when it needs to both register and retrieve them.
 
 ### Note for TSyringe using `tsyringeDependencyRegistryEngine`
 
 If you are using our `tsyringeDependencyRegistryEngine` for TSyringe classes declared with `@singleton()` are
-automatically `@injectable()` but in Discordx you must add this annotation too if you wish your classes to receive
+automatically `@injectable()` but in discordx you must add this annotation too if you wish your classes to receive
 constructor injection.
 
 For example, say you have a Database class you wish to inject into your declared `@Discord()` class:
