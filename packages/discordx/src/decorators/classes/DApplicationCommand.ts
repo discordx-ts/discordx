@@ -6,7 +6,6 @@ import type {
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  PermissionsBitField,
 } from "discord.js";
 
 import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
@@ -15,13 +14,13 @@ import { Method } from "./Method.js";
 
 type CreateStructure = {
   botIds?: string[];
-  defaultMemberPermissions?: PermissionResolvable;
+  defaultMemberPermissions?: PermissionResolvable | null;
   description?: string;
-  descriptionLocalizations?: LocalizationMap;
+  descriptionLocalizations?: LocalizationMap | null;
   dmPermission?: boolean;
   guilds?: IGuild[];
   name: string;
-  nameLocalizations?: LocalizationMap;
+  nameLocalizations?: LocalizationMap | null;
   type: ApplicationCommandType;
 };
 
@@ -31,10 +30,10 @@ type CreateStructure = {
 export class DApplicationCommand extends Method {
   private _botIds: string[];
   private _name: string;
-  private _nameLocalizations?: LocalizationMap;
+  private _nameLocalizations: LocalizationMap | null;
   private _description: string;
-  private _descriptionLocalizations?: LocalizationMap;
-  private _defaultMemberPermissions: PermissionResolvable;
+  private _descriptionLocalizations: LocalizationMap | null;
+  private _defaultMemberPermissions: PermissionResolvable | null;
   private _dmPermission: boolean;
   private _guilds: IGuild[];
   private _group?: string;
@@ -56,10 +55,10 @@ export class DApplicationCommand extends Method {
     this._description = value;
   }
 
-  get defaultMemberPermissions(): PermissionResolvable {
+  get defaultMemberPermissions(): PermissionResolvable | null {
     return this._defaultMemberPermissions;
   }
-  set defaultMemberPermissions(value: PermissionResolvable) {
+  set defaultMemberPermissions(value: PermissionResolvable | null) {
     this._defaultMemberPermissions = value;
   }
 
@@ -70,10 +69,10 @@ export class DApplicationCommand extends Method {
     this._dmPermission = value;
   }
 
-  get descriptionLocalizations(): LocalizationMap | undefined {
+  get descriptionLocalizations(): LocalizationMap | null {
     return this._descriptionLocalizations;
   }
-  set descriptionLocalizations(value: LocalizationMap | undefined) {
+  set descriptionLocalizations(value: LocalizationMap | null) {
     this._descriptionLocalizations = value;
   }
 
@@ -98,10 +97,10 @@ export class DApplicationCommand extends Method {
     this._name = value;
   }
 
-  get nameLocalizations(): LocalizationMap | undefined {
+  get nameLocalizations(): LocalizationMap | null {
     return this._nameLocalizations;
   }
-  set nameLocalizations(value: LocalizationMap | undefined) {
+  set nameLocalizations(value: LocalizationMap | null) {
     this._nameLocalizations = value;
   }
 
@@ -133,11 +132,10 @@ export class DApplicationCommand extends Method {
     this._description = data.description ?? this.name;
     this._guilds = data.guilds ?? [];
     this._botIds = data.botIds ?? [];
-    this._descriptionLocalizations = data.descriptionLocalizations;
-    this._nameLocalizations = data.nameLocalizations;
+    this._descriptionLocalizations = data.descriptionLocalizations ?? null;
+    this._nameLocalizations = data.nameLocalizations ?? null;
     this._dmPermission = data.dmPermission ?? true;
-    this._defaultMemberPermissions =
-      data.defaultMemberPermissions ?? PermissionsBitField.Default;
+    this._defaultMemberPermissions = data.defaultMemberPermissions ?? null;
   }
 
   static create(data: CreateStructure): DApplicationCommand {
@@ -194,6 +192,7 @@ export class DApplicationCommand extends Method {
       const data: ApplicationCommandDataEx = {
         defaultMemberPermissions: this.defaultMemberPermissions,
         description: "",
+        descriptionLocalizations: null,
         dmPermission: this.dmPermission,
         name: this.name,
         nameLocalizations: this.nameLocalizations,
