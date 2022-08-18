@@ -11,14 +11,14 @@ import type { Client, IGuild, Next, NotEmpty } from "../../index.js";
 /**
  * Type the arguments of an event
  * ___
- * [View Documentation](https://discord-ts.js.org/docs/general/argsof)
+ * [View Documentation](https://discord-ts.js.org/docs/general/args-of)
  */
 export type ArgsOf<K extends keyof ClientEvents> = ClientEvents[K];
 
 /**
  * Type the arguments of an event
  * ___
- * [View Documentation](https://discord-ts.js.org/docs/general/restargsof)
+ * [View Documentation](https://discord-ts.js.org/docs/general/rest-args-of)
  */
 export type RestArgsOf<K extends keyof RestEvents> = RestEvents[K];
 
