@@ -11,7 +11,7 @@ import type { NotEmpty } from "../../types/index.js";
  * @param options - Application command options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/gui/context-menu)
+ * [View Documentation](https://discordx.js.org/docs/decorators/gui/context-menu)
  *
  * @category Decorator
  */

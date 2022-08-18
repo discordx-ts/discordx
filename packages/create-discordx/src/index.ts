@@ -205,8 +205,8 @@ if (PackageManager.none === packageManager) {
 
 console.log();
 console.log(chalk.blueBright("?"), chalk.bold("Support"));
-console.log("    Discord Server: https://discord-ts.js.org/discord");
-console.log("     Documentation: https://discord-ts.js.org");
+console.log("    Discord Server: https://discordx.js.org/discord");
+console.log("     Documentation: https://discordx.js.org");
 console.log("            GitHub: https://github.com/oceanroleplay/discord.ts");
 console.log();
 console.log(

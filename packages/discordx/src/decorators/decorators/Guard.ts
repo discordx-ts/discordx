@@ -18,7 +18,7 @@ import type { Method } from "../classes/Method.js";
  * Define middleware for buttons, events, select menus, simple commands, slashes, etc.
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/guard)
+ * [View Documentation](https://discordx.js.org/docs/decorators/general/guard)
  *
  * @category Decorator
  */

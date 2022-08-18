@@ -8,7 +8,7 @@ import { DReaction } from "../classes/DReaction.js";
  * Handle a reaction with a specified emoji
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/reaction)
+ * [View Documentation](https://discordx.js.org/docs/decorators/general/reaction)
  *
  * @category Decorator
  */
@@ -20,7 +20,7 @@ export function Reaction(): MethodDecoratorEx;
  * @param options - reaction options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/reaction)
+ * [View Documentation](https://discordx.js.org/docs/decorators/general/reaction)
  *
  * @category Decorator
  */
@@ -34,7 +34,7 @@ export function Reaction<T extends string>(
  * @param options - reaction options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/reaction)
+ * [View Documentation](https://discordx.js.org/docs/decorators/general/reaction)
  *
  * @category Decorator
  */

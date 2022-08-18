@@ -8,7 +8,7 @@ import { DApplicationCommand, MetadataStorage } from "../../index.js";
  * Handle a slash command with a defined name
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)
+ * [View Documentation](https://discordx.js.org/docs/decorators/commands/slash)
  *
  * @category Decorator
  */
@@ -20,7 +20,7 @@ export function Slash(): MethodDecoratorEx;
  * @param options - Application command options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)
+ * [View Documentation](https://discordx.js.org/docs/decorators/commands/slash)
  *
  * @category Decorator
  */
@@ -34,7 +34,7 @@ export function Slash<T extends string>(
  * @param options - Application command options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/commands/slash)
+ * [View Documentation](https://discordx.js.org/docs/decorators/commands/slash)
  *
  * @category Decorator
  */

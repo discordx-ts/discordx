@@ -1,9 +1,9 @@
 {
   "index_name": "discord.ts",
-  "start_urls": ["https://discord-ts.js.org/"],
-  "sitemap_urls": ["https://discord-ts.js.org/sitemap.xml"],
+  "start_urls": ["https://discordx.js.org/"],
+  "sitemap_urls": ["https://discordx.js.org/sitemap.xml"],
   "sitemap_alternate_links": true,
-  "stop_urls": ["https://discord-ts.js.org/docs/packages/"],
+  "stop_urls": ["https://discordx.js.org/docs/packages/"],
   "selectors": {
     "lvl0": {
       "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text() | //nav[contains(@class, 'navbar')]//a[contains(@class, 'navbar__link--active')]/text())[last()]",

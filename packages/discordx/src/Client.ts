@@ -63,7 +63,7 @@ import {
  * @param options - Client options
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/general/client)
+ * [View Documentation](https://discordx.js.org/docs/general/client)
  */
 export class Client extends ClientJS {
   private _botId: string;
@@ -283,7 +283,7 @@ export class Client extends ClientJS {
    * @param options - Client options
    * ___
    *
-   * [View Documentation](https://discord-ts.js.org/docs/general/client)
+   * [View Documentation](https://discordx.js.org/docs/general/client)
    */
   constructor(options: ClientOptions) {
     super(options);

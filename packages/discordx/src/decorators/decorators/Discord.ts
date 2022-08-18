@@ -6,7 +6,7 @@ import { DDiscord, MetadataStorage } from "../../index.js";
  * Create a metadata instance for the class
  * ___
  *
- * [View Documentation](https://discord-ts.js.org/docs/decorators/general/discord)
+ * [View Documentation](https://discordx.js.org/docs/decorators/general/discord)
  *
  * @category Decorator
  */

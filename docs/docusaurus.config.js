@@ -12,7 +12,7 @@ module.exports = {
   projectName: "discord.ts", // Usually your repo name.
   tagline: "Create a discord bot with TypeScript and Decorators!",
   title: "discord.ts official documentation",
-  url: "https://discord-ts.js.org",
+  url: "https://discordx.js.org",
   // eslint-disable-next-line sort-keys
   themeConfig: {
     algolia: {
@@ -42,7 +42,7 @@ module.exports = {
         //   position: "right",
         // },
         {
-          href: "https://discord-ts.js.org/discord",
+          href: "https://discordx.js.org/discord",
           label: "Discord server",
           position: "right",
         },

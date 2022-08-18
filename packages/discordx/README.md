@@ -1,11 +1,11 @@
 <div>
   <p align="center">
-    <a href="https://discord-ts.js.org" target="_blank" rel="nofollow">
-      <img src="https://discord-ts.js.org/discord-ts.svg" width="546" />
+    <a href="https://discordx.js.org" target="_blank" rel="nofollow">
+      <img src="https://discordx.js.org/discord-ts.svg" width="546" />
     </a>
   </p>
   <p align="center">
-    <a href="https://discord-ts.js.org/discord"
+    <a href="https://discordx.js.org/discord"
       ><img
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
         alt="Discord server"
@@ -44,7 +44,7 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) from [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
 
-# 💻 [Installation](https://discord-ts.js.org/docs/installation)
+# 💻 [Installation](https://discordx.js.org/docs/installation)
 
 > Version 16.6.0 or newer of [Node.js](https://nodejs.org/) is required
 
@@ -53,13 +53,13 @@ npm install discordx
 yarn add discordx
 ```
 
-> **[installation guide](https://discord-ts.js.org/docs/installation#installation)**
+> **[installation guide](https://discordx.js.org/docs/installation#installation)**
 
 > **[one-click installation](https://github.com/oceanroleplay/discord.ts/tree/main/packages/create-discordx#-introduction)**
 
 # 📜 Documentation
 
-> **[discord-ts.js.org](https://discord-ts.js.org)**
+> **[discordx.js.org](https://discordx.js.org)**
 
 > **[Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)**
 
@@ -79,7 +79,7 @@ With `discordx`, we intend to provide the latest up-to-date package to easily bu
 
 Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discordx-templates)
 
-If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discord-ts.js.org/discord)
+If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discordx.js.org/discord)
 
 # 🆕 Features
 
@@ -118,32 +118,32 @@ There is a whole system that allows you to implement complex slash/simple comman
 
 ## General
 
-- [`@Discord`](https://discord-ts.js.org/docs/decorators/general/discord)
-- [`@Guard`](https://discord-ts.js.org/docs/decorators/general/guard)
-- [`@Guild`](https://discord-ts.js.org/docs/decorators/general/guild)
-- [`@Bot`](https://discord-ts.js.org/docs/decorators/general/bot)
-- [`@On`](https://discord-ts.js.org/docs/decorators/general/on)
-- [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
-- [`@Once`](https://discord-ts.js.org/docs/decorators/general/once)
-- [`@Reaction`](https://discord-ts.js.org/docs/decorators/general/reaction)
+- [`@Discord`](https://discordx.js.org/docs/decorators/general/discord)
+- [`@Guard`](https://discordx.js.org/docs/decorators/general/guard)
+- [`@Guild`](https://discordx.js.org/docs/decorators/general/guild)
+- [`@Bot`](https://discordx.js.org/docs/decorators/general/bot)
+- [`@On`](https://discordx.js.org/docs/decorators/general/on)
+- [`@Once`](https://discordx.js.org/docs/decorators/general/once)
+- [`@Once`](https://discordx.js.org/docs/decorators/general/once)
+- [`@Reaction`](https://discordx.js.org/docs/decorators/general/reaction)
 
 ## Commands
 
-- [`@Slash`](https://discord-ts.js.org/docs/decorators/commands/slash)
-- [`@SlashChoice`](https://discord-ts.js.org/docs/decorators/commands/slash-choice)
-- [`@SlashGroup`](https://discord-ts.js.org/docs/decorators/commands/slash-group)
-- [`@SlashOption`](https://discord-ts.js.org/docs/decorators/commands/slash-option)
-- [`@SimpleCommand`](https://discord-ts.js.org/docs/decorators/commands/simple-command)
-- [`@SimpleCommandOption`](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
+- [`@Slash`](https://discordx.js.org/docs/decorators/commands/slash)
+- [`@SlashChoice`](https://discordx.js.org/docs/decorators/commands/slash-choice)
+- [`@SlashGroup`](https://discordx.js.org/docs/decorators/commands/slash-group)
+- [`@SlashOption`](https://discordx.js.org/docs/decorators/commands/slash-option)
+- [`@SimpleCommand`](https://discordx.js.org/docs/decorators/commands/simple-command)
+- [`@SimpleCommandOption`](https://discordx.js.org/docs/decorators/commands/simple-command-option)
 
 ## GUI Interactions
 
-- [`@ButtonComponent`](https://discord-ts.js.org/docs/decorators/gui/button-component)
-- [`@ContextMenu`](https://discord-ts.js.org/docs/decorators/gui/context-menu)
-- [`@ModalComponent`](https://discord-ts.js.org/docs/decorators/gui/modal-component)
-- [`@SelectMenuComponent`](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
+- [`@ButtonComponent`](https://discordx.js.org/docs/decorators/gui/button-component)
+- [`@ContextMenu`](https://discordx.js.org/docs/decorators/gui/context-menu)
+- [`@ModalComponent`](https://discordx.js.org/docs/decorators/gui/modal-component)
+- [`@SelectMenuComponent`](https://discordx.js.org/docs/decorators/gui/select-menu-component)
 
-# 📟 [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash)
+# 📟 [@Slash](https://discordx.js.org/docs/decorators/commands/slash)
 
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
@@ -160,7 +160,7 @@ class Example {
 }
 ```
 
-# 📟 [@ButtonComponent](https://discord-ts.js.org/docs/decorators/gui/button-component)
+# 📟 [@ButtonComponent](https://discordx.js.org/docs/decorators/gui/button-component)
 
 Create discord button handler with ease!
 
@@ -196,7 +196,7 @@ class Example {
 }
 ```
 
-# 📟 [@SelectMenuComponent](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
+# 📟 [@SelectMenuComponent](https://discordx.js.org/docs/decorators/gui/select-menu-component)
 
 Create discord select menu handler with ease!
 
@@ -254,7 +254,7 @@ class Example {
 }
 ```
 
-# 📟 [@ContextMenu](https://discord-ts.js.org/docs/decorators/gui/context-menu)
+# 📟 [@ContextMenu](https://discordx.js.org/docs/decorators/gui/context-menu)
 
 Create discord context menu options with ease!
 
@@ -281,7 +281,7 @@ class Example {
 }
 ```
 
-# 📟 [@ModalComponent](https://discord-ts.js.org/docs/decorators/gui/modal-component)
+# 📟 [@ModalComponent](https://discordx.js.org/docs/decorators/gui/modal-component)
 
 Create discord modal with ease!
 
@@ -338,7 +338,7 @@ class Example {
 }
 ```
 
-# 📟 [@SimpleCommand](https://discord-ts.js.org/docs/decorators/commands/simple-command)
+# 📟 [@SimpleCommand](https://discordx.js.org/docs/decorators/commands/simple-command)
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 
@@ -352,7 +352,7 @@ class Example {
 }
 ```
 
-# 💡[@On](https://discord-ts.js.org/docs/decorators/general/on) / [@Once](https://discord-ts.js.org/docs/decorators/general/once)
+# 💡[@On](https://discordx.js.org/docs/decorators/general/on) / [@Once](https://discordx.js.org/docs/decorators/general/once)
 
 We can declare methods that will be executed whenever a Discord event is triggered.
 
@@ -375,7 +375,7 @@ class Example {
 }
 ```
 
-# 💡[@Reaction](https://discord-ts.js.org/docs/decorators/general/reaction)
+# 💡[@Reaction](https://discordx.js.org/docs/decorators/general/reaction)
 
 Create a reaction handler for messages using `@Reaction`.
 
@@ -394,7 +394,7 @@ class Example {
 }
 ```
 
-# ⚔️ [Guards](https://discord-ts.js.org/docs/decorators/general/guard)
+# ⚔️ [Guards](https://discordx.js.org/docs/decorators/general/guard)
 
 We implemented a guard system that functions like the [Koa](https://koajs.com/) middleware system
 
@@ -430,14 +430,14 @@ class Example {
 
 # 📜 Documentation
 
-- [discord-ts.js.org](https://discord-ts.js.org)
+- [discordx.js.org](https://discordx.js.org)
 - [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
 
 # ☎️ Need help?
 
-- [Check frequently asked questions](https://discord-ts.js.org/docs/faq)
+- [Check frequently asked questions](https://discordx.js.org/docs/faq)
 - [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
-- Ask in the community [Discord server](https://discord-ts.js.org/discord)
+- Ask in the community [Discord server](https://discordx.js.org/discord)
 
 # 💖 Thank you
 

@@ -1,11 +1,11 @@
 <div>
   <p align="center">
-    <a href="https://discord-ts.js.org" target="_blank" rel="nofollow">
-      <img src="https://discord-ts.js.org/discord-ts.svg" width="546" />
+    <a href="https://discordx.js.org" target="_blank" rel="nofollow">
+      <img src="https://discordx.js.org/discord-ts.svg" width="546" />
     </a>
   </p>
   <p align="center">
-    <a href="https://discord-ts.js.org/discord"
+    <a href="https://discordx.js.org/discord"
       ><img
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
         alt="Discord server"
@@ -57,14 +57,14 @@ yarn add @discordx/lava-queue
 
 # 📜 Documentation
 
-- [discord-ts.js.org](https://discord-ts.js.org)
+- [discordx.js.org](https://discordx.js.org)
 - [Tutorials (dev.to)](https://dev.to/oceanroleplay/series/14317)
 
 # ☎️ Need help?
 
-- [Check frequently asked questions](https://discord-ts.js.org/docs/faq)
+- [Check frequently asked questions](https://discordx.js.org/docs/faq)
 - [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
-- Ask in the community [Discord server](https://discord-ts.js.org/discord)
+- Ask in the community [Discord server](https://discordx.js.org/discord)
 
 # 💖 Thank you
 
