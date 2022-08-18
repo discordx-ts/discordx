@@ -104,10 +104,12 @@ describe("Choice", () => {
             choices: [
               {
                 name: "Hello",
+                nameLocalizations: null,
                 value: "Hello",
               },
               {
                 name: "Good Bye",
+                nameLocalizations: null,
                 value: "Good Bye",
               },
             ],
@@ -133,18 +135,22 @@ describe("Choice", () => {
             choices: [
               {
                 name: "1",
+                nameLocalizations: null,
                 value: 1,
               },
               {
                 name: "2",
+                nameLocalizations: null,
                 value: 2,
               },
               {
                 name: "3",
+                nameLocalizations: null,
                 value: 3,
               },
               {
                 name: "4",
+                nameLocalizations: null,
                 value: 4,
               },
             ],
@@ -170,18 +176,22 @@ describe("Choice", () => {
             choices: [
               {
                 name: "A",
+                nameLocalizations: null,
                 value: "A",
               },
               {
                 name: "B",
+                nameLocalizations: null,
                 value: "B",
               },
               {
                 name: "C",
+                nameLocalizations: null,
                 value: "C",
               },
               {
                 name: "D",
+                nameLocalizations: null,
                 value: "D",
               },
             ],

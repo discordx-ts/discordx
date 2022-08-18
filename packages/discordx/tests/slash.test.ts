@@ -486,10 +486,12 @@ describe("Slash", () => {
                     choices: [
                       {
                         name: "Hello",
+                        nameLocalizations: null,
                         value: "Hello",
                       },
                       {
                         name: "Good Bye",
+                        nameLocalizations: null,
                         value: "Good Bye",
                       },
                     ],
