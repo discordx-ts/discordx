@@ -132,6 +132,7 @@ export type ReactionOptions<T extends string = string> = {
  */
 export type SlashChoiceType<T extends string = string, X = string | number> = {
   name: NotEmpty<T>;
+  nameLocalizations?: LocalizationMap;
   value?: X;
 };
 

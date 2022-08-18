@@ -1,13 +1,17 @@
 import { Decorator } from "@discordx/internal";
-import type { ApplicationCommandOptionChoiceData } from "discord.js";
+import type { LocalizationMap } from "discord.js";
 
-import type { SlashChoiceType } from "../../types/index.js";
+import type {
+  ApplicationCommandOptionChoiceDataEx,
+  SlashChoiceType,
+} from "../../types/index.js";
 
 /**
  * @category Decorator
  */
 export class DApplicationCommandOptionChoice extends Decorator {
   private _name: string;
+  private _nameLocalizations: LocalizationMap | null;
   private _value: string | number;
 
   get name(): string {
@@ -17,6 +21,13 @@ export class DApplicationCommandOptionChoice extends Decorator {
     this._name = value;
   }
 
+  get nameLocalizations(): LocalizationMap | null {
+    return this._nameLocalizations;
+  }
+  set nameLocalizations(value: LocalizationMap | null) {
+    this._nameLocalizations = value;
+  }
+
   get value(): string | number {
     return this._value;
   }
@@ -24,22 +35,21 @@ export class DApplicationCommandOptionChoice extends Decorator {
     this._value = value;
   }
 
-  protected constructor(name: string, value: string | number) {
+  protected constructor(data: SlashChoiceType) {
     super();
-    this._name = name;
-    this._value = value;
+    this._name = data.name;
+    this._nameLocalizations = data.nameLocalizations ?? null;
+    this._value = data.value ?? data.name;
   }
 
   static create(data: SlashChoiceType): DApplicationCommandOptionChoice {
-    return new DApplicationCommandOptionChoice(
-      data.name,
-      data.value ?? data.name
-    );
+    return new DApplicationCommandOptionChoice(data);
   }
 
-  toJSON(): ApplicationCommandOptionChoiceData {
+  toJSON(): ApplicationCommandOptionChoiceDataEx {
     return {
       name: this.name,
+      nameLocalizations: this.nameLocalizations,
       value: this.value,
     };
   }
