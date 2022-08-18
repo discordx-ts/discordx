@@ -1,7 +1,7 @@
 <div>
   <p align="center">
     <a href="https://discordx.js.org" target="_blank" rel="nofollow">
-      <img src="https://discordx.js.org/discord-ts.svg" width="546" />
+      <img src="https://discordx.js.org/discordx.svg" width="546" />
     </a>
   </p>
   <p align="center">
