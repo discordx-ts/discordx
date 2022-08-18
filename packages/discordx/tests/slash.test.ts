@@ -282,7 +282,9 @@ describe("Slash", () => {
         options: [
           {
             description: "text - string",
+            descriptionLocalizations: null,
             name: "text",
+            nameLocalizations: null,
             required: false,
             type: ApplicationCommandOptionType.String,
           },
@@ -299,55 +301,73 @@ describe("Slash", () => {
         options: [
           {
             description: "text - string",
+            descriptionLocalizations: null,
             name: "text",
+            nameLocalizations: null,
             required: true,
             type: ApplicationCommandOptionType.String,
           },
           {
             description: "bool - boolean",
+            descriptionLocalizations: null,
             name: "bool",
+            nameLocalizations: null,
             required: true,
             type: ApplicationCommandOptionType.Boolean,
           },
           {
             description: "nb - number",
+            descriptionLocalizations: null,
             name: "nb",
+            nameLocalizations: null,
             required: true,
             type: ApplicationCommandOptionType.Number,
           },
           {
             description: "channel - channel",
+            descriptionLocalizations: null,
             name: "channel",
+            nameLocalizations: null,
             required: true,
             type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "text-channel - channel",
+            descriptionLocalizations: null,
             name: "text-channel",
+            nameLocalizations: null,
             required: false,
             type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "voice-channel - channel",
+            descriptionLocalizations: null,
             name: "voice-channel",
+            nameLocalizations: null,
             required: false,
             type: ApplicationCommandOptionType.Channel,
           },
           {
             description: "user - user",
+            descriptionLocalizations: null,
             name: "user",
+            nameLocalizations: null,
             required: false,
             type: ApplicationCommandOptionType.User,
           },
           {
             description: "role - role",
+            descriptionLocalizations: null,
             name: "role",
+            nameLocalizations: null,
             required: false,
             type: ApplicationCommandOptionType.Role,
           },
           {
             description: "user-or-role - mentionable",
+            descriptionLocalizations: null,
             name: "user-or-role",
+            nameLocalizations: null,
             required: false,
             type: ApplicationCommandOptionType.Mentionable,
           },
@@ -364,17 +384,23 @@ describe("Slash", () => {
         options: [
           {
             description: "hello",
+            descriptionLocalizations: null,
             name: "hello",
+            nameLocalizations: null,
             options: [
               {
                 description: "text - string",
+                descriptionLocalizations: null,
                 name: "text",
+                nameLocalizations: null,
                 required: true,
                 type: ApplicationCommandOptionType.String,
               },
               {
                 description: "text2 - string",
+                descriptionLocalizations: null,
                 name: "text2",
+                nameLocalizations: null,
                 required: false,
                 type: ApplicationCommandOptionType.String,
               },
@@ -383,21 +409,29 @@ describe("Slash", () => {
           },
           {
             description: "maths group description",
+            descriptionLocalizations: null,
             name: "maths",
+            nameLocalizations: null,
             options: [
               {
                 description: "Multiply",
+                descriptionLocalizations: null,
                 name: "multiply",
+                nameLocalizations: null,
                 options: [
                   {
                     description: "x value",
+                    descriptionLocalizations: null,
                     name: "x",
+                    nameLocalizations: null,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
+                    descriptionLocalizations: null,
                     name: "y",
+                    nameLocalizations: null,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
@@ -406,21 +440,27 @@ describe("Slash", () => {
               },
               {
                 description: "Addition",
+                descriptionLocalizations: null,
                 name: "add",
+                nameLocalizations: null,
                 options: [
                   {
                     description: "x value",
+                    descriptionLocalizations: null,
                     maxValue: 10,
                     minValue: 1,
                     name: "x",
+                    nameLocalizations: null,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
+                    descriptionLocalizations: null,
                     maxValue: 10,
                     minValue: 1,
                     name: "y",
+                    nameLocalizations: null,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
@@ -432,11 +472,15 @@ describe("Slash", () => {
           },
           {
             description: "text group description",
+            descriptionLocalizations: null,
             name: "text",
+            nameLocalizations: null,
             options: [
               {
                 description: "hello",
+                descriptionLocalizations: null,
                 name: "hello",
+                nameLocalizations: null,
                 options: [
                   {
                     choices: [
@@ -450,7 +494,9 @@ describe("Slash", () => {
                       },
                     ],
                     description: "text - string",
+                    descriptionLocalizations: null,
                     name: "text",
+                    nameLocalizations: null,
                     required: true,
                     type: ApplicationCommandOptionType.String,
                   },
@@ -473,21 +519,29 @@ describe("Slash", () => {
         options: [
           {
             description: "text group description",
+            descriptionLocalizations: null,
             name: "line",
+            nameLocalizations: null,
             options: [
               {
                 description: "Addition",
+                descriptionLocalizations: null,
                 name: "add",
+                nameLocalizations: null,
                 options: [
                   {
                     description: "x value",
+                    descriptionLocalizations: null,
                     name: "x",
+                    nameLocalizations: null,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
                   {
                     description: "y value",
+                    descriptionLocalizations: null,
                     name: "y",
+                    nameLocalizations: null,
                     required: true,
                     type: ApplicationCommandOptionType.Number,
                   },
@@ -510,16 +564,22 @@ describe("Slash", () => {
         options: [
           {
             description: "add - subcommandgroup",
+            descriptionLocalizations: null,
             name: "add",
+            nameLocalizations: null,
             options: [
               {
                 description: "y",
+                descriptionLocalizations: null,
                 name: "y",
+                nameLocalizations: null,
                 type: ApplicationCommandOptionType.Subcommand,
               },
               {
                 description: "x",
+                descriptionLocalizations: null,
                 name: "x",
+                nameLocalizations: null,
                 type: ApplicationCommandOptionType.Subcommand,
               },
             ],
@@ -527,12 +587,16 @@ describe("Slash", () => {
           },
           {
             description: "m",
+            descriptionLocalizations: null,
             name: "m",
+            nameLocalizations: null,
             type: ApplicationCommandOptionType.Subcommand,
           },
           {
             description: "n",
+            descriptionLocalizations: null,
             name: "n",
+            nameLocalizations: null,
             type: ApplicationCommandOptionType.Subcommand,
           },
         ],

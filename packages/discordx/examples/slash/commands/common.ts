@@ -136,7 +136,7 @@ export class Example {
     interaction.reply({ components: [row], content: "test" });
   }
 
-  @ButtonComponent(/myTest/)
+  @ButtonComponent({ id: /myTest/ })
   btnHandler(interaction: ButtonInteraction): void {
     interaction.reply("I am called");
   }

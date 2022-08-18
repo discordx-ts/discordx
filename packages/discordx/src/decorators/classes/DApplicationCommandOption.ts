@@ -15,14 +15,14 @@ type CreateStructure = {
   autocomplete?: SlashAutoCompleteOption;
   channelType?: ChannelType[];
   description?: string;
-  descriptionLocalizations?: LocalizationMap;
+  descriptionLocalizations?: LocalizationMap | null;
   index?: number;
   maxLength?: number;
   maxValue?: number;
   minLength?: number;
   minValue?: number;
   name: string;
-  nameLocalizations?: LocalizationMap;
+  nameLocalizations?: LocalizationMap | null;
   required?: boolean;
   type?: ApplicationCommandOptionType;
 };
@@ -35,9 +35,9 @@ export class DApplicationCommandOption extends Decorator {
   private _channelTypes: ChannelType[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
   private _description: string;
-  private _descriptionLocalizations?: LocalizationMap;
+  private _descriptionLocalizations: LocalizationMap | null;
   private _name: string;
-  private _nameLocalizations?: LocalizationMap;
+  private _nameLocalizations: LocalizationMap | null;
   private _maxValue?: number;
   private _minValue?: number;
   private _maxLength?: number;
@@ -74,10 +74,10 @@ export class DApplicationCommandOption extends Decorator {
     this._description = value;
   }
 
-  get descriptionLocalizations(): LocalizationMap | undefined {
+  get descriptionLocalizations(): LocalizationMap | null {
     return this._descriptionLocalizations;
   }
-  set descriptionLocalizations(value: LocalizationMap | undefined) {
+  set descriptionLocalizations(value: LocalizationMap | null) {
     this._descriptionLocalizations = value;
   }
 
@@ -123,10 +123,10 @@ export class DApplicationCommandOption extends Decorator {
     this._name = value;
   }
 
-  get nameLocalizations(): LocalizationMap | undefined {
+  get nameLocalizations(): LocalizationMap | null {
     return this._nameLocalizations;
   }
-  set nameLocalizations(value: LocalizationMap | undefined) {
+  set nameLocalizations(value: LocalizationMap | null) {
     this._nameLocalizations = value;
   }
 
@@ -171,8 +171,8 @@ export class DApplicationCommandOption extends Decorator {
     this._minLength = data.minLength;
     this._required = data.required ?? true;
     this._type = data.type ?? ApplicationCommandOptionType.String;
-    this._descriptionLocalizations = data.descriptionLocalizations;
-    this._nameLocalizations = data.nameLocalizations;
+    this._descriptionLocalizations = data.descriptionLocalizations ?? null;
+    this._nameLocalizations = data.nameLocalizations ?? null;
   }
 
   static create(data: CreateStructure): DApplicationCommandOption {
