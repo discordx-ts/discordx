@@ -17,8 +17,8 @@ module.exports = {
 
   docSidebar: [
     {
-      id: "installation",
-      label: "Installation",
+      id: "introdocution",
+      label: "Introduction",
       type: "doc",
     },
     {
