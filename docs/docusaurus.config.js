@@ -42,18 +42,18 @@ module.exports = {
         //   position: "right",
         // },
         {
-          href: "https://discordx.js.org/discord",
-          label: "Discord server",
+          href: "https://www.npmjs.com/org/discordx",
+          label: "NPM",
           position: "right",
         },
         {
           href: "https://github.com/discordx-ts/discordx",
-          label: "Github",
+          label: "GitHub",
           position: "right",
         },
         {
-          href: "https://www.npmjs.com/org/discordx",
-          label: "NPM",
+          href: "https://discordx.js.org/discord",
+          label: "Discord",
           position: "right",
         },
       ],
