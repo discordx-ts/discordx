@@ -85,6 +85,14 @@ You have to set a displayed name for your choice
 | ------ | --------- | -------- |
 | string | undefined | Yes      |
 
+### nameLocalizations
+
+The slash choice name localizations
+
+| type            | default   | required |
+| --------------- | --------- | -------- |
+| LocalizationMap | undefined | false    |
+
 ### Value
 
 You have to set a value for your choice, if the user select "Astronaut", you will receive the value "astronaut"
