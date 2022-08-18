@@ -35,6 +35,17 @@ export function isApplicationCommandEqual(
   const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
   const rawData = DCommand.toJSON();
 
+  // replace undefined fields with null
+  RecursivelyMatchField(
+    commandJson,
+    ["descriptionLocalizations", "nameLocalizations"],
+    (object: any, key: string) => {
+      if (object[key] === undefined) {
+        object[key] = null;
+      }
+    }
+  );
+
   // replace null fields with undefined
   RecursivelyMatchField(
     commandJson,

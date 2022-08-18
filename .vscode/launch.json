@@ -32,6 +32,24 @@
       ],
       "cwd": "${workspaceRoot}/packages/discordx/examples/permission",
       "runtimeArgs": ["--loader", "ts-node/esm"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Slash Example",
+      "args": ["${workspaceRoot}/packages/discordx/examples/slash/main.ts"],
+      "cwd": "${workspaceRoot}/packages/discordx/examples/slash",
+      "runtimeArgs": ["--loader", "ts-node/esm"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Context Example",
+      "args": [
+        "${workspaceRoot}/packages/discordx/examples/contextmenu/main.ts"
+      ],
+      "cwd": "${workspaceRoot}/packages/discordx/examples/contextmenu",
+      "runtimeArgs": ["--loader", "ts-node/esm"]
     }
   ]
 }
