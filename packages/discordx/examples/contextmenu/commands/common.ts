@@ -9,7 +9,7 @@ import { ContextMenu, Discord } from "../../../src/index.js";
 @Discord()
 export class Example {
   @ContextMenu({
-    name: "Hello from discord.ts",
+    name: "Hello from discordx",
     type: ApplicationCommandType.Message,
   })
   messageHandler(interaction: MessageContextMenuCommandInteraction): void {
@@ -18,7 +18,7 @@ export class Example {
   }
 
   @ContextMenu({
-    name: "Hello from discord.ts",
+    name: "Hello from discordx",
     type: ApplicationCommandType.User,
   })
   userHandler(interaction: UserContextMenuCommandInteraction): void {

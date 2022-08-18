@@ -13,7 +13,7 @@ Here are some example screenshots:
 @Discord()
 class Example {
   @ContextMenu({
-    name: "Hello from discord.ts",
+    name: "Hello from discordx",
     type: ApplicationCommandType.Message,
   })
   messageHandler(interaction: MessageContextMenuCommandInteraction): void {
@@ -22,7 +22,7 @@ class Example {
   }
 
   @ContextMenu({
-    name: "Hello from discord.ts",
+    name: "Hello from discordx",
     type: ApplicationCommandType.User,
   })
   userHandler(interaction: UserContextMenuCommandInteraction): void {

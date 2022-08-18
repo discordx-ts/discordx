@@ -14,7 +14,7 @@ const FeatureList = [
   },
   {
     description: (
-      <>You can use discord.js along discord.ts without any problems !</>
+      <>You can use discord.js along discordx without any problems !</>
     ),
     title: "discord.js support",
   },

@@ -19,12 +19,12 @@
   ],
   "homepage": "https://discordx.js.org",
   "bugs": {
-    "url": "https://github.com/oceanroleplay/discord.ts/issue",
+    "url": "https://github.com/discordx-ts/discordx/issue",
     "email": "indianoceanroleplay@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oceanroleplay/discord.ts"
+    "url": "https://github.com/discordx-ts/discordx"
   },
   "license": "Apache-2.0",
   "contributors": [

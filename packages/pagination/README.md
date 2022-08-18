@@ -20,9 +20,9 @@
         src="https://img.shields.io/npm/dt/@discordx/pagination.svg?maxAge=3600"
         alt="NPM downloads"
     /></a>
-    <a href="https://github.com/oceanroleplay/discord.ts/actions"
+    <a href="https://github.com/discordx-ts/discordx/actions"
       ><img
-        src="https://github.com/oceanroleplay/discord.ts/workflows/Build/badge.svg"
+        src="https://github.com/discordx-ts/discordx/workflows/Build/badge.svg"
         alt="Build status"
     /></a>
     <a href="https://www.paypal.me/vijayxmeena"
@@ -58,7 +58,7 @@ yarn add @discordx/pagination
 - support interaction/message/channel to send pages
 - page resolver for dynamic usage
 
-![discord embed pagination](https://github.com/oceanroleplay/discord.ts/raw/main/packages/pagination/images/discord-embed-pagination.jpg)
+![discord embed pagination](https://github.com/discordx-ts/discordx/raw/main/packages/pagination/images/discord-embed-pagination.jpg)
 
 ## Example
 
@@ -247,9 +247,9 @@ The following options are only available, if you have set type to `SELECT_MENU`
 # ☎️ Need help?
 
 - [Check frequently asked questions](https://discordx.js.org/docs/faq)
-- [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
+- [Check examples](https://github.com/discordx-ts/discordx/tree/main/packages/discordx/examples)
 - Ask in the community [Discord server](https://discordx.js.org/discord)
 
 # 💖 Thank you
 
-You can support [Discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/oceanroleplay/discord.ts) star.
+You can support [Discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/discordx-ts/discordx) star.

@@ -20,9 +20,9 @@
         src="https://img.shields.io/npm/dt/discordx.svg?maxAge=3600"
         alt="NPM downloads"
     /></a>
-    <a href="https://github.com/oceanroleplay/discord.ts/actions"
+    <a href="https://github.com/discordx-ts/discordx/actions"
       ><img
-        src="https://github.com/oceanroleplay/discord.ts/workflows/Build/badge.svg"
+        src="https://github.com/discordx-ts/discordx/workflows/Build/badge.svg"
         alt="Build status"
     /></a>
     <a href="https://www.paypal.me/vijayxmeena"
@@ -55,7 +55,7 @@ yarn add discordx
 
 > **[installation guide](https://discordx.js.org/docs/installation#installation)**
 
-> **[one-click installation](https://github.com/oceanroleplay/discord.ts/tree/main/packages/create-discordx#-introduction)**
+> **[one-click installation](https://github.com/discordx-ts/discordx/tree/main/packages/create-discordx#-introduction)**
 
 # 📜 Documentation
 
@@ -79,7 +79,7 @@ With `discordx`, we intend to provide the latest up-to-date package to easily bu
 
 Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discordx-templates)
 
-If you have any issues or feature requests, Please open an issue at [Github](https://github.com/oceanroleplay/discord.ts/issues) or join [discord server](https://discordx.js.org/discord)
+If you have any issues or feature requests, Please open an issue at [Github](https://github.com/discordx-ts/discordx/issues) or join [discord server](https://discordx.js.org/discord)
 
 # 🆕 Features
 
@@ -95,22 +95,22 @@ If you have any issues or feature requests, Please open an issue at [Github](htt
 
 Here are more packages from us to extend the functionality of your Discord bot.
 
-| Package                                                                        | Description                                                    |
-| ------------------------------------------------------------------------------ | -------------------------------------------------------------- |
-| [`create-discordx`](https://www.npmjs.com/package/discordx)                    | Create discordx (discord.ts) apps with one command             |
-| [`discordx`](https://www.npmjs.com/package/discordx)                           | Create a discord bot with TypeScript and Decorators!           |
-| [`@discordx/changelog`](https://www.npmjs.com/package/@discordx/changelog)     | Changelog generator, written in TypeScript with Node.js        |
-| [`@discordx/di`](https://www.npmjs.com/package/@discordx/di)                   | Dependency injection service with TSyringe support             |
-| [`@discordx/importer`](https://www.npmjs.com/package/@discordx/importer)       | Import solution for ESM and CJS                                |
-| [`@discordx/internal`](https://www.npmjs.com/package/@discordx/internal)       | discord.ts internal methods, can be used for external projects |
-| [`@discordx/koa`](https://www.npmjs.com/package/@discordx/koa)                 | Create rest api server with Typescript and Decorators          |
-| [`@discordx/lava-player`](https://www.npmjs.com/package/@discordx/lava-player) | Create lavalink player                                         |
-| [`@discordx/lava-queue`](https://www.npmjs.com/package/@discordx/lava-queue)   | Create queue system for lavalink player                        |
-| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)             | Create discord music player easily                             |
-| [`@discordx/pagination`](https://www.npmjs.com/package/@discordx/pagination)   | Add pagination to your discord bot                             |
-| [`@discordx/socket.io`](https://www.npmjs.com/package/@discordx/socket.io)     | Create socket.io server with Typescript and Decorators         |
-| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities)     | Create own group with `@Category` and guards                   |
-| [`discord-spams`](https://www.npmjs.com/package/discord-spams)                 | Tiny but powerful discord spam protection library              |
+| Package                                                                        | Description                                                  |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| [`create-discordx`](https://www.npmjs.com/package/discordx)                    | Create discordx (discord.ts) apps with one command           |
+| [`discordx`](https://www.npmjs.com/package/discordx)                           | Create a discord bot with TypeScript and Decorators!         |
+| [`@discordx/changelog`](https://www.npmjs.com/package/@discordx/changelog)     | Changelog generator, written in TypeScript with Node.js      |
+| [`@discordx/di`](https://www.npmjs.com/package/@discordx/di)                   | Dependency injection service with TSyringe support           |
+| [`@discordx/importer`](https://www.npmjs.com/package/@discordx/importer)       | Import solution for ESM and CJS                              |
+| [`@discordx/internal`](https://www.npmjs.com/package/@discordx/internal)       | discordx internal methods, can be used for external projects |
+| [`@discordx/koa`](https://www.npmjs.com/package/@discordx/koa)                 | Create rest api server with Typescript and Decorators        |
+| [`@discordx/lava-player`](https://www.npmjs.com/package/@discordx/lava-player) | Create lavalink player                                       |
+| [`@discordx/lava-queue`](https://www.npmjs.com/package/@discordx/lava-queue)   | Create queue system for lavalink player                      |
+| [`@discordx/music`](https://www.npmjs.com/package/@discordx/music)             | Create discord music player easily                           |
+| [`@discordx/pagination`](https://www.npmjs.com/package/@discordx/pagination)   | Add pagination to your discord bot                           |
+| [`@discordx/socket.io`](https://www.npmjs.com/package/@discordx/socket.io)     | Create socket.io server with Typescript and Decorators       |
+| [`@discordx/utilities`](https://www.npmjs.com/package/@discordx/utilities)     | Create own group with `@Category` and guards                 |
+| [`discord-spams`](https://www.npmjs.com/package/discord-spams)                 | Tiny but powerful discord spam protection library            |
 
 # 📔 Decorators
 
@@ -262,7 +262,7 @@ Create discord context menu options with ease!
 @Discord()
 class Example {
   @ContextMenu({
-    name: "Hello from discord.ts",
+    name: "Hello from discordx",
     type: ApplicationCommandType.Message,
   })
   messageHandler(interaction: MessageContextMenuCommandInteraction): void {
@@ -271,7 +271,7 @@ class Example {
   }
 
   @ContextMenu({
-    name: "Hello from discord.ts",
+    name: "Hello from discordx",
     type: ApplicationCommandType.User,
   })
   userHandler(interaction: UserContextMenuCommandInteraction): void {
@@ -436,9 +436,9 @@ class Example {
 # ☎️ Need help?
 
 - [Check frequently asked questions](https://discordx.js.org/docs/faq)
-- [Check examples](https://github.com/oceanroleplay/discord.ts/tree/main/packages/discordx/examples)
+- [Check examples](https://github.com/discordx-ts/discordx/tree/main/packages/discordx/examples)
 - Ask in the community [Discord server](https://discordx.js.org/discord)
 
 # 💖 Thank you
 
-You can support [Discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/oceanroleplay/discord.ts) star.
+You can support [Discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/discordx-ts/discordx) star.

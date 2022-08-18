@@ -9,9 +9,9 @@ module.exports = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   organizationName: "oceanroleplay", // Usually your GitHub org/user name.
-  projectName: "discord.ts", // Usually your repo name.
+  projectName: "discordx", // Usually your repo name.
   tagline: "Create a discord bot with TypeScript and Decorators!",
-  title: "discord.ts official documentation",
+  title: "discordx official documentation",
   url: "https://discordx.js.org",
   // eslint-disable-next-line sort-keys
   themeConfig: {
@@ -21,7 +21,7 @@ module.exports = {
       indexName: "discord.ts",
     },
     footer: {
-      copyright: "Made by discord.ts team with ❤️",
+      copyright: "Made by discordx team with ❤️",
     },
     navbar: {
       items: [
@@ -47,7 +47,7 @@ module.exports = {
           position: "right",
         },
         {
-          href: "https://github.com/oceanroleplay/discord.ts",
+          href: "https://github.com/discordx-ts/discordx",
           label: "Github",
           position: "right",
         },
@@ -70,8 +70,7 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          editUrl:
-            "https://github.com/oceanroleplay/discord.ts/edit/main/docs/",
+          editUrl: "https://github.com/discordx-ts/discordx/edit/main/docs/",
           remarkPlugins: [
             [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
           ],

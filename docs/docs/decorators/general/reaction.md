@@ -135,7 +135,7 @@ Array of guild ids which the reaction will be executed in.
 
 ### partial
 
-If enabled, discord.ts will not fetch the reaction or user when they are partial.
+If enabled, discordx will not fetch the reaction or user when they are partial.
 
 | type    | default |
 | ------- | ------- |

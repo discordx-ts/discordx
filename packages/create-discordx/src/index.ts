@@ -207,7 +207,7 @@ console.log();
 console.log(chalk.blueBright("?"), chalk.bold("Support"));
 console.log("    Discord Server: https://discordx.js.org/discord");
 console.log("     Documentation: https://discordx.js.org");
-console.log("            GitHub: https://github.com/oceanroleplay/discord.ts");
+console.log("            GitHub: https://github.com/discordx-ts/discordx");
 console.log();
 console.log(
   chalk.greenBright("√"),

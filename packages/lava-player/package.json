@@ -15,13 +15,13 @@
     "lavalink",
     "lava-player"
   ],
-  "homepage": "https://github.com/oceanroleplay/discord.ts/tree/main/packages/lava-player#readme",
+  "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/lava-player#readme",
   "bugs": {
-    "url": "https://github.com/oceanroleplay/discord.ts/issues"
+    "url": "https://github.com/discordx-ts/discordx/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/oceanroleplay/discord.ts.git"
+    "url": "git+https://github.com/discordx-ts/discordx.git"
   },
   "license": "Apache-2.0",
   "contributors": [

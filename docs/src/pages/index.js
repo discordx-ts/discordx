@@ -32,7 +32,7 @@ function HomepageHeader() {
 
 export default function Home() {
   return (
-    <Layout description="The discord.ts documentation">
+    <Layout description="The discordx documentation">
       <main>
         <HomepageHeader />
         <HomepageFeatures />

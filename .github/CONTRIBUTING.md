@@ -1,6 +1,6 @@
-# Contributing to discord.ts
+# Contributing to discordx
 
-We would love for you to contribute to discord.ts and help make it even better than it is today!
+We would love for you to contribute to discordx and help make it even better than it is today!
 As a contributor, here are the guidelines we would like you to follow:
 
 - [Code of Conduct](#coc)
@@ -14,7 +14,7 @@ As a contributor, here are the guidelines we would like you to follow:
 
 ## <a name="coc"></a> Code of Conduct
 
-Help us keep discord.ts open and inclusive.
+Help us keep discordx open and inclusive.
 Please read and follow our [Code of Conduct][coc].
 
 ## <a name="question"></a> Got a Question or Problem?
@@ -64,13 +64,13 @@ We understand that sometimes it might be hard to extract essential bits of code 
 
 Unfortunately, we are not able to investigate / fix bugs without a minimal reproduction, so if we don't hear back from you, we are going to close an issue that doesn't have enough info to be reproduced.
 
-You can file new issues by selecting from our [new issue templates](https://github.com/oceanroleplay/discord.ts/issues/new/choose) and filling out the issue template.
+You can file new issues by selecting from our [new issue templates](https://github.com/discordx-ts/discordx/issues/new/choose) and filling out the issue template.
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
 Before you submit your Pull Request (PR) consider the following guidelines:
 
-1. Search [GitHub](https://github.com/oceanroleplay/discord.ts/pulls) for an open or closed PR that relates to your submission.
+1. Search [GitHub](https://github.com/discordx-ts/discordx/pulls) for an open or closed PR that relates to your submission.
    You don't want to duplicate existing efforts.
 
 2. Be sure that an issue describes the problem you're fixing, or documents the design for the feature you'd like to add.
@@ -80,7 +80,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
    We cannot accept code without a signed CLA.
    Make sure you author all contributed Git commits with email address associated with your CLA signature.
 
-4. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the oceanroleplay/discord.ts repo.
+4. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the discordx-ts/discordx repo.
 
 5. In your forked repository, make your changes in a new git branch:
 
@@ -92,7 +92,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 
 7. Follow our [Coding Rules](#rules).
 
-8. Run the full discord.ts test suite, as described in the [developer documentation][dev-doc], and ensure that all tests pass.
+8. Run the full discordx test suite, as described in the [developer documentation][dev-doc], and ensure that all tests pass.
 
 9. Commit your changes using a descriptive commit message that follows our [commit message conventions](#commit).
    Adherence to these conventions is necessary because release notes are automatically generated from these messages.
@@ -109,11 +109,11 @@ Before you submit your Pull Request (PR) consider the following guidelines:
     git push origin my-fix-branch
     ```
 
-11. In GitHub, send a pull request to `discord.ts:main`.
+11. In GitHub, send a pull request to `discordx:main`.
 
 ### Reviewing a Pull Request
 
-The discord.ts team reserves the right not to accept pull requests from community members who haven't been good citizens of the community. Such behavior includes not following the [discord.ts code of conduct](https://github.com/oceanroleplay/discord.ts/blob/main/.github/CODE_OF_CONDUCT.md) and applies within or outside of discord.ts managed channels.
+The discordx team reserves the right not to accept pull requests from community members who haven't been good citizens of the community. Such behavior includes not following the [discordx code of conduct](https://github.com/discordx-ts/discordx/blob/main/.github/CODE_OF_CONDUCT.md) and applies within or outside of discordx managed channels.
 
 #### Addressing review feedback
 
@@ -201,7 +201,7 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 
 ## <a name="commit"></a> Commit Message Format
 
-_This specification is inspired by and supersedes the [discord.ts commit message format][commit-message-format]._
+_This specification is inspired by and supersedes the [discordx commit message format][commit-message-format]._
 
 We have very precise rules over how our Git commit messages must be formatted.
 This format leads to **easier to read commit history**.
