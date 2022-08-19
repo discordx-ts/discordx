@@ -73,6 +73,8 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
         ? "https://yarnpkg.com"
         : "https://nodejs.org/en/download"
     );
+
+    return GetPackageManager();
   }
 
   return manager;
