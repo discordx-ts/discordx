@@ -42,8 +42,6 @@ This module is an extension of [discord.js](https://discord.js.org), so the inte
 
 This library allows you to use TypeScript decorators on [discord.js](https://discord.js.org), it simplifies your code and improves the readability!
 
-This repository is a ~~fork~~ of [OwenCalvin/discord.ts](https://github.com/OwenCalvin/discord.ts) from [@OwenCalvin](https://github.com/OwenCalvin), which is no longer actively maintained.
-
 # 🗂 Packages
 
 - [discordx](./packages/discordx#readme) - discord framework for building a discord.js bot using Typescript decorators.
