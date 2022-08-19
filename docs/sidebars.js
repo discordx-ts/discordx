@@ -17,7 +17,7 @@ module.exports = {
 
   docSidebar: [
     {
-      id: "introdoction",
+      id: "introduction",
       label: "Introduction",
       type: "doc",
     },

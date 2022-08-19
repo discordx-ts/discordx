@@ -26,7 +26,7 @@ module.exports = {
     navbar: {
       items: [
         {
-          docId: "introdoction",
+          docId: "introduction",
           label: "Documentation",
           position: "left",
           type: "doc",
