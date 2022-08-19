@@ -62,6 +62,6 @@ export async function DownloadAndExtractTemplate(
 
   return pipeline(
     Readable.from(request.data),
-    tar.extract({ cwd: root, strip: 2 }, [`discordx-templates-main/${name}`])
+    tar.extract({ cwd: root, strip: 2 }, [`templates-main/${name}`])
   );
 }
