@@ -69,6 +69,115 @@ module.exports = {
       label: "Guides",
       type: "category",
     },
+    {
+      items: [
+        {
+          id: "api/bot",
+          label: "@Bot",
+          type: "doc",
+        },
+        {
+          id: "api/discord",
+          label: "@Discord",
+          type: "doc",
+        },
+        {
+          id: "api/guild",
+          label: "@Guild",
+          type: "doc",
+        },
+        {
+          id: "api/guard",
+          label: "@Guard",
+          type: "doc",
+        },
+        {
+          items: [
+            {
+              id: "api/events/on",
+              label: "@On",
+              type: "doc",
+            },
+            {
+              id: "api/events/once",
+              label: "@Once",
+              type: "doc",
+            },
+            {
+              id: "api/events/reaction",
+              label: "@Reaction",
+              type: "doc",
+            },
+          ],
+          label: "Events",
+          type: "category",
+        },
+        {
+          items: [
+            {
+              id: "api/commands/slash",
+              label: "@Slash",
+              type: "doc",
+            },
+            {
+              id: "api/commands/slash-option",
+              label: "@SlashOption",
+              type: "doc",
+            },
+            {
+              id: "api/commands/slash-choice",
+              label: "@SlashChoice",
+              type: "doc",
+            },
+            {
+              id: "api/commands/slash-group",
+              label: "@SlashGroup",
+              type: "doc",
+            },
+            {
+              id: "api/commands/simple-command",
+              label: "@SimpleCommand",
+              type: "doc",
+            },
+            {
+              id: "api/commands/simple-command-option",
+              label: "@SimpleCommandOption",
+              type: "doc",
+            },
+          ],
+          label: "Commands",
+          type: "category",
+        },
+        {
+          items: [
+            {
+              id: "api/interactions/context-menu",
+              label: "@ContextMenu",
+              type: "doc",
+            },
+            {
+              id: "api/interactions/button-component",
+              label: "@ButtonComponent",
+              type: "doc",
+            },
+            {
+              id: "api/interactions/modal-component",
+              label: "@ModalComponent",
+              type: "doc",
+            },
+            {
+              id: "api/interactions/select-menu-component",
+              label: "@SelectMenuComponent",
+              type: "doc",
+            },
+          ],
+          label: "Interactions",
+          type: "category",
+        },
+      ],
+      label: "API",
+      type: "category",
+    },
   ],
 
   packagesSidebar: [
