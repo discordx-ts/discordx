@@ -4,7 +4,7 @@ import tar from "tar";
 import { promisify } from "util";
 
 /**
- * Get templates list from https://github.com/oceanroleplay/discordx-templates
+ * Get templates list from https://github.com/discordx-ts/templates
  *
  * @returns
  */
@@ -13,7 +13,7 @@ export async function GetTemplates(): Promise<
 > {
   const response = await axios
     .get<{ name: string; path: string; type: string }[]>(
-      "https://api.github.com/repos/oceanroleplay/discordx-templates/contents"
+      "https://api.github.com/repos/discordx-ts/templates/contents"
     )
     .then((res) =>
       res.data
@@ -34,7 +34,7 @@ export async function GetTemplates(): Promise<
 export async function IsTemplateExist(name: string): Promise<boolean> {
   const response = await axios
     .get(
-      `https://api.github.com/repos/oceanroleplay/discordx-templates/contents/${name}?ref=main`
+      `https://api.github.com/repos/discordx-ts/templates/contents/${name}?ref=main`
     )
     .then(() => true)
     .catch(() => false);
@@ -57,7 +57,7 @@ export async function DownloadAndExtractTemplate(
 
   const request = await axios({
     responseType: "stream",
-    url: "https://codeload.github.com/oceanroleplay/discordx-templates/tar.gz/main",
+    url: "https://codeload.github.com/discordx-ts/templates/tar.gz/main",
   });
 
   return pipeline(

@@ -65,11 +65,11 @@ yarn add discordx
 
 # 🤖 Bot Examples
 
-> **[discordx-templates](https://github.com/oceanroleplay/discordx-templates)** (starter repo)
+> **[discordx-templates](https://github.com/discordx-ts/templates)** (starter repo)
 
-> **[music bot (ytdl)](https://github.com/oceanroleplay/discordx-templates/tree/main/4-music-player-ytdl)**
+> **[music bot (ytdl)](https://github.com/discordx-ts/templates/tree/main/4-music-player-ytdl)**
 
-> **[lavalink bot](https://github.com/oceanroleplay/discordx-templates/tree/main/5-music-player-lavalink)**
+> **[lavalink bot](https://github.com/discordx-ts/templates/tree/main/5-music-player-lavalink)**
 
 > **[Shana](https://github.com/VictoriqueMoe/Shana)** from [@VictoriqueMoe](https://github.com/VictoriqueMoe)
 
@@ -77,7 +77,7 @@ yarn add discordx
 
 With `discordx`, we intend to provide the latest up-to-date package to easily build feature-rich bots with multi-bot compatibility, simple commands, pagination, music, and much more. **Updated daily with discord.js changes**.
 
-Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/oceanroleplay/discordx-templates)
+Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/discordx-ts/templates)
 
 If you have any issues or feature requests, Please open an issue at [Github](https://github.com/discordx-ts/discordx/issues) or join [discord server](https://discordx.js.org/discord)
 
