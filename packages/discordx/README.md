@@ -97,7 +97,7 @@ Here are more packages from us to extend the functionality of your Discord bot.
 
 | Package                                                                        | Description                                                  |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------ |
-| [`create-discordx`](https://www.npmjs.com/package/discordx)                    | Create discordx (discord.ts) apps with one command           |
+| [`create-discordx`](https://www.npmjs.com/package/discordx)                    | Create discordx apps with one command                        |
 | [`discordx`](https://www.npmjs.com/package/discordx)                           | Create a discord bot with TypeScript and Decorators!         |
 | [`@discordx/changelog`](https://www.npmjs.com/package/@discordx/changelog)     | Changelog generator, written in TypeScript with Node.js      |
 | [`@discordx/di`](https://www.npmjs.com/package/@discordx/di)                   | Dependency injection service with TSyringe support           |

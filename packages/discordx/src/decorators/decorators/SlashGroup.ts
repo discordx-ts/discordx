@@ -21,9 +21,9 @@ import {
  * @param options - Group options
  * ___
  *
- * [View Discord.ts Documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
  *
- * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *
  * @category Decorator
  */
@@ -35,9 +35,9 @@ export function SlashGroup(options: SlashGroupOptions): ClassDecoratorEx;
  * @param name - Name of group
  * ___
  *
- * [View Discord.ts Documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
  *
- * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *
  * @category Decorator
  */
@@ -50,9 +50,9 @@ export function SlashGroup(name: string): ClassMethodDecorator;
  * @param root - Root name of group
  * ___
  *
- * [View Discord.ts Documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
  *
- * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *
  * @category Decorator
  */
@@ -65,9 +65,9 @@ export function SlashGroup(name: string, root: string): ClassMethodDecorator;
  * @param root - Root name of group
  * ___
  *
- * [View Discord.ts Documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
  *
- * [View Discord Documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *
  * @category Decorator
  */

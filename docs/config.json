@@ -1,5 +1,5 @@
 {
-  "index_name": "discord.ts",
+  "index_name": "discordx",
   "start_urls": ["https://discordx.js.org/"],
   "sitemap_urls": ["https://discordx.js.org/sitemap.xml"],
   "sitemap_alternate_links": true,

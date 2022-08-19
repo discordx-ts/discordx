@@ -14,7 +14,7 @@
     "javascript",
     "utilities",
     "discordx",
-    "discord.ts"
+    "discord"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/koa#readme",
   "bugs": {

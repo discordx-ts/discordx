@@ -18,7 +18,7 @@ module.exports = {
     algolia: {
       apiKey: "d80ba8eaf70ddb3eb5371d44ebb0ba1a",
       appId: "C09VVW4QGN",
-      indexName: "discord.ts",
+      indexName: "discordx",
     },
     footer: {
       copyright: "Made by discordx team with ❤️",
@@ -57,7 +57,7 @@ module.exports = {
           position: "right",
         },
       ],
-      title: "DISCORD.TS",
+      title: "DISCORDX",
     },
     prism: {
       darkTheme: require("prism-react-renderer/themes/vsDark"),

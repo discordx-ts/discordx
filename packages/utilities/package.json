@@ -9,8 +9,7 @@
     "bot",
     "javascript",
     "utilities",
-    "discordx",
-    "discord.ts"
+    "discordx"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/utilities#readme",
   "bugs": {

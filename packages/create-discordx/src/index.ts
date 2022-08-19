@@ -176,7 +176,7 @@ const isWin = process.platform === "win32";
 
 console.log(
   chalk.greenBright("√"),
-  chalk.bold("Created discordx (discord.ts) project"),
+  chalk.bold("Created discordx project"),
   chalk.gray("»"),
   chalk.greenBright(projectName)
 );
@@ -211,6 +211,6 @@ console.log("            GitHub: https://github.com/discordx-ts/discordx");
 console.log();
 console.log(
   chalk.greenBright("√"),
-  chalk.bold("Thank you for using discordx (discord.ts)"),
+  chalk.bold("Thank you for using discordx"),
   chalk.red("❤️")
 );

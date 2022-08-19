@@ -123,7 +123,7 @@ class Example {
 
 # ⚔️ guards
 
-Useful guards created by the Discord.ts team to use in your bot!
+Useful guards created by the discordx team to use in your bot!
 
 ## Rate limit
 

@@ -1,7 +1,7 @@
 {
   "name": "create-discordx",
   "version": "0.0.0",
-  "description": "create discordx (discord.ts) apps with one command",
+  "description": "create discordx apps with one command",
   "keywords": [
     "discordx",
     "discord.js",

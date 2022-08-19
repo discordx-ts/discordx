@@ -38,7 +38,7 @@
 
 # 📖 Introduction
 
-Create discordx (discord.ts) apps with one command. Inspired by [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Create discordx apps with one command. Inspired by [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ![create-discordx](https://raw.githubusercontent.com/discordx-ts/discordx/main/packages/create-discordx/images/create-discordx.png)
 
