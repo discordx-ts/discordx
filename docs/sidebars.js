@@ -72,6 +72,11 @@ module.exports = {
     {
       items: [
         {
+          id: "api/client",
+          label: "Client",
+          type: "doc"
+        },
+        {
           id: "api/bot",
           label: "@Bot",
           type: "doc",
