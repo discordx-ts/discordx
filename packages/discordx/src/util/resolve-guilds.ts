@@ -9,6 +9,13 @@ import type {
   SimpleCommandMessage,
 } from "../index.js";
 
+/**
+ * Resolve IGuilds
+ * @param client
+ * @param command
+ * @param guilds
+ * @returns
+ */
 export const resolveIGuilds = async (
   client: Client,
   command:
