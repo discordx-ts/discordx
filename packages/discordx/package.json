@@ -63,8 +63,8 @@
   "devDependencies": {
     "@discordx/importer": "^1.1.10",
     "@types/jest": "^28.1.7",
-    "@types/lodash": "^4.14.182",
-    "@types/node": "^18.7.5",
+    "@types/lodash": "^4.14.184",
+    "@types/node": "^18.7.8",
     "discord.js": "^14.2.0",
     "jest": "^28.1.3",
     "ts-jest": "^28.0.8",
