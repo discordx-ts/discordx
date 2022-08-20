@@ -92,26 +92,30 @@ export type ILogger = {
  * Slash group options
  */
 
-export type SlashGroupBase = {
+export type SlashGroupBase<TName extends string = string> = {
   description?: string;
   descriptionLocalizations?: LocalizationMap;
-  name: string;
+  name: TName;
   nameLocalizations?: LocalizationMap;
 };
 
-export type SlashGroupRoot = SlashGroupBase & {
-  defaultMemberPermissions?: PermissionResolvable;
-  dmPermission?: boolean;
-  root?: undefined;
-};
+export type SlashGroupRoot<TName extends string = string> =
+  SlashGroupBase<TName> & {
+    defaultMemberPermissions?: PermissionResolvable;
+    dmPermission?: boolean;
+    root?: undefined;
+  };
 
-export type SlashGroupSubRoot = SlashGroupBase & {
-  defaultMemberPermissions?: undefined;
-  dmPermission?: undefined;
-  root?: string;
-};
+export type SlashGroupSubRoot<TName extends string = string> =
+  SlashGroupBase<TName> & {
+    defaultMemberPermissions?: undefined;
+    dmPermission?: undefined;
+    root?: string;
+  };
 
-export type SlashGroupOptions = SlashGroupRoot | SlashGroupSubRoot;
+export type SlashGroupOptions<TName extends string = string> =
+  | SlashGroupRoot<TName>
+  | SlashGroupSubRoot<TName>;
 
 /**
  * Reaction options

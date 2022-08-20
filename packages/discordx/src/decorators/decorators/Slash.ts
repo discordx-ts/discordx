@@ -2,7 +2,11 @@ import type { MethodDecoratorEx } from "@discordx/internal";
 import { ApplicationCommandType } from "discord.js";
 
 import type { ApplicationCommandOptions, VerifyName } from "../../index.js";
-import { DApplicationCommand, MetadataStorage } from "../../index.js";
+import {
+  DApplicationCommand,
+  MetadataStorage,
+  SlashNameValidator,
+} from "../../index.js";
 
 /**
  * Handle a slash command with a defined name
@@ -40,6 +44,8 @@ export function Slash<T extends string>(
  */
 export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
+    SlashNameValidator(options?.name ?? key);
+
     const applicationCommand = DApplicationCommand.create({
       botIds: options?.botIds,
       defaultMemberPermissions: options?.defaultMemberPermissions,
