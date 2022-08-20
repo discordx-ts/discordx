@@ -44,7 +44,8 @@ export function Slash<T extends string>(
  */
 export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
   return function <T>(target: Record<string, T>, key: string) {
-    SlashNameValidator(options?.name ?? key);
+    const name = options?.name ?? key;
+    SlashNameValidator(name);
 
     const applicationCommand = DApplicationCommand.create({
       botIds: options?.botIds,
