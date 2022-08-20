@@ -54,7 +54,7 @@ export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
       descriptionLocalizations: options?.descriptionLocalizations,
       dmPermission: options?.dmPermission,
       guilds: options?.guilds,
-      name: options?.name ?? key,
+      name: name,
       nameLocalizations: options?.nameLocalizations,
       type: ApplicationCommandType.ChatInput,
     }).decorate(target.constructor, key, target[key]);
