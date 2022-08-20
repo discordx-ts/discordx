@@ -7,6 +7,7 @@ import {
   DApplicationCommand,
   DApplicationCommandOption,
   MetadataStorage,
+  SlashNameValidator,
 } from "../../index.js";
 
 /**
@@ -61,6 +62,8 @@ export function SlashOption<TName extends string>(
   }
 
   return function <T>(target: Record<string, T>, key: string, index: number) {
+    SlashNameValidator(options.name);
+
     const reflectedType = (
       Reflect.getMetadata("design:paramtypes", target, key)[
         index
@@ -68,21 +71,21 @@ export function SlashOption<TName extends string>(
     ).name.toUpperCase();
 
     const type: ApplicationCommandOptionType =
-      options?.type ?? getType(reflectedType);
+      options.type ?? getType(reflectedType);
 
     const option = DApplicationCommandOption.create({
-      autocomplete: options?.autocomplete,
-      channelType: options?.channelTypes,
-      description: options?.description,
-      descriptionLocalizations: options?.descriptionLocalizations,
+      autocomplete: options.autocomplete,
+      channelType: options.channelTypes,
+      description: options.description,
+      descriptionLocalizations: options.descriptionLocalizations,
       index: index,
-      maxLength: options?.maxLength,
-      maxValue: options?.maxValue,
-      minLength: options?.minLength,
-      minValue: options?.minValue,
+      maxLength: options.maxLength,
+      maxValue: options.maxValue,
+      minLength: options.minLength,
+      minValue: options.minValue,
       name: options.name,
-      nameLocalizations: options?.nameLocalizations,
-      required: options?.required,
+      nameLocalizations: options.nameLocalizations,
+      required: options.required,
       type: type,
     }).decorate(
       target.constructor,

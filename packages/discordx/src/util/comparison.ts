@@ -5,12 +5,24 @@ import _ from "lodash";
 import type { DApplicationCommand } from "../decorators/index.js";
 import type { ApplicationCommandDataEx } from "../types/index.js";
 
+/**
+ * Transform bigint to string
+ * @param obj - object
+ * @returns
+ */
 function jsonToString(obj: unknown): string {
   return JSON.stringify(obj, (key, value) =>
     typeof value === "bigint" ? value.toString() : value
   );
 }
 
+/**
+ * Recursively match field
+ *
+ * @param object
+ * @param keys
+ * @param onMatch
+ */
 export function RecursivelyMatchField(
   object: Record<string, any>,
   keys: string[],
@@ -27,6 +39,14 @@ export function RecursivelyMatchField(
   });
 }
 
+/**
+ * Check if ApplicationCommand and DApplicationCommand has same properties
+ *
+ * @param findCommand
+ * @param DCommand
+ * @param isGuild
+ * @returns
+ */
 export function isApplicationCommandEqual(
   findCommand: ApplicationCommand,
   DCommand: DApplicationCommand,

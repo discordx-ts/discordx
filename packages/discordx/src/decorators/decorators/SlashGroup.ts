@@ -7,12 +7,14 @@ import { Modifier } from "@discordx/internal";
 import type {
   DApplicationCommandOption,
   SlashGroupOptions,
+  VerifyName,
 } from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandGroup,
   DDiscord,
   MetadataStorage,
+  SlashNameValidator,
 } from "../../index.js";
 
 /**
@@ -27,7 +29,9 @@ import {
  *
  * @category Decorator
  */
-export function SlashGroup(options: SlashGroupOptions): ClassDecoratorEx;
+export function SlashGroup<TRoot extends string>(
+  options: SlashGroupOptions<VerifyName<TRoot>>
+): ClassDecoratorEx;
 
 /**
  * Assign a group to a method or class
@@ -41,7 +45,9 @@ export function SlashGroup(options: SlashGroupOptions): ClassDecoratorEx;
  *
  * @category Decorator
  */
-export function SlashGroup(name: string): ClassMethodDecorator;
+export function SlashGroup<TName extends string>(
+  name: VerifyName<TName>
+): ClassMethodDecorator;
 
 /**
  * Assign a group to a method or class
@@ -56,7 +62,10 @@ export function SlashGroup(name: string): ClassMethodDecorator;
  *
  * @category Decorator
  */
-export function SlashGroup(name: string, root: string): ClassMethodDecorator;
+export function SlashGroup<TName extends string, TRoot extends string>(
+  name: VerifyName<TName>,
+  root: VerifyName<TRoot>
+): ClassMethodDecorator;
 
 /**
  * Assign a group to a method or class
@@ -71,9 +80,9 @@ export function SlashGroup(name: string, root: string): ClassMethodDecorator;
  *
  * @category Decorator
  */
-export function SlashGroup(
-  options: string | SlashGroupOptions,
-  root?: string
+export function SlashGroup<TName extends string, TRoot extends string>(
+  options: string | SlashGroupOptions<VerifyName<TName>>,
+  root?: VerifyName<TRoot>
 ): ClassMethodDecorator {
   return function <T>(
     target: T,
@@ -100,6 +109,8 @@ export function SlashGroup(
         ).decorateUnknown(target, key, descriptor)
       );
     } else {
+      SlashNameValidator(options.name);
+
       const clazz = target as unknown as new () => unknown;
       if (options.root) {
         MetadataStorage.instance.addApplicationCommandSlashSubGroups(
