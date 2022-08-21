@@ -104,8 +104,18 @@ module.exports = {
               type: "doc",
             },
             {
+              id: "api/events/on.rest",
+              label: "@On.rest",
+              type: "doc",
+            },
+            {
               id: "api/events/once",
               label: "@Once",
+              type: "doc",
+            },
+            {
+              id: "api/events/once.rest",
+              label: "@Once.rest",
               type: "doc",
             },
             {
