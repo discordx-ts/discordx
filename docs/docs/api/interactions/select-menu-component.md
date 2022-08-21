@@ -7,7 +7,7 @@ title: "@SelectMenuComponent"
 # 📍 Signature
 
 ```ts
-@SelectMenuComponent(options: ComponentOptions): MethodDecoratorEx
+@SelectMenuComponent(options?: ComponentOptions): MethodDecoratorEx
 ```
 
 # 📍 Parameters
