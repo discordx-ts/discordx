@@ -15,7 +15,7 @@ On(options?: EventOptions): MethodDecoratorEx
 ### `options`
 | type      | default | required |
 | --------- | ------- | -------- |
-| EventOptions | undefined     | Yes      |
+| EventOptions | undefined     | No      |
 
 ## Types
 
