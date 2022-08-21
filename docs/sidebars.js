@@ -74,7 +74,7 @@ module.exports = {
         {
           id: "api/client",
           label: "Client",
-          type: "doc"
+          type: "doc",
         },
         {
           id: "api/bot",
