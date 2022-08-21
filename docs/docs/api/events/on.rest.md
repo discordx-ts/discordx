@@ -15,7 +15,7 @@ On.rest(options?: RestEventOptions): MethodDecoratorEx
 ### `options`
 | type      | default | required |
 | --------- | ------- | -------- |
-| RestEventOptions  | undefined     | false      |
+| RestEventOptions  | undefined     | No      |
 
 ## Types
 
