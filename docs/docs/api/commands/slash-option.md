@@ -7,7 +7,7 @@ title: "@SlashOption"
 ## Signature
 
 ```ts
-@SlashOption(options: SlashOptionOptions): MethodDecoratorEx 
+@SlashOption(options: SlashOptionOptions): ParameterDecoratorEx 
 ```
 
 ## Parameters
