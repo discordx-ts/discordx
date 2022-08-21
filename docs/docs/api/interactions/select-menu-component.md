@@ -4,22 +4,22 @@ title: "@SelectMenuComponent"
 
 <br/>
 
-# 📍 Signature
+## Signature
 
 ```ts
 @SelectMenuComponent(options?: ComponentOptions): MethodDecoratorEx
 ```
 
-# 📍 Parameters
+## Parameters
 
 ## `options`
 | type      | default | required |
 | --------- | ------- | -------- |
 | ComponentOptions | undefined    | No      |
 
-# 📍 Types
+## Types
 
-## `ComponentOptions`
+### `ComponentOptions`
 
 ```ts
 export type ComponentOptions<T extends string = string> = {

@@ -4,7 +4,7 @@ title: "@ContextMenu"
 
 <br/>
 
-# 📍 Signature
+## Signature
 
 ```ts
 @ContextMenu<TName extends string>(
@@ -17,16 +17,16 @@ title: "@ContextMenu"
 ): MethodDecoratorEx 
 ```
 
-# 📍 Parameters
+## Parameters
 
-## `options`
+### `options`
 | type      | default | required |
 | --------- | ------- | -------- |
 | ApplicationCommandOptions | undefined    | Yes      |
 
-# 📍 Types
+## Types
 
-## `ApplicationCommandOptions`
+### `ApplicationCommandOptions`
 
 ```ts
 export type ApplicationCommandOptions<TName extends string = string> = {
