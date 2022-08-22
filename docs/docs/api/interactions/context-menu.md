@@ -7,14 +7,7 @@ title: "@ContextMenu"
 ## Signature
 
 ```ts
-@ContextMenu<TName extends string>(
-  options: Omit<
-    ApplicationCommandOptions<NotEmpty<TName>> & {
-      type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
-    },
-    "description" | "descriptionLocalizations"
-  >
-): MethodDecoratorEx 
+@ContextMenu(options: ApplicationCommandOptions): MethodDecoratorEx 
 ```
 
 ## Parameters

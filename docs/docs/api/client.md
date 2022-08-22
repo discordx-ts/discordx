@@ -7,7 +7,7 @@ title: Client
 ## Signature
 
 ```ts
-Client(options: ClientOptions): ClientJS
+@Client(options: ClientOptions): ClientJS
 ```
 
 ## Parameters

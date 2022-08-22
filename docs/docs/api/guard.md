@@ -7,7 +7,7 @@ title: "@Guard"
 ## Signature
 
 ```ts
-Guard<Type = any, DataType = any>(...fns: GuardFunction<Type, DataType>[]);
+@Guard(...fns: GuardFunction[]);
 ```
 
 ## Parameters

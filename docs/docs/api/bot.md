@@ -7,7 +7,7 @@ title: "@Bot"
 ## Signature
 
 ```ts
-Bot(...botIDs: string[]): ClassMethodDecorator;
+@Bot(...botIDs: string[]): ClassMethodDecorator;
 ```
 
 ## Parameters

@@ -7,7 +7,7 @@ title: "@Guild"
 ## Signature
 
 ```ts
-Guild(...guildIds: IGuild[]): ClassMethodDecorator;
+@Guild(...guildIds: IGuild[]): ClassMethodDecorator;
 ```
 
 ## Parameters

@@ -7,5 +7,5 @@ title: "@Discord"
 ## Signature
 
 ```ts
-Discord(): ClassDecoratorEx;
+@Discord(): ClassDecoratorEx;
 ```
