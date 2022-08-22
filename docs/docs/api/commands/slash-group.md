@@ -13,11 +13,13 @@ title: "@SlashGroup"
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | string \| SlashGroupOptions | undefined    | Yes      |
 
 ### `root`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | string  | undefined    | No      |

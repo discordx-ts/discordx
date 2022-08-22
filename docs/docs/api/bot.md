@@ -13,6 +13,7 @@ title: "@Bot"
 ## Parameters
 
 ### `botIDs`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | string[ ] | [ ]     | Yes      |

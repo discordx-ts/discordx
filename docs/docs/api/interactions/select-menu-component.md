@@ -13,6 +13,7 @@ title: "@SelectMenuComponent"
 ## Parameters
 
 ## `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | ComponentOptions | undefined    | No      |

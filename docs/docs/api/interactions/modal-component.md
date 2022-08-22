@@ -13,6 +13,7 @@ title: "@ModalComponent"
 ## Parameters
 
 ## `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | ComponentOptions | undefined    | No      |

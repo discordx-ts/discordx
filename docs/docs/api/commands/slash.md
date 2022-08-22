@@ -13,6 +13,7 @@ title: "@Slash"
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | ApplicationCommandOptions | undefined    | No      |

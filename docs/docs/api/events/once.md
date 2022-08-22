@@ -7,12 +7,13 @@ title: "@Once"
 ## Signature
 
 ```ts
-Once(options?: EventOptions): MethodDecoratorEx 
+@Once(options?: EventOptions): MethodDecoratorEx 
 ```
 
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | EventOptions | undefined     | No      |

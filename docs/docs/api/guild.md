@@ -13,6 +13,7 @@ title: "@Guild"
 ## Parameters
 
 ### `guildIds`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | IGuild[ ] | [ ]      | Yes      |
@@ -20,6 +21,7 @@ title: "@Guild"
 ## Types
 
 ### `IGuild`
+
 ```ts
 export type IGuild =
   | Snowflake

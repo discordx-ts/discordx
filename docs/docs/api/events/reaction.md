@@ -7,19 +7,20 @@ title: "@Reaction"
 ## Signature
 
 ```ts
-Reaction(options?: ReactionOptions): MethodDecoratorEx 
+@Reaction(options?: ReactionOptions): MethodDecoratorEx 
 ```
 
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | ReactionOptions  | undefined     | No      |
 
 ## Types
 
-### `ReactionOptions `
+### `ReactionOptions`
 
 ```ts
 export type ReactionOptions<T extends string = string> = {

@@ -13,6 +13,7 @@ title: "@SlashChoice"
 ## Parameters
 
 ### `choices`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | (number \| string \| SlashChoiceType)[ ] | undefined    | Yes      |

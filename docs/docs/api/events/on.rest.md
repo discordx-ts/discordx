@@ -7,19 +7,20 @@ title: "@On.rest"
 ## Signature
 
 ```ts
-On.rest(options?: RestEventOptions): MethodDecoratorEx 
+@On.rest(options?: RestEventOptions): MethodDecoratorEx 
 ```
 
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | RestEventOptions  | undefined     | No      |
 
 ## Types
 
-### `RestEventOptions `
+### `RestEventOptions`
 
 ```ts
 export type RestEventOptions = {

@@ -7,12 +7,13 @@ title: "@On"
 ## Signature
 
 ```ts
-On(options?: EventOptions): MethodDecoratorEx 
+@On(options?: EventOptions): MethodDecoratorEx 
 ```
 
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | EventOptions | undefined     | No      |

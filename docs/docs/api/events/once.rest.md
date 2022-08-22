@@ -7,19 +7,20 @@ title: "@Once.rest"
 ## Signature
 
 ```ts
-Once.rest(options?: RestEventOptions): MethodDecoratorEx 
+@Once.rest(options?: RestEventOptions): MethodDecoratorEx 
 ```
 
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | RestEventOptions  | undefined     | No      |
 
 ## Types
 
-### `RestEventOptions `
+### `RestEventOptions`
 
 ```ts
 export type RestEventOptions = {

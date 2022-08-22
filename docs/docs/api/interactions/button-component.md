@@ -13,6 +13,7 @@ title: "@ButtonComponent"
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | ComponentOptions | undefined    | No      |

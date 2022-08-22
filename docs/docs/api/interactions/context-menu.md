@@ -13,6 +13,7 @@ title: "@ContextMenu"
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | ApplicationCommandOptions | undefined    | Yes      |

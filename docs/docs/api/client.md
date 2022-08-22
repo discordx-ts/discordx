@@ -13,6 +13,7 @@ title: Client
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | ClientOptions | undefined     | Yes      |
@@ -55,6 +56,7 @@ executeReaction(reaction: MessageReaction | PartialMessageReaction, user: User |
 ## Types
 
 ### `ClientOptions`
+
 ```ts
 export interface ClientOptions extends DiscordJSClientOptions {
   botGuilds?: IGuild[];
@@ -67,6 +69,7 @@ export interface ClientOptions extends DiscordJSClientOptions {
 ```
 
 ### `IGuild`
+
 ```ts
 export type IGuild =
   | Snowflake

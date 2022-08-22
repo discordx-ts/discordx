@@ -13,6 +13,7 @@ title: "@SlashOption"
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | SlashOptionOptions | undefined    | Yes      |

@@ -13,6 +13,7 @@ title: "@SimpleCommand"
 ## Parameters
 
 ### `options`
+
 | type      | default | required |
 | --------- | ------- | -------- |
 | SimpleCommandOptions | undefined    | No      |
