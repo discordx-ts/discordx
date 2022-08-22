@@ -6,11 +6,9 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import ThemedImage from "@theme/ThemedImage";
 
-# ❓ Getting Started
-
 Getting started is very easy, There are two methods, You can either manually install everything you need or you can use our home grown project generator called [create-discordx](/packages/create-discordx/README.md) which uses templates from [discordx-ts/templates](https://github.com/discordx-ts/templates) to generate you a ready to go project.
 
-# ✨ Using create-discordx
+## ✨ Using create-discordx
 
 To use create-discordx you simply have to execute the following command:
 
@@ -28,7 +26,7 @@ sources={{
   }}
 />
 
-# 📥 Installing
+## 📥 Manually Installing
 
 To get started manually installing discordx, Create a new project folder and change to that new folder, once you have done that initiate a new npm project using the following command:
 
@@ -63,7 +61,7 @@ my-discordx-project/
 ├─ package.json
 ```
 
-## Installing Dependencies
+### Installing Dependencies
 
 After initialising a npm project, You will need to install the dependencies which can be done using the following command:
 
@@ -117,7 +115,7 @@ pnpm add --save-dev @types/node typescript
 </TabItem>
 </Tabs>
 
-## Configuring TypeScript
+### Configuring TypeScript
 
 Due to this being a TypeScript project you will need to create a `tsconfig.json` in the root of your project, You can generate one using the the following command:
 
@@ -172,7 +170,7 @@ Or you can copy this one:
 If you decided to generate your own, Make sure its configured the same way as this one otherwise discordx may not work.
 :::
 
-## Project Structure
+### Project Structure
 
 By this point your project structure should now look something like the following:
 
@@ -182,12 +180,12 @@ my-discordx-project/
 ├─ tsconfig.json
 ```
 
-# ☎️ Need help?
+## ☎️ Need help?
 
 - [Check frequently asked questions](https://discordx.js.org/docs/faq)
 - [Check examples](https://github.com/discordx-ts/discordx/tree/main/packages/discordx/examples)
 - Ask in the community [Discord server](https://discordx.js.org/discord)
 
-# 💖 Thank you
+## 💖 Thank you
 
 You can support [discordx](https://www.npmjs.com/package/discordx) by giving it a [GitHub](https://github.com/discordx-ts/discordx) star.
