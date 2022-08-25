@@ -24,6 +24,12 @@ export class Main {
     });
 
     this._client.once("ready", async () => {
+      // An example of how guild commands can be cleared
+      //
+      // await this._client.clearApplicationCommands(
+      //   ...this._client.guilds.cache.map((guild) => guild.id)
+      // );
+
       await this._client.initApplicationCommands({
         global: { log: true },
         guild: { log: true },
