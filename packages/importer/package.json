@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
-    "typescript": "^4.7.4"
+    "typescript": "4.7.4"
   },
   "publishConfig": {
     "access": "public"

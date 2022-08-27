@@ -62,7 +62,7 @@
     "@types/koa": "^2.13.5",
     "@types/koa__router": "^8.0.11",
     "koa": "^2.13.4",
-    "typescript": "^4.7.4"
+    "typescript": "4.7.4"
   },
   "peerDependencies": {
     "@koa/router": "*",
