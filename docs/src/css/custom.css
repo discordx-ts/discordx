@@ -58,8 +58,10 @@ pre,
   background: var(--ifm-codeblock) !important;
 }
 
-.badge {
-  padding: 2px;
+.badge-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
 article table {

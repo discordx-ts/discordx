@@ -4,7 +4,7 @@
       <img src="https://discordx.js.org/discordx.svg" width="546" />
     </a>
   </p>
-  <p align="center">
+  <div align="center" class="badge-container">
     <a href="https://discordx.js.org/discord"
       ><img
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
@@ -30,7 +30,7 @@
         src="https://img.shields.io/badge/donate-paypal-F96854.svg"
         alt="paypal"
     /></a>
-  </p>
+  </div>
   <p align="center">
     <b> Create a discord bot with TypeScript and Decorators! </b>
   </p>
