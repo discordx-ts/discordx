@@ -1,19 +1,10 @@
-# @On - Discord events
+# @Once
 
-You can use this decorator to declare methods that will be executed whenever a Discord event is triggered.
-
-Our methods must be decorated with the `@On` or [@Once](/docs/decorators/general/once) decorator.
-
-It's that simple, when the event is triggered, the method is called:
+It's exactly the same behavior as [@On](docs/packages/discordx/guides/decorators/general/on) but the method is only executed once
 
 ```typescript
 @Discord()
 class Example {
-  @On({ event: "messageCreate" })
-  onMessage() {
-    // ...
-  }
-
   @Once({ event: "messageDelete" })
   onMessageDelete() {
     // ...
@@ -29,16 +20,14 @@ You also receive other useful arguments after that:
 
 1. The event payload (`ArgsOf<"YOUR_EVENT">`)
 2. The `Client` instance
-3. The [guards](/docs/decorators/general/guard) payload
+3. The [guards](docs/packages/discordx/guides/decorators/general/guard) payload
 
 > You should use JS destructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 
 ```typescript
-import { Discord, On, Client, ArgsOf } from "discordx";
-
 @Discord()
 class Example {
-  @On({ event: "messageCreate" })
+  @Once({ event: "messageCreate" })
   onMessage(
     [message]: ArgsOf<"messageCreate">, // Type message automatically
     client: Client, // Client instance injected here,
@@ -56,7 +45,7 @@ To handle rest events
 ```ts
 @Discord()
 class Example {
-  @On.rest()
+  @Once.rest()
   rateLimited([data]: RestArgsOf<"rateLimited">): void {
     console.log(data.limit);
   }
@@ -66,7 +55,7 @@ class Example {
 ## Signature
 
 ```ts
-On(options?: EventOptions)
+Once(options?: EventOptions)
 ```
 
 ## Parameters

@@ -286,7 +286,7 @@ export class MetadataStorage {
       if (!discord) {
         throw Error(
           `Did you forget to use the @discord decorator on your class: ${member.from.name}\n` +
-            "read more at https://discordx.js.org/docs/decorators/general/discord\n\n"
+            "read more at https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/discord\n\n"
         );
       }
 

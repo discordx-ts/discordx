@@ -21,5 +21,5 @@ yarn-debug.log*
 yarn-error.log*
 *.bat
 
-docs/docs/packages
+docs/docs/packages/**/README.md
 docs/typedoc-sidebar.js

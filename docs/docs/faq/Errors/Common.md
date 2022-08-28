@@ -51,7 +51,7 @@ DiscordAPIError: Missing Access
 
 #### Solution
 
-[Authorize your bot to use application commands](/docs/decorators/commands/slash#authorize-your-bot-to-use-application-commands)
+[Authorize your bot to use application commands](docs/packages/discordx/guides/decorators/command/slash#authorize-your-bot-to-use-application-commands)
 
 ---
 

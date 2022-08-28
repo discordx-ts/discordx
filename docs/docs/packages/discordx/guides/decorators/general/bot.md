@@ -9,8 +9,8 @@ bot decorator help you manage multiple bot's in single node instance
 - [@On](./on)
 - [@Once](./once)
 - [@SelectMenuComponent](../gui/select-menu-component)
-- [@SimpleCommand](../commands/simple-command)
-- [@Slash](../commands/slash)
+- [@SimpleCommand](../command/simple-command)
+- [@Slash](../command/slash)
 
 ## Example
 
@@ -60,18 +60,18 @@ Array of bot ids, for which only the below statement will be executed.
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](/docs/decorators/gui/button-component)
+[@ButtonComponent](docs/packages/discordx/guides/decorators/gui/button-component)
 
-[@SelectMenuComponent](/docs/decorators/gui/select-menu-component)
+[@SelectMenuComponent](docs/packages/discordx/guides/decorators/gui/select-menu-component)
 
-[@ContextMenu](/docs/decorators/gui/context-menu)
+[@ContextMenu](docs/packages/discordx/guides/decorators/gui/context-menu)
 
-[@Discord](/docs/decorators/general/discord)
+[@Discord](docs/packages/discordx/guides/decorators/general/discord)
 
-[@On](/docs/decorators/general/on)
+[@On](docs/packages/discordx/guides/decorators/general/on)
 
-[@Once](/docs/decorators/general/once)
+[@Once](docs/packages/discordx/guides/decorators/general/once)
 
-[@SimpleCommand](/docs/decorators/commands/simple-command)
+[@SimpleCommand](docs/packages/discordx/guides/decorators/command/simple-command)
 
-[@Slash](/docs/decorators/commands/slash)
+[@Slash](docs/packages/discordx/guides/decorators/command/slash)

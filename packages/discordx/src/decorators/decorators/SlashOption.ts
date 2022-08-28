@@ -16,7 +16,7 @@ import {
  * @param options - Slash option options
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/decorators/commands/slash-option)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-option)
  *
  * @category Decorator
  */

@@ -7,8 +7,8 @@ You can use this guard to specify which guilds your @Slash commands are created 
 - [@ButtonComponent](../gui/button-component)
 - [@ContextMenu](../gui/context-menu)
 - [@SelectMenuComponent](../gui/select-menu-component)
-- [@SimpleCommand](../commands/simple-command)
-- [@Slash](../commands/slash)
+- [@SimpleCommand](../command/simple-command)
+- [@Slash](../command/slash)
 
 ## Example
 
@@ -85,12 +85,12 @@ type IGuild =
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](/docs/decorators/gui/button-component)
+[@ButtonComponent](docs/packages/discordx/guides/decorators/gui/button-component)
 
-[@SelectMenuComponent](/docs/decorators/gui/select-menu-component)
+[@SelectMenuComponent](docs/packages/discordx/guides/decorators/gui/select-menu-component)
 
-[@Discord](/docs/decorators/general/discord)
+[@Discord](docs/packages/discordx/guides/decorators/general/discord)
 
-[@SimpleCommand](/docs/decorators/commands/simple-command)
+[@SimpleCommand](docs/packages/discordx/guides/decorators/command/simple-command)
 
-[@Slash](/docs/decorators/commands/slash)
+[@Slash](docs/packages/discordx/guides/decorators/command/slash)

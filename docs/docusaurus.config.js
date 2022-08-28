@@ -26,8 +26,8 @@ module.exports = {
     navbar: {
       items: [
         {
-          docId: "installation",
-          label: "Docs",
+          docId: "discordx",
+          label: "Getting started",
           position: "left",
           type: "doc",
         },
