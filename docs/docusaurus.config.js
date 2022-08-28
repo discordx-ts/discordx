@@ -48,7 +48,7 @@ module.exports = {
         },
         {
           href: "https://github.com/discordx-ts/discordx",
-          label: "Github",
+          label: "GitHub",
           position: "right",
         },
         {

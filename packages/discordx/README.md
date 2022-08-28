@@ -77,7 +77,7 @@ With `discordx`, we intend to provide the latest up-to-date package to easily bu
 
 Try discordx now with [CodeSandbox](https://codesandbox.io/s/github/discordx-ts/templates)
 
-If you have any issues or feature requests, Please open an issue at [Github](https://github.com/discordx-ts/discordx/issues) or join [discord server](https://discordx.js.org/discord)
+If you have any issues or feature requests, Please open an issue at [GitHub](https://github.com/discordx-ts/discordx/issues) or join [discord server](https://discordx.js.org/discord)
 
 # 🆕 Features
 
