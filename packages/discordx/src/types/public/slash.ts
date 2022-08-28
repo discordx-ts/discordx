@@ -110,8 +110,8 @@ export type ApplicationCommandDataEx = {
   type: ApplicationCommandType;
 };
 
-export interface ApplicationCommandOptionChoiceDataEx {
+export type ApplicationCommandOptionChoiceDataEx = {
   name: string;
   nameLocalizations?: LocalizationMap | null;
   value: string | number;
-}
+};
