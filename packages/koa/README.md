@@ -51,6 +51,13 @@ npm install koa @koa/router @discordx/koa
 yarn add koa @koa/router @discordx/koa
 ```
 
+Install required types
+
+```
+npm install --save-dev @types/koa__router
+yarn add --dev @types/koa__router
+```
+
 # 🆕 Features
 
 - `@Router` to create a router on class

@@ -24,7 +24,10 @@ for (const pkg in packages) {
 
   const filePath = dirPath + "/README.md";
   const content = fs.readFileSync(`../packages/${packages[pkg]}/README.md`);
-  fs.writeFileSync(filePath, "---\ntitle: Readme\n---\n\n#\n\n" + content);
+  fs.writeFileSync(
+    filePath,
+    "---\ntitle: Readme\n---\n\n# &nbsp;\n\n" + content
+  );
 }
 
 console.log("doc prepared");
