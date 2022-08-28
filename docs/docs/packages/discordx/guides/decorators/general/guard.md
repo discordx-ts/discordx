@@ -13,8 +13,8 @@ The order of execution of the guards is done according to their position in the 
 - [@On](./on)
 - [@Once](./once)
 - [@SelectMenuComponent](../gui/select-menu-component)
-- [@SimpleCommand](../commands/simple-command)
-- [@Slash](../commands/slash)
+- [@SimpleCommand](../command/simple-command)
+- [@Slash](../command/slash)
 
 ## Example
 

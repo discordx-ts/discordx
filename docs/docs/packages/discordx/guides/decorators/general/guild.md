@@ -7,8 +7,8 @@ You can use this guard to specify which guilds your @Slash commands are created 
 - [@ButtonComponent](../gui/button-component)
 - [@ContextMenu](../gui/context-menu)
 - [@SelectMenuComponent](../gui/select-menu-component)
-- [@SimpleCommand](../commands/simple-command)
-- [@Slash](../commands/slash)
+- [@SimpleCommand](../command/simple-command)
+- [@Slash](../command/slash)
 
 ## Example
 

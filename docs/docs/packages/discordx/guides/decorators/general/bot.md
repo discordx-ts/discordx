@@ -9,8 +9,8 @@ bot decorator help you manage multiple bot's in single node instance
 - [@On](./on)
 - [@Once](./once)
 - [@SelectMenuComponent](../gui/select-menu-component)
-- [@SimpleCommand](../commands/simple-command)
-- [@Slash](../commands/slash)
+- [@SimpleCommand](../command/simple-command)
+- [@Slash](../command/slash)
 
 ## Example
 
