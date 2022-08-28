@@ -26,14 +26,14 @@ module.exports = {
     navbar: {
       items: [
         {
-          docId: "discordx",
-          label: "Getting started",
+          docId: "packages/index",
+          label: "Packages",
           position: "left",
           type: "doc",
         },
         {
-          docId: "packages/index",
-          label: "Packages",
+          docId: "faq/index",
+          label: "F.A.Q",
           position: "left",
           type: "doc",
         },

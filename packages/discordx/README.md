@@ -42,7 +42,7 @@ This module is an extension of **[discord.**js**](https://discord.js.org)**, so 
 
 This library allows you to use TypeScript decorators on discord.**js**, it simplifies your code and improves the readability!
 
-# 💻 [Installation](https://discordx.js.org/docs/installation)
+# 💻 [Installation](https://discordx.js.org/docs/packages/discordx/getting-started)
 
 > Version 16.6.0 or newer of [Node.js](https://nodejs.org/) is required
 
@@ -51,7 +51,7 @@ npm install discordx
 yarn add discordx
 ```
 
-> **[installation guide](https://discordx.js.org/docs/installation#installation)**
+> **[installation guide](https://discordx.js.org/docs/packages/discordx/getting-started#installation)**
 
 > **[one-click installation](https://github.com/discordx-ts/discordx/tree/main/packages/create-discordx#-introduction)**
 
