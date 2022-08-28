@@ -23,7 +23,7 @@ import {
  * @param options - Group options
  * ___
  *
- * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-group)
  *
  * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *
@@ -39,7 +39,7 @@ export function SlashGroup<TRoot extends string>(
  * @param name - Name of group
  * ___
  *
- * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-group)
  *
  * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *
@@ -56,7 +56,7 @@ export function SlashGroup<TName extends string>(
  * @param root - Root name of group
  * ___
  *
- * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-group)
  *
  * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *
@@ -74,7 +74,7 @@ export function SlashGroup<TName extends string, TRoot extends string>(
  * @param root - Root name of group
  * ___
  *
- * [View discordx documentation](https://discordx.js.org/docs/decorators/commands/slash-group)
+ * [View discordx documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-group)
  *
  * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
  *

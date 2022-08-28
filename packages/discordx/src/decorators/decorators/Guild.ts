@@ -17,7 +17,7 @@ import {
  * @param guildId - Guild identifier
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/decorators/general/guild)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/guild)
  *
  * @category Decorator
  */
@@ -29,7 +29,7 @@ export function Guild(guildId: IGuild): ClassMethodDecorator;
  * @param guildIds - Guild identifiers
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/decorators/general/guild)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/guild)
  *
  * @category Decorator
  */
@@ -41,7 +41,7 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator;
  * @param guildIds - Guild identifiers
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/decorators/general/guild)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/guild)
  *
  * @category Decorator
  */

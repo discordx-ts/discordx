@@ -116,32 +116,32 @@ There is a whole system that allows you to implement complex slash/simple comman
 
 ## General
 
-- [`@Discord`](https://discordx.js.org/docs/decorators/general/discord)
-- [`@Guard`](https://discordx.js.org/docs/decorators/general/guard)
-- [`@Guild`](https://discordx.js.org/docs/decorators/general/guild)
-- [`@Bot`](https://discordx.js.org/docs/decorators/general/bot)
-- [`@On`](https://discordx.js.org/docs/decorators/general/on)
-- [`@Once`](https://discordx.js.org/docs/decorators/general/once)
-- [`@Once`](https://discordx.js.org/docs/decorators/general/once)
-- [`@Reaction`](https://discordx.js.org/docs/decorators/general/reaction)
+- [`@Discord`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/discord)
+- [`@Guard`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/guard)
+- [`@Guild`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/guild)
+- [`@Bot`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/bot)
+- [`@On`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/on)
+- [`@Once`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/once)
+- [`@Once`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/once)
+- [`@Reaction`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/reaction)
 
 ## Commands
 
-- [`@Slash`](https://discordx.js.org/docs/decorators/commands/slash)
-- [`@SlashChoice`](https://discordx.js.org/docs/decorators/commands/slash-choice)
-- [`@SlashGroup`](https://discordx.js.org/docs/decorators/commands/slash-group)
-- [`@SlashOption`](https://discordx.js.org/docs/decorators/commands/slash-option)
-- [`@SimpleCommand`](https://discordx.js.org/docs/decorators/commands/simple-command)
-- [`@SimpleCommandOption`](https://discordx.js.org/docs/decorators/commands/simple-command-option)
+- [`@Slash`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash)
+- [`@SlashChoice`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-choice)
+- [`@SlashGroup`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-group)
+- [`@SlashOption`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-option)
+- [`@SimpleCommand`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/simple-command)
+- [`@SimpleCommandOption`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/simple-command-option)
 
 ## GUI Interactions
 
-- [`@ButtonComponent`](https://discordx.js.org/docs/decorators/gui/button-component)
-- [`@ContextMenu`](https://discordx.js.org/docs/decorators/gui/context-menu)
-- [`@ModalComponent`](https://discordx.js.org/docs/decorators/gui/modal-component)
-- [`@SelectMenuComponent`](https://discordx.js.org/docs/decorators/gui/select-menu-component)
+- [`@ButtonComponent`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/button-component)
+- [`@ContextMenu`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/context-menu)
+- [`@ModalComponent`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/modal-component)
+- [`@SelectMenuComponent`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/select-menu-component)
 
-# 📟 [@Slash](https://discordx.js.org/docs/decorators/commands/slash)
+# 📟 [@Slash](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash)
 
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
@@ -158,7 +158,7 @@ class Example {
 }
 ```
 
-# 📟 [@ButtonComponent](https://discordx.js.org/docs/decorators/gui/button-component)
+# 📟 [@ButtonComponent](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/button-component)
 
 Create discord button handler with ease!
 
@@ -194,7 +194,7 @@ class Example {
 }
 ```
 
-# 📟 [@SelectMenuComponent](https://discordx.js.org/docs/decorators/gui/select-menu-component)
+# 📟 [@SelectMenuComponent](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/select-menu-component)
 
 Create discord select menu handler with ease!
 
@@ -252,7 +252,7 @@ class Example {
 }
 ```
 
-# 📟 [@ContextMenu](https://discordx.js.org/docs/decorators/gui/context-menu)
+# 📟 [@ContextMenu](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/context-menu)
 
 Create discord context menu options with ease!
 
@@ -279,7 +279,7 @@ class Example {
 }
 ```
 
-# 📟 [@ModalComponent](https://discordx.js.org/docs/decorators/gui/modal-component)
+# 📟 [@ModalComponent](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/modal-component)
 
 Create discord modal with ease!
 
@@ -336,7 +336,7 @@ class Example {
 }
 ```
 
-# 📟 [@SimpleCommand](https://discordx.js.org/docs/decorators/commands/simple-command)
+# 📟 [@SimpleCommand](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/simple-command)
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 
@@ -350,7 +350,7 @@ class Example {
 }
 ```
 
-# 💡[@On](https://discordx.js.org/docs/decorators/general/on) / [@Once](https://discordx.js.org/docs/decorators/general/once)
+# 💡[@On](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/on) / [@Once](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/once)
 
 We can declare methods that will be executed whenever a Discord event is triggered.
 
@@ -373,7 +373,7 @@ class Example {
 }
 ```
 
-# 💡[@Reaction](https://discordx.js.org/docs/decorators/general/reaction)
+# 💡[@Reaction](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/reaction)
 
 Create a reaction handler for messages using `@Reaction`.
 
@@ -392,7 +392,7 @@ class Example {
 }
 ```
 
-# ⚔️ [Guards](https://discordx.js.org/docs/decorators/general/guard)
+# ⚔️ [Guards](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/guard)
 
 We implemented a guard system that functions like the [Koa](https://koajs.com/) middleware system
 
