@@ -38,6 +38,7 @@
   "scripts": {
     "build": "tsc",
     "build:changelog": "npx @discordx/changelog --root=src --tag=c-v* --tag-replace=c-",
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/changelog",
     "type-check": "tsc --noemit"
   },
   "dependencies": {
