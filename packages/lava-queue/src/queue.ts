@@ -106,8 +106,8 @@ export class Queue {
     this.lavaPlayer.pause(false);
   }
 
-  search(text: string): Promise<TrackResponse> {
-    return this.player.node.load(`ytsearch:${text}`);
+  search(text: string, searchEngine = "ytsearch"): Promise<TrackResponse> {
+    return this.player.node.load(`${searchEngine}:${text}`);
   }
 
   setPosition(position: number): void {
