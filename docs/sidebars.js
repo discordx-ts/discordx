@@ -99,7 +99,7 @@ module.exports = {
   lavaPlayer: [
     {
       label: "API",
-      href: "https://discordx.js.org/api/player",
+      href: "https://discordx.js.org/api/lava-player",
       type: "link",
     },
     {
@@ -111,7 +111,7 @@ module.exports = {
   lavaQueue: [
     {
       label: "API",
-      href: "https://discordx.js.org/api/queue",
+      href: "https://discordx.js.org/api/lava-queue",
       type: "link",
     },
     {
@@ -147,7 +147,7 @@ module.exports = {
   socket_io: [
     {
       label: "API",
-      href: "https://discordx.js.org/api/io",
+      href: "https://discordx.js.org/api/socket.io",
       type: "link",
     },
     {
