@@ -232,13 +232,13 @@ class Example {
   ```
 
 - `ApplicationCommandOptionType.Integer`
-  No inference, use [@SlashOption](docs/packages/discordx/guides/decorators/commands/slash-option)
+  No inference, use [@SlashOption](docs/packages/discordx/guides/decorators/command/slash-option)
 
 - `ApplicationCommandOptionType.SubCommand`
-  No inference, use [@SlashGroup](docs/packages/discordx/guides/decorators/commands/slash-group)
+  No inference, use [@SlashGroup](docs/packages/discordx/guides/decorators/command/slash-group)
 
 - `ApplicationCommandOptionType.SubCommandGroup`
-  No inference, use [@SlashGroup](docs/packages/discordx/guides/decorators/commands/slash-group)
+  No inference, use [@SlashGroup](docs/packages/discordx/guides/decorators/command/slash-group)
 
 ## Signature
 
@@ -356,7 +356,7 @@ The slash option type
 
 ## Autocompletion (Option's choices)
 
-You can use the [@SlashChoice](docs/packages/discordx/guides/decorators/commands/slash-choice) decorator
+You can use the [@SlashChoice](docs/packages/discordx/guides/decorators/command/slash-choice) decorator
 
 ## Option order
 

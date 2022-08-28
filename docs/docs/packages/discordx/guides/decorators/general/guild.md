@@ -91,6 +91,6 @@ It either extends or overwrites data configured in below decorators, however, th
 
 [@Discord](docs/packages/discordx/guides/decorators/general/discord)
 
-[@SimpleCommand](docs/packages/discordx/guides/decorators/commands/simple-command)
+[@SimpleCommand](docs/packages/discordx/guides/decorators/command/simple-command)
 
-[@Slash](docs/packages/discordx/guides/decorators/commands/slash)
+[@Slash](docs/packages/discordx/guides/decorators/command/slash)

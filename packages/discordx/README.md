@@ -127,12 +127,12 @@ There is a whole system that allows you to implement complex slash/simple comman
 
 ## Commands
 
-- [`@Slash`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash)
-- [`@SlashChoice`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-choice)
-- [`@SlashGroup`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-group)
-- [`@SlashOption`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-option)
-- [`@SimpleCommand`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/simple-command)
-- [`@SimpleCommandOption`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/simple-command-option)
+- [`@Slash`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash)
+- [`@SlashChoice`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-choice)
+- [`@SlashGroup`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-group)
+- [`@SlashOption`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-option)
+- [`@SimpleCommand`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/simple-command)
+- [`@SimpleCommandOption`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/simple-command-option)
 
 ## GUI Interactions
 
@@ -141,7 +141,7 @@ There is a whole system that allows you to implement complex slash/simple comman
 - [`@ModalComponent`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/modal-component)
 - [`@SelectMenuComponent`](https://discordx.js.orgdocs/packages/discordx/guides/decorators/gui/select-menu-component)
 
-# 📟 [@Slash](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash)
+# 📟 [@Slash](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash)
 
 Discord has it's own command system now, you can simply declare commands and use Slash commands this way
 
@@ -336,7 +336,7 @@ class Example {
 }
 ```
 
-# 📟 [@SimpleCommand](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/simple-command)
+# 📟 [@SimpleCommand](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/simple-command)
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`
 

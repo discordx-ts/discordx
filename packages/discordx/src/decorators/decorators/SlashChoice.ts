@@ -15,7 +15,7 @@ import type { NotEmpty } from "../../types/index.js";
  * @param choices - choices
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-choice)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-choice)
  *
  * @category Decorator
  */
@@ -29,7 +29,7 @@ export function SlashChoice<T extends string>(
  * @param choices - choices
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-choice)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-choice)
  *
  * @category Decorator
  */
@@ -41,7 +41,7 @@ export function SlashChoice(...choices: number[]): ParameterDecoratorEx;
  * @param choices - choices
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-choice)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-choice)
  *
  * @category Decorator
  */
@@ -55,7 +55,7 @@ export function SlashChoice<T extends string, X = string | number>(
  * @param choices - choices
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/commands/slash-choice)
+ * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash-choice)
  *
  * @category Decorator
  */
