@@ -3,12 +3,62 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-    paths:
-      - "docs/**"
+      - workflow-typedoc
 
 jobs:
+  api:
+    name: Generate Typedoc
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - package: "discordx"
+            folder: "discordx"
+          - package: "@discordx/music"
+            folder: "music"
+          - package: "@discordx/pagination"
+            folder: "pagination"
+          - package: "@discordx/utilities"
+            folder: "utilities"
+          - package: "@discordx/changelog"
+            folder: "changelog"
+          - package: "create-discordx"
+            folder: "create-discordx"
+          - package: "@discordx/di"
+            folder: "di"
+          - package: "@discordx/internal"
+            folder: "internal"
+          - package: "@discordx/koa"
+            folder: "koa"
+          - package: "@discordx/lava-player"
+            folder: "lava-player"
+          - package: "@discordx/lava-queue"
+            folder: "lava-queue"
+          - package: "@discordx/socket.io"
+            folder: "socket.io"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./packages/${{ matrix.folder }}
+
+      - name: Build
+        run: npm run build
+        working-directory: ./packages/${{ matrix.folder }}
+
+      - name: Generate TypeDoc
+        run: npx typedoc src/index.ts --out ../../docs/static/api/${{ matrix.package }}
+        working-directory: ./packages/${{ matrix.folder }}
+
   build:
+    name: Build
+    needs: api
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
