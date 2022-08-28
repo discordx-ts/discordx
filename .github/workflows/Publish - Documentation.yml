@@ -3,7 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - workflow-typedoc
+      - main
+    paths:
+      - "docs/**"
 
 jobs:
   build:
