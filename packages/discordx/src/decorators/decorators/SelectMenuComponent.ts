@@ -7,7 +7,7 @@ import type { ComponentOptions } from "../../types/index.js";
  * Interact with select menu with a defined identifier
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/gui/select-menu-component)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */
@@ -19,7 +19,7 @@ export function SelectMenuComponent(): MethodDecoratorEx;
  * @param options - Component options
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/gui/select-menu-component)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */
@@ -33,7 +33,7 @@ export function SelectMenuComponent<T extends string>(
  * @param options - Component options
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/gui/select-menu-component)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/gui/select-menu-component)
  *
  * @category Decorator
  */

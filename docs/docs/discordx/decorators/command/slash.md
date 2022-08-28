@@ -239,8 +239,8 @@ In order to make commands work within a guild, the guild must authorize your app
 
 On the Discord's developer portal, select your bot, go to the OAuth2 tab and check the box **bot** AND **applications.commands**
 
-![](../../../../../../static/img/authorize1.png)
-![](../../../../../../static/img/authorize2.png)
+![](../../../../static/img/authorize1.png)
+![](../../../../static/img/authorize2.png)
 
 [read more at discord](https://discord.com/developers/docs/interactions/application-commands#authorizing-your-application)
 

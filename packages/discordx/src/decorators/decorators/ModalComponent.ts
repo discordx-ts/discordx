@@ -7,7 +7,7 @@ import { ComponentType, DComponent, MetadataStorage } from "../../index.js";
  * Create modal interaction handler
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/gui/modal-component)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/gui/modal-component)
  *
  * @category Decorator
  */
@@ -19,7 +19,7 @@ export function ModalComponent(): MethodDecoratorEx;
  * @param options - Component options
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/gui/modal-component)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/gui/modal-component)
  *
  * @category Decorator
  */
@@ -33,7 +33,7 @@ export function ModalComponent<T extends string>(
  * @param options - Component options
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/gui/modal-component)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/gui/modal-component)
  *
  * @category Decorator
  */

@@ -85,12 +85,12 @@ type IGuild =
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](docs/packages/discordx/guides/decorators/gui/button-component)
+[@ButtonComponent](docs/discordx/decorators/gui/button-component)
 
-[@SelectMenuComponent](docs/packages/discordx/guides/decorators/gui/select-menu-component)
+[@SelectMenuComponent](docs/discordx/decorators/gui/select-menu-component)
 
-[@Discord](docs/packages/discordx/guides/decorators/general/discord)
+[@Discord](docs/discordx/decorators/general/discord)
 
-[@SimpleCommand](docs/packages/discordx/guides/decorators/command/simple-command)
+[@SimpleCommand](docs/discordx/decorators/command/simple-command)
 
-[@Slash](docs/packages/discordx/guides/decorators/command/slash)
+[@Slash](docs/discordx/decorators/command/slash)

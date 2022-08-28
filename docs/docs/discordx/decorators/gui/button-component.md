@@ -4,7 +4,7 @@ add button interaction handler for your bot using `@ButtonComponent` decorator
 
 Here are some example screenshots:
 
-![](../../../../../../static/img/button-example.jpg)
+![](../../../../static/img/button-example.jpg)
 
 ## Example
 

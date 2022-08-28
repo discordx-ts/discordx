@@ -4,7 +4,7 @@ add modal interaction handler for your bot using `@ModalComponent` decorator
 
 Here are some example screenshots:
 
-![](../../../../../../static/img/modal-example.png)
+![](../../../../static/img/modal-example.png)
 
 ## Example
 

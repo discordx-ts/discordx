@@ -60,18 +60,18 @@ Array of bot ids, for which only the below statement will be executed.
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](docs/packages/discordx/guides/decorators/gui/button-component)
+[@ButtonComponent](docs/discordx/decorators/gui/button-component)
 
-[@SelectMenuComponent](docs/packages/discordx/guides/decorators/gui/select-menu-component)
+[@SelectMenuComponent](docs/discordx/decorators/gui/select-menu-component)
 
-[@ContextMenu](docs/packages/discordx/guides/decorators/gui/context-menu)
+[@ContextMenu](docs/discordx/decorators/gui/context-menu)
 
-[@Discord](docs/packages/discordx/guides/decorators/general/discord)
+[@Discord](docs/discordx/decorators/general/discord)
 
-[@On](docs/packages/discordx/guides/decorators/general/on)
+[@On](docs/discordx/decorators/general/on)
 
-[@Once](docs/packages/discordx/guides/decorators/general/once)
+[@Once](docs/discordx/decorators/general/once)
 
-[@SimpleCommand](docs/packages/discordx/guides/decorators/command/simple-command)
+[@SimpleCommand](docs/discordx/decorators/command/simple-command)
 
-[@Slash](docs/packages/discordx/guides/decorators/command/slash)
+[@Slash](docs/discordx/decorators/command/slash)

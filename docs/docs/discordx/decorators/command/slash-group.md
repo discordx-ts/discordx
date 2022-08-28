@@ -36,7 +36,7 @@ command
 
 In the following example, slash permission commands are grouped under permissions and subgrouped by role and user.
 
-![](../../../../../../static/img/permissions.png)
+![](../../../../static/img/permissions.png)
 
 ## Create a group
 

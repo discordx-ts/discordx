@@ -17,7 +17,7 @@ const packages = [
 ];
 
 for (const pkg in packages) {
-  const dirPath = "docs/packages/" + packages[pkg];
+  const dirPath = "docs/" + packages[pkg];
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath);
   }
@@ -26,7 +26,7 @@ for (const pkg in packages) {
   const content = fs.readFileSync(`../packages/${packages[pkg]}/README.md`);
   fs.writeFileSync(
     filePath,
-    "---\ntitle: Readme\n---\n\n# &nbsp;\n\n" + content
+    "---\ntitle: Readme\nsidebar_position: 0\n---\n\n# &nbsp;\n\n" + content
   );
 }
 

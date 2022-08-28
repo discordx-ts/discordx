@@ -4,7 +4,7 @@ add select menu interaction handler for your bot using `@SelectMenuComponent` de
 
 Here are some example screenshots:
 
-![](../../../../../../static/img/select-menu-example.jpg)
+![](../../../../static/img/select-menu-example.jpg)
 
 ## Example
 

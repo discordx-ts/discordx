@@ -5,7 +5,7 @@ sidebar_position: 1
 
 An option of a Slash command can implement an autocompletion feature for `string` and `number` types
 
-![](../../../../../../static/img/choices.png)
+![](../../../../static/img/choices.png)
 
 ## Setup autocompletion
 

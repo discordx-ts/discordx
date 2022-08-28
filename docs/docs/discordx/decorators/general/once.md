@@ -1,6 +1,6 @@
 # @Once
 
-It's exactly the same behavior as [@On](docs/packages/discordx/guides/decorators/general/on) but the method is only executed once
+It's exactly the same behavior as [@On](docs/discordx/decorators/general/on) but the method is only executed once
 
 ```typescript
 @Discord()
@@ -20,7 +20,7 @@ You also receive other useful arguments after that:
 
 1. The event payload (`ArgsOf<"YOUR_EVENT">`)
 2. The `Client` instance
-3. The [guards](docs/packages/discordx/guides/decorators/general/guard) payload
+3. The [guards](docs/discordx/decorators/general/guard) payload
 
 > You should use JS destructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 

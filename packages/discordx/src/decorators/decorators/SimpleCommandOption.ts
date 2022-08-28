@@ -15,7 +15,7 @@ import {
  * @param options - Command option options
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/command/simple-command-option)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/command/simple-command-option)
  *
  * @category Decorator
  */

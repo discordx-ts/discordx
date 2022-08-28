@@ -19,7 +19,7 @@ import {
  * @param botId - Bot identifier
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/bot)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/bot)
  *
  * @category Decorator
  */
@@ -32,7 +32,7 @@ export function Bot<T extends string>(botId: NotEmpty<T>): ClassMethodDecorator;
  * @param botIds - Multiple bot identifiers
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/bot)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/bot)
  *
  * @category Decorator
  */
@@ -45,7 +45,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator;
  * @param botIds - Multiple bot identifiers
  * ___
  *
- * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/bot)
+ * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/bot)
  *
  * @category Decorator
  */
