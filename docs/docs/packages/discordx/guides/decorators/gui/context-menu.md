@@ -4,8 +4,8 @@ create discord context menu options with ease!
 
 Here are some example screenshots:
 
-![](../../../static/img/user-context.jpg)
-![](../../../static/img/message-context.jpg)
+![](../../../../../../static/img/user-context.jpg)
+![](../../../../../../static/img/message-context.jpg)
 
 ## Example
 

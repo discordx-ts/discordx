@@ -1,10 +1,13 @@
-# @SlashOption
+---
+title: "@SlashOption"
+sidebar_position: 3
+---
 
 A slash command can have multiple options (parameters)
 
 > query is an option in this image
 
-![](../../../static/img/options.png)
+![](../../../../../../static/img/options.png)
 
 ## Declare an option
 

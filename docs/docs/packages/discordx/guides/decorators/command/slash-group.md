@@ -1,4 +1,7 @@
-# @SlashGroup
+---
+title: "@SlashGroup"
+sidebar_position: 2
+---
 
 Subcommands and groups offer developers an organized and complex way to group commands.
 
@@ -33,7 +36,7 @@ command
 
 In the following example, slash permission commands are grouped under permissions and subgrouped by role and user.
 
-![](../../../static/img/permissions.png)
+![](../../../../../../static/img/permissions.png)
 
 ## Create a group
 
