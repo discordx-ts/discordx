@@ -12,7 +12,7 @@ import {
  * Handle a slash command with a defined name
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/command/slash)
  *
  * @category Decorator
  */
@@ -24,7 +24,7 @@ export function Slash(): MethodDecoratorEx;
  * @param options - Application command options
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/command/slash)
  *
  * @category Decorator
  */
@@ -38,7 +38,7 @@ export function Slash<T extends string>(
  * @param options - Application command options
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/command/slash)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/command/slash)
  *
  * @category Decorator
  */

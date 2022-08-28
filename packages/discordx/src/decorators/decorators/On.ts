@@ -7,7 +7,7 @@ import { DOn, MetadataStorage } from "../../index.js";
  * Handle discord events with a defined handler
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/on)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/on)
  *
  * @category Decorator
  */
@@ -19,7 +19,7 @@ export function On(): MethodDecoratorEx;
  * @param options - Event options
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/on)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/on)
  *
  * @category Decorator
  */
@@ -31,7 +31,7 @@ export function On(options: EventOptions): MethodDecoratorEx;
  * @param options - Event options
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/on)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/on)
  *
  * @category Decorator
  */
@@ -59,7 +59,7 @@ export function On(options?: EventOptions): MethodDecoratorEx {
  * @param options - Rest event options
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/on#rest)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/on#rest)
  *
  * @category Decorator
  */

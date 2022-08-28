@@ -7,7 +7,7 @@ import { DOn, MetadataStorage } from "../../index.js";
  * Handle discord events once only with a defined handler
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/once)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/once)
  *
  * @category Decorator
  */
@@ -19,7 +19,7 @@ export function Once(): MethodDecoratorEx;
  * @param options - Event parameters
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/once)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/once)
  *
  * @category Decorator
  */
@@ -31,7 +31,7 @@ export function Once(options: EventOptions): MethodDecoratorEx;
  * @param options - Event parameters
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/once)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/once)
  *
  * @category Decorator
  */
@@ -59,7 +59,7 @@ export function Once(options?: EventOptions): MethodDecoratorEx {
  * @param options - Rest event options
  * ___
  *
- * [View Documentation](https://discordx.js.orgdocs/packages/discordx/guides/decorators/general/once#rest)
+ * [View Documentation](https://discordx.js.org/docs/packages/discordx/guides/decorators/general/once#rest)
  *
  * @category Decorator
  */
