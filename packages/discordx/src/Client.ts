@@ -1033,7 +1033,7 @@ export class Client extends ClientJS {
     const tree = this.getApplicationCommandGroupTree(interaction);
     const applicationCommand = this.getApplicationCommandFromTree(tree);
 
-    if (!applicationCommand || !applicationCommand.isBotAllowed(this.botId)) {
+    if (!applicationCommand?.isBotAllowed(this.botId)) {
       if (log ?? !this.silent) {
         this.logger.error(
           `${
@@ -1087,8 +1087,7 @@ export class Client extends ClientJS {
     const results = await Promise.all(
       executes.map(async (component) => {
         if (
-          !component ||
-          !component.isBotAllowed(this.botId) ||
+          !component?.isBotAllowed(this.botId) ||
           !(await component.isGuildAllowed(this, interaction.guildId))
         ) {
           return undefined;
@@ -1136,8 +1135,7 @@ export class Client extends ClientJS {
         );
 
     if (
-      !applicationCommand ||
-      !applicationCommand.isBotAllowed(this.botId) ||
+      !applicationCommand?.isBotAllowed(this.botId) ||
       !(await applicationCommand.isGuildAllowed(this, interaction.guildId))
     ) {
       if (log ?? !this.silent) {

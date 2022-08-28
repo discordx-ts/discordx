@@ -19,7 +19,7 @@ export class Util {
   ): Promise<ytsr.Item[]> {
     const filters = await ytsr.getFilters(input);
     const search = filters.get("Type")?.get(type);
-    if (!search || !search.url) {
+    if (!search?.url) {
       return [];
     }
 
@@ -37,7 +37,7 @@ export class Util {
   static async getSong(input: string): Promise<ytsr.Video | undefined> {
     const filters = await ytsr.getFilters(input);
     const search = filters.get("Type")?.get("Video");
-    if (!search || !search.url) {
+    if (!search?.url) {
       return;
     }
 
@@ -79,7 +79,7 @@ export class Util {
   ): Promise<ytpl.Result | undefined> {
     const filters = await ytsr.getFilters(input);
     const search = filters.get("Type")?.get("Playlist");
-    if (!search || !search.url) {
+    if (!search?.url) {
       return;
     }
 
