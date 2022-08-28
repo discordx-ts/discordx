@@ -45,7 +45,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install typedoc
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Build
