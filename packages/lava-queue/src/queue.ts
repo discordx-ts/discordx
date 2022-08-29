@@ -116,10 +116,9 @@ export class Queue {
    * Plugins may also implement prefixes to allow for more search engines.
    *
    * @param text - User input
-   * @param searchEngine - lavalink search engine
    */
-  search(text: string, searchEngine = "ytsearch"): Promise<TrackResponse> {
-    return this.player.node.load(`${searchEngine}:${text}`);
+  search(text: string): Promise<TrackResponse> {
+    return this.player.node.load(text);
   }
 
   setPosition(position: number): void {
