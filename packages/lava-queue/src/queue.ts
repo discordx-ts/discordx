@@ -106,8 +106,19 @@ export class Queue {
     this.lavaPlayer.pause(false);
   }
 
+  /**
+   * Track Searching
+   *
+   * Lavalink supports searching via YouTube, YouTube Music, and Soundcloud.
+   * To search, you must prefix your identifier with `ytsearch:`, `ytmsearch:`, or `scsearch:` respectively.
+   * When a search prefix is used, the returned `loadType` will be `SEARCH_RESULT`.
+   * Note that, disabling the respective source managers renders these search prefixes redundant.
+   * Plugins may also implement prefixes to allow for more search engines.
+   *
+   * @param text - User input
+   */
   search(text: string): Promise<TrackResponse> {
-    return this.player.node.load(`ytsearch:${text}`);
+    return this.player.node.load(text);
   }
 
   setPosition(position: number): void {
