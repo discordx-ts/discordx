@@ -61,7 +61,7 @@ export function SlashOption<TName extends string>(
     }
   }
 
-  return function <T>(target: Record<string, T>, key: string, index: number) {
+  return function (target: Record<string, any>, key: string, index: number) {
     SlashNameValidator(options.name);
 
     const reflectedType = (

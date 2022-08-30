@@ -46,8 +46,8 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator;
  * @category Decorator
  */
 export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

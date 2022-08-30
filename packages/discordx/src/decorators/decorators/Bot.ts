@@ -50,8 +50,8 @@ export function Bot(...botIds: string[]): ClassMethodDecorator;
  * @category Decorator
  */
 export function Bot(...botIds: string[]): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

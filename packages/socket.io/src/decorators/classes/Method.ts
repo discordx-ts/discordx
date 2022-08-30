@@ -27,7 +27,6 @@ export abstract class Method extends Decorator {
     this._guards = value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handler(server: Server, socket?: Socket): any {
     const globalGuards = server.guards.map((guard) =>
       DGuard.create(guard.bind(undefined))

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ApplicationCommand } from "discord.js";
 import _ from "lodash";
 

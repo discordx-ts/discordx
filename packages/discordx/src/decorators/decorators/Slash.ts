@@ -43,7 +43,7 @@ export function Slash<T extends string>(
  * @category Decorator
  */
 export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
-  return function <T>(target: Record<string, T>, key: string) {
+  return function (target: Record<string, any>, key: string) {
     const name = options?.name ?? key;
     SlashNameValidator(name);
 

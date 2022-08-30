@@ -5,13 +5,11 @@ import type { Server } from "../../index.js";
 
 export type Next = (...paramsToNext: unknown[]) => Promise<unknown>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GuardFunction<Type = any> = (
   params: Type,
   server: Server,
   socket: Socket,
   next: Next
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => any;
 
 /**

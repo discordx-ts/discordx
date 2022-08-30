@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EventEmitter } from "events";
 
 import type { ClusterNodeOptions } from "../ClusterNode.js";

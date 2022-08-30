@@ -62,7 +62,7 @@ export function SlashChoice<T extends string, X = string | number>(
 export function SlashChoice(
   ...choices: (number | string | SlashChoiceType)[]
 ): ParameterDecoratorEx {
-  return function <T>(target: Record<string, T>, key: string, index: number) {
+  return function (target: Record<string, any>, key: string, index: number) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommandOption>((original) => {
         const allChoices = choices.map((choice) => {

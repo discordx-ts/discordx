@@ -565,9 +565,7 @@ export class MetadataStorage {
    *
    * @param options - Even data
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trigger(options: ITriggerEventData): (...params: any[]) => Promise<any> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responses: Array<any> = [];
 
     const eventsToExecute = this._events.filter((on) => {
@@ -578,7 +576,6 @@ export class MetadataStorage {
       );
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return async (...params: any[]) => {
       await Promise.all(
         eventsToExecute.map(async (ev) => {

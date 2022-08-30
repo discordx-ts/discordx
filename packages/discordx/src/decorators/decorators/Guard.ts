@@ -22,12 +22,11 @@ import type { Method } from "../classes/Method.js";
  *
  * @category Decorator
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Guard<Type = any, DataType = any>(
   ...fns: GuardFunction<Type, DataType>[]
 ): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

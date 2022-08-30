@@ -5,7 +5,7 @@ import { MetadataStorage } from "../../logic/metadata.js";
 import { DRequest } from "../classes/DRequest.js";
 
 function RequestMethod(method: RequestType, path?: string | RegExp) {
-  return function <T>(target: Record<string, T>, key: string) {
+  return function (target: Record<string, any>, key: string) {
     MetadataStorage.instance.addRequest(
       DRequest.create({
         name: key,

@@ -58,7 +58,7 @@ export function SimpleCommandOption<TName extends string>(
     }
   }
 
-  return function <T>(target: Record<string, T>, key: string, index: number) {
+  return function (target: Record<string, any>, key: string, index: number) {
     const dType = (
       Reflect.getMetadata("design:paramtypes", target, key)[
         index

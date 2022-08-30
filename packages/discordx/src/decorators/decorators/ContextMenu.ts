@@ -23,7 +23,7 @@ export function ContextMenu<TName extends string>(
     "description" | "descriptionLocalizations"
   >
 ): MethodDecoratorEx {
-  return function <T>(target: Record<string, T>, key: string) {
+  return function (target: Record<string, any>, key: string) {
     const applicationCommand = DApplicationCommand.create({
       botIds: options.botIds,
       defaultMemberPermissions: options.defaultMemberPermissions,

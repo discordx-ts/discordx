@@ -84,8 +84,8 @@ export function SlashGroup<TName extends string, TRoot extends string>(
   options: string | SlashGroupOptions<VerifyName<TName>>,
   root?: VerifyName<TRoot>
 ): ClassMethodDecorator {
-  return function <T>(
-    target: T,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

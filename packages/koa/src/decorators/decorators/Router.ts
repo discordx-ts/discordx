@@ -8,7 +8,7 @@ export function Router(options?: {
   name?: string;
   options?: KoaRouter.RouterOptions;
 }): ClassDecoratorEx {
-  return function <T>(target: Record<string, T>) {
+  return function (target: Record<string, any>) {
     const clazz = target as unknown as new () => unknown;
     const instance = DRouter.create({
       description: options?.description,

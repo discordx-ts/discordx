@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import backoff from "backoff";
 import type { IncomingMessage } from "http";
 import WebSocket from "ws";

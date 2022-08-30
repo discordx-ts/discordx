@@ -5,12 +5,11 @@ import type { GuardFunction } from "../../index.js";
 import { DEvent, DGuard, DWs, MetadataStorage } from "../../index.js";
 import type { Method } from "../classes/Method.js";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Guard<Type = any>(
   ...fns: GuardFunction<Type>[]
 ): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

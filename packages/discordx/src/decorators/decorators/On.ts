@@ -36,8 +36,8 @@ export function On(options: EventOptions): MethodDecoratorEx;
  * @category Decorator
  */
 export function On(options?: EventOptions): MethodDecoratorEx {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key: string,
     descriptor?: PropertyDescriptor
   ) {
@@ -64,8 +64,8 @@ export function On(options?: EventOptions): MethodDecoratorEx {
  * @category Decorator
  */
 On.rest = function (options?: RestEventOptions): MethodDecoratorEx {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key: string,
     descriptor?: PropertyDescriptor
   ) {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseNode } from "./base/Node.js";
 import type { BaseNodeOptions } from "./types/index.js";
 

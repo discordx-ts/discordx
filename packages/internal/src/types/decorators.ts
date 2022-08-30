@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ClassDecoratorEx = (
   target: Record<string, any>,
   propertyKey?: undefined,

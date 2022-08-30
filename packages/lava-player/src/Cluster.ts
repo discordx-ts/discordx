@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseCluster } from "./base/Cluster.js";
 import type { ClusterNodeOptions } from "./ClusterNode.js";
 import type ClusterNode from "./ClusterNode.js";

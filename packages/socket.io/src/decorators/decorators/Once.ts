@@ -7,7 +7,7 @@ export function Once(
   name?: string,
   options?: { appId?: string }
 ): MethodDecoratorEx {
-  return function <T>(target: Record<string, T>, key: string) {
+  return function (target: Record<string, any>, key: string) {
     MetadataStorage.instance.addOnce(
       DEvent.create({
         appId: options?.appId,

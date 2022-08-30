@@ -40,7 +40,7 @@ export function SelectMenuComponent<T extends string>(
 export function SelectMenuComponent(
   options?: ComponentOptions
 ): MethodDecoratorEx {
-  return function <T>(target: Record<string, T>, key: string) {
+  return function (target: Record<string, any>, key: string) {
     const button = DComponent.create({
       botIds: options?.botIds,
       guilds: options?.guilds,

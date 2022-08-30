@@ -38,7 +38,7 @@ export function ModalComponent<T extends string>(
  * @category Decorator
  */
 export function ModalComponent(options?: ComponentOptions): MethodDecoratorEx {
-  return function <T>(target: Record<string, T>, key: string) {
+  return function (target: Record<string, any>, key: string) {
     const button = DComponent.create({
       botIds: options?.botIds,
       guilds: options?.guilds,

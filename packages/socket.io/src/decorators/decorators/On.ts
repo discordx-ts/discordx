@@ -7,7 +7,7 @@ export function On(
   name?: string,
   options?: { appId?: string }
 ): MethodDecoratorEx {
-  return function <T>(target: Record<string, T>, key: string) {
+  return function (target: Record<string, any>, key: string) {
     MetadataStorage.instance.addOn(
       DEvent.create({
         appId: options?.appId,

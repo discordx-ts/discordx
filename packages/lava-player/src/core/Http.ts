@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IncomingHttpHeaders, IncomingMessage } from "http";
 import { request, STATUS_CODES } from "http";
 import { URL } from "url";

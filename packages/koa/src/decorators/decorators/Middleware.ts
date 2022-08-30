@@ -7,8 +7,8 @@ import { DRequest, DRouter, MetadataStorage } from "../../index.js";
 export function Middleware(
   ...middleware: KoaRouter.Middleware[]
 ): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

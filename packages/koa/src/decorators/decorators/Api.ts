@@ -5,8 +5,8 @@ import { DRouter, MetadataStorage } from "../../index.js";
 import { DRequest } from "../index.js";
 
 export function Api(name: string): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

@@ -22,6 +22,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
+
     const clazz = classType as unknown as new () => InstanceOf<T>;
     if (this.useToken) {
       this.injector.registerSingleton(
@@ -30,6 +31,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
       );
       return;
     }
+
     this._serviceSet.add(classType);
     this.injector.registerSingleton(clazz);
   }
@@ -38,6 +40,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
+
     const clazz = classType as unknown as new () => InstanceOf<T>;
     if (this.useToken) {
       return (
@@ -49,6 +52,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
           ) as InstanceOf<T>) ?? null
       );
     }
+
     return this.injector.resolve(clazz);
   }
 
@@ -56,15 +60,18 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
+
     if (this.useToken) {
       return new Set(
         this.injector.resolveAll(TsyringeDependencyRegistryEngine.token)
       );
     }
+
     const retSet = new Set<unknown>();
     for (const classRef of this._serviceSet) {
       retSet.add(this.injector.resolve(classRef as constructor<unknown>));
     }
+
     return retSet;
   }
 }

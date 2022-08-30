@@ -4,8 +4,8 @@ import { Modifier } from "@discordx/internal";
 import { DEvent, DWs, MetadataStorage } from "../../index.js";
 
 export function AppId(id: string): ClassMethodDecorator {
-  return function <T>(
-    target: Record<string, T>,
+  return function (
+    target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor
   ) {

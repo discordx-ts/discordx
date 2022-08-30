@@ -1,5 +1,5 @@
 import type { constructor } from "tsyringe/dist/typings/types/index.js";
-import type { Container, Service } from "typedi";
+import type { Constructable, Container, Service } from "typedi";
 import { Token } from "typedi";
 
 import type { InstanceOf } from "../../index.js";
@@ -28,6 +28,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
     if (!this.service) {
       throw new Error("Please set the Service!");
     }
+
     this._serviceSet.add(classType);
     if (this.useToken) {
       this.service({
@@ -48,15 +49,18 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
     if (!this.injector) {
       throw new Error("Please set the Service!");
     }
+
     if (this.useToken) {
       return new Set(
         this.injector.getMany(TypeDiDependencyRegistryEngine.token)
       );
     }
+
     const retSet = new Set<unknown>();
     for (const classRef of this._serviceSet) {
       retSet.add(this.injector.get(classRef as constructor<unknown>));
     }
+
     return retSet;
   }
 
@@ -64,6 +68,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
     if (!this.injector) {
       throw new Error("Please set the Service!");
     }
+
     if (this.useToken) {
       return (
         (this.injector
@@ -75,6 +80,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
           ) as InstanceOf<T>) ?? null
       );
     }
-    return this.injector.get(classType);
+
+    return this.injector.get(classType as Constructable<T>) as InstanceOf<T>;
   }
 }

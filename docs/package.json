@@ -27,7 +27,7 @@
     "nth-check": "^2.1.1",
     "prism-react-renderer": "^1.3.5",
     "trim": "^1.0.1",
-    "typescript": "4.7.4",
+    "typescript": "4.8.2",
     "url-loader": "^4.1.1"
   },
   "browserslist": {
