@@ -42,6 +42,17 @@ export async function IsTemplateExist(name: string): Promise<boolean> {
   return response;
 }
 
+// HACK: See: https://github.com/vercel/next.js/pull/40182
+function swallowPrematureStreamClose(e: Error & { code?: string }) {
+  if (
+    process.version.startsWith("v18") &&
+    e.code === "ERR_STREAM_PREMATURE_CLOSE"
+  ) {
+    return;
+  }
+  throw e;
+}
+
 /**
  * Download and extract template
  *
@@ -63,5 +74,5 @@ export async function DownloadAndExtractTemplate(
   return pipeline(
     Readable.from(request.data),
     tar.extract({ cwd: root, strip: 2 }, [`templates-main/${name}`])
-  );
+  ).catch(swallowPrematureStreamClose);
 }
