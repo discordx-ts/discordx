@@ -1,7 +1,8 @@
+import type internal from "node:stream";
+
 import type { AudioResource, StreamType } from "@discordjs/voice";
 import { createAudioResource } from "@discordjs/voice";
 import type { GuildMember, User } from "discord.js";
-import type internal from "node:stream";
 
 import type { CommonTrack, Player } from "../index.js";
 import { Track } from "./Track.js";

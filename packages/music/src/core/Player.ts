@@ -1,6 +1,7 @@
+import { EventEmitter } from "node:events";
+
 import type { Guild, Snowflake } from "discord.js";
 import { Collection } from "discord.js";
-import { EventEmitter } from "node:events";
 
 import type { PlayerEventArgOf, PlayerEvents } from "../index.js";
 import { Queue } from "./Queue.js";
