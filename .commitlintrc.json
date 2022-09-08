@@ -1,7 +1,25 @@
 {
   "extends": ["@commitlint/config-angular"],
   "rules": {
-    "scope-case": [2, "always", "pascal-case"],
+    "scope-enum": [
+      2,
+      "always",
+      [
+        "discordx",
+        "music",
+        "pagination",
+        "utilities",
+        "changelog",
+        "create-discordx",
+        "di",
+        "importer",
+        "internal",
+        "koa",
+        "lava-player",
+        "lava-queue",
+        "socket.io"
+      ]
+    ],
     "type-enum": [
       2,
       "always",
