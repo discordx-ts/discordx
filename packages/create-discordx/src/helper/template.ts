@@ -1,4 +1,7 @@
 import axios from "axios";
+import { createWriteStream, promises as fs } from "fs";
+import { tmpdir } from "os";
+import { join } from "path";
 import { Readable, Stream } from "stream";
 import tar from "tar";
 import { promisify } from "util";
@@ -42,15 +45,17 @@ export async function IsTemplateExist(name: string): Promise<boolean> {
   return response;
 }
 
-// HACK: See: https://github.com/vercel/next.js/pull/40182
-function swallowPrematureStreamClose(e: Error & { code?: string }) {
-  if (
-    process.version.startsWith("v18") &&
-    e.code === "ERR_STREAM_PREMATURE_CLOSE"
-  ) {
-    return;
-  }
-  throw e;
+async function downloadTar(url: string) {
+  const pipeline = promisify(Stream.pipeline);
+  const tempFile = join(tmpdir(), `discordx-template.temp-${Date.now()}`);
+
+  const request = await axios({
+    responseType: "stream",
+    url: url,
+  });
+
+  await pipeline(Readable.from(request.data), createWriteStream(tempFile));
+  return tempFile;
 }
 
 /**
@@ -64,15 +69,18 @@ export async function DownloadAndExtractTemplate(
   root: string,
   name: string
 ): Promise<void> {
-  const pipeline = promisify(Stream.pipeline);
+  const tempFile = await downloadTar(
+    "https://codeload.github.com/discordx-ts/templates/tar.gz/main"
+  );
 
-  const request = await axios({
-    responseType: "stream",
-    url: "https://codeload.github.com/discordx-ts/templates/tar.gz/main",
+  console.log(tempFile);
+
+  await tar.x({
+    cwd: root,
+    file: tempFile,
+    filter: (p) => p.includes(`templates-main/${name}`),
+    strip: 2,
   });
 
-  return pipeline(
-    Readable.from(request.data),
-    tar.extract({ cwd: root, strip: 2 }, [`templates-main/${name}`])
-  ).catch(swallowPrematureStreamClose);
+  await fs.unlink(tempFile);
 }

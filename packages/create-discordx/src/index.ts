@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+import path from "node:path";
+
 import chalk from "chalk";
 import { execSync } from "child_process";
-import path from "node:path";
 import ora from "ora";
 import prompts from "prompts";
 
@@ -39,7 +40,7 @@ let projectPath = "./";
 
 const res = await prompts(
   {
-    initial: "my-app",
+    initial: "my-bot",
     message: "What is your project named?",
     name: "path",
     type: "text",

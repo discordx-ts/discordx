@@ -1,7 +1,8 @@
+import { readFile } from "node:fs/promises";
+
 import boxen from "boxen";
 import chalk from "chalk";
 import isInstalledGlobally from "is-installed-globally";
-import { readFile } from "node:fs/promises";
 import checkForUpdate from "update-check";
 
 /**
