@@ -145,14 +145,14 @@ export function generateDoc(options?: {
     commitsArray.forEach((commit) => {
       const formattedCommit = (replace?: string) =>
         `* ${commit.title.replace(
-          replace ? `${replace}: ` : "",
+          !replace ? "" : new RegExp(`${replace}\\(.*\\): |${replace}: `),
           ""
         )} ([${commit.sha.substring(0, 6)}](${repo}/commit/${commit.sha}))\n`;
 
       let isPushed = false;
       categories.forEach((cat) => {
         cat.storeTypes.forEach((st) => {
-          if (commit.title.startsWith(`${st}: `)) {
+          if (new RegExp(`${st}\\(.*\\): |${st}: `).test(commit.title)) {
             store.push({
               text: formattedCommit(st),
               type: commit.message.includes("BREAKING CHANGE")
