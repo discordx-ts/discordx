@@ -27,6 +27,7 @@ export type RestArgsOf<K extends keyof RestEvents> = RestEvents[K];
 export type EventOptions = {
   botIds?: string[];
   event: keyof ClientEvents;
+  priority?: number;
 };
 
 /**
@@ -35,6 +36,7 @@ export type EventOptions = {
 export type RestEventOptions = {
   botIds?: string[];
   event: keyof RestEvents;
+  priority?: number;
 };
 
 /**
