@@ -1,9 +1,9 @@
 import { Discord, On } from "../../../src/index.js";
 
 enum PriorityLevel {
-  Low,
-  Moderate,
   High,
+  Moderate,
+  Low,
 }
 
 @Discord()
