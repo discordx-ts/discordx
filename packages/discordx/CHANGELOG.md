@@ -1,7 +1,10 @@
 # Stage
 
+# [v11.2.0](https://github.com/discordx-ts/discordx/releases/tag/v11.2.0) (2022-09-13)
+
 ## Features
 
+- add priority sort on events ([#867](https://github.com/discordx-ts/discordx/issues/867)) ([061375](https://github.com/discordx-ts/discordx/commit/061375f237febae8e401f14499de0a40e6c83f48))
 - validate slash command names ([#858](https://github.com/discordx-ts/discordx/issues/858)) ([85b517](https://github.com/discordx-ts/discordx/commit/85b517fe6ab6a8ad8cafe7740d84cc56df07e22e))
 - add localization for slash choice ([600b9a](https://github.com/discordx-ts/discordx/commit/600b9aea3cf00bf6b841b4f77773d0c9bdd2fe5d))
 - support rest events ([#852](https://github.com/discordx-ts/discordx/issues/852)) ([dc61df](https://github.com/discordx-ts/discordx/commit/dc61df079dba11bfbd14bc75f397639e105c56b3))
@@ -16,6 +19,7 @@
 
 ## Fixed
 
+- broken links ([26a27c](https://github.com/discordx-ts/discordx/commit/26a27ca2d8ff078d4b8d8b590d351c82478e2de8))
 - broken links ([b6b0c2](https://github.com/discordx-ts/discordx/commit/b6b0c290785e58a4de5273b3dd22fd9ab2c072c3))
 - linting ([6398d9](https://github.com/discordx-ts/discordx/commit/6398d94610c99d5346630d4cc253ec371a3eba90))
 - anti-pattern ([132b66](https://github.com/discordx-ts/discordx/commit/132b66b262ffd857205d689e7727df6cd4780417))

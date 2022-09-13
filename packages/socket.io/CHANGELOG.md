@@ -1,5 +1,7 @@
 # Stage
 
+# [v1.0.6](https://github.com/discordx-ts/discordx/releases/tag/s-v1.0.6) (2022-09-13)
+
 ## Changed
 
 - typescript bump ([3f1b3d](https://github.com/discordx-ts/discordx/commit/3f1b3df16b964e06956e319a05c4dd8bd2997a99))

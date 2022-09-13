@@ -1,5 +1,7 @@
 # Stage
 
+# [v11.2.0](https://github.com/discordx-ts/discordx/releases/tag/v11.2.0) (2022-09-13)
+
 ## Changed
 
 - small discordx ([5bc214](https://github.com/discordx-ts/discordx/commit/5bc214ab6fe457e62a427e0cbddf91628129b3ed))
