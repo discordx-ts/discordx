@@ -4,6 +4,7 @@ type CreateStructure = {
   botIds?: string[];
   event: string;
   once: boolean;
+  priority?: number;
   rest: boolean;
 };
 
@@ -14,6 +15,7 @@ export class DOn extends Method {
   protected _event: string;
   protected _once: boolean;
   protected _rest: boolean;
+  protected _priority: number;
   protected _botIds: string[];
 
   get botIds(): string[] {
@@ -37,6 +39,13 @@ export class DOn extends Method {
     this._once = value;
   }
 
+  get priority(): number {
+    return this._priority;
+  }
+  set priority(value: number) {
+    this._priority = value;
+  }
+
   get rest(): boolean {
     return this._rest;
   }
@@ -48,6 +57,7 @@ export class DOn extends Method {
     super();
     this._event = data.event;
     this._once = data.once;
+    this._priority = data.priority ?? Number.MAX_SAFE_INTEGER;
     this._rest = data.rest;
     this._botIds = data.botIds ?? [];
   }

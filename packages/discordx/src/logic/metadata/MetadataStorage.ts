@@ -274,6 +274,7 @@ export class MetadataStorage {
     if (MetadataStorage.isBuilt) {
       return;
     }
+
     MetadataStorage._isBuilt = true;
 
     // Link the events with @Discord class instances
@@ -376,6 +377,11 @@ export class MetadataStorage {
     this._applicationCommandSlashes = this.groupSlashes();
 
     this.buildSimpleCommands();
+
+    // sort events based on priority
+    this._events.sort((a, b) =>
+      `${a.event}__${a.priority}` > `${b.event}__${b.priority}` ? 1 : -1
+    );
   }
 
   private buildSimpleCommands(): void {

@@ -46,6 +46,7 @@ export function On(options?: EventOptions): MethodDecoratorEx {
       botIds: options?.botIds,
       event: options?.event ?? key,
       once: false,
+      priority: options?.priority,
       rest: false,
     }).decorate(clazz.constructor, key, descriptor?.value);
 
@@ -74,6 +75,7 @@ On.rest = function (options?: RestEventOptions): MethodDecoratorEx {
       botIds: options?.botIds,
       event: options?.event ?? key,
       once: false,
+      priority: options?.priority,
       rest: true,
     }).decorate(clazz.constructor, key, descriptor?.value);
 
