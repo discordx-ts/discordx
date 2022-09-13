@@ -1,9 +1,4 @@
 module.exports = {
-  globals: {
-    "ts-jest": {
-      useESM: true,
-    },
-  },
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
@@ -11,5 +6,12 @@ module.exports = {
   roots: ["<rootDir>/tests"],
   testEnvironment: "node",
   testRegex: "/*.test.ts",
-  transform: {},
+  transform: {
+    "<regex_match_files": [
+      "ts-jest",
+      {
+        useESM: true,
+      },
+    ],
+  },
 };
