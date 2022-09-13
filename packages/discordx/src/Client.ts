@@ -1201,8 +1201,9 @@ export class Client extends ClientJS {
 
     const matchedPrefix = prefixRegex.exec(message.content)?.at(1) ?? "unknown";
     const isPrefixBaseCommand = mappedPrefix.includes(matchedPrefix);
-    const contentWithoutPrefix =
-      message.content.replace(prefixRegex, "").trim() + " ";
+    const contentWithoutPrefix = `${message.content
+      .replace(prefixRegex, "")
+      .trim()} `;
 
     const commandRaw = (
       isPrefixBaseCommand
