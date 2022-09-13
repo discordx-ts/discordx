@@ -1433,7 +1433,7 @@ export class Client extends ClientJS {
       this.printDebug();
     }
 
-    this.instance.usedEvents.map((on) => {
+    for (const on of this.instance.usedEvents) {
       if (on.rest) {
         if (on.once) {
           this.rest.once(
@@ -1483,6 +1483,6 @@ export class Client extends ClientJS {
           );
         }
       }
-    });
+    }
   }
 }
