@@ -257,6 +257,34 @@ export class Group {
   }
 }
 
+@Discord()
+@SlashGroup({ name: "test-y" })
+@SlashGroup({ name: "add", root: "test-y" })
+@SlashGroup("test-y")
+export class DuplicateGroup {
+  @Slash()
+  o(): unknown {
+    return ["/test-y", "o", true];
+  }
+
+  @Slash()
+  p(): unknown {
+    return ["/test-y", "p", true];
+  }
+
+  @Slash()
+  @SlashGroup("add", "test-y")
+  y(): unknown {
+    return ["/test-y", "add", "y", true];
+  }
+
+  @Slash()
+  @SlashGroup("add", "test-y")
+  z(): unknown {
+    return ["/test-y", "add", "z", true];
+  }
+}
+
 const client = new Client({ intents: [] });
 
 beforeAll(async () => {
@@ -598,6 +626,54 @@ describe("Slash", () => {
             description: "n",
             descriptionLocalizations: null,
             name: "n",
+            nameLocalizations: null,
+            type: ApplicationCommandOptionType.Subcommand,
+          },
+        ],
+        type: ApplicationCommandType.ChatInput,
+      },
+      {
+        defaultMemberPermissions: null,
+        description: "test-y",
+        descriptionLocalizations: null,
+        dmPermission: true,
+        name: "test-y",
+        nameLocalizations: null,
+        options: [
+          {
+            description: "add - subcommandgroup",
+            descriptionLocalizations: null,
+            name: "add",
+            nameLocalizations: null,
+            options: [
+              {
+                description: "y",
+                descriptionLocalizations: null,
+                name: "y",
+                nameLocalizations: null,
+                type: ApplicationCommandOptionType.Subcommand,
+              },
+              {
+                description: "z",
+                descriptionLocalizations: null,
+                name: "z",
+                nameLocalizations: null,
+                type: ApplicationCommandOptionType.Subcommand,
+              },
+            ],
+            type: ApplicationCommandOptionType.SubcommandGroup,
+          },
+          {
+            description: "o",
+            descriptionLocalizations: null,
+            name: "o",
+            nameLocalizations: null,
+            type: ApplicationCommandOptionType.Subcommand,
+          },
+          {
+            description: "p",
+            descriptionLocalizations: null,
+            name: "p",
             nameLocalizations: null,
             type: ApplicationCommandOptionType.Subcommand,
           },
