@@ -261,27 +261,27 @@ export class Group {
 @SlashGroup({ name: "test-y" })
 @SlashGroup("test-y")
 export class DuplicateGroup {
-    @Slash()
-    o(): unknown {
-      return ["/test-y", "o", true];
-    }
-  
-    @Slash()
-    p(): unknown {
-      return ["/test-y", "p", true];
-    }
+  @Slash()
+  o(): unknown {
+    return ["/test-y", "o", true];
+  }
 
-    @Slash()
-    @SlashGroup("add", "test-y")
-    y(): unknown {
-      return ["/test-y", "add", "y", true];
-    }
+  @Slash()
+  p(): unknown {
+    return ["/test-y", "p", true];
+  }
 
-    @Slash()
-    @SlashGroup("add", "test-y")
-    z(): unknown {
-      return ["/test-y", "add", "z", true];
-    }
+  @Slash()
+  @SlashGroup("add", "test-y")
+  y(): unknown {
+    return ["/test-y", "add", "y", true];
+  }
+
+  @Slash()
+  @SlashGroup("add", "test-y")
+  z(): unknown {
+    return ["/test-y", "add", "z", true];
+  }
 }
 
 const client = new Client({ intents: [] });
