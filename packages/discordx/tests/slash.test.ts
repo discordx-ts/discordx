@@ -259,6 +259,7 @@ export class Group {
 
 @Discord()
 @SlashGroup({ name: "test-y" })
+@SlashGroup({ name: "add", root: "test-y" })
 @SlashGroup("test-y")
 export class DuplicateGroup {
   @Slash()
