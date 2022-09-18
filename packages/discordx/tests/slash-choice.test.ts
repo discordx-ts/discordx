@@ -12,12 +12,12 @@ import {
   Slash,
   SlashChoice,
   SlashOption,
-} from "../../../src/index.js";
+} from "../src/index.js";
 import {
   FakeInteraction,
   FakeOption,
   InteractionType,
-} from "../../interaction.js";
+} from "./util/interaction.js";
 
 /*
   Define test code

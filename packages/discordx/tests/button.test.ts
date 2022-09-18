@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ButtonInteraction, Interaction } from "discord.js";
 
-import { ButtonComponent, Client, Discord, Guard } from "../../../src/index.js";
-import { FakeInteraction, InteractionType } from "../../interaction.js";
+import { ButtonComponent, Client, Discord, Guard } from "../src/index.js";
+import { FakeInteraction, InteractionType } from "./util/interaction.js";
 
 /*
     Define test code
