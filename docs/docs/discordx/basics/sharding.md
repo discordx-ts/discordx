@@ -37,7 +37,7 @@ I found success with using this `tsconfig.json`
     "strict": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,

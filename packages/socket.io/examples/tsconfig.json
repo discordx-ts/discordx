@@ -5,7 +5,7 @@
     "strict": true,
     "noImplicitAny": true,
     "outDir": "build",
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,

@@ -8,7 +8,7 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "build",
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "declaration": false,
     "importHelpers": true,
