@@ -456,12 +456,12 @@ export class MetadataStorage {
     //
     this._applicationCommandSlashGroups.forEach((group) => {
       const slashParent = DApplicationCommand.create({
-        defaultMemberPermissions: group.infos.defaultMemberPermissions,
-        description: group.infos.description,
-        descriptionLocalizations: group.infos.descriptionLocalizations,
-        dmPermission: group.infos.dmPermission,
+        defaultMemberPermissions: group.payload.defaultMemberPermissions,
+        description: group.payload.description,
+        descriptionLocalizations: group.payload.descriptionLocalizations,
+        dmPermission: group.payload.dmPermission,
         name: group.name,
-        nameLocalizations: group.infos.nameLocalizations,
+        nameLocalizations: group.payload.nameLocalizations,
         type: ApplicationCommandType.ChatInput,
       }).decorate(group.classRef, group.key, group.method);
 
@@ -512,16 +512,18 @@ export class MetadataStorage {
     // ]
     this._applicationCommandSlashSubGroups.forEach((subGroup) => {
       const option = DApplicationCommandOption.create({
-        description: subGroup.infos.description,
-        descriptionLocalizations: subGroup.infos.descriptionLocalizations,
+        description: subGroup.payload.description,
+        descriptionLocalizations: subGroup.payload.descriptionLocalizations,
         name: subGroup.name,
-        nameLocalizations: subGroup.infos.nameLocalizations,
+        nameLocalizations: subGroup.payload.nameLocalizations,
         type: ApplicationCommandOptionType.SubcommandGroup,
       }).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 
       // Get the slashes that are in this subgroup
       const slashes = this._applicationCommandSlashes.filter((slash) => {
-        return slash.subgroup === option.name;
+        return (
+          slash.group === subGroup.root && slash.subgroup === subGroup.name
+        );
       });
 
       // Convert this slashes into options and add it to the option parent
@@ -551,13 +553,15 @@ export class MetadataStorage {
       });
 
       // Get the first sub command to read root group name
-      const groupSlash = slashes[0]?.group
-        ? groupedSlashes.get(slashes[0].group)
-        : undefined;
+      const groupName = subGroup.root ?? subGroup.name;
 
-      if (groupSlash) {
-        groupSlash.options.push(option);
+      const parentGroup = groupedSlashes.get(groupName);
+
+      if (!parentGroup) {
+        throw Error(`A subgroup declared without root: ${groupName}`);
       }
+
+      parentGroup.options.push(option);
     });
 
     return [

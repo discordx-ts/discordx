@@ -157,13 +157,7 @@ export class DApplicationCommandOption extends Decorator {
     this._name = data.name;
     this._autocomplete = data.autocomplete;
     this._channelTypes = data.channelType?.sort();
-    this._description =
-      data.description ??
-      `${data.name} - ${
-        ApplicationCommandOptionType[
-          data.type ?? ApplicationCommandOptionType.String
-        ]
-      }`.toLowerCase();
+    this._description = data.description ?? data.name;
     this._index = data.index;
     this._maxValue = data.maxValue;
     this._minValue = data.minValue;

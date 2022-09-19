@@ -5,6 +5,12 @@ import type {
   DApplicationCommandOption,
 } from "../index.js";
 
+type CreateStructure<T> = {
+  name: string;
+  payload: Partial<T>;
+  root?: string;
+};
+
 /**
  * @category Decorator
  */
@@ -12,18 +18,19 @@ export class DApplicationCommandGroup<
   InfoType = DApplicationCommand | DApplicationCommandOption
 > extends Decorator {
   name: string;
-  infos: Partial<InfoType>;
+  root?: string;
+  payload: Partial<InfoType>;
 
-  protected constructor(name: string, infos: Partial<InfoType>) {
+  protected constructor(options: CreateStructure<InfoType>) {
     super();
-    this.name = name;
-    this.infos = infos ?? {};
+    this.name = options.name;
+    this.root = options.root;
+    this.payload = options.payload ?? {};
   }
 
-  static create<InfoTypeEx = DApplicationCommand | DApplicationCommandOption>(
-    name: string,
-    infos: Partial<InfoTypeEx>
-  ): DApplicationCommandGroup<InfoTypeEx> {
-    return new DApplicationCommandGroup<InfoTypeEx>(name, infos);
+  static create<T = DApplicationCommand | DApplicationCommandOption>(
+    options: CreateStructure<T>
+  ): DApplicationCommandGroup<T> {
+    return new DApplicationCommandGroup<T>(options);
   }
 }

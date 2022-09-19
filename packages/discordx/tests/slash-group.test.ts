@@ -253,7 +253,7 @@ describe("Choice", () => {
             nameLocalizations: null,
             options: [
               {
-                description: "text - string",
+                description: "text",
                 descriptionLocalizations: null,
                 name: "text",
                 nameLocalizations: null,
@@ -261,7 +261,7 @@ describe("Choice", () => {
                 type: ApplicationCommandOptionType.String,
               },
               {
-                description: "text2 - string",
+                description: "text2",
                 descriptionLocalizations: null,
                 name: "text2",
                 nameLocalizations: null,
@@ -359,7 +359,7 @@ describe("Choice", () => {
                         value: "Good Bye",
                       },
                     ],
-                    description: "text - string",
+                    description: "text",
                     descriptionLocalizations: null,
                     name: "text",
                     nameLocalizations: null,
@@ -429,7 +429,7 @@ describe("Choice", () => {
         nameLocalizations: null,
         options: [
           {
-            description: "add - subcommandgroup",
+            description: "add",
             descriptionLocalizations: null,
             name: "add",
             nameLocalizations: null,
@@ -477,22 +477,22 @@ describe("Choice", () => {
         nameLocalizations: null,
         options: [
           {
-            description: "add - subcommandgroup",
+            description: "add",
             descriptionLocalizations: null,
             name: "add",
             nameLocalizations: null,
             options: [
               {
-                description: "y",
+                description: "z",
                 descriptionLocalizations: null,
-                name: "y",
+                name: "z",
                 nameLocalizations: null,
                 type: ApplicationCommandOptionType.Subcommand,
               },
               {
-                description: "z",
+                description: "y",
                 descriptionLocalizations: null,
-                name: "z",
+                name: "y",
                 nameLocalizations: null,
                 type: ApplicationCommandOptionType.Subcommand,
               },

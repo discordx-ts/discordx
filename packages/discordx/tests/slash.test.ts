@@ -122,7 +122,7 @@ describe("Slash", () => {
         nameLocalizations: null,
         options: [
           {
-            description: "text - string",
+            description: "text",
             descriptionLocalizations: null,
             name: "text",
             nameLocalizations: null,
@@ -141,7 +141,7 @@ describe("Slash", () => {
         nameLocalizations: null,
         options: [
           {
-            description: "text - string",
+            description: "text",
             descriptionLocalizations: null,
             name: "text",
             nameLocalizations: null,
@@ -149,7 +149,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.String,
           },
           {
-            description: "bool - boolean",
+            description: "bool",
             descriptionLocalizations: null,
             name: "bool",
             nameLocalizations: null,
@@ -157,7 +157,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.Boolean,
           },
           {
-            description: "nb - number",
+            description: "nb",
             descriptionLocalizations: null,
             name: "nb",
             nameLocalizations: null,
@@ -165,7 +165,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.Number,
           },
           {
-            description: "channel - channel",
+            description: "channel",
             descriptionLocalizations: null,
             name: "channel",
             nameLocalizations: null,
@@ -173,7 +173,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.Channel,
           },
           {
-            description: "text-channel - channel",
+            description: "text-channel",
             descriptionLocalizations: null,
             name: "text-channel",
             nameLocalizations: null,
@@ -181,7 +181,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.Channel,
           },
           {
-            description: "voice-channel - channel",
+            description: "voice-channel",
             descriptionLocalizations: null,
             name: "voice-channel",
             nameLocalizations: null,
@@ -189,7 +189,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.Channel,
           },
           {
-            description: "user - user",
+            description: "user",
             descriptionLocalizations: null,
             name: "user",
             nameLocalizations: null,
@@ -197,7 +197,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.User,
           },
           {
-            description: "role - role",
+            description: "role",
             descriptionLocalizations: null,
             name: "role",
             nameLocalizations: null,
@@ -205,7 +205,7 @@ describe("Slash", () => {
             type: ApplicationCommandOptionType.Role,
           },
           {
-            description: "user-or-role - mentionable",
+            description: "user-or-role",
             descriptionLocalizations: null,
             name: "user-or-role",
             nameLocalizations: null,

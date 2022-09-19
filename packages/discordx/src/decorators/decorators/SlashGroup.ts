@@ -114,23 +114,27 @@ export function SlashGroup<TName extends string, TRoot extends string>(
       const clazz = target as unknown as new () => unknown;
       if (options.root) {
         MetadataStorage.instance.addApplicationCommandSlashSubGroups(
-          DApplicationCommandGroup.create<DApplicationCommandOption>(
-            options.name,
-            {
+          DApplicationCommandGroup.create<DApplicationCommandOption>({
+            name: options.name,
+            payload: {
               description: options.description,
               descriptionLocalizations: options.descriptionLocalizations,
               nameLocalizations: options.nameLocalizations,
-            }
-          ).decorate(clazz, clazz.name)
+            },
+            root: options.root,
+          }).decorate(clazz, clazz.name)
         );
       } else {
         MetadataStorage.instance.addApplicationCommandSlashGroups(
-          DApplicationCommandGroup.create<DApplicationCommand>(options.name, {
-            defaultMemberPermissions: options.defaultMemberPermissions,
-            description: options.description,
-            descriptionLocalizations: options.descriptionLocalizations,
-            dmPermission: options.dmPermission,
-            nameLocalizations: options.nameLocalizations,
+          DApplicationCommandGroup.create<DApplicationCommand>({
+            name: options.name,
+            payload: {
+              defaultMemberPermissions: options.defaultMemberPermissions,
+              description: options.description,
+              descriptionLocalizations: options.descriptionLocalizations,
+              dmPermission: options.dmPermission,
+              nameLocalizations: options.nameLocalizations,
+            },
           }).decorate(clazz, key ?? clazz.name)
         );
       }
