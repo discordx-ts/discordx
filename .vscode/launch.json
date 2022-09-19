@@ -16,39 +16,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Localization Example",
-      "args": [
-        "${workspaceRoot}/packages/discordx/examples/localization/main.ts"
-      ],
-      "cwd": "${workspaceRoot}/packages/discordx/examples/localization",
-      "runtimeArgs": ["--loader", "ts-node/esm"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Permission Example",
-      "args": [
-        "${workspaceRoot}/packages/discordx/examples/permission/main.ts"
-      ],
-      "cwd": "${workspaceRoot}/packages/discordx/examples/permission",
-      "runtimeArgs": ["--loader", "ts-node/esm"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Slash Example",
+      "name": "Slash",
       "args": ["${workspaceRoot}/packages/discordx/examples/slash/main.ts"],
       "cwd": "${workspaceRoot}/packages/discordx/examples/slash",
-      "runtimeArgs": ["--loader", "ts-node/esm"]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Context Example",
-      "args": [
-        "${workspaceRoot}/packages/discordx/examples/contextmenu/main.ts"
-      ],
-      "cwd": "${workspaceRoot}/packages/discordx/examples/contextmenu",
       "runtimeArgs": ["--loader", "ts-node/esm"]
     }
   ]
