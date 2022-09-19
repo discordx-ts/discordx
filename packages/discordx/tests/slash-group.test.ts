@@ -145,7 +145,12 @@ export class Example {
   return next();
 })
 export class Example2 {
-  @Slash({ description: "Addition" })
+  @Slash({
+    description: "Addition",
+    descriptionLocalizations: { fr: "Addition-FR" },
+    name: "add",
+    nameLocalizations: { fr: "add-fr" },
+  })
   @SlashGroup("line", "group-test-without-description")
   add(
     @SlashOption({ description: "x value", name: "x" })
@@ -391,9 +396,9 @@ describe("Choice", () => {
             options: [
               {
                 description: "Addition",
-                descriptionLocalizations: null,
+                descriptionLocalizations: { fr: "Addition-FR" },
                 name: "add",
-                nameLocalizations: null,
+                nameLocalizations: { fr: "add-fr" },
                 options: [
                   {
                     description: "x value",
