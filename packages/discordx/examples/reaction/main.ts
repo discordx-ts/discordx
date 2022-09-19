@@ -31,7 +31,7 @@ export class Main {
       this.Client.executeReaction(reaction, user);
     });
 
-    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
+    await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
 
     // let's start the bot
     if (!process.env.BOT_TOKEN) {

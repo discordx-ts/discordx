@@ -195,6 +195,6 @@ export class Example {
       return;
     }
 
-    command.message.reply(`arg1: ${arg1}\n` + `arg2: ${arg2}\n`);
+    command.message.reply(`arg1: ${arg1}\narg2: ${arg2}\n`);
   }
 }

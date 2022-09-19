@@ -517,7 +517,9 @@ export class MetadataStorage {
     this._applicationCommandSlashSubGroups.forEach((subGroup) => {
       if (!subGroup.payload.description) {
         throw Error(
-          `Description required for slash sub group: ${subGroup.name} (root: ${subGroup.root})`
+          `Description required for slash sub group: ${subGroup.name} (root: ${
+            subGroup.root ?? "unknown"
+          })`
         );
       }
 
