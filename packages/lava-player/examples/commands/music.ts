@@ -1,5 +1,9 @@
 import type { CommandInteraction } from "discord.js";
-import { GatewayDispatchEvents, GuildMember } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  GatewayDispatchEvents,
+  GuildMember,
+} from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import { Discord, Once, Slash, SlashOption } from "discordx";
 
@@ -62,7 +66,7 @@ export class MusicPlayer {
     this.node = nodeX;
   }
 
-  @Slash()
+  @Slash({ description: "bot will join your music channel" })
   async join(interaction: CommandInteraction): Promise<void> {
     await interaction.deferReply();
 
@@ -89,9 +93,14 @@ export class MusicPlayer {
     return;
   }
 
-  @Slash()
+  @Slash({ description: "play a song" })
   async play(
-    @SlashOption({ name: "song" }) song: string,
+    @SlashOption({
+      description: "song url or title",
+      name: "song",
+      type: ApplicationCommandOptionType.String,
+    })
+    song: string,
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply();

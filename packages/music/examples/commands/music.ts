@@ -1,5 +1,5 @@
 import type { CommandInteraction, Guild, TextBasedChannel } from "discord.js";
-import { GuildMember } from "discord.js";
+import { ApplicationCommandOptionType, GuildMember } from "discord.js";
 import { join } from "path";
 
 import { Discord, Slash, SlashOption } from "../../../discordx/src/index.js";
@@ -121,7 +121,11 @@ export class music {
 
   @Slash({ description: "Play a song" })
   async play(
-    @SlashOption({ description: "song name", name: "song" })
+    @SlashOption({
+      description: "song url or title",
+      name: "song",
+      type: ApplicationCommandOptionType.String,
+    })
     songName: string,
     interaction: CommandInteraction
   ): Promise<void> {
@@ -153,7 +157,11 @@ export class music {
 
   @Slash({ description: "Play a playlist" })
   async playlist(
-    @SlashOption({ description: "playlist name", name: "playlist" })
+    @SlashOption({
+      description: "playlist name",
+      name: "playlist",
+      type: ApplicationCommandOptionType.String,
+    })
     playlistName: string,
     interaction: CommandInteraction
   ): Promise<void> {
@@ -309,6 +317,7 @@ export class music {
     @SlashOption({
       description: "seek time in seconds",
       name: "time",
+      type: ApplicationCommandOptionType.Number,
     })
     time: number,
     interaction: CommandInteraction

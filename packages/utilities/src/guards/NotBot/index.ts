@@ -4,6 +4,7 @@ import {
   ContextMenuCommandInteraction,
   Message,
   MessageReaction,
+  ModalSubmitInteraction,
   SelectMenuInteraction,
   VoiceState,
 } from "discord.js";
@@ -15,6 +16,7 @@ export const NotBot: GuardFunction<
   | CommandInteraction
   | ContextMenuCommandInteraction
   | SelectMenuInteraction
+  | ModalSubmitInteraction
   | ButtonInteraction
   | SimpleCommandMessage
 > = async (arg, client, next) => {
@@ -33,6 +35,7 @@ export const NotBot: GuardFunction<
       : argObj instanceof CommandInteraction ||
         argObj instanceof ContextMenuCommandInteraction ||
         argObj instanceof SelectMenuInteraction ||
+        argObj instanceof ModalSubmitInteraction ||
         argObj instanceof ButtonInteraction
       ? argObj.member?.user
       : argObj.message.author;

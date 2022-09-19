@@ -7,10 +7,10 @@ import { Category } from "../../../src/index.js";
 
 @Discord()
 @Category("Admin Commands")
-@SlashGroup({ name: "my-group" })
+@SlashGroup({ description: "my-group", name: "my-group" })
 @SlashGroup("my-group")
 export class SlashExample {
-  @Slash()
+  @Slash({ description: "subgroup" })
   async subgroup(interaction: CommandInteraction): Promise<void> {
     await interaction.deferReply();
 

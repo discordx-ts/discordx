@@ -7,7 +7,10 @@ import { Pagination } from "../../../src/index.js";
 @Discord()
 export class SlashExample {
   // example: pagination for all slash command
-  @Slash({ name: "pagination-attachment" })
+  @Slash({
+    description: "pagination attachment",
+    name: "pagination-attachment",
+  })
   async cmd(interaction: CommandInteraction): Promise<void> {
     const filename = "tmp/hello.txt";
     await fs.mkdir("tmp").catch(() => null);

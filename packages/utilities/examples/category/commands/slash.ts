@@ -10,13 +10,13 @@ import { Category, Description } from "../../../src/index.js";
 @Discord()
 @Category("Admin Commands")
 export class SlashExample {
-  @Slash()
+  @Slash({ description: "test" })
   @Description("test description decorator")
   test(interaction: CommandInteraction): void {
     interaction.reply("Hey!");
   }
 
-  @Slash()
+  @Slash({ description: "help" })
   help(interaction: CommandInteraction): void {
     const commands: {
       description: string;
