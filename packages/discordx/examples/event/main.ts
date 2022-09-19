@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField } from "discord.js";
 
@@ -28,7 +26,7 @@ export class Main {
       console.log("Bot started...");
     });
 
-    await importx(dirname(import.meta.url) + "/commands/**/*.{js,ts}");
+    await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
 
     // let's start the bot
     if (!process.env.BOT_TOKEN) {

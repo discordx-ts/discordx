@@ -74,7 +74,8 @@ export class Example {
 
   @SimpleCommand({ aliases: ["p-test mark"], name: "hello" })
   testCommand(
-    @SimpleCommandOption({ name: "name" }) name: string | undefined,
+    @SimpleCommandOption({ name: "name", type: SimpleCommandOptionType.String })
+    name: string | undefined,
 
     command: SimpleCommandMessage
   ): unknown {
@@ -123,8 +124,12 @@ export class Example {
 
   @SimpleCommand({ argSplitter: "+", name: "add" })
   add(
-    @SimpleCommandOption({ name: "x" }) x: number,
-    @SimpleCommandOption({ name: "y" }) y: number,
+    @SimpleCommandOption({ name: "x", type: SimpleCommandOptionType.Number })
+    x: number,
+
+    @SimpleCommandOption({ name: "y", type: SimpleCommandOptionType.Number })
+    y: number,
+
     command: SimpleCommandMessage
   ): void {
     if (!command.isValid()) {
@@ -140,10 +145,21 @@ export class Example {
       /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
   })
   ban(
-    @SimpleCommandOption({ name: "id" }) id: number,
-    @SimpleCommandOption({ name: "time" }) time: number,
-    @SimpleCommandOption({ name: "reason" }) reason: string,
-    @SimpleCommandOption({ name: "type" }) type: string,
+    @SimpleCommandOption({ name: "id", type: SimpleCommandOptionType.Number })
+    id: number,
+
+    @SimpleCommandOption({ name: "time", type: SimpleCommandOptionType.Number })
+    time: number,
+
+    @SimpleCommandOption({
+      name: "reason",
+      type: SimpleCommandOptionType.String,
+    })
+    reason: string,
+
+    @SimpleCommandOption({ name: "type", type: SimpleCommandOptionType.String })
+    type: string,
+
     command: SimpleCommandMessage
   ): void {
     if (!command.isValid()) {
@@ -166,8 +182,12 @@ export class Example {
     name: "split-me",
   })
   splitMe(
-    @SimpleCommandOption({ name: "arg1" }) arg1: string,
-    @SimpleCommandOption({ name: "arg2" }) arg2: string,
+    @SimpleCommandOption({ name: "arg1", type: SimpleCommandOptionType.String })
+    arg1: string,
+
+    @SimpleCommandOption({ name: "arg2", type: SimpleCommandOptionType.String })
+    arg2: string,
+
     command: SimpleCommandMessage
   ): void {
     if (!command.isValid()) {
@@ -175,6 +195,6 @@ export class Example {
       return;
     }
 
-    command.message.reply(`arg1: ${arg1}\n` + `arg2: ${arg2}\n`);
+    command.message.reply(`arg1: ${arg1}\narg2: ${arg2}\n`);
   }
 }

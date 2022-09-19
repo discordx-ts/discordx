@@ -27,28 +27,40 @@ import {
 export class Example {
   myCustomText = "This resolver has class inbound";
 
-  @Slash({ name: "hello" })
+  @Slash({ description: "hello", name: "hello" })
   hello(
-    @SlashOption({ name: "user", type: ApplicationCommandOptionType.User })
+    @SlashOption({
+      description: "user",
+      name: "user",
+      required: true,
+      type: ApplicationCommandOptionType.User,
+    })
     user: GuildMember | User,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${user}`);
   }
 
-  @Slash({ name: "role" })
+  @Slash({ description: "role", name: "role" })
   role(
-    @SlashOption({ name: "role", type: ApplicationCommandOptionType.Role })
+    @SlashOption({
+      description: "role",
+      name: "role",
+      required: true,
+      type: ApplicationCommandOptionType.Role,
+    })
     role: Role,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`${role}`);
   }
 
-  @Slash({ name: "channel" })
+  @Slash({ description: "channel", name: "channel" })
   channel(
     @SlashOption({
+      description: "channel",
       name: "channel",
+      required: true,
       type: ApplicationCommandOptionType.Channel,
     })
     channel: Channel,
@@ -57,10 +69,12 @@ export class Example {
     interaction.reply(`${channel}`);
   }
 
-  @Slash({ name: "role-or-user" })
+  @Slash({ description: "role-or-user", name: "role-or-user" })
   roleOrUser(
     @SlashOption({
+      description: "mention",
       name: "mention",
+      required: true,
       type: ApplicationCommandOptionType.Mentionable,
     })
     roleOrUser: GuildMember | User | Role,
@@ -69,11 +83,13 @@ export class Example {
     interaction.reply(`${roleOrUser}`);
   }
 
-  @Slash({ name: "autocomplete" })
+  @Slash({ description: "autocomplete", name: "autocomplete" })
   autocomplete(
     @SlashOption({
       autocomplete: true,
+      description: "option-a",
       name: "option-a",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     searchText: string,
@@ -90,7 +106,9 @@ export class Example {
           { name: "option d", value: "c" },
         ]);
       },
+      description: "option-b",
       name: "option-b",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     searchText2: string,
@@ -102,7 +120,9 @@ export class Example {
           { name: "option f", value: "f" },
         ]);
       },
+      description: "option-c",
       name: "option-c",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
@@ -123,7 +143,7 @@ export class Example {
     }
   }
 
-  @Slash({ name: "test-btn" })
+  @Slash({ description: "test-btn", name: "test-btn" })
   testBtn(interaction: CommandInteraction): void {
     const btn = new ButtonBuilder();
     btn.setLabel("Test");

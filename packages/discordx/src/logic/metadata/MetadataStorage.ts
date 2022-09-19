@@ -455,6 +455,10 @@ export class MetadataStorage {
     // ]
     //
     this._applicationCommandSlashGroups.forEach((group) => {
+      if (!group.payload.description) {
+        throw Error(`Description required for slash group: ${group.name}`);
+      }
+
       const slashParent = DApplicationCommand.create({
         defaultMemberPermissions: group.payload.defaultMemberPermissions,
         description: group.payload.description,
@@ -511,11 +515,20 @@ export class MetadataStorage {
     //     }
     // ]
     this._applicationCommandSlashSubGroups.forEach((subGroup) => {
+      if (!subGroup.payload.description) {
+        throw Error(
+          `Description required for slash sub group: ${subGroup.name} (root: ${
+            subGroup.root ?? "unknown"
+          })`
+        );
+      }
+
       const option = DApplicationCommandOption.create({
         description: subGroup.payload.description,
         descriptionLocalizations: subGroup.payload.descriptionLocalizations,
         name: subGroup.name,
         nameLocalizations: subGroup.payload.nameLocalizations,
+        required: true,
         type: ApplicationCommandOptionType.SubcommandGroup,
       }).decorate(subGroup.classRef, subGroup.key, subGroup.method);
 

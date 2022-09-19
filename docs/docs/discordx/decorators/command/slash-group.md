@@ -32,6 +32,19 @@ command
     |__ subcommand
 ```
 
+## Signature
+
+```ts
+// Create a new group or subgroup
+SlashGroup(options: SlashGroupOptions): ClassDecoratorEx
+
+// Assign slashes to a group
+SlashGroup(name: string): ClassMethodDecorator
+
+// Assign slashes to a subgroup
+SlashGroup(name: string, root: string): ClassMethodDecorator
+```
+
 ## Example
 
 In the following example, slash permission commands are grouped under permissions and subgrouped by role and user.
@@ -278,74 +291,3 @@ class RolePermission {
   }
 }
 ```
-
-## Signature
-
-```ts
-// Create a new group or subgroup
-SlashGroup(options: SlashGroupOptions): ClassDecoratorEx
-
-// Assign slashes to a group
-SlashGroup(name: string): ClassMethodDecorator
-
-// Assign slashes to a subgroup
-SlashGroup(name: string, root: string): ClassMethodDecorator
-```
-
-## Type: SlashGroupOptions
-
-### defaultMemberPermissions
-
-The slash command default member permission
-
-| type   | required | default |
-| ------ | -------- | ------- |
-| bigint | No       | 0n      |
-
-### description
-
-The slash command description
-
-| type   | required | default   |
-| ------ | -------- | --------- |
-| string | No       | undefined |
-
-### descriptionLocalizations
-
-The slash command description localizations
-
-| type            | default   |
-| --------------- | --------- |
-| LocalizationMap | undefined |
-
-### dmPermission
-
-The slash command dm permission
-
-| type    | required | default |
-| ------- | -------- | ------- |
-| boolean | No       | true    |
-
-### name
-
-The slash command name
-
-| type   | required | default |
-| ------ | -------- | ------- |
-| string | Yes      |         |
-
-### nameLocalizations
-
-The slash command name localizations
-
-| type            | default   |
-| --------------- | --------- |
-| LocalizationMap | undefined |
-
-### root
-
-The slash command root group name
-
-| type   | required | default   |
-| ------ | -------- | --------- |
-| string | No       | undefined |

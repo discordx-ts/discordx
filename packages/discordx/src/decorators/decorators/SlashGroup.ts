@@ -6,6 +6,7 @@ import { Modifier } from "@discordx/internal";
 
 import type {
   DApplicationCommandOption,
+  NotEmpty,
   SlashGroupOptions,
   VerifyName,
 } from "../../index.js";
@@ -16,22 +17,6 @@ import {
   MetadataStorage,
   SlashNameValidator,
 } from "../../index.js";
-
-/**
- * Create slash group
- *
- * @param options - Group options
- * ___
- *
- * [View discordx documentation](https://discordx.js.org/docs/discordx/decorators/command/slash-group)
- *
- * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
- *
- * @category Decorator
- */
-export function SlashGroup<TRoot extends string>(
-  options: SlashGroupOptions<VerifyName<TRoot>>
-): ClassDecoratorEx;
 
 /**
  * Assign a group to a method or class
@@ -45,8 +30,8 @@ export function SlashGroup<TRoot extends string>(
  *
  * @category Decorator
  */
-export function SlashGroup<TName extends string>(
-  name: VerifyName<TName>
+export function SlashGroup<T extends string>(
+  name: VerifyName<T>
 ): ClassMethodDecorator;
 
 /**
@@ -68,6 +53,26 @@ export function SlashGroup<TName extends string, TRoot extends string>(
 ): ClassMethodDecorator;
 
 /**
+ * Create slash group
+ *
+ * @param options - Group options
+ * ___
+ *
+ * [View discordx documentation](https://discordx.js.org/docs/discordx/decorators/command/slash-group)
+ *
+ * [View discord documentation](https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups)
+ *
+ * @category Decorator
+ */
+export function SlashGroup<
+  T extends string,
+  TD extends string,
+  TR extends string
+>(
+  options: SlashGroupOptions<VerifyName<T>, NotEmpty<TD>, VerifyName<TR>>
+): ClassDecoratorEx;
+
+/**
  * Assign a group to a method or class
  *
  * @param options - Group options or name
@@ -80,9 +85,15 @@ export function SlashGroup<TName extends string, TRoot extends string>(
  *
  * @category Decorator
  */
-export function SlashGroup<TName extends string, TRoot extends string>(
-  options: string | SlashGroupOptions<VerifyName<TName>>,
-  root?: VerifyName<TRoot>
+export function SlashGroup<
+  T extends string,
+  TD extends string,
+  TR extends string
+>(
+  options:
+    | string
+    | SlashGroupOptions<VerifyName<T>, NotEmpty<TD>, VerifyName<TR>>,
+  root?: VerifyName<TR>
 ): ClassMethodDecorator {
   return function (
     target: Record<string, any>,

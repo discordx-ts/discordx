@@ -1,7 +1,11 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 import { ApplicationCommandType } from "discord.js";
 
-import type { ApplicationCommandOptions, VerifyName } from "../../index.js";
+import type {
+  ApplicationCommandOptions,
+  NotEmpty,
+  VerifyName,
+} from "../../index.js";
 import {
   DApplicationCommand,
   MetadataStorage,
@@ -10,16 +14,6 @@ import {
 
 /**
  * Handle a slash command with a defined name
- * ___
- *
- * [View Documentation](https://discordx.js.org/docs/discordx/decorators/command/slash)
- *
- * @category Decorator
- */
-export function Slash(): MethodDecoratorEx;
-
-/**
- * Handle a slash command with a defined name
  *
  * @param options - Application command options
  * ___
@@ -28,21 +22,9 @@ export function Slash(): MethodDecoratorEx;
  *
  * @category Decorator
  */
-export function Slash<T extends string>(
-  options: ApplicationCommandOptions<VerifyName<T>>
-): MethodDecoratorEx;
-
-/**
- * Handle a slash command with a defined name
- *
- * @param options - Application command options
- * ___
- *
- * [View Documentation](https://discordx.js.org/docs/discordx/decorators/command/slash)
- *
- * @category Decorator
- */
-export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
+export function Slash<T extends string, TD extends string>(
+  options: ApplicationCommandOptions<VerifyName<T>, NotEmpty<TD>>
+): MethodDecoratorEx {
   return function (target: Record<string, any>, key: string) {
     const name = options?.name ?? key;
     SlashNameValidator(name);
@@ -52,7 +34,7 @@ export function Slash(options?: ApplicationCommandOptions): MethodDecoratorEx {
       defaultMemberPermissions: options?.defaultMemberPermissions,
       description: options?.description,
       descriptionLocalizations: options?.descriptionLocalizations,
-      dmPermission: options?.dmPermission,
+      dmPermission: options?.dmPermission ?? true,
       guilds: options?.guilds,
       name: name,
       nameLocalizations: options?.nameLocalizations,

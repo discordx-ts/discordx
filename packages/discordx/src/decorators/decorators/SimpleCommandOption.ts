@@ -6,7 +6,6 @@ import {
   DSimpleCommand,
   DSimpleCommandOption,
   MetadataStorage,
-  SimpleCommandOptionType,
 } from "../../index.js";
 
 /**
@@ -19,59 +18,11 @@ import {
  *
  * @category Decorator
  */
-export function SimpleCommandOption<TName extends string>(
-  options: SimpleCommandOptionOptions<TName>
+export function SimpleCommandOption<T extends string>(
+  options: SimpleCommandOptionOptions<T>
 ): ParameterDecoratorEx {
-  function getType(type: string): SimpleCommandOptionType {
-    switch (type) {
-      case "STRING": {
-        return SimpleCommandOptionType.String;
-      }
-
-      case "NUMBER": {
-        return SimpleCommandOptionType.Number;
-      }
-
-      case "BOOLEAN": {
-        return SimpleCommandOptionType.Boolean;
-      }
-
-      case "CHANNEL":
-      case "TEXTCHANNEL":
-      case "VOICECHANNEL": {
-        return SimpleCommandOptionType.Channel;
-      }
-
-      case "ROLE": {
-        return SimpleCommandOptionType.Role;
-      }
-
-      case "USER":
-      case "GUILDMEMBER": {
-        return SimpleCommandOptionType.User;
-      }
-
-      default:
-        throw Error(
-          `Invalid simple command option (${options.name}): ${type}\n`
-        );
-    }
-  }
-
   return function (target: Record<string, any>, key: string, index: number) {
-    const dType = (
-      Reflect.getMetadata("design:paramtypes", target, key)[
-        index
-      ] as () => unknown
-    ).name.toUpperCase();
-
-    const type: SimpleCommandOptionType = options?.type ?? getType(dType);
-
-    const option = DSimpleCommandOption.create({
-      description: options.description,
-      name: options.name,
-      type,
-    }).decorate(
+    const option = DSimpleCommandOption.create(options).decorate(
       target.constructor,
       key,
       target[key],

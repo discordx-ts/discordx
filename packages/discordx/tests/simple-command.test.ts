@@ -8,6 +8,7 @@ import {
   Guild,
   SimpleCommand,
   SimpleCommandOption,
+  SimpleCommandOptionType,
 } from "../src/index.js";
 
 type Data = { passed: boolean };
@@ -25,12 +26,27 @@ export class Example {
     description: "Addition",
   })
   add(
-    @SimpleCommandOption({ description: "x value", name: "x" })
+    @SimpleCommandOption({
+      description: "x value",
+      name: "x",
+      type: SimpleCommandOptionType.Number,
+    })
     x: number,
-    @SimpleCommandOption({ description: "operation value", name: "op" })
+
+    @SimpleCommandOption({
+      description: "operation value",
+      name: "op",
+      type: SimpleCommandOptionType.String,
+    })
     op: string,
-    @SimpleCommandOption({ description: "y value", name: "y" })
+
+    @SimpleCommandOption({
+      description: "y value",
+      name: "y",
+      type: SimpleCommandOptionType.Number,
+    })
     y: number,
+
     command: SimpleCommandMessage,
     client: Client,
     data: Data
@@ -45,10 +61,20 @@ export class Example {
     argSplitter: "|",
   })
   sub(
-    @SimpleCommandOption({ description: "x value", name: "x" })
+    @SimpleCommandOption({
+      description: "x value",
+      name: "x",
+      type: SimpleCommandOptionType.String,
+    })
     x: string,
-    @SimpleCommandOption({ description: "y value", name: "y" })
+
+    @SimpleCommandOption({
+      description: "y value",
+      name: "y",
+      type: SimpleCommandOptionType.String,
+    })
     y: string,
+
     command: SimpleCommandMessage,
     client: Client,
     data: Data
@@ -67,7 +93,9 @@ export class Example {
 
   @SimpleCommand({ name: "add plus second" })
   addExtendSecond(
-    @SimpleCommandOption({ name: "arg" }) arg: string,
+    @SimpleCommandOption({ name: "arg", type: SimpleCommandOptionType.String })
+    arg: string,
+
     command: SimpleCommandMessage,
     client: Client,
     data: Data
@@ -80,10 +108,21 @@ export class Example {
       /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
   })
   ban(
-    @SimpleCommandOption({ name: "id" }) id: number,
-    @SimpleCommandOption({ name: "time" }) time: number,
-    @SimpleCommandOption({ name: "reason" }) reason: string,
-    @SimpleCommandOption({ name: "type" }) type: string,
+    @SimpleCommandOption({ name: "id", type: SimpleCommandOptionType.Number })
+    id: number,
+
+    @SimpleCommandOption({ name: "time", type: SimpleCommandOptionType.Number })
+    time: number,
+
+    @SimpleCommandOption({
+      name: "reason",
+      type: SimpleCommandOptionType.String,
+    })
+    reason: string,
+
+    @SimpleCommandOption({ name: "type", type: SimpleCommandOptionType.String })
+    type: string,
+
     command: SimpleCommandMessage,
     client: Client,
     data: Data

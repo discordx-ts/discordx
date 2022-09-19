@@ -6,6 +6,12 @@ Here are some example screenshots:
 
 ![](../../../../static/img/select-menu-example.jpg)
 
+## Signature
+
+```ts
+@SelectMenuComponent(options: ComponentOptions)
+```
+
 ## Example
 
 ```ts
@@ -61,43 +67,3 @@ class Example {
   }
 }
 ```
-
-## Signature
-
-```ts
-@SelectMenuComponent(options: ComponentOptions)
-```
-
-### options
-
-The button options
-
-| type             | default   | required |
-| ---------------- | --------- | -------- |
-| ComponentOptions | undefined | NO       |
-
-## Type: ComponentOptions
-
-### botIds
-
-Array of bot ids, for which only the event will be executed.
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### Guilds
-
-The guilds where the command is created
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### id
-
-A unique id for your button interaction to be handled under.
-
-| type             | default       | required |
-| ---------------- | ------------- | -------- |
-| string \| RegExp | function name | No       |

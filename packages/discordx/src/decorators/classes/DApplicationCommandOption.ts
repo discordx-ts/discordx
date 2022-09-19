@@ -14,7 +14,7 @@ import type {
 type CreateStructure = {
   autocomplete?: SlashAutoCompleteOption;
   channelType?: ChannelType[];
-  description?: string;
+  description: string;
   descriptionLocalizations?: LocalizationMap | null;
   index?: number;
   maxLength?: number;
@@ -24,7 +24,7 @@ type CreateStructure = {
   name: string;
   nameLocalizations?: LocalizationMap | null;
   required?: boolean;
-  type?: ApplicationCommandOptionType;
+  type: ApplicationCommandOptionType;
 };
 
 /**
@@ -157,14 +157,14 @@ export class DApplicationCommandOption extends Decorator {
     this._name = data.name;
     this._autocomplete = data.autocomplete;
     this._channelTypes = data.channelType?.sort();
-    this._description = data.description ?? data.name;
+    this._description = data.description;
     this._index = data.index;
     this._maxValue = data.maxValue;
     this._minValue = data.minValue;
     this._maxLength = data.maxLength;
     this._minLength = data.minLength;
-    this._required = data.required ?? true;
-    this._type = data.type ?? ApplicationCommandOptionType.String;
+    this._required = data.required ?? false;
+    this._type = data.type;
     this._descriptionLocalizations = data.descriptionLocalizations ?? null;
     this._nameLocalizations = data.nameLocalizations ?? null;
   }

@@ -3,15 +3,15 @@ import type { CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashGroup } from "../../../src/index.js";
 
 @Discord()
-@SlashGroup({ name: "test-x" })
+@SlashGroup({ description: "test-x", name: "test-x" })
 @SlashGroup("test-x")
 export class AnotherGroup {
-  @Slash()
+  @Slash({ description: "m" })
   m(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @Slash()
+  @Slash({ description: "n" })
   n(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
@@ -20,49 +20,49 @@ export class AnotherGroup {
 @Discord()
 @SlashGroup("test-x")
 export class ExpendAnotherGroup {
-  @Slash()
+  @Slash({ description: "x" })
   x(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 }
 
 @Discord()
-@SlashGroup({ name: "add", root: "test-x" })
+@SlashGroup({ description: "add", name: "add", root: "test-x" })
 @SlashGroup("add", "test-x")
 export class Group {
-  @Slash()
+  @Slash({ description: "y" })
   x(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @Slash()
+  @Slash({ description: "y" })
   y(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 }
 
 @Discord()
-@SlashGroup({ name: "test-y" })
-@SlashGroup({ name: "add", root: "test-y" })
+@SlashGroup({ description: "test-y", name: "test-y" })
+@SlashGroup({ description: "test-y", name: "add", root: "test-y" })
 @SlashGroup("test-y")
 export class DuplicateGroup {
-  @Slash()
+  @Slash({ description: "o" })
   o(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @Slash()
+  @Slash({ description: "p" })
   p(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @Slash()
+  @Slash({ description: "y" })
   @SlashGroup("add", "test-y")
   y(interaction: CommandInteraction): void {
     interaction.reply(":wave:");
   }
 
-  @Slash()
+  @Slash({ description: "z" })
   @SlashGroup("add", "test-y")
   z(interaction: CommandInteraction): void {
     interaction.reply(":wave:");

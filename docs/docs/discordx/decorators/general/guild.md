@@ -2,6 +2,12 @@
 
 You can use this guard to specify which guilds your @Slash commands are created by decorating the method with @Slash and @Guild
 
+## Signature
+
+```ts
+@Guild(...guildIds: IGuild[])
+```
+
 ## Supported with
 
 - [@ButtonComponent](../gui/button-component)
@@ -57,28 +63,6 @@ To provide dynamic guild lists, use guild resolver.
 this._client = new Client({
   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
 });
-```
-
-## Signature
-
-```ts
-@Guild(...guildIds: IGuild[])
-```
-
-## type: IGuild
-
-```ts IGuild
-type IGuild =
-  | Snowflake
-  | Snowflake[]
-  | ((
-      client: Client,
-      command:
-        | DApplicationCommand
-        | DComponent
-        | SimpleCommandMessage
-        | undefined
-    ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
 ```
 
 ## Make changes to

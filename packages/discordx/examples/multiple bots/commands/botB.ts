@@ -5,7 +5,7 @@ import { Bot, Discord, Slash } from "../../../src/index.js";
 @Discord()
 @Bot("botB") // A bot id is crucial
 export class Example {
-  @Slash()
+  @Slash({ description: "hello" })
   hello(interaction: CommandInteraction): void {
     interaction.reply("I am bot B.");
   }

@@ -1,9 +1,4 @@
-import type {
-  ClientEvents,
-  LocalizationMap,
-  PermissionResolvable,
-  RestEvents,
-} from "discord.js";
+import type { ClientEvents, LocalizationMap, RestEvents } from "discord.js";
 
 import type { Client, IGuild, Next, NotEmpty } from "../../index.js";
 
@@ -88,35 +83,6 @@ export type ILogger = {
   log(...args: unknown[]): void;
   warn(...args: unknown[]): void;
 };
-
-/**
- * Slash group options
- */
-
-export type SlashGroupBase<TName extends string = string> = {
-  description?: string;
-  descriptionLocalizations?: LocalizationMap;
-  name: TName;
-  nameLocalizations?: LocalizationMap;
-};
-
-export type SlashGroupRoot<TName extends string = string> =
-  SlashGroupBase<TName> & {
-    defaultMemberPermissions?: PermissionResolvable;
-    dmPermission?: boolean;
-    root?: undefined;
-  };
-
-export type SlashGroupSubRoot<TName extends string = string> =
-  SlashGroupBase<TName> & {
-    defaultMemberPermissions?: undefined;
-    dmPermission?: undefined;
-    root?: string;
-  };
-
-export type SlashGroupOptions<TName extends string = string> =
-  | SlashGroupRoot<TName>
-  | SlashGroupSubRoot<TName>;
 
 /**
  * Reaction options

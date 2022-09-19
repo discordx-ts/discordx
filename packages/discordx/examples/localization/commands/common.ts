@@ -13,7 +13,9 @@ export class Example {
   })
   hello(
     @SlashOption({
+      description: "message",
       name: "message",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     message: string,

@@ -1,8 +1,7 @@
 import type { ParameterDecoratorEx } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
-import { ApplicationCommandOptionType } from "discord.js";
 
-import type { SlashOptionOptions, VerifyName } from "../../index.js";
+import type { NotEmpty, SlashOptionOptions, VerifyName } from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandOption,
@@ -20,58 +19,11 @@ import {
  *
  * @category Decorator
  */
-export function SlashOption<TName extends string>(
-  options: SlashOptionOptions<VerifyName<TName>>
+export function SlashOption<T extends string, TD extends string>(
+  options: SlashOptionOptions<VerifyName<T>, NotEmpty<TD>>
 ): ParameterDecoratorEx {
-  function getType(type: string): ApplicationCommandOptionType {
-    switch (type) {
-      case "STRING": {
-        return ApplicationCommandOptionType.String;
-      }
-
-      case "NUMBER": {
-        return ApplicationCommandOptionType.Number;
-      }
-
-      case "BOOLEAN": {
-        return ApplicationCommandOptionType.Boolean;
-      }
-
-      case "CHANNEL":
-      case "TEXTCHANNEL":
-      case "VOICECHANNEL": {
-        return ApplicationCommandOptionType.Channel;
-      }
-
-      case "ROLE": {
-        return ApplicationCommandOptionType.Role;
-      }
-
-      case "USER":
-      case "GUILDMEMBER": {
-        return ApplicationCommandOptionType.User;
-      }
-
-      case "MessageAttachment": {
-        return ApplicationCommandOptionType.Attachment;
-      }
-
-      default:
-        throw Error(`invalid slash option (${options.name}): ${type}\n`);
-    }
-  }
-
   return function (target: Record<string, any>, key: string, index: number) {
     SlashNameValidator(options.name);
-
-    const reflectedType = (
-      Reflect.getMetadata("design:paramtypes", target, key)[
-        index
-      ] as () => unknown
-    ).name.toUpperCase();
-
-    const type: ApplicationCommandOptionType =
-      options.type ?? getType(reflectedType);
 
     const option = DApplicationCommandOption.create({
       autocomplete: options.autocomplete,
@@ -86,7 +38,7 @@ export function SlashOption<TName extends string>(
       name: options.name,
       nameLocalizations: options.nameLocalizations,
       required: options.required,
-      type: type,
+      type: options.type,
     }).decorate(
       target.constructor,
       key,
