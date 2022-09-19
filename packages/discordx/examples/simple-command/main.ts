@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 import { dirname, importx } from "@discordx/importer";
 import { ChannelType, IntentsBitField, Partials } from "discord.js";
 

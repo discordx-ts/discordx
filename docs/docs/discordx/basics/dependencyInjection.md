@@ -64,7 +64,6 @@ DIService.engine = myCustomEngine;
 It is recommended to do this in your main class where you define your `new Client()` code; for example:
 
 ```ts
-import "reflect-metadata";
 import { IntentsBitField } from "discord.js";
 import { Client, DIService, tsyringeDependencyRegistryEngine } from "discordx";
 

@@ -124,12 +124,8 @@ npm run start
 
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
-:::caution
-You also have to install "reflect-metadata" for the decorators
-:::
-
 ```bash npm2yarn
-npm install discordx reflect-metadata discord.js
+npm install discordx discord.js
 ```
 
 Install your TypeScript dev dependencies too
@@ -145,8 +141,7 @@ And you should see this in your package.json
   // ...
   "dependencies": {
     "discordx": "^X.X.X",
-    "discord.js": "^X.X.X",
-    "reflect-metadata": "^X.X.X"
+    "discord.js": "^X.X.X"
   },
   "devDependencies": {
     "@types/node": "^X.X.X",
@@ -168,12 +163,8 @@ npm install discordx discord.js
 
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
-:::caution
-You also have to install "reflect-metadata" for the decorators
-:::
-
 ```bash npm2yarn
-npm install discordx@dev discord.js@dev reflect-metadata
+npm install discordx@dev discord.js@dev
 ```
 
 Install your TypeScript dev dependencies too
@@ -189,8 +180,7 @@ And you should see this in your package.json
   // ...
   "dependencies": {
     "discordx": "^X.X.X-dev.###",
-    "discord.js": "^X.X.X-dev.###.###",
-    "reflect-metadata": "^X.X.X"
+    "discord.js": "^X.X.X-dev.###.###"
   },
   "devDependencies": {
     "@types/node": "^X.X.X",
@@ -315,23 +305,6 @@ Your tsconfig.json file should look like this:
 
 </TabItem>
 </Tabs>
-
-## reflect-metadata
-
-:::caution
-You should import the **reflect-metadata** module in your main file, for reflection. Otherwise, decorators may not function properly.
-:::
-
-```ts
-import "reflect-metadata";
-import { Client } from "discordx";
-
-async function start() {
-  // ...
-}
-
-start();
-```
 
 ## Need help?
 

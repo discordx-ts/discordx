@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 import { IntentsBitField } from "discord.js";
 
 import { Client } from "../../discordx/src/index.js";

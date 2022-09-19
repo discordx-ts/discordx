@@ -28,7 +28,7 @@ export type SimpleCommandOptions<T extends string = string> = {
 export type SimpleCommandOptionOptions<T extends string = string> = {
   description?: string;
   name: NotEmpty<T>;
-  type?: SimpleCommandOptionType;
+  type: SimpleCommandOptionType;
 };
 
 export type SimpleOptionType =
