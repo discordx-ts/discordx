@@ -177,8 +177,9 @@ export class DApplicationCommand extends Method {
   toSubCommand(): DApplicationCommandOption {
     const option = DApplicationCommandOption.create({
       description: this.description,
+      descriptionLocalizations: this.descriptionLocalizations,
       name: this.name,
-      required: true,
+      nameLocalizations: this.nameLocalizations,
       type: ApplicationCommandOptionType.Subcommand,
     }).decorate(this.classRef, this.key, this.method, this.from, this.index);
 
