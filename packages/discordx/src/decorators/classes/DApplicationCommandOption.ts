@@ -23,7 +23,7 @@ type CreateStructure = {
   minValue?: number;
   name: string;
   nameLocalizations?: LocalizationMap | null;
-  required: boolean;
+  required?: boolean;
   type: ApplicationCommandOptionType;
 };
 
@@ -163,7 +163,7 @@ export class DApplicationCommandOption extends Decorator {
     this._minValue = data.minValue;
     this._maxLength = data.maxLength;
     this._minLength = data.minLength;
-    this._required = data.required;
+    this._required = data.required ?? false;
     this._type = data.type;
     this._descriptionLocalizations = data.descriptionLocalizations ?? null;
     this._nameLocalizations = data.nameLocalizations ?? null;

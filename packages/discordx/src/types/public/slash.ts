@@ -32,7 +32,7 @@ export type SlashOptionBaseOptions<T extends string, TD extends string> = {
   minValue?: undefined;
   name: T;
   nameLocalizations?: LocalizationMap;
-  required: boolean;
+  required?: boolean;
   type: Exclude<
     ApplicationCommandOptionType,
     | ApplicationCommandOptionType.Subcommand
