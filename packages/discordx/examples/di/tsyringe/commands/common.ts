@@ -25,7 +25,7 @@ export class Example {
     // I am just a empty constructor :(
   }
 
-  @Slash()
+  @Slash({ description: "tsyringe" })
   tsyringe(interaction: CommandInteraction): void {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
       const clazz = container.resolve(Example);
@@ -37,7 +37,7 @@ export class Example {
     }
   }
 
-  @Slash()
+  @Slash({ description: "tsyringe2" })
   tsyringe2(interaction: CommandInteraction): void {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
       interaction.reply(this.database.query());

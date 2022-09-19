@@ -17,7 +17,7 @@ import type { NotEmpty } from "../../types/index.js";
  */
 export function ContextMenu<TName extends string>(
   options: Omit<
-    ApplicationCommandOptions<NotEmpty<TName>> & {
+    ApplicationCommandOptions<NotEmpty<TName>, never> & {
       type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
     },
     "description" | "descriptionLocalizations"
@@ -27,6 +27,7 @@ export function ContextMenu<TName extends string>(
     const applicationCommand = DApplicationCommand.create({
       botIds: options.botIds,
       defaultMemberPermissions: options.defaultMemberPermissions,
+      description: "",
       dmPermission: options.dmPermission,
       guilds: options.guilds,
       name: options.name ?? key,

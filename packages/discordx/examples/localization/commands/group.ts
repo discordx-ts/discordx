@@ -4,11 +4,11 @@ import { ApplicationCommandOptionType, ChannelType } from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "../../../src/index.js";
 
 @Discord()
-@SlashGroup({ name: "testing" })
-@SlashGroup({ name: "maths", root: "testing" })
-@SlashGroup({ name: "text", root: "testing" })
+@SlashGroup({ description: "testing", name: "testing" })
+@SlashGroup({ description: "maths", name: "maths", root: "testing" })
+@SlashGroup({ description: "text", name: "text", root: "testing" })
 export class Example {
-  @Slash({ name: "voice-channel" })
+  @Slash({ description: "maths", name: "voice-channel" })
   @SlashGroup("maths", "testing")
   voiceChannel(
     @SlashOption({
@@ -17,7 +17,9 @@ export class Example {
         ChannelType.GuildVoice,
         ChannelType.GuildText,
       ],
-      name: "channel",
+      description: "channel",
+      name: "asd",
+      required: true,
       type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
@@ -26,7 +28,7 @@ export class Example {
     interaction.reply(`${roleOrUser}`);
   }
 
-  @Slash({ name: "voice-channel-x" })
+  @Slash({ description: "voice-channel-x", name: "voice-channel-x" })
   voiceChannelX(
     @SlashOption({
       channelTypes: [
@@ -34,7 +36,9 @@ export class Example {
         ChannelType.GuildVoice,
         ChannelType.GuildText,
       ],
-      name: "channel",
+      description: "role-or-user",
+      name: "role-or-user",
+      required: true,
       type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
@@ -43,21 +47,45 @@ export class Example {
     interaction.reply(`${roleOrUser}`);
   }
 
-  @Slash()
+  @Slash({ description: "add" })
   @SlashGroup("maths", "testing")
   add(
-    @SlashOption({ description: "x value", name: "x" }) x: number,
-    @SlashOption({ description: "y value", name: "y" }) y: number,
+    @SlashOption({
+      description: "x value",
+      name: "x",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    x: number,
+    @SlashOption({
+      description: "y value",
+      name: "y",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    y: number,
     interaction: CommandInteraction
   ): void {
     interaction.reply(String(x + y));
   }
 
-  @Slash()
+  @Slash({ description: "multiply" })
   @SlashGroup("maths", "testing")
   multiply(
-    @SlashOption({ description: "x value", name: "x" }) x: number,
-    @SlashOption({ description: "y value", name: "y" }) y: number,
+    @SlashOption({
+      description: "x value",
+      name: "x",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    x: number,
+    @SlashOption({
+      description: "y value",
+      name: "y",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    y: number,
     interaction: CommandInteraction
   ): void {
     interaction.reply(String(x * y));

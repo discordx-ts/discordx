@@ -30,7 +30,7 @@ enum TextChoices {
 
 @Discord()
 export class Example {
-  @Slash()
+  @Slash({ description: "hello" })
   hello(
     @SlashChoice(
       {
@@ -42,29 +42,44 @@ export class Example {
         value: TextChoices["Good Bye"],
       }
     )
-    @SlashOption({ name: "choice" })
+    @SlashOption({
+      description: "choice",
+      name: "choice",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     choice: TextChoices,
     interaction: CommandInteraction
   ): unknown {
     return ["/hello", choice, interaction];
   }
 
-  @Slash()
+  @Slash({ description: "number" })
   number(
     @SlashChoice<string, number>({ name: "1", value: 1 })
     @SlashChoice(2, 3, 4)
-    @SlashOption({ name: "choice" })
+    @SlashOption({
+      description: "choice",
+      name: "choice",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
     choice: number,
     interaction: CommandInteraction
   ): unknown {
     return ["/number", choice, interaction];
   }
 
-  @Slash()
+  @Slash({ description: "string" })
   string(
     @SlashChoice({ name: "A", value: "A" })
     @SlashChoice("B", "C", "D")
-    @SlashOption({ name: "choice" })
+    @SlashOption({
+      description: "choice",
+      name: "choice",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     choice: string,
     interaction: CommandInteraction
   ): unknown {

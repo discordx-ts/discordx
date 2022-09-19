@@ -2,14 +2,8 @@
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  Channel,
   CommandInteraction,
-  GuildMember,
   Interaction,
-  Role,
-  TextChannel,
-  User,
-  VoiceChannel,
 } from "discord.js";
 
 import {
@@ -35,66 +29,20 @@ type Data = { passed: boolean };
   return next();
 })
 export class Example3 {
-  @Slash()
+  @Slash({ description: "hello" })
   hello(
-    @SlashOption({ name: "text", required: false })
+    @SlashOption({
+      description: "text",
+      name: "text",
+      required: false,
+      type: ApplicationCommandOptionType.String,
+    })
     text: string,
     interaction: CommandInteraction,
     client: Client,
     data: Data
   ): unknown {
     return ["/hello", text, interaction, data.passed];
-  }
-
-  @Slash()
-  inference(
-    @SlashOption({ name: "text" })
-    text: string,
-
-    @SlashOption({ name: "bool" })
-    bool: boolean,
-
-    @SlashOption({ name: "nb" })
-    nb: number,
-
-    @SlashOption({
-      name: "channel",
-      type: ApplicationCommandOptionType.Channel,
-    })
-    channel: Channel,
-
-    @SlashOption({
-      name: "text-channel",
-      required: false,
-      type: ApplicationCommandOptionType.Channel,
-    })
-    textChannel: TextChannel,
-
-    @SlashOption({
-      name: "voice-channel",
-      required: false,
-      type: ApplicationCommandOptionType.Channel,
-    })
-    voiceChannel: VoiceChannel,
-
-    @SlashOption({ name: "user", required: false })
-    clientUser: User,
-
-    @SlashOption({ name: "role", required: false })
-    role: Role,
-
-    @SlashOption({
-      name: "user-or-role",
-      required: false,
-      type: ApplicationCommandOptionType.Mentionable,
-    })
-    userOrRole: GuildMember | User | Role,
-
-    interaction: CommandInteraction,
-    client: Client,
-    data: Data
-  ): unknown {
-    return ["/inference", "infer", interaction, data.passed];
   }
 }
 
@@ -128,89 +76,6 @@ describe("Slash", () => {
             nameLocalizations: null,
             required: false,
             type: ApplicationCommandOptionType.String,
-          },
-        ],
-        type: ApplicationCommandType.ChatInput,
-      },
-      {
-        defaultMemberPermissions: null,
-        description: "inference",
-        descriptionLocalizations: null,
-        dmPermission: true,
-        name: "inference",
-        nameLocalizations: null,
-        options: [
-          {
-            description: "text",
-            descriptionLocalizations: null,
-            name: "text",
-            nameLocalizations: null,
-            required: true,
-            type: ApplicationCommandOptionType.String,
-          },
-          {
-            description: "bool",
-            descriptionLocalizations: null,
-            name: "bool",
-            nameLocalizations: null,
-            required: true,
-            type: ApplicationCommandOptionType.Boolean,
-          },
-          {
-            description: "nb",
-            descriptionLocalizations: null,
-            name: "nb",
-            nameLocalizations: null,
-            required: true,
-            type: ApplicationCommandOptionType.Number,
-          },
-          {
-            description: "channel",
-            descriptionLocalizations: null,
-            name: "channel",
-            nameLocalizations: null,
-            required: true,
-            type: ApplicationCommandOptionType.Channel,
-          },
-          {
-            description: "text-channel",
-            descriptionLocalizations: null,
-            name: "text-channel",
-            nameLocalizations: null,
-            required: false,
-            type: ApplicationCommandOptionType.Channel,
-          },
-          {
-            description: "voice-channel",
-            descriptionLocalizations: null,
-            name: "voice-channel",
-            nameLocalizations: null,
-            required: false,
-            type: ApplicationCommandOptionType.Channel,
-          },
-          {
-            description: "user",
-            descriptionLocalizations: null,
-            name: "user",
-            nameLocalizations: null,
-            required: false,
-            type: ApplicationCommandOptionType.User,
-          },
-          {
-            description: "role",
-            descriptionLocalizations: null,
-            name: "role",
-            nameLocalizations: null,
-            required: false,
-            type: ApplicationCommandOptionType.Role,
-          },
-          {
-            description: "user-or-role",
-            descriptionLocalizations: null,
-            name: "user-or-role",
-            nameLocalizations: null,
-            required: false,
-            type: ApplicationCommandOptionType.Mentionable,
           },
         ],
         type: ApplicationCommandType.ChatInput,

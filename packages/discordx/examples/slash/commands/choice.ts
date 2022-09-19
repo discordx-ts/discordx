@@ -10,12 +10,14 @@ import {
 
 @Discord()
 export class Example {
-  @Slash({ name: "choice-test" })
+  @Slash({ description: "choice-test", name: "choice-test" })
   min(
     @SlashChoice({ name: "alex", value: "alex" })
     @SlashChoice({ name: "mike", value: "mike" })
     @SlashOption({
+      description: "input",
       name: "input",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     input: string,

@@ -10,61 +10,62 @@ import type {
 
 import type { DApplicationCommand, IGuild } from "../../index.js";
 
-export type ApplicationCommandOptions<TName extends string = string> = {
+export type ApplicationCommandOptions<T extends string, TD extends string> = {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable;
-  description?: string;
+  description: TD;
   descriptionLocalizations?: LocalizationMap;
   dmPermission?: boolean;
   guilds?: IGuild[];
-  name?: TName;
+  name?: T;
   nameLocalizations?: LocalizationMap;
 };
 
-export type SlashOptionBase<TName extends string = string> = {
+export type SlashOptionBaseOptions<T extends string, TD extends string> = {
   autocomplete?: undefined;
   channelTypes?: undefined;
-  description?: string;
+  description: TD;
   descriptionLocalizations?: LocalizationMap;
   maxLength?: undefined;
   maxValue?: undefined;
   minLength?: undefined;
   minValue?: undefined;
-  name: TName;
+  name: T;
   nameLocalizations?: LocalizationMap;
-  required?: boolean;
+  required: boolean;
+  type: Exclude<
+    ApplicationCommandOptionType,
+    | ApplicationCommandOptionType.Subcommand
+    | ApplicationCommandOptionType.SubcommandGroup
+    | ApplicationCommandOptionType.Channel
+  >;
 };
 
-export type SlashOptionBaseOptions<TName extends string = string> =
-  SlashOptionBase<TName> & {
-    type?: Exclude<
-      ApplicationCommandOptionType,
-      | ApplicationCommandOptionType.Subcommand
-      | ApplicationCommandOptionType.SubcommandGroup
-      | ApplicationCommandOptionType.Channel
-    >;
-  };
-
-export type SlashOptionChannelOptions<TName extends string = string> = Omit<
-  SlashOptionBase<TName>,
-  "channelTypes"
-> & {
+export type SlashOptionChannelOptions<
+  T extends string,
+  TD extends string
+> = Omit<SlashOptionBaseOptions<T, TD>, "channelTypes" | "type"> & {
   channelTypes?: ChannelType[];
   type: ApplicationCommandOptionType.Channel;
 };
 
-export type SlashOptionAutoCompleteOptions<TName extends string = string> =
-  Omit<SlashOptionBase<TName>, "autocomplete"> & {
-    autocomplete?: SlashAutoCompleteOption;
-    type:
-      | ApplicationCommandOptionType.String
-      | ApplicationCommandOptionType.Number
-      | ApplicationCommandOptionType.Integer;
-  };
+export type SlashOptionAutoCompleteOptions<
+  T extends string,
+  TD extends string
+> = Omit<SlashOptionBaseOptions<T, TD>, "autocomplete" | "type"> & {
+  autocomplete?: SlashAutoCompleteOption;
+  type:
+    | ApplicationCommandOptionType.String
+    | ApplicationCommandOptionType.Number
+    | ApplicationCommandOptionType.Integer;
+};
 
-export type SlashOptionNumberOptions<TName extends string = string> = Omit<
-  SlashOptionBase<TName>,
-  "maxValue" | "minValue" | "autocomplete"
+export type SlashOptionNumberOptions<
+  T extends string,
+  TD extends string
+> = Omit<
+  SlashOptionBaseOptions<T, TD>,
+  "maxValue" | "minValue" | "autocomplete" | "type"
 > & {
   autocomplete?: SlashAutoCompleteOption;
   maxValue?: number;
@@ -74,9 +75,12 @@ export type SlashOptionNumberOptions<TName extends string = string> = Omit<
     | ApplicationCommandOptionType.Integer;
 };
 
-export type SlashOptionStringOptions<TName extends string = string> = Omit<
-  SlashOptionBase<TName>,
-  "maxLength" | "minLength" | "autocomplete"
+export type SlashOptionStringOptions<
+  T extends string,
+  TD extends string
+> = Omit<
+  SlashOptionBaseOptions<T, TD>,
+  "maxLength" | "minLength" | "autocomplete" | "type"
 > & {
   autocomplete?: SlashAutoCompleteOption;
   maxLength?: number;
@@ -84,12 +88,12 @@ export type SlashOptionStringOptions<TName extends string = string> = Omit<
   type: ApplicationCommandOptionType.String;
 };
 
-export type SlashOptionOptions<TName extends string = string> =
-  | SlashOptionBaseOptions<TName>
-  | SlashOptionChannelOptions<TName>
-  | SlashOptionNumberOptions<TName>
-  | SlashOptionStringOptions<TName>
-  | SlashOptionAutoCompleteOptions<TName>;
+export type SlashOptionOptions<T extends string, TD extends string> =
+  | SlashOptionBaseOptions<T, TD>
+  | SlashOptionChannelOptions<T, TD>
+  | SlashOptionNumberOptions<T, TD>
+  | SlashOptionStringOptions<T, TD>
+  | SlashOptionAutoCompleteOptions<T, TD>;
 
 export type SlashAutoCompleteOption =
   | undefined
@@ -115,3 +119,39 @@ export type ApplicationCommandOptionChoiceDataEx = {
   nameLocalizations?: LocalizationMap | null;
   value: string | number;
 };
+
+/**
+ * Slash group options
+ */
+
+export type SlashGroupBase<T extends string, TD extends string> = {
+  description: TD;
+  descriptionLocalizations?: LocalizationMap;
+  name: T;
+  nameLocalizations?: LocalizationMap;
+};
+
+export type SlashGroupRoot<
+  T extends string,
+  TD extends string
+> = SlashGroupBase<T, TD> & {
+  defaultMemberPermissions?: PermissionResolvable;
+  dmPermission?: boolean;
+  root?: undefined;
+};
+
+export type SlashGroupSubRoot<
+  T extends string,
+  TD extends string,
+  TR extends string
+> = SlashGroupBase<T, TD> & {
+  defaultMemberPermissions?: undefined;
+  dmPermission?: undefined;
+  root?: TR;
+};
+
+export type SlashGroupOptions<
+  T extends string,
+  TD extends string,
+  TR extends string
+> = SlashGroupRoot<T, TD> | SlashGroupSubRoot<T, TD, TR>;

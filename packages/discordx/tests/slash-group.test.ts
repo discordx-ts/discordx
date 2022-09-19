@@ -62,6 +62,7 @@ export class Example {
       maxValue: 10,
       minValue: 1,
       name: "x",
+      required: true,
       type: ApplicationCommandOptionType.Number,
     })
     x: number,
@@ -70,6 +71,7 @@ export class Example {
       maxValue: 10,
       minValue: 1,
       name: "y",
+      required: true,
       type: ApplicationCommandOptionType.Number,
     })
     y: number,
@@ -83,9 +85,19 @@ export class Example {
   @Slash({ description: "Multiply" })
   @SlashGroup("maths", "testing")
   multiply(
-    @SlashOption({ description: "x value", name: "x" })
+    @SlashOption({
+      description: "x value",
+      name: "x",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
     x: number,
-    @SlashOption({ description: "y value", name: "y" })
+    @SlashOption({
+      description: "y value",
+      name: "y",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
     y: number,
     interaction: CommandInteraction,
     client: Client,
@@ -94,7 +106,7 @@ export class Example {
     return ["/testing maths multiply", x * y, interaction, data.passed];
   }
 
-  @Slash()
+  @Slash({ description: "hello" })
   @SlashGroup("text", "testing")
   hello(
     @SlashChoice(
@@ -107,7 +119,12 @@ export class Example {
         value: TextChoices["Good Bye"],
       }
     )
-    @SlashOption({ name: "text" })
+    @SlashOption({
+      description: "text",
+      name: "text",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     text: TextChoices,
     interaction: CommandInteraction,
     client: Client,
@@ -116,12 +133,22 @@ export class Example {
     return ["/testing text hello", text, interaction, data.passed];
   }
 
-  @Slash({ name: "hello" })
+  @Slash({ description: "hello", name: "hello" })
   @SlashGroup("testing")
   root(
-    @SlashOption({ name: "text" })
+    @SlashOption({
+      description: "text",
+      name: "text",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     text: string,
-    @SlashOption({ name: "text2", required: false })
+    @SlashOption({
+      description: "text2",
+      name: "text2",
+      required: false,
+      type: ApplicationCommandOptionType.String,
+    })
     text2: string,
     interaction: CommandInteraction,
     client: Client,
@@ -133,6 +160,7 @@ export class Example {
 
 @Discord()
 @SlashGroup({
+  description: "group-test-without-description",
   name: "group-test-without-description",
 })
 @SlashGroup({
@@ -148,9 +176,19 @@ export class Example2 {
   @Slash({ description: "Addition" })
   @SlashGroup("line", "group-test-without-description")
   add(
-    @SlashOption({ description: "x value", name: "x" })
+    @SlashOption({
+      description: "x value",
+      name: "x",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
     x: number,
-    @SlashOption({ description: "y value", name: "y" })
+    @SlashOption({
+      description: "y value",
+      name: "y",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
     y: number,
     interaction: CommandInteraction,
     client: Client,
@@ -161,57 +199,57 @@ export class Example2 {
 }
 
 @Discord()
-@SlashGroup({ name: "test-x" })
+@SlashGroup({ description: "test-x", name: "test-x" })
 @SlashGroup("test-x")
 export class AnotherGroup {
-  @Slash()
+  @Slash({ description: "m" })
   m(): unknown {
     return ["/test-x", "m", true];
   }
 
-  @Slash()
+  @Slash({ description: "n" })
   n(): unknown {
     return ["/test-x", "n", true];
   }
 }
 
 @Discord()
-@SlashGroup({ name: "add", root: "test-x" })
+@SlashGroup({ description: "add", name: "add", root: "test-x" })
 @SlashGroup("add", "test-x")
 export class Group {
-  @Slash()
+  @Slash({ description: "x" })
   x(): unknown {
     return ["/test-x", "add", "x", true];
   }
 
-  @Slash()
+  @Slash({ description: "y" })
   y(): unknown {
     return ["/test-x", "add", "y", true];
   }
 }
 
 @Discord()
-@SlashGroup({ name: "test-y" })
-@SlashGroup({ name: "add", root: "test-y" })
+@SlashGroup({ description: "test-y", name: "test-y" })
+@SlashGroup({ description: "add", name: "add", root: "test-y" })
 @SlashGroup("test-y")
 export class DuplicateGroup {
-  @Slash()
+  @Slash({ description: "o" })
   o(): unknown {
     return ["/test-y", "o", true];
   }
 
-  @Slash()
+  @Slash({ description: "p" })
   p(): unknown {
     return ["/test-y", "p", true];
   }
 
-  @Slash()
+  @Slash({ description: "y" })
   @SlashGroup("add", "test-y")
   y(): unknown {
     return ["/test-y", "add", "y", true];
   }
 
-  @Slash()
+  @Slash({ description: "z" })
   @SlashGroup("add", "test-y")
   z(): unknown {
     return ["/test-y", "add", "z", true];

@@ -19,7 +19,7 @@ export class Example {
     console.log(`${interaction.user} says hello`);
   }
 
-  @Slash()
+  @Slash({ description: "test" })
   test(interaction: CommandInteraction): void {
     const btn = new ButtonBuilder()
       .setLabel("Hello")

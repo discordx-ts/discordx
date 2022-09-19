@@ -5,19 +5,21 @@ import { Discord, Slash } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @Slash({ defaultMemberPermissions: BigInt(0) })
+  @Slash({ defaultMemberPermissions: 0n, description: "perm1" })
   perm1(interaction: ChatInputCommandInteraction): void {
     interaction.reply(":wave:");
   }
 
   @Slash({
     defaultMemberPermissions: PermissionFlagsBits.Administrator,
+    description: "perm2",
   })
   perm2(interaction: ChatInputCommandInteraction): void {
     interaction.reply(":wave:");
   }
 
   @Slash({
+    description: "perm3",
     dmPermission: true,
   })
   perm3(interaction: ChatInputCommandInteraction): void {
@@ -25,6 +27,7 @@ export class Example {
   }
 
   @Slash({
+    description: "perm4",
     dmPermission: true,
     guilds: ["874802018361950248"],
   })
@@ -34,6 +37,7 @@ export class Example {
 
   @Slash({
     defaultMemberPermissions: undefined,
+    description: "perm5",
     guilds: ["874802018361950248"],
   })
   perm5(interaction: ChatInputCommandInteraction): void {
@@ -42,6 +46,7 @@ export class Example {
 
   @Slash({
     defaultMemberPermissions: PermissionFlagsBits.Administrator,
+    description: "perm6",
     guilds: ["874802018361950248"],
   })
   perm6(interaction: ChatInputCommandInteraction): void {

@@ -10,7 +10,7 @@ import { Discord, ModalComponent, Slash } from "../../../src/index.js";
 
 @Discord()
 export class Example {
-  @Slash()
+  @Slash({ description: "modal" })
   modal(interaction: CommandInteraction): void {
     // Create the modal
     const modal = new ModalBuilder()

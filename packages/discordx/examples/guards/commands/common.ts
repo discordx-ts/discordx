@@ -13,13 +13,13 @@ export class Example {
     console.log(message.content);
   }
 
-  @Slash()
+  @Slash({ description: "hello" })
   @Guard(NotBot)
   hello(interaction: CommandInteraction): void {
     console.log(interaction);
   }
 
-  @Slash({ name: "error-guard" })
+  @Slash({ description: "errorGuard", name: "error-guard" })
   @Guard(ErrorHandler, NotBot)
   errorGuard(): void {
     throw Error("My custom error");

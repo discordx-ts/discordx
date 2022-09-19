@@ -1,12 +1,10 @@
 import type {
+  ApplicationCommandType,
   ChatInputCommandInteraction,
   LocalizationMap,
   PermissionResolvable,
 } from "discord.js";
-import {
-  ApplicationCommandOptionType,
-  ApplicationCommandType,
-} from "discord.js";
+import { ApplicationCommandOptionType } from "discord.js";
 
 import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
 import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
@@ -15,7 +13,7 @@ import { Method } from "./Method.js";
 type CreateStructure = {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable | null;
-  description?: string;
+  description: string;
   descriptionLocalizations?: LocalizationMap | null;
   dmPermission?: boolean;
   guilds?: IGuild[];
@@ -129,7 +127,7 @@ export class DApplicationCommand extends Method {
     super();
     this._name = data.name;
     this._type = data.type;
-    this._description = data.description ?? this.name;
+    this._description = data.description;
     this._guilds = data.guilds ?? [];
     this._botIds = data.botIds ?? [];
     this._descriptionLocalizations = data.descriptionLocalizations ?? null;
@@ -180,6 +178,7 @@ export class DApplicationCommand extends Method {
     const option = DApplicationCommandOption.create({
       description: this.description,
       name: this.name,
+      required: true,
       type: ApplicationCommandOptionType.Subcommand,
     }).decorate(this.classRef, this.key, this.method, this.from, this.index);
 
@@ -188,20 +187,6 @@ export class DApplicationCommand extends Method {
   }
 
   toJSON(): ApplicationCommandDataEx {
-    if (this.type !== ApplicationCommandType.ChatInput) {
-      const data: ApplicationCommandDataEx = {
-        defaultMemberPermissions: this.defaultMemberPermissions,
-        description: "",
-        descriptionLocalizations: null,
-        dmPermission: this.dmPermission,
-        name: this.name,
-        nameLocalizations: this.nameLocalizations,
-        options: [],
-        type: this.type,
-      };
-      return data;
-    }
-
     const options = [...this.options]
       .reverse()
       .sort((a, b) => {
