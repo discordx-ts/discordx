@@ -12,6 +12,12 @@ class Example {
 }
 ```
 
+## Signature
+
+```ts
+Once(options?: EventOptions)
+```
+
 ## Get the event payload
 
 For each event a list of arguments is injected in your decorated method, you can type this list thanks to the `ArgsOf<"YOUR_EVENT">` type provided by discord.**ts**.
@@ -51,35 +57,3 @@ class Example {
   }
 }
 ```
-
-## Signature
-
-```ts
-Once(options?: EventOptions)
-```
-
-## Parameters
-
-### options
-
-The event options.
-
-| type         | default   | required |
-| ------------ | --------- | -------- |
-| EventOptions | undefined | No       |
-
-## Type: EventOptions
-
-Array of bot ids, for which only the event will be executed
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### event
-
-The event name
-
-| type   | default |
-| ------ | ------- |
-| string |         |

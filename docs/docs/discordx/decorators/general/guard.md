@@ -238,16 +238,6 @@ Guard<Type = any, DataType = any>(
 );
 ```
 
-## Parameters
-
-### guard
-
-Array of guard functions.
-
-| type             | default | required |
-| ---------------- | ------- | -------- |
-| GuardFunction[ ] | [ ]     | Yes      |
-
 ## Make changes to
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.

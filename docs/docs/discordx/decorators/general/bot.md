@@ -2,6 +2,12 @@
 
 bot decorator help you manage multiple bot's in single node instance
 
+## Signature
+
+```ts
+Bot(...botIDs: string[]): ClassMethodDecorator;
+```
+
 ## Supported with
 
 - [@ButtonComponent](../gui/button-component)
@@ -39,22 +45,6 @@ MetadataStorage.instance.build().then(() => {
   zoe.login("zoe token");
 });
 ```
-
-## Signature
-
-```ts
-Bot(...botIDs: string[]): ClassMethodDecorator;
-```
-
-## Parameters
-
-### botID
-
-Array of bot ids, for which only the below statement will be executed.
-
-| type      | default | required |
-| --------- | ------- | -------- |
-| string[ ] | [ ]     | Yes      |
 
 ## Make changes to
 

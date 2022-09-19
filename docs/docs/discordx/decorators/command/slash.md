@@ -5,6 +5,14 @@ sidebar_position: 0
 
 Discord has it's own command system now, you can simply declare commands and use application commands this way
 
+## Signature
+
+```ts
+Slash(options: ApplicationCommandOptions)
+```
+
+## Example
+
 ```ts
 import { Discord, Slash } from "discordx";
 
@@ -148,88 +156,6 @@ class Example {
   }
 }
 ```
-
-## Signature
-
-```ts
-Slash(options?: ApplicationCommandOptions)
-```
-
-## Parameters
-
-### options
-
-Slash command options
-
-| type                      | default   | required |
-| ------------------------- | --------- | -------- |
-| ApplicationCommandOptions | undefined | NO       |
-
-## Type: ApplicationCommandOptions
-
-### botIds
-
-Array of bot ids, for which only the event will be executed.
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### defaultMemberPermissions
-
-The slash command default member permissions
-
-| type   | default |
-| ------ | ------- |
-| bigint | 0n      |
-
-### description
-
-The slash command description
-
-| type   | default                     |
-| ------ | --------------------------- |
-| string | Command name - Command type |
-
-### descriptionLocalizations
-
-The slash command description localizations
-
-| type            | default   |
-| --------------- | --------- |
-| LocalizationMap | undefined |
-
-### dmPermission
-
-The slash command dm permission
-
-| type    | default |
-| ------- | ------- |
-| boolean | true    |
-
-### guilds
-
-The guilds where the command is created
-
-| type        | default |
-| ----------- | ------- |
-| Snowflake[] | [ ]     |
-
-### name
-
-The slash command name
-
-| type   | default     |
-| ------ | ----------- |
-| string | method name |
-
-### nameLocalizations
-
-The slash command name localizations
-
-| type            | default   |
-| --------------- | --------- |
-| LocalizationMap | undefined |
 
 ## Authorize your bot to use application commands
 

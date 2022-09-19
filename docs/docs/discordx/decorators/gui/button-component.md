@@ -6,6 +6,16 @@ Here are some example screenshots:
 
 ![](../../../../static/img/button-example.jpg)
 
+## Signature
+
+```ts
+ButtonComponent(options: ComponentOptions)
+```
+
+:::caution
+As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
+:::
+
 ## Example
 
 ```ts
@@ -34,49 +44,3 @@ class Example {
   }
 }
 ```
-
-## Signature
-
-```ts
-ButtonComponent(options: ComponentOptions)
-```
-
-## Parameters
-
-### options
-
-The button options
-
-| type             | default   | required |
-| ---------------- | --------- | -------- |
-| ComponentOptions | undefined | NO       |
-
-## Type: ComponentOptions
-
-### botIds
-
-Array of bot ids, for which only the event will be executed.
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### Guilds
-
-The guilds where the command is created
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### id
-
-A unique id for your button interaction to be handled under.
-
-| type             | default       | required |
-| ---------------- | ------------- | -------- |
-| string \| RegExp | function name | No       |
-
-:::caution
-As per discord latest announcement, `custom_ids` being unique within a message. [read here more](https://discord.com/developers/docs/interactions/message-components#custom-id)
-:::

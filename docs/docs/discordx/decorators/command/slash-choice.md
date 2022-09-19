@@ -7,6 +7,14 @@ An option of a Slash command can implement an autocompletion feature for `string
 
 ![](../../../../static/img/choices.png)
 
+## Signature
+
+```ts
+SlashChoice(...choices: string[]);
+SlashChoice(...choices: number[]);
+SlashChoice(...choices: SlashChoiceType[]);
+```
+
 ## Setup autocompletion
 
 You just decorate your parameter with one or multiple @SlashChoice !
@@ -69,37 +77,3 @@ class Example {
   }
 }
 ```
-
-## Signature
-
-```ts
-SlashChoice(...choices: string[]);
-SlashChoice(...choices: number[]);
-SlashChoice(...choices: SlashChoiceType[]);
-```
-
-## Parameters
-
-### Name
-
-You have to set a displayed name for your choice
-
-| type   | default   | required |
-| ------ | --------- | -------- |
-| string | undefined | Yes      |
-
-### nameLocalizations
-
-The slash choice name localizations
-
-| type            | default   | required |
-| --------------- | --------- | -------- |
-| LocalizationMap | undefined | false    |
-
-### Value
-
-You have to set a value for your choice, if the user select "Astronaut", you will receive the value "astronaut"
-
-| type             | default     | required |
-| ---------------- | ----------- | -------- |
-| string \| number | choice name | No       |

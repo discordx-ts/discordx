@@ -11,6 +11,12 @@ A simple command is dependent on the content of the message but unfortunately, D
 [Read discord message here](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Access-Deprecation-for-Verified-Bots)
 :::
 
+## Signature
+
+```ts
+SimpleCommand(options: SimpleCommandOptions)
+```
+
 ## Example
 
 ```ts
@@ -84,77 +90,3 @@ Simple commands can be executed in case-sensitive mode.
 ```ts
 client.executeCommand(message, { caseSensitive: true });
 ```
-
-## Signature
-
-```ts
-SimpleCommand(options: SimpleCommandOptions)
-```
-
-## Parameters
-
-### options
-
-The simple command options
-
-| type                 | default   | required |
-| -------------------- | --------- | -------- |
-| SimpleCommandOptions | undefined | No       |
-
-## Type: SimpleCommandOptions
-
-### aliases
-
-Alternative names for simple commands.
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### argSplitter
-
-Splitter for arguments used with @SimpleCommandOption
-
-| type   | default           |
-| ------ | ----------------- |
-| string | Single whitespace |
-
-### botIds
-
-Array of bot ids, for which only the command will be executed.
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### description
-
-The simple command description.
-
-| type   | default      |
-| ------ | ------------ |
-| string | Command name |
-
-### directMessage
-
-Allow command execution from direct messages.
-
-| type    | default |
-| ------- | ------- |
-| boolean | true    |
-
-### guilds
-
-Array of guild ids, for which only the command will be executed.
-
-| type        | default |
-| ----------- | ------- |
-| Snowflake[] | [ ]     |
-
-### name
-
-The simple command name
-
-| type   | default     |
-| ------ | ----------- |
-| string | method name |

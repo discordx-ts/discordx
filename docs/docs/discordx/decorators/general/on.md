@@ -68,29 +68,3 @@ class Example {
 ```ts
 On(options?: EventOptions)
 ```
-
-## Parameters
-
-### options
-
-The event options.
-
-| type         | default   | required |
-| ------------ | --------- | -------- |
-| EventOptions | undefined | No       |
-
-## Type: EventOptions
-
-Array of bot ids, for which only the event will be executed
-
-| type      | default |
-| --------- | ------- |
-| string[ ] | [ ]     |
-
-### event
-
-The event name
-
-| type   | default |
-| ------ | ------- |
-| string |         |
