@@ -14,7 +14,7 @@ const guard1: GuardFunction = async (
   }
 };
 
-const guard2: GuardFunction = async ([]: [string], client, next, data) => {
+const guard2: GuardFunction = async (_: [string], client, next, data) => {
   if (data.original === "hello-test") {
     data.message += "-1";
     await next();
@@ -38,7 +38,7 @@ export class Example {
   @On()
   @Guard(guard1, guard2)
   messageDelete(
-    []: [string],
+    _: [string],
     client: Client,
     guardParams: { message: string }
   ): void {
