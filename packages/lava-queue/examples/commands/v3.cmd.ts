@@ -114,19 +114,29 @@ export class MusicPlayer {
   // events
 
   @Once()
-  async ready([]: ArgsOf<"ready">, client: Client): Promise<void> {
+  async ready(_: ArgsOf<"ready">, client: Client): Promise<void> {
     await wait(5e3);
     this.player[client.botId] = new Player(getNode(client));
   }
 
   // slashes
 
-  @Slash()
+  @Slash({ description: "play" })
   async play(
     @SlashChoice("URL", "SEARCH")
-    @SlashOption({ name: "type", type: ApplicationCommandOptionType.String })
+    @SlashOption({
+      description: "type",
+      name: "type",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     type: "URL" | "SEARCH",
-    @SlashOption({ name: "input", type: ApplicationCommandOptionType.String })
+    @SlashOption({
+      description: "input",
+      name: "input",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     input: string,
     interaction: CommandInteraction,
     client: Client
@@ -190,9 +200,15 @@ export class MusicPlayer {
     return;
   }
 
-  @Slash()
+  @Slash({ description: "seek" })
   async seek(
-    @SlashOption({ name: "seconds" }) seconds: number,
+    @SlashOption({
+      description: "seconds",
+      name: "seconds",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    seconds: number,
     interaction: CommandInteraction,
     client: Client
   ): Promise<void> {

@@ -20,7 +20,7 @@ export class music {
       }
     });
 
-    this.player.on("onFinishPlayback", ([]) => {
+    this.player.on("onFinishPlayback", () => {
       if (this.channel) {
         this.channel.send(
           "all songs has been played, please queue up more songs :musical_note:"
@@ -28,13 +28,13 @@ export class music {
       }
     });
 
-    this.player.on("onPause", ([]) => {
+    this.player.on("onPause", () => {
       if (this.channel) {
         this.channel.send("music paused");
       }
     });
 
-    this.player.on("onResume", ([]) => {
+    this.player.on("onResume", () => {
       if (this.channel) {
         this.channel.send("music resumed");
       }
@@ -54,19 +54,19 @@ export class music {
       }
     });
 
-    this.player.on("onLoop", ([]) => {
+    this.player.on("onLoop", () => {
       if (this.channel) {
         this.channel.send("music resumed");
       }
     });
 
-    this.player.on("onRepeat", ([]) => {
+    this.player.on("onRepeat", () => {
       if (this.channel) {
         this.channel.send("music resumed");
       }
     });
 
-    this.player.on("onSkip", ([]) => {
+    this.player.on("onSkip", () => {
       if (this.channel) {
         this.channel.send("music resumed");
       }
@@ -78,25 +78,25 @@ export class music {
       }
     });
 
-    this.player.on("onLoopEnabled", ([]) => {
+    this.player.on("onLoopEnabled", () => {
       if (this.channel) {
         this.channel.send("loop mode enabled");
       }
     });
 
-    this.player.on("onLoopDisabled", ([]) => {
+    this.player.on("onLoopDisabled", () => {
       if (this.channel) {
         this.channel.send("loop mode disabled");
       }
     });
 
-    this.player.on("onRepeatEnabled", ([]) => {
+    this.player.on("onRepeatEnabled", () => {
       if (this.channel) {
         this.channel.send("repeat mode enabled");
       }
     });
 
-    this.player.on("onRepeatDisabled", ([]) => {
+    this.player.on("onRepeatDisabled", () => {
       if (this.channel) {
         this.channel.send("repeat mode disabled");
       }

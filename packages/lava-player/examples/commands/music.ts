@@ -19,7 +19,7 @@ export class MusicPlayer {
   node: Node | undefined;
 
   @Once()
-  ready([]: ArgsOf<"ready">, client: Client): void {
+  ready(_: ArgsOf<"ready">, client: Client): void {
     const nodeX = new Node({
       host: {
         address: process.env.LAVA_HOST ?? "localhost",
