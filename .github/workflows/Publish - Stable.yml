@@ -84,3 +84,11 @@ jobs:
         working-directory: ./packages/${{ matrix.folder }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Alert
+        if: github.event.inputs.package == matrix.package
+        run: |
+          curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"\`${{ matrix.package }}@`node -p "require('./package.json').version"`\` [released](https://www.npmjs.com/package/${{ matrix.package }}) successfully :tada:\"}" $DISCORD_WEBHOOK &> /dev/null
+        working-directory: ./packages/${{ matrix.folder }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
