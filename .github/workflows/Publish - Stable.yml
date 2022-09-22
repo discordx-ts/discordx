@@ -8,7 +8,7 @@ on:
         type: string
       version:
         description: "npm version"
-        default: "patch"
+        default: "patch|minor|major"
         required: true
         type: string
 
@@ -47,9 +47,15 @@ jobs:
           - package: "@discordx/socket.io"
             folder: "socket.io"
     steps:
-      - name: check out code 🛎
+      - name: Check out code 🛎
         if: github.event.inputs.package == matrix.package
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check out head
+        if: github.event.inputs.package == matrix.package
+        run: git checkout HEAD^
 
       - name: Install Node v18
         if: github.event.inputs.package == matrix.package
@@ -77,6 +83,36 @@ jobs:
         if: github.event.inputs.package == matrix.package
         run: npm run build
         working-directory: ./packages/${{ matrix.folder }}
+
+      - name: Prepare tag
+        if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
+        id: prepare-tag
+        run: |
+          echo ::set-output name=tag::${{ matrix.folder }}-`node -p "require('./package.json').version"`
+        working-directory: ./packages/${{ matrix.folder }}
+
+      - name: Create tag
+        if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ steps.prepare-tag.outputs.tag }}',
+              sha: context.sha,
+            })
+
+      - name: Create release
+        if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: '${{ steps.prepare-tag.outputs.tag }}',
+            })
 
       - name: Publish
         if: github.event.inputs.package == matrix.package
