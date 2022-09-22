@@ -1,5 +1,10 @@
 # Stage
 
+## Changed
+
+- remove defaults from decorators ([#869](https://github.com/discordx-ts/discordx/issues/869)) ([b74975](https://github.com/discordx-ts/discordx/commit/b74975c932e1cf313fa2202b1a538e4c52ce90e8))
+- not-bot guard ([de9347](https://github.com/discordx-ts/discordx/commit/de9347c7f444521023a5fbcfc8ed00253fb39190))
+
 # [v11.2.0](https://github.com/discordx-ts/discordx/releases/tag/v11.2.0) (2022-09-13)
 
 ## Changed

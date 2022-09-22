@@ -1,5 +1,9 @@
 # Stage
 
+## Changed
+
+- examples ([7c2428](https://github.com/discordx-ts/discordx/commit/7c24288c5c3fd4533b90c92ed87a8bc2b8d3fb4c))
+
 # [v5.0.0](https://github.com/discordx-ts/discordx/releases/tag/u-v5.0.0) (2022-08-07)
 
 ## Features

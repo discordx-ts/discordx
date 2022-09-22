@@ -1,5 +1,14 @@
 # Stage
 
+## Changed
+
+- remove defaults from decorators ([#869](https://github.com/discordx-ts/discordx/issues/869)) ([b74975](https://github.com/discordx-ts/discordx/commit/b74975c932e1cf313fa2202b1a538e4c52ce90e8))
+
+## Fixed
+
+- localization for sub command ([50ccb0](https://github.com/discordx-ts/discordx/commit/50ccb0229205244be2c444e2dca86879e5414e99))
+- slash grouping ([c2db36](https://github.com/discordx-ts/discordx/commit/c2db365ac831cda004fe06306e9b049acc5c0180))
+
 # [v11.2.0](https://github.com/discordx-ts/discordx/releases/tag/v11.2.0) (2022-09-13)
 
 ## Features

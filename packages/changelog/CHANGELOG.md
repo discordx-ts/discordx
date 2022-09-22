@@ -6,6 +6,7 @@
 
 ## Changed
 
+- source ([3ae25b](https://github.com/discordx-ts/discordx/commit/3ae25be18ce3bac0320c9edeb60ec9ddf1d72947))
 - ignore scope ([64fe3d](https://github.com/discordx-ts/discordx/commit/64fe3d26870c0db8bab7d0da7669f64398c5c014))
 - anti pattern ([e03845](https://github.com/discordx-ts/discordx/commit/e038451bb1711fc362cb98338e0b66ec8a2ffac8))
 
