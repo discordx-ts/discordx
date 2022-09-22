@@ -80,6 +80,7 @@ export function generateDoc(options?: {
   root?: string;
   tag?: {
     match?: string;
+    onlyStage?: boolean;
     replace?: string;
   };
 }): string {
@@ -171,7 +172,7 @@ export function generateDoc(options?: {
 
     let finalChangeLog =
       tag === "head"
-        ? options?.header ?? "# Stage\n\n"
+        ? options?.header ?? ""
         : `# [${tag}](${repo}/releases/tag/${tag}) (${
             new Date(tagDate).toISOString().split("T")[0] ?? ""
           })\n\n`;
@@ -195,7 +196,12 @@ export function generateDoc(options?: {
     });
 
     finalChangeLog += "\n";
-    completeChangelog = finalChangeLog + completeChangelog;
+
+    if (options?.tag?.onlyStage) {
+      completeChangelog = finalChangeLog;
+    } else {
+      completeChangelog = finalChangeLog + completeChangelog;
+    }
   });
 
   fs.writeFileSync(

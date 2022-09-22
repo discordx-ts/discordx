@@ -57,14 +57,15 @@ yarn add @discordx/changelog
 
 The following options are only available
 
-| Name           | Required | Default          | Description                |
-| -------------- | -------- | ---------------- | -------------------------- |
-| --root         | No       | "./"             | root folder path           |
-| --out          | No       | "./CHANGELOG.md" | changelog file path        |
-| --tag          | No       | "v\*"            | tag to match with releases |
-| --tag-replace  | No       | undefined        | replacement in tag         |
-| --ignore-scope | No       | undefined        | ignore scopes              |
-| --header       | No       | `# Stage\n\n`    | set custom header          |
+| Name           | Required | Default          | Description                   |
+| -------------- | -------- | ---------------- | ----------------------------- |
+| --root         | No       | "./"             | root folder path              |
+| --out          | No       | "./CHANGELOG.md" | changelog file path           |
+| --tag          | No       | "v\*"            | tag to match with releases    |
+| --tag-replace  | No       | undefined        | replacement in tag            |
+| --ignore-scope | No       | undefined        | ignore scopes                 |
+| --header       | No       | `# Stage\n\n`    | set custom header             |
+| --only-stage   | No       | false            | generate only stage changelog |
 
 # 📜 Documentation
 

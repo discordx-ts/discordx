@@ -27,6 +27,7 @@ const repo = generateDoc({
   root,
   tag: {
     match: getArg("tag"),
+    onlyStage: getArg("only-stage") !== undefined ? true : false,
     replace: getArg("tag-replace"),
   },
 });
