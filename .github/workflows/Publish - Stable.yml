@@ -80,19 +80,6 @@ jobs:
         run: npm run build
         working-directory: ./packages/${{ matrix.folder }}
 
-      - name: Prepare stage changelog
-        if: github.event.inputs.package == matrix.package
-        run: npm install -f @discordx/changelog && npm run build:changelog -- --only-stage
-        working-directory: ./packages/${{ matrix.folder }}
-
-      - name: Read changelog
-        if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
-        run: |
-          echo 'changelog_content<<EOF' >> $GITHUB_ENV
-          cat ./CHANGELOG.md >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-        working-directory: ./packages/${{ matrix.folder }}
-
       - name: Prepare tag
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
         id: prepare-tag
@@ -111,6 +98,19 @@ jobs:
               ref: 'refs/tags/${{ steps.prepare-tag.outputs.tag }}',
               sha: context.sha,
             })
+
+      - name: Prepare stage changelog
+        if: github.event.inputs.package == matrix.package
+        run: npm install -f @discordx/changelog && npm run build:changelog
+        working-directory: ./packages/${{ matrix.folder }}
+
+      - name: Read changelog
+        if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
+        run: |
+          echo 'changelog_content<<EOF' >> $GITHUB_ENV
+          cat ./CHANGELOG.md >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+        working-directory: ./packages/${{ matrix.folder }}
 
       - name: Create release
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
