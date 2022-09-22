@@ -37,7 +37,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "build:changelog": "npx @discordx/changelog --root=src --tag=c-v* --tag-replace=c-",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=changelog-v* --tag-replace=changelog-",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/changelog",
     "type-check": "tsc --noemit"
   },

@@ -42,7 +42,7 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --root=src --tag=p-v* --tag-replace=p-",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=pagination-v* --tag-replace=pagination-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/pagination",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
