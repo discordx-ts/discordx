@@ -12,80 +12,80 @@ import type {
   PaginationOptions,
 } from "../types.js";
 import { defaultIds, PaginationType, SelectMenuPageId } from "../types.js";
-import { paginate } from "./paginate.js";
+import { Paginate } from "./Paginate.js";
 
 export function GeneratePage(
   item: PaginationItem,
   page: number,
-  totalPages: number,
-  option: PaginationOptions
+  maxPage: number,
+  config: PaginationOptions
 ): IGeneratePage {
   const beginning = page === 0;
-  const end = page === totalPages - 1;
+  const end = page === maxPage - 1;
 
   const newMessage: PaginationItem = item;
 
   function isStartEndAllowed(): boolean {
-    if (option.showStartEnd === undefined) {
+    if (config.showStartEnd === undefined) {
       return true;
     }
 
-    if (typeof option.showStartEnd === "number") {
-      return totalPages >= option.showStartEnd;
+    if (typeof config.showStartEnd === "number") {
+      return maxPage >= config.showStartEnd;
     }
 
-    return option.showStartEnd;
+    return config.showStartEnd;
   }
 
-  if (option.type === PaginationType.Button) {
+  if (config.type === PaginationType.Button) {
     const startBtn = new ButtonBuilder()
-      .setCustomId(option.start?.id ?? defaultIds.buttons.start)
-      .setLabel(option.start?.label ?? "Start")
-      .setStyle(option.start?.style ?? ButtonStyle.Primary)
+      .setCustomId(config.start?.id ?? defaultIds.buttons.start)
+      .setLabel(config.start?.label ?? "Start")
+      .setStyle(config.start?.style ?? ButtonStyle.Primary)
       .setDisabled(beginning);
 
     const endBtn = new ButtonBuilder()
-      .setCustomId(option.end?.id ?? defaultIds.buttons.end)
-      .setLabel(option.end?.label ?? "End")
-      .setStyle(option.end?.style ?? ButtonStyle.Primary)
+      .setCustomId(config.end?.id ?? defaultIds.buttons.end)
+      .setLabel(config.end?.label ?? "End")
+      .setStyle(config.end?.style ?? ButtonStyle.Primary)
       .setDisabled(end);
 
     const nextBtn = new ButtonBuilder()
-      .setCustomId(option.next?.id ?? defaultIds.buttons.next)
-      .setLabel(option.next?.label ?? "Next")
-      .setStyle(option.next?.style ?? ButtonStyle.Primary)
+      .setCustomId(config.next?.id ?? defaultIds.buttons.next)
+      .setLabel(config.next?.label ?? "Next")
+      .setStyle(config.next?.style ?? ButtonStyle.Primary)
       .setDisabled(end);
 
     const prevBtn = new ButtonBuilder()
-      .setCustomId(option.previous?.id ?? defaultIds.buttons.previous)
-      .setLabel(option.previous?.label ?? "Previous")
-      .setStyle(option.previous?.style ?? ButtonStyle.Primary)
+      .setCustomId(config.previous?.id ?? defaultIds.buttons.previous)
+      .setLabel(config.previous?.label ?? "Previous")
+      .setStyle(config.previous?.style ?? ButtonStyle.Primary)
       .setDisabled(beginning);
 
     const exitBtn = new ButtonBuilder()
-      .setCustomId(option.exit?.id ?? defaultIds.buttons.exit)
-      .setLabel(option.exit?.label ?? "Exit")
-      .setStyle(option.exit?.style ?? ButtonStyle.Danger);
+      .setCustomId(config.exit?.id ?? defaultIds.buttons.exit)
+      .setLabel(config.exit?.label ?? "Exit")
+      .setStyle(config.exit?.style ?? ButtonStyle.Danger);
 
     // set emoji
-    if (option.start?.emoji) {
-      startBtn.setEmoji(option.start.emoji);
+    if (config.start?.emoji) {
+      startBtn.setEmoji(config.start.emoji);
     }
 
-    if (option.end?.emoji) {
-      endBtn.setEmoji(option.end.emoji);
+    if (config.end?.emoji) {
+      endBtn.setEmoji(config.end.emoji);
     }
 
-    if (option.next?.emoji) {
-      nextBtn.setEmoji(option.next.emoji);
+    if (config.next?.emoji) {
+      nextBtn.setEmoji(config.next.emoji);
     }
 
-    if (option.previous?.emoji) {
-      prevBtn.setEmoji(option.previous.emoji);
+    if (config.previous?.emoji) {
+      prevBtn.setEmoji(config.previous.emoji);
     }
 
-    if (option.exit?.emoji) {
-      exitBtn.setEmoji(option.exit.emoji);
+    if (config.exit?.emoji) {
+      exitBtn.setEmoji(config.exit.emoji);
     }
 
     const buttons: ButtonBuilder[] = [prevBtn, nextBtn];
@@ -95,7 +95,7 @@ export function GeneratePage(
       buttons.push(endBtn);
     }
 
-    if (option.enableExit) {
+    if (config.enableExit) {
       buttons.push(exitBtn);
     }
 
@@ -123,12 +123,12 @@ export function GeneratePage(
 
     return { newMessage, paginationRow: row };
   } else {
-    const paginator = paginate(totalPages, page, 1, 21).pages.map((i) => {
+    const paginator = Paginate(maxPage, page, 1, 21).pages.map((i) => {
       // get custom page title
       const text =
-        option.pageText instanceof Array
-          ? option.pageText[i - 1]
-          : option.pageText;
+        config.pageText instanceof Array
+          ? config.pageText[i - 1]
+          : config.pageText;
 
       return {
         label: (text ?? "Page {page}").replaceAll("{page}", `${i}`),
@@ -139,28 +139,28 @@ export function GeneratePage(
     if (isStartEndAllowed()) {
       // add start option
       paginator.unshift({
-        label: option.labels?.start ?? "Start",
+        label: config.labels?.start ?? "Start",
         value: SelectMenuPageId.Start.toString(),
       });
 
       // add end option
       paginator.push({
-        label: option.labels?.end ?? "End",
+        label: config.labels?.end ?? "End",
         value: SelectMenuPageId.End.toString(),
       });
     }
 
     // add exit option
-    if (option.enableExit) {
+    if (config.enableExit) {
       paginator.push({
-        label: option.labels?.exit ?? "Exit Pagination",
+        label: config.labels?.exit ?? "Exit Pagination",
         value: SelectMenuPageId.Exit.toString(),
       });
     }
 
     const menu = new SelectMenuBuilder()
-      .setCustomId(option.menuId ?? defaultIds.menu)
-      .setPlaceholder(option.placeholder ?? "Select page")
+      .setCustomId(config.menuId ?? defaultIds.menu)
+      .setPlaceholder(config.placeholder ?? "Select page")
       .setOptions(paginator);
 
     const row =

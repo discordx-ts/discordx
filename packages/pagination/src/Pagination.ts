@@ -47,13 +47,13 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
   constructor(
     public sendTo: PaginationInteractions | Message | TextBasedChannel,
-    public embeds: PaginationItem[] | T,
+    public pages: PaginationItem[] | T,
     config?: PaginationOptions
   ) {
     /**
      * page length of pagination
      */
-    this.maxLength = Array.isArray(embeds) ? embeds.length : embeds.maxLength;
+    this.maxLength = Array.isArray(pages) ? pages.length : pages.maxLength;
 
     /**
      * default options
@@ -94,9 +94,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    * @returns
    */
   public getPage = async (page: number): Promise<IGeneratePage | undefined> => {
-    const embed = Array.isArray(this.embeds)
-      ? _.cloneDeep<PaginationItem | undefined>(this.embeds[page])
-      : await this.embeds.resolver(page, this);
+    const embed = Array.isArray(this.pages)
+      ? _.cloneDeep<PaginationItem | undefined>(this.pages[page])
+      : await this.pages.resolver(page, this);
 
     if (!embed) {
       return undefined;

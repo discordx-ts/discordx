@@ -1,6 +1,6 @@
 import type { IPaginate } from "../types.js";
 
-export function paginate(
+export function Paginate(
   totalItems: number,
   currentPage = 1,
   pageSize = 10,
