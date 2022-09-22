@@ -111,7 +111,7 @@ export function generateDoc(options?: {
       index < 1
         ? tag
         : tag === "head"
-        ? `${tags[index - 1]}..HEAD`
+        ? `${tags[index - 1]}..`
         : `${tags[index - 1]}..${tag}`;
 
     const commitsArray = child
@@ -138,7 +138,7 @@ export function generateDoc(options?: {
       .filter((commit) => Boolean(commit.title) && Boolean(commit.sha));
 
     const tagDate = child
-      .execSync(`git log -1 --format=%ai ${tag}`)
+      .execSync(`git log -1 --format=%ai ${tag === "head" ? "" : tag}`)
       .toString("utf-8");
 
     const store: { text: string; type: storeType }[] = [];
