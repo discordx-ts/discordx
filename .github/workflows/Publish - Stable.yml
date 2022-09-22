@@ -86,7 +86,7 @@ jobs:
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Prepare stage changelog
-        if: github.event.inputs.package == matrix.package
+        if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
         run: npm run build:changelog -- --only-stage --out ./RELEASE_CHANGELOG.md
         working-directory: ./packages/${{ matrix.folder }}
 
@@ -129,13 +129,6 @@ jobs:
               body: `${{ env.changelog_content }}`,
             })
 
-      - name: Publish
-        if: github.event.inputs.package == matrix.package
-        run: npm publish
-        working-directory: ./packages/${{ matrix.folder }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Release Alert
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
         run: |
@@ -143,6 +136,13 @@ jobs:
         working-directory: ./packages/${{ matrix.folder }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Publish
+        if: github.event.inputs.package == matrix.package
+        run: npm publish
+        working-directory: ./packages/${{ matrix.folder }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Patch Alert
         if: github.event.inputs.package == matrix.package && github.event.inputs.version == 'patch'
