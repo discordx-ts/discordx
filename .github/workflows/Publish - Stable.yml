@@ -122,7 +122,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               tag_name: "${{ steps.prepare-tag.outputs.tag }}"",
-              body: "${{ env.changelog_content }}"",
+              body: `${{ env.changelog_content }}`,
             })
 
       - name: Publish
