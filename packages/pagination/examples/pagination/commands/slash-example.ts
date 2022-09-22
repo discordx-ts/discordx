@@ -1,7 +1,8 @@
-import type { CommandInteraction, MessageOptions } from "discord.js";
+import type { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
 import fs from "fs/promises";
 
+import type { PaginationItem } from "../../../src/index.js";
 import { Pagination } from "../../../src/index.js";
 
 @Discord()
@@ -15,7 +16,7 @@ export class SlashExample {
     const filename = "tmp/hello.txt";
     await fs.mkdir("tmp").catch(() => null);
     await fs.writeFile(filename, "test string");
-    const pages: MessageOptions[] = [
+    const pages: PaginationItem[] = [
       {
         content: "Page 1",
         files: [filename],

@@ -1,7 +1,7 @@
 import type {
+  BaseMessageOptions,
   CommandInteraction,
   Guild,
-  MessageOptions,
   PermissionsString,
 } from "discord.js";
 import { GuildMember } from "discord.js";
@@ -14,7 +14,7 @@ export type PermissionsType =
   | PermissionsString[]
   | ((interaction: PermissionHandler) => Promise<PermissionsString[]>);
 
-export type PermissionOptions = Omit<MessageOptions, "flags"> & {
+export type PermissionOptions = BaseMessageOptions & {
   ephemeral?: boolean;
 };
 

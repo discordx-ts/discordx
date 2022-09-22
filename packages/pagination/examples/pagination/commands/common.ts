@@ -48,10 +48,19 @@ export class Example {
         // example to replace pagination with another pagination data
         pagination.currentPage = 0; // reset current page, because this is gonna be first page
         pagination.maxLength = 5; // new max length for new pagination
-        pagination.embeds = ["1", "2", "3", "4", "5"]; // page reference can be resolver as well
-        return pagination.embeds[pagination.currentPage] ?? "unknown"; // the first page, must select ourselves
+        pagination.embeds = [
+          { content: "1" },
+          { content: "2" },
+          { content: "3" },
+          { content: "4" },
+          { content: "5" },
+        ]; // page reference can be resolver as well
+
+        return (
+          pagination.embeds[pagination.currentPage] ?? { content: "unknown" }
+        ); // the first page, must select ourselves
       }
-      return `page v2 ${page}`;
+      return { content: `page v2 ${page}` };
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {
@@ -80,7 +89,7 @@ export class Example {
   demoC(interaction: CommandInteraction): void {
     new Pagination(
       interaction,
-      Array.from(Array(20).keys()).map((i) => i.toString())
+      Array.from(Array(20).keys()).map((i) => ({ content: i.toString() }))
     ).send();
   }
 

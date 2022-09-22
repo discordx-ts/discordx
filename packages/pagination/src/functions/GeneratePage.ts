@@ -1,21 +1,21 @@
-import type {
-  MessageActionRowComponentBuilder,
-  MessageOptions,
-} from "discord.js";
+import type { MessageActionRowComponentBuilder } from "discord.js";
 import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  EmbedBuilder,
   SelectMenuBuilder,
 } from "discord.js";
 
-import type { IGeneratePage, PaginationOptions } from "../types.js";
+import type {
+  IGeneratePage,
+  PaginationItem,
+  PaginationOptions,
+} from "../types.js";
 import { defaultIds, PaginationType, SelectMenuPageId } from "../types.js";
 import { paginate } from "./paginate.js";
 
 export function GeneratePage(
-  item: string | EmbedBuilder | MessageOptions,
+  item: PaginationItem,
   page: number,
   totalPages: number,
   option: PaginationOptions
@@ -23,12 +23,7 @@ export function GeneratePage(
   const beginning = page === 0;
   const end = page === totalPages - 1;
 
-  const newMessage: Omit<MessageOptions, "flags"> =
-    typeof item === "string"
-      ? { content: item }
-      : item instanceof EmbedBuilder
-      ? { embeds: [item] }
-      : item;
+  const newMessage: PaginationItem = item;
 
   function isStartEndAllowed(): boolean {
     if (option.showStartEnd === undefined) {

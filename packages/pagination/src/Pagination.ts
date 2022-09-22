@@ -101,6 +101,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     if (!embed) {
       return undefined;
     }
+
     return GeneratePage(embed, this.currentPage, this.maxLength, this.option);
   };
 

@@ -1,17 +1,17 @@
 import type {
   ActionRowBuilder,
   APIMessageComponentEmoji,
+  AttachmentPayload,
+  BaseMessageOptions,
   ButtonStyle,
   CommandInteraction,
   ContextMenuCommandInteraction,
-  EmbedBuilder,
+  JSONEncodable,
   Message,
   MessageActionRowComponentBuilder,
   MessageCollectorOptionsParams,
   MessageComponentInteraction,
   MessageComponentType,
-  MessageOptions,
-  ReplyMessageOptions,
 } from "discord.js";
 
 // By default, five minute.
@@ -29,7 +29,9 @@ export const defaultIds = {
   menu: prefixId + "menu",
 };
 
-export type PaginationItem = string | EmbedBuilder | MessageOptions;
+export type PaginationItem = BaseMessageOptions & {
+  attachments?: JSONEncodable<AttachmentPayload>[];
+};
 
 export type PaginationInteractions =
   | CommandInteraction
@@ -184,6 +186,6 @@ export interface IPaginate {
 }
 
 export type IGeneratePage = {
-  newMessage: Omit<ReplyMessageOptions, "flags">;
+  newMessage: BaseMessageOptions;
   paginationRow: ActionRowBuilder<MessageActionRowComponentBuilder>;
 };

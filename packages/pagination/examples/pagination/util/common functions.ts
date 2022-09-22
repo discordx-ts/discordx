@@ -1,7 +1,8 @@
-import type { MessageOptions } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 
-export function GeneratePages(limit?: number): MessageOptions[] {
+import type { PaginationItem } from "../../../src/types.js";
+
+export function GeneratePages(limit?: number): PaginationItem[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
     return { content: `I am ${i + 1}`, embed: `Demo ${i + 1}` };
   });
