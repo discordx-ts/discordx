@@ -115,23 +115,23 @@ export function generateDoc(options?: {
 
     const commitsArray = child
       .execSync(
-        `git log ${tagString} --format=%B----HASH----%H----DELIMITER---- ${
+        `git log ${tagString} --format=%B----SEPARATOR----%H----DELIMITER---- ${
           options?.root ?? "./"
         }`
       )
       .toString("utf-8")
       .split("----DELIMITER----\n")
       .map((commit) => {
-        const [message, sha] = commit.split("----HASH----");
+        const [message, sha] = commit.split("----SEPARATOR----");
 
         const title = message
           ?.split("\n")[0]
           ?.replaceAll(/#([0-9]{1,})/gm, `[#$1](${repo}/issues/$1)`);
 
         return {
-          message: message as string,
-          sha: (title ? sha : undefined) as string,
-          title: title as string,
+          message: message ?? "",
+          sha: sha ?? "",
+          title: title ?? "",
         };
       })
       .filter((commit) => Boolean(commit.title) && Boolean(commit.sha));
@@ -184,6 +184,7 @@ export function generateDoc(options?: {
       const items = store.filter(
         (r) => cat.storeTypes.includes(r.type) && !ignoreScopes.includes(r.type)
       );
+
       if (items.length) {
         finalChangeLog += `## ${cat.title}\n`;
         items.forEach((cm) => {

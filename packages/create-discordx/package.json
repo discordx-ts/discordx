@@ -35,7 +35,8 @@
     "create-discordx": "./build/index.js"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "build:changelog": "npx @discordx/changelog --root=src --tag=d-v* --tag-replace=d-"
   },
   "dependencies": {
     "axios": "^0.27.2",
