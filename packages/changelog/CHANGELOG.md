@@ -1,7 +1,20 @@
-# Stage
+# [2.11.0](https://github.com/discordx-ts/discordx/releases/tag/changelog-2.11.0) (2022-09-22)
+
+## Changed
+
+- code improvement ([#871](https://github.com/discordx-ts/discordx/issues/871)) ([ba4058](https://github.com/discordx-ts/discordx/commit/ba4058aa86db9b8b5ffe35982599ece91359e803))
+
+# [2.5.0](https://github.com/discordx-ts/discordx/releases/tag/changelog-2.5.0) (2022-09-22)
+
+## Fixed
+
+- head issue ([85972d](https://github.com/discordx-ts/discordx/commit/85972dfef6be1878fc82031111bcd08b675277fa))
+
+# [2.2.0](https://github.com/discordx-ts/discordx/releases/tag/changelog-2.2.0) (2022-09-22)
 
 ## Features
 
+- stage only option ([f43487](https://github.com/discordx-ts/discordx/commit/f434870db43e50728a68ae1dd1155e117eaaf7a1))
 - add feature in changelog ([a6e418](https://github.com/discordx-ts/discordx/commit/a6e4188348e9bd450fdd9c160d7b18e039557e5c))
 
 ## Changed

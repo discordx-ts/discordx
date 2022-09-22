@@ -46,7 +46,7 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --root=src --tag=koa-* --tag-replace=koa-",
+    "build:changelog": "npx @discordx/changelog --src src --match-tag koa-* --replace-tag koa-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/koa",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",

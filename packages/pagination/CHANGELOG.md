@@ -1,5 +1,3 @@
-# Stage
-
 # [3.2.0](https://github.com/discordx-ts/discordx/releases/tag/pagination-3.2.0) (2022-09-22)
 
 ## Changed

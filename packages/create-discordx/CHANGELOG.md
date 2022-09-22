@@ -1,5 +1,3 @@
-# Stage
-
 ## Features
 
 - create-discordx ([#560](https://github.com/discordx-ts/discordx/issues/560)) ([5b2d3a](https://github.com/discordx-ts/discordx/commit/5b2d3a5a6d41220e871e0e83caef8d51256cf4c8))

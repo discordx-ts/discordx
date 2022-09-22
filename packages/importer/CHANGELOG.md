@@ -1,5 +1,3 @@
-# Stage
-
 ## Changed
 
 - djs v13.7.0 ([#699](https://github.com/discordx-ts/discordx/issues/699)) ([170d99](https://github.com/discordx-ts/discordx/commit/170d99b9b51101810f6ab73f32100d364611957d))
