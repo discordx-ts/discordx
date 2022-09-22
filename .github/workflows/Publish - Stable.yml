@@ -87,7 +87,6 @@ jobs:
 
       - name: Read changelog
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
-        uses: actions/github-script@v6
         run: |
           echo 'changelog_content<<EOF' >> $GITHUB_ENV
           cat ./CHANGELOG.md >> $GITHUB_ENV
