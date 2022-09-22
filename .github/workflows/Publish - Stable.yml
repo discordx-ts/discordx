@@ -82,7 +82,7 @@ jobs:
 
       - name: Prepare stage changelog
         if: github.event.inputs.package == matrix.package
-        run: npm install -f @discordx/changelog && npm run build:changelog -- --only-stage=true
+        run: npm install -f @discordx/changelog && npm run build:changelog -- --only-stage
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Read changelog
