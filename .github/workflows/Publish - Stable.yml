@@ -86,9 +86,11 @@ jobs:
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Read changelog
-        id: prepare-changelog
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
-        run: echo "::set-output name=content::`cat ./CHANGELOG.md`"
+        run: |
+          echo 'changelog_content<<EOF' >> $GITHUB_ENV
+          cat ./CHANGELOG.md >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Prepare tag
@@ -118,8 +120,8 @@ jobs:
             github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag_name: '${{ steps.prepare-tag.outputs.tag }}',
-              body: '${{ steps.prepare-changelog.outputs.content }}',
+              tag_name: "${{ steps.prepare-tag.outputs.tag }}",
+              body: `${{ env.changelog_content }}`,
             })
 
       - name: Publish
@@ -132,7 +134,7 @@ jobs:
       - name: Release Alert
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
         run: |
-          curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"\`${{ matrix.package }}@`node -p "require('./package.json').version"`\` [released](https://github.com/discordx-ts/discordx/releases/tag/${{ steps.prepare-tag.outputs.tag }}) ([npm](https://www.npmjs.com/package/${{ matrix.package }})) successfully :tada:\"}" $DISCORD_WEBHOOK &> /dev/null
+          curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"\`${{ matrix.package }}@`node -p "require('./package.json').version"`\` [released](https://www.npmjs.com/package/${{ matrix.package }}) [[changelog](<https://github.com/discordx-ts/discordx/releases/tag/${{ steps.prepare-tag.outputs.tag }}>)] successfully :tada:\"}" $DISCORD_WEBHOOK &> /dev/null
         working-directory: ./packages/${{ matrix.folder }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
