@@ -134,7 +134,15 @@ jobs:
       - name: Release Alert
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
         run: |
-          curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"\`${{ matrix.package }}@`node -p "require('./package.json').version"`\` [released](https://github.com/discordx-ts/discordx/releases/tag/${{ steps.prepare-tag.outputs.tag }}) ([npm](https://www.npmjs.com/package/${{ matrix.package }})) successfully :tada:\"}" $DISCORD_WEBHOOK &> /dev/null
+          curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"\`${{ matrix.package }}@`node -p "require('./package.json').version"`\` [released](https://www.npmjs.com/package/${{ matrix.package }}) [[changelog](<https://github.com/discordx-ts/discordx/releases/tag/${{ steps.prepare-tag.outputs.tag }})>] successfully :tada:\"}" $DISCORD_WEBHOOK &> /dev/null
+        working-directory: ./packages/${{ matrix.folder }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Patch Alert
+        if: github.event.inputs.package == matrix.package && github.event.inputs.version == 'patch'
+        run: |
+          curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\": \"\`${{ matrix.package }}@`node -p "require('./package.json').version"`\` [released](https://www.npmjs.com/package/${{ matrix.package }}) successfully :tada:\"}" $DISCORD_WEBHOOK &> /dev/null
         working-directory: ./packages/${{ matrix.folder }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
