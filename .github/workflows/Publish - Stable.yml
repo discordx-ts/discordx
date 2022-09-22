@@ -78,6 +78,11 @@ jobs:
         run: npm run build
         working-directory: ./packages/${{ matrix.folder }}
 
+      - name: Changelog
+        if: github.event.inputs.package == matrix.package
+        run: npm run build:changelog
+        working-directory: ./packages/${{ matrix.folder }}
+
       - name: Publish
         if: github.event.inputs.package == matrix.package
         run: npm publish
