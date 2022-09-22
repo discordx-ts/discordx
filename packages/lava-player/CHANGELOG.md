@@ -10,7 +10,7 @@
 - code styling issues ([6ea956](https://github.com/discordx-ts/discordx/commit/6ea95670f6a492b7bf1d4ed397df15f9e8963c8f))
 - code issues ([08dd95](https://github.com/discordx-ts/discordx/commit/08dd95a4c42236ccf364eda0e3c69f81a7cb46c6))
 
-# [v1.0.11](https://github.com/discordx-ts/discordx/releases/tag/lp-v1.0.11) (2022-08-07)
+# [1.0.11](https://github.com/discordx-ts/discordx/releases/tag/lava-player-1.0.11) (2022-08-07)
 
 ## Features
 

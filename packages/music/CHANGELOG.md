@@ -10,7 +10,7 @@
 
 - update music dep ([0983cb](https://github.com/discordx-ts/discordx/commit/0983cb6a3dd728adc0ff88295f99b606aff8b2c2))
 
-# [v4.0.0](https://github.com/discordx-ts/discordx/releases/tag/m-v4.0.0) (2022-04-04)
+# [4.0.0](https://github.com/discordx-ts/discordx/releases/tag/music-4.0.0) (2022-04-04)
 
 ## Changed
 
@@ -35,7 +35,7 @@
 - seperate lava player ([9ad3b4](https://github.com/discordx-ts/discordx/commit/9ad3b4c3fcac0f23b4a6bf998d3cd413092f7cff))
 - repo cleanup ([3ee0df](https://github.com/discordx-ts/discordx/commit/3ee0df074f23651c26bdbee49f0cbe859967e31e))
 
-# [v3.1.0](https://github.com/discordx-ts/discordx/releases/tag/m-v3.1.0) (2021-12-24)
+# [3.1.0](https://github.com/discordx-ts/discordx/releases/tag/music-3.1.0) (2021-12-24)
 
 ## Breaking Changes
 
@@ -54,7 +54,7 @@
 - revert extension (mts) ([#267](https://github.com/discordx-ts/discordx/issues/267)) ([6a05e4](https://github.com/discordx-ts/discordx/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))
 - readme and package ([069562](https://github.com/discordx-ts/discordx/commit/06956230dabb5f56e37783666549b0737359968a))
 
-# [v3.0.9](https://github.com/discordx-ts/discordx/releases/tag/m-v3.0.9) (2021-11-11)
+# [3.0.9](https://github.com/discordx-ts/discordx/releases/tag/music-3.0.9) (2021-11-11)
 
 ## Features
 

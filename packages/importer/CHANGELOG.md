@@ -5,7 +5,7 @@
 - djs v13.7.0 ([#699](https://github.com/discordx-ts/discordx/issues/699)) ([170d99](https://github.com/discordx-ts/discordx/commit/170d99b9b51101810f6ab73f32100d364611957d))
 - sort imports ([fb5b0f](https://github.com/discordx-ts/discordx/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 
-# [v1.1.2](https://github.com/discordx-ts/discordx/releases/tag/i-v1.1.2) (2021-12-24)
+# [1.1.2](https://github.com/discordx-ts/discordx/releases/tag/importer-1.1.2) (2021-12-24)
 
 ## Breaking Changes
 
@@ -19,7 +19,7 @@
 
 - fix all examples ([e2ce63](https://github.com/discordx-ts/discordx/commit/e2ce632e7961cc9e0a98f52207df6335e0da49ac))
 
-# [v1.1.0](https://github.com/discordx-ts/discordx/releases/tag/i-v1.1.0) (2021-11-13)
+# [1.1.0](https://github.com/discordx-ts/discordx/releases/tag/importer-1.1.0) (2021-11-13)
 
 ## Features
 

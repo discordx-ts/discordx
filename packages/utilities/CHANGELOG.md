@@ -2,9 +2,10 @@
 
 ## Changed
 
+- dep update ([b2b15c](https://github.com/discordx-ts/discordx/commit/b2b15c595b608e7774bf3b4bf682a1e6bc7eee5e))
 - examples ([7c2428](https://github.com/discordx-ts/discordx/commit/7c24288c5c3fd4533b90c92ed87a8bc2b8d3fb4c))
 
-# [v5.0.0](https://github.com/discordx-ts/discordx/releases/tag/u-v5.0.0) (2022-08-07)
+# [5.0.0](https://github.com/discordx-ts/discordx/releases/tag/utilities-5.0.0) (2022-08-07)
 
 ## Features
 
@@ -32,7 +33,7 @@
 - permission guard - use MessageOptions ([070433](https://github.com/discordx-ts/discordx/commit/07043351fee7f06b85b9a51da23257ed215bfbe9))
 - added the ability to check the interaction ([#644](https://github.com/discordx-ts/discordx/issues/644)) ([c5416b](https://github.com/discordx-ts/discordx/commit/c5416b38ffcee1ba7b888adc8e7d515dd31ffdc0))
 
-# [v4.0.0](https://github.com/discordx-ts/discordx/releases/tag/u-v4.0.0) (2022-03-13)
+# [4.0.0](https://github.com/discordx-ts/discordx/releases/tag/utilities-4.0.0) (2022-03-13)
 
 ## Breaking Changes
 
@@ -59,7 +60,7 @@
 
 - improve export ([14eeec](https://github.com/discordx-ts/discordx/commit/14eeecac9877717623beda82e6912584a86346fa))
 
-# [v3.3.0](https://github.com/discordx-ts/discordx/releases/tag/u-v3.3.0) (2021-12-29)
+# [3.3.0](https://github.com/discordx-ts/discordx/releases/tag/utilities-3.3.0) (2021-12-29)
 
 ## Features
 
@@ -70,13 +71,13 @@
 - move to category v2 ([9c00b2](https://github.com/discordx-ts/discordx/commit/9c00b26250b5796bcdf3a076f6cf789aadd72093))
 - read only category list ([090be6](https://github.com/discordx-ts/discordx/commit/090be6bf8852c6526d574788a60114a51ac06087))
 
-# [v3.2.0](https://github.com/discordx-ts/discordx/releases/tag/u-v3.2.0) (2021-12-28)
+# [3.2.0](https://github.com/discordx-ts/discordx/releases/tag/utilities-3.2.0) (2021-12-28)
 
 ## Changed
 
 - seperate pagination package ([0ada66](https://github.com/discordx-ts/discordx/commit/0ada665c21ce59b25ad28ed12e44fd44ebb45a45))
 
-# [v3.1.5](https://github.com/discordx-ts/discordx/releases/tag/u-v3.1.5) (2021-12-24)
+# [3.1.5](https://github.com/discordx-ts/discordx/releases/tag/utilities-3.1.5) (2021-12-24)
 
 ## Breaking Changes
 
@@ -90,7 +91,7 @@
 
 - revert extension (mts) ([#267](https://github.com/discordx-ts/discordx/issues/267)) ([6a05e4](https://github.com/discordx-ts/discordx/commit/6a05e4ab5e94e57d1c28641eaff17eca81885a06))
 
-# [v3.1.3](https://github.com/discordx-ts/discordx/releases/tag/u-v3.1.3) (2021-11-11)
+# [3.1.3](https://github.com/discordx-ts/discordx/releases/tag/utilities-3.1.3) (2021-11-11)
 
 ## Features
 

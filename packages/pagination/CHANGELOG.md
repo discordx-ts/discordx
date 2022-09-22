@@ -1,14 +1,19 @@
 # Stage
 
+# [3.2.0](https://github.com/discordx-ts/discordx/releases/tag/pagination-3.2.0) (2022-09-22)
+
 ## Changed
 
+- rename paginate.ts ([8877ba](https://github.com/discordx-ts/discordx/commit/8877ba8121494d7b4b8a188258b3813836b003a7))
+- source code ([3feb63](https://github.com/discordx-ts/discordx/commit/3feb63fe2ceacaee3903460a4ea3615eb5b12b84))
+- dep update ([b2b15c](https://github.com/discordx-ts/discordx/commit/b2b15c595b608e7774bf3b4bf682a1e6bc7eee5e))
 - discordx.js.org ([f0df0f](https://github.com/discordx-ts/discordx/commit/f0df0f15fd8335ea22a58a5204e3ddf02d831198))
 
 ## Fixed
 
 - code style ([a5cf5f](https://github.com/discordx-ts/discordx/commit/a5cf5fc9539b36d61582b48a21e71339372bcc06))
 
-# [v3.0.0](https://github.com/discordx-ts/discordx/releases/tag/p-v3.0.0) (2022-08-07)
+# [3.0.0](https://github.com/discordx-ts/discordx/releases/tag/pagination-3.0.0) (2022-08-07)
 
 ## Features
 
@@ -28,7 +33,7 @@
 - pagination bug and [#758](https://github.com/discordx-ts/discordx/issues/758) ([f3f5b2](https://github.com/discordx-ts/discordx/commit/f3f5b284cc5836b4eb024f8100a3662a4b42ae07))
 - pagination collector options ([4c028f](https://github.com/discordx-ts/discordx/commit/4c028f7e81e42a49ffdfb0521aa91de562565ec9))
 
-# [v2.0.0](https://github.com/discordx-ts/discordx/releases/tag/p-v2.0.0) (2022-02-20)
+# [2.0.0](https://github.com/discordx-ts/discordx/releases/tag/pagination-2.0.0) (2022-02-20)
 
 ## Features
 
@@ -42,7 +47,7 @@
 - update types for pagination ([b1fd2c](https://github.com/discordx-ts/discordx/commit/b1fd2c1d2cf7b699ac257096565e164401a6edff))
 - sort imports ([fb5b0f](https://github.com/discordx-ts/discordx/commit/fb5b0f82661313a4e9e6638db71670a7fb524ac2))
 
-# [v1.0.1](https://github.com/discordx-ts/discordx/releases/tag/p-v1.0.1) (2021-12-28)
+# [1.0.1](https://github.com/discordx-ts/discordx/releases/tag/pagination-1.0.1) (2021-12-28)
 
 ## Changed
 

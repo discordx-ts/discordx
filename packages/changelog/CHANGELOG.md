@@ -15,7 +15,7 @@
 - variable name is too small ([bef065](https://github.com/discordx-ts/discordx/commit/bef0651eb9aee533d2a611429bd7609de348e6b4))
 - code styling issues ([0dbeb4](https://github.com/discordx-ts/discordx/commit/0dbeb455bcd880051e882ef1e5c1d976ff6d4e73))
 
-# [v2.0.9](https://github.com/discordx-ts/discordx/releases/tag/c-v2.0.9) (2022-08-07)
+# [2.0.9](https://github.com/discordx-ts/discordx/releases/tag/changelog-2.0.9) (2022-08-07)
 
 ## Features
 
@@ -37,7 +37,7 @@
 - minor issues ([ffe8f0](https://github.com/discordx-ts/discordx/commit/ffe8f05d0fa03714eaa29504fa9c4deea2d9502b))
 - changelog repo url ([c478b3](https://github.com/discordx-ts/discordx/commit/c478b3a79cc690615180e0e31279d2d957792bc3))
 
-# [v1.0.8](https://github.com/discordx-ts/discordx/releases/tag/c-v1.0.8) (2021-12-24)
+# [1.0.8](https://github.com/discordx-ts/discordx/releases/tag/changelog-1.0.8) (2021-12-24)
 
 ## Features
 
@@ -49,7 +49,7 @@
 - changelogtags foreach ([462c89](https://github.com/discordx-ts/discordx/commit/462c89cbbff638f353b8d3949e9869666d524682))
 - remove rpeo option from changelog ([2deced](https://github.com/discordx-ts/discordx/commit/2decedaec72f9f1a3c2b349dfa442e485c273965))
 
-# [v1.0.4](https://github.com/discordx-ts/discordx/releases/tag/c-v1.0.4) (2021-11-15)
+# [1.0.4](https://github.com/discordx-ts/discordx/releases/tag/changelog-1.0.4) (2021-11-15)
 
 ## Features
 

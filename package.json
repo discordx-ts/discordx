@@ -33,7 +33,7 @@
   "scripts": {
     "build": "turbo run build --parallel",
     "build:changelog": "npm run build:changelog:docs && turbo run build:changelog --parallel --no-cache",
-    "build:changelog:docs": "npx @discordx/changelog --root=docs/docs --out=docs/CHANGELOG.md",
+    "build:changelog:docs": "npx @discordx/changelog --root=docs/docs --out=docs/CHANGELOG.md  --tag=discordx-* --tag-replace=discordx-",
     "build:typedoc": "turbo run build:typedoc --parallel --no-cache",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
