@@ -134,26 +134,6 @@ class Example {
 }
 ```
 
-## Automatic typing
-
-An option infer the type from TypeScript in this example, discord.**ts** knows that your options are both `number` because you typed the parameters
-
-discord.**ts** convert automatically the inferred type into discord.**js** options types
-
-```ts
-@Discord()
-class Example {
-  @Slash()
-  add(
-    @SlashOption({ description: "x value", name: "x" }) x: number,
-    @SlashOption({ description: "y value", name: "y" }) y: number,
-    interaction: CommandInteraction
-  ) {
-    interaction.reply(String(x + y));
-  }
-}
-```
-
 ## Manual typing
 
 If you want to specify the type manually you can do it:
