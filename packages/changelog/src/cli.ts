@@ -1,39 +1,35 @@
 #!/usr/bin/env node
 
-import { generateDoc } from "./index.js";
+import { Command } from "commander";
 
-function getArg(name: string): string | undefined {
-  const find = process.argv.find((arg) => arg.startsWith(`--${name}=`));
-  return find?.replace(`--${name}=`, "");
-}
+import { GenerateChangelog } from "./index.js";
 
-function getArgs(name: string): string[] {
-  const cl: string[] = [];
-  process.argv.forEach((arg) => {
-    const match = `--${name}=`;
-    if (arg.startsWith(match)) {
-      cl.push(arg.replace(match, ""));
-    }
-  });
-  return cl;
-}
+const program = new Command();
 
-const root = getArg("root");
+type Options = {
+  matchTag: string;
+  onlyStage: boolean;
+  out: string;
+  replaceTag?: string;
+  src: string;
+};
 
-const repo = generateDoc({
-  header: getArg("header"),
-  ignoreScopes: getArgs("ignore-scope"),
-  outDir: getArg("out"),
-  root,
-  tag: {
-    match: getArg("tag"),
-    onlyStage: getArg("only-stage") !== undefined ? true : false,
-    replace: getArg("tag-replace"),
-  },
-});
-
-console.log(
-  `>> changelog generated for repo ${repo}${
-    root ? `#${root.replace("./", "")}` : ""
-  }`
+program.requiredOption("--match-tag <type>", "match tag", "v*");
+program.option("--replace-tag <type>", "replace tag text");
+program.requiredOption("--src <type>", "source folder for changelog", "./");
+program.requiredOption(
+  "--out <type>",
+  "out dir path with filename",
+  "./CHANGELOG.md"
 );
+program.requiredOption(
+  "--only-stage",
+  "generate changelog for only stage",
+  false
+);
+
+const options = program.parse(process.argv).opts<Options>();
+
+GenerateChangelog(options);
+
+console.log(">> changelog generated");
