@@ -45,7 +45,7 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --root=src --tag=internal-* --tag-replace=internal-",
+    "build:changelog": "npx @discordx/changelog --src src --match-tag internal-* --replace-tag internal-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/internal",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",

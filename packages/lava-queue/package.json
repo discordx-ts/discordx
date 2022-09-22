@@ -45,7 +45,7 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --root=src --tag=lava-queue-* --tag-replace=lava-queue-",
+    "build:changelog": "npx @discordx/changelog --src src --match-tag lava-queue-* --replace-tag lava-queue-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/lava-queue",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",

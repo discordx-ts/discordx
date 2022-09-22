@@ -1,4 +1,4 @@
-# Stage
+# [5.1.0](https://github.com/discordx-ts/discordx/releases/tag/utilities-5.1.0) (2022-09-22)
 
 ## Changed
 

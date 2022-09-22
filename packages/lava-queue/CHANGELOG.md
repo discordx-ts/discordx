@@ -1,5 +1,3 @@
-# Stage
-
 ## Features
 
 - package - lava-queue ([#622](https://github.com/discordx-ts/discordx/issues/622)) ([faa7bb](https://github.com/discordx-ts/discordx/commit/faa7bb982974286736cedddfff3c679ddaffefb3))

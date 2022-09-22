@@ -1,7 +1,3 @@
-# Stage
-
-# [v1.1.1](https://github.com/discordx-ts/discordx/releases/tag/socket.io-v1.1.1) (2022-09-22)
-
 # [1.0.6](https://github.com/discordx-ts/discordx/releases/tag/socket.io-1.0.6) (2022-09-13)
 
 ## Changed

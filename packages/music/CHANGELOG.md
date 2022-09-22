@@ -1,5 +1,3 @@
-# Stage
-
 ## Fixed
 
 - eslint ([120e60](https://github.com/discordx-ts/discordx/commit/120e60abdd861c2d38de4a5e6982391c2b51073a))

@@ -1,5 +1,3 @@
-# Stage
-
 ## Features
 
 - add Patch, Put decorators ([04b3c5](https://github.com/discordx-ts/discordx/commit/04b3c59cbc2659ff4e924f6e8132dae0ecc5b339))
