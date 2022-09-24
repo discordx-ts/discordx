@@ -18,7 +18,7 @@ import { Discord, Slash } from "discordx";
 
 @Discord()
 class Example {
-  @Slash({ name: "hello" })
+  @Slash({ description: "hello", name: "hello" })
   hello(interaction: CommandInteraction) {
     // ...
   }
@@ -119,13 +119,13 @@ Instead on doing this for all of your @Slash:
 @Discord()
 class Example {
   @Guild("GUILD_ID")
-  @Slash({ name: "hello" })
+  @Slash({ description: "hello", name: "hello" })
   hello(interaction: CommandInteraction) {
     // ...
   }
 
   @Guild("GUILD_ID")
-  @Slash({ name: "bye" })
+  @Slash({ description: "bye", name: "bye" })
   bye(interaction: CommandInteraction) {
     // ...
   }
@@ -145,12 +145,12 @@ const client = new Client({
 ```ts
 @Discord()
 class Example {
-  @Slash({ name: "hello" }) // Applied on GUILD_ID
+  @Slash({ description: "hello", name: "hello" }) // Applied on GUILD_ID
   hello(interaction: CommandInteraction) {
     // ...
   }
 
-  @Slash({ name: "bye" }) // Applied on GUILD_ID
+  @Slash({ description: "bye", name: "bye" }) // Applied on GUILD_ID
   bye(interaction: CommandInteraction) {
     // ...
   }

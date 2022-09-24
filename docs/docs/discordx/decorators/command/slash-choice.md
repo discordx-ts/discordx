@@ -22,20 +22,35 @@ You just decorate your parameter with one or multiple @SlashChoice !
 ```ts
 @Discord()
 class Example {
-  @Slash()
+  @Slash({ description: "I am" })
   iam(
     @SlashChoice({ name: "Human", value: "human" })
     @SlashChoice({ name: "Astronaut", value: "astronaut" })
     @SlashChoice({ name: "Dev", value: "dev" })
-    @SlashOption({ description: "What are you?", name: "what" })
+    @SlashOption({
+      description: "What are you?",
+      name: "what",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     what: string,
 
     @SlashChoice(10, 20, 30)
-    @SlashOption({ name: "fuel" })
+    @SlashOption({
+      description: "fuel",
+      name: "fuel",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     fuel: number,
 
     @SlashChoice("Patrol", "Diesel")
-    @SlashOption({ name: "type" })
+    @SlashOption({
+      description: "type",
+      name: "type",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     type: number,
 
     interaction: CommandInteraction
@@ -56,7 +71,7 @@ enum TextChoices {
 
 @Discord()
 class Example {
-  @Slash()
+  @Slash({ description: "hello" })
   hello(
     @SlashChoice(
       {
@@ -69,7 +84,12 @@ class Example {
       }
     )
     @SlashChoice({ name: "How are you", value: "hay" })
-    @SlashOption({ name: "text" })
+    @SlashOption({
+      description: "text",
+      name: "text",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
     text: string,
     interaction: CommandInteraction
   ) {

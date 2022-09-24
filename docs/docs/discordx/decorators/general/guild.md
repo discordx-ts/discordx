@@ -21,13 +21,13 @@ You can use this guard to specify which guilds your @Slash commands are created 
 ```ts
 @Discord()
 class Example {
-  @Slash("hello")
+  @Slash({ description: "hello" })
   @Guild("GUILD_ID") // Only created on the guild GUILD_ID
   hello() {
     // ...
   }
 
-  @Slash("bye")
+  @Slash({ description: "bye" })
   @Guild("GUILD_ID", "GUILD_ID2") // Only created on the guild GUILD_ID and GUILD_ID2
   bye() {
     // ...
@@ -43,12 +43,12 @@ You can set the guild IDs for all @Slash inside the class by decorating the clas
 @Discord()
 @Guild("GUILD_ID", "GUILD_ID2")
 class Example {
-  @Slash() // Only created on the guild GUILD_ID and GUILD_ID2
+  @Slash({ description: "hello" }) // Only created on the guild GUILD_ID and GUILD_ID2
   hello() {
     // ...
   }
 
-  @Slash() // Only created on the guild GUILD_ID and GUILD_ID2
+  @Slash({ description: "hello 2" }) // Only created on the guild GUILD_ID and GUILD_ID2
   hello2() {
     // ...
   }
