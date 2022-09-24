@@ -17,7 +17,7 @@ Here are some example screenshots:
 ```ts
 @Discord()
 class Example {
-  @Slash()
+  @Slash({ description: "modal" })
   modal(interaction: CommandInteraction): void {
     // Create the modal
     const modal = new ModalBuilder()

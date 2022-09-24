@@ -148,9 +148,15 @@ Discord has it's own command system now, you can simply declare commands and use
 ```ts
 @Discord()
 class Example {
-  @Slash({ name: "hello" })
+  @Slash({ description: "say hello", name: "hello" })
   hello(
-    @SlashOption({ name: "message" }) message: string,
+    @SlashOption({
+      description: "enter your greeting",
+      name: "message",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
+    message: string,
     interaction: CommandInteraction
   ): void {
     interaction.reply(`:wave: from ${interaction.user}: ${message}`);
@@ -175,7 +181,7 @@ class Example {
     console.log(`${interaction.user} says hello`);
   }
 
-  @Slash()
+  @Slash({ description: "test" })
   test(interaction: CommandInteraction): void {
     const btn = new ButtonBuilder()
       .setLabel("Hello")
@@ -286,7 +292,7 @@ Create discord modal with ease!
 ```ts
 @Discord()
 class Example {
-  @Slash()
+  @Slash({ description: "modal" })
   modal(interaction: CommandInteraction): void {
     // Create the modal
     const modal = new ModalBuilder()

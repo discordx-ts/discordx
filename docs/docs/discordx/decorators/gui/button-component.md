@@ -26,7 +26,7 @@ class Example {
     interaction.reply(":wave:");
   }
 
-  @Slash()
+  @Slash({ description: "test" })
   test(interaction: CommandInteraction): void {
     const btn = new ButtonBuilder()
       .setLabel("Hello")

@@ -61,7 +61,7 @@ We create a group with a selected class in the following code example
 
 ```ts
 @Discord()
-@SlashGroup({ name: "permission", description: "Manage permissions" })
+@SlashGroup({ description: "Manage permissions", name: "permission" })
 class Example {
   //
 }
@@ -73,10 +73,10 @@ We create a group and subgroup with a selected class in the following code examp
 
 ```ts
 @Discord()
-@SlashGroup({ name: "permission", description: "Manage permissions" })
+@SlashGroup({ description: "Manage permissions", name: "permission" })
 @SlashGroup({
-  name: "user",
   description: "Manage permissions",
+  name: "user",
   root: "permission", // need to specify root
 })
 class Example {
@@ -105,16 +105,16 @@ get
 ```ts
 @Discord()
 // Create a group
-@SlashGroup({ name: "get", description: "Get a role or user" })
+@SlashGroup({ description: "Get a role or user", name: "get" })
 // Assign all inherit slashes to the group
 @SlashGroup("get")
 class Example {
-  @Slash()
+  @Slash({ description: "role" })
   role() {
     // ...
   }
 
-  @Slash()
+  @Slash({ description: "user" })
   user() {
     // ...
   }
@@ -126,16 +126,16 @@ class Example {
 ```ts
 @Discord()
 // Create a group
-@SlashGroup({ name: "get", description: "Get a role or user" })
+@SlashGroup({ description: "Get a role or user", name: "get" })
 class Example {
-  @Slash()
+  @Slash({ description: "role" })
   // Assign slash to the group
   @SlashGroup("get")
   role() {
     // ...
   }
 
-  @Slash()
+  @Slash({ description: "user" })
   // Assign slash to the group
   @SlashGroup("get")
   user() {
@@ -167,18 +167,22 @@ permission
 ```ts
 @Discord()
 // Create a group
-@SlashGroup({ name: "permission", description: "Manage permissions" })
+@SlashGroup({ description: "Manage permissions", name: "permission" })
 // Create a sub group
-@SlashGroup({ name: "user", root: "permission" })
+@SlashGroup({
+  description: "User permissions",
+  name: "user",
+  root: "permission",
+})
 // Assign all inherit slashes to the subgroup
 @SlashGroup("user", "permission")
 class Example {
-  @Slash()
+  @Slash({ description: "get" })
   get() {
     // ...
   }
 
-  @Slash()
+  @Slash({ description: "set" })
   set() {
     // ...
   }
@@ -190,18 +194,22 @@ class Example {
 ```ts
 @Discord()
 // Create a group
-@SlashGroup({ name: "permission", description: "Manage permissions" })
+@SlashGroup({ description: "Manage permissions", name: "permission" })
 // Create a sub group
-@SlashGroup({ name: "user", root: "permission" })
+@SlashGroup({
+  description: "User permissions",
+  name: "user",
+  root: "permission",
+})
 class Example {
-  @Slash()
+  @Slash({ description: "get" })
   // Assign slash to subgroup
   @SlashGroup("user", "permission")
   get() {
     // ...
   }
 
-  @Slash()
+  @Slash({ description: "set" })
   // Assign slash to subgroup
   @SlashGroup("user", "permission")
   set() {
@@ -243,11 +251,11 @@ Other slashes class metadata won't be used and will be overwritten by the root c
 ```ts
 @Discord()
 // Create a group
-@SlashGroup({ name: "permission", description: "Manage permissions" })
+@SlashGroup({ description: "Manage permissions", name: "permission" })
 // Assign all inherit slashes to the subgroup
 @SlashGroup("permission")
 class Permission {
-  @Slash()
+  @Slash({ description: "info" })
   info() {
     // ...
   }
@@ -257,16 +265,20 @@ class Permission {
 ```ts
 @Discord()
 // Create a sub group
-@SlashGroup({ name: "user", root: "permission" })
+@SlashGroup({
+  description: "User permissions",
+  name: "user",
+  root: "permission",
+})
 // Assign all inherit slashes to the subgroup
 @SlashGroup("user", "permission")
 class UserPermission {
-  @Slash()
+  @Slash({ description: "get" })
   get() {
     // ...
   }
 
-  @Slash()
+  @Slash({ description: "set" })
   set() {
     // ...
   }
@@ -276,16 +288,20 @@ class UserPermission {
 ```ts
 @Discord()
 // Create a sub group
-@SlashGroup({ name: "role", root: "permission" })
+@SlashGroup({
+  description: "Role permissions",
+  name: "role",
+  root: "permission",
+})
 // Assign all inherit slashes to the subgroup
 @SlashGroup("role", "permission")
 class RolePermission {
-  @Slash()
+  @Slash({ description: "get" })
   get() {
     // ...
   }
 
-  @Slash()
+  @Slash({ description: "set" })
   set() {
     // ...
   }

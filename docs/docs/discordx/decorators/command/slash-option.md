@@ -22,10 +22,22 @@ To declare an option you simply use the `@SlashOption` decorator before a method
 ```ts
 @Discord()
 class Example {
-  @Slash()
+  @Slash({ description: "add" })
   add(
-    @SlashOption({ description: "x value", name: "x" }) x: number,
-    @SlashOption({ description: "y value", name: "y" }) y: number,
+    @SlashOption({
+      description: "x value",
+      name: "x",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    x: number,
+    @SlashOption({
+      description: "y value",
+      name: "y",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    y: number,
     interaction: CommandInteraction
   ) {
     interaction.reply(String(x + y));
@@ -51,7 +63,9 @@ When defining an autocomplete slash option, you can define a resolver for autoco
         { name: "option b", value: "b" },
       ]);
   },
+  description: "autocomplete",
   name: "autocomplete",
+  required: true,
   type: ApplicationCommandOptionType.String,
 })
 input: string,
@@ -64,7 +78,9 @@ discordx will call your command handler with autocomplete interaction if you use
 ```ts
 @SlashOption({
   autocomplete: true,
+  description: "choice",
   name: "choice",
+  required: true,
   type: ApplicationCommandOptionType.String,
 }) input: string,
 interaction: CommandInteraction | AutocompleteInteraction
@@ -77,11 +93,13 @@ interaction: CommandInteraction | AutocompleteInteraction
 class Example {
   myCustomText = "Hello discordx";
 
-  @Slash()
+  @Slash({ description: "autocomplete" })
   autocomplete(
     @SlashOption({
       autocomplete: true,
+      description: "option-a",
       name: "option-a",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     searchText: string,
@@ -99,7 +117,9 @@ class Example {
           { name: "option d", value: "c" },
         ]);
       },
+      description: "option-b",
       name: "option-b",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     searchText2: string,
@@ -111,7 +131,9 @@ class Example {
           { name: "option f", value: "f" },
         ]);
       },
+      description: "option-c",
       name: "option-c",
+      required: true,
       type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
@@ -141,9 +163,14 @@ If you want to specify the type manually you can do it:
 ```ts
 @Discord()
 class Example {
-  @Slash({ name: "get-id" })
+  @Slash({ description: "Get id", name: "get-id" })
   getID(
-    @SlashOption("x", { type: ApplicationCommandOptionType.Mentionable })
+    @SlashOption({
+      description: "x",
+      name: "x",
+      required: true,
+      type: ApplicationCommandOptionType.Mentionable,
+    })
     mentionable: GuildMember | User | Role,
     interaction: CommandInteraction
   ) {

@@ -196,7 +196,7 @@ import { NotBot } from "./NotBot";
 
 @Discord()
 class Example {
-  @Slash()
+  @Slash({ description: "hello" })
   @Guard(NotBot)
   async hello(
     interaction: CommandInteraction,
