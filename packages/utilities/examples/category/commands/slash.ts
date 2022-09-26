@@ -37,12 +37,14 @@ export class SlashExample {
     );
 
     const pages = commands.map((cmd, i) => {
-      return new EmbedBuilder()
+      const embed = new EmbedBuilder()
         .setFooter({ text: `Page ${i + 1} of ${commands.length}` })
         .setTitle("**Slash command info**")
         .addFields({ name: "Name", value: cmd.name })
         .addFields({ name: "Description", value: cmd.description })
         .addFields({ name: "Type", value: cmd.type });
+
+      return { embeds: [embed] };
     });
 
     new Pagination(interaction, pages).send();

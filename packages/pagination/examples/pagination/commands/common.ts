@@ -48,7 +48,7 @@ export class Example {
         // example to replace pagination with another pagination data
         pagination.currentPage = 0; // reset current page, because this is gonna be first page
         pagination.maxLength = 5; // new max length for new pagination
-        pagination.embeds = [
+        pagination.pages = [
           { content: "1" },
           { content: "2" },
           { content: "3" },
@@ -57,7 +57,7 @@ export class Example {
         ]; // page reference can be resolver as well
 
         return (
-          pagination.embeds[pagination.currentPage] ?? { content: "unknown" }
+          pagination.pages[pagination.currentPage] ?? { content: "unknown" }
         ); // the first page, must select ourselves
       }
       return { content: `page v2 ${page}` };

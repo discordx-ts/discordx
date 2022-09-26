@@ -138,7 +138,6 @@ You can do:
 const client = new Client({
   botId: "test",
   intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
-  botGuilds: ["GUILD_ID"],
 });
 ```
 
