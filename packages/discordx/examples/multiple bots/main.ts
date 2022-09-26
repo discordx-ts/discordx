@@ -4,7 +4,7 @@ import { IntentsBitField } from "discord.js";
 import { Client, MetadataStorage } from "../../src/index.js";
 
 const botA = new Client({
-  botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
+  // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
   intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
 });
 
@@ -19,7 +19,7 @@ botA.on("interactionCreate", (interaction) => {
 });
 
 const botB = new Client({
-  botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
+  // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
   intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
   silent: false,
 });
