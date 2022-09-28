@@ -36,10 +36,10 @@
   "module": "./build/esm/index.js",
   "files": [
     "build",
+    "CHANGELOG.md",
     "LICENSE",
     "README.md",
     "SECURITY.md",
-    "CHANGELOG.md",
     "package.json"
   ],
   "scripts": {

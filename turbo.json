@@ -5,9 +5,6 @@
       "dependsOn": ["^build"],
       "outputs": ["build/**"]
     },
-    "build:changelog": {
-      "dependsOn": ["^build:changelog"]
-    },
     "build:typedoc": {
       "dependsOn": ["^build:typedoc"]
     },

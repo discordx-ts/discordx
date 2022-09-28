@@ -35,10 +35,12 @@
   "types": "./index.d.ts",
   "files": [
     "build",
+    "index.d.ts",
     "CHANGELOG.md",
     "LICENSE",
-    "package.json",
-    "index.d.ts"
+    "README.md",
+    "SECURITY.md",
+    "package.json"
   ],
   "scripts": {
     "build": "tsc && tsc --p tsconfig.cjs.json && npm run postbuild",

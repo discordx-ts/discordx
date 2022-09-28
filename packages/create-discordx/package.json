@@ -27,8 +27,10 @@
   "type": "module",
   "files": [
     "build",
+    "CHANGELOG.md",
     "LICENSE",
     "README.md",
+    "SECURITY.md",
     "package.json"
   ],
   "bin": {
