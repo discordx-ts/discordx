@@ -80,11 +80,6 @@ jobs:
         run: npm run build
         working-directory: ./packages/${{ matrix.folder }}
 
-      - name: Build changelog
-        if: github.event.inputs.package == matrix.package
-        run: npm run build:changelog
-        working-directory: ./packages/${{ matrix.folder }}
-
       - name: Prepare stage changelog
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
         run: npm run build:changelog -- --only-stage --out ./RELEASE_CHANGELOG.md
@@ -103,6 +98,13 @@ jobs:
         id: prepare-tag
         run: |
           echo ::set-output name=tag::${{ matrix.folder }}-`node -p "require('./package.json').version"`
+        working-directory: ./packages/${{ matrix.folder }}
+
+      - name: Build changelog
+        if: github.event.inputs.package == matrix.package
+        run: |
+          git tag ${{ steps.prepare-tag.outputs.tag }}
+          npm run build:changelog
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Create tag
