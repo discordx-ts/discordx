@@ -73,8 +73,6 @@ export async function DownloadAndExtractTemplate(
     "https://codeload.github.com/discordx-ts/templates/tar.gz/main"
   );
 
-  console.log(tempFile);
-
   await tar.x({
     cwd: root,
     file: tempFile,
