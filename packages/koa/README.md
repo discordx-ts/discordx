@@ -92,7 +92,7 @@ class Example {
 
 ```ts
 function Log(ctx: RouterContext, next: Next) {
-  console.log("request: " + ctx.URL);
+  console.log(`request: ${ctx.URL}`);
   return next();
 }
 

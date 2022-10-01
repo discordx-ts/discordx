@@ -18,6 +18,6 @@ const readFile = function (src: string) {
 export class Example {
   @Get("/")
   async web(context: Context): Promise<void> {
-    context.body = await readFile(__dirname + "/index.html");
+    context.body = await readFile(`${__dirname}/index.html`);
   }
 }

@@ -4,7 +4,7 @@ import type { Next } from "koa";
 import { Get, Middleware, Router } from "../../../src/index.js";
 
 function Log(ctx: RouterContext, next: Next) {
-  console.log("request: " + ctx.URL);
+  console.log(`request: ${ctx.URL}`);
   return next();
 }
 
