@@ -64,14 +64,6 @@ export type InitCommandOptions = {
      */
     update?: boolean;
   };
-
-  /**
-   * Enable logging
-   */
-  log?: boolean;
-  /**
-   * Disable specific actions
-   */
 };
 
 /**

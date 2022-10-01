@@ -301,12 +301,11 @@ export class Client extends ClientJS {
    * Start bot
    *
    * @param token - Bot token
-   * @param log - Enable log
    */
-  async login(token: string, log?: boolean): Promise<string> {
-    await this.build(log);
+  async login(token: string): Promise<string> {
+    await this.build();
 
-    if (log ?? !this.silent) {
+    if (!this.silent) {
       this.logger.log(
         `${this.user?.username ?? this.botId} >> connecting discord...\n`
       );
@@ -579,10 +578,10 @@ export class Client extends ClientJS {
 
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
-      this.logger.error(
+      this.logger.warn(
         `${
           this.user?.username ?? this.botId
-        } >> initGuildApplicationCommands: guild unavailable: ${guildId}`
+        } >> initGuildApplicationCommands: skipped (Reason: guild ${guildId} unavailable)`
       );
       return;
     }
@@ -651,7 +650,7 @@ export class Client extends ClientJS {
     );
 
     // log the changes to commands if enabled by options or silent mode is turned off
-    if (options?.log ?? !this.silent) {
+    if (!this.silent) {
       let str = `${this.user?.username} >> commands >> guild: #${guild}`;
 
       str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
@@ -672,7 +671,7 @@ export class Client extends ClientJS {
 
       str += "\n";
 
-      this.logger.info(str);
+      this.logger.log(str);
     }
 
     // If there are no changes to share with Discord, cancel the task
@@ -789,7 +788,7 @@ export class Client extends ClientJS {
     );
 
     // log the changes to commands if enabled by options or silent mode is turned off
-    if (options?.log ?? !this.silent) {
+    if (!this.silent) {
       let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
       str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
@@ -810,7 +809,7 @@ export class Client extends ClientJS {
 
       str += "\n";
 
-      this.logger.info(str);
+      this.logger.log(str);
     }
 
     // If there are no changes to share with Discord, cancel the task
@@ -971,41 +970,28 @@ export class Client extends ClientJS {
    * Execute all types of interaction
    *
    * @param interaction - Interaction
-   * @param log - Enable log
    *
    * @returns
    */
-  executeInteraction(
-    interaction: Interaction,
-    log?: boolean
-  ): Awaited<unknown> {
-    if (!interaction) {
-      if (log ?? !this.silent) {
-        this.logger.error(
-          `${this.user?.username ?? this.botId} >> interaction is undefined`
-        );
-      }
-      return;
-    }
-
+  executeInteraction(interaction: Interaction): Awaited<unknown> {
     // if interaction is a button
     if (interaction.isButton()) {
-      return this.executeComponent(this.buttonComponents, interaction, log);
+      return this.executeComponent(this.buttonComponents, interaction);
     }
 
     // if interaction is a modal
     if (interaction.type === InteractionType.ModalSubmit) {
-      return this.executeComponent(this.modalComponents, interaction, log);
+      return this.executeComponent(this.modalComponents, interaction);
     }
 
     // if interaction is a select menu
     if (interaction.isSelectMenu()) {
-      return this.executeComponent(this.selectMenuComponents, interaction, log);
+      return this.executeComponent(this.selectMenuComponents, interaction);
     }
 
     // if interaction is context menu
     if (interaction.isContextMenuCommand()) {
-      return this.executeContextMenu(interaction, log);
+      return this.executeContextMenu(interaction);
     }
 
     // If the interaction isn't a slash command, return
@@ -1013,7 +999,7 @@ export class Client extends ClientJS {
       interaction.type === InteractionType.ApplicationCommand ||
       interaction.type === InteractionType.ApplicationCommandAutocomplete
     ) {
-      return this.executeCommandInteraction(interaction, log);
+      return this.executeCommandInteraction(interaction);
     }
   }
 
@@ -1021,21 +1007,19 @@ export class Client extends ClientJS {
    * Execute command interaction
    *
    * @param interaction - Interaction instance
-   * @param log - Enable log
    *
    * @returns
    */
   executeCommandInteraction(
-    interaction: CommandInteraction | AutocompleteInteraction,
-    log?: boolean
+    interaction: CommandInteraction | AutocompleteInteraction
   ): Awaited<unknown> {
     // Get the interaction group tree
     const tree = this.getApplicationCommandGroupTree(interaction);
     const applicationCommand = this.getApplicationCommandFromTree(tree);
 
     if (!applicationCommand?.isBotAllowed(this.botId)) {
-      if (log ?? !this.silent) {
-        this.logger.error(
+      if (!this.silent) {
+        this.logger.warn(
           `${
             this.user?.username ?? this.botId
           } >> interaction not found, commandName: ${interaction.commandName}`
@@ -1068,7 +1052,6 @@ export class Client extends ClientJS {
    * Execute component interaction
    *
    * @param interaction - Interaction instance
-   * @param log - Enable log
    *
    * @returns
    */
@@ -1077,8 +1060,7 @@ export class Client extends ClientJS {
     interaction:
       | ButtonInteraction
       | ModalSubmitInteraction
-      | SelectMenuInteraction,
-    log?: boolean
+      | SelectMenuInteraction
   ): Promise<unknown> {
     const executes = components.filter((comp) =>
       comp.isId(interaction.customId)
@@ -1097,8 +1079,8 @@ export class Client extends ClientJS {
       })
     );
 
-    if (log ?? !this.silent) {
-      this.logger.error(
+    if (!this.silent) {
+      this.logger.warn(
         `${this.user?.username ?? this.botId} >> ${
           interaction.isButton()
             ? "button"
@@ -1118,13 +1100,11 @@ export class Client extends ClientJS {
    * Execute context menu interaction
    *
    * @param interaction - Interaction instance
-   * @param log - Enable log
    *
    * @returns
    */
   async executeContextMenu(
-    interaction: ContextMenuCommandInteraction,
-    log?: boolean
+    interaction: ContextMenuCommandInteraction
   ): Promise<unknown> {
     const applicationCommand = interaction.isUserContextMenuCommand()
       ? this.applicationCommandUsers.find(
@@ -1138,8 +1118,8 @@ export class Client extends ClientJS {
       !applicationCommand?.isBotAllowed(this.botId) ||
       !(await applicationCommand.isGuildAllowed(this, interaction.guildId))
     ) {
-      if (log ?? !this.silent) {
-        this.logger.error(
+      if (!this.silent) {
+        this.logger.warn(
           `${
             this.user?.username ?? this.botId
           } >> context interaction not found, name: ${interaction.commandName}`
@@ -1256,28 +1236,7 @@ export class Client extends ClientJS {
       log?: boolean;
     }
   ): Promise<unknown> {
-    if (!message) {
-      if (options?.log ?? !this.silent) {
-        this.logger.error(
-          `${
-            this.user?.username ?? this.botId
-          } >> executeCommand >> message is undefined`
-        );
-      }
-      return;
-    }
-
     const prefix = await this.getMessagePrefix(message);
-    if (!prefix) {
-      if (options?.log ?? !this.silent) {
-        this.logger.error(
-          `${
-            this.user?.username ?? this.botId
-          } >> executeCommand >> command prefix not found`
-        );
-      }
-      return;
-    }
 
     const command = await this.parseCommand(
       prefix,
@@ -1351,22 +1310,8 @@ export class Client extends ClientJS {
    */
   async executeReaction(
     reaction: MessageReaction | PartialMessageReaction,
-    user: User | PartialUser,
-    options?: {
-      log?: boolean;
-    }
+    user: User | PartialUser
   ): Promise<unknown> {
-    if (!reaction) {
-      if (options?.log ?? !this.silent) {
-        this.logger.error(
-          `${
-            this.user?.username ?? this.botId
-          } >> executeReaction >> reaction is undefined`
-        );
-      }
-      return;
-    }
-
     const action = this.parseReaction(reaction);
     if (!action) {
       return;
@@ -1419,10 +1364,8 @@ export class Client extends ClientJS {
 
   /**
    * Manually build client
-   *
-   * @param log - Enable log
    */
-  async build(log?: boolean): Promise<void> {
+  async build(): Promise<void> {
     if (this._isBuilt) {
       return;
     }
@@ -1430,7 +1373,7 @@ export class Client extends ClientJS {
     this._isBuilt = true;
     await this.instance.build();
 
-    if (log ?? !this.silent) {
+    if (!this.silent) {
       this.printDebug();
     }
 
