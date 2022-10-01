@@ -151,12 +151,11 @@ export class MusicQueue extends Queue {
     const progressString =
       block.repeat(progress) + arrow + block.repeat(emptyProgress);
 
-    const bar = (this.isPlaying ? "▶️" : "⏸️") + " " + progressString;
+    const bar = `${this.isPlaying ? "▶️" : "⏸️"} ${progressString}`;
     const currentTime = this.fromMS(timeNow);
     const endTime = this.fromMS(timeTotal);
     const spacing = bar.length - currentTime.length - endTime.length;
-    const time =
-      "`" + currentTime + " ".repeat(spacing * 3 - 2) + endTime + "`";
+    const time = `\`${currentTime}${" ".repeat(spacing * 3 - 2)}${endTime}\``;
 
     embed.addFields({ name: bar, value: time });
 
@@ -234,7 +233,7 @@ export class MusicQueue extends Queue {
           (track, index1) =>
             `${currentPage * 10 + index1 + 1}. [${track.info.title}](<${
               track.info.uri
-            }>)` + ` (${this.fromMS(track.info.length)})`
+            }>) (${this.fromMS(track.info.length)})`
         )
         .join("\n\n");
 
