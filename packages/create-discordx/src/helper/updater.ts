@@ -37,14 +37,11 @@ if (update) {
     ? "npm i -g create-discordx@latest"
     : "npm i create-discordx@latest";
 
-  const template =
-    "Update available " +
-    chalk.dim(`${packageJson.version}`) +
-    chalk.reset(" → ") +
-    chalk.green(`${update.latest}`) +
-    " \nRun " +
-    chalk.cyan(updateCmd) +
-    " to update";
+  const template = `Update available ${chalk.dim(
+    `${packageJson.version}`
+  )}${chalk.reset(" → ")}${chalk.green(`${update.latest}`)} \nRun ${chalk.cyan(
+    updateCmd
+  )} to update`;
 
   console.log(
     boxen(template, {

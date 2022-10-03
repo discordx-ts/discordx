@@ -6,7 +6,7 @@ import { Koa } from "../../src/index.js";
 
 // example of global middleware
 function Log(ctx: RouterContext, next: Next) {
-  console.log("global logger - request: " + ctx.URL);
+  console.log(`Global logger - request: ${ctx.URL}`);
   return next();
 }
 

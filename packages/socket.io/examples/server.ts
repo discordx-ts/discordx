@@ -9,7 +9,7 @@ const server = http.createServer(app.callback());
 const io = new Server(server);
 
 async function main() {
-  await importx(__dirname + "/{api,sockets}/**/*.{js,ts}");
+  await importx(`${__dirname}/{api,sockets}/**/*.{js,ts}`);
   await app.build();
   await io.build();
   server.listen(3000, () => {

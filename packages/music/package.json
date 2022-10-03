@@ -59,12 +59,12 @@
   "devDependencies": {
     "@discordjs/opus": "^0.8.0",
     "@discordjs/voice": "^0.11.0",
-    "@types/lodash": "^4.14.185",
-    "@types/node": "^18.7.22",
+    "@types/lodash": "^4.14.186",
+    "@types/node": "^18.7.23",
     "discord.js": "^14.5.0",
     "ffmpeg-static": "^5.1.0",
     "libsodium-wrappers": "^0.7.10",
-    "typescript": "4.8.3"
+    "typescript": "4.8.4"
   },
   "peerDependencies": {
     "@discordjs/opus": ">=0.8",

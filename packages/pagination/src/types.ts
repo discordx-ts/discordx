@@ -20,13 +20,13 @@ export const defaultTime = 3e5;
 const prefixId = "discordx@pagination@";
 export const defaultIds = {
   buttons: {
-    end: prefixId + "endButton",
-    exit: prefixId + "closeButton",
-    next: prefixId + "nextButton",
-    previous: prefixId + "previousButton",
-    start: prefixId + "startButton",
+    end: `${prefixId}endButton`,
+    exit: `${prefixId}closeButton`,
+    next: `${prefixId}nextButton`,
+    previous: `${prefixId}previousButton`,
+    start: `${prefixId}startButton`,
   },
-  menu: prefixId + "menu",
+  menu: `${prefixId}menu`,
 };
 
 export type PaginationItem = BaseMessageOptions & {
