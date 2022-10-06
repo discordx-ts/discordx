@@ -221,13 +221,17 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
           (this.option.next?.id ?? defaultIds.buttons.next)
         ) {
           // Requested next page
-          this.currentPage++;
+          if (this.currentPage < this.maxLength - 1) {
+            this.currentPage++;
+          }
         } else if (
           collectInteraction.customId ===
           (this.option.previous?.id ?? defaultIds.buttons.previous)
         ) {
           // Requested previous page
-          this.currentPage--;
+          if (this.currentPage > 0) {
+            this.currentPage--;
+          }
         } else {
           return;
         }
