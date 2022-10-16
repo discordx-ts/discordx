@@ -35,7 +35,7 @@ export function GetCommits(config: {
   const tagDiff =
     config.from === config.to
       ? config.to
-      : `${config.from}..${config.to === "head" ? "" : config.to}`;
+      : `${config.from}..${config.to === "HEAD" ? "" : config.to}`;
 
   const commits = child
     .execSync(

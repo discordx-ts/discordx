@@ -9,13 +9,13 @@ export function GetTags(match: string): string[] {
       .split("\n")
   );
 
-  tags.push("head");
+  tags.push("HEAD");
   return tags;
 }
 
 export function GetTagDate(tag: string): string {
   const createdAt = child
-    .execSync(`git log -1 --format=%ai ${tag === "head" ? "" : tag}`)
+    .execSync(`git log -1 --format=%ai ${tag === "HEAD" ? "" : tag}`)
     .toString("utf-8");
 
   return createdAt;
