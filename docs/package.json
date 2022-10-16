@@ -20,7 +20,7 @@
     "@docusaurus/preset-classic": "2.1.0",
     "@docusaurus/remark-plugin-npm2yarn": "^2.1.0",
     "@docusaurus/theme-search-algolia": "^2.1.0",
-    "@svgr/webpack": "^6.3.1",
+    "@svgr/webpack": "^6.5.0",
     "ansi-regex": "^6.0.1",
     "clsx": "^1.2.1",
     "file-loader": "^6.2.0",
