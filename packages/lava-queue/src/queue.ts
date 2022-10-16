@@ -80,7 +80,7 @@ export class Queue {
 
   playNext(): boolean {
     if (this.currentTrack) {
-      if (this.loop) {
+      if (this.loop && !this.repeat) {
         this.tracks.push(this.currentTrack);
       }
 
