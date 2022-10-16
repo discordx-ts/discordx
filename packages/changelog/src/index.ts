@@ -37,7 +37,7 @@ export function GenerateChangelog(config: Options): {
     }
 
     let changelog =
-      tag === "head"
+      tag === "HEAD"
         ? ""
         : `# [${tag}](${repo}/releases/tag/${tag}) (${
             new Date(tagDate).toISOString().split("T")[0] ?? ""
