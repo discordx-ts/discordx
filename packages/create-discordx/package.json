@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "build:changelog": "npx @discordx/changelog --src src --match-tag create-discordx-* --replace-tag create-discordx-"
+    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag create-discordx-* --replace-tag create-discordx-"
   },
   "dependencies": {
     "axios": "^1.1.3",

@@ -45,7 +45,7 @@
   "scripts": {
     "build": "tsc && tsc --p tsconfig.cjs.json && npm run postbuild",
     "postbuild": "node ../../scripts/postbuild.mjs --path=build",
-    "build:changelog": "npx @discordx/changelog --src src --match-tag importer-* --replace-tag importer-",
+    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag importer-* --replace-tag importer-",
     "type-check": "tsc --noemit"
   },
   "dependencies": {

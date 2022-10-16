@@ -46,7 +46,7 @@
   ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --src src --match-tag discordx-* --replace-tag discordx-",
+    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag discordx-* --replace-tag discordx-",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/discordx",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",

@@ -44,7 +44,7 @@
   ],
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog --src src --match-tag lava-player-* --replace-tag lava-player-",
+    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag lava-player-* --replace-tag lava-player-",
     "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/lava-player",
     "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
