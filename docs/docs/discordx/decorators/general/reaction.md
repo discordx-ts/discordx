@@ -33,7 +33,7 @@ async function start() {
   });
 
   client.on("messageReactionAdd", (reaction, user) => {
-    this.Client.executeReaction(reaction, user);
+    client.executeReaction(reaction, user);
   });
 
   await client.login("YOUR_TOKEN");
