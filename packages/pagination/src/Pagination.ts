@@ -100,7 +100,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       : await this.pages.resolver(page, this);
 
     if (!embed) {
-      return undefined;
+      return;
     }
 
     return GeneratePage(embed, this.currentPage, this.maxLength, this.option);
