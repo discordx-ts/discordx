@@ -90,12 +90,12 @@ const client = new Client({
 ### Enable direct messages from user
 
 ```ts
-import { IntentsBitField } from "discord.js";
+import { IntentsBitField, Partials } from "discord.js";
 
 const client = new Client({
   botId: "test",
   // partial configuration required to enable direct messages
-  partials: ["CHANNEL", "MESSAGE"],
+  partials: [Partials.Channel, Partials.Message],
   intents: [
     IntentsBitField.Flags.Guilds,
     IntentsBitField.Flags.GuildMessages,

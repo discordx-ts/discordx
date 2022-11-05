@@ -20,6 +20,7 @@ You have to manually execute your reactions by using `client.executeReaction(rea
 
 ```ts
 import { Client } from "discordx";
+import { Partials } from "discord.js";
 
 async function start() {
   const client = new Client({
@@ -28,11 +29,11 @@ async function start() {
       IntentsBitField.Flags.Guilds,
       IntentsBitField.Flags.GuildMessages,
     ],
-    partials: ["MESSAGE", "CHANNEL", "REACTION"], // Necessary to receive reactions for uncached messages
+    partials: [Partials.Message, Partials.Channel, Partials.Reaction], // Necessary to receive reactions for uncached messages
   });
 
   client.on("messageReactionAdd", (reaction, user) => {
-    this.Client.executeReaction(reaction, user);
+    client.executeReaction(reaction, user);
   });
 
   await client.login("YOUR_TOKEN");
