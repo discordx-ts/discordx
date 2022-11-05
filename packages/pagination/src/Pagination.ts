@@ -8,6 +8,7 @@ import type {
 import {
   ChatInputCommandInteraction,
   CommandInteraction,
+  ComponentType,
   ContextMenuCommandInteraction,
   Message,
   MessageComponentInteraction,
@@ -99,7 +100,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       : await this.pages.resolver(page, this);
 
     if (!embed) {
-      return undefined;
+      return;
     }
 
     return GeneratePage(embed, this.currentPage, this.maxLength, this.option);
@@ -182,6 +183,10 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     // create collector
     const collector = message.createMessageComponentCollector({
       ...this.option,
+      componentType:
+        this.option.type === PaginationType.Button
+          ? ComponentType.Button
+          : ComponentType.StringSelect,
       time: this.option.time ?? defaultTime,
     });
 
