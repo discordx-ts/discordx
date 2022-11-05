@@ -55,14 +55,14 @@
   "dependencies": {
     "@discordx/di": "^3.0.2",
     "@discordx/internal": "^1.0.2",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.1"
   },
   "devDependencies": {
     "@discordx/importer": "^1.1.10",
     "@koa/router": "^12.0.0",
     "@types/koa": "^2.13.5",
     "@types/koa__router": "^12.0.0",
-    "@types/node": "^18.11.0",
+    "@types/node": "^18.11.9",
     "koa": "^2.13.4",
     "typescript": "4.8.4"
   },
