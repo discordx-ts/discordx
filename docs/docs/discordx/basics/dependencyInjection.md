@@ -219,7 +219,7 @@ class TsClass {
 ## Getting all @Discord classes
 
 If for some reason, you wish to get all instances of the `@Discord` classes in your bot, then you can simple
-call `DIService.getAllServices();`
+call `DIService.allServices();`
 
 **NOTE**: this will construct all your classes in the DI container, if you wish to lazy-load your Discord classes, then
 you can not do this.
@@ -228,6 +228,6 @@ you can not do this.
 import { DIService } from "discordx";
 
 function getAllDiscordClasses(): Set<unknown> {
-  return DIService.getAllServices();
+  return DIService.allServices();
 }
 ```
