@@ -151,7 +151,7 @@ As 4th parameter you receive a basic empty object that can be used to transmit d
 
 ```typescript
 // Example by @AndyClausen
-// Modified by @oceanroleplay
+// Modified by @samarmeena
 
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">

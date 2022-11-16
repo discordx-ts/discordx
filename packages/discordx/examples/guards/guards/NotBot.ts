@@ -13,7 +13,7 @@ import type { ArgsOf, GuardFunction } from "../../../src/index.js";
 import { SimpleCommandMessage } from "../../../src/index.js";
 
 // Example by @AndyClausen
-// Modified by @oceanroleplay
+// Modified by @samarmeena
 
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">

@@ -3,7 +3,7 @@ description: Request a new feature
 title: "[Feature]: "
 labels: [enhancement]
 assignees:
-  - oceanroleplay
+  - samarmeena
 body:
   - type: markdown
     attributes:
