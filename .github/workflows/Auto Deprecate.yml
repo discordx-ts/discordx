@@ -18,7 +18,7 @@ on:
 
 jobs:
   deprecate:
-    if: github.actor == 'oceanroleplay'
+    if: github.actor == 'samarmeena'
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎

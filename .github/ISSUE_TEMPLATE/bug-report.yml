@@ -3,7 +3,7 @@ description: File a bug report
 title: "[Bug]: "
 labels: [bug, "unverified"]
 assignees:
-  - oceanroleplay
+  - samarmeena
 body:
   - type: markdown
     attributes:

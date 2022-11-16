@@ -28,7 +28,7 @@
   },
   "license": "Apache-2.0",
   "contributors": [
-    "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/oceanroleplay)"
+    "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/samarmeena)"
   ],
   "scripts": {
     "build": "turbo run build --parallel",
