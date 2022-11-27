@@ -96,8 +96,7 @@ jobs:
       - name: Prepare tag
         if: github.event.inputs.package == matrix.package && github.event.inputs.version != 'patch'
         id: prepare-tag
-        run: |
-          echo ::set-output name=tag::${{ matrix.folder }}-`node -p "require('./package.json').version"`
+        run: echo "tag=${{ matrix.folder }}-`node -p "require('./package.json').version"`" >> $GITHUB_OUTPUT
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Build changelog

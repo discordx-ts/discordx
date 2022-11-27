@@ -48,8 +48,8 @@ jobs:
         id: pre-release
         run: |
           if [[ $(npm view ${{ matrix.package }}@dev version | grep -e "$(jq --raw-output '.version' package.json).*.$(git log --max-count=1 --pretty=format:%h src)") ]]; \
-          then echo '::set-output name=release::false'; \
-          else echo '::set-output name=release::true'; fi
+          then echo "release=false" >> $GITHUB_OUTPUT; \
+          else echo "release=true" >> $GITHUB_OUTPUT; fi
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Install Dependencies
