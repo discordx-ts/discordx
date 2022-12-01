@@ -987,10 +987,8 @@ export class Client extends ClientJS {
           );
 
         default:
-          break;
+          return false;
       }
-
-      return;
     });
   }
 
