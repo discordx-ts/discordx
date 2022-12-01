@@ -186,14 +186,14 @@ export class DSimpleCommand extends Method {
 
           // undefined
           if (!args[index]?.length) {
-            return undefined;
+            return;
           }
 
           // Boolean
           if (op.type === SimpleCommandOptionType.Boolean) {
             const option = args[index];
             if (option === undefined) {
-              return undefined;
+              return;
             }
 
             if (

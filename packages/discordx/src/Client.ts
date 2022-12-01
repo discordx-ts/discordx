@@ -1,5 +1,6 @@
 import { DIService } from "@discordx/di";
 import type {
+  AnySelectMenuInteraction,
   ApplicationCommand,
   ApplicationCommandData,
   AutocompleteInteraction,
@@ -13,7 +14,6 @@ import type {
   ModalSubmitInteraction,
   PartialMessageReaction,
   PartialUser,
-  SelectMenuInteraction,
   Snowflake,
   User,
 } from "discord.js";
@@ -414,15 +414,24 @@ export class Client extends ClientJS {
 
     this.logger.log("client >> application commands");
     if (this.applicationCommands.length) {
-      this.applicationCommands.map((DCommand, index) => {
+      this.applicationCommands.forEach((DCommand, index) => {
         if (DCommand.botIds.length && !DCommand.botIds.includes(this.botId)) {
           return;
         }
+
         this.logger.log(
           `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${
             DCommand.classRef.name
           }.${DCommand.key})`
         );
+
+        /**
+         * Print options
+         *
+         * @param options
+         * @param depth
+         * @returns
+         */
         const printOptions = (
           options: DApplicationCommandOption[],
           depth: number
@@ -465,12 +474,19 @@ export class Client extends ClientJS {
 
     this.logger.log("client >> simple commands");
     if (this.simpleCommands.length) {
-      this.simpleCommands.map((cmd) => {
+      this.simpleCommands.forEach((cmd) => {
         this.logger.log(`\t>> ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
         if (cmd.aliases.length) {
           this.logger.log(`\t\t${"aliases"}:`, cmd.aliases.join(", "));
         }
 
+        /**
+         * Print options
+         *
+         * @param options
+         * @param depth
+         * @returns
+         */
         const printOptions = (
           options: DSimpleCommandOption[],
           depth: number
@@ -604,7 +620,7 @@ export class Client extends ClientJS {
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
-    DCommands.map((DCommand) => {
+    DCommands.forEach((DCommand) => {
       const findCommand = ApplicationCommands.find(
         (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
       );
@@ -763,9 +779,9 @@ export class Client extends ClientJS {
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
-    DCommands.map((DCommand) => {
+    DCommands.forEach((DCommand) => {
       const findCommand = ApplicationCommands.find(
-        (cmd) => cmd.name === DCommand.name && cmd.type == DCommand.type
+        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
       );
 
       if (!findCommand) {
@@ -871,9 +887,7 @@ export class Client extends ClientJS {
     if (guilds.length) {
       await Promise.all(
         // Select and delete the commands of each guild
-        guilds.map((guild) => {
-          this.guilds.cache.get(guild)?.commands.set([]);
-        })
+        guilds.map((guild) => this.guilds.cache.get(guild)?.commands.set([]))
       );
     } else {
       await this.application?.commands.set([]);
@@ -895,6 +909,12 @@ export class Client extends ClientJS {
   ): string[] {
     const tree: string[] = [];
 
+    /**
+     * Get options tree
+     *
+     * @param option
+     * @returns
+     */
     const getOptionsTree = (
       option: Partial<CommandInteractionOption> | undefined
     ): void => {
@@ -910,7 +930,8 @@ export class Client extends ClientJS {
         if (option.name) {
           tree.push(option.name);
         }
-        return getOptionsTree(Array.from(option.options?.values() ?? [])?.[0]);
+
+        getOptionsTree(Array.from(option.options?.values() ?? [])?.[0]);
       }
     };
 
@@ -944,6 +965,7 @@ export class Client extends ClientJS {
             slash.name === tree[0] &&
             slash.type === ApplicationCommandType.ChatInput
           );
+
         case 2:
           // Simple grouped command
           // /permission user perm
@@ -953,6 +975,7 @@ export class Client extends ClientJS {
             slash.name === tree[1] &&
             slash.type === ApplicationCommandType.ChatInput
           );
+
         case 3:
           // Grouped and subgrouped command
           // /permission user perm
@@ -962,6 +985,9 @@ export class Client extends ClientJS {
             slash.name === tree[2] &&
             slash.type === ApplicationCommandType.ChatInput
           );
+
+        default:
+          return false;
       }
     });
   }
@@ -985,7 +1011,7 @@ export class Client extends ClientJS {
     }
 
     // if interaction is a select menu
-    if (interaction.isSelectMenu()) {
+    if (interaction.isAnySelectMenu()) {
       return this.executeComponent(this.selectMenuComponents, interaction);
     }
 
@@ -1001,6 +1027,8 @@ export class Client extends ClientJS {
     ) {
       return this.executeCommandInteraction(interaction);
     }
+
+    return;
   }
 
   /**
@@ -1060,7 +1088,7 @@ export class Client extends ClientJS {
     interaction:
       | ButtonInteraction
       | ModalSubmitInteraction
-      | SelectMenuInteraction
+      | AnySelectMenuInteraction
   ): Promise<unknown> {
     const executes = components.filter((comp) =>
       comp.isId(interaction.customId)
@@ -1072,10 +1100,10 @@ export class Client extends ClientJS {
           !component?.isBotAllowed(this.botId) ||
           !(await component.isGuildAllowed(this, interaction.guildId))
         ) {
-          return undefined;
-        } else {
-          return component.execute(this.guards, interaction, this);
+          return;
         }
+
+        return component.execute(this.guards, interaction, this);
       })
     );
 
@@ -1084,7 +1112,7 @@ export class Client extends ClientJS {
         `${this.user?.username ?? this.botId} >> ${
           interaction.isButton()
             ? "button"
-            : interaction.isSelectMenu()
+            : interaction.isAnySelectMenu()
             ? "select menu"
             : "modal"
         } component handler not found, interactionId: ${

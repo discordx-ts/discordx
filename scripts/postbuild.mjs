@@ -3,7 +3,7 @@ import fs from "fs";
 function argPath(search) {
   const findPathArg = process.argv.find((arg) => arg.includes(`--${search}=`));
   if (!findPathArg) {
-    return undefined;
+    return;
   }
 
   return findPathArg.replace(`--${search}=`, "");

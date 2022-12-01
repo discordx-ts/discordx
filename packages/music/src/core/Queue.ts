@@ -153,7 +153,7 @@ export abstract class Queue<T extends Player = Player> {
    */
   public get currentTrack(): AudioResource<CommonTrack> | undefined {
     if (this._audioPlayer.state.status === AudioPlayerStatus.Idle) {
-      return undefined;
+      return;
     }
 
     const track = this._audioPlayer.state
@@ -197,7 +197,7 @@ export abstract class Queue<T extends Player = Player> {
         const track = (oldState.resource as AudioResource<YoutubeTrack>)
           .metadata as YoutubeTrack;
         this.player.emit("onFinish", [this, track]);
-        void this.processQueue();
+        this.processQueue();
       } else if (newState.status === AudioPlayerStatus.Playing) {
         // If the Playing state has been entered, then a new track has started playback.
 

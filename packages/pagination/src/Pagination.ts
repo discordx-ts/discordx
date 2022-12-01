@@ -2,7 +2,7 @@ import type {
   ButtonInteraction,
   CacheType,
   InteractionCollector,
-  SelectMenuInteraction,
+  StringSelectMenuInteraction,
   TextBasedChannel,
 } from "discord.js";
 import {
@@ -35,7 +35,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   public currentPage: number;
   public option: PaginationOptions;
   public collector?: InteractionCollector<
-    ButtonInteraction<CacheType> | SelectMenuInteraction<CacheType>
+    ButtonInteraction<CacheType> | StringSelectMenuInteraction<CacheType>
   >;
 
   public message?: Message;
@@ -112,7 +112,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    */
   public async send(): Promise<{
     collector: InteractionCollector<
-      ButtonInteraction<CacheType> | SelectMenuInteraction<CacheType>
+      ButtonInteraction<CacheType> | StringSelectMenuInteraction<CacheType>
     >;
     message: Message;
   }> {
@@ -190,6 +190,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       time: this.option.time ?? defaultTime,
     });
 
+    /**
+     * Reset collector timer
+     */
     const resetCollectorTimer = () => {
       collector.resetTimer({
         idle: this.option.idle,
@@ -262,7 +265,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
           .editReply(pageEx.newMessage)
           .catch(() => this.unableToUpdate());
       } else if (
-        collectInteraction.isSelectMenu() &&
+        collectInteraction.isStringSelectMenu() &&
         this.option.type === PaginationType.SelectMenu &&
         collectInteraction.customId === (this.option.menuId ?? defaultIds.menu)
       ) {

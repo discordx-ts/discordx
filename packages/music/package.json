@@ -58,13 +58,13 @@
   },
   "devDependencies": {
     "@discordjs/opus": "^0.9.0",
-    "@discordjs/voice": "^0.13.0",
-    "@types/lodash": "^4.14.188",
-    "@types/node": "^18.11.9",
-    "discord.js": "^14.6.0",
+    "@discordjs/voice": "^0.14.0",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^18.11.10",
+    "discord.js": "^14.7.0",
     "ffmpeg-static": "^5.1.0",
     "libsodium-wrappers": "^0.7.10",
-    "typescript": "4.8.4"
+    "typescript": "4.9.3"
   },
   "peerDependencies": {
     "@discordjs/opus": ">=0.8",
