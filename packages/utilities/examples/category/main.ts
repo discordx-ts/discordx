@@ -27,7 +27,7 @@ export class Main {
 
     this._client.on("interactionCreate", (interaction) => {
       // do not execute interaction, if it's pagination (avoid warning: select-menu/button interaction not found)
-      if (interaction.isButton() || interaction.isSelectMenu()) {
+      if (interaction.isButton() || interaction.isStringSelectMenu()) {
         if (interaction.customId.startsWith("discordx@pagination@")) {
           return;
         }

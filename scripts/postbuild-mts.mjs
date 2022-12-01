@@ -4,7 +4,7 @@ import glob from "glob";
 function argResolve(search) {
   const findPathArg = process.argv.find((arg) => arg.includes(`--${search}=`));
   if (!findPathArg) {
-    return undefined;
+    return;
   }
 
   return findPathArg.replace(`--${search}=`, "");

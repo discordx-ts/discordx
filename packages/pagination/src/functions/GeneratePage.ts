@@ -3,7 +3,7 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  SelectMenuBuilder,
+  StringSelectMenuBuilder,
 } from "discord.js";
 
 import type {
@@ -36,6 +36,10 @@ export function GeneratePage(
 
     return config.showStartEnd;
   }
+
+  /**
+   * Pagination type button
+   */
 
   if (config.type === PaginationType.Button) {
     const startBtn = new ButtonBuilder()
@@ -122,69 +126,73 @@ export function GeneratePage(
     }
 
     return { newMessage, paginationRow: row };
-  } else {
-    const paginator = Paginate(maxPage, page, 1, 21).pages.map((i) => {
-      // get custom page title
-      const text =
-        config.pageText instanceof Array
-          ? config.pageText[i - 1]
-          : config.pageText;
+  }
 
-      return {
-        label: (text ?? "Page {page}").replaceAll("{page}", `${i}`),
-        value: (i - 1).toString(),
-      };
+  /**
+   * Pagination type select menu
+   */
+
+  const paginator = Paginate(maxPage, page, 1, 21).pages.map((i) => {
+    // get custom page title
+    const text =
+      config.pageText instanceof Array
+        ? config.pageText[i - 1]
+        : config.pageText;
+
+    return {
+      label: (text ?? "Page {page}").replaceAll("{page}", `${i}`),
+      value: (i - 1).toString(),
+    };
+  });
+
+  if (isStartEndAllowed()) {
+    // add start option
+    paginator.unshift({
+      label: config.labels?.start ?? "Start",
+      value: SelectMenuPageId.Start.toString(),
     });
 
-    if (isStartEndAllowed()) {
-      // add start option
-      paginator.unshift({
-        label: config.labels?.start ?? "Start",
-        value: SelectMenuPageId.Start.toString(),
-      });
-
-      // add end option
-      paginator.push({
-        label: config.labels?.end ?? "End",
-        value: SelectMenuPageId.End.toString(),
-      });
-    }
-
-    // add exit option
-    if (config.enableExit) {
-      paginator.push({
-        label: config.labels?.exit ?? "Exit Pagination",
-        value: SelectMenuPageId.Exit.toString(),
-      });
-    }
-
-    const menu = new SelectMenuBuilder()
-      .setCustomId(config.menuId ?? defaultIds.menu)
-      .setPlaceholder(config.placeholder ?? "Select page")
-      .setOptions(paginator);
-
-    const row =
-      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents([
-        menu,
-      ]);
-
-    // reset message payload additional parameters
-    if (!newMessage.embeds) {
-      newMessage.embeds = [];
-    }
-
-    if (!newMessage.files) {
-      newMessage.files = [];
-    }
-
-    if (!newMessage.files) {
-      newMessage.files = [];
-    }
-
-    if (!newMessage.attachments) {
-      newMessage.attachments = [];
-    }
-
-    return { newMessage, paginationRow: row };
+    // add end option
+    paginator.push({
+      label: config.labels?.end ?? "End",
+      value: SelectMenuPageId.End.toString(),
+    });
   }
+
+  // add exit option
+  if (config.enableExit) {
+    paginator.push({
+      label: config.labels?.exit ?? "Exit Pagination",
+      value: SelectMenuPageId.Exit.toString(),
+    });
+  }
+
+  const menu = new StringSelectMenuBuilder()
+    .setCustomId(config.menuId ?? defaultIds.menu)
+    .setPlaceholder(config.placeholder ?? "Select page")
+    .setOptions(paginator);
+
+  const row =
+    new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents([
+      menu,
+    ]);
+
+  // reset message payload additional parameters
+  if (!newMessage.embeds) {
+    newMessage.embeds = [];
+  }
+
+  if (!newMessage.files) {
+    newMessage.files = [];
+  }
+
+  if (!newMessage.files) {
+    newMessage.files = [];
+  }
+
+  if (!newMessage.attachments) {
+    newMessage.attachments = [];
+  }
+
+  return { newMessage, paginationRow: row };
 }

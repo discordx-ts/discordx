@@ -150,16 +150,17 @@ export function Prefix(text: string, replace: boolean = true) {
 As 4th parameter you receive a basic empty object that can be used to transmit data between guard and with your main method.
 
 ```typescript
-// Example by @AndyClausen
-// Modified by @samarmeena
-
 export const NotBot: GuardFunction<
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
+  | ButtonInteraction
+  | ChannelSelectMenuInteraction
   | CommandInteraction
   | ContextMenuCommandInteraction
-  | SelectMenuInteraction
+  | MentionableSelectMenuInteraction
   | ModalSubmitInteraction
-  | ButtonInteraction
+  | RoleSelectMenuInteraction
+  | StringSelectMenuInteraction
+  | UserSelectMenuInteraction
   | SimpleCommandMessage
 > = async (arg, client, next, guardData) => {
   const argObj = arg instanceof Array ? arg[0] : arg;
@@ -174,11 +175,15 @@ export const NotBot: GuardFunction<
       ? argObj.author
       : argObj instanceof SimpleCommandMessage
       ? argObj.message.author
-      : argObj instanceof CommandInteraction ||
+      : argObj instanceof ButtonInteraction ||
+        argObj instanceof ChannelSelectMenuInteraction ||
+        argObj instanceof CommandInteraction ||
         argObj instanceof ContextMenuCommandInteraction ||
-        argObj instanceof SelectMenuInteraction ||
+        argObj instanceof MentionableSelectMenuInteraction ||
         argObj instanceof ModalSubmitInteraction ||
-        argObj instanceof ButtonInteraction
+        argObj instanceof RoleSelectMenuInteraction ||
+        argObj instanceof StringSelectMenuInteraction ||
+        argObj instanceof UserSelectMenuInteraction
       ? argObj.member?.user
       : argObj.message.author;
 

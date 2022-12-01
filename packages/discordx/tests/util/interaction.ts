@@ -132,7 +132,7 @@ export class FakeInteraction {
     return this.type === InteractionType.ContextMenu;
   }
 
-  isSelectMenu() {
+  isAnySelectMenu() {
     return this.type === InteractionType.SelectMenu;
   }
 

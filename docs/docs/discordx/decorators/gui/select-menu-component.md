@@ -24,7 +24,7 @@ const roles = [
 @Discord()
 class Example {
   @SelectMenuComponent({ id: "role-menu" })
-  async handle(interaction: SelectMenuInteraction): Promise<unknown> {
+  async handle(interaction: StringSelectMenuInteraction): Promise<unknown> {
     await interaction.deferReply();
 
     // extract selected value by member
@@ -48,7 +48,7 @@ class Example {
     await interaction.deferReply();
 
     // create menu for roles
-    const menu = new SelectMenuBuilder()
+    const menu = new StringSelectMenuBuilder()
       .addOptions(roles)
       .setCustomId("role-menu");
 
