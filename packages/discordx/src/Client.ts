@@ -1107,7 +1107,7 @@ export class Client extends ClientJS {
       })
     );
 
-    if (!this.silent) {
+    if (!this.silent && !results.some((res) => res)) {
       this.logger.warn(
         `${this.user?.username ?? this.botId} >> ${
           interaction.isButton()
