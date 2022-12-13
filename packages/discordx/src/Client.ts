@@ -1090,36 +1090,39 @@ export class Client extends ClientJS {
       | ModalSubmitInteraction
       | AnySelectMenuInteraction
   ): Promise<unknown> {
-    const executes = components.filter((comp) =>
-      comp.isId(interaction.customId)
+    const executes = components.filter(
+      (component) =>
+        component.isId(interaction.customId) &&
+        component?.isBotAllowed(this.botId)
     );
+
+    if (!executes.length) {
+      if (!this.silent) {
+        this.logger.warn(
+          `${this.user?.username ?? this.botId} >> ${
+            interaction.isButton()
+              ? "button"
+              : interaction.isAnySelectMenu()
+              ? "select menu"
+              : "modal"
+          } component handler not found, interactionId: ${
+            interaction.id
+          } | customId: ${interaction.customId}`
+        );
+      }
+
+      return;
+    }
 
     const results = await Promise.all(
       executes.map(async (component) => {
-        if (
-          !component?.isBotAllowed(this.botId) ||
-          !(await component.isGuildAllowed(this, interaction.guildId))
-        ) {
+        if (!(await component.isGuildAllowed(this, interaction.guildId))) {
           return;
         }
 
         return component.execute(this.guards, interaction, this);
       })
     );
-
-    if (!this.silent && !results.some((res) => res)) {
-      this.logger.warn(
-        `${this.user?.username ?? this.botId} >> ${
-          interaction.isButton()
-            ? "button"
-            : interaction.isAnySelectMenu()
-            ? "select menu"
-            : "modal"
-        } component handler not found, interactionId: ${
-          interaction.id
-        } | customId: ${interaction.customId}`
-      );
-    }
 
     return results;
   }
@@ -1131,9 +1134,9 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  async executeContextMenu(
+  executeContextMenu(
     interaction: ContextMenuCommandInteraction
-  ): Promise<unknown> {
+  ): Awaited<unknown> {
     const applicationCommand = interaction.isUserContextMenuCommand()
       ? this.applicationCommandUsers.find(
           (cmd) => cmd.name === interaction.commandName
@@ -1142,10 +1145,7 @@ export class Client extends ClientJS {
           (cmd) => cmd.name === interaction.commandName
         );
 
-    if (
-      !applicationCommand?.isBotAllowed(this.botId) ||
-      !(await applicationCommand.isGuildAllowed(this, interaction.guildId))
-    ) {
+    if (!applicationCommand?.isBotAllowed(this.botId)) {
       if (!this.silent) {
         this.logger.warn(
           `${
@@ -1153,13 +1153,6 @@ export class Client extends ClientJS {
           } >> context interaction not found, name: ${interaction.commandName}`
         );
       }
-      return;
-    }
-
-    if (
-      applicationCommand.botIds.length &&
-      !applicationCommand.botIds.includes(this.botId)
-    ) {
       return;
     }
 
