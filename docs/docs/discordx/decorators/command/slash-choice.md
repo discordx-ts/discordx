@@ -40,7 +40,7 @@ class Example {
       description: "fuel",
       name: "fuel",
       required: true,
-      type: ApplicationCommandOptionType.String,
+      type: ApplicationCommandOptionType.Number,
     })
     fuel: number,
 
