@@ -57,7 +57,7 @@ export const NotBot: GuardFunction<
         argObj instanceof StringSelectMenuInteraction ||
         argObj instanceof UserSelectMenuInteraction
       ? argObj.member?.user
-      : argObj.message.author;
+      : argObj.message?.author;
 
   if (!user?.bot) {
     await next();
