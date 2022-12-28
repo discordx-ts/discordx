@@ -38,9 +38,9 @@
 
 # 📖 Introduction
 
-This module is an extension of **[discord.**js**](https://discord.js.org)**, so the internal behavior (methods, properties, ...) is the same.
+This module is an extension of **[discord.js](https://discord.js.org)**, so the internal behavior (methods, properties, ...) is the same.
 
-This library allows you to use TypeScript decorators on discord.**js**, it simplifies your code and improves the readability!
+This library allows you to use TypeScript decorators on **discord.js**, it simplifies your code and improves the readability!
 
 # 💻 [Installation](https://discordx.js.org/docs/discordx/getting-started)
 
