@@ -1,5 +1,4 @@
 import type { InstanceOf } from "../../index.js";
-import { DIService } from "../../index.js";
 import type { IDependencyRegistryEngine } from "../IDependencyRegistryEngine.js";
 
 export class DefaultDependencyRegistryEngine
@@ -24,7 +23,6 @@ export class DefaultDependencyRegistryEngine
   public addService<T>(classType: T): void {
     const clazz = classType as unknown as new () => InstanceOf<T>;
     const instance = new clazz();
-    this.getService(DIService);
     this._services.set(clazz, instance);
   }
 
