@@ -1,5 +1,4 @@
 import type { InstanceOf } from "../../index.js";
-import { DIService } from "../../index.js";
 import type { IDependencyRegistryEngine } from "../IDependencyRegistryEngine.js";
 
 export class DefaultDependencyRegistryEngine
