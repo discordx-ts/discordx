@@ -32,7 +32,7 @@ export const SpecialCharactersList = [
   " ",
 ] as const;
 
-export type SpecialCharacters = (typeof SpecialCharactersList)[number];
+export type SpecialCharacters = typeof SpecialCharactersList[number];
 
 export type ForbidCharacter<
   S extends string,
