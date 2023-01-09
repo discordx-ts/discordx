@@ -44,9 +44,9 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "commander": "^9.4.1",
+    "commander": "^9.5.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.8.0",
+    "prettier": "^2.8.2",
     "tslib": "^2.4.1"
   },
   "publishConfig": {
@@ -54,8 +54,8 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.191",
-    "@types/node": "^18.11.10",
-    "@types/prettier": "^2.7.1",
-    "typescript": "4.9.3"
+    "@types/node": "^18.11.18",
+    "@types/prettier": "^2.7.2",
+    "typescript": "4.9.4"
   }
 }
