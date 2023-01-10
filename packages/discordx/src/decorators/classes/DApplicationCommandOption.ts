@@ -186,7 +186,7 @@ export class DApplicationCommandOption extends Decorator {
         : this.choices.length === 0
         ? undefined
         : this.choices.map((choice) => choice.toJSON()),
-      description: this.description && this.description.length > 0 ? this.description : undefined,
+      description: this.description ? this.description : undefined,
       descriptionLocalizations: this.descriptionLocalizations,
       maxLength: this.maxLength,
       maxValue: this.maxValue,
