@@ -29,7 +29,7 @@ export class DApplicationCommand extends Method {
   private _botIds: string[];
   private _name: string;
   private _nameLocalizations: LocalizationMap | null;
-  private _description: string;
+  private _description?: string;
   private _descriptionLocalizations: LocalizationMap | null;
   private _defaultMemberPermissions: PermissionResolvable | null;
   private _dmPermission: boolean;
@@ -46,10 +46,10 @@ export class DApplicationCommand extends Method {
     this._botIds = value;
   }
 
-  get description(): string {
+  get description(): string | undefined {
     return this._description;
   }
-  set description(value: string) {
+  set description(value: string | undefined) {
     this._description = value;
   }
 

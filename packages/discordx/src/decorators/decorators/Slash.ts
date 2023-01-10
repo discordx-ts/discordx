@@ -23,7 +23,7 @@ import {
  * @category Decorator
  */
 export function Slash<T extends string, TD extends string>(
-  options: ApplicationCommandOptions<VerifyName<T>, NotEmpty<TD>>
+  options: ApplicationCommandOptions<VerifyName<T>, TD>
 ): MethodDecoratorEx {
   return function (target: Record<string, any>, key: string) {
     const name = options?.name ?? key;
@@ -32,7 +32,7 @@ export function Slash<T extends string, TD extends string>(
     const applicationCommand = DApplicationCommand.create({
       botIds: options?.botIds,
       defaultMemberPermissions: options?.defaultMemberPermissions,
-      description: options?.description,
+      description: options?.description || undefined,
       descriptionLocalizations: options?.descriptionLocalizations,
       dmPermission: options?.dmPermission ?? true,
       guilds: options?.guilds,
