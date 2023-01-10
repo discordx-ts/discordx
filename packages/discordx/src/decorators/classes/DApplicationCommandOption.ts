@@ -14,7 +14,7 @@ import type {
 type CreateStructure = {
   autocomplete?: SlashAutoCompleteOption;
   channelType?: ChannelType[];
-  description: string;
+  description: string | undefined;
   descriptionLocalizations?: LocalizationMap | null;
   index?: number;
   maxLength?: number;
@@ -34,7 +34,7 @@ export class DApplicationCommandOption extends Decorator {
   private _autocomplete: SlashAutoCompleteOption;
   private _channelTypes: ChannelType[] | undefined = undefined;
   private _choices: DApplicationCommandOptionChoice[] = [];
-  private _description: string;
+  private _description: string | undefined;
   private _descriptionLocalizations: LocalizationMap | null;
   private _name: string;
   private _nameLocalizations: LocalizationMap | null;
@@ -67,10 +67,10 @@ export class DApplicationCommandOption extends Decorator {
     this._choices = value;
   }
 
-  get description(): string {
+  get description(): string|undefined {
     return this._description;
   }
-  set description(value: string) {
+  set description(value: string|undefined) {
     this._description = value;
   }
 
@@ -186,7 +186,7 @@ export class DApplicationCommandOption extends Decorator {
         : this.choices.length === 0
         ? undefined
         : this.choices.map((choice) => choice.toJSON()),
-      description: this.description,
+      description: this.description && this.description.length > 0 ? this.description : undefined,
       descriptionLocalizations: this.descriptionLocalizations,
       maxLength: this.maxLength,
       maxValue: this.maxValue,
