@@ -14,7 +14,7 @@ import type {
 type CreateStructure = {
   autocomplete?: SlashAutoCompleteOption;
   channelType?: ChannelType[];
-  description: string | undefined;
+  description?: string;
   descriptionLocalizations?: LocalizationMap | null;
   index?: number;
   maxLength?: number;

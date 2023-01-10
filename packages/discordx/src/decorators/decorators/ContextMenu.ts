@@ -27,7 +27,7 @@ export function ContextMenu<TName extends string>(
     const applicationCommand = DApplicationCommand.create({
       botIds: options.botIds,
       defaultMemberPermissions: options.defaultMemberPermissions,
-      description: "",
+      description: undefined,
       dmPermission: options.dmPermission,
       guilds: options.guilds,
       name: options.name ?? key,

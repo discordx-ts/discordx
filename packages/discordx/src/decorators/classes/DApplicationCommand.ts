@@ -13,7 +13,7 @@ import { Method } from "./Method.js";
 type CreateStructure = {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable | null;
-  description: string;
+  description?: string;
   descriptionLocalizations?: LocalizationMap | null;
   dmPermission?: boolean;
   guilds?: IGuild[];
