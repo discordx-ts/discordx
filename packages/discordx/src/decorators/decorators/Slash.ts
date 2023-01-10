@@ -3,7 +3,6 @@ import { ApplicationCommandType } from "discord.js";
 
 import type {
   ApplicationCommandOptions,
-  NotEmpty,
   VerifyName,
 } from "../../index.js";
 import {

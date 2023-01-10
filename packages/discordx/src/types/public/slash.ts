@@ -13,7 +13,7 @@ import type { DApplicationCommand, IGuild } from "../../index.js";
 export type ApplicationCommandOptions<T extends string, TD extends string> = {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable;
-  description: TD;
+  description?: TD;
   descriptionLocalizations?: LocalizationMap;
   dmPermission?: boolean;
   guilds?: IGuild[];
@@ -24,7 +24,7 @@ export type ApplicationCommandOptions<T extends string, TD extends string> = {
 export type SlashOptionBaseOptions<T extends string, TD extends string> = {
   autocomplete?: undefined;
   channelTypes?: undefined;
-  description: TD;
+  description?: TD;
   descriptionLocalizations?: LocalizationMap;
   maxLength?: undefined;
   maxValue?: undefined;
