@@ -13,7 +13,7 @@ class DatabaseDocument {
   }
 }
 
-function UppercaseTransformer(input: string): DatabaseDocument {
+function DatabaseTransformer(input: string): DatabaseDocument {
   return new DatabaseDocument(input);
 }
 
@@ -39,7 +39,7 @@ export class Example {
       description: "input",
       name: "input",
       required: true,
-      transformer: UppercaseTransformer,
+      transformer: DatabaseTransformer,
       type: ApplicationCommandOptionType.String,
     })
     input: DatabaseDocument,
