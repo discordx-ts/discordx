@@ -11,6 +11,7 @@ import type {
   Awaitable,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
+  TransformerFunction,
 } from "../../index.js";
 
 type CreateStructure = {
@@ -26,6 +27,7 @@ type CreateStructure = {
   name: string;
   nameLocalizations?: LocalizationMap | null;
   required?: boolean;
+  transformer?: TransformerFunction;
   type: ApplicationCommandOptionType;
 };
 
@@ -47,6 +49,7 @@ export class DApplicationCommandOption extends Decorator {
   private _options: DApplicationCommandOption[] = [];
   private _required = true;
   private _type: ApplicationCommandOptionType;
+  private _transformer?: TransformerFunction;
 
   get autocomplete(): SlashAutoCompleteOption {
     return this._autocomplete;
@@ -169,6 +172,7 @@ export class DApplicationCommandOption extends Decorator {
     this._type = data.type;
     this._descriptionLocalizations = data.descriptionLocalizations ?? null;
     this._nameLocalizations = data.nameLocalizations ?? null;
+    this._transformer = data.transformer;
   }
 
   static create(data: CreateStructure): DApplicationCommandOption {
@@ -204,7 +208,7 @@ export class DApplicationCommandOption extends Decorator {
     return data;
   }
 
-  parse(interaction: ChatInputCommandInteraction): Awaitable<unknown> {
+  parseType(interaction: ChatInputCommandInteraction): unknown {
     switch (this.type) {
       case ApplicationCommandOptionType.Attachment:
         return interaction.options.getAttachment(this.name) ?? undefined;
@@ -240,5 +244,13 @@ export class DApplicationCommandOption extends Decorator {
       default:
         return interaction.options.getString(this.name) ?? undefined;
     }
+  }
+
+  parse(interaction: ChatInputCommandInteraction): Awaitable<unknown> {
+    if (typeof this._transformer !== "undefined") {
+      return this._transformer(this.parse(interaction), interaction);
+    }
+
+    return this.parse(interaction);
   }
 }

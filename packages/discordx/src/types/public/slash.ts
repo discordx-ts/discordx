@@ -8,7 +8,11 @@ import type {
   PermissionResolvable,
 } from "discord.js";
 
-import type { DApplicationCommand, IGuild } from "../../index.js";
+import type {
+  DApplicationCommand,
+  IGuild,
+  TransformerFunction,
+} from "../../index.js";
 
 export type ApplicationCommandOptions<T extends string, TD extends string> = {
   botIds?: string[];
@@ -33,6 +37,7 @@ export type SlashOptionBaseOptions<T extends string, TD extends string> = {
   name: T;
   nameLocalizations?: LocalizationMap;
   required?: boolean;
+  transformer?: TransformerFunction;
   type: Exclude<
     ApplicationCommandOptionType,
     | ApplicationCommandOptionType.Subcommand
