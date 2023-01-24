@@ -1,6 +1,6 @@
 import { Decorator } from "@discordx/internal";
 
-import type { DDiscord, GuardFunction } from "../../index.js";
+import type { Awaitable, DDiscord, GuardFunction } from "../../index.js";
 import { DGuard } from "../../index.js";
 
 /**
@@ -63,7 +63,7 @@ export abstract class Method extends Decorator {
    *
    * @param params - The params to parse
    */
-  abstract parseParams(...params: unknown[]): unknown[];
+  abstract parseParams(...params: unknown[]): Awaitable<unknown[]>;
 
   /**
    * Execute a guard with params
@@ -81,10 +81,13 @@ export abstract class Method extends Decorator {
       let res: unknown;
 
       if (index >= [...globalGuards, ...this.guards].length - 1) {
+        // resolve params
+        const parsedParams = await this.parseParams(...params);
+
         // If it's the main method
         res = await (guardToExecute?.fn as (...[]) => unknown)(
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
-          ...this.parseParams(...params),
+          ...parsedParams,
           ...params,
           paramsToNext
         );

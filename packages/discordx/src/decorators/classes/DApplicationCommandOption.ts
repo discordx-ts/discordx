@@ -2,11 +2,13 @@ import { Decorator } from "@discordx/internal";
 import type {
   ApplicationCommandOptionData,
   ChannelType,
+  ChatInputCommandInteraction,
   LocalizationMap,
 } from "discord.js";
 import { ApplicationCommandOptionType } from "discord.js";
 
 import type {
+  Awaitable,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
 } from "../../index.js";
@@ -200,5 +202,43 @@ export class DApplicationCommandOption extends Decorator {
     } as ApplicationCommandOptionData;
 
     return data;
+  }
+
+  parse(interaction: ChatInputCommandInteraction): Awaitable<unknown> {
+    switch (this.type) {
+      case ApplicationCommandOptionType.Attachment:
+        return interaction.options.getAttachment(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.String:
+        return interaction.options.getString(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Boolean:
+        return interaction.options.getBoolean(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Number:
+        return interaction.options.getNumber(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Integer:
+        return interaction.options.getInteger(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Role:
+        return interaction.options.getRole(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Channel:
+        return interaction.options.getChannel(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Mentionable:
+        return interaction.options.getMentionable(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.User:
+        return (
+          interaction.options.getMember(this.name) ??
+          interaction.options.getUser(this.name) ??
+          undefined
+        );
+
+      default:
+        return interaction.options.getString(this.name) ?? undefined;
+    }
   }
 }
