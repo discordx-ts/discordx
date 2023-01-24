@@ -17,9 +17,9 @@ import type {
 export type Awaitable<T> = Promise<T> | T;
 
 export type TransformerFunction = (
-  value: unknown,
+  value: any,
   interaction: ChatInputCommandInteraction
-) => Awaitable<unknown>;
+) => Awaitable<any>;
 
 export type Next = (...paramsToNext: unknown[]) => Promise<unknown>;
 

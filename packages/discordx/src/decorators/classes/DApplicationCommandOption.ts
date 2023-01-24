@@ -247,10 +247,10 @@ export class DApplicationCommandOption extends Decorator {
   }
 
   parse(interaction: ChatInputCommandInteraction): Awaitable<unknown> {
-    if (typeof this._transformer !== "undefined") {
-      return this._transformer(this.parse(interaction), interaction);
+    if (this._transformer !== undefined) {
+      return this._transformer(this.parseType(interaction), interaction);
     }
 
-    return this.parse(interaction);
+    return this.parseType(interaction);
   }
 }
