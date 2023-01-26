@@ -51,23 +51,31 @@ Act as middleware for your parameters. Take a look at the following example to s
 
 ```ts
 class DatabaseDocument {
-  constructor(public input: string) {
+  constructor(
+    public input: string,
+    public interaction: ChatInputCommandInteraction
+  ) {
     //
   }
 
-  toUppercase(): string {
-    return this.input.toUpperCase();
+  async say(): Promise<void> {
+    await this.interaction.followUp(
+      `${this.interaction.user} says ${this.input}`
+    );
   }
 }
 
-function DatabaseTransformer(input: string): DatabaseDocument {
-  return new DatabaseDocument(input);
+function DatabaseTransformer(
+  input: string,
+  interaction: ChatInputCommandInteraction
+): DatabaseDocument {
+  return new DatabaseDocument(input, interaction);
 }
 
 @Discord()
 export class Example {
   @Slash({ description: "test-input-next", name: "test-input-next" })
-  withTransformer(
+  async withTransformer(
     @SlashOption({
       description: "input",
       name: "input",
@@ -76,9 +84,10 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     input: DatabaseDocument,
-    interaction: CommandInteraction
-  ): void {
-    interaction.reply(input.toUppercase());
+    interaction: ChatInputCommandInteraction
+  ): Promise<void> {
+    await interaction.deferReply();
+    input.say();
   }
 }
 ```
