@@ -41,7 +41,7 @@
     "build:changelog": "npx @discordx/changelog@latest --src src --match-tag create-discordx-* --replace-tag create-discordx-"
   },
   "dependencies": {
-    "axios": "^1.2.4",
+    "axios": "^1.2.5",
     "boxen": "^7.0.1",
     "chalk": "^5.2.0",
     "is-installed-globally": "^0.4.0",
