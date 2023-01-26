@@ -50,24 +50,38 @@ class Example {
 Act as middleware for your parameters. Take a look at the following example to see how useful it is.
 
 ```ts
-class DatabaseDocument {
-  constructor(public input: string) {
-    //
+class Document {
+  constructor(
+    public input: string,
+    public interaction: ChatInputCommandInteraction
+  ) {
+    /*
+      empty constructor
+    */
   }
 
-  toUppercase(): string {
-    return this.input.toUpperCase();
+  async save(): Promise<void> {
+    /*
+      your logic to save input into database
+    */
+
+    await this.interaction.followUp(
+      `${this.interaction.user} saved \`${this.input}\` into database`
+    );
   }
 }
 
-function DatabaseTransformer(input: string): DatabaseDocument {
-  return new DatabaseDocument(input);
+function DatabaseTransformer(
+  input: string,
+  interaction: ChatInputCommandInteraction
+): Document {
+  return new Document(input, interaction);
 }
 
 @Discord()
 export class Example {
-  @Slash({ description: "test-input-next", name: "test-input-next" })
-  withTransformer(
+  @Slash({ description: "Save input into database", name: "save-input" })
+  async withTransformer(
     @SlashOption({
       description: "input",
       name: "input",
@@ -75,10 +89,11 @@ export class Example {
       transformer: DatabaseTransformer,
       type: ApplicationCommandOptionType.String,
     })
-    input: DatabaseDocument,
-    interaction: CommandInteraction
-  ): void {
-    interaction.reply(input.toUppercase());
+    doc: Document,
+    interaction: ChatInputCommandInteraction
+  ): Promise<void> {
+    await interaction.deferReply();
+    doc.save();
   }
 }
 ```
