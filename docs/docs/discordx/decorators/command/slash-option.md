@@ -71,7 +71,7 @@ class Document {
   }
 }
 
-function DatabaseTransformer(
+function DocumentTransformer(
   input: string,
   interaction: ChatInputCommandInteraction
 ): Document {
@@ -86,7 +86,7 @@ export class Example {
       description: "input",
       name: "input",
       required: true,
-      transformer: DatabaseTransformer,
+      transformer: DocumentTransformer,
       type: ApplicationCommandOptionType.String,
     })
     doc: Document,
