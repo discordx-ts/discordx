@@ -23,6 +23,11 @@ module.exports = {
     footer: {
       copyright: "Made by discordx team with ❤️",
     },
+    announcementBar: {
+      id: "support_us",
+      content:
+        '⭐️ If you like discordx, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/discordx-ts/discordx">GitHub</a>! ⭐️',
+    },
     navbar: {
       items: [
         {

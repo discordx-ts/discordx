@@ -218,43 +218,9 @@ export class DApplicationCommand extends Method {
     return data;
   }
 
-  parseParams(interaction: ChatInputCommandInteraction): unknown[] {
-    return [...this.options].reverse().map((op) => {
-      switch (op.type) {
-        case ApplicationCommandOptionType.Attachment:
-          return interaction.options.getAttachment(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.String:
-          return interaction.options.getString(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.Boolean:
-          return interaction.options.getBoolean(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.Number:
-          return interaction.options.getNumber(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.Integer:
-          return interaction.options.getInteger(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.Role:
-          return interaction.options.getRole(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.Channel:
-          return interaction.options.getChannel(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.Mentionable:
-          return interaction.options.getMentionable(op.name) ?? undefined;
-
-        case ApplicationCommandOptionType.User:
-          return (
-            interaction.options.getMember(op.name) ??
-            interaction.options.getUser(op.name) ??
-            undefined
-          );
-
-        default:
-          return interaction.options.getString(op.name) ?? undefined;
-      }
-    });
+  parseParams(interaction: ChatInputCommandInteraction): Promise<unknown[]> {
+    return Promise.all(
+      [...this.options].reverse().map((op) => op.parse(interaction))
+    );
   }
 }

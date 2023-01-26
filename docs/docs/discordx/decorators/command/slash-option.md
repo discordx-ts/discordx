@@ -45,6 +45,44 @@ class Example {
 }
 ```
 
+## Transformer
+
+Act as middleware for your parameters. Take a look at the following example to see how useful it is.
+
+```ts
+class DatabaseDocument {
+  constructor(public input: string) {
+    //
+  }
+
+  toUppercase(): string {
+    return this.input.toUpperCase();
+  }
+}
+
+function DatabaseTransformer(input: string): DatabaseDocument {
+  return new DatabaseDocument(input);
+}
+
+@Discord()
+export class Example {
+  @Slash({ description: "test-input-next", name: "test-input-next" })
+  withTransformer(
+    @SlashOption({
+      description: "input",
+      name: "input",
+      required: true,
+      transformer: DatabaseTransformer,
+      type: ApplicationCommandOptionType.String,
+    })
+    input: DatabaseDocument,
+    interaction: CommandInteraction
+  ): void {
+    interaction.reply(input.toUppercase());
+  }
+}
+```
+
 ## Autocomplete option
 
 > Autocomplete interactions allow your application to dynamically return option suggestions to a user as they type. - discord

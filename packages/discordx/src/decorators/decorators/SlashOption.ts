@@ -38,6 +38,7 @@ export function SlashOption<T extends string, TD extends string>(
       name: options.name,
       nameLocalizations: options.nameLocalizations,
       required: options.required,
+      transformer: options.transformer,
       type: options.type,
     }).decorate(
       target.constructor,

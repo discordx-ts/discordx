@@ -2,13 +2,16 @@ import { Decorator } from "@discordx/internal";
 import type {
   ApplicationCommandOptionData,
   ChannelType,
+  ChatInputCommandInteraction,
   LocalizationMap,
 } from "discord.js";
 import { ApplicationCommandOptionType } from "discord.js";
 
 import type {
+  Awaitable,
   DApplicationCommandOptionChoice,
   SlashAutoCompleteOption,
+  TransformerFunction,
 } from "../../index.js";
 
 type CreateStructure = {
@@ -24,6 +27,7 @@ type CreateStructure = {
   name: string;
   nameLocalizations?: LocalizationMap | null;
   required?: boolean;
+  transformer?: TransformerFunction;
   type: ApplicationCommandOptionType;
 };
 
@@ -45,6 +49,7 @@ export class DApplicationCommandOption extends Decorator {
   private _options: DApplicationCommandOption[] = [];
   private _required = true;
   private _type: ApplicationCommandOptionType;
+  private _transformer?: TransformerFunction;
 
   get autocomplete(): SlashAutoCompleteOption {
     return this._autocomplete;
@@ -167,6 +172,7 @@ export class DApplicationCommandOption extends Decorator {
     this._type = data.type;
     this._descriptionLocalizations = data.descriptionLocalizations ?? null;
     this._nameLocalizations = data.nameLocalizations ?? null;
+    this._transformer = data.transformer;
   }
 
   static create(data: CreateStructure): DApplicationCommandOption {
@@ -200,5 +206,51 @@ export class DApplicationCommandOption extends Decorator {
     } as ApplicationCommandOptionData;
 
     return data;
+  }
+
+  parseType(interaction: ChatInputCommandInteraction): unknown {
+    switch (this.type) {
+      case ApplicationCommandOptionType.Attachment:
+        return interaction.options.getAttachment(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.String:
+        return interaction.options.getString(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Boolean:
+        return interaction.options.getBoolean(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Number:
+        return interaction.options.getNumber(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Integer:
+        return interaction.options.getInteger(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Role:
+        return interaction.options.getRole(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Channel:
+        return interaction.options.getChannel(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.Mentionable:
+        return interaction.options.getMentionable(this.name) ?? undefined;
+
+      case ApplicationCommandOptionType.User:
+        return (
+          interaction.options.getMember(this.name) ??
+          interaction.options.getUser(this.name) ??
+          undefined
+        );
+
+      default:
+        return interaction.options.getString(this.name) ?? undefined;
+    }
+  }
+
+  parse(interaction: ChatInputCommandInteraction): Awaitable<unknown> {
+    if (this._transformer !== undefined) {
+      return this._transformer(this.parseType(interaction), interaction);
+    }
+
+    return this.parseType(interaction);
   }
 }

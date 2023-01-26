@@ -1,4 +1,8 @@
-import type { Message, Snowflake } from "discord.js";
+import type {
+  ChatInputCommandInteraction,
+  Message,
+  Snowflake,
+} from "discord.js";
 
 import type {
   Client,
@@ -11,6 +15,11 @@ import type {
 } from "../../index.js";
 
 export type Awaitable<T> = Promise<T> | T;
+
+export type TransformerFunction = (
+  value: any,
+  interaction: ChatInputCommandInteraction
+) => Awaitable<any>;
 
 export type Next = (...paramsToNext: unknown[]) => Promise<unknown>;
 
