@@ -57,7 +57,7 @@
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
     "discord.js": "^14.7.1",
-    "discordx": "^11.5.2",
+    "discordx": "^11.6.0",
     "typescript": "4.9.4"
   },
   "peerDependencies": {
