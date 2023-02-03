@@ -1251,19 +1251,16 @@ export class Client extends ClientJS {
    */
   async executeCommand(
     message: Message,
-    options?: {
-      caseSensitive?: boolean;
-      forcePrefixCheck?: boolean;
-      log?: boolean;
-    }
+    caseSensitive?: boolean
   ): Promise<unknown> {
     const prefix = await this.getMessagePrefix(message);
 
     const command = await this.parseCommand(
       prefix,
       message,
-      options?.caseSensitive ?? false
+      caseSensitive ?? false
     );
+
     if (command === SimpleCommandParseType.notCommand) {
       return;
     }
@@ -1272,9 +1269,9 @@ export class Client extends ClientJS {
       const handleNotFound = this.simpleCommandConfig?.responses?.notFound;
       if (handleNotFound) {
         if (typeof handleNotFound === "string") {
-          message.reply(handleNotFound);
+          await message.reply(handleNotFound);
         } else {
-          handleNotFound(message);
+          await handleNotFound(message);
         }
       }
       return;
@@ -1290,7 +1287,7 @@ export class Client extends ClientJS {
       return;
     }
 
-    // check dm allowed or not
+    // Check if DM is allowed and if guild is present in message
     if (!command.info.directMessage && !message.guild) {
       return;
     }
