@@ -4,64 +4,28 @@ It manages all the operations between your app and Discord's API using discord.j
 
 ## Setup and start your application
 
-In order to start your application, you must use the discord.**ts**'s Client (not the client that is provided by discord.**js**!).  
-It works the same as the discord.**js**'s Client (same methods, properties, ...).
+In order to start your application, you must use the **discordx**'s Client (not the client that is provided by **discord.js**!).  
+It works the same as the **discord.js**'s Client (same methods, properties, ...).
 
-### intents
+```ts
+const client = new Client({
+  intents: [
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.GuildMembers,
+  ],
+  silent: false,
+});
 
-[see Intents](#list-of-all-the-intents)
+client.on("ready", async () => {
+  console.log(">> Bot started");
 
-| type       | default | required |
-| ---------- | ------- | -------- |
-| Intents[ ] |         | Yes      |
+  // to create/update/delete discord application commands
+  await client.initApplicationCommands();
+});
 
-### botId
-
-a bot id, help you manage your bot interactions, events (this is important in case there are more than one bot running in single instance)
-
-| type   | default | required |
-| ------ | ------- | -------- |
-| string | bot     | No       |
-
-### prefix
-
-simple commands use this prefix by default, use function to fetch different prefix for different guilds
-
-| type                                                | default | required |
-| --------------------------------------------------- | ------- | -------- |
-| string \| ((message: Message) =\> Promise<string\>) | !       | No       |
-
-### commandUnauthorizedHandler
-
-define bot reply, when command is not authorized
-
-| type                                                           | default | required |
-| -------------------------------------------------------------- | ------- | -------- |
-| string \| ((command: SimpleCommandMessage) =\> Promise<void\>) |         | No       |
-
-### silent
-
-Allows you to disable your event information at startup
-
-| type    | default | required |
-| ------- | ------- | -------- |
-| boolean | true    | No       |
-
-### guards
-
-Global guards, it's an array of functions
-
-| type              | default | required |
-| ----------------- | ------- | -------- |
-| GuardFunction [ ] | [ ]     | No       |
-
-### botGuilds
-
-The application commands are executed only on this list of guilds by default, ex. slash, button, select-menu, context-menu
-
-| type       | default | required |
-| ---------- | ------- | -------- |
-| IGuild [ ] | [ ]     | No       |
+client.login(BOT_TOKEN);
+```
 
 ## Intents
 
