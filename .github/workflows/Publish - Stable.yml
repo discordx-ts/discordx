@@ -53,11 +53,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Node v18
+      - name: Install Node
         if: github.event.inputs.package == matrix.package
         uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
+          node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
 
       - name: Synchronize current version
