@@ -3,7 +3,12 @@ import type {
   Message,
 } from "discord.js";
 
-import type { ArgSplitter, GuardFunction, IGuild } from "../../index.js";
+import type {
+  ArgSplitter,
+  GuardFunction,
+  IGuild,
+  Plugin,
+} from "../../index.js";
 import type { Awaitable, ILogger, IPrefixResolver } from "../index.js";
 
 export type SimpleCommandConfig = {
@@ -48,6 +53,11 @@ export interface ClientOptions extends DiscordJSClientOptions {
    * Set custom logger implementation
    */
   logger?: ILogger;
+
+  /**
+   * Set of plugins
+   */
+  plugins?: Plugin[];
 
   /**
    * Do not log anything
