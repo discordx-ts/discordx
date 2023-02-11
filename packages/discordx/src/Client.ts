@@ -45,6 +45,7 @@ import type {
   IPrefixResolver,
   ISimpleCommandByName,
   ITriggerEventData,
+  Plugin,
   SimpleCommandConfig,
 } from "./index.js";
 import {
@@ -72,6 +73,7 @@ export class Client extends ClientJS {
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
   private _botGuilds: IGuild[] = [];
+  private _plugins: Plugin[] = [];
   private _guards: GuardFunction[] = [];
   private logger: ILogger;
 
@@ -288,6 +290,7 @@ export class Client extends ClientJS {
   constructor(options: ClientOptions) {
     super(options);
 
+    this._plugins = options?.plugins ?? [];
     this._silent = options?.silent ?? true;
     this.guards = options.guards ?? [];
     this.botGuilds = options.botGuilds ?? [];
@@ -1387,6 +1390,8 @@ export class Client extends ClientJS {
     if (this._isBuilt) {
       return;
     }
+
+    await Promise.all(this._plugins.map((plugin) => plugin.init()));
 
     this._isBuilt = true;
     await this.instance.build();

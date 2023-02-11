@@ -51,7 +51,7 @@ DiscordAPIError: Missing Access
 
 #### Solution
 
-[Authorize your bot to use application commands](/docs/discordx/decorators/command/slash#authorize-your-bot-to-use-application-commands)
+[Authorize your bot to use application commands](docs/discordx/decorators/command/slash#authorize-your-bot-to-use-application-commands)
 
 ---
 
@@ -65,4 +65,4 @@ Error [DISALLOWED_INTENTS]: Privileged intent provided is not enabled or whiteli
 
 Some [Gateway Intents](https://discord.com/developers/docs/topics/gateway#gateway-intents) require approval if your bot is verified. If your bot is not verified, you can toggle those intents to access them. - _Discord_
 
-![Privileged Gateway Intents](../../../static/img/privileged-gateway-intents.png)
+![Privileged Gateway Intents](../../../static/img/privileged-gateway-intents.png))
