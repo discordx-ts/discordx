@@ -1,12 +1,18 @@
 import type { AudioResource } from "@discordjs/voice";
 import { createAudioResource, StreamType } from "@discordjs/voice";
 import type { GuildMember, User } from "discord.js";
-import type ytpl from "ytpl";
-import type { Video } from "ytsr";
 
 import type { CommonTrack, Player } from "../index.js";
 import { ytdl } from "../index.js";
 import { Track } from "./Track.js";
+
+/**
+ * Youtube video title and url
+ */
+export interface VideoItem {
+  title: string;
+  url: string;
+}
 
 /**
  * Track options
@@ -27,7 +33,7 @@ export class YoutubeTrack extends Track {
   public url: string;
 
   constructor(
-    public info: Video | ytpl.Item,
+    public info: VideoItem,
     public player: Player,
     public options?: ITrackOptions
   ) {
