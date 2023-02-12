@@ -1,10 +1,11 @@
 import type { CommandInteraction, Guild, TextBasedChannel } from "discord.js";
 import { ApplicationCommandOptionType, GuildMember } from "discord.js";
 import { join } from "path";
+import yts from "yt-search";
 
 import { Discord, Slash, SlashOption } from "../../../discordx/src/index.js";
 import type { Queue } from "../../src/index.js";
-import { CustomTrack, Player } from "../../src/index.js";
+import { CustomTrack, Player, YoutubeTrack } from "../../src/index.js";
 
 @Discord()
 export class music {
@@ -147,12 +148,23 @@ export class music {
       this.channel = interaction.channel ?? undefined;
       await queue.join(interaction.member.voice.channel);
     }
-    const status = await queue.play(songName);
-    if (!status) {
+
+    const search = await yts({ query: songName });
+    const video = search.videos[0];
+
+    if (!video) {
       interaction.followUp("The song could not be found");
-    } else {
-      interaction.followUp("The requested song is being played");
+      return;
     }
+
+    const track = new YoutubeTrack(
+      { title: video.title, url: video.videoId },
+      this.player
+    );
+
+    queue.playTrack(track);
+
+    interaction.followUp("The requested song is being played");
   }
 
   @Slash({ description: "Play a playlist" })
@@ -183,12 +195,28 @@ export class music {
       this.channel = interaction.channel ?? undefined;
       await queue.join(interaction.member.voice.channel);
     }
-    const status = await queue.playlist(playlistName);
-    if (!status) {
+
+    const search = await yts({ query: playlistName });
+    const playlist = search.playlists[0];
+
+    if (!playlist) {
       interaction.followUp("The playlist could not be found");
-    } else {
-      interaction.followUp("The requested playlist is being played");
+      return;
     }
+
+    const list = await yts({ listId: playlist.listId });
+
+    const tracks = list.videos.map(
+      (video) =>
+        new YoutubeTrack(
+          { title: video.title, url: video.videoId },
+          this.player
+        )
+    );
+
+    queue.playTrack(tracks);
+
+    interaction.followUp("The requested playlist is being played");
   }
 
   @Slash({ description: "Play custom track", name: "custom-track" })

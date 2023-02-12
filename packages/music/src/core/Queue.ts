@@ -14,11 +14,9 @@ import {
 } from "@discordjs/voice";
 import type { Guild, StageChannel, VoiceChannel } from "discord.js";
 import _ from "lodash";
-import type ytpl from "ytpl";
-import type { Video } from "ytsr";
 
-import type { CommonTrack, ITrackOptions, Player } from "../index.js";
-import { PlayerErrors, Util, YoutubeTrack } from "../index.js";
+import type { CommonTrack, Player } from "../index.js";
+import { PlayerErrors, YoutubeTrack } from "../index.js";
 
 /**
  * Wait promise
@@ -519,7 +517,7 @@ export abstract class Queue<T extends Player = Player> {
   }
 
   /**
-   * play custom track
+   * play track
    *
    * @param track
    * @param options
@@ -527,11 +525,11 @@ export abstract class Queue<T extends Player = Player> {
    * @returns
    */
   public playTrack(
-    track: CommonTrack,
+    track: CommonTrack | CommonTrack[],
     options?: { enqueueTop?: boolean; playNow?: boolean }
-  ): CommonTrack {
+  ): CommonTrack[] {
     // enqueue track
-    this.enqueue([track], options?.enqueueTop);
+    this.enqueue(Array.isArray(track) ? track : [track], options?.enqueueTop);
 
     // force stop, if play now requested
     if (this.isPlaying && options?.playNow) {
@@ -539,65 +537,6 @@ export abstract class Queue<T extends Player = Player> {
     }
 
     this.processQueue();
-    return track;
-  }
-
-  /**
-   * play song
-   *
-   * @param search
-   * @param options
-   * @param enqueueTop
-   *
-   * @returns
-   */
-  public async play(
-    search: string | Video,
-    options?: ITrackOptions,
-    playNow?: boolean,
-    enqueueTop?: boolean
-  ): Promise<YoutubeTrack | undefined> {
-    const video =
-      typeof search === "string" ? await Util.getSong(search) : search;
-    if (!video) {
-      return;
-    }
-
-    const track = new YoutubeTrack(video, this.player, options);
-    this.enqueue([track], enqueueTop);
-    if (this.isPlaying && playNow) {
-      this.audioPlayer.stop();
-    }
-
-    this.processQueue();
-    return track;
-  }
-
-  /**
-   * play playlist
-   *
-   * @param search
-   * @param options
-   * @param enqueueTop
-   *
-   * @returns
-   */
-  public async playlist(
-    search: string | ytpl.Result,
-    options?: ITrackOptions,
-    enqueueTop?: boolean
-  ): Promise<YoutubeTrack[] | undefined> {
-    const playlist =
-      typeof search === "string" ? await Util.getPlaylist(search) : search;
-    if (!playlist) {
-      return;
-    }
-
-    const tracks = playlist.items.map(
-      (video) => new YoutubeTrack(video, this.player, options)
-    );
-    this.enqueue(tracks, enqueueTop);
-    this.processQueue();
-    return tracks;
+    return Array.isArray(track) ? track : [track];
   }
 }
