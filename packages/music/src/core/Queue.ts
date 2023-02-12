@@ -423,7 +423,8 @@ export abstract class Queue<T extends Player = Player> {
       return false;
     }
 
-    const newTrack = new YoutubeTrack(track.info, this.player, { seek: time });
+    track.info.seek = time;
+    const newTrack = new YoutubeTrack(track.info);
     this.enqueue([newTrack], true);
     this._audioPlayer.stop();
     this.player.emit("onSeek", [this, newTrack, time]);

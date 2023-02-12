@@ -157,10 +157,7 @@ export class music {
       return;
     }
 
-    const track = new YoutubeTrack(
-      { title: video.title, url: video.videoId },
-      this.player
-    );
+    const track = new YoutubeTrack({ title: video.title, url: video.videoId });
 
     queue.playTrack(track);
 
@@ -207,11 +204,7 @@ export class music {
     const list = await yts({ listId: playlist.listId });
 
     const tracks = list.videos.map(
-      (video) =>
-        new YoutubeTrack(
-          { title: video.title, url: video.videoId },
-          this.player
-        )
+      (video) => new YoutubeTrack({ title: video.title, url: video.videoId })
     );
 
     queue.playTrack(tracks);
@@ -241,11 +234,10 @@ export class music {
     }
 
     queue.playTrack(
-      new CustomTrack(
-        this.player,
-        "My Custom Track",
-        join(__dirname, "file.mp3")
-      )
+      new CustomTrack({
+        source: join(__dirname, "file.mp3"),
+        title: "My Custom Track",
+      })
     );
     interaction.followUp("queued custom track");
   }

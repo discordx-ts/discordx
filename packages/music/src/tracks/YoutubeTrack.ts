@@ -1,27 +1,20 @@
 import type { AudioResource } from "@discordjs/voice";
 import { createAudioResource, StreamType } from "@discordjs/voice";
-import type { GuildMember, User } from "discord.js";
 
-import type { CommonTrack, Player } from "../index.js";
+import type { CommonTrack } from "../index.js";
 import { ytdl } from "../index.js";
 import { Track } from "./Track.js";
 
 /**
- * Youtube video title and url
- */
-export interface VideoItem {
-  title: string;
-  url: string;
-}
-
-/**
  * Track options
  */
-export interface ITrackOptions {
+export interface VideoItem {
+  [key: string]: any;
   encoderArgs?: string[];
   quality?: "lowestaudio" | "highestaudio";
   seek?: number;
-  user?: User | GuildMember;
+  title: string;
+  url: string;
   ytdlRequestOptions?: object;
 }
 
@@ -29,17 +22,8 @@ export interface ITrackOptions {
  * Music track
  */
 export class YoutubeTrack extends Track {
-  public title: string;
-  public url: string;
-
-  constructor(
-    public info: VideoItem,
-    public player: Player,
-    public options?: ITrackOptions
-  ) {
+  constructor(public info: VideoItem) {
     super(info.title, info.url);
-    this.title = info.title;
-    this.url = info.url;
   }
 
   /**
@@ -47,14 +31,14 @@ export class YoutubeTrack extends Track {
    * @returns
    */
   public createAudioResource(): AudioResource<CommonTrack> {
-    const stream = ytdl(this.url, {
-      encoderArgs: this.options?.encoderArgs,
+    const stream = ytdl(this.info.url, {
+      encoderArgs: this.info?.encoderArgs,
       fmt: "s16le",
       highWaterMark: 1 << 25,
       opusEncoded: false,
-      quality: this.options?.quality ?? "highestaudio",
-      requestOptions: this.options?.ytdlRequestOptions,
-      seek: this.options?.seek ? this.options.seek / 1e3 : 0,
+      quality: this.info?.quality ?? "highestaudio",
+      requestOptions: this.info?.ytdlRequestOptions,
+      seek: this.info?.seek ? this.info.seek / 1e3 : 0,
     });
 
     return createAudioResource(stream, {
