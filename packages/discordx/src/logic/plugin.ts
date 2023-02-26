@@ -1,3 +1,4 @@
+import type { Client } from "../index.js";
 import type { Awaitable } from "../types/index.js";
 import { MetadataStorage } from "./metadata/MetadataStorage.js";
 
@@ -10,5 +11,5 @@ export abstract class Plugin {
     MetadataStorage.instance = options.metadata;
   }
 
-  abstract init(): Awaitable<void>;
+  abstract init(client: Client): Awaitable<void>;
 }
