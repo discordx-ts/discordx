@@ -6,6 +6,7 @@ import type {
   TextBasedChannel,
 } from "discord.js";
 import {
+  ChannelType,
   ChatInputCommandInteraction,
   CommandInteraction,
   ComponentType,
@@ -172,6 +173,10 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
       message = reply;
     } else {
+      if (this.sendTo.type === ChannelType.GuildStageVoice) {
+        throw Error("Pagination not supported with guild stage channel");
+      }
+
       message = await this.sendTo.send(page.newMessage);
     }
 
