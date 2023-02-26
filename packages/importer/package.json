@@ -50,12 +50,12 @@
   },
   "dependencies": {
     "glob": "^8.1.0",
-    "tslib": "^2.4.1"
+    "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@types/glob": "^8.0.1",
-    "@types/node": "^18.11.18",
-    "typescript": "4.9.4"
+    "@types/glob": "^8.1.0",
+    "@types/node": "^18.14.2",
+    "typescript": "4.9.5"
   },
   "publishConfig": {
     "access": "public"
