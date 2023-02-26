@@ -69,6 +69,7 @@ import {
 export class Client extends ClientJS {
   private _botId: string;
   private _isBuilt = false;
+  private _isPluginsLoaded = false;
   private _prefix: IPrefixResolver;
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
@@ -1384,6 +1385,18 @@ export class Client extends ClientJS {
   }
 
   /**
+   * Load plugins
+   */
+  async initPlugins(): Promise<void> {
+    if (this._isPluginsLoaded) {
+      return;
+    }
+
+    this._isPluginsLoaded = true;
+    await Promise.all(this._plugins.map((plugin) => plugin.init(this)));
+  }
+
+  /**
    * Manually build client
    */
   async build(): Promise<void> {
@@ -1391,9 +1404,12 @@ export class Client extends ClientJS {
       return;
     }
 
-    await Promise.all(this._plugins.map((plugin) => plugin.init()));
-
     this._isBuilt = true;
+
+    // Load plugins
+    await this.initPlugins();
+
+    // Build instance
     await this.instance.build();
 
     if (!this.silent) {
