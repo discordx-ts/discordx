@@ -17,7 +17,7 @@ export async function resolve(...paths: string[]): Promise<string[]> {
 
       files.forEach((file) => {
         if (!imports.includes(file)) {
-          imports.push("file://" + file);
+          imports.push(file);
         }
       });
     })
