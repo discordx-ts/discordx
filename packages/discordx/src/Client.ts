@@ -23,7 +23,8 @@ import {
   Client as ClientJS,
   InteractionType,
 } from "discord.js";
-import _ from "lodash";
+import escapeRegExp from "lodash/escapeRegExp";
+import isArray from "lodash/isArray";
 
 import type {
   ApplicationCommandDataEx,
@@ -424,8 +425,7 @@ export class Client extends ClientJS {
         }
 
         this.logger.log(
-          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${
-            DCommand.classRef.name
+          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${DCommand.classRef.name
           }.${DCommand.key})`
         );
 
@@ -448,20 +448,17 @@ export class Client extends ClientJS {
 
           options.forEach((option, optionIndex) => {
             this.logger.log(
-              `${
-                (option.type === ApplicationCommandOptionType.Subcommand ||
-                  option.type ===
-                    ApplicationCommandOptionType.SubcommandGroup) &&
+              `${(option.type === ApplicationCommandOptionType.Subcommand ||
+                option.type ===
+                ApplicationCommandOptionType.SubcommandGroup) &&
                 optionIndex !== 0
-                  ? "\n"
-                  : ""
-              }${tab}>> ${
-                option.type === ApplicationCommandOptionType.Subcommand ||
+                ? "\n"
+                : ""
+              }${tab}>> ${option.type === ApplicationCommandOptionType.Subcommand ||
                 option.type === ApplicationCommandOptionType.SubcommandGroup
-                  ? option.name
-                  : option.name
-              }: ${ApplicationCommandOptionType[option.type]?.toLowerCase()} (${
-                option.classRef.name
+                ? option.name
+                : option.name
+              }: ${ApplicationCommandOptionType[option.type]?.toLowerCase()} (${option.classRef.name
               }.${option.key})`
             );
             printOptions(option.options, depth + 1);
@@ -502,8 +499,7 @@ export class Client extends ClientJS {
           const tab = Array(depth).join("\t\t");
           options.forEach((option) => {
             this.logger.log(
-              `${tab}${option.name}: ${
-                SimpleCommandOptionType[option.type] ?? "unknown"
+              `${tab}${option.name}: ${SimpleCommandOptionType[option.type] ?? "unknown"
               } (${option.classRef.name}.${option.key})`
             );
           });
@@ -599,8 +595,7 @@ export class Client extends ClientJS {
     const guild = this.guilds.cache.get(guildId);
     if (!guild) {
       this.logger.warn(
-        `${
-          this.user?.username ?? this.botId
+        `${this.user?.username ?? this.botId
         } >> initGuildApplicationCommands: skipped (Reason: guild ${guildId} unavailable)`
       );
       return;
@@ -697,8 +692,8 @@ export class Client extends ClientJS {
     // If there are no changes to share with Discord, cancel the task
     if (
       commandsToAdd.length +
-        commandsToUpdate.length +
-        commandsToDelete.length ===
+      commandsToUpdate.length +
+      commandsToDelete.length ===
       0
     ) {
       return;
@@ -717,16 +712,16 @@ export class Client extends ClientJS {
 
     const operationToUpdate = options?.disable?.update
       ? commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(
-            (await cmd.command.toJSON()) as ApplicationCommandDataEx
-          )
+        bulkUpdate.push(
+          (await cmd.command.toJSON()) as ApplicationCommandDataEx
         )
+      )
       : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
       ? commandsToDelete.map(async (cmd) =>
-          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandDataEx)
-        )
+        bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandDataEx)
+      )
       : [];
 
     await Promise.all([
@@ -853,14 +848,14 @@ export class Client extends ClientJS {
 
     const operationToUpdate = options?.disable?.update
       ? commandsToUpdate.map((cmd) =>
-          bulkUpdate.push(cmd.command.toJSON() as ApplicationCommandDataEx)
-        )
+        bulkUpdate.push(cmd.command.toJSON() as ApplicationCommandDataEx)
+      )
       : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
       ? commandsToDelete.map((cmd) =>
-          bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx)
-        )
+        bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx)
+      )
       : [];
 
     await Promise.all([
@@ -1052,8 +1047,7 @@ export class Client extends ClientJS {
     if (!applicationCommand?.isBotAllowed(this.botId)) {
       if (!this.silent) {
         this.logger.warn(
-          `${
-            this.user?.username ?? this.botId
+          `${this.user?.username ?? this.botId
           } >> interaction not found, commandName: ${interaction.commandName}`
         );
       }
@@ -1103,14 +1097,12 @@ export class Client extends ClientJS {
     if (!executes.length) {
       if (!this.silent) {
         this.logger.warn(
-          `${this.user?.username ?? this.botId} >> ${
-            interaction.isButton()
-              ? "button"
-              : interaction.isAnySelectMenu()
+          `${this.user?.username ?? this.botId} >> ${interaction.isButton()
+            ? "button"
+            : interaction.isAnySelectMenu()
               ? "select menu"
               : "modal"
-          } component handler not found, interactionId: ${
-            interaction.id
+          } component handler not found, interactionId: ${interaction.id
           } | customId: ${interaction.customId}`
         );
       }
@@ -1143,17 +1135,16 @@ export class Client extends ClientJS {
   ): Awaited<unknown> {
     const applicationCommand = interaction.isUserContextMenuCommand()
       ? this.applicationCommandUsers.find(
-          (cmd) => cmd.name === interaction.commandName
-        )
+        (cmd) => cmd.name === interaction.commandName
+      )
       : this.applicationCommandMessages.find(
-          (cmd) => cmd.name === interaction.commandName
-        );
+        (cmd) => cmd.name === interaction.commandName
+      );
 
     if (!applicationCommand?.isBotAllowed(this.botId)) {
       if (!this.silent) {
         this.logger.warn(
-          `${
-            this.user?.username ?? this.botId
+          `${this.user?.username ?? this.botId
           } >> context interaction not found, name: ${interaction.commandName}`
         );
       }
@@ -1172,7 +1163,7 @@ export class Client extends ClientJS {
    */
   async getMessagePrefix(message: Message): Promise<IPrefix> {
     if (typeof this.prefix !== "function") {
-      return _.isArray(this.prefix) ? [...this.prefix] : [this.prefix];
+      return isArray(this.prefix) ? [...this.prefix] : [this.prefix];
     }
 
     return [...(await this.prefix(message))];
@@ -1195,7 +1186,7 @@ export class Client extends ClientJS {
     const mappedPrefix = Array.from(this.simpleCommandsByPrefix.keys());
     const prefixRegex = RegExp(
       `^(${[...prefix, ...mappedPrefix]
-        .map((pfx) => _.escapeRegExp(pfx))
+        .map((pfx) => escapeRegExp(pfx))
         .join("|")})`
     );
 

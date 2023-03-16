@@ -14,7 +14,7 @@ import {
   Message,
   MessageComponentInteraction,
 } from "discord.js";
-import _ from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 
 import { GeneratePage } from "./functions/GeneratePage.js";
 import type { PaginationResolver } from "./Resolver.js";
@@ -97,7 +97,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    */
   public getPage = async (page: number): Promise<IGeneratePage | undefined> => {
     const embed = Array.isArray(this.pages)
-      ? _.cloneDeep<PaginationItem | undefined>(this.pages[page])
+      ? cloneDeep<PaginationItem | undefined>(this.pages[page])
       : await this.pages.resolver(page, this);
 
     if (!embed) {
@@ -154,15 +154,15 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       const reply =
         this.sendTo.deferred || this.sendTo.replied
           ? await this.sendTo.followUp({
-              ...page.newMessage,
-              ephemeral: this.option.ephemeral,
-              fetchReply: true,
-            })
+            ...page.newMessage,
+            ephemeral: this.option.ephemeral,
+            fetchReply: true,
+          })
           : await this.sendTo.reply({
-              ...page.newMessage,
-              ephemeral: this.option.ephemeral,
-              fetchReply: true,
-            });
+            ...page.newMessage,
+            ephemeral: this.option.ephemeral,
+            fetchReply: true,
+          });
 
       // If the message response is not received, throw an error
       if (!(reply instanceof Message)) {

@@ -5,7 +5,7 @@ import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } from "discord.js";
-import _ from "lodash";
+import findIndex from "lodash/findIndex";
 
 import type { Method } from "../../decorators/classes/Method.js";
 import type {
@@ -287,7 +287,7 @@ export class MetadataStorage {
       if (!discord) {
         throw Error(
           `Did you forget to use the @discord decorator on your class: ${member.from.name}\n` +
-            "read more at https://discordx.js.org/docs/discordx/decorators/general/discord\n\n"
+          "read more at https://discordx.js.org/docs/discordx/decorators/general/discord\n\n"
         );
       }
 
@@ -399,7 +399,7 @@ export class MetadataStorage {
           });
 
           mapCmd.forEach((mapCommand) => {
-            if (_.findIndex(commands, { name: mapCommand.name }) !== -1) {
+            if (findIndex(commands, { name: mapCommand.name }) !== -1) {
               throw Error(
                 `Duplicate simple command name: ${mapCommand.name} (of: ${mapCommand.command.name})`
               );
@@ -417,13 +417,13 @@ export class MetadataStorage {
       }
 
       // To improve search performance, map all commands together
-      if (_.findIndex(this._simpleCommandsByName, { name: cmd.name }) !== -1) {
+      if (findIndex(this._simpleCommandsByName, { name: cmd.name }) !== -1) {
         throw Error(`Duplicate simple command name: ${cmd.name}`);
       }
 
       this._simpleCommandsByName.push({ command: cmd, name: cmd.name });
       cmd.aliases.forEach((al) => {
-        if (_.findIndex(this._simpleCommandsByName, { name: al }) !== -1) {
+        if (findIndex(this._simpleCommandsByName, { name: al }) !== -1) {
           throw Error(
             `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`
           );
@@ -517,8 +517,7 @@ export class MetadataStorage {
     this._applicationCommandSlashSubGroups.forEach((subGroup) => {
       if (!subGroup.payload.description) {
         throw Error(
-          `Description required for slash sub group: ${subGroup.name} (root: ${
-            subGroup.root ?? "unknown"
+          `Description required for slash sub group: ${subGroup.name} (root: ${subGroup.root ?? "unknown"
           })`
         );
       }
