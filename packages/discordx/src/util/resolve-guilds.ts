@@ -1,4 +1,5 @@
-import _ from "lodash";
+import isEqual from "lodash/isEqual";
+import uniqWith from "lodash/uniqWith";
 
 import type {
   Client,
@@ -32,5 +33,5 @@ export const resolveIGuilds = async (
     )
   );
 
-  return _.uniqWith(guildX.flat(1), _.isEqual);
+  return uniqWith(guildX.flat(1), isEqual);
 };

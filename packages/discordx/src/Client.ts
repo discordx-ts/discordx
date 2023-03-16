@@ -23,7 +23,8 @@ import {
   Client as ClientJS,
   InteractionType,
 } from "discord.js";
-import _ from "lodash";
+import escapeRegExp from "lodash/escapeRegExp";
+import isArray from "lodash/isArray";
 
 import type {
   ApplicationCommandDataEx,
@@ -1172,7 +1173,7 @@ export class Client extends ClientJS {
    */
   async getMessagePrefix(message: Message): Promise<IPrefix> {
     if (typeof this.prefix !== "function") {
-      return _.isArray(this.prefix) ? [...this.prefix] : [this.prefix];
+      return isArray(this.prefix) ? [...this.prefix] : [this.prefix];
     }
 
     return [...(await this.prefix(message))];
@@ -1195,7 +1196,7 @@ export class Client extends ClientJS {
     const mappedPrefix = Array.from(this.simpleCommandsByPrefix.keys());
     const prefixRegex = RegExp(
       `^(${[...prefix, ...mappedPrefix]
-        .map((pfx) => _.escapeRegExp(pfx))
+        .map((pfx) => escapeRegExp(pfx))
         .join("|")})`
     );
 
