@@ -154,15 +154,15 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       const reply =
         this.sendTo.deferred || this.sendTo.replied
           ? await this.sendTo.followUp({
-            ...page.newMessage,
-            ephemeral: this.option.ephemeral,
-            fetchReply: true,
-          })
+              ...page.newMessage,
+              ephemeral: this.option.ephemeral,
+              fetchReply: true,
+            })
           : await this.sendTo.reply({
-            ...page.newMessage,
-            ephemeral: this.option.ephemeral,
-            fetchReply: true,
-          });
+              ...page.newMessage,
+              ephemeral: this.option.ephemeral,
+              fetchReply: true,
+            });
 
       // If the message response is not received, throw an error
       if (!(reply instanceof Message)) {

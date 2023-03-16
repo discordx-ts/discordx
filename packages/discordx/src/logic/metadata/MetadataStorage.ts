@@ -287,7 +287,7 @@ export class MetadataStorage {
       if (!discord) {
         throw Error(
           `Did you forget to use the @discord decorator on your class: ${member.from.name}\n` +
-          "read more at https://discordx.js.org/docs/discordx/decorators/general/discord\n\n"
+            "read more at https://discordx.js.org/docs/discordx/decorators/general/discord\n\n"
         );
       }
 
@@ -517,7 +517,8 @@ export class MetadataStorage {
     this._applicationCommandSlashSubGroups.forEach((subGroup) => {
       if (!subGroup.payload.description) {
         throw Error(
-          `Description required for slash sub group: ${subGroup.name} (root: ${subGroup.root ?? "unknown"
+          `Description required for slash sub group: ${subGroup.name} (root: ${
+            subGroup.root ?? "unknown"
           })`
         );
       }
