@@ -1,5 +1,6 @@
 import type { ApplicationCommand } from "discord.js";
-import _ from "lodash";
+import isEqual from "lodash/isEqual";
+import omit from "lodash/omit";
 
 import type { DApplicationCommand } from "../decorators/index.js";
 import type { ApplicationCommandDataEx } from "../types/index.js";
@@ -89,7 +90,7 @@ export function isApplicationCommandEqual(
 
   const firstJson = JSON.parse(
     jsonToString(
-      _.omit(
+      omit(
         commandJson,
         "id",
         "applicationId",
@@ -106,7 +107,7 @@ export function isApplicationCommandEqual(
 
   const secondJson = JSON.parse(jsonToString(rawData));
 
-  const response = _.isEqual(firstJson, secondJson);
+  const response = isEqual(firstJson, secondJson);
 
   return response;
 }

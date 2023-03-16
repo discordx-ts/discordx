@@ -13,7 +13,8 @@ import {
   VoiceConnectionStatus,
 } from "@discordjs/voice";
 import type { Guild, StageChannel, VoiceChannel } from "discord.js";
-import _ from "lodash";
+import pullAt from "lodash/pullAt";
+import shuffle from "lodash/shuffle";
 
 import type { CommonTrack, Player } from "../index.js";
 import { PlayerErrors, YoutubeTrack } from "../index.js";
@@ -388,7 +389,7 @@ export abstract class Queue<T extends Player = Player> {
    * @returns
    */
   public removeTracks(index: number[]): CommonTrack[] {
-    return _.pullAt(this._tracks, index);
+    return pullAt(this._tracks, index);
   }
 
   /**
@@ -474,7 +475,7 @@ export abstract class Queue<T extends Player = Player> {
    * Mix tracks
    */
   public mix(): void {
-    this._tracks = _.shuffle(this._tracks);
+    this._tracks = shuffle(this._tracks);
     this.player.emit("onMix", [this, this._tracks]);
   }
 

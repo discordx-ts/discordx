@@ -14,7 +14,7 @@ import {
   Message,
   MessageComponentInteraction,
 } from "discord.js";
-import _ from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 
 import { GeneratePage } from "./functions/GeneratePage.js";
 import type { PaginationResolver } from "./Resolver.js";
@@ -97,7 +97,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    */
   public getPage = async (page: number): Promise<IGeneratePage | undefined> => {
     const embed = Array.isArray(this.pages)
-      ? _.cloneDeep<PaginationItem | undefined>(this.pages[page])
+      ? cloneDeep<PaginationItem | undefined>(this.pages[page])
       : await this.pages.resolver(page, this);
 
     if (!embed) {

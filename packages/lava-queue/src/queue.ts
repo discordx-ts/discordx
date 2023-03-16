@@ -3,7 +3,7 @@ import type {
   Track,
   TrackResponse,
 } from "@discordx/lava-player";
-import _ from "lodash";
+import shuffle from "lodash/shuffle";
 
 import type { Player } from "./player.js";
 
@@ -138,7 +138,7 @@ export class Queue {
   }
 
   shuffle(): void {
-    this._tracks = _.shuffle(this._tracks);
+    this._tracks = shuffle(this._tracks);
   }
 
   stop(): void {
