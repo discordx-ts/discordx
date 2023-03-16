@@ -1,8 +1,8 @@
 import child from "child_process";
-import _ from "lodash";
+import compact from "lodash/compact";
 
 export function GetTags(match: string): string[] {
-  const tags = _.compact(
+  const tags = compact(
     child
       .execSync(`git tag --list --sort=v:refname "${match}"`)
       .toString("utf-8")
