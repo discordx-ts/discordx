@@ -23,8 +23,7 @@ import {
   Client as ClientJS,
   InteractionType,
 } from "discord.js";
-import escapeRegExp from "lodash/escapeRegExp";
-import isArray from "lodash/isArray";
+import { escapeRegExp, isArray } from "lodash";
 
 import type {
   ApplicationCommandDataEx,
