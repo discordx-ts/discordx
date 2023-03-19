@@ -13,8 +13,7 @@ import {
   VoiceConnectionStatus,
 } from "@discordjs/voice";
 import type { Guild, StageChannel, VoiceChannel } from "discord.js";
-import pullAt from "lodash/pullAt";
-import shuffle from "lodash/shuffle";
+import { pullAt, shuffle } from "lodash";
 
 import type { CommonTrack, Player } from "../index.js";
 import { PlayerErrors, YoutubeTrack } from "../index.js";
