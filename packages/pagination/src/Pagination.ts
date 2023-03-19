@@ -14,7 +14,7 @@ import {
   Message,
   MessageComponentInteraction,
 } from "discord.js";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash/cloneDeep.js";
 
 import { GeneratePage } from "./functions/GeneratePage.js";
 import type { PaginationResolver } from "./Resolver.js";

@@ -3,7 +3,7 @@ import type {
   Track,
   TrackResponse,
 } from "@discordx/lava-player";
-import { shuffle } from "lodash";
+import shuffle from "lodash/shuffle.js";
 
 import type { Player } from "./player.js";
 

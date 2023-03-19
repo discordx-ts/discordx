@@ -1,5 +1,6 @@
 import type { ApplicationCommand } from "discord.js";
-import { isEqual, omit } from "lodash";
+import isEqual from "lodash/isEqual.js";
+import omit from "lodash/omit.js";
 
 import type { DApplicationCommand } from "../decorators/index.js";
 import type { ApplicationCommandDataEx } from "../types/index.js";

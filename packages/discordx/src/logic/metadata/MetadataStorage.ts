@@ -5,7 +5,7 @@ import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
 } from "discord.js";
-import { findIndex } from "lodash";
+import findIndex from "lodash/findIndex.js";
 
 import type { Method } from "../../decorators/classes/Method.js";
 import type {

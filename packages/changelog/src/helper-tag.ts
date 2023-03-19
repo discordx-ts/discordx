@@ -1,5 +1,5 @@
 import child from "child_process";
-import { compact } from "lodash";
+import compact from "lodash/compact.js";
 
 export function GetTags(match: string): string[] {
   const tags = compact(

@@ -1,4 +1,5 @@
-import { isEqual, uniqWith } from "lodash";
+import isEqual from "lodash/isEqual.js";
+import uniqWith from "lodash/uniqWith.js";
 
 import type {
   Client,
