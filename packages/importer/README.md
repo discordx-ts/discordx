@@ -64,7 +64,9 @@ console.log(`isESM: ${isESM}`);
 ## Resolve glob paths
 
 ```ts
-console.log(resolve(`${__dirname}/commands/**.js`));
+const resolvedPaths = await resolve(`${__dirname}/commands/**.js`);
+
+console.log(resolvedPaths);
 ```
 
 ## Import glob paths
