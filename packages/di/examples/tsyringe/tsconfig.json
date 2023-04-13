@@ -2,20 +2,17 @@
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
-    "noImplicitAny": true,
-    "sourceMap": true,
     "strict": true,
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
-    "rootDir": "src",
-    "outDir": "build/esm",
+    "noImplicitAny": true,
+    "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "declaration": true,
-    "importHelpers": false,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
     "esModuleInterop": true
   },
-  "exclude": ["examples", "build"]
+  "exclude": ["node_modules", "tests", "examples"]
 }
