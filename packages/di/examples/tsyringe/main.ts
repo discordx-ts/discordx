@@ -21,7 +21,6 @@ class Database {
   }
 }
 
-// @Route()
 @injectable()
 export class Example {
   constructor(database: Database) {
