@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { container, singleton } from "tsyringe";
+import { container, injectable, singleton } from "tsyringe";
 
 import {
   DIService,
@@ -13,7 +13,7 @@ class Database {
 
   constructor() {
     console.log("I am database");
-    this.database = "you are connected to database!!";
+    this.database = new Date().toString();
   }
 
   query() {
@@ -21,7 +21,8 @@ class Database {
   }
 }
 
-@singleton()
+// @Route()
+@injectable()
 export class Example {
   constructor(database: Database) {
     console.log(database.query());
@@ -30,3 +31,4 @@ export class Example {
 
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 DIService.instance.addService(Example);
+DIService.instance.getService(Example);
