@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 import { tsyringeDependencyRegistryEngine } from "@discordx/di";
 import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField } from "discord.js";

@@ -9,7 +9,7 @@
     "noUncheckedIndexedAccess": true,
     "rootDir": "src",
     "outDir": "build/esm",
-    "emitDecoratorMetadata": false,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
     "importHelpers": false,
