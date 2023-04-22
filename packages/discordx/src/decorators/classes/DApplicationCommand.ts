@@ -96,14 +96,14 @@ export class DApplicationCommand extends Method {
   set name(value: string) {
     this._name = value;
   }
-  
+
   get nameLocalizations(): LocalizationMap | null {
     return this._nameLocalizations;
   }
   set nameLocalizations(value: LocalizationMap | null) {
     this._nameLocalizations = value;
   }
-  
+
   get nsfw(): boolean {
     return this._nsfw;
   }
