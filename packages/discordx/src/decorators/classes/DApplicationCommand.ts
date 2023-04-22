@@ -19,6 +19,7 @@ type CreateStructure = {
   guilds?: IGuild[];
   name: string;
   nameLocalizations?: LocalizationMap | null;
+  nsfw?: boolean;
   type: ApplicationCommandType;
 };
 
@@ -35,6 +36,7 @@ export class DApplicationCommand extends Method {
   private _dmPermission: boolean;
   private _guilds: IGuild[];
   private _group?: string;
+  private _nsfw: boolean;
   private _options: DApplicationCommandOption[] = [];
   private _subgroup?: string;
   private _type: ApplicationCommandType;
@@ -94,12 +96,19 @@ export class DApplicationCommand extends Method {
   set name(value: string) {
     this._name = value;
   }
-
+  
   get nameLocalizations(): LocalizationMap | null {
     return this._nameLocalizations;
   }
   set nameLocalizations(value: LocalizationMap | null) {
     this._nameLocalizations = value;
+  }
+  
+  get nsfw(): boolean {
+    return this._nsfw;
+  }
+  set nsfw(value: boolean) {
+    this._nsfw = value;
   }
 
   get options(): DApplicationCommandOption[] {
@@ -132,6 +141,7 @@ export class DApplicationCommand extends Method {
     this._botIds = data.botIds ?? [];
     this._descriptionLocalizations = data.descriptionLocalizations ?? null;
     this._nameLocalizations = data.nameLocalizations ?? null;
+    this._nsfw = data.nsfw ?? false;
     this._dmPermission = data.dmPermission ?? true;
     this._defaultMemberPermissions = data.defaultMemberPermissions ?? null;
   }

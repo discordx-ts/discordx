@@ -22,6 +22,7 @@ export type ApplicationCommandOptions<T extends string, TD extends string> = {
   dmPermission?: boolean;
   guilds?: IGuild[];
   name?: T;
+  nsfw?: boolean;
   nameLocalizations?: LocalizationMap;
 };
 
@@ -115,6 +116,7 @@ export type ApplicationCommandDataEx = {
   dmPermission?: boolean;
   name: string;
   nameLocalizations?: LocalizationMap | null;
+  nsfw?: boolean;
   options: ApplicationCommandOptionData[];
   type: ApplicationCommandType;
 };
