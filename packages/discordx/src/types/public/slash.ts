@@ -22,8 +22,8 @@ export type ApplicationCommandOptions<T extends string, TD extends string> = {
   dmPermission?: boolean;
   guilds?: IGuild[];
   name?: T;
-  nsfw?: boolean;
   nameLocalizations?: LocalizationMap;
+  nsfw?: boolean;
 };
 
 export type SlashOptionBaseOptions<T extends string, TD extends string> = {
