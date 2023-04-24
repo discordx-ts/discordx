@@ -114,6 +114,7 @@ describe("Choice", () => {
         dmPermission: true,
         name: "hello",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             choices: [
@@ -145,6 +146,7 @@ describe("Choice", () => {
         dmPermission: true,
         name: "number",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             choices: [
@@ -186,6 +188,7 @@ describe("Choice", () => {
         dmPermission: true,
         name: "string",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             choices: [

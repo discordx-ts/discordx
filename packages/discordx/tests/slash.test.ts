@@ -68,6 +68,7 @@ describe("Slash", () => {
         dmPermission: true,
         name: "hello",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             description: "text",
