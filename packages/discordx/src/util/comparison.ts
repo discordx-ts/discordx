@@ -69,7 +69,7 @@ export function isApplicationCommandEqual(
   // replace null fields with undefined
   RecursivelyMatchField(
     commandJson,
-    ["descriptionLocalized", "nameLocalized", "dmPermission"],
+    ["descriptionLocalized", "nameLocalized", "dmPermission", "nsfw"],
     (object: any, key: string) => {
       if (object[key] === null) {
         object[key] = undefined;
