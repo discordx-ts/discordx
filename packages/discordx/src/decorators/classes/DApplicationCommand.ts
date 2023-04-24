@@ -221,6 +221,7 @@ export class DApplicationCommand extends Method {
       dmPermission: this.dmPermission,
       name: this.name,
       nameLocalizations: this.nameLocalizations,
+      nsfw: this.nsfw,
       options: options,
       type: this.type,
     };
