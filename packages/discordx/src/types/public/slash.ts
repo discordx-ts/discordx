@@ -117,6 +117,7 @@ export type ApplicationCommandDataEx = {
   dmPermission?: boolean;
   name: string;
   nameLocalizations?: LocalizationMap | null;
+  nsfw?: boolean;
   options: ApplicationCommandOptionData[];
   type: ApplicationCommandType;
 };
