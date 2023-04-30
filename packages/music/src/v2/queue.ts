@@ -12,7 +12,7 @@ export class Queue {
       if (event.t === "VOICE_STATE_UPDATE") {
         this.worker.postMessage({
           d: event.d,
-          op: WorkerOp.onVoiceStateUpdate,
+          op: WorkerOp.OnVoiceStateUpdate,
         });
       }
     });
@@ -21,19 +21,19 @@ export class Queue {
       if (event.t === "VOICE_SERVER_UPDATE") {
         this.worker.postMessage({
           d: event.d,
-          op: WorkerOp.onVoiceServerUpdate,
+          op: WorkerOp.OnVoiceServerUpdate,
         });
       }
     });
 
     this.worker.on("message", async (message: { d: any; op: WorkerEvent }) => {
       switch (message.op) {
-        case WorkerEvent.VOICE_STATE_UPDATE:
+        case WorkerEvent.VoiceStateUpdate:
           const guild = await this.client.guilds.fetch(message.d.guildId);
           guild.shard.send(message.d.payload);
           break;
 
-        case WorkerEvent.CONNECTION_DESTROY:
+        case WorkerEvent.ConnectionDestroy:
           const { channelId } = message.d as {
             channelId: string;
             guildId: string;
@@ -51,14 +51,14 @@ export class Queue {
   join(data: SubscriptionPayload): void {
     this.worker.postMessage({
       d: data,
-      op: WorkerOp.join,
+      op: WorkerOp.Join,
     });
   }
 
   play(data: { guildId: string; payload: { query: string } }): void {
     this.worker.postMessage({
       d: data,
-      op: WorkerOp.play,
+      op: WorkerOp.Play,
     });
   }
 }

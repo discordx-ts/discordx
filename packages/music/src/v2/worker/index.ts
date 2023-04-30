@@ -8,22 +8,22 @@ const clients = new SubscriptionClient();
 
 parentPort?.on("message", (message: WorkerPayload) => {
   switch (message.op) {
-    case WorkerOp.disconnect:
+    case WorkerOp.Disconnect:
       clients.disconnect(message.d);
       break;
-    case WorkerOp.disconnectAll:
+    case WorkerOp.DisconnectAll:
       clients.disconnectAll();
       break;
-    case WorkerOp.join:
+    case WorkerOp.Join:
       clients.connect(message.d);
       break;
-    case WorkerOp.onVoiceServerUpdate:
+    case WorkerOp.OnVoiceServerUpdate:
       clients.adapters.get(message.d.guild_id)?.onVoiceServerUpdate(message.d);
       break;
-    case WorkerOp.onVoiceStateUpdate:
+    case WorkerOp.OnVoiceStateUpdate:
       clients.adapters.get(message.d.guild_id)?.onVoiceStateUpdate(message.d);
       break;
-    case WorkerOp.play:
+    case WorkerOp.Play:
       const node = clients.subscriptions.get(message.d.guildId);
       node?.play(message.d.payload);
       break;

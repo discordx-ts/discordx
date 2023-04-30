@@ -4,27 +4,27 @@ export interface WorkerPayloadDisconnect {
   d: {
     guildId: string;
   };
-  op: WorkerOp.disconnect;
+  op: WorkerOp.Disconnect;
 }
 
 export interface WorkerPayloadDisconnectAll {
   d: undefined;
-  op: WorkerOp.disconnectAll;
+  op: WorkerOp.DisconnectAll;
 }
 
 export interface WorkerPayloadJoin {
   d: SubscriptionPayload;
-  op: WorkerOp.join;
+  op: WorkerOp.Join;
 }
 
 export interface WorkerPayloadOnVoiceServerUpdate {
   d: any;
-  op: WorkerOp.onVoiceServerUpdate;
+  op: WorkerOp.OnVoiceServerUpdate;
 }
 
 export interface WorkerPayloadOnVoiceUpdate {
   d: any;
-  op: WorkerOp.onVoiceStateUpdate;
+  op: WorkerOp.OnVoiceStateUpdate;
 }
 
 export interface WorkerPayloadPlay {
@@ -32,7 +32,7 @@ export interface WorkerPayloadPlay {
     guildId: string;
     payload: NodePlayerOptions;
   };
-  op: WorkerOp.play;
+  op: WorkerOp.Play;
 }
 
 export type WorkerPayload =

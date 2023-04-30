@@ -1,13 +1,13 @@
 export enum WorkerOp {
-  onVoiceStateUpdate,
-  onVoiceServerUpdate,
-  play,
-  join,
-  disconnect,
-  disconnectAll,
+  Disconnect = "DISCONNECT",
+  DisconnectAll = "DISCONNECT_ALL",
+  Join = "JOIN",
+  OnVoiceServerUpdate = "ON_VOICE_SERVER_UPDATE",
+  OnVoiceStateUpdate = "ON_VOICE_STATE_UPDATE",
+  Play = "PLAY",
 }
 
 export enum WorkerEvent {
-  VOICE_STATE_UPDATE,
-  CONNECTION_DESTROY,
+  ConnectionDestroy = "CONNECTION_DESTROY",
+  VoiceStateUpdate = "VOICE_STATE_UPDATE",
 }

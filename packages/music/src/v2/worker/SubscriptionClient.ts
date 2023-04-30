@@ -23,7 +23,7 @@ export class SubscriptionClient {
                 channelId: config.channelId,
                 guildId: config.guildId,
               },
-              op: WorkerEvent.CONNECTION_DESTROY,
+              op: WorkerEvent.ConnectionDestroy,
             });
           },
           sendPayload: (payload) => {
@@ -33,7 +33,7 @@ export class SubscriptionClient {
                 guildId: config.guildId,
                 payload: payload,
               },
-              op: WorkerEvent.VOICE_STATE_UPDATE,
+              op: WorkerEvent.VoiceStateUpdate,
             });
             return true;
           },
