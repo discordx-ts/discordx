@@ -6,9 +6,9 @@ import type { InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
 
 export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<
-  typeof Container
+    typeof Container
 > {
-  public static readonly token = new Token<unknown>("discordx");
+  public static token = new Token<unknown>("discordx");
 
   private static _instance: TypeDiDependencyRegistryEngine;
 
@@ -17,7 +17,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
   public static get instance(): TypeDiDependencyRegistryEngine {
     if (!TypeDiDependencyRegistryEngine._instance) {
       TypeDiDependencyRegistryEngine._instance =
-        new TypeDiDependencyRegistryEngine();
+          new TypeDiDependencyRegistryEngine();
     }
 
     return TypeDiDependencyRegistryEngine._instance;
@@ -45,6 +45,11 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
     return this;
   }
 
+  public setToken<T>(token: Token<T>): this {
+    TypeDiDependencyRegistryEngine.token = token;
+    return this;
+  }
+
   public getAllServices(): Set<unknown> {
     if (!this.injector) {
       throw new Error("Please set the Service!");
@@ -52,7 +57,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
 
     if (this.useToken) {
       return new Set(
-        this.injector.getMany(TypeDiDependencyRegistryEngine.token)
+          this.injector.getMany(TypeDiDependencyRegistryEngine.token)
       );
     }
 
@@ -71,13 +76,13 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
 
     if (this.useToken) {
       return (
-        (this.injector
-          .getMany(TypeDiDependencyRegistryEngine.token)
-          .find(
-            (clazz) =>
-              ((clazz as Record<string, unknown>)
-                .constructor as unknown as T) === classType
-          ) as InstanceOf<T>) ?? null
+          (this.injector
+              .getMany(TypeDiDependencyRegistryEngine.token)
+              .find(
+                  (clazz) =>
+                      ((clazz as Record<string, unknown>)
+                          .constructor as unknown as T) === classType
+              ) as InstanceOf<T>) ?? null
       );
     }
 
