@@ -21,7 +21,7 @@ class Database {
 @Discord()
 @injectable()
 export class Example {
-  constructor(private database: Database) {
+  constructor(private readonly database: Database) {
     // I am just a empty constructor :(
   }
 
