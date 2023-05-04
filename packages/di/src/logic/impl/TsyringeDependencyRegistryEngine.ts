@@ -17,7 +17,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
   public static get instance(): TsyringeDependencyRegistryEngine {
     if (!TsyringeDependencyRegistryEngine._instance) {
       TsyringeDependencyRegistryEngine._instance =
-          new TsyringeDependencyRegistryEngine();
+        new TsyringeDependencyRegistryEngine();
     }
 
     return TsyringeDependencyRegistryEngine._instance;
@@ -30,7 +30,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     this._serviceSet.add(classType);
     const clazz = classType as unknown as new () => InstanceOf<T>;
     const instanceCashingSingletonFactory: FactoryFunction<unknown> =
-        this.getInstanceCashingSingletonFactory(clazz);
+      this.getInstanceCashingSingletonFactory(clazz);
     if (this.useToken) {
       this.injector.register(TsyringeDependencyRegistryEngine.token, {
         useFactory: instanceCashingSingletonFactory,
@@ -47,12 +47,12 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     const clazz = classType as unknown as new () => InstanceOf<T>;
     if (this.useToken && !container.isRegistered(clazz)) {
       return (
-          (this.injector
-              .resolveAll(TsyringeDependencyRegistryEngine.token)
-              .find(
-                  (instance) =>
-                      (instance as Record<string, unknown>).constructor === clazz
-              ) as InstanceOf<T>) ?? null
+        (this.injector
+          .resolveAll(TsyringeDependencyRegistryEngine.token)
+          .find(
+            (instance) =>
+              (instance as Record<string, unknown>).constructor === clazz
+          ) as InstanceOf<T>) ?? null
       );
     }
     return this.injector.resolve(clazz);
@@ -65,7 +65,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
 
     if (this.useToken) {
       return new Set(
-          this.injector.resolveAll(TsyringeDependencyRegistryEngine.token)
+        this.injector.resolveAll(TsyringeDependencyRegistryEngine.token)
       );
     }
 
@@ -83,7 +83,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
   }
 
   private getInstanceCashingSingletonFactory<T>(
-      clazz: InjectionToken<T>
+    clazz: InjectionToken<T>
   ): FactoryFunction<T> {
     return instanceCachingFactory<T>((c) => {
       if (!c.isRegistered(clazz)) {

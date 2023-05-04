@@ -49,8 +49,8 @@ import { DIService, typeDiDependencyRegistryEngine } from "discordx";
 import { Container, Service } from "typedi";
 
 DIService.engine = typeDiDependencyRegistryEngine
-    .setService(Service)
-    .setInjector(Container);
+  .setService(Service)
+  .setInjector(Container);
 ```
 
 ```ts title="customEngine"
@@ -160,8 +160,11 @@ e.g `tsyringeDependencyRegistryEngine.token`.
 ### Enabling
 
 In order to enable Discord x to use tokenization, you simply need to call `setUseTokenization(true)` on your initialization of Discordx I.E:
+
 ```ts
-DIService.engine = tsyringeDependencyRegistryEngine.setUseTokenization(true).setInjector(container);
+DIService.engine = tsyringeDependencyRegistryEngine
+  .setUseTokenization(true)
+  .setInjector(container);
 ```
 
 ### Custom Tsyringe tokens
@@ -172,20 +175,19 @@ In order to set your own custom token, you must call `TsyringeDependencyRegistry
 
 for TypeDI, it is the same as for Tsyringe except you need to call `TypeDiDependencyRegistryEngine.setToken` and pass in an instance of TypeDI's Token class
 
-
 ### usage
 
 To use this. just use `TsyringeDependencyRegistryEngine.token` when you want to get all of Discordx's decorated classes. I.E
+
 ```ts
 @injectable()
 class TsClass {
-    public constructor(
-        @injectAll(TsyringeDependencyRegistryEngine.token) discordClasses: unknown[]
-    ) {
-        console.log(discordClasses) // all of Discordx's classes
-    }
+  public constructor(
+    @injectAll(TsyringeDependencyRegistryEngine.token) discordClasses: unknown[]
+  ) {
+    console.log(discordClasses); // all of Discordx's classes
+  }
 }
-
 ```
 
 #### Side-effects
