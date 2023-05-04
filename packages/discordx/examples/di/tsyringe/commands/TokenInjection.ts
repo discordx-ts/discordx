@@ -26,8 +26,8 @@ export class ExampleToken {
     // I am just a empty constructor :(
   }
 
-  @Slash({ description: "tsyringe" })
-  tsyringe_token(interaction: CommandInteraction): void {
+  @Slash({ description: "tsyringe", name: "tsyringe_token" })
+  tsyringe(interaction: CommandInteraction): void {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
       const allDiscordClasses = container.resolveAll(
         TsyringeDependencyRegistryEngine.token
