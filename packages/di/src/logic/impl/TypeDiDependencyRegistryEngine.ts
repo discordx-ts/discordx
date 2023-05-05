@@ -8,7 +8,7 @@ import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableD
 export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<
   typeof Container
 > {
-  public static readonly token = new Token<unknown>("discordx");
+  public static token = new Token<unknown>("discordx");
 
   private static _instance: TypeDiDependencyRegistryEngine;
 
@@ -42,6 +42,11 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
 
   public setService(service: typeof Service): this {
     this.service = service;
+    return this;
+  }
+
+  public setToken<T>(token: Token<T>): this {
+    TypeDiDependencyRegistryEngine.token = token;
     return this;
   }
 

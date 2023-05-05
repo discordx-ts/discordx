@@ -1,7 +1,8 @@
-import { tsyringeDependencyRegistryEngine } from "@discordx/di";
 import type { CommandInteraction } from "discord.js";
 import { container, injectable, singleton } from "tsyringe";
 
+import { tsyringeDependencyRegistryEngine } from "../../../../../di/src/index.js";
+import { TsyringeDependencyRegistryEngine } from "../../../../../di/src/logic/impl/index.js";
 import { Discord, DIService, Slash } from "../../../../src/index.js";
 
 @singleton()
@@ -20,27 +21,24 @@ class Database {
 
 @Discord()
 @injectable()
-export class Example {
+export class ExampleToken {
   constructor(private readonly database: Database) {
     // I am just a empty constructor :(
   }
 
-  @Slash({ description: "tsyringe" })
+  @Slash({ description: "tsyringe", name: "tsyringe_token" })
   tsyringe(interaction: CommandInteraction): void {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
-      const clazz = container.resolve(Example);
-      interaction.reply(
-        `${clazz.database.query()}, same class: ${clazz === this}`
+      const allDiscordClasses = container.resolveAll(
+        TsyringeDependencyRegistryEngine.token
       );
-    } else {
-      interaction.reply("Not using TSyringe");
-    }
-  }
-
-  @Slash({ description: "tsyringe2" })
-  tsyringe2(interaction: CommandInteraction): void {
-    if (DIService.engine === tsyringeDependencyRegistryEngine) {
-      interaction.reply(this.database.query());
+      const clazz = container.resolve(ExampleToken);
+      const resolvedClassInTokenisedClasses = allDiscordClasses.includes(clazz);
+      interaction.reply(
+        `${clazz.database.query()}, same class: ${
+          clazz === this
+        }\ntokenized class included in resolved class: ${resolvedClassInTokenisedClasses}`
+      );
     } else {
       interaction.reply("Not using TSyringe");
     }

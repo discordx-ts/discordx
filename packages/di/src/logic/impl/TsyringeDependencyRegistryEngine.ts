@@ -1,11 +1,16 @@
-import type { DependencyContainer } from "tsyringe";
+import type {
+  DependencyContainer,
+  FactoryFunction,
+  InjectionToken,
+} from "tsyringe";
+import { container, instanceCachingFactory } from "tsyringe";
 import type { constructor } from "tsyringe/dist/typings/types/index.js";
 
 import type { InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
 
 export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<DependencyContainer> {
-  public static readonly token = Symbol("discordx");
+  public static token = Symbol("discordx");
 
   private static _instance: TsyringeDependencyRegistryEngine;
 
@@ -22,27 +27,25 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
-
-    const clazz = classType as unknown as new () => InstanceOf<T>;
-    if (this.useToken) {
-      this.injector.registerSingleton(
-        TsyringeDependencyRegistryEngine.token,
-        clazz
-      );
-      return;
-    }
-
     this._serviceSet.add(classType);
-    this.injector.registerSingleton(clazz);
+    const clazz = classType as unknown as new () => InstanceOf<T>;
+    const instanceCashingSingletonFactory: FactoryFunction<unknown> =
+      this.getInstanceCashingSingletonFactory(clazz);
+    if (this.useToken) {
+      this.injector.register(TsyringeDependencyRegistryEngine.token, {
+        useFactory: instanceCashingSingletonFactory,
+      });
+    } else {
+      this.injector.registerSingleton(clazz);
+    }
   }
 
   public getService<T>(classType: T): InstanceOf<T> | null {
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
-
     const clazz = classType as unknown as new () => InstanceOf<T>;
-    if (this.useToken) {
+    if (this.useToken && !container.isRegistered(clazz)) {
       return (
         (this.injector
           .resolveAll(TsyringeDependencyRegistryEngine.token)
@@ -52,7 +55,6 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
           ) as InstanceOf<T>) ?? null
       );
     }
-
     return this.injector.resolve(clazz);
   }
 
@@ -73,5 +75,21 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     }
 
     return retSet;
+  }
+
+  public setToken(token: symbol): this {
+    TsyringeDependencyRegistryEngine.token = token;
+    return this;
+  }
+
+  private getInstanceCashingSingletonFactory<T>(
+    clazz: InjectionToken<T>
+  ): FactoryFunction<T> {
+    return instanceCachingFactory<T>((c) => {
+      if (!c.isRegistered(clazz)) {
+        c.registerSingleton(clazz as constructor<T>);
+      }
+      return c.resolve(clazz);
+    });
   }
 }
