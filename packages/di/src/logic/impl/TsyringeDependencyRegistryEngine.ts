@@ -3,16 +3,19 @@ import type {
   FactoryFunction,
   InjectionToken,
 } from "tsyringe";
-import { container, instanceCachingFactory } from "tsyringe";
 import type { constructor } from "tsyringe/dist/typings/types/index.js";
 
 import type { InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
 
+type Factory = <T>(factoryFunc: FactoryFunction<T>) => FactoryFunction<T>;
+
 export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<DependencyContainer> {
   public static token = Symbol("discordx");
 
   private static _instance: TsyringeDependencyRegistryEngine;
+
+  private factory: Factory | null = null;
 
   public static get instance(): TsyringeDependencyRegistryEngine {
     if (!TsyringeDependencyRegistryEngine._instance) {
@@ -29,9 +32,12 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     }
     this._serviceSet.add(classType);
     const clazz = classType as unknown as new () => InstanceOf<T>;
-    const instanceCashingSingletonFactory: FactoryFunction<unknown> =
-      this.getInstanceCashingSingletonFactory(clazz);
     if (this.useToken) {
+      if (!this.factory) {
+        throw new Error("Unable to init tokenization without instance factory");
+      }
+      const instanceCashingSingletonFactory: FactoryFunction<unknown> =
+        this.getInstanceCashingSingletonFactory(clazz);
       this.injector.register(TsyringeDependencyRegistryEngine.token, {
         useFactory: instanceCashingSingletonFactory,
       });
@@ -45,7 +51,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
       throw new Error("Please set the container!");
     }
     const clazz = classType as unknown as new () => InstanceOf<T>;
-    if (this.useToken && !container.isRegistered(clazz)) {
+    if (this.useToken && !this.injector.isRegistered(clazz)) {
       return (
         (this.injector
           .resolveAll(TsyringeDependencyRegistryEngine.token)
@@ -82,10 +88,18 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     return this;
   }
 
+  public setCashingSingletonFactory(factory: Factory): this {
+    this.factory = factory;
+    return this;
+  }
+
   private getInstanceCashingSingletonFactory<T>(
     clazz: InjectionToken<T>
   ): FactoryFunction<T> {
-    return instanceCachingFactory<T>((c) => {
+    if (!this.factory) {
+      throw new Error("Unable to init tokenization without instance factory");
+    }
+    return this.factory((c) => {
       if (!c.isRegistered(clazz)) {
         c.registerSingleton(clazz as constructor<T>);
       }
