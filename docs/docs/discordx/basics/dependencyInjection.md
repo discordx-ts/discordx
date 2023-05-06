@@ -159,9 +159,17 @@ e.g `tsyringeDependencyRegistryEngine.token`.
 
 ### Enabling
 
-In order to enable Discord x to use tokenization, you simply need to call `setUseTokenization(true)` on your initialization of Discordx I.E:
+In order to enable Discord x to use tokenization, you simply need to call `setUseTokenization(true)` and (for Tsyringe only) `setCashingSingletonFactory` on your initialization of Discordx I.E:
 
-```ts
+```ts title="Tsyringe"
+import { container, instanceCachingFactory } from "tsyringe";
+DIService.engine = tsyringeDependencyRegistryEngine
+  .setUseTokenization(true)
+  .setCashingSingletonFactory(instanceCachingFactory)
+  .setInjector(container);
+```
+
+```ts title="TypeDI"
 DIService.engine = tsyringeDependencyRegistryEngine
   .setUseTokenization(true)
   .setInjector(container);
@@ -196,7 +204,7 @@ Due to the nature of tokens and how the internal resolution factory of both syst
 
 Discordx handles internal Tsyringe tokenization by proxying the into an `Instance Cashing Singleton Factory`. this factory allowes both tokens AND classes to be resolved by the same registry.
 
-in short, this allowes you to use `@injectALl(TypeDiDependencyRegistryEngine.token)` to get all of Discordx's classes AND a normal injection of a single class, and you can be sure that both the standard injection and the token injection will ALWAYS resolve the same singleton.
+in short, this allows you to use `@injectALl(TypeDiDependencyRegistryEngine.token)` to get all of Discordx's classes AND a normal injection of a single class, and you can be sure that both the standard injection and the token injection will ALWAYS resolve the same singleton.
 
 so if you use TypeDI to get ALL of your classes, you will need a custom filter on the injection constructor:
 that array to find the class.
