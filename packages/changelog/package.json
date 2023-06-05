@@ -44,18 +44,18 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "commander": "^10.0.0",
+    "commander": "^10.0.1",
     "lodash": "^4.17.21",
-    "prettier": "^2.8.7",
-    "tslib": "^2.5.0"
+    "prettier": "^2.8.8",
+    "tslib": "^2.5.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.192",
-    "@types/node": "^18.15.11",
-    "@types/prettier": "^2.7.2",
-    "typescript": "5.0.4"
+    "@types/lodash": "^4.14.195",
+    "@types/node": "^20.2.5",
+    "@types/prettier": "^2.7.3",
+    "typescript": "5.1.3"
   }
 }
