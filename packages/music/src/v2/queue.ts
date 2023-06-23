@@ -1,20 +1,34 @@
 import { isESM } from "@discordx/importer";
 import type { Client } from "discord.js";
+import { EventEmitter } from "events";
 import { Worker } from "worker_threads";
 
+import type {
+  AudioPlayerStateChangePayload,
+  NodePlayerOptions,
+  ParentProcessDataPayload,
+  SubscriptionPayload,
+  WorkerDataPayload,
+} from "./types/index.js";
 import {
-  type NodePlayerOptions,
-  type ParentProcessDataPayload,
   ParentProcessEvent,
-  type SubscriptionPayload,
-  type WorkerDataPayload,
+  QueueEvent,
   WorkerOperation,
 } from "./types/index.js";
 
-export class Queue {
+export interface Queue extends EventEmitter {
+  on(
+    event: QueueEvent.AudioNodeEvent,
+    listener: (payload: AudioPlayerStateChangePayload) => void
+  ): this;
+}
+
+export class Queue extends EventEmitter {
   private worker: Worker;
 
   constructor(public client: Client) {
+    super();
+
     this.worker = new Worker(
       `./build/${isESM ? "esm" : "cjs"}/v2/worker/index.js`
     );
@@ -40,27 +54,31 @@ export class Queue {
   }
 
   private setupWorkerMessageHandler(): void {
-    this.worker.on(
-      "message",
-      async ({ data, op }: ParentProcessDataPayload) => {
-        switch (op) {
-          case ParentProcessEvent.VoiceStateUpdate:
-            await this.handleWorkerVoiceStateUpdate(data);
-            break;
+    this.worker.on("message", async (payload: ParentProcessDataPayload) => {
+      switch (payload.op) {
+        case ParentProcessEvent.VoiceStateUpdate:
+          await this.handleWorkerVoiceStateUpdate(payload.data);
+          break;
 
-          case ParentProcessEvent.ConnectionDestroy:
-            this.handleWorkerConnectionDestroy(data);
-            break;
+        case ParentProcessEvent.ConnectionDestroy:
+          this.handleWorkerConnectionDestroy(payload.data);
+          break;
 
-          case ParentProcessEvent.AudioNodeEvent:
-            console.log(data);
-            break;
+        case ParentProcessEvent.AudioNodeEvent:
+          const data: AudioPlayerStateChangePayload = {
+            channelId: payload.channelId,
+            data: payload.data,
+            guildId: payload.guildId,
+            type: QueueEvent.AudioNodeEvent,
+          };
 
-          default:
-            break;
-        }
+          this.emit(QueueEvent.AudioNodeEvent, data);
+          break;
+
+        default:
+          break;
       }
-    );
+    });
   }
 
   private async handleWorkerVoiceStateUpdate(data: any): Promise<void> {
