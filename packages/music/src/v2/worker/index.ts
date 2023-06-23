@@ -1,35 +1,55 @@
 import { parentPort } from "node:worker_threads";
 
-import { WorkerOp } from "../types/enum.js";
-import type { WorkerPayload } from "../types/worker.js";
+import type { WorkerDataPayload } from "../types/communication-worker.js";
+import { WorkerOperation } from "../types/communication-worker.js";
 import { SubscriptionClient } from "./SubscriptionClient.js";
 
 const clients = new SubscriptionClient();
 
 if (parentPort) {
-  parentPort.on("message", ({ data, op }: WorkerPayload) => {
+  parentPort.on("message", ({ data, op }: WorkerDataPayload) => {
     switch (op) {
-      case WorkerOp.Disconnect:
+      case WorkerOperation.Disconnect: {
         clients.disconnect(data);
         break;
-      case WorkerOp.DisconnectAll:
+      }
+
+      case WorkerOperation.DisconnectAll: {
         clients.disconnectAll();
         break;
-      case WorkerOp.Join:
+      }
+
+      case WorkerOperation.Join: {
         clients.connect(data);
         break;
-      case WorkerOp.OnVoiceServerUpdate:
+      }
+
+      case WorkerOperation.OnVoiceServerUpdate: {
         clients.adapters.get(data.guild_id)?.onVoiceServerUpdate(data);
         break;
-      case WorkerOp.OnVoiceStateUpdate:
+      }
+
+      case WorkerOperation.OnVoiceStateUpdate: {
         clients.adapters.get(data.guild_id)?.onVoiceStateUpdate(data);
         break;
-      case WorkerOp.Play:
+      }
+
+      case WorkerOperation.Play: {
         const node = clients.subscriptions.get(data.guildId);
         if (node) {
           node.play(data.payload);
         }
         break;
+      }
+
+      case WorkerOperation.SetVolume: {
+        const node = clients.subscriptions.get(data.guildId);
+        if (node) {
+          node.setVolume(data.volume);
+        }
+        break;
+      }
+
       default:
         break;
     }

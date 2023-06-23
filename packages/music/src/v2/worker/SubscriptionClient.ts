@@ -2,8 +2,11 @@ import type { DiscordGatewayAdapterLibraryMethods } from "@discordjs/voice";
 import { joinVoiceChannel } from "@discordjs/voice";
 import { parentPort } from "worker_threads";
 
-import type { SubscriptionPayload } from "../types/index.js";
-import { WorkerEvent } from "../types/index.js";
+import {
+  type ParentProcessDataPayload,
+  ParentProcessEvent,
+  type SubscriptionPayload,
+} from "../types/index.js";
 import { AudioNode } from "./AudioNode.js";
 
 export class SubscriptionClient {
@@ -12,6 +15,10 @@ export class SubscriptionClient {
     string,
     DiscordGatewayAdapterLibraryMethods
   >();
+
+  private send(payload: ParentProcessDataPayload): void {
+    parentPort?.postMessage(payload);
+  }
 
   public connect(config: SubscriptionPayload): void {
     const adapterCreator = (adapter: DiscordGatewayAdapterLibraryMethods) => {
@@ -59,9 +66,9 @@ export class SubscriptionClient {
   private handleConnectionDestroy(guildId: string, channelId: string): void {
     this.adapters.delete(guildId);
     this.subscriptions.delete(guildId);
-    parentPort?.postMessage({
-      d: { channelId, guildId },
-      op: WorkerEvent.ConnectionDestroy,
+    this.send({
+      data: { channelId, guildId },
+      op: ParentProcessEvent.ConnectionDestroy,
     });
   }
 
@@ -70,9 +77,9 @@ export class SubscriptionClient {
     channelId: string,
     payload: any
   ): void {
-    parentPort?.postMessage({
-      d: { channelId, guildId, payload },
-      op: WorkerEvent.VoiceStateUpdate,
+    this.send({
+      data: { channelId, guildId, payload },
+      op: ParentProcessEvent.VoiceStateUpdate,
     });
   }
 }

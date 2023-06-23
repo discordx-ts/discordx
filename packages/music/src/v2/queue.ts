@@ -1,52 +1,66 @@
+import { isESM } from "@discordx/importer";
 import type { Client } from "discord.js";
 import { Worker } from "worker_threads";
 
-import { WorkerEvent, WorkerOp } from "./types/enum.js";
-import type {
-  NodePlayerOptions,
-  SubscriptionPayload,
-  WorkerEventPayload,
-  WorkerPayload,
+import {
+  type NodePlayerOptions,
+  type ParentProcessDataPayload,
+  ParentProcessEvent,
+  type SubscriptionPayload,
+  type WorkerDataPayload,
+  WorkerOperation,
 } from "./types/index.js";
 
 export class Queue {
   private worker: Worker;
 
   constructor(public client: Client) {
-    this.worker = new Worker("./build/esm/v2/worker/index.js");
+    this.worker = new Worker(
+      `./build/${isESM ? "esm" : "cjs"}/v2/worker/index.js`
+    );
     this.setupEventListeners();
     this.setupWorkerMessageHandler();
   }
 
-  private sendOp(payload: WorkerPayload): void {
+  private sendOp(payload: WorkerDataPayload): void {
     this.worker.postMessage(payload);
   }
 
   private setupEventListeners(): void {
     this.client.on("raw", (event: any) => {
       if (event.t === "VOICE_STATE_UPDATE") {
-        this.sendOp({ data: event.d, op: WorkerOp.OnVoiceStateUpdate });
+        this.sendOp({ data: event.d, op: WorkerOperation.OnVoiceStateUpdate });
       } else if (event.t === "VOICE_SERVER_UPDATE") {
-        this.sendOp({ data: event.d, op: WorkerOp.OnVoiceServerUpdate });
+        this.sendOp({
+          data: event.d,
+          op: WorkerOperation.OnVoiceServerUpdate,
+        });
       }
     });
   }
 
   private setupWorkerMessageHandler(): void {
-    this.worker.on("message", async ({ data, op }: WorkerEventPayload) => {
-      switch (op) {
-        case WorkerEvent.VoiceStateUpdate:
-          await this.handleWorkerVoiceStateUpdate(data);
-          break;
+    this.worker.on(
+      "message",
+      async ({ data, op }: ParentProcessDataPayload) => {
+        switch (op) {
+          case ParentProcessEvent.VoiceStateUpdate:
+            await this.handleWorkerVoiceStateUpdate(data);
+            break;
 
-        case WorkerEvent.ConnectionDestroy:
-          this.handleWorkerConnectionDestroy(data);
-          break;
+          case ParentProcessEvent.ConnectionDestroy:
+            this.handleWorkerConnectionDestroy(data);
+            break;
 
-        default:
-          break;
+          case ParentProcessEvent.AudioNodeEvent:
+            console.log(data);
+            break;
+
+          default:
+            break;
+        }
       }
-    });
+    );
   }
 
   private async handleWorkerVoiceStateUpdate(data: any): Promise<void> {
@@ -63,10 +77,14 @@ export class Queue {
   }
 
   join(data: SubscriptionPayload): void {
-    this.sendOp({ data: data, op: WorkerOp.Join });
+    this.sendOp({ data: data, op: WorkerOperation.Join });
   }
 
   play(data: { guildId: string; payload: NodePlayerOptions }): void {
-    this.sendOp({ data: data, op: WorkerOp.Play });
+    this.sendOp({ data: data, op: WorkerOperation.Play });
+  }
+
+  setVolume(data: { guildId: string; volume: number }): void {
+    this.sendOp({ data: data, op: WorkerOperation.SetVolume });
   }
 }
