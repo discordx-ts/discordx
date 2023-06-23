@@ -1,34 +1,46 @@
-import type { WorkerOp } from "./enum.js";
+import type { WorkerEvent, WorkerOp } from "./enum.js";
 
 export interface WorkerPayloadDisconnect {
-  d: {
+  data: {
     guildId: string;
   };
   op: WorkerOp.Disconnect;
 }
 
 export interface WorkerPayloadDisconnectAll {
-  d: undefined;
+  data: undefined;
   op: WorkerOp.DisconnectAll;
 }
 
+export interface SubscriptionPayload {
+  channelId: string;
+  deafen?: boolean;
+  guildId: string;
+}
+
 export interface WorkerPayloadJoin {
-  d: SubscriptionPayload;
+  data: SubscriptionPayload;
   op: WorkerOp.Join;
 }
 
 export interface WorkerPayloadOnVoiceServerUpdate {
-  d: any;
+  data: any;
   op: WorkerOp.OnVoiceServerUpdate;
 }
 
 export interface WorkerPayloadOnVoiceUpdate {
-  d: any;
+  data: any;
   op: WorkerOp.OnVoiceStateUpdate;
 }
 
+export interface NodePlayerOptions {
+  initialVolume?: number;
+  metadata?: unknown;
+  query: string;
+}
+
 export interface WorkerPayloadPlay {
-  d: {
+  data: {
     guildId: string;
     payload: NodePlayerOptions;
   };
@@ -43,14 +55,16 @@ export type WorkerPayload =
   | WorkerPayloadOnVoiceUpdate
   | WorkerPayloadPlay;
 
-export interface SubscriptionPayload {
-  channelId: string;
-  deafen?: boolean;
-  guildId: string;
+export interface WorkerEventPayloadVoiceStateUpdate {
+  data: any;
+  op: WorkerEvent.VoiceStateUpdate;
 }
 
-export interface NodePlayerOptions {
-  initialVolume?: number;
-  metadata?: unknown;
-  query: string;
+export interface WorkerEventPayloadConnectionDestroy {
+  data: any;
+  op: WorkerEvent.ConnectionDestroy;
 }
+
+export type WorkerEventPayload =
+  | WorkerEventPayloadVoiceStateUpdate
+  | WorkerEventPayloadConnectionDestroy;
