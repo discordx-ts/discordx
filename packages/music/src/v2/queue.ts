@@ -5,47 +5,66 @@ import { WorkerEvent, WorkerOp } from "./types/enum.js";
 import type { SubscriptionPayload } from "./types/worker.js";
 
 export class Queue {
-  worker = new Worker("./build/esm/v2/worker/index.js");
+  private worker: Worker;
 
   constructor(public client: Client) {
-    this.client.on("raw", (event) => {
+    this.worker = new Worker("./build/esm/v2/worker/index.js");
+    this.setupEventListeners();
+    this.setupWorkerMessageHandler();
+  }
+
+  private setupEventListeners(): void {
+    this.client.on("raw", (event: any) => {
       if (event.t === "VOICE_STATE_UPDATE") {
-        this.worker.postMessage({
-          d: event.d,
-          op: WorkerOp.OnVoiceStateUpdate,
-        });
+        this.handleVoiceStateUpdate(event.d);
+      } else if (event.t === "VOICE_SERVER_UPDATE") {
+        this.handleVoiceServerUpdate(event.d);
       }
     });
+  }
 
-    this.client.on("raw", (event) => {
-      if (event.t === "VOICE_SERVER_UPDATE") {
-        this.worker.postMessage({
-          d: event.d,
-          op: WorkerOp.OnVoiceServerUpdate,
-        });
-      }
+  private handleVoiceStateUpdate(data: any): void {
+    this.worker.postMessage({
+      d: data,
+      op: WorkerOp.OnVoiceStateUpdate,
     });
+  }
 
+  private handleVoiceServerUpdate(data: any): void {
+    this.worker.postMessage({
+      d: data,
+      op: WorkerOp.OnVoiceServerUpdate,
+    });
+  }
+
+  private setupWorkerMessageHandler(): void {
     this.worker.on("message", async (message: { d: any; op: WorkerEvent }) => {
       switch (message.op) {
         case WorkerEvent.VoiceStateUpdate:
-          const guild = await this.client.guilds.fetch(message.d.guildId);
-          guild.shard.send(message.d.payload);
+          await this.handleWorkerVoiceStateUpdate(message.d);
           break;
 
         case WorkerEvent.ConnectionDestroy:
-          const { channelId } = message.d as {
-            channelId: string;
-            guildId: string;
-          };
-
-          // Destroy the voice adapter
-          this.client.voice.adapters.get(channelId)?.destroy();
+          this.handleWorkerConnectionDestroy(message.d);
           break;
+
         default:
           break;
       }
     });
+  }
+
+  private async handleWorkerVoiceStateUpdate(data: any): Promise<void> {
+    const guild = await this.client.guilds.fetch(data.guildId);
+    guild.shard.send(data.payload);
+  }
+
+  private handleWorkerConnectionDestroy(data: {
+    channelId: string;
+    guildId: string;
+  }): void {
+    const { channelId } = data;
+    this.client.voice.adapters.get(channelId)?.destroy();
   }
 
   join(data: SubscriptionPayload): void {

@@ -5,18 +5,15 @@ import { ytdl } from "../../logic/ytdl.js";
 import type { NodePlayerOptions } from "../types/index.js";
 
 export class AudioNode {
-  public audioPlayer = new AudioPlayer();
+  public audioPlayer: AudioPlayer;
+  public guildId: string;
+  public channelId: string | null;
 
-  public constructor(public connection: VoiceConnection) {
+  constructor(public connection: VoiceConnection) {
+    this.audioPlayer = new AudioPlayer();
+    this.guildId = this.connection.joinConfig.guildId;
+    this.channelId = this.connection.joinConfig.channelId;
     connection.subscribe(this.audioPlayer);
-  }
-
-  public get guildId(): string {
-    return this.connection.joinConfig.guildId;
-  }
-
-  public get channelId(): string | null {
-    return this.connection.joinConfig.channelId;
   }
 
   public play(options: NodePlayerOptions): void {

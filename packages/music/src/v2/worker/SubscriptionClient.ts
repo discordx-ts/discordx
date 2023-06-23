@@ -7,61 +7,72 @@ import { WorkerEvent } from "../types/index.js";
 import { AudioNode } from "./AudioNode.js";
 
 export class SubscriptionClient {
-  public subscriptions = new Map<string, AudioNode>();
-  public adapters = new Map<string, DiscordGatewayAdapterLibraryMethods>();
+  public subscriptions: Map<string, AudioNode> = new Map<string, AudioNode>();
+  public adapters: Map<string, DiscordGatewayAdapterLibraryMethods> = new Map<
+    string,
+    DiscordGatewayAdapterLibraryMethods
+  >();
 
   public connect(config: SubscriptionPayload): void {
+    const adapterCreator = (adapter: DiscordGatewayAdapterLibraryMethods) => {
+      this.adapters.set(config.guildId, adapter);
+      return {
+        destroy: () => {
+          this.handleConnectionDestroy(config.guildId, config.channelId);
+        },
+        sendPayload: (payload: any) => {
+          this.handleVoiceStateUpdate(
+            config.guildId,
+            config.channelId,
+            payload
+          );
+          return true;
+        },
+      };
+    };
+
     const voiceConnection = joinVoiceChannel({
-      adapterCreator: (adapter) => {
-        this.adapters.set(config.guildId, adapter);
-        return {
-          destroy: () => {
-            this.adapters.delete(config.guildId);
-            this.subscriptions.delete(config.guildId);
-            parentPort?.postMessage({
-              d: {
-                channelId: config.channelId,
-                guildId: config.guildId,
-              },
-              op: WorkerEvent.ConnectionDestroy,
-            });
-          },
-          sendPayload: (payload) => {
-            parentPort?.postMessage({
-              d: {
-                channelId: config.channelId,
-                guildId: config.guildId,
-                payload: payload,
-              },
-              op: WorkerEvent.VoiceStateUpdate,
-            });
-            return true;
-          },
-        };
-      },
+      adapterCreator,
       channelId: config.channelId,
       guildId: config.guildId,
       selfDeaf: config.deafen ?? false,
     });
 
-    this.subscriptions.set(
-      voiceConnection.joinConfig.guildId,
-      new AudioNode(voiceConnection)
-    );
+    this.subscriptions.set(config.guildId, new AudioNode(voiceConnection));
   }
 
   public disconnect(config: Pick<SubscriptionPayload, "guildId">): void {
     const node = this.subscriptions.get(config.guildId);
     if (node) {
-      node.connection.destroy();
+      node.destroy();
       this.subscriptions.delete(config.guildId);
     }
   }
 
   public disconnectAll(): void {
     for (const [id, node] of this.subscriptions) {
-      node.connection.destroy();
+      node.destroy();
       this.subscriptions.delete(id);
     }
+  }
+
+  private handleConnectionDestroy(guildId: string, channelId: string): void {
+    this.adapters.delete(guildId);
+    this.subscriptions.delete(guildId);
+    parentPort?.postMessage({
+      d: { channelId, guildId },
+      op: WorkerEvent.ConnectionDestroy,
+    });
+  }
+
+  private handleVoiceStateUpdate(
+    guildId: string,
+    channelId: string,
+    payload: any
+  ): void {
+    parentPort?.postMessage({
+      d: { channelId, guildId, payload },
+      op: WorkerEvent.VoiceStateUpdate,
+    });
   }
 }
