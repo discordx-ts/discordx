@@ -4,10 +4,12 @@ import { EventEmitter } from "events";
 import { Worker } from "worker_threads";
 
 import type {
-  AudioPlayerStateChangePayload,
-  NodePlayerOptions,
+  GuildData,
+  JoinData,
   ParentProcessDataPayload,
-  SubscriptionPayload,
+  PlayData,
+  QueueEventPayloads,
+  SetVolumeData,
   WorkerDataPayload,
 } from "./types/index.js";
 import {
@@ -16,14 +18,14 @@ import {
   WorkerOperation,
 } from "./types/index.js";
 
-export interface Queue extends EventEmitter {
-  on(
-    event: QueueEvent.AudioNodeEvent,
-    listener: (payload: AudioPlayerStateChangePayload) => void
+export interface QueueNode extends EventEmitter {
+  on<T extends QueueEvent>(
+    event: T,
+    listener: (payload: QueueEventPayloads[T]) => void
   ): this;
 }
 
-export class Queue extends EventEmitter {
+export class QueueNode extends EventEmitter {
   private worker: Worker;
 
   constructor(public client: Client) {
@@ -55,6 +57,8 @@ export class Queue extends EventEmitter {
 
   private setupWorkerMessageHandler(): void {
     this.worker.on("message", async (payload: ParentProcessDataPayload) => {
+      this.emit(QueueEvent.ParentProcessEvent, payload);
+
       switch (payload.op) {
         case ParentProcessEvent.VoiceStateUpdate:
           await this.handleWorkerVoiceStateUpdate(payload.data);
@@ -62,17 +66,6 @@ export class Queue extends EventEmitter {
 
         case ParentProcessEvent.ConnectionDestroy:
           this.handleWorkerConnectionDestroy(payload.data);
-          break;
-
-        case ParentProcessEvent.AudioNodeEvent:
-          const data: AudioPlayerStateChangePayload = {
-            channelId: payload.channelId,
-            data: payload.data,
-            guildId: payload.guildId,
-            type: QueueEvent.AudioNodeEvent,
-          };
-
-          this.emit(QueueEvent.AudioNodeEvent, data);
           break;
 
         default:
@@ -94,15 +87,35 @@ export class Queue extends EventEmitter {
     this.client.voice.adapters.get(channelId)?.destroy();
   }
 
-  join(data: SubscriptionPayload): void {
-    this.sendOp({ data: data, op: WorkerOperation.Join });
+  join(data: JoinData): void {
+    this.sendOp({ data, op: WorkerOperation.Join });
   }
 
-  play(data: { guildId: string; payload: NodePlayerOptions }): void {
-    this.sendOp({ data: data, op: WorkerOperation.Play });
+  play(data: PlayData): void {
+    this.sendOp({ data, op: WorkerOperation.Play });
   }
 
-  setVolume(data: { guildId: string; volume: number }): void {
-    this.sendOp({ data: data, op: WorkerOperation.SetVolume });
+  pingPlaybackInfo(data: GuildData): void {
+    this.sendOp({ data, op: WorkerOperation.PingPlaybackInfo });
+  }
+
+  setVolume(data: SetVolumeData): void {
+    this.sendOp({ data, op: WorkerOperation.SetVolume });
+  }
+
+  pause(data: GuildData): void {
+    this.sendOp({ data, op: WorkerOperation.Pause });
+  }
+
+  unpause(data: GuildData): void {
+    this.sendOp({ data, op: WorkerOperation.Unpause });
+  }
+
+  disconnect(data: GuildData): void {
+    this.sendOp({ data, op: WorkerOperation.Disconnect });
+  }
+
+  disconnectAll(): void {
+    this.sendOp({ op: WorkerOperation.DisconnectAll });
   }
 }

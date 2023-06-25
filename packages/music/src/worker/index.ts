@@ -2,9 +2,9 @@ import { parentPort } from "node:worker_threads";
 
 import type { WorkerDataPayload } from "../types/communication-worker.js";
 import { WorkerOperation } from "../types/communication-worker.js";
-import { SubscriptionClient } from "./SubscriptionClient.js";
+import { AudioNodeManager } from "./audio-node-manager.js";
 
-const clients = new SubscriptionClient();
+const clients = new AudioNodeManager();
 
 if (parentPort) {
   parentPort.on("message", ({ data, op }: WorkerDataPayload) => {
@@ -35,18 +35,17 @@ if (parentPort) {
       }
 
       case WorkerOperation.Play: {
-        const node = clients.subscriptions.get(data.guildId);
-        if (node) {
-          node.play(data.payload);
-        }
+        clients.play(data);
         break;
       }
 
       case WorkerOperation.SetVolume: {
-        const node = clients.subscriptions.get(data.guildId);
-        if (node) {
-          node.setVolume(data.volume);
-        }
+        clients.setVolume(data);
+        break;
+      }
+
+      case WorkerOperation.PingPlaybackInfo: {
+        clients.sendPlaybackInfo(data);
         break;
       }
 

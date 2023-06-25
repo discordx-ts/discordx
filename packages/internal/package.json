@@ -52,11 +52,11 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.3"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
-    "typescript": "5.0.4"
+    "@types/node": "^20.2.5",
+    "typescript": "5.1.3"
   },
   "engines": {
     "node": ">=16.0.0",

@@ -4,30 +4,36 @@ export enum WorkerOperation {
   Join = "JOIN",
   OnVoiceServerUpdate = "ON_VOICE_SERVER_UPDATE",
   OnVoiceStateUpdate = "ON_VOICE_STATE_UPDATE",
+  Pause = "PAUSE",
+  PingPlaybackInfo = "PING_PLAYBACK_INFO",
   Play = "PLAY",
   SetVolume = "SET_VOLUME",
+  Unpause = "UNPAUSE",
+}
+
+export interface GuildData {
+  guildId: string;
 }
 
 export interface DisconnectPayload {
-  data: {
-    guildId: string;
-  };
+  data: GuildData;
   op: WorkerOperation.Disconnect;
 }
 
 export interface DisconnectAllPayload {
-  data: undefined;
+  data?: undefined;
   op: WorkerOperation.DisconnectAll;
 }
 
-export interface SubscriptionPayload {
+export interface JoinData {
   channelId: string;
   deafen?: boolean;
+  group: string;
   guildId: string;
 }
 
 export interface JoinPayload {
-  data: SubscriptionPayload;
+  data: JoinData;
   op: WorkerOperation.Join;
 }
 
@@ -48,19 +54,33 @@ export interface NodePlayerOptions {
 }
 
 export interface PlayPayload {
-  data: {
-    guildId: string;
-    payload: NodePlayerOptions;
-  };
+  data: PlayData;
   op: WorkerOperation.Play;
 }
 
+export interface PlayData {
+  guildId: string;
+  payload: NodePlayerOptions;
+}
+
 export interface SetVolumePayload {
-  data: {
-    guildId: string;
-    volume: number;
-  };
+  data: SetVolumeData;
   op: WorkerOperation.SetVolume;
+}
+
+export interface SetVolumeData {
+  guildId: string;
+  volume: number;
+}
+
+export interface PingPlaybackInfoPayload {
+  data: GuildData;
+  op: WorkerOperation.PingPlaybackInfo;
+}
+
+export interface PausePayload {
+  data: GuildData;
+  op: WorkerOperation.Pause | WorkerOperation.Unpause;
 }
 
 export type WorkerDataPayload =
@@ -70,4 +90,6 @@ export type WorkerDataPayload =
   | VoiceServerUpdatePayload
   | VoiceUpdatePayload
   | PlayPayload
-  | SetVolumePayload;
+  | SetVolumePayload
+  | PingPlaybackInfoPayload
+  | PausePayload;

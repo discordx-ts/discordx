@@ -7,13 +7,14 @@ import {
 } from "@discordjs/voice";
 import { parentPort } from "worker_threads";
 
-import { ytdl } from "../../logic/ytdl.js";
 import type {
   AudioNodeEventPayload,
+  NodeAudioData,
   NodePlayerOptions,
   ParentProcessDataPayload,
 } from "../types/index.js";
 import { AudioNodeEvent, ParentProcessEvent } from "../types/index.js";
+import { ytdl } from "./ytdl.js";
 
 export class AudioNode {
   public audioPlayer: AudioPlayer;
@@ -21,11 +22,15 @@ export class AudioNode {
   public channelId: string | null;
   public volume = 100;
 
-  private send(data: AudioNodeEventPayload): void {
-    const payload: ParentProcessDataPayload = {
+  private send(eventPayload: AudioNodeEventPayload): void {
+    const payloadData: NodeAudioData = {
       channelId: this.channelId,
-      data,
       guildId: this.guildId,
+      payload: eventPayload,
+    };
+
+    const payload: ParentProcessDataPayload = {
+      data: payloadData,
       op: ParentProcessEvent.AudioNodeEvent,
     };
 
@@ -57,6 +62,24 @@ export class AudioNode {
     );
   }
 
+  public sendPlaybackInfo(): void {
+    let ended = true;
+    let playbackDuration = 0;
+    const playerStatus = this.audioPlayer.state.status;
+
+    if (playerStatus !== AudioPlayerStatus.Idle) {
+      ended = this.audioPlayer.state.resource.ended;
+      playbackDuration = this.audioPlayer.state.resource.playbackDuration;
+    }
+
+    this.send({
+      ended,
+      playbackDuration,
+      playerStatus,
+      type: AudioNodeEvent.PlaybackInfo,
+    });
+  }
+
   public play(options: NodePlayerOptions): void {
     const stream = ytdl(options.query, {
       fmt: "s16le",
@@ -85,5 +108,13 @@ export class AudioNode {
     if (this.audioPlayer.state.status === AudioPlayerStatus.Playing) {
       this.audioPlayer.state.resource.volume?.setVolume(this.volume / 100);
     }
+  }
+
+  public pause(): void {
+    this.audioPlayer.pause();
+  }
+
+  public unpause(): void {
+    this.audioPlayer.unpause();
   }
 }

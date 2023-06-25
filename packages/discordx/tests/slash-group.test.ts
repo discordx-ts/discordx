@@ -288,6 +288,7 @@ describe("Choice", () => {
         dmPermission: true,
         name: "testing",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             description: "hello",
@@ -425,6 +426,7 @@ describe("Choice", () => {
         dmPermission: true,
         name: "group-test-without-description",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             description: "text group description",
@@ -470,6 +472,7 @@ describe("Choice", () => {
         dmPermission: true,
         name: "test-x",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             description: "add",
@@ -518,6 +521,7 @@ describe("Choice", () => {
         dmPermission: true,
         name: "test-y",
         nameLocalizations: null,
+        nsfw: false,
         options: [
           {
             description: "add",

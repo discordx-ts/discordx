@@ -38,6 +38,7 @@ export function Slash<T extends string, TD extends string>(
       guilds: options?.guilds,
       name: name,
       nameLocalizations: options?.nameLocalizations,
+      nsfw: options?.nsfw,
       type: ApplicationCommandType.ChatInput,
     }).decorate(target.constructor, key, target[key]);
 

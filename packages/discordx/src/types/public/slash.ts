@@ -23,6 +23,7 @@ export type ApplicationCommandOptions<T extends string, TD extends string> = {
   guilds?: IGuild[];
   name?: T;
   nameLocalizations?: LocalizationMap;
+  nsfw?: boolean;
 };
 
 export type SlashOptionBaseOptions<T extends string, TD extends string> = {
@@ -36,6 +37,7 @@ export type SlashOptionBaseOptions<T extends string, TD extends string> = {
   minValue?: undefined;
   name: T;
   nameLocalizations?: LocalizationMap;
+  nsfw?: boolean;
   required?: boolean;
   transformer?: TransformerFunction;
   type: Exclude<
@@ -115,6 +117,7 @@ export type ApplicationCommandDataEx = {
   dmPermission?: boolean;
   name: string;
   nameLocalizations?: LocalizationMap | null;
+  nsfw?: boolean;
   options: ApplicationCommandOptionData[];
   type: ApplicationCommandType;
 };

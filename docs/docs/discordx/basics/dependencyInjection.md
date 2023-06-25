@@ -157,68 +157,61 @@ the `tsyringeDependencyRegistryEngine` and `typeDiDependencyRegistryEngine` both
 services with tokens, the tokens are available by static props on the classes:
 e.g `tsyringeDependencyRegistryEngine.token`.
 
-This means that in order to get a class from the container of these, you will need to supply a token or
-call `DIService.instance.getService(DiscordService);`.
+### Enabling
 
-Because of thw way that TypeDI and tsyringe deals with tokens, if you simply inject a `@Discord` class it will create a
-NEW instance of that class, and it will not be a singleton, this is because any class registered with a token can only
-be retrieved with that token.
+In order to enable Discord x to use tokenization, you simply need to call `setUseTokenization(true)` and (for Tsyringe only) `setCashingSingletonFactory` on your initialization of Discordx I.E:
 
-So, by default, tokens on TypeDI and tsyringe are disabled, to enable them,
-call `tsyringeDependencyRegistryEngine.setUseTokenization(true);`
-or `typeDiDependencyRegistryEngine.setUseTokenization(true);`
+```ts title="Tsyringe"
+import { container, instanceCachingFactory } from "tsyringe";
+DIService.engine = tsyringeDependencyRegistryEngine
+  .setUseTokenization(true)
+  .setCashingSingletonFactory(instanceCachingFactory)
+  .setInjector(container);
+```
 
-If you enable tokens on tsyringe or TypeDI, it would mean that you would have to use `@InjectAll` then do a filter on
-that array to find the class.
+```ts title="TypeDI"
+DIService.engine = tsyringeDependencyRegistryEngine
+  .setUseTokenization(true)
+  .setInjector(container);
+```
 
-For example, if you wanted to get the `OnReady.ts` class:
+### Custom Tsyringe tokens
 
-```ts title="useTokenization=true"
-@Discord()
-class OnReady {
-  private bar = "bar";
-  public foo() {
-    console.log(this.bar);
-  }
-}
+In order to set your own custom token, you must call `TsyringeDependencyRegistryEngine.setToken` and pass in the symbol you wish to use. and Discordx will internally use this symbol. by default, this is set to `Symbol("discordx")`
 
+### Custom TypeDI tokens
+
+for TypeDI, it is the same as for Tsyringe except you need to call `TypeDiDependencyRegistryEngine.setToken` and pass in an instance of TypeDI's Token class
+
+### usage
+
+To use this. just use `TsyringeDependencyRegistryEngine.token` when you want to get all of Discordx's decorated classes. I.E
+
+```ts
 @injectable()
 class TsClass {
-  private onReady: OnReady | null;
-
   public constructor(
-    @injectAll(tsyringeDependencyRegistryEngine.token) discordClasses: unknown[]
+    @injectAll(TsyringeDependencyRegistryEngine.token) discordClasses: unknown[]
   ) {
-    this.onReady =
-      discordClasses.find((service) => service.constructor === OnReady) ?? null;
-    // or
-    this.onReady = DIService.getService(OnReady);
-
-    this.onReady.foo();
+    console.log(discordClasses); // all of Discordx's classes
   }
 }
 ```
 
-```ts title="useTokenization=false"
-@Discord()
-class OnReady {
-  private bar = "bar";
-  public foo() {
-    console.log(this.bar);
-  }
-}
+#### Side-effects
 
-@injectable()
-class TsClass {
-  public constructor(private onReady: OnReady) {
-    onReady.foo();
-  }
-}
-```
+Due to the nature of tokens and how the internal resolution factory of both systems resolve classes. you must be careful when you use tokens.
+
+Discordx handles internal Tsyringe tokenization by proxying the into an `Instance Cashing Singleton Factory`. this factory allowes both tokens AND classes to be resolved by the same registry.
+
+in short, this allows you to use `@injectALl(TypeDiDependencyRegistryEngine.token)` to get all of Discordx's classes AND a normal injection of a single class, and you can be sure that both the standard injection and the token injection will ALWAYS resolve the same singleton.
+
+so if you use TypeDI to get ALL of your classes, you will need a custom filter on the injection constructor:
+that array to find the class.
 
 ## Getting all @Discord classes
 
-If for some reason, you wish to get all instances of the `@Discord` classes in your bot, then you can simple
+if you wish to get all instances of the `@Discord` classes in your bot, then you can simple
 call `DIService.allServices();`
 
 **NOTE**: this will construct all your classes in the DI container, if you wish to lazy-load your Discord classes, then
@@ -229,5 +222,23 @@ import { DIService } from "discordx";
 
 function getAllDiscordClasses(): Set<unknown> {
   return DIService.allServices();
+}
+```
+
+And if you are using tokens:
+
+```ts title="Tsyringe tokens"
+import { DIService } from "discordx";
+
+function getAllDiscordClasses(): Set<unknown> {
+  return container.resolveAll(TsyringeDependencyRegistryEngine.token);
+}
+```
+
+```ts title="typeDi tokens"
+import { DIService } from "discordx";
+
+function getAllDiscordClasses(): Set<unknown> {
+  return Container.getMany(TypeDiDependencyRegistryEngine.token);
 }
 ```

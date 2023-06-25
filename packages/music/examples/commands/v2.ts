@@ -2,18 +2,34 @@ import type { CommandInteraction } from "discord.js";
 import { ApplicationCommandOptionType, GuildMember } from "discord.js";
 
 import { Discord, Slash, SlashOption } from "../../../discordx/src/index.js";
-import { Queue } from "../../src/v2/index.js";
+import { QueueNode, TrackQueue } from "../../src/index.js";
 import { Main } from "../main.js";
 
 @Discord()
 export class music {
-  queue: Queue;
+  queueNode: QueueNode;
+  guildQueue = new Map<string, TrackQueue>();
 
-  constructor() {
-    this.queue = new Queue(Main.Client);
+  getQueue(guildId: string): TrackQueue {
+    let queue = this.guildQueue.get(guildId);
+    if (!queue) {
+      queue = new TrackQueue({
+        client: Main.Client,
+        guildId: guildId,
+        queueNode: this.queueNode,
+      });
+
+      this.guildQueue.set(guildId, queue);
+    }
+
+    return queue;
   }
 
-  @Slash({ description: "Play a song", name: "play-v2" })
+  constructor() {
+    this.queueNode = new QueueNode(Main.Client);
+  }
+
+  @Slash({ description: "Play a song", name: "play" })
   async play(interaction: CommandInteraction): Promise<void> {
     if (!interaction.guild) {
       return;
@@ -29,22 +45,24 @@ export class music {
 
     await interaction.deferReply({ ephemeral: true });
 
-    this.queue.join({
+    const queue = this.getQueue(interaction.member.voice.channel.guildId);
+
+    queue.join({
       channelId: interaction.member.voice.channel.id,
+      group: "bot",
       guildId: interaction.member.voice.channel.guildId,
     });
 
-    this.queue.play({
-      guildId: interaction.member.voice.channel.guildId,
-      payload: {
-        query: "https://www.youtube.com/watch?v=hp_-RlwNg04",
-      },
+    queue.addTrack({
+      duration: 1000,
+      title: "My Song",
+      url: "https://www.youtube.com/watch?v=hp_-RlwNg04",
     });
 
     interaction.followUp("The requested song is being played");
   }
 
-  @Slash({ description: "Set volume", name: "play-v2-volume" })
+  @Slash({ description: "Set volume", name: "set-volume" })
   async setVolume(
     @SlashOption({
       description: "Set volume",
@@ -69,11 +87,33 @@ export class music {
 
     await interaction.deferReply({ ephemeral: true });
 
-    this.queue.setVolume({
-      guildId: interaction.member.voice.channel.guildId,
-      volume,
-    });
+    const queue = this.getQueue(interaction.member.voice.channel.guildId);
 
-    interaction.followUp("The requested song is being played");
+    queue.setVolume(volume);
+
+    interaction.followUp("volume set");
+  }
+
+  @Slash({ description: "disconnect", name: "disconnect" })
+  async disconnect(interaction: CommandInteraction): Promise<void> {
+    if (!interaction.guild) {
+      return;
+    }
+
+    if (
+      !(interaction.member instanceof GuildMember) ||
+      !interaction.member.voice.channel
+    ) {
+      interaction.reply("You are not in the voice channel");
+      return;
+    }
+
+    await interaction.deferReply({ ephemeral: true });
+
+    const queue = this.getQueue(interaction.member.voice.channel.guildId);
+    queue.leave();
+    this.guildQueue.delete(interaction.member.voice.channel.guildId);
+
+    interaction.followUp("disconnected");
   }
 }

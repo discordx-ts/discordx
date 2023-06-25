@@ -49,13 +49,13 @@
     "type-check": "tsc --noemit"
   },
   "dependencies": {
-    "glob": "^10.0.0",
-    "tslib": "^2.5.0"
+    "glob": "^10.2.6",
+    "tslib": "^2.5.3"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/node": "^18.15.11",
-    "typescript": "5.0.4"
+    "@types/node": "^20.2.5",
+    "typescript": "5.1.3"
   },
   "publishConfig": {
     "access": "public"
