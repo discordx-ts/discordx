@@ -64,7 +64,7 @@
     "@discordx/importer": "^1.2.2",
     "@types/jest": "^29.5.2",
     "@types/lodash": "^4.14.195",
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.3.1",
     "discord.js": "^14.11.0",
     "jest": "^29.5.0",
     "reflect-metadata": "^0.1.13",
