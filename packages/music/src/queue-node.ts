@@ -1,4 +1,4 @@
-import { isESM } from "@discordx/importer";
+import { dirname, isESM } from "@discordx/importer";
 import type { Client } from "discord.js";
 import { EventEmitter } from "events";
 import { Worker } from "worker_threads";
@@ -18,6 +18,8 @@ import {
   WorkerOperation,
 } from "./types/index.js";
 
+const folder = isESM ? dirname(import.meta.url) : __dirname;
+
 export interface QueueNode extends EventEmitter {
   on<T extends QueueEvent>(
     event: T,
@@ -31,9 +33,7 @@ export class QueueNode extends EventEmitter {
   constructor(public client: Client) {
     super();
 
-    this.worker = new Worker(
-      `./build/${isESM ? "esm" : "cjs"}/worker/index.js`
-    );
+    this.worker = new Worker(`${folder}/worker/index.js`);
     this.setupEventListeners();
     this.setupWorkerMessageHandler();
   }
