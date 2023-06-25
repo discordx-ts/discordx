@@ -8,10 +8,10 @@ import { ParentProcessEvent } from "./types/communication-parent.js";
 import type { JoinData, PlaybackInfoAudioNodePayload } from "./types/index.js";
 import { QueueEvent } from "./types/queue-node-event.js";
 
-export type Track = {
+export interface Track {
   seek?: number;
   url: string;
-};
+}
 
 export enum RepeatMode {
   None,
