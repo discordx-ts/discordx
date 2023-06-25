@@ -57,224 +57,37 @@ yarn add @discordx/music
 
 **Note:** Create a pull request to include your bot in the example list.
 
-# Define new player
+# What is QueueNode?
+
+`QueueNode` is a service that oversees the management of a worker service responsible for handling audio nodes and the corresponding audio node managers. Its primary purpose is to provide music functionality within a system. By utilizing `QueueNode`, multiple workers can be spawned as needed to enable concurrent music playback across multiple guilds. The `QueueNode` service ensures efficient coordination and distribution of music playback tasks, allowing for seamless and synchronized playback across different guilds.
+
+# What is TrackQueue?
+
+`TrackQueue` is a service specifically designed to offer playlist-like functionality within a music system. It provides a range of functions such as queuing songs, playing tracks, skipping, repeating, pausing/unpausing, and more. By creating a `TrackQueue` instance per guild, you can seamlessly integrate playlist functionality into your music system. This allows users to manage and enjoy their own personalized playlists within their respective guilds, enhancing the overall music experience. With `TrackQueue`, users can easily control the playback flow, manage track order, and apply various playlist-related operations to curate their desired musical journey.
+
+# Quick Example
 
 ```ts
-const player = new Player();
-```
+// Create a queue node
+const queueNode = new QueueNode(client);
 
-# Get queue for guild
+// Create a track queue for guild
+const trackQueue = new TrackQueue({
+  client: client,
+  guildId: guildId,
+  queueNode: queueNode,
+});
 
-```ts
-const queue = player.queue(interaction.guild);
-```
+// Join voice channel
+queue.join({
+  channelId: channelId,
+  guildId: guildId,
+});
 
-# Join voice server
-
-```ts
-await queue.join(interaction.member.voice.channel);
-```
-
-# Play youtube song
-
-```ts
-import yts from "yt-search";
-
-const search = await yts({ query: songName });
-const video = search.videos[0];
-
-const track = new YoutubeTrack(
-  { title: video.title, url: video.videoId },
-  this.player // use the player reference
-);
-
-queue.playTrack(track);
-```
-
-# Play youtube playlist
-
-```ts
-import yts from "yt-search";
-
-const search = await yts({ query: playlistName });
-const playlist = search.playlists[0];
-
-const list = await yts({ listId: playlist.listId });
-
-const tracks = list.videos.map(
-  (video) =>
-    new YoutubeTrack(
-      { title: video.title, url: video.videoId },
-      this.player // use the player reference
-    )
-);
-
-queue.playTrack(tracks);
-```
-
-# Get voice config data
-
-```ts
-const audioPlayer = queue.audioPlayer;
-const voiceConnection = queue.voiceConnection;
-const voiceChannelId = queue.voiceChannelId;
-const voiceGroup = queue.voiceGroup;
-const voiceGuildId = queue.voiceGuildId;
-```
-
-# Get tracks
-
-```ts
-const tracks = queue.tracks;
-```
-
-# Get loop mode
-
-```ts
-const state = queue.loop;
-```
-
-# Set loop mode
-
-```ts
-queue.setLoop(true | false);
-```
-
-# Get repeat mode
-
-```ts
-const state = queue.repeat;
-```
-
-# Set repeat mode
-
-```ts
-queue.setRepeat(true | false);
-```
-
-# Pause music
-
-```ts
-queue.pause();
-```
-
-# Resume music
-
-```ts
-queue.resume();
-```
-
-# Skip music
-
-```ts
-queue.skip();
-```
-
-# Leave voice channel
-
-```ts
-queue.leave();
-```
-
-# Mix/Shuffle tracks
-
-```ts
-queue.mix();
-```
-
-# Get playback duration
-
-```ts
-queue.playbackDuration;
-```
-
-# Get volume
-
-```ts
-queue.volume;
-```
-
-# Set volume
-
-```ts
-queue.setVolume(volume: number);
-```
-
-# Seek current track
-
-```ts
-queue.seek(time: number);
-```
-
-# Clear queue
-
-```ts
-queue.clearTracks();
-```
-
-# Remove specific tracks
-
-```ts
-queue.removeTracks([1, 3, 5]);
-```
-
-# Get total tracks
-
-```ts
-const total = queue.size;
-```
-
-# Events
-
-```ts
-this.player.on("onError", console.log);
-this.player.on("onFinish", console.log);
-this.player.on("onStart", console.log);
-this.player.on("onLoop", console.log);
-this.player.on("onFinishPlayback", console.log);
-this.player.on("onRepeat", console.log);
-this.player.on("onSkip", console.log);
-this.player.on("onPause", console.log);
-this.player.on("onResume", console.log);
-this.player.on("onTrackAdd", console.log);
-this.player.on("onLoopEnabled", console.log);
-this.player.on("onLoopDisabled", console.log);
-this.player.on("onRepeatEnabled", console.log);
-this.player.on("onRepeatDisabled", console.log);
-this.player.on("onMix", console.log);
-this.player.on("onVolumeUpdate", console.log);
-this.player.on("onSeek", console.log);
-this.player.on("onJoin", console.log);
-this.player.on("onLeave", console.log);
-```
-
-# Custom queue
-
-```ts
-class MyQueue extends Queue {
-  customProp = "custom queue";
-}
-```
-
-Tell the player to use this custom queue
-
-```ts
-class MyQueue extends Queue {}
-this.player.queue(guild, () => new MyQueue(this.player, guild));
-```
-
-# Custom player
-
-```ts
-class MyPlayer extends Player {
-  // custom player
-}
-```
-
-Let your queue know about custom player
-
-```ts
-const myQueue: Queue<MyPlayer> = new Queue(this, guild);
+// Add and play track
+queue.addTrack({
+  url: "VIDEO_URL",
+});
 ```
 
 # 📜 Documentation

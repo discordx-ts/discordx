@@ -1,4 +1,3 @@
-export * from "./core/index.js";
-export * from "./logic/index.js";
-export * from "./tracks/index.js";
+export * from "./queue-node.js";
+export * from "./track-queue.js";
 export * from "./types/index.js";

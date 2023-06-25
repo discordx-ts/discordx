@@ -1,2 +1,4 @@
-export * from "./Errors.js";
-export * from "./Events.js";
+export * from "./audio-node.js";
+export * from "./communication-parent.js";
+export * from "./communication-worker.js";
+export * from "./queue-node-event.js";
