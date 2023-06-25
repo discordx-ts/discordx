@@ -29,7 +29,7 @@ export class music {
     if (!queue) {
       queue = new Queue({
         client: Main.Client,
-        guildId: guildId,
+        guildId,
         queueNode: this.queueNode,
       });
 

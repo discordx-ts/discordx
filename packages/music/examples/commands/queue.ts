@@ -172,9 +172,9 @@ export class Queue extends TrackQueue<MyTrack> {
 
     const user = currentTrack.user;
     embed.addFields({
-      name:
-        "Now Playing" +
-        (this.queueSize > 2 ? ` (Total: ${this.queueSize} tracks queued)` : ""),
+      name: `Now Playing${
+        this.queueSize > 2 ? `(Total: ${this.queueSize} tracks queued)` : ""
+      }`,
       value: `[${currentTrack.title}](${currentTrack.url ?? "NaN"})${
         user ? ` by ${user}` : ""
       }`,
@@ -196,13 +196,11 @@ export class Queue extends TrackQueue<MyTrack> {
     const progressString =
       block.repeat(progress) + arrow + block.repeat(emptyProgress);
 
-    const bar = (this.isPlaying ? "▶️" : "⏸️") + " " + progressString;
+    const bar = `${this.isPlaying ? "▶️" : "⏸️"} ${progressString}`;
     const currentTime = formatDurationFromMS(timeNow);
     const endTime = formatDurationFromMS(timeTotal);
     const spacing = bar.length - currentTime.length - endTime.length;
-    const time =
-      "`" + currentTime + " ".repeat(spacing * 3 - 2) + endTime + "`";
-
+    const time = `\`${currentTime}${" ".repeat(spacing * 3 - 2)}${endTime}\``;
     embed.addFields({ name: bar, value: time });
 
     if (currentTrack.thumbnail) {
