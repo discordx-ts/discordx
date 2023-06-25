@@ -9,6 +9,7 @@ import type { JoinData, PlaybackInfoAudioNodePayload } from "./types/index.js";
 import { QueueEvent } from "./types/queue-node-event.js";
 
 export type Track = {
+  seek?: number;
   url: string;
 };
 
@@ -97,6 +98,7 @@ export class TrackQueue<T extends Track = Track> {
       payload: {
         initialVolume: this.volume,
         query: nextTrack.url,
+        seek: nextTrack.seek,
       },
     });
   }
@@ -154,6 +156,10 @@ export class TrackQueue<T extends Track = Track> {
 
   public addTrack(...track: T[]): void {
     this.tracks.push(...track);
+  }
+
+  public addTrackFirst(...track: T[]): void {
+    this.tracks.unshift(...track);
   }
 
   public join(data: JoinData): void {

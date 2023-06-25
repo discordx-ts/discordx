@@ -86,6 +86,7 @@ export class AudioNode {
       highWaterMark: 1 << 25,
       opusEncoded: false,
       quality: "highestaudio",
+      seek: options?.seek,
     });
 
     const audioResource = createAudioResource(stream, {

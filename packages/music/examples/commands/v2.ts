@@ -17,7 +17,7 @@ import {
 } from "../../../discordx/src/index.js";
 import { QueueNode, RepeatMode } from "../../src/index.js";
 import { Main } from "../main.js";
-import { Queue } from "./queue.js";
+import { formatDurationFromMS, Queue } from "./queue.js";
 
 @Discord()
 export class music {
@@ -117,6 +117,13 @@ export class music {
       type: ApplicationCommandOptionType.String,
     })
     songName: string,
+    @SlashOption({
+      description: "Start song from specific time",
+      name: "seek",
+      required: false,
+      type: ApplicationCommandOptionType.Number,
+    })
+    seek: number | undefined,
     interaction: CommandInteraction
   ): Promise<void> {
     const rq = await this.processJoin(interaction);
@@ -136,6 +143,7 @@ export class music {
 
     queue.addTrack({
       duration: video.duration,
+      seek,
       thumbnail: video.thumbnail?.url,
       title: video.title ?? "NaN",
       url: video.url,
@@ -148,7 +156,11 @@ export class music {
 
     const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
-    embed.setDescription(`Enqueued song **${video.title}****`);
+    embed.setDescription(
+      `Enqueued song **${video.title} (${formatDurationFromMS(
+        video.duration
+      )})**`
+    );
 
     if (video.thumbnail?.url) {
       embed.setThumbnail(video.thumbnail?.url);
@@ -156,7 +168,6 @@ export class music {
 
     interaction.followUp({ embeds: [embed] });
   }
-
   @Slash({ description: "Play youtube playlist", name: "playlist" })
   async playlist(
     @SlashOption({
@@ -166,6 +177,13 @@ export class music {
       type: ApplicationCommandOptionType.String,
     })
     playlistName: string,
+    @SlashOption({
+      description: "Start song from specific time",
+      name: "seek",
+      required: false,
+      type: ApplicationCommandOptionType.Number,
+    })
+    seek: number | undefined,
     interaction: CommandInteraction
   ): Promise<void> {
     const rq = await this.processJoin(interaction);
@@ -191,6 +209,7 @@ export class music {
 
     const tracks = pl.videos.map((video) => ({
       duration: video.duration,
+      seek,
       thumbnail: video.thumbnail?.url,
       title: video.title ?? "NaN",
       url: video.url,
@@ -212,6 +231,59 @@ export class music {
     if (playlist.thumbnail?.url) {
       embed.setThumbnail(playlist.thumbnail.url);
     }
+
+    interaction.followUp({ embeds: [embed] });
+  }
+
+  @Slash({ description: "Play current song on specific time", name: "seek" })
+  async seek(
+    @SlashOption({
+      description: "time in seconds",
+      name: "seconds",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    seconds: number,
+    interaction: CommandInteraction
+  ): Promise<void> {
+    const rq = await this.processJoin(interaction);
+    if (!rq) {
+      return;
+    }
+
+    const { queue } = rq;
+
+    const currentTrack = queue.currentTrack;
+
+    if (!currentTrack) {
+      interaction.followUp(
+        "> There doesn't seem to be anything to seek at the moment."
+      );
+      return;
+    }
+
+    const time = seconds * 1000;
+
+    if (time >= currentTrack.duration) {
+      interaction.followUp(
+        `> Time should not be greater then ${formatDurationFromMS(
+          currentTrack.duration
+        )}`
+      );
+      return;
+    }
+
+    currentTrack.seek = seconds;
+    queue.addTrackFirst(currentTrack);
+    queue.skip();
+
+    const embed = new EmbedBuilder();
+    embed.setTitle("Seeked");
+    embed.setDescription(
+      `Playing **${currentTrack.title}**** from **${formatDurationFromMS(
+        time
+      )}/${formatDurationFromMS(currentTrack.duration)}**`
+    );
 
     interaction.followUp({ embeds: [embed] });
   }

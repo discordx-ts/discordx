@@ -52,6 +52,7 @@ export interface NodePlayerOptions {
   initialVolume?: number;
   metadata?: unknown;
   query: string;
+  seek?: number;
 }
 
 export interface PlayPayload {

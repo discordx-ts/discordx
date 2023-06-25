@@ -32,7 +32,7 @@ export class QueueNode extends EventEmitter {
     super();
 
     this.worker = new Worker(
-      `./build/${isESM ? "esm" : "cjs"}/v2/worker/index.js`
+      `./build/${isESM ? "esm" : "cjs"}/worker/index.js`
     );
     this.setupEventListeners();
     this.setupWorkerMessageHandler();
