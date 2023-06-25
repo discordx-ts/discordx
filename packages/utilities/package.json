@@ -53,7 +53,7 @@
   "devDependencies": {
     "@discordx/importer": "^1.2.2",
     "@discordx/pagination": "^3.4.1",
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.3.1",
     "discord.js": "^14.11.0",
     "discordx": "^11.7.6",
     "typescript": "5.1.3"
