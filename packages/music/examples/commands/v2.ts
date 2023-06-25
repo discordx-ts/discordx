@@ -13,6 +13,7 @@ import {
   Discord,
   On,
   Slash,
+  SlashGroup,
   SlashOption,
 } from "../../../discordx/src/index.js";
 import { QueueNode, RepeatMode } from "../../src/index.js";
@@ -20,6 +21,10 @@ import { Main } from "../main.js";
 import { formatDurationFromMS, Queue } from "./queue.js";
 
 @Discord()
+// Create music group
+@SlashGroup({ description: "music", name: "music" })
+// Assign all slashes to music group
+@SlashGroup("music")
 export class music {
   queueNode: QueueNode;
   guildQueue = new Map<string, Queue>();
