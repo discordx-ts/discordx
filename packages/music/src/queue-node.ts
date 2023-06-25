@@ -111,6 +111,10 @@ export class QueueNode extends EventEmitter {
     this.sendOp({ data, op: WorkerOperation.Unpause });
   }
 
+  stop(data: GuildData): void {
+    this.sendOp({ data, op: WorkerOperation.Stop });
+  }
+
   disconnect(data: GuildData): void {
     this.sendOp({ data, op: WorkerOperation.Disconnect });
   }

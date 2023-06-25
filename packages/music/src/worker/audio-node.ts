@@ -117,4 +117,8 @@ export class AudioNode {
   public unpause(): void {
     this.audioPlayer.unpause();
   }
+
+  public stop(): void {
+    this.audioPlayer.stop();
+  }
 }

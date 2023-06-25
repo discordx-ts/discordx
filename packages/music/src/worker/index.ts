@@ -39,6 +39,21 @@ if (parentPort) {
         break;
       }
 
+      case WorkerOperation.Pause: {
+        clients.pause(data);
+        break;
+      }
+
+      case WorkerOperation.Unpause: {
+        clients.unpause(data);
+        break;
+      }
+
+      case WorkerOperation.Stop: {
+        clients.stop(data);
+        break;
+      }
+
       case WorkerOperation.SetVolume: {
         clients.setVolume(data);
         break;

@@ -1,5 +1,6 @@
 import { AudioPlayerStatus } from "@discordjs/voice";
 import type { Client } from "discord.js";
+import shuffle from "lodash/shuffle.js";
 
 import type { QueueNode } from "./queue-node.js";
 import { AudioNodeEvent } from "./types/audio-node.js";
@@ -25,10 +26,10 @@ export class TrackQueue<T extends Track = Track> {
   private _volume = 100;
 
   public client: Client;
+  public tracks: T[] = [];
   private guildId: string;
   private intervalId: NodeJS.Timer | null = null;
   private queueNode: QueueNode;
-  private tracks: T[] = [];
 
   constructor(options: {
     client: Client;
@@ -45,12 +46,20 @@ export class TrackQueue<T extends Track = Track> {
     return this._currentTrack;
   }
 
+  get nextTrack(): T | null {
+    return this.tracks[0] ?? null;
+  }
+
   get playbackInfo(): PlaybackInfoAudioNodePayload | null {
     return this._playbackInfo;
   }
 
   get playerState(): AudioPlayerStatus {
     return this._playerState;
+  }
+
+  get isPlaying(): boolean {
+    return this.playerState === AudioPlayerStatus.Playing;
   }
 
   get repeatMode(): RepeatMode {
@@ -65,7 +74,7 @@ export class TrackQueue<T extends Track = Track> {
     return this.tracks.length;
   }
 
-  private processQueue(): void {
+  public playNext(): void {
     // If repeat mode is on, process it
     if (this.currentTrack !== null && this.repeatMode !== RepeatMode.None) {
       if (this.repeatMode === RepeatMode.All) {
@@ -75,6 +84,7 @@ export class TrackQueue<T extends Track = Track> {
       }
     }
 
+    this._currentTrack = null;
     // Process next track
     const nextTrack = this.tracks.shift();
     if (!nextTrack) {
@@ -93,6 +103,10 @@ export class TrackQueue<T extends Track = Track> {
 
   private setupEvents(): void {
     this.queueNode.on(QueueEvent.ParentProcessEvent, (payload) => {
+      if (payload.data.guildId !== this.guildId) {
+        return;
+      }
+
       if (payload.op === ParentProcessEvent.AudioNodeEvent) {
         // Playback info
         if (payload.data.payload.type === AudioNodeEvent.PlaybackInfo) {
@@ -101,23 +115,23 @@ export class TrackQueue<T extends Track = Track> {
 
         // When state change
         if (payload.data.payload.type === AudioNodeEvent.StateChange) {
-          const { guildId } = payload.data;
           const { newState } = payload.data.payload;
 
           // sync player state
-          if (guildId === this.guildId) {
-            this._playerState = newState;
+          this._playerState = newState;
 
-            if (newState === AudioPlayerStatus.Playing) {
-              this.startPing();
-            } else {
-              this.stopPing();
-            }
+          if (newState === AudioPlayerStatus.Playing) {
+            this.startPing();
+          } else {
+            this.stopPing();
+          }
 
-            // Process queue, when player goes into idle state
-            if (newState === AudioPlayerStatus.Idle && this.queueSize > 0) {
-              this.processQueue();
-            }
+          // Process queue, when player goes into idle state
+          if (
+            newState === AudioPlayerStatus.Idle ||
+            newState === AudioPlayerStatus.AutoPaused
+          ) {
+            this.playNext();
           }
         }
       }
@@ -138,9 +152,8 @@ export class TrackQueue<T extends Track = Track> {
     }
   }
 
-  public addTrack(track: T): void {
-    this.tracks.push(track);
-    this.processQueue();
+  public addTrack(...track: T[]): void {
+    this.tracks.push(...track);
   }
 
   public join(data: JoinData): void {
@@ -167,5 +180,13 @@ export class TrackQueue<T extends Track = Track> {
 
   public unpause(): void {
     this.queueNode.unpause({ guildId: this.guildId });
+  }
+
+  public skip(): void {
+    this.queueNode.stop({ guildId: this.guildId });
+  }
+
+  public mix(): void {
+    this.tracks = shuffle(this.tracks);
   }
 }

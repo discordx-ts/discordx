@@ -8,6 +8,7 @@ export enum WorkerOperation {
   PingPlaybackInfo = "PING_PLAYBACK_INFO",
   Play = "PLAY",
   SetVolume = "SET_VOLUME",
+  Stop = "STOP",
   Unpause = "UNPAUSE",
 }
 
@@ -83,6 +84,11 @@ export interface PausePayload {
   op: WorkerOperation.Pause | WorkerOperation.Unpause;
 }
 
+export interface StopPayload {
+  data: GuildData;
+  op: WorkerOperation.Stop;
+}
+
 export type WorkerDataPayload =
   | DisconnectPayload
   | DisconnectAllPayload
@@ -92,4 +98,5 @@ export type WorkerDataPayload =
   | PlayPayload
   | SetVolumePayload
   | PingPlaybackInfoPayload
-  | PausePayload;
+  | PausePayload
+  | StopPayload;

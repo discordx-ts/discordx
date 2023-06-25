@@ -140,7 +140,7 @@ export class AudioNodeManager {
     node.setVolume(data.volume);
   }
 
-  public pause(data: SetVolumeData): void {
+  public pause(data: GuildData): void {
     const node = this.nodes.get(data.guildId);
     if (!node) {
       this.send({
@@ -154,7 +154,7 @@ export class AudioNodeManager {
     node.pause();
   }
 
-  public unpause(data: SetVolumeData): void {
+  public unpause(data: GuildData): void {
     const node = this.nodes.get(data.guildId);
     if (!node) {
       this.send({
@@ -166,5 +166,19 @@ export class AudioNodeManager {
     }
 
     node.unpause();
+  }
+
+  public stop(data: GuildData): void {
+    const node = this.nodes.get(data.guildId);
+    if (!node) {
+      this.send({
+        data: { guildId: data.guildId },
+        op: ParentProcessEvent.AudioNodeNotFound,
+      });
+
+      return;
+    }
+
+    node.stop();
   }
 }
