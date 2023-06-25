@@ -8,9 +8,6 @@ import type { JoinData, PlaybackInfoAudioNodePayload } from "./types/index.js";
 import { QueueEvent } from "./types/queue-node-event.js";
 
 export type Track = {
-  duration: number;
-  thumbnail?: string;
-  title: string;
   url: string;
 };
 
@@ -20,8 +17,8 @@ export enum RepeatMode {
   One,
 }
 
-export class TrackQueue {
-  private _currentTrack: Track | null = null;
+export class TrackQueue<T extends Track = Track> {
+  private _currentTrack: T | null = null;
   private _playbackInfo: PlaybackInfoAudioNodePayload | null = null;
   private _playerState: AudioPlayerStatus = AudioPlayerStatus.Idle;
   private _repeatMode = RepeatMode.None;
@@ -31,7 +28,7 @@ export class TrackQueue {
   private guildId: string;
   private intervalId: NodeJS.Timer | null = null;
   private queueNode: QueueNode;
-  private tracks: Track[] = [];
+  private tracks: T[] = [];
 
   constructor(options: {
     client: Client;
@@ -44,7 +41,7 @@ export class TrackQueue {
     this.setupEvents();
   }
 
-  get currentTrack(): Track | null {
+  get currentTrack(): T | null {
     return this._currentTrack;
   }
 
@@ -141,7 +138,7 @@ export class TrackQueue {
     }
   }
 
-  public addTrack(track: Track): void {
+  public addTrack(track: T): void {
     this.tracks.push(track);
     this.processQueue();
   }

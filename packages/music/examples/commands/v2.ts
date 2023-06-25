@@ -54,8 +54,6 @@ export class music {
     });
 
     queue.addTrack({
-      duration: 1000,
-      title: "My Song",
       url: "https://www.youtube.com/watch?v=hp_-RlwNg04",
     });
 
