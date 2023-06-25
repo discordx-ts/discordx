@@ -28,7 +28,7 @@ export interface DisconnectAllPayload {
 export interface JoinData {
   channelId: string;
   deafen?: boolean;
-  group: string;
+  group?: string;
   guildId: string;
 }
 

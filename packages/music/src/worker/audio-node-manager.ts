@@ -46,7 +46,7 @@ export class AudioNodeManager {
       channelId: config.channelId,
       group: config.group,
       guildId: config.guildId,
-      selfDeaf: config.deafen ?? false,
+      selfDeaf: config.deafen,
     });
 
     this.nodes.set(config.guildId, new AudioNode(voiceConnection));

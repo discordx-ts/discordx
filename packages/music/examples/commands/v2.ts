@@ -49,7 +49,6 @@ export class music {
 
     queue.join({
       channelId: interaction.member.voice.channel.id,
-      group: "bot",
       guildId: interaction.member.voice.channel.guildId,
     });
 
