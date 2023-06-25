@@ -81,7 +81,6 @@ const trackQueue = new TrackQueue({
 // Join voice channel
 queue.join({
   channelId: channelId,
-  group: "my-bot",
   guildId: guildId,
 });
 
