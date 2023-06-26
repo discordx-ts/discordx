@@ -189,7 +189,7 @@ export class TrackQueue<T extends Track = Track> {
   }
 
   public skip(): void {
-    this.queueNode.stop({ guildId: this.guildId });
+    this.playNext();
   }
 
   public mix(): void {
