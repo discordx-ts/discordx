@@ -14,6 +14,7 @@ import type {
   ModalSubmitInteraction,
   PartialMessageReaction,
   PartialUser,
+  RestEvents,
   Snowflake,
   User,
 } from "discord.js";
@@ -1422,7 +1423,7 @@ export class Client extends ClientJS {
       if (on.rest) {
         if (on.once) {
           this.rest.once(
-            on.event,
+            on.event as keyof RestEvents,
             this.instance.trigger({
               client: this,
               event: on.event,
@@ -1433,7 +1434,7 @@ export class Client extends ClientJS {
           );
         } else {
           this.rest.on(
-            on.event,
+            on.event as keyof RestEvents,
             this.instance.trigger({
               client: this,
               event: on.event,
