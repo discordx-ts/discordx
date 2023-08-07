@@ -20,7 +20,7 @@ import {
  * @category Decorator
  */
 export function SlashOption<T extends string, TD extends string>(
-  options: SlashOptionOptions<VerifyName<T>, NotEmpty<TD>>
+  options: SlashOptionOptions<VerifyName<T>, NotEmpty<TD>>,
 ): ParameterDecoratorEx {
   return function (target: Record<string, any>, key: string, index: number) {
     SlashNameValidator(options.name);
@@ -45,7 +45,7 @@ export function SlashOption<T extends string, TD extends string>(
       key,
       target[key],
       target.constructor,
-      index
+      index,
     );
 
     MetadataStorage.instance.addModifier(
@@ -56,8 +56,8 @@ export function SlashOption<T extends string, TD extends string>(
         key,
         target[key],
         target.constructor,
-        index
-      )
+        index,
+      ),
     );
 
     MetadataStorage.instance.addApplicationCommandSlashOption(option);

@@ -57,7 +57,7 @@ const res = await prompts(
     onCancel: () => {
       process.exit();
     },
-  }
+  },
 );
 
 if (typeof res.path === "string") {
@@ -99,7 +99,7 @@ const response = await prompts<string>(
     onCancel: () => {
       process.exit();
     },
-  }
+  },
 );
 
 if (!response.template || typeof response.template !== "string") {
@@ -152,7 +152,7 @@ try {
     {
       cwd: resolvedProjectPath,
       stdio: "ignore",
-    }
+    },
   );
 } catch (err) {
   console.log(chalk.red("> Failed to update project name :("));
@@ -179,7 +179,7 @@ console.log(
   chalk.greenBright("√"),
   chalk.bold("Created discordx project"),
   chalk.gray("»"),
-  chalk.greenBright(projectName)
+  chalk.greenBright(projectName),
 );
 
 console.log(chalk.blueBright("?"), chalk.bold("Next Steps!"));
@@ -214,5 +214,5 @@ console.log();
 console.log(
   chalk.greenBright("√"),
   chalk.bold("Thank you for using discordx"),
-  chalk.red("❤️")
+  chalk.red("❤️"),
 );

@@ -48,7 +48,7 @@ class RPSProposition {
   constructor(
     choice: RPSChoice,
     emoji: EmojiIdentifierResolvable,
-    buttonCustomID: RPSButtonIdType
+    buttonCustomID: RPSButtonIdType,
   ) {
     this.choice = choice;
     this.emoji = emoji;
@@ -57,13 +57,13 @@ class RPSProposition {
 
   public static nameToClass(choice: RPSChoice) {
     return this.propositions.find(
-      (proposition) => choice === proposition.choice
+      (proposition) => choice === proposition.choice,
     );
   }
 
   public static buttonCustomIDToClass(buttonCustomID: string) {
     return this.propositions.find(
-      (proposition) => buttonCustomID === proposition.buttonCustomID
+      (proposition) => buttonCustomID === proposition.buttonCustomID,
     );
   }
 }
@@ -71,7 +71,7 @@ class RPSProposition {
 const defaultChoice = new RPSProposition(
   RPSChoice.Rock,
   "💎",
-  `RPS-${RPSChoice.Rock}`
+  `RPS-${RPSChoice.Rock}`,
 );
 
 @Discord()
@@ -94,7 +94,7 @@ export class RockPaperScissors {
       {
         name: RPSChoice[RPSChoice.Scissors] ?? "unknown",
         value: RPSChoice.Scissors,
-      }
+      },
     )
     @SlashOption({
       description:
@@ -104,7 +104,7 @@ export class RockPaperScissors {
       type: ApplicationCommandOptionType.Number,
     })
     choice: RPSChoice | undefined,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ) {
     await interaction.deferReply();
 
@@ -113,15 +113,15 @@ export class RockPaperScissors {
       const botChoice = RockPaperScissors.RPSPlayBot();
       const result = RockPaperScissors.isWinRPS(
         playerChoice ?? defaultChoice,
-        botChoice
+        botChoice,
       );
 
       interaction.followUp(
         RockPaperScissors.RPSResultProcess(
           playerChoice ?? defaultChoice,
           botChoice,
-          result
-        )
+          result,
+        ),
       );
     } else {
       const buttonRock = new ButtonBuilder()
@@ -146,7 +146,7 @@ export class RockPaperScissors {
         new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
           buttonRock,
           buttonPaper,
-          buttonScissor
+          buttonScissor,
         );
 
       interaction.followUp({
@@ -165,20 +165,20 @@ export class RockPaperScissors {
     await interaction.deferReply();
 
     const playerChoice = RPSProposition.buttonCustomIDToClass(
-      interaction.customId
+      interaction.customId,
     );
     const botChoice = RockPaperScissors.RPSPlayBot();
     const result = RockPaperScissors.isWinRPS(
       playerChoice ?? defaultChoice,
-      botChoice
+      botChoice,
     );
 
     interaction.followUp(
       RockPaperScissors.RPSResultProcess(
         playerChoice ?? defaultChoice,
         botChoice,
-        result
-      )
+        result,
+      ),
     );
 
     setTimeout(
@@ -190,13 +190,13 @@ export class RockPaperScissors {
         }
       },
       30000,
-      interaction
+      interaction,
     );
   }
 
   private static isWinRPS(
     player: RPSProposition,
-    bot: RPSProposition
+    bot: RPSProposition,
   ): RPSResult {
     switch (player.choice) {
       case RPSChoice.Rock: {
@@ -238,7 +238,7 @@ export class RockPaperScissors {
   private static RPSResultProcess(
     playerChoice: RPSProposition,
     botChoice: RPSProposition,
-    result: RPSResult
+    result: RPSResult,
   ) {
     switch (result) {
       case RPSResult.WIN:

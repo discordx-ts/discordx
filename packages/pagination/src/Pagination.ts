@@ -50,7 +50,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   constructor(
     public sendTo: PaginationInteractions | Message | TextBasedChannel,
     public pages: PaginationItem[] | T,
-    config?: PaginationOptions
+    config?: PaginationOptions,
   ) {
     /**
      * page length of pagination
@@ -167,7 +167,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       // If the message response is not received, throw an error
       if (!(reply instanceof Message)) {
         throw Error(
-          "Missing Intent: GUILD_MESSAGES\nWithout guild message intent, pagination does not work, Consider adding GUILD_MESSAGES as an intent\nread more at https://discordx.js.org/docs/faq/Errors/Pagination#missing-intent-guild_messages"
+          "Missing Intent: GUILD_MESSAGES\nWithout guild message intent, pagination does not work, Consider adding GUILD_MESSAGES as an intent\nread more at https://discordx.js.org/docs/faq/Errors/Pagination#missing-intent-guild_messages",
         );
       }
 

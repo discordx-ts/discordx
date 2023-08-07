@@ -18,7 +18,7 @@ export type Awaitable<T> = Promise<T> | T;
 
 export type TransformerFunction = (
   value: any,
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ) => Awaitable<any>;
 
 export type Next = (...paramsToNext: unknown[]) => Promise<unknown>;
@@ -39,7 +39,7 @@ export type IGuild =
         | DComponent
         | DReaction
         | SimpleCommandMessage
-        | undefined
+        | undefined,
     ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
 
 export type ISimpleCommandByName = { command: DSimpleCommand; name: string };

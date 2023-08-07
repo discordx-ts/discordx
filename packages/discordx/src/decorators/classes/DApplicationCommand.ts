@@ -169,7 +169,7 @@ export class DApplicationCommand extends Method {
 
   async isGuildAllowed(
     client: Client,
-    guildId: string | null
+    guildId: string | null,
   ): Promise<boolean> {
     if (!guildId) {
       return true;
@@ -231,7 +231,7 @@ export class DApplicationCommand extends Method {
 
   parseParams(interaction: ChatInputCommandInteraction): Promise<unknown[]> {
     return Promise.all(
-      [...this.options].reverse().map((op) => op.parse(interaction))
+      [...this.options].reverse().map((op) => op.parse(interaction)),
     );
   }
 }

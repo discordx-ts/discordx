@@ -74,7 +74,7 @@ export class DComponent extends Method {
 
   async isGuildAllowed(
     client: Client,
-    guildId: string | null
+    guildId: string | null,
   ): Promise<boolean> {
     if (!guildId) {
       return true;

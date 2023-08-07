@@ -14,7 +14,7 @@ export function SlashNameValidator(name: string): true {
 
   if (isNotValid) {
     throw Error(
-      `Invalid slash name: ${name}\nName must only be lowercase with no space as per Discord guidelines (https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-naming)\n`
+      `Invalid slash name: ${name}\nName must only be lowercase with no space as per Discord guidelines (https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-naming)\n`,
     );
   }
 

@@ -34,7 +34,7 @@ export class PermissionGuards {
     PermissionGuard(["BanMembers"], {
       content: "You do not have the role `BanMembers`",
       ephemeral: true,
-    })
+    }),
   )
   banMembers2(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -53,7 +53,7 @@ export class PermissionGuards {
     PermissionGuard(PermissionGuards.resolvePermission, {
       content: "You do not have the role `BanMembers`",
       ephemeral: true,
-    })
+    }),
   )
   banMembers3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -61,7 +61,7 @@ export class PermissionGuards {
 
   private static resolvePermission(
     this: void,
-    interaction: PermissionHandler
+    interaction: PermissionHandler,
   ): Promise<PermissionsString[]> {
     if (interaction instanceof CommandInteraction) {
       // if guild id is 123

@@ -31,7 +31,7 @@ import {
  * @category Decorator
  */
 export function SlashGroup<T extends string>(
-  name: VerifyName<T>
+  name: VerifyName<T>,
 ): ClassMethodDecorator;
 
 /**
@@ -49,7 +49,7 @@ export function SlashGroup<T extends string>(
  */
 export function SlashGroup<TName extends string, TRoot extends string>(
   name: VerifyName<TName>,
-  root: VerifyName<TRoot>
+  root: VerifyName<TRoot>,
 ): ClassMethodDecorator;
 
 /**
@@ -67,9 +67,9 @@ export function SlashGroup<TName extends string, TRoot extends string>(
 export function SlashGroup<
   T extends string,
   TD extends string,
-  TR extends string
+  TR extends string,
 >(
-  options: SlashGroupOptions<VerifyName<T>, NotEmpty<TD>, VerifyName<TR>>
+  options: SlashGroupOptions<VerifyName<T>, NotEmpty<TD>, VerifyName<TR>>,
 ): ClassDecoratorEx;
 
 /**
@@ -88,17 +88,17 @@ export function SlashGroup<
 export function SlashGroup<
   T extends string,
   TD extends string,
-  TR extends string
+  TR extends string,
 >(
   options:
     | string
     | SlashGroupOptions<VerifyName<T>, NotEmpty<TD>, VerifyName<TR>>,
-  root?: VerifyName<TR>
+  root?: VerifyName<TR>,
 ): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     if (typeof options === "string") {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
@@ -116,8 +116,8 @@ export function SlashGroup<
             }
           },
           DApplicationCommand,
-          DDiscord
-        ).decorateUnknown(target, key, descriptor)
+          DDiscord,
+        ).decorateUnknown(target, key, descriptor),
       );
     } else {
       SlashNameValidator(options.name);
@@ -133,7 +133,7 @@ export function SlashGroup<
               nameLocalizations: options.nameLocalizations,
             },
             root: options.root,
-          }).decorate(clazz, clazz.name)
+          }).decorate(clazz, clazz.name),
         );
       } else {
         MetadataStorage.instance.addApplicationCommandSlashGroups(
@@ -146,7 +146,7 @@ export function SlashGroup<
               dmPermission: options.dmPermission,
               nameLocalizations: options.nameLocalizations,
             },
-          }).decorate(clazz, key ?? clazz.name)
+          }).decorate(clazz, key ?? clazz.name),
         );
       }
     }

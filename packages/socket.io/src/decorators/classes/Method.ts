@@ -29,7 +29,7 @@ export abstract class Method extends Decorator {
 
   handler(server: Server, socket?: Socket): any {
     const globalGuards = server.guards.map((guard) =>
-      DGuard.create(guard.bind(undefined))
+      DGuard.create(guard.bind(undefined)),
     );
     return (...params: unknown[]) => {
       return this.getGuardFunction(globalGuards, server, socket)(params);
@@ -42,7 +42,7 @@ export abstract class Method extends Decorator {
   getGuardFunction(
     globalGuards: DGuard[],
     server: Server,
-    socket?: Socket
+    socket?: Socket,
   ): (params: unknown[]) => Promise<unknown> {
     const next = async (params: [], index: number) => {
       const nextFn = () => next(params, index + 1);
@@ -55,7 +55,7 @@ export abstract class Method extends Decorator {
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
           ...params,
           server,
-          socket
+          socket,
         );
       } else {
         // If it's the guards
@@ -64,7 +64,7 @@ export abstract class Method extends Decorator {
           ...params,
           server,
           socket,
-          nextFn
+          nextFn,
         );
       }
 

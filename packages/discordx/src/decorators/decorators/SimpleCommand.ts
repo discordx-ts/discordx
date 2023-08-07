@@ -28,7 +28,7 @@ export function SimpleCommand(): MethodDecoratorEx;
  * @category Decorator
  */
 export function SimpleCommand<T extends string>(
-  options: SimpleCommandOptions<T>
+  options: SimpleCommandOptions<T>,
 ): MethodDecoratorEx;
 
 /**
@@ -44,7 +44,7 @@ export function SimpleCommand<T extends string>(
  * @category Decorator
  */
 export function SimpleCommand(
-  options?: SimpleCommandOptions
+  options?: SimpleCommandOptions,
 ): MethodDecoratorEx {
   return function (target: Record<string, any>, key: string) {
     const cmd = DSimpleCommand.create({

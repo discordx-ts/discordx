@@ -25,12 +25,12 @@ export const resolveIGuilds = async (
     | DReaction
     | SimpleCommandMessage
     | undefined,
-  guilds: IGuild[]
+  guilds: IGuild[],
 ): Promise<string[]> => {
   const guildX = await Promise.all(
     guilds.map((guild) =>
-      typeof guild === "function" ? guild(client, command) : guild
-    )
+      typeof guild === "function" ? guild(client, command) : guild,
+    ),
   );
 
   return uniqWith(guildX.flat(1), isEqual);

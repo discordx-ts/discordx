@@ -3,9 +3,12 @@ import type { PaginationItem } from "./types.js";
 
 export type Resolver = (
   page: number,
-  pagination: Pagination
+  pagination: Pagination,
 ) => PaginationItem | Promise<PaginationItem>;
 
 export class PaginationResolver<T extends Resolver = Resolver> {
-  constructor(public resolver: T, public maxLength: number) {}
+  constructor(
+    public resolver: T,
+    public maxLength: number,
+  ) {}
 }

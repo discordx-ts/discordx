@@ -21,7 +21,7 @@ export function ContextMenu<TName extends string>(
       type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
     },
     "description" | "descriptionLocalizations"
-  >
+  >,
 ): MethodDecoratorEx {
   return function (target: Record<string, any>, key: string) {
     const applicationCommand = DApplicationCommand.create({

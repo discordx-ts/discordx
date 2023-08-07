@@ -89,7 +89,7 @@ export class Example {
   demoC(interaction: CommandInteraction): void {
     new Pagination(
       interaction,
-      Array.from(Array(20).keys()).map((i) => ({ content: i.toString() }))
+      Array.from(Array(20).keys()).map((i) => ({ content: i.toString() })),
     ).send();
   }
 
@@ -113,7 +113,7 @@ export class Example {
                 label: "My Custom Button",
                 style: ButtonStyle.Primary,
               }),
-            ]
+            ],
           ),
         ],
         content: "Page 3",

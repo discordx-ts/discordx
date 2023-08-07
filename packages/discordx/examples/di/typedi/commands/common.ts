@@ -40,7 +40,7 @@ class NamedDatabase {
 export class ConstructorInjection {
   constructor(
     private database: Database,
-    @Inject("myDb") private namedDatabase: NamedDatabase
+    @Inject("myDb") private namedDatabase: NamedDatabase,
   ) {
     console.log(namedDatabase);
   }
@@ -52,7 +52,7 @@ export class ConstructorInjection {
       interaction.reply(
         `${clazz.database.query()}, same class: ${
           clazz === this
-        } and ${clazz.namedDatabase.query()} comes from "NamedDatabase"`
+        } and ${clazz.namedDatabase.query()} comes from "NamedDatabase"`,
       );
     } else {
       interaction.reply("Not using TypeDI");
@@ -91,7 +91,7 @@ export class PropertyInjectionExample {
       interaction.reply(
         `${clazz.database?.query()}, same class: ${
           clazz === this
-        } and ${clazz.namedDatabase?.query()} comes from "NamedDatabase"`
+        } and ${clazz.namedDatabase?.query()} comes from "NamedDatabase"`,
       );
     } else {
       interaction.reply("Not using TypeDI");

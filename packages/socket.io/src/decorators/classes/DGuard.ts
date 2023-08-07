@@ -9,7 +9,7 @@ export type GuardFunction<Type = any> = (
   params: Type,
   server: Server,
   socket: Socket,
-  next: Next
+  next: Next,
 ) => any;
 
 /**

@@ -57,7 +57,7 @@ const StreamDownloader = (url: string, options?: YTDLStreamOptions) => {
   }
   if (typeof url !== "string") {
     throw new SyntaxError(
-      `input URL must be a string. Received ${typeof url}!`
+      `input URL must be a string. Received ${typeof url}!`,
     );
   }
 
@@ -134,7 +134,7 @@ const StreamDownloader = (url: string, options?: YTDLStreamOptions) => {
  */
 const arbitraryStream = (
   stream: string | Readable | Duplex,
-  options?: StreamOptions
+  options?: StreamOptions,
 ) => {
   if (!stream) {
     throw new Error("No stream source provided");

@@ -16,12 +16,12 @@ export async function GetTemplates(): Promise<
 > {
   const response = await axios
     .get<{ name: string; path: string; type: string }[]>(
-      "https://api.github.com/repos/discordx-ts/templates/contents"
+      "https://api.github.com/repos/discordx-ts/templates/contents",
     )
     .then((res) =>
       res.data
         .filter((row) => row.type === "dir" && /^[0-9].+/.test(row.name))
-        .map((row) => ({ title: row.name, value: row.path }))
+        .map((row) => ({ title: row.name, value: row.path })),
     )
     .catch(() => []);
 
@@ -37,7 +37,7 @@ export async function GetTemplates(): Promise<
 export async function IsTemplateExist(name: string): Promise<boolean> {
   const response = await axios
     .get(
-      `https://api.github.com/repos/discordx-ts/templates/contents/${name}?ref=main`
+      `https://api.github.com/repos/discordx-ts/templates/contents/${name}?ref=main`,
     )
     .then(() => true)
     .catch(() => false);
@@ -67,10 +67,10 @@ async function downloadTar(url: string) {
  */
 export async function DownloadAndExtractTemplate(
   root: string,
-  name: string
+  name: string,
 ): Promise<void> {
   const tempFile = await downloadTar(
-    "https://codeload.github.com/discordx-ts/templates/tar.gz/main"
+    "https://codeload.github.com/discordx-ts/templates/tar.gz/main",
   );
 
   await tar.x({

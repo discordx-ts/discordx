@@ -19,7 +19,7 @@ import {
  * @category Decorator
  */
 export function SimpleCommandOption<T extends string>(
-  options: SimpleCommandOptionOptions<T>
+  options: SimpleCommandOptionOptions<T>,
 ): ParameterDecoratorEx {
   return function (target: Record<string, any>, key: string, index: number) {
     const option = DSimpleCommandOption.create(options).decorate(
@@ -27,7 +27,7 @@ export function SimpleCommandOption<T extends string>(
       key,
       target[key],
       target.constructor,
-      index
+      index,
     );
 
     MetadataStorage.instance.addModifier(
@@ -38,8 +38,8 @@ export function SimpleCommandOption<T extends string>(
         key,
         target[key],
         target.constructor,
-        index
-      )
+        index,
+      ),
     );
 
     MetadataStorage.instance.addSimpleCommandOption(option);

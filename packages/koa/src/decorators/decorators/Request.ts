@@ -11,7 +11,7 @@ function RequestMethod(method: RequestType, path?: string | RegExp) {
         name: key,
         path: path ?? `/${key}`,
         type: method,
-      }).decorate(target.constructor, key, target[key])
+      }).decorate(target.constructor, key, target[key]),
     );
   };
 }

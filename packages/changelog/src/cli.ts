@@ -20,12 +20,12 @@ program.requiredOption("--src <type>", "source folder for changelog", "./");
 program.requiredOption(
   "--out <type>",
   "out dir path with filename",
-  "./CHANGELOG.md"
+  "./CHANGELOG.md",
 );
 program.requiredOption(
   "--only-stage",
   "generate changelog for only stage",
-  false
+  false,
 );
 
 const options = program.parse(process.argv).opts<Options>();

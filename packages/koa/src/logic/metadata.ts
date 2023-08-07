@@ -94,7 +94,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -103,7 +103,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -112,7 +112,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -121,7 +121,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -130,7 +130,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -139,7 +139,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -148,7 +148,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -157,7 +157,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -166,7 +166,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 
@@ -175,7 +175,7 @@ export class MetadataStorage {
           route.path,
           ...koa.globalMiddlewares,
           ...route.middleware,
-          route.handler(koa)
+          route.handler(koa),
         );
         break;
 

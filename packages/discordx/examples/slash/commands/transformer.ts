@@ -6,7 +6,7 @@ import { Discord, Slash, SlashOption } from "../../../src/index.js";
 class Document {
   constructor(
     public input: string,
-    public interaction: ChatInputCommandInteraction
+    public interaction: ChatInputCommandInteraction,
   ) {
     /*
       empty constructor
@@ -19,14 +19,14 @@ class Document {
     */
 
     await this.interaction.followUp(
-      `${this.interaction.user} saved \`${this.input}\` into database`
+      `${this.interaction.user} saved \`${this.input}\` into database`,
     );
   }
 }
 
 function DocumentTransformer(
   input: string,
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ): Document {
   return new Document(input, interaction);
 }
@@ -43,7 +43,7 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     doc: Document,
-    interaction: ChatInputCommandInteraction
+    interaction: ChatInputCommandInteraction,
   ): Promise<void> {
     await interaction.deferReply();
     doc.save();

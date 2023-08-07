@@ -36,7 +36,7 @@ export class Example {
       type: ApplicationCommandOptionType.User,
     })
     user: GuildMember | User,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${user}`);
   }
@@ -50,7 +50,7 @@ export class Example {
       type: ApplicationCommandOptionType.Role,
     })
     role: Role,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${role}`);
   }
@@ -64,7 +64,7 @@ export class Example {
       type: ApplicationCommandOptionType.Channel,
     })
     channel: Channel,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${channel}`);
   }
@@ -78,7 +78,7 @@ export class Example {
       type: ApplicationCommandOptionType.Mentionable,
     })
     roleOrUser: GuildMember | User | Role,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${roleOrUser}`);
   }
@@ -96,7 +96,7 @@ export class Example {
     @SlashOption({
       autocomplete: function (
         this: Example,
-        interaction: AutocompleteInteraction
+        interaction: AutocompleteInteraction,
       ) {
         // normal function, have this, so class reference is passed
         console.log(this.myCustomText);
@@ -126,7 +126,7 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
-    interaction: CommandInteraction | AutocompleteInteraction
+    interaction: CommandInteraction | AutocompleteInteraction,
   ): void {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
       const focusedOption = interaction.options.getFocused(true);

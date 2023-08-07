@@ -70,8 +70,8 @@ export class Connection<T extends BaseNode = BaseNode> {
         .then(() =>
           this.configureResuming(
             this.options.resumeTimeout,
-            this.options.resumeKey
-          )
+            this.options.resumeKey,
+          ),
         )
         .catch((e) => this.node.emit("error", e));
     },
@@ -131,7 +131,7 @@ export class Connection<T extends BaseNode = BaseNode> {
 
   public configureResuming(
     timeout = 60,
-    key: string = Math.random().toString(36)
+    key: string = Math.random().toString(36),
   ): Promise<void> {
     this.resumeKey = key;
 

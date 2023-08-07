@@ -8,7 +8,7 @@ export function Api(name: string): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DRouter | DRequest>(
@@ -16,8 +16,8 @@ export function Api(name: string): ClassMethodDecorator {
           original.api = name;
         },
         DRouter,
-        DRequest
-      ).decorateUnknown(target, key, descriptor)
+        DRequest,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }

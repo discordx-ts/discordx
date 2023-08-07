@@ -49,7 +49,7 @@ export class Example {
 
     command: SimpleCommandMessage,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     if (!command.isValid()) {
       return "usage: !add x + y";
@@ -77,7 +77,7 @@ export class Example {
 
     command: SimpleCommandMessage,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["!add", [x, y], command, data.passed];
   }
@@ -86,7 +86,7 @@ export class Example {
   addExtend(
     command: SimpleCommandMessage,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["!add plus", [], command, data.passed];
   }
@@ -98,7 +98,7 @@ export class Example {
 
     command: SimpleCommandMessage,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["!add plus second", [arg], command, data.passed];
   }
@@ -125,7 +125,7 @@ export class Example {
 
     command: SimpleCommandMessage,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["!ban", [id, time, reason, type], command, data.passed];
   }
@@ -134,7 +134,7 @@ export class Example {
   findSource(
     command: SimpleCommandMessage,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["!findSource", [1], command, data.passed];
   }
@@ -213,7 +213,7 @@ describe("Commands", () => {
         const parsedCommand = await client.parseCommand("!", sampleMessage);
         const response = await client.executeCommand(sampleMessage);
         return { parsedCommand, response };
-      })
+      }),
     );
 
     for (const result of results) {

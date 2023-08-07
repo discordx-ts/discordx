@@ -2,21 +2,21 @@ import { DecoratorUtils } from "../util.js";
 import { Decorator } from "./Decorator.js";
 
 export type ModifyFunction<ToModify extends Decorator> = (
-  original: ToModify
+  original: ToModify,
 ) => unknown;
 
 /**
  * @category Internal
  */
 export class Modifier<
-  ToModify extends Decorator = Decorator
+  ToModify extends Decorator = Decorator,
 > extends Decorator {
   private _toModify: ModifyFunction<ToModify>;
   private _modifyTypes: unknown[];
 
   protected constructor(
     toModify: ModifyFunction<ToModify>,
-    modifyTypes: unknown[]
+    modifyTypes: unknown[],
   ) {
     super();
     this._toModify = toModify;
@@ -42,7 +42,7 @@ export class Modifier<
    */
   static applyFromModifierListToList(
     modifiers: Modifier[],
-    originals: Decorator[]
+    originals: Decorator[],
   ): Promise<void[]> {
     return Promise.all(
       modifiers.map(async (modifier) => {
@@ -51,16 +51,16 @@ export class Modifier<
 
         // Filter the linked objects to match the target types of modification
         linked = linked.filter((l) =>
-          modifier._modifyTypes.includes(l.constructor)
+          modifier._modifyTypes.includes(l.constructor),
         );
 
         // Apply the modifications
         await Promise.all(
           linked.map((linkedOriginal) => {
             return modifier.applyModifications(linkedOriginal);
-          })
+          }),
         );
-      })
+      }),
     );
   }
 

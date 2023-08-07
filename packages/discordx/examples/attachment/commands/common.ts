@@ -14,7 +14,7 @@ export class Example {
       type: ApplicationCommandOptionType.Attachment,
     })
     attachment: Attachment,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(attachment.url);
   }

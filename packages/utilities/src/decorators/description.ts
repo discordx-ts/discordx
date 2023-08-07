@@ -10,7 +10,7 @@ export function Description(description: string): MethodDecoratorEx {
   return function <D>(
     target: Record<string, D>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand | DSimpleCommand>(
@@ -18,8 +18,8 @@ export function Description(description: string): MethodDecoratorEx {
           original.description = description;
         },
         DApplicationCommand,
-        DSimpleCommand
-      ).decorateUnknown(target, key, descriptor)
+        DSimpleCommand,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }

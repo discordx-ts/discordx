@@ -57,7 +57,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
           .resolveAll(TsyringeDependencyRegistryEngine.token)
           .find(
             (instance) =>
-              (instance as Record<string, unknown>).constructor === clazz
+              (instance as Record<string, unknown>).constructor === clazz,
           ) as InstanceOf<T>) ?? null
       );
     }
@@ -71,7 +71,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
 
     if (this.useToken) {
       return new Set(
-        this.injector.resolveAll(TsyringeDependencyRegistryEngine.token)
+        this.injector.resolveAll(TsyringeDependencyRegistryEngine.token),
       );
     }
 
@@ -94,7 +94,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
   }
 
   private getInstanceCashingSingletonFactory<T>(
-    clazz: InjectionToken<T>
+    clazz: InjectionToken<T>,
   ): FactoryFunction<T> {
     if (!this.factory) {
       throw new Error("Unable to init tokenization without instance factory");

@@ -18,7 +18,7 @@ export class Example {
   handler(
     interaction: ButtonInteraction,
     client: Client,
-    data: { passed: boolean }
+    data: { passed: boolean },
   ): unknown {
     return [":wave:", data.passed];
   }
@@ -56,7 +56,7 @@ describe("Button", () => {
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual([

@@ -7,7 +7,7 @@ export function AppId(id: string): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DEvent | DWs>(
@@ -15,8 +15,8 @@ export function AppId(id: string): ClassMethodDecorator {
           original.appId = id;
         },
         DEvent,
-        DWs
-      ).decorateUnknown(target, key, descriptor)
+        DWs,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }

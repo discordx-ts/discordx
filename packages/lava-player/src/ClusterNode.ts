@@ -34,7 +34,7 @@ export default class ClusterNode extends BaseNode {
 
   constructor(
     public readonly cluster: BaseCluster,
-    options: ClusterNodeOptions
+    options: ClusterNodeOptions,
   ) {
     super(options);
     this.tags = new Set(options.tags || []);

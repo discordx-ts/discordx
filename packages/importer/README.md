@@ -77,7 +77,7 @@ Here is an example that could be used with the commonjs or esm modules
 
 ```ts
 importx(`${__dirname}/commands/**.js`).then(() =>
-  console.log("All files imported")
+  console.log("All files imported"),
 );
 ```
 
@@ -90,7 +90,7 @@ import { dirname, importx } from "@discordx/importer";
 const __dirname = dirname(import.meta.url);
 
 importx(`${__dirname}/commands/**.js`).then(() =>
-  console.log("All files imported")
+  console.log("All files imported"),
 );
 ```
 
@@ -103,7 +103,7 @@ import { dirname, importx, isESM } from "@discordx/importer";
 const folder = isESM ? dirname(import.meta.url) : __dirname;
 
 importx(`${folder}/commands/**.js`).then(() =>
-  console.log("All files imported")
+  console.log("All files imported"),
 );
 ```
 

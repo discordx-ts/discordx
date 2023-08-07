@@ -57,7 +57,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
 
     if (this.useToken) {
       return new Set(
-        this.injector.getMany(TypeDiDependencyRegistryEngine.token)
+        this.injector.getMany(TypeDiDependencyRegistryEngine.token),
       );
     }
 
@@ -81,7 +81,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
           .find(
             (clazz) =>
               ((clazz as Record<string, unknown>)
-                .constructor as unknown as T) === classType
+                .constructor as unknown as T) === classType,
           ) as InstanceOf<T>) ?? null
       );
     }

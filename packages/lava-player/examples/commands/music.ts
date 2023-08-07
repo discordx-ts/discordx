@@ -53,14 +53,14 @@ export class MusicPlayer {
       GatewayDispatchEvents.VoiceStateUpdate,
       (data: VoiceStateUpdate) => {
         nodeX.voiceStateUpdate(data);
-      }
+      },
     );
 
     client.ws.on(
       GatewayDispatchEvents.VoiceServerUpdate,
       (data: VoiceServerUpdate) => {
         nodeX.voiceServerUpdate(data);
-      }
+      },
     );
 
     this.node = nodeX;
@@ -101,7 +101,7 @@ export class MusicPlayer {
       type: ApplicationCommandOptionType.String,
     })
     song: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.deferReply();
 

@@ -10,7 +10,7 @@ export function Middleware(
   return function (
     target: Record<string, any>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DRouter | DRequest>(
@@ -22,8 +22,8 @@ export function Middleware(
           }
         },
         DRouter,
-        DRequest
-      ).decorateUnknown(target, key, descriptor)
+        DRequest,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }

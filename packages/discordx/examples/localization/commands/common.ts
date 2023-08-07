@@ -19,7 +19,7 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     message: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${message}`);
   }

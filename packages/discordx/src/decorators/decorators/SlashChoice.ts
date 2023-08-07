@@ -82,8 +82,8 @@ export function SlashChoice(
         key,
         target[key],
         target.constructor,
-        index
-      )
+        index,
+      ),
     );
   };
 }

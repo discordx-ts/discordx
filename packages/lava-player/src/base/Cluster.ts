@@ -27,7 +27,7 @@ export abstract class BaseCluster extends EventEmitter {
   public spawn(options: ClusterNodeOptions): ClusterNode;
   public spawn(options: ClusterNodeOptions[]): ClusterNode[];
   public spawn(
-    options: ClusterNodeOptions | ClusterNodeOptions[]
+    options: ClusterNodeOptions | ClusterNodeOptions[],
   ): ClusterNode | ClusterNode[] {
     if (Array.isArray(options)) {
       return options.map((opt) => this.spawn(opt));
@@ -64,7 +64,7 @@ export abstract class BaseCluster extends EventEmitter {
     }
 
     throw new Error(
-      "unable to find appropriate node; please check your filter"
+      "unable to find appropriate node; please check your filter",
     );
   }
 

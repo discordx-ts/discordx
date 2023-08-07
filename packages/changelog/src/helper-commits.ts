@@ -20,7 +20,7 @@ function FormatTitle(options: {
     !options.replacement
       ? ""
       : new RegExp(`${options.replacement}\\(.*\\): |${options.replacement}: `),
-    ""
+    "",
   )} ([${options.sha.substring(0, 6)}](${options.repo}/commit/${
     options.sha
   }))\n`;
@@ -39,7 +39,7 @@ export function GetCommits(config: {
 
   const commits = child
     .execSync(
-      `git log ${tagDiff} --format=%B----SEPARATOR----%H----DELIMITER---- ${config.path}`
+      `git log ${tagDiff} --format=%B----SEPARATOR----%H----DELIMITER---- ${config.path}`,
     )
     .toString("utf-8")
     .split("----DELIMITER----\n")
@@ -56,12 +56,12 @@ export function GetCommits(config: {
 
       const category = CommitCategories.find((cat) =>
         cat.types.some((subType) =>
-          new RegExp(`${subType}\\(.*\\): |${subType}: `).test(title)
-        )
+          new RegExp(`${subType}\\(.*\\): |${subType}: `).test(title),
+        ),
       );
 
       const type = category?.types.find((subType) =>
-        new RegExp(`${subType}\\(.*\\): |${subType}: `).test(title)
+        new RegExp(`${subType}\\(.*\\): |${subType}: `).test(title),
       );
 
       return {

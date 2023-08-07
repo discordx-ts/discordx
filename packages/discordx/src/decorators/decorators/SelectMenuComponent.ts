@@ -24,7 +24,7 @@ export function SelectMenuComponent(): MethodDecoratorEx;
  * @category Decorator
  */
 export function SelectMenuComponent<T extends string>(
-  options: ComponentOptions<T>
+  options: ComponentOptions<T>,
 ): MethodDecoratorEx;
 
 /**
@@ -38,7 +38,7 @@ export function SelectMenuComponent<T extends string>(
  * @category Decorator
  */
 export function SelectMenuComponent(
-  options?: ComponentOptions
+  options?: ComponentOptions,
 ): MethodDecoratorEx {
   return function (target: Record<string, any>, key: string) {
     const button = DComponent.create({

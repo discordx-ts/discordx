@@ -29,11 +29,11 @@ export class Example {
       .setStyle(TextInputStyle.Paragraph);
 
     const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      tvShowInputComponent
+      tvShowInputComponent,
     );
 
     const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      haikuInputComponent
+      haikuInputComponent,
     );
 
     // Add action rows to form
@@ -48,11 +48,11 @@ export class Example {
   @ModalComponent()
   async AwesomeForm(interaction: ModalSubmitInteraction): Promise<void> {
     const [favTVShow, favHaiku] = ["tvField", "haikuField"].map((id) =>
-      interaction.fields.getTextInputValue(id)
+      interaction.fields.getTextInputValue(id),
     );
 
     await interaction.reply(
-      `Favorite TV Show: ${favTVShow}, Favorite haiku: ${favHaiku}`
+      `Favorite TV Show: ${favTVShow}, Favorite haiku: ${favHaiku}`,
     );
 
     return;

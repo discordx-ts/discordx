@@ -57,7 +57,7 @@ export class Player {
 
   public queue<T extends Queue = Queue>(
     guildId: string,
-    resolver?: () => T
+    resolver?: () => T,
   ): T {
     const queue = this.queues.get(guildId) as T;
 

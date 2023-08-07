@@ -28,7 +28,7 @@ class Example {
   @On("messageCreate")
   @Guard(
     NotBot, // You can use multiple guard functions, they are executed in the same order!
-    Prefix("!")
+    Prefix("!"),
   )
   async onMessage([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {
@@ -111,7 +111,7 @@ import { GuardFunction, ArgsOf } from "discordx";
 export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = async (
   [message],
   client,
-  next
+  next,
 ) => {
   if (client.user.id !== message.author.id) {
     await next();
@@ -206,7 +206,7 @@ class Example {
   async hello(
     interaction: CommandInteraction,
     client: Client,
-    guardData: { message: string }
+    guardData: { message: string },
   ) {
     console.log(guardData.message);
     // > the NotBot guard passed

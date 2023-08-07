@@ -40,7 +40,7 @@ export class Example {
       {
         name: TextChoices[TextChoices["Good Bye"]],
         value: TextChoices["Good Bye"],
-      }
+      },
     )
     @SlashOption({
       description: "choice",
@@ -49,7 +49,7 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     choice: TextChoices,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): unknown {
     return ["/hello", choice, interaction];
   }
@@ -65,7 +65,7 @@ export class Example {
       type: ApplicationCommandOptionType.Number,
     })
     choice: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): unknown {
     return ["/number", choice, interaction];
   }
@@ -81,7 +81,7 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     choice: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): unknown {
     return ["/string", choice, interaction];
   }
@@ -104,7 +104,7 @@ beforeAll(async () => {
 describe("Choice", () => {
   it("Should create the choice structure", async () => {
     const slashesObjects = await Promise.all(
-      client.applicationCommands.map((slash) => slash.toJSON())
+      client.applicationCommands.map((slash) => slash.toJSON()),
     );
     expect(slashesObjects).toEqual([
       {
@@ -236,7 +236,7 @@ describe("Choice", () => {
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(["/hello", "hello", interaction]);
@@ -252,7 +252,7 @@ describe("Choice", () => {
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(["/string", "B", interaction]);
@@ -268,7 +268,7 @@ describe("Choice", () => {
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(["/number", 3, interaction]);

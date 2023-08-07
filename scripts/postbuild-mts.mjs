@@ -26,7 +26,7 @@ if (!buildPath) {
         .replaceAll(/\.d\.mts$/gm, ".d.cts")
         .replaceAll(/\.mjs\.map$/gm, ".cjs.map")
         .replaceAll(/\.mjs$/gm, ".cjs"),
-      data.replaceAll(/\.mjs/gm, ".cjs")
+      data.replaceAll(/\.mjs/gm, ".cjs"),
     );
   });
 

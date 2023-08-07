@@ -21,7 +21,7 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     input: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${input}`);
   }

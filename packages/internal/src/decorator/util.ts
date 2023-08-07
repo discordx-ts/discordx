@@ -38,7 +38,7 @@ export class DecoratorUtils {
    */
   static getLinkedObjects<Type extends Decorator>(
     a: Decorator,
-    list: Type[]
+    list: Type[],
   ): Type[] {
     return list.filter((b) => {
       let cond = a.from === b.from && a.key === b.key;

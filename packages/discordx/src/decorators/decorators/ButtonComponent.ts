@@ -24,7 +24,7 @@ export function ButtonComponent(): MethodDecoratorEx;
  * @category Decorator
  */
 export function ButtonComponent<T extends string>(
-  options: ComponentOptions<T>
+  options: ComponentOptions<T>,
 ): MethodDecoratorEx;
 
 /**

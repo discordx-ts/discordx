@@ -30,7 +30,7 @@ export class Example {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
       const clazz = container.resolve(Example);
       interaction.reply(
-        `${clazz.database.query()}, same class: ${clazz === this}`
+        `${clazz.database.query()}, same class: ${clazz === this}`,
       );
     } else {
       interaction.reply("Not using TSyringe");

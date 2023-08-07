@@ -50,7 +50,7 @@ export class AudioNode {
       this.send({
         message,
         type: AudioNodeEvent.Debug,
-      })
+      }),
     );
 
     this.audioPlayer.on("stateChange", (oldState, newState) =>
@@ -58,7 +58,7 @@ export class AudioNode {
         newState: newState.status,
         oldState: oldState.status,
         type: AudioNodeEvent.StateChange,
-      })
+      }),
     );
   }
 

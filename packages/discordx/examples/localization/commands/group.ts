@@ -23,7 +23,7 @@ export class Example {
       type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${roleOrUser}`);
   }
@@ -42,7 +42,7 @@ export class Example {
       type: ApplicationCommandOptionType.Channel,
     })
     roleOrUser: GuildMember | User | Role,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${roleOrUser}`);
   }
@@ -64,7 +64,7 @@ export class Example {
       type: ApplicationCommandOptionType.Number,
     })
     y: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(String(x + y));
   }
@@ -86,7 +86,7 @@ export class Example {
       type: ApplicationCommandOptionType.Number,
     })
     y: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(String(x * y));
   }

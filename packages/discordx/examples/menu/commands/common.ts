@@ -30,7 +30,7 @@ export class Example {
     interaction.followUp(
       `you have selected role: ${
         roles.find((r) => r.value === roleValue)?.label ?? "unknown"
-      }`
+      }`,
     );
     return;
   }
@@ -47,7 +47,7 @@ export class Example {
     // create a row for message actions
     const buttonRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        menu
+        menu,
       );
 
     // send it

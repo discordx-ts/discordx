@@ -24,7 +24,7 @@ export function ModalComponent(): MethodDecoratorEx;
  * @category Decorator
  */
 export function ModalComponent<T extends string>(
-  options: ComponentOptions<T>
+  options: ComponentOptions<T>,
 ): MethodDecoratorEx;
 
 /**

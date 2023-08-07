@@ -17,7 +17,7 @@ export class Example {
       type: SimpleCommandOptionType.Boolean,
     })
     state: boolean | undefined,
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     command.message.reply(state ? String(state) : "state is required");
   }
@@ -41,14 +41,14 @@ export class Example {
       type: SimpleCommandOptionType.Role,
     })
     role: Role | Error | undefined,
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     !user || user instanceof Error
       ? command.sendUsageSyntax()
       : command.message.reply(
           `command prefix: \`\`${command.prefix.toString()}\`\`\ncommand name: \`\`${
             command.name
-          }\`\`\nargument string: \`\`${command.argString}\`\``
+          }\`\`\nargument string: \`\`${command.argString}\`\``,
         );
   }
 
@@ -57,7 +57,7 @@ export class Example {
     command.message.reply(
       `command prefix: \`\`${command.prefix.toString()}\`\`\ncommand name: \`\`${
         command.name
-      }\`\`\nargument string: \`\`${command.argString}\`\``
+      }\`\`\nargument string: \`\`${command.argString}\`\``,
     );
   }
 
@@ -65,7 +65,7 @@ export class Example {
   testX(
     @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     command.message.reply(`${user}`);
   }

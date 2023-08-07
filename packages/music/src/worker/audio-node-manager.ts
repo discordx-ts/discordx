@@ -34,7 +34,7 @@ export class AudioNodeManager {
           this.handleVoiceStateUpdate(
             config.guildId,
             config.channelId,
-            payload
+            payload,
           );
           return true;
         },
@@ -64,7 +64,7 @@ export class AudioNodeManager {
   private handleVoiceStateUpdate(
     guildId: string,
     channelId: string,
-    payload: any
+    payload: any,
   ): void {
     this.send({
       data: {

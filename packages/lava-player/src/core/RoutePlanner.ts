@@ -17,7 +17,7 @@ export default class RoutePlanner {
       return this.http.do(
         "post",
         url,
-        Buffer.from(JSON.stringify({ address }))
+        Buffer.from(JSON.stringify({ address })),
       );
     }
 

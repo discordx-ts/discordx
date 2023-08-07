@@ -157,7 +157,7 @@ class Example {
       type: ApplicationCommandOptionType.String,
     })
     message: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`:wave: from ${interaction.user}: ${message}`);
   }
@@ -190,7 +190,7 @@ class Example {
 
     const buttonRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        btn
+        btn,
       );
 
     interaction.reply({
@@ -228,7 +228,7 @@ class Example {
     interaction.followUp(
       `you have selected role: ${
         roles.find((r) => r.value === roleValue)?.label ?? "unknown"
-      }`
+      }`,
     );
     return;
   }
@@ -245,7 +245,7 @@ class Example {
     // create a row for message actions
     const buttonRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        menu
+        menu,
       );
 
     // send it
@@ -311,11 +311,11 @@ class Example {
       .setStyle(TextInputStyle.Paragraph);
 
     const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      tvShowInputComponent
+      tvShowInputComponent,
     );
 
     const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      haikuInputComponent
+      haikuInputComponent,
     );
 
     // Add action rows to form
@@ -330,11 +330,11 @@ class Example {
   @ModalComponent()
   async AwesomeForm(interaction: ModalSubmitInteraction): Promise<void> {
     const [favTVShow, favHaiku] = ["tvField", "haikuField"].map((id) =>
-      interaction.fields.getTextInputValue(id)
+      interaction.fields.getTextInputValue(id),
     );
 
     await interaction.reply(
-      `Favorite TV Show: ${favTVShow}, Favorite haiku: ${favHaiku}`
+      `Favorite TV Show: ${favTVShow}, Favorite haiku: ${favHaiku}`,
     );
 
     return;
@@ -417,7 +417,7 @@ import { Prefix } from "./Prefix";
 class Example {
   @On()
   @Guard(
-    NotBot // You can use multiple guard functions, they are executed in the same order!
+    NotBot, // You can use multiple guard functions, they are executed in the same order!
   )
   messageCreate([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {

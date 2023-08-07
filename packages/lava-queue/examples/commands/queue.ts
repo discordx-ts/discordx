@@ -74,7 +74,7 @@ export class MusicQueue extends Queue {
         stopButton,
         pauseButton,
         nextButton,
-        repeatButton
+        repeatButton,
       );
 
     const queueButton = new ButtonBuilder()
@@ -99,7 +99,7 @@ export class MusicQueue extends Queue {
         loopButton,
         queueButton,
         mixButton,
-        controlsButton
+        controlsButton,
       );
     return [row1, row2];
   }
@@ -190,7 +190,7 @@ export class MusicQueue extends Queue {
   }
 
   public async view(
-    interaction: CommandInteraction | ContextMenuCommandInteraction
+    interaction: CommandInteraction | ContextMenuCommandInteraction,
   ): Promise<void> {
     if (!this.currentTrack) {
       const pMsg = await interaction.followUp({
@@ -207,7 +207,7 @@ export class MusicQueue extends Queue {
 
     if (!this.size) {
       const pMsg = await interaction.followUp(
-        `> Playing **${this.currentTrack.info.title}**`
+        `> Playing **${this.currentTrack.info.title}**`,
       );
       if (pMsg instanceof Message) {
         setTimeout(() => pMsg.delete().catch(() => null), 1e4);
@@ -219,26 +219,29 @@ export class MusicQueue extends Queue {
       this.currentTrack.info.uri
     }>)** out of ${this.size + 1}`;
 
-    const pageOptions = new PaginationResolver((index, paginator) => {
-      paginator.maxLength = this.size / 10;
-      if (index > paginator.maxLength) {
-        paginator.currentPage = 0;
-      }
+    const pageOptions = new PaginationResolver(
+      (index, paginator) => {
+        paginator.maxLength = this.size / 10;
+        if (index > paginator.maxLength) {
+          paginator.currentPage = 0;
+        }
 
-      const currentPage = paginator.currentPage;
+        const currentPage = paginator.currentPage;
 
-      const queue = this.tracks
-        .slice(currentPage * 10, currentPage * 10 + 10)
-        .map(
-          (track, index1) =>
-            `${currentPage * 10 + index1 + 1}. [${track.info.title}](<${
-              track.info.uri
-            }>) (${this.fromMS(track.info.length)})`
-        )
-        .join("\n\n");
+        const queue = this.tracks
+          .slice(currentPage * 10, currentPage * 10 + 10)
+          .map(
+            (track, index1) =>
+              `${currentPage * 10 + index1 + 1}. [${track.info.title}](<${
+                track.info.uri
+              }>) (${this.fromMS(track.info.length)})`,
+          )
+          .join("\n\n");
 
-      return { content: `${current}\n\n${queue}` };
-    }, Math.round(this.size / 10));
+        return { content: `${current}\n\n${queue}` };
+      },
+      Math.round(this.size / 10),
+    );
 
     await new Pagination(interaction, pageOptions, {
       enableExit: true,

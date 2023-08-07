@@ -38,7 +38,7 @@ class Example {
       type: ApplicationCommandOptionType.Number,
     })
     y: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ) {
     interaction.reply(String(x + y));
   }
@@ -53,7 +53,7 @@ Act as middleware for your parameters. Take a look at the following example to s
 class Document {
   constructor(
     public input: string,
-    public interaction: ChatInputCommandInteraction
+    public interaction: ChatInputCommandInteraction,
   ) {
     /*
       empty constructor
@@ -66,14 +66,14 @@ class Document {
     */
 
     await this.interaction.followUp(
-      `${this.interaction.user} saved \`${this.input}\` into database`
+      `${this.interaction.user} saved \`${this.input}\` into database`,
     );
   }
 }
 
 function DocumentTransformer(
   input: string,
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ): Document {
   return new Document(input, interaction);
 }
@@ -90,7 +90,7 @@ export class Example {
       type: ApplicationCommandOptionType.String,
     })
     doc: Document,
-    interaction: ChatInputCommandInteraction
+    interaction: ChatInputCommandInteraction,
   ): Promise<void> {
     await interaction.deferReply();
     doc.save();
@@ -159,7 +159,7 @@ class Example {
     @SlashOption({
       autocomplete: function (
         this: Example,
-        interaction: AutocompleteInteraction
+        interaction: AutocompleteInteraction,
       ) {
         // The normal function has this (keyword), therefore class reference is available
         console.log(this.myCustomText);
@@ -190,7 +190,7 @@ class Example {
       type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
-    interaction: CommandInteraction | AutocompleteInteraction
+    interaction: CommandInteraction | AutocompleteInteraction,
   ): void {
     // If autocomplete is not handled above, it will be passed to handler (see option-a definition)
     if (interaction.isAutocomplete()) {
@@ -225,7 +225,7 @@ class Example {
       type: ApplicationCommandOptionType.Mentionable,
     })
     mentionable: GuildMember | User | Role,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ) {
     interaction.reply(mentionable.id);
   }

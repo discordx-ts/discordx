@@ -39,7 +39,7 @@ export function Once(options?: EventOptions): MethodDecoratorEx {
   return function (
     target: Record<string, any>,
     key: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const clazz = target as unknown as new () => unknown;
     const on = DOn.create({
@@ -68,7 +68,7 @@ Once.rest = function (options?: RestEventOptions): MethodDecoratorEx {
   return function (
     target: Record<string, any>,
     key: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     const clazz = target as unknown as new () => unknown;
     const on = DOn.create({

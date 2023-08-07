@@ -20,7 +20,7 @@ export class HTTPError extends Error {
     super(
       `${httpMessage.statusCode} ${
         STATUS_CODES[httpMessage.statusCode as number]
-      }`
+      }`,
     );
 
     this.statusCode = httpMessage.statusCode as number;
@@ -73,7 +73,7 @@ export class Http {
   public async do<T = any>(
     method: string,
     url: URL,
-    data?: Buffer
+    data?: Buffer,
   ): Promise<T> {
     const message = await new Promise<IncomingMessage>((resolve) => {
       const req = request(
@@ -89,7 +89,7 @@ export class Http {
           port: url.port,
           protocol: url.protocol,
         },
-        resolve
+        resolve,
       );
 
       if (data) {

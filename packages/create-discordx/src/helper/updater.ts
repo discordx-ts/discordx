@@ -9,7 +9,7 @@ import checkForUpdate from "update-check";
  * Read package.json
  */
 const packageJson = JSON.parse(
-  await readFile(new URL("../../package.json", import.meta.url), "utf-8")
+  await readFile(new URL("../../package.json", import.meta.url), "utf-8"),
 );
 
 /**
@@ -28,7 +28,7 @@ try {
       borderStyle: "round",
       margin: 1,
       padding: 1,
-    })
+    }),
   );
 }
 
@@ -38,9 +38,9 @@ if (update) {
     : "npm i create-discordx@latest";
 
   const template = `Update available ${chalk.dim(
-    `${packageJson.version}`
+    `${packageJson.version}`,
   )}${chalk.reset(" → ")}${chalk.green(`${update.latest}`)} \nRun ${chalk.cyan(
-    updateCmd
+    updateCmd,
   )} to update`;
 
   console.log(
@@ -50,7 +50,7 @@ if (update) {
       borderStyle: "round",
       margin: 1,
       padding: 1,
-    })
+    }),
   );
 }
 

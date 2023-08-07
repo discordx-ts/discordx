@@ -5,7 +5,7 @@ import type { GuardFunction } from "../../../src/index.js";
 export const ErrorHandler: GuardFunction<CommandInteraction> = async (
   interaction,
   client,
-  next
+  next,
 ) => {
   try {
     await next();

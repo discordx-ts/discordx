@@ -28,13 +28,13 @@ export function Guard<Type = any, DataType = any>(
   return function (
     target: Record<string, any>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     const guards = fns.map((fn) => {
       return DGuard.create(fn as () => unknown).decorateUnknown(
         target,
         key,
-        descriptor
+        descriptor,
       );
     });
 
@@ -48,8 +48,8 @@ export function Guard<Type = any, DataType = any>(
         DSimpleCommand,
         DOn,
         DDiscord,
-        DReaction
-      ).decorateUnknown(target, key, descriptor)
+        DReaction,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }
