@@ -37,7 +37,7 @@ class Example {
   onMessage(
     [message]: ArgsOf<"messageCreate">, // Type message automatically
     client: Client, // Client instance injected here,
-    guardPayload: any
+    guardPayload: any,
   ) {
     // ...
   }

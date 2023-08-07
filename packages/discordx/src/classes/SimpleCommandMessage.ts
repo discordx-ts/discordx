@@ -20,7 +20,7 @@ export class SimpleCommandMessage {
     public argString: string,
     public message: Message,
     public info: DSimpleCommand,
-    public splitter?: ArgSplitter
+    public splitter?: ArgSplitter,
   ) {
     // empty constructor
   }
@@ -61,7 +61,7 @@ export class SimpleCommandMessage {
     }
 
     return MetadataStorage.instance.simpleCommands.filter(
-      (cmd) => cmd.name.startsWith(commandName) && cmd.name !== this.info.name
+      (cmd) => cmd.name.startsWith(commandName) && cmd.name !== this.info.name,
     );
   }
 
@@ -74,7 +74,7 @@ export class SimpleCommandMessage {
     const maxLength = !this.info.options.length
       ? 0
       : this.info.options.reduce((a, b) =>
-          a.name.length > b.name.length ? a : b
+          a.name.length > b.name.length ? a : b,
         ).name.length;
 
     const embed = new EmbedBuilder();
@@ -94,7 +94,7 @@ export class SimpleCommandMessage {
       value: `\`\`\`${this.prefix.toString()}${this.name} ${this.info.options
         .map(
           (op) =>
-            `{${op.name}: ${SimpleCommandOptionType[op.type] ?? "unknown"}}`
+            `{${op.name}: ${SimpleCommandOptionType[op.type] ?? "unknown"}}`,
         )
         .join(" ")}\`\`\``,
     });

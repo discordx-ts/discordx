@@ -44,7 +44,7 @@ export function convertDurationToMS(duration: string): number {
       .reduceRight(
         (prev, curr, i, arr) =>
           prev + parseInt(curr) * Math.pow(60, arr.length - 1 - i),
-        0
+        0,
       ) * 1e3;
 
   return milliseconds ? milliseconds : 0;
@@ -87,7 +87,7 @@ export class Queue extends TrackQueue<MyTrack> {
       .setStyle(
         this.repeatMode === RepeatMode.All
           ? ButtonStyle.Danger
-          : ButtonStyle.Primary
+          : ButtonStyle.Primary,
       )
       .setCustomId("btn-repeat");
 
@@ -98,7 +98,7 @@ export class Queue extends TrackQueue<MyTrack> {
       .setStyle(
         this.repeatMode === RepeatMode.One
           ? ButtonStyle.Danger
-          : ButtonStyle.Primary
+          : ButtonStyle.Primary,
       )
       .setCustomId("btn-loop");
 
@@ -108,7 +108,7 @@ export class Queue extends TrackQueue<MyTrack> {
         pauseButton,
         nextButton,
         repeatButton,
-        loopButton
+        loopButton,
       );
 
     const queueButton = new ButtonBuilder()
@@ -134,7 +134,7 @@ export class Queue extends TrackQueue<MyTrack> {
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
         queueButton,
         mixButton,
-        controlsButton
+        controlsButton,
       );
 
     return [row1, row2];
@@ -292,25 +292,28 @@ export class Queue extends TrackQueue<MyTrack> {
       this.queueSize + 1
     }`;
 
-    const pageOptions = new PaginationResolver((index, paginator) => {
-      paginator.maxLength = this.queueSize / 10;
-      if (index > paginator.maxLength) {
-        paginator.currentPage = 0;
-      }
+    const pageOptions = new PaginationResolver(
+      (index, paginator) => {
+        paginator.maxLength = this.queueSize / 10;
+        if (index > paginator.maxLength) {
+          paginator.currentPage = 0;
+        }
 
-      const currentPage = paginator.currentPage;
+        const currentPage = paginator.currentPage;
 
-      const queue = this.tracks
-        .slice(currentPage * 10, currentPage * 10 + 10)
-        .map(
-          (track, index1) =>
-            `${currentPage * 10 + index1 + 1}. ${track.title}` +
-            ` (${formatDurationFromMS(track.duration)})`
-        )
-        .join("\n\n");
+        const queue = this.tracks
+          .slice(currentPage * 10, currentPage * 10 + 10)
+          .map(
+            (track, index1) =>
+              `${currentPage * 10 + index1 + 1}. ${track.title}` +
+              ` (${formatDurationFromMS(track.duration)})`,
+          )
+          .join("\n\n");
 
-      return { content: `${current}\n\`\`\`markdown\n${queue}\`\`\`` };
-    }, Math.floor(this.queueSize / 10));
+        return { content: `${current}\n\`\`\`markdown\n${queue}\`\`\`` };
+      },
+      Math.floor(this.queueSize / 10),
+    );
 
     await new Pagination(interaction, pageOptions, {
       enableExit: true,

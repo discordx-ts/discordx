@@ -14,7 +14,7 @@ export class MinMaxExample {
       type: ApplicationCommandOptionType.Number,
     })
     input: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${input}`);
   }
@@ -29,7 +29,7 @@ export class MinMaxExample {
       type: ApplicationCommandOptionType.Number,
     })
     input: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${input}`);
   }
@@ -45,7 +45,7 @@ export class MinMaxExample {
       type: ApplicationCommandOptionType.Number,
     })
     input: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): void {
     interaction.reply(`${input}`);
   }

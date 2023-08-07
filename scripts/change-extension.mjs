@@ -24,7 +24,7 @@ if (!buildPath) {
     fs.rmSync(file);
     fs.writeFileSync(
       file.replaceAll(/\.mts$/gm, ".ts"),
-      data.replaceAll(/\.mjs/gm, ".js")
+      data.replaceAll(/\.mjs/gm, ".js"),
     );
   });
 

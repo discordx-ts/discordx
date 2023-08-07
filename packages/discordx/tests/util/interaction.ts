@@ -11,7 +11,7 @@ export class FakeOption {
     name: string,
     type: ApplicationCommandOptionType,
     value: string | number,
-    options?: FakeOption[]
+    options?: FakeOption[],
   ) {
     this.type = type;
     this.name = name;

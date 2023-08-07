@@ -14,7 +14,7 @@ export class Example {
     [message]: [string],
     server: Server,
     socket: Socket,
-    arg4: unknown
+    arg4: unknown,
   ): void {
     console.log(message, typeof server, typeof socket, typeof arg4);
     server.emit("chat message", message);

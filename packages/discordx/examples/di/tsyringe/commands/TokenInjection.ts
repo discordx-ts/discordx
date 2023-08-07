@@ -30,14 +30,14 @@ export class ExampleToken {
   tsyringe(interaction: CommandInteraction): void {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
       const allDiscordClasses = container.resolveAll(
-        TsyringeDependencyRegistryEngine.token
+        TsyringeDependencyRegistryEngine.token,
       );
       const clazz = container.resolve(ExampleToken);
       const resolvedClassInTokenisedClasses = allDiscordClasses.includes(clazz);
       interaction.reply(
         `${clazz.database.query()}, same class: ${
           clazz === this
-        }\ntokenized class included in resolved class: ${resolvedClassInTokenisedClasses}`
+        }\ntokenized class included in resolved class: ${resolvedClassInTokenisedClasses}`,
       );
     } else {
       interaction.reply("Not using TSyringe");

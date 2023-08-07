@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
 import { isESM } from "@discordx/importer";
 import type { Client } from "discord.js";
 import { EventEmitter } from "events";
@@ -21,7 +22,7 @@ import {
 export interface QueueNode extends EventEmitter {
   on<T extends QueueEvent>(
     event: T,
-    listener: (payload: QueueEventPayloads[T]) => void
+    listener: (payload: QueueEventPayloads[T]) => void,
   ): this;
 }
 
@@ -34,7 +35,7 @@ export class QueueNode extends EventEmitter {
     this.worker = new Worker(
       `./node_modules/@discordx/music/build/${
         isESM ? "esm" : "cjs"
-      }/worker/index.js`
+      }/worker/index.js`,
     );
 
     this.setupEventListeners();

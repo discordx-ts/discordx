@@ -20,7 +20,7 @@ export async function resolve(...paths: string[]): Promise<string[]> {
           imports.push("file://" + file);
         }
       });
-    })
+    }),
   );
 
   return imports;

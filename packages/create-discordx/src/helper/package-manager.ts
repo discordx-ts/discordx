@@ -39,7 +39,7 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
       onCancel: () => {
         process.exit();
       },
-    }
+    },
   );
 
   const manager = Number(selected["package-manager"]) as PackageManager;
@@ -65,13 +65,13 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
     console.log(
       chalk.red("×"),
       `Could not found ${chalk.greenBright(
-        PackageManager[manager]
+        PackageManager[manager],
       )} package manager, Please install it from:`,
       PackageManager.pnpm === manager
         ? "https://pnpm.io"
         : PackageManager.yarn === manager
         ? "https://yarnpkg.com"
-        : "https://nodejs.org/en/download"
+        : "https://nodejs.org/en/download",
     );
 
     return GetPackageManager();
@@ -82,12 +82,12 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
 
 export async function InstallPackage(
   root: string,
-  manager: PackageManager
+  manager: PackageManager,
 ): Promise<void> {
   if (PackageManager.none === manager) {
     console.log(
       chalk.blueBright("?"),
-      chalk.bold("skipped package installation...")
+      chalk.bold("skipped package installation..."),
     );
     return;
   }

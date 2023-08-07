@@ -40,7 +40,7 @@ export class Example3 {
     text: string,
     interaction: CommandInteraction,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["/hello", text, interaction, data.passed];
   }
@@ -57,7 +57,7 @@ describe("Slash", () => {
     expect(client.applicationCommands[0]?.guilds).toEqual(["invalid_id"]);
 
     const slashesObjects = await Promise.all(
-      client.applicationCommands.map((slash) => slash.toJSON())
+      client.applicationCommands.map((slash) => slash.toJSON()),
     );
 
     expect(slashesObjects).toEqual([
@@ -94,7 +94,7 @@ describe("Slash", () => {
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(["/hello", "hello", interaction, true]);
@@ -108,7 +108,7 @@ describe("Slash", () => {
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(["/hello", undefined, interaction, true]);
@@ -121,7 +121,7 @@ describe("Slash", () => {
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(undefined);

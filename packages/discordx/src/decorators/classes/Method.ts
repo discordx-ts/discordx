@@ -35,7 +35,7 @@ export abstract class Method extends Decorator {
       ...params: unknown[]
     ): Promise<unknown> => {
       const globalGuards = guards.map((guard) =>
-        DGuard.create(guard.bind(undefined))
+        DGuard.create(guard.bind(undefined)),
       );
       return this.getGuardFunction(globalGuards)(...params);
     };
@@ -69,12 +69,12 @@ export abstract class Method extends Decorator {
    * Execute a guard with params
    */
   getGuardFunction(
-    globalGuards: DGuard[]
+    globalGuards: DGuard[],
   ): (...params: unknown[]) => Promise<unknown> {
     const next = async (
       params: [],
       index: number,
-      paramsToNext: Record<string, unknown>
+      paramsToNext: Record<string, unknown>,
     ) => {
       const nextFn = () => next(params, index + 1, paramsToNext);
       const guardToExecute = [...globalGuards, ...this.guards][index];
@@ -89,7 +89,7 @@ export abstract class Method extends Decorator {
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
           ...parsedParams,
           ...params,
-          paramsToNext
+          paramsToNext,
         );
       } else {
         // If it's the guards
@@ -97,7 +97,7 @@ export abstract class Method extends Decorator {
         res = await (guardToExecute?.fn as (...[]) => unknown)(
           ...params,
           nextFn,
-          paramsToNext
+          paramsToNext,
         );
       }
 

@@ -26,7 +26,7 @@ export class RateLimitExample {
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Slow Down",
-    })
+    }),
   )
   rateLimit2(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -42,7 +42,7 @@ export class RateLimitExample {
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Please wait `30` seconds!",
       rateValue: 3,
-    })
+    }),
   )
   rateLimit3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -58,7 +58,7 @@ export class RateLimitExample {
     RateLimit(TIME_UNIT.seconds, 30, {
       message:
         "Slow Down, please try at {until}, if you do not try at {until} then this command will not work",
-    })
+    }),
   )
   rateLimit4(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -73,7 +73,7 @@ export class RateLimitExample {
   @Guard(
     RateLimit<CommandInteraction>(TIME_UNIT.seconds, 30, {
       message: RateLimitExample.getMessage,
-    })
+    }),
   )
   rateLimit5(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -82,14 +82,14 @@ export class RateLimitExample {
   private static getMessage(
     this: void,
     interaction: CommandInteraction,
-    timeLeft: number
+    timeLeft: number,
   ): Promise<string> {
     return Promise.resolve(
       `${
         interaction.commandName
       } will be available again at {until}, this is in ${Math.round(
-        timeLeft / 1000
-      )} seconds`
+        timeLeft / 1000,
+      )} seconds`,
     );
   }
 

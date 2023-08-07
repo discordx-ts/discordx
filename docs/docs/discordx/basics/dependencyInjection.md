@@ -132,7 +132,7 @@ class Example {
 
       // respond with class test
       interaction.reply(
-        `${clazz._database.query()}, same class: ${clazz === this}`
+        `${clazz._database.query()}, same class: ${clazz === this}`,
       );
     } else {
       // warn: TSyringe is not used
@@ -191,7 +191,8 @@ To use this. just use `TsyringeDependencyRegistryEngine.token` when you want to 
 @injectable()
 class TsClass {
   public constructor(
-    @injectAll(TsyringeDependencyRegistryEngine.token) discordClasses: unknown[]
+    @injectAll(TsyringeDependencyRegistryEngine.token)
+    discordClasses: unknown[],
   ) {
     console.log(discordClasses); // all of Discordx's classes
   }

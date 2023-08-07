@@ -12,7 +12,7 @@ import type { ApplicationCommandDataEx } from "../types/index.js";
  */
 function jsonToString(obj: unknown): string {
   return JSON.stringify(obj, (key, value) =>
-    typeof value === "bigint" ? value.toString() : value
+    typeof value === "bigint" ? value.toString() : value,
   );
 }
 
@@ -26,7 +26,7 @@ function jsonToString(obj: unknown): string {
 export function RecursivelyMatchField(
   object: Record<string, any>,
   keys: string[],
-  onMatch: (object: any, key: string) => void
+  onMatch: (object: any, key: string) => void,
 ): void {
   Object.keys(object).some(function (k) {
     if (keys.includes(k)) {
@@ -50,7 +50,7 @@ export function RecursivelyMatchField(
 export function isApplicationCommandEqual(
   findCommand: ApplicationCommand,
   DCommand: DApplicationCommand,
-  isGuild?: true
+  isGuild?: true,
 ): boolean {
   const commandJson = findCommand.toJSON() as ApplicationCommandDataEx;
   const rawData = DCommand.toJSON();
@@ -63,7 +63,7 @@ export function isApplicationCommandEqual(
       if (object[key] === undefined) {
         object[key] = null;
       }
-    }
+    },
   );
 
   // replace null fields with undefined
@@ -74,7 +74,7 @@ export function isApplicationCommandEqual(
       if (object[key] === null) {
         object[key] = undefined;
       }
-    }
+    },
   );
 
   // remove unwanted fields
@@ -84,7 +84,7 @@ export function isApplicationCommandEqual(
       ["dmPermission"],
       (object: any, key: string) => {
         object[key] = undefined;
-      }
+      },
     );
   }
 
@@ -100,9 +100,9 @@ export function isApplicationCommandEqual(
         "descriptionLocalized",
         "nameLocalized",
         "permissions",
-        "defaultPermission"
-      )
-    )
+        "defaultPermission",
+      ),
+    ),
   );
 
   const secondJson = JSON.parse(jsonToString(rawData));

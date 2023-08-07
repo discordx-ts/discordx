@@ -26,12 +26,12 @@ export type PermissionOptions = BaseMessageOptions & {
  */
 export function PermissionGuard(
   permissions: PermissionsType,
-  options?: PermissionOptions
+  options?: PermissionOptions,
 ): GuardFunction<PermissionHandler> {
   // reply or followup, if used on interactions
   async function replyOrFollowUp(
     interaction: CommandInteraction,
-    replyOptions: PermissionOptions
+    replyOptions: PermissionOptions,
   ): Promise<void> {
     // if interaction is already replied
     if (interaction.replied) {
@@ -54,11 +54,11 @@ export function PermissionGuard(
   // send message
   async function post(
     arg: PermissionHandler,
-    perms: PermissionsString[]
+    perms: PermissionsString[],
   ): Promise<void> {
     const finalResponse = options ?? {
       content: `you need \`\`${perms.join(
-        ", "
+        ", ",
       )}\`\` permissions for this command`,
     };
 

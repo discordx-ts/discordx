@@ -5,7 +5,7 @@ import type { DApplicationCommand } from "../../index.js";
 export class ApplicationCommandMixin {
   constructor(
     public command: ApplicationCommand,
-    public instance: DApplicationCommand
+    public instance: DApplicationCommand,
   ) {
     // empty constructor
   }

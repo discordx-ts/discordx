@@ -14,6 +14,7 @@ import type {
   ModalSubmitInteraction,
   PartialMessageReaction,
   PartialUser,
+  RestEvents,
   Snowflake,
   User,
 } from "discord.js";
@@ -312,7 +313,7 @@ export class Client extends ClientJS {
 
     if (!this.silent) {
       this.logger.log(
-        `${this.user?.username ?? this.botId} >> connecting discord...\n`
+        `${this.user?.username ?? this.botId} >> connecting discord...\n`,
       );
     }
 
@@ -325,7 +326,7 @@ export class Client extends ClientJS {
   printDebug(): void {
     if (!this.instance.isBuilt) {
       this.logger.error(
-        "Build the app before running this method with client.build()"
+        "Build the app before running this method with client.build()",
       );
       return;
     }
@@ -335,7 +336,7 @@ export class Client extends ClientJS {
       this.events.forEach((event) => {
         const eventName = event.event;
         this.logger.log(
-          `>> ${eventName} (${event.classRef.name}.${event.key})`
+          `>> ${eventName} (${event.classRef.name}.${event.key})`,
         );
       });
     } else {
@@ -349,7 +350,7 @@ export class Client extends ClientJS {
     if (this.buttonComponents.length) {
       this.buttonComponents.forEach((btn) => {
         this.logger.log(
-          `>> ${btn.id.toString()} (${btn.classRef.name}.${btn.key})`
+          `>> ${btn.id.toString()} (${btn.classRef.name}.${btn.key})`,
         );
       });
     } else {
@@ -363,7 +364,7 @@ export class Client extends ClientJS {
     if (this.selectMenuComponents.length) {
       this.selectMenuComponents.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`
+          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`,
         );
       });
     } else {
@@ -377,7 +378,7 @@ export class Client extends ClientJS {
     if (this.modalComponents.length) {
       this.modalComponents.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`
+          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`,
         );
       });
     } else {
@@ -408,7 +409,7 @@ export class Client extends ClientJS {
     if (contexts.length) {
       contexts.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.name} (${menu.type}) (${menu.classRef.name}.${menu.key})`
+          `>> ${menu.name} (${menu.type}) (${menu.classRef.name}.${menu.key})`,
         );
       });
     } else {
@@ -427,7 +428,7 @@ export class Client extends ClientJS {
         this.logger.log(
           `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${
             DCommand.classRef.name
-          }.${DCommand.key})`
+          }.${DCommand.key})`,
         );
 
         /**
@@ -439,7 +440,7 @@ export class Client extends ClientJS {
          */
         const printOptions = (
           options: DApplicationCommandOption[],
-          depth: number
+          depth: number,
         ) => {
           if (!options) {
             return;
@@ -463,7 +464,7 @@ export class Client extends ClientJS {
                   : option.name
               }: ${ApplicationCommandOptionType[option.type]?.toLowerCase()} (${
                 option.classRef.name
-              }.${option.key})`
+              }.${option.key})`,
             );
             printOptions(option.options, depth + 1);
           });
@@ -494,7 +495,7 @@ export class Client extends ClientJS {
          */
         const printOptions = (
           options: DSimpleCommandOption[],
-          depth: number
+          depth: number,
         ) => {
           if (!options) {
             return;
@@ -505,7 +506,7 @@ export class Client extends ClientJS {
             this.logger.log(
               `${tab}${option.name}: ${
                 SimpleCommandOptionType[option.type] ?? "unknown"
-              } (${option.classRef.name}.${option.key})`
+              } (${option.classRef.name}.${option.key})`,
             );
           });
         };
@@ -532,7 +533,7 @@ export class Client extends ClientJS {
     const allGuildDCommands = this.applicationCommands.filter(
       (DCommand) =>
         DCommand.isBotAllowed(this.botId) &&
-        [...botResolvedGuilds, ...DCommand.guilds].length
+        [...botResolvedGuilds, ...DCommand.guilds].length,
     );
 
     // group single guild commands together
@@ -547,9 +548,9 @@ export class Client extends ClientJS {
           guildDCommandStore.set(guild, [
             ...(guildDCommandStore.get(guild) ?? []),
             DCommand,
-          ])
+          ]),
         );
-      })
+      }),
     );
 
     return guildDCommandStore;
@@ -574,7 +575,7 @@ export class Client extends ClientJS {
       }
 
       allGuildPromises.push(
-        this.initGuildApplicationCommands(guildId, DCommands, options?.guild)
+        this.initGuildApplicationCommands(guildId, DCommands, options?.guild),
       );
     });
 
@@ -593,7 +594,7 @@ export class Client extends ClientJS {
   async initGuildApplicationCommands(
     guildId: string,
     DCommands: DApplicationCommand[],
-    options?: InitCommandOptions
+    options?: InitCommandOptions,
   ): Promise<void> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
@@ -602,7 +603,7 @@ export class Client extends ClientJS {
       this.logger.warn(
         `${
           this.user?.username ?? this.botId
-        } >> initGuildApplicationCommands: skipped (Reason: guild ${guildId} unavailable)`
+        } >> initGuildApplicationCommands: skipped (Reason: guild ${guildId} unavailable)`,
       );
       return;
     }
@@ -616,8 +617,8 @@ export class Client extends ClientJS {
     const commandsToAdd = DCommands.filter(
       (DCommand) =>
         !ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
-        )
+          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
+        ),
     );
 
     // filter application command to update
@@ -627,7 +628,7 @@ export class Client extends ClientJS {
 
     DCommands.forEach((DCommand) => {
       const findCommand = ApplicationCommands.find(
-        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
       );
 
       if (!findCommand) {
@@ -636,7 +637,7 @@ export class Client extends ClientJS {
 
       if (!isApplicationCommandEqual(findCommand, DCommand, true)) {
         commandsToUpdate.push(
-          new ApplicationCommandMixin(findCommand, DCommand)
+          new ApplicationCommandMixin(findCommand, DCommand),
         );
       } else {
         commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
@@ -648,7 +649,8 @@ export class Client extends ClientJS {
     await Promise.all(
       ApplicationCommands.map(async (cmd) => {
         const DCommandFind = DCommands.find(
-          (DCommand) => DCommand.name === cmd.name && DCommand.type === cmd.type
+          (DCommand) =>
+            DCommand.name === cmd.name && DCommand.type === cmd.type,
         );
 
         // delete command if it's not found
@@ -667,7 +669,7 @@ export class Client extends ClientJS {
           commandsToDelete.push(cmd);
           return;
         }
-      })
+      }),
     );
 
     // log the changes to commands if enabled by options or silent mode is turned off
@@ -709,7 +711,7 @@ export class Client extends ClientJS {
     const bulkUpdate: ApplicationCommandDataEx[] = [];
 
     const operationToSkip = commandsToSkip.map((cmd) =>
-      bulkUpdate.push(cmd.instance.toJSON())
+      bulkUpdate.push(cmd.instance.toJSON()),
     );
 
     const operationToAdd = options?.disable?.add
@@ -719,14 +721,14 @@ export class Client extends ClientJS {
     const operationToUpdate = options?.disable?.update
       ? commandsToUpdate.map(async (cmd) =>
           bulkUpdate.push(
-            (await cmd.command.toJSON()) as ApplicationCommandDataEx
-          )
+            (await cmd.command.toJSON()) as ApplicationCommandDataEx,
+          ),
         )
       : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
       ? commandsToDelete.map(async (cmd) =>
-          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandDataEx)
+          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandDataEx),
         )
       : [];
 
@@ -753,13 +755,13 @@ export class Client extends ClientJS {
    * @param options - Options
    */
   async initGlobalApplicationCommands(
-    options?: InitCommandOptions
+    options?: InitCommandOptions,
   ): Promise<void> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
     if (!this.application) {
       throw Error(
-        "The client is not yet ready, connect to discord before fetching commands"
+        "The client is not yet ready, connect to discord before fetching commands",
       );
     }
 
@@ -771,14 +773,14 @@ export class Client extends ClientJS {
     const DCommands = this.applicationCommands.filter(
       (DCommand) =>
         ![...botResolvedGuilds, ...DCommand.guilds].length &&
-        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId))
+        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId)),
     );
 
     const commandsToAdd = DCommands.filter(
       (DCommand) =>
         !ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
-        )
+          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
+        ),
     );
 
     const commandsToUpdate: ApplicationCommandMixin[] = [];
@@ -786,7 +788,7 @@ export class Client extends ClientJS {
 
     DCommands.forEach((DCommand) => {
       const findCommand = ApplicationCommands.find(
-        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type
+        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
       );
 
       if (!findCommand) {
@@ -795,7 +797,7 @@ export class Client extends ClientJS {
 
       if (!isApplicationCommandEqual(findCommand, DCommand)) {
         commandsToUpdate.push(
-          new ApplicationCommandMixin(findCommand, DCommand)
+          new ApplicationCommandMixin(findCommand, DCommand),
         );
       } else {
         commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
@@ -804,8 +806,8 @@ export class Client extends ClientJS {
 
     const commandsToDelete = ApplicationCommands.filter((cmd) =>
       DCommands.every(
-        (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type
-      )
+        (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type,
+      ),
     );
 
     // log the changes to commands if enabled by options or silent mode is turned off
@@ -845,7 +847,7 @@ export class Client extends ClientJS {
     const bulkUpdate: ApplicationCommandDataEx[] = [];
 
     const operationToSkip = commandsToSkip.map((cmd) =>
-      bulkUpdate.push(cmd.instance.toJSON())
+      bulkUpdate.push(cmd.instance.toJSON()),
     );
 
     const operationToAdd = options?.disable?.add
@@ -854,13 +856,13 @@ export class Client extends ClientJS {
 
     const operationToUpdate = options?.disable?.update
       ? commandsToUpdate.map((cmd) =>
-          bulkUpdate.push(cmd.command.toJSON() as ApplicationCommandDataEx)
+          bulkUpdate.push(cmd.command.toJSON() as ApplicationCommandDataEx),
         )
       : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     const operationToDelete = options?.disable?.delete
       ? commandsToDelete.map((cmd) =>
-          bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx)
+          bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx),
         )
       : [];
 
@@ -879,7 +881,7 @@ export class Client extends ClientJS {
     ]);
 
     await this.application?.commands.set(
-      bulkUpdate as ApplicationCommandData[]
+      bulkUpdate as ApplicationCommandData[],
     );
   }
 
@@ -892,7 +894,7 @@ export class Client extends ClientJS {
     if (guilds.length) {
       await Promise.all(
         // Select and delete the commands of each guild
-        guilds.map((guild) => this.guilds.cache.get(guild)?.commands.set([]))
+        guilds.map((guild) => this.guilds.cache.get(guild)?.commands.set([])),
       );
     } else {
       await this.application?.commands.set([]);
@@ -910,7 +912,7 @@ export class Client extends ClientJS {
    * @returns
    */
   getApplicationCommandGroupTree(
-    interaction: CommandInteraction | AutocompleteInteraction
+    interaction: CommandInteraction | AutocompleteInteraction,
   ): string[] {
     const tree: string[] = [];
 
@@ -921,7 +923,7 @@ export class Client extends ClientJS {
      * @returns
      */
     const getOptionsTree = (
-      option: Partial<CommandInteractionOption> | undefined
+      option: Partial<CommandInteractionOption> | undefined,
     ): void => {
       if (!option) {
         return;
@@ -957,7 +959,7 @@ export class Client extends ClientJS {
    * @returns
    */
   getApplicationCommandFromTree(
-    tree: string[]
+    tree: string[],
   ): DApplicationCommand | undefined {
     // Find the corresponding @Slash
     return this.applicationCommandSlashesFlat.find((slash) => {
@@ -1044,7 +1046,7 @@ export class Client extends ClientJS {
    * @returns
    */
   executeCommandInteraction(
-    interaction: CommandInteraction | AutocompleteInteraction
+    interaction: CommandInteraction | AutocompleteInteraction,
   ): Awaited<unknown> {
     // Get the interaction group tree
     const tree = this.getApplicationCommandGroupTree(interaction);
@@ -1055,7 +1057,7 @@ export class Client extends ClientJS {
         this.logger.warn(
           `${
             this.user?.username ?? this.botId
-          } >> interaction not found, commandName: ${interaction.commandName}`
+          } >> interaction not found, commandName: ${interaction.commandName}`,
         );
       }
       return;
@@ -1064,14 +1066,14 @@ export class Client extends ClientJS {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
       const focusOption = interaction.options.getFocused(true);
       const option = applicationCommand.options.find(
-        (op) => op.name === focusOption.name
+        (op) => op.name === focusOption.name,
       );
 
       if (option && typeof option.autocomplete === "function") {
         option.autocomplete.call(
           DIService.instance.getService(option.from),
           interaction,
-          applicationCommand
+          applicationCommand,
         );
         return;
       }
@@ -1093,12 +1095,12 @@ export class Client extends ClientJS {
     interaction:
       | ButtonInteraction
       | ModalSubmitInteraction
-      | AnySelectMenuInteraction
+      | AnySelectMenuInteraction,
   ): Promise<unknown> {
     const executes = components.filter(
       (component) =>
         component.isId(interaction.customId) &&
-        component?.isBotAllowed(this.botId)
+        component?.isBotAllowed(this.botId),
     );
 
     if (!executes.length) {
@@ -1112,7 +1114,7 @@ export class Client extends ClientJS {
               : "modal"
           } component handler not found, interactionId: ${
             interaction.id
-          } | customId: ${interaction.customId}`
+          } | customId: ${interaction.customId}`,
         );
       }
 
@@ -1126,7 +1128,7 @@ export class Client extends ClientJS {
         }
 
         return component.execute(this.guards, interaction, this);
-      })
+      }),
     );
 
     return results;
@@ -1140,14 +1142,14 @@ export class Client extends ClientJS {
    * @returns
    */
   executeContextMenu(
-    interaction: ContextMenuCommandInteraction
+    interaction: ContextMenuCommandInteraction,
   ): Awaited<unknown> {
     const applicationCommand = interaction.isUserContextMenuCommand()
       ? this.applicationCommandUsers.find(
-          (cmd) => cmd.name === interaction.commandName
+          (cmd) => cmd.name === interaction.commandName,
         )
       : this.applicationCommandMessages.find(
-          (cmd) => cmd.name === interaction.commandName
+          (cmd) => cmd.name === interaction.commandName,
         );
 
     if (!applicationCommand?.isBotAllowed(this.botId)) {
@@ -1155,7 +1157,7 @@ export class Client extends ClientJS {
         this.logger.warn(
           `${
             this.user?.username ?? this.botId
-          } >> context interaction not found, name: ${interaction.commandName}`
+          } >> context interaction not found, name: ${interaction.commandName}`,
         );
       }
       return;
@@ -1191,13 +1193,13 @@ export class Client extends ClientJS {
   async parseCommand(
     prefix: IPrefix,
     message: Message,
-    caseSensitive = false
+    caseSensitive = false,
   ): Promise<SimpleCommandParseType | SimpleCommandMessage> {
     const mappedPrefix = Array.from(this.simpleCommandsByPrefix.keys());
     const prefixRegex = RegExp(
       `^(${[...prefix, ...mappedPrefix]
         .map((pfx) => escapeRegExp(pfx))
-        .join("|")})`
+        .join("|")})`,
     );
 
     const isCommand = prefixRegex.test(message.content);
@@ -1238,7 +1240,7 @@ export class Client extends ClientJS {
       commandArgs,
       message,
       commandRaw.command,
-      this.simpleCommandConfig?.argSplitter
+      this.simpleCommandConfig?.argSplitter,
     );
 
     command.options = await command.resolveOptions();
@@ -1256,14 +1258,14 @@ export class Client extends ClientJS {
    */
   async executeCommand(
     message: Message,
-    caseSensitive?: boolean
+    caseSensitive?: boolean,
   ): Promise<unknown> {
     const prefix = await this.getMessagePrefix(message);
 
     const command = await this.parseCommand(
       prefix,
       message,
-      caseSensitive ?? false
+      caseSensitive ?? false,
     );
 
     if (command === SimpleCommandParseType.notCommand) {
@@ -1308,7 +1310,7 @@ export class Client extends ClientJS {
    * @returns
    */
   parseReaction(
-    message: MessageReaction | PartialMessageReaction
+    message: MessageReaction | PartialMessageReaction,
   ): DReaction | undefined {
     const reaction = this.reactions.find((react) => {
       const validNames = [react.emoji, ...react.aliases];
@@ -1333,7 +1335,7 @@ export class Client extends ClientJS {
    */
   async executeReaction(
     reaction: MessageReaction | PartialMessageReaction,
-    user: User | PartialUser
+    user: User | PartialUser,
   ): Promise<unknown> {
     const action = this.parseReaction(reaction);
     if (!action) {
@@ -1421,25 +1423,25 @@ export class Client extends ClientJS {
       if (on.rest) {
         if (on.once) {
           this.rest.once(
-            on.event,
+            on.event as keyof RestEvents,
             this.instance.trigger({
               client: this,
               event: on.event,
               guards: this.guards,
               once: true,
               rest: true,
-            })
+            }),
           );
         } else {
           this.rest.on(
-            on.event,
+            on.event as keyof RestEvents,
             this.instance.trigger({
               client: this,
               event: on.event,
               guards: this.guards,
               once: false,
               rest: true,
-            })
+            }),
           );
         }
       } else {
@@ -1452,7 +1454,7 @@ export class Client extends ClientJS {
               guards: this.guards,
               once: true,
               rest: false,
-            })
+            }),
           );
         } else {
           this.on(
@@ -1463,7 +1465,7 @@ export class Client extends ClientJS {
               guards: this.guards,
               once: false,
               rest: false,
-            })
+            }),
           );
         }
       }

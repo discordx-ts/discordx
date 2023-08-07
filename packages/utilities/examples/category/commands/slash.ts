@@ -33,7 +33,7 @@ export class SlashExample {
             type: cmd instanceof DApplicationCommand ? "slash" : "simple",
           });
         }
-      }
+      },
     );
 
     const pages = commands.map((cmd, i) => {

@@ -97,7 +97,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
 
   public join(
     channel: string | null,
-    { deaf = false, mute = false }: JoinOptions = {}
+    { deaf = false, mute = false }: JoinOptions = {},
   ): Promise<any> {
     this.node.voiceServers.delete(this.guildId);
     this.node.voiceStates.delete(this.guildId);
@@ -115,7 +115,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
 
   public async play(
     track: string | Track,
-    { start, end, noReplace, pause }: PlayerOptions = {}
+    { start, end, noReplace, pause }: PlayerOptions = {},
   ): Promise<void> {
     await this.send("play", {
       endTime: end,
@@ -169,7 +169,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
 
   public voiceUpdate(
     sessionId: string,
-    event: VoiceServerUpdate
+    event: VoiceServerUpdate,
   ): Promise<void> {
     return this.send("voiceUpdate", {
       event,
@@ -186,8 +186,8 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
             guildId: this.guildId,
             op,
           },
-          d
-        )
+          d,
+        ),
       );
     } else {
       return Promise.reject(new Error("no WebSocket connection available"));

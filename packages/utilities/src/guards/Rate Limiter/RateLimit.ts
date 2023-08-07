@@ -26,7 +26,7 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     ephemeral: false,
     message: "message being rate limited!, please try again at {until}",
     rateValue: 1,
-  }
+  },
 ): GuardFunction<T> {
   const rateValue = options?.rateValue ?? 1;
   const rateMessage =
@@ -54,7 +54,7 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
   async function replyOrFollowUp(
     interaction: CommandInteraction | MessageComponentInteraction,
     content: string,
-    ephemeral: boolean
+    ephemeral: boolean,
   ): Promise<void> {
     if (interaction.replied) {
       await interaction.followUp({
@@ -77,11 +77,11 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
 
   function getFromArray(
     userId: string,
-    guildId: string
+    guildId: string,
   ): TimeOutEntry | undefined {
     const arr = _timer.rawSet;
     return arr.find(
-      (v: TimeOutEntry) => v.userId === userId && v.guildId === guildId
+      (v: TimeOutEntry) => v.userId === userId && v.guildId === guildId,
     );
   }
 
@@ -91,7 +91,7 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
 
   async function post(
     arg: CommandInteraction | SimpleCommandMessage,
-    msg: string
+    msg: string,
   ): Promise<void> {
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(msg);
@@ -132,8 +132,8 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
             arg,
             messageString.replaceAll(
               "{until}",
-              `<t:${Math.round(whenWillExecute / 1000)}:T>`
-            )
+              `<t:${Math.round(whenWillExecute / 1000)}:T>`,
+            ),
           );
         }
         return post(arg, messageString);

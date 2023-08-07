@@ -15,14 +15,14 @@ export function Category<T = string>(data: T): ClassMethodDecorator {
   return function <D>(
     target: Record<string, D>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord>(
         (
           original:
             | ((DApplicationCommand | DSimpleCommand) & ICategory<T>)
-            | DDiscord
+            | DDiscord,
         ) => {
           if (original instanceof DDiscord) {
             [
@@ -31,7 +31,7 @@ export function Category<T = string>(data: T): ClassMethodDecorator {
             ].forEach(
               (ob: (DApplicationCommand | DSimpleCommand) & ICategory<T>) => {
                 ob.category = data;
-              }
+              },
             );
           } else {
             original.category = data;
@@ -39,8 +39,8 @@ export function Category<T = string>(data: T): ClassMethodDecorator {
         },
         DApplicationCommand,
         DSimpleCommand,
-        DDiscord
-      ).decorateUnknown(target, key, descriptor)
+        DDiscord,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }

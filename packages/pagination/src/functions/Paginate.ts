@@ -4,7 +4,7 @@ export function Paginate(
   totalItems: number,
   currentPage = 1,
   pageSize = 10,
-  maxPages = 10
+  maxPages = 10,
 ): IPaginate {
   // source: https://jasonwatmore.com/post/2018/08/07/javascript-pure-pagination-logic-in-vanilla-js-typescript
 
@@ -48,7 +48,7 @@ export function Paginate(
 
   // create an array of pages to ng-repeat in the pager control
   const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
-    (i) => startPage + i
+    (i) => startPage + i,
   );
 
   // return object with all pager properties required by the view

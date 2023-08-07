@@ -58,20 +58,20 @@
     "@discordx/di": "^3.1.1",
     "@discordx/internal": "^1.0.2",
     "lodash": "^4.17.21",
-    "tslib": "^2.5.3"
+    "tslib": "^2.6.1"
   },
   "devDependencies": {
     "@discordx/importer": "^1.2.2",
-    "@types/jest": "^29.5.2",
-    "@types/lodash": "^4.14.195",
-    "@types/node": "^20.3.1",
-    "discord.js": "^14.11.0",
-    "jest": "^29.5.0",
+    "@types/jest": "^29.5.3",
+    "@types/lodash": "^4.14.196",
+    "@types/node": "^20.4.8",
+    "discord.js": "^14.12.1",
+    "jest": "^29.6.2",
     "reflect-metadata": "^0.1.13",
-    "ts-jest": "^29.1.0",
+    "ts-jest": "^29.1.1",
     "ts-jest-resolver": "^2.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "5.1.3"
+    "typescript": "5.1.6"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev"

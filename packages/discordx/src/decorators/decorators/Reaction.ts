@@ -25,7 +25,7 @@ export function Reaction(): MethodDecoratorEx;
  * @category Decorator
  */
 export function Reaction<T extends string>(
-  options: ReactionOptions<T>
+  options: ReactionOptions<T>,
 ): MethodDecoratorEx;
 
 /**

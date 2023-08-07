@@ -127,7 +127,7 @@ export class DSimpleCommand extends Method {
 
   async getGuilds(
     client: Client,
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): Promise<string[]> {
     const guilds = await resolveIGuilds(client, command, [
       ...client.botGuilds,
@@ -140,7 +140,7 @@ export class DSimpleCommand extends Method {
   async isGuildAllowed(
     client: Client,
     command: SimpleCommandMessage,
-    guildId: string | null
+    guildId: string | null,
   ): Promise<boolean> {
     if (!guildId) {
       return true;
@@ -181,7 +181,7 @@ export class DSimpleCommand extends Method {
           // only digits
           const id = args[index]?.replace(/\D/g, "");
           const invalidError = Error(
-            `Invalid id given: ${args[index] ?? "unknown"}`
+            `Invalid id given: ${args[index] ?? "unknown"}`,
           );
 
           // undefined
@@ -270,7 +270,7 @@ export class DSimpleCommand extends Method {
 
           // string
           return args[index];
-        })
+        }),
     );
   }
 }

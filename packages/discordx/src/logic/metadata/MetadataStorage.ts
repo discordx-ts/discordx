@@ -216,13 +216,13 @@ export class MetadataStorage {
   }
 
   addApplicationCommandSlashGroups(
-    group: DApplicationCommandGroup<Partial<DApplicationCommand>>
+    group: DApplicationCommandGroup<Partial<DApplicationCommand>>,
   ): void {
     this._applicationCommandSlashGroups.push(group);
   }
 
   addApplicationCommandSlashSubGroups(
-    subGroup: DApplicationCommandGroup<Partial<DApplicationCommandOption>>
+    subGroup: DApplicationCommandGroup<Partial<DApplicationCommandOption>>,
   ): void {
     this._applicationCommandSlashSubGroups.push(subGroup);
   }
@@ -287,7 +287,7 @@ export class MetadataStorage {
       if (!discord) {
         throw Error(
           `Did you forget to use the @discord decorator on your class: ${member.from.name}\n` +
-            "read more at https://discordx.js.org/docs/discordx/decorators/general/discord\n\n"
+            "read more at https://discordx.js.org/docs/discordx/decorators/general/discord\n\n",
         );
       }
 
@@ -325,52 +325,52 @@ export class MetadataStorage {
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._applicationCommandSlashes
+      this._applicationCommandSlashes,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._applicationCommandSlashOptions
+      this._applicationCommandSlashOptions,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._applicationCommandMessages
+      this._applicationCommandMessages,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._applicationCommandUsers
+      this._applicationCommandUsers,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._simpleCommands
+      this._simpleCommands,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._simpleCommandOptions
+      this._simpleCommandOptions,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._buttonComponents
+      this._buttonComponents,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._modalComponents
+      this._modalComponents,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._reactions
+      this._reactions,
     );
 
     await Modifier.applyFromModifierListToList(
       this._modifiers,
-      this._selectMenuComponents
+      this._selectMenuComponents,
     );
 
     this._applicationCommandSlashesFlat = this._applicationCommandSlashes;
@@ -380,7 +380,7 @@ export class MetadataStorage {
 
     // sort events based on priority
     this._events.sort((a, b) =>
-      `${a.event}__${a.priority}` > `${b.event}__${b.priority}` ? 1 : -1
+      `${a.event}__${a.priority}` > `${b.event}__${b.priority}` ? 1 : -1,
     );
   }
 
@@ -401,7 +401,7 @@ export class MetadataStorage {
           mapCmd.forEach((mapCommand) => {
             if (findIndex(commands, { name: mapCommand.name }) !== -1) {
               throw Error(
-                `Duplicate simple command name: ${mapCommand.name} (of: ${mapCommand.command.name})`
+                `Duplicate simple command name: ${mapCommand.name} (of: ${mapCommand.command.name})`,
               );
             }
           });
@@ -409,8 +409,8 @@ export class MetadataStorage {
           this._simpleCommandsByPrefix.set(
             pfx,
             [...commands, ...mapCmd].sort(
-              (a, b) => b.name.length - a.name.length
-            )
+              (a, b) => b.name.length - a.name.length,
+            ),
           );
         });
         return;
@@ -425,7 +425,7 @@ export class MetadataStorage {
       cmd.aliases.forEach((al) => {
         if (findIndex(this._simpleCommandsByName, { name: al }) !== -1) {
           throw Error(
-            `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`
+            `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`,
           );
         }
         this._simpleCommandsByName.push({ command: cmd, name: al });
@@ -433,14 +433,13 @@ export class MetadataStorage {
     });
 
     // sort simple commands
-    this._simpleCommandsByName = this._simpleCommandsByName.sort(function (
-      a,
-      b
-    ) {
-      // ASC  -> a.length - b.length
-      // DESC -> b.length - a.length
-      return b.name.length - a.name.length;
-    });
+    this._simpleCommandsByName = this._simpleCommandsByName.sort(
+      function (a, b) {
+        // ASC  -> a.length - b.length
+        // DESC -> b.length - a.length
+        return b.name.length - a.name.length;
+      },
+    );
   }
 
   private groupSlashes() {
@@ -519,7 +518,7 @@ export class MetadataStorage {
         throw Error(
           `Description required for slash sub group: ${subGroup.name} (root: ${
             subGroup.root ?? "unknown"
-          })`
+          })`,
         );
       }
 
@@ -608,7 +607,7 @@ export class MetadataStorage {
 
           const res = await ev.execute(options.guards, params, options.client);
           responses.push(res);
-        })
+        }),
       );
 
       return responses;

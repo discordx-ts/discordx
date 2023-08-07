@@ -6,7 +6,7 @@ export function GetTags(match: string): string[] {
     child
       .execSync(`git tag --list --sort=v:refname "${match}"`)
       .toString("utf-8")
-      .split("\n")
+      .split("\n"),
   );
 
   tags.push("HEAD");

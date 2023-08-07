@@ -49,7 +49,7 @@ export class Decorator {
     classRef: Record<string, any>,
     key?: string,
     method?: PropertyDescriptor,
-    index?: number
+    index?: number,
   ): this {
     const decorateAClass =
       DecoratorUtils.decorateAClass(method) && index === undefined;
@@ -65,7 +65,7 @@ export class Decorator {
       finalKey,
       finalMethod,
       finalClassRef,
-      index
+      index,
     );
   }
 
@@ -74,7 +74,7 @@ export class Decorator {
     key: string,
     method?: Record<string, any>,
     from?: Record<string, any>,
-    index?: number
+    index?: number,
   ): this {
     this._from = from ?? classRef;
     this._classRef = classRef;

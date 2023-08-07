@@ -88,7 +88,7 @@ MetadataStorage.instance.applicationCommands.forEach(
     if (cmd.category === "Admin Commands") {
       // access
     }
-  }
+  },
 );
 ```
 
@@ -157,7 +157,7 @@ class RateLimitExample {
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Please wait `30` seconds!",
       rateValue: 3,
-    })
+    }),
   )
   rateLimit3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -222,7 +222,7 @@ export class PermissionGuards {
   @Guard(
     PermissionGuard(["BAN_MEMBERS"], {
       content: "You do not have the role `BAN_MEMBERS`",
-    })
+    }),
   )
   banMembers2(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
@@ -237,14 +237,14 @@ export class PermissionGuards {
   @Guard(
     PermissionGuard(PermissionGuards.resolvePermission, {
       content: "You do not have the role `BAN_MEMBERS`",
-    })
+    }),
   )
   banMembers3(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
   }
 
   private static resolvePermission(
-    interaction: PermissionHandler
+    interaction: PermissionHandler,
   ): Promise<PermissionString[]> {
     if (interaction instanceof CommandInteraction) {
       // if guild id is 123

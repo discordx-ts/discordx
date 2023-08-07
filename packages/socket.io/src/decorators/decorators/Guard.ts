@@ -11,13 +11,13 @@ export function Guard<Type = any>(
   return function (
     target: Record<string, any>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     const guards = fns.map((fn) => {
       return DGuard.create(fn as () => unknown).decorateUnknown(
         target,
         key,
-        descriptor
+        descriptor,
       );
     });
 
@@ -27,8 +27,8 @@ export function Guard<Type = any>(
           original.guards = guards;
         },
         DEvent,
-        DWs
-      ).decorateUnknown(target, key, descriptor)
+        DWs,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }

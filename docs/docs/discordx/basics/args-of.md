@@ -10,7 +10,7 @@ class Example {
   @On({ event: "messageCreate" })
   onMessage(
     // The type of message is Message
-    [message]: ArgsOf<"messageCreate">
+    [message]: ArgsOf<"messageCreate">,
   ) {
     // ...
   }
@@ -18,7 +18,7 @@ class Example {
   @On({ event: "channelUpdate" })
   onMessage(
     // The type of channel1 and channel2 is TextChannel
-    [channel1, channel2]: ArgsOf<"channelUpdate">
+    [channel1, channel2]: ArgsOf<"channelUpdate">,
   ) {
     // ...
   }

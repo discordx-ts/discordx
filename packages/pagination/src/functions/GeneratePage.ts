@@ -18,7 +18,7 @@ export function GeneratePage(
   item: PaginationItem,
   page: number,
   maxPage: number,
-  config: PaginationOptions
+  config: PaginationOptions,
 ): IGeneratePage {
   const beginning = page === 0;
   const end = page === maxPage - 1;
@@ -105,7 +105,7 @@ export function GeneratePage(
 
     const row =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        buttons
+        buttons,
       );
 
     // reset message payload additional parameters

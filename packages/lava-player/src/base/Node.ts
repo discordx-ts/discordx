@@ -41,7 +41,7 @@ export abstract class BaseNode extends EventEmitter {
 
     this.http = new Http(
       this,
-      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}`
+      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}`,
     );
 
     const wsIsSecure = host?.secure ?? false;
@@ -51,7 +51,7 @@ export abstract class BaseNode extends EventEmitter {
     this.connection = new Connection(
       this,
       `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}`,
-      host?.connectionOptions
+      host?.connectionOptions,
     );
   }
 
@@ -111,7 +111,7 @@ export abstract class BaseNode extends EventEmitter {
 
   public async destroy(code?: number, data?: string): Promise<void> {
     await Promise.all(
-      [...this.players.values()].map((player) => player.destroy())
+      [...this.players.values()].map((player) => player.destroy()),
     );
     await this.disconnect(code, data);
   }

@@ -50,15 +50,15 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "tslib": "^2.5.3"
+    "tslib": "^2.6.1"
   },
   "devDependencies": {
     "@discordx/importer": "^1.2.2",
-    "@types/lodash": "^4.14.195",
-    "@types/node": "^20.3.1",
-    "discord.js": "^14.11.0",
+    "@types/lodash": "^4.14.196",
+    "@types/node": "^20.4.8",
+    "discord.js": "^14.12.1",
     "discordx": "^11.7.6",
-    "typescript": "5.1.3"
+    "typescript": "5.1.6"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev"

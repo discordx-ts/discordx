@@ -12,7 +12,7 @@ import path from "path";
  */
 export function MakeDir(
   root: string,
-  options = { recursive: true }
+  options = { recursive: true },
 ): Promise<string | undefined> {
   return pfs.mkdir(root, options);
 }
@@ -46,7 +46,7 @@ export function IsFolderEmpty(root: string, name: string): boolean {
 
   if (conflicts.length > 0) {
     console.log(
-      `The directory ${chalk.green(name)} contains files that could conflict:`
+      `The directory ${chalk.green(name)} contains files that could conflict:`,
     );
     console.log();
 
@@ -65,7 +65,7 @@ export function IsFolderEmpty(root: string, name: string): boolean {
 
     console.log();
     console.log(
-      "Either try using a new directory name, or remove the files listed above."
+      "Either try using a new directory name, or remove the files listed above.",
     );
     console.log();
     return false;

@@ -73,7 +73,7 @@ export function GenerateChangelog(config: Options): {
     config.out,
     `${prettier.format(content, {
       parser: "markdown",
-    })}`
+    })}`,
   );
 
   return { content, repo };

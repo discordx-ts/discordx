@@ -38,7 +38,7 @@ export class Example {
       type: SimpleCommandOptionType.Number,
     })
     num2: number | undefined,
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): unknown {
     if (
       !num1 ||
@@ -77,7 +77,7 @@ export class Example {
     @SimpleCommandOption({ name: "name", type: SimpleCommandOptionType.String })
     name: string | undefined,
 
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): unknown {
     return !name
       ? command.message.reply("usage: ``!hello <your name>``")
@@ -90,7 +90,7 @@ export class Example {
   handler(
     @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: User | undefined, //
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     !user
       ? command.message.reply("user not mentioned")
@@ -101,7 +101,7 @@ export class Example {
   handlerRole(
     @SimpleCommandOption({ name: "role", type: SimpleCommandOptionType.Role })
     role: Role | undefined, //
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     !role
       ? command.message.reply("role not mentioned")
@@ -115,7 +115,7 @@ export class Example {
       type: SimpleCommandOptionType.Channel,
     })
     channel: Channel | undefined, //
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     !channel
       ? command.message.reply("channel not mentioned")
@@ -130,7 +130,7 @@ export class Example {
     @SimpleCommandOption({ name: "y", type: SimpleCommandOptionType.Number })
     y: number,
 
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     if (!command.isValid()) {
       command.sendUsageSyntax();
@@ -160,7 +160,7 @@ export class Example {
     @SimpleCommandOption({ name: "type", type: SimpleCommandOptionType.String })
     type: string,
 
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     if (!command.isValid()) {
       command.sendUsageSyntax();
@@ -171,7 +171,7 @@ export class Example {
       `id: ${id}\n` +
         `time: ${time} seconds\n` +
         `reason: ${reason}\n` +
-        `Type: ${type}`
+        `Type: ${type}`,
     );
   }
 
@@ -188,7 +188,7 @@ export class Example {
     @SimpleCommandOption({ name: "arg2", type: SimpleCommandOptionType.String })
     arg2: string,
 
-    command: SimpleCommandMessage
+    command: SimpleCommandMessage,
   ): void {
     if (!command.isValid()) {
       command.sendUsageSyntax();

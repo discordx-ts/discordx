@@ -8,7 +8,7 @@ export function GetRepoUrl(): string {
 
   if (!remoteUrl.length) {
     throw Error(
-      "repo not found, make sure to run the command in the git directory only"
+      "repo not found, make sure to run the command in the git directory only",
     );
   }
 

@@ -77,7 +77,7 @@ export class Example {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["/testing maths add", x + y, interaction, data.passed];
   }
@@ -101,7 +101,7 @@ export class Example {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["/testing maths multiply", x * y, interaction, data.passed];
   }
@@ -117,7 +117,7 @@ export class Example {
       {
         name: TextChoices[TextChoices["Good Bye"]],
         value: TextChoices["Good Bye"],
-      }
+      },
     )
     @SlashOption({
       description: "text",
@@ -128,7 +128,7 @@ export class Example {
     text: TextChoices,
     interaction: CommandInteraction,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["/testing text hello", text, interaction, data.passed];
   }
@@ -152,7 +152,7 @@ export class Example {
     text2: string,
     interaction: CommandInteraction,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["/testing hello text", text, text2, interaction, data.passed];
   }
@@ -197,7 +197,7 @@ export class Example2 {
     y: number,
     interaction: CommandInteraction,
     client: Client,
-    data: Data
+    data: Data,
   ): unknown {
     return ["/testing line add", x + y, interaction, data.passed];
   }
@@ -278,7 +278,7 @@ beforeAll(async () => {
 describe("Choice", () => {
   it("Should create the choice structure", async () => {
     const slashesObjects = await Promise.all(
-      client.applicationCommands.map((slash) => slash.toJSON())
+      client.applicationCommands.map((slash) => slash.toJSON()),
     );
     expect(slashesObjects).toEqual([
       {
@@ -578,21 +578,21 @@ describe("Choice", () => {
             new FakeOption(
               "text",
               ApplicationCommandOptionType.String,
-              "testing hello text"
+              "testing hello text",
             ),
             new FakeOption(
               "text2",
               ApplicationCommandOptionType.String,
-              "testing hello text2"
+              "testing hello text2",
             ),
-          ]
+          ],
         ),
       ],
       type: InteractionType.Command,
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual([
@@ -621,18 +621,18 @@ describe("Choice", () => {
                 new FakeOption(
                   "text",
                   ApplicationCommandOptionType.String,
-                  "testing text hello"
+                  "testing text hello",
                 ),
-              ]
+              ],
             ),
-          ]
+          ],
         ),
       ],
       type: InteractionType.Command,
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual([
@@ -659,16 +659,16 @@ describe("Choice", () => {
               [
                 new FakeOption("x", ApplicationCommandOptionType.Number, 2),
                 new FakeOption("y", ApplicationCommandOptionType.Number, 5),
-              ]
+              ],
             ),
-          ]
+          ],
         ),
       ],
       type: InteractionType.Command,
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(["/testing maths multiply", 10, interaction, true]);
@@ -690,16 +690,16 @@ describe("Choice", () => {
               [
                 new FakeOption("x", ApplicationCommandOptionType.Number, 2),
                 new FakeOption("y", ApplicationCommandOptionType.Number, 5),
-              ]
+              ],
             ),
-          ]
+          ],
         ),
       ],
       type: InteractionType.Command,
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(["/testing maths add", 7, interaction, true]);
@@ -721,16 +721,16 @@ describe("Choice", () => {
               [
                 new FakeOption("x", ApplicationCommandOptionType.Number, 2),
                 new FakeOption("y", ApplicationCommandOptionType.Number, 5),
-              ]
+              ],
             ),
-          ]
+          ],
         ),
       ],
       type: InteractionType.Command,
     });
 
     const res = await client.executeInteraction(
-      interaction as unknown as Interaction
+      interaction as unknown as Interaction,
     );
 
     expect(res).toEqual(undefined);

@@ -28,7 +28,7 @@ export class Example {
 
     const buttonRow =
       new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        btn
+        btn,
       );
 
     interaction.reply({

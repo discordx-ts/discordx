@@ -36,7 +36,7 @@ export type SpecialCharacters = (typeof SpecialCharactersList)[number];
 
 export type ForbidCharacter<
   S extends string,
-  Character extends string
+  Character extends string,
 > = S extends `${string}${Character}${string}` ? never : S;
 
 export type WhitelistWords<S, D extends string> = S extends ""

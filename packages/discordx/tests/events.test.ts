@@ -5,7 +5,7 @@ const guard1: GuardFunction = async (
   [message]: [string],
   client,
   next,
-  data
+  data,
 ) => {
   data.original = message;
   if (message.includes("hello")) {
@@ -40,7 +40,7 @@ export class Example {
   messageDelete(
     _: [string],
     client: Client,
-    guardParams: { message: string }
+    guardParams: { message: string },
   ): void {
     guardParams.message += "-3";
   }
@@ -62,7 +62,7 @@ describe("Create on event", () => {
         once: false,
         rest: false,
       },
-      "test"
+      "test",
     );
     expect(res).toEqual(["test", "test"]);
   });
@@ -76,7 +76,7 @@ describe("Create on event", () => {
         once: false,
         rest: false,
       },
-      "test"
+      "test",
     );
     expect(res[0].original).toEqual("test");
     expect(res[0].message).toEqual(undefined);
@@ -89,7 +89,7 @@ describe("Create on event", () => {
         once: false,
         rest: false,
       },
-      "hello"
+      "hello",
     );
     expect(res2[0].original).toEqual("hello");
     expect(res2[0].message).toEqual("hello-suffix-2");
@@ -102,7 +102,7 @@ describe("Create on event", () => {
         once: false,
         rest: false,
       },
-      "hello-test"
+      "hello-test",
     );
     expect(res3[0].original).toEqual("hello-test");
     expect(res3[0].message).toEqual("hello-test-suffix-1-3");

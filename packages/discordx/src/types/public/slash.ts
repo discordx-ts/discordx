@@ -50,7 +50,7 @@ export type SlashOptionBaseOptions<T extends string, TD extends string> = {
 
 export type SlashOptionChannelOptions<
   T extends string,
-  TD extends string
+  TD extends string,
 > = Omit<SlashOptionBaseOptions<T, TD>, "channelTypes" | "type"> & {
   channelTypes?: ChannelType[];
   type: ApplicationCommandOptionType.Channel;
@@ -58,7 +58,7 @@ export type SlashOptionChannelOptions<
 
 export type SlashOptionAutoCompleteOptions<
   T extends string,
-  TD extends string
+  TD extends string,
 > = Omit<SlashOptionBaseOptions<T, TD>, "autocomplete" | "type"> & {
   autocomplete?: SlashAutoCompleteOption;
   type:
@@ -69,7 +69,7 @@ export type SlashOptionAutoCompleteOptions<
 
 export type SlashOptionNumberOptions<
   T extends string,
-  TD extends string
+  TD extends string,
 > = Omit<
   SlashOptionBaseOptions<T, TD>,
   "maxValue" | "minValue" | "autocomplete" | "type"
@@ -84,7 +84,7 @@ export type SlashOptionNumberOptions<
 
 export type SlashOptionStringOptions<
   T extends string,
-  TD extends string
+  TD extends string,
 > = Omit<
   SlashOptionBaseOptions<T, TD>,
   "maxLength" | "minLength" | "autocomplete" | "type"
@@ -107,7 +107,7 @@ export type SlashAutoCompleteOption =
   | boolean
   | ((
       interaction: AutocompleteInteraction,
-      command: DApplicationCommand
+      command: DApplicationCommand,
     ) => void | Promise<void>);
 
 export type ApplicationCommandDataEx = {
@@ -141,7 +141,7 @@ export type SlashGroupBase<T extends string, TD extends string> = {
 
 export type SlashGroupRoot<
   T extends string,
-  TD extends string
+  TD extends string,
 > = SlashGroupBase<T, TD> & {
   defaultMemberPermissions?: PermissionResolvable;
   dmPermission?: boolean;
@@ -151,7 +151,7 @@ export type SlashGroupRoot<
 export type SlashGroupSubRoot<
   T extends string,
   TD extends string,
-  TR extends string
+  TR extends string,
 > = SlashGroupBase<T, TD> & {
   defaultMemberPermissions?: undefined;
   dmPermission?: undefined;
@@ -161,5 +161,5 @@ export type SlashGroupSubRoot<
 export type SlashGroupOptions<
   T extends string,
   TD extends string,
-  TR extends string
+  TR extends string,
 > = SlashGroupRoot<T, TD> | SlashGroupSubRoot<T, TD, TR>;

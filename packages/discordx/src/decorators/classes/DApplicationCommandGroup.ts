@@ -15,7 +15,7 @@ type CreateStructure<T> = {
  * @category Decorator
  */
 export class DApplicationCommandGroup<
-  InfoType = DApplicationCommand | DApplicationCommandOption
+  InfoType = DApplicationCommand | DApplicationCommandOption,
 > extends Decorator {
   name: string;
   root?: string;
@@ -29,7 +29,7 @@ export class DApplicationCommandGroup<
   }
 
   static create<T = DApplicationCommand | DApplicationCommandOption>(
-    options: CreateStructure<T>
+    options: CreateStructure<T>,
   ): DApplicationCommandGroup<T> {
     return new DApplicationCommandGroup<T>(options);
   }

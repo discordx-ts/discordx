@@ -53,7 +53,7 @@ class Example {
     })
     type: number,
 
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ) {
     interaction.reply(`what: ${what}, fuel: ${fuel}, type: ${type}`);
   }
@@ -81,7 +81,7 @@ class Example {
       {
         name: TextChoices[TextChoices["Good Bye"]],
         value: TextChoices["Good Bye"],
-      }
+      },
     )
     @SlashChoice({ name: "How are you", value: "hay" })
     @SlashOption({
@@ -91,7 +91,7 @@ class Example {
       type: ApplicationCommandOptionType.String,
     })
     text: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ) {
     interaction.reply(text);
   }

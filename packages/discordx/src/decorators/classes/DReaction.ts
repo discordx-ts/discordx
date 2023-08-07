@@ -117,7 +117,7 @@ export class DReaction extends Method {
 
   async isGuildAllowed(
     client: Client,
-    guildId: string | null
+    guildId: string | null,
   ): Promise<boolean> {
     if (!guildId) {
       return true;

@@ -53,7 +53,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
   return function (
     target: Record<string, any>,
     key?: string,
-    descriptor?: PropertyDescriptor
+    descriptor?: PropertyDescriptor,
   ) {
     MetadataStorage.instance.addModifier(
       Modifier.create<
@@ -90,8 +90,8 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
         DDiscord,
         DComponent,
         DOn,
-        DReaction
-      ).decorateUnknown(target, key, descriptor)
+        DReaction,
+      ).decorateUnknown(target, key, descriptor),
     );
   };
 }

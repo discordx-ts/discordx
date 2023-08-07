@@ -46,7 +46,10 @@ export class Queue {
     return this.player.node.players.get(this.guildId);
   }
 
-  constructor(private player: Player, public guildId: string) {
+  constructor(
+    private player: Player,
+    public guildId: string,
+  ) {
     // empty constructor
   }
 
