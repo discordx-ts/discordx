@@ -4,7 +4,7 @@ export class TimeOutEntry {
   public constructor(
     public userId: string,
     public guildId: string,
-    private _rateValue: number = 1
+    private _rateValue = 1,
   ) {
     this._currentCallAmount++;
   }

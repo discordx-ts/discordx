@@ -3,7 +3,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint",
-    "typescript-sort-keys",
+    // "typescript-sort-keys",
     "simple-import-sort",
     "import"
   ],
@@ -21,8 +21,8 @@
     "import/no-duplicates": "error",
 
     // typescript-sort-keys
-    "typescript-sort-keys/interface": "error",
-    "typescript-sort-keys/string-enum": "error",
+    // "typescript-sort-keys/interface": "error",
+    // "typescript-sort-keys/string-enum": "error",
 
     // common
     "no-return-await": "error",
@@ -44,7 +44,6 @@
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
-    "@typescript-eslint/prefer-optional-chain": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/semi": "error",
     "@typescript-eslint/no-loss-of-precision": "error",
