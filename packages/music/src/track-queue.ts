@@ -29,7 +29,7 @@ export class TrackQueue<T extends Track = Track> {
   public client: Client;
   public tracks: T[] = [];
   private guildId: string;
-  private intervalId: NodeJS.Timer | null = null;
+  private intervalId: NodeJS.Timeout | null = null;
   private queueNode: QueueNode;
 
   constructor(options: {
