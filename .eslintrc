@@ -21,8 +21,8 @@
     "import/no-duplicates": "error",
 
     // typescript-sort-keys
-     "typescript-sort-keys/interface": "error",
-     "typescript-sort-keys/string-enum": "error",
+    "typescript-sort-keys/interface": "error",
+    "typescript-sort-keys/string-enum": "error",
 
     // common
     "no-return-await": "error",
