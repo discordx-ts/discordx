@@ -53,14 +53,14 @@
   "dependencies": {
     "@types/backoff": "^2.5.2",
     "backoff": "^2.5.0",
-    "tslib": "^2.6.1"
+    "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@discordx/importer": "^1.2.2",
-    "@types/node": "^20.4.8",
-    "discord.js": "^14.12.1",
+    "@discordx/importer": "^1.2.3",
+    "@types/node": "^20.5.9",
+    "discord.js": "^14.13.0",
     "discordx": "^11.7.6",
-    "typescript": "5.1.6"
+    "typescript": "5.2.2"
   },
   "engines": {
     "node": ">=16.0.0",
