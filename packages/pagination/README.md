@@ -54,7 +54,7 @@ yarn add @discordx/pagination
 - Embed pagination with discord's new buttons and select menu
 - fully customizable (You can open an issue if you find something missing, so that we can fix it)
 - Large list support (for examples 1000 items)
-- Support (`embeds: (string | MessageEmbed | MessageOptions)[] | Pagination`)
+- Support (`embeds: (string | MessageEmbed | BaseMessageOptions | PaginationItem)[] | Pagination`)
 - support interaction/message/channel to send pages
 - page resolver for dynamic usage
 
@@ -67,11 +67,11 @@ import {
   Pagination,
   PaginationResolver,
   PaginationType,
+  PaginationItem,
 } from "@discordx/pagination";
 import type {
   CommandInteraction,
   MessageActionRowComponentBuilder,
-  MessageOptions,
 } from "discord.js";
 import {
   ActionRowBuilder,
@@ -82,7 +82,7 @@ import {
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
-function GeneratePages(limit?: number): MessageOptions[] {
+function GeneratePages(limit?: number): PaginationItem[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
     return { content: `I am ${i + 1}`, embed: `Demo ${i + 1}` };
   });
