@@ -67,7 +67,7 @@ import {
   Pagination,
   PaginationResolver,
   PaginationType,
-  PaginationItem
+  PaginationItem,
 } from "@discordx/pagination";
 import type {
   CommandInteraction,
