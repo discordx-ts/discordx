@@ -15,7 +15,8 @@
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "exclude": ["examples", "dist", "tests"]
 }
