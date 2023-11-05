@@ -1,3 +1,12 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/lava-queue
 
-https://unpkg.com/@discordx/lava-queue/CHANGELOG.md
+## 2.0.0
+
+### Minor Changes
+
+- fix: monorepo
+
+### Patch Changes
+
+- Updated dependencies
+  - @discordx/lava-player@1.1.0

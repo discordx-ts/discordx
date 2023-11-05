@@ -1,3 +1,7 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/importer
 
-https://unpkg.com/@discordx/importer/CHANGELOG.md
+## 1.3.0
+
+### Minor Changes
+
+- fix: monorepo

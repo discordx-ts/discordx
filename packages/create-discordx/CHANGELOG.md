@@ -1,3 +1,7 @@
-Please refer to the reference link below for the latest changelogs
+# create-discordx
 
-https://unpkg.com/create-discordx/CHANGELOG.md
+## 1.2.0
+
+### Minor Changes
+
+- fix: monorepo

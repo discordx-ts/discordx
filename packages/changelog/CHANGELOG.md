@@ -1,3 +1,7 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/changelog
 
-https://unpkg.com/@discordx/changelog/CHANGELOG.md
+## 2.12.0
+
+### Minor Changes
+
+- fix: monorepo

@@ -1,3 +1,7 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/internal
 
-https://unpkg.com/@discordx/internal/CHANGELOG.md
+## 1.1.0
+
+### Minor Changes
+
+- fix: monorepo

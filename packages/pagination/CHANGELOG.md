@@ -1,3 +1,7 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/pagination
 
-https://unpkg.com/@discordx/pagination/CHANGELOG.md
+## 3.5.0
+
+### Minor Changes
+
+- fix: monorepo

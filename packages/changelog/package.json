@@ -1,6 +1,6 @@
 {
   "name": "@discordx/changelog",
-  "version": "2.11.5",
+  "version": "2.12.0",
   "private": false,
   "description": "changelog generator, written in TypeScript with Node.js",
   "keywords": [
