@@ -1,7 +1,6 @@
+import { Get, Router } from "@discordx/koa";
 import fs from "fs";
 import type { Context } from "koa";
-
-import { Get, Router } from "../../../koa/build/cjs/index.js";
 
 const readFile = function (src: string) {
   return new Promise(function (resolve, reject) {

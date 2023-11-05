@@ -1,3 +1,7 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/music
 
-https://unpkg.com/@discordx/music/CHANGELOG.md
+## 6.1.0
+
+### Minor Changes
+
+- fix: monorepo

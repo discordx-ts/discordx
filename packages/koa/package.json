@@ -1,6 +1,6 @@
 {
   "name": "@discordx/koa",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "private": false,
   "description": "Use decorators with Koa with IOC",
   "keywords": [
@@ -30,14 +30,13 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
-  "main": "./build/cjs/index.js",
-  "module": "./build/esm/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "build",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -45,24 +44,20 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag koa-* --replace-tag koa-",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/koa",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
-    "type-check": "tsc --noemit"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/koa"
   },
   "dependencies": {
-    "@discordx/di": "^3.1.1",
-    "@discordx/internal": "^1.0.2",
+    "@discordx/di": "^3.2.0",
+    "@discordx/internal": "^1.1.0",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@discordx/importer": "^1.2.3",
-    "@koa/router": "^12.0.0",
-    "@types/koa": "^2.13.8",
-    "@types/koa__router": "^12.0.0",
-    "@types/node": "^20.5.9",
+    "@discordx/importer": "^1.3.0",
+    "@koa/router": "^12.0.1",
+    "@types/koa": "^2.13.10",
+    "@types/koa__router": "^12.0.3",
+    "@types/node": "^20.8.10",
     "koa": "^2.14.2",
     "typescript": "5.2.2"
   },

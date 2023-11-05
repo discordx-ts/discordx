@@ -1,8 +1,7 @@
 import { importx } from "@discordx/importer";
+import { Koa } from "@discordx/koa";
+import { Server } from "@discordx/socket.io";
 import http from "http";
-
-import { Koa } from "../../koa/build/cjs/index.js";
-import { Server } from "../build/cjs/index.js";
 
 const app = new Koa();
 const server = http.createServer(app.callback());

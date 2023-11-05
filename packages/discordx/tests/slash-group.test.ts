@@ -5,7 +5,6 @@ import {
   CommandInteraction,
   Interaction,
 } from "discord.js";
-
 import {
   Client,
   Discord,
@@ -15,7 +14,8 @@ import {
   SlashChoice,
   SlashGroup,
   SlashOption,
-} from "../src/index.js";
+} from "discordx";
+
 import {
   FakeInteraction,
   FakeOption,

@@ -1,6 +1,6 @@
 {
   "name": "@discordx/changelog",
-  "version": "0.0.0",
+  "version": "2.12.0",
   "private": false,
   "description": "changelog generator, written in TypeScript with Node.js",
   "keywords": [
@@ -26,11 +26,12 @@
   "contributors": [
     "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/samarmeena)"
   ],
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "bin": "build/cli.js",
+  "main": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "bin": "dist/cli.js",
   "files": [
-    "build",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -38,13 +39,11 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag changelog-* --replace-tag changelog-",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/changelog",
-    "type-check": "tsc --noemit"
+    "build": "tsup src/index.ts --format esm --dts",
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/changelog"
   },
   "dependencies": {
-    "commander": "^11.0.0",
+    "commander": "^11.1.0",
     "lodash": "^4.17.21",
     "prettier": "^3.0.3",
     "tslib": "^2.6.2"
@@ -53,8 +52,8 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.197",
-    "@types/node": "^20.5.9",
+    "@types/lodash": "^4.14.200",
+    "@types/node": "^20.8.10",
     "@types/prettier": "^2.7.3",
     "typescript": "5.2.2"
   }

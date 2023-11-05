@@ -1,12 +1,7 @@
 import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField } from "discord.js";
+import { Client, DIService, typeDiDependencyRegistryEngine } from "discordx";
 import { Container, Service } from "typedi";
-
-import {
-  Client,
-  DIService,
-  typeDiDependencyRegistryEngine,
-} from "../../../src/index.js";
 
 // initialize TypeDI container
 // it's important that this is done before calling client.login

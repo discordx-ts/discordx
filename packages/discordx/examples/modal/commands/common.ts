@@ -5,8 +5,7 @@ import {
   TextInputBuilder,
   TextInputStyle,
 } from "discord.js";
-
-import { Discord, ModalComponent, Slash } from "../../../src/index.js";
+import { Discord, ModalComponent, Slash } from "discordx";
 
 @Discord()
 export class Example {

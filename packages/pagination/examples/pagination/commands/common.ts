@@ -1,3 +1,8 @@
+import {
+  Pagination,
+  PaginationResolver,
+  PaginationType,
+} from "@discordx/pagination";
 import type {
   CommandInteraction,
   MessageActionRowComponentBuilder,
@@ -11,11 +16,6 @@ import {
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
-import {
-  Pagination,
-  PaginationResolver,
-  PaginationType,
-} from "../../../src/index.js";
 import { GeneratePages } from "../util/common functions.js";
 
 @Discord()

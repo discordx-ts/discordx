@@ -1,3 +1,10 @@
+import type { Track } from "@discordx/music";
+import { RepeatMode, TrackQueue } from "@discordx/music";
+import {
+  Pagination,
+  PaginationResolver,
+  PaginationType,
+} from "@discordx/pagination";
 import type {
   CommandInteraction,
   MessageActionRowComponentBuilder,
@@ -11,14 +18,6 @@ import {
   EmbedBuilder,
   Message,
 } from "discord.js";
-
-import {
-  Pagination,
-  PaginationResolver,
-  PaginationType,
-} from "../../../pagination/src/index.js";
-import type { Track } from "../../src/index.js";
-import { RepeatMode, TrackQueue } from "../../src/index.js";
 
 export interface MyTrack extends Track {
   duration: number;
@@ -52,7 +51,7 @@ export function convertDurationToMS(duration: string): number {
 
 export class Queue extends TrackQueue<MyTrack> {
   private _channel: TextBasedChannel | null = null;
-  private _controlTimer: NodeJS.Timer | null = null;
+  private _controlTimer: NodeJS.Timeout | null = null;
 
   private lastControlMessage?: Message;
   private lockUpdate = false;

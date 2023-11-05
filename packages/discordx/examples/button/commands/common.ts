@@ -4,8 +4,7 @@ import type {
   MessageActionRowComponentBuilder,
 } from "discord.js";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
-
-import { ButtonComponent, Discord, Slash } from "../../../src/index.js";
+import { ButtonComponent, Discord, Slash } from "discordx";
 
 @Discord()
 export class Example {

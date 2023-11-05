@@ -1,7 +1,6 @@
 import { dirname, importx } from "@discordx/importer";
 import { ChannelType, IntentsBitField, Partials } from "discord.js";
-
-import { Client } from "../../src/index.js";
+import { Client } from "discordx";
 
 export class Main {
   private static _client: Client;

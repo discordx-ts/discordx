@@ -33,9 +33,9 @@ export class QueueNode extends EventEmitter {
     super();
 
     this.worker = new Worker(
-      `./node_modules/@discordx/music/build/${
-        isESM ? "esm" : "cjs"
-      }/worker/index.js`,
+      `./node_modules/@discordx/music/dist/worker/${
+        isESM() ? "index.mjs" : "index.js"
+      }`,
     );
 
     this.setupEventListeners();

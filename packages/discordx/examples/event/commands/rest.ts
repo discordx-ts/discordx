@@ -1,5 +1,5 @@
-import type { RestArgsOf } from "../../../src/index.js";
-import { Discord, On } from "../../../src/index.js";
+import type { RestArgsOf } from "discordx";
+import { Discord, On } from "discordx";
 
 @Discord()
 export class Example {

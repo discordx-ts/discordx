@@ -1,9 +1,8 @@
+import type { PaginationItem } from "@discordx/pagination";
+import { Pagination } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
 import fs from "fs/promises";
-
-import type { PaginationItem } from "../../../src/index.js";
-import { Pagination } from "../../../src/index.js";
 
 @Discord()
 export class SlashExample {

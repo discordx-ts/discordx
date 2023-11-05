@@ -54,7 +54,7 @@ yarn add @discordx/pagination
 - Embed pagination with discord's new buttons and select menu
 - fully customizable (You can open an issue if you find something missing, so that we can fix it)
 - Large list support (for examples 1000 items)
-- Support (`embeds: (string | MessageEmbed | BaseMessageOptions | PaginationItem)[] | Pagination`)
+- Support (`embeds: (string | MessageEmbed | MessageOptions)[] | Pagination`)
 - support interaction/message/channel to send pages
 - page resolver for dynamic usage
 
@@ -67,11 +67,11 @@ import {
   Pagination,
   PaginationResolver,
   PaginationType,
-  PaginationItem,
 } from "@discordx/pagination";
 import type {
   CommandInteraction,
   MessageActionRowComponentBuilder,
+  MessageOptions,
 } from "discord.js";
 import {
   ActionRowBuilder,
@@ -82,7 +82,7 @@ import {
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
-function GeneratePages(limit?: number): PaginationItem[] {
+function GeneratePages(limit?: number): MessageOptions[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
     return { content: `I am ${i + 1}`, embed: `Demo ${i + 1}` };
   });
@@ -230,14 +230,14 @@ The following options are only available, if you have set type to `BUTTON`
 
 The following options are only available, if you have set type to `SELECT_MENU`
 
-| Name         | Type               | Default                  | Description      |
-| ------------ | ------------------ | ------------------------ | ---------------- |
-| labels.end   | string             | End                      | label            |
-| labels.exit  | string             | Exit Pagination          | label            |
-| labels.start | string             | Start                    | label            |
-| menuId       | string             | discordx@pagination@menu | Menu custom id   |
-| pageText     | string \| string[] | Page {page}              | Menu page text   |
-| placeholder  | string             | Select page              | Menu placeholder |
+| Name         | Type               | Default                    | Description      |
+| ------------ | ------------------ | -------------------------- | ---------------- |
+| labels.end   | string             | `End`                      | label            |
+| labels.exit  | string             | `Exit Pagination`          | label            |
+| labels.start | string             | `Start`                    | label            |
+| menuId       | string             | `discordx@pagination@menu` | Menu custom id   |
+| pageText     | string \| string[] | `Page {page}`              | Menu page text   |
+| placeholder  | string             | `Select page`              | Menu placeholder |
 
 # 📜 Documentation
 

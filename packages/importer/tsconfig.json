@@ -8,7 +8,7 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "rootDir": "src",
-    "outDir": "build",
+    "outDir": "dist",
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "declaration": true,
@@ -18,14 +18,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "tests",
-    "examples",
-    "docs",
-    "packages",
-    "scripts",
-    "src/cjs"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

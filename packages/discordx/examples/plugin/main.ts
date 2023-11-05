@@ -1,6 +1,6 @@
 import { IntentsBitField } from "discord.js";
+import { Client, MetadataStorage } from "discordx";
 
-import { Client, MetadataStorage } from "../../src/index.js";
 import { HelperPlugin } from "./plugin/plugin.js";
 
 const helperPlugin = new HelperPlugin({ metadata: MetadataStorage.instance });

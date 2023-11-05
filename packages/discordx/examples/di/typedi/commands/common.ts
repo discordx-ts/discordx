@@ -1,12 +1,11 @@
 import type { CommandInteraction } from "discord.js";
-import { Container, Inject, Service } from "typedi";
-
 import {
   Discord,
   DIService,
   Slash,
   typeDiDependencyRegistryEngine,
-} from "../../../../src/index.js";
+} from "discordx";
+import { Container, Inject, Service } from "typedi";
 
 @Service()
 class Database {

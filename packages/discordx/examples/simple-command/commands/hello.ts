@@ -1,5 +1,5 @@
-import type { SimpleCommandMessage } from "../../../src/index.js";
-import { Discord, SimpleCommand } from "../../../src/index.js";
+import type { SimpleCommandMessage } from "discordx";
+import { Discord, SimpleCommand } from "discordx";
 
 @Discord()
 export class Example {

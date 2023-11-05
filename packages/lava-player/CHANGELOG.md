@@ -1,3 +1,7 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/lava-player
 
-https://unpkg.com/@discordx/lava-player/CHANGELOG.md
+## 1.1.0
+
+### Minor Changes
+
+- fix: monorepo

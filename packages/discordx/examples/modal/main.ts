@@ -1,7 +1,6 @@
 import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField } from "discord.js";
-
-import { Client } from "../../src/index.js";
+import { Client } from "discordx";
 
 export class Main {
   private static _client: Client;
@@ -22,10 +21,7 @@ export class Main {
     });
 
     this._client.once("ready", async () => {
-      await this._client.initApplicationCommands({
-        global: { log: true },
-        guild: { log: true },
-      });
+      await this._client.initApplicationCommands();
 
       console.log(">> Bot started");
     });

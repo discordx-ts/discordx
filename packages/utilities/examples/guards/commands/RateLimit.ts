@@ -1,8 +1,7 @@
+import { RateLimit, TIME_UNIT } from "@discordx/utilities";
 import type { CommandInteraction } from "discord.js";
 import type { SimpleCommandMessage } from "discordx";
 import { Discord, Guard, SimpleCommand, Slash } from "discordx";
-
-import { RateLimit, TIME_UNIT } from "../../../src/index.js";
 
 @Discord()
 export class RateLimitExample {

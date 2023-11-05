@@ -1,6 +1,5 @@
+import type { PaginationItem } from "@discordx/pagination";
 import { EmbedBuilder } from "discord.js";
-
-import type { PaginationItem } from "../../../src/types.js";
 
 export function GeneratePages(limit?: number): PaginationItem[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {

@@ -1,8 +1,7 @@
 import type { ContextMenuCommandInteraction } from "discord.js";
 import { ApplicationCommandType } from "discord.js";
-
-import type { GuardFunction } from "../../../src/index.js";
-import { ContextMenu, Discord, Guard } from "../../../src/index.js";
+import type { GuardFunction } from "discordx";
+import { ContextMenu, Discord, Guard } from "discordx";
 
 export const InteractionGuard: GuardFunction<
   ContextMenuCommandInteraction

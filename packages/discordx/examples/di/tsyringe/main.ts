@@ -3,9 +3,8 @@ import "reflect-metadata";
 import { tsyringeDependencyRegistryEngine } from "@discordx/di";
 import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField } from "discord.js";
+import { Client, DIService } from "discordx";
 import { container } from "tsyringe";
-
-import { Client, DIService } from "../../../src/index.js";
 
 // initialize TSyringe container
 // it's important, this done before calling bot.login

@@ -1,3 +1,9 @@
+import type {
+  VoiceServerUpdate,
+  VoiceStateUpdate,
+  WRawEventType,
+} from "@discordx/lava-player";
+import { Node } from "@discordx/lava-player";
 import type { CommandInteraction } from "discord.js";
 import {
   ApplicationCommandOptionType,
@@ -6,13 +12,6 @@ import {
 } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
 import { Discord, Once, Slash, SlashOption } from "discordx";
-
-import type {
-  VoiceServerUpdate,
-  VoiceStateUpdate,
-  WRawEventType,
-} from "../../src/index.js";
-import { Node } from "../../src/index.js";
 
 @Discord()
 export class MusicPlayer {

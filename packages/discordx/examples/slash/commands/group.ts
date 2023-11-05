@@ -1,7 +1,6 @@
 import type { CommandInteraction, GuildMember, Role, User } from "discord.js";
 import { ApplicationCommandOptionType, ChannelType } from "discord.js";
-
-import { Discord, Slash, SlashGroup, SlashOption } from "../../../src/index.js";
+import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 
 @Discord()
 @SlashGroup({ description: "testing", name: "testing" })

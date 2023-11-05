@@ -1,7 +1,5 @@
-import Timeout = NodeJS.Timeout;
-
 export class Timer {
-  public id: Timeout;
+  public id: NodeJS.Timeout;
   private _whenWillExecute: number;
 
   public constructor(callback: (...args: unknown[]) => void, delay: number) {

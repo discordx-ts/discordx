@@ -1,6 +1,6 @@
 {
   "name": "@discordx/importer",
-  "version": "0.0.0",
+  "version": "1.3.0",
   "private": false,
   "description": "A solution to import files on the module and commonjs at the same time",
   "keywords": [
@@ -25,16 +25,13 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.mjs",
-      "require": "./build/cjs/index.cjs",
-      "types": "./index.d.ts"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
-  "main": "./build/cjs/index.cjs",
-  "module": "./build/esm/index.mjs",
-  "types": "./index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
-    "build",
+    "dist",
     "index.d.ts",
     "CHANGELOG.md",
     "LICENSE",
@@ -43,18 +40,15 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc && tsc --p tsconfig.cjs.json && npm run postbuild",
-    "postbuild": "node ../../scripts/postbuild.mjs --path=build",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag importer-* --replace-tag importer-",
-    "type-check": "tsc --noemit"
+    "build": "tsup src/index.ts --format cjs,esm --dts"
   },
   "dependencies": {
-    "glob": "^10.3.4",
+    "glob": "^10.3.10",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.8.10",
     "typescript": "5.2.2"
   },
   "publishConfig": {

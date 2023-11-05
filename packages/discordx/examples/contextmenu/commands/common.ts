@@ -3,8 +3,7 @@ import type {
   UserContextMenuCommandInteraction,
 } from "discord.js";
 import { ApplicationCommandType } from "discord.js";
-
-import { ContextMenu, Discord } from "../../../src/index.js";
+import { ContextMenu, Discord } from "discordx";
 
 @Discord()
 export class Example {

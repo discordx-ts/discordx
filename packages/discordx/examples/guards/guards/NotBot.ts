@@ -12,9 +12,8 @@ import {
   UserSelectMenuInteraction,
   VoiceState,
 } from "discord.js";
-
-import type { ArgsOf, GuardFunction } from "../../../src/index.js";
-import { SimpleCommandMessage } from "../../../src/index.js";
+import type { ArgsOf, GuardFunction } from "discordx";
+import { SimpleCommandMessage } from "discordx";
 
 /**
  * Guard to prevent bot from executing discordx methods

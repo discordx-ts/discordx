@@ -1,3 +1,12 @@
-Please refer to the reference link below for the latest changelogs
+# @discordx/utilities
 
-https://unpkg.com/@discordx/utilities/CHANGELOG.md
+## 6.0.0
+
+### Minor Changes
+
+- fix: monorepo
+
+### Patch Changes
+
+- Updated dependencies
+  - discordx@11.8.0

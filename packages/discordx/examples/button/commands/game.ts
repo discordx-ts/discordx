@@ -11,14 +11,13 @@ import {
   ButtonBuilder,
   ButtonStyle,
 } from "discord.js";
-
 import {
   ButtonComponent,
   Discord,
   Slash,
   SlashChoice,
   SlashOption,
-} from "../../../src/index.js";
+} from "discordx";
 
 enum RPSChoice {
   Rock,

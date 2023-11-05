@@ -1,5 +1,5 @@
-import type { ArgsOf } from "../../../src/index.js";
-import { Discord, On } from "../../../src/index.js";
+import type { ArgsOf } from "discordx";
+import { Discord, On } from "discordx";
 
 @Discord()
 export class Example {
