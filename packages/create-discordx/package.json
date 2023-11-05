@@ -1,6 +1,6 @@
 {
   "name": "create-discordx",
-  "version": "0.0.0",
+  "version": "1.1.19",
   "description": "create discordx apps with one command",
   "keywords": [
     "discordx",
@@ -23,10 +23,10 @@
   },
   "license": "Apache-2.0",
   "author": "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/samarmeena)",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "files": [
-    "build",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -34,21 +34,20 @@
     "package.json"
   ],
   "bin": {
-    "create-discordx": "./build/index.js"
+    "create-discordx": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag create-discordx-* --replace-tag create-discordx-"
+    "build": "tsup src/index.ts --format esm --dts"
   },
   "dependencies": {
-    "axios": "^1.5.0",
+    "axios": "^1.6.0",
     "boxen": "^7.1.1",
     "chalk": "^5.3.0",
     "is-installed-globally": "^0.4.0",
     "ora": "^7.0.1",
     "prompts": "^2.4.2",
-    "rimraf": "^5.0.1",
-    "tar": "^6.1.15",
+    "rimraf": "^5.0.5",
+    "tar": "^6.2.0",
     "typescript": "5.2.2",
     "update-check": "^1.5.4",
     "validate-npm-package-name": "^5.0.0"
@@ -61,10 +60,10 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^20.5.9",
-    "@types/prompts": "^2.4.4",
+    "@types/node": "^20.8.10",
+    "@types/prompts": "^2.4.7",
     "@types/rimraf": "^3.0.2",
-    "@types/tar": "^6.1.5",
-    "@types/validate-npm-package-name": "^4.0.0"
+    "@types/tar": "^6.1.7",
+    "@types/validate-npm-package-name": "^4.0.1"
   }
 }

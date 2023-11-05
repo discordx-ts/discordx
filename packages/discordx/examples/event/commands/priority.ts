@@ -1,4 +1,4 @@
-import { Discord, On } from "../../../src/index.js";
+import { Discord, On } from "discordx";
 
 enum PriorityLevel {
   High,

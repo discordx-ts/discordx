@@ -1,7 +1,6 @@
 import type { CommandInteraction } from "discord.js";
 import { ApplicationCommandOptionType } from "discord.js";
-
-import { Discord, Slash, SlashOption } from "../../../src/index.js";
+import { Discord, Slash, SlashOption } from "discordx";
 
 @Discord()
 export class Example {

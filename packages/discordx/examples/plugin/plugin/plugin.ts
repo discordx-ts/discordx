@@ -1,6 +1,5 @@
 import { dirname, importx } from "@discordx/importer";
-
-import { Plugin } from "../../../src/index.js";
+import { Plugin } from "discordx";
 
 export class HelperPlugin extends Plugin {
   async init(): Promise<void> {

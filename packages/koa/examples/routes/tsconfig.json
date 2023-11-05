@@ -4,7 +4,7 @@
     "target": "ESNext",
     "strict": true,
     "noImplicitAny": true,
-    "outDir": "build",
+    "outDir": "dist",
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "importHelpers": true,

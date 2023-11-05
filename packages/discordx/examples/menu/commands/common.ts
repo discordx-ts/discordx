@@ -4,8 +4,7 @@ import type {
   StringSelectMenuInteraction,
 } from "discord.js";
 import { ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
-
-import { Discord, SelectMenuComponent, Slash } from "../../../src/index.js";
+import { Discord, SelectMenuComponent, Slash } from "discordx";
 
 const roles = [
   { label: "Principal", value: "principal" },

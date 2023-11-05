@@ -1,7 +1,7 @@
 import type { CommandInteraction } from "discord.js";
+import type { ArgsOf } from "discordx";
+import { Discord, Guard, On, Slash } from "discordx";
 
-import type { ArgsOf } from "../../../src/index.js";
-import { Discord, Guard, On, Slash } from "../../../src/index.js";
 import { ErrorHandler } from "../guards/Error.js";
 import { NotBot } from "../guards/NotBot.js";
 

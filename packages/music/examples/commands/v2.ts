@@ -1,13 +1,12 @@
 import { AudioPlayerStatus } from "@discordjs/voice";
+import { QueueNode, RepeatMode } from "@discordx/music";
 import type { CommandInteraction, Guild } from "discord.js";
 import {
   ApplicationCommandOptionType,
   EmbedBuilder,
   GuildMember,
 } from "discord.js";
-import YouTube from "youtube-sr";
-
-import type { ArgsOf } from "../../../discordx/src/index.js";
+import type { ArgsOf } from "discordx";
 import {
   ButtonComponent,
   Discord,
@@ -15,8 +14,9 @@ import {
   Slash,
   SlashGroup,
   SlashOption,
-} from "../../../discordx/src/index.js";
-import { QueueNode, RepeatMode } from "../../src/index.js";
+} from "discordx";
+import YouTube from "youtube-sr";
+
 import { Main } from "../main.js";
 import { formatDurationFromMS, Queue } from "./queue.js";
 

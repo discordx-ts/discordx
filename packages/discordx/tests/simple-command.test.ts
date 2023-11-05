@@ -1,6 +1,5 @@
 import type { Message } from "discord.js";
-
-import type { SimpleCommandMessage } from "../src/index.js";
+import type { SimpleCommandMessage } from "discordx";
 import {
   Client,
   Discord,
@@ -9,7 +8,7 @@ import {
   SimpleCommand,
   SimpleCommandOption,
   SimpleCommandOptionType,
-} from "../src/index.js";
+} from "discordx";
 
 type Data = { passed: boolean };
 

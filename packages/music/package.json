@@ -1,6 +1,6 @@
 {
   "name": "@discordx/music",
-  "version": "0.0.0",
+  "version": "6.0.2",
   "private": false,
   "description": "A powerful discord music library written in TypeScript for Node.js",
   "keywords": [
@@ -26,14 +26,13 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
-  "main": "./build/cjs/index.js",
-  "module": "./build/esm/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "build",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -41,12 +40,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag music-* --replace-tag music-",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/music",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
-    "type-check": "tsc --noemit"
+    "build": "tsup src/index.ts src/worker/index.ts --format cjs,esm --dts",
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/music"
   },
   "dependencies": {
     "lodash": "^4.17.21",
@@ -57,14 +52,15 @@
   "devDependencies": {
     "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.16.0",
-    "@types/lodash": "^4.14.197",
-    "@types/node": "^20.5.9",
-    "@types/yt-search": "^2.10.0",
+    "@discordx/importer": "^1.2.3",
+    "@types/lodash": "^4.14.200",
+    "@types/node": "^20.8.10",
+    "@types/yt-search": "^2.10.2",
     "discord.js": "^14.13.0",
     "ffmpeg-static": "^5.2.0",
-    "libsodium-wrappers": "^0.7.11",
+    "libsodium-wrappers": "^0.7.13",
     "typescript": "5.2.2",
-    "youtube-sr": "^4.3.4",
+    "youtube-sr": "^4.3.9",
     "yt-search": "^2.10.4"
   },
   "peerDependencies": {

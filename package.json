@@ -3,7 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/changelog",
+    "packages/create-discordx",
+    "packages/di",
+    "packages/discordx",
+    "packages/importer",
+    "packages/internal",
+    "packages/koa",
+    "packages/lava-player",
+    "packages/lava-queue",
+    "packages/music",
+    "packages/pagination",
+    "packages/socket.io",
+    "packages/utilities"
   ],
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
@@ -31,29 +43,31 @@
     "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/samarmeena)"
   ],
   "scripts": {
-    "build": "turbo run build --parallel",
-    "build:typedoc": "turbo run build:typedoc --parallel --no-cache",
+    "build": "turbo run build",
+    "build:typedoc": "turbo run build:typedoc",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
     "lint": "eslint ./",
     "prepare": "npx is-ci || npx husky install",
-    "test": "turbo run test --parallel"
+    "test": "turbo run test"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-angular": "^17.7.0",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
-    "eslint": "^8.48.0",
-    "eslint-plugin-import": "^2.28.1",
+    "@changesets/cli": "^2.26.2",
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-angular": "^18.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "eslint": "^8.53.0",
+    "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-typescript-sort-keys": "^3.0.0",
+    "eslint-plugin-typescript-sort-keys": "^3.1.0",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
-    "minipass": "^7.0.3",
+    "minipass": "^7.0.4",
     "prettier": "^3.0.3",
-    "turbo": "^1.10.13",
-    "typedoc": "^0.25.0",
+    "tsup": "^7.2.0",
+    "turbo": "^1.10.16",
+    "typedoc": "^0.25.3",
     "typescript": "5.2.2"
   },
   "engines": {

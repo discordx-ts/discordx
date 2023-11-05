@@ -1,7 +1,7 @@
+import { Pagination, PaginationType } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
 
-import { Pagination, PaginationType } from "../../../src/index.js";
 import { GeneratePages } from "../util/common functions.js";
 
 @Discord()

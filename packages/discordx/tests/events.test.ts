@@ -1,5 +1,5 @@
-import type { GuardFunction } from "../src/index.js";
-import { Client, Discord, Guard, On } from "../src/index.js";
+import type { GuardFunction } from "discordx";
+import { Client, Discord, Guard, On } from "discordx";
 
 const guard1: GuardFunction = async (
   [message]: [string],

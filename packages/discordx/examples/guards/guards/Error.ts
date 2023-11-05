@@ -1,6 +1,5 @@
 import type { CommandInteraction } from "discord.js";
-
-import type { GuardFunction } from "../../../src/index.js";
+import type { GuardFunction } from "discordx";
 
 export const ErrorHandler: GuardFunction<CommandInteraction> = async (
   interaction,

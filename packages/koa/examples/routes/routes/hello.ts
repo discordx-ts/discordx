@@ -1,7 +1,6 @@
+import { Get, Middleware, Router } from "@discordx/koa";
 import type { RouterContext } from "@koa/router";
 import type { Next } from "koa";
-
-import { Get, Middleware, Router } from "../../../src/index.js";
 
 function Log(ctx: RouterContext, next: Next) {
   console.log(`request: ${ctx.URL}`);

@@ -1,11 +1,10 @@
 import { Pagination } from "@discordx/pagination";
+import type { ICategory } from "@discordx/utilities";
+import { Category, Description } from "@discordx/utilities";
 import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import type { DSimpleCommand } from "discordx";
 import { DApplicationCommand, Discord, MetadataStorage, Slash } from "discordx";
-
-import type { ICategory } from "../../../src/index.js";
-import { Category, Description } from "../../../src/index.js";
 
 @Discord()
 @Category("Admin Commands")

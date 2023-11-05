@@ -1,12 +1,11 @@
 import type { GuildMember, Role, User } from "discord.js";
-
-import type { SimpleCommandMessage } from "../../../src/index.js";
+import type { SimpleCommandMessage } from "discordx";
 import {
   Discord,
   SimpleCommand,
   SimpleCommandOption,
   SimpleCommandOptionType,
-} from "../../../src/index.js";
+} from "discordx";
 
 @Discord()
 export class Example {

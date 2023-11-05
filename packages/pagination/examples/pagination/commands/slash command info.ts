@@ -1,8 +1,7 @@
+import { Pagination, PaginationType } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { Discord, MetadataStorage, Slash } from "discordx";
-
-import { Pagination, PaginationType } from "../../../src/index.js";
 
 @Discord()
 export class Example {

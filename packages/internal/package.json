@@ -1,6 +1,6 @@
 {
   "name": "@discordx/internal",
-  "version": "0.0.0",
+  "version": "1.0.2",
   "private": false,
   "description": "discordx internal methods, can be used for external projects",
   "keywords": [
@@ -29,14 +29,13 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
-  "main": "./build/cjs/index.js",
-  "module": "./build/esm/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "build",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -44,18 +43,14 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag internal-* --replace-tag internal-",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/internal",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
-    "type-check": "tsc --noemit"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/internal"
   },
   "dependencies": {
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.8.10",
     "typescript": "5.2.2"
   },
   "engines": {

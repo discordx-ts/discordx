@@ -1,7 +1,6 @@
 import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField } from "discord.js";
-
-import { Client, MetadataStorage } from "../../src/index.js";
+import { Client, MetadataStorage } from "discordx";
 
 const botA = new Client({
   // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],

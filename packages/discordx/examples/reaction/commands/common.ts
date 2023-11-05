@@ -1,6 +1,5 @@
 import type { MessageReaction, User } from "discord.js";
-
-import { Discord, Reaction } from "../../../src/index.js";
+import { Discord, Reaction } from "discordx";
 
 @Discord()
 export class Example {

@@ -1,6 +1,6 @@
 {
   "name": "@discordx/lava-queue",
-  "version": "0.0.0",
+  "version": "1.1.1",
   "private": false,
   "description": "A powerful queue system for @discordx/lava-player",
   "keywords": [
@@ -29,14 +29,13 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
-  "main": "./build/cjs/index.js",
-  "module": "./build/esm/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "build",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -44,12 +43,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag lava-queue-* --replace-tag lava-queue-",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/lava-queue",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
-    "type-check": "tsc --noemit"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/lava-queue"
   },
   "dependencies": {
     "lodash": "^4.17.21",
@@ -59,8 +54,8 @@
     "@discordx/importer": "^1.2.3",
     "@discordx/lava-player": "^1.0.11",
     "@discordx/pagination": "^3.4.1",
-    "@types/lodash": "^4.14.197",
-    "@types/node": "^20.5.9",
+    "@types/lodash": "^4.14.200",
+    "@types/node": "^20.8.10",
     "discord.js": "^14.13.0",
     "discordx": "^11.7.6",
     "typescript": "5.2.2"

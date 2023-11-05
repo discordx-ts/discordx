@@ -1,9 +1,8 @@
+import type { PermissionHandler } from "@discordx/utilities";
+import { PermissionGuard } from "@discordx/utilities";
 import type { PermissionsString } from "discord.js";
 import { CommandInteraction } from "discord.js";
 import { Discord, Guard, Slash } from "discordx";
-
-import type { PermissionHandler } from "../../../src/index.js";
-import { PermissionGuard } from "../../../src/index.js";
 
 @Discord()
 export class PermissionGuards {

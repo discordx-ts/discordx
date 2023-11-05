@@ -5,15 +5,8 @@ import {
   CommandInteraction,
   Interaction,
 } from "discord.js";
+import { Client, Discord, Guard, Guild, Slash, SlashOption } from "discordx";
 
-import {
-  Client,
-  Discord,
-  Guard,
-  Guild,
-  Slash,
-  SlashOption,
-} from "../src/index.js";
 import {
   FakeInteraction,
   FakeOption,

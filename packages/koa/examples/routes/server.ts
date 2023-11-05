@@ -1,8 +1,7 @@
 import { dirname, importx } from "@discordx/importer";
+import { Koa } from "@discordx/koa";
 import type { RouterContext } from "@koa/router";
 import type { Next } from "koa";
-
-import { Koa } from "../../src/index.js";
 
 // example of global middleware
 function Log(ctx: RouterContext, next: Next) {
@@ -19,7 +18,7 @@ async function start() {
   // await importx(__dirname + "/routes/**/*.{js,ts}");
   await server.build();
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT ?? 3000;
   server.listen(port, () => {
     console.log(`server started on port ${port}`);
   });

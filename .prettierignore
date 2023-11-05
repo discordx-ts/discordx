@@ -1,6 +1,7 @@
 docs/docs/api/*
 
 node_modules
+dist
 build
 .DS_Store
 .docusaurus

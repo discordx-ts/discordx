@@ -1,11 +1,7 @@
 import "reflect-metadata";
 
+import { DIService, tsyringeDependencyRegistryEngine } from "@discordx/di";
 import { container, injectable, singleton } from "tsyringe";
-
-import {
-  DIService,
-  tsyringeDependencyRegistryEngine,
-} from "../../src/index.js";
 
 @singleton()
 class Database {

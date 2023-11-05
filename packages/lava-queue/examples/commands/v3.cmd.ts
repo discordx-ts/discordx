@@ -1,5 +1,6 @@
 import type { TrackResponse } from "@discordx/lava-player";
 import { LoadType, Status } from "@discordx/lava-player";
+import { Player } from "@discordx/lava-queue";
 import type {
   ButtonInteraction,
   CommandInteraction,
@@ -21,7 +22,6 @@ import {
   SlashOption,
 } from "discordx";
 
-import { Player } from "../../src/index.js";
 import { getNode } from "./node.js";
 import { MusicQueue } from "./queue.js";
 

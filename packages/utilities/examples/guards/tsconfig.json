@@ -5,7 +5,7 @@
     "strict": true,
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
-    "outDir": "build",
+    "outDir": "dist",
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "importHelpers": true,

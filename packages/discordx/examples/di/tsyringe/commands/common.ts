@@ -1,8 +1,7 @@
 import { tsyringeDependencyRegistryEngine } from "@discordx/di";
 import type { CommandInteraction } from "discord.js";
+import { Discord, DIService, Slash } from "discordx";
 import { container, injectable, singleton } from "tsyringe";
-
-import { Discord, DIService, Slash } from "../../../../src/index.js";
 
 @singleton()
 class Database {

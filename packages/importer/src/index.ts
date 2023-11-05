@@ -1,8 +1,10 @@
 import { glob } from "glob";
-import * as path from "path";
+import path from "path";
 import { fileURLToPath } from "url";
 
-export const isESM = false;
+export function isESM(): boolean {
+  return import.meta.url ? true : false;
+}
 
 export function dirname(url: string): string {
   return path.dirname(fileURLToPath(url));
@@ -17,7 +19,7 @@ export async function resolve(...paths: string[]): Promise<string[]> {
 
       files.forEach((file) => {
         if (!imports.includes(file)) {
-          imports.push(file);
+          imports.push("file://" + file);
         }
       });
     }),
@@ -28,5 +30,5 @@ export async function resolve(...paths: string[]): Promise<string[]> {
 
 export async function importx(...paths: string[]): Promise<void> {
   const files = await resolve(...paths);
-  await Promise.all(files.map((file) => require(file)));
+  await Promise.all(files.map((file) => import(file)));
 }

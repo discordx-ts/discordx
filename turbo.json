@@ -3,13 +3,15 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["build/**"]
+      "outputs": ["dist/**"]
     },
     "build:typedoc": {
-      "dependsOn": ["^build:typedoc"]
+      "dependsOn": ["^build"],
+      "cache": false
     },
     "test": {
-      "dependsOn": ["^test"]
+      "dependsOn": ["^build"],
+      "cache": false
     }
   }
 }

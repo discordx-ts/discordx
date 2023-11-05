@@ -15,13 +15,7 @@ import {
   ButtonStyle,
   InteractionType,
 } from "discord.js";
-
-import {
-  ButtonComponent,
-  Discord,
-  Slash,
-  SlashOption,
-} from "../../../src/index.js";
+import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 
 @Discord()
 export class Example {

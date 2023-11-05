@@ -1,6 +1,6 @@
 {
   "name": "@discordx/socket.io",
-  "version": "0.0.0",
+  "version": "1.0.6",
   "private": false,
   "description": "Use decorators with socket.io with IOC",
   "keywords": [
@@ -30,14 +30,13 @@
   ],
   "exports": {
     ".": {
-      "import": "./build/esm/index.js",
-      "require": "./build/cjs/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
-  "main": "./build/cjs/index.js",
-  "module": "./build/esm/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "build",
+    "dist",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -45,12 +44,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc && npm run build:cjs",
-    "build:changelog": "npx @discordx/changelog@latest --src src --match-tag socket.io-* --replace-tag socket.io-",
-    "build:cjs": "tsc --module CommonJs --outDir build/cjs && npm run postbuild:cjs",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/socket.io",
-    "postbuild:cjs": "node ../../scripts/postbuild.mjs --path=build",
-    "type-check": "tsc --noemit"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/socket.io"
   },
   "dependencies": {
     "@discordx/di": "^3.1.1",
@@ -59,7 +54,7 @@
   },
   "devDependencies": {
     "@discordx/importer": "^1.2.3",
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.8.10",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "koa": "^2.14.2",

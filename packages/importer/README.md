@@ -58,7 +58,7 @@ If you use this code with esm or ejs, it will tell you about your environment.
 ```ts
 import { isESM } from "@discordx/importer";
 
-console.log(`isESM: ${isESM}`);
+console.log(`isESM: ${isESM()}`);
 ```
 
 ## Resolve glob paths
@@ -100,7 +100,7 @@ If you are creating a module or extension of your own library, you can set it to
 
 ```ts
 import { dirname, importx, isESM } from "@discordx/importer";
-const folder = isESM ? dirname(import.meta.url) : __dirname;
+const folder = isESM() ? dirname(import.meta.url) : __dirname;
 
 importx(`${folder}/commands/**.js`).then(() =>
   console.log("All files imported"),

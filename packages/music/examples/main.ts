@@ -1,7 +1,6 @@
+import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField } from "discord.js";
-
-import { Client } from "../../discordx/src/index.js";
-import { dirname, importx } from "../../importer/build/esm/index.mjs";
+import { Client } from "discordx";
 
 export class Main {
   private static _client: Client;

@@ -9,7 +9,7 @@
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "rootDir": "src",
-    "outDir": "build/esm",
+    "outDir": "dist",
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "declaration": true,
@@ -18,5 +18,5 @@
     "moduleResolution": "Node",
     "skipLibCheck": true
   },
-  "exclude": ["examples", "build"]
+  "exclude": ["examples", "dist"]
 }

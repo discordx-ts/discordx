@@ -1,9 +1,8 @@
+import type { ICategory } from "@discordx/utilities";
+import { Category } from "@discordx/utilities";
 import type { CommandInteraction } from "discord.js";
 import type { DApplicationCommand } from "discordx";
 import { Discord, MetadataStorage, Slash, SlashGroup } from "discordx";
-
-import type { ICategory } from "../../../src/index.js";
-import { Category } from "../../../src/index.js";
 
 @Discord()
 @Category("Admin Commands")
