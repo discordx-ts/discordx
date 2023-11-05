@@ -14,7 +14,7 @@ const server = new Koa({
 });
 
 async function start() {
-  await importx(dirname(import.meta.url) + "/routes/**/*.{js,ts}");
+  await importx(`${dirname(import.meta.url)}/routes/**/*.{js,ts}`);
   // await importx(__dirname + "/routes/**/*.{js,ts}");
   await server.build();
 
