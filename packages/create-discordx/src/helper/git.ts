@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 import path from "path";
-import rimraf from "rimraf";
+import { rimraf } from "rimraf";
 
 function IsInGitRepository(root: string): boolean {
   try {

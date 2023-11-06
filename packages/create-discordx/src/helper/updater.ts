@@ -9,7 +9,7 @@ import checkForUpdate from "update-check";
  * Read package.json
  */
 const packageJson = JSON.parse(
-  await readFile(new URL("../../package.json", import.meta.url), "utf-8"),
+  await readFile(new URL("../package.json", import.meta.url), "utf-8"),
 );
 
 /**
