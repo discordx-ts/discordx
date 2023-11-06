@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 import path from "path";
-import rimraf from "rimraf";
+import { rimraf } from "rimraf";
 
 function IsInGitRepository(root: string): boolean {
   try {
@@ -9,16 +9,18 @@ function IsInGitRepository(root: string): boolean {
       stdio: "ignore",
     });
     return true;
-  } catch (_) {}
-  return false;
+  } catch (err) {
+    return false;
+  }
 }
 
 function IsInMercurialRepository(root: string): boolean {
   try {
     execSync("hg --cwd . root", { cwd: root, stdio: "ignore" });
     return true;
-  } catch (_) {}
-  return false;
+  } catch (err) {
+    return false;
+  }
 }
 
 export function TryGitInit(root: string): boolean {
@@ -44,7 +46,7 @@ export function TryGitInit(root: string): boolean {
     if (didInit) {
       try {
         rimraf.sync(path.join(root, ".git"));
-      } catch (_) {
+      } catch (err) {
         // empty statement
       }
     }
