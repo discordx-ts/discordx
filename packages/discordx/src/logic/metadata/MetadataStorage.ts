@@ -74,6 +74,7 @@ export class MetadataStorage {
   // static getters
 
   static clear(): void {
+    this._isBuilt = false;
     this._instance = new MetadataStorage();
   }
 
