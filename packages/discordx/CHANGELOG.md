@@ -1,5 +1,11 @@
 # discordx
 
+## 11.8.1
+
+### Patch Changes
+
+- fix: metadata cleanup
+
 ## 11.8.0
 
 ### Minor Changes
