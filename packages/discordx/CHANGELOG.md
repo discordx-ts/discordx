@@ -1,5 +1,11 @@
 # discordx
 
+## 11.8.2
+
+### Patch Changes
+
+- refactor: update di
+
 ## 11.8.1
 
 ### Patch Changes

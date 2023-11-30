@@ -1,6 +1,6 @@
 {
   "name": "@discordx/socket.io",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
   "description": "Use decorators with socket.io with IOC",
   "keywords": [
