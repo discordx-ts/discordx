@@ -24,7 +24,7 @@ export class Server extends ServerClient {
   }
 
   get di(): DIService {
-    return DIService.instance;
+    return DIService.engine;
   }
 
   get instance(): MetadataStorage {

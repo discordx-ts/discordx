@@ -1071,7 +1071,7 @@ export class Client extends ClientJS {
 
       if (option && typeof option.autocomplete === "function") {
         option.autocomplete.call(
-          DIService.instance.getService(option.from),
+          DIService.engine.getService(option.from),
           interaction,
           applicationCommand,
         );

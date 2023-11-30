@@ -33,7 +33,7 @@ export class Koa extends KoaClient {
   }
 
   get di(): DIService {
-    return DIService.instance;
+    return DIService.engine;
   }
 
   get instance(): MetadataStorage {

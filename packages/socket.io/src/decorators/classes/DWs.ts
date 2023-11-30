@@ -26,7 +26,7 @@ export class DWs extends Decorator {
   }
 
   get instance(): unknown {
-    return DIService.instance.getService(this.from);
+    return DIService.engine.getService(this.from);
   }
 
   protected constructor(data: Args) {
