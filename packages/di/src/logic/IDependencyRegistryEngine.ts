@@ -11,6 +11,11 @@ export interface IDependencyRegistryEngine {
   addService<T>(classType: T): void;
 
   /**
+   * Clear all Discord service classes
+   */
+  clearAllServices(): void;
+
+  /**
    * Get all Discord service classes
    * @returns {Set<unknown>}
    */

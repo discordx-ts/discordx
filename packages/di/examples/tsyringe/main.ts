@@ -25,5 +25,5 @@ export class Example {
 }
 
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
-DIService.instance.addService(Example);
-DIService.instance.getService(Example);
+DIService.engine.addService(Example);
+DIService.engine.getService(Example);

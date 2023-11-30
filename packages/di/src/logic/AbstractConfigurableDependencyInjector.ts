@@ -22,6 +22,8 @@ export abstract class AbstractConfigurableDependencyInjector<I>
 
   public abstract addService<T>(classType: T): void;
 
+  public abstract clearAllServices(): void;
+
   public abstract getAllServices(): Set<unknown>;
 
   public abstract getService<T>(classType: T): InstanceOf<T> | null;
