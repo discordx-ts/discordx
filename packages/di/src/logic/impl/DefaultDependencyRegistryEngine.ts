@@ -16,14 +16,18 @@ export class DefaultDependencyRegistryEngine
     return DefaultDependencyRegistryEngine._instance;
   }
 
-  public getAllServices(): Set<unknown> {
-    return new Set(this._services.values());
-  }
-
   public addService<T>(classType: T): void {
     const clazz = classType as unknown as new () => InstanceOf<T>;
     const instance = new clazz();
     this._services.set(clazz, instance);
+  }
+
+  public clearAllServices(): void {
+    this._services.clear();
+  }
+
+  public getAllServices(): Set<unknown> {
+    return new Set(this._services.values());
   }
 
   public getService<T>(classType: T): InstanceOf<T> {

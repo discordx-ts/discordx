@@ -25,48 +25,25 @@ export type InstanceOf<T> = T extends new (...args: unknown[]) => infer R
  * @category Internal
  */
 export class DIService {
-  private static _diEngineToUse: IDependencyRegistryEngine =
+  private static _engine: IDependencyRegistryEngine =
     defaultDependencyRegistryEngine;
 
-  private static _instance: DIService;
-
   static get engine(): IDependencyRegistryEngine {
-    return DIService._diEngineToUse;
+    return DIService._engine;
   }
 
   static set engine(engine: IDependencyRegistryEngine) {
-    DIService._diEngineToUse = engine;
-  }
-
-  static get instance(): DIService {
-    if (!this._instance) {
-      this._instance = new DIService();
-    }
-    return this._instance;
+    DIService._engine = engine;
   }
 
   /**
-   * Get all Discord service classes
-   * @returns {Set<unknown>}
+   * @deprecated use DIService.engine instead
    */
-  static get allServices(): Set<unknown> {
-    return DIService.engine.getAllServices();
+  static get instance(): IDependencyRegistryEngine {
+    return this.engine;
   }
 
-  /**
-   * Add a service from the IOC container.
-   * @param {T} classType - The type of service to add
-   */
-  addService<T>(classType: T): void {
-    DIService.engine.addService(classType);
-  }
-
-  /**
-   * Get a service from the IOC container
-   * @param {T} classType - the Class of the service to retrieve
-   * @returns {InstanceOf<T> | null} the instance of this service or null if there is no instance
-   */
-  getService<T>(classType: T): InstanceOf<T> | null {
-    return DIService.engine.getService(classType);
+  private constructor() {
+    // empty constructor
   }
 }

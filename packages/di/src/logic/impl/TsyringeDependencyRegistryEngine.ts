@@ -46,6 +46,13 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     }
   }
 
+  public clearAllServices(): void {
+    if (!this.injector) {
+      throw new Error("Please set the container!");
+    }
+    this.injector.clearInstances();
+  }
+
   public getService<T>(classType: T): InstanceOf<T> | null {
     if (!this.injector) {
       throw new Error("Please set the container!");

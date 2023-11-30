@@ -40,6 +40,13 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
     }
   }
 
+  public clearAllServices(): void {
+    if (!this.injector) {
+      throw new Error("Please set the Service!");
+    }
+    this.injector.reset();
+  }
+
   public setService(service: typeof Service): this {
     this.service = service;
     return this;
