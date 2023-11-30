@@ -168,24 +168,24 @@ export const NotBot: GuardFunction<
     argObj instanceof CommandInteraction
       ? argObj.user
       : argObj instanceof MessageReaction
-      ? argObj.message.author
-      : argObj instanceof VoiceState
-      ? argObj.member?.user
-      : argObj instanceof Message
-      ? argObj.author
-      : argObj instanceof SimpleCommandMessage
-      ? argObj.message.author
-      : argObj instanceof ButtonInteraction ||
-        argObj instanceof ChannelSelectMenuInteraction ||
-        argObj instanceof CommandInteraction ||
-        argObj instanceof ContextMenuCommandInteraction ||
-        argObj instanceof MentionableSelectMenuInteraction ||
-        argObj instanceof ModalSubmitInteraction ||
-        argObj instanceof RoleSelectMenuInteraction ||
-        argObj instanceof StringSelectMenuInteraction ||
-        argObj instanceof UserSelectMenuInteraction
-      ? argObj.member?.user
-      : argObj.message.author;
+        ? argObj.message.author
+        : argObj instanceof VoiceState
+          ? argObj.member?.user
+          : argObj instanceof Message
+            ? argObj.author
+            : argObj instanceof SimpleCommandMessage
+              ? argObj.message.author
+              : argObj instanceof ButtonInteraction ||
+                  argObj instanceof ChannelSelectMenuInteraction ||
+                  argObj instanceof CommandInteraction ||
+                  argObj instanceof ContextMenuCommandInteraction ||
+                  argObj instanceof MentionableSelectMenuInteraction ||
+                  argObj instanceof ModalSubmitInteraction ||
+                  argObj instanceof RoleSelectMenuInteraction ||
+                  argObj instanceof StringSelectMenuInteraction ||
+                  argObj instanceof UserSelectMenuInteraction
+                ? argObj.member?.user
+                : argObj.message.author;
 
   if (!user?.bot) {
     guardData.message = "the NotBot guard passed";

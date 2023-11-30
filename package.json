@@ -52,23 +52,23 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.26.2",
-    "@commitlint/cli": "^18.2.0",
-    "@commitlint/config-angular": "^18.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "eslint": "^8.53.0",
+    "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-angular": "^18.4.3",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-typescript-sort-keys": "^3.1.0",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "minipass": "^7.0.4",
-    "prettier": "^3.0.3",
-    "tsup": "^7.2.0",
+    "prettier": "^3.1.0",
+    "tsup": "^8.0.1",
     "turbo": "^1.10.16",
-    "typedoc": "^0.25.3",
-    "typescript": "5.2.2"
+    "typedoc": "^0.25.4",
+    "typescript": "5.3.2"
   },
   "engines": {
     "node": ">=16.0.0",

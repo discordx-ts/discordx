@@ -70,8 +70,8 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
       PackageManager.pnpm === manager
         ? "https://pnpm.io"
         : PackageManager.yarn === manager
-        ? "https://yarnpkg.com"
-        : "https://nodejs.org/en/download",
+          ? "https://yarnpkg.com"
+          : "https://nodejs.org/en/download",
     );
 
     return GetPackageManager();

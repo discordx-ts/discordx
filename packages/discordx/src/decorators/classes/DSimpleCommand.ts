@@ -241,8 +241,8 @@ export class DSimpleCommand extends Method {
               return command.message.client.user?.id === id
                 ? command.message.client.user
                 : command.message.author.id === id
-                ? command.message.author
-                : invalidError;
+                  ? command.message.author
+                  : invalidError;
             }
 
             return command.message.guild?.members.fetch(id).catch((err) => err);
@@ -258,8 +258,8 @@ export class DSimpleCommand extends Method {
               return command.message.client.user?.id === id
                 ? command.message.client.user
                 : command.message.author.id === id
-                ? command.message.author
-                : invalidError;
+                  ? command.message.author
+                  : invalidError;
             }
 
             return (

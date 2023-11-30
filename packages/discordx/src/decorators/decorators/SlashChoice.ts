@@ -70,8 +70,8 @@ export function SlashChoice(
             typeof choice === "number"
               ? { name: choice.toString(), value: choice }
               : typeof choice === "string"
-              ? { name: choice, value: choice }
-              : choice;
+                ? { name: choice, value: choice }
+                : choice;
 
           return DApplicationCommandOptionChoice.create(resolveChoice);
         });
