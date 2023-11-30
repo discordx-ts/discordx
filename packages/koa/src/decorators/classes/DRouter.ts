@@ -30,7 +30,7 @@ export class DRouter extends Decorator {
   }
 
   get instance(): unknown {
-    return DIService.instance.getService(this.from);
+    return DIService.engine.getService(this.from);
   }
 
   get router(): KoaRouter {

@@ -49,7 +49,7 @@ export class MetadataStorage {
 
   addRouter(router: DRouter): void {
     this._routers.push(router);
-    DIService.instance.addService(router.classRef);
+    DIService.engine.addService(router.classRef);
   }
 
   addRequest(route: DRequest): void {

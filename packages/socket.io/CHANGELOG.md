@@ -1,5 +1,11 @@
 # @discordx/socket.io
 
+## 1.1.1
+
+### Patch Changes
+
+- refactor: update di
+
 ## 1.1.0
 
 ### Minor Changes

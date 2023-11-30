@@ -242,12 +242,12 @@ export class MetadataStorage {
 
   addDiscord(discord: DDiscord): void {
     this._discords.push(discord);
-    DIService.instance.addService(discord.classRef);
+    DIService.engine.addService(discord.classRef);
   }
 
   addGuard(guard: DGuard): void {
     this._guards.push(guard);
-    DIService.instance.addService(guard.classRef);
+    DIService.engine.addService(guard.classRef);
   }
 
   addModifier<T extends Decorator = Decorator>(modifier: Modifier<T>): void {

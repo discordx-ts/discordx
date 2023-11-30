@@ -53,7 +53,7 @@ export class MetadataStorage {
 
   adDWs(router: DWs): void {
     this._sockets.push(router);
-    DIService.instance.addService(router.classRef);
+    DIService.engine.addService(router.classRef);
   }
 
   addOn(handler: DEvent): void {
