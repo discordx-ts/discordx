@@ -190,8 +190,8 @@ export class DApplicationCommandOption extends Decorator {
       choices: this.isNode
         ? undefined
         : this.choices.length === 0
-        ? undefined
-        : this.choices.map((choice) => choice.toJSON()),
+          ? undefined
+          : this.choices.map((choice) => choice.toJSON()),
       description: this.description,
       descriptionLocalizations: this.descriptionLocalizations,
       maxLength: this.maxLength,

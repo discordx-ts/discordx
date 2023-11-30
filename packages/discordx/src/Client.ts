@@ -1110,8 +1110,8 @@ export class Client extends ClientJS {
             interaction.isButton()
               ? "button"
               : interaction.isAnySelectMenu()
-              ? "select menu"
-              : "modal"
+                ? "select menu"
+                : "modal"
           } component handler not found, interactionId: ${
             interaction.id
           } | customId: ${interaction.customId}`,
