@@ -1,6 +1,6 @@
 {
   "name": "@discordx/utilities",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "private": false,
   "description": "Add useful features to discordx",
   "keywords": [
@@ -50,12 +50,12 @@
     "@discordx/pagination": "^3.5.0",
     "@types/node": "^20.10.1",
     "discord.js": "^14.14.1",
-    "discordx": "^11.8.1",
+    "discordx": "^11.9.0",
     "typescript": "5.3.2"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev",
-    "discordx": ">=11.8.0"
+    "discordx": ">=11.9.0"
   },
   "engines": {
     "node": ">=16.0.0",

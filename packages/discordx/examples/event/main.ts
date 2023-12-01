@@ -17,6 +17,7 @@ export class Main {
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildMessageReactions,
+        IntentsBitField.Flags.MessageContent,
       ],
       silent: false,
     });
