@@ -51,3 +51,9 @@ export type ITriggerEventData = {
   once: boolean;
   rest: boolean;
 };
+
+export interface EventListenerDetail {
+  once: boolean;
+  rest: boolean;
+  trigger: (...params: any[]) => Promise<any>;
+}

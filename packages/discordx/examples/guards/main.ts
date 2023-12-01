@@ -15,6 +15,7 @@ export class Main {
       intents: [
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.MessageContent,
       ],
       silent: false,
     });

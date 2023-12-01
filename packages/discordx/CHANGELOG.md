@@ -1,5 +1,11 @@
 # discordx
 
+## 11.9.0
+
+### Minor Changes
+
+- refactor: added initEvents and removeEvents for binding discordx events
+
 ## 11.8.2
 
 ### Patch Changes

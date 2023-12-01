@@ -39,6 +39,7 @@ import type {
   DReaction,
   DSimpleCommand,
   DSimpleCommandOption,
+  EventListenerDetail,
   GuardFunction,
   IGuild,
   ILogger,
@@ -75,6 +76,7 @@ export class Client extends ClientJS {
   private _prefix: IPrefixResolver;
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
+  private _listeners = new Map<string, EventListenerDetail[]>();
   private _botGuilds: IGuild[] = [];
   private _plugins: Plugin[] = [];
   private _guards: GuardFunction[] = [];
@@ -1400,6 +1402,56 @@ export class Client extends ClientJS {
   }
 
   /**
+   * Bind discordx events to client
+   */
+  initEvents(): void {
+    for (const event of this.instance.usedEvents) {
+      const trigger = this.instance.trigger({
+        client: this,
+        event: event.event,
+        guards: this.guards,
+        once: event.once,
+        rest: event.rest,
+      });
+
+      if (!this._listeners.has(event.event)) {
+        this._listeners.set(event.event, []);
+      }
+
+      this._listeners
+        .get(event.event)
+        ?.push({ once: event.once, rest: event.rest, trigger });
+
+      if (event.rest) {
+        event.once
+          ? this.rest.once(event.event as keyof RestEvents, trigger)
+          : this.rest.on(event.event as keyof RestEvents, trigger);
+      } else {
+        event.once
+          ? this.once(event.event, trigger)
+          : this.on(event.event, trigger);
+      }
+    }
+  }
+
+  removeEvents(): void {
+    this._listeners.forEach((listenerDetails, event) => {
+      listenerDetails.forEach(({ once, rest, trigger }) => {
+        if (rest) {
+          once
+            ? this.rest.off(event as keyof RestEvents, trigger)
+            : this.rest.removeListener(event as keyof RestEvents, trigger);
+        } else {
+          once ? this.off(event, trigger) : this.removeListener(event, trigger);
+        }
+      });
+    });
+
+    // Clear the listeners map after removing all listeners
+    this._listeners.clear();
+  }
+
+  /**
    * Manually build client
    */
   async build(): Promise<void> {
@@ -1415,60 +1467,12 @@ export class Client extends ClientJS {
     // Build instance
     await this.instance.build();
 
+    // Bind events
+    this.initEvents();
+
+    // Print logs
     if (!this.silent) {
       this.printDebug();
-    }
-
-    for (const on of this.instance.usedEvents) {
-      if (on.rest) {
-        if (on.once) {
-          this.rest.once(
-            on.event as keyof RestEvents,
-            this.instance.trigger({
-              client: this,
-              event: on.event,
-              guards: this.guards,
-              once: true,
-              rest: true,
-            }),
-          );
-        } else {
-          this.rest.on(
-            on.event as keyof RestEvents,
-            this.instance.trigger({
-              client: this,
-              event: on.event,
-              guards: this.guards,
-              once: false,
-              rest: true,
-            }),
-          );
-        }
-      } else {
-        if (on.once) {
-          this.once(
-            on.event,
-            this.instance.trigger({
-              client: this,
-              event: on.event,
-              guards: this.guards,
-              once: true,
-              rest: false,
-            }),
-          );
-        } else {
-          this.on(
-            on.event,
-            this.instance.trigger({
-              client: this,
-              event: on.event,
-              guards: this.guards,
-              once: false,
-              rest: false,
-            }),
-          );
-        }
-      }
     }
   }
 }
