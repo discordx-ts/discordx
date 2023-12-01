@@ -1434,6 +1434,9 @@ export class Client extends ClientJS {
     }
   }
 
+  /**
+   * Unbind all Discordx events initialized by the initEvents method.
+   */
   removeEvents(): void {
     this._listeners.forEach((listenerDetails, event) => {
       listenerDetails.forEach(({ once, rest, trigger }) => {
