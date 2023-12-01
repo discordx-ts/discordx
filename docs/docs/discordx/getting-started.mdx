@@ -56,8 +56,8 @@ This library allows you to use TypeScript decorators on discord.**js**, it simpl
 
 | Name       | Version   |
 | ---------- | --------- |
-| Node.js    | >= 16.6.0 |
-| TypeScript | >= 4.4.4  |
+| Node.js    | >= 20.x.x |
+| TypeScript | >= 5.x.x  |
 
 ## Easy setup - starter project
 
@@ -113,15 +113,6 @@ npm run start
 
 ## Installation
 
-<Tabs
-  defaultValue="stable"
-  values={[
-    { label: "Stable", value: "stable" },
-    { label: "Development", value: "dev" },
-  ]}
->
-<TabItem value="stable">
-
 Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
 
 ```bash npm2yarn
@@ -157,48 +148,6 @@ If you need to update again in the future just run:
 npm install discordx discord.js
 ```
 
-</TabItem>
-
-<TabItem value="dev">
-
-Use [npm](https://www.npmjs.com/package/discordx) or [yarn](https://yarnpkg.com/package/discordx) to install **discordx** with **discord.js**
-
-```bash npm2yarn
-npm install discordx@dev discord.js@dev
-```
-
-Install your TypeScript dev dependencies too
-
-```bash npm2yarn
-npm install --save-dev @types/node typescript
-```
-
-And you should see this in your package.json
-
-```json title="package.json"
-{
-  // ...
-  "dependencies": {
-    "discordx": "^X.X.X-dev.###",
-    "discord.js": "^X.X.X-dev.###.###"
-  },
-  "devDependencies": {
-    "@types/node": "^X.X.X",
-    "typescript": "^X.X.X"
-  }
-  // ...
-}
-```
-
-If you need to update again in the future just run:
-
-```bash npm2yarn
-npm install discordx@dev discord.js@dev
-```
-
-</TabItem>
-</Tabs>
-
 ## Execution environment
 
 To start your bot you can compile your code into JavaScript with TypeScript using the `tsc` command or simple use [ts-node](https://www.npmjs.com/package/ts-node).
@@ -226,6 +175,10 @@ client.on("ready", async () => {
 
 client.login(BOT_TOKEN);
 ```
+
+:::info
+Learn to structure your project and commands efficiently with [@discordx/importer](/docs/importer) for a well-organized directory.
+:::
 
 ## tsconfig.json
 
