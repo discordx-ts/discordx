@@ -49,7 +49,8 @@
     "prettier:check": "prettier --check .",
     "lint": "eslint ./",
     "prepare": "npx is-ci || npx husky install",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "release": "npm run build && changeset publish"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
