@@ -9,7 +9,7 @@
     "noUncheckedIndexedAccess": true,
     "rootDir": "src",
     "outDir": "dist",
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "declaration": true,
     "importHelpers": false,
