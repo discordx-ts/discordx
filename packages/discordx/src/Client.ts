@@ -295,8 +295,8 @@ export class Client extends ClientJS {
   constructor(options: ClientOptions) {
     super(options);
 
-    this._plugins = options?.plugins ?? [];
-    this._silent = options?.silent ?? true;
+    this._plugins = options.plugins ?? [];
+    this._silent = options.silent ?? true;
     this.guards = options.guards ?? [];
     this.botGuilds = options.botGuilds ?? [];
     this._botId = options.botId ?? "bot";
@@ -669,7 +669,6 @@ export class Client extends ClientJS {
         // delete command if it's not registered for given guild
         if (!cmd.guildId || !guilds.includes(cmd.guildId)) {
           commandsToDelete.push(cmd);
-          return;
         }
       }),
     );
