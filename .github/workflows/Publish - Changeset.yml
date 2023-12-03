@@ -1,6 +1,9 @@
 name: Publish - Changeset
+
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -19,22 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run prettier
-        run: npm run prettier:check
-
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Run Build
-        run: npm run build
-
-      - name: Run Tests
-        run: npm run test
-
-      - name: Publish packages
-        run: npx changeset publish
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish tags
-        run: git push --follow-tags
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          commit: "chore: release packages"
+          publish: npm run release
+          title: "chore: release packages"
