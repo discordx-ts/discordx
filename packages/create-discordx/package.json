@@ -48,7 +48,7 @@
     "prompts": "^2.4.2",
     "rimraf": "^5.0.5",
     "tar": "^6.2.0",
-    "typescript": "5.3.2",
+    "typescript": "5.3.3",
     "update-check": "^1.5.4",
     "validate-npm-package-name": "^5.0.0"
   },
@@ -60,7 +60,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^20.10.1",
+    "@types/node": "^20.10.4",
     "@types/prompts": "^2.4.9",
     "@types/tar": "^6.1.10",
     "@types/validate-npm-package-name": "^4.0.2"
