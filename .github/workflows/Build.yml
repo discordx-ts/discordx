@@ -1,0 +1,41 @@
+name: Build
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    paths-ignore:
+      - "docs/docs/**"
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Monorepo
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code 🛎
+        uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          cache: "npm"
+          node-version: "lts/*"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run prettier
+        run: npm run prettier
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Run Tests
+        run: npm run test

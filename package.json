@@ -45,8 +45,8 @@
   "scripts": {
     "build": "turbo run build",
     "build:typedoc": "turbo run build:typedoc",
-    "prettier": "prettier --write .",
-    "prettier:check": "prettier --check .",
+    "fix:prettier": "prettier --write .",
+    "prettier": "prettier --check .",
     "lint": "eslint ./",
     "prepare": "npx is-ci || npx husky install",
     "release": "npm run build && changeset publish",

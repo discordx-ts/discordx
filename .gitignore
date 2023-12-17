@@ -14,8 +14,6 @@ dist
 .vscode/settings.json
 .idea/**
 
-package-lock.json
-pnpm-lock.yaml
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
