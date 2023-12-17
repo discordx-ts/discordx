@@ -57,6 +57,7 @@ jobs:
         if: github.event.inputs.package == matrix.package
         uses: actions/setup-node@v3
         with:
+          cache: "npm"
           node-version: "lts/*"
           registry-url: "https://registry.npmjs.org"
 
@@ -72,7 +73,7 @@ jobs:
 
       - name: Install root dependencies
         if: github.event.inputs.package == matrix.package
-        run: npm install && npm install -g @discordx/changelog
+        run: npm ci && npm install -g @discordx/changelog
         working-directory: ./packages/${{ matrix.folder }}
 
       - name: Build

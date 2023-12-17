@@ -17,11 +17,12 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
+          cache: "npm"
           node-version: "lts/*"
           registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies for docs
-        run: npm install
+        run: npm ci
         working-directory: ./docs
 
       - name: Build docs
