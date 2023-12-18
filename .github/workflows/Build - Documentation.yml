@@ -20,7 +20,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: docs/package-lock.json
           node-version: "lts/*"
-          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies for docs
         run: npm ci

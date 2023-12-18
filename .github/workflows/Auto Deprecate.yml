@@ -28,7 +28,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
-          registry-url: "https://registry.npmjs.org"
 
       - name: Deprecate version
         run: npm deprecate ${{ github.event.inputs.package }}@"${{ github.event.inputs.version }}" "${{ github.event.inputs.message }}"
