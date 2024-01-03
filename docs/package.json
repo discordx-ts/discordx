@@ -22,10 +22,10 @@
     "@docusaurus/theme-search-algolia": "^3.0.1",
     "@svgr/webpack": "^8.1.0",
     "ansi-regex": "^6.0.1",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "file-loader": "^6.2.0",
     "nth-check": "^2.1.1",
-    "prism-react-renderer": "^2.3.0",
+    "prism-react-renderer": "^2.3.1",
     "trim": "^1.0.1",
     "typescript": "5.3.3",
     "url-loader": "^4.1.1"

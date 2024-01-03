@@ -1,6 +1,5 @@
 ---
 title: "@SimpleCommand"
-sidebar_position: 4
 ---
 
 Create a simple command handler for messages using `@SimpleCommand`. Example `!hello world`

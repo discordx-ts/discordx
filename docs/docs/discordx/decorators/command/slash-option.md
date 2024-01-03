@@ -1,6 +1,5 @@
 ---
 title: "@SlashOption"
-sidebar_position: 3
 ---
 
 A slash command can have multiple options (parameters)

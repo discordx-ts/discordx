@@ -1,6 +1,5 @@
 ---
 title: "@SimpleCommandOption"
-sidebar_position: 5
 ---
 
 A simple command can have multiple options (parameters)

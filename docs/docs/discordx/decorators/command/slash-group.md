@@ -1,6 +1,5 @@
 ---
 title: "@SlashGroup"
-sidebar_position: 2
 ---
 
 Subcommands and groups offer developers an organized and complex way to group commands.

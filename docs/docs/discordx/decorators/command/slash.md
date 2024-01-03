@@ -1,6 +1,5 @@
 ---
 title: "@Slash"
-sidebar_position: 0
 ---
 
 Discord has it's own command system now, you can simply declare commands and use application commands this way
