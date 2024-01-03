@@ -60,6 +60,71 @@ module.exports = {
       id: "discordx/README",
       label: "Readme",
     },
+    {
+      type: "doc",
+      id: "discordx/getting-started",
+      label: "Getting Started",
+    },
+    {
+      type: "category",
+      label: "Basics",
+      link: { type: "generated-index" },
+      items: [
+        "discordx/basics/args-of",
+        "discordx/basics/client",
+        "discordx/basics/debugging",
+        "discordx/basics/dependency-injection",
+        "discordx/basics/metadatastorage",
+        "discordx/basics/plugin",
+        "discordx/basics/rest-args-of",
+        "discordx/basics/sharding",
+      ],
+    },
+    {
+      type: "category",
+      label: "Decorators",
+      link: { type: "generated-index" },
+      items: [
+        {
+          type: "category",
+          label: "Command",
+          link: { type: "generated-index" },
+          items: [
+            "discordx/decorators/command/slash",
+            "discordx/decorators/command/slash-choice",
+            "discordx/decorators/command/slash-group",
+            "discordx/decorators/command/slash-option",
+            "discordx/decorators/command/simple-command",
+            "discordx/decorators/command/simple-command-option",
+          ],
+        },
+        {
+          type: "category",
+          label: "General",
+          link: { type: "generated-index" },
+          items: [
+            "discordx/decorators/general/bot",
+            "discordx/decorators/general/discord",
+            "discordx/decorators/general/guard",
+            "discordx/decorators/general/guild",
+            "discordx/decorators/general/on",
+            "discordx/decorators/general/once",
+            "discordx/decorators/general/reaction",
+          ],
+        },
+        {
+          type: "category",
+          label: "GUI",
+          link: { type: "generated-index" },
+          items: [
+            "discordx/decorators/gui/button-component",
+            "discordx/decorators/gui/context-menu",
+            "discordx/decorators/gui/modal-component",
+            "discordx/decorators/gui/select-menu-component",
+          ],
+        },
+      ],
+    },
   ],
 
   faq: [
