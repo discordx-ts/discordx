@@ -1,6 +1,6 @@
 # @Once
 
-It's exactly the same behavior as [@On](docs/discordx/decorators/general/on) but the method is only executed once
+It's exactly the same behavior as [@On](./on) but the method is only executed once
 
 ```typescript
 @Discord()
