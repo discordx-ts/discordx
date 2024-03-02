@@ -233,7 +233,7 @@ class Example {
 
 ## Autocompletion (Option's choices)
 
-You can use the [@SlashChoice](docs/discordx/decorators/command/slash-choice) decorator
+You can use the [@SlashChoice](./slash-choice) decorator
 
 ## Option order
 

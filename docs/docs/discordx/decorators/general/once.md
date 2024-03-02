@@ -26,7 +26,7 @@ You also receive other useful arguments after that:
 
 1. The event payload (`ArgsOf<"YOUR_EVENT">`)
 2. The `Client` instance
-3. The [guards](docs/discordx/decorators/general/guard) payload
+3. The [guards](./guard) payload
 
 > You should use JS destructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 

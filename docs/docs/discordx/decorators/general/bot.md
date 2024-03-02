@@ -50,18 +50,18 @@ MetadataStorage.instance.build().then(() => {
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](docs/discordx/decorators/gui/button-component)
+[@ButtonComponent](../gui/button-component)
 
-[@SelectMenuComponent](docs/discordx/decorators/gui/select-menu-component)
+[@SelectMenuComponent](../gui/select-menu-component)
 
-[@ContextMenu](docs/discordx/decorators/gui/context-menu)
+[@ContextMenu](../gui/context-menu)
 
-[@Discord](docs/discordx/decorators/general/discord)
+[@Discord](./discord)
 
-[@On](docs/discordx/decorators/general/on)
+[@On](./on)
 
-[@Once](docs/discordx/decorators/general/once)
+[@Once](./once)
 
-[@SimpleCommand](docs/discordx/decorators/command/simple-command)
+[@SimpleCommand](../command/simple-command)
 
-[@Slash](docs/discordx/decorators/command/slash)
+[@Slash](../command/slash)

@@ -69,12 +69,12 @@ this._client = new Client({
 
 It either extends or overwrites data configured in below decorators, however, the order of decorators matters.
 
-[@ButtonComponent](docs/discordx/decorators/gui/button-component)
+[@ButtonComponent](../gui/button-component)
 
-[@SelectMenuComponent](docs/discordx/decorators/gui/select-menu-component)
+[@SelectMenuComponent](../gui/select-menu-component)
 
-[@Discord](docs/discordx/decorators/general/discord)
+[@Discord](./discord)
 
-[@SimpleCommand](docs/discordx/decorators/command/simple-command)
+[@SimpleCommand](../command/simple-command)
 
-[@Slash](docs/discordx/decorators/command/slash)
+[@Slash](../command/slash)
