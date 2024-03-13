@@ -5,6 +5,7 @@ import type {
 import type { GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
+import { dayjs } from "../../useful/time-format.js";
 import type { RateLimitOption } from "./index.js";
 import { TIME_UNIT, TimedSet } from "./index.js";
 import { TimeOutEntry } from "./logic/index.js";
@@ -23,15 +24,15 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
   timeout: TIME_UNIT,
   value: number,
   options: RateLimitOption<T> = {
-    ephemeral: false,
-    message: "message being rate limited!, please try again at {until}",
+    ephemeral: true,
+    message: "message being rate limited!, please try again in {time}",
     rateValue: 1,
   },
 ): GuardFunction<T> {
   const rateValue = options?.rateValue ?? 1;
   const rateMessage =
     options?.message ??
-    "message being rate limited!, please try again at {until}";
+    "message being rate limited!, please try again in {time}";
 
   function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
@@ -96,7 +97,7 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     if (arg instanceof SimpleCommandMessage) {
       await arg?.message.reply(msg);
     } else {
-      return replyOrFollowUp(arg, msg, options?.ephemeral ?? false);
+      return replyOrFollowUp(arg, msg, options?.ephemeral ?? true);
     }
   }
 
@@ -119,23 +120,35 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     let fromArray = getFromArray(memberId, guildId);
     if (fromArray) {
       fromArray.incrementCallCount();
-      const timeLeft = getTimeLeft(fromArray);
-      const whenWillExecute = Date.now() + timeLeft;
       if (fromArray.hasLimitReached()) {
-        const messageString =
+        /**
+         * Get time left
+         */
+        const timeLeft = getTimeLeft(fromArray);
+
+        /**
+         * Get message string
+         */
+        let messageString =
           typeof rateMessage === "function"
             ? await rateMessage(arg, timeLeft)
             : rateMessage;
 
-        if (messageString.includes("{until}")) {
-          return post(
-            arg,
-            messageString.replaceAll(
-              "{until}",
-              `<t:${Math.round(whenWillExecute / 1000)}:T>`,
-            ),
-          );
-        }
+        /**
+         * Get static relative time text
+         */
+        const timeText = dayjs().add(timeLeft, "milliseconds").fromNow(true);
+
+        /**
+         * Format placeholders in message
+         */
+        ["{until}", "{time}"].forEach((text) => {
+          messageString = messageString.replaceAll(text, timeText);
+        });
+
+        /**
+         * Send message and terminate execution
+         */
         return post(arg, messageString);
       }
 

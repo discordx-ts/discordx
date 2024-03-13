@@ -12,8 +12,8 @@ export class PermissionGuards {
    * @param interaction
    */
   @Slash({
-    description: "permission_ban_members",
-    name: "permission_ban_members",
+    description: "permission_ban_members_1",
+    name: "permission_ban_members_1",
   })
   @Guard(PermissionGuard(["BanMembers"]))
   banMembers1(interaction: CommandInteraction): void {
@@ -26,8 +26,8 @@ export class PermissionGuards {
    * @param interaction
    */
   @Slash({
-    description: "permission_ban_members",
-    name: "permission_ban_members",
+    description: "permission_ban_members_2",
+    name: "permission_ban_members_2",
   })
   @Guard(
     PermissionGuard(["BanMembers"], {
@@ -45,8 +45,8 @@ export class PermissionGuards {
    * @param interaction
    */
   @Slash({
-    description: "permission_ban_members",
-    name: "permission_ban_members",
+    description: "permission_ban_members_3",
+    name: "permission_ban_members_3",
   })
   @Guard(
     PermissionGuard(PermissionGuards.resolvePermission, {

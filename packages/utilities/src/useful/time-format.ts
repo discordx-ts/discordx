@@ -1,7 +1,7 @@
 import myDayJS from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import objectSupport from "dayjs/plugin/objectSupport";
-import relativeTime from "dayjs/plugin/relativeTime";
+import customParseFormat from "dayjs/plugin/customParseFormat.js";
+import objectSupport from "dayjs/plugin/objectSupport.js";
+import relativeTime from "dayjs/plugin/relativeTime.js";
 
 /**
  * Extend dayjs with relativeTime plugin
