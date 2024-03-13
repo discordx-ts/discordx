@@ -54,9 +54,9 @@ export class RateLimitExample {
    */
   @Slash({ description: "rate_limit_4", name: "rate_limit_4" })
   @Guard(
-    RateLimit(TIME_UNIT.seconds, 30, {
+    RateLimit(TIME_UNIT.minutes, 5, {
       message:
-        "Slow Down, please try at {until}, if you do not try at {until} then this command will not work",
+        "Slow Down, please try in {time}, if you do try in {time} then this command will not work",
     }),
   )
   rateLimit4(interaction: CommandInteraction): void {
@@ -86,7 +86,7 @@ export class RateLimitExample {
     return Promise.resolve(
       `${
         interaction.commandName
-      } will be available again at {until}, this is in ${Math.round(
+      } will be available again in {time}, this is in ${Math.round(
         timeLeft / 1000,
       )} seconds`,
     );
