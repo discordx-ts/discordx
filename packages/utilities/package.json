@@ -43,6 +43,7 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/utilities"
   },
   "dependencies": {
+    "dayjs": "^1.11.10",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
