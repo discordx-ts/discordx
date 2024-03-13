@@ -30,8 +30,7 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
 ): GuardFunction<T> {
   const rateValue = options?.rateValue ?? 1;
   const rateMessage =
-    options?.message ??
-    "message being rate limited!, please try again {until}";
+    options?.message ?? "message being rate limited!, please try again {until}";
 
   function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
     switch (unit) {
