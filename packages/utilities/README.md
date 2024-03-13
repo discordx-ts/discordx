@@ -48,6 +48,7 @@
   - [PermissionGuard](#permissionguard)
 - [Useful](#-useful)
   - [EnumChoice](#enumchoice)
+  - [TimeFormat](#timeformat)
 
 # 📖 Introduction
 
@@ -271,6 +272,48 @@ enum RPS {
 }
 
 @SlashChoice(...EnumChoice(RPS))
+```
+
+## TimeFormat
+
+### Discord Timestamps
+
+Discord timestamps can be useful for specifying a date/time across multiple users time zones. They work with the Unix Timestamp format and can be posted by regular users as well as bots and applications.
+
+[The Epoch Unix Time Stamp Converter](https://www.unixtimestamp.com/) is a good way to quickly generate a timestamp. For the examples below I will be using the Time Stamp of `1543392060`, which represents `November 28th, 2018` at `09:01:00` hours for my local time zone (GMT+0100 Central European Standard Time).
+
+### Formatting
+
+| Style                | Output             | Output (12-hour clock)               | Output (24-hour clock)            | Syntax                          |
+| -------------------- | ------------------ | ------------------------------------ | --------------------------------- | ------------------------------- |
+| Default              | `<t:1543392060>`   | November 28, 2018 9:01 AM            | 28 November 2018 09:01            | `TimeFormat.Default`            |
+| Short Time           | `<t:1543392060:t>` | 9:01 AM                              | 09:01                             | `TimeFormat.ShortTime`          |
+| Long Time            | `<t:1543392060:T>` | 9:01:00 AM                           | 09:01:00                          | `TimeFormat.LongTime`           |
+| Short Date           | `<t:1543392060:d>` | 11/28/2018                           | 28/11/2018                        | `TimeFormat.ShortDate`          |
+| Long Date            | `<t:1543392060:D>` | November 28, 2018                    | 28 November 2018                  | `TimeFormat.LongDate`           |
+| Short Date/Time      | `<t:1543392060:f>` | November 28, 2018 9:01 AM            | 28 November 2018 09:01            | `TimeFormat.ShortDateTime`      |
+| Long Date/Time       | `<t:1543392060:F>` | Wednesday, November 28, 2018 9:01 AM | Wednesday, 28 November 2018 09:01 | `TimeFormat.LongDateTime`       |
+| Relative Time        | `<t:1543392060:R>` | 3 years ago                          | 3 years ago                       | `TimeFormat.RelativeTime`       |
+| Static Relative Time | `3 years ago`      | 3 years ago                          | 3 years ago                       | `TimeFormat.StaticRelativeTime` |
+
+Whether your output is 12-hour or 24-hour depends on your Discord language setting. For example, if you have your Discord language set to `English, US 🇺🇸`, you will get a 12-hour output. If your Discord language is set to `English, UK 🇬🇧`, you will get a 24-hour output.
+
+Source: https://gist.github.com/LeviSnoot/d9147767abeef2f770e9ddcd91eb85aa
+
+### Example
+
+```ts
+import { dayjs, TimeFormat } from "@discordx/utilities";
+
+const message = `I will be there in ${TimeFormat.StaticRelativeTime("31/12/2025", false)}`;
+const message = `I will be there by ${TimeFormat.LongDate(
+  dayjs({
+    day: 31,
+    month: 12,
+    year: 2025,
+  }),
+  false,
+)}`;
 ```
 
 # 📜 Documentation
