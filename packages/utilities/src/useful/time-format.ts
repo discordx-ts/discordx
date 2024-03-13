@@ -35,20 +35,6 @@ export type Time = myDayJS.ConfigType;
  */
 export const TimeFormat = {
   /**
-   * Get the formatted date according to the string of tokens passed in.
-   *
-   * To escape characters, wrap them in square brackets (e.g. [MM]).
-   * ```
-   * TimeFormat.format() // => current date in ISO8601, without fraction seconds e.g. '2020-04-02T08:02:17-05:00'
-   * TimeFormat.format('2019-01-25', '[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]') // 'YYYYescape 2019-01-25T00:00:00-02:00Z'
-   * TimeFormat.format('2019-01-25', 'DD/MM/YYYY') // '25/01/2019'
-   * ```
-   * Docs: https://day.js.org/docs/en/display/format
-   */
-  Custom: (time: Time, template?: string | undefined): string =>
-    dayjs(time).format(template),
-
-  /**
    * 12 Hour Clock: November 28, 2018 9:01 AM
    *
    * 24 Hour Clock: 28 November 2018 09:01
