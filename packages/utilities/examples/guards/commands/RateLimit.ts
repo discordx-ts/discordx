@@ -55,8 +55,7 @@ export class RateLimitExample {
   @Slash({ description: "rate_limit_4", name: "rate_limit_4" })
   @Guard(
     RateLimit(TIME_UNIT.minutes, 5, {
-      message:
-        "Slow Down, please try in {time}, if you do try in {time} then this command will not work",
+      message: "Slow Down, please try in {time}",
     }),
   )
   rateLimit4(interaction: CommandInteraction): void {

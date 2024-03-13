@@ -153,14 +153,14 @@ class RateLimitExample {
   /**
    * Allow 3 command before rate limit of 30 seconds (from last message)
    */
-  @Slash({ name: "rate_limit_3" })
+  @Slash({ name: "rate_limit_2" })
   @Guard(
     RateLimit(TIME_UNIT.seconds, 30, {
       message: "Please wait `30` seconds!",
       rateValue: 3,
     }),
   )
-  rateLimit3(interaction: CommandInteraction): void {
+  rateLimit2(interaction: CommandInteraction): void {
     interaction.reply("It worked!");
   }
 
