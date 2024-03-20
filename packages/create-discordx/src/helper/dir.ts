@@ -39,7 +39,7 @@ export function IsFolderEmpty(root: string, name: string): boolean {
     ".gitlab-ci.yml",
     ".idea",
     ".npmignore",
-    "LICENSE",
+    "LICENSE.txt",
     "npm-debug.log",
     "yarn-debug.log",
     "yarn-error.log",
