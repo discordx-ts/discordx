@@ -1,3 +1,9 @@
+/*
+ * -------------------------------------------------------------------------------------------------------
+ * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
+ * Licensed under the Apache License. See License.txt in the project root for license information.
+ * -------------------------------------------------------------------------------------------------------
+ */
 import { Pagination } from "@discordx/pagination";
 import type { ICategory } from "@discordx/utilities";
 import { Category, Description } from "@discordx/utilities";

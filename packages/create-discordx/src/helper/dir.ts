@@ -1,3 +1,9 @@
+/*
+ * -------------------------------------------------------------------------------------------------------
+ * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
+ * Licensed under the Apache License. See License.txt in the project root for license information.
+ * -------------------------------------------------------------------------------------------------------
+ */
 import chalk from "chalk";
 import fs from "fs";
 import pfs from "fs/promises";
@@ -33,7 +39,7 @@ export function IsFolderEmpty(root: string, name: string): boolean {
     ".gitlab-ci.yml",
     ".idea",
     ".npmignore",
-    "LICENSE",
+    "LICENSE.txt",
     "npm-debug.log",
     "yarn-debug.log",
     "yarn-error.log",

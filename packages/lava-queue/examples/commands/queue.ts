@@ -1,3 +1,9 @@
+/*
+ * -------------------------------------------------------------------------------------------------------
+ * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
+ * Licensed under the Apache License. See License.txt in the project root for license information.
+ * -------------------------------------------------------------------------------------------------------
+ */
 import { Status } from "@discordx/lava-player";
 import type { Player } from "@discordx/lava-queue";
 import { Queue } from "@discordx/lava-queue";

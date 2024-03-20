@@ -22,7 +22,7 @@
   },
   "license": "Apache-2.0",
   "contributors": [
-    "Vijay Meena <indianoceanroleplay@gmail.com> (https://github.com/samarmeena)"
+    "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
   "exports": {
     ".": {
@@ -34,7 +34,7 @@
   "files": [
     "dist",
     "CHANGELOG.md",
-    "LICENSE",
+    "LICENSE.txt",
     "README.md",
     "SECURITY.md",
     "package.json"
