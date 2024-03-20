@@ -48,8 +48,8 @@
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
-    "@types/node": "^20.11.24",
-    "typescript": "5.3.3"
+    "@types/node": "^20.11.30",
+    "typescript": "5.4.2"
   },
   "publishConfig": {
     "access": "public"
