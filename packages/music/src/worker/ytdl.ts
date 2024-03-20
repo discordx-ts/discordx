@@ -1,3 +1,9 @@
+/*
+ * -------------------------------------------------------------------------------------------------------
+ * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * -------------------------------------------------------------------------------------------------------
+ */
 /* 
  Credits: https://github.com/DevSnowflake/discord-ytdl-core
  Modified by: Vijay Meena <indianoceanroleplay@gmail.com>

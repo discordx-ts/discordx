@@ -1,3 +1,9 @@
+/*
+ * -------------------------------------------------------------------------------------------------------
+ * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * -------------------------------------------------------------------------------------------------------
+ */
 import { BaseCluster } from "./base/Cluster.js";
 import type { ClusterNodeOptions } from "./ClusterNode.js";
 import type ClusterNode from "./ClusterNode.js";

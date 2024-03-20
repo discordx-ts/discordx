@@ -1,3 +1,9 @@
+/*
+ * -------------------------------------------------------------------------------------------------------
+ * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * -------------------------------------------------------------------------------------------------------
+ */
 import type { Next, Server } from "@discordx/socket.io";
 import { Guard, On, Ws } from "@discordx/socket.io";
 import type { Socket } from "socket.io";

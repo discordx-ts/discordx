@@ -1,3 +1,9 @@
+/*
+ * -------------------------------------------------------------------------------------------------------
+ * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ * -------------------------------------------------------------------------------------------------------
+ */
 import { Get, Koa, Middleware, Router } from "@discordx/koa";
 import type { RouterContext } from "@koa/router";
 import type { Next } from "koa";
