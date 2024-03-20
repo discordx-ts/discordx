@@ -50,8 +50,8 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/node": "^20.11.24",
-    "typescript": "5.3.3"
+    "@types/node": "^20.11.30",
+    "typescript": "5.4.2"
   },
   "engines": {
     "node": ">=16.0.0",
