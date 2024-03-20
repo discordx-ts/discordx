@@ -1,7 +1,7 @@
 /*
  * -------------------------------------------------------------------------------------------------------
  * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
+ * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
 import type { InstanceOf } from "../../index.js";
