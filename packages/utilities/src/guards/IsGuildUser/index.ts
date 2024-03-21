@@ -22,7 +22,21 @@ import {
 import type { ArgsOf, Awaitable, Client, GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
+export type IsGuildUserArg =
+  | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
+  | ButtonInteraction
+  | ChannelSelectMenuInteraction
+  | CommandInteraction
+  | ContextMenuCommandInteraction
+  | MentionableSelectMenuInteraction
+  | ModalSubmitInteraction
+  | RoleSelectMenuInteraction
+  | StringSelectMenuInteraction
+  | UserSelectMenuInteraction
+  | SimpleCommandMessage;
+
 export type IsGuardUserCallback<T extends Client = Client> = (options: {
+  arg: IsGuildUserArg;
   client: T;
   guild: Guild | null;
   user: User | APIUser | null;
@@ -38,19 +52,7 @@ export type IsGuardUserCallback<T extends Client = Client> = (options: {
 export const IsGuildUser =
   <T extends Client>(
     callback: IsGuardUserCallback<T>,
-  ): GuardFunction<
-    | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
-    | ButtonInteraction
-    | ChannelSelectMenuInteraction
-    | CommandInteraction
-    | ContextMenuCommandInteraction
-    | MentionableSelectMenuInteraction
-    | ModalSubmitInteraction
-    | RoleSelectMenuInteraction
-    | StringSelectMenuInteraction
-    | UserSelectMenuInteraction
-    | SimpleCommandMessage
-  > =>
+  ): GuardFunction<IsGuildUserArg> =>
   async (arg, client, next) => {
     let guild: Guild | null = null;
     let user: User | APIUser | null = null;
@@ -92,7 +94,7 @@ export const IsGuildUser =
         break;
     }
 
-    const isNext = await callback({ client: client as T, guild, user });
+    const isNext = await callback({ arg, client: client as T, guild, user });
     if (isNext) {
       await next();
     }
