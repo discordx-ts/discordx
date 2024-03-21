@@ -1,5 +1,13 @@
 # @discordx/utilities
 
+## 6.3.2
+
+### Patch Changes
+
+- [#1004](https://github.com/discordx-ts/discordx/pull/1004) [`86589ae`](https://github.com/discordx-ts/discordx/commit/86589aefede05ee5df66658f946bd53d3cf78112) Thanks [@samarmeena](https://github.com/samarmeena)! - added arg in IsGuildUserCallback
+
+- [#1004](https://github.com/discordx-ts/discordx/pull/1004) [`86589ae`](https://github.com/discordx-ts/discordx/commit/86589aefede05ee5df66658f946bd53d3cf78112) Thanks [@samarmeena](https://github.com/samarmeena)! - use IsGuildUser alias for NotBot guard.
+
 ## 6.3.1
 
 ### Patch Changes
