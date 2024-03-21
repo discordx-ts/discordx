@@ -411,7 +411,6 @@ Guards can be set for `@Slash`, `@On`, `@Once`, `@Discord` and globally.
 ```typescript
 import { Discord, On, Client, Guard } from "discordx";
 import { NotBot } from "./NotBot";
-import { Prefix } from "./Prefix";
 
 @Discord()
 class Example {

@@ -4,7 +4,27 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-export * from "./IsGuildUser/index.js";
-export * from "./NotBot/index.js";
-export * from "./PermissionGuard/index.js";
-export * from "./Rate Limiter/index.js";
+import { NotBot } from "@discordx/utilities";
+import { Events } from "discord.js";
+import {
+  ArgsOf,
+  Discord,
+  Guard,
+  On,
+  SimpleCommand,
+  SimpleCommandMessage,
+} from "discordx";
+
+@Discord()
+@Guard(NotBot)
+class Example {
+  @On({ event: Events.MessageCreate })
+  message([message]: ArgsOf<"messageCreate">) {
+    //...
+  }
+
+  @SimpleCommand({ name: "hello" })
+  hello(command: SimpleCommandMessage) {
+    //...
+  }
+}

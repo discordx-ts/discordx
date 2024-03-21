@@ -43,9 +43,10 @@
 - [@Category](#-category)
 - [@Description](#-description)
 - [guards](#%EF%B8%8F-guards)
-  - [Rate Limit](#rate-limit)
+  - [IsGuildUser](#isguilduser)
   - [NotBot](#notbot)
   - [PermissionGuard](#permissionguard)
+  - [Rate Limit](#rate-limit)
 - [Useful](#-useful)
   - [EnumChoice](#enumchoice)
   - [TimeFormat](#timeformat)
@@ -126,66 +127,78 @@ class Example {
 
 Useful guards created by the discordx team to use in your bot!
 
-## Rate limit
+## IsGuildUser
 
-This guard will rate limit a user for a specified amount of time. When set, a user can only call a command x amount of
-times after that, a cooldown is applied disallowing any more calls to the command until the cooldown is over.
-
-This cooldown starts from the moment the user sends the last message.
-
-If your cooldown is 10 seconds, and you allow 3 calls of your command, the user will have 10 seconds to call it 3 times,
-with the timer resetting after each call.
+A multi purpose guard for guild and user.
 
 ### Example
 
 ```ts
+import { IsGuildUser, NotBot } from "@discordx/utilities";
+import { Events } from "discord.js";
+import {
+  ArgsOf,
+  Discord,
+  Guard,
+  On,
+  SimpleCommand,
+  SimpleCommandMessage,
+} from "discordx";
+
 @Discord()
-class RateLimitExample {
-  /**
-   * 1 command every 30 seconds with default message
-   */
-  @Slash({ name: "rate_limit_1" })
-  @Guard(RateLimit(TIME_UNIT.seconds, 30))
-  rateLimit1(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+@Guard(
+  NotBot,
+  IsGuildUser(({ guild, user }) => {
+    if (!guild || !user) {
+      return false;
+    }
+
+    return guild.members.cache.has(user.id);
+  }),
+)
+class Example {
+  @On({ event: Events.MessageCreate })
+  message([message]: ArgsOf<"messageCreate">) {
+    //...
   }
 
-  /**
-   * Allow 3 command before rate limit of 30 seconds (from last message)
-   */
-  @Slash({ name: "rate_limit_2" })
-  @Guard(
-    RateLimit(TIME_UNIT.seconds, 30, {
-      message: "Please wait `30` seconds!",
-      rateValue: 3,
-    }),
-  )
-  rateLimit2(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
-  }
-
-  /**
-   * Rate limit simple command
-   *
-   * @param message
-   */
-  @SimpleCommand({ name: "rateLimit" })
-  @Guard(RateLimit(TIME_UNIT.seconds, 10))
-  private async rateLimitSimpleCommand({
-    message,
-  }: SimpleCommandMessage): Promise<void> {
-    message.reply("It worked!");
+  @SimpleCommand({ name: "hello" })
+  hello(command: SimpleCommandMessage) {
+    //...
   }
 }
 ```
 
 ## NotBot
 
+Ensure that the handler is only executed for users and not for bots.
+
+### Example
+
 ```ts
-@SimpleCommand()
+import { NotBot } from "@discordx/utilities";
+import { Events } from "discord.js";
+import {
+  ArgsOf,
+  Discord,
+  Guard,
+  On,
+  SimpleCommand,
+  SimpleCommandMessage,
+} from "discordx";
+
+@Discord()
 @Guard(NotBot)
-hello({ message }: SimpleCommandMessage): void {
-  message.reply("It worked!");
+class Example {
+  @On({ event: Events.MessageCreate })
+  message([message]: ArgsOf<"messageCreate">) {
+    //...
+  }
+
+  @SimpleCommand({ name: "hello" })
+  hello(command: SimpleCommandMessage) {
+    //...
+  }
 }
 ```
 
@@ -254,6 +267,59 @@ export class PermissionGuards {
       }
     }
     return Promise.resolve(["BAN_MEMBERS"]);
+  }
+}
+```
+
+## Rate limit
+
+This guard will rate limit a user for a specified amount of time. When set, a user can only call a command x amount of
+times after that, a cooldown is applied disallowing any more calls to the command until the cooldown is over.
+
+This cooldown starts from the moment the user sends the last message.
+
+If your cooldown is 10 seconds, and you allow 3 calls of your command, the user will have 10 seconds to call it 3 times,
+with the timer resetting after each call.
+
+### Example
+
+```ts
+@Discord()
+class RateLimitExample {
+  /**
+   * 1 command every 30 seconds with default message
+   */
+  @Slash({ name: "rate_limit_1" })
+  @Guard(RateLimit(TIME_UNIT.seconds, 30))
+  rateLimit1(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  /**
+   * Allow 3 command before rate limit of 30 seconds (from last message)
+   */
+  @Slash({ name: "rate_limit_2" })
+  @Guard(
+    RateLimit(TIME_UNIT.seconds, 30, {
+      message: "Please wait `30` seconds!",
+      rateValue: 3,
+    }),
+  )
+  rateLimit2(interaction: CommandInteraction): void {
+    interaction.reply("It worked!");
+  }
+
+  /**
+   * Rate limit simple command
+   *
+   * @param message
+   */
+  @SimpleCommand({ name: "rateLimit" })
+  @Guard(RateLimit(TIME_UNIT.seconds, 10))
+  private async rateLimitSimpleCommand({
+    message,
+  }: SimpleCommandMessage): Promise<void> {
+    message.reply("It worked!");
   }
 }
 ```
