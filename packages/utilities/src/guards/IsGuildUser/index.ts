@@ -22,7 +22,7 @@ import {
 import type { ArgsOf, Awaitable, Client, GuardFunction } from "discordx";
 import { SimpleCommandMessage } from "discordx";
 
-type Callback<T extends Client> = (options: {
+export type IsGuardUserCallback<T extends Client = Client> = (options: {
   client: T;
   guild: Guild | null;
   user: User | APIUser | null;
@@ -37,7 +37,7 @@ type Callback<T extends Client> = (options: {
  */
 export const IsGuildUser =
   <T extends Client>(
-    callback: Callback<T>,
+    callback: IsGuardUserCallback<T>,
   ): GuardFunction<
     | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
     | ButtonInteraction
