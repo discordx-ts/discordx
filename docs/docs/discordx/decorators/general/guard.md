@@ -19,16 +19,14 @@ The order of execution of the guards is done according to their position in the 
 ## Example
 
 ```typescript
+import { NotBot } from "@discordx/utilities";
 import { Discord, On, Client, Guard } from "discordx";
-import { NotBot } from "./NotBot";
-import { Prefix } from "./Prefix";
 
 @Discord()
 class Example {
   @On("messageCreate")
   @Guard(
     NotBot, // You can use multiple guard functions, they are executed in the same order!
-    Prefix("!"),
   )
   async onMessage([message]: ArgsOf<"messageCreate">) {
     switch (message.content.toLowerCase()) {
@@ -47,28 +45,40 @@ class Example {
 
 When you use `@Guard` along with `@Discord` the guard is applied to:
 
-- Each `@SimpleCommand` of the class
-- Each `@Slash` of the class
-- Each `@On` of the class
-- Each `@Once` of the class
+- `@ButtonComponent`
+- `@ContextMenu`
+- `@ModalComponent`
+- `@On`
+- `@Once`
+- `@Reaction`
+- `@SelectMenuComponent`
+- `@SimpleCommand`
+- `@Slash`
 
-> It's executed before the members's guards
+### Example
 
 ```typescript
-import { Discord, On, Client, Guard, SimpleCommandMessage } from "discordx";
-import { NotBot } from "./NotBot";
-import { Prefix } from "./Prefix";
+import { NotBot } from "@discordx/utilities";
+import { Events } from "discord.js";
+import {
+  ArgsOf,
+  Discord,
+  Guard,
+  On,
+  SimpleCommand,
+  SimpleCommandMessage,
+} from "discordx";
 
 @Discord()
-@Guard(NotBot, Prefix("!"))
+@Guard(NotBot)
 class Example {
-  @On("messageCreate")
+  @On({ event: Events.MessageCreate })
   message([message]: ArgsOf<"messageCreate">) {
     //...
   }
 
-  @SimpleCommand("hello")
-  message(command: SimpleCommandMessage) {
+  @SimpleCommand({ name: "hello" })
+  hello(command: SimpleCommandMessage) {
     //...
   }
 }
@@ -81,14 +91,14 @@ When can setup some guards globally
 > Global guards are executed before @Discord guards
 
 ```typescript
-// Use the Client that are provided by discordx NOT discord.js
-import { Client } from "discordx";
+import { NotBot } from "@discordx/utilities";
+import { Client } from "discordx"; // Use the client provided by discordx, not discord.js.
 
 async function start() {
   const client = new Client({
     botId: "test",
     silent: false,
-    guards: [NotBot, Prefix("!")],
+    guards: [NotBot],
   });
 
   await client.login("YOUR_TOKEN");
