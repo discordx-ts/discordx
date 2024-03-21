@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { IsGuildUser, NotBot } from "@discordx/utilities";
+import { IsGuardUserCallback, IsGuildUser } from "@discordx/utilities";
 import { Events } from "discord.js";
 import {
   ArgsOf,
@@ -15,17 +15,16 @@ import {
   SimpleCommandMessage,
 } from "discordx";
 
-@Discord()
-@Guard(
-  NotBot,
-  IsGuildUser(({ guild, user }) => {
-    if (!guild || !user) {
-      return false;
-    }
+const OwnerOnly: IsGuardUserCallback = ({ client, user }) => {
+  if (!user) {
+    return false;
+  }
 
-    return guild.members.cache.has(user.id);
-  }),
-)
+  return client.application?.owner?.id === user.id;
+};
+
+@Discord()
+@Guard(IsGuildUser(OwnerOnly))
 class Example {
   @On({ event: Events.MessageCreate })
   message([message]: ArgsOf<"messageCreate">) {
