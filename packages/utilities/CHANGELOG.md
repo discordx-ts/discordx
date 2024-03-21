@@ -1,5 +1,11 @@
 # @discordx/utilities
 
+## 6.3.0
+
+### Minor Changes
+
+- added isGuildUser guard
+
 ## 6.2.0
 
 ### Minor Changes
