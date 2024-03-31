@@ -53,8 +53,8 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.17.0",
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.2",
     "@types/prettier": "^2.7.3",
-    "typescript": "5.4.2"
+    "typescript": "5.4.3"
   }
 }

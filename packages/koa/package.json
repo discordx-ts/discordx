@@ -57,9 +57,9 @@
     "@koa/router": "^12.0.1",
     "@types/koa": "^2.15.0",
     "@types/koa__router": "^12.0.4",
-    "@types/node": "^20.11.30",
-    "koa": "^2.15.1",
-    "typescript": "5.4.2"
+    "@types/node": "^20.12.2",
+    "koa": "^2.15.2",
+    "typescript": "5.4.3"
   },
   "peerDependencies": {
     "@koa/router": "*",
