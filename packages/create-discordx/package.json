@@ -47,8 +47,8 @@
     "ora": "^8.0.1",
     "prompts": "^2.4.2",
     "rimraf": "^5.0.5",
-    "tar": "^6.2.0",
-    "typescript": "5.4.2",
+    "tar": "^6.2.1",
+    "typescript": "5.4.3",
     "update-check": "^1.5.4",
     "validate-npm-package-name": "^5.0.0"
   },
@@ -60,7 +60,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.2",
     "@types/prompts": "^2.4.9",
     "@types/tar": "^6.1.11",
     "@types/validate-npm-package-name": "^4.0.2"
