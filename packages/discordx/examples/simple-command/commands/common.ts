@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { GuildMember, Role, User } from "discord.js";
+import { GuildMember, Role, User } from "discord.js";
 import type { SimpleCommandMessage } from "discordx";
 import {
   Discord,
@@ -15,63 +15,67 @@ import {
 
 @Discord()
 export class Example {
-  @SimpleCommand()
-  bool(
+  @SimpleCommand({ name: "toggle" })
+  toggleState(
     @SimpleCommandOption({
       name: "state",
+      description: "Enter 'true' to enable, 'false' to disable",
       type: SimpleCommandOptionType.Boolean,
     })
     state: boolean | undefined,
     command: SimpleCommandMessage,
   ): void {
-    command.message.reply(state ? String(state) : "state is required");
+    command.message.reply(
+      state !== undefined
+        ? `State is set to ${state}.`
+        : "Please specify a state.",
+    );
   }
 
-  @SimpleCommand({ prefix: ["&", ">"] })
-  race(command: SimpleCommandMessage): void {
+  @SimpleCommand({ name: "help" })
+  displayHelp(command: SimpleCommandMessage): void {
     command.sendUsageSyntax();
   }
 
   @SimpleCommand({
-    description: "simple command example",
-    name: "race car",
-    prefix: ["&", ">"],
+    description: "Grant a role to a user.",
+    name: "grant-role",
   })
-  car(
+  grantRole(
     @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
     @SimpleCommandOption({
-      description: "mention the role you wish to grant",
+      description: "Mention the role you wish to grant.",
       name: "role",
       type: SimpleCommandOptionType.Role,
     })
     role: Role | Error | undefined,
     command: SimpleCommandMessage,
   ): void {
-    !user || user instanceof Error
-      ? command.sendUsageSyntax()
-      : command.message.reply(
-          `command prefix: \`\`${command.prefix.toString()}\`\`\ncommand name: \`\`${
-            command.name
-          }\`\`\nargument string: \`\`${command.argString}\`\``,
-        );
-  }
-
-  @SimpleCommand({ name: "race bike", prefix: ["&", ">"] })
-  bike(command: SimpleCommandMessage): void {
+    if (!user || user instanceof Error) {
+      command.sendUsageSyntax();
+      return;
+    }
     command.message.reply(
-      `command prefix: \`\`${command.prefix.toString()}\`\`\ncommand name: \`\`${
-        command.name
-      }\`\`\nargument string: \`\`${command.argString}\`\``,
+      `Granting ${role?.name} role to ${user instanceof GuildMember ? user.displayName : user.username}.`,
     );
   }
 
-  @SimpleCommand({ name: "test-x", prefix: ["&", ">"] })
+  @SimpleCommand({ name: "display-info" })
+  displayInfo(command: SimpleCommandMessage): void {
+    command.message.reply(
+      `Command Prefix: \`\`${command.prefix.toString()}\`\`\nCommand Name: \`\`${command.name}\`\`\nArgument String: \`\`${command.argString}\`\``,
+    );
+  }
+
+  @SimpleCommand({ name: "target" })
   testX(
     @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
     command: SimpleCommandMessage,
   ): void {
-    command.message.reply(`${user}`);
+    command.message.reply(
+      `Target: ${user instanceof GuildMember ? user.displayName : user}`,
+    );
   }
 }
