@@ -22,6 +22,7 @@ export class Main {
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.DirectMessages,
+        IntentsBitField.Flags.MessageContent,
       ],
       // enable partials to receive direct messages
       partials: [Partials.Channel, Partials.Message],
