@@ -1,5 +1,11 @@
 # discordx
 
+## 11.9.2
+
+### Patch Changes
+
+- [#1012](https://github.com/discordx-ts/discordx/pull/1012) [`77007d5`](https://github.com/discordx-ts/discordx/commit/77007d5b69ce3846c283841a58e8271d072fe07f) Thanks [@samarmeena](https://github.com/samarmeena)! - remove regex from simple command message instance
+
 ## 11.9.1
 
 ### Patch Changes
