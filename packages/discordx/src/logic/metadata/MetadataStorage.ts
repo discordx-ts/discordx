@@ -59,7 +59,7 @@ export class MetadataStorage {
   private _simpleCommandOptions: Array<DSimpleCommandOption> = [];
   private _simpleCommands: Array<DSimpleCommand> = [];
   private _simpleCommandsByName: Array<ISimpleCommandByName> = [];
-  private _simpleCommandsByPrefix = new Map<string, ISimpleCommandByName[]>();
+  private _simpleCommandMappedPrefix = new Set<string>();
 
   // discord commands
   private _applicationCommandMessages: Array<DApplicationCommand> = [];
@@ -182,8 +182,8 @@ export class MetadataStorage {
     return this._simpleCommandsByName;
   }
 
-  get simpleCommandsByPrefix(): Map<string, ISimpleCommandByName[]> {
-    return this._simpleCommandsByPrefix;
+  get simpleCommandMappedPrefix(): readonly string[] {
+    return Array.from(this._simpleCommandMappedPrefix);
   }
 
   get simpleCommands(): readonly DSimpleCommand[] {
@@ -393,53 +393,42 @@ export class MetadataStorage {
 
   private buildSimpleCommands(): void {
     this._simpleCommands.forEach((cmd) => {
-      // Separately map special prefix commands
+      /**
+       * Save the customized prefix within the mapped prefix set.
+       */
       if (cmd.prefix) {
-        [...cmd.prefix].forEach((pfx) => {
-          const commands = this._simpleCommandsByPrefix.get(pfx) ?? [];
-          const mapCmd: ISimpleCommandByName[] = [
-            { command: cmd, name: cmd.name },
-          ];
-
-          cmd.aliases.forEach((al) => {
-            mapCmd.push({ command: cmd, name: al });
-          });
-
-          mapCmd.forEach((mapCommand) => {
-            if (findIndex(commands, { name: mapCommand.name }) !== -1) {
-              throw Error(
-                `Duplicate simple command name: ${mapCommand.name} (of: ${mapCommand.command.name})`,
-              );
-            }
-          });
-
-          this._simpleCommandsByPrefix.set(
-            pfx,
-            [...commands, ...mapCmd].sort(
-              (a, b) => b.name.length - a.name.length,
-            ),
-          );
-        });
-        return;
+        [...cmd.prefix].forEach((pfx) =>
+          this._simpleCommandMappedPrefix.add(pfx),
+        );
       }
 
-      // To improve search performance, map all commands together
+      /**
+       * Trigger an error if the command is already registered for this name.
+       */
       if (findIndex(this._simpleCommandsByName, { name: cmd.name }) !== -1) {
         throw Error(`Duplicate simple command name: ${cmd.name}`);
       }
 
+      /**
+       * Store command by name
+       */
       this._simpleCommandsByName.push({ command: cmd, name: cmd.name });
-      cmd.aliases.forEach((al) => {
-        if (findIndex(this._simpleCommandsByName, { name: al }) !== -1) {
-          throw Error(
-            `Duplicate simple command name: ${al} (alias of command: ${cmd.name})`,
-          );
+
+      /**
+       * Store command by alias
+       */
+      cmd.aliases.forEach((alias) => {
+        if (findIndex(this._simpleCommandsByName, { name: alias }) !== -1) {
+          throw Error(`Duplicate simple command name: ${alias}`);
         }
-        this._simpleCommandsByName.push({ command: cmd, name: al });
+
+        this._simpleCommandsByName.push({ command: cmd, name: alias });
       });
     });
 
-    // sort simple commands
+    /**
+     * Sort simple commands by name in descending order
+     */
     this._simpleCommandsByName = this._simpleCommandsByName.sort(
       function (a, b) {
         // ASC  -> a.length - b.length

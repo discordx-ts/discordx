@@ -154,8 +154,8 @@ export class Client extends ClientJS {
     return MetadataStorage.instance.simpleCommandsByName;
   }
 
-  static get simpleCommandsByPrefix(): Map<string, ISimpleCommandByName[]> {
-    return MetadataStorage.instance.simpleCommandsByPrefix;
+  static get simpleCommandMappedPrefix(): readonly string[] {
+    return MetadataStorage.instance.simpleCommandMappedPrefix;
   }
 
   static get simpleCommands(): readonly DSimpleCommand[] {
@@ -228,8 +228,8 @@ export class Client extends ClientJS {
     return Client.simpleCommandsByName;
   }
 
-  get simpleCommandsByPrefix(): Map<string, ISimpleCommandByName[]> {
-    return Client.simpleCommandsByPrefix;
+  get simpleCommandMappedPrefix(): readonly string[] {
+    return Client.simpleCommandMappedPrefix;
   }
 
   get simpleCommands(): readonly DSimpleCommand[] {
@@ -1202,29 +1202,39 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive = false,
   ): Promise<SimpleCommandParseType | SimpleCommandMessage> {
-    const mappedPrefix = Array.from(this.simpleCommandsByPrefix.keys());
+    /**
+     * Get a regular expression for the prefix by combining unique simple command prefixes.
+     */
     const prefixRegex = RegExp(
-      `^(${[...prefix, ...mappedPrefix]
+      `^(${[...prefix, ...this.simpleCommandMappedPrefix]
         .map((pfx) => escapeRegExp(pfx))
         .join("|")})`,
     );
 
+    /**
+     * Perform regex test on the message to determine if it qualifies as a command or not.
+     */
     const isCommand = prefixRegex.test(message.content);
     if (!isCommand) {
       return SimpleCommandParseType.notCommand;
     }
 
+    /**
+     * Get matched prefix from regular expression
+     */
     const matchedPrefix = prefixRegex.exec(message.content)?.at(1) ?? "unknown";
-    const isPrefixBaseCommand = mappedPrefix.includes(matchedPrefix);
+
+    /**
+     * Message content without prefix
+     */
     const contentWithoutPrefix = `${message.content
       .replace(prefixRegex, "")
       .trim()} `;
 
-    const commandRaw = (
-      isPrefixBaseCommand
-        ? this.simpleCommandsByPrefix.get(matchedPrefix) ?? []
-        : this.simpleCommandsByName
-    ).find((cmd) => {
+    /**
+     * Find command by name
+     */
+    const commandRaw = this.simpleCommandsByName.find((cmd) => {
       if (caseSensitive) {
         return contentWithoutPrefix.startsWith(`${cmd.name} `);
       }
@@ -1234,14 +1244,23 @@ export class Client extends ClientJS {
         .startsWith(`${cmd.name.toLowerCase()} `);
     });
 
+    /**
+     * Return not found if command is not found
+     */
     if (!commandRaw) {
       return SimpleCommandParseType.notFound;
     }
 
+    /**
+     * Prepare arguments without command name
+     */
     const commandArgs = contentWithoutPrefix
       .replace(new RegExp(commandRaw.name, "i"), "")
       .trim();
 
+    /**
+     * Prepare simple command message instance
+     */
     const command = new SimpleCommandMessage(
       matchedPrefix,
       commandArgs,
@@ -1250,6 +1269,9 @@ export class Client extends ClientJS {
       this.simpleCommandConfig?.argSplitter,
     );
 
+    /**
+     * Resolve command options
+     */
     command.options = await command.resolveOptions();
 
     return command;
@@ -1267,18 +1289,30 @@ export class Client extends ClientJS {
     message: Message,
     caseSensitive?: boolean,
   ): Promise<unknown> {
+    /**
+     * Get prefix for message
+     */
     const prefix = await this.getMessagePrefix(message);
 
+    /**
+     * Parse command
+     */
     const command = await this.parseCommand(
       prefix,
       message,
       caseSensitive ?? false,
     );
 
+    /**
+     * Return if the message is not a command
+     */
     if (command === SimpleCommandParseType.notCommand) {
       return;
     }
 
+    /**
+     * Return error for not found command
+     */
     if (command === SimpleCommandParseType.notFound) {
       const handleNotFound = this.simpleCommandConfig?.responses?.notFound;
       if (handleNotFound) {
@@ -1291,17 +1325,23 @@ export class Client extends ClientJS {
       return;
     }
 
-    // validate bot id
+    /**
+     * Validate bot id
+     */
     if (!command.info.isBotAllowed(this.botId)) {
       return;
     }
 
-    // validate guild id
+    /**
+     * Validate guild id
+     */
     if (!(await command.info.isGuildAllowed(this, command, message.guildId))) {
       return;
     }
 
-    // Check if DM is allowed and if guild is present in message
+    /**
+     * Check if DM is allowed and if guild is present in message
+     */
     if (!command.info.directMessage && !message.guild) {
       return;
     }

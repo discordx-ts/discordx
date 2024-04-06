@@ -30,20 +30,7 @@ export class Main {
       silent: false,
 
       simpleCommand: {
-        // prefix: "!",
-        prefix: (message): string | string[] => {
-          // let's use different command prefix for dm
-          if (message.channel.type === ChannelType.DM) {
-            return "+";
-          }
-
-          // common command prefix for all guild
-          return ["!"];
-        },
-
-        responses: {
-          notFound: "command not found, use !help",
-        },
+        prefix: ["$", "!"],
       },
     });
 
