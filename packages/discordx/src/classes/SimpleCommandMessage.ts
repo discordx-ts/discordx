@@ -22,7 +22,7 @@ export class SimpleCommandMessage {
   options: SimpleOptionType[] = [];
 
   constructor(
-    public prefix: string | RegExp,
+    public prefix: string,
     public argString: string,
     public message: Message,
     public info: DSimpleCommand,
