@@ -22,6 +22,7 @@ export class Main {
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.DirectMessages,
+        IntentsBitField.Flags.MessageContent,
       ],
       // enable partials to receive direct messages
       partials: [Partials.Channel, Partials.Message],
@@ -29,20 +30,7 @@ export class Main {
       silent: false,
 
       simpleCommand: {
-        // prefix: "!",
-        prefix: (message): string | string[] => {
-          // let's use different command prefix for dm
-          if (message.channel.type === ChannelType.DM) {
-            return "+";
-          }
-
-          // common command prefix for all guild
-          return ["!"];
-        },
-
-        responses: {
-          notFound: "command not found, use !help",
-        },
+        prefix: ["$", "!"],
       },
     });
 

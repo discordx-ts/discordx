@@ -11,6 +11,8 @@ import { Discord, SimpleCommand } from "discordx";
 export class Example {
   @SimpleCommand({ aliases: ["hey", "hi"], name: "hello" })
   hello(command: SimpleCommandMessage): void {
-    command.message.reply(":wave:");
+    command.message.reply(
+      "This command should work both with `!` and `$` as a prefix.",
+    );
   }
 }
