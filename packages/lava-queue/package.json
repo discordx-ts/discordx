@@ -54,11 +54,11 @@
     "@discordx/importer": "^1.3.0",
     "@discordx/lava-player": "^1.1.1",
     "@discordx/pagination": "^3.5.0",
-    "@types/lodash": "^4.17.0",
-    "@types/node": "^20.12.2",
-    "discord.js": "^14.14.1",
-    "discordx": "^11.9.0",
-    "typescript": "5.4.3"
+    "@types/lodash": "^4.17.1",
+    "@types/node": "^20.12.11",
+    "discord.js": "^14.15.2",
+    "discordx": "^11.9.2",
+    "typescript": "5.4.5"
   },
   "peerDependencies": {
     "@discordx/lava-player": ">=1.1.0",

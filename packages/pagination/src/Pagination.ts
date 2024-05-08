@@ -136,7 +136,10 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
     // Add a pagination row to components
     if (page.newMessage.components) {
-      page.newMessage.components.push(page.paginationRow);
+      page.newMessage.components = [
+        ...page.newMessage.components,
+        page.paginationRow,
+      ];
     } else {
       page.newMessage.components = [page.paginationRow];
     }
@@ -266,7 +269,10 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
         // Add pagination row
         if (pageEx.newMessage.components) {
-          pageEx.newMessage.components.push(pageEx.paginationRow);
+          pageEx.newMessage.components = [
+            ...pageEx.newMessage.components,
+            pageEx.paginationRow,
+          ];
         } else {
           pageEx.newMessage.components = [pageEx.paginationRow];
         }
@@ -308,7 +314,10 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         }
 
         if (pageEx.newMessage.components) {
-          pageEx.newMessage.components.push(pageEx.paginationRow);
+          pageEx.newMessage.components = [
+            ...pageEx.newMessage.components,
+            pageEx.paginationRow,
+          ];
         } else {
           pageEx.newMessage.components = [pageEx.paginationRow];
         }
