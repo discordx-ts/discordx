@@ -47,10 +47,10 @@
     "ora": "^8.0.1",
     "prompts": "^2.4.2",
     "rimraf": "^5.0.5",
-    "tar": "^6.2.1",
-    "typescript": "5.4.3",
+    "tar": "^7.1.0",
+    "typescript": "5.4.5",
     "update-check": "^1.5.4",
-    "validate-npm-package-name": "^5.0.0"
+    "validate-npm-package-name": "^5.0.1"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -60,9 +60,9 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^20.12.2",
+    "@types/node": "^20.12.11",
     "@types/prompts": "^2.4.9",
-    "@types/tar": "^6.1.11",
+    "@types/tar": "^6.1.13",
     "@types/validate-npm-package-name": "^4.0.2"
   }
 }

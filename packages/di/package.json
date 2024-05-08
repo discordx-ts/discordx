@@ -52,8 +52,8 @@
     "typedi": "^0.10.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.2",
-    "typescript": "5.4.3"
+    "@types/node": "^20.12.11",
+    "typescript": "5.4.5"
   },
   "engines": {
     "node": ">=16.0.0",
