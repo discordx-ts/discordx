@@ -4,16 +4,16 @@
   "private": false,
   "description": "A powerful queue system for @discordx/lava-player",
   "keywords": [
+    "bot",
     "discord",
     "discordx",
-    "typescript",
     "javascript",
-    "bot",
-    "music",
-    "youtube",
-    "lavalink",
     "lava-player",
-    "queue"
+    "lavalink",
+    "music",
+    "queue",
+    "typescript",
+    "youtube"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/lava-queue#readme",
   "bugs": {

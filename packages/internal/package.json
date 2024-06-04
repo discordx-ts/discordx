@@ -4,15 +4,15 @@
   "private": false,
   "description": "discordx internal methods, can be used for external projects",
   "keywords": [
-    "dependency injection",
-    "tsyringe",
-    "framework",
-    "decorators",
-    "typescript",
     "bot",
-    "javascript",
+    "decorators",
+    "dependency injection",
+    "discord",
     "discordx",
-    "discord"
+    "framework",
+    "javascript",
+    "tsyringe",
+    "typescript"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/internal#readme",
   "bugs": {

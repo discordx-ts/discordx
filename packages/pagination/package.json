@@ -4,13 +4,13 @@
   "private": false,
   "description": "Add pagination to discord bot using buttons or menu",
   "keywords": [
-    "pagination",
-    "discord",
-    "typescript",
     "bot",
+    "discord",
+    "discordx",
     "javascript",
-    "utilities",
-    "discordx"
+    "pagination",
+    "typescript",
+    "utilities"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/pagination#readme",
   "bugs": {

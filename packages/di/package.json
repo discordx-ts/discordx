@@ -4,15 +4,15 @@
   "private": false,
   "description": "dependency injection service with TSyringe support",
   "keywords": [
-    "dependency injection",
-    "tsyringe",
-    "framework",
-    "decorators",
-    "typescript",
     "bot",
-    "javascript",
+    "decorators",
+    "dependency injection",
+    "discord",
     "discordx",
-    "discord"
+    "framework",
+    "javascript",
+    "tsyringe",
+    "typescript"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/di#readme",
   "bugs": {

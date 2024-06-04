@@ -4,12 +4,12 @@
   "private": false,
   "description": "A powerful discord music library written in TypeScript for Node.js",
   "keywords": [
+    "bot",
     "discord",
     "discordx",
-    "typescript",
     "javascript",
-    "bot",
     "music",
+    "typescript",
     "youtube"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/music#readme",

@@ -3,15 +3,15 @@
   "version": "1.2.1",
   "description": "create discordx apps with one command",
   "keywords": [
-    "discordx",
-    "discord.js",
-    "discord",
-    "framework",
+    "bot",
     "cmd",
     "command",
+    "discord",
+    "discord.js",
+    "discordx",
+    "framework",
     "generator",
-    "template",
-    "bot"
+    "template"
   ],
   "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/create-discordx#readme",
   "bugs": {
