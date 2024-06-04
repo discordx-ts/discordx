@@ -1,3 +1,11 @@
+# ⚠️Deprecation Warning
+
+I am deprecating this package because it will not receive long-term maintenance. If you are using this package, I highly recommend migrating to [changesets](https://github.com/changesets/changesets), which is the best alternative. Thank you for your understanding.
+
+Best regards, Vijay Meena
+
+---
+
 <div>
   <p align="center">
     <a href="https://discordx.js.org" target="_blank" rel="nofollow">
