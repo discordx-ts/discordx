@@ -1,5 +1,11 @@
 # @discordx/socket.io
 
+## 1.1.2
+
+### Patch Changes
+
+- deprecated package
+
 ## 1.1.1
 
 ### Patch Changes

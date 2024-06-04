@@ -1,5 +1,11 @@
 # @discordx/koa
 
+## 1.2.2
+
+### Patch Changes
+
+- deprecated package
+
 ## 1.2.1
 
 ### Patch Changes
