@@ -5,20 +5,17 @@
       2,
       "always",
       [
-        "docs",
-        "discordx",
-        "music",
-        "pagination",
-        "utilities",
-        "changelog",
         "create-discordx",
         "di",
+        "discordx",
+        "docs",
         "importer",
         "internal",
-        "koa",
         "lava-player",
         "lava-queue",
-        "socket.io"
+        "music",
+        "pagination",
+        "utilities"
       ]
     ],
     "type-enum": [

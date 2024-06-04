@@ -3,31 +3,28 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "packages/changelog",
     "packages/create-discordx",
     "packages/di",
     "packages/discordx",
     "packages/importer",
     "packages/internal",
-    "packages/koa",
     "packages/lava-player",
     "packages/lava-queue",
     "packages/music",
     "packages/pagination",
-    "packages/socket.io",
     "packages/utilities"
   ],
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
-    "typescript",
-    "discord",
+    "api",
     "bot",
     "client",
-    "api",
-    "library",
+    "decorators",
+    "discord",
     "framework",
+    "library",
     "tool",
-    "decorators"
+    "typescript"
   ],
   "homepage": "https://discordx.js.org",
   "bugs": {
@@ -46,9 +43,9 @@
     "build": "turbo run build",
     "build:typedoc": "turbo run build:typedoc",
     "fix:prettier": "prettier --write .",
-    "prettier": "prettier --check .",
     "lint": "eslint ./",
     "prepare": "npx is-ci || npx husky install",
+    "prettier": "prettier --check .",
     "release": "npm run build && changeset publish",
     "test": "turbo run test"
   },
