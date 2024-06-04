@@ -15,19 +15,6 @@ module.exports = {
 
   // But you can create a sidebar manually
 
-  changelog: [
-    {
-      label: "API",
-      href: "https://discordx.js.org/api/changelog",
-      type: "link",
-    },
-    {
-      type: "doc",
-      id: "changelog/README",
-      label: "Readme",
-    },
-  ],
-
   createDiscordx: [
     {
       type: "doc",
@@ -155,19 +142,6 @@ module.exports = {
     },
   ],
 
-  koa: [
-    {
-      label: "API",
-      href: "https://discordx.js.org/api/koa",
-      type: "link",
-    },
-    {
-      type: "doc",
-      id: "koa/README",
-      label: "Readme",
-    },
-  ],
-
   lavaPlayer: [
     {
       label: "API",
@@ -216,19 +190,6 @@ module.exports = {
     {
       type: "doc",
       id: "pagination/README",
-      label: "Readme",
-    },
-  ],
-
-  socket_io: [
-    {
-      label: "API",
-      href: "https://discordx.js.org/api/socket.io",
-      type: "link",
-    },
-    {
-      type: "doc",
-      id: "socket.io/README",
       label: "Readme",
     },
   ],
