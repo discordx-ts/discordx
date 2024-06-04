@@ -4,15 +4,15 @@
   "private": false,
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
-    "typescript",
-    "discord",
+    "api",
     "bot",
     "client",
-    "api",
-    "library",
+    "decorators",
+    "discord",
     "framework",
+    "library",
     "tool",
-    "decorators"
+    "typescript"
   ],
   "homepage": "https://discordx.js.org",
   "bugs": {
