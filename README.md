@@ -46,16 +46,13 @@ This library allows you to use TypeScript decorators on [discord.js](https://dis
 
 - [discordx](./packages/discordx#readme) - discord framework for building a discord.js bot using Typescript decorators.
 - [create-discordx](./packages/create-discordx#readme) - CLI tool for generating a discordx project using templates.
-- [@discordx/changelog](./packages/changelog#readme) - A changelog generation tool built with Typescript and Node.
 - [@discordx/di](./packages/di#readme) - Dependency injection service with support for agnostic IOC.
 - [@discordx/importer](./packages/importer#readme) - Import solution for both ESM and CJS.
 - [@discordx/internal](./packages/internal#readme) - discordx internal methods, Can be used for external projects.
-- [@discordx/koa](./packages/koa#readme) - Koa framework for building a rest API using Typescript decorators.
 - [@discordx/lava-player](./packages/lava-player#readme) - A Lavalink player.
 - [@discordx/lava-queue](./packages/lava-queue#readme) - A queue system for lava-player.
 - [@discordx/music](./packages/music#readme) - An easy way to create a discord music bot.
 - [@discordx/pagination](./packages/pagination#readme) - An easy way to create pagination messages.
-- [@discordx/socket.io](./packages/socket.io#readme) - Socket.io framework for building WebSocket server with Typescript decorators.
 - [@discordx/utilities](./packages/utilities#readme) - A utilities package for discordx.
 
 # 📜 Documentation
