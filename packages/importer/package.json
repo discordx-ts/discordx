@@ -43,12 +43,10 @@
     "build": "tsup src/index.ts --format cjs,esm --dts"
   },
   "dependencies": {
-    "glob": "^10.3.12",
+    "glob": "^10.4.1",
     "tslib": "^2.6.2"
   },
   "devDependencies": {
-    "@types/glob": "^8.1.0",
-    "@types/node": "^20.12.11",
     "typescript": "5.4.5"
   },
   "publishConfig": {
