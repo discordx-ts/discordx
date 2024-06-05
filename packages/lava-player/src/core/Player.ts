@@ -14,7 +14,12 @@ import type {
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
-import { EventType, PlayerStatus, TrackEndReason } from "../types/index.js";
+import {
+  EventType,
+  OPType,
+  PlayerStatus,
+  TrackEndReason,
+} from "../types/index.js";
 
 export interface JoinOptions {
   channel: string | null;
@@ -32,7 +37,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     this.node = node;
     this.guildId = guildId;
 
-    this.on("event", (d: OPEvent) => {
+    this.on(OPType.EVENT, (d: OPEvent) => {
       switch (d.type) {
         case EventType.TrackStartEvent:
           this.status = PlayerStatus.PLAYING;

@@ -7,6 +7,7 @@
 import {
   LoadType,
   type Player as LavaPlayer,
+  PlayerStatus,
   type Track,
   type TrackResponse,
 } from "@discordx/lava-player";
@@ -86,6 +87,7 @@ export class Queue {
 
   async pause(): Promise<void> {
     await this.lavaPlayer.update({ paused: true });
+    this.lavaPlayer.status = PlayerStatus.PAUSED;
   }
 
   async playNext(): Promise<boolean> {

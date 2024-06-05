@@ -252,12 +252,11 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-
-    queue.isPlaying ? queue.pause() : queue.resume();
-    queue.updateControlMessage();
+    queue.isPlaying ? await queue.pause() : await queue.resume();
+    await queue.updateControlMessage();
 
     // delete interaction
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-leave" })
