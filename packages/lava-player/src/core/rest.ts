@@ -9,8 +9,11 @@ import { request, STATUS_CODES } from "http";
 import { URL } from "url";
 
 import type { BaseNode } from "../base/Node.js";
-import type { Track, TrackResponse } from "../types/index.js";
-import RoutePlanner from "./RoutePlanner.js";
+import type {
+  RoutePlannerStatus,
+  Track,
+  TrackResponse,
+} from "../types/index.js";
 
 export class HTTPError extends Error {
   public method: string;
@@ -37,10 +40,9 @@ export class HTTPError extends Error {
   }
 }
 
-export class Http {
+export class Rest {
   public readonly node: BaseNode;
   public base: string;
-  public routePlanner: RoutePlanner = new RoutePlanner(this);
 
   constructor(node: BaseNode, base: string) {
     this.node = node;
@@ -49,6 +51,21 @@ export class Http {
 
   public url(input: string): URL {
     return new URL(input, this.base);
+  }
+
+  public routeStatus(): Promise<RoutePlannerStatus> {
+    const url = this.url("routeplanner/status");
+    return this.do("get", url);
+  }
+
+  public routeFree(address: string): Promise<void> {
+    const url = this.url("routeplanner/free/address");
+    return this.do("post", url, Buffer.from(JSON.stringify({ address })));
+  }
+
+  public routeFreeAll(): Promise<void> {
+    const url = this.url("routeplanner/free/all");
+    return this.do("post", url);
   }
 
   public load(identifier: string): Promise<TrackResponse> {
@@ -102,34 +119,30 @@ export class Http {
       req.end();
     });
 
-    if (
-      message.statusCode &&
-      message.statusCode >= 200 &&
-      message.statusCode < 300
-    ) {
-      const chunks: Array<Buffer> = [];
-      message.on("data", (chunk) => {
-        if (typeof chunk === "string") {
-          chunk = Buffer.from(chunk);
-        }
-        chunks.push(chunk);
-      });
-
-      return new Promise<T>((resolve, reject) => {
-        message.once("error", reject);
-        message.once("end", () => {
-          message.removeAllListeners();
-          const dataX = Buffer.concat(chunks);
-
-          try {
-            resolve(JSON.parse(dataX.toString()) as T);
-          } catch (e) {
-            resolve(dataX.toString() as T);
-          }
-        });
-      });
+    if (message.statusCode !== 200) {
+      throw new HTTPError(message, method, url);
     }
 
-    throw new HTTPError(message, method, url);
+    const chunks: Array<Buffer> = [];
+    message.on("data", (chunk) => {
+      if (typeof chunk === "string") {
+        chunk = Buffer.from(chunk);
+      }
+      chunks.push(chunk);
+    });
+
+    return new Promise<T>((resolve, reject) => {
+      message.once("error", reject);
+      message.once("end", () => {
+        message.removeAllListeners();
+        const dataX = Buffer.concat(chunks);
+
+        try {
+          resolve(JSON.parse(dataX.toString()) as T);
+        } catch (e) {
+          resolve(dataX.toString() as T);
+        }
+      });
+    });
   }
 }

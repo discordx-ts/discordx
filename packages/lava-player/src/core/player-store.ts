@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { BaseNode } from "../base/Node.js";
-import { Player } from "./Player.js";
+import { Player } from "./player.js";
 
 export default class PlayerStore<T extends BaseNode = BaseNode> extends Map<
   string,

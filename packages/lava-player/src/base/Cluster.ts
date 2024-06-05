@@ -8,7 +8,7 @@ import { EventEmitter } from "events";
 
 import type { ClusterNodeOptions } from "../ClusterNode.js";
 import ClusterNode from "../ClusterNode.js";
-import type { Player } from "../core/Player.js";
+import type { Player } from "../core/player.js";
 import type { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 
 export abstract class BaseCluster extends EventEmitter {

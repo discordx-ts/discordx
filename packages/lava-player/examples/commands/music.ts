@@ -130,9 +130,9 @@ export class MusicPlayer {
       await player.join(interaction.member.voice.channelId, { deaf: true });
     }
 
-    const version = await this.node.getVersion();
+    const version = await this.node.rest.getVersion();
     console.log(`>> Version: ${version}`);
-    const res = await this.node.load(`ytsearch:${song}`);
+    const res = await this.node.rest.load(`ytsearch:${song}`);
     if (res.loadType !== LoadType.SEARCH) {
       interaction.followUp("Track could not be loaded");
       return;

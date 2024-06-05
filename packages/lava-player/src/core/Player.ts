@@ -124,7 +124,6 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     track: string | Track,
     { start, end, noReplace, pause }: PlayerOptions = {},
   ): Promise<void> {
-    await Promise.resolve();
     await this.send("play", {
       endTime: end,
       noReplace,

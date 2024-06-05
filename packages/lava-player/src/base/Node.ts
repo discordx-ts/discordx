@@ -7,13 +7,11 @@
 import { EventEmitter } from "events";
 import WebSocket from "ws";
 
-import { Connection } from "../core/Connection.js";
-import { Http } from "../core/Http.js";
-import PlayerStore from "../core/PlayerStore.js";
+import { Connection } from "../core/connection.js";
+import PlayerStore from "../core/player-store.js";
+import { Rest } from "../core/rest.js";
 import type {
   BaseNodeOptions,
-  Track,
-  TrackResponse,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
@@ -27,7 +25,7 @@ export abstract class BaseNode extends EventEmitter {
 
   public connection: Connection;
   public players: PlayerStore<this> = new PlayerStore(this);
-  public http: Http;
+  public rest: Rest;
 
   public voiceStates: Map<string, VoiceStateUpdate> = new Map();
   public voiceServers: Map<string, VoiceServerUpdate> = new Map();
@@ -44,7 +42,7 @@ export abstract class BaseNode extends EventEmitter {
     const restAddress = host?.rest?.address ?? host?.address ?? "localhost";
     const restPort = host?.rest?.port ?? host?.port ?? 2333;
 
-    this.http = new Http(
+    this.rest = new Rest(
       this,
       `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}/v4/`,
     );
@@ -62,26 +60,6 @@ export abstract class BaseNode extends EventEmitter {
 
   public get connected(): boolean {
     return this.connection?.ws.readyState === WebSocket.OPEN;
-  }
-
-  public load(identifier: string): Promise<TrackResponse> {
-    if (this.http) {
-      return this.http.load(identifier);
-    }
-
-    throw new Error("no available http module");
-  }
-
-  public getVersion(): Promise<string> {
-    return this.http.getVersion();
-  }
-
-  public decode(track: string): Promise<Track> {
-    return this.http.decode(track);
-  }
-
-  public decodes(tracks: string[]): Promise<Track[]> {
-    return this.http.decodes(tracks);
   }
 
   public voiceStateUpdate(packet: VoiceStateUpdate): Promise<boolean> {
