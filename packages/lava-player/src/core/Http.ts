@@ -54,7 +54,11 @@ export class Http {
   public load(identifier: string): Promise<TrackResponse> {
     const url = this.url("loadtracks");
     url.searchParams.append("identifier", identifier);
+    return this.do("GET", url);
+  }
 
+  public getVersion(): Promise<string> {
+    const url = this.url("/version");
     return this.do("GET", url);
   }
 
@@ -115,12 +119,12 @@ export class Http {
         message.once("error", reject);
         message.once("end", () => {
           message.removeAllListeners();
+          const dataX = Buffer.concat(chunks);
 
           try {
-            const dataX = Buffer.concat(chunks);
-            resolve(JSON.parse(dataX.toString()));
+            resolve(JSON.parse(dataX.toString()) as T);
           } catch (e) {
-            reject(e);
+            resolve(dataX.toString() as T);
           }
         });
       });

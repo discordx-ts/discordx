@@ -5,9 +5,9 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type {
+  OpResponse,
   VoiceServerUpdate,
   VoiceStateUpdate,
-  WRawEventType,
 } from "@discordx/lava-player";
 import { LoadType, Node } from "@discordx/lava-player";
 import type { CommandInteraction } from "discord.js";
@@ -46,7 +46,7 @@ export class MusicPlayer {
     });
 
     nodeX.connection.ws.on("message", (data) => {
-      const raw = JSON.parse(data.toString()) as WRawEventType;
+      const raw = JSON.parse(data.toString()) as OpResponse;
       console.log("ws>>", raw);
     });
 
@@ -130,6 +130,8 @@ export class MusicPlayer {
       await player.join(interaction.member.voice.channelId, { deaf: true });
     }
 
+    const version = await this.node.getVersion();
+    console.log(`>> Version: ${version}`);
     const res = await this.node.load(`ytsearch:${song}`);
     if (res.loadType !== LoadType.SEARCH) {
       interaction.followUp("Track could not be loaded");

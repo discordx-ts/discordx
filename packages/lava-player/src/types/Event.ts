@@ -1,89 +1,220 @@
+import type { Exception, Track } from "./http.js";
+
 /*
  * -------------------------------------------------------------------------------------------------------
  * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
+
+export enum OPType {
+  /**
+   * Dispatched when player or voice events occur
+   */
+  EVENT = "event",
+  /**
+   * Dispatched every x seconds with the latest player state
+   */
+  PLAYER_UPDATE = "playerUpdate",
+  /**
+   * Dispatched when you successfully connect to the Lavalink node
+   */
+  READY = "ready",
+  /**
+   * Dispatched when the node sends stats once per minute
+   */
+  STATS = "stats",
+}
+
 export enum EventType {
+  /**
+   * Dispatched when a track ends
+   */
   TrackEndEvent = "TrackEndEvent",
+  /**
+   * Dispatched when a track throws an exception
+   */
   TrackExceptionEvent = "TrackExceptionEvent",
+  /**
+   * Dispatched when a track starts playing
+   */
   TrackStartEvent = "TrackStartEvent",
+  /**
+   * Dispatched when a track gets stuck while playing
+   */
   TrackStuckEvent = "TrackStuckEvent",
+  /**
+   * Dispatched when the websocket connection to Discord voice servers is closed
+   */
   WebSocketClosedEvent = "WebSocketClosedEvent",
 }
 
-export interface RawEventBase {
+export interface EventBase {
+  /**
+   * The guild id
+   */
   guildId: string;
-  op: "event";
+  /**
+   * Event op
+   */
+  op: OPType.EVENT;
+  /**
+   * The type of event
+   */
+  type: EventType;
 }
 
-export interface RawEventTypeTrackEndEvent extends RawEventBase {
-  reason: "LOAD_FAILED" | "FINISHED" | "REPLACED";
-  track: string;
-  type: "TrackEndEvent";
+export enum TrackEndReason {
+  /**
+   * The track was cleaned up
+   *
+   * May start next: false
+   */
+  CLEANUP = "cleanup",
+  /**
+   * The track finished playing
+   *
+   * May start next: true
+   */
+  FINISHED = "finished",
+  /**
+   * The track failed to load
+   *
+   * May start next: true
+   */
+  LOAD_FAILED = "loadFailed",
+  /**
+   * The track was replaced
+   *
+   * May start next: false
+   */
+  REPLACED = "replaced",
+  /**
+   * The track was stopped
+   *
+   * May start next: false
+   */
+  STOPPED = "stopped",
 }
 
-export interface RawEventTypeTrackExceptionEvent extends RawEventBase {
-  error: string;
-  exception: {
-    cause: string;
-    message: string;
-    severity: "COMMON";
-  };
-  track: string;
-  type: "TrackExceptionEvent";
+export interface TrackEndEvent extends EventBase {
+  /**
+   * The reason the track ended
+   */
+  reason: TrackEndReason;
+  /**
+   * The track that ended playing
+   */
+  track: Track;
+  /**
+   * The type of event
+   */
+  type: EventType.TrackEndEvent;
 }
 
-export interface RawEventTypeTrackStartEvent extends RawEventBase {
-  track: string;
-  type: "TrackStartEvent";
+export interface TrackExceptionEvent extends EventBase {
+  /**
+   * The occurred exception
+   */
+  exception: Exception;
+  /**
+   * The track that threw the exception
+   */
+  track: Track;
+  /**
+   * The type of event
+   */
+  type: EventType.TrackExceptionEvent;
 }
 
-export interface RawEventTypeTrackStuckEvent extends RawEventBase {
+export interface TrackStartEvent extends EventBase {
+  /**
+   * The track that threw the exception
+   */
+  track: Track;
+  /**
+   * The type of event
+   */
+  type: EventType.TrackStartEvent;
+}
+
+export interface TrackStuckEvent extends EventBase {
+  /**
+   * The threshold in milliseconds that was exceeded
+   */
   thresholdMs: number;
-  track: string;
-  type: "TrackStuckEvent";
+  /**
+   * The track that threw the exception
+   */
+  track: Track;
+  /**
+   * The type of event
+   */
+  type: EventType.TrackStuckEvent;
 }
 
-export interface RawEventTypeWebSocketClosedEvent extends RawEventBase {
+export interface WebSocketClosedEvent extends EventBase {
+  /**
+   * Whether the connection was closed by Discord
+   */
   byRemote: boolean;
+  /**
+   * The Discord close [event code](https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes)
+   */
   code: number;
+  /**
+   * The close reason
+   */
   reason: string;
-  type: "WebSocketClosedEvent";
+  /**
+   * The type of event
+   */
+  type: EventType.WebSocketClosedEvent;
 }
 
-export type RawEventType =
-  | RawEventTypeTrackEndEvent
-  | RawEventTypeTrackExceptionEvent
-  | RawEventTypeTrackStartEvent
-  | RawEventTypeTrackStuckEvent
-  | RawEventTypeWebSocketClosedEvent;
+export type OPEvent =
+  | TrackEndEvent
+  | TrackExceptionEvent
+  | TrackStartEvent
+  | TrackStuckEvent
+  | WebSocketClosedEvent;
 
-export interface WsRawEventStats {
-  cpu: {
-    cores: number;
-    lavalinkLoad: number;
-    systemLoad: number;
-  };
-  memory: {
-    allocated: number;
-    free: number;
-    reservable: number;
-    used: number;
-  };
-  op: "stats";
+export interface OPReady {
+  op: OPType.READY;
+}
+
+export interface CPUStats {
+  cores: number;
+  lavalinkLoad: number;
+  systemLoad: number;
+}
+
+export interface MemoryStats {
+  allocated: number;
+  free: number;
+  reservable: number;
+  used: number;
+}
+
+export interface OPStats {
+  cpu: CPUStats;
+  memory: MemoryStats;
+  op: OPType.STATS;
   players: number;
   playingPlayers: number;
   uptime: number;
 }
 
-export interface WsRawEventPlayerUpdate {
-  guildId: string;
-  op: "playerUpdate";
-  state: { connected: boolean; position?: number; time: number };
+export interface PlayerState {
+  connected: boolean;
+  position?: number;
+  time: number;
 }
 
-export type WRawEventType =
-  | RawEventType
-  | WsRawEventStats
-  | WsRawEventPlayerUpdate;
+export interface OPPlayerUpdate {
+  guildId: string;
+  op: OPType.PLAYER_UPDATE;
+  state: PlayerState;
+}
+
+export type OpResponse = OPEvent | OPReady | OPStats | OPPlayerUpdate;

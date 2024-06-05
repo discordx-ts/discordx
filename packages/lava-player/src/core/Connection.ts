@@ -4,18 +4,25 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
+
 import backoff from "backoff";
 import type { IncomingMessage } from "http";
 import WebSocket from "ws";
 
 import type { BaseNode } from "../base/Node.js";
 
+/**
+ * Interface representing data that can be sent.
+ */
 interface Sendable {
   data: Buffer | string;
   reject: (e: Error) => void;
   resolve: () => void;
 }
 
+/**
+ * Interface representing HTTP headers.
+ */
 interface Headers {
   Authorization: string;
   "Client-Name": string;
@@ -24,11 +31,18 @@ interface Headers {
   "User-Id": string;
 }
 
+/**
+ * Interface representing connection options.
+ */
 export interface ConnectionOptions extends WebSocket.ClientOptions {
   resumeKey?: string;
   resumeTimeout?: number;
 }
 
+/**
+ * Class representing a WebSocket connection.
+ * @template T - The type of node.
+ */
 export class Connection<T extends BaseNode = BaseNode> {
   public readonly node: T;
   public url: string;
@@ -86,6 +100,12 @@ export class Connection<T extends BaseNode = BaseNode> {
 
   private _queue: Array<Sendable> = [];
 
+  /**
+   * Constructor for the Connection class.
+   * @param node - The node instance.
+   * @param url - The WebSocket URL.
+   * @param options - The connection options.
+   */
   constructor(node: T, url: string, options: ConnectionOptions = {}) {
     this.node = node;
     this.url = url;
@@ -97,10 +117,16 @@ export class Connection<T extends BaseNode = BaseNode> {
     this.connect();
   }
 
+  /**
+   * Getter for the backoff property.
+   */
   public get backoff(): backoff.Backoff {
     return this._backoff;
   }
 
+  /**
+   * Setter for the backoff property.
+   */
   public set backoff(b: backoff.Backoff) {
     b.on("ready", (number, delay) => {
       this.reconnectTimeout = delay;
@@ -115,6 +141,9 @@ export class Connection<T extends BaseNode = BaseNode> {
     this._backoff = b;
   }
 
+  /**
+   * Connects to the WebSocket server.
+   */
   public connect(): void {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       this.ws.close();
@@ -135,6 +164,11 @@ export class Connection<T extends BaseNode = BaseNode> {
     this._registerWSEventListeners();
   }
 
+  /**
+   * Configures resuming for the connection.
+   * @param timeout - The resume timeout.
+   * @param key - The resume key.
+   */
   public configureResuming(
     timeout = 60,
     key: string = Math.random().toString(36),
@@ -148,6 +182,10 @@ export class Connection<T extends BaseNode = BaseNode> {
     });
   }
 
+  /**
+   * Sends data through the WebSocket connection.
+   * @param d - The data to send.
+   */
   public send(d: object): Promise<void> {
     return new Promise((resolve, reject) => {
       const encoded = JSON.stringify(d);
@@ -161,6 +199,11 @@ export class Connection<T extends BaseNode = BaseNode> {
     });
   }
 
+  /**
+   * Closes the WebSocket connection.
+   * @param code - The close code.
+   * @param data - The close data.
+   */
   public close(code?: number, data?: string): Promise<void> {
     if (!this.ws) {
       return Promise.resolve();
@@ -177,12 +220,18 @@ export class Connection<T extends BaseNode = BaseNode> {
     });
   }
 
+  /**
+   * Reconnects the WebSocket connection.
+   */
   private _reconnect() {
     if (this.ws.readyState === WebSocket.CLOSED) {
       this.backoff.backoff();
     }
   }
 
+  /**
+   * Registers WebSocket event listeners.
+   */
   private _registerWSEventListeners() {
     for (const [event, listener] of Object.entries(this._listeners)) {
       if (!this.ws.listeners(event).includes(listener)) {
@@ -191,11 +240,18 @@ export class Connection<T extends BaseNode = BaseNode> {
     }
   }
 
+  /**
+   * Flushes the send queue.
+   */
   private async _flush() {
     await Promise.all(this._queue.map((queue) => this._send(queue)));
     this._queue = [];
   }
 
+  /**
+   * Sends data through the WebSocket connection.
+   * @param sendable - The data to send.
+   */
   private _send({ resolve, reject, data }: Sendable) {
     this.ws.send(data, (err) => {
       if (err) {

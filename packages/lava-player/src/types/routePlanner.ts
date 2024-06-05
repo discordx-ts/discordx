@@ -4,40 +4,59 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-export type RoutePlannerStatus = NanoIpRoutePlanner | RotatingIpRoutePlanner;
+export type RoutePlannerStatus =
+  | RotatingIpPlanner
+  | NanoIpPlanner
+  | RotatingNanoIpPlanner;
 
-export interface BaseRoutePlannerStatusDetails {
-  failingAddresses: {
-    address: string;
-    failingTime: string;
-    failingTimestamp: number;
-  }[];
-  ipBlock: {
-    size: string;
-    type: string;
-  };
+export enum RoutePlannerClass {
+  NanoIp = "NanoIpRoutePlanner",
+  RotatingIp = "RotatingIpRoutePlanner",
+  RotatingNanoIp = "RotatingNanoIpRoutePlanner",
 }
 
-export interface RotatingIpRoutePlanner {
-  class: "RotatingIpRoutePlanner";
-  details: BaseRoutePlannerStatusDetails & {
-    currentAddress: string;
-    ipIndex: string;
-    rotateIndex: string;
-  };
+export interface FailingAddress {
+  address: string;
+  failingTime: string;
+  failingTimestamp: number;
 }
 
-export interface NanoIpRoutePlanner {
-  class: "NanoIpRoutePlanner";
-  details: BaseRoutePlannerStatusDetails & {
-    currentAddressIndex: number;
-  };
+export interface IpBlock {
+  size: string;
+  type: string;
 }
 
-export interface RotatingNanoIpRoutePlanner {
-  class: "RotatingNanoIpRoutePlanner";
-  details: BaseRoutePlannerStatusDetails & {
-    blockIndex: string;
-    currentAddressIndex: number;
-  };
+export interface BasePlannerDetails {
+  failingAddresses: FailingAddress[];
+  ipBlock: IpBlock;
+}
+
+export interface RotatingIpDetails extends BasePlannerDetails {
+  currentAddress: string;
+  ipIndex: string;
+  rotateIndex: string;
+}
+
+export interface RotatingIpPlanner {
+  class: RoutePlannerClass.RotatingIp;
+  details: RotatingIpDetails;
+}
+
+export interface NanoIpDetails extends BasePlannerDetails {
+  currentAddressIndex: number;
+}
+
+export interface NanoIpPlanner {
+  class: RoutePlannerClass.NanoIp;
+  details: NanoIpDetails;
+}
+
+export interface RotatingNanoIpDetails extends BasePlannerDetails {
+  blockIndex: string;
+  currentAddressIndex: number;
+}
+
+export interface RotatingNanoIpPlanner {
+  class: RoutePlannerClass.RotatingNanoIp;
+  details: RotatingNanoIpDetails;
 }

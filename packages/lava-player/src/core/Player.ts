@@ -12,12 +12,13 @@ import type {
   EqualizerBand,
   FilterOptions,
   JoinOptions,
+  OPEvent,
   PlayerOptions,
   Track,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
-import { EventType, Status } from "../types/index.js";
+import { EventType, Status, TrackEndReason } from "../types/index.js";
 
 export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
   public readonly node: T;
@@ -29,14 +30,14 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     this.node = node;
     this.guildId = guildId;
 
-    this.on("event", (d) => {
+    this.on("event", (d: OPEvent) => {
       switch (d.type) {
         case EventType.TrackStartEvent:
           this.status = Status.PLAYING;
           break;
 
         case EventType.TrackEndEvent:
-          if (d.reason !== "REPLACED") {
+          if (d.reason !== TrackEndReason.REPLACED) {
             this.status = Status.ENDED;
           }
           break;
@@ -123,6 +124,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     track: string | Track,
     { start, end, noReplace, pause }: PlayerOptions = {},
   ): Promise<void> {
+    await Promise.resolve();
     await this.send("play", {
       endTime: end,
       noReplace,

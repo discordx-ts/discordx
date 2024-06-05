@@ -72,6 +72,10 @@ export abstract class BaseNode extends EventEmitter {
     throw new Error("no available http module");
   }
 
+  public getVersion(): Promise<string> {
+    return this.http.getVersion();
+  }
+
   public decode(track: string): Promise<Track> {
     return this.http.decode(track);
   }

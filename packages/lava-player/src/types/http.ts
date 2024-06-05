@@ -98,7 +98,7 @@ export interface PlaylistResponseData {
   tracks: Track[];
 }
 
-export enum ErrorSeverity {
+export enum ExceptionSeverity {
   /**
    * The cause is known and expected, indicates that there is nothing wrong with the library itself
    */
@@ -113,7 +113,7 @@ export enum ErrorSeverity {
   SUSPICIOUS = "suspicious",
 }
 
-export interface ErrorResponseData {
+export interface Exception {
   /**
    * The cause of the exception
    */
@@ -125,7 +125,7 @@ export interface ErrorResponseData {
   /**
    * The severity of the exception
    */
-  severity: ErrorSeverity;
+  severity: ExceptionSeverity;
 }
 
 export enum LoadType {
@@ -172,7 +172,7 @@ export interface TrackResponseTypeEmpty {
 }
 
 export interface TrackResponseTypeError {
-  data: null;
+  data: Exception;
   loadType: LoadType.ERROR;
 }
 
