@@ -41,6 +41,5 @@ export interface HostOptions {
 export interface BaseNodeOptions {
   host?: HostOptions;
   password: string;
-  shardCount?: number;
   userId: string;
 }

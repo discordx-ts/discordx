@@ -12,6 +12,7 @@ import PlayerStore from "../core/player-store.js";
 import { Rest } from "../core/rest.js";
 import type {
   BaseNodeOptions,
+  OPReady,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
@@ -21,7 +22,7 @@ export abstract class BaseNode extends EventEmitter {
 
   public password: string;
   public userId: string;
-  public shardCount?: number;
+  public sessionId: string | null = null;
 
   public connection: Connection;
   public players: PlayerStore<this> = new PlayerStore(this);
@@ -32,11 +33,10 @@ export abstract class BaseNode extends EventEmitter {
 
   private _expectingConnection: Set<string> = new Set();
 
-  constructor({ password, userId, shardCount, host }: BaseNodeOptions) {
+  constructor({ password, userId, host }: BaseNodeOptions) {
     super();
     this.password = password;
     this.userId = userId;
-    this.shardCount = shardCount;
 
     const restIsSecure = host?.rest?.secure ?? host?.secure ?? false;
     const restAddress = host?.rest?.address ?? host?.address ?? "localhost";
@@ -56,6 +56,10 @@ export abstract class BaseNode extends EventEmitter {
       `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}/v4/websocket`,
       host?.connectionOptions,
     );
+
+    this.on("ready", (d: OPReady) => {
+      this.sessionId = d.sessionId;
+    });
   }
 
   public get connected(): boolean {
@@ -109,7 +113,13 @@ export abstract class BaseNode extends EventEmitter {
       return false;
     }
 
-    await this.players.get(guildId).voiceUpdate(state.session_id, server);
+    await this.players.get(guildId).update({
+      voice: {
+        endpoint: server.endpoint,
+        sessionId: state.session_id,
+        token: server.token,
+      },
+    });
     this._expectingConnection.delete(guildId);
     return true;
   }

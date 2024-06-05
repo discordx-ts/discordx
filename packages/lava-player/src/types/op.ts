@@ -1,11 +1,12 @@
-import type { Exception, Track } from "./rest.js";
-
 /*
  * -------------------------------------------------------------------------------------------------------
  * Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena). All rights reserved.
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
+
+import type { PlayerState } from "../index.js";
+import type { Exception, Track } from "./rest.js";
 
 export enum OPType {
   /**
@@ -214,12 +215,6 @@ export interface OPStats {
   players: number;
   playingPlayers: number;
   uptime: number;
-}
-
-export interface PlayerState {
-  connected: boolean;
-  position?: number;
-  time: number;
 }
 
 export interface OPPlayerUpdate {

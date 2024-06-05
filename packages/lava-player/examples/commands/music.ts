@@ -25,10 +25,10 @@ export class MusicPlayer {
 
   @Once()
   ready(_: ArgsOf<"ready">, client: Client): void {
-    const nodeX = new Node({
+    const nodeInstance = new Node({
       host: {
         address: process.env.LAVA_HOST ?? "localhost",
-        connectionOptions: { resumeKey: "discordx", resumeTimeout: 15 },
+        connectionOptions: { sessionId: "discordx" },
         port: process.env.LAVA_PORT ? Number(process.env.LAVA_PORT) : 2333,
       },
 
@@ -41,34 +41,33 @@ export class MusicPlayer {
           guild.shard.send(packet);
         }
       },
-      shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
       userId: client.user?.id ?? "", // the user id of your bot
     });
 
-    nodeX.connection.ws.on("message", (data) => {
+    nodeInstance.connection.ws.on("message", (data) => {
       const raw = JSON.parse(data.toString()) as OpResponse;
       console.log("ws>>", raw);
     });
 
-    nodeX.on("error", (e) => {
+    nodeInstance.on("error", (e) => {
       console.log(e);
     });
 
     client.ws.on(
       GatewayDispatchEvents.VoiceStateUpdate,
       (data: VoiceStateUpdate) => {
-        nodeX.voiceStateUpdate(data);
+        nodeInstance.voiceStateUpdate(data);
       },
     );
 
     client.ws.on(
       GatewayDispatchEvents.VoiceServerUpdate,
       (data: VoiceServerUpdate) => {
-        nodeX.voiceServerUpdate(data);
+        nodeInstance.voiceServerUpdate(data);
       },
     );
 
-    this.node = nodeX;
+    this.node = nodeInstance;
   }
 
   @Slash({ description: "bot will join your music channel" })
@@ -91,10 +90,62 @@ export class MusicPlayer {
     }
 
     const player = this.node.players.get(interaction.guildId);
-    await player.join(interaction.member.voice.channelId, { deaf: true });
+    await player.join({ channel: interaction.member.voice.channelId });
 
     interaction.followUp("I am ready to rock :smile:");
 
+    return;
+  }
+
+  @Slash({ description: "bot will leave your music channel" })
+  async leave(interaction: CommandInteraction): Promise<void> {
+    await interaction.deferReply();
+
+    if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
+      interaction.followUp("could not process this command, try again");
+      return;
+    }
+
+    if (!this.node) {
+      interaction.followUp("lavalink player is not ready");
+      return;
+    }
+
+    if (!interaction.member.voice.channelId) {
+      interaction.followUp("please join a voice channel first");
+      return;
+    }
+
+    const player = this.node.players.get(interaction.guildId);
+    await player.leave();
+
+    interaction.followUp("Left it!");
+    return;
+  }
+
+  @Slash({ description: "destroy player" })
+  async destroy(interaction: CommandInteraction): Promise<void> {
+    await interaction.deferReply();
+
+    if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
+      interaction.followUp("could not process this command, try again");
+      return;
+    }
+
+    if (!this.node) {
+      interaction.followUp("lavalink player is not ready");
+      return;
+    }
+
+    if (!interaction.member.voice.channelId) {
+      interaction.followUp("please join a voice channel first");
+      return;
+    }
+
+    const player = this.node.players.get(interaction.guildId);
+    await player.destroy();
+
+    interaction.followUp("Destroyed it!");
     return;
   }
 
@@ -127,7 +178,7 @@ export class MusicPlayer {
 
     const player = this.node.players.get(interaction.guildId);
     if (!player.voiceServer) {
-      await player.join(interaction.member.voice.channelId, { deaf: true });
+      await player.join({ channel: interaction.member.voice.channelId });
     }
 
     const version = await this.node.rest.getVersion();
@@ -140,7 +191,9 @@ export class MusicPlayer {
 
     const track = res.data[0];
     if (track) {
-      await player.play(track);
+      await player.updatePlayer({
+        track,
+      });
       await interaction.followUp(`playing ${track.info.title}`);
     } else {
       await interaction.followUp("Song not found with given input");

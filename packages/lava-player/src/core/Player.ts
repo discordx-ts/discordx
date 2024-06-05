@@ -9,17 +9,18 @@ import { EventEmitter } from "events";
 
 import type { BaseNode } from "../base/base-node.js";
 import type {
-  EqualizerBand,
-  FilterOptions,
-  JoinOptions,
   OPEvent,
-  OPReady,
-  PlayerOptions,
-  Track,
+  PlayerUpdate,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
 import { EventType, PlayerStatus, TrackEndReason } from "../types/index.js";
+
+export interface JoinOptions {
+  channel: string | null;
+  deaf?: boolean;
+  mute?: boolean;
+}
 
 export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
   public readonly node: T;
@@ -30,11 +31,6 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     super();
     this.node = node;
     this.guildId = guildId;
-
-    this.on("ready", (d: OPReady) => {
-      console.log(">> Ready session", d);
-      // this.sessionId = d.sessionId;
-    });
 
     this.on("event", (d: OPEvent) => {
       switch (d.type) {
@@ -104,14 +100,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     ]);
   }
 
-  public leave(): Promise<any> {
-    return this.join(null);
-  }
-
-  public join(
-    channel: string | null,
-    { deaf = false, mute = false }: JoinOptions = {},
-  ): Promise<any> {
+  public join({ channel, deaf, mute }: JoinOptions): Promise<any> {
     this.node.voiceServers.delete(this.guildId);
     this.node.voiceStates.delete(this.guildId);
 
@@ -119,91 +108,25 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
       d: {
         channel_id: channel,
         guild_id: this.guildId,
-        self_deaf: deaf,
-        self_mute: mute,
+        self_deaf: deaf ?? false,
+        self_mute: mute ?? true,
       },
       op: 4,
     });
   }
 
-  public async play(
-    track: string | Track,
-    { start, end, noReplace, pause }: PlayerOptions = {},
-  ): Promise<void> {
-    await this.send("play", {
-      endTime: end,
-      noReplace,
-      pause,
-      startTime: start,
-      track: typeof track === "object" ? track.encoded : track,
-    });
+  public leave(): Promise<any> {
+    return this.join({ channel: null });
+  }
 
+  public async update(payload: Partial<PlayerUpdate>): Promise<void> {
+    await this.node.rest.updatePlayer(this.guildId, payload);
     this.status = PlayerStatus.PLAYING;
   }
 
-  public setVolume(vol: number): Promise<void> {
-    return this.send("volume", { volume: vol });
-  }
-
-  public setEqualizer(bands: EqualizerBand[]): Promise<void> {
-    return this.send("equalizer", { bands });
-  }
-
-  public setFilters(options: FilterOptions): Promise<void> {
-    return this.send("filters", options);
-  }
-
-  public seek(position: number): Promise<void> {
-    return this.send("seek", { position });
-  }
-
-  public async pause(paused = true): Promise<void> {
-    await this.send("pause", { pause: paused });
-
-    if (paused) {
-      this.status = PlayerStatus.PAUSED;
-    } else {
-      this.status = PlayerStatus.PLAYING;
-    }
-  }
-
-  public async stop(): Promise<void> {
-    await this.send("stop");
-    this.status = PlayerStatus.ENDED;
-  }
-
   public async destroy(): Promise<void> {
-    if (this.node.connected) {
-      await this.send("destroy");
-    }
+    await this.node.rest.destroyPlayer(this.guildId);
     this.status = PlayerStatus.ENDED;
     this.node.players.delete(this.guildId);
-  }
-
-  public voiceUpdate(
-    sessionId: string,
-    event: VoiceServerUpdate,
-  ): Promise<void> {
-    return this.send("voiceUpdate", {
-      event,
-      sessionId,
-    });
-  }
-
-  public send(op: string, d: object = {}): Promise<void> {
-    const conn = this.node.connection;
-    if (conn) {
-      return conn.send(
-        Object.assign(
-          {
-            guildId: this.guildId,
-            op,
-          },
-          d,
-        ),
-      );
-    } else {
-      return Promise.reject(new Error("no WebSocket connection available"));
-    }
   }
 }

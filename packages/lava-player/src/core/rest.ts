@@ -10,6 +10,7 @@ import { URL } from "url";
 
 import type { BaseNode } from "../base/base-node.js";
 import type {
+  PlayerUpdate,
   RoutePlannerStatus,
   Track,
   TrackResponse,
@@ -90,10 +91,21 @@ export class Rest {
     return this.do("POST", url, Buffer.from(JSON.stringify(encodedTracks)));
   }
 
-  //  public updatePlayer() {
-  //    const url = this.url(`sessions/${this.sessionId}/players/${data.guildId}`);
-  //    return this.do("POST", url, Buffer.from(JSON.stringify(encodedTracks)));
-  //  }
+  public async updatePlayer(
+    guildId: string,
+    payload: Partial<PlayerUpdate>,
+  ): Promise<void> {
+    const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
+    const url = this.node.rest.url(uri);
+    url.searchParams.append("noReplace", "true");
+    await this.node.rest.do("PATCH", url, Buffer.from(JSON.stringify(payload)));
+  }
+
+  public async destroyPlayer(guildId: string): Promise<void> {
+    const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
+    const url = this.node.rest.url(uri);
+    await this.node.rest.do("DELETE", url);
+  }
 
   public async do<T = any>(
     method: string,
@@ -124,7 +136,7 @@ export class Rest {
       req.end();
     });
 
-    if (message.statusCode !== 200) {
+    if (message.statusCode && ![200, 204].includes(message.statusCode)) {
       throw new HTTPError(message, method, url);
     }
 
