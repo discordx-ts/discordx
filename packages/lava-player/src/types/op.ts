@@ -1,4 +1,4 @@
-import type { Exception, Track } from "./http.js";
+import type { Exception, Track } from "./rest.js";
 
 /*
  * -------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ export interface EventBase {
    */
   guildId: string;
   /**
-   * Event op
+   * Type of OP
    */
   op: OPType.EVENT;
   /**
@@ -180,7 +180,18 @@ export type OPEvent =
   | WebSocketClosedEvent;
 
 export interface OPReady {
+  /**
+   * The type of OP
+   */
   op: OPType.READY;
+  /**
+   * Whether this session was resumed
+   */
+  resumed: boolean;
+  /**
+   * The Lavalink session id of this connection. Not to be confused with a Discord voice session id
+   */
+  sessionId: string;
 }
 
 export interface CPUStats {

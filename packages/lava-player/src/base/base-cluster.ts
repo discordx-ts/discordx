@@ -6,8 +6,8 @@
  */
 import { EventEmitter } from "events";
 
-import type { ClusterNodeOptions } from "../ClusterNode.js";
-import ClusterNode from "../ClusterNode.js";
+import type { ClusterNodeOptions } from "../cluster-node.js";
+import ClusterNode from "../cluster-node.js";
 import type { Player } from "../core/player.js";
 import type { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 

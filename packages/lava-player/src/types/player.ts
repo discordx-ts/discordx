@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-export enum Status {
+export enum PlayerStatus {
   INSTANTIATED,
   PLAYING,
   PAUSED,

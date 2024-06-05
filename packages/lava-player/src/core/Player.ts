@@ -7,66 +7,72 @@
 /* eslint-disable camelcase */
 import { EventEmitter } from "events";
 
-import type { BaseNode } from "../base/Node.js";
+import type { BaseNode } from "../base/base-node.js";
 import type {
   EqualizerBand,
   FilterOptions,
   JoinOptions,
   OPEvent,
+  OPReady,
   PlayerOptions,
   Track,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
-import { EventType, Status, TrackEndReason } from "../types/index.js";
+import { EventType, PlayerStatus, TrackEndReason } from "../types/index.js";
 
 export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
   public readonly node: T;
   public guildId: string;
-  public status: Status = Status.INSTANTIATED;
+  public status: PlayerStatus = PlayerStatus.INSTANTIATED;
 
   constructor(node: T, guildId: string) {
     super();
     this.node = node;
     this.guildId = guildId;
 
+    this.on("ready", (d: OPReady) => {
+      console.log(">> Ready session", d);
+      // this.sessionId = d.sessionId;
+    });
+
     this.on("event", (d: OPEvent) => {
       switch (d.type) {
         case EventType.TrackStartEvent:
-          this.status = Status.PLAYING;
+          this.status = PlayerStatus.PLAYING;
           break;
 
         case EventType.TrackEndEvent:
           if (d.reason !== TrackEndReason.REPLACED) {
-            this.status = Status.ENDED;
+            this.status = PlayerStatus.ENDED;
           }
           break;
 
         case EventType.TrackExceptionEvent:
-          this.status = Status.ERRORED;
+          this.status = PlayerStatus.ERRORED;
           break;
 
         case EventType.TrackStuckEvent:
-          this.status = Status.STUCK;
+          this.status = PlayerStatus.STUCK;
           break;
 
         case EventType.WebSocketClosedEvent:
-          this.status = Status.ENDED;
+          this.status = PlayerStatus.ENDED;
           break;
 
         default:
-          this.status = Status.UNKNOWN;
+          this.status = PlayerStatus.UNKNOWN;
           break;
       }
     });
   }
 
   public get playing(): boolean {
-    return this.status === Status.PLAYING;
+    return this.status === PlayerStatus.PLAYING;
   }
 
   public get paused(): boolean {
-    return this.status === Status.PAUSED;
+    return this.status === PlayerStatus.PAUSED;
   }
 
   public get voiceState(): VoiceStateUpdate | undefined {
@@ -132,7 +138,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
       track: typeof track === "object" ? track.encoded : track,
     });
 
-    this.status = Status.PLAYING;
+    this.status = PlayerStatus.PLAYING;
   }
 
   public setVolume(vol: number): Promise<void> {
@@ -155,22 +161,22 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     await this.send("pause", { pause: paused });
 
     if (paused) {
-      this.status = Status.PAUSED;
+      this.status = PlayerStatus.PAUSED;
     } else {
-      this.status = Status.PLAYING;
+      this.status = PlayerStatus.PLAYING;
     }
   }
 
   public async stop(): Promise<void> {
     await this.send("stop");
-    this.status = Status.ENDED;
+    this.status = PlayerStatus.ENDED;
   }
 
   public async destroy(): Promise<void> {
     if (this.node.connected) {
       await this.send("destroy");
     }
-    this.status = Status.ENDED;
+    this.status = PlayerStatus.ENDED;
     this.node.players.delete(this.guildId);
   }
 

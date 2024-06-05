@@ -8,7 +8,7 @@ import type { IncomingHttpHeaders, IncomingMessage } from "http";
 import { request, STATUS_CODES } from "http";
 import { URL } from "url";
 
-import type { BaseNode } from "../base/Node.js";
+import type { BaseNode } from "../base/base-node.js";
 import type {
   RoutePlannerStatus,
   Track,
@@ -89,6 +89,11 @@ export class Rest {
     const url = this.url("decodetracks");
     return this.do("POST", url, Buffer.from(JSON.stringify(encodedTracks)));
   }
+
+  //  public updatePlayer() {
+  //    const url = this.url(`sessions/${this.sessionId}/players/${data.guildId}`);
+  //    return this.do("POST", url, Buffer.from(JSON.stringify(encodedTracks)));
+  //  }
 
   public async do<T = any>(
     method: string,

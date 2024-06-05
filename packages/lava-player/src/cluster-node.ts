@@ -4,8 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { BaseCluster } from "./base/Cluster.js";
-import { BaseNode } from "./base/Node.js";
+import type { BaseCluster } from "./base/base-cluster.js";
+import { BaseNode } from "./base/base-node.js";
 import type { BaseNodeOptions } from "./types/index.js";
 
 export interface ClusterNodeOptions extends BaseNodeOptions {

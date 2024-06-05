@@ -9,7 +9,7 @@ import backoff from "backoff";
 import type { IncomingMessage } from "http";
 import WebSocket from "ws";
 
-import type { BaseNode } from "../base/Node.js";
+import type { BaseNode } from "../base/base-node.js";
 
 /**
  * Interface representing data that can be sent.

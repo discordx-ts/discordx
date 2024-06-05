@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { BaseNode } from "./base/Node.js";
+import { BaseNode } from "./base/base-node.js";
 import type { BaseNodeOptions } from "./types/index.js";
 
 export interface NodeOptions extends BaseNodeOptions {

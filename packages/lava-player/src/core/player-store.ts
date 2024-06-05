@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { BaseNode } from "../base/Node.js";
+import type { BaseNode } from "../base/base-node.js";
 import { Player } from "./player.js";
 
 export default class PlayerStore<T extends BaseNode = BaseNode> extends Map<
