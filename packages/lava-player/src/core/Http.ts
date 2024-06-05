@@ -9,7 +9,7 @@ import { request, STATUS_CODES } from "http";
 import { URL } from "url";
 
 import type { BaseNode } from "../base/Node.js";
-import type { Track, TrackInfo, TrackResponse } from "../types/index.js";
+import type { Track, TrackResponse } from "../types/index.js";
 import RoutePlanner from "./RoutePlanner.js";
 
 export class HTTPError extends Error {
@@ -39,41 +39,34 @@ export class HTTPError extends Error {
 
 export class Http {
   public readonly node: BaseNode;
-  public input: string;
-  public base?: string;
+  public base: string;
   public routePlanner: RoutePlanner = new RoutePlanner(this);
 
-  constructor(node: BaseNode, input: string, base?: string) {
+  constructor(node: BaseNode, base: string) {
     this.node = node;
-    this.input = input;
     this.base = base;
   }
 
-  public url(): URL {
-    return new URL(this.input, this.base);
+  public url(input: string): URL {
+    return new URL(input, this.base);
   }
 
   public load(identifier: string): Promise<TrackResponse> {
-    const url = this.url();
-    url.pathname = "/loadtracks";
+    const url = this.url("loadtracks");
     url.searchParams.append("identifier", identifier);
 
     return this.do("GET", url);
   }
 
-  public decode(track: string): Promise<TrackInfo>;
-  public decode(tracks: string[]): Promise<Track[]>;
-  public decode(tracks: string | string[]): Promise<TrackInfo | Track[]>;
-  public decode(tracks: string | string[]): Promise<TrackInfo | Track[]> {
-    const url = this.url();
-    if (Array.isArray(tracks)) {
-      url.pathname = "/decodetracks";
-      return this.do("POST", url, Buffer.from(JSON.stringify(tracks)));
-    } else {
-      url.pathname = "/decodetrack";
-      url.searchParams.append("track", tracks);
-      return this.do("GET", url);
-    }
+  public decode(encodedTrack: string): Promise<Track> {
+    const url = this.url("decodetrack");
+    url.searchParams.append("encodedTrack", encodedTrack);
+    return this.do("GET", url);
+  }
+
+  public decodes(encodedTracks: string[]): Promise<Track[]> {
+    const url = this.url("decodetracks");
+    return this.do("POST", url, Buffer.from(JSON.stringify(encodedTracks)));
   }
 
   public async do<T = any>(

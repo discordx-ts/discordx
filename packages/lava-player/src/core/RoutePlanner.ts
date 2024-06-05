@@ -11,15 +11,13 @@ export default class RoutePlanner {
   constructor(public readonly http: Http) {}
 
   public status(): Promise<RoutePlannerStatus> {
-    const url = this.http.url();
-    url.pathname = "/routeplanner/status";
+    const url = this.http.url("routeplanner/status");
     return this.http.do("get", url);
   }
 
   public unMark(address?: string): Promise<void> {
-    const url = this.http.url();
     if (address) {
-      url.pathname = "/routeplanner/free/address";
+      const url = this.http.url("routeplanner/free/address");
       return this.http.do(
         "post",
         url,
@@ -27,7 +25,7 @@ export default class RoutePlanner {
       );
     }
 
-    url.pathname = "/routeplanner/free/all";
+    const url = this.http.url("routeplanner/free/all");
     return this.http.do("post", url);
   }
 }

@@ -128,7 +128,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
       noReplace,
       pause,
       startTime: start,
-      track: typeof track === "object" ? track.track : track,
+      track: typeof track === "object" ? track.encoded : track,
     });
 
     this.status = Status.PLAYING;

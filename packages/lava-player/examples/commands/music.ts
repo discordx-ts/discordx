@@ -9,7 +9,7 @@ import type {
   VoiceStateUpdate,
   WRawEventType,
 } from "@discordx/lava-player";
-import { Node } from "@discordx/lava-player";
+import { LoadType, Node } from "@discordx/lava-player";
 import type { CommandInteraction } from "discord.js";
 import {
   ApplicationCommandOptionType,
@@ -33,7 +33,7 @@ export class MusicPlayer {
       },
 
       // your Lavalink password
-      password: process.env.LAVA_PASSWORD ?? "",
+      password: process.env.LAVA_PASSWORD ?? "youshallnotpass",
 
       send(guildId, packet) {
         const guild = client.guilds.cache.get(guildId);
@@ -126,14 +126,17 @@ export class MusicPlayer {
     }
 
     const player = this.node.players.get(interaction.guildId);
-
     if (!player.voiceServer) {
       await player.join(interaction.member.voice.channelId, { deaf: true });
     }
 
     const res = await this.node.load(`ytsearch:${song}`);
-    const track = res.tracks[0];
+    if (res.loadType !== LoadType.SEARCH) {
+      interaction.followUp("Track could not be loaded");
+      return;
+    }
 
+    const track = res.data[0];
     if (track) {
       await player.play(track);
       await interaction.followUp(`playing ${track.info.title}`);

@@ -13,7 +13,6 @@ import PlayerStore from "../core/PlayerStore.js";
 import type {
   BaseNodeOptions,
   Track,
-  TrackInfo,
   TrackResponse,
   VoiceServerUpdate,
   VoiceStateUpdate,
@@ -47,7 +46,7 @@ export abstract class BaseNode extends EventEmitter {
 
     this.http = new Http(
       this,
-      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}`,
+      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}/v4/`,
     );
 
     const wsIsSecure = host?.secure ?? false;
@@ -56,7 +55,7 @@ export abstract class BaseNode extends EventEmitter {
 
     this.connection = new Connection(
       this,
-      `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}`,
+      `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}/v4/websocket`,
       host?.connectionOptions,
     );
   }
@@ -73,13 +72,12 @@ export abstract class BaseNode extends EventEmitter {
     throw new Error("no available http module");
   }
 
-  public decode(track: string): Promise<TrackInfo>;
-  public decode(tracks: string[]): Promise<Track[]>;
-  public decode(tracks: string | string[]): Promise<TrackInfo | Track[]> {
-    if (this.http) {
-      return this.http.decode(tracks);
-    }
-    throw new Error("no available http module");
+  public decode(track: string): Promise<Track> {
+    return this.http.decode(track);
+  }
+
+  public decodes(tracks: string[]): Promise<Track[]> {
+    return this.http.decodes(tracks);
   }
 
   public voiceStateUpdate(packet: VoiceStateUpdate): Promise<boolean> {
