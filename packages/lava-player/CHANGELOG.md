@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.0.0
+
+### Major Changes
+
+- lavalink v4 support
+
 ## 1.1.1
 
 ### Patch Changes

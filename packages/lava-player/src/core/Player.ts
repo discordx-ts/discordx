@@ -10,7 +10,7 @@ import { EventEmitter } from "events";
 import type { BaseNode } from "../base/base-node.js";
 import type {
   OPEvent,
-  PlayerUpdate,
+  UpdatePlayer,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
@@ -119,7 +119,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     return this.join({ channel: null });
   }
 
-  public async update(payload: Partial<PlayerUpdate>): Promise<void> {
+  public async update(payload: UpdatePlayer): Promise<void> {
     await this.node.rest.updatePlayer(this.guildId, payload);
     this.status = PlayerStatus.PLAYING;
   }

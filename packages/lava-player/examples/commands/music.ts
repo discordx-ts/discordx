@@ -191,7 +191,7 @@ export class MusicPlayer {
 
     const track = res.data[0];
     if (track) {
-      await player.updatePlayer({
+      await player.update({
         track,
       });
       await interaction.followUp(`playing ${track.info.title}`);

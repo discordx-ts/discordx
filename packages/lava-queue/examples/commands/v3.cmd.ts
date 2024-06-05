@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { TrackResponse } from "@discordx/lava-player";
-import { LoadType, Status } from "@discordx/lava-player";
+import { LoadType, PlayerStatus } from "@discordx/lava-player";
 import { Player } from "@discordx/lava-queue";
 import type {
   ButtonInteraction,
@@ -129,14 +129,6 @@ export class MusicPlayer {
 
   @Slash({ description: "play" })
   async play(
-    @SlashChoice("URL", "SEARCH")
-    @SlashOption({
-      description: "type",
-      name: "type",
-      required: true,
-      type: ApplicationCommandOptionType.String,
-    })
-    type: "URL" | "SEARCH",
     @SlashOption({
       description: "input",
       name: "input",
@@ -154,53 +146,31 @@ export class MusicPlayer {
 
     const { queue, member, channel } = cmd;
 
-    await queue.lavaPlayer.join(member.voice.channelId, {
-      deaf: true,
+    await queue.lavaPlayer.join({
+      channel: member.voice.channelId,
     });
 
     queue.channel = channel;
+    const { loadType, data } = await queue.search(`ytsearch:${input}`);
 
-    let response: TrackResponse;
-
-    if (type === "URL") {
-      response = await queue.enqueue(input);
-    } else {
-      const searchResponse = await queue.search(input);
-      const track = searchResponse.tracks[0];
-      if (!track) {
-        interaction.followUp("> no search result");
-        return;
-      }
-
-      queue.tracks.push(track);
-      response = {
-        loadType: LoadType.TRACK_LOADED,
-        playlistInfo: {},
-        tracks: [track],
-      };
+    if (loadType !== LoadType.SEARCH || !data[0]) {
+      interaction.followUp("> no search result");
+      return;
     }
 
+    const track = data[0];
+    queue.tracks.push(track);
     if (
-      queue.lavaPlayer.status === Status.INSTANTIATED ||
-      queue.lavaPlayer.status === Status.UNKNOWN ||
-      queue.lavaPlayer.status === Status.ENDED
+      queue.lavaPlayer.status === PlayerStatus.INSTANTIATED ||
+      queue.lavaPlayer.status === PlayerStatus.UNKNOWN ||
+      queue.lavaPlayer.status === PlayerStatus.ENDED
     ) {
-      queue.playNext();
+      await queue.playNext();
     }
 
     const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
-    if (response.playlistInfo.name) {
-      embed.setDescription(
-        `Enqueued song ${response.tracks.length} from ${response.playlistInfo.name}`,
-      );
-    } else if (response.tracks.length === 1) {
-      embed.setDescription(
-        `Enqueued [${response.tracks[0]?.info.title}](<${response.tracks[0]?.info.uri}>)`,
-      );
-    } else {
-      embed.setDescription(`Enqueued ${response.tracks.length} tracks`);
-    }
+    embed.setDescription(`Enqueued ${track.info.title} track`);
 
     interaction.followUp({ embeds: [embed] });
     return;
@@ -236,7 +206,9 @@ export class MusicPlayer {
       return;
     }
 
-    queue.lavaPlayer.play(queue.currentTrack, { start: seconds * 1000 });
+    await queue.lavaPlayer.update({
+      position: seconds * 1000,
+    });
 
     interaction.followUp("> current track seeked");
     return;

@@ -10,10 +10,10 @@ import { URL } from "url";
 
 import type { BaseNode } from "../base/base-node.js";
 import type {
-  PlayerUpdate,
   RoutePlannerStatus,
   Track,
   TrackResponse,
+  UpdatePlayer,
 } from "../types/index.js";
 
 export class HTTPError extends Error {
@@ -93,7 +93,7 @@ export class Rest {
 
   public async updatePlayer(
     guildId: string,
-    payload: Partial<PlayerUpdate>,
+    payload: UpdatePlayer,
   ): Promise<void> {
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);

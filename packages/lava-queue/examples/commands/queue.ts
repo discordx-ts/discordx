@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Status } from "@discordx/lava-player";
+import { PlayerStatus } from "@discordx/lava-player";
 import type { Player } from "@discordx/lava-queue";
 import { Queue } from "@discordx/lava-queue";
 import {
@@ -33,7 +33,7 @@ export class MusicQueue extends Queue {
   channel?: TextBasedChannel;
 
   get isPlaying(): boolean {
-    return this.lavaPlayer.status === Status.PLAYING;
+    return this.lavaPlayer.status === PlayerStatus.PLAYING;
   }
 
   constructor(player: Player, guildId: string) {

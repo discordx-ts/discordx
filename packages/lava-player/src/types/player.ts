@@ -269,7 +269,7 @@ export interface PlayerVoiceState {
   token: string;
 }
 
-export interface PlayerUpdate {
+export interface GetPlayer {
   /**
    * The filters used by the player
    */
@@ -289,7 +289,7 @@ export interface PlayerUpdate {
   /**
    * The currently playing track
    */
-  track?: Track;
+  track: Track | null;
   /**
    * The voice state of the player
    */
@@ -298,4 +298,50 @@ export interface PlayerUpdate {
    * The volume of the player, range 0-1000, in percentage
    */
   volume: number;
+}
+
+export interface UpdateTrack {
+  /**
+   * The base64 encoded track to play. null stops the current track
+   */
+  encoded?: string | null;
+  /**
+   * The identifier of the track to play
+   */
+  identifier?: string;
+  /**
+   * Additional track data to be sent back in the Track Object
+   */
+  userData?: any;
+}
+
+export interface UpdatePlayer {
+  /**
+   * The track end time in milliseconds (must be > 0). null resets this if it was set previously
+   */
+  endTime?: number | null;
+  /**
+   * The new filters to apply. This will override all previously applied filters
+   */
+  filters?: PlayerFilters;
+  /**
+   * Whether the player is paused
+   */
+  paused?: boolean;
+  /**
+   * The track position in milliseconds
+   */
+  position?: number;
+  /**
+   * The currently playing track
+   */
+  track?: UpdateTrack;
+  /**
+   * Information required for connecting to Discord
+   */
+  voice?: PlayerVoiceState;
+  /**
+   * The player volume, in percentage, from 0 to 1000
+   */
+  volume?: number;
 }

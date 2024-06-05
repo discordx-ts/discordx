@@ -56,7 +56,7 @@ export interface Track {
   /**
    * The base64 encoded track data
    */
-  encoded: string;
+  encoded: string | null;
   /**
    * Info about the track
    */
