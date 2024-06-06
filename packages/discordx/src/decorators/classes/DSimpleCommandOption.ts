@@ -8,11 +8,11 @@ import { Decorator } from "@discordx/internal";
 
 import { SimpleCommandOptionType } from "../../index.js";
 
-type CreateStructure = {
+interface CreateStructure {
   description?: string;
   name: string;
   type?: SimpleCommandOptionType;
-};
+}
 
 /**
  * @category Decorator

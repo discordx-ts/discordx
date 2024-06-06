@@ -40,39 +40,38 @@ export class MetadataStorage {
   private static _isBuilt = false;
   private static _instance: MetadataStorage;
 
-  private _discords: Array<DDiscord> = [];
-  private _guards: Array<DGuard> = [];
-  private _modifiers: Array<Modifier<Decorator>> = [];
+  private _discords: DDiscord[] = [];
+  private _guards: DGuard[] = [];
+  private _modifiers: Modifier<Decorator>[] = [];
 
   // events
-  private _events: Array<DOn> = [];
+  private _events: DOn[] = [];
 
   // custom Handlers
-  private _buttonComponents: Array<DComponent> = [];
-  private _modalComponents: Array<DComponent> = [];
-  private _selectMenuComponents: Array<DComponent> = [];
+  private _buttonComponents: DComponent[] = [];
+  private _modalComponents: DComponent[] = [];
+  private _selectMenuComponents: DComponent[] = [];
 
   // reactions
-  private _reactions: Array<DReaction> = [];
+  private _reactions: DReaction[] = [];
 
   // simple command
-  private _simpleCommandOptions: Array<DSimpleCommandOption> = [];
-  private _simpleCommands: Array<DSimpleCommand> = [];
-  private _simpleCommandsByName: Array<ISimpleCommandByName> = [];
+  private _simpleCommandOptions: DSimpleCommandOption[] = [];
+  private _simpleCommands: DSimpleCommand[] = [];
+  private _simpleCommandsByName: ISimpleCommandByName[] = [];
   private _simpleCommandMappedPrefix = new Set<string>();
 
   // discord commands
-  private _applicationCommandMessages: Array<DApplicationCommand> = [];
-  private _applicationCommandSlashes: Array<DApplicationCommand> = [];
-  private _applicationCommandSlashesFlat: Array<DApplicationCommand> = [];
-  private _applicationCommandSlashOptions: Array<DApplicationCommandOption> =
-    [];
-  private _applicationCommandUsers: Array<DApplicationCommand> = [];
+  private _applicationCommandMessages: DApplicationCommand[] = [];
+  private _applicationCommandSlashes: DApplicationCommand[] = [];
+  private _applicationCommandSlashesFlat: DApplicationCommand[] = [];
+  private _applicationCommandSlashOptions: DApplicationCommandOption[] = [];
+  private _applicationCommandUsers: DApplicationCommand[] = [];
 
   // groups
-  private _applicationCommandSlashGroups: Array<
-    DApplicationCommandGroup<Partial<DApplicationCommand>>
-  > = [];
+  private _applicationCommandSlashGroups: DApplicationCommandGroup<
+    Partial<DApplicationCommand>
+  >[] = [];
   private _applicationCommandSlashSubGroups: DApplicationCommandGroup<
     Partial<DApplicationCommandOption>
   >[] = [];
@@ -439,7 +438,7 @@ export class MetadataStorage {
   }
 
   private groupSlashes() {
-    const groupedSlashes: Map<string, DApplicationCommand> = new Map();
+    const groupedSlashes = new Map<string, DApplicationCommand>();
 
     // Create Slashes from class groups that will wraps the commands
     //
@@ -583,8 +582,8 @@ export class MetadataStorage {
    *
    * @param options - Even data
    */
-  trigger(options: ITriggerEventData): (...params: any[]) => Promise<any> {
-    const responses: Array<any> = [];
+  trigger(options: ITriggerEventData): (...params: any[]) => any {
+    const responses: any[] = [];
 
     const eventsToExecute = this._events.filter((on) => {
       return (
@@ -606,6 +605,7 @@ export class MetadataStorage {
         }),
       );
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return responses;
     };
   }

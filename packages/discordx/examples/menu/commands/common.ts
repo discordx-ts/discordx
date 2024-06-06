@@ -32,7 +32,7 @@ export class Example {
       return interaction.followUp("invalid role id, select again");
     }
 
-    interaction.followUp(
+    await interaction.followUp(
       `you have selected role: ${
         roles.find((r) => r.value === roleValue)?.label ?? "unknown"
       }`,
@@ -56,7 +56,7 @@ export class Example {
       );
 
     // send it
-    interaction.editReply({
+    await interaction.editReply({
       components: [buttonRow],
       content: "select your role!",
     });

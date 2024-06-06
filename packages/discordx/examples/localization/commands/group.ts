@@ -15,7 +15,7 @@ import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 export class Example {
   @Slash({ description: "maths", name: "voice-channel" })
   @SlashGroup("maths", "testing")
-  voiceChannel(
+  async voiceChannel(
     @SlashOption({
       channelTypes: [
         ChannelType.GuildCategory,
@@ -29,12 +29,12 @@ export class Example {
     })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${roleOrUser}`);
+  ): Promise<void> {
+    await interaction.reply(`${roleOrUser.toString()}`);
   }
 
   @Slash({ description: "voice-channel-x", name: "voice-channel-x" })
-  voiceChannelX(
+  async voiceChannelX(
     @SlashOption({
       channelTypes: [
         ChannelType.GuildCategory,
@@ -48,13 +48,13 @@ export class Example {
     })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${roleOrUser}`);
+  ): Promise<void> {
+    await interaction.reply(`${roleOrUser.toString()}`);
   }
 
   @Slash({ description: "add" })
   @SlashGroup("maths", "testing")
-  add(
+  async add(
     @SlashOption({
       description: "x value",
       name: "x",
@@ -70,13 +70,13 @@ export class Example {
     })
     y: number,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(String(x + y));
+  ): Promise<void> {
+    await interaction.reply(String(x + y));
   }
 
   @Slash({ description: "multiply" })
   @SlashGroup("maths", "testing")
-  multiply(
+  async multiply(
     @SlashOption({
       description: "x value",
       name: "x",
@@ -92,7 +92,7 @@ export class Example {
     })
     y: number,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(String(x * y));
+  ): Promise<void> {
+    await interaction.reply(String(x * y));
   }
 }

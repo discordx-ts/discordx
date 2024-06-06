@@ -32,7 +32,9 @@ import {
     Define test code
   */
 
-type Data = { passed: boolean };
+interface Data {
+  passed: boolean;
+}
 
 enum TextChoices {
   "Good Bye" = "Good Bye",

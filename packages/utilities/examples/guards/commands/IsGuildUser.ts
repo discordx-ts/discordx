@@ -25,13 +25,15 @@ const OwnerOnly: IsGuardUserCallback = ({ client, user }) => {
 
 @Discord()
 @Guard(IsGuildUser(OwnerOnly))
-class Example {
+export class Example {
   @On({ event: Events.MessageCreate })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   message([message]: ArgsOf<"messageCreate">) {
     //...
   }
 
   @SimpleCommand({ name: "hello" })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   hello(command: SimpleCommandMessage) {
     //...
   }

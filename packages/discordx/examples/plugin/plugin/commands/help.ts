@@ -13,7 +13,7 @@ export class Example {
     description: "help command",
     name: "help",
   })
-  help(interaction: CommandInteraction): void {
-    interaction.reply("I am help command xd.");
+  async help(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("I am help command xd.");
   }
 }

@@ -13,8 +13,8 @@ const botA = new Client({
   intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
 });
 
-botA.once("ready", async () => {
-  await botA.initApplicationCommands();
+botA.once("ready", () => {
+  void botA.initApplicationCommands();
 
   console.log("Bot started");
 });
@@ -29,8 +29,8 @@ const botB = new Client({
   silent: false,
 });
 
-botB.once("ready", async () => {
-  await botB.initApplicationCommands();
+botB.once("ready", () => {
+  void botB.initApplicationCommands();
 
   console.log("Bot started");
 });
@@ -39,9 +39,9 @@ botB.on("interactionCreate", (interaction) => {
   botB.executeInteraction(interaction);
 });
 
-importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`).then(() => {
-  MetadataStorage.instance.build().then(() => {
-    botA.login("bot token");
-    botB.login("bot token");
+void importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`).then(() => {
+  void MetadataStorage.instance.build().then(() => {
+    void botA.login("bot token");
+    void botB.login("bot token");
   });
 });

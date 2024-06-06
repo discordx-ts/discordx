@@ -11,7 +11,7 @@ import { Bot, Discord, Slash } from "discordx";
 @Bot("botA") // A bot id is crucial
 export class Example {
   @Slash({ description: "hello" })
-  hello(interaction: CommandInteraction): void {
-    interaction.reply("I am bot A.");
+  async hello(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("I am bot A.");
   }
 }

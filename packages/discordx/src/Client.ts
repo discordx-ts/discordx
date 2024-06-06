@@ -681,7 +681,7 @@ export class Client extends ClientJS {
 
     // log the changes to commands if enabled by options or silent mode is turned off
     if (!this.silent) {
-      let str = `${this.user?.username} >> commands >> guild: #${guild}`;
+      let str = `${this.user?.username} >> commands >> guild: #${guild.toString()}`;
 
       str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
         .map((DCommand) => DCommand.name)
@@ -1052,9 +1052,9 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  executeCommandInteraction(
+  async executeCommandInteraction(
     interaction: CommandInteraction | AutocompleteInteraction,
-  ): Awaited<unknown> {
+  ): Promise<unknown> {
     // Get the interaction group tree
     const tree = this.getApplicationCommandGroupTree(interaction);
     const applicationCommand = this.getApplicationCommandFromTree(tree);
@@ -1077,7 +1077,7 @@ export class Client extends ClientJS {
       );
 
       if (option && typeof option.autocomplete === "function") {
-        option.autocomplete.call(
+        await option.autocomplete.call(
           DIService.engine.getService(option.from),
           interaction,
           applicationCommand,
@@ -1431,6 +1431,7 @@ export class Client extends ClientJS {
    */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   trigger(options: ITriggerEventData, params: any): Promise<any[]> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.instance.trigger(options)(params);
   }
 

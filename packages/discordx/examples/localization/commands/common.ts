@@ -16,7 +16,7 @@ export class Example {
       "en-GB": "hello-x",
     },
   })
-  hello(
+  async hello(
     @SlashOption({
       description: "message",
       name: "message",
@@ -25,7 +25,7 @@ export class Example {
     })
     message: string,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${message}`);
+  ): Promise<void> {
+    await interaction.reply(`${message}`);
   }
 }

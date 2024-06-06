@@ -28,21 +28,27 @@ import { GeneratePages } from "../util/common functions.js";
 export class Example {
   // example: message
   @On({ event: "messageCreate" })
-  messageCreate([message]: ArgsOf<"messageCreate">): void {
+  async messageCreate([message]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated demo") {
-      new Pagination(message, GeneratePages(), {
+      const pagination = new Pagination(message, GeneratePages(), {
         type: PaginationType.Button,
-      }).send();
+      });
+
+      await pagination.send();
     }
   }
 
   // example: any text channel
   @On({ event: "messageCreate" })
-  messageCreateChannel([message]: ArgsOf<"messageCreate">): void {
+  async messageCreateChannel([
+    message,
+  ]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated channel demo") {
-      new Pagination(message.channel, GeneratePages(), {
+      const pagination = new Pagination(message.channel, GeneratePages(), {
         type: PaginationType.Button,
-      }).send();
+      });
+
+      await pagination.send();
     }
   }
 
@@ -70,7 +76,7 @@ export class Example {
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {
-      onTimeout: () => interaction.deleteReply(),
+      onTimeout: () => void interaction.deleteReply(),
       start: {
         emoji: { name: "🙂" },
       },
@@ -83,26 +89,30 @@ export class Example {
 
   // example: simple slash with menu pagination
   @Slash({ description: "Simple slash with menu pagination", name: "demo-b" })
-  demoB(interaction: CommandInteraction): void {
-    new Pagination(interaction, GeneratePages(), {
+  async demoB(interaction: CommandInteraction): Promise<void> {
+    const pagination = new Pagination(interaction, GeneratePages(), {
       time: 5 * 1000,
       type: PaginationType.SelectMenu,
-    }).send();
+    });
+
+    await pagination.send();
   }
 
   // example: simple string array
   @Slash({ description: "Simple string array", name: "demo-c" })
-  demoC(interaction: CommandInteraction): void {
-    new Pagination(
+  async demoC(interaction: CommandInteraction): Promise<void> {
+    const pagination = new Pagination(
       interaction,
       Array.from(Array(20).keys()).map((i) => ({ content: i.toString() })),
-    ).send();
+    );
+
+    await pagination.send();
   }
 
   // example: array of custom message options
   @Slash({ description: "Array of custom message options", name: "demo-d" })
-  demoD(interaction: CommandInteraction): void {
-    new Pagination(interaction, [
+  async demoD(interaction: CommandInteraction): Promise<void> {
+    const pagination = new Pagination(interaction, [
       {
         content: "Page 1",
       },
@@ -125,6 +135,8 @@ export class Example {
         content: "Page 3",
         embeds: [new EmbedBuilder({ title: "It's me embed 3" })],
       },
-    ]).send();
+    ]);
+
+    await pagination.send();
   }
 }

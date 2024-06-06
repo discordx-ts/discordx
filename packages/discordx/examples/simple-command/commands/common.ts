@@ -16,7 +16,7 @@ import {
 @Discord()
 export class Example {
   @SimpleCommand({ name: "toggle" })
-  toggleState(
+  async toggleState(
     @SimpleCommandOption({
       name: "state",
       description: "Enter 'true' to enable, 'false' to disable",
@@ -24,8 +24,8 @@ export class Example {
     })
     state: boolean | undefined,
     command: SimpleCommandMessage,
-  ): void {
-    command.message.reply(
+  ): Promise<void> {
+    await command.message.reply(
       state !== undefined
         ? `State is set to ${state}.`
         : "Please specify a state.",
@@ -33,15 +33,15 @@ export class Example {
   }
 
   @SimpleCommand({ name: "help" })
-  displayHelp(command: SimpleCommandMessage): void {
-    command.sendUsageSyntax();
+  async displayHelp(command: SimpleCommandMessage): Promise<void> {
+    await command.sendUsageSyntax();
   }
 
   @SimpleCommand({
     description: "Grant a role to a user.",
     name: "grant-role",
   })
-  grantRole(
+  async grantRole(
     @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
     @SimpleCommandOption({
@@ -51,31 +51,31 @@ export class Example {
     })
     role: Role | Error | undefined,
     command: SimpleCommandMessage,
-  ): void {
+  ): Promise<void> {
     if (!user || user instanceof Error) {
-      command.sendUsageSyntax();
+      await command.sendUsageSyntax();
       return;
     }
-    command.message.reply(
+
+    await command.message.reply(
       `Granting ${role?.name} role to ${user instanceof GuildMember ? user.displayName : user.username}.`,
     );
   }
 
   @SimpleCommand({ name: "display-info" })
-  displayInfo(command: SimpleCommandMessage): void {
-    command.message.reply(
+  async displayInfo(command: SimpleCommandMessage): Promise<void> {
+    await command.message.reply(
       `Command Prefix: \`\`${command.prefix.toString()}\`\`\nCommand Name: \`\`${command.name}\`\`\nArgument String: \`\`${command.argString}\`\``,
     );
   }
 
   @SimpleCommand({ name: "target" })
-  testX(
+  async testX(
     @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: GuildMember | User | Error | undefined,
     command: SimpleCommandMessage,
-  ): void {
-    command.message.reply(
-      `Target: ${user instanceof GuildMember ? user.displayName : user}`,
-    );
+  ): Promise<void> {
+    const target = user instanceof GuildMember ? user.displayName : user;
+    await command.message.reply(`Target: ${target?.toString()}`);
   }
 }

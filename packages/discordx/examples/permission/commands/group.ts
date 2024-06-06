@@ -17,12 +17,12 @@ import { Discord, Slash, SlashGroup } from "discordx";
 @SlashGroup("vital")
 export class Example {
   @Slash({ description: "perm1" })
-  perm1(interaction: ChatInputCommandInteraction): void {
-    interaction.reply(":wave:");
+  async perm1(interaction: ChatInputCommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 
   @Slash({ description: "perm2" })
-  perm2(interaction: ChatInputCommandInteraction): void {
-    interaction.reply(":wave:");
+  async perm2(interaction: ChatInputCommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 }

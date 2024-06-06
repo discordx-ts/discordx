@@ -51,25 +51,25 @@ export class ConstructorInjection {
   }
 
   @Slash({ description: "typedi" })
-  typedi(interaction: CommandInteraction): void {
+  async typedi(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
       const clazz = Container.get(ConstructorInjection);
-      interaction.reply(
+      await interaction.reply(
         `${clazz.database.query()}, same class: ${
           clazz === this
         } and ${clazz.namedDatabase.query()} comes from "NamedDatabase"`,
       );
     } else {
-      interaction.reply("Not using TypeDI");
+      await interaction.reply("Not using TypeDI");
     }
   }
 
   @Slash({ description: "typedi2" })
-  typedi2(interaction: CommandInteraction): void {
+  async typedi2(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
-      interaction.reply(this.database.query());
+      await interaction.reply(this.database.query());
     } else {
-      interaction.reply("Not using TypeDI");
+      await interaction.reply("Not using TypeDI");
     }
   }
 }
@@ -86,20 +86,20 @@ export class PropertyInjectionExample {
     description: "typedi_prop_injection",
     name: "typedi_prop_injection",
   })
-  typedi(interaction: CommandInteraction): void {
+  async typedi(interaction: CommandInteraction): Promise<void> {
     if (
       DIService.engine === typeDiDependencyRegistryEngine &&
       this.namedDatabase &&
       this.database
     ) {
       const clazz = Container.get(PropertyInjectionExample);
-      interaction.reply(
+      await interaction.reply(
         `${clazz.database?.query()}, same class: ${
           clazz === this
         } and ${clazz.namedDatabase?.query()} comes from "NamedDatabase"`,
       );
     } else {
-      interaction.reply("Not using TypeDI");
+      await interaction.reply("Not using TypeDI");
     }
   }
 
@@ -107,13 +107,13 @@ export class PropertyInjectionExample {
     description: "typedi_prop_injection2",
     name: "typedi_prop_injection2",
   })
-  typedi2(interaction: CommandInteraction): void {
+  async typedi2(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
       if (this.database) {
-        interaction.reply(this.database.query());
+        await interaction.reply(this.database.query());
       }
     } else {
-      interaction.reply("Not using TypeDI");
+      await interaction.reply("Not using TypeDI");
     }
   }
 }

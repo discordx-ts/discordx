@@ -191,7 +191,7 @@ export interface IPaginate {
   totalPages: number;
 }
 
-export type IGeneratePage = {
+export interface IGeneratePage {
   newMessage: BaseMessageOptions;
   paginationRow: ActionRowBuilder<MessageActionRowComponentBuilder>;
-};
+}

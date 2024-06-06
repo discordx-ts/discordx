@@ -19,7 +19,9 @@ import {
   InteractionType,
 } from "./util/interaction.js";
 
-type Data = { passed: boolean };
+interface Data {
+  passed: boolean;
+}
 
 @Discord()
 @Guild("invalid_id")

@@ -48,18 +48,21 @@ export type IGuild =
         | undefined,
     ) => Snowflake | Snowflake[] | Promise<Snowflake> | Promise<Snowflake[]>);
 
-export type ISimpleCommandByName = { command: DSimpleCommand; name: string };
+export interface ISimpleCommandByName {
+  command: DSimpleCommand;
+  name: string;
+}
 
-export type ITriggerEventData = {
+export interface ITriggerEventData {
   client: Client;
   event: string;
   guards: GuardFunction[];
   once: boolean;
   rest: boolean;
-};
+}
 
 export interface EventListenerDetail {
   once: boolean;
   rest: boolean;
-  trigger: (...params: any[]) => Promise<any>;
+  trigger: (...params: any[]) => any;
 }

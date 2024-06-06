@@ -22,8 +22,8 @@ export class PermissionGuards {
     name: "permission_ban_members_1",
   })
   @Guard(PermissionGuard(["BanMembers"]))
-  banMembers1(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async banMembers1(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   /**
@@ -41,8 +41,8 @@ export class PermissionGuards {
       ephemeral: true,
     }),
   )
-  banMembers2(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async banMembers2(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   /**
@@ -60,8 +60,8 @@ export class PermissionGuards {
       ephemeral: true,
     }),
   )
-  banMembers3(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async banMembers3(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   private static resolvePermission(

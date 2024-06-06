@@ -18,7 +18,7 @@ import type {
 import { resolveIGuilds, SimpleCommandOptionType } from "../../index.js";
 import { Method } from "./Method.js";
 
-type CreateStructure = {
+interface CreateStructure {
   aliases?: string[];
   argSplitter?: ArgSplitter;
   botIds?: string[];
@@ -27,7 +27,7 @@ type CreateStructure = {
   guilds?: IGuild[];
   name: string;
   prefix?: IPrefix;
-};
+}
 
 /**
  * @category Decorator
@@ -183,23 +183,22 @@ export class DSimpleCommand extends Method {
     return Promise.all(
       this.options
         .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-        .map((op, index) => {
+        .map(async (op, index) => {
           // only digits
           const id = args[index]?.replace(/\D/g, "");
-          const invalidError = Error(
-            `Invalid id given: ${args[index] ?? "unknown"}`,
-          );
+          const validId =
+            id !== undefined && id.length >= 16 && id.length <= 20;
 
           // undefined
           if (!args[index]?.length) {
-            return;
+            return null;
           }
 
           // Boolean
           if (op.type === SimpleCommandOptionType.Boolean) {
             const option = args[index];
             if (option === undefined) {
-              return;
+              return null;
             }
 
             if (
@@ -217,65 +216,88 @@ export class DSimpleCommand extends Method {
             return Number(args[index]);
           }
 
-          // Channel | undefined
+          // Channel | null
           if (op.type === SimpleCommandOptionType.Channel) {
-            if (!id?.length || id.length < 16 || id.length > 20) {
-              return invalidError;
+            if (!validId || !command.message.guild) {
+              return null;
             }
 
-            return command.message.guild?.channels
-              .fetch(id)
-              .catch((err) => err);
+            return command.message.guild.channels.fetch(id).catch(() => null);
           }
 
-          // Role | undefined
+          // Role | null
           if (op.type === SimpleCommandOptionType.Role) {
-            if (!id?.length || id.length < 16 || id.length > 20) {
-              return invalidError;
+            if (!validId || !command.message.guild) {
+              return null;
             }
 
-            return command.message.guild?.roles.fetch(id).catch((err) => err);
+            return command.message.guild.roles.fetch(id).catch(() => null);
           }
 
-          // GuildMember | User | undefined
+          // GuildMember | User | null
           if (op.type === SimpleCommandOptionType.User) {
-            if (!id?.length || id.length < 16 || id.length > 20) {
-              return invalidError;
+            if (!validId) {
+              return null;
             }
 
             if (command.message.channel.type === ChannelType.DM) {
-              return command.message.client.user?.id === id
-                ? command.message.client.user
-                : command.message.author.id === id
-                  ? command.message.author
-                  : invalidError;
+              if (command.message.client.user.id === id) {
+                return command.message.client.user;
+              }
+
+              if (command.message.author.id === id) {
+                return command.message.author;
+              }
+
+              return null;
             }
 
-            return command.message.guild?.members.fetch(id).catch((err) => err);
+            if (!command.message.guild) {
+              return null;
+            }
+
+            return command.message.guild.members.fetch(id).catch(() => null);
           }
 
-          // GuildMember | User | Role | undefined
+          // GuildMember | User | Role | null
           if (op.type === SimpleCommandOptionType.Mentionable) {
-            if (!id?.length || id.length < 16 || id.length > 20) {
-              return invalidError;
+            if (!validId) {
+              return null;
             }
 
             if (command.message.channel.type === ChannelType.DM) {
-              return command.message.client.user?.id === id
-                ? command.message.client.user
-                : command.message.author.id === id
-                  ? command.message.author
-                  : invalidError;
+              if (command.message.client.user.id === id) {
+                return command.message.client.user;
+              }
+
+              if (command.message.author.id === id) {
+                return command.message.author;
+              }
+
+              return null;
             }
 
-            return (
-              command.message.guild?.members.fetch(id).catch((err) => err) ??
-              command.message.guild?.roles.fetch(id).catch((err) => err)
-            );
+            if (!command.message.guild) {
+              return null;
+            }
+
+            const member = await command.message.guild.members
+              .fetch(id)
+              .catch(() => null);
+
+            if (member) {
+              return member;
+            }
+
+            const role = await command.message.guild.roles
+              .fetch(id)
+              .catch(() => null);
+
+            return role;
           }
 
           // string
-          return args[index];
+          return args[index] ?? null;
         }),
     );
   }

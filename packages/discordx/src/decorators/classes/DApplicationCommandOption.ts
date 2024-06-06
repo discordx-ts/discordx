@@ -20,7 +20,7 @@ import type {
   TransformerFunction,
 } from "../../index.js";
 
-type CreateStructure = {
+interface CreateStructure {
   autocomplete?: SlashAutoCompleteOption;
   channelType?: ChannelType[];
   description: string;
@@ -35,7 +35,7 @@ type CreateStructure = {
   required?: boolean;
   transformer?: TransformerFunction;
   type: ApplicationCommandOptionType;
-};
+}
 
 /**
  * @category Decorator

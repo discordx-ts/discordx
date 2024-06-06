@@ -18,8 +18,8 @@ export class RateLimitExample {
    */
   @Slash({ description: "rate_limit_1", name: "rate_limit_1" })
   @Guard(RateLimit(TIME_UNIT.seconds, 30))
-  rateLimit1(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async rateLimit1(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   /**
@@ -33,8 +33,8 @@ export class RateLimitExample {
       message: "Slow Down",
     }),
   )
-  rateLimit2(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async rateLimit2(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   /**
@@ -49,8 +49,8 @@ export class RateLimitExample {
       rateValue: 3,
     }),
   )
-  rateLimit3(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async rateLimit3(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   /**
@@ -64,8 +64,8 @@ export class RateLimitExample {
       message: "Slow Down, please try in {time}",
     }),
   )
-  rateLimit4(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async rateLimit4(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   /**
@@ -79,8 +79,8 @@ export class RateLimitExample {
       message: RateLimitExample.getMessage,
     }),
   )
-  rateLimit5(interaction: CommandInteraction): void {
-    interaction.reply("It worked!");
+  async rateLimit5(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("It worked!");
   }
 
   private static getMessage(
@@ -104,7 +104,9 @@ export class RateLimitExample {
    */
   @SimpleCommand({ name: "rateLimit" })
   @Guard(RateLimit(TIME_UNIT.seconds, 10))
-  rateLimitSimpleCommand({ message }: SimpleCommandMessage): void {
-    message.reply("It worked!");
+  async rateLimitSimpleCommand({
+    message,
+  }: SimpleCommandMessage): Promise<void> {
+    await message.reply("It worked!");
   }
 }

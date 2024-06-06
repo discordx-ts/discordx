@@ -16,7 +16,7 @@ import { Discord, ModalComponent, Slash } from "discordx";
 @Discord()
 export class Example {
   @Slash({ description: "modal" })
-  modal(interaction: CommandInteraction): void {
+  async modal(interaction: CommandInteraction): Promise<void> {
     // Create the modal
     const modal = new ModalBuilder()
       .setTitle("My Awesome Form")
@@ -47,7 +47,7 @@ export class Example {
     // --- snip ---
 
     // Present the modal to the user
-    interaction.showModal(modal);
+    await interaction.showModal(modal);
   }
 
   @ModalComponent()

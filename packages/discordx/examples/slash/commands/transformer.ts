@@ -24,7 +24,7 @@ class Document {
     */
 
     await this.interaction.followUp(
-      `${this.interaction.user} saved \`${this.input}\` into database`,
+      `${this.interaction.user.toString()} saved \`${this.input}\` into database`,
     );
   }
 }
@@ -51,6 +51,6 @@ export class Example {
     interaction: ChatInputCommandInteraction,
   ): Promise<void> {
     await interaction.deferReply();
-    doc.save();
+    await doc.save();
   }
 }

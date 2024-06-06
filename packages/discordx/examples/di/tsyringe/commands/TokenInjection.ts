@@ -34,20 +34,20 @@ export class ExampleToken {
   }
 
   @Slash({ description: "tsyringe", name: "tsyringe_token" })
-  tsyringe(interaction: CommandInteraction): void {
+  async tsyringe(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
       const allDiscordClasses = container.resolveAll(
         TsyringeDependencyRegistryEngine.token,
       );
       const clazz = container.resolve(ExampleToken);
       const resolvedClassInTokenisedClasses = allDiscordClasses.includes(clazz);
-      interaction.reply(
+      await interaction.reply(
         `${clazz.database.query()}, same class: ${
           clazz === this
         }\ntokenized class included in resolved class: ${resolvedClassInTokenisedClasses}`,
       );
     } else {
-      interaction.reply("Not using TSyringe");
+      await interaction.reply("Not using TSyringe");
     }
   }
 }

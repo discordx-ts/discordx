@@ -27,8 +27,8 @@ export class Main {
       silent: false,
     });
 
-    this._client.once("ready", async () => {
-      await this._client.initApplicationCommands();
+    this._client.once("ready", () => {
+      void this._client.initApplicationCommands();
 
       console.log("Bot started");
     });
@@ -44,7 +44,7 @@ export class Main {
     });
 
     this._client.on("messageCreate", (message) => {
-      this._client.executeCommand(message);
+      void this._client.executeCommand(message);
     });
 
     await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
@@ -57,4 +57,4 @@ export class Main {
   }
 }
 
-Main.start();
+void Main.start();

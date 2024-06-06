@@ -16,7 +16,9 @@ import {
   SimpleCommandOptionType,
 } from "discordx";
 
-type Data = { passed: boolean };
+interface Data {
+  passed: boolean;
+}
 
 @Discord()
 @Guild("693401527494377482")
@@ -109,8 +111,7 @@ export class Example {
   }
 
   @SimpleCommand({
-    argSplitter:
-      /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
+    argSplitter: /\s"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
   })
   ban(
     @SimpleCommandOption({ name: "id", type: SimpleCommandOptionType.Number })

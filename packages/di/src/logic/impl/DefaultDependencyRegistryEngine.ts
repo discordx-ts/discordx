@@ -37,6 +37,6 @@ export class DefaultDependencyRegistryEngine
   }
 
   public getService<T>(classType: T): InstanceOf<T> {
-    return this._services.get(classType);
+    return this._services.get(classType) as InstanceOf<T>;
   }
 }

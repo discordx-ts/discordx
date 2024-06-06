@@ -8,12 +8,12 @@ import type { Client, ComponentType, IGuild } from "../../index.js";
 import { resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
-type CreateStructure = {
+interface CreateStructure {
   botIds?: string[];
   guilds?: IGuild[];
   id: string | RegExp;
   type: ComponentType;
-};
+}
 
 /**
  * @category Decorator

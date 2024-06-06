@@ -15,17 +15,17 @@ import { ButtonComponent, Discord, Slash } from "discordx";
 @Discord()
 export class Example {
   @ButtonComponent({ id: "hello" })
-  handler(interaction: ButtonInteraction): void {
-    interaction.reply(":wave:");
+  async handler(interaction: ButtonInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 
   @ButtonComponent({ id: "hello" })
   handler2(interaction: ButtonInteraction): void {
-    console.log(`${interaction.user} says hello`);
+    console.log(`${interaction.user.toString()} says hello`);
   }
 
   @Slash({ description: "test" })
-  test(interaction: CommandInteraction): void {
+  async test(interaction: CommandInteraction): Promise<void> {
     const btn = new ButtonBuilder()
       .setLabel("Hello")
       .setStyle(ButtonStyle.Primary)
@@ -36,7 +36,7 @@ export class Example {
         btn,
       );
 
-    interaction.reply({
+    await interaction.reply({
       components: [buttonRow],
     });
   }

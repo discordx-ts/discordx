@@ -11,7 +11,7 @@ import { Discord, Slash, SlashChoice, SlashOption } from "discordx";
 @Discord()
 export class Example {
   @Slash({ description: "choice-test", name: "choice-test" })
-  min(
+  async min(
     @SlashChoice({ name: "alex", value: "alex" })
     @SlashChoice({ name: "mike", value: "mike" })
     @SlashOption({
@@ -22,7 +22,7 @@ export class Example {
     })
     input: string,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${input}`);
+  ): Promise<void> {
+    await interaction.reply(`${input}`);
   }
 }
