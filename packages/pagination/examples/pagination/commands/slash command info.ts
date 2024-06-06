@@ -13,7 +13,7 @@ import { Discord, MetadataStorage, Slash } from "discordx";
 export class Example {
   // example: pagination for all slash command
   @Slash({ description: "Pagination for all slash command", name: "slashes" })
-  slashes(interaction: CommandInteraction): void {
+  async slashes(interaction: CommandInteraction): Promise<void> {
     const commands = MetadataStorage.instance.applicationCommands.map((cmd) => {
       return { description: cmd.description, name: cmd.name };
     });
@@ -28,9 +28,11 @@ export class Example {
       return { embeds: [embed] };
     });
 
-    new Pagination(interaction, pages, {
+    const pagination = new Pagination(interaction, pages, {
       filter: (interact) => interact.user.id === interaction.user.id,
       type: PaginationType.Button,
-    }).send();
+    });
+
+    await pagination.send();
   }
 }

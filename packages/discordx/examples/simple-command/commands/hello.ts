@@ -10,8 +10,8 @@ import { Discord, SimpleCommand } from "discordx";
 @Discord()
 export class Example {
   @SimpleCommand({ aliases: ["hey", "hi"], name: "hello" })
-  hello(command: SimpleCommandMessage): void {
-    command.message.reply(
+  async hello(command: SimpleCommandMessage): Promise<void> {
+    await command.message.reply(
       "This command should work both with `!` and `$` as a prefix.",
     );
   }

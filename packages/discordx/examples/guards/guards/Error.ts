@@ -16,9 +16,9 @@ export const ErrorHandler: GuardFunction<CommandInteraction> = async (
     await next();
   } catch (err) {
     if (err instanceof Error) {
-      interaction.reply(err.message);
+      await interaction.reply(err.message);
     } else {
-      interaction.reply("unknown error");
+      await interaction.reply("unknown error");
     }
   }
 };

@@ -11,7 +11,9 @@ import { Bot, Discord, Slash } from "discordx";
 @Bot("botA", "botB") // A bot id is crucial
 export class Example {
   @Slash({ description: "shared" })
-  shared(interaction: CommandInteraction): void {
-    interaction.reply("This is a shared command and can be used by both bots");
+  async shared(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(
+      "This is a shared command and can be used by both bots",
+    );
   }
 }

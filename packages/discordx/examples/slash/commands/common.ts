@@ -28,7 +28,7 @@ export class Example {
   myCustomText = "This resolver has class inbound";
 
   @Slash({ description: "hello", name: "hello" })
-  hello(
+  async hello(
     @SlashOption({
       description: "user",
       name: "user",
@@ -37,12 +37,12 @@ export class Example {
     })
     user: GuildMember | User,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${user}`);
+  ): Promise<void> {
+    await interaction.reply(user.toString());
   }
 
   @Slash({ description: "role", name: "role" })
-  role(
+  async role(
     @SlashOption({
       description: "role",
       name: "role",
@@ -51,12 +51,12 @@ export class Example {
     })
     role: Role,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${role}`);
+  ): Promise<void> {
+    await interaction.reply(role.toString());
   }
 
   @Slash({ description: "channel", name: "channel" })
-  channel(
+  async channel(
     @SlashOption({
       description: "channel",
       name: "channel",
@@ -65,12 +65,12 @@ export class Example {
     })
     channel: Channel,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${channel}`);
+  ): Promise<void> {
+    await interaction.reply(channel.toString());
   }
 
   @Slash({ description: "role-or-user", name: "role-or-user" })
-  roleOrUser(
+  async roleOrUser(
     @SlashOption({
       description: "mention",
       name: "mention",
@@ -79,12 +79,12 @@ export class Example {
     })
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${roleOrUser}`);
+  ): Promise<void> {
+    await interaction.reply(roleOrUser.toString());
   }
 
   @Slash({ description: "autocomplete", name: "autocomplete" })
-  autocomplete(
+  async autocomplete(
     @SlashOption({
       autocomplete: true,
       description: "option-a",
@@ -101,7 +101,7 @@ export class Example {
         // normal function, have this, so class reference is passed
         console.log(this.myCustomText);
         // resolver for option b
-        interaction.respond([
+        void interaction.respond([
           { name: "option c", value: "d" },
           { name: "option d", value: "c" },
         ]);
@@ -115,7 +115,7 @@ export class Example {
     @SlashOption({
       autocomplete: (interaction: AutocompleteInteraction) => {
         // arrow function does not have this, so class reference is not available
-        interaction.respond([
+        void interaction.respond([
           { name: "option e", value: "e" },
           { name: "option f", value: "f" },
         ]);
@@ -127,24 +127,24 @@ export class Example {
     })
     searchText3: string,
     interaction: CommandInteraction | AutocompleteInteraction,
-  ): void {
+  ): Promise<void> {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
       const focusedOption = interaction.options.getFocused(true);
 
       // resolver for option a
       if (focusedOption.name === "option-a") {
-        interaction.respond([
+        await interaction.respond([
           { name: "option a", value: "a" },
           { name: "option b", value: "b" },
         ]);
       }
     } else {
-      interaction.reply(`${searchText}-${searchText2}-${searchText3}`);
+      await interaction.reply(`${searchText}-${searchText2}-${searchText3}`);
     }
   }
 
   @Slash({ description: "test-btn", name: "test-btn" })
-  testBtn(interaction: CommandInteraction): void {
+  async testBtn(interaction: CommandInteraction): Promise<void> {
     const btn = new ButtonBuilder();
     btn.setLabel("Test");
     btn.setStyle(ButtonStyle.Primary);
@@ -153,11 +153,11 @@ export class Example {
     const row = new ActionRowBuilder<MessageActionRowComponentBuilder>();
     row.addComponents([btn]);
 
-    interaction.reply({ components: [row], content: "test" });
+    await interaction.reply({ components: [row], content: "test" });
   }
 
   @ButtonComponent({ id: /myTest/ })
-  btnHandler(interaction: ButtonInteraction): void {
-    interaction.reply("I am called");
+  async btnHandler(interaction: ButtonInteraction): Promise<void> {
+    await interaction.reply("I am called");
   }
 }

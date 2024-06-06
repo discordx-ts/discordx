@@ -25,20 +25,20 @@ export type RestArgsOf<K extends keyof RestEvents> = RestEvents[K];
 /**
  * Event options
  */
-export type EventOptions = {
+export interface EventOptions {
   botIds?: string[];
   event: keyof ClientEvents;
   priority?: number;
-};
+}
 
 /**
  * Rest event options
  */
-export type RestEventOptions = {
+export interface RestEventOptions {
   botIds?: string[];
   event: keyof RestEvents;
   priority?: number;
-};
+}
 
 /**
  * Guard function
@@ -53,7 +53,7 @@ export type GuardFunction<Type = any, DataType = any> = (
 /**
  * Init command configuration
  */
-export type InitCommandOptions = {
+export interface InitCommandOptions {
   disable?: {
     /**
      * Disable the add operation, which registers application commands with Discord
@@ -70,22 +70,22 @@ export type InitCommandOptions = {
      */
     update?: boolean;
   };
-};
+}
 
 /**
  * Custom logger
  */
-export type ILogger = {
+export interface ILogger {
   error(...args: unknown[]): void;
   info(...args: unknown[]): void;
   log(...args: unknown[]): void;
   warn(...args: unknown[]): void;
-};
+}
 
 /**
  * Reaction options
  */
-export type ReactionOptions<T extends string = string> = {
+export interface ReactionOptions<T extends string = string> {
   aliases?: string[];
   botIds?: string[];
   description?: string;
@@ -94,23 +94,26 @@ export type ReactionOptions<T extends string = string> = {
   guilds?: IGuild[];
   partial?: boolean;
   remove?: boolean;
-};
+}
 
 /**
  * Slash choice type
  */
-export type SlashChoiceType<T extends string = string, X = string | number> = {
+export interface SlashChoiceType<
+  T extends string = string,
+  X = string | number,
+> {
   name: NotEmpty<T>;
   nameLocalizations?: LocalizationMap;
   value?: X;
-};
+}
 
 /**
  * Component type
  */
 
-export type ComponentOptions<T extends string = string> = {
+export interface ComponentOptions<T extends string = string> {
   botIds?: string[];
   guilds?: IGuild[];
   id?: NotEmpty<T> | RegExp;
-};
+}

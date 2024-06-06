@@ -12,13 +12,13 @@ import { Discord, Slash, SlashGroup } from "discordx";
 @SlashGroup("test-x")
 export class AnotherGroup {
   @Slash({ description: "m" })
-  m(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async m(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 
   @Slash({ description: "n" })
-  n(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async n(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 }
 
@@ -26,8 +26,8 @@ export class AnotherGroup {
 @SlashGroup("test-x")
 export class ExpendAnotherGroup {
   @Slash({ description: "x" })
-  x(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async x(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 }
 
@@ -36,13 +36,13 @@ export class ExpendAnotherGroup {
 @SlashGroup("add", "test-x")
 export class Group {
   @Slash({ description: "y" })
-  x(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async x(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 
   @Slash({ description: "y" })
-  y(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async y(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 }
 
@@ -52,24 +52,24 @@ export class Group {
 @SlashGroup("test-y")
 export class DuplicateGroup {
   @Slash({ description: "o" })
-  o(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async o(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 
   @Slash({ description: "p" })
-  p(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async p(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 
   @Slash({ description: "y" })
   @SlashGroup("add", "test-y")
-  y(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async y(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 
   @Slash({ description: "z" })
   @SlashGroup("add", "test-y")
-  z(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async z(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 }

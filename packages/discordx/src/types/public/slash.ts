@@ -20,7 +20,10 @@ import type {
   TransformerFunction,
 } from "../../index.js";
 
-export type ApplicationCommandOptions<T extends string, TD extends string> = {
+export interface ApplicationCommandOptions<
+  T extends string,
+  TD extends string,
+> {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable;
   description: TD;
@@ -30,9 +33,9 @@ export type ApplicationCommandOptions<T extends string, TD extends string> = {
   name?: T;
   nameLocalizations?: LocalizationMap;
   nsfw?: boolean;
-};
+}
 
-export type SlashOptionBaseOptions<T extends string, TD extends string> = {
+export interface SlashOptionBaseOptions<T extends string, TD extends string> {
   autocomplete?: undefined;
   channelTypes?: undefined;
   description: TD;
@@ -52,7 +55,7 @@ export type SlashOptionBaseOptions<T extends string, TD extends string> = {
     | ApplicationCommandOptionType.SubcommandGroup
     | ApplicationCommandOptionType.Channel
   >;
-};
+}
 
 export type SlashOptionChannelOptions<
   T extends string,
@@ -116,7 +119,7 @@ export type SlashAutoCompleteOption =
       command: DApplicationCommand,
     ) => void | Promise<void>);
 
-export type ApplicationCommandDataEx = {
+export interface ApplicationCommandDataEx {
   defaultMemberPermissions?: PermissionResolvable | null;
   description?: string;
   descriptionLocalizations?: LocalizationMap | null;
@@ -126,24 +129,24 @@ export type ApplicationCommandDataEx = {
   nsfw?: boolean;
   options: ApplicationCommandOptionData[];
   type: ApplicationCommandType;
-};
+}
 
-export type ApplicationCommandOptionChoiceDataEx = {
+export interface ApplicationCommandOptionChoiceDataEx {
   name: string;
   nameLocalizations?: LocalizationMap | null;
   value: string | number;
-};
+}
 
 /**
  * Slash group options
  */
 
-export type SlashGroupBase<T extends string, TD extends string> = {
+export interface SlashGroupBase<T extends string, TD extends string> {
   description: TD;
   descriptionLocalizations?: LocalizationMap;
   name: T;
   nameLocalizations?: LocalizationMap;
-};
+}
 
 export type SlashGroupRoot<
   T extends string,

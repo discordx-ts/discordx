@@ -21,7 +21,7 @@ export class FakeOption {
   ) {
     this.type = type;
     this.name = name;
-    this.options = options || undefined;
+    this.options = options ?? undefined;
     this.value = value;
   }
 }
@@ -103,13 +103,13 @@ export enum InteractionType {
   Modal,
 }
 
-export type FakeInteractionOption = {
+export interface FakeInteractionOption {
   commandName?: string;
   customId?: string;
   guildId?: string;
   options?: FakeOption[];
   type: InteractionType;
-};
+}
 
 export class FakeInteraction {
   commandName?: string;

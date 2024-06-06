@@ -214,6 +214,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       });
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     collector.on("collect", async (collectInteraction) => {
       if (
         collectInteraction.isButton() &&
@@ -292,18 +293,18 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         this.currentPage = Number(collectInteraction.values[0] ?? 0);
 
         // Exit pagination if exit is requested
-        if (this.currentPage === SelectMenuPageId.Exit) {
+        if (this.currentPage === Number(SelectMenuPageId.Exit)) {
           collector.stop();
           return;
         }
 
         // Requested start page
-        if (this.currentPage === SelectMenuPageId.Start) {
+        if (this.currentPage === Number(SelectMenuPageId.Start)) {
           this.currentPage = 0;
         }
 
         // Requested end page
-        if (this.currentPage === SelectMenuPageId.End) {
+        if (this.currentPage === Number(SelectMenuPageId.End)) {
           this.currentPage = this.maxLength - 1;
         }
 
@@ -328,6 +329,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     collector.on("end", async () => {
       const finalPage = await this.getPage(this.currentPage);
       if (message.editable && finalPage) {

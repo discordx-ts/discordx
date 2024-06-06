@@ -8,7 +8,7 @@ import type { Client, IGuild } from "../../index.js";
 import { resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
-type CreateStructure = {
+interface CreateStructure {
   aliases?: string[];
   botIds?: string[];
   description?: string;
@@ -17,7 +17,7 @@ type CreateStructure = {
   guilds?: IGuild[];
   partial?: boolean;
   remove?: boolean;
-};
+}
 
 /**
  * @category Decorator

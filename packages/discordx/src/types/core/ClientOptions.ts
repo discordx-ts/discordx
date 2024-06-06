@@ -17,7 +17,7 @@ import type {
 } from "../../index.js";
 import type { Awaitable, ILogger, IPrefixResolver } from "../index.js";
 
-export type SimpleCommandConfig = {
+export interface SimpleCommandConfig {
   /**
    * Global argument splitter for simple command
    */
@@ -37,7 +37,7 @@ export type SimpleCommandConfig = {
      */
     notFound?: string | ((command: Message) => Awaitable<void>);
   };
-};
+}
 
 export interface ClientOptions extends DiscordJSClientOptions {
   /**

@@ -11,7 +11,7 @@ import { Discord, Slash, SlashOption } from "discordx";
 @Discord()
 export class Example {
   @Slash({ description: "attachment" })
-  attachment(
+  async attachment(
     @SlashOption({
       description: "image",
       name: "image",
@@ -20,7 +20,7 @@ export class Example {
     })
     attachment: Attachment,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(attachment.url);
+  ): Promise<void> {
+    await interaction.reply(attachment.url);
   }
 }

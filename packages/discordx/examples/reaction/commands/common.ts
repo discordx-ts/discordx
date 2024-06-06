@@ -11,7 +11,9 @@ import { Discord, Reaction } from "discordx";
 export class Example {
   @Reaction({ emoji: "⭐", remove: true })
   async starReaction(reaction: MessageReaction, user: User): Promise<void> {
-    await reaction.message.reply(`Received a ${reaction.emoji} from ${user}`);
+    await reaction.message.reply(
+      `Received a ${reaction.emoji.toString()} from ${user.toString()}`,
+    );
   }
 
   @Reaction({ aliases: ["📍", "custom_emoji"], emoji: "📌" })

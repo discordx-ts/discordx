@@ -11,7 +11,7 @@ import { Discord, Slash, SlashOption } from "discordx";
 @Discord()
 export class MinMaxExample {
   @Slash({ description: "minmax-min", name: "minmax-min" })
-  min(
+  async min(
     @SlashOption({
       description: "input",
       name: "input",
@@ -20,12 +20,12 @@ export class MinMaxExample {
     })
     input: number,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${input}`);
+  ): Promise<void> {
+    await interaction.reply(input.toString());
   }
 
   @Slash({ description: "minmax-max", name: "minmax-max" })
-  max(
+  async max(
     @SlashOption({
       description: "value",
       maxValue: 5,
@@ -35,12 +35,12 @@ export class MinMaxExample {
     })
     input: number,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${input}`);
+  ): Promise<void> {
+    await interaction.reply(input.toString());
   }
 
   @Slash({ description: "minmax-both", name: "minmax-both" })
-  MinMax(
+  async MinMax(
     @SlashOption({
       description: "value",
       maxValue: 15,
@@ -51,7 +51,7 @@ export class MinMaxExample {
     })
     input: number,
     interaction: CommandInteraction,
-  ): void {
-    interaction.reply(`${input}`);
+  ): Promise<void> {
+    await interaction.reply(input.toString());
   }
 }

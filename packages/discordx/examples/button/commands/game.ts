@@ -121,7 +121,7 @@ export class RockPaperScissors {
         botChoice,
       );
 
-      interaction.followUp(
+      await interaction.followUp(
         RockPaperScissors.RPSResultProcess(
           playerChoice ?? defaultChoice,
           botChoice,
@@ -154,12 +154,12 @@ export class RockPaperScissors {
           buttonScissor,
         );
 
-      interaction.followUp({
+      await interaction.followUp({
         components: [buttonRow],
         content: "Ok let's go. 1v1 Rock Paper Scissors. Go choose!",
       });
 
-      setTimeout((inx) => inx.deleteReply(), 10 * 60 * 1000, interaction);
+      setTimeout((inx) => void inx.deleteReply(), 10 * 60 * 1000, interaction);
     }
   }
 
@@ -178,7 +178,7 @@ export class RockPaperScissors {
       botChoice,
     );
 
-    interaction.followUp(
+    await interaction.followUp(
       RockPaperScissors.RPSResultProcess(
         playerChoice ?? defaultChoice,
         botChoice,
@@ -189,7 +189,7 @@ export class RockPaperScissors {
     setTimeout(
       (inx) => {
         try {
-          inx.deleteReply();
+          void inx.deleteReply();
         } catch (err) {
           console.error(err);
         }
@@ -248,15 +248,15 @@ export class RockPaperScissors {
     switch (result) {
       case RPSResult.WIN:
         return {
-          content: `${botChoice.emoji} ${botChoice.choice} ! Well, noob ${playerChoice.emoji} ${playerChoice.choice} need nerf plz...`,
+          content: `${botChoice.emoji.toString()} ${botChoice.choice} ! Well, noob ${playerChoice.emoji.toString()} ${playerChoice.choice} need nerf plz...`,
         };
       case RPSResult.LOSS:
         return {
-          content: `${botChoice.emoji} ${botChoice.choice} ! Okay bye, Easy!`,
+          content: `${botChoice.emoji.toString()} ${botChoice.choice} ! Okay bye, Easy!`,
         };
       case RPSResult.DRAW:
         return {
-          content: `${botChoice.emoji} ${botChoice.choice} ! Ha... Draw...`,
+          content: `${botChoice.emoji.toString()} ${botChoice.choice} ! Ha... Draw...`,
         };
     }
   }

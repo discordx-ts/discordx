@@ -31,23 +31,23 @@ export class Example {
   }
 
   @Slash({ description: "tsyringe" })
-  tsyringe(interaction: CommandInteraction): void {
+  async tsyringe(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
       const clazz = container.resolve(Example);
-      interaction.reply(
+      await interaction.reply(
         `${clazz.database.query()}, same class: ${clazz === this}`,
       );
     } else {
-      interaction.reply("Not using TSyringe");
+      await interaction.reply("Not using TSyringe");
     }
   }
 
   @Slash({ description: "tsyringe2" })
-  tsyringe2(interaction: CommandInteraction): void {
+  async tsyringe2(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
-      interaction.reply(this.database.query());
+      await interaction.reply(this.database.query());
     } else {
-      interaction.reply("Not using TSyringe");
+      await interaction.reply("Not using TSyringe");
     }
   }
 }

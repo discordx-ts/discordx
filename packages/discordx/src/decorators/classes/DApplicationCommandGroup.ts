@@ -11,11 +11,11 @@ import type {
   DApplicationCommandOption,
 } from "../index.js";
 
-type CreateStructure<T> = {
+interface CreateStructure<T> {
   name: string;
   payload: Partial<T>;
   root?: string;
-};
+}
 
 /**
  * @category Decorator

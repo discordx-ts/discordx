@@ -52,7 +52,7 @@ export class SimpleCommandMessage {
    * @returns
    */
   isValid(): boolean {
-    return !this.options.includes(undefined);
+    return !this.options.includes(null);
   }
 
   /**

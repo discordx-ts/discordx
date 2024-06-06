@@ -6,13 +6,13 @@
  */
 import { Method } from "./Method.js";
 
-type CreateStructure = {
+interface CreateStructure {
   botIds?: string[];
   event: string;
   once: boolean;
   priority?: number;
   rest: boolean;
-};
+}
 
 /**
  * @category Decorator

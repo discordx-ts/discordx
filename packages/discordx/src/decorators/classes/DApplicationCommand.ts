@@ -16,7 +16,7 @@ import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
 import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
 import { Method } from "./Method.js";
 
-type CreateStructure = {
+interface CreateStructure {
   botIds?: string[];
   defaultMemberPermissions?: PermissionResolvable | null;
   description: string;
@@ -27,7 +27,7 @@ type CreateStructure = {
   nameLocalizations?: LocalizationMap | null;
   nsfw?: boolean;
   type: ApplicationCommandType;
-};
+}
 
 /**
  * @category Decorator

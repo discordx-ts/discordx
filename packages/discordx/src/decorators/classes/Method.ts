@@ -57,6 +57,7 @@ export abstract class Method extends Decorator {
     return [
       ...this.discord.guards,
       ...this._guards,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       DGuard.create(this._method?.bind(this._discord.instance)),
     ];
   }
@@ -91,6 +92,7 @@ export abstract class Method extends Decorator {
         const parsedParams = await this.parseParams(...params);
 
         // If it's the main method
+        // eslint-disable-next-line no-empty-pattern
         res = await (guardToExecute?.fn as (...[]) => unknown)(
           // method(...ParsedOptions, [Interaction, Client], ...) => method(...ParsedOptions, Interaction, Client, ...)
           ...parsedParams,
@@ -100,6 +102,7 @@ export abstract class Method extends Decorator {
       } else {
         // If it's the guards
         // method([Interaction, Client])
+        // eslint-disable-next-line no-empty-pattern
         res = await (guardToExecute?.fn as (...[]) => unknown)(
           ...params,
           nextFn,

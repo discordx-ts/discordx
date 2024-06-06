@@ -42,4 +42,4 @@ export class Main {
   }
 }
 
-Main.start();
+void Main.start();

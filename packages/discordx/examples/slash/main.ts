@@ -26,14 +26,14 @@ export class Main {
       silent: false,
     });
 
-    this._client.once("ready", async () => {
+    this._client.once("ready", () => {
       // An example of how guild commands can be cleared
       //
       // await this._client.clearApplicationCommands(
       //   ...this._client.guilds.cache.map((guild) => guild.id)
       // );
 
-      await this._client.initApplicationCommands();
+      void this._client.initApplicationCommands();
 
       console.log(">> Bot started");
     });
@@ -52,4 +52,4 @@ export class Main {
   }
 }
 
-Main.start();
+void Main.start();

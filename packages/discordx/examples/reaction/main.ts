@@ -33,7 +33,7 @@ export class Main {
     });
 
     this.Client.on("messageReactionAdd", (reaction, user) => {
-      this.Client.executeReaction(reaction, user);
+      void this.Client.executeReaction(reaction, user);
     });
 
     await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
@@ -46,4 +46,4 @@ export class Main {
   }
 }
 
-Main.start();
+void Main.start();

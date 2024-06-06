@@ -17,8 +17,8 @@ import { DApplicationCommand, Discord, MetadataStorage, Slash } from "discordx";
 export class SlashExample {
   @Slash({ description: "test" })
   @Description("test description decorator")
-  test(interaction: CommandInteraction): void {
-    interaction.reply("Hey!");
+  async test(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply("Hey!");
   }
 
   @Slash({ description: "help" })
@@ -52,6 +52,6 @@ export class SlashExample {
       return { embeds: [embed] };
     });
 
-    new Pagination(interaction, pages).send();
+    void new Pagination(interaction, pages).send();
   }
 }

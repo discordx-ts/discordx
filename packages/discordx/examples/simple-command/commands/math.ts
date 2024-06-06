@@ -21,7 +21,7 @@ export class Example {
     directMessage: true,
     name: "calculate",
   })
-  calculateMath(
+  async calculateMath(
     @SimpleCommandOption({
       description: "First value",
       name: "num1",
@@ -41,14 +41,15 @@ export class Example {
     })
     num2: number | undefined,
     command: SimpleCommandMessage,
-  ): unknown {
+  ): Promise<void> {
     if (
       !num1 ||
       !operation ||
       !num2 ||
       !["+", "-", "*", "/"].includes(operation)
     ) {
-      return command.sendUsageSyntax();
+      await command.sendUsageSyntax();
+      return;
     }
 
     let result = 0;
@@ -66,12 +67,13 @@ export class Example {
         result = num1 / num2;
         break;
     }
-    command.message.reply(`${num1} ${operation} ${num2} = ${result}`);
+
+    await command.message.reply(`${num1} ${operation} ${num2} = ${result}`);
   }
 
   @SimpleCommand({ aliases: ["p-check"], name: "check-permissions" })
-  checkPermissions(command: SimpleCommandMessage): void {
-    command.message.reply("Access granted.");
+  async checkPermissions(command: SimpleCommandMessage): Promise<void> {
+    await command.message.reply("Access granted.");
   }
 
   @SimpleCommand({ aliases: ["p-test mark"], name: "greet" })
@@ -86,63 +88,68 @@ export class Example {
   }
 
   @SimpleCommand({ name: "mention-user" })
-  mentionUser(
+  async mentionUser(
     @SimpleCommandOption({ name: "user", type: SimpleCommandOptionType.User })
     user: User | undefined,
     command: SimpleCommandMessage,
-  ): void {
-    !user
-      ? command.message.reply("User not mentioned.")
-      : command.message.reply(`${user}`);
+  ): Promise<void> {
+    if (user) {
+      await command.message.reply(user.toString());
+    } else {
+      await command.message.reply("User not mentioned.");
+    }
   }
 
   @SimpleCommand({ name: "mention-role" })
-  mentionRole(
+  async mentionRole(
     @SimpleCommandOption({ name: "role", type: SimpleCommandOptionType.Role })
     role: Role | undefined,
     command: SimpleCommandMessage,
-  ): void {
-    !role
-      ? command.message.reply("Role not mentioned.")
-      : command.message.reply(`${role}`);
+  ): Promise<void> {
+    if (role) {
+      await command.message.reply(role.toString());
+    } else {
+      await command.message.reply("Role not mentioned.");
+    }
   }
 
   @SimpleCommand({ name: "mention-channel" })
-  mentionChannel(
+  async mentionChannel(
     @SimpleCommandOption({
       name: "channel",
       type: SimpleCommandOptionType.Channel,
     })
     channel: Channel | undefined,
     command: SimpleCommandMessage,
-  ): void {
-    !channel
-      ? command.message.reply("Channel not mentioned.")
-      : command.message.reply(`${channel}`);
+  ): Promise<void> {
+    if (channel) {
+      await command.message.reply(channel.toString());
+    } else {
+      await command.message.reply("Channel not mentioned.");
+    }
   }
 
   @SimpleCommand({ argSplitter: "+", name: "addition" })
-  addition(
+  async addition(
     @SimpleCommandOption({ name: "x", type: SimpleCommandOptionType.Number })
     x: number,
     @SimpleCommandOption({ name: "y", type: SimpleCommandOptionType.Number })
     y: number,
     command: SimpleCommandMessage,
-  ): void {
+  ): Promise<void> {
     if (!command.isValid()) {
-      command.sendUsageSyntax();
+      await command.sendUsageSyntax();
       return;
     }
 
-    command.message.reply(`${x + y}`);
+    await command.message.reply(`${x + y}`);
   }
 
   @SimpleCommand({
-    argSplitter:
-      /\s\"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
+    argSplitter: /\s"|\s'|"|'|\s(?=(?:"[^"]*"|[^"])*$)(?=(?:'[^']*'|[^'])*$)/gm,
     name: "ban-user",
   })
-  banUser(
+  async banUser(
     @SimpleCommandOption({ name: "id", type: SimpleCommandOptionType.Number })
     id: number,
     @SimpleCommandOption({ name: "time", type: SimpleCommandOptionType.Number })
@@ -155,13 +162,13 @@ export class Example {
     @SimpleCommandOption({ name: "type", type: SimpleCommandOptionType.String })
     type: string,
     command: SimpleCommandMessage,
-  ): void {
+  ): Promise<void> {
     if (!command.isValid()) {
-      command.sendUsageSyntax();
+      await command.sendUsageSyntax();
       return;
     }
 
-    command.message.reply(
+    await command.message.reply(
       `ID: ${id}\n` +
         `Time: ${time} seconds\n` +
         `Reason: ${reason}\n` +
@@ -175,18 +182,18 @@ export class Example {
     },
     name: "split-arguments",
   })
-  splitArguments(
+  async splitArguments(
     @SimpleCommandOption({ name: "arg1", type: SimpleCommandOptionType.String })
     arg1: string,
     @SimpleCommandOption({ name: "arg2", type: SimpleCommandOptionType.String })
     arg2: string,
     command: SimpleCommandMessage,
-  ): void {
+  ): Promise<void> {
     if (!command.isValid()) {
-      command.sendUsageSyntax();
+      await command.sendUsageSyntax();
       return;
     }
 
-    command.message.reply(`Argument 1: ${arg1}\nArgument 2: ${arg2}\n`);
+    await command.message.reply(`Argument 1: ${arg1}\nArgument 2: ${arg2}\n`);
   }
 }

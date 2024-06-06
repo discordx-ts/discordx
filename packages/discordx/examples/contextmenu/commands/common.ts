@@ -17,17 +17,21 @@ export class Example {
     name: "Hello from discordx",
     type: ApplicationCommandType.Message,
   })
-  messageHandler(interaction: MessageContextMenuCommandInteraction): void {
+  async messageHandler(
+    interaction: MessageContextMenuCommandInteraction,
+  ): Promise<void> {
     console.log("I am message");
-    interaction.reply("message interaction works");
+    await interaction.reply("message interaction works");
   }
 
   @ContextMenu({
     name: "Hello from discordx",
     type: ApplicationCommandType.User,
   })
-  userHandler(interaction: UserContextMenuCommandInteraction): void {
+  async userHandler(
+    interaction: UserContextMenuCommandInteraction,
+  ): Promise<void> {
     console.log(`Selected user: ${interaction.targetId}`);
-    interaction.reply("user interaction works");
+    await interaction.reply("user interaction works");
   }
 }

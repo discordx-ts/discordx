@@ -21,7 +21,7 @@ export class SlashExample {
 
     MetadataStorage.instance.applicationCommandSlashesFlat.forEach(
       (cmd: DApplicationCommand & ICategory) => {
-        interaction.followUp(
+        void interaction.followUp(
           `Name: \`${cmd.name}\`, Category: \`${cmd.category}\``,
         );
       },

@@ -66,12 +66,12 @@ export class QueueNode extends EventEmitter {
   }
 
   private setupWorkerMessageHandler(): void {
-    this.worker.on("message", async (payload: ParentProcessDataPayload) => {
+    this.worker.on("message", (payload: ParentProcessDataPayload) => {
       this.emit(QueueEvent.ParentProcessEvent, payload);
 
       switch (payload.op) {
         case ParentProcessEvent.VoiceStateUpdate:
-          await this.handleWorkerVoiceStateUpdate(payload.data);
+          void this.handleWorkerVoiceStateUpdate(payload.data);
           break;
 
         case ParentProcessEvent.ConnectionDestroy:

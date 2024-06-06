@@ -23,8 +23,8 @@ export function ValidateNpmName(name: string): {
 
   return {
     problems: [
-      ...(nameValidation.errors || []),
-      ...(nameValidation.warnings || []),
+      ...(nameValidation.errors ?? []),
+      ...(nameValidation.warnings ?? []),
     ],
     valid: false,
   };

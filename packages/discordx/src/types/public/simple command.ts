@@ -20,7 +20,7 @@ export type ArgSplitter =
   | RegExp
   | ((command: SimpleCommandMessage) => string[]);
 
-export type SimpleCommandOptions<T extends string = string> = {
+export interface SimpleCommandOptions<T extends string = string> {
   aliases?: string[];
   argSplitter?: ArgSplitter;
   botIds?: string[];
@@ -29,13 +29,13 @@ export type SimpleCommandOptions<T extends string = string> = {
   guilds?: IGuild[];
   name?: NotEmpty<T>;
   prefix?: IPrefix;
-};
+}
 
-export type SimpleCommandOptionOptions<T extends string = string> = {
+export interface SimpleCommandOptionOptions<T extends string = string> {
   description?: string;
   name: NotEmpty<T>;
   type: SimpleCommandOptionType;
-};
+}
 
 export type SimpleOptionType =
   | string
@@ -46,7 +46,7 @@ export type SimpleOptionType =
   | User
   | GuildMember
   | Role
-  | undefined;
+  | null;
 
 export enum SimpleCommandOptionType {
   String,

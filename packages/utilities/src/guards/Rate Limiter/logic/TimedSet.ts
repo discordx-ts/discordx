@@ -37,9 +37,7 @@ export class TimedSet<T> implements ITimedSet<T> {
     return [...this._map.keys()];
   }
 
-  public get [Symbol.toStringTag](): string {
-    return "Set";
-  }
+  public readonly [Symbol.toStringTag] = "Set";
 
   public isEmpty(): boolean {
     return this._map.size === 0;
@@ -62,7 +60,7 @@ export class TimedSet<T> implements ITimedSet<T> {
       return false;
     }
 
-    const timeoutFunction = this._map.get(key) as Timer;
+    const timeoutFunction = this._map.get(key)!;
     timeoutFunction.clearTimer();
     return this._map.delete(key);
   }
@@ -72,7 +70,7 @@ export class TimedSet<T> implements ITimedSet<T> {
       return false;
     }
 
-    const timeoutFunction = this._map.get(key) as Timer;
+    const timeoutFunction = this._map.get(key)!;
     timeoutFunction.clearTimer();
     this.add(key);
     return true;

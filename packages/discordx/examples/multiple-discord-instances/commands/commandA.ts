@@ -10,7 +10,7 @@ import { Discord, Slash } from "discordx";
 @Discord()
 export class CommandA {
   @Slash({ description: "hello" })
-  hello(interaction: CommandInteraction): void {
-    interaction.reply(":wave:");
+  async hello(interaction: CommandInteraction): Promise<void> {
+    await interaction.reply(":wave:");
   }
 }

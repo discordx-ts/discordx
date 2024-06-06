@@ -17,10 +17,12 @@ export class Example {
     description: "Custom page name for select menu",
     name: "config-example",
   })
-  configExample(interaction: CommandInteraction): void {
-    new Pagination(interaction, GeneratePages(), {
+  async configExample(interaction: CommandInteraction): Promise<void> {
+    const pagination = new Pagination(interaction, GeneratePages(), {
       pageText: "My custom page: {page}, Index: {page}",
       type: PaginationType.SelectMenu,
-    }).send();
+    });
+
+    await pagination.send();
   }
 }
