@@ -29,8 +29,8 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
-    "simple-import-sort/exports": "error",
     // simple-import-sort
+    "simple-import-sort/exports": "error",
     "simple-import-sort/imports": "error",
     // typescript-sort-keys
     "typescript-sort-keys/interface": "error",
