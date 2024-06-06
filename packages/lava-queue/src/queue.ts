@@ -66,7 +66,7 @@ export class Queue {
   }
 
   async enqueue(id: string): Promise<TrackResponse> {
-    const response = await this.player.node.rest.load(id);
+    const response = await this.player.node.rest.loadTracks(id);
 
     if (response.loadType === LoadType.PLAYLIST) {
       this.tracks.push(...response.data.tracks);
@@ -132,7 +132,7 @@ export class Queue {
    * @param text - User input
    */
   search(text: string): Promise<TrackResponse> {
-    return this.player.node.rest.load(text);
+    return this.player.node.rest.loadTracks(text);
   }
 
   setPosition(position: number): void {

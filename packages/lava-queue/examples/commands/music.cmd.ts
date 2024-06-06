@@ -128,6 +128,148 @@ export class MusicPlayer {
     this.player[client.botId] = new Player(getNode(client));
   }
 
+  // buttons
+
+  @ButtonComponent({ id: "btn-next" })
+  async nextControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+
+    const next = await queue.playNext();
+    if (!next) {
+      await queue.exit();
+    }
+
+    // Delete interaction
+    await interaction.deleteReply();
+  }
+
+  @ButtonComponent({ id: "btn-pause" })
+  async pauseControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    queue.isPlaying ? await queue.pause() : await queue.resume();
+
+    // Delete interaction
+    await interaction.deleteReply();
+  }
+
+  @ButtonComponent({ id: "btn-leave" })
+  async leaveControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    await queue.exit();
+
+    // Delete interaction
+    await interaction.deleteReply();
+  }
+
+  @ButtonComponent({ id: "btn-repeat" })
+  async repeatControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+
+    queue.setRepeat(!queue.repeat);
+
+    // Delete interaction
+    await interaction.deleteReply();
+  }
+
+  @ButtonComponent({ id: "btn-loop" })
+  async loopControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+
+    queue.setLoop(!queue.loop);
+
+    // Delete interaction
+    await interaction.deleteReply();
+  }
+
+  @ButtonComponent({ id: "btn-queue" })
+  async queueControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    await queue.view(interaction as unknown as CommandInteraction);
+  }
+
+  @ButtonComponent({ id: "btn-mix" })
+  async mixControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+
+    queue.shuffle();
+
+    // Delete interaction
+    await interaction.deleteReply();
+  }
+
+  @ButtonComponent({ id: "btn-controls" })
+  async controlsControl(
+    interaction: ButtonInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    await queue.updateControlMessage({ force: true });
+
+    // Delete interaction
+    await interaction.deleteReply();
+  }
+
   // slashes
 
   @Slash({ description: "play" })
@@ -153,7 +295,7 @@ export class MusicPlayer {
       channel: member.voice.channelId,
     });
 
-    queue.channel = channel;
+    queue.setChannel(channel);
     const { loadType, data } = await queue.search(`ytsearch:${input}`);
 
     if (loadType !== LoadType.SEARCH || !data[0]) {
@@ -175,14 +317,54 @@ export class MusicPlayer {
     embed.setTitle("Enqueued");
     embed.setDescription(`Enqueued ${track.info.title} track`);
 
+    if (track.info.artworkUrl) {
+      embed.setThumbnail(track.info.artworkUrl);
+    }
+
     await interaction.followUp({ embeds: [embed] });
     return;
   }
 
-  @Slash({ description: "seek" })
+  @Slash({
+    description: "Show details of currently playing song",
+    name: "current",
+  })
+  async current(
+    interaction: CommandInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    const currentTrack = queue.currentTrack;
+    if (!currentTrack) {
+      await interaction.followUp("> Not playing anything at the moment.");
+      return;
+    }
+
+    const { title, length } = currentTrack.info;
+    const trackPosition = queue.fromMS(queue.position);
+    const trackLength = queue.fromMS(length);
+    const description = `Playing **${title}** from **${trackPosition}/${trackLength}**`;
+
+    const embed = new EmbedBuilder();
+    embed.setTitle("Current Track");
+    embed.setDescription(description);
+
+    if (currentTrack.info.artworkUrl) {
+      embed.setImage(currentTrack.info.artworkUrl);
+    }
+
+    await interaction.followUp({ embeds: [embed] });
+  }
+
+  @Slash({ description: "Play current song on specific time", name: "seek" })
   async seek(
     @SlashOption({
-      description: "seconds",
+      description: "time in seconds",
       name: "seconds",
       required: true,
       type: ApplicationCommandOptionType.Number,
@@ -214,14 +396,89 @@ export class MusicPlayer {
     });
 
     await interaction.followUp("> current track seeked");
-    return;
   }
 
-  // buttons
+  @Slash({ description: "View queue", name: "queue" })
+  async queue(interaction: CommandInteraction, client: Client): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
 
-  @ButtonComponent({ id: "btn-next" })
-  async nextControl(
-    interaction: ButtonInteraction,
+    const { queue } = cmd;
+    await queue.view(interaction);
+  }
+
+  @Slash({ description: "Pause current track", name: "pause" })
+  async pause(interaction: CommandInteraction, client: Client): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    const currentTrack = queue.currentTrack;
+    if (!currentTrack || !queue.isPlaying) {
+      await interaction.followUp("> I am already quite, amigo!");
+      return;
+    }
+
+    await queue.pause();
+    await interaction.followUp(`> paused ${currentTrack.info.title}`);
+  }
+
+  @Slash({ description: "Resume current track", name: "resume" })
+  async resume(interaction: CommandInteraction, client: Client): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    const currentTrack = queue.currentTrack;
+    if (!currentTrack || queue.isPlaying) {
+      await interaction.followUp(
+        "> no no no, I am already doing my best, amigo!",
+      );
+      return;
+    }
+
+    await queue.resume();
+    await interaction.followUp(`> resuming ${currentTrack.info.title}`);
+  }
+
+  @Slash({ description: "Skip current song", name: "skip" })
+  async skip(interaction: CommandInteraction, client: Client): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    const currentTrack = queue.currentTrack;
+    if (!currentTrack) {
+      await interaction.followUp(
+        "> There doesn't seem to be anything to skip at the moment.",
+      );
+      return;
+    }
+
+    await queue.playNext();
+    await interaction.followUp(`> skipped ${currentTrack.info.title}`);
+  }
+
+  @Slash({ description: "Set volume", name: "set-volume" })
+  async setVolume(
+    @SlashOption({
+      description: "Set volume",
+      maxValue: 100,
+      minValue: 0,
+      name: "volume",
+      required: true,
+      type: ApplicationCommandOptionType.Number,
+    })
+    volume: number,
+    interaction: CommandInteraction,
     client: Client,
   ): Promise<void> {
     const cmd = await this.ParseCommand(client, interaction);
@@ -230,23 +487,25 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-
-    const next = await queue.playNext();
-    if (!next) {
-      await queue.stop();
-      await queue.lavaPlayer.leave();
-    }
-
-    // update controls
-    await queue.updateControlMessage();
-
-    // delete interaction
-    await interaction.deleteReply();
+    await queue.setVolume(volume);
+    await interaction.followUp(`> volume set to ${volume}`);
   }
 
-  @ButtonComponent({ id: "btn-pause" })
-  async pauseControl(
-    interaction: ButtonInteraction,
+  @Slash({ description: "Stop music player", name: "stop" })
+  async stop(interaction: CommandInteraction, client: Client): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd) {
+      return;
+    }
+
+    const { queue } = cmd;
+    await queue.exit();
+    await interaction.followUp("> adios amigo, see you later!");
+  }
+
+  @Slash({ description: "Shuffle queue", name: "shuffle" })
+  async shuffle(
+    interaction: CommandInteraction,
     client: Client,
   ): Promise<void> {
     const cmd = await this.ParseCommand(client, interaction);
@@ -255,107 +514,29 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.isPlaying ? await queue.pause() : await queue.resume();
-    await queue.updateControlMessage();
-
-    // delete interaction
-    await interaction.deleteReply();
-  }
-
-  @ButtonComponent({ id: "btn-leave" })
-  async leaveControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
-    if (!cmd) {
-      return;
-    }
-
-    const { queue } = cmd;
-
-    await queue.stop();
-    await queue.lavaPlayer.leave();
-    await queue.updateControlMessage();
-
-    // delete interaction
-    await interaction.deleteReply();
-  }
-
-  @ButtonComponent({ id: "btn-repeat" })
-  async repeatControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
-    if (!cmd) {
-      return;
-    }
-
-    const { queue } = cmd;
-
-    queue.setRepeat(!queue.repeat);
-    await queue.updateControlMessage();
-
-    // delete interaction
-    await interaction.deleteReply();
-  }
-
-  @ButtonComponent({ id: "btn-loop" })
-  async loopControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
-    if (!cmd) {
-      return;
-    }
-
-    const { queue } = cmd;
-
-    queue.setLoop(!queue.loop);
-    await queue.updateControlMessage();
-
-    // delete interaction
-    await interaction.deleteReply();
-  }
-
-  @ButtonComponent({ id: "btn-queue" })
-  async queueControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
-    if (!cmd) {
-      return;
-    }
-
-    const { queue } = cmd;
-    await queue.view(interaction as unknown as CommandInteraction);
-  }
-
-  @ButtonComponent({ id: "btn-mix" })
-  async mixControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
-    if (!cmd) {
-      return;
-    }
-
-    const { queue } = cmd;
-
     queue.shuffle();
-    await queue.updateControlMessage();
-
-    // delete interaction
-    await interaction.deleteReply();
+    await interaction.followUp("> playlist shuffled!");
   }
 
-  @ButtonComponent({ id: "btn-controls" })
-  async controlsControl(
-    interaction: ButtonInteraction,
+  @Slash({ description: "Show GUI controls", name: "gui-show" })
+  async guiShow(
+    interaction: CommandInteraction,
+    client: Client,
+  ): Promise<void> {
+    const cmd = await this.ParseCommand(client, interaction);
+    if (!cmd || !interaction.channel) {
+      return;
+    }
+
+    const { queue } = cmd;
+    queue.setChannel(interaction.channel);
+    queue.startControlUpdate();
+    await interaction.followUp("> Enable GUI mode!");
+  }
+
+  @Slash({ description: "Hide GUI controls", name: "gui-hide" })
+  async guiHide(
+    interaction: CommandInteraction,
     client: Client,
   ): Promise<void> {
     const cmd = await this.ParseCommand(client, interaction);
@@ -364,9 +545,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    await queue.updateControlMessage({ force: true });
-
-    // delete interaction
-    await interaction.deleteReply();
+    queue.stopControlUpdate();
+    await interaction.followUp("> Disabled GUI mode!");
   }
 }

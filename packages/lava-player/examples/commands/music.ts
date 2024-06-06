@@ -184,7 +184,7 @@ export class MusicPlayer {
 
     const version = await this.node.rest.getVersion();
     console.log(`>> Version: ${version}`);
-    const res = await this.node.rest.load(`ytsearch:${song}`);
+    const res = await this.node.rest.loadTracks(`ytsearch:${song}`);
     if (res.loadType !== LoadType.SEARCH) {
       await interaction.followUp("Track could not be loaded");
       return;
