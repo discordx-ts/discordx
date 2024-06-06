@@ -48,7 +48,7 @@
   "dependencies": {
     "@types/backoff": "^2.5.5",
     "backoff": "^2.5.0",
-    "tslib": "^2.6.2",
+    "tslib": "^2.6.3",
     "ws": "^8.17.0"
   },
   "devDependencies": {
