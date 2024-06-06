@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.0.1
+
+### Patch Changes
+
+- set default self mute to false
+
 ## 2.0.0
 
 ### Major Changes
