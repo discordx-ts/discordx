@@ -45,6 +45,7 @@ export class MusicPlayer {
     });
 
     nodeInstance.connection.ws.on("message", (data) => {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       const raw = JSON.parse(data.toString()) as OpResponse;
       console.log("ws>>", raw);
     });
@@ -56,14 +57,14 @@ export class MusicPlayer {
     client.ws.on(
       GatewayDispatchEvents.VoiceStateUpdate,
       (data: VoiceStateUpdate) => {
-        nodeInstance.voiceStateUpdate(data);
+        void nodeInstance.voiceStateUpdate(data);
       },
     );
 
     client.ws.on(
       GatewayDispatchEvents.VoiceServerUpdate,
       (data: VoiceServerUpdate) => {
-        nodeInstance.voiceServerUpdate(data);
+        void nodeInstance.voiceServerUpdate(data);
       },
     );
 
@@ -75,24 +76,24 @@ export class MusicPlayer {
     await interaction.deferReply();
 
     if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
-      interaction.followUp("could not process this command, try again");
+      await interaction.followUp("could not process this command, try again");
       return;
     }
 
     if (!this.node) {
-      interaction.followUp("lavalink player is not ready");
+      await interaction.followUp("lavalink player is not ready");
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("please join a voice channel first");
+      await interaction.followUp("please join a voice channel first");
       return;
     }
 
     const player = this.node.players.get(interaction.guildId);
     await player.join({ channel: interaction.member.voice.channelId });
 
-    interaction.followUp("I am ready to rock :smile:");
+    await interaction.followUp("I am ready to rock :smile:");
 
     return;
   }
@@ -102,24 +103,24 @@ export class MusicPlayer {
     await interaction.deferReply();
 
     if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
-      interaction.followUp("could not process this command, try again");
+      await interaction.followUp("could not process this command, try again");
       return;
     }
 
     if (!this.node) {
-      interaction.followUp("lavalink player is not ready");
+      await interaction.followUp("lavalink player is not ready");
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("please join a voice channel first");
+      await interaction.followUp("please join a voice channel first");
       return;
     }
 
     const player = this.node.players.get(interaction.guildId);
     await player.leave();
 
-    interaction.followUp("Left it!");
+    await interaction.followUp("Left it!");
     return;
   }
 
@@ -128,24 +129,24 @@ export class MusicPlayer {
     await interaction.deferReply();
 
     if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
-      interaction.followUp("could not process this command, try again");
+      await interaction.followUp("could not process this command, try again");
       return;
     }
 
     if (!this.node) {
-      interaction.followUp("lavalink player is not ready");
+      await interaction.followUp("lavalink player is not ready");
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("please join a voice channel first");
+      await interaction.followUp("please join a voice channel first");
       return;
     }
 
     const player = this.node.players.get(interaction.guildId);
     await player.destroy();
 
-    interaction.followUp("Destroyed it!");
+    await interaction.followUp("Destroyed it!");
     return;
   }
 
@@ -162,17 +163,17 @@ export class MusicPlayer {
     await interaction.deferReply();
 
     if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
-      interaction.followUp("could not process this command, try again");
+      await interaction.followUp("could not process this command, try again");
       return;
     }
 
     if (!this.node) {
-      interaction.followUp("lavalink player is not ready");
+      await interaction.followUp("lavalink player is not ready");
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("please join a voice channel first");
+      await interaction.followUp("please join a voice channel first");
       return;
     }
 
@@ -185,7 +186,7 @@ export class MusicPlayer {
     console.log(`>> Version: ${version}`);
     const res = await this.node.rest.load(`ytsearch:${song}`);
     if (res.loadType !== LoadType.SEARCH) {
-      interaction.followUp("Track could not be loaded");
+      await interaction.followUp("Track could not be loaded");
       return;
     }
 

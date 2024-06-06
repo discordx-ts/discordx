@@ -38,7 +38,7 @@ export class MusicQueue extends Queue {
 
   constructor(player: Player, guildId: string) {
     super(player, guildId);
-    setInterval(() => this.updateControlMessage(), 1e4);
+    setInterval(() => void this.updateControlMessage(), 1e4);
   }
 
   private controlsRow(): ActionRowBuilder<MessageActionRowComponentBuilder>[] {
@@ -205,7 +205,7 @@ export class MusicQueue extends Queue {
       });
 
       if (pMsg instanceof Message) {
-        setTimeout(() => pMsg.delete().catch(() => null), 3000);
+        setTimeout(() => void pMsg.delete().catch(() => null), 3000);
       }
       return;
     }
@@ -215,7 +215,7 @@ export class MusicQueue extends Queue {
         `> Playing **${this.currentTrack.info.title}**`,
       );
       if (pMsg instanceof Message) {
-        setTimeout(() => pMsg.delete().catch(() => null), 1e4);
+        setTimeout(() => void pMsg.delete().catch(() => null), 1e4);
       }
       return;
     }

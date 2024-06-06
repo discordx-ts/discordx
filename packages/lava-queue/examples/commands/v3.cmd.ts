@@ -4,7 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { TrackResponse } from "@discordx/lava-player";
 import { LoadType, PlayerStatus } from "@discordx/lava-player";
 import { Player } from "@discordx/lava-queue";
 import type {
@@ -19,14 +18,7 @@ import {
   GuildMember,
 } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
-import {
-  ButtonComponent,
-  Discord,
-  Once,
-  Slash,
-  SlashChoice,
-  SlashOption,
-} from "discordx";
+import { ButtonComponent, Discord, Once, Slash, SlashOption } from "discordx";
 
 import { getNode } from "./node.js";
 import { MusicQueue } from "./queue.js";
@@ -74,14 +66,14 @@ export class MusicPlayer {
       !interaction.guild ||
       !interaction.client.user
     ) {
-      interaction.followUp(
+      await interaction.followUp(
         "The command could not be processed. Please try again",
       );
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("Join a voice channel first");
+      await interaction.followUp("Join a voice channel first");
       return;
     }
 
@@ -90,7 +82,9 @@ export class MusicPlayer {
     );
 
     if (!bot) {
-      interaction.followUp("Having difficulty finding my place in this world");
+      await interaction.followUp(
+        "Having difficulty finding my place in this world",
+      );
       return;
     }
 
@@ -98,14 +92,14 @@ export class MusicPlayer {
       !skipBotChannel &&
       interaction.member.voice.channelId !== bot.voice.channelId
     ) {
-      interaction.followUp("join to my voice channel");
+      await interaction.followUp("join to my voice channel");
       return;
     }
 
     const queue = this.GetQueue(client.botId, interaction.guild.id);
 
     if (!queue) {
-      interaction.followUp("The player is not ready yet, please wait");
+      await interaction.followUp("The player is not ready yet, please wait");
       return;
     }
 
@@ -154,7 +148,7 @@ export class MusicPlayer {
     const { loadType, data } = await queue.search(`ytsearch:${input}`);
 
     if (loadType !== LoadType.SEARCH || !data[0]) {
-      interaction.followUp("> no search result");
+      await interaction.followUp("> no search result");
       return;
     }
 
@@ -172,7 +166,7 @@ export class MusicPlayer {
     embed.setTitle("Enqueued");
     embed.setDescription(`Enqueued ${track.info.title} track`);
 
-    interaction.followUp({ embeds: [embed] });
+    await interaction.followUp({ embeds: [embed] });
     return;
   }
 
@@ -196,13 +190,13 @@ export class MusicPlayer {
     const { queue } = cmd;
 
     if (!queue.currentTrack) {
-      interaction.followUp("> I am not sure, I am playing anything");
+      await interaction.followUp("> I am not sure, I am playing anything");
       return;
     }
 
     if (seconds * 1000 > queue.currentTrack.info.length) {
-      queue.playNext();
-      interaction.followUp("> skipped the track instead");
+      await queue.playNext();
+      await interaction.followUp("> skipped the track instead");
       return;
     }
 
@@ -210,7 +204,7 @@ export class MusicPlayer {
       position: seconds * 1000,
     });
 
-    interaction.followUp("> current track seeked");
+    await interaction.followUp("> current track seeked");
     return;
   }
 
@@ -228,17 +222,17 @@ export class MusicPlayer {
 
     const { queue } = cmd;
 
-    const next = queue.playNext();
+    const next = await queue.playNext();
     if (!next) {
-      queue.stop();
+      await queue.stop();
       await queue.lavaPlayer.leave();
     }
 
     // update controls
-    queue.updateControlMessage();
+    await queue.updateControlMessage();
 
     // delete interaction
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-pause" })
@@ -271,12 +265,12 @@ export class MusicPlayer {
 
     const { queue } = cmd;
 
-    queue.stop();
+    await queue.stop();
     await queue.lavaPlayer.leave();
-    queue.updateControlMessage();
+    await queue.updateControlMessage();
 
     // delete interaction
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-repeat" })
@@ -292,10 +286,10 @@ export class MusicPlayer {
     const { queue } = cmd;
 
     queue.setRepeat(!queue.repeat);
-    queue.updateControlMessage();
+    await queue.updateControlMessage();
 
     // delete interaction
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-loop" })
@@ -311,10 +305,10 @@ export class MusicPlayer {
     const { queue } = cmd;
 
     queue.setLoop(!queue.loop);
-    queue.updateControlMessage();
+    await queue.updateControlMessage();
 
     // delete interaction
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-queue" })
@@ -328,8 +322,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-
-    queue.view(interaction as unknown as CommandInteraction);
+    await queue.view(interaction as unknown as CommandInteraction);
   }
 
   @ButtonComponent({ id: "btn-mix" })
@@ -345,7 +338,7 @@ export class MusicPlayer {
     const { queue } = cmd;
 
     queue.shuffle();
-    queue.updateControlMessage();
+    await queue.updateControlMessage();
 
     // delete interaction
     await interaction.deleteReply();
@@ -362,10 +355,9 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-
-    queue.updateControlMessage({ force: true });
+    await queue.updateControlMessage({ force: true });
 
     // delete interaction
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 }

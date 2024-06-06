@@ -35,14 +35,14 @@ export function getNode(client: Client): Node {
   client.ws.on(
     GatewayDispatchEvents.VoiceStateUpdate,
     (data: VoiceStateUpdate) => {
-      nodeX.voiceStateUpdate(data);
+      void nodeX.voiceStateUpdate(data);
     },
   );
 
   client.ws.on(
     GatewayDispatchEvents.VoiceServerUpdate,
     (data: VoiceServerUpdate) => {
-      nodeX.voiceServerUpdate(data);
+      void nodeX.voiceServerUpdate(data);
     },
   );
 
