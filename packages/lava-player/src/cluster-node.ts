@@ -43,8 +43,10 @@ export default class ClusterNode extends BaseNode {
     options: ClusterNodeOptions,
   ) {
     super(options);
-    this.tags = new Set(options.tags || []);
-    this.on("stats", (stats) => (this.stats = stats));
+    this.tags = new Set(options.tags ?? []);
+    this.on("stats", (stats) => {
+      this.stats = stats;
+    });
   }
 
   public emit(name: string | symbol, ...args: any[]): boolean {
@@ -54,8 +56,9 @@ export default class ClusterNode extends BaseNode {
     return this.cluster.emit(name, ...args);
   }
 
-  public send = (guildId: string, pk: object): Promise<any> =>
-    this.cluster.send(guildId, pk);
+  public send = (guildId: string, pk: object): Promise<void> => {
+    return this.cluster.send(guildId, pk);
+  };
 
   public async destroy(code?: number, data?: string): Promise<void> {
     await super.destroy(code, data);

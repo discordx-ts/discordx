@@ -1,24 +1,29 @@
 {
-  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:prettier/recommended",
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["**/*/tsconfig.json"]
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": true,
   },
   "plugins": [
     "@typescript-eslint",
     "typescript-sort-keys",
     "simple-import-sort",
-    "import"
+    "import",
   ],
-  "extends": [
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "ignorePatterns": ["**/*.js"],
+  "root": true,
   "rules": {
     // simple-import-sort
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+
+    // import
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
@@ -27,39 +32,10 @@
     "typescript-sort-keys/interface": "error",
     "typescript-sort-keys/string-enum": "error",
 
-    // common
-    "no-return-await": "error",
-    "no-unreachable-loop": "error",
-    "no-promise-executor-return": "error",
-    "no-unsafe-optional-chaining": "error",
-    "no-useless-backreference": "error",
-    "require-atomic-updates": "error",
-    "require-await": "error",
-    "no-await-in-loop": "error",
-    "spaced-comment": "error",
-    "sort-imports": "off",
-    "sort-keys": "error",
-    "no-unused-vars": "off", // typescript-eslint suggestion: off
-    "curly": "error",
-    "camelcase": "error",
-
-    // TypeScript
-    "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/prefer-optional-chain": "error",
-    "@typescript-eslint/no-use-before-define": "error",
-    "@typescript-eslint/no-shadow": "error",
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/semi": "error",
-    "@typescript-eslint/no-loss-of-precision": "error",
-    "@typescript-eslint/quotes": ["error", "double", { "avoidEscape": true }],
-    "@typescript-eslint/no-empty-function": "error",
-    "@typescript-eslint/no-empty-interface": "error",
-    "@typescript-eslint/no-inferrable-types": "error",
-    "@typescript-eslint/no-non-null-asserted-optional-chain": "error",
-    "@typescript-eslint/no-non-null-assertion": "error",
-    "@typescript-eslint/explicit-module-boundary-types": "error",
-    "@typescript-eslint/no-var-requires": "error",
+    // disabled
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/ban-types": "error"
-  }
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+  },
 }

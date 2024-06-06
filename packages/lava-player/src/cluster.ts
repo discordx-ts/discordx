@@ -20,7 +20,7 @@ export class Cluster extends BaseCluster {
 
   constructor(options: ClusterOptions) {
     super(options.nodes);
-    this.filter = options.filter || (() => true);
+    this.filter = options.filter ?? (() => true);
     this.send = options.send;
   }
 }

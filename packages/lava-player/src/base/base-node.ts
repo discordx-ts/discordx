@@ -18,20 +18,20 @@ import type {
 } from "../types/index.js";
 
 export abstract class BaseNode extends EventEmitter {
-  public abstract send: (guildId: string, packet: any) => Promise<any>;
+  public abstract send: (guildId: string, packet: any) => Promise<void>;
 
   public password: string;
   public userId: string;
   public sessionId: string | null = null;
 
   public connection: Connection;
-  public players: PlayerStore<this> = new PlayerStore(this);
+  public players = new PlayerStore(this);
   public rest: Rest;
 
-  public voiceStates: Map<string, VoiceStateUpdate> = new Map();
-  public voiceServers: Map<string, VoiceServerUpdate> = new Map();
+  public voiceStates = new Map<string, VoiceStateUpdate>();
+  public voiceServers = new Map<string, VoiceServerUpdate>();
 
-  private _expectingConnection: Set<string> = new Set();
+  private _expectingConnection = new Set<string>();
 
   constructor({ password, userId, host }: BaseNodeOptions) {
     super();

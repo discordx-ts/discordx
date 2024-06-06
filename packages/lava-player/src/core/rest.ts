@@ -9,7 +9,9 @@ import { request, STATUS_CODES } from "http";
 import { URL } from "url";
 
 import type { BaseNode } from "../base/base-node.js";
-import type {
+import {
+  GetPlayer,
+  RequestType,
   RoutePlannerStatus,
   Track,
   TrackResponse,
@@ -27,13 +29,9 @@ export class HTTPError extends Error {
   }
 
   constructor(httpMessage: IncomingMessage, method: string, url: URL) {
-    super(
-      `${httpMessage.statusCode} ${
-        STATUS_CODES[httpMessage.statusCode as number]
-      }`,
-    );
+    super(`${httpMessage.statusCode} ${STATUS_CODES[httpMessage.statusCode!]}`);
 
-    this.statusCode = httpMessage.statusCode as number;
+    this.statusCode = httpMessage.statusCode!;
     this.headers = httpMessage.headers;
     this.name = this.constructor.name;
     this.path = url.toString();
@@ -56,59 +54,71 @@ export class Rest {
 
   public routeStatus(): Promise<RoutePlannerStatus> {
     const url = this.url("routeplanner/status");
-    return this.do("get", url);
+    return this.request(RequestType.GET, url);
   }
 
   public routeFree(address: string): Promise<void> {
     const url = this.url("routeplanner/free/address");
-    return this.do("post", url, Buffer.from(JSON.stringify({ address })));
+    return this.request(
+      RequestType.POST,
+      url,
+      Buffer.from(JSON.stringify({ address })),
+    );
   }
 
   public routeFreeAll(): Promise<void> {
     const url = this.url("routeplanner/free/all");
-    return this.do("post", url);
+    return this.request(RequestType.POST, url);
   }
 
-  public load(identifier: string): Promise<TrackResponse> {
+  public loadTracks(identifier: string): Promise<TrackResponse> {
     const url = this.url("loadtracks");
     url.searchParams.append("identifier", identifier);
-    return this.do("GET", url);
+    return this.request(RequestType.GET, url);
   }
 
   public getVersion(): Promise<string> {
     const url = this.url("/version");
-    return this.do("GET", url);
+    return this.request(RequestType.GET, url);
   }
 
-  public decode(encodedTrack: string): Promise<Track> {
+  public decodeTrack(encodedTrack: string): Promise<Track> {
     const url = this.url("decodetrack");
     url.searchParams.append("encodedTrack", encodedTrack);
-    return this.do("GET", url);
+    return this.request(RequestType.GET, url);
   }
 
-  public decodes(encodedTracks: string[]): Promise<Track[]> {
+  public decodeTracks(encodedTracks: string[]): Promise<Track[]> {
     const url = this.url("decodetracks");
-    return this.do("POST", url, Buffer.from(JSON.stringify(encodedTracks)));
+    return this.request(
+      RequestType.POST,
+      url,
+      Buffer.from(JSON.stringify(encodedTracks)),
+    );
   }
 
-  public async updatePlayer(
+  public updatePlayer(
     guildId: string,
     payload: UpdatePlayer,
-  ): Promise<void> {
+  ): Promise<GetPlayer> {
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);
     url.searchParams.append("noReplace", "true");
-    await this.node.rest.do("PATCH", url, Buffer.from(JSON.stringify(payload)));
+    return this.request(
+      RequestType.PATCH,
+      url,
+      Buffer.from(JSON.stringify(payload)),
+    );
   }
 
   public async destroyPlayer(guildId: string): Promise<void> {
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);
-    await this.node.rest.do("DELETE", url);
+    await this.request(RequestType.DELETE, url);
   }
 
-  public async do<T = any>(
-    method: string,
+  public async request<T = any>(
+    method: RequestType,
     url: URL,
     data?: Buffer,
   ): Promise<T> {
@@ -140,7 +150,7 @@ export class Rest {
       throw new HTTPError(message, method, url);
     }
 
-    const chunks: Array<Buffer> = [];
+    const chunks: Buffer[] = [];
     message.on("data", (chunk) => {
       if (typeof chunk === "string") {
         chunk = Buffer.from(chunk);

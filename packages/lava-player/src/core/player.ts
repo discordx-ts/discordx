@@ -76,6 +76,10 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     return this.status === PlayerStatus.PAUSED;
   }
 
+  public get voiceServer(): VoiceServerUpdate | undefined {
+    return this.node.voiceServers.get(this.guildId);
+  }
+
   public get voiceState(): VoiceStateUpdate | undefined {
     const state = this.node.voiceStates.get(this.guildId);
     if (!state) {
@@ -85,24 +89,10 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     return state;
   }
 
-  public get voiceServer(): VoiceServerUpdate | undefined {
-    return this.node.voiceServers.get(this.guildId);
-  }
-
-  public async moveTo(node: BaseNode): Promise<void> {
-    if (this.node === node) {
-      return;
-    }
-
-    if (!this.voiceServer || !this.voiceState) {
-      throw new Error("no voice state/server data to move");
-    }
-
-    await this.destroy();
-    await Promise.all([
-      node.voiceStateUpdate(this.voiceState),
-      node.voiceServerUpdate(this.voiceServer),
-    ]);
+  public async destroy(): Promise<void> {
+    await this.node.rest.destroyPlayer(this.guildId);
+    this.status = PlayerStatus.ENDED;
+    this.node.players.delete(this.guildId);
   }
 
   public join({ channel, deaf, mute }: JoinOptions): Promise<any> {
@@ -124,14 +114,24 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
     return this.join({ channel: null });
   }
 
+  public async moveTo(node: BaseNode): Promise<void> {
+    if (this.node === node) {
+      return;
+    }
+
+    if (!this.voiceServer || !this.voiceState) {
+      throw new Error("no voice state/server data to move");
+    }
+
+    await this.destroy();
+    await Promise.all([
+      node.voiceStateUpdate(this.voiceState),
+      node.voiceServerUpdate(this.voiceServer),
+    ]);
+  }
+
   public async update(payload: UpdatePlayer): Promise<void> {
     await this.node.rest.updatePlayer(this.guildId, payload);
     this.status = PlayerStatus.PLAYING;
-  }
-
-  public async destroy(): Promise<void> {
-    await this.node.rest.destroyPlayer(this.guildId);
-    this.status = PlayerStatus.ENDED;
-    this.node.players.delete(this.guildId);
   }
 }

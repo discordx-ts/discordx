@@ -11,9 +11,9 @@ import { Collection } from "discord.js";
 
 import { Queue } from "./queue.js";
 
-type PlayerOptions = {
+interface PlayerOptions {
   leaveOnFinish: boolean;
-};
+}
 
 export class Player {
   public queues = new Collection<Snowflake, Queue>();
@@ -43,14 +43,14 @@ export class Player {
           return;
         }
 
-        queue.playNext();
+        void queue.playNext();
 
         if (
           this.options.leaveOnFinish &&
           !queue.currentTrack &&
           !queue.tracks.length
         ) {
-          queue.lavaPlayer.leave();
+          void queue.lavaPlayer.leave();
         }
       }
     });
