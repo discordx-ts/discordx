@@ -104,7 +104,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
         channel_id: channel,
         guild_id: this.guildId,
         self_deaf: deaf ?? false,
-        self_mute: mute ?? true,
+        self_mute: mute ?? false,
       },
       op: 4,
     });
