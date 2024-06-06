@@ -7,47 +7,44 @@
 import { EventEmitter } from "events";
 import WebSocket from "ws";
 
-import { Connection } from "../core/Connection.js";
-import { Http } from "../core/Http.js";
-import PlayerStore from "../core/PlayerStore.js";
+import { Connection } from "../core/connection.js";
+import PlayerStore from "../core/player-store.js";
+import { Rest } from "../core/rest.js";
 import type {
   BaseNodeOptions,
-  Track,
-  TrackInfo,
-  TrackResponse,
+  OPReady,
   VoiceServerUpdate,
   VoiceStateUpdate,
 } from "../types/index.js";
 
 export abstract class BaseNode extends EventEmitter {
-  public abstract send: (guildId: string, packet: any) => Promise<any>;
+  public abstract send: (guildId: string, packet: any) => Promise<void>;
 
   public password: string;
   public userId: string;
-  public shardCount?: number;
+  public sessionId: string | null = null;
 
   public connection: Connection;
-  public players: PlayerStore<this> = new PlayerStore(this);
-  public http: Http;
+  public players = new PlayerStore(this);
+  public rest: Rest;
 
-  public voiceStates: Map<string, VoiceStateUpdate> = new Map();
-  public voiceServers: Map<string, VoiceServerUpdate> = new Map();
+  public voiceStates = new Map<string, VoiceStateUpdate>();
+  public voiceServers = new Map<string, VoiceServerUpdate>();
 
-  private _expectingConnection: Set<string> = new Set();
+  private _expectingConnection = new Set<string>();
 
-  constructor({ password, userId, shardCount, host }: BaseNodeOptions) {
+  constructor({ password, userId, host }: BaseNodeOptions) {
     super();
     this.password = password;
     this.userId = userId;
-    this.shardCount = shardCount;
 
     const restIsSecure = host?.rest?.secure ?? host?.secure ?? false;
     const restAddress = host?.rest?.address ?? host?.address ?? "localhost";
     const restPort = host?.rest?.port ?? host?.port ?? 2333;
 
-    this.http = new Http(
+    this.rest = new Rest(
       this,
-      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}`,
+      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}/v4/`,
     );
 
     const wsIsSecure = host?.secure ?? false;
@@ -56,30 +53,17 @@ export abstract class BaseNode extends EventEmitter {
 
     this.connection = new Connection(
       this,
-      `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}`,
+      `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}/v4/websocket`,
       host?.connectionOptions,
     );
+
+    this.on("ready", (d: OPReady) => {
+      this.sessionId = d.sessionId;
+    });
   }
 
   public get connected(): boolean {
     return this.connection?.ws.readyState === WebSocket.OPEN;
-  }
-
-  public load(identifier: string): Promise<TrackResponse> {
-    if (this.http) {
-      return this.http.load(identifier);
-    }
-
-    throw new Error("no available http module");
-  }
-
-  public decode(track: string): Promise<TrackInfo>;
-  public decode(tracks: string[]): Promise<Track[]>;
-  public decode(tracks: string | string[]): Promise<TrackInfo | Track[]> {
-    if (this.http) {
-      return this.http.decode(tracks);
-    }
-    throw new Error("no available http module");
   }
 
   public voiceStateUpdate(packet: VoiceStateUpdate): Promise<boolean> {
@@ -129,7 +113,13 @@ export abstract class BaseNode extends EventEmitter {
       return false;
     }
 
-    await this.players.get(guildId).voiceUpdate(state.session_id, server);
+    await this.players.get(guildId).update({
+      voice: {
+        endpoint: server.endpoint,
+        sessionId: state.session_id,
+        token: server.token,
+      },
+    });
     this._expectingConnection.delete(guildId);
     return true;
   }

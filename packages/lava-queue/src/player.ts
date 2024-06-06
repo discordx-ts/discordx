@@ -4,20 +4,16 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  Node,
-  RawEventType,
-  WsRawEventPlayerUpdate,
-} from "@discordx/lava-player";
-import { EventType } from "@discordx/lava-player";
+import type { GetPlayer, Node, OPEvent } from "@discordx/lava-player";
+import { EventType, TrackEndReason } from "@discordx/lava-player";
 import type { Snowflake } from "discord.js";
 import { Collection } from "discord.js";
 
 import { Queue } from "./queue.js";
 
-type PlayerOptions = {
+interface PlayerOptions {
   leaveOnFinish: boolean;
-};
+}
 
 export class Player {
   public queues = new Collection<Snowflake, Queue>();
@@ -30,28 +26,31 @@ export class Player {
   }
 
   constructor(public node: Node) {
-    node.on("playerUpdate", (e: WsRawEventPlayerUpdate) => {
+    node.on("playerUpdate", (e: GetPlayer) => {
       const queue = this.queues.get(e.guildId);
       if (queue) {
         queue.setPosition(e.state.position ?? 0);
       }
     });
 
-    node.on("event", (raw: RawEventType) => {
-      if (raw.type === EventType.TrackEndEvent && raw.reason === "FINISHED") {
+    node.on("event", (raw: OPEvent) => {
+      if (
+        raw.type === EventType.TrackEndEvent &&
+        raw.reason === TrackEndReason.FINISHED
+      ) {
         const queue = this.queues.get(raw.guildId);
         if (!queue) {
           return;
         }
 
-        queue.playNext();
+        void queue.playNext();
 
         if (
           this.options.leaveOnFinish &&
           !queue.currentTrack &&
           !queue.tracks.length
         ) {
-          queue.lavaPlayer.leave();
+          void queue.lavaPlayer.leave();
         }
       }
     });

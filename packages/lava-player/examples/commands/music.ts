@@ -5,11 +5,11 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type {
+  OpResponse,
   VoiceServerUpdate,
   VoiceStateUpdate,
-  WRawEventType,
 } from "@discordx/lava-player";
-import { Node } from "@discordx/lava-player";
+import { LoadType, Node } from "@discordx/lava-player";
 import type { CommandInteraction } from "discord.js";
 import {
   ApplicationCommandOptionType,
@@ -25,15 +25,15 @@ export class MusicPlayer {
 
   @Once()
   ready(_: ArgsOf<"ready">, client: Client): void {
-    const nodeX = new Node({
+    const nodeInstance = new Node({
       host: {
         address: process.env.LAVA_HOST ?? "localhost",
-        connectionOptions: { resumeKey: "discordx", resumeTimeout: 15 },
+        connectionOptions: { sessionId: "discordx" },
         port: process.env.LAVA_PORT ? Number(process.env.LAVA_PORT) : 2333,
       },
 
       // your Lavalink password
-      password: process.env.LAVA_PASSWORD ?? "",
+      password: process.env.LAVA_PASSWORD ?? "youshallnotpass",
 
       send(guildId, packet) {
         const guild = client.guilds.cache.get(guildId);
@@ -41,34 +41,34 @@ export class MusicPlayer {
           guild.shard.send(packet);
         }
       },
-      shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
       userId: client.user?.id ?? "", // the user id of your bot
     });
 
-    nodeX.connection.ws.on("message", (data) => {
-      const raw = JSON.parse(data.toString()) as WRawEventType;
+    nodeInstance.connection.ws.on("message", (data) => {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      const raw = JSON.parse(data.toString()) as OpResponse;
       console.log("ws>>", raw);
     });
 
-    nodeX.on("error", (e) => {
+    nodeInstance.on("error", (e) => {
       console.log(e);
     });
 
     client.ws.on(
       GatewayDispatchEvents.VoiceStateUpdate,
       (data: VoiceStateUpdate) => {
-        nodeX.voiceStateUpdate(data);
+        void nodeInstance.voiceStateUpdate(data);
       },
     );
 
     client.ws.on(
       GatewayDispatchEvents.VoiceServerUpdate,
       (data: VoiceServerUpdate) => {
-        nodeX.voiceServerUpdate(data);
+        void nodeInstance.voiceServerUpdate(data);
       },
     );
 
-    this.node = nodeX;
+    this.node = nodeInstance;
   }
 
   @Slash({ description: "bot will join your music channel" })
@@ -76,25 +76,77 @@ export class MusicPlayer {
     await interaction.deferReply();
 
     if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
-      interaction.followUp("could not process this command, try again");
+      await interaction.followUp("could not process this command, try again");
       return;
     }
 
     if (!this.node) {
-      interaction.followUp("lavalink player is not ready");
+      await interaction.followUp("lavalink player is not ready");
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("please join a voice channel first");
+      await interaction.followUp("please join a voice channel first");
       return;
     }
 
     const player = this.node.players.get(interaction.guildId);
-    await player.join(interaction.member.voice.channelId, { deaf: true });
+    await player.join({ channel: interaction.member.voice.channelId });
 
-    interaction.followUp("I am ready to rock :smile:");
+    await interaction.followUp("I am ready to rock :smile:");
 
+    return;
+  }
+
+  @Slash({ description: "bot will leave your music channel" })
+  async leave(interaction: CommandInteraction): Promise<void> {
+    await interaction.deferReply();
+
+    if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
+      await interaction.followUp("could not process this command, try again");
+      return;
+    }
+
+    if (!this.node) {
+      await interaction.followUp("lavalink player is not ready");
+      return;
+    }
+
+    if (!interaction.member.voice.channelId) {
+      await interaction.followUp("please join a voice channel first");
+      return;
+    }
+
+    const player = this.node.players.get(interaction.guildId);
+    await player.leave();
+
+    await interaction.followUp("Left it!");
+    return;
+  }
+
+  @Slash({ description: "destroy player" })
+  async destroy(interaction: CommandInteraction): Promise<void> {
+    await interaction.deferReply();
+
+    if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
+      await interaction.followUp("could not process this command, try again");
+      return;
+    }
+
+    if (!this.node) {
+      await interaction.followUp("lavalink player is not ready");
+      return;
+    }
+
+    if (!interaction.member.voice.channelId) {
+      await interaction.followUp("please join a voice channel first");
+      return;
+    }
+
+    const player = this.node.players.get(interaction.guildId);
+    await player.destroy();
+
+    await interaction.followUp("Destroyed it!");
     return;
   }
 
@@ -111,36 +163,38 @@ export class MusicPlayer {
     await interaction.deferReply();
 
     if (!(interaction.member instanceof GuildMember) || !interaction.guildId) {
-      interaction.followUp("could not process this command, try again");
+      await interaction.followUp("could not process this command, try again");
       return;
     }
 
     if (!this.node) {
-      interaction.followUp("lavalink player is not ready");
+      await interaction.followUp("lavalink player is not ready");
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      interaction.followUp("please join a voice channel first");
+      await interaction.followUp("please join a voice channel first");
       return;
     }
 
     const player = this.node.players.get(interaction.guildId);
-
     if (!player.voiceServer) {
-      await player.join(interaction.member.voice.channelId, { deaf: true });
+      await player.join({ channel: interaction.member.voice.channelId });
     }
 
-    const res = await this.node.load(`ytsearch:${song}`);
-    const track = res.tracks[0];
-
-    if (track) {
-      await player.play(track);
-      await interaction.followUp(`playing ${track.info.title}`);
-    } else {
-      await interaction.followUp("Song not found with given input");
+    const version = await this.node.rest.getVersion();
+    console.log(`>> Version: ${version}`);
+    const res = await this.node.rest.loadTracks(`ytsearch:${song}`);
+    if (res.loadType !== LoadType.SEARCH || !res.data[0]) {
+      await interaction.followUp("No track found");
+      return;
     }
 
+    const track = res.data[0];
+    await player.update({
+      track,
+    });
+    await interaction.followUp(`playing ${track.info.title}`);
     return;
   }
 }

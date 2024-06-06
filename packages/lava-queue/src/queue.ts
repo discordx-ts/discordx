@@ -4,10 +4,12 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  Player as LavaPlayer,
-  Track,
-  TrackResponse,
+import {
+  LoadType,
+  type Player as LavaPlayer,
+  PlayerStatus,
+  type Track,
+  type TrackResponse,
 } from "@discordx/lava-player";
 import shuffle from "lodash/shuffle.js";
 
@@ -64,10 +66,10 @@ export class Queue {
   }
 
   async enqueue(id: string): Promise<TrackResponse> {
-    const response = await this.player.node.load(id);
+    const response = await this.player.node.rest.loadTracks(id);
 
-    if (response.tracks.length) {
-      this.tracks.push(...response.tracks);
+    if (response.loadType === LoadType.PLAYLIST) {
+      this.tracks.push(...response.data.tracks);
     }
 
     return response;
@@ -83,11 +85,12 @@ export class Queue {
     return `${hours ? `${hoursPad}:` : ""}${minutesPad}:${secondsPad}`;
   }
 
-  pause(): void {
-    this.lavaPlayer.pause(true);
+  async pause(): Promise<void> {
+    await this.lavaPlayer.update({ paused: true });
+    this.lavaPlayer.status = PlayerStatus.PAUSED;
   }
 
-  playNext(): boolean {
+  async playNext(): Promise<boolean> {
     if (this.currentTrack) {
       if (this.loop && !this.repeat) {
         this.tracks.push(this.currentTrack);
@@ -106,13 +109,15 @@ export class Queue {
 
     this._lastTrack = track;
     const player = this.player.node.players.get(this.guildId);
-    player.play(track);
+    await player.update({ track });
 
     return true;
   }
 
-  resume(): void {
-    this.lavaPlayer.pause(false);
+  async resume(): Promise<void> {
+    await this.lavaPlayer.update({
+      paused: false,
+    });
   }
 
   /**
@@ -127,7 +132,7 @@ export class Queue {
    * @param text - User input
    */
   search(text: string): Promise<TrackResponse> {
-    return this.player.node.load(text);
+    return this.player.node.rest.loadTracks(text);
   }
 
   setPosition(position: number): void {
@@ -143,16 +148,22 @@ export class Queue {
   }
 
   async setVolume(volume: number): Promise<void> {
-    await this.lavaPlayer.setVolume(volume);
+    await this.lavaPlayer.update({
+      volume,
+    });
   }
 
   shuffle(): void {
     this._tracks = shuffle(this._tracks);
   }
 
-  stop(): void {
+  async stop(): Promise<void> {
     this._lastTrack = undefined;
     this.clear();
-    this.lavaPlayer.stop();
+    await this.lavaPlayer.update({
+      track: {
+        encoded: null,
+      },
+    });
   }
 }

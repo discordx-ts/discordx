@@ -16,12 +16,12 @@ export function getNode(client: Client): Node {
   const nodeX = new Node({
     host: {
       address: process.env.LAVA_HOST ?? "localhost",
-      connectionOptions: { resumeKey: client.botId, resumeTimeout: 15 },
+      connectionOptions: { sessionId: client.botId },
       port: process.env.LAVA_PORT ? Number(process.env.LAVA_PORT) : 2333,
     },
 
     // your Lavalink password
-    password: process.env.LAVA_PASSWORD ?? "",
+    password: process.env.LAVA_PASSWORD ?? "youshallnotpass",
 
     send(guildId, packet) {
       const guild = client.guilds.cache.get(guildId);
@@ -29,21 +29,20 @@ export function getNode(client: Client): Node {
         guild.shard.send(packet);
       }
     },
-    shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
     userId: client.user?.id ?? "", // the user id of your bot
   });
 
   client.ws.on(
     GatewayDispatchEvents.VoiceStateUpdate,
     (data: VoiceStateUpdate) => {
-      nodeX.voiceStateUpdate(data);
+      void nodeX.voiceStateUpdate(data);
     },
   );
 
   client.ws.on(
     GatewayDispatchEvents.VoiceServerUpdate,
     (data: VoiceServerUpdate) => {
-      nodeX.voiceServerUpdate(data);
+      void nodeX.voiceServerUpdate(data);
     },
   );
 

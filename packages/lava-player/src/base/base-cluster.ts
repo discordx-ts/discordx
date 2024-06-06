@@ -6,13 +6,13 @@
  */
 import { EventEmitter } from "events";
 
-import type { ClusterNodeOptions } from "../ClusterNode.js";
-import ClusterNode from "../ClusterNode.js";
-import type { Player } from "../core/Player.js";
+import type { ClusterNodeOptions } from "../cluster-node.js";
+import ClusterNode from "../cluster-node.js";
+import type { Player } from "../core/player.js";
 import type { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 
 export abstract class BaseCluster extends EventEmitter {
-  public abstract send: (guildId: string, packet: any) => any;
+  public abstract send: (guildId: string, packet: any) => Promise<void>;
   public abstract filter: (node: ClusterNode, guildId: string) => boolean;
 
   public readonly nodes: ClusterNode[] = [];

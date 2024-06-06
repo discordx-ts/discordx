@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Status } from "@discordx/lava-player";
+import { PlayerStatus } from "@discordx/lava-player";
 import type { Player } from "@discordx/lava-queue";
 import { Queue } from "@discordx/lava-queue";
 import {
@@ -27,18 +27,22 @@ import {
 } from "discord.js";
 
 export class MusicQueue extends Queue {
-  lastControlMessage?: Message;
-  timeoutTimer?: NodeJS.Timeout;
-  lockUpdate = false;
-  channel?: TextBasedChannel;
+  private _channel: TextBasedChannel | null = null;
+  private _controlTimer: NodeJS.Timeout | null = null;
+
+  private lastControlMessage?: Message;
+  private lockUpdate = false;
 
   get isPlaying(): boolean {
-    return this.lavaPlayer.status === Status.PLAYING;
+    return this.lavaPlayer.status === PlayerStatus.PLAYING;
+  }
+
+  public setChannel(channel: TextBasedChannel): void {
+    this._channel = channel;
   }
 
   constructor(player: Player, guildId: string) {
     super(player, guildId);
-    setInterval(() => this.updateControlMessage(), 1e4);
   }
 
   private controlsRow(): ActionRowBuilder<MessageActionRowComponentBuilder>[] {
@@ -109,11 +113,18 @@ export class MusicQueue extends Queue {
     return [row1, row2];
   }
 
+  private async deleteMessage(message: Message): Promise<void> {
+    if (message.deletable) {
+      // ignore any exceptions in delete action
+      await message.delete().catch(() => null);
+    }
+  }
+
   public async updateControlMessage(options?: {
     force?: boolean;
     text?: string;
   }): Promise<void> {
-    if (this.lockUpdate) {
+    if (this.lockUpdate || this._channel === null) {
       return;
     }
 
@@ -125,7 +136,7 @@ export class MusicQueue extends Queue {
 
     if (!currentTrack) {
       if (this.lastControlMessage) {
-        await this.lastControlMessage.delete().catch(() => null);
+        await this.deleteMessage(this.lastControlMessage);
         this.lastControlMessage = undefined;
       }
 
@@ -177,18 +188,42 @@ export class MusicQueue extends Queue {
       embeds: [embed],
     };
 
-    if (!this.lastControlMessage || options?.force) {
+    if (!options?.force && this.lastControlMessage) {
+      // Update control message
+      await this.lastControlMessage.edit(pMsg);
+    } else {
+      // Delete control message
       if (this.lastControlMessage) {
-        await this.lastControlMessage.delete().catch(() => null);
+        await this.deleteMessage(this.lastControlMessage);
         this.lastControlMessage = undefined;
       }
 
-      const msg = await this.channel?.send(pMsg).catch(() => null);
-      if (msg) {
-        this.lastControlMessage = msg;
-      }
-    } else {
-      await this.lastControlMessage.edit(pMsg).catch(() => null);
+      // Send control message
+      this.lastControlMessage = await this._channel.send(pMsg);
+    }
+
+    this.lockUpdate = false;
+  }
+
+  public startControlUpdate(interval?: number): void {
+    this.stopControlUpdate();
+
+    this._controlTimer = setInterval(() => {
+      void this.updateControlMessage();
+    }, interval ?? 10_000);
+
+    void this.updateControlMessage();
+  }
+
+  public stopControlUpdate(): void {
+    if (this._controlTimer !== null) {
+      clearInterval(this._controlTimer);
+      this._controlTimer = null;
+    }
+
+    if (this.lastControlMessage) {
+      void this.deleteMessage(this.lastControlMessage);
+      this.lastControlMessage = undefined;
     }
 
     this.lockUpdate = false;
@@ -197,71 +232,94 @@ export class MusicQueue extends Queue {
   public async view(
     interaction: CommandInteraction | ContextMenuCommandInteraction,
   ): Promise<void> {
+    const queueErrorMessage =
+      "> The queue could not be processed at the moment, please try again later!";
+    const nowPlayingMessage = (title: string) => `> Playing **${title}**`;
+    const pageTimeoutMessage = 60000; // 6e4
+    const shortPaginationLimit = 5;
+    const deleteDelayMsShort = 3000; // 3 seconds
+    const deleteDelayMsLong = 10000; // 10 seconds
+
+    const currentTrackMessage = (title: string, size: number, uri?: string) => {
+      const trackTitle = uri ? `[${title}](<${uri}>)` : title;
+      return `> Playing **${trackTitle}** out of ${size + 1}`;
+    };
+
     if (!this.currentTrack) {
       const pMsg = await interaction.followUp({
-        content:
-          "> The queue could not be processed at the moment, please try again later!",
+        content: queueErrorMessage,
         ephemeral: true,
       });
 
       if (pMsg instanceof Message) {
-        setTimeout(() => pMsg.delete().catch(() => null), 3000);
+        setTimeout(() => void this.deleteMessage(pMsg), deleteDelayMsShort);
       }
       return;
     }
 
-    if (!this.size) {
+    if (this.size === 0) {
       const pMsg = await interaction.followUp(
-        `> Playing **${this.currentTrack.info.title}**`,
+        nowPlayingMessage(this.currentTrack.info.title),
       );
       if (pMsg instanceof Message) {
-        setTimeout(() => pMsg.delete().catch(() => null), 1e4);
+        setTimeout(() => void this.deleteMessage(pMsg), deleteDelayMsLong);
       }
       return;
     }
 
-    const current = `> Playing **[${this.currentTrack.info.title}](<${
-      this.currentTrack.info.uri
-    }>)** out of ${this.size + 1}`;
+    const totalPages = Math.round(this.size / 10);
+    const isShortPagination = totalPages <= shortPaginationLimit;
 
-    const pageOptions = new PaginationResolver(
-      (index, paginator) => {
-        paginator.maxLength = this.size / 10;
-        if (index > paginator.maxLength) {
-          paginator.currentPage = 0;
-        }
-
-        const currentPage = paginator.currentPage;
-
-        const queue = this.tracks
-          .slice(currentPage * 10, currentPage * 10 + 10)
-          .map(
-            (track, index1) =>
-              `${currentPage * 10 + index1 + 1}. [${track.info.title}](<${
-                track.info.uri
-              }>) (${this.fromMS(track.info.length)})`,
-          )
-          .join("\n\n");
-
-        return { content: `${current}\n\n${queue}` };
-      },
-      Math.round(this.size / 10),
+    const current = currentTrackMessage(
+      this.currentTrack.info.title,
+      this.size,
+      this.currentTrack.info.uri,
     );
 
-    await new Pagination(interaction, pageOptions, {
+    const paginationType = isShortPagination
+      ? PaginationType.Button
+      : PaginationType.SelectMenu;
+
+    const pageOptions = new PaginationResolver((index, paginator) => {
+      paginator.maxLength = this.size / 10;
+      if (index > paginator.maxLength) {
+        paginator.currentPage = 0;
+      }
+
+      const currentPage = paginator.currentPage;
+
+      const queue = this.tracks
+        .slice(currentPage * 10, currentPage * 10 + 10)
+        .map((track, _index) => {
+          const index = currentPage * 10 + _index + 1;
+          const trackLength = this.fromMS(track.info.length);
+          const trackTitle = track.info.uri
+            ? `[${track.info.title}](<${track.info.uri}>)`
+            : track.info.title;
+
+          return `${index}. ${trackTitle} (${trackLength})`;
+        })
+        .join("\n\n");
+
+      return { content: `${current}\n\n${queue}` };
+    }, totalPages);
+
+    const pagination = new Pagination(interaction, pageOptions, {
       enableExit: true,
-      onTimeout: (index, message) => {
+      onTimeout: (_, message) => {
         if (message.deletable) {
-          message.delete().catch(() => null);
+          void this.deleteMessage(message);
         }
       },
-      time: 6e4,
-      type:
-        Math.round(this.size / 10) <= 5
-          ? PaginationType.Button
-          : PaginationType.SelectMenu,
-    })
-      .send()
-      .catch(() => null);
+      time: pageTimeoutMessage,
+      type: paginationType,
+    });
+
+    await pagination.send();
+  }
+
+  public async exit(): Promise<void> {
+    this.stopControlUpdate();
+    await this.lavaPlayer.destroy();
   }
 }

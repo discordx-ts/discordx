@@ -24,19 +24,22 @@ export interface VoiceServerUpdate {
   token: string;
 }
 
+export interface RestOptions {
+  address: string;
+  port: number;
+  secure?: boolean;
+}
+
+export interface HostOptions {
+  address: string;
+  connectionOptions?: ConnectionOptions;
+  port: number;
+  rest?: RestOptions;
+  secure?: boolean;
+}
+
 export interface BaseNodeOptions {
-  host?: {
-    address: string;
-    connectionOptions?: ConnectionOptions;
-    port: number;
-    rest?: {
-      address: string;
-      port: number;
-      secure?: boolean;
-    };
-    secure?: boolean;
-  };
+  host?: HostOptions;
   password: string;
-  shardCount?: number;
   userId: string;
 }

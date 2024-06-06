@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { BaseCluster } from "./base/Cluster.js";
-import type { ClusterNodeOptions } from "./ClusterNode.js";
-import type ClusterNode from "./ClusterNode.js";
+import { BaseCluster } from "./base/base-cluster.js";
+import type { ClusterNodeOptions } from "./cluster-node.js";
+import type ClusterNode from "./cluster-node.js";
 
 export interface ClusterOptions {
   filter?: (node: ClusterNode, guildId: string) => boolean;
@@ -20,7 +20,7 @@ export class Cluster extends BaseCluster {
 
   constructor(options: ClusterOptions) {
     super(options.nodes);
-    this.filter = options.filter || (() => true);
+    this.filter = options.filter ?? (() => true);
     this.send = options.send;
   }
 }
