@@ -2,6 +2,7 @@
   "name": "discordx",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "npm@7.0.0",
   "workspaces": [
     "packages/create-discordx",
     "packages/di",
@@ -65,9 +66,9 @@
     "husky": "^9.0.11",
     "is-ci": "^3.0.1",
     "minipass": "^7.1.2",
-    "prettier": "^3.3.0",
+    "prettier": "^3.3.1",
     "tsup": "^8.1.0",
-    "turbo": "^1.13.3",
+    "turbo": "^2.0.1",
     "typedoc": "^0.25.13",
     "typescript": "5.4.5"
   },
