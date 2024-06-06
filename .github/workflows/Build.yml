@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check out code 🛎
-        uses: actions/checkout@v3
+        uses: actions/checkout@main
 
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@main
         with:
           cache: "npm"
           node-version: "lts/*"
