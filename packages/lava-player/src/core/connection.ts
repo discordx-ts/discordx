@@ -12,15 +12,6 @@ import WebSocket from "ws";
 import type { BaseNode } from "../base/base-node.js";
 
 /**
- * Interface representing data that can be sent.
- */
-interface Sendable {
-  data: Buffer | string;
-  reject: (e: Error) => void;
-  resolve: () => void;
-}
-
-/**
  * Interface representing HTTP headers.
  */
 interface Headers {
@@ -100,7 +91,6 @@ export class Connection<T extends BaseNode = BaseNode> {
     this.sessionId = options.sessionId;
 
     this.backoff = backoff.exponential();
-    this._send = this._send.bind(this);
     this.connect();
   }
 
@@ -187,19 +177,5 @@ export class Connection<T extends BaseNode = BaseNode> {
         this.ws.on(event, listener);
       }
     }
-  }
-
-  /**
-   * Sends data through the WebSocket connection.
-   * @param sendable - The data to send.
-   */
-  private _send({ resolve, reject, data }: Sendable) {
-    this.ws.send(data, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
   }
 }

@@ -48,40 +48,6 @@ export class Rest {
     this.base = base;
   }
 
-  public url(input: string): URL {
-    return new URL(input, this.base);
-  }
-
-  public routeStatus(): Promise<RoutePlannerStatus> {
-    const url = this.url("routeplanner/status");
-    return this.request(RequestType.GET, url);
-  }
-
-  public routeFree(address: string): Promise<void> {
-    const url = this.url("routeplanner/free/address");
-    return this.request(
-      RequestType.POST,
-      url,
-      Buffer.from(JSON.stringify({ address })),
-    );
-  }
-
-  public routeFreeAll(): Promise<void> {
-    const url = this.url("routeplanner/free/all");
-    return this.request(RequestType.POST, url);
-  }
-
-  public loadTracks(identifier: string): Promise<TrackResponse> {
-    const url = this.url("loadtracks");
-    url.searchParams.append("identifier", identifier);
-    return this.request(RequestType.GET, url);
-  }
-
-  public getVersion(): Promise<string> {
-    const url = this.url("/version");
-    return this.request(RequestType.GET, url);
-  }
-
   public decodeTrack(encodedTrack: string): Promise<Track> {
     const url = this.url("decodetrack");
     url.searchParams.append("encodedTrack", encodedTrack);
@@ -97,18 +63,15 @@ export class Rest {
     );
   }
 
-  public updatePlayer(
-    guildId: string,
-    payload: UpdatePlayer,
-  ): Promise<GetPlayer> {
-    const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
-    const url = this.node.rest.url(uri);
-    url.searchParams.append("noReplace", "true");
-    return this.request(
-      RequestType.PATCH,
-      url,
-      Buffer.from(JSON.stringify(payload)),
-    );
+  public getVersion(): Promise<string> {
+    const url = this.url("/version");
+    return this.request(RequestType.GET, url);
+  }
+
+  public loadTracks(identifier: string): Promise<TrackResponse> {
+    const url = this.url("loadtracks");
+    url.searchParams.append("identifier", identifier);
+    return this.request(RequestType.GET, url);
   }
 
   public async destroyPlayer(guildId: string): Promise<void> {
@@ -171,5 +134,42 @@ export class Rest {
         }
       });
     });
+  }
+
+  public routeStatus(): Promise<RoutePlannerStatus> {
+    const url = this.url("routeplanner/status");
+    return this.request(RequestType.GET, url);
+  }
+
+  public routeFree(address: string): Promise<void> {
+    const url = this.url("routeplanner/free/address");
+    return this.request(
+      RequestType.POST,
+      url,
+      Buffer.from(JSON.stringify({ address })),
+    );
+  }
+
+  public routeFreeAll(): Promise<void> {
+    const url = this.url("routeplanner/free/all");
+    return this.request(RequestType.POST, url);
+  }
+
+  public updatePlayer(
+    guildId: string,
+    payload: UpdatePlayer,
+  ): Promise<GetPlayer> {
+    const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
+    const url = this.node.rest.url(uri);
+    url.searchParams.append("noReplace", "true");
+    return this.request(
+      RequestType.PATCH,
+      url,
+      Buffer.from(JSON.stringify(payload)),
+    );
+  }
+
+  public url(input: string): URL {
+    return new URL(input, this.base);
   }
 }
