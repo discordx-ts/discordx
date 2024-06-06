@@ -185,21 +185,16 @@ export class MusicPlayer {
     const version = await this.node.rest.getVersion();
     console.log(`>> Version: ${version}`);
     const res = await this.node.rest.loadTracks(`ytsearch:${song}`);
-    if (res.loadType !== LoadType.SEARCH) {
-      await interaction.followUp("Track could not be loaded");
+    if (res.loadType !== LoadType.SEARCH || !res.data[0]) {
+      await interaction.followUp("No track found");
       return;
     }
 
     const track = res.data[0];
-    if (track) {
-      await player.update({
-        track,
-      });
-      await interaction.followUp(`playing ${track.info.title}`);
-    } else {
-      await interaction.followUp("Song not found with given input");
-    }
-
+    await player.update({
+      track,
+    });
+    await interaction.followUp(`playing ${track.info.title}`);
     return;
   }
 }

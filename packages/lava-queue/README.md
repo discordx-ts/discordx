@@ -51,7 +51,7 @@ yarn add @discordx/lava-queue
 
 # 🤖 Bot Examples
 
-[Starter repo from @samarmeena](https://github.com/samarmeena/discord-lavalink-music-bot/)
+[Starter repo from @samarmeena](https://github.com/discordx-ts/templates/tree/main/5-music-player-lavalink)
 
 **Note:** Create a pull request to include your bot in the example list.
 

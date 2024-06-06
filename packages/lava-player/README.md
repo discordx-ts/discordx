@@ -60,14 +60,15 @@ None
 # Getting Started
 
 ```ts
-const node = new Lava.Node({
+const nodeInstance = new Node({
   host: {
-    address: process.env.LAVA_HOST ?? "",
-    port: Number(process.env.LAVA_PORT) ?? 2333,
+    address: process.env.LAVA_HOST ?? "localhost",
+    connectionOptions: { sessionId: "discordx" },
+    port: process.env.LAVA_PORT ? Number(process.env.LAVA_PORT) : 2333,
   },
 
   // your Lavalink password
-  password: process.env.LAVA_PASSWORD ?? "",
+  password: process.env.LAVA_PASSWORD ?? "youshallnotpass",
 
   send(guildId, packet) {
     const guild = client.guilds.cache.get(guildId);
@@ -75,17 +76,32 @@ const node = new Lava.Node({
       guild.shard.send(packet);
     }
   },
-  shardCount: 0, // the total number of shards that your bot is running (optional, useful if you're load balancing)
   userId: client.user?.id ?? "", // the user id of your bot
 });
 
-client.ws.on("VOICE_STATE_UPDATE", (data: Lava.VoiceStateUpdate) => {
-  node.voiceStateUpdate(data);
+nodeInstance.connection.ws.on("message", (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
+  const raw = JSON.parse(data.toString()) as OpResponse;
+  console.log("ws>>", raw);
 });
 
-client.ws.on("VOICE_SERVER_UPDATE", (data: Lava.VoiceServerUpdate) => {
-  node.voiceServerUpdate(data);
+nodeInstance.on("error", (e) => {
+  console.log(e);
 });
+
+client.ws.on(
+  GatewayDispatchEvents.VoiceStateUpdate,
+  (data: VoiceStateUpdate) => {
+    void nodeInstance.voiceStateUpdate(data);
+  },
+);
+
+client.ws.on(
+  GatewayDispatchEvents.VoiceServerUpdate,
+  (data: VoiceServerUpdate) => {
+    void nodeInstance.voiceServerUpdate(data);
+  },
+);
 ```
 
 # Get Guild Player
@@ -97,20 +113,29 @@ const player = node.players.get("guild id");
 # Join Voice Channel
 
 ```ts
-await player.join("channel id");
+await player.join({ channel: "channel id" });
 ```
 
 # Play Track
 
 ```ts
-const res = await voice.load("ytsearch:monstercat");
-await player.play(res.tracks[0]);
+const res = await this.node.rest.loadTracks(`ytsearch:${song}`);
+if (res.loadType !== LoadType.SEARCH || !res.data[0]) {
+  await interaction.followUp("No track found");
+  return;
+}
+
+const track = res.data[0];
+await player.update({
+  track,
+});
+await interaction.followUp(`playing ${track.info.title}`);
 ```
 
 # Stop Music
 
 ```ts
-await player.stop();
+await player.leave();
 // or, to destroy the player entirely
 await player.destroy();
 ```
