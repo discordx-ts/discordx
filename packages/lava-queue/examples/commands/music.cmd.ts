@@ -18,7 +18,14 @@ import {
   GuildMember,
 } from "discord.js";
 import type { ArgsOf, Client } from "discordx";
-import { ButtonComponent, Discord, Once, Slash, SlashOption } from "discordx";
+import {
+  ButtonComponent,
+  Discord,
+  Once,
+  Slash,
+  SlashGroup,
+  SlashOption,
+} from "discordx";
 
 import { getNode } from "./node.js";
 import { MusicQueue } from "./queue.js";
@@ -30,6 +37,8 @@ function wait(ms: number) {
 }
 
 @Discord()
+@SlashGroup({ description: "music", name: "music" })
+@SlashGroup("music")
 export class MusicPlayer {
   player: Record<string, Player> = {};
 
