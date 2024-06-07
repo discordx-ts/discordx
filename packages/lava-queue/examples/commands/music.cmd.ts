@@ -4,7 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { LoadType, PlayerStatus } from "@discordx/lava-player";
+import { setTimeout } from "node:timers/promises";
+
+import { LoadType } from "@discordx/lava-player";
 import { Player } from "@discordx/lava-queue";
 import type {
   ButtonInteraction,
@@ -30,11 +32,7 @@ import {
 import { getNode } from "./node.js";
 import { MusicQueue } from "./queue.js";
 
-function wait(ms: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(true), ms);
-  });
-}
+const INTERACTION_DELETE_DELAY = 60_000;
 
 @Discord()
 @SlashGroup({ description: "music", name: "music" })
@@ -43,6 +41,13 @@ export class MusicPlayer {
   player: Record<string, Player> = {};
 
   // utils
+
+  async delete(
+    interaction: CommandInteraction | ButtonInteraction,
+  ): Promise<void> {
+    await setTimeout(INTERACTION_DELETE_DELAY);
+    await interaction.deleteReply();
+  }
 
   GetQueue(botId: string, guildId: string): MusicQueue | null {
     const player = this.player[botId];
@@ -57,7 +62,7 @@ export class MusicPlayer {
   async ParseCommand(
     client: Client,
     interaction: CommandInteraction | ButtonInteraction,
-    skipBotChannel = false,
+    autoDelete = true,
   ): Promise<
     | {
         channel: TextBasedChannel;
@@ -68,6 +73,9 @@ export class MusicPlayer {
     | undefined
   > {
     await interaction.deferReply();
+    if (autoDelete) {
+      void this.delete(interaction);
+    }
 
     if (
       !interaction.channel ||
@@ -75,14 +83,16 @@ export class MusicPlayer {
       !interaction.guild ||
       !interaction.client.user
     ) {
-      await interaction.followUp(
-        "The command could not be processed. Please try again",
-      );
+      await interaction.followUp({
+        content: "The command could not be processed. Please try again",
+      });
       return;
     }
 
     if (!interaction.member.voice.channelId) {
-      await interaction.followUp("Join a voice channel first");
+      await interaction.followUp({
+        content: "Join a voice channel first",
+      });
       return;
     }
 
@@ -91,24 +101,30 @@ export class MusicPlayer {
     );
 
     if (!bot) {
-      await interaction.followUp(
-        "Having difficulty finding my place in this world",
-      );
-      return;
-    }
-
-    if (
-      !skipBotChannel &&
-      interaction.member.voice.channelId !== bot.voice.channelId
-    ) {
-      await interaction.followUp("join to my voice channel");
+      await interaction.followUp({
+        content: "Having difficulty finding my place in this world",
+      });
       return;
     }
 
     const queue = this.GetQueue(client.botId, interaction.guild.id);
 
     if (!queue) {
-      await interaction.followUp("The player is not ready yet, please wait");
+      await interaction.followUp({
+        content: "The player is not ready yet, please wait",
+      });
+      return;
+    }
+
+    if (bot.voice.channelId === null) {
+      queue.setChannel(interaction.channel);
+      await queue.lavaPlayer.join({
+        channel: interaction.member.voice.channelId,
+      });
+    } else if (interaction.member.voice.channelId !== bot.voice.channelId) {
+      await interaction.followUp({
+        content: "join to my voice channel",
+      });
       return;
     }
 
@@ -124,7 +140,7 @@ export class MusicPlayer {
 
   @Once()
   async ready(_: ArgsOf<"ready">, client: Client): Promise<void> {
-    await wait(5e3);
+    await setTimeout(5e3);
     this.player[client.botId] = new Player(getNode(client));
   }
 
@@ -145,10 +161,15 @@ export class MusicPlayer {
     const next = await queue.playNext();
     if (!next) {
       await queue.exit();
+      await interaction.followUp({
+        content: "> all queued up, amigo!",
+      });
+      return;
     }
 
-    // Delete interaction
-    await interaction.deleteReply();
+    await interaction.followUp({
+      content: `> Playing ${next.info.title}`,
+    });
   }
 
   @ButtonComponent({ id: "btn-pause" })
@@ -162,10 +183,11 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.isPlaying ? await queue.pause() : await queue.resume();
-
-    // Delete interaction
-    await interaction.deleteReply();
+    if (queue.isPlaying) {
+      await queue.pause();
+    } else {
+      await queue.resume();
+    }
   }
 
   @ButtonComponent({ id: "btn-leave" })
@@ -180,9 +202,6 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     await queue.exit();
-
-    // Delete interaction
-    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-repeat" })
@@ -196,11 +215,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-
     queue.setRepeat(!queue.repeat);
-
-    // Delete interaction
-    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-loop" })
@@ -214,11 +229,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-
     queue.setLoop(!queue.loop);
-
-    // Delete interaction
-    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-queue" })
@@ -226,13 +237,13 @@ export class MusicPlayer {
     interaction: ButtonInteraction,
     client: Client,
   ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+    const cmd = await this.ParseCommand(client, interaction, false);
     if (!cmd) {
       return;
     }
 
     const { queue } = cmd;
-    await queue.view(interaction as unknown as CommandInteraction);
+    await queue.view(interaction);
   }
 
   @ButtonComponent({ id: "btn-mix" })
@@ -246,11 +257,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-
     queue.shuffle();
-
-    // Delete interaction
-    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-controls" })
@@ -265,9 +272,6 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     await queue.updateControlMessage({ force: true });
-
-    // Delete interaction
-    await interaction.deleteReply();
   }
 
   // slashes
@@ -284,49 +288,70 @@ export class MusicPlayer {
     interaction: CommandInteraction,
     client: Client,
   ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction, true);
+    const cmd = await this.ParseCommand(client, interaction, false);
     if (!cmd) {
       return;
     }
 
-    const { queue, member, channel } = cmd;
+    const { queue } = cmd;
 
-    await queue.lavaPlayer.join({
-      channel: member.voice.channelId,
-    });
+    const isLink = input.startsWith("http://") || input.startsWith("https://");
+    const searchText = isLink ? input : `ytsearch:${input}`;
+    const { loadType, data } = await queue.search(searchText);
 
-    queue.setChannel(channel);
-    const { loadType, data } = await queue.search(`ytsearch:${input}`);
-
-    if (loadType !== LoadType.SEARCH || !data[0]) {
-      await interaction.followUp("> no search result");
+    if (loadType === LoadType.ERROR) {
+      await interaction.followUp({
+        content: `Something went wrong: ${data.cause}`,
+      });
       return;
     }
 
-    const track = data[0];
-    queue.tracks.push(track);
-    if (
-      queue.lavaPlayer.status === PlayerStatus.INSTANTIATED ||
-      queue.lavaPlayer.status === PlayerStatus.UNKNOWN ||
-      queue.lavaPlayer.status === PlayerStatus.ENDED
-    ) {
+    if (loadType === LoadType.EMPTY) {
+      await interaction.followUp({
+        content: "There has been no matches for your identifier",
+      });
+      return;
+    }
+
+    if (loadType === LoadType.TRACK || loadType === LoadType.SEARCH) {
+      const track = loadType === LoadType.SEARCH ? data[0] : data;
+      if (!track) {
+        await interaction.followUp({
+          content: "There has been no matches for your search",
+        });
+        return;
+      }
+
+      queue.addTrack(track);
+
+      const embed = new EmbedBuilder();
+      embed.setTitle("Enqueued");
+      embed.setDescription(`Enqueued ${track.info.title} track`);
+
+      if (track.info.artworkUrl) {
+        embed.setThumbnail(track.info.artworkUrl);
+      }
+
+      await interaction.followUp({ embeds: [embed] });
+    } else {
+      queue.addTrack(...data.tracks);
+
+      const embed = new EmbedBuilder();
+      embed.setTitle("Enqueued");
+      embed.setDescription(
+        `Enqueued ${data.info.name} playlist (${data.tracks.length} tracks)`,
+      );
+
+      await interaction.followUp({ embeds: [embed] });
+    }
+
+    if (!queue.isPlaying) {
       await queue.playNext();
     }
-
-    const embed = new EmbedBuilder();
-    embed.setTitle("Enqueued");
-    embed.setDescription(`Enqueued ${track.info.title} track`);
-
-    if (track.info.artworkUrl) {
-      embed.setThumbnail(track.info.artworkUrl);
-    }
-
-    await interaction.followUp({ embeds: [embed] });
-    return;
   }
 
   @Slash({
-    description: "Show details of currently playing song",
+    description: "Show details of currently playing track",
     name: "current",
   })
   async current(
@@ -340,8 +365,11 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     const currentTrack = queue.currentTrack;
+
     if (!currentTrack) {
-      await interaction.followUp("> Not playing anything at the moment.");
+      await interaction.followUp({
+        content: "> Not playing anything at the moment.",
+      });
       return;
     }
 
@@ -361,13 +389,13 @@ export class MusicPlayer {
     await interaction.followUp({ embeds: [embed] });
   }
 
-  @Slash({ description: "Play current song on specific time", name: "seek" })
+  @Slash({ description: "Play current track on specific time", name: "seek" })
   async seek(
     @SlashOption({
       description: "time in seconds",
       name: "seconds",
       required: true,
-      type: ApplicationCommandOptionType.Number,
+      type: ApplicationCommandOptionType.Integer,
     })
     seconds: number,
     interaction: CommandInteraction,
@@ -381,13 +409,17 @@ export class MusicPlayer {
     const { queue } = cmd;
 
     if (!queue.currentTrack) {
-      await interaction.followUp("> I am not sure, I am playing anything");
+      await interaction.followUp({
+        content: "> I am not sure, I am playing anything",
+      });
       return;
     }
 
-    if (seconds * 1000 > queue.currentTrack.info.length) {
-      await queue.playNext();
-      await interaction.followUp("> skipped the track instead");
+    const maxSeconds = Math.ceil(queue.currentTrack.info.length / 1000);
+    if (seconds > maxSeconds) {
+      await interaction.followUp({
+        content: `Track ${queue.currentTrack.info.title} max length in seconds is ${maxSeconds}`,
+      });
       return;
     }
 
@@ -395,12 +427,14 @@ export class MusicPlayer {
       position: seconds * 1000,
     });
 
-    await interaction.followUp("> current track seeked");
+    await interaction.followUp(
+      `> Playing ${queue.currentTrack.info.title} at ${queue.fromMS(seconds * 1000)}`,
+    );
   }
 
   @Slash({ description: "View queue", name: "queue" })
   async queue(interaction: CommandInteraction, client: Client): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+    const cmd = await this.ParseCommand(client, interaction, false);
     if (!cmd) {
       return;
     }
@@ -419,7 +453,9 @@ export class MusicPlayer {
     const { queue } = cmd;
     const currentTrack = queue.currentTrack;
     if (!currentTrack || !queue.isPlaying) {
-      await interaction.followUp("> I am already quite, amigo!");
+      await interaction.followUp({
+        content: "> I am already quite, amigo!",
+      });
       return;
     }
 
@@ -437,9 +473,9 @@ export class MusicPlayer {
     const { queue } = cmd;
     const currentTrack = queue.currentTrack;
     if (!currentTrack || queue.isPlaying) {
-      await interaction.followUp(
-        "> no no no, I am already doing my best, amigo!",
-      );
+      await interaction.followUp({
+        content: "> I am already playing, amigo!",
+      });
       return;
     }
 
@@ -447,7 +483,7 @@ export class MusicPlayer {
     await interaction.followUp(`> resuming ${currentTrack.info.title}`);
   }
 
-  @Slash({ description: "Skip current song", name: "skip" })
+  @Slash({ description: "Skip current track", name: "skip" })
   async skip(interaction: CommandInteraction, client: Client): Promise<void> {
     const cmd = await this.ParseCommand(client, interaction);
     if (!cmd) {
@@ -457,25 +493,39 @@ export class MusicPlayer {
     const { queue } = cmd;
     const currentTrack = queue.currentTrack;
     if (!currentTrack) {
-      await interaction.followUp(
-        "> There doesn't seem to be anything to skip at the moment.",
-      );
+      await interaction.followUp({
+        content: "> There doesn't seem to be anything to skip at the moment.",
+      });
       return;
     }
 
-    await queue.playNext();
-    await interaction.followUp(`> skipped ${currentTrack.info.title}`);
+    const next = await queue.playNext();
+    if (!next) {
+      await queue.exit();
+      await interaction.followUp({
+        content: "> all queued up, amigo!",
+      });
+      return;
+    }
+
+    await interaction.followUp({
+      content: `> Playing ${next.info.title}`,
+    });
   }
 
-  @Slash({ description: "Set volume", name: "set-volume" })
+  @Slash({
+    description:
+      "The player volume, in percentage, from 0 to 1000 (default 100)",
+    name: "set-volume",
+  })
   async setVolume(
     @SlashOption({
       description: "Set volume",
-      maxValue: 100,
+      maxValue: 1000,
       minValue: 0,
       name: "volume",
       required: true,
-      type: ApplicationCommandOptionType.Number,
+      type: ApplicationCommandOptionType.Integer,
     })
     volume: number,
     interaction: CommandInteraction,
@@ -488,7 +538,7 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     await queue.setVolume(volume);
-    await interaction.followUp(`> volume set to ${volume}`);
+    await interaction.followUp({ content: `> volume set to ${volume}` });
   }
 
   @Slash({ description: "Stop music player", name: "stop" })
@@ -500,7 +550,9 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     await queue.exit();
-    await interaction.followUp("> adios amigo, see you later!");
+    await interaction.followUp({
+      content: "> adios amigo, see you later!",
+    });
   }
 
   @Slash({ description: "Shuffle queue", name: "shuffle" })
@@ -515,7 +567,7 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     queue.shuffle();
-    await interaction.followUp("> playlist shuffled!");
+    await interaction.followUp({ content: "> playlist shuffled!" });
   }
 
   @Slash({ description: "Show GUI controls", name: "gui-show" })
@@ -531,7 +583,7 @@ export class MusicPlayer {
     const { queue } = cmd;
     queue.setChannel(interaction.channel);
     queue.startControlUpdate();
-    await interaction.followUp("> Enable GUI mode!");
+    await interaction.followUp({ content: "> Enable GUI mode!" });
   }
 
   @Slash({ description: "Hide GUI controls", name: "gui-hide" })
@@ -546,6 +598,6 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     queue.stopControlUpdate();
-    await interaction.followUp("> Disabled GUI mode!");
+    await interaction.followUp({ content: "> Disabled GUI mode!" });
   }
 }

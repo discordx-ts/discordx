@@ -5,7 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  LoadType,
   type Player as LavaPlayer,
   PlayerStatus,
   type Track,
@@ -17,12 +16,12 @@ import type { Player } from "./player.js";
 
 export class Queue {
   private _tracks: Track[] = [];
-  private _lastTrack?: Track;
+  private _lastTrack: Track | null = null;
   private _position = 0;
   private _loop = false;
   private _repeat = false;
 
-  get currentTrack(): Track | undefined {
+  get currentTrack(): Track | null {
     return this._lastTrack;
   }
 
@@ -30,7 +29,7 @@ export class Queue {
     return this._tracks[0];
   }
 
-  get tracks(): Track[] {
+  get tracks(): readonly Track[] {
     return this._tracks;
   }
 
@@ -61,18 +60,12 @@ export class Queue {
     // empty constructor
   }
 
-  clear(): void {
-    this._tracks = [];
+  addTrack(...tracks: Track[]) {
+    this._tracks.push(...tracks);
   }
 
-  async enqueue(id: string): Promise<TrackResponse> {
-    const response = await this.player.node.rest.loadTracks(id);
-
-    if (response.loadType === LoadType.PLAYLIST) {
-      this.tracks.push(...response.data.tracks);
-    }
-
-    return response;
+  clear(): void {
+    this._tracks = [];
   }
 
   fromMS(duration: number): string {
@@ -93,23 +86,23 @@ export class Queue {
   async playNext(): Promise<Track | null> {
     if (this.currentTrack) {
       if (this.loop && !this.repeat) {
-        this.tracks.push(this.currentTrack);
+        this.addTrack(this.currentTrack);
       }
 
       if (this.repeat) {
-        this.tracks.unshift(this.currentTrack);
+        this._tracks.unshift(this.currentTrack);
       }
     }
 
-    const track = this.tracks.shift();
+    const track = this._tracks.shift();
     if (!track) {
-      this._lastTrack = undefined;
+      this._lastTrack = null;
       return null;
     }
 
-    this._lastTrack = track;
     const player = this.player.node.players.get(this.guildId);
-    await player.update({ track });
+    await player.update({ track: { encoded: track.encoded } });
+    this._lastTrack = track;
     return track;
   }
 
@@ -157,7 +150,7 @@ export class Queue {
   }
 
   async stop(): Promise<void> {
-    this._lastTrack = undefined;
+    this._lastTrack = null;
     this.clear();
     await this.lavaPlayer.update({
       track: {
