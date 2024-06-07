@@ -1,5 +1,11 @@
 # @discordx/lava-queue
 
+## 3.0.1
+
+### Patch Changes
+
+- return next track on playNext
+
 ## 3.0.0
 
 ### Patch Changes
