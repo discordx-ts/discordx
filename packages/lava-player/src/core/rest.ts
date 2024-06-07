@@ -161,7 +161,6 @@ export class Rest {
   ): Promise<GetPlayer> {
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);
-    url.searchParams.append("noReplace", "true");
     return this.request(
       RequestType.PATCH,
       url,

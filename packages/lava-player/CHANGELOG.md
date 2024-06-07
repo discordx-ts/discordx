@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.0.2
+
+### Patch Changes
+
+- allow replace track
+
 ## 2.0.1
 
 ### Patch Changes
