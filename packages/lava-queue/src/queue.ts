@@ -90,7 +90,7 @@ export class Queue {
     this.lavaPlayer.status = PlayerStatus.PAUSED;
   }
 
-  async playNext(): Promise<boolean> {
+  async playNext(): Promise<Track | null> {
     if (this.currentTrack) {
       if (this.loop && !this.repeat) {
         this.tracks.push(this.currentTrack);
@@ -104,14 +104,13 @@ export class Queue {
     const track = this.tracks.shift();
     if (!track) {
       this._lastTrack = undefined;
-      return false;
+      return null;
     }
 
     this._lastTrack = track;
     const player = this.player.node.players.get(this.guildId);
     await player.update({ track });
-
-    return true;
+    return track;
   }
 
   async resume(): Promise<void> {
