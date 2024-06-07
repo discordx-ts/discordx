@@ -13,8 +13,8 @@ import {
   PaginationType,
 } from "@discordx/pagination";
 import type {
+  ButtonInteraction,
   CommandInteraction,
-  ContextMenuCommandInteraction,
   MessageActionRowComponentBuilder,
   TextBasedChannel,
 } from "discord.js";
@@ -34,7 +34,10 @@ export class MusicQueue extends Queue {
   private lockUpdate = false;
 
   get isPlaying(): boolean {
-    return this.lavaPlayer.status === PlayerStatus.PLAYING;
+    return (
+      this.currentTrack !== null &&
+      this.lavaPlayer.status === PlayerStatus.PLAYING
+    );
   }
 
   public setChannel(channel: TextBasedChannel): void {
@@ -230,7 +233,7 @@ export class MusicQueue extends Queue {
   }
 
   public async view(
-    interaction: CommandInteraction | ContextMenuCommandInteraction,
+    interaction: ButtonInteraction | CommandInteraction,
   ): Promise<void> {
     const queueErrorMessage =
       "> The queue could not be processed at the moment, please try again later!";
@@ -258,9 +261,10 @@ export class MusicQueue extends Queue {
     }
 
     if (this.size === 0) {
-      const pMsg = await interaction.followUp(
-        nowPlayingMessage(this.currentTrack.info.title),
-      );
+      const pMsg = await interaction.followUp({
+        content: nowPlayingMessage(this.currentTrack.info.title),
+        ephemeral: true,
+      });
       if (pMsg instanceof Message) {
         setTimeout(() => void this.deleteMessage(pMsg), deleteDelayMsLong);
       }
@@ -320,6 +324,7 @@ export class MusicQueue extends Queue {
 
   public async exit(): Promise<void> {
     this.stopControlUpdate();
+    await this.lavaPlayer.leave();
     await this.lavaPlayer.destroy();
   }
 }
