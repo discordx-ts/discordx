@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ClassMethodDecorator, Decorator } from "@discordx/internal";
+import type { ClassMethodDecorator } from "@discordx/internal";
 import { Modifier } from "@discordx/internal";
 
 import type { GuardFunction } from "../../index.js";
@@ -45,11 +45,9 @@ export function Guard<Type = any, DataType = any>(
     });
 
     MetadataStorage.instance.addModifier(
-      Modifier.create<Method | Decorator>(
+      Modifier.create<Method | DDiscord>(
         (original) => {
-          if (original instanceof Method) {
-            original.guards = guards;
-          }
+          original.guards = guards;
         },
         DComponent,
         DApplicationCommand,
