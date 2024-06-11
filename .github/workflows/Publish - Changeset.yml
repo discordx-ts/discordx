@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Create Release Pull Request
-        uses: changesets/action@v1
+        uses: changesets/action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
