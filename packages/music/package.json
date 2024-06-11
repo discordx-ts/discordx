@@ -1,6 +1,6 @@
 {
   "name": "@discordx/music",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "private": false,
   "description": "A powerful discord music library written in TypeScript for Node.js",
   "keywords": [

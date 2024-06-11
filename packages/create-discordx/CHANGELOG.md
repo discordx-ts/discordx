@@ -1,5 +1,11 @@
 # create-discordx
 
+## 1.2.2
+
+### Patch Changes
+
+- lint
+
 ## 1.2.1
 
 ### Patch Changes

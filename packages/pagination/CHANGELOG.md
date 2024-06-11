@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 3.5.2
+
+### Patch Changes
+
+- lint
+
 ## 3.5.1
 
 ### Patch Changes

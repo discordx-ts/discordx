@@ -1,5 +1,14 @@
 # @discordx/utilities
 
+## 6.3.3
+
+### Patch Changes
+
+- lint
+
+- Updated dependencies []:
+  - discordx@11.9.4
+
 ## 6.3.2
 
 ### Patch Changes

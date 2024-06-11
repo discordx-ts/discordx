@@ -1,5 +1,15 @@
 # discordx
 
+## 11.9.4
+
+### Patch Changes
+
+- lint
+
+- Updated dependencies []:
+  - @discordx/internal@1.1.2
+  - @discordx/di@3.3.1
+
 ## 11.9.3
 
 ### Patch Changes
