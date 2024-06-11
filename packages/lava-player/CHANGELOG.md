@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.0.3
+
+### Patch Changes
+
+- lint
+
 ## 2.0.2
 
 ### Patch Changes

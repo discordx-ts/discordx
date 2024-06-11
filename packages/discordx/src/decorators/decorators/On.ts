@@ -11,28 +11,6 @@ import { DOn, MetadataStorage } from "../../index.js";
 
 /**
  * Handle discord events with a defined handler
- * ___
- *
- * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/on)
- *
- * @category Decorator
- */
-export function On(): MethodDecoratorEx;
-
-/**
- * Handle discord events with a defined handler
- *
- * @param options - Event options
- * ___
- *
- * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/on)
- *
- * @category Decorator
- */
-export function On(options: EventOptions): MethodDecoratorEx;
-
-/**
- * Handle discord events with a defined handler
  *
  * @param options - Event options
  * ___

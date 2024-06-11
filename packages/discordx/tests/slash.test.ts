@@ -125,6 +125,6 @@ describe("Slash", () => {
       interaction as unknown as Interaction,
     );
 
-    expect(res).toEqual(undefined);
+    expect(res).toEqual(null);
   });
 });

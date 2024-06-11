@@ -11,28 +11,6 @@ import { DOn, MetadataStorage } from "../../index.js";
 
 /**
  * Handle discord events once only with a defined handler
- * ___
- *
- * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/once)
- *
- * @category Decorator
- */
-export function Once(): MethodDecoratorEx;
-
-/**
- * Handle discord events once only with a defined handler
- *
- * @param options - Event parameters
- * ___
- *
- * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/once)
- *
- * @category Decorator
- */
-export function Once(options: EventOptions): MethodDecoratorEx;
-
-/**
- * Handle discord events once only with a defined handler
  *
  * @param options - Event parameters
  * ___

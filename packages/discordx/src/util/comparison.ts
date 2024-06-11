@@ -35,7 +35,7 @@ export function RecursivelyMatchField(
   keys: string[],
   onMatch: (object: any, key: string) => void,
 ): void {
-  Object.keys(object).some(function (k) {
+  Object.keys(object).forEach(function (k) {
     if (keys.includes(k)) {
       onMatch(object, k);
     }

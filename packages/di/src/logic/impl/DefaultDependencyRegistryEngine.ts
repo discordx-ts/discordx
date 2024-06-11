@@ -10,7 +10,7 @@ import type { IDependencyRegistryEngine } from "../IDependencyRegistryEngine.js"
 export class DefaultDependencyRegistryEngine
   implements IDependencyRegistryEngine
 {
-  private static _instance: DefaultDependencyRegistryEngine;
+  private static _instance: DefaultDependencyRegistryEngine | undefined;
   private _services = new Map();
 
   public static get instance(): DefaultDependencyRegistryEngine {

@@ -1,5 +1,11 @@
 # @discordx/di
 
+## 3.3.1
+
+### Patch Changes
+
+- lint
+
 ## 3.3.0
 
 ### Minor Changes

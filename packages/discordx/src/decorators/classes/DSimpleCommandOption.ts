@@ -48,9 +48,7 @@ export class DSimpleCommandOption extends Decorator {
     this._name = data.name;
     this._type = data.type ?? SimpleCommandOptionType.String;
     this._description =
-      data.description ??
-      SimpleCommandOptionType[this._type]?.toLowerCase() ??
-      "";
+      data.description ?? SimpleCommandOptionType[this._type].toLowerCase();
   }
 
   static create(data: CreateStructure): DSimpleCommandOption {

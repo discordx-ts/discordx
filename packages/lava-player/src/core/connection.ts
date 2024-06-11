@@ -109,7 +109,7 @@ export class Connection<T extends BaseNode = BaseNode> {
       this.connect();
     });
 
-    if (this._backoff) {
+    if (typeof this._backoff !== "undefined") {
       this._backoff.removeAllListeners();
     }
 
@@ -120,7 +120,10 @@ export class Connection<T extends BaseNode = BaseNode> {
    * Connects to the WebSocket server.
    */
   public connect(): void {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+    if (
+      typeof this.ws !== "undefined" &&
+      this.ws.readyState === WebSocket.OPEN
+    ) {
       this.ws.close();
     }
 
@@ -144,7 +147,7 @@ export class Connection<T extends BaseNode = BaseNode> {
    * @param data - The close data.
    */
   public close(code?: number, data?: string): Promise<void> {
-    if (!this.ws) {
+    if (typeof this.ws === "undefined") {
       return Promise.resolve();
     }
 

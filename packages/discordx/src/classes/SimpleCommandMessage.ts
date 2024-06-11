@@ -98,10 +98,7 @@ export class SimpleCommandMessage {
     embed.addFields({
       name: "Command Usage",
       value: `\`\`\`${this.prefix.toString()}${this.name} ${this.info.options
-        .map(
-          (op) =>
-            `{${op.name}: ${SimpleCommandOptionType[op.type] ?? "unknown"}}`,
-        )
+        .map((op) => `{${op.name}: ${SimpleCommandOptionType[op.type]}}`)
         .join(" ")}\`\`\``,
     });
 

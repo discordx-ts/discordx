@@ -81,12 +81,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
   }
 
   public get voiceState(): VoiceStateUpdate | undefined {
-    const state = this.node.voiceStates.get(this.guildId);
-    if (!state) {
-      return;
-    }
-
-    return state;
+    return this.node.voiceStates.get(this.guildId);
   }
 
   public async destroy(): Promise<void> {

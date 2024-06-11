@@ -36,11 +36,11 @@ export class SlashOptionResolver {
   getLastNestedOption(options: readonly FakeOption[]): readonly FakeOption[] {
     const arrOptions = options;
 
-    if (!arrOptions?.[0]?.options) {
+    if (!arrOptions[0]?.options) {
       return arrOptions;
     }
 
-    return this.getLastNestedOption(arrOptions?.[0].options);
+    return this.getLastNestedOption(arrOptions[0].options);
   }
 
   get(name: string) {

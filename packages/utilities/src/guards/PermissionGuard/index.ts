@@ -69,7 +69,7 @@ export function PermissionGuard(
     };
 
     if (arg instanceof SimpleCommandMessage) {
-      await arg?.message.reply(finalResponse);
+      await arg.message.reply(finalResponse);
     } else {
       await replyOrFollowUp(arg, finalResponse);
     }

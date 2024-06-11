@@ -6,7 +6,6 @@
  */
 import type {
   ButtonInteraction,
-  CacheType,
   InteractionCollector,
   StringSelectMenuInteraction,
   TextBasedChannel,
@@ -42,7 +41,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   public currentPage: number;
   public option: PaginationOptions;
   public collector?: InteractionCollector<
-    ButtonInteraction<CacheType> | StringSelectMenuInteraction<CacheType>
+    ButtonInteraction | StringSelectMenuInteraction
   >;
 
   public message?: Message;
@@ -101,13 +100,13 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    *
    * @returns
    */
-  public getPage = async (page: number): Promise<IGeneratePage | undefined> => {
+  public getPage = async (page: number): Promise<IGeneratePage | null> => {
     const embed = Array.isArray(this.pages)
       ? cloneDeep<PaginationItem | undefined>(this.pages[page])
       : await this.pages.resolver(page, this);
 
     if (!embed) {
-      return;
+      return null;
     }
 
     return GeneratePage(embed, this.currentPage, this.maxLength, this.option);
@@ -119,7 +118,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    */
   public async send(): Promise<{
     collector: InteractionCollector<
-      ButtonInteraction<CacheType> | StringSelectMenuInteraction<CacheType>
+      ButtonInteraction | StringSelectMenuInteraction
     >;
     message: Message;
   }> {
@@ -187,11 +186,6 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       }
 
       message = await this.sendTo.send(page.newMessage);
-    }
-
-    // Check if page were sent
-    if (!message) {
-      throw Error("Pagination: Failed to send page to discord");
     }
 
     // create collector
@@ -279,9 +273,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
         }
 
         // Update message
-        await collectInteraction
-          .editReply(pageEx.newMessage)
-          .catch(() => this.unableToUpdate());
+        await collectInteraction.editReply(pageEx.newMessage).catch(() => {
+          this.unableToUpdate();
+        });
       } else if (
         collectInteraction.isStringSelectMenu() &&
         this.option.type === PaginationType.SelectMenu &&
@@ -323,9 +317,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
           pageEx.newMessage.components = [pageEx.paginationRow];
         }
 
-        await collectInteraction
-          .editReply(pageEx.newMessage)
-          .catch(() => this.unableToUpdate());
+        await collectInteraction.editReply(pageEx.newMessage).catch(() => {
+          this.unableToUpdate();
+        });
       }
     });
 
@@ -344,14 +338,14 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
           this.sendTo instanceof ChatInputCommandInteraction
         ) {
           if (!this._isFollowUp) {
-            await this.sendTo
-              .editReply(finalPage.newMessage)
-              .catch(() => this.unableToUpdate());
+            await this.sendTo.editReply(finalPage.newMessage).catch(() => {
+              this.unableToUpdate();
+            });
           }
         } else {
-          await message
-            .edit(finalPage.newMessage)
-            .catch(() => this.unableToUpdate());
+          await message.edit(finalPage.newMessage).catch(() => {
+            this.unableToUpdate();
+          });
         }
       }
 

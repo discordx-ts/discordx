@@ -35,9 +35,9 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     rateValue: 1,
   },
 ): GuardFunction<T> {
-  const rateValue = options?.rateValue ?? 1;
+  const rateValue = options.rateValue ?? 1;
   const rateMessage =
-    options?.message ??
+    options.message ??
     "message being rate limited!, please try again in {time}";
 
   function convertToMillisecond(timeValue: number, unit: TIME_UNIT): number {
@@ -101,9 +101,9 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     msg: string,
   ): Promise<void> {
     if (arg instanceof SimpleCommandMessage) {
-      await arg?.message.reply(msg);
+      await arg.message.reply(msg);
     } else {
-      return replyOrFollowUp(arg, msg, options?.ephemeral ?? true);
+      await replyOrFollowUp(arg, msg, options.ephemeral ?? true);
     }
   }
 
@@ -112,11 +112,11 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     let guildId: string | null;
 
     if (arg instanceof SimpleCommandMessage) {
-      memberId = arg?.message?.member?.id;
-      guildId = arg?.message?.guildId;
+      memberId = arg.message.member?.id;
+      guildId = arg.message.guildId;
     } else {
-      memberId = arg?.member?.user?.id;
-      guildId = arg?.guildId;
+      memberId = arg.member?.user.id;
+      guildId = arg.guildId;
     }
 
     if (!memberId || !guildId) {

@@ -36,7 +36,7 @@ console.log(`
   ██║  ██║██║╚════██║██║     ██║   ██║██╔══██╗██║  ██║ ██╔██╗ 
   ██████╔╝██║███████║╚██████╗╚██████╔╝██║  ██║██████╔╝██╔╝ ██╗
   ╚═════╝ ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝
-  ${chalk.dim(`v${version}`)}
+  ${chalk.dim(`v${String(version)}`)}
 `);
 
 /**
@@ -95,7 +95,7 @@ if (!templateList.length) {
   process.exit();
 }
 
-const response = await prompts<string>(
+const response = await prompts(
   {
     choices: templateList,
     message: "Pick template",

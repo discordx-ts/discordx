@@ -38,11 +38,11 @@ import {
 export class MetadataStorage {
   // internal
   private static _isBuilt = false;
-  private static _instance: MetadataStorage;
+  private static _instance: MetadataStorage | undefined;
 
   private _discords: DDiscord[] = [];
   private _guards: DGuard[] = [];
-  private _modifiers: Modifier<Decorator>[] = [];
+  private _modifiers: Modifier[] = [];
 
   // events
   private _events: DOn[] = [];
@@ -256,7 +256,7 @@ export class MetadataStorage {
   }
 
   addModifier<T extends Decorator = Decorator>(modifier: Modifier<T>): void {
-    this._modifiers.push(modifier as Modifier<Decorator>);
+    this._modifiers.push(modifier);
   }
 
   addOn(on: DOn): void {
@@ -292,7 +292,7 @@ export class MetadataStorage {
 
       if (!discord) {
         throw Error(
-          `Did you forget to use the @discord decorator on your class: ${member.from.name}\n` +
+          `Did you forget to use the @discord decorator on your class: ${String(member.from.name)}\n` +
             "read more at https://discordx.js.org/docs/discordx/decorators/general/discord\n\n",
         );
       }
@@ -386,7 +386,10 @@ export class MetadataStorage {
 
     // sort events based on priority
     this._events.sort((a, b) =>
-      `${a.event}__${a.priority}` > `${b.event}__${b.priority}` ? 1 : -1,
+      `${a.event}__${a.priority.toString()}` >
+      `${b.event}__${b.priority.toString()}`
+        ? 1
+        : -1,
     );
   }
 

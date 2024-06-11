@@ -177,7 +177,7 @@ export class DSimpleCommand extends Method {
         ? splitterEx(command)
         : command.argString
             .split(splitterEx)
-            .filter((op) => op?.length)
+            .filter((op) => op.length)
             .map((op) => op.trim());
 
     return Promise.all(

@@ -20,7 +20,12 @@ const guard1: GuardFunction = async (
   }
 };
 
-const guard2: GuardFunction = async (_: [string], client, next, data) => {
+const guard2: GuardFunction = async (
+  _: [string],
+  client,
+  next,
+  data: { message: string; original: string },
+) => {
   if (data.original === "hello-test") {
     data.message += "-1";
     await next();

@@ -52,20 +52,20 @@ export class AudioNode {
   }
 
   private setupEvents() {
-    this.audioPlayer.on("debug", (message) =>
+    this.audioPlayer.on("debug", (message) => {
       this.send({
         message,
         type: AudioNodeEvent.Debug,
-      }),
-    );
+      });
+    });
 
-    this.audioPlayer.on("stateChange", (oldState, newState) =>
+    this.audioPlayer.on("stateChange", (oldState, newState) => {
       this.send({
         newState: newState.status,
         oldState: oldState.status,
         type: AudioNodeEvent.StateChange,
-      }),
-    );
+      });
+    });
   }
 
   public sendPlaybackInfo(): void {
@@ -92,7 +92,7 @@ export class AudioNode {
       highWaterMark: 1 << 25,
       opusEncoded: false,
       quality: "highestaudio",
-      seek: options?.seek,
+      seek: options.seek,
     });
 
     const audioResource = createAudioResource(stream, {

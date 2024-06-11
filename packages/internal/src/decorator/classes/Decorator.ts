@@ -4,7 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { DecoratorUtils } from "../util.js";
+
+import { decorateAClass } from "../util.js";
 
 /**
  * Represents a base decorator class.
@@ -80,14 +81,12 @@ export class Decorator {
     method?: PropertyDescriptor,
     index?: number,
   ): this {
-    const decorateAClass =
-      DecoratorUtils.decorateAClass(method) && index === undefined;
-
-    const finalClassRef: Record<string, any> = decorateAClass
+    const decoratedClass = decorateAClass(method) && index === undefined;
+    const finalClassRef: Record<string, any> = decoratedClass
       ? classRef
       : classRef.constructor;
-    const finalKey = decorateAClass ? finalClassRef.name : key;
-    const finalMethod = decorateAClass ? finalClassRef : method?.value;
+    const finalKey = decoratedClass ? finalClassRef.name : key;
+    const finalMethod = decoratedClass ? finalClassRef : method?.value;
 
     return this.decorate(
       finalClassRef,

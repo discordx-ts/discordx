@@ -32,19 +32,19 @@ export function Slash<T extends string, TD extends string>(
   options: ApplicationCommandOptions<VerifyName<T>, NotEmpty<TD>>,
 ): MethodDecoratorEx {
   return function (target: Record<string, any>, key: string) {
-    const name = options?.name ?? key;
+    const name = options.name ?? key;
     SlashNameValidator(name);
 
     const applicationCommand = DApplicationCommand.create({
-      botIds: options?.botIds,
-      defaultMemberPermissions: options?.defaultMemberPermissions,
-      description: options?.description,
-      descriptionLocalizations: options?.descriptionLocalizations,
-      dmPermission: options?.dmPermission ?? true,
-      guilds: options?.guilds,
+      botIds: options.botIds,
+      defaultMemberPermissions: options.defaultMemberPermissions,
+      description: options.description,
+      descriptionLocalizations: options.descriptionLocalizations,
+      dmPermission: options.dmPermission ?? true,
+      guilds: options.guilds,
       name: name,
-      nameLocalizations: options?.nameLocalizations,
-      nsfw: options?.nsfw,
+      nameLocalizations: options.nameLocalizations,
+      nsfw: options.nsfw,
       type: ApplicationCommandType.ChatInput,
     }).decorate(target.constructor, key, target[key]);
 
