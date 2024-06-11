@@ -24,14 +24,16 @@ export class HTTPError extends Error {
   public headers: IncomingHttpHeaders;
   public path: string;
 
-  get statusMessage(): string | undefined {
-    return STATUS_CODES[this.statusCode];
+  get statusMessage(): string {
+    return STATUS_CODES[this.statusCode] ?? "Unknown";
   }
 
   constructor(httpMessage: IncomingMessage, method: string, url: URL) {
-    super(`${httpMessage.statusCode} ${STATUS_CODES[httpMessage.statusCode!]}`);
+    const statusCode = httpMessage.statusCode ?? 520;
+    const errorMessage = STATUS_CODES[statusCode] ?? "Unknown";
+    super(`${statusCode.toString()} ${errorMessage}`);
 
-    this.statusCode = httpMessage.statusCode!;
+    this.statusCode = statusCode;
     this.headers = httpMessage.headers;
     this.name = this.constructor.name;
     this.path = url.toString();
@@ -75,6 +77,10 @@ export class Rest {
   }
 
   public async destroyPlayer(guildId: string): Promise<void> {
+    if (this.node.sessionId === null) {
+      throw Error("sessionId not available");
+    }
+
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);
     await this.request(RequestType.DELETE, url);
@@ -159,6 +165,10 @@ export class Rest {
     guildId: string,
     payload: UpdatePlayer,
   ): Promise<GetPlayer> {
+    if (this.node.sessionId === null) {
+      throw Error("sessionId not available");
+    }
+
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);
     return this.request(

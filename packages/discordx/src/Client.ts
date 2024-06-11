@@ -344,7 +344,7 @@ export class Client extends ClientJS {
       this.events.forEach((event) => {
         const eventName = event.event;
         this.logger.log(
-          `>> ${eventName} (${event.classRef.name}.${event.key})`,
+          `>> ${eventName} (${String(event.classRef.name)}.${event.key})`,
         );
       });
     } else {
@@ -358,7 +358,7 @@ export class Client extends ClientJS {
     if (this.buttonComponents.length) {
       this.buttonComponents.forEach((btn) => {
         this.logger.log(
-          `>> ${btn.id.toString()} (${btn.classRef.name}.${btn.key})`,
+          `>> ${btn.id.toString()} (${String(btn.classRef.name)}.${btn.key})`,
         );
       });
     } else {
@@ -372,7 +372,7 @@ export class Client extends ClientJS {
     if (this.selectMenuComponents.length) {
       this.selectMenuComponents.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`,
+          `>> ${menu.id.toString()} (${String(menu.classRef.name)}.${menu.key})`,
         );
       });
     } else {
@@ -386,7 +386,7 @@ export class Client extends ClientJS {
     if (this.modalComponents.length) {
       this.modalComponents.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.id.toString()} (${menu.classRef.name}.${menu.key})`,
+          `>> ${menu.id.toString()} (${String(menu.classRef.name)}.${menu.key})`,
         );
       });
     } else {
@@ -399,7 +399,9 @@ export class Client extends ClientJS {
 
     if (this.reactions.length) {
       this.reactions.forEach((menu) => {
-        this.logger.log(`>> ${menu.emoji} (${menu.classRef.name}.${menu.key})`);
+        this.logger.log(
+          `>> ${menu.emoji} (${String(menu.classRef.name)}.${menu.key})`,
+        );
       });
     } else {
       this.logger.log("\tNo reaction detected");
@@ -417,7 +419,7 @@ export class Client extends ClientJS {
     if (contexts.length) {
       contexts.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.name} (${menu.type}) (${menu.classRef.name}.${menu.key})`,
+          `>> ${menu.name} (${String(menu.type)}) (${String(menu.classRef.name)}.${menu.key})`,
         );
       });
     } else {
@@ -434,9 +436,9 @@ export class Client extends ClientJS {
         }
 
         this.logger.log(
-          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${
-            DCommand.classRef.name
-          }.${DCommand.key})`,
+          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${String(
+            DCommand.classRef.name,
+          )}.${DCommand.key})`,
         );
 
         /**
@@ -450,10 +452,6 @@ export class Client extends ClientJS {
           options: DApplicationCommandOption[],
           depth: number,
         ) => {
-          if (!options) {
-            return;
-          }
-
           const tab = Array(depth).join("\t\t");
 
           options.forEach((option, optionIndex) => {
@@ -470,9 +468,9 @@ export class Client extends ClientJS {
                 option.type === ApplicationCommandOptionType.SubcommandGroup
                   ? option.name
                   : option.name
-              }: ${ApplicationCommandOptionType[option.type]?.toLowerCase()} (${
-                option.classRef.name
-              }.${option.key})`,
+              }: ${ApplicationCommandOptionType[option.type].toLowerCase()} (${String(
+                option.classRef.name,
+              )}.${option.key})`,
             );
             printOptions(option.options, depth + 1);
           });
@@ -489,9 +487,11 @@ export class Client extends ClientJS {
     this.logger.log("client >> simple commands");
     if (this.simpleCommands.length) {
       this.simpleCommands.forEach((cmd) => {
-        this.logger.log(`\t>> ${cmd.name} (${cmd.classRef.name}.${cmd.key})`);
+        this.logger.log(
+          `\t>> ${cmd.name} (${String(cmd.classRef.name)}.${cmd.key})`,
+        );
         if (cmd.aliases.length) {
-          this.logger.log(`\t\t${"aliases"}:`, cmd.aliases.join(", "));
+          this.logger.log(`\t\taliases:`, cmd.aliases.join(", "));
         }
 
         /**
@@ -505,16 +505,12 @@ export class Client extends ClientJS {
           options: DSimpleCommandOption[],
           depth: number,
         ) => {
-          if (!options) {
-            return;
-          }
-
           const tab = Array(depth).join("\t\t");
           options.forEach((option) => {
             this.logger.log(
               `${tab}${option.name}: ${
-                SimpleCommandOptionType[option.type] ?? "unknown"
-              } (${option.classRef.name}.${option.key})`,
+                SimpleCommandOptionType[option.type]
+              } (${String(option.classRef.name)}.${option.key})`,
             );
           });
         };
@@ -681,21 +677,21 @@ export class Client extends ClientJS {
 
     // log the changes to commands if enabled by options or silent mode is turned off
     if (!this.silent) {
-      let str = `${this.user?.username} >> commands >> guild: #${guild.toString()}`;
+      let str = `${this.user?.username ?? "Bot"} >> commands >> guild: #${guild.toString()}`;
 
-      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
+      str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAdd
         .map((DCommand) => DCommand.name)
         .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
+      str += `\n\t>> updating ${String(commandsToUpdate.length)} [${commandsToUpdate
         .map((cmd) => cmd.command.name)
         .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> deleting ${commandsToDelete.length} [${commandsToDelete
+      str += `\n\t>> deleting ${String(commandsToDelete.length)} [${commandsToDelete
         .map((cmd) => cmd.name)
         .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
+      str += `\n\t>> skipping ${String(commandsToSkip.length)} [${commandsToSkip
         .map((cmd) => cmd.name)
         .join(", ")}]`;
 
@@ -775,7 +771,7 @@ export class Client extends ClientJS {
     // # initialize add/update/delete task for global commands
     const ApplicationCommands = (
       await this.application.commands.fetch()
-    )?.filter((cmd) => !cmd.guild);
+    ).filter((cmd) => !cmd.guild);
 
     const DCommands = this.applicationCommands.filter(
       (DCommand) =>
@@ -821,19 +817,19 @@ export class Client extends ClientJS {
     if (!this.silent) {
       let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-      str += `\n\t>> adding   ${commandsToAdd.length} [${commandsToAdd
+      str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAdd
         .map((DCommand) => DCommand.name)
         .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> updating ${commandsToUpdate.length} [${commandsToUpdate
+      str += `\n\t>> updating ${String(commandsToUpdate.length)} [${commandsToUpdate
         .map((cmd) => cmd.command.name)
         .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> deleting ${commandsToDelete.size} [${commandsToDelete
+      str += `\n\t>> deleting ${String(commandsToDelete.size)} [${commandsToDelete
         .map((cmd) => cmd.name)
         .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
 
-      str += `\n\t>> skipping ${commandsToSkip.length} [${commandsToSkip
+      str += `\n\t>> skipping ${String(commandsToSkip.length)} [${commandsToSkip
         .map((cmd) => cmd.name)
         .join(", ")}]`;
 
@@ -887,9 +883,7 @@ export class Client extends ClientJS {
       ...operationToDelete,
     ]);
 
-    await this.application?.commands.set(
-      bulkUpdate as ApplicationCommandData[],
-    );
+    await this.application.commands.set(bulkUpdate as ApplicationCommandData[]);
   }
 
   /**
@@ -945,7 +939,7 @@ export class Client extends ClientJS {
           tree.push(option.name);
         }
 
-        getOptionsTree(Array.from(option.options?.values() ?? [])?.[0]);
+        getOptionsTree(Array.from(option.options?.values() ?? [])[0]);
       }
     };
 
@@ -1034,15 +1028,8 @@ export class Client extends ClientJS {
       return this.executeContextMenu(interaction);
     }
 
-    // If the interaction isn't a slash command, return
-    if (
-      interaction.type === InteractionType.ApplicationCommand ||
-      interaction.type === InteractionType.ApplicationCommandAutocomplete
-    ) {
-      return this.executeCommandInteraction(interaction);
-    }
-
-    return;
+    // If interaction is slash command
+    return this.executeCommandInteraction(interaction);
   }
 
   /**
@@ -1067,7 +1054,7 @@ export class Client extends ClientJS {
           } >> interaction not found, commandName: ${interaction.commandName}`,
         );
       }
-      return;
+      return null;
     }
 
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
@@ -1082,7 +1069,7 @@ export class Client extends ClientJS {
           interaction,
           applicationCommand,
         );
-        return;
+        return null;
       }
     }
 
@@ -1107,7 +1094,7 @@ export class Client extends ClientJS {
     const executes = components.filter(
       (component) =>
         component.isId(interaction.customId) &&
-        component?.isBotAllowed(this.botId),
+        component.isBotAllowed(this.botId),
     );
 
     if (!executes.length) {
@@ -1125,13 +1112,13 @@ export class Client extends ClientJS {
         );
       }
 
-      return;
+      return null;
     }
 
     const results = await Promise.all(
       executes.map(async (component) => {
         if (!(await component.isGuildAllowed(this, interaction.guildId))) {
-          return;
+          return null;
         }
 
         return component.execute(this.guards, interaction, this);
@@ -1167,7 +1154,7 @@ export class Client extends ClientJS {
           } >> context interaction not found, name: ${interaction.commandName}`,
         );
       }
-      return;
+      return null;
     }
 
     return applicationCommand.execute(this.guards, interaction, this);
@@ -1307,7 +1294,7 @@ export class Client extends ClientJS {
      * Return if the message is not a command
      */
     if (command === SimpleCommandParseType.notCommand) {
-      return;
+      return null;
     }
 
     /**
@@ -1322,28 +1309,28 @@ export class Client extends ClientJS {
           await handleNotFound(message);
         }
       }
-      return;
+      return null;
     }
 
     /**
      * Validate bot id
      */
     if (!command.info.isBotAllowed(this.botId)) {
-      return;
+      return null;
     }
 
     /**
      * Validate guild id
      */
     if (!(await command.info.isGuildAllowed(this, command, message.guildId))) {
-      return;
+      return null;
     }
 
     /**
      * Check if DM is allowed and if guild is present in message
      */
     if (!command.info.directMessage && !message.guild) {
-      return;
+      return null;
     }
 
     return command.info.execute(this.guards, command, this);
@@ -1386,22 +1373,22 @@ export class Client extends ClientJS {
   ): Promise<unknown> {
     const action = this.parseReaction(reaction);
     if (!action) {
-      return;
+      return null;
     }
 
     // validate bot id
     if (!action.isBotAllowed(this.botId)) {
-      return;
+      return null;
     }
 
     // validate guild id
     if (!(await action.isGuildAllowed(this, reaction.message.guildId))) {
-      return;
+      return null;
     }
 
     // check dm allowed or not
     if (!action.directMessage && !reaction.message.guild) {
-      return;
+      return null;
     }
 
     // fetch reaction or user if partial is not enabled

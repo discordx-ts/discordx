@@ -31,7 +31,7 @@ export class DApplicationCommandGroup<
     super();
     this.name = options.name;
     this.root = options.root;
-    this.payload = options.payload ?? {};
+    this.payload = options.payload;
   }
 
   static create<T = DApplicationCommand | DApplicationCommandOption>(

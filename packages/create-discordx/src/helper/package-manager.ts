@@ -17,7 +17,7 @@ export enum PackageManager {
 }
 
 export async function GetPackageManager(): Promise<PackageManager | null> {
-  const selected = await prompts<string>(
+  const selected = await prompts(
     {
       choices: [
         {

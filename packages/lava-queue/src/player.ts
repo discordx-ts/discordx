@@ -29,7 +29,7 @@ export class Player {
     node.on("playerUpdate", (e: GetPlayer) => {
       const queue = this.queues.get(e.guildId);
       if (queue) {
-        queue.setPosition(e.state.position ?? 0);
+        queue.setPosition(e.state.position);
       }
     });
 
@@ -64,7 +64,7 @@ export class Player {
     guildId: string,
     resolver?: () => T,
   ): T {
-    const queue = this.queues.get(guildId) as T;
+    const queue = this.queues.get(guildId) as T | undefined;
 
     // If a queue already exists, return it
     if (queue) {

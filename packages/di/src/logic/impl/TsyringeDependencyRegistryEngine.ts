@@ -19,7 +19,7 @@ type Factory = <T>(factoryFunc: FactoryFunction<T>) => FactoryFunction<T>;
 export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<DependencyContainer> {
   public static token = Symbol("discordx");
 
-  private static _instance: TsyringeDependencyRegistryEngine;
+  private static _instance: TsyringeDependencyRegistryEngine | undefined;
 
   private factory: Factory | null = null;
 

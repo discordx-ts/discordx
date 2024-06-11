@@ -44,7 +44,7 @@ export abstract class BaseNode extends EventEmitter {
 
     this.rest = new Rest(
       this,
-      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort}/v4/`,
+      `${restIsSecure ? "https" : "http"}://${restAddress}:${restPort.toString()}/v4/`,
     );
 
     const wsIsSecure = host?.secure ?? false;
@@ -53,7 +53,7 @@ export abstract class BaseNode extends EventEmitter {
 
     this.connection = new Connection(
       this,
-      `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort}/v4/websocket`,
+      `${wsIsSecure ? "wss" : "ws"}://${wsAddress}:${wsPort.toString()}/v4/websocket`,
       host?.connectionOptions,
     );
 
@@ -63,7 +63,7 @@ export abstract class BaseNode extends EventEmitter {
   }
 
   public get connected(): boolean {
-    return this.connection?.ws.readyState === WebSocket.OPEN;
+    return this.connection.ws.readyState === WebSocket.OPEN;
   }
 
   public voiceStateUpdate(packet: VoiceStateUpdate): Promise<boolean> {
@@ -89,14 +89,11 @@ export abstract class BaseNode extends EventEmitter {
   }
 
   public connect(): void {
-    this.connection?.connect();
+    this.connection.connect();
   }
 
   public disconnect(code?: number, data?: string): Promise<void> {
-    if (this.connection) {
-      return this.connection.close(code, data);
-    }
-    return Promise.resolve();
+    return this.connection.close(code, data);
   }
 
   public async destroy(code?: number, data?: string): Promise<void> {

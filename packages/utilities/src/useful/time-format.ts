@@ -45,28 +45,28 @@ export const TimeFormat = {
    *
    * 24 Hour Clock: 28 November 2018 09:01
    */
-  Default: (time: Time): string => `<t:${dayjs(time).unix()}>`,
+  Default: (time: Time): string => `<t:${String(dayjs(time).unix())}>`,
 
   /**
    * 12 Hour Clock: November 28, 2018
    *
    * 24 Hour Clock: 28 November 2018
    */
-  LongDate: (time: Time): string => `<t:${dayjs(time).unix()}:D>`,
+  LongDate: (time: Time): string => `<t:${String(dayjs(time).unix())}:D>`,
 
   /**
    * 12 Hour Clock: Wednesday, November 28, 2018 9:01 AM
    *
    * 24 Hour Clock: Wednesday, 28 November 2018 09:01
    */
-  LongDateTime: (time: Time): string => `<t:${dayjs(time).unix()}:F>`,
+  LongDateTime: (time: Time): string => `<t:${String(dayjs(time).unix())}:F>`,
 
   /**
    * 12 Hour Clock: 9:01:00 AM
    *
    * 24 Hour Clock: 09:01:00
    */
-  LongTime: (time: Time): string => `<t:${dayjs(time, "").unix()}:T>`,
+  LongTime: (time: Time): string => `<t:${String(dayjs(time, "").unix())}:T>`,
 
   /**
    * The Discord relative time updates every second.
@@ -75,28 +75,28 @@ export const TimeFormat = {
    *
    * 24 Hour Clock: 3 years ago
    */
-  RelativeTime: (time: Time): string => `<t:${dayjs(time).unix()}:R>`,
+  RelativeTime: (time: Time): string => `<t:${String(dayjs(time).unix())}:R>`,
 
   /**
    * 12 Hour Clock: 11/28/2018
    *
    * 24 Hour Clock: 28/11/2018
    */
-  ShortDate: (time: Time): string => `<t:${dayjs(time).unix()}:d>`,
+  ShortDate: (time: Time): string => `<t:${String(dayjs(time).unix())}:d>`,
 
   /**
    * 12 Hour Clock: November 28, 2018 9:01 AM
    *
    * 24 Hour Clock: 28 November 2018 09:01
    */
-  ShortDateTime: (time: Time): string => `<t:${dayjs(time).unix()}:f>`,
+  ShortDateTime: (time: Time): string => `<t:${String(dayjs(time).unix())}:f>`,
 
   /**
    * 12 Hour Clock: 9:01 AM
    *
    * 24 Hour Clock: 09:01
    */
-  ShortTime: (time: Time): string => `<t:${dayjs(time).unix()}:t>`,
+  ShortTime: (time: Time): string => `<t:${String(dayjs(time).unix())}:t>`,
 
   /**
    * Unlike Discord relative time which updates every second, this remain static.

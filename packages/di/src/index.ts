@@ -30,6 +30,7 @@ export type InstanceOf<T> = T extends new (...args: unknown[]) => infer R
  *
  * @category Internal
  */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class DIService {
   private static _engine: IDependencyRegistryEngine =
     defaultDependencyRegistryEngine;

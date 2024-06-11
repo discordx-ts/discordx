@@ -29,18 +29,6 @@ export function On(): MethodDecoratorEx;
  *
  * @category Decorator
  */
-export function On(options: EventOptions): MethodDecoratorEx;
-
-/**
- * Handle discord events with a defined handler
- *
- * @param options - Event options
- * ___
- *
- * [View Documentation](https://discordx.js.org/docs/discordx/decorators/general/on)
- *
- * @category Decorator
- */
 export function On(options?: EventOptions): MethodDecoratorEx {
   return function (
     target: Record<string, any>,

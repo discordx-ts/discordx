@@ -123,10 +123,6 @@ export function GeneratePage(
       newMessage.files = [];
     }
 
-    if (!newMessage.files) {
-      newMessage.files = [];
-    }
-
     if (!newMessage.attachments) {
       newMessage.attachments = [];
     }
@@ -146,7 +142,7 @@ export function GeneratePage(
         : config.pageText;
 
     return {
-      label: (text ?? "Page {page}").replaceAll("{page}", `${i}`),
+      label: (text ?? "Page {page}").replaceAll("{page}", i.toString()),
       value: (i - 1).toString(),
     };
   });
@@ -186,10 +182,6 @@ export function GeneratePage(
   // reset message payload additional parameters
   if (!newMessage.embeds) {
     newMessage.embeds = [];
-  }
-
-  if (!newMessage.files) {
-    newMessage.files = [];
   }
 
   if (!newMessage.files) {

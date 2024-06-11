@@ -60,8 +60,11 @@ export class TimedSet<T> implements ITimedSet<T> {
       return false;
     }
 
-    const timeoutFunction = this._map.get(key)!;
-    timeoutFunction.clearTimer();
+    const timeoutFunction = this._map.get(key);
+    if (timeoutFunction) {
+      timeoutFunction.clearTimer();
+    }
+
     return this._map.delete(key);
   }
 
@@ -70,8 +73,11 @@ export class TimedSet<T> implements ITimedSet<T> {
       return false;
     }
 
-    const timeoutFunction = this._map.get(key)!;
-    timeoutFunction.clearTimer();
+    const timeoutFunction = this._map.get(key);
+    if (timeoutFunction) {
+      timeoutFunction.clearTimer();
+    }
+
     this.add(key);
     return true;
   }
@@ -96,9 +102,9 @@ export class TimedSet<T> implements ITimedSet<T> {
     callbackfn: (value: T, value2: T, set: Set<T>) => void,
     thisArg?: unknown,
   ): void {
-    this._map.forEach((value, key) =>
-      callbackfn.call(thisArg ? thisArg : this, key, key, this),
-    );
+    this._map.forEach((value, key) => {
+      callbackfn.call(thisArg ? thisArg : this, key, key, this);
+    });
   }
 
   public keys(): IterableIterator<T> {

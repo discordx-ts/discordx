@@ -16,7 +16,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
 > {
   public static token = new Token<unknown>("discordx");
 
-  private static _instance: TypeDiDependencyRegistryEngine;
+  private static _instance: TypeDiDependencyRegistryEngine | undefined;
 
   private service: typeof Service | undefined;
 
