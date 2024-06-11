@@ -208,7 +208,7 @@ describe("Commands", () => {
   it("Should not execute not found simple command", async () => {
     const sampleMessage = { content: "!add22 2~+~4" } as Message;
     const response = await client.executeCommand(sampleMessage);
-    expect(response).toEqual(undefined);
+    expect(response).toEqual(null);
   });
 
   it("Should avoid splitter space for options", async () => {
