@@ -343,9 +343,9 @@ export class Client extends ClientJS {
     if (this.events.length) {
       this.events.forEach((event) => {
         const eventName = event.event;
-        this.logger.log(
-          `>> ${eventName} (${event.classRef.name as string}.${event.key})`,
-        );
+        const className: string = event.classRef.name;
+        const key: string = event.key;
+        this.logger.log(`>> ${eventName} (${className}.${key})`);
       });
     } else {
       this.logger.log("\tNo event detected");
@@ -357,9 +357,9 @@ export class Client extends ClientJS {
 
     if (this.buttonComponents.length) {
       this.buttonComponents.forEach((btn) => {
-        this.logger.log(
-          `>> ${btn.id.toString()} (${btn.classRef.name as string}.${btn.key})`,
-        );
+        const className: string = btn.classRef.name;
+        const key: string = btn.key;
+        this.logger.log(`>> ${btn.id.toString()} (${className}.${key})`);
       });
     } else {
       this.logger.log("\tNo buttons detected");
@@ -371,9 +371,9 @@ export class Client extends ClientJS {
 
     if (this.selectMenuComponents.length) {
       this.selectMenuComponents.forEach((menu) => {
-        this.logger.log(
-          `>> ${menu.id.toString()} (${menu.classRef.name as string}.${menu.key})`,
-        );
+        const className: string = menu.classRef.name;
+        const key: string = menu.key;
+        this.logger.log(`>> ${menu.id.toString()} (${className}.${key})`);
       });
     } else {
       this.logger.log("\tNo select menu detected");
@@ -385,9 +385,9 @@ export class Client extends ClientJS {
 
     if (this.modalComponents.length) {
       this.modalComponents.forEach((menu) => {
-        this.logger.log(
-          `>> ${menu.id.toString()} (${menu.classRef.name as string}.${menu.key})`,
-        );
+        const className: string = menu.classRef.name;
+        const key: string = menu.key;
+        this.logger.log(`>> ${menu.id.toString()} (${className}.${key})`);
       });
     } else {
       this.logger.log("\tNo modal detected");
@@ -399,9 +399,9 @@ export class Client extends ClientJS {
 
     if (this.reactions.length) {
       this.reactions.forEach((menu) => {
-        this.logger.log(
-          `>> ${menu.emoji} (${menu.classRef.name as string}.${menu.key})`,
-        );
+        const className: string = menu.classRef.name;
+        const key: string = menu.key;
+        this.logger.log(`>> ${menu.emoji} (${className}.${key})`);
       });
     } else {
       this.logger.log("\tNo reaction detected");
@@ -418,9 +418,10 @@ export class Client extends ClientJS {
 
     if (contexts.length) {
       contexts.forEach((menu) => {
-        this.logger.log(
-          `>> ${menu.name} (${String(menu.type)}) (${menu.classRef.name as string}.${menu.key})`,
-        );
+        const type = menu.type.toString();
+        const className: string = menu.classRef.name;
+        const key: string = menu.key;
+        this.logger.log(`>> ${menu.name} (${type}) (${className}.${key})`);
       });
     } else {
       this.logger.log("\tNo context menu detected");
@@ -435,11 +436,10 @@ export class Client extends ClientJS {
           return;
         }
 
-        this.logger.log(
-          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${
-            DCommand.classRef.name as string
-          }.${DCommand.key})`,
-        );
+        const line = index !== 0 ? "\n" : "";
+        const className: string = DCommand.classRef.name;
+        const key: string = DCommand.key;
+        this.logger.log(`${line}\t>> ${DCommand.name} (${className}.${key})`);
 
         /**
          * Print options
@@ -455,6 +455,9 @@ export class Client extends ClientJS {
           const tab = Array(depth).join("\t\t");
 
           options.forEach((option, optionIndex) => {
+            const className: string = option.classRef.name;
+            const key: string = option.key;
+
             this.logger.log(
               `${
                 (option.type === ApplicationCommandOptionType.Subcommand ||
@@ -469,8 +472,8 @@ export class Client extends ClientJS {
                   ? option.name
                   : option.name
               }: ${ApplicationCommandOptionType[option.type].toLowerCase()} (${
-                option.classRef.name as string
-              }.${option.key})`,
+                className
+              }.${key})`,
             );
             printOptions(option.options, depth + 1);
           });
@@ -487,9 +490,9 @@ export class Client extends ClientJS {
     this.logger.log("client >> simple commands");
     if (this.simpleCommands.length) {
       this.simpleCommands.forEach((cmd) => {
-        this.logger.log(
-          `\t>> ${cmd.name} (${cmd.classRef.name as string}.${cmd.key})`,
-        );
+        const className: string = cmd.classRef.name;
+        const key: string = cmd.key;
+        this.logger.log(`\t>> ${cmd.name} (${className}.${key})`);
         if (cmd.aliases.length) {
           this.logger.log(`\t\taliases:`, cmd.aliases.join(", "));
         }
@@ -507,10 +510,11 @@ export class Client extends ClientJS {
         ) => {
           const tab = Array(depth).join("\t\t");
           options.forEach((option) => {
+            const type = SimpleCommandOptionType[option.type];
+            const className: string = option.classRef.name;
+            const key: string = option.key;
             this.logger.log(
-              `${tab}${option.name}: ${
-                SimpleCommandOptionType[option.type]
-              } (${option.classRef.name as string}.${option.key})`,
+              `${tab}${option.name}: ${type} (${className}.${key})`,
             );
           });
         };
