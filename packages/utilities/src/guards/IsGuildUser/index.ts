@@ -89,7 +89,9 @@ export const IsGuildUser =
         argItem instanceof RoleSelectMenuInteraction ||
         argItem instanceof StringSelectMenuInteraction ||
         argItem instanceof UserSelectMenuInteraction:
-        user = argItem.member.user;
+        if (argItem.member !== null) {
+          user = argItem.member.user;
+        }
         break;
     }
 
