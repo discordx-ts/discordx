@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { DecoratorUtils } from "../util.js";
+import { getLinkedObjects } from "../util.js";
 import { Decorator } from "./Decorator.js";
 
 export type ModifyFunction<ToModify extends Decorator> = (
@@ -60,11 +60,11 @@ export class Modifier<
   static async applyFromModifierListToList(
     modifiers: Modifier[],
     originals: Decorator[],
-  ): Promise<void[]> {
-    return Promise.all(
+  ): Promise<void> {
+    await Promise.all(
       modifiers.map(async (modifier) => {
         // Get the list of objects that are linked to the specified modifier
-        let linked = DecoratorUtils.getLinkedObjects(modifier, originals);
+        let linked = getLinkedObjects(modifier, originals);
 
         // Filter the linked objects to match the target types of modification
         linked = linked.filter((linkedOriginal) =>

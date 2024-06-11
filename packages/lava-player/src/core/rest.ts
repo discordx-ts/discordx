@@ -9,14 +9,14 @@ import { request, STATUS_CODES } from "http";
 import { URL } from "url";
 
 import type { BaseNode } from "../base/base-node.js";
-import {
+import type {
   GetPlayer,
-  RequestType,
   RoutePlannerStatus,
   Track,
   TrackResponse,
   UpdatePlayer,
 } from "../types/index.js";
+import { RequestType } from "../types/index.js";
 
 export class HTTPError extends Error {
   public method: string;

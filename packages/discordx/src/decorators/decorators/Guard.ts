@@ -18,7 +18,7 @@ import {
   DSimpleCommand,
   MetadataStorage,
 } from "../../index.js";
-import { Method } from "../classes/Method.js";
+import type { Method } from "../classes/Method.js";
 
 /**
  * Define middleware for buttons, events, select menus, simple commands, slashes, etc.
