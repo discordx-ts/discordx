@@ -162,7 +162,7 @@ export class DApplicationCommandOption extends Decorator {
     this._type = value;
   }
 
-  protected constructor(data: CreateStructure) {
+  constructor(data: CreateStructure) {
     super();
 
     this._name = data.name;

@@ -59,7 +59,7 @@ export class DOn extends Method {
     this._rest = value;
   }
 
-  protected constructor(data: CreateStructure) {
+  constructor(data: CreateStructure) {
     super();
     this._event = data.event;
     this._once = data.once;

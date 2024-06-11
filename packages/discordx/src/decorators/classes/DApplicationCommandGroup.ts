@@ -27,7 +27,7 @@ export class DApplicationCommandGroup<
   root?: string;
   payload: Partial<InfoType>;
 
-  protected constructor(options: CreateStructure<InfoType>) {
+  constructor(options: CreateStructure<InfoType>) {
     super();
     this.name = options.name;
     this.root = options.root;

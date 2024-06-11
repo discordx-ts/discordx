@@ -11,42 +11,53 @@ export type ModifyFunction<ToModify extends Decorator> = (
   original: ToModify,
 ) => unknown;
 
+// Base type for constructors of classes extending Decorator.
+export type Constructor<T extends Decorator> = new (...args: any[]) => T;
+
 /**
+ * Represents a modifier for decorators.
  * @category Internal
  */
 export class Modifier<
   ToModify extends Decorator = Decorator,
 > extends Decorator {
   private _toModify: ModifyFunction<ToModify>;
-  private _modifyTypes: unknown[];
+  private _modifyTypes: Constructor<ToModify>[];
 
-  protected constructor(
+  /**
+   * Constructor to initialize a modifier.
+   * @param toModify - The function to modify the decorator.
+   * @param modifyTypes - The list of types that can be modified.
+   */
+  constructor(
     toModify: ModifyFunction<ToModify>,
-    modifyTypes: unknown[],
+    modifyTypes: Constructor<ToModify>[],
   ) {
     super();
     this._toModify = toModify;
     this._modifyTypes = modifyTypes;
   }
 
+  /**
+   * Creates a new modifier instance.
+   * @param toModify - The function to modify the decorator.
+   * @param modifyTypes - The list of types that can be modified.
+   * @returns A new modifier instance.
+   */
   static create<ToModifyEx extends Decorator>(
     toModify: ModifyFunction<ToModifyEx>,
-    ...modifyTypes: unknown[]
+    ...modifyTypes: Constructor<ToModifyEx>[]
   ): Modifier<ToModifyEx> {
     return new Modifier<ToModifyEx>(toModify, modifyTypes);
   }
 
   /**
-   * Apply the modifier to a list of objects
-   * it only applies the modifications to linked objects
-   * that are on the targets type of modification
-   *
-   * @param modifiers - The modifier list
-   * @param originals - The list of objects to modify
-   *
-   * @returns
+   * Applies the modifications from a list of modifiers to a list of decorators.
+   * @param modifiers - The list of modifiers.
+   * @param originals - The list of decorators to modify.
+   * @returns A promise that resolves when all modifications are applied.
    */
-  static applyFromModifierListToList(
+  static async applyFromModifierListToList(
     modifiers: Modifier[],
     originals: Decorator[],
   ): Promise<void[]> {
@@ -56,20 +67,25 @@ export class Modifier<
         let linked = DecoratorUtils.getLinkedObjects(modifier, originals);
 
         // Filter the linked objects to match the target types of modification
-        linked = linked.filter((l) =>
-          modifier._modifyTypes.includes(l.constructor),
+        linked = linked.filter((linkedOriginal) =>
+          modifier._modifyTypes.some((type) => linkedOriginal instanceof type),
         );
 
         // Apply the modifications
         await Promise.all(
-          linked.map((linkedOriginal) => {
-            return modifier.applyModifications(linkedOriginal);
-          }),
+          linked.map((linkedOriginal) =>
+            modifier.applyModifications(linkedOriginal),
+          ),
         );
       }),
     );
   }
 
+  /**
+   * Applies modifications to the specified decorator.
+   * @param original - The decorator to modify.
+   * @returns The result of the modification function.
+   */
   applyModifications(original: ToModify): unknown {
     return this._toModify(original);
   }

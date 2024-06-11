@@ -122,7 +122,7 @@ export class DDiscord extends Decorator {
     this._simpleCommands = value;
   }
 
-  protected constructor(name: string, description?: string) {
+  constructor(name: string, description?: string) {
     super();
     this._name = name;
     this._description = description ?? name;

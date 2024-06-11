@@ -43,7 +43,7 @@ export class DSimpleCommandOption extends Decorator {
     this._description = value;
   }
 
-  protected constructor(data: CreateStructure) {
+  constructor(data: CreateStructure) {
     super();
     this._name = data.name;
     this._type = data.type ?? SimpleCommandOptionType.String;

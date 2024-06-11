@@ -138,7 +138,7 @@ export class DApplicationCommand extends Method {
     this._type = value;
   }
 
-  protected constructor(data: CreateStructure) {
+  constructor(data: CreateStructure) {
     super();
     this._name = data.name;
     this._type = data.type;

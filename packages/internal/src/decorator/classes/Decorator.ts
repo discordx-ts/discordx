@@ -7,6 +7,7 @@
 import { DecoratorUtils } from "../util.js";
 
 /**
+ * Represents a base decorator class.
  * @category Decorator
  */
 export class Decorator {
@@ -14,12 +15,18 @@ export class Decorator {
   protected _from!: Record<string, any>;
   protected _key!: string;
   protected _method?: Record<string, any>;
-  protected _index?: number = undefined;
+  protected _index?: number;
 
+  /**
+   * Gets the index of the parameter being decorated, if applicable.
+   */
   get index(): number | undefined {
     return this._index;
   }
 
+  /**
+   * Gets or sets the class reference being decorated.
+   */
   get classRef(): Record<string, any> {
     return this._classRef;
   }
@@ -28,6 +35,9 @@ export class Decorator {
     this.from = value;
   }
 
+  /**
+   * Gets or sets the originating class reference.
+   */
   get from(): Record<string, any> {
     return this._from;
   }
@@ -35,22 +45,35 @@ export class Decorator {
     this._from = value;
   }
 
+  /**
+   * Gets the key of the property or method being decorated.
+   */
   get key(): string {
     return this._key;
   }
 
+  /**
+   * Gets the method descriptor if the target is a method.
+   */
   get method(): Record<string, any> | undefined {
     return this._method;
   }
 
+  /**
+   * Determines if the target is a class.
+   */
   get isClass(): boolean {
     return !!this._method;
   }
 
-  protected constructor() {
-    // protected constructor
-  }
-
+  /**
+   * Decorates an unknown type (class, method, or property).
+   * @param classRef - The class reference.
+   * @param key - The property key.
+   * @param method - The method descriptor.
+   * @param index - The parameter index.
+   * @returns The current instance.
+   */
   decorateUnknown(
     classRef: Record<string, any>,
     key?: string,
@@ -75,6 +98,15 @@ export class Decorator {
     );
   }
 
+  /**
+   * Applies the decoration to the specified target.
+   * @param classRef - The class reference.
+   * @param key - The property key.
+   * @param method - The method descriptor.
+   * @param from - The originating class reference.
+   * @param index - The parameter index.
+   * @returns The current instance.
+   */
   decorate(
     classRef: Record<string, any>,
     key: string,
