@@ -89,9 +89,8 @@ export const IsGuildUser =
         argItem instanceof RoleSelectMenuInteraction ||
         argItem instanceof StringSelectMenuInteraction ||
         argItem instanceof UserSelectMenuInteraction:
-        if (argItem.member !== null) {
-          user = argItem.member.user;
-        }
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        user = argItem.member?.user ?? argItem.message?.author ?? null;
         break;
     }
 
