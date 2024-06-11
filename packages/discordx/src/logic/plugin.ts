@@ -12,6 +12,7 @@ export interface PluginConfiguration {
   metadata: MetadataStorage;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export abstract class Plugin {
   constructor(options: PluginConfiguration) {
     MetadataStorage.instance = options.metadata;
