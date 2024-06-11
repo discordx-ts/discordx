@@ -344,7 +344,7 @@ export class Client extends ClientJS {
       this.events.forEach((event) => {
         const eventName = event.event;
         this.logger.log(
-          `>> ${eventName} (${String(event.classRef.name)}.${event.key})`,
+          `>> ${eventName} (${event.classRef.name as string}.${event.key})`,
         );
       });
     } else {
@@ -358,7 +358,7 @@ export class Client extends ClientJS {
     if (this.buttonComponents.length) {
       this.buttonComponents.forEach((btn) => {
         this.logger.log(
-          `>> ${btn.id.toString()} (${String(btn.classRef.name)}.${btn.key})`,
+          `>> ${btn.id.toString()} (${btn.classRef.name as string}.${btn.key})`,
         );
       });
     } else {
@@ -372,7 +372,7 @@ export class Client extends ClientJS {
     if (this.selectMenuComponents.length) {
       this.selectMenuComponents.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.id.toString()} (${String(menu.classRef.name)}.${menu.key})`,
+          `>> ${menu.id.toString()} (${menu.classRef.name as string}.${menu.key})`,
         );
       });
     } else {
@@ -386,7 +386,7 @@ export class Client extends ClientJS {
     if (this.modalComponents.length) {
       this.modalComponents.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.id.toString()} (${String(menu.classRef.name)}.${menu.key})`,
+          `>> ${menu.id.toString()} (${menu.classRef.name as string}.${menu.key})`,
         );
       });
     } else {
@@ -400,7 +400,7 @@ export class Client extends ClientJS {
     if (this.reactions.length) {
       this.reactions.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.emoji} (${String(menu.classRef.name)}.${menu.key})`,
+          `>> ${menu.emoji} (${menu.classRef.name as string}.${menu.key})`,
         );
       });
     } else {
@@ -419,7 +419,7 @@ export class Client extends ClientJS {
     if (contexts.length) {
       contexts.forEach((menu) => {
         this.logger.log(
-          `>> ${menu.name} (${String(menu.type)}) (${String(menu.classRef.name)}.${menu.key})`,
+          `>> ${menu.name} (${String(menu.type)}) (${menu.classRef.name as string}.${menu.key})`,
         );
       });
     } else {
@@ -436,9 +436,9 @@ export class Client extends ClientJS {
         }
 
         this.logger.log(
-          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${String(
-            DCommand.classRef.name,
-          )}.${DCommand.key})`,
+          `${index !== 0 ? "\n" : ""}\t>> ${DCommand.name} (${
+            DCommand.classRef.name as string
+          }.${DCommand.key})`,
         );
 
         /**
@@ -468,9 +468,9 @@ export class Client extends ClientJS {
                 option.type === ApplicationCommandOptionType.SubcommandGroup
                   ? option.name
                   : option.name
-              }: ${ApplicationCommandOptionType[option.type].toLowerCase()} (${String(
-                option.classRef.name,
-              )}.${option.key})`,
+              }: ${ApplicationCommandOptionType[option.type].toLowerCase()} (${
+                option.classRef.name as string
+              }.${option.key})`,
             );
             printOptions(option.options, depth + 1);
           });
@@ -488,7 +488,7 @@ export class Client extends ClientJS {
     if (this.simpleCommands.length) {
       this.simpleCommands.forEach((cmd) => {
         this.logger.log(
-          `\t>> ${cmd.name} (${String(cmd.classRef.name)}.${cmd.key})`,
+          `\t>> ${cmd.name} (${cmd.classRef.name as string}.${cmd.key})`,
         );
         if (cmd.aliases.length) {
           this.logger.log(`\t\taliases:`, cmd.aliases.join(", "));
@@ -510,7 +510,7 @@ export class Client extends ClientJS {
             this.logger.log(
               `${tab}${option.name}: ${
                 SimpleCommandOptionType[option.type]
-              } (${String(option.classRef.name)}.${option.key})`,
+              } (${option.classRef.name as string}.${option.key})`,
             );
           });
         };
