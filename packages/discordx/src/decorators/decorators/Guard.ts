@@ -18,7 +18,7 @@ import {
   DSimpleCommand,
   MetadataStorage,
 } from "../../index.js";
-import type { Method } from "../classes/Method.js";
+import { Method } from "../classes/Method.js";
 
 /**
  * Define middleware for buttons, events, select menus, simple commands, slashes, etc.
@@ -45,7 +45,7 @@ export function Guard<Type = any, DataType = any>(
     });
 
     MetadataStorage.instance.addModifier(
-      Modifier.create<Method>(
+      Modifier.create<Method | DDiscord>(
         (original) => {
           original.guards = guards;
         },

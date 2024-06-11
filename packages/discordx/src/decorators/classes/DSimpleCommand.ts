@@ -106,7 +106,7 @@ export class DSimpleCommand extends Method {
     this._options = value;
   }
 
-  protected constructor(data: CreateStructure) {
+  constructor(data: CreateStructure) {
     super();
     this._name = data.name;
     this._description = data.description ?? this.name;

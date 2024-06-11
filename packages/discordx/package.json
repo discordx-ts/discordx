@@ -1,6 +1,6 @@
 {
   "name": "discordx",
-  "version": "11.9.2",
+  "version": "11.9.3",
   "private": false,
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@discordx/di": "^3.3.0",
-    "@discordx/internal": "^1.1.0",
+    "@discordx/internal": "^1.1.1",
     "lodash": "^4.17.21",
     "tslib": "^2.6.3"
   },

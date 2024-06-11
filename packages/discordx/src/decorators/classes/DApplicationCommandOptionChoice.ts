@@ -41,7 +41,7 @@ export class DApplicationCommandOptionChoice extends Decorator {
     this._value = value;
   }
 
-  protected constructor(data: SlashChoiceType) {
+  constructor(data: SlashChoiceType) {
     super();
     this._name = data.name;
     this._nameLocalizations = data.nameLocalizations ?? null;

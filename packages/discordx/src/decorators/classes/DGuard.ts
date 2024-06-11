@@ -18,7 +18,7 @@ export class DGuard extends Decorator {
     return this._fn;
   }
 
-  protected constructor(fn: GuardFunction) {
+  constructor(fn: GuardFunction) {
     super();
     this._fn = fn;
   }

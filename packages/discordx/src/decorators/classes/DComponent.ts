@@ -49,7 +49,7 @@ export class DComponent extends Method {
     this._guilds = value;
   }
 
-  protected constructor(data: CreateStructure) {
+  constructor(data: CreateStructure) {
     super();
     this._type = data.type;
     this._id = data.id;

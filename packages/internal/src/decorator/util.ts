@@ -7,40 +7,35 @@
 import type { Decorator } from "./classes/Decorator.js";
 
 /**
+ * Utility class for decorator operations.
  * @category Internal
  */
 export class DecoratorUtils {
   /**
-   * Get the list of the linked decorators
-   *
-   * A and B are two linked decorators
-   *
+   * Gets the list of decorators linked to a specified decorator.
    * @example
    * ```typescript
-   * .@A()
-   * .@B()
+   * @A()
+   * @B()
    * method() {}
    * ```
-   *
    * @example
    * ```typescript
    * method(
-   *    .@A()
-   *    .@B()
+   *    @A()
+   *    @B()
    *    param: string
    * ) {}
    * ```
-   *
    * @example
    * ```typescript
-   * .@A()
-   * .@B()
+   * @A()
+   * @B()
    * class X {}
    * ```
-   *
-   * @param a - The decorator
-   * @param list - The list of linked decorators to a
-   * @returns
+   * @param a - The reference decorator.
+   * @param list - The list of decorators to filter.
+   * @returns The list of linked decorators.
    */
   static getLinkedObjects<Type extends Decorator>(
     a: Decorator,
@@ -59,6 +54,11 @@ export class DecoratorUtils {
     });
   }
 
+  /**
+   * Determines if the target is a class based on the method descriptor.
+   * @param method - The method descriptor.
+   * @returns True if the target is a class, false otherwise.
+   */
   static decorateAClass(method?: PropertyDescriptor): boolean {
     return !method?.value;
   }

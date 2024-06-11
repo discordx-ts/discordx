@@ -88,7 +88,7 @@ export class DReaction extends Method {
     this._partial = value;
   }
 
-  protected constructor(data: CreateStructure) {
+  constructor(data: CreateStructure) {
     super();
     this._emoji = data.emoji;
     this._description = data.description ?? this.emoji;
