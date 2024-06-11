@@ -1,5 +1,14 @@
 # discordx
 
+## 11.9.3
+
+### Patch Changes
+
+- internal code improvement
+
+- Updated dependencies []:
+  - @discordx/internal@1.1.1
+
 ## 11.9.2
 
 ### Patch Changes
