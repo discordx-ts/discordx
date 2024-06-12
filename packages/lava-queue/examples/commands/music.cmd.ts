@@ -7,7 +7,7 @@
 import { setTimeout } from "node:timers/promises";
 
 import { LoadType } from "@discordx/lava-player";
-import { Player } from "@discordx/lava-queue";
+import { Player, fromMS } from "@discordx/lava-queue";
 import type {
   ButtonInteraction,
   CommandInteraction,
@@ -257,7 +257,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.shuffle();
+    queue.shuffleTracks();
   }
 
   @ButtonComponent({ id: "btn-controls" })
@@ -374,8 +374,8 @@ export class MusicPlayer {
     }
 
     const { title, length } = currentTrack.info;
-    const trackPosition = queue.fromMS(queue.position);
-    const trackLength = queue.fromMS(length);
+    const trackPosition = fromMS(queue.position);
+    const trackLength = fromMS(length);
     const description = `Playing **${title}** from **${trackPosition}/${trackLength}**`;
 
     const embed = new EmbedBuilder();
@@ -428,7 +428,7 @@ export class MusicPlayer {
     });
 
     await interaction.followUp(
-      `> Playing ${queue.currentTrack.info.title} at ${queue.fromMS(seconds * 1000)}`,
+      `> Playing ${queue.currentTrack.info.title} at ${fromMS(seconds * 1000)}`,
     );
   }
 
@@ -566,7 +566,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.shuffle();
+    queue.shuffleTracks();
     await interaction.followUp({ content: "> playlist shuffled!" });
   }
 

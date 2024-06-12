@@ -64,20 +64,6 @@ export class Queue {
     this._tracks.push(...tracks);
   }
 
-  removeTracks(...indices: number[]): void {
-    // Sort indices in descending order to avoid shifting issues while removing
-    indices.sort((a, b) => b - a);
-    for (const index of indices) {
-      if (index >= 0 && index < this._tracks.length) {
-        this._tracks.splice(index, 1);
-      }
-    }
-  }
-
-  removeAllTracks(): void {
-    this._tracks = [];
-  }
-
   changeTrackPosition(oldIndex: number, newIndex: number): void {
     if (
       oldIndex < 0 ||
@@ -93,19 +79,22 @@ export class Queue {
     }
   }
 
-  fromMS(duration: number): string {
-    const seconds = Math.floor((duration / 1e3) % 60).toString();
-    const minutes = Math.floor((duration / 6e4) % 60).toString();
-    const hours = Math.floor(duration / 36e5).toString();
-    const secondsPad = seconds.padStart(2, "0");
-    const minutesPad = minutes.padStart(2, "0");
-    const hoursPad = hours.padStart(2, "0");
-    return `${hours ? `${hoursPad}:` : ""}${minutesPad}:${secondsPad}`;
+  removeTracks(...indices: number[]): void {
+    // Sort indices in descending order to avoid shifting issues while removing
+    indices.sort((a, b) => b - a);
+    for (const index of indices) {
+      if (index >= 0 && index < this._tracks.length) {
+        this._tracks.splice(index, 1);
+      }
+    }
   }
 
-  async pause(): Promise<void> {
-    await this.lavaPlayer.update({ paused: true });
-    this.lavaPlayer.status = PlayerStatus.PAUSED;
+  removeAllTracks(): void {
+    this._tracks = [];
+  }
+
+  shuffleTracks(): void {
+    this._tracks = shuffle(this._tracks);
   }
 
   async playNext(): Promise<Track | null> {
@@ -129,6 +118,11 @@ export class Queue {
     await player.update({ track: { encoded: track.encoded } });
     this._lastTrack = track;
     return track;
+  }
+
+  async pause(): Promise<void> {
+    await this.lavaPlayer.update({ paused: true });
+    this.lavaPlayer.status = PlayerStatus.PAUSED;
   }
 
   async resume(): Promise<void> {
@@ -170,17 +164,9 @@ export class Queue {
     });
   }
 
-  shuffle(): void {
-    this._tracks = shuffle(this._tracks);
-  }
-
-  async stop(): Promise<void> {
+  async exit(): Promise<void> {
     this._lastTrack = null;
-    this.clear();
-    await this.lavaPlayer.update({
-      track: {
-        encoded: null,
-      },
-    });
+    this.removeAllTracks();
+    await this.lavaPlayer.destroy();
   }
 }

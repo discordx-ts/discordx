@@ -6,7 +6,7 @@
  */
 import { PlayerStatus } from "@discordx/lava-player";
 import type { Player } from "@discordx/lava-queue";
-import { Queue } from "@discordx/lava-queue";
+import { Queue, fromMS } from "@discordx/lava-queue";
 import {
   Pagination,
   PaginationResolver,
@@ -171,8 +171,8 @@ export class MusicQueue extends Queue {
       block.repeat(progress) + arrow + block.repeat(emptyProgress);
 
     const bar = `${this.isPlaying ? "▶️" : "⏸️"} ${progressString}`;
-    const currentTime = this.fromMS(timeNow);
-    const endTime = this.fromMS(timeTotal);
+    const currentTime = fromMS(timeNow);
+    const endTime = fromMS(timeTotal);
     const spacing = bar.length - currentTime.length - endTime.length;
     const time = `\`${currentTime}${" ".repeat(spacing * 3 - 2)}${endTime}\``;
 
@@ -296,7 +296,7 @@ export class MusicQueue extends Queue {
         .slice(currentPage * 10, currentPage * 10 + 10)
         .map((track, _index) => {
           const index = currentPage * 10 + _index + 1;
-          const trackLength = this.fromMS(track.info.length);
+          const trackLength = fromMS(track.info.length);
           const trackTitle = track.info.uri
             ? `[${track.info.title}](<${track.info.uri}>)`
             : track.info.title;
@@ -324,7 +324,6 @@ export class MusicQueue extends Queue {
 
   public async exit(): Promise<void> {
     this.stopControlUpdate();
-    await this.lavaPlayer.leave();
-    await this.lavaPlayer.destroy();
+    await super.exit();
   }
 }

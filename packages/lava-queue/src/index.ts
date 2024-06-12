@@ -6,3 +6,4 @@
  */
 export * from "./player.js";
 export * from "./queue.js";
+export * from "./util.js";
