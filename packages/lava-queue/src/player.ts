@@ -29,7 +29,7 @@ export class Player {
     node.on("playerUpdate", (e: GetPlayer) => {
       const queue = this.queues.get(e.guildId);
       if (queue) {
-        queue.setPosition(e.state.position);
+        queue.setPlaybackPosition(e.state.position);
       }
     });
 
@@ -47,7 +47,7 @@ export class Player {
 
         if (
           this.options.leaveOnFinish &&
-          !queue.currentTrack &&
+          !queue.currentPlaybackTrack &&
           !queue.tracks.length
         ) {
           void queue.lavaPlayer.leave();

@@ -6,7 +6,7 @@
  */
 import { PlayerStatus } from "@discordx/lava-player";
 import type { Player } from "@discordx/lava-queue";
-import { Queue, fromMS } from "@discordx/lava-queue";
+import { Queue, RepeatMode, fromMS } from "@discordx/lava-queue";
 import {
   Pagination,
   PaginationResolver,
@@ -35,7 +35,7 @@ export class MusicQueue extends Queue {
 
   get isPlaying(): boolean {
     return (
-      this.currentTrack !== null &&
+      this.currentPlaybackTrack !== null &&
       this.lavaPlayer.status === PlayerStatus.PLAYING
     );
   }
@@ -71,14 +71,22 @@ export class MusicQueue extends Queue {
       .setLabel("Repeat")
       .setEmoji("🔂")
       .setDisabled(!this.isPlaying)
-      .setStyle(this.repeat ? ButtonStyle.Danger : ButtonStyle.Primary)
+      .setStyle(
+        this.repeatMode === RepeatMode.REPEAT_ONE
+          ? ButtonStyle.Danger
+          : ButtonStyle.Primary,
+      )
       .setCustomId("btn-repeat");
 
     const loopButton = new ButtonBuilder()
       .setLabel("Loop")
       .setEmoji("🔁")
       .setDisabled(!this.isPlaying)
-      .setStyle(this.loop ? ButtonStyle.Danger : ButtonStyle.Primary)
+      .setStyle(
+        this.repeatMode === RepeatMode.REPEAT_ALL
+          ? ButtonStyle.Danger
+          : ButtonStyle.Primary,
+      )
       .setCustomId("btn-loop");
 
     const row1 =
@@ -134,10 +142,10 @@ export class MusicQueue extends Queue {
     this.lockUpdate = true;
     const embed = new EmbedBuilder();
     embed.setTitle("Music Controls");
-    const currentTrack = this.currentTrack;
+    const currentPlaybackTrack = this.currentPlaybackTrack;
     const nextTrack = this.nextTrack;
 
-    if (!currentTrack) {
+    if (!currentPlaybackTrack) {
       if (this.lastControlMessage) {
         await this.deleteMessage(this.lastControlMessage);
         this.lastControlMessage = undefined;
@@ -151,7 +159,7 @@ export class MusicQueue extends Queue {
       name:
         "Now Playing" +
         (this.size > 2 ? ` (Total: ${this.size} tracks queued)` : ""),
-      value: `[${currentTrack.info.title}](${currentTrack.info.uri})`,
+      value: `[${currentPlaybackTrack.info.title}](${currentPlaybackTrack.info.uri})`,
     });
 
     const progressBarOptions = {
@@ -161,8 +169,8 @@ export class MusicQueue extends Queue {
     };
 
     const { size, arrow, block } = progressBarOptions;
-    const timeNow = this.position;
-    const timeTotal = this.currentTrack?.info.length ?? 0;
+    const timeNow = this.currentPlaybackPosition;
+    const timeTotal = this.currentPlaybackTrack?.info.length ?? 0;
 
     const progress = Math.round((size * timeNow) / timeTotal);
     const emptyProgress = size - progress;
@@ -243,12 +251,16 @@ export class MusicQueue extends Queue {
     const deleteDelayMsShort = 3000; // 3 seconds
     const deleteDelayMsLong = 10000; // 10 seconds
 
-    const currentTrackMessage = (title: string, size: number, uri?: string) => {
+    const currentPlaybackTrackMessage = (
+      title: string,
+      size: number,
+      uri?: string,
+    ) => {
       const trackTitle = uri ? `[${title}](<${uri}>)` : title;
       return `> Playing **${trackTitle}** out of ${size + 1}`;
     };
 
-    if (!this.currentTrack) {
+    if (!this.currentPlaybackTrack) {
       const pMsg = await interaction.followUp({
         content: queueErrorMessage,
         ephemeral: true,
@@ -262,7 +274,7 @@ export class MusicQueue extends Queue {
 
     if (this.size === 0) {
       const pMsg = await interaction.followUp({
-        content: nowPlayingMessage(this.currentTrack.info.title),
+        content: nowPlayingMessage(this.currentPlaybackTrack.info.title),
         ephemeral: true,
       });
       if (pMsg instanceof Message) {
@@ -274,10 +286,10 @@ export class MusicQueue extends Queue {
     const totalPages = Math.round(this.size / 10);
     const isShortPagination = totalPages <= shortPaginationLimit;
 
-    const current = currentTrackMessage(
-      this.currentTrack.info.title,
+    const current = currentPlaybackTrackMessage(
+      this.currentPlaybackTrack.info.title,
       this.size,
-      this.currentTrack.info.uri,
+      this.currentPlaybackTrack.info.uri,
     );
 
     const paginationType = isShortPagination

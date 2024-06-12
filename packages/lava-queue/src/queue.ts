@@ -13,42 +13,66 @@ import {
 import shuffle from "lodash/shuffle.js";
 
 import type { Player } from "./player.js";
+import { RepeatMode } from "./util.js";
 
 export class Queue {
   private _tracks: Track[] = [];
-  private _lastTrack: Track | null = null;
-  private _position = 0;
-  private _loop = false;
-  private _repeat = false;
+  private _currentPlaybackTrack: Track | null = null;
+  private _currentPlaybackPosition = 0;
+  private _repeatMode: RepeatMode = RepeatMode.OFF;
 
-  get currentTrack(): Track | null {
-    return this._lastTrack;
+  /**
+   * Gets the current track being played.
+   * @returns The current track that is being played or null if none.
+   */
+  get currentPlaybackTrack(): Track | null {
+    return this._currentPlaybackTrack;
   }
 
+  /**
+   * Gets the next track in the queue.
+   * @returns The next track in the queue or undefined if the queue is empty.
+   */
   get nextTrack(): Track | undefined {
     return this._tracks[0];
   }
 
+  /**
+   * Gets a read-only array of the tracks in the queue.
+   * @returns The tracks in the queue.
+   */
   get tracks(): readonly Track[] {
     return this._tracks;
   }
 
-  get position(): number {
-    return this._position;
+  /**
+   * Gets the current playback position of the track.
+   * @returns The current playback position of the track.
+   */
+  get currentPlaybackPosition() {
+    return this._currentPlaybackPosition;
   }
 
-  get loop(): boolean {
-    return this._loop;
+  /**
+   * Gets the repeat mode of the queue.
+   * @returns The repeat mode.
+   */
+  get repeatMode(): RepeatMode {
+    return this._repeatMode;
   }
 
-  get repeat(): boolean {
-    return this._repeat;
-  }
-
-  get size(): number {
+  /**
+   * Gets the size of the queue.
+   * @returns The number of tracks in the queue.
+   */
+  get size() {
     return this.tracks.length;
   }
 
+  /**
+   * Gets the LavaPlayer instance associated with the queue.
+   * @returns The LavaPlayer instance.
+   */
   get lavaPlayer(): LavaPlayer {
     return this.player.node.players.get(this.guildId);
   }
@@ -60,10 +84,20 @@ export class Queue {
     // empty constructor
   }
 
+  /**
+   * Adds one or more tracks to the queue.
+   * @param tracks - The tracks to be added to the queue.
+   */
   addTrack(...tracks: Track[]) {
     this._tracks.push(...tracks);
   }
 
+  /**
+   * Changes the position of a track in the queue.
+   * @param oldIndex - The current index of the track.
+   * @param newIndex - The new index for the track.
+   * @throws Will throw an error if the indices are out of bounds.
+   */
   changeTrackPosition(oldIndex: number, newIndex: number): void {
     if (
       oldIndex < 0 ||
@@ -79,6 +113,10 @@ export class Queue {
     }
   }
 
+  /**
+   * Removes tracks from the queue by their indices.
+   * @param indices - The indices of the tracks to be removed.
+   */
   removeTracks(...indices: number[]): void {
     // Sort indices in descending order to avoid shifting issues while removing
     indices.sort((a, b) => b - a);
@@ -89,42 +127,57 @@ export class Queue {
     }
   }
 
+  /**
+   * Removes all tracks from the queue.
+   */
   removeAllTracks(): void {
     this._tracks = [];
   }
 
+  /**
+   * Shuffles the tracks in the queue.
+   */
   shuffleTracks(): void {
     this._tracks = shuffle(this._tracks);
   }
 
+  /**
+   * Plays the next track in the queue.
+   * @returns The next track that was played or null if the queue is empty.
+   */
   async playNext(): Promise<Track | null> {
-    if (this.currentTrack) {
-      if (this.loop && !this.repeat) {
-        this.addTrack(this.currentTrack);
-      }
-
-      if (this.repeat) {
-        this._tracks.unshift(this.currentTrack);
+    if (this.currentPlaybackTrack) {
+      if (
+        this.repeatMode === RepeatMode.REPEAT_ALL ||
+        (this.repeatMode === RepeatMode.REPEAT_ONE && this._tracks.length === 1)
+      ) {
+        this.addTrack(this.currentPlaybackTrack);
       }
     }
 
     const track = this._tracks.shift();
     if (!track) {
-      this._lastTrack = null;
+      this._currentPlaybackTrack = null;
       return null;
     }
 
     const player = this.player.node.players.get(this.guildId);
     await player.update({ track: { encoded: track.encoded } });
-    this._lastTrack = track;
+    this._currentPlaybackTrack = track;
     return track;
   }
 
+  /**
+   * Pauses the current track.
+   */
   async pause(): Promise<void> {
     await this.lavaPlayer.update({ paused: true });
     this.lavaPlayer.status = PlayerStatus.PAUSED;
   }
 
+  /**
+   * Resumes playing the current track.
+   */
   async resume(): Promise<void> {
     await this.lavaPlayer.update({
       paused: false,
@@ -132,40 +185,45 @@ export class Queue {
   }
 
   /**
-   * Track Searching
-   *
-   * Lavalink supports searching via YouTube, YouTube Music, and Soundcloud.
-   * To search, you must prefix your identifier with `ytsearch:`, `ytmsearch:`, or `scsearch:` respectively.
-   * When a search prefix is used, the returned `loadType` will be `SEARCH_RESULT`.
-   * Note that, disabling the respective source managers renders these search prefixes redundant.
-   * Plugins may also implement prefixes to allow for more search engines.
-   *
-   * @param text - User input
+   * Searches for tracks using Lavalink
+   * @param text - The search text input by the user.
+   * @returns The response from the Lavalink search.
    */
   search(text: string): Promise<TrackResponse> {
     return this.player.node.rest.loadTracks(text);
   }
 
-  setPosition(position: number): void {
-    this._position = position;
+  /**
+   * Sets the repeat mode of the queue.
+   * @param mode - The repeat mode to set.
+   */
+  setRepeatMode(mode: RepeatMode): void {
+    this._repeatMode = mode;
   }
 
-  setLoop(state: boolean): void {
-    this._loop = state;
+  /**
+   * Sets the current playback position of the track.
+   * @param time - The new playback position.
+   */
+  setPlaybackPosition(time: number): void {
+    this._currentPlaybackPosition = time;
   }
 
-  setRepeat(state: boolean): void {
-    this._repeat = state;
-  }
-
+  /**
+   * Sets the volume of the player.
+   * @param volume - The new volume level.
+   */
   async setVolume(volume: number): Promise<void> {
     await this.lavaPlayer.update({
       volume,
     });
   }
 
+  /**
+   * Exits the player, clearing the queue and destroying the LavaPlayer instance.
+   */
   async exit(): Promise<void> {
-    this._lastTrack = null;
+    this._currentPlaybackTrack = null;
     this.removeAllTracks();
     await this.lavaPlayer.leave();
     await this.lavaPlayer.destroy();
