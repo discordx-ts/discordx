@@ -9,7 +9,7 @@ import { createWriteStream, promises as fs } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 import { Readable, Stream } from "stream";
-import tar from "tar";
+import * as tar from "tar";
 import { promisify } from "util";
 
 /**
