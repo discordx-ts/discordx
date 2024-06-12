@@ -7,7 +7,7 @@
 import { setTimeout } from "node:timers/promises";
 
 import { LoadType } from "@discordx/lava-player";
-import { Player } from "@discordx/lava-queue";
+import { Player, RepeatMode, fromMS } from "@discordx/lava-queue";
 import type {
   ButtonInteraction,
   CommandInteraction,
@@ -215,7 +215,8 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.setRepeat(!queue.repeat);
+    const isRepeat = queue.repeatMode === RepeatMode.REPEAT_ONE;
+    queue.setRepeatMode(isRepeat ? RepeatMode.OFF : RepeatMode.REPEAT_ONE);
   }
 
   @ButtonComponent({ id: "btn-loop" })
@@ -229,7 +230,8 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.setLoop(!queue.loop);
+    const isRepeatAll = queue.repeatMode === RepeatMode.REPEAT_ALL;
+    queue.setRepeatMode(isRepeatAll ? RepeatMode.OFF : RepeatMode.REPEAT_ALL);
   }
 
   @ButtonComponent({ id: "btn-queue" })
@@ -257,7 +259,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.shuffle();
+    queue.shuffleTracks();
   }
 
   @ButtonComponent({ id: "btn-controls" })
@@ -364,7 +366,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    const currentTrack = queue.currentTrack;
+    const currentTrack = queue.currentPlaybackTrack;
 
     if (!currentTrack) {
       await interaction.followUp({
@@ -374,8 +376,8 @@ export class MusicPlayer {
     }
 
     const { title, length } = currentTrack.info;
-    const trackPosition = queue.fromMS(queue.position);
-    const trackLength = queue.fromMS(length);
+    const trackPosition = fromMS(queue.currentPlaybackPosition);
+    const trackLength = fromMS(length);
     const description = `Playing **${title}** from **${trackPosition}/${trackLength}**`;
 
     const embed = new EmbedBuilder();
@@ -408,17 +410,17 @@ export class MusicPlayer {
 
     const { queue } = cmd;
 
-    if (!queue.currentTrack) {
+    if (!queue.currentPlaybackTrack) {
       await interaction.followUp({
         content: "> I am not sure, I am playing anything",
       });
       return;
     }
 
-    const maxSeconds = Math.ceil(queue.currentTrack.info.length / 1000);
+    const maxSeconds = Math.ceil(queue.currentPlaybackTrack.info.length / 1000);
     if (seconds > maxSeconds) {
       await interaction.followUp({
-        content: `Track ${queue.currentTrack.info.title} max length in seconds is ${maxSeconds}`,
+        content: `Track ${queue.currentPlaybackTrack.info.title} max length in seconds is ${maxSeconds}`,
       });
       return;
     }
@@ -428,7 +430,7 @@ export class MusicPlayer {
     });
 
     await interaction.followUp(
-      `> Playing ${queue.currentTrack.info.title} at ${queue.fromMS(seconds * 1000)}`,
+      `> Playing ${queue.currentPlaybackTrack.info.title} at ${fromMS(seconds * 1000)}`,
     );
   }
 
@@ -451,7 +453,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    const currentTrack = queue.currentTrack;
+    const currentTrack = queue.currentPlaybackTrack;
     if (!currentTrack || !queue.isPlaying) {
       await interaction.followUp({
         content: "> I am already quite, amigo!",
@@ -471,7 +473,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    const currentTrack = queue.currentTrack;
+    const currentTrack = queue.currentPlaybackTrack;
     if (!currentTrack || queue.isPlaying) {
       await interaction.followUp({
         content: "> I am already playing, amigo!",
@@ -491,7 +493,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    const currentTrack = queue.currentTrack;
+    const currentTrack = queue.currentPlaybackTrack;
     if (!currentTrack) {
       await interaction.followUp({
         content: "> There doesn't seem to be anything to skip at the moment.",
@@ -566,7 +568,7 @@ export class MusicPlayer {
     }
 
     const { queue } = cmd;
-    queue.shuffle();
+    queue.shuffleTracks();
     await interaction.followUp({ content: "> playlist shuffled!" });
   }
 
