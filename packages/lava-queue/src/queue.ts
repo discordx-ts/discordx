@@ -167,6 +167,7 @@ export class Queue {
   async exit(): Promise<void> {
     this._lastTrack = null;
     this.removeAllTracks();
+    await this.lavaPlayer.leave();
     await this.lavaPlayer.destroy();
   }
 }
