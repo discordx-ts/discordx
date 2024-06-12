@@ -1,5 +1,11 @@
 # create-discordx
 
+## 1.2.3
+
+### Patch Changes
+
+- fixed tar import
+
 ## 1.2.2
 
 ### Patch Changes
