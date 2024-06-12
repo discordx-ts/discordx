@@ -1,5 +1,11 @@
 # @discordx/lava-queue
 
+## 3.1.0
+
+### Minor Changes
+
+- refined methods
+
 ## 3.0.3
 
 ### Patch Changes
