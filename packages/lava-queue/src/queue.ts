@@ -64,8 +64,33 @@ export class Queue {
     this._tracks.push(...tracks);
   }
 
-  clear(): void {
+  removeTracks(...indices: number[]): void {
+    // Sort indices in descending order to avoid shifting issues while removing
+    indices.sort((a, b) => b - a);
+    for (const index of indices) {
+      if (index >= 0 && index < this._tracks.length) {
+        this._tracks.splice(index, 1);
+      }
+    }
+  }
+
+  removeAllTracks(): void {
     this._tracks = [];
+  }
+
+  changeTrackPosition(oldIndex: number, newIndex: number): void {
+    if (
+      oldIndex < 0 ||
+      oldIndex >= this._tracks.length ||
+      newIndex < 0 ||
+      newIndex >= this._tracks.length
+    ) {
+      throw new Error("Invalid track position");
+    }
+    const [movedTrack] = this._tracks.splice(oldIndex, 1);
+    if (movedTrack) {
+      this._tracks.splice(newIndex, 0, movedTrack);
+    }
   }
 
   fromMS(duration: number): string {
