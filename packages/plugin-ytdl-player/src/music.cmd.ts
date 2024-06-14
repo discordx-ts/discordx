@@ -6,7 +6,7 @@
  */
 import { AudioPlayerStatus } from "@discordjs/voice";
 import { QueueNode, RepeatMode } from "@discordx/music";
-import type { CommandInteraction, Guild } from "discord.js";
+import type { Client, CommandInteraction, Guild } from "discord.js";
 import {
   ApplicationCommandOptionType,
   EmbedBuilder,
@@ -21,10 +21,13 @@ import {
   SlashGroup,
   SlashOption,
 } from "discordx";
-import YouTube from "youtube-sr";
+import fetch from "isomorphic-unfetch";
+import spotifyUrlInfo from "spotify-url-info";
+import { YouTube } from "youtube-sr";
 
-import { Main } from "../main.js";
 import { formatDurationFromMS, Queue } from "./queue.js";
+
+const spotify = spotifyUrlInfo(fetch);
 
 @Discord()
 // Create music group
@@ -32,14 +35,18 @@ import { formatDurationFromMS, Queue } from "./queue.js";
 // Assign all slashes to music group
 @SlashGroup("music")
 export class music {
-  queueNode: QueueNode;
+  queueNode: QueueNode | null = null;
   guildQueue = new Map<string, Queue>();
 
-  getQueue(guildId: string): Queue {
+  getQueue({ client, guildId }: { client: Client; guildId: string }): Queue {
+    if (!this.queueNode) {
+      this.queueNode = new QueueNode(client);
+    }
+
     let queue = this.guildQueue.get(guildId);
     if (!queue) {
       queue = new Queue({
-        client: Main.Client,
+        client,
         guildId,
         queueNode: this.queueNode,
       });
@@ -60,26 +67,29 @@ export class music {
       !interaction.channel ||
       !(interaction.member instanceof GuildMember)
     ) {
-      interaction.followUp(
+      await interaction.followUp(
         "> I apologize, but I am currently unable to process your request. Please try again later.",
       );
 
-      setTimeout(() => interaction.deleteReply(), 15e3);
+      setTimeout(() => void interaction.deleteReply(), 15e3);
       return null;
     }
 
     const { guild, member } = interaction;
 
     if (!member.voice.channel) {
-      interaction.followUp(
+      await interaction.followUp(
         "> It seems like you are not currently in a voice channel",
       );
 
-      setTimeout(() => interaction.deleteReply(), 15e3);
+      setTimeout(() => void interaction.deleteReply(), 15e3);
       return null;
     }
 
-    const queue = this.getQueue(guild.id);
+    const queue = this.getQueue({
+      client: interaction.client,
+      guildId: guild.id,
+    });
 
     const bot = guild.members.cache.get(interaction.client.user.id);
     if (!bot?.voice.channelId) {
@@ -89,19 +99,15 @@ export class music {
         guildId: guild.id,
       });
     } else if (bot.voice.channelId !== member.voice.channelId) {
-      interaction.followUp(
+      await interaction.followUp(
         "> I am not in your voice channel, therefore I cannot execute your request",
       );
 
-      setTimeout(() => interaction.deleteReply(), 15e3);
+      setTimeout(() => void interaction.deleteReply(), 15e3);
       return null;
     }
 
     return { guild, member, queue };
-  }
-
-  constructor() {
-    this.queueNode = new QueueNode(Main.Client);
   }
 
   @On({ event: "voiceStateUpdate" })
@@ -146,7 +152,7 @@ export class music {
 
     const video = await YouTube.searchOne(songName).catch(() => null);
     if (!video) {
-      interaction.followUp(
+      await interaction.followUp(
         `> Could not found song with keyword: \`${songName}\``,
       );
       return;
@@ -168,17 +174,18 @@ export class music {
     const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
     embed.setDescription(
-      `Enqueued song **${video.title} (${formatDurationFromMS(
+      `Enqueued song **${video.title ?? "NaN"} (${formatDurationFromMS(
         video.duration,
       )})**`,
     );
 
     if (video.thumbnail?.url) {
-      embed.setThumbnail(video.thumbnail?.url);
+      embed.setThumbnail(video.thumbnail.url);
     }
 
-    interaction.followUp({ embeds: [embed] });
+    await interaction.followUp({ embeds: [embed] });
   }
+
   @Slash({ description: "Play youtube playlist", name: "playlist" })
   async playlist(
     @SlashOption({
@@ -212,7 +219,7 @@ export class music {
     const playlist = search[0];
 
     if (!playlist?.id) {
-      interaction.followUp("The playlist could not be found");
+      await interaction.followUp("The playlist could not be found");
       return;
     }
 
@@ -236,14 +243,110 @@ export class music {
     const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
     embed.setDescription(
-      `Enqueued  **${tracks.length}** songs from playlist **${playlist.title}**`,
+      `Enqueued  **${String(tracks.length)}** songs from playlist **${playlist.title ?? "NA"}**`,
     );
 
     if (playlist.thumbnail?.url) {
       embed.setThumbnail(playlist.thumbnail.url);
     }
 
-    interaction.followUp({ embeds: [embed] });
+    await interaction.followUp({ embeds: [embed] });
+  }
+
+  @Slash({ description: "Play a spotify link", name: "spotify" })
+  async spotify(
+    @SlashOption({
+      description: "Spotify url",
+      name: "url",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+    })
+    url: string,
+    @SlashOption({
+      description: "Start song from specific time",
+      name: "seek",
+      required: false,
+      type: ApplicationCommandOptionType.Number,
+    })
+    seek: number | undefined,
+    interaction: CommandInteraction,
+  ): Promise<void> {
+    const rq = await this.processJoin(interaction);
+    if (!rq) {
+      return;
+    }
+
+    const { queue, member } = rq;
+
+    const result = await spotify.getTracks(url).catch(() => null);
+    if (result === null) {
+      await interaction.followUp(
+        "The Spotify url you provided appears to be invalid, make sure that you have provided a valid url for Spotify",
+      );
+      return;
+    }
+
+    const videos = await Promise.all(
+      result.map((track) =>
+        YouTube.searchOne(`${track.name} by ${track.artist}`),
+      ),
+    );
+
+    const tracks = videos.map((video) => ({
+      duration: video.duration,
+      seek,
+      thumbnail: video.thumbnail?.url,
+      title: video.title ?? "NaN",
+      url: video.url,
+      user: member.user,
+    }));
+
+    queue.addTrack(...tracks);
+
+    if (!queue.currentTrack) {
+      queue.playNext();
+    }
+
+    const embed = new EmbedBuilder();
+    embed.setTitle("Enqueued");
+    embed.setDescription(
+      `Enqueued  **${String(tracks.length)}** songs from spotify playlist`,
+    );
+
+    await interaction.followUp({ embeds: [embed] });
+  }
+
+  @Slash({
+    description: "Show details of currently playing song",
+    name: "current",
+  })
+  async current(interaction: CommandInteraction): Promise<void> {
+    const rq = await this.processJoin(interaction);
+    if (!rq) {
+      return;
+    }
+
+    const { queue } = rq;
+
+    const currentTrack = queue.currentTrack;
+    if (!currentTrack) {
+      await interaction.followUp("> Not playing anything at the moment.");
+      return;
+    }
+
+    const embed = new EmbedBuilder();
+    embed.setTitle("Current Track");
+    embed.setDescription(
+      `Playing **${currentTrack.title}** from **${formatDurationFromMS(
+        queue.playbackInfo?.playbackDuration ?? 0,
+      )}/${formatDurationFromMS(currentTrack.duration)}**`,
+    );
+
+    if (currentTrack.thumbnail) {
+      embed.setImage(currentTrack.thumbnail);
+    }
+
+    await interaction.followUp({ embeds: [embed] });
   }
 
   @Slash({ description: "Play current song on specific time", name: "seek" })
@@ -267,7 +370,7 @@ export class music {
     const currentTrack = queue.currentTrack;
 
     if (!currentTrack) {
-      interaction.followUp(
+      await interaction.followUp(
         "> There doesn't seem to be anything to seek at the moment.",
       );
       return;
@@ -276,7 +379,7 @@ export class music {
     const time = seconds * 1000;
 
     if (time >= currentTrack.duration) {
-      interaction.followUp(
+      await interaction.followUp(
         `> Time should not be greater then ${formatDurationFromMS(
           currentTrack.duration,
         )}`,
@@ -291,12 +394,12 @@ export class music {
     const embed = new EmbedBuilder();
     embed.setTitle("Seeked");
     embed.setDescription(
-      `Playing **${currentTrack.title}**** from **${formatDurationFromMS(
+      `Playing **${currentTrack.title}** from **${formatDurationFromMS(
         time,
       )}/${formatDurationFromMS(currentTrack.duration)}**`,
     );
 
-    interaction.followUp({ embeds: [embed] });
+    await interaction.followUp({ embeds: [embed] });
   }
 
   @Slash({ description: "View queue", name: "queue" })
@@ -307,7 +410,7 @@ export class music {
     }
 
     const { queue } = rq;
-    queue.view(interaction);
+    await queue.view(interaction);
   }
 
   @Slash({ description: "Pause current track", name: "pause" })
@@ -322,12 +425,12 @@ export class music {
     const currentTrack = queue.currentTrack;
 
     if (!currentTrack || !queue.isPlaying) {
-      interaction.followUp("> I am already quite, amigo!");
+      await interaction.followUp("> I am already quite, amigo!");
       return;
     }
 
     queue.pause();
-    interaction.followUp(`> paused ${currentTrack.title}`);
+    await interaction.followUp(`> paused ${currentTrack.title}`);
   }
 
   @Slash({ description: "Resume current track", name: "resume" })
@@ -342,12 +445,14 @@ export class music {
     const currentTrack = queue.currentTrack;
 
     if (!currentTrack || queue.isPlaying) {
-      interaction.followUp("> no no no, I am already doing my best, amigo!");
+      await interaction.followUp(
+        "> no no no, I am already doing my best, amigo!",
+      );
       return;
     }
 
     queue.unpause();
-    interaction.followUp(`> resuming ${currentTrack.title}`);
+    await interaction.followUp(`> resuming ${currentTrack.title}`);
   }
 
   @Slash({ description: "Skip current song", name: "skip" })
@@ -362,14 +467,14 @@ export class music {
     const currentTrack = queue.currentTrack;
 
     if (!currentTrack) {
-      interaction.followUp(
+      await interaction.followUp(
         "> There doesn't seem to be anything to skip at the moment.",
       );
       return;
     }
 
     queue.skip();
-    interaction.followUp(`> skipped ${currentTrack.title}`);
+    await interaction.followUp(`> skipped ${currentTrack.title}`);
   }
 
   @Slash({ description: "Set volume", name: "set-volume" })
@@ -393,7 +498,7 @@ export class music {
     const { queue } = rq;
 
     queue.setVolume(volume);
-    interaction.followUp(`> volume set to ${volume}`);
+    await interaction.followUp(`> volume set to ${String(volume)}`);
   }
 
   @Slash({ description: "Stop music player", name: "stop" })
@@ -408,7 +513,7 @@ export class music {
     queue.exit();
     this.guildQueue.delete(guild.id);
 
-    interaction.followUp("> adios amigo, see you later!");
+    await interaction.followUp("> adios amigo, see you later!");
   }
 
   @Slash({ description: "Shuffle queue", name: "shuffle" })
@@ -420,7 +525,7 @@ export class music {
 
     const { queue } = rq;
     queue.mix();
-    interaction.followUp("> playlist shuffled!");
+    await interaction.followUp("> playlist shuffled!");
   }
 
   @Slash({ description: "Show GUI controls", name: "gui-show" })
@@ -434,8 +539,7 @@ export class music {
 
     queue.setChannel(interaction.channel);
     queue.startControlUpdate();
-
-    interaction.followUp("> Enable GUI mode!");
+    await interaction.followUp("> Enable GUI mode!");
   }
 
   @Slash({ description: "Hide GUI controls", name: "gui-hide" })
@@ -447,7 +551,7 @@ export class music {
 
     const { queue } = rq;
     queue.stopControlUpdate();
-    interaction.followUp("> Disabled GUI mode!");
+    await interaction.followUp("> Disabled GUI mode!");
   }
 
   @ButtonComponent({ id: "btn-next" })
@@ -456,11 +560,16 @@ export class music {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
+
     queue.skip();
 
     await interaction.deferReply();
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-pause" })
@@ -469,13 +578,18 @@ export class music {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
+
     queue.playerState === AudioPlayerStatus.Paused
       ? queue.unpause()
       : queue.pause();
 
     await interaction.deferReply();
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-leave" })
@@ -484,12 +598,17 @@ export class music {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
+
     queue.exit();
     this.guildQueue.delete(interaction.guildId);
 
     await interaction.deferReply();
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-repeat" })
@@ -498,21 +617,31 @@ export class music {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
+
     queue.setRepeatMode(RepeatMode.All);
 
     await interaction.deferReply();
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-queue" })
-  queueControl(interaction: CommandInteraction): void {
+  async queueControl(interaction: CommandInteraction): Promise<void> {
     if (!interaction.guildId) {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
-    queue.view(interaction);
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
+
+    await queue.view(interaction);
   }
 
   @ButtonComponent({ id: "btn-mix" })
@@ -521,11 +650,16 @@ export class music {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
+
     queue.mix();
 
     await interaction.deferReply();
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-controls" })
@@ -534,11 +668,15 @@ export class music {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
-    queue.updateControlMessage({ force: true });
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
 
+    await queue.updateControlMessage({ force: true });
     await interaction.deferReply();
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 
   @ButtonComponent({ id: "btn-loop" })
@@ -547,10 +685,15 @@ export class music {
       return;
     }
 
-    const queue = this.getQueue(interaction.guildId);
+    const { guildId, client } = interaction;
+    const queue = this.getQueue({
+      client,
+      guildId,
+    });
+
     queue.setRepeatMode(RepeatMode.One);
 
     await interaction.deferReply();
-    interaction.deleteReply();
+    await interaction.deleteReply();
   }
 }

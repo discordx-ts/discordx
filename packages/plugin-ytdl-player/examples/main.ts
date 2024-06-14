@@ -4,10 +4,15 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { dirname, importx } from "@discordx/importer";
+import { YTDLPlayerPlugin } from "@discordx/plugin-ytdl-player";
 import { IntentsBitField } from "discord.js";
-import { Client } from "discordx";
+import { Client, MetadataStorage } from "discordx";
 
+const ytdlPlayerPlugin = new YTDLPlayerPlugin({
+  metadata: MetadataStorage.instance,
+});
+
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Main {
   private static _client: Client;
 
@@ -20,10 +25,12 @@ export class Main {
       // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [
         IntentsBitField.Flags.Guilds,
-        IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.GuildVoiceStates,
       ],
+      plugins: [ytdlPlayerPlugin],
       silent: false,
     });
 
@@ -34,20 +41,8 @@ export class Main {
     });
 
     this._client.on("interactionCreate", (interaction) => {
-      // do not execute interaction, if it's pagination (avoid warning: select-menu/button interaction not found)
-      if (interaction.isButton() || interaction.isStringSelectMenu()) {
-        if (interaction.customId.startsWith("discordx@pagination@")) {
-          return;
-        }
-      }
       this._client.executeInteraction(interaction);
     });
-
-    this._client.on("messageCreate", (message) => {
-      void this._client.executeCommand(message);
-    });
-
-    await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
 
     // let's start the bot
     if (!process.env.BOT_TOKEN) {

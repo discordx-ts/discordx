@@ -7,7 +7,7 @@
 import { setTimeout } from "node:timers/promises";
 
 import { LoadType } from "@discordx/lava-player";
-import { Player, RepeatMode, fromMS } from "@discordx/lava-queue";
+import { fromMS, Player, RepeatMode } from "@discordx/lava-queue";
 import type {
   ButtonInteraction,
   CommandInteraction,
@@ -63,15 +63,12 @@ export class MusicPlayer {
     client: Client,
     interaction: CommandInteraction | ButtonInteraction,
     autoDelete = true,
-  ): Promise<
-    | {
-        channel: TextBasedChannel;
-        guild: Guild;
-        member: GuildMember;
-        queue: MusicQueue;
-      }
-    | undefined
-  > {
+  ): Promise<{
+    channel: TextBasedChannel;
+    guild: Guild;
+    member: GuildMember;
+    queue: MusicQueue;
+  } | null> {
     await interaction.deferReply();
     if (autoDelete) {
       void this.delete(interaction);
@@ -80,31 +77,28 @@ export class MusicPlayer {
     if (
       !interaction.channel ||
       !(interaction.member instanceof GuildMember) ||
-      !interaction.guild ||
-      !interaction.client.user
+      !interaction.guild
     ) {
       await interaction.followUp({
         content: "The command could not be processed. Please try again",
       });
-      return;
+      return null;
     }
 
     if (!interaction.member.voice.channelId) {
       await interaction.followUp({
         content: "Join a voice channel first",
       });
-      return;
+      return null;
     }
 
-    const bot = interaction.guild?.members.cache.get(
-      interaction.client.user?.id,
-    );
+    const bot = interaction.guild.members.cache.get(interaction.client.user.id);
 
     if (!bot) {
       await interaction.followUp({
         content: "Having difficulty finding my place in this world",
       });
-      return;
+      return null;
     }
 
     const queue = this.GetQueue(client.botId, interaction.guild.id);
@@ -113,7 +107,7 @@ export class MusicPlayer {
       await interaction.followUp({
         content: "The player is not ready yet, please wait",
       });
-      return;
+      return null;
     }
 
     if (bot.voice.channelId === null) {
@@ -125,7 +119,7 @@ export class MusicPlayer {
       await interaction.followUp({
         content: "join to my voice channel",
       });
-      return;
+      return null;
     }
 
     return {
@@ -341,7 +335,7 @@ export class MusicPlayer {
       const embed = new EmbedBuilder();
       embed.setTitle("Enqueued");
       embed.setDescription(
-        `Enqueued ${data.info.name} playlist (${data.tracks.length} tracks)`,
+        `Enqueued ${data.info.name} playlist (${String(data.tracks.length)} tracks)`,
       );
 
       await interaction.followUp({ embeds: [embed] });
@@ -420,7 +414,7 @@ export class MusicPlayer {
     const maxSeconds = Math.ceil(queue.currentPlaybackTrack.info.length / 1000);
     if (seconds > maxSeconds) {
       await interaction.followUp({
-        content: `Track ${queue.currentPlaybackTrack.info.title} max length in seconds is ${maxSeconds}`,
+        content: `Track ${queue.currentPlaybackTrack.info.title} max length in seconds is ${String(maxSeconds)}`,
       });
       return;
     }
@@ -540,7 +534,9 @@ export class MusicPlayer {
 
     const { queue } = cmd;
     await queue.setVolume(volume);
-    await interaction.followUp({ content: `> volume set to ${volume}` });
+    await interaction.followUp({
+      content: `> volume set to ${String(volume)}`,
+    });
   }
 
   @Slash({ description: "Stop music player", name: "stop" })

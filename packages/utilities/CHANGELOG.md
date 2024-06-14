@@ -1,5 +1,11 @@
 # @discordx/utilities
 
+## 6.3.4
+
+### Patch Changes
+
+- description change and minor improvements
+
 ## 6.3.3
 
 ### Patch Changes

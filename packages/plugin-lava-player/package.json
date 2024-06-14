@@ -1,17 +1,20 @@
 {
-  "name": "@discordx/utilities",
-  "version": "6.3.4",
+  "name": "@discordx/plugin-lava-player",
+  "version": "2.1.1",
   "private": false,
-  "description": "Utilities package for enhancing discordx functionality",
+  "description": "Fully-featured Discord music player leveraging the power of Lavalink",
   "keywords": [
     "bot",
     "discord",
     "discordx",
     "javascript",
+    "lava-player",
+    "lavalink",
+    "music",
     "typescript",
     "utilities"
   ],
-  "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/utilities#readme",
+  "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/plugin-lava-player#readme",
   "bugs": {
     "url": "https://github.com/discordx-ts/discordx/issues"
   },
@@ -40,26 +43,18 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/utilities"
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-lava-player"
   },
   "dependencies": {
-    "dayjs": "^1.11.11",
-    "tslib": "^2.6.3"
+    "@discordx/importer": "^1.3.0",
+    "@discordx/lava-player": "^2.0.4",
+    "@discordx/lava-queue": "^3.1.1",
+    "@discordx/pagination": "^3.5.3"
   },
   "devDependencies": {
-    "@discordx/importer": "^1.3.0",
-    "@discordx/pagination": "^3.5.3",
     "discord.js": "^14.15.3",
     "discordx": "^11.9.4",
-    "typescript": "5.4.5"
-  },
-  "peerDependencies": {
-    "discord.js": ">=14 || ^14.0.0-dev",
-    "discordx": ">=11.9.4"
-  },
-  "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "ts-node": "^10.9.2"
   },
   "publishConfig": {
     "access": "public"

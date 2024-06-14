@@ -4,14 +4,15 @@
     "target": "ESNext",
     "strict": true,
     "noImplicitAny": true,
-    "esModuleInterop": true,
-    "noUncheckedIndexedAccess": true,
-    "outDir": "dist",
+    "outDir": "build",
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "tests", "examples"]
 }

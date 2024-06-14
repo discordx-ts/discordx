@@ -1,8 +1,8 @@
 {
   "name": "@discordx/pagination",
-  "version": "3.5.2",
+  "version": "3.5.3",
   "private": false,
-  "description": "Add pagination to discord bot using buttons or menu",
+  "description": "Library for creating pagination messages in Discord bots",
   "keywords": [
     "bot",
     "discord",

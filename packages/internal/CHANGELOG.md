@@ -1,5 +1,11 @@
 # @discordx/internal
 
+## 1.1.3
+
+### Patch Changes
+
+- description change and minor improvements
+
 ## 1.1.2
 
 ### Patch Changes

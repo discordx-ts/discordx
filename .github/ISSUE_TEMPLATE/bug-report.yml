@@ -35,27 +35,19 @@ body:
       label: Package
       description: Please select the package that the reported issue pertains to.
       options:
+        - "create-discordx"
+        - "di"
         - "discordx"
-        - "@discordx/changelog"
-        - "@discordx/di"
-        - "@discordx/importer"
-        - "@discordx/internal"
-        - "@discordx/koa"
-        - "@discordx/lava-player"
-        - "@discordx/music"
-        - "@discordx/pagination"
-        - "@discordx/utilities"
-    validations:
-      required: true
-
-  - type: dropdown
-    id: version
-    attributes:
-      label: Version
-      description: What version of our software are you running?
-      options:
-        - Stable
-        - Dev
+        - "docs"
+        - "importer"
+        - "internal"
+        - "lava-player"
+        - "lava-queue"
+        - "music"
+        - "pagination"
+        - "plugin-lava-player"
+        - "plugin-ytdl-player"
+        - "utilities"
     validations:
       required: true
 

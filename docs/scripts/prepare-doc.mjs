@@ -10,6 +10,8 @@ const packages = [
   "lava-queue",
   "music",
   "pagination",
+  "plugin-lava-player",
+  "plugin-ytdl-player",
   "utilities",
 ];
 

@@ -1,8 +1,8 @@
 {
   "name": "@discordx/music",
-  "version": "6.1.1",
+  "version": "6.1.2",
   "private": false,
-  "description": "A powerful discord music library written in TypeScript for Node.js",
+  "description": "Powerful Discord music player library using YTDL",
   "keywords": [
     "bot",
     "discord",

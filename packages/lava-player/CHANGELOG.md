@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.0.4
+
+### Patch Changes
+
+- description change and minor improvements
+
 ## 2.0.3
 
 ### Patch Changes
