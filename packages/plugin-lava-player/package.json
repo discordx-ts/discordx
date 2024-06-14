@@ -27,7 +27,7 @@
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
   "type": "module",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "files": [
     "dist",
     "CHANGELOG.md",
