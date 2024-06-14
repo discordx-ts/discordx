@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-ytdl-player",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "private": false,
   "description": "Fully-featured Discord music player utilizing YTDL",
   "keywords": [
@@ -25,13 +25,8 @@
   "contributors": [
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "main": "build/index.js",
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -41,7 +36,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsc",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-ytdl-player"
   },
   "dependencies": {

@@ -1,5 +1,11 @@
 # @discordx/plugin-ytdl-player
 
+## 2.1.3
+
+### Patch Changes
+
+- fix build
+
 ## 2.1.2
 
 ### Patch Changes
