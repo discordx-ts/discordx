@@ -28,7 +28,7 @@
     <a href="https://www.paypal.me/vijayxmeena"
       ><img
         src="https://img.shields.io/badge/donate-paypal-F96854.svg"
-        alt="paypal"
+        alt="PayPal"
     /></a>
   </div>
   <p align="center">
@@ -38,24 +38,37 @@
 
 # 📖 Introduction
 
-This module is an extension of [discord.js](https://discord.js.org), so the internal behavior (methods, properties, ...) is the same.
+lava player plugin for discordx bots.
 
-This library allows you to use TypeScript decorators on [discord.js](https://discord.js.org), it simplifies your code and improves the readability!
+# 💻 Installation
 
-# 🗂 Packages
+```
+npm install @discordx/plugin-lava-player
+yarn add @discordx/plugin-lava-player
+pnpm add @discordx/plugin-lava-player
+```
 
-- [discordx](./packages/discordx#readme) - Create a discord bot with TypeScript and Decorators.
-- [create-discordx](./packages/create-discordx#readme) - CLI tool for generating a discordx project using templates.
-- [@discordx/di](./packages/di#readme) - Dependency injection service with support for agnostic IOC.
-- [@discordx/importer](./packages/importer#readme) - Import solution for both ESM and CJS.
-- [@discordx/internal](./packages/internal#readme) - Internal methods for discordx.
-- [@discordx/lava-player](./packages/lava-player#readme) - Powerful Lavalink player library written in TypeScript for Node.js.
-- [@discordx/lava-queue](./packages/lava-queue#readme) - Queue system for `@discordx/lava-player`.
-- [@discordx/music](./packages/music#readme) - Powerful Discord music player library using YTDL.
-- [@discordx/pagination](./packages/pagination#readme) - Library for creating pagination messages in Discord bots.
-- [@discordx/plugin-lava-player](./packages/plugin-lava-player#readme) - Fully-featured Discord music player leveraging the power of Lavalink.
-- [@discordx/plugin-ytdl-player](./packages/plugin-ytdl-player#readme) - Fully-featured Discord music player utilizing YTDL.
-- [@discordx/utilities](./packages/utilities#readme) - Utilities package for enhancing discordx functionality.
+# ⚠️ Prerequisites
+
+To use this plugin, You will need to have a running Lavalink instance as well as fill the following variables in with the correct information:
+
+- `LAVA_HOST` - Either a Domain or IP pointing to the host of the Lavalink instance. Is optional, Default is `localhost`.
+- `LAVA_PORT` - Port on the host the Lavalink instance is running on. Is optional, Default is `2333`.
+- `LAVA_PASSWORD` - Lavalink instance password. Is optional.
+- `LAVA_SHARD` - Number of Shards your bot is running. Is optional, Default is `0`.
+
+# 📄 Usage
+
+```ts
+import { Client, MetadataStorage } from "discordx";
+import { LavaPlayerPlugin } from "@discordx/plugin-lava-player";
+
+// Initialize the Plugin:
+const lavaPlugin = new LavaPlayerPlugin({ metadata: MetadataStorage.instance });
+
+// Provide the plugin to the Discordx Client:
+const client = new Client({ plugins: [lavaPlugin] });
+```
 
 # 📜 Documentation
 

@@ -2,7 +2,7 @@
   "name": "@discordx/lava-player",
   "version": "2.0.3",
   "private": false,
-  "description": "A powerful powerful lava link player library written in TypeScript for Node.js",
+  "description": "Powerful Lavalink player library written in TypeScript for Node.js",
   "keywords": [
     "bot",
     "discord",

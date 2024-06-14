@@ -2,7 +2,7 @@
   "name": "@discordx/lava-queue",
   "version": "3.1.0",
   "private": false,
-  "description": "A powerful queue system for @discordx/lava-player",
+  "description": "Queue system for @discordx/lava-player",
   "keywords": [
     "bot",
     "discord",

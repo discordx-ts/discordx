@@ -4,16 +4,7 @@
   "private": true,
   "packageManager": "npm@7.0.0",
   "workspaces": [
-    "packages/create-discordx",
-    "packages/di",
-    "packages/discordx",
-    "packages/importer",
-    "packages/internal",
-    "packages/lava-player",
-    "packages/lava-queue",
-    "packages/music",
-    "packages/pagination",
-    "packages/utilities"
+    "packages/*"
   ],
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [

@@ -1,20 +1,20 @@
 {
-  "name": "@discordx/internal",
-  "version": "1.1.2",
+  "name": "@discordx/plugin-lava-player",
+  "version": "2.1.0",
   "private": false,
-  "description": "Internal methods for discordx",
+  "description": "Fully-featured Discord music player leveraging the power of Lavalink",
   "keywords": [
     "bot",
-    "decorators",
-    "dependency injection",
     "discord",
     "discordx",
-    "framework",
     "javascript",
-    "tsyringe",
-    "typescript"
+    "lava-player",
+    "lavalink",
+    "music",
+    "typescript",
+    "utilities"
   ],
-  "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/internal#readme",
+  "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/plugin-lava-player#readme",
   "bugs": {
     "url": "https://github.com/discordx-ts/discordx/issues"
   },
@@ -24,7 +24,6 @@
   },
   "license": "Apache-2.0",
   "contributors": [
-    "Owen Calvin <owen.gombas@gmail.com> (https://github.com/OwenCalvin)",
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
   "exports": {
@@ -44,17 +43,18 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/internal"
+    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-lava-player"
   },
   "dependencies": {
-    "tslib": "^2.6.3"
+    "@discordx/importer": "^1.3.0",
+    "@discordx/lava-player": "^2.0.3",
+    "@discordx/lava-queue": "^3.1.0",
+    "@discordx/pagination": "^3.5.2"
   },
   "devDependencies": {
-    "typescript": "5.4.5"
-  },
-  "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "discord.js": "^14.15.3",
+    "discordx": "^11.9.4",
+    "ts-node": "^10.9.2"
   },
   "publishConfig": {
     "access": "public"

@@ -2,7 +2,7 @@
   "name": "@discordx/utilities",
   "version": "6.3.3",
   "private": false,
-  "description": "Add useful features to discordx",
+  "description": "Utilities package for enhancing discordx functionality",
   "keywords": [
     "bot",
     "discord",
