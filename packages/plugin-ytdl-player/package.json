@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-ytdl-player",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "private": false,
   "description": "Fully-featured Discord music player utilizing YTDL",
   "keywords": [
@@ -48,8 +48,8 @@
     "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.17.0",
     "@discordx/importer": "^1.3.0",
-    "@discordx/music": "^6.1.1",
-    "@discordx/pagination": "^3.5.2",
+    "@discordx/music": "^6.1.2",
+    "@discordx/pagination": "^3.5.3",
     "ffmpeg-static": "^5.2.0",
     "isomorphic-unfetch": "^4.0.2",
     "libsodium-wrappers": "^0.7.13",

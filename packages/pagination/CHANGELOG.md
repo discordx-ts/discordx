@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 3.5.3
+
+### Patch Changes
+
+- description change and minor improvements
+
 ## 3.5.2
 
 ### Patch Changes
