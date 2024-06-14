@@ -127,12 +127,15 @@ export class Rest {
       message.once("error", reject);
       message.once("end", () => {
         message.removeAllListeners();
-        const dataX = Buffer.concat(chunks);
-
-        try {
-          resolve(JSON.parse(dataX.toString()) as T);
-        } catch (e) {
-          resolve(dataX.toString() as T);
+        if (chunks.length === 0) {
+          resolve(null as T);
+        } else {
+          const dataX = Buffer.concat(chunks);
+          try {
+            resolve(JSON.parse(dataX.toString()) as T);
+          } catch (e) {
+            resolve(dataX.toString() as T);
+          }
         }
       });
     });

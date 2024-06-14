@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.0.6
+
+### Patch Changes
+
+- use null for empty rest response
+
 ## 2.0.5
 
 ### Patch Changes
