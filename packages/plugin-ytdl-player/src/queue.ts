@@ -36,9 +36,9 @@ export function formatDurationFromMS(duration: number): string {
   const seconds = Math.floor((duration / 1e3) % 60);
   const minutes = Math.floor((duration / 6e4) % 60);
   const hours = Math.floor(duration / 36e5);
-  const secondsPad = `${seconds}`.padStart(2, "0");
-  const minutesPad = `${minutes}`.padStart(2, "0");
-  const hoursPad = `${hours}`.padStart(2, "0");
+  const secondsPad = seconds.toString().padStart(2, "0");
+  const minutesPad = minutes.toString().padStart(2, "0");
+  const hoursPad = hours.toString().padStart(2, "0");
   return `${hours ? `${hoursPad}:` : ""}${minutesPad}:${secondsPad}`;
 }
 
@@ -178,11 +178,11 @@ export class Queue extends TrackQueue<MyTrack> {
     const user = currentTrack.user;
     embed.addFields({
       name: `Now Playing${
-        this.queueSize > 2 ? `(Total: ${this.queueSize} tracks queued)` : ""
+        this.queueSize > 2
+          ? `(Total: ${String(this.queueSize)} tracks queued)`
+          : ""
       }`,
-      value: `[${currentTrack.title}](${currentTrack.url ?? "NaN"})${
-        user ? ` by ${user.toString()}` : ""
-      }`,
+      value: `[${currentTrack.title}](${currentTrack.url}) by ${user.toString()}`,
     });
 
     const progressBarOptions = {
@@ -293,9 +293,9 @@ export class Queue extends TrackQueue<MyTrack> {
       return;
     }
 
-    const current = `> Playing **${currentTrack.title}** out of ${
-      this.queueSize + 1
-    }`;
+    const current = `> Playing **${currentTrack.title}** out of ${String(
+      this.queueSize + 1,
+    )}`;
 
     const pageOptions = new PaginationResolver(
       (index, paginator) => {
@@ -310,7 +310,7 @@ export class Queue extends TrackQueue<MyTrack> {
           .slice(currentPage * 10, currentPage * 10 + 10)
           .map(
             (track, index1) =>
-              `${currentPage * 10 + index1 + 1}. ${track.title}` +
+              `${String(currentPage * 10 + index1 + 1)}. ${track.title}` +
               ` (${formatDurationFromMS(track.duration)})`,
           )
           .join("\n\n");

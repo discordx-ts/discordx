@@ -174,13 +174,13 @@ export class music {
     const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
     embed.setDescription(
-      `Enqueued song **${video.title} (${formatDurationFromMS(
+      `Enqueued song **${video.title ?? "NaN"} (${formatDurationFromMS(
         video.duration,
       )})**`,
     );
 
     if (video.thumbnail?.url) {
-      embed.setThumbnail(video.thumbnail?.url);
+      embed.setThumbnail(video.thumbnail.url);
     }
 
     await interaction.followUp({ embeds: [embed] });
@@ -243,7 +243,7 @@ export class music {
     const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
     embed.setDescription(
-      `Enqueued  **${tracks.length}** songs from playlist **${playlist.title}**`,
+      `Enqueued  **${String(tracks.length)}** songs from playlist **${playlist.title ?? "NA"}**`,
     );
 
     if (playlist.thumbnail?.url) {
@@ -310,7 +310,7 @@ export class music {
     const embed = new EmbedBuilder();
     embed.setTitle("Enqueued");
     embed.setDescription(
-      `Enqueued  **${tracks.length}** songs from spotify playlist`,
+      `Enqueued  **${String(tracks.length)}** songs from spotify playlist`,
     );
 
     await interaction.followUp({ embeds: [embed] });
@@ -498,7 +498,7 @@ export class music {
     const { queue } = rq;
 
     queue.setVolume(volume);
-    await interaction.followUp(`> volume set to ${volume}`);
+    await interaction.followUp(`> volume set to ${String(volume)}`);
   }
 
   @Slash({ description: "Stop music player", name: "stop" })

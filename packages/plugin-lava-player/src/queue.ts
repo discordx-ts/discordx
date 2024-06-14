@@ -5,7 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { PlayerStatus } from "@discordx/lava-player";
-import type { Player } from "@discordx/lava-queue";
 import { fromMS, Queue, RepeatMode } from "@discordx/lava-queue";
 import {
   Pagination,
@@ -42,10 +41,6 @@ export class MusicQueue extends Queue {
 
   public setChannel(channel: TextBasedChannel): void {
     this._channel = channel;
-  }
-
-  constructor(player: Player, guildId: string) {
-    super(player, guildId);
   }
 
   private controlsRow(): ActionRowBuilder<MessageActionRowComponentBuilder>[] {
@@ -155,11 +150,15 @@ export class MusicQueue extends Queue {
       return;
     }
 
+    const { title, uri, length: trackTimeTotal } = currentPlaybackTrack.info;
+    const uriText = uri ? `[${title}](${uri})` : title;
+
+    const subText =
+      this.size > 2 ? ` (Total: ${String(this.size)} tracks queued)` : "";
+
     embed.addFields({
-      name:
-        "Now Playing" +
-        (this.size > 2 ? ` (Total: ${this.size} tracks queued)` : ""),
-      value: `[${currentPlaybackTrack.info.title}](${currentPlaybackTrack.info.uri})`,
+      name: "Now Playing" + subText,
+      value: uriText,
     });
 
     const progressBarOptions = {
@@ -170,9 +169,8 @@ export class MusicQueue extends Queue {
 
     const { size, arrow, block } = progressBarOptions;
     const timeNow = this.currentPlaybackPosition;
-    const timeTotal = this.currentPlaybackTrack?.info.length ?? 0;
 
-    const progress = Math.round((size * timeNow) / timeTotal);
+    const progress = Math.round((size * timeNow) / trackTimeTotal);
     const emptyProgress = size - progress;
 
     const progressString =
@@ -180,17 +178,24 @@ export class MusicQueue extends Queue {
 
     const bar = `${this.isPlaying ? "▶️" : "⏸️"} ${progressString}`;
     const currentTime = fromMS(timeNow);
-    const endTime = fromMS(timeTotal);
+    const endTime = fromMS(trackTimeTotal);
     const spacing = bar.length - currentTime.length - endTime.length;
     const time = `\`${currentTime}${" ".repeat(spacing * 3 - 2)}${endTime}\``;
 
     embed.addFields({ name: bar, value: time });
 
+    let nextTrackText = "No upcoming song";
+    if (nextTrack) {
+      if (nextTrack.info.uri) {
+        nextTrackText = `[${nextTrack.info.title}](${nextTrack.info.uri})`;
+      } else {
+        nextTrackText = nextTrack.info.title;
+      }
+    }
+
     embed.addFields({
       name: "Next Song",
-      value: nextTrack
-        ? `[${nextTrack.info.title}](${nextTrack.info.uri})`
-        : "No upcoming song",
+      value: nextTrackText,
     });
 
     const pMsg = {
@@ -257,7 +262,7 @@ export class MusicQueue extends Queue {
       uri?: string,
     ) => {
       const trackTitle = uri ? `[${title}](<${uri}>)` : title;
-      return `> Playing **${trackTitle}** out of ${size + 1}`;
+      return `> Playing **${trackTitle}** out of ${String(size + 1)}`;
     };
 
     if (!this.currentPlaybackTrack) {
@@ -313,7 +318,7 @@ export class MusicQueue extends Queue {
             ? `[${track.info.title}](<${track.info.uri}>)`
             : track.info.title;
 
-          return `${index}. ${trackTitle} (${trackLength})`;
+          return `${String(index)}. ${trackTitle} (${trackLength})`;
         })
         .join("\n\n");
 
