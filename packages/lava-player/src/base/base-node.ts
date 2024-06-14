@@ -22,7 +22,6 @@ export abstract class BaseNode extends EventEmitter {
 
   public password: string;
   public userId: string;
-  public sessionId: string | null = null;
 
   public connection: Connection;
   public players = new PlayerStore(this);
@@ -31,7 +30,16 @@ export abstract class BaseNode extends EventEmitter {
   public voiceStates = new Map<string, VoiceStateUpdate>();
   public voiceServers = new Map<string, VoiceServerUpdate>();
 
+  private _sessionId: string | null = null;
   private _expectingConnection = new Set<string>();
+
+  get sessionId(): string {
+    if (this._sessionId === null) {
+      throw Error("sessionId not available");
+    }
+
+    return this._sessionId;
+  }
 
   constructor({ password, userId, host }: BaseNodeOptions) {
     super();
@@ -58,7 +66,7 @@ export abstract class BaseNode extends EventEmitter {
     );
 
     this.on("ready", (d: OPReady) => {
-      this.sessionId = d.sessionId;
+      this._sessionId = d.sessionId;
     });
   }
 

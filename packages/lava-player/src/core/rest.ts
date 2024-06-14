@@ -77,10 +77,6 @@ export class Rest {
   }
 
   public async destroyPlayer(guildId: string): Promise<void> {
-    if (this.node.sessionId === null) {
-      throw Error("sessionId not available");
-    }
-
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);
     await this.request(RequestType.DELETE, url);
@@ -165,10 +161,6 @@ export class Rest {
     guildId: string,
     payload: UpdatePlayer,
   ): Promise<GetPlayer> {
-    if (this.node.sessionId === null) {
-      throw Error("sessionId not available");
-    }
-
     const uri = `sessions/${this.node.sessionId}/players/${guildId}`;
     const url = this.node.rest.url(uri);
     return this.request(

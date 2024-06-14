@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-lava-player",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "private": false,
   "description": "Fully-featured Discord music player leveraging the power of Lavalink",
   "keywords": [
@@ -27,7 +27,7 @@
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
   "type": "module",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@discordx/importer": "^1.3.0",
-    "@discordx/lava-player": "^2.0.4",
+    "@discordx/lava-player": "^2.0.5",
     "@discordx/lava-queue": "^3.1.1",
     "@discordx/pagination": "^3.5.3"
   },
