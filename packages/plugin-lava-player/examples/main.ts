@@ -4,13 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { LavaPlayerPlugin } from "@discordx/plugin-lava-player";
+import "@discordx/plugin-lava-player";
 import { IntentsBitField } from "discord.js";
-import { Client, MetadataStorage } from "discordx";
-
-const lavaPlayerPlugin = new LavaPlayerPlugin({
-  metadata: MetadataStorage.instance,
-});
+import { Client } from "discordx";
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Main {
@@ -30,7 +26,6 @@ export class Main {
         IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.GuildVoiceStates,
       ],
-      plugins: [lavaPlayerPlugin],
       silent: false,
     });
 

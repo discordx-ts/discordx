@@ -1,5 +1,11 @@
 # discordx
 
+## 11.10.0
+
+### Minor Changes
+
+- removed discordx plugin feature
+
 ## 11.9.4
 
 ### Patch Changes

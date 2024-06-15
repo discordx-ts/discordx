@@ -4,13 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { YTDLPlayerPlugin } from "@discordx/plugin-ytdl-player";
+import "@discordx/plugin-ytdl-player";
 import { IntentsBitField } from "discord.js";
 import { Client, MetadataStorage } from "discordx";
-
-const ytdlPlayerPlugin = new YTDLPlayerPlugin({
-  metadata: MetadataStorage.instance,
-});
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Main {
@@ -30,7 +26,6 @@ export class Main {
         IntentsBitField.Flags.GuildMessageReactions,
         IntentsBitField.Flags.GuildVoiceStates,
       ],
-      plugins: [ytdlPlayerPlugin],
       silent: false,
     });
 

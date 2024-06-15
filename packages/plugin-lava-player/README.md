@@ -44,8 +44,6 @@ lava player plugin for discordx bots.
 
 ```
 npm install @discordx/plugin-lava-player
-yarn add @discordx/plugin-lava-player
-pnpm add @discordx/plugin-lava-player
 ```
 
 # ⚠️ Prerequisites
@@ -60,14 +58,7 @@ To use this plugin, You will need to have a running Lavalink instance as well as
 # 📄 Usage
 
 ```ts
-import { Client, MetadataStorage } from "discordx";
-import { LavaPlayerPlugin } from "@discordx/plugin-lava-player";
-
-// Initialize the Plugin:
-const lavaPlugin = new LavaPlayerPlugin({ metadata: MetadataStorage.instance });
-
-// Provide the plugin to the Discordx Client:
-const client = new Client({ plugins: [lavaPlugin] });
+import "@discordx/plugin-lava-player";
 ```
 
 # 📜 Documentation

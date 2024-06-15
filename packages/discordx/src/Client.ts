@@ -54,7 +54,6 @@ import type {
   IPrefixResolver,
   ISimpleCommandByName,
   ITriggerEventData,
-  Plugin,
   SimpleCommandConfig,
 } from "./index.js";
 import {
@@ -78,13 +77,11 @@ import {
 export class Client extends ClientJS {
   private _botId: string;
   private _isBuilt = false;
-  private _isPluginsLoaded = false;
   private _prefix: IPrefixResolver;
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
   private _listeners = new Map<string, EventListenerDetail[]>();
   private _botGuilds: IGuild[] = [];
-  private _plugins: Plugin[] = [];
   private _guards: GuardFunction[] = [];
   private logger: ILogger;
 
@@ -301,7 +298,6 @@ export class Client extends ClientJS {
   constructor(options: ClientOptions) {
     super(options);
 
-    this._plugins = options.plugins ?? [];
     this._silent = options.silent ?? true;
     this.guards = options.guards ?? [];
     this.botGuilds = options.botGuilds ?? [];
@@ -1427,18 +1423,6 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Load plugins
-   */
-  async initPlugins(): Promise<void> {
-    if (this._isPluginsLoaded) {
-      return;
-    }
-
-    this._isPluginsLoaded = true;
-    await Promise.all(this._plugins.map((plugin) => plugin.init(this)));
-  }
-
-  /**
    * Bind discordx events to client
    */
   initEvents(): void {
@@ -1500,9 +1484,6 @@ export class Client extends ClientJS {
     }
 
     this._isBuilt = true;
-
-    // Load plugins
-    await this.initPlugins();
 
     // Build instance
     await this.instance.build();
