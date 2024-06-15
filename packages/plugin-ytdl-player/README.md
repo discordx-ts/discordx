@@ -44,21 +44,12 @@ YTDL player plugin for discordx bots.
 
 ```
 npm install @discordx/plugin-ytdl-player
-yarn add @discordx/plugin-ytdl-player
-pnpm add @discordx/plugin-ytdl-player
 ```
 
 # 📄 Usage
 
 ```ts
-import { Client, MetadataStorage } from "discordx";
-import { YTDLPlayerPlugin } from "@discordx/plugin-ytdl-player";
-
-// Initialize the Plugin:
-const ytdlPlugin = new YTDLPlayerPlugin({ metadata: MetadataStorage.instance });
-
-// Provide the plugin to the Discordx Client:
-const client = new Client({ plugins: [ytdlPlugin] });
+import "@discordx/plugin-ytdl-player";
 ```
 
 # 📜 Documentation

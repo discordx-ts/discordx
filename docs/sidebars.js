@@ -62,7 +62,6 @@ module.exports = {
         "discordx/basics/debugging",
         "discordx/basics/dependency-injection",
         "discordx/basics/metadatastorage",
-        "discordx/basics/plugin",
         "discordx/basics/rest-args-of",
         "discordx/basics/sharding",
       ],
