@@ -1,5 +1,11 @@
 # @discordx/plugin-ytdl-player
 
+## 2.2.0
+
+### Minor Changes
+
+- removed discordx plugin feature
+
 ## 2.1.4
 
 ### Patch Changes
