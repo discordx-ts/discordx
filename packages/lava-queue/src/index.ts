@@ -4,6 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-export * from "./player.js";
 export * from "./queue.js";
+export * from "./queue-manager.js";
 export * from "./util.js";

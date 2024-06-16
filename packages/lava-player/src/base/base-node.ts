@@ -8,7 +8,7 @@ import { EventEmitter } from "events";
 import WebSocket from "ws";
 
 import { Connection } from "../core/connection.js";
-import PlayerStore from "../core/player-store.js";
+import GuildPlayerStore from "../core/guild-player-store.js";
 import { Rest } from "../core/rest.js";
 import type {
   BaseNodeOptions,
@@ -24,7 +24,7 @@ export abstract class BaseNode extends EventEmitter {
   public userId: string;
 
   public connection: Connection;
-  public players = new PlayerStore(this);
+  public guildPlayerStore = new GuildPlayerStore(this);
   public rest: Rest;
 
   public voiceStates = new Map<string, VoiceStateUpdate>();
@@ -106,7 +106,7 @@ export abstract class BaseNode extends EventEmitter {
 
   public async destroy(code?: number, data?: string): Promise<void> {
     await Promise.all(
-      [...this.players.values()].map((player) => player.destroy()),
+      [...this.guildPlayerStore.values()].map((player) => player.destroy()),
     );
     await this.disconnect(code, data);
   }
@@ -118,7 +118,7 @@ export abstract class BaseNode extends EventEmitter {
       return false;
     }
 
-    await this.players.get(guildId).update({
+    await this.guildPlayerStore.get(guildId).update({
       voice: {
         endpoint: server.endpoint,
         sessionId: state.session_id,

@@ -5,12 +5,11 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { BaseNode } from "../base/base-node.js";
-import { Player } from "./player.js";
+import { GuildPlayer } from "./guild-player.js";
 
-export default class PlayerStore<T extends BaseNode = BaseNode> extends Map<
-  string,
-  Player<T>
-> {
+export default class GuildPlayerStore<
+  T extends BaseNode = BaseNode,
+> extends Map<string, GuildPlayer<T>> {
   public readonly node: T;
 
   constructor(node: T) {
@@ -18,10 +17,10 @@ export default class PlayerStore<T extends BaseNode = BaseNode> extends Map<
     this.node = node;
   }
 
-  public get(key: string): Player<T> {
+  public get(key: string): GuildPlayer<T> {
     let player = super.get(key);
     if (!player) {
-      player = new Player(this.node, key);
+      player = new GuildPlayer(this.node, key);
       this.set(key, player);
     }
 

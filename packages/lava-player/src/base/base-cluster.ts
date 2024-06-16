@@ -8,7 +8,7 @@ import { EventEmitter } from "events";
 
 import type { ClusterNodeOptions } from "../cluster-node.js";
 import ClusterNode from "../cluster-node.js";
-import type { Player } from "../core/player.js";
+import type { GuildPlayer } from "../core/guild-player.js";
 import type { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 
 export abstract class BaseCluster extends EventEmitter {
@@ -60,7 +60,7 @@ export abstract class BaseCluster extends EventEmitter {
   }
 
   public getNode(guildId: string): ClusterNode {
-    let node = this.nodes.find((nodeX) => nodeX.players.has(guildId));
+    let node = this.nodes.find((nodeX) => nodeX.guildPlayerStore.has(guildId));
     if (!node) {
       node = this.sort().find((nodeX) => this.filter(nodeX, guildId));
     }
@@ -75,11 +75,11 @@ export abstract class BaseCluster extends EventEmitter {
   }
 
   public has(guildId: string): boolean {
-    return this.nodes.some((node) => node.players.has(guildId));
+    return this.nodes.some((node) => node.guildPlayerStore.has(guildId));
   }
 
-  public get(guildId: string): Player<ClusterNode> {
-    return this.getNode(guildId).players.get(guildId);
+  public get(guildId: string): GuildPlayer<ClusterNode> {
+    return this.getNode(guildId).guildPlayerStore.get(guildId);
   }
 
   public voiceStateUpdate(state: VoiceStateUpdate): Promise<boolean> {

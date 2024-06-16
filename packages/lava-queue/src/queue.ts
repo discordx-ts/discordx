@@ -5,14 +5,14 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  type Player as LavaPlayer,
+  type GuildPlayer,
   PlayerStatus,
   type Track,
   type TrackResponse,
 } from "@discordx/lava-player";
 import shuffle from "lodash/shuffle.js";
 
-import type { Player } from "./player.js";
+import type { QueueManager } from "./queue-manager.js";
 import { RepeatMode } from "./util.js";
 
 export class Queue {
@@ -73,12 +73,12 @@ export class Queue {
    * Gets the LavaPlayer instance associated with the queue.
    * @returns The LavaPlayer instance.
    */
-  get lavaPlayer(): LavaPlayer {
-    return this.player.node.players.get(this.guildId);
+  get guildPlayer(): GuildPlayer {
+    return this.queueManager.node.guildPlayerStore.get(this.guildId);
   }
 
   constructor(
-    private player: Player,
+    private queueManager: QueueManager,
     public guildId: string,
   ) {
     // empty constructor
@@ -161,7 +161,7 @@ export class Queue {
       return null;
     }
 
-    const player = this.player.node.players.get(this.guildId);
+    const player = this.queueManager.node.guildPlayerStore.get(this.guildId);
     await player.update({ track: { encoded: track.encoded } });
     this._currentPlaybackTrack = track;
     return track;
@@ -171,15 +171,15 @@ export class Queue {
    * Pauses the current track.
    */
   async pause(): Promise<void> {
-    await this.lavaPlayer.update({ paused: true });
-    this.lavaPlayer.status = PlayerStatus.PAUSED;
+    await this.guildPlayer.update({ paused: true });
+    this.guildPlayer.status = PlayerStatus.PAUSED;
   }
 
   /**
    * Resumes playing the current track.
    */
   async resume(): Promise<void> {
-    await this.lavaPlayer.update({
+    await this.guildPlayer.update({
       paused: false,
     });
   }
@@ -190,7 +190,7 @@ export class Queue {
    * @returns The response from the Lavalink search.
    */
   search(text: string): Promise<TrackResponse> {
-    return this.player.node.rest.loadTracks(text);
+    return this.guildPlayer.rest.loadTracks(text);
   }
 
   /**
@@ -214,7 +214,7 @@ export class Queue {
    * @param volume - The new volume level.
    */
   async setVolume(volume: number): Promise<void> {
-    await this.lavaPlayer.update({
+    await this.guildPlayer.update({
       volume,
     });
   }
@@ -225,7 +225,7 @@ export class Queue {
   async exit(): Promise<void> {
     this._currentPlaybackTrack = null;
     this.removeAllTracks();
-    await this.lavaPlayer.leave();
-    await this.lavaPlayer.destroy();
+    await this.guildPlayer.leave();
+    await this.guildPlayer.destroy();
   }
 }

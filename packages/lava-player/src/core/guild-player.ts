@@ -8,6 +8,7 @@
 import { EventEmitter } from "events";
 
 import type { BaseNode } from "../base/base-node.js";
+import type { Rest } from "../index.js";
 import type {
   OPEvent,
   UpdatePlayer,
@@ -20,6 +21,7 @@ import {
   PlayerStatus,
   TrackEndReason,
 } from "../types/index.js";
+import type { HttpClient } from "./http.js";
 
 export interface JoinOptions {
   channel: string | null;
@@ -27,10 +29,18 @@ export interface JoinOptions {
   mute?: boolean;
 }
 
-export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
+export class GuildPlayer<T extends BaseNode = BaseNode> extends EventEmitter {
   public readonly node: T;
   public guildId: string;
   public status: PlayerStatus = PlayerStatus.INSTANTIATED;
+
+  get rest(): Rest {
+    return this.node.rest;
+  }
+
+  get http(): HttpClient {
+    return this.node.rest.http;
+  }
 
   constructor(node: T, guildId: string) {
     super();
@@ -87,7 +97,7 @@ export class Player<T extends BaseNode = BaseNode> extends EventEmitter {
   public async destroy(): Promise<void> {
     await this.node.rest.destroyPlayer(this.guildId);
     this.status = PlayerStatus.ENDED;
-    this.node.players.delete(this.guildId);
+    this.node.guildPlayerStore.delete(this.guildId);
   }
 
   public join({ channel, deaf, mute }: JoinOptions): Promise<any> {

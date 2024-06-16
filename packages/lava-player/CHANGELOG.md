@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.1.0
+
+### Minor Changes
+
+- improved method and class names
+
 ## 2.0.6
 
 ### Patch Changes
