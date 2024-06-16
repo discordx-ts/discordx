@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { setTimeout } from "node:timers/promises";
+import { setTimeout as wait } from "node:timers/promises";
 
 import { LoadType } from "@discordx/lava-player";
 import { fromMS, QueueManager, RepeatMode } from "@discordx/lava-queue";
@@ -32,6 +32,14 @@ import {
 import { getNode } from "./node.js";
 import { MusicQueue } from "./queue.js";
 
+interface ParsedCommand {
+  autoDeleteTimer: NodeJS.Timeout;
+  channel: TextBasedChannel;
+  guild: Guild;
+  member: GuildMember;
+  queue: MusicQueue;
+}
+
 @Discord()
 @SlashGroup({ description: "music", name: "music" })
 @SlashGroup("music")
@@ -41,11 +49,10 @@ export class MusicPlayer {
 
   // utils
 
-  async delete(
-    interaction: CommandInteraction | ButtonInteraction,
-  ): Promise<void> {
-    await setTimeout(this.INTERACTION_DELETE_DELAY);
-    await interaction.deleteReply();
+  delete(interaction: CommandInteraction | ButtonInteraction): NodeJS.Timeout {
+    return setTimeout(() => {
+      void interaction.deleteReply();
+    }, this.INTERACTION_DELETE_DELAY);
   }
 
   getQueue(guildId: string): MusicQueue | null {
@@ -59,17 +66,9 @@ export class MusicPlayer {
 
   async parseCommand(
     interaction: CommandInteraction | ButtonInteraction,
-    autoDelete = true,
-  ): Promise<{
-    channel: TextBasedChannel;
-    guild: Guild;
-    member: GuildMember;
-    queue: MusicQueue;
-  } | null> {
+  ): Promise<ParsedCommand | null> {
     await interaction.deferReply();
-    if (autoDelete) {
-      void this.delete(interaction);
-    }
+    const autoDeleteTimer = this.delete(interaction);
 
     if (
       !interaction.channel ||
@@ -120,6 +119,7 @@ export class MusicPlayer {
     }
 
     return {
+      autoDeleteTimer,
       channel: interaction.channel,
       guild: interaction.guild,
       member: interaction.member,
@@ -131,7 +131,7 @@ export class MusicPlayer {
 
   @Once()
   async ready(_: ArgsOf<"ready">, client: Client): Promise<void> {
-    await setTimeout(5e3);
+    await wait(5e3);
     this.queueManager = new QueueManager(getNode(client));
   }
 
@@ -212,12 +212,14 @@ export class MusicPlayer {
 
   @ButtonComponent({ id: "btn-queue" })
   async queueControl(interaction: ButtonInteraction): Promise<void> {
-    const cmd = await this.parseCommand(interaction, false);
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
 
+    clearTimeout(cmd.autoDeleteTimer);
     const { queue } = cmd;
+
     await queue.view(interaction);
   }
 
@@ -256,11 +258,12 @@ export class MusicPlayer {
     input: string,
     interaction: CommandInteraction,
   ): Promise<void> {
-    const cmd = await this.parseCommand(interaction, false);
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
 
+    clearTimeout(cmd.autoDeleteTimer);
     const { queue } = cmd;
 
     const isLink = input.startsWith("http://") || input.startsWith("https://");
@@ -398,11 +401,12 @@ export class MusicPlayer {
 
   @Slash({ description: "View queue", name: "queue" })
   async queue(interaction: CommandInteraction): Promise<void> {
-    const cmd = await this.parseCommand(interaction, false);
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
 
+    clearTimeout(cmd.autoDeleteTimer);
     const { queue } = cmd;
     await queue.view(interaction);
   }
