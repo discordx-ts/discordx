@@ -66,8 +66,8 @@ export class Connection<T extends BaseNode = BaseNode> {
         return;
       }
 
-      if (pk.guildId && this.node.players.has(pk.guildId)) {
-        this.node.players.get(pk.guildId).emit(pk.op, pk);
+      if (pk.guildId && this.node.guildPlayerStore.has(pk.guildId)) {
+        this.node.guildPlayerStore.get(pk.guildId).emit(pk.op, pk);
       }
       this.node.emit(pk.op, pk);
     },

@@ -11,18 +11,12 @@ import { Collection } from "discord.js";
 
 import { Queue } from "./queue.js";
 
-interface PlayerOptions {
-  leaveOnFinish: boolean;
-}
-
-export class Player {
+export class QueueManager {
+  private _leaveOnFinish = true;
   public queues = new Collection<Snowflake, Queue>();
-  private _options: PlayerOptions = {
-    leaveOnFinish: true,
-  };
 
-  get options(): PlayerOptions {
-    return this._options;
+  get leaveOnFinish(): boolean {
+    return this._leaveOnFinish;
   }
 
   constructor(public node: Node) {
@@ -46,18 +40,18 @@ export class Player {
         void queue.playNext();
 
         if (
-          this.options.leaveOnFinish &&
+          this.leaveOnFinish &&
           !queue.currentPlaybackTrack &&
           !queue.tracks.length
         ) {
-          void queue.lavaPlayer.leave();
+          void queue.guildPlayer.leave();
         }
       }
     });
   }
 
-  public setOptions(options: PlayerOptions): void {
-    this._options = options;
+  public setLeaveOnFinish(value: boolean): void {
+    this._leaveOnFinish = value;
   }
 
   public queue<T extends Queue = Queue>(

@@ -35,7 +35,7 @@ export class MusicQueue extends Queue {
   get isPlaying(): boolean {
     return (
       this.currentPlaybackTrack !== null &&
-      this.lavaPlayer.status === PlayerStatus.PLAYING
+      this.guildPlayer.status === PlayerStatus.PLAYING
     );
   }
 

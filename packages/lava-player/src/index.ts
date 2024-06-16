@@ -9,7 +9,7 @@ export * from "./base/base-node.js";
 export * from "./cluster.js";
 export * from "./cluster-node.js";
 export * from "./core/connection.js";
-export * from "./core/player.js";
+export * from "./core/guild-player.js";
 export * from "./core/rest.js";
 export * from "./node.js";
 export * from "./types/index.js";

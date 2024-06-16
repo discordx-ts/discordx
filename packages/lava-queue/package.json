@@ -1,6 +1,6 @@
 {
   "name": "@discordx/lava-queue",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "private": false,
   "description": "Queue system for @discordx/lava-player",
   "keywords": [
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@discordx/importer": "^1.3.0",
-    "@discordx/lava-player": "^2.0.4",
+    "@discordx/lava-player": "^2.1.0",
     "@discordx/pagination": "^3.5.3",
     "@types/lodash": "^4.17.4",
     "discord.js": "^14.15.3",
@@ -60,7 +60,7 @@
     "typescript": "5.4.5"
   },
   "peerDependencies": {
-    "@discordx/lava-player": ">=2.0.4",
+    "@discordx/lava-player": ">=2.1.0",
     "discord.js": ">=13"
   },
   "engines": {

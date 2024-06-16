@@ -1,5 +1,16 @@
 # @discordx/lava-queue
 
+## 4.0.0
+
+### Minor Changes
+
+- improved method and class names
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @discordx/lava-player@2.1.0
+
 ## 3.1.1
 
 ### Patch Changes

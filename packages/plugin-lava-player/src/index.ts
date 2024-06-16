@@ -7,7 +7,7 @@
 import { setTimeout } from "node:timers/promises";
 
 import { LoadType } from "@discordx/lava-player";
-import { fromMS, Player, RepeatMode } from "@discordx/lava-queue";
+import { fromMS, QueueManager, RepeatMode } from "@discordx/lava-queue";
 import type {
   ButtonInteraction,
   CommandInteraction,
@@ -32,35 +32,32 @@ import {
 import { getNode } from "./node.js";
 import { MusicQueue } from "./queue.js";
 
-const INTERACTION_DELETE_DELAY = 60_000;
-
 @Discord()
 @SlashGroup({ description: "music", name: "music" })
 @SlashGroup("music")
 export class MusicPlayer {
-  player: Record<string, Player> = {};
+  queueManager: QueueManager | null = null;
+  INTERACTION_DELETE_DELAY = 60_000;
 
   // utils
 
   async delete(
     interaction: CommandInteraction | ButtonInteraction,
   ): Promise<void> {
-    await setTimeout(INTERACTION_DELETE_DELAY);
+    await setTimeout(this.INTERACTION_DELETE_DELAY);
     await interaction.deleteReply();
   }
 
-  GetQueue(botId: string, guildId: string): MusicQueue | null {
-    const player = this.player[botId];
-    if (!player) {
+  getQueue(guildId: string): MusicQueue | null {
+    if (!this.queueManager) {
       return null;
     }
 
-    const queue = new MusicQueue(player, guildId);
-    return player.queue(guildId, () => queue);
+    const queue = new MusicQueue(this.queueManager, guildId);
+    return this.queueManager.queue(guildId, () => queue);
   }
 
-  async ParseCommand(
-    client: Client,
+  async parseCommand(
     interaction: CommandInteraction | ButtonInteraction,
     autoDelete = true,
   ): Promise<{
@@ -101,7 +98,7 @@ export class MusicPlayer {
       return null;
     }
 
-    const queue = this.GetQueue(client.botId, interaction.guild.id);
+    const queue = this.getQueue(interaction.guild.id);
 
     if (!queue) {
       await interaction.followUp({
@@ -112,7 +109,7 @@ export class MusicPlayer {
 
     if (bot.voice.channelId === null) {
       queue.setChannel(interaction.channel);
-      await queue.lavaPlayer.join({
+      await queue.guildPlayer.join({
         channel: interaction.member.voice.channelId,
       });
     } else if (interaction.member.voice.channelId !== bot.voice.channelId) {
@@ -135,17 +132,14 @@ export class MusicPlayer {
   @Once()
   async ready(_: ArgsOf<"ready">, client: Client): Promise<void> {
     await setTimeout(5e3);
-    this.player[client.botId] = new Player(getNode(client));
+    this.queueManager = new QueueManager(getNode(client));
   }
 
   // buttons
 
   @ButtonComponent({ id: "btn-next" })
-  async nextControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async nextControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -167,11 +161,8 @@ export class MusicPlayer {
   }
 
   @ButtonComponent({ id: "btn-pause" })
-  async pauseControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async pauseControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -185,11 +176,8 @@ export class MusicPlayer {
   }
 
   @ButtonComponent({ id: "btn-leave" })
-  async leaveControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async leaveControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -199,11 +187,8 @@ export class MusicPlayer {
   }
 
   @ButtonComponent({ id: "btn-repeat" })
-  async repeatControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async repeatControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -214,11 +199,8 @@ export class MusicPlayer {
   }
 
   @ButtonComponent({ id: "btn-loop" })
-  async loopControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async loopControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -229,11 +211,8 @@ export class MusicPlayer {
   }
 
   @ButtonComponent({ id: "btn-queue" })
-  async queueControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction, false);
+  async queueControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction, false);
     if (!cmd) {
       return;
     }
@@ -243,11 +222,8 @@ export class MusicPlayer {
   }
 
   @ButtonComponent({ id: "btn-mix" })
-  async mixControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async mixControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -257,11 +233,8 @@ export class MusicPlayer {
   }
 
   @ButtonComponent({ id: "btn-controls" })
-  async controlsControl(
-    interaction: ButtonInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async controlsControl(interaction: ButtonInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -282,9 +255,8 @@ export class MusicPlayer {
     })
     input: string,
     interaction: CommandInteraction,
-    client: Client,
   ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction, false);
+    const cmd = await this.parseCommand(interaction, false);
     if (!cmd) {
       return;
     }
@@ -350,11 +322,8 @@ export class MusicPlayer {
     description: "Show details of currently playing track",
     name: "current",
   })
-  async current(
-    interaction: CommandInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async current(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -395,9 +364,8 @@ export class MusicPlayer {
     })
     seconds: number,
     interaction: CommandInteraction,
-    client: Client,
   ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -419,7 +387,7 @@ export class MusicPlayer {
       return;
     }
 
-    await queue.lavaPlayer.update({
+    await queue.guildPlayer.update({
       position: seconds * 1000,
     });
 
@@ -429,8 +397,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "View queue", name: "queue" })
-  async queue(interaction: CommandInteraction, client: Client): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction, false);
+  async queue(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction, false);
     if (!cmd) {
       return;
     }
@@ -440,8 +408,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "Pause current track", name: "pause" })
-  async pause(interaction: CommandInteraction, client: Client): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async pause(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -460,8 +428,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "Resume current track", name: "resume" })
-  async resume(interaction: CommandInteraction, client: Client): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async resume(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -480,8 +448,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "Skip current track", name: "skip" })
-  async skip(interaction: CommandInteraction, client: Client): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async skip(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -525,9 +493,8 @@ export class MusicPlayer {
     })
     volume: number,
     interaction: CommandInteraction,
-    client: Client,
   ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -540,8 +507,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "Stop music player", name: "stop" })
-  async stop(interaction: CommandInteraction, client: Client): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async stop(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -554,11 +521,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "Shuffle queue", name: "shuffle" })
-  async shuffle(
-    interaction: CommandInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async shuffle(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
@@ -569,11 +533,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "Show GUI controls", name: "gui-show" })
-  async guiShow(
-    interaction: CommandInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async guiShow(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd || !interaction.channel) {
       return;
     }
@@ -585,11 +546,8 @@ export class MusicPlayer {
   }
 
   @Slash({ description: "Hide GUI controls", name: "gui-hide" })
-  async guiHide(
-    interaction: CommandInteraction,
-    client: Client,
-  ): Promise<void> {
-    const cmd = await this.ParseCommand(client, interaction);
+  async guiHide(interaction: CommandInteraction): Promise<void> {
+    const cmd = await this.parseCommand(interaction);
     if (!cmd) {
       return;
     }
