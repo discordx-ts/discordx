@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.1.1
+
+### Patch Changes
+
+- export http client
+
 ## 2.1.0
 
 ### Minor Changes
