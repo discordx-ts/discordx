@@ -5,13 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-export enum RequestType {
-  DELETE = "DELETE",
-  GET = "GET",
-  PATCH = "PATCH",
-  POST = "POST",
-}
-
 export interface TrackInfo {
   /**
    * The track artwork url

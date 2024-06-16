@@ -12,8 +12,7 @@ import type {
   TrackResponse,
   UpdatePlayer,
 } from "../types/index.js";
-import { RequestType } from "../types/index.js";
-import { HttpClient } from "./http.js";
+import { HttpClient, RequestType } from "./http.js";
 
 export class Rest {
   public readonly node: BaseNode;
