@@ -251,10 +251,10 @@ export class MusicQueue extends Queue {
     const queueErrorMessage =
       "> The queue could not be processed at the moment, please try again later!";
     const nowPlayingMessage = (title: string) => `> Playing **${title}**`;
-    const pageTimeoutMessage = 60000; // 6e4
+    const pageTimeoutMessage = 60_000; // 6e4
     const shortPaginationLimit = 5;
-    const deleteDelayMsShort = 3000; // 3 seconds
-    const deleteDelayMsLong = 10000; // 10 seconds
+    const deleteDelayMsShort = 3_000; // 3 seconds
+    const deleteDelayMsLong = 10_000; // 10 seconds
 
     const currentPlaybackTrackMessage = (
       title: string,

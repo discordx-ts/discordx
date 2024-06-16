@@ -1,5 +1,11 @@
 # @discordx/plugin-lava-player
 
+## 2.3.1
+
+### Patch Changes
+
+- improvement to auto delete message
+
 ## 2.3.0
 
 ### Minor Changes
