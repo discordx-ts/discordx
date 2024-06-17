@@ -565,7 +565,7 @@ export class Client extends ClientJS {
   }
 
   /**
-   * Initialize all the @Slash
+   * Initialize application commands
    */
   async initApplicationCommands(): Promise<void> {
     const allGuildPromises: Promise<void>[] = [];
@@ -592,9 +592,6 @@ export class Client extends ClientJS {
 
   /**
    * Init application commands for guild
-   * @param guildId - Guild identifier
-   * @param DCommands - Array of commands
-   * @param options - Options
    */
   async initGuildApplicationCommands(
     guildId: string,
@@ -742,8 +739,6 @@ export class Client extends ClientJS {
 
   /**
    * Init global application commands
-   *
-   * @param options - Options
    */
   async initGlobalApplicationCommands(): Promise<void> {
     const botResolvedGuilds = await this.botResolvedGuilds;
