@@ -1,5 +1,11 @@
 # @discordx/plugin-lava-player
 
+## 2.4.0
+
+### Minor Changes
+
+- code structure changes
+
 ## 2.3.1
 
 ### Patch Changes
