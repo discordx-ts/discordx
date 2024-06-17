@@ -1,5 +1,11 @@
 # @discordx/lava-queue
 
+## 4.0.2
+
+### Patch Changes
+
+- add isPlaying method
+
 ## 4.0.1
 
 ### Patch Changes
