@@ -49,7 +49,6 @@ import type {
   GuardFunction,
   IGuild,
   ILogger,
-  InitCommandOptions,
   IPrefix,
   IPrefixResolver,
   ISimpleCommandByName,
@@ -563,10 +562,7 @@ export class Client extends ClientJS {
   /**
    * Initialize all the @Slash
    */
-  async initApplicationCommands(options?: {
-    global?: InitCommandOptions;
-    guild?: InitCommandOptions;
-  }): Promise<void> {
+  async initApplicationCommands(): Promise<void> {
     const allGuildPromises: Promise<void>[] = [];
     const guildDCommandStore = await this.CommandByGuild();
 
@@ -579,13 +575,13 @@ export class Client extends ClientJS {
       }
 
       allGuildPromises.push(
-        this.initGuildApplicationCommands(guildId, DCommands, options?.guild),
+        this.initGuildApplicationCommands(guildId, DCommands),
       );
     });
 
     await Promise.all([
       Promise.all(allGuildPromises),
-      this.initGlobalApplicationCommands(options?.global),
+      this.initGlobalApplicationCommands(),
     ]);
   }
 
@@ -598,7 +594,6 @@ export class Client extends ClientJS {
   async initGuildApplicationCommands(
     guildId: string,
     DCommands: DApplicationCommand[],
-    options?: InitCommandOptions,
   ): Promise<void> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
@@ -612,52 +607,64 @@ export class Client extends ClientJS {
       return;
     }
 
-    // fetch already registered application command
-    const ApplicationCommands = await guild.commands.fetch({
+    /**
+     * Fetch discord application commands
+     */
+    const discordCommands = await guild.commands.fetch({
       withLocalizations: true,
     });
 
-    // filter only unregistered application command
-    const commandsToAdd = DCommands.filter(
-      (DCommand) =>
-        !ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
-        ),
-    );
+    /**
+     * Filter only unregistered application command
+     */
+    const commandsToAdd = DCommands.filter((DCommand) => {
+      const match = (cmd: ApplicationCommand) => {
+        return cmd.name === DCommand.name && cmd.type === DCommand.type;
+      };
 
-    // filter application command to update
+      return !discordCommands.find(match);
+    });
+
+    /**
+     * Filter application command to update or skip
+     */
 
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
     DCommands.forEach((DCommand) => {
-      const findCommand = ApplicationCommands.find(
-        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
-      );
+      const match = (cmd: ApplicationCommand) => {
+        return cmd.name === DCommand.name && cmd.type === DCommand.type;
+      };
 
+      const findCommand = discordCommands.find(match);
       if (!findCommand) {
         return;
       }
 
+      const mixinCommand = new ApplicationCommandMixin(findCommand, DCommand);
+
       if (!isApplicationCommandEqual(findCommand, DCommand, true)) {
-        commandsToUpdate.push(
-          new ApplicationCommandMixin(findCommand, DCommand),
-        );
+        commandsToUpdate.push(mixinCommand);
       } else {
-        commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
+        commandsToSkip.push(mixinCommand);
       }
     });
 
-    // filter commands to delete
+    /**
+     * Filter commands to delete
+     */
     const commandsToDelete: ApplicationCommand[] = [];
     await Promise.all(
-      ApplicationCommands.map(async (cmd) => {
-        const DCommandFind = DCommands.find(
-          (DCommand) =>
-            DCommand.name === cmd.name && DCommand.type === cmd.type,
-        );
+      discordCommands.map(async (cmd) => {
+        const match = (DCommand: DApplicationCommand) => {
+          return cmd.name === DCommand.name && cmd.type === DCommand.type;
+        };
 
-        // delete command if it's not found
+        /**
+         * Delete command if it's not found
+         */
+        const DCommandFind = DCommands.find(match);
         if (!DCommandFind) {
           commandsToDelete.push(cmd);
           return;
@@ -668,86 +675,62 @@ export class Client extends ClientJS {
           ...DCommandFind.guilds,
         ]);
 
-        // delete command if it's not registered for given guild
+        /**
+         * Delete command if it's not registered for given guild
+         */
         if (!cmd.guildId || !guilds.includes(cmd.guildId)) {
           commandsToDelete.push(cmd);
         }
       }),
     );
 
-    // log the changes to commands if enabled by options or silent mode is turned off
+    /**
+     * Log the changes to application commands
+     */
     if (!this.silent) {
       let str = `${this.user?.username ?? "Bot"} >> commands >> guild: #${guild.toString()}`;
 
-      str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAdd
+      const commandsToAddNames = commandsToAdd
         .map((DCommand) => DCommand.name)
-        .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
+        .join(", ");
 
-      str += `\n\t>> updating ${String(commandsToUpdate.length)} [${commandsToUpdate
-        .map((cmd) => cmd.command.name)
-        .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
+      const commandsToUpdateNames = commandsToUpdate
+        .map((DCommand) => DCommand.name)
+        .join(", ");
 
-      str += `\n\t>> deleting ${String(commandsToDelete.length)} [${commandsToDelete
-        .map((cmd) => cmd.name)
-        .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
+      const commandsToDeleteNames = commandsToDelete
+        .map((DCommand) => DCommand.name)
+        .join(", ");
 
-      str += `\n\t>> skipping ${String(commandsToSkip.length)} [${commandsToSkip
-        .map((cmd) => cmd.name)
-        .join(", ")}]`;
+      const commandsToSkipNames = commandsToSkip
+        .map((DCommand) => DCommand.name)
+        .join(", ");
+
+      str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAddNames}]`;
+      str += `\n\t>> updating   ${String(commandsToAdd.length)} [${commandsToUpdateNames}]`;
+      str += `\n\t>> deleting   ${String(commandsToAdd.length)} [${commandsToDeleteNames}]`;
+      str += `\n\t>> skipping   ${String(commandsToAdd.length)} [${commandsToSkipNames}]`;
 
       str += "\n";
 
       this.logger.log(str);
     }
 
-    // If there are no changes to share with Discord, cancel the task
-    if (
-      commandsToAdd.length +
-        commandsToUpdate.length +
-        commandsToDelete.length ===
-      0
-    ) {
-      return;
-    }
-
-    // perform bulk update with discord using set operation
+    /**
+     * Perform bulk update with discord using set operation
+     */
     const bulkUpdate: ApplicationCommandDataEx[] = [];
 
-    const operationToSkip = commandsToSkip.map((cmd) =>
-      bulkUpdate.push(cmd.instance.toJSON()),
-    );
+    commandsToSkip.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
+    commandsToAdd.forEach((DCommand) => bulkUpdate.push(DCommand.toJSON()));
+    commandsToUpdate.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
-    const operationToAdd = options?.disable?.add
-      ? []
-      : commandsToAdd.map((DCommand) => bulkUpdate.push(DCommand.toJSON()));
-
-    const operationToUpdate = options?.disable?.update
-      ? commandsToUpdate.map(async (cmd) =>
-          bulkUpdate.push(
-            (await cmd.command.toJSON()) as ApplicationCommandDataEx,
-          ),
-        )
-      : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
-
-    const operationToDelete = options?.disable?.delete
-      ? commandsToDelete.map(async (cmd) =>
-          bulkUpdate.push((await cmd.toJSON()) as ApplicationCommandDataEx),
-        )
-      : [];
-
-    await Promise.all([
-      // skipped
-      ...operationToSkip,
-
-      // add
-      ...operationToAdd,
-
-      // update
-      ...operationToUpdate,
-
-      // delete
-      ...operationToDelete,
-    ]);
+    /**
+     * No changes to sync with Discord
+     */
+    if (bulkUpdate.length === 0) {
+      return;
+    }
 
     await guild.commands.set(bulkUpdate as ApplicationCommandData[]);
   }
@@ -757,9 +740,7 @@ export class Client extends ClientJS {
    *
    * @param options - Options
    */
-  async initGlobalApplicationCommands(
-    options?: InitCommandOptions,
-  ): Promise<void> {
+  async initGlobalApplicationCommands(): Promise<void> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
     if (!this.application) {
@@ -768,120 +749,130 @@ export class Client extends ClientJS {
       );
     }
 
-    // # initialize add/update/delete task for global commands
-    const ApplicationCommands = (
-      await this.application.commands.fetch()
-    ).filter((cmd) => !cmd.guild);
+    /**
+     * Fetch discord application commands
+     */
+    const allDiscordCommands = await this.application.commands.fetch();
 
-    const DCommands = this.applicationCommands.filter(
-      (DCommand) =>
-        ![...botResolvedGuilds, ...DCommand.guilds].length &&
-        (!DCommand.botIds.length || DCommand.botIds.includes(this.botId)),
-    );
+    /**
+     * Filter discord global commands only
+     */
+    const discordCommands = allDiscordCommands.filter((cmd) => !cmd.guild);
 
-    const commandsToAdd = DCommands.filter(
-      (DCommand) =>
-        !ApplicationCommands.find(
-          (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
-        ),
-    );
+    /**
+     * Filter global commands only
+     */
+    const DCommands = this.applicationCommands.filter((DCommand) => {
+      if (botResolvedGuilds.length || DCommand.guilds.length) {
+        return false;
+      }
+
+      if (DCommand.botIds.length && !DCommand.botIds.includes(this.botId)) {
+        return false;
+      }
+
+      return true;
+    });
+
+    /**
+     * Filter commands to add
+     */
+
+    const commandsToAdd = DCommands.filter((DCommand) => {
+      const match = (cmd: ApplicationCommand) => {
+        return cmd.name === DCommand.name && cmd.type === DCommand.type;
+      };
+
+      return !discordCommands.find(match);
+    });
+
+    /**
+     * Filter commands to update or skip
+     */
 
     const commandsToUpdate: ApplicationCommandMixin[] = [];
     const commandsToSkip: ApplicationCommandMixin[] = [];
 
     DCommands.forEach((DCommand) => {
-      const findCommand = ApplicationCommands.find(
-        (cmd) => cmd.name === DCommand.name && cmd.type === DCommand.type,
-      );
+      const match = (cmd: ApplicationCommand) => {
+        return cmd.name === DCommand.name && cmd.type === DCommand.type;
+      };
 
-      if (!findCommand) {
+      const discordCommand = discordCommands.find(match);
+      if (!discordCommand) {
         return;
       }
 
-      if (!isApplicationCommandEqual(findCommand, DCommand)) {
-        commandsToUpdate.push(
-          new ApplicationCommandMixin(findCommand, DCommand),
-        );
+      const mixinCommand = new ApplicationCommandMixin(
+        discordCommand,
+        DCommand,
+      );
+
+      if (!isApplicationCommandEqual(discordCommand, DCommand)) {
+        commandsToUpdate.push(mixinCommand);
       } else {
-        commandsToSkip.push(new ApplicationCommandMixin(findCommand, DCommand));
+        commandsToSkip.push(mixinCommand);
       }
     });
 
-    const commandsToDelete = ApplicationCommands.filter((cmd) =>
-      DCommands.every(
-        (DCommand) => DCommand.name !== cmd.name || DCommand.type !== cmd.type,
-      ),
-    );
+    /**
+     * Filter commands to delete
+     */
+    const commandsToDelete = discordCommands.filter((cmd) => {
+      const match = (DCommand: DApplicationCommand) => {
+        return DCommand.name !== cmd.name || DCommand.type !== cmd.type;
+      };
 
-    // log the changes to commands if enabled by options or silent mode is turned off
+      return DCommands.every(match);
+    });
+
+    /**
+     * Log the changes to application commands
+     */
     if (!this.silent) {
       let str = `${this.user?.username ?? this.botId} >> commands >> global`;
 
-      str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAdd
+      const commandsToAddNames = commandsToAdd
         .map((DCommand) => DCommand.name)
-        .join(", ")}] ${options?.disable?.add ? "[task disabled]" : ""}`;
+        .join(", ");
 
-      str += `\n\t>> updating ${String(commandsToUpdate.length)} [${commandsToUpdate
-        .map((cmd) => cmd.command.name)
-        .join(", ")}] ${options?.disable?.update ? "[task disabled]" : ""}`;
+      const commandsToUpdateNames = commandsToUpdate
+        .map((DCommand) => DCommand.name)
+        .join(", ");
 
-      str += `\n\t>> deleting ${String(commandsToDelete.size)} [${commandsToDelete
-        .map((cmd) => cmd.name)
-        .join(", ")}] ${options?.disable?.delete ? "[task disabled]" : ""}`;
+      const commandsToDeleteNames = commandsToDelete
+        .map((DCommand) => DCommand.name)
+        .join(", ");
 
-      str += `\n\t>> skipping ${String(commandsToSkip.length)} [${commandsToSkip
-        .map((cmd) => cmd.name)
-        .join(", ")}]`;
+      const commandsToSkipNames = commandsToSkip
+        .map((DCommand) => DCommand.name)
+        .join(", ");
+
+      str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAddNames}]`;
+      str += `\n\t>> updating   ${String(commandsToAdd.length)} [${commandsToUpdateNames}]`;
+      str += `\n\t>> deleting   ${String(commandsToAdd.length)} [${commandsToDeleteNames}]`;
+      str += `\n\t>> skipping   ${String(commandsToAdd.length)} [${commandsToSkipNames}]`;
 
       str += "\n";
 
       this.logger.log(str);
     }
 
-    // If there are no changes to share with Discord, cancel the task
-    if (
-      commandsToAdd.length + commandsToUpdate.length + commandsToDelete.size ===
-      0
-    ) {
-      return;
-    }
-
-    // perform bulk update with discord using set operation
+    /**
+     * Perform bulk update with discord using set operation
+     */
     const bulkUpdate: ApplicationCommandDataEx[] = [];
 
-    const operationToSkip = commandsToSkip.map((cmd) =>
-      bulkUpdate.push(cmd.instance.toJSON()),
-    );
+    commandsToSkip.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
+    commandsToAdd.forEach((instance) => bulkUpdate.push(instance.toJSON()));
+    commandsToUpdate.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
-    const operationToAdd = options?.disable?.add
-      ? []
-      : commandsToAdd.map((DCommand) => bulkUpdate.push(DCommand.toJSON()));
-
-    const operationToUpdate = options?.disable?.update
-      ? commandsToUpdate.map((cmd) =>
-          bulkUpdate.push(cmd.command.toJSON() as ApplicationCommandDataEx),
-        )
-      : commandsToUpdate.map((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
-
-    const operationToDelete = options?.disable?.delete
-      ? commandsToDelete.map((cmd) =>
-          bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx),
-        )
-      : [];
-
-    await Promise.all([
-      // skipped
-      ...operationToSkip,
-
-      // add
-      ...operationToAdd,
-
-      // update
-      ...operationToUpdate,
-
-      // delete
-      ...operationToDelete,
-    ]);
+    /**
+     * No changes to sync with Discord
+     */
+    if (bulkUpdate.length === 0) {
+      return;
+    }
 
     await this.application.commands.set(bulkUpdate as ApplicationCommandData[]);
   }

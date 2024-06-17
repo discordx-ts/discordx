@@ -51,28 +51,6 @@ export type GuardFunction<Type = any, DataType = any> = (
 ) => any;
 
 /**
- * Init command configuration
- */
-export interface InitCommandOptions {
-  disable?: {
-    /**
-     * Disable the add operation, which registers application commands with Discord
-     */
-    add?: boolean;
-
-    /**
-     * Disable the delete operation, which unregister application commands with Discord
-     */
-    delete?: boolean;
-
-    /**
-     * Disable the update operation, which update application commands with Discord
-     */
-    update?: boolean;
-  };
-}
-
-/**
  * Custom logger
  */
 export interface ILogger {
