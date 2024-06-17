@@ -1,5 +1,11 @@
 # @discordx/lava-queue
 
+## 4.0.1
+
+### Patch Changes
+
+- new getters
+
 ## 4.0.0
 
 ### Minor Changes
