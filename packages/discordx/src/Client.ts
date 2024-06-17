@@ -531,15 +531,22 @@ export class Client extends ClientJS {
   async CommandByGuild(): Promise<Map<string, DApplicationCommand[]>> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
-    // # group guild commands by guildId
+    /**
+     * Guild command store
+     */
     const guildDCommandStore = new Map<Snowflake, DApplicationCommand[]>();
-    const allGuildDCommands = this.applicationCommands.filter(
-      (DCommand) =>
-        DCommand.isBotAllowed(this.botId) &&
-        [...botResolvedGuilds, ...DCommand.guilds].length,
-    );
 
-    // group single guild commands together
+    /**
+     * All guild commands
+     */
+    const allGuildDCommands = this.applicationCommands.filter((DCommand) => {
+      const guilds = [...botResolvedGuilds, ...DCommand.guilds];
+      return DCommand.isBotAllowed(this.botId) && guilds.length;
+    });
+
+    /**
+     * Group guild commands
+     */
     await Promise.all(
       allGuildDCommands.map(async (DCommand) => {
         const guilds = await resolveIGuilds(this, DCommand, [
@@ -547,12 +554,10 @@ export class Client extends ClientJS {
           ...DCommand.guilds,
         ]);
 
-        guilds.forEach((guild) =>
-          guildDCommandStore.set(guild, [
-            ...(guildDCommandStore.get(guild) ?? []),
-            DCommand,
-          ]),
-        );
+        guilds.forEach((guild) => {
+          const commands = guildDCommandStore.get(guild) ?? [];
+          return guildDCommandStore.set(guild, [...commands, DCommand]);
+        });
       }),
     );
 
@@ -1082,11 +1087,12 @@ export class Client extends ClientJS {
       | ModalSubmitInteraction
       | AnySelectMenuInteraction,
   ): Promise<unknown> {
-    const executes = components.filter(
-      (component) =>
+    const executes = components.filter((component) => {
+      return (
         component.isId(interaction.customId) &&
-        component.isBotAllowed(this.botId),
-    );
+        component.isBotAllowed(this.botId)
+      );
+    });
 
     if (!executes.length) {
       if (!this.silent) {
