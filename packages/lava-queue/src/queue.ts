@@ -77,6 +77,22 @@ export class Queue {
     return this.queueManager.node.guildPlayerStore.get(this.guildId);
   }
 
+  get http() {
+    return this.guildPlayer.http;
+  }
+
+  get node() {
+    return this.guildPlayer.node;
+  }
+
+  get rest() {
+    return this.guildPlayer.rest;
+  }
+
+  get sessionId() {
+    return this.node.sessionId;
+  }
+
   constructor(
     private queueManager: QueueManager,
     public guildId: string,
@@ -161,8 +177,7 @@ export class Queue {
       return null;
     }
 
-    const player = this.queueManager.node.guildPlayerStore.get(this.guildId);
-    await player.update({ track: { encoded: track.encoded } });
+    await this.guildPlayer.update({ track: { encoded: track.encoded } });
     this._currentPlaybackTrack = track;
     return track;
   }
@@ -190,7 +205,7 @@ export class Queue {
    * @returns The response from the Lavalink search.
    */
   search(text: string): Promise<TrackResponse> {
-    return this.guildPlayer.rest.loadTracks(text);
+    return this.rest.loadTracks(text);
   }
 
   /**
