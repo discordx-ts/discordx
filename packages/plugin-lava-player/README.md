@@ -10,14 +10,14 @@
         src="https://img.shields.io/discord/874802018361950248?color=5865F2&logo=discord&logoColor=white"
         alt="Discord server"
     /></a>
-    <a href="https://www.npmjs.com/package/discordx"
+    <a href="https://www.npmjs.com/package/@discordx/plugin-lava-player"
       ><img
-        src="https://img.shields.io/npm/v/discordx.svg?maxAge=3600"
+        src="https://img.shields.io/npm/v/@discordx/plugin-lava-player.svg?maxAge=3600"
         alt="NPM version"
     /></a>
-    <a href="https://www.npmjs.com/package/discordx"
+    <a href="https://www.npmjs.com/package/@discordx/plugin-lava-player"
       ><img
-        src="https://img.shields.io/npm/dt/discordx.svg?maxAge=3600"
+        src="https://img.shields.io/npm/dt/@discordx/plugin-lava-player.svg?maxAge=3600"
         alt="NPM downloads"
     /></a>
     <a href="https://github.com/discordx-ts/discordx/actions"
