@@ -1,5 +1,11 @@
 # discordx
 
+## 11.11.0
+
+### Minor Changes
+
+- improve init application commands method
+
 ## 11.10.0
 
 ### Minor Changes
