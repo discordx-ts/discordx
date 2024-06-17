@@ -1,5 +1,16 @@
 # @discordx/plugin-lava-player
 
+## 2.5.0
+
+### Minor Changes
+
+- add lyrics plugin script
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @discordx/lava-queue@4.0.2
+
 ## 2.4.0
 
 ### Minor Changes

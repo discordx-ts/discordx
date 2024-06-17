@@ -35,7 +35,7 @@ export class Command {
     const { queue } = cmd;
 
     const isLink = input.startsWith("http://") || input.startsWith("https://");
-    const searchText = isLink ? input : `ytsearch:${input}`;
+    const searchText = isLink ? input : `ytmsearch:${input}`;
     const { loadType, data } = await queue.search(searchText);
 
     if (loadType === LoadType.ERROR) {
