@@ -4,7 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { PlayerStatus } from "@discordx/lava-player";
 import { fromMS, Queue, RepeatMode } from "@discordx/lava-queue";
 import {
   Pagination,
@@ -31,13 +30,6 @@ export class MusicQueue extends Queue {
 
   private lastControlMessage?: Message;
   private lockUpdate = false;
-
-  get isPlaying(): boolean {
-    return (
-      this.currentPlaybackTrack !== null &&
-      this.guildPlayer.status === PlayerStatus.PLAYING
-    );
-  }
 
   public setChannel(channel: TextBasedChannel): void {
     this._channel = channel;

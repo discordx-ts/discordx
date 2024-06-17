@@ -81,6 +81,13 @@ export class Queue {
     return this.guildPlayer.http;
   }
 
+  get isPlaying() {
+    return (
+      this.currentPlaybackTrack !== null &&
+      this.guildPlayer.status === PlayerStatus.PLAYING
+    );
+  }
+
   get node() {
     return this.guildPlayer.node;
   }
