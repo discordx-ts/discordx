@@ -1,0 +1,11 @@
+import "./current.js";
+import "./gui.js";
+import "./music.js";
+import "./pause-resume.js";
+import "./play.js";
+import "./queue.js";
+import "./seek.js";
+import "./set-volume.js";
+import "./shuffle.js";
+import "./skip.js";
+import "./stop.js";
