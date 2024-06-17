@@ -53,13 +53,23 @@ To use this plugin, You will need to have a running Lavalink instance as well as
 - `LAVA_HOST` - Either a Domain or IP pointing to the host of the Lavalink instance. Is optional, Default is `localhost`.
 - `LAVA_PORT` - Port on the host the Lavalink instance is running on. Is optional, Default is `2333`.
 - `LAVA_PASSWORD` - Lavalink instance password. Is optional.
-- `LAVA_SHARD` - Number of Shards your bot is running. Is optional, Default is `0`.
 
 # 📄 Usage
 
 ```ts
 import "@discordx/plugin-lava-player";
 ```
+
+# 🛠️ Additional plugin support
+
+## LavaLyrics
+
+```ts
+import "@discordx/plugin-lava-player/dist/plugins/lavalyrics/index.js";
+```
+
+- Add `/music lyrics` command
+- Require [LavaLyrics](https://github.com/topi314/LavaLyrics) and [LavaSrc](https://github.com/topi314/LavaSrc) plugin
 
 # 📜 Documentation
 
