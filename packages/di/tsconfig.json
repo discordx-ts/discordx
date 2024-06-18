@@ -12,9 +12,8 @@
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
     "declaration": true,
-    "importHelpers": false,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "skipLibCheck": true
   },

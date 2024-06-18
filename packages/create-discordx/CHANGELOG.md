@@ -1,5 +1,11 @@
 # create-discordx
 
+## 1.2.4
+
+### Patch Changes
+
+- build config
+
 ## 1.2.3
 
 ### Patch Changes

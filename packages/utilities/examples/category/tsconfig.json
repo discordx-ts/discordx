@@ -8,9 +8,8 @@
     "outDir": "dist",
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
-    "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true
   },
   "exclude": ["node_modules", "tests", "examples"]

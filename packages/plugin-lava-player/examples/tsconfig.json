@@ -7,11 +7,11 @@
     "outDir": "build",
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
-    "importHelpers": true,
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node",
+    "rootDir": "./",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true
   },
   "exclude": ["node_modules", "tests", "examples"]

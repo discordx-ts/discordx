@@ -1,5 +1,16 @@
 # @discordx/plugin-ytdl-player
 
+## 2.2.1
+
+### Patch Changes
+
+- build config
+
+- Updated dependencies []:
+  - @discordx/pagination@3.5.4
+  - @discordx/importer@1.3.1
+  - @discordx/music@6.1.3
+
 ## 2.2.0
 
 ### Minor Changes

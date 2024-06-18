@@ -205,19 +205,11 @@ Your tsconfig.json file should look like this:
   "compilerOptions": {
     "module": "ESNext", // required
     "target": "ESNext", // required
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "strict": true,
+    "rootDir": "src",
     "outDir": "dist",
     "emitDecoratorMetadata": false, // required
-    "experimentalDecorators": true, // required
-    "declaration": false,
-    "importHelpers": true, // required
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node", // required
-    "esModuleInterop": true // required
-  },
-  "exclude": ["node_modules"]
+    "experimentalDecorators": true // required
+  }
 }
 ```
 
@@ -237,19 +229,11 @@ Your tsconfig.json file should look like this:
   "compilerOptions": {
     "module": "CommonJS", // required
     "target": "ESNext", // required
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "strict": true,
+    "rootDir": "src",
     "outDir": "dist",
     "emitDecoratorMetadata": false, // required
-    "experimentalDecorators": true, // required
-    "declaration": false,
-    "importHelpers": true, // required
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node", // required
-    "esModuleInterop": true // required
-  },
-  "exclude": ["node_modules"]
+    "experimentalDecorators": true // required
+  }
 }
 ```
 

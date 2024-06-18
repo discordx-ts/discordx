@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-lava-player",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "private": false,
   "description": "Fully-featured Discord music player leveraging the power of Lavalink",
   "keywords": [
@@ -27,7 +27,16 @@
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
   "type": "module",
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./lavalyrics": {
+      "types": "./dist/plugins/lavalyrics/index.d.ts",
+      "default": "./dist/plugins/lavalyrics/index.js"
+    }
+  },
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -41,15 +50,18 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-lava-player"
   },
   "dependencies": {
-    "@discordx/importer": "^1.3.0",
-    "@discordx/lava-player": "^2.1.0",
-    "@discordx/lava-queue": "^4.0.2",
-    "@discordx/pagination": "^3.5.3"
+    "@discordx/lava-player": "^2.1.2",
+    "@discordx/lava-queue": "^4.0.3",
+    "@discordx/pagination": "^3.5.4"
   },
   "devDependencies": {
     "discord.js": "^14.15.3",
-    "discordx": "^11.10.0",
+    "discordx": "^11.11.1",
     "ts-node": "^10.9.2"
+  },
+  "peerDependencies": {
+    "discord.js": "*",
+    "discordx": "*"
   },
   "publishConfig": {
     "access": "public"

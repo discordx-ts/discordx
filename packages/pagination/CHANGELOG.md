@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 3.5.4
+
+### Patch Changes
+
+- build config
+
 ## 3.5.3
 
 ### Patch Changes
