@@ -65,7 +65,7 @@ import "@discordx/plugin-lava-player";
 ## LavaLyrics
 
 ```ts
-import "@discordx/plugin-lava-player/dist/plugins/lavalyrics/index.js";
+import "@discordx/plugin-lava-player/lavalyrics";
 ```
 
 - Add `/music lyrics` command

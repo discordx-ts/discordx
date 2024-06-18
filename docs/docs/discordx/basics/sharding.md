@@ -23,39 +23,6 @@ discord.**js** has stated
 
 However if you are curious you may continue to read this doc! But don't worry about sharding until 2,000 guilds. Focus on building a quality bot as sharding adds more complexity.
 
-### What if my bot does not compile with tsc?
-
-If your bot does not compile with `tsc` but runs with `ts-node` you will **not** be able to shard with the discord.**js** sharding managers.
-
-I found success with using this `tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    "module": "ESNext",
-    "target": "ESNext",
-    "strict": true,
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "emitDecoratorMetadata": false,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node",
-    "outDir": "./src/build"
-  },
-  "exclude": ["node_modules"],
-  "indent": [true, "spaces", 2]
-}
-```
-
-If you are receiving errors that complain about imports. Try using the following import where the compiler complains about the import.
-
-```diff
-- import fs from 'fs';
-+ import fs = require("fs");
-```
-
 ## I'm Ready
 
 Did you really read the previous section? If not go back and read it.

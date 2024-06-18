@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import "@discordx/plugin-lava-player";
-import "@discordx/plugin-lava-player/dist/plugins/lavalyrics/index.js";
+import "@discordx/plugin-lava-player/lavalyrics";
 import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 

@@ -26,8 +26,16 @@
   "contributors": [
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
-  "type": "module",
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./lavalyrics": {
+      "types": "./dist/plugins/lavalyrics/index.d.ts",
+      "default": "./dist/plugins/lavalyrics/index.js"
+    }
+  },
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -37,7 +45,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup --format esm --dts src/index.ts src/plugins/lavalyrics/index.ts",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-lava-player"
   },
   "dependencies": {
@@ -50,6 +58,10 @@
     "discord.js": "^14.15.3",
     "discordx": "^11.10.0",
     "ts-node": "^10.9.2"
+  },
+  "peerDependencies": {
+    "discord.js": "*",
+    "discordx": "*"
   },
   "publishConfig": {
     "access": "public"

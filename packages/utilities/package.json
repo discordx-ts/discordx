@@ -43,8 +43,7 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/utilities"
   },
   "dependencies": {
-    "dayjs": "^1.11.11",
-    "tslib": "^2.6.3"
+    "dayjs": "^1.11.11"
   },
   "devDependencies": {
     "@discordx/importer": "^1.3.0",
@@ -54,7 +53,8 @@
     "typescript": "5.4.5"
   },
   "peerDependencies": {
-    "discord.js": ">=14 || ^14.0.0-dev"
+    "discord.js": ">=14 || ^14.0.0-dev",
+    "discordx": "*"
   },
   "engines": {
     "node": ">=16.0.0",
