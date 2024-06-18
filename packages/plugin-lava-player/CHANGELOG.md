@@ -1,5 +1,11 @@
 # @discordx/plugin-lava-player
 
+## 2.5.2
+
+### Patch Changes
+
+- package exports
+
 ## 2.5.1
 
 ### Patch Changes
