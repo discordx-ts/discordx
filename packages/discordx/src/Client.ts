@@ -695,11 +695,6 @@ export class Client extends ClientJS {
       const commandsToAddNames = commandsToAdd
         .map((DCommand) => DCommand.name)
         .join(", ");
-
-      const commandsToUpdateNames = commandsToUpdate
-        .map((DCommand) => DCommand.name)
-        .join(", ");
-
       const commandsToDeleteNames = commandsToDelete
         .map((DCommand) => DCommand.name)
         .join(", ");
@@ -708,10 +703,14 @@ export class Client extends ClientJS {
         .map((DCommand) => DCommand.name)
         .join(", ");
 
+      const commandsToUpdateNames = commandsToUpdate
+        .map((DCommand) => DCommand.name)
+        .join(", ");
+
       str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAddNames}]`;
-      str += `\n\t>> updating   ${String(commandsToAdd.length)} [${commandsToUpdateNames}]`;
-      str += `\n\t>> deleting   ${String(commandsToAdd.length)} [${commandsToDeleteNames}]`;
-      str += `\n\t>> skipping   ${String(commandsToAdd.length)} [${commandsToSkipNames}]`;
+      str += `\n\t>> deleting   ${String(commandsToDelete.length)} [${commandsToDeleteNames}]`;
+      str += `\n\t>> skipping   ${String(commandsToSkip.length)} [${commandsToSkipNames}]`;
+      str += `\n\t>> updating   ${String(commandsToUpdate.length)} [${commandsToUpdateNames}]`;
 
       str += "\n";
 
@@ -836,10 +835,6 @@ export class Client extends ClientJS {
         .map((DCommand) => DCommand.name)
         .join(", ");
 
-      const commandsToUpdateNames = commandsToUpdate
-        .map((DCommand) => DCommand.name)
-        .join(", ");
-
       const commandsToDeleteNames = commandsToDelete
         .map((DCommand) => DCommand.name)
         .join(", ");
@@ -848,10 +843,14 @@ export class Client extends ClientJS {
         .map((DCommand) => DCommand.name)
         .join(", ");
 
+      const commandsToUpdateNames = commandsToUpdate
+        .map((DCommand) => DCommand.name)
+        .join(", ");
+
       str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAddNames}]`;
-      str += `\n\t>> updating   ${String(commandsToAdd.length)} [${commandsToUpdateNames}]`;
-      str += `\n\t>> deleting   ${String(commandsToAdd.length)} [${commandsToDeleteNames}]`;
-      str += `\n\t>> skipping   ${String(commandsToAdd.length)} [${commandsToSkipNames}]`;
+      str += `\n\t>> deleting   ${String(commandsToDelete.size)} [${commandsToDeleteNames}]`;
+      str += `\n\t>> skipping   ${String(commandsToSkip.length)} [${commandsToSkipNames}]`;
+      str += `\n\t>> updating   ${String(commandsToUpdate.length)} [${commandsToUpdateNames}]`;
 
       str += "\n";
 

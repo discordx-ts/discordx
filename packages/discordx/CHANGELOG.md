@@ -1,5 +1,11 @@
 # discordx
 
+## 11.11.2
+
+### Patch Changes
+
+- fix init commands log
+
 ## 11.11.1
 
 ### Patch Changes
