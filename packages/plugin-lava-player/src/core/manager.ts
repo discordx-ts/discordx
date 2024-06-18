@@ -9,7 +9,7 @@ import { GuildMember } from "discord.js";
 
 import { MusicQueue } from "./queue.js";
 
-interface ParsedCommand {
+export interface ParsedCommand {
   autoDeleteTimer: NodeJS.Timeout;
   channel: TextBasedChannel;
   guild: Guild;
@@ -17,7 +17,7 @@ interface ParsedCommand {
   queue: MusicQueue;
 }
 
-class LavaPlayerManager {
+export class LavaPlayerManager {
   instance: QueueManager | null = null;
   INTERACTION_DELETE_DELAY = 60_000;
 

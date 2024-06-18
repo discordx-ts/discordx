@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-lava-player",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "private": false,
   "description": "Fully-featured Discord music player leveraging the power of Lavalink",
   "keywords": [
@@ -31,6 +31,62 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./commands#all": {
+      "types": "./dist/commands/index.d.ts",
+      "default": "./dist/commands/index.js"
+    },
+    "./commands#current": {
+      "types": "./dist/commands/current.d.ts",
+      "default": "./dist/commands/current.js"
+    },
+    "./commands#gui": {
+      "types": "./dist/commands/gui.d.ts",
+      "default": "./dist/commands/gui.js"
+    },
+    "./commands#music": {
+      "types": "./dist/commands/music.d.ts",
+      "default": "./dist/commands/music.js"
+    },
+    "./commands#pause-resume": {
+      "types": "./dist/commands/pause-resume.d.ts",
+      "default": "./dist/commands/pause-resume.js"
+    },
+    "./commands#play": {
+      "types": "./dist/commands/play.d.ts",
+      "default": "./dist/commands/play.js"
+    },
+    "./commands#queue": {
+      "types": "./dist/commands/queue.d.ts",
+      "default": "./dist/commands/queue.js"
+    },
+    "./commands#seek": {
+      "types": "./dist/commands/seek.d.ts",
+      "default": "./dist/commands/seek.js"
+    },
+    "./commands#set-volume": {
+      "types": "./dist/commands/set-volume.d.ts",
+      "default": "./dist/commands/set-volume.js"
+    },
+    "./commands#shuffle": {
+      "types": "./dist/commands/shuffle.d.ts",
+      "default": "./dist/commands/shuffle.js"
+    },
+    "./commands#skip": {
+      "types": "./dist/commands/skip.d.ts",
+      "default": "./dist/commands/skip.js"
+    },
+    "./commands#stop": {
+      "types": "./dist/commands/stop.d.ts",
+      "default": "./dist/commands/stop.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "default": "./dist/core/index.js"
+    },
+    "./events#ready": {
+      "types": "./dist/events/ready.d.ts",
+      "default": "./dist/events/ready.js"
     },
     "./lavalyrics": {
       "types": "./dist/plugins/lavalyrics/index.d.ts",
