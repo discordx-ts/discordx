@@ -1,5 +1,14 @@
 # @discordx/lava-queue
 
+## 4.0.3
+
+### Patch Changes
+
+- build config
+
+- Updated dependencies []:
+  - @discordx/lava-player@2.1.2
+
 ## 4.0.2
 
 ### Patch Changes

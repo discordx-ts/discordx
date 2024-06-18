@@ -1,5 +1,15 @@
 # discordx
 
+## 11.11.1
+
+### Patch Changes
+
+- build config
+
+- Updated dependencies []:
+  - @discordx/internal@1.1.4
+  - @discordx/di@3.3.2
+
 ## 11.11.0
 
 ### Minor Changes

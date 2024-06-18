@@ -1,5 +1,14 @@
 # @discordx/utilities
 
+## 7.0.1
+
+### Patch Changes
+
+- build config
+
+- Updated dependencies []:
+  - discordx@11.11.1
+
 ## 7.0.0
 
 ### Patch Changes
