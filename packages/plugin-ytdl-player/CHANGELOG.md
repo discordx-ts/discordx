@@ -1,5 +1,11 @@
 # @discordx/plugin-ytdl-player
 
+## 2.2.2
+
+### Patch Changes
+
+- fix queue button
+
 ## 2.2.1
 
 ### Patch Changes
