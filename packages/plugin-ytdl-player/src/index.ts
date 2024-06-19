@@ -641,6 +641,7 @@ export class music {
       guildId,
     });
 
+    await interaction.deferReply();
     await queue.view(interaction);
   }
 
