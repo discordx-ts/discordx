@@ -12,12 +12,7 @@ import { Collection } from "discord.js";
 import { Queue } from "./queue.js";
 
 export class QueueManager {
-  private _leaveOnFinish = true;
   public queues = new Collection<Snowflake, Queue>();
-
-  get leaveOnFinish(): boolean {
-    return this._leaveOnFinish;
-  }
 
   constructor(public node: Node) {
     node.on("playerUpdate", (e: GetPlayer) => {
@@ -39,8 +34,11 @@ export class QueueManager {
 
         void queue.playNext();
 
+        /**
+         * Leave the voice channel if it is enabled and there is no next track to play.
+         */
         if (
-          this.leaveOnFinish &&
+          queue.leaveOnFinish &&
           !queue.currentPlaybackTrack &&
           !queue.tracks.length
         ) {
@@ -48,10 +46,6 @@ export class QueueManager {
         }
       }
     });
-  }
-
-  public setLeaveOnFinish(value: boolean): void {
-    this._leaveOnFinish = value;
   }
 
   public queue<T extends Queue = Queue>(
@@ -65,7 +59,7 @@ export class QueueManager {
       return queue;
     }
 
-    const clazz = resolver ? resolver() : (new Queue(this, guildId) as T);
+    const clazz = resolver ? resolver() : (new Queue(this.node, guildId) as T);
 
     // store queue
     this.queues.set(guildId, clazz);

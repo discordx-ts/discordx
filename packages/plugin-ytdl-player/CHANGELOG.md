@@ -1,5 +1,16 @@
 # @discordx/plugin-ytdl-player
 
+## 2.3.0
+
+### Minor Changes
+
+- improved player
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @discordx/music@6.2.0
+
 ## 2.2.2
 
 ### Patch Changes

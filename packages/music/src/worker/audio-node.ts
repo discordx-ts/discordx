@@ -121,7 +121,7 @@ export class AudioNode {
     this.audioPlayer.pause();
   }
 
-  public unpause(): void {
+  public resume(): void {
     this.audioPlayer.unpause();
   }
 

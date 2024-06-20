@@ -5,14 +5,9 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { Track } from "@discordx/music";
-import { RepeatMode, TrackQueue } from "@discordx/music";
-import {
-  Pagination,
-  PaginationResolver,
-  PaginationType,
-} from "@discordx/pagination";
+import { Queue, RepeatMode } from "@discordx/music";
 import type {
-  CommandInteraction,
+  Message,
   MessageActionRowComponentBuilder,
   TextBasedChannel,
   User,
@@ -22,8 +17,9 @@ import {
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
-  Message,
 } from "discord.js";
+
+import { deleteMessage, fromMS } from "../utils/index.js";
 
 export interface MyTrack extends Track {
   duration: number;
@@ -32,30 +28,7 @@ export interface MyTrack extends Track {
   user: User;
 }
 
-export function formatDurationFromMS(duration: number): string {
-  const seconds = Math.floor((duration / 1e3) % 60);
-  const minutes = Math.floor((duration / 6e4) % 60);
-  const hours = Math.floor(duration / 36e5);
-  const secondsPad = seconds.toString().padStart(2, "0");
-  const minutesPad = minutes.toString().padStart(2, "0");
-  const hoursPad = hours.toString().padStart(2, "0");
-  return `${hours ? `${hoursPad}:` : ""}${minutesPad}:${secondsPad}`;
-}
-
-export function convertDurationToMS(duration: string): number {
-  const milliseconds =
-    duration
-      .split(":")
-      .reduceRight(
-        (prev, curr, i, arr) =>
-          prev + parseInt(curr) * Math.pow(60, arr.length - 1 - i),
-        0,
-      ) * 1e3;
-
-  return milliseconds ? milliseconds : 0;
-}
-
-export class Queue extends TrackQueue<MyTrack> {
+export class MusicQueue extends Queue<MyTrack> {
   private _channel: TextBasedChannel | null = null;
   private _controlTimer: NodeJS.Timeout | null = null;
 
@@ -90,7 +63,7 @@ export class Queue extends TrackQueue<MyTrack> {
       .setEmoji("🔂")
       .setDisabled(!this.isPlaying)
       .setStyle(
-        this.repeatMode === RepeatMode.All
+        this.repeatMode === RepeatMode.REPEAT_ALL
           ? ButtonStyle.Danger
           : ButtonStyle.Primary,
       )
@@ -101,7 +74,7 @@ export class Queue extends TrackQueue<MyTrack> {
       .setEmoji("🔁")
       .setDisabled(!this.isPlaying)
       .setStyle(
-        this.repeatMode === RepeatMode.One
+        this.repeatMode === RepeatMode.REPEAT_ONE
           ? ButtonStyle.Danger
           : ButtonStyle.Primary,
       )
@@ -145,13 +118,6 @@ export class Queue extends TrackQueue<MyTrack> {
     return [row1, row2];
   }
 
-  private async deleteMessage(message: Message): Promise<void> {
-    if (message.deletable) {
-      // ignore any exceptions in delete action
-      await message.delete().catch(() => null);
-    }
-  }
-
   public async updateControlMessage(options?: {
     force?: boolean;
     text?: string;
@@ -163,12 +129,12 @@ export class Queue extends TrackQueue<MyTrack> {
     this.lockUpdate = true;
     const embed = new EmbedBuilder();
     embed.setTitle("Music Controls");
-    const currentTrack = this.currentTrack;
+    const currentTrack = this.currentPlaybackTrack;
     const nextTrack = this.nextTrack;
 
     if (!currentTrack) {
       if (this.lastControlMessage) {
-        await this.deleteMessage(this.lastControlMessage);
+        await deleteMessage(this.lastControlMessage);
         this.lastControlMessage = undefined;
       }
       this.lockUpdate = false;
@@ -202,8 +168,8 @@ export class Queue extends TrackQueue<MyTrack> {
       block.repeat(progress) + arrow + block.repeat(emptyProgress);
 
     const bar = `${this.isPlaying ? "▶️" : "⏸️"} ${progressString}`;
-    const currentTime = formatDurationFromMS(timeNow);
-    const endTime = formatDurationFromMS(timeTotal);
+    const currentTime = fromMS(timeNow);
+    const endTime = fromMS(timeTotal);
     const spacing = bar.length - currentTime.length - endTime.length;
     const time = `\`${currentTime}${" ".repeat(spacing * 3 - 2)}${endTime}\``;
     embed.addFields({ name: bar, value: time });
@@ -231,7 +197,7 @@ export class Queue extends TrackQueue<MyTrack> {
     } else {
       // Delete control message
       if (this.lastControlMessage) {
-        await this.deleteMessage(this.lastControlMessage);
+        await deleteMessage(this.lastControlMessage);
         this.lastControlMessage = undefined;
       }
 
@@ -259,78 +225,11 @@ export class Queue extends TrackQueue<MyTrack> {
     }
 
     if (this.lastControlMessage) {
-      void this.deleteMessage(this.lastControlMessage);
+      void deleteMessage(this.lastControlMessage);
       this.lastControlMessage = undefined;
     }
 
     this.lockUpdate = false;
-  }
-
-  public async view(interaction: CommandInteraction): Promise<void> {
-    const currentTrack = this.currentTrack;
-    if (!currentTrack) {
-      const pMsg = await interaction.followUp({
-        content: "> could not process queue atm, try later!",
-        ephemeral: true,
-      });
-      if (pMsg instanceof Message) {
-        setTimeout(() => void this.deleteMessage(pMsg), 3000);
-      }
-      return;
-    }
-
-    if (!this.queueSize) {
-      const pMsg = await interaction.followUp({
-        content: `> Playing **${currentTrack.title}**`,
-        embeds: currentTrack.thumbnail
-          ? [{ image: { url: currentTrack.thumbnail } }]
-          : [],
-      });
-
-      if (pMsg instanceof Message) {
-        setTimeout(() => void this.deleteMessage(pMsg), 1e4);
-      }
-      return;
-    }
-
-    const current = `> Playing **${currentTrack.title}** out of ${String(
-      this.queueSize + 1,
-    )}`;
-
-    const pageOptions = new PaginationResolver(
-      (index, paginator) => {
-        paginator.maxLength = this.queueSize / 10;
-        if (index > paginator.maxLength) {
-          paginator.currentPage = 0;
-        }
-
-        const currentPage = paginator.currentPage;
-
-        const queue = this.tracks
-          .slice(currentPage * 10, currentPage * 10 + 10)
-          .map(
-            (track, index1) =>
-              `${String(currentPage * 10 + index1 + 1)}. ${track.title}` +
-              ` (${formatDurationFromMS(track.duration)})`,
-          )
-          .join("\n\n");
-
-        return { content: `${current}\n\`\`\`markdown\n${queue}\`\`\`` };
-      },
-      Math.floor(this.queueSize / 10),
-    );
-
-    await new Pagination(interaction, pageOptions, {
-      enableExit: true,
-      onTimeout: (index, message) => {
-        void this.deleteMessage(message);
-      },
-      time: 6e4,
-      type:
-        Math.floor(this.queueSize / 10) <= 5
-          ? PaginationType.Button
-          : PaginationType.SelectMenu,
-    }).send();
   }
 
   public exit(): void {

@@ -5,19 +5,13 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-export enum RepeatMode {
-  OFF = "OFF",
-  REPEAT_ALL = "REPEAT_ALL",
-  REPEAT_ONE = "REPEAT_ONE",
-}
-
 export function fromMS(duration: number): string {
-  const seconds = Math.floor((duration / 1e3) % 60).toString();
-  const minutes = Math.floor((duration / 6e4) % 60).toString();
-  const hours = Math.floor(duration / 36e5).toString();
-  const secondsPad = seconds.padStart(2, "0");
-  const minutesPad = minutes.padStart(2, "0");
-  const hoursPad = hours.padStart(2, "0");
+  const seconds = Math.floor((duration / 1e3) % 60);
+  const minutes = Math.floor((duration / 6e4) % 60);
+  const hours = Math.floor(duration / 36e5);
+  const secondsPad = seconds.toString().padStart(2, "0");
+  const minutesPad = minutes.toString().padStart(2, "0");
+  const hoursPad = hours.toString().padStart(2, "0");
   return `${hours ? `${hoursPad}:` : ""}${minutesPad}:${secondsPad}`;
 }
 

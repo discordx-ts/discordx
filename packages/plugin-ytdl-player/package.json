@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-ytdl-player",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "private": false,
   "description": "Fully-featured Discord music player utilizing YTDL",
   "keywords": [
@@ -26,7 +26,84 @@
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)"
   ],
   "type": "module",
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./commands#all": {
+      "types": "./dist/commands/index.d.ts",
+      "default": "./dist/commands/index.js"
+    },
+    "./commands#current": {
+      "types": "./dist/commands/current.d.ts",
+      "default": "./dist/commands/current.js"
+    },
+    "./commands#gui": {
+      "types": "./dist/commands/gui.d.ts",
+      "default": "./dist/commands/gui.js"
+    },
+    "./commands#music": {
+      "types": "./dist/commands/music.d.ts",
+      "default": "./dist/commands/music.js"
+    },
+    "./commands#pause-resume": {
+      "types": "./dist/commands/pause-resume.d.ts",
+      "default": "./dist/commands/pause-resume.js"
+    },
+    "./commands#play": {
+      "types": "./dist/commands/play.d.ts",
+      "default": "./dist/commands/play.js"
+    },
+    "./commands#playlist": {
+      "types": "./dist/commands/playlist.d.ts",
+      "default": "./dist/commands/playlist.js"
+    },
+    "./commands#queue": {
+      "types": "./dist/commands/queue.d.ts",
+      "default": "./dist/commands/queue.js"
+    },
+    "./commands#seek": {
+      "types": "./dist/commands/seek.d.ts",
+      "default": "./dist/commands/seek.js"
+    },
+    "./commands#set-volume": {
+      "types": "./dist/commands/set-volume.d.ts",
+      "default": "./dist/commands/set-volume.js"
+    },
+    "./commands#shuffle": {
+      "types": "./dist/commands/shuffle.d.ts",
+      "default": "./dist/commands/shuffle.js"
+    },
+    "./commands#skip": {
+      "types": "./dist/commands/skip.d.ts",
+      "default": "./dist/commands/skip.js"
+    },
+    "./commands#spotify": {
+      "types": "./dist/commands/spotify.d.ts",
+      "default": "./dist/commands/spotify.js"
+    },
+    "./commands#stop": {
+      "types": "./dist/commands/stop.d.ts",
+      "default": "./dist/commands/stop.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "default": "./dist/core/index.js"
+    },
+    "./events#ready": {
+      "types": "./dist/events/ready.d.ts",
+      "default": "./dist/events/ready.js"
+    },
+    "./lavalyrics": {
+      "types": "./dist/plugins/lavalyrics/index.d.ts",
+      "default": "./dist/plugins/lavalyrics/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "default": "./dist/utils/index.js"
+    }
+  },
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -43,7 +120,7 @@
     "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.17.0",
     "@discordx/importer": "^1.3.1",
-    "@discordx/music": "^6.1.3",
+    "@discordx/music": "^6.2.0",
     "@discordx/pagination": "^3.5.4",
     "ffmpeg-static": "^5.2.0",
     "isomorphic-unfetch": "^4.0.2",

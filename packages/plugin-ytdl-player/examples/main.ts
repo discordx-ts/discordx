@@ -6,7 +6,7 @@
  */
 import "@discordx/plugin-ytdl-player";
 import { IntentsBitField } from "discord.js";
-import { Client, MetadataStorage } from "discordx";
+import { Client } from "discordx";
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Main {

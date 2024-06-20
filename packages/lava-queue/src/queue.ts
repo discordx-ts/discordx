@@ -6,13 +6,13 @@
  */
 import {
   type GuildPlayer,
+  type Node,
   PlayerStatus,
   type Track,
   type TrackResponse,
 } from "@discordx/lava-player";
 import shuffle from "lodash/shuffle.js";
 
-import type { QueueManager } from "./queue-manager.js";
 import { RepeatMode } from "./util.js";
 
 export class Queue {
@@ -20,6 +20,7 @@ export class Queue {
   private _currentPlaybackTrack: Track | null = null;
   private _currentPlaybackPosition = 0;
   private _repeatMode: RepeatMode = RepeatMode.OFF;
+  private _leaveOnFinish = true;
 
   /**
    * Gets the current track being played.
@@ -27,6 +28,13 @@ export class Queue {
    */
   get currentPlaybackTrack(): Track | null {
     return this._currentPlaybackTrack;
+  }
+
+  /**
+   * Leave voice channel when track finish
+   */
+  get leaveOnFinish(): boolean {
+    return this._leaveOnFinish;
   }
 
   /**
@@ -74,7 +82,7 @@ export class Queue {
    * @returns The LavaPlayer instance.
    */
   get guildPlayer(): GuildPlayer {
-    return this.queueManager.node.guildPlayerStore.get(this.guildId);
+    return this.node.guildPlayerStore.get(this.guildId);
   }
 
   get http() {
@@ -88,10 +96,6 @@ export class Queue {
     );
   }
 
-  get node() {
-    return this.guildPlayer.node;
-  }
-
   get rest() {
     return this.guildPlayer.rest;
   }
@@ -101,7 +105,7 @@ export class Queue {
   }
 
   constructor(
-    private queueManager: QueueManager,
+    public node: Node,
     public guildId: string,
   ) {
     // empty constructor
@@ -113,6 +117,14 @@ export class Queue {
    */
   addTrack(...tracks: Track[]) {
     this._tracks.push(...tracks);
+  }
+
+  /**
+   * Adds one or more tracks to top of the queue.
+   * @param tracks - The tracks to be added to the queue.
+   */
+  addTrackFirst(...tracks: Track[]) {
+    this._tracks.unshift(...tracks);
   }
 
   /**
@@ -137,31 +149,13 @@ export class Queue {
   }
 
   /**
-   * Removes tracks from the queue by their indices.
-   * @param indices - The indices of the tracks to be removed.
+   * Exits the player, clearing the queue and destroying the LavaPlayer instance.
    */
-  removeTracks(...indices: number[]): void {
-    // Sort indices in descending order to avoid shifting issues while removing
-    indices.sort((a, b) => b - a);
-    for (const index of indices) {
-      if (index >= 0 && index < this._tracks.length) {
-        this._tracks.splice(index, 1);
-      }
-    }
-  }
-
-  /**
-   * Removes all tracks from the queue.
-   */
-  removeAllTracks(): void {
-    this._tracks = [];
-  }
-
-  /**
-   * Shuffles the tracks in the queue.
-   */
-  shuffleTracks(): void {
-    this._tracks = shuffle(this._tracks);
+  async exit(): Promise<void> {
+    this._currentPlaybackTrack = null;
+    this.removeAllTracks();
+    await this.guildPlayer.leave();
+    await this.guildPlayer.destroy();
   }
 
   /**
@@ -195,6 +189,27 @@ export class Queue {
   async pause(): Promise<void> {
     await this.guildPlayer.update({ paused: true });
     this.guildPlayer.status = PlayerStatus.PAUSED;
+  }
+
+  /**
+   * Removes tracks from the queue by their indices.
+   * @param indices - The indices of the tracks to be removed.
+   */
+  removeTracks(...indices: number[]): void {
+    // Sort indices in descending order to avoid shifting issues while removing
+    indices.sort((a, b) => b - a);
+    for (const index of indices) {
+      if (index >= 0 && index < this._tracks.length) {
+        this._tracks.splice(index, 1);
+      }
+    }
+  }
+
+  /**
+   * Removes all tracks from the queue.
+   */
+  removeAllTracks(): void {
+    this._tracks = [];
   }
 
   /**
@@ -242,12 +257,9 @@ export class Queue {
   }
 
   /**
-   * Exits the player, clearing the queue and destroying the LavaPlayer instance.
+   * Shuffles the tracks in the queue.
    */
-  async exit(): Promise<void> {
-    this._currentPlaybackTrack = null;
-    this.removeAllTracks();
-    await this.guildPlayer.leave();
-    await this.guildPlayer.destroy();
+  shuffleTracks(): void {
+    this._tracks = shuffle(this._tracks);
   }
 }

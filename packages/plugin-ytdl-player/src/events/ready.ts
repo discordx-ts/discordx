@@ -5,11 +5,17 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { Discord, SlashGroup } from "discordx";
+import { Node, QueueManager } from "@discordx/music";
+import type { ArgsOf, Client } from "discordx";
+import { Discord, Once } from "discordx";
+
+import { musicPlayerManager } from "../core/manager.js";
 
 @Discord()
-@SlashGroup({ description: "music", name: "music" })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Command {
-  //
+  @Once()
+  ready(_: ArgsOf<"ready">, client: Client): void {
+    const node = new Node(client);
+    musicPlayerManager.instance = new QueueManager(node);
+  }
 }

@@ -50,8 +50,8 @@ if (parentPort) {
         break;
       }
 
-      case WorkerOperation.Unpause: {
-        clients.unpause(data);
+      case WorkerOperation.Resume: {
+        clients.resume(data);
         break;
       }
 
