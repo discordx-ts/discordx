@@ -9,7 +9,8 @@ import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { Discord, Slash, SlashGroup } from "discordx";
 
-import { fromMS, musicPlayerManager } from "../core/index.js";
+import { musicPlayerManager } from "../core/index.js";
+import { fromMS } from "../utils/index.js";
 
 @Discord()
 @SlashGroup("music")

@@ -27,12 +27,18 @@ export interface ParsedCommand {
 export class MusicPlayerManager {
   instance: QueueManager | null = null;
   queueStore = new Map<string, MusicQueue>();
-  INTERACTION_DELETE_DELAY = 60_000;
+  COMMAND_INTERACTION_DELETE_DELAY = 60_000;
+  BUTTON_INTERACTION_DELETE_DELAY = 3_000;
 
   delete(interaction: CommandInteraction | ButtonInteraction): NodeJS.Timeout {
+    const isButton = interaction.isButton();
+    const delay = isButton
+      ? this.BUTTON_INTERACTION_DELETE_DELAY
+      : this.COMMAND_INTERACTION_DELETE_DELAY;
+
     return setTimeout(() => {
       void interaction.deleteReply();
-    }, this.INTERACTION_DELETE_DELAY);
+    }, delay);
   }
 
   getQueue(guildId: string): MusicQueue | null {

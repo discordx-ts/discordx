@@ -90,51 +90,6 @@ export class Queue<T extends Track = Track> {
   }
 
   /**
-   * Plays the next track in the queue.
-   * @returns The next track that was played or null if the queue is empty.
-   */
-  public playNext(): T | null {
-    /**
-     * If repeat mode is on, process it
-     */
-    if (
-      this._currentPlaybackTrack !== null &&
-      this.repeatMode !== RepeatMode.OFF
-    ) {
-      if (this.repeatMode === RepeatMode.REPEAT_ALL) {
-        this._tracks.push(this._currentPlaybackTrack);
-      } else {
-        this._tracks.unshift(this._currentPlaybackTrack);
-      }
-    }
-
-    /**
-     * Set current track to null
-     */
-    this._currentPlaybackTrack = null;
-
-    /**
-     * Process next track
-     */
-    const nextTrack = this._tracks.shift();
-    if (!nextTrack) {
-      return null;
-    }
-
-    this._currentPlaybackTrack = nextTrack;
-    this.node.play({
-      guildId: this.guildId,
-      payload: {
-        initialVolume: this.volume,
-        query: nextTrack.url,
-        seek: nextTrack.seek,
-      },
-    });
-
-    return nextTrack;
-  }
-
-  /**
    * Starts a ping to keep the playback information updated.
    */
   public startPing(): void {
@@ -221,6 +176,51 @@ export class Queue<T extends Track = Track> {
    */
   public pause(): void {
     this.node.pause({ guildId: this.guildId });
+  }
+
+  /**
+   * Plays the next track in the queue.
+   * @returns The next track that was played or null if the queue is empty.
+   */
+  public playNext(): T | null {
+    /**
+     * If repeat mode is on, process it
+     */
+    if (
+      this._currentPlaybackTrack !== null &&
+      this.repeatMode !== RepeatMode.OFF
+    ) {
+      if (this.repeatMode === RepeatMode.REPEAT_ALL) {
+        this._tracks.push(this._currentPlaybackTrack);
+      } else {
+        this._tracks.unshift(this._currentPlaybackTrack);
+      }
+    }
+
+    /**
+     * Set current track to null
+     */
+    this._currentPlaybackTrack = null;
+
+    /**
+     * Process next track
+     */
+    const nextTrack = this._tracks.shift();
+    if (!nextTrack) {
+      return null;
+    }
+
+    this._currentPlaybackTrack = nextTrack;
+    this.node.play({
+      guildId: this.guildId,
+      payload: {
+        initialVolume: this.volume,
+        query: nextTrack.url,
+        seek: nextTrack.seek,
+      },
+    });
+
+    return nextTrack;
   }
 
   /**
