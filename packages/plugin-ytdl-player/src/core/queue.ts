@@ -232,8 +232,8 @@ export class MusicQueue extends Queue<MyTrack> {
     this.lockUpdate = false;
   }
 
-  public stop(): void {
+  public exit(): void {
     this.stopControlUpdate();
-    this.exit();
+    super.exit();
   }
 }
