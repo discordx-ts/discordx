@@ -4,13 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { Track } from "@discordx/music";
 import { Queue, RepeatMode } from "@discordx/music";
 import type {
   Message,
   MessageActionRowComponentBuilder,
   TextBasedChannel,
-  User,
 } from "discord.js";
 import {
   ActionRowBuilder,
@@ -20,13 +18,7 @@ import {
 } from "discord.js";
 
 import { deleteMessage, fromMS } from "../utils/index.js";
-
-export interface MyTrack extends Track {
-  duration: number;
-  thumbnail?: string;
-  title: string;
-  user: User;
-}
+import type { MyTrack } from "./types.js";
 
 export class MusicQueue extends Queue<MyTrack> {
   private _channel: TextBasedChannel | null = null;
