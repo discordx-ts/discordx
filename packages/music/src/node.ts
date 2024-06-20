@@ -25,14 +25,14 @@ import {
   WorkerOperation,
 } from "./types/index.js";
 
-export interface QueueNode extends EventEmitter {
+export interface Node extends EventEmitter {
   on<T extends QueueEvent>(
     event: T,
     listener: (payload: QueueEventPayloads[T]) => void,
   ): this;
 }
 
-export class QueueNode extends EventEmitter {
+export class Node extends EventEmitter {
   private worker: Worker;
 
   constructor(public client: Client) {
@@ -117,8 +117,8 @@ export class QueueNode extends EventEmitter {
     this.sendOp({ data, op: WorkerOperation.Pause });
   }
 
-  unpause(data: GuildData): void {
-    this.sendOp({ data, op: WorkerOperation.Unpause });
+  resume(data: GuildData): void {
+    this.sendOp({ data, op: WorkerOperation.Resume });
   }
 
   stop(data: GuildData): void {

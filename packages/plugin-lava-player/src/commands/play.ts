@@ -6,6 +6,7 @@
  */
 
 import { LoadType } from "@discordx/lava-player";
+import { fromMS } from "@discordx/lava-queue";
 import type { CommandInteraction } from "discord.js";
 import { ApplicationCommandOptionType, EmbedBuilder } from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
@@ -63,9 +64,10 @@ export class Command {
 
       queue.addTrack(track);
 
+      const description = `Enqueued ${track.info.title} (${fromMS(track.info.length)}) track`;
       const embed = new EmbedBuilder();
       embed.setTitle("Enqueued");
-      embed.setDescription(`Enqueued ${track.info.title} track`);
+      embed.setDescription(description);
 
       if (track.info.artworkUrl) {
         embed.setThumbnail(track.info.artworkUrl);

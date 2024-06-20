@@ -160,7 +160,7 @@ export class AudioNodeManager {
     node.pause();
   }
 
-  public unpause(data: GuildData): void {
+  public resume(data: GuildData): void {
     const node = this.nodes.get(data.guildId);
     if (!node) {
       this.send({
@@ -171,7 +171,7 @@ export class AudioNodeManager {
       return;
     }
 
-    node.unpause();
+    node.resume();
   }
 
   public stop(data: GuildData): void {

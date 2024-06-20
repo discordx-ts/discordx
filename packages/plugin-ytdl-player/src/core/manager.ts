@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type { QueueManager } from "@discordx/lava-queue";
+import type { QueueManager } from "@discordx/music";
 import type {
   ButtonInteraction,
   CommandInteraction,
@@ -24,8 +24,9 @@ export interface ParsedCommand {
   queue: MusicQueue;
 }
 
-export class LavaPlayerManager {
+export class MusicPlayerManager {
   instance: QueueManager | null = null;
+  queueStore = new Map<string, MusicQueue>();
   COMMAND_INTERACTION_DELETE_DELAY = 60_000;
   BUTTON_INTERACTION_DELETE_DELAY = 3_000;
 
@@ -93,8 +94,8 @@ export class LavaPlayerManager {
 
     if (bot.voice.channelId === null) {
       queue.setChannel(interaction.channel);
-      await queue.guildPlayer.join({
-        channel: interaction.member.voice.channelId,
+      queue.join({
+        channelId: interaction.member.voice.channelId,
       });
     } else if (interaction.member.voice.channelId !== bot.voice.channelId) {
       await interaction.followUp({
@@ -113,4 +114,4 @@ export class LavaPlayerManager {
   }
 }
 
-export const lavaPlayerManager = new LavaPlayerManager();
+export const musicPlayerManager = new MusicPlayerManager();

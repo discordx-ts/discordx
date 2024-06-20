@@ -5,11 +5,16 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { Discord, SlashGroup } from "discordx";
-
-@Discord()
-@SlashGroup({ description: "music", name: "music" })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export class Command {
-  //
-}
+import "./current.js";
+import "./gui.js";
+import "./music.js";
+import "./pause-resume.js";
+import "./play.js";
+import "./playlist.js";
+import "./queue.js";
+import "./seek.js";
+import "./set-volume.js";
+import "./shuffle.js";
+import "./skip.js";
+import "./spotify.js";
+import "./stop.js";
