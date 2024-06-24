@@ -1,5 +1,11 @@
 # discordx
 
+## 11.11.3
+
+### Patch Changes
+
+- allow deleted commands to retain in init
+
 ## 11.11.2
 
 ### Patch Changes

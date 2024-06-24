@@ -567,7 +567,7 @@ export class Client extends ClientJS {
   /**
    * Initialize application commands
    */
-  async initApplicationCommands(): Promise<void> {
+  async initApplicationCommands(retainDeleted = false): Promise<void> {
     const allGuildPromises: Promise<void>[] = [];
     const guildDCommandStore = await this.CommandByGuild();
 
@@ -580,13 +580,13 @@ export class Client extends ClientJS {
       }
 
       allGuildPromises.push(
-        this.initGuildApplicationCommands(guildId, DCommands),
+        this.initGuildApplicationCommands(guildId, DCommands, retainDeleted),
       );
     });
 
     await Promise.all([
       Promise.all(allGuildPromises),
-      this.initGlobalApplicationCommands(),
+      this.initGlobalApplicationCommands(retainDeleted),
     ]);
   }
 
@@ -596,6 +596,7 @@ export class Client extends ClientJS {
   async initGuildApplicationCommands(
     guildId: string,
     DCommands: DApplicationCommand[],
+    retainDeleted = false,
   ): Promise<void> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
@@ -707,8 +708,9 @@ export class Client extends ClientJS {
         .map((DCommand) => DCommand.name)
         .join(", ");
 
+      const deleteOrRetain = retainDeleted ? "retaining" : "deleting";
       str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAddNames}]`;
-      str += `\n\t>> deleting   ${String(commandsToDelete.length)} [${commandsToDeleteNames}]`;
+      str += `\n\t>> ${deleteOrRetain}   ${String(commandsToDelete.length)} [${commandsToDeleteNames}]`;
       str += `\n\t>> skipping   ${String(commandsToSkip.length)} [${commandsToSkipNames}]`;
       str += `\n\t>> updating   ${String(commandsToUpdate.length)} [${commandsToUpdateNames}]`;
 
@@ -727,6 +729,15 @@ export class Client extends ClientJS {
     commandsToUpdate.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
 
     /**
+     * Retain deleted commands if allowed
+     */
+    if (retainDeleted) {
+      commandsToDelete.forEach((cmd) => {
+        bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx);
+      });
+    }
+
+    /**
      * No changes to sync with Discord
      */
     if (bulkUpdate.length === 0) {
@@ -739,7 +750,7 @@ export class Client extends ClientJS {
   /**
    * Init global application commands
    */
-  async initGlobalApplicationCommands(): Promise<void> {
+  async initGlobalApplicationCommands(retainDeleted = false): Promise<void> {
     const botResolvedGuilds = await this.botResolvedGuilds;
 
     if (!this.application) {
@@ -847,8 +858,9 @@ export class Client extends ClientJS {
         .map((DCommand) => DCommand.name)
         .join(", ");
 
+      const deleteOrRetain = retainDeleted ? "retaining" : "deleting";
       str += `\n\t>> adding   ${String(commandsToAdd.length)} [${commandsToAddNames}]`;
-      str += `\n\t>> deleting   ${String(commandsToDelete.size)} [${commandsToDeleteNames}]`;
+      str += `\n\t>> ${deleteOrRetain}   ${String(commandsToDelete.size)} [${commandsToDeleteNames}]`;
       str += `\n\t>> skipping   ${String(commandsToSkip.length)} [${commandsToSkipNames}]`;
       str += `\n\t>> updating   ${String(commandsToUpdate.length)} [${commandsToUpdateNames}]`;
 
@@ -865,6 +877,15 @@ export class Client extends ClientJS {
     commandsToSkip.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
     commandsToAdd.forEach((instance) => bulkUpdate.push(instance.toJSON()));
     commandsToUpdate.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
+
+    /**
+     * Retain deleted commands if allowed
+     */
+    if (retainDeleted) {
+      commandsToDelete.forEach((cmd) => {
+        bulkUpdate.push(cmd.toJSON() as ApplicationCommandDataEx);
+      });
+    }
 
     /**
      * No changes to sync with Discord
