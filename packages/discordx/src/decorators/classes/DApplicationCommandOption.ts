@@ -23,6 +23,7 @@ import type {
 interface CreateStructure {
   autocomplete?: SlashAutoCompleteOption;
   channelType?: ChannelType[];
+  choices?: DApplicationCommandOptionChoice[];
   description: string;
   descriptionLocalizations?: LocalizationMap | null;
   index?: number;
@@ -168,6 +169,7 @@ export class DApplicationCommandOption extends Decorator {
     this._name = data.name;
     this._autocomplete = data.autocomplete;
     this._channelTypes = data.channelType?.sort();
+    this._choices = data.choices ?? [];
     this._description = data.description;
     this._index = data.index;
     this._maxValue = data.maxValue;

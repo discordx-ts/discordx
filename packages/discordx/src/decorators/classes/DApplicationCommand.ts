@@ -18,7 +18,7 @@ import { Method } from "./Method.js";
 
 interface CreateStructure {
   botIds?: string[];
-  defaultMemberPermissions?: PermissionResolvable | null;
+  defaultMemberPermissions?: PermissionResolvable | string | null;
   description: string;
   descriptionLocalizations?: LocalizationMap | null;
   dmPermission?: boolean;
@@ -38,7 +38,7 @@ export class DApplicationCommand extends Method {
   private _nameLocalizations: LocalizationMap | null;
   private _description: string;
   private _descriptionLocalizations: LocalizationMap | null;
-  private _defaultMemberPermissions: PermissionResolvable | null;
+  private _defaultMemberPermissions: PermissionResolvable | string | null;
   private _dmPermission: boolean;
   private _guilds: IGuild[];
   private _group?: string;
@@ -61,7 +61,7 @@ export class DApplicationCommand extends Method {
     this._description = value;
   }
 
-  get defaultMemberPermissions(): PermissionResolvable | null {
+  get defaultMemberPermissions(): PermissionResolvable | string | null {
     return this._defaultMemberPermissions;
   }
   set defaultMemberPermissions(value: PermissionResolvable | null) {

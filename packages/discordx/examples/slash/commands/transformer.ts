@@ -40,13 +40,15 @@ function DocumentTransformer(
 export class Example {
   @Slash({ description: "Save input into database", name: "save-input" })
   async withTransformer(
-    @SlashOption({
-      description: "input",
-      name: "input",
-      required: true,
-      transformer: DocumentTransformer,
-      type: ApplicationCommandOptionType.String,
-    })
+    @SlashOption(
+      {
+        description: "input",
+        name: "input",
+        required: true,
+        type: ApplicationCommandOptionType.String,
+      },
+      DocumentTransformer,
+    )
     doc: Document,
     interaction: ChatInputCommandInteraction,
   ): Promise<void> {
