@@ -14,11 +14,7 @@ import type {
   PermissionResolvable,
 } from "discord.js";
 
-import type {
-  DApplicationCommand,
-  IGuild,
-  TransformerFunction,
-} from "../../index.js";
+import type { DApplicationCommand, IGuild } from "../../index.js";
 
 export interface ApplicationCommandOptions<
   T extends string,
@@ -48,7 +44,6 @@ export interface SlashOptionBaseOptions<T extends string, TD extends string> {
   nameLocalizations?: LocalizationMap;
   nsfw?: boolean;
   required?: boolean;
-  transformer?: TransformerFunction;
   type: Exclude<
     ApplicationCommandOptionType,
     | ApplicationCommandOptionType.Subcommand
@@ -120,7 +115,7 @@ export type SlashAutoCompleteOption =
     ) => void | Promise<void>);
 
 export interface ApplicationCommandDataEx {
-  defaultMemberPermissions?: PermissionResolvable | null;
+  defaultMemberPermissions?: PermissionResolvable | string | null;
   description?: string;
   descriptionLocalizations?: LocalizationMap | null;
   dmPermission?: boolean;
