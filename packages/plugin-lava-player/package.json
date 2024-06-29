@@ -112,7 +112,7 @@
   },
   "devDependencies": {
     "discord.js": "^14.15.3",
-    "discordx": "^11.11.1",
+    "discordx": "^11.12.0",
     "ts-node": "^10.9.2"
   },
   "peerDependencies": {

@@ -1,5 +1,11 @@
 # discordx
 
+## 11.12.0
+
+### Minor Changes
+
+- added support for slash command builder
+
 ## 11.11.3
 
 ### Patch Changes
