@@ -9,6 +9,9 @@ jobs:
   build:
     name: Publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: check out code 🛎
         uses: actions/checkout@main
@@ -27,6 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
         with:
           commit: "chore: release packages"
           publish: npm run release
