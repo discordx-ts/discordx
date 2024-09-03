@@ -18,7 +18,6 @@ import type { ApplicationCommandDataEx } from "../types/index.js";
  */
 function jsonToString(obj: unknown): string {
   return JSON.stringify(obj, (key, value) =>
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     typeof value === "bigint" ? value.toString() : value,
   );
 }

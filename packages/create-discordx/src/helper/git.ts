@@ -15,6 +15,7 @@ function IsInGitRepository(root: string): boolean {
       stdio: "ignore",
     });
     return true;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return false;
   }
@@ -24,6 +25,7 @@ function IsInMercurialRepository(root: string): boolean {
   try {
     execSync("hg --cwd . root", { cwd: root, stdio: "ignore" });
     return true;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return false;
   }
@@ -48,10 +50,12 @@ export function TryGitInit(root: string): boolean {
     });
 
     return true;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     if (didInit) {
       try {
         rimraf.sync(path.join(root, ".git"));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         // empty statement
       }

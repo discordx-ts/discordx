@@ -122,6 +122,7 @@ try {
   await MakeDir(resolvedProjectPath);
 } catch (err) {
   console.log(chalk.red("> Failed to create specified directory :("));
+  console.log(err);
   process.exit();
 }
 
@@ -146,6 +147,7 @@ try {
   spinner.succeed(chalk.bold("Downloaded template"));
 } catch (err) {
   spinner.fail(chalk.bold("Failed to download selected template :("));
+  console.log(err);
   process.exit();
 }
 
@@ -163,6 +165,7 @@ try {
   );
 } catch (err) {
   console.log(chalk.red("> Failed to update project name :("));
+  console.log(err);
 }
 
 /**

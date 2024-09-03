@@ -57,7 +57,6 @@ export abstract class Method extends Decorator {
     return [
       ...this.discord.guards,
       ...this._guards,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       DGuard.create(this._method?.bind(this._discord.instance)),
     ];
   }

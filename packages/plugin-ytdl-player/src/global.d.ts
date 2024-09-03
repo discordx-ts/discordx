@@ -5,8 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 interface SpotifyTrack {
   artist: string;
   duration: number;

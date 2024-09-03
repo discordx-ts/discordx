@@ -4,7 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-/* eslint-disable camelcase */
 import { EventEmitter } from "events";
 
 import type { BaseNode } from "../base/base-node.js";

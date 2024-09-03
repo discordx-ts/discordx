@@ -184,23 +184,20 @@ export class DSimpleCommand extends Method {
       this.options
         .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
         .map(async (op, index) => {
+          const option = args[index];
+
           // only digits
-          const id = args[index]?.replace(/\D/g, "");
+          const id = option?.replace(/\D/g, "");
           const validId =
             id !== undefined && id.length >= 16 && id.length <= 20;
 
           // undefined
-          if (!args[index]?.length) {
+          if (!option?.length) {
             return null;
           }
 
           // Boolean
           if (op.type === SimpleCommandOptionType.Boolean) {
-            const option = args[index];
-            if (option === undefined) {
-              return null;
-            }
-
             if (
               option.toLocaleLowerCase() === "false" ||
               option.toLocaleLowerCase() === "0"
@@ -213,7 +210,7 @@ export class DSimpleCommand extends Method {
 
           // Number
           if (op.type === SimpleCommandOptionType.Number) {
-            return Number(args[index]);
+            return Number(option);
           }
 
           // Channel | null
@@ -297,7 +294,7 @@ export class DSimpleCommand extends Method {
           }
 
           // string
-          return args[index] ?? null;
+          return option;
         }),
     );
   }
