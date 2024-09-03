@@ -12,9 +12,9 @@ import type { InstanceOf } from "../index.js";
 export interface IDependencyRegistryEngine {
   /**
    * Add a service from the IOC container.
-   * @param {T} classType - The type of service to add
+   * @param serviceConstructor - The type of service to add
    */
-  addService<T>(classType: T): void;
+  addService(serviceConstructor: any): void;
 
   /**
    * Clear all Discord service classes

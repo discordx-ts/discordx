@@ -32,23 +32,24 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     return TsyringeDependencyRegistryEngine._instance;
   }
 
-  public addService<T>(classType: T): void {
+  public addService(serviceConstructor: any): void {
     if (!this.injector) {
       throw new Error("Please set the container!");
     }
-    this._serviceSet.add(classType);
-    const clazz = classType as unknown as new () => InstanceOf<T>;
+
+    this._serviceSet.add(serviceConstructor);
     if (this.useToken) {
       if (!this.factory) {
         throw new Error("Unable to init tokenization without instance factory");
       }
+
       const instanceCashingSingletonFactory: FactoryFunction<unknown> =
-        this.getInstanceCashingSingletonFactory(clazz);
+        this.getInstanceCashingSingletonFactory(serviceConstructor);
       this.injector.register(TsyringeDependencyRegistryEngine.token, {
         useFactory: instanceCashingSingletonFactory,
       });
     } else {
-      this.injector.registerSingleton(clazz);
+      this.injector.registerSingleton(serviceConstructor);
     }
   }
 

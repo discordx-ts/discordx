@@ -26,11 +26,11 @@ export abstract class AbstractConfigurableDependencyInjector<I>
     return this;
   }
 
-  public abstract addService<T>(classType: T): void;
+  public abstract addService(serviceConstructor: any): void;
 
   public abstract clearAllServices(): void;
 
   public abstract getAllServices(): Set<unknown>;
 
-  public abstract getService<T>(classType: T): InstanceOf<T> | null;
+  public abstract getService<T>(serviceConstructor: T): InstanceOf<T> | null;
 }
