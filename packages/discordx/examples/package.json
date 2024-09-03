@@ -1,3 +1,7 @@
 {
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@discordx/importer": "workspace:^",
+    "discordx": "workspace:^"
+  }
 }

@@ -32,10 +32,12 @@ export function ContextMenu<TName extends string>(
   return function (target: Record<string, any>, key: string) {
     const applicationCommand = DApplicationCommand.create({
       botIds: options.botIds,
+      contexts: options.contexts,
       defaultMemberPermissions: options.defaultMemberPermissions,
       description: "",
       dmPermission: options.dmPermission,
       guilds: options.guilds,
+      integrationTypes: options.integrationTypes,
       name: options.name ?? key,
       nameLocalizations: options.nameLocalizations,
       type: options.type,

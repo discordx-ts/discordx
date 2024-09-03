@@ -457,10 +457,12 @@ export class MetadataStorage {
       }
 
       const slashParent = DApplicationCommand.create({
+        contexts: group.payload.contexts,
         defaultMemberPermissions: group.payload.defaultMemberPermissions,
         description: group.payload.description,
         descriptionLocalizations: group.payload.descriptionLocalizations,
         dmPermission: group.payload.dmPermission,
+        integrationTypes: group.payload.integrationTypes,
         name: group.name,
         nameLocalizations: group.payload.nameLocalizations,
         type: ApplicationCommandType.ChatInput,

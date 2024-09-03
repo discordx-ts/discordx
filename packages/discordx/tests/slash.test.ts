@@ -67,6 +67,8 @@ describe("Slash", () => {
         description: "hello",
         descriptionLocalizations: null,
         dmPermission: true,
+        contexts: null,
+        integrationTypes: [0],
         name: "hello",
         nameLocalizations: null,
         nsfw: false,

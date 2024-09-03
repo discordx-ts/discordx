@@ -7,9 +7,11 @@
 import type {
   ApplicationCommandType,
   ChatInputCommandInteraction,
+  InteractionContextType,
   LocalizationMap,
   PermissionResolvable,
 } from "discord.js";
+import { ApplicationIntegrationType } from "discord.js";
 import { ApplicationCommandOptionType } from "discord.js";
 
 import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
@@ -18,11 +20,13 @@ import { Method } from "./Method.js";
 
 interface CreateStructure {
   botIds?: string[];
+  contexts?: InteractionContextType[] | null;
   defaultMemberPermissions?: PermissionResolvable | string | null;
   description: string;
   descriptionLocalizations?: LocalizationMap | null;
   dmPermission?: boolean;
   guilds?: IGuild[];
+  integrationTypes?: ApplicationIntegrationType[];
   name: string;
   nameLocalizations?: LocalizationMap | null;
   nsfw?: boolean;
@@ -34,14 +38,16 @@ interface CreateStructure {
  */
 export class DApplicationCommand extends Method {
   private _botIds: string[];
-  private _name: string;
-  private _nameLocalizations: LocalizationMap | null;
+  private _contexts: InteractionContextType[] | null;
+  private _defaultMemberPermissions: PermissionResolvable | string | null;
   private _description: string;
   private _descriptionLocalizations: LocalizationMap | null;
-  private _defaultMemberPermissions: PermissionResolvable | string | null;
   private _dmPermission: boolean;
-  private _guilds: IGuild[];
   private _group?: string;
+  private _guilds: IGuild[];
+  private _integrationTypes: ApplicationIntegrationType[];
+  private _name: string;
+  private _nameLocalizations: LocalizationMap | null;
   private _nsfw: boolean;
   private _options: DApplicationCommandOption[] = [];
   private _subgroup?: string;
@@ -64,7 +70,7 @@ export class DApplicationCommand extends Method {
   get defaultMemberPermissions(): PermissionResolvable | string | null {
     return this._defaultMemberPermissions;
   }
-  set defaultMemberPermissions(value: PermissionResolvable | null) {
+  set defaultMemberPermissions(value: PermissionResolvable | string | null) {
     this._defaultMemberPermissions = value;
   }
 
@@ -73,6 +79,20 @@ export class DApplicationCommand extends Method {
   }
   set dmPermission(value: boolean) {
     this._dmPermission = value;
+  }
+
+  get contexts(): InteractionContextType[] | null {
+    return this._contexts;
+  }
+  set contexts(value: InteractionContextType[] | null) {
+    this._contexts = value;
+  }
+
+  get integrationTypes(): ApplicationIntegrationType[] {
+    return this._integrationTypes;
+  }
+  set integrationTypes(value: ApplicationIntegrationType[]) {
+    this._integrationTypes = value;
   }
 
   get descriptionLocalizations(): LocalizationMap | null {
@@ -140,16 +160,20 @@ export class DApplicationCommand extends Method {
 
   constructor(data: CreateStructure) {
     super();
-    this._name = data.name;
-    this._type = data.type;
-    this._description = data.description;
-    this._guilds = data.guilds ?? [];
     this._botIds = data.botIds ?? [];
+    this._contexts = data.contexts ?? null;
+    this._defaultMemberPermissions = data.defaultMemberPermissions ?? null;
+    this._description = data.description;
     this._descriptionLocalizations = data.descriptionLocalizations ?? null;
+    this._dmPermission = data.dmPermission ?? true;
+    this._guilds = data.guilds ?? [];
+    this._integrationTypes = data.integrationTypes ?? [
+      ApplicationIntegrationType.GuildInstall,
+    ];
+    this._name = data.name;
     this._nameLocalizations = data.nameLocalizations ?? null;
     this._nsfw = data.nsfw ?? false;
-    this._dmPermission = data.dmPermission ?? true;
-    this._defaultMemberPermissions = data.defaultMemberPermissions ?? null;
+    this._type = data.type;
   }
 
   static create(data: CreateStructure): DApplicationCommand {
@@ -221,10 +245,12 @@ export class DApplicationCommand extends Method {
       .map((option) => option.toJSON());
 
     const data: ApplicationCommandDataEx = {
+      contexts: this.contexts,
       defaultMemberPermissions: this.defaultMemberPermissions,
       description: this.description,
       descriptionLocalizations: this.descriptionLocalizations,
       dmPermission: this.dmPermission,
+      integrationTypes: this.integrationTypes,
       name: this.name,
       nameLocalizations: this.nameLocalizations,
       nsfw: this.nsfw,

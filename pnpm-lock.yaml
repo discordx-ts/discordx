@@ -216,6 +216,15 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
 
+  packages/discordx/examples:
+    dependencies:
+      '@discordx/importer':
+        specifier: workspace:^
+        version: link:../../importer
+      discordx:
+        specifier: workspace:^
+        version: link:..
+
   packages/importer:
     dependencies:
       glob:

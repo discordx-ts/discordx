@@ -8,8 +8,10 @@ import type {
   ApplicationCommandOptionData,
   ApplicationCommandOptionType,
   ApplicationCommandType,
+  ApplicationIntegrationType,
   AutocompleteInteraction,
   ChannelType,
+  InteractionContextType,
   LocalizationMap,
   PermissionResolvable,
 } from "discord.js";
@@ -21,11 +23,13 @@ export interface ApplicationCommandOptions<
   TD extends string,
 > {
   botIds?: string[];
+  contexts?: InteractionContextType[];
   defaultMemberPermissions?: PermissionResolvable;
   description: TD;
   descriptionLocalizations?: LocalizationMap;
   dmPermission?: boolean;
   guilds?: IGuild[];
+  integrationTypes?: ApplicationIntegrationType[];
   name?: T;
   nameLocalizations?: LocalizationMap;
   nsfw?: boolean;
@@ -115,10 +119,12 @@ export type SlashAutoCompleteOption =
     ) => void | Promise<void>);
 
 export interface ApplicationCommandDataEx {
+  contexts: InteractionContextType[] | null;
   defaultMemberPermissions?: PermissionResolvable | string | null;
   description?: string;
   descriptionLocalizations?: LocalizationMap | null;
   dmPermission?: boolean;
+  integrationTypes: ApplicationIntegrationType[];
   name: string;
   nameLocalizations?: LocalizationMap | null;
   nsfw?: boolean;
@@ -147,8 +153,10 @@ export type SlashGroupRoot<
   T extends string,
   TD extends string,
 > = SlashGroupBase<T, TD> & {
+  contexts?: InteractionContextType[];
   defaultMemberPermissions?: PermissionResolvable;
   dmPermission?: boolean;
+  integrationTypes?: ApplicationIntegrationType[];
   root?: undefined;
 };
 
@@ -157,8 +165,10 @@ export type SlashGroupSubRoot<
   TD extends string,
   TR extends string,
 > = SlashGroupBase<T, TD> & {
+  contexts?: undefined;
   defaultMemberPermissions?: undefined;
   dmPermission?: undefined;
+  integrationTypes?: undefined;
   root?: TR;
 };
 
