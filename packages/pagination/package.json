@@ -47,8 +47,8 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.4",
-    "discord.js": "^14.15.3",
+    "@types/lodash": "^4.17.7",
+    "discord.js": "^14.16.1",
     "typescript": "5.4.5"
   },
   "peerDependencies": {

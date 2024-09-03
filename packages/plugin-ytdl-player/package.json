@@ -124,13 +124,13 @@
     "@discordx/pagination": "^3.5.4",
     "ffmpeg-static": "^5.2.0",
     "isomorphic-unfetch": "^4.0.2",
-    "libsodium-wrappers": "^0.7.13",
-    "spotify-url-info": "^3.2.15",
+    "libsodium-wrappers": "^0.7.15",
+    "spotify-url-info": "^3.2.16",
     "youtube-sr": "^4.3.11"
   },
   "devDependencies": {
-    "discord.js": "^14.15.3",
-    "discordx": "^11.11.1",
+    "discord.js": "^14.16.1",
+    "discordx": "^11.12.0",
     "ts-node": "^10.9.2"
   },
   "publishConfig": {
