@@ -23,19 +23,19 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-node@main
-        with:
-          cache: "npm"
-          node-version: "lts/*"
+      - name: check out code 🛎
+        uses: actions/checkout@main
 
       - name: Install pnpm
         uses: pnpm/action-setup@master
         with:
           version: 9
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install Node
+        uses: actions/setup-node@main
+        with:
+          node-version: 20
+          cache: "pnpm"
 
       - name: Build TypeDoc
         run: pnpm run build:typedoc

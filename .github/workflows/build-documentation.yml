@@ -15,16 +15,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@main
-        with:
-          cache: "npm"
-          cache-dependency-path: docs/package-lock.json
-          node-version: "lts/*"
-
       - name: Install pnpm
         uses: pnpm/action-setup@master
         with:
           version: 9
+
+      - name: Install Node
+        uses: actions/setup-node@main
+        with:
+          node-version: 20
+          cache: "pnpm"
 
       - name: Install dependencies for docs
         run: pnpm install

@@ -18,16 +18,16 @@ jobs:
       - name: check out code 🛎
         uses: actions/checkout@main
 
-      - name: Install Node
-        uses: actions/setup-node@main
-        with:
-          cache: "npm"
-          node-version: "lts/*"
-
       - name: Install pnpm
         uses: pnpm/action-setup@master
         with:
           version: 9
+
+      - name: Install Node
+        uses: actions/setup-node@main
+        with:
+          node-version: 20
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install
