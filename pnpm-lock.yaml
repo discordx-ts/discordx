@@ -244,6 +244,9 @@ importers:
         specifier: ^8.18.0
         version: 8.18.0
     devDependencies:
+      '@types/ws':
+        specifier: ^8.5.12
+        version: 8.5.12
       typescript:
         specifier: 5.5.4
         version: 5.5.4
@@ -10093,7 +10096,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.5.2
 
   '@types/semver@7.5.8': {}
 
