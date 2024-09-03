@@ -127,18 +127,18 @@ importers:
   packages/discordx:
     dependencies:
       "@discordx/di":
-        specifier: ^3.3.2
-        version: 3.3.2
+        specifier: workspace:^
+        version: link:../di
       "@discordx/internal":
-        specifier: ^1.1.4
-        version: 1.1.4
+        specifier: workspace:^
+        version: link:../internal
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
       "@discordx/importer":
-        specifier: ^1.3.1
-        version: 1.3.1
+        specifier: workspace:^
+        version: link:../importer
       "@types/jest":
         specifier: ^29.5.12
         version: 29.5.12
@@ -206,8 +206,8 @@ importers:
         version: 4.17.21
     devDependencies:
       "@discordx/lava-player":
-        specifier: ^2.1.2
-        version: 2.1.2
+        specifier: workspace:^
+        version: link:../lava-player
       "@types/lodash":
         specifier: ^4.17.7
         version: 4.17.7
@@ -243,8 +243,8 @@ importers:
         specifier: ^0.17.0
         version: 0.17.0(@discordjs/opus@0.9.0)(ffmpeg-static@5.2.0)
       "@discordx/importer":
-        specifier: ^1.3.1
-        version: 1.3.1
+        specifier: workspace:^
+        version: link:../importer
       "@types/lodash":
         specifier: ^4.17.7
         version: 4.17.7
@@ -283,21 +283,21 @@ importers:
   packages/plugin-lava-player:
     dependencies:
       "@discordx/lava-player":
-        specifier: ^2.1.2
-        version: 2.1.2
+        specifier: workspace:^
+        version: link:../lava-player
       "@discordx/lava-queue":
-        specifier: ^4.0.4
-        version: 4.0.4(@discordx/lava-player@2.1.2)(discord.js@14.16.1)
+        specifier: workspace:^
+        version: link:../lava-queue
       "@discordx/pagination":
-        specifier: ^3.5.4
-        version: 3.5.4(discord.js@14.16.1)
+        specifier: workspace:^
+        version: link:../pagination
     devDependencies:
       discord.js:
         specifier: ^14.16.1
         version: 14.16.1
       discordx:
-        specifier: ^11.12.0
-        version: 11.12.0(discord.js@14.16.1)
+        specifier: workspace:^
+        version: link:../discordx
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.5.2)(typescript@5.5.4)
@@ -311,14 +311,14 @@ importers:
         specifier: ^0.17.0
         version: 0.17.0(@discordjs/opus@0.9.0)(ffmpeg-static@5.2.0)
       "@discordx/importer":
-        specifier: ^1.3.1
-        version: 1.3.1
+        specifier: workspace:^
+        version: link:../importer
       "@discordx/music":
-        specifier: ^6.2.0
-        version: 6.2.0(@discordjs/opus@0.9.0)(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(ffmpeg-static@5.2.0))(@discordx/importer@1.3.1)(discord.js@14.16.1)(ffmpeg-static@5.2.0)
+        specifier: workspace:^
+        version: link:../music
       "@discordx/pagination":
-        specifier: ^3.5.4
-        version: 3.5.4(discord.js@14.16.1)
+        specifier: workspace:^
+        version: link:../pagination
       ffmpeg-static:
         specifier: ^5.2.0
         version: 5.2.0
@@ -339,8 +339,8 @@ importers:
         specifier: ^14.16.1
         version: 14.16.1
       discordx:
-        specifier: ^11.12.0
-        version: 11.12.0(discord.js@14.16.1)
+        specifier: workspace:^
+        version: link:../discordx
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.5.2)(typescript@5.5.4)
@@ -352,17 +352,17 @@ importers:
         version: 1.11.13
     devDependencies:
       "@discordx/importer":
-        specifier: ^1.3.1
-        version: 1.3.1
+        specifier: workspace:^
+        version: link:../importer
       "@discordx/pagination":
-        specifier: ^3.5.4
-        version: 3.5.4(discord.js@14.16.1)
+        specifier: workspace:^
+        version: link:../pagination
       discord.js:
         specifier: ^14.16.1
         version: 14.16.1
       discordx:
-        specifier: ^11.12.0
-        version: 11.12.0(discord.js@14.16.1)
+        specifier: workspace:^
+        version: link:../discordx
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -990,63 +990,6 @@ packages:
         integrity: sha512-PZ+vLpxGCRtmr2RMkqh8Zp+BenUaJqlS6xhgWKEZcgC/vfHLEzpHtKkB0sl3nZWpwtcKk6YWy+pU3okL2I97FA==,
       }
     engines: { node: ">=16.11.0" }
-
-  "@discordx/di@3.3.2":
-    resolution:
-      {
-        integrity: sha512-hyl9QyZx9XkGe98eP6qJ/AECCSyhpLPIKQBVn3lD7+GOiFssNz71SQC3lz1a0mFHiPimf9mMPWwN+kNc2oA9xg==,
-      }
-    engines: { node: ">=16.0.0", npm: ">=7.0.0" }
-
-  "@discordx/importer@1.3.1":
-    resolution:
-      {
-        integrity: sha512-s+7hMvVbjkYErFO5FTmfwsUpamLKlWLaChdO2Cr820/XN8qWQzMTEt0hxVhyQBmVwFPYmL+bBDSSvY7i9Tc0Pg==,
-      }
-
-  "@discordx/internal@1.1.4":
-    resolution:
-      {
-        integrity: sha512-DQDRntfLrC2UM0jxFohxTsVD3IT7/EOES+PGlRavt6Nzn+v7m2iD1dU2rywbtXyOrE5jWJX+OqCbYyr+uZnx1w==,
-      }
-    engines: { node: ">=16.0.0", npm: ">=7.0.0" }
-
-  "@discordx/lava-player@2.1.2":
-    resolution:
-      {
-        integrity: sha512-WZ6biDGw47IDdRydKS6RuRrHuvia7CWlJtZfT6AZUkLx6uhXFblj1cQFZ0Adhq2gXj3BGTaSVyYisexIMQ0N/A==,
-      }
-    engines: { node: ">=16.0.0", npm: ">=7.0.0" }
-
-  "@discordx/lava-queue@4.0.4":
-    resolution:
-      {
-        integrity: sha512-ZGY9/PTCOENkyi0tONmj8isW0vz/HVSBzzRlIhkUukmMvRLStFn2Kvs2KPFwqxdVjXhfUFYyR8uz0VWmUvpk5w==,
-      }
-    engines: { node: ">=16.0.0", npm: ">=7.0.0" }
-    peerDependencies:
-      "@discordx/lava-player": ">=2.1.2"
-      discord.js: ">=13"
-
-  "@discordx/music@6.2.0":
-    resolution:
-      {
-        integrity: sha512-mQtjTILbOFNmkXO3ogAJDXiKCPHWWhjoWzphYRMFUHchHhu46HV0PBf1Gj1J8+CTpTCDV6YjAkJlopXMKLc5wA==,
-      }
-    engines: { node: ">=16.0.0", npm: ">=7.0.0" }
-    peerDependencies:
-      "@discordjs/voice": ">=0.11"
-      "@discordx/importer": "*"
-      discord.js: ">=14 || ^14.0.0-dev"
-
-  "@discordx/pagination@3.5.4":
-    resolution:
-      {
-        integrity: sha512-O/qkjSKYRJIT6VMg3cN7DSVyPTXVJ06KPUcg6MmR3lNNXRq17DS1eVz1E8VoifCTJ2gd7CiX+7ABoYxKmhjX9A==,
-      }
-    engines: { node: ">=16.0.0", npm: ">=7.0.0" }
-    peerDependencies:
-      discord.js: ">=14 || ^14.0.0-dev"
 
   "@esbuild/aix-ppc64@0.23.1":
     resolution:
@@ -2921,15 +2864,6 @@ packages:
         integrity: sha512-/diX4shp3q1F3EySGQbQl10el+KIpffLSOJdtM35gGV7zw2ED7rKbASKJT7UIR9L/lTd0KtNenZ/h739TN7diA==,
       }
     engines: { node: ">=18" }
-
-  discordx@11.12.0:
-    resolution:
-      {
-        integrity: sha512-nff56kwSEE1Es2u74/wYCixQwSYIS5nNdI1r4xO8knU302FB1Rg6SkA4jJoiT6zfGNyofzkt4U9L1ijpqCTINQ==,
-      }
-    engines: { node: ">=16.0.0", npm: ">=7.0.0" }
-    peerDependencies:
-      discord.js: ">=14 || ^14.0.0-dev"
 
   dom-serializer@2.0.0:
     resolution:
@@ -7003,53 +6937,6 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  "@discordx/di@3.3.2":
-    dependencies:
-      tsyringe: 4.8.0
-      typedi: 0.10.0
-
-  "@discordx/importer@1.3.1":
-    dependencies:
-      glob: 10.4.5
-
-  "@discordx/internal@1.1.4": {}
-
-  "@discordx/lava-player@2.1.2":
-    dependencies:
-      "@types/backoff": 2.5.5
-      backoff: 2.5.0
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  "@discordx/lava-queue@4.0.4(@discordx/lava-player@2.1.2)(discord.js@14.16.1)":
-    dependencies:
-      "@discordx/lava-player": 2.1.2
-      discord.js: 14.16.1
-      lodash: 4.17.21
-
-  "@discordx/music@6.2.0(@discordjs/opus@0.9.0)(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(ffmpeg-static@5.2.0))(@discordx/importer@1.3.1)(discord.js@14.16.1)(ffmpeg-static@5.2.0)":
-    dependencies:
-      "@discordjs/voice": 0.17.0(@discordjs/opus@0.9.0)(ffmpeg-static@5.2.0)
-      "@discordx/importer": 1.3.1
-      discord.js: 14.16.1
-      lodash: 4.17.21
-      prism-media: 1.3.5(@discordjs/opus@0.9.0)(ffmpeg-static@5.2.0)
-      youtube-sr: 4.3.11
-      yt-search: 2.12.1
-      ytdl-core: 4.11.5
-    transitivePeerDependencies:
-      - "@discordjs/opus"
-      - ffmpeg-static
-      - node-opus
-      - opusscript
-
-  "@discordx/pagination@3.5.4(discord.js@14.16.1)":
-    dependencies:
-      discord.js: 14.16.1
-      lodash: 4.17.21
-
   "@esbuild/aix-ppc64@0.23.1":
     optional: true
 
@@ -8203,13 +8090,6 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-
-  discordx@11.12.0(discord.js@14.16.1):
-    dependencies:
-      "@discordx/di": 3.3.2
-      "@discordx/internal": 1.1.4
-      discord.js: 14.16.1
-      lodash: 4.17.21
 
   dom-serializer@2.0.0:
     dependencies:
