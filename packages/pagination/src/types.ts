@@ -18,6 +18,8 @@ import type {
   MessageCollectorOptionsParams,
   MessageComponentInteraction,
   MessageComponentType,
+  PartialGroupDMChannel,
+  TextBasedChannel,
 } from "discord.js";
 
 // By default, five minute.
@@ -43,6 +45,11 @@ export type PaginationInteractions =
   | CommandInteraction
   | MessageComponentInteraction
   | ContextMenuCommandInteraction;
+
+export type PaginationSendTo =
+  | PaginationInteractions
+  | Message
+  | Exclude<TextBasedChannel, PartialGroupDMChannel>;
 
 export enum SelectMenuPageId {
   Start = -1,

@@ -8,7 +8,6 @@ import type {
   ButtonInteraction,
   InteractionCollector,
   StringSelectMenuInteraction,
-  TextBasedChannel,
 } from "discord.js";
 import {
   ChannelType,
@@ -25,9 +24,9 @@ import { GeneratePage } from "./functions/GeneratePage.js";
 import type { PaginationResolver } from "./Resolver.js";
 import type {
   IGeneratePage,
-  PaginationInteractions,
   PaginationItem,
   PaginationOptions,
+  PaginationSendTo,
 } from "./types.js";
 import {
   defaultIds,
@@ -53,7 +52,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   }
 
   constructor(
-    public sendTo: PaginationInteractions | Message | TextBasedChannel,
+    public sendTo: PaginationSendTo,
     public pages: PaginationItem[] | T,
     config?: PaginationOptions,
   ) {

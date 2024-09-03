@@ -14,6 +14,7 @@ import type {
   ButtonInteraction,
   CommandInteraction,
   MessageActionRowComponentBuilder,
+  PartialGroupDMChannel,
   TextBasedChannel,
 } from "discord.js";
 import {
@@ -24,14 +25,16 @@ import {
   Message,
 } from "discord.js";
 
+export type TrackChannel = Exclude<TextBasedChannel, PartialGroupDMChannel>;
+
 export class MusicQueue extends Queue {
-  private _channel: TextBasedChannel | null = null;
+  private _channel: TrackChannel | null = null;
   private _controlTimer: NodeJS.Timeout | null = null;
 
   private lastControlMessage?: Message;
   private lockUpdate = false;
 
-  public setChannel(channel: TextBasedChannel): void {
+  public setChannel(channel: TrackChannel): void {
     this._channel = channel;
   }
 

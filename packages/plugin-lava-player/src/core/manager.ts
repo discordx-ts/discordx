@@ -12,7 +12,7 @@ import type {
   Guild,
   TextBasedChannel,
 } from "discord.js";
-import { GuildMember } from "discord.js";
+import { GuildMember, PartialGroupDMChannel } from "discord.js";
 
 import { MusicQueue } from "./queue.js";
 
@@ -58,7 +58,8 @@ export class LavaPlayerManager {
     if (
       !interaction.channel ||
       !(interaction.member instanceof GuildMember) ||
-      !interaction.guild
+      !interaction.guild ||
+      interaction.channel instanceof PartialGroupDMChannel
     ) {
       await interaction.followUp({
         content: "The command could not be processed. Please try again",
