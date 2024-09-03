@@ -21,10 +21,15 @@ jobs:
           cache-dependency-path: docs/package-lock.json
           node-version: "lts/*"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@master
+        with:
+          version: 9
+
       - name: Install dependencies for docs
-        run: npm ci
+        run: pnpm install
         working-directory: ./docs
 
       - name: Build docs
-        run: npm run build
+        run: pnpm run build
         working-directory: ./docs
