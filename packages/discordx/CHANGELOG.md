@@ -1,5 +1,11 @@
 # discordx
 
+## 11.12.1
+
+### Patch Changes
+
+- dep updates and improvements
+
 ## 11.12.0
 
 ### Minor Changes

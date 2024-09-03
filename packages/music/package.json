@@ -1,6 +1,6 @@
 {
   "name": "@discordx/music",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "private": false,
   "description": "Powerful Discord music player library using YTDL",
   "keywords": [

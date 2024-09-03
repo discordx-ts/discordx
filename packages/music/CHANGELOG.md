@@ -1,5 +1,11 @@
 # @discordx/music
 
+## 6.2.1
+
+### Patch Changes
+
+- dep updates and improvements
+
 ## 6.2.0
 
 ### Minor Changes
