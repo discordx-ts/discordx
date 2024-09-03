@@ -38,7 +38,6 @@
     "lint": "eslint ./",
     "prepare": "npx is-ci || npx husky install",
     "prettier": "prettier --check .",
-    "release": "npm run build && changeset publish",
     "test": "turbo run test"
   },
   "devDependencies": {
