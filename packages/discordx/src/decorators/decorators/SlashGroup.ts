@@ -146,10 +146,12 @@ export function SlashGroup<
           DApplicationCommandGroup.create<DApplicationCommand>({
             name: options.name,
             payload: {
+              contexts: options.contexts,
               defaultMemberPermissions: options.defaultMemberPermissions,
               description: options.description,
               descriptionLocalizations: options.descriptionLocalizations,
               dmPermission: options.dmPermission,
+              integrationTypes: options.integrationTypes,
               nameLocalizations: options.nameLocalizations,
             },
           }).decorate(clazz, key ?? clazz.name),

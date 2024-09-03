@@ -4,7 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import type { ApplicationCommandOptionType } from "discord.js";
 
 export class FakeOption {

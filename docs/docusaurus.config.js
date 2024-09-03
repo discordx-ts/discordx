@@ -13,7 +13,6 @@ module.exports = {
   tagline: "Create a discord bot with TypeScript and Decorators!",
   title: "discordx official documentation",
   url: "https://discordx.js.org",
-  // eslint-disable-next-line sort-keys
   themeConfig: {
     algolia: {
       apiKey: "d80ba8eaf70ddb3eb5371d44ebb0ba1a",
@@ -69,7 +68,6 @@ module.exports = {
       theme: require("prism-react-renderer").themes.github,
     },
   },
-  // eslint-disable-next-line sort-keys
   presets: [
     [
       "@docusaurus/preset-classic",
@@ -96,6 +94,5 @@ module.exports = {
       },
     ],
   ],
-  // eslint-disable-next-line sort-keys
   plugins: [],
 };

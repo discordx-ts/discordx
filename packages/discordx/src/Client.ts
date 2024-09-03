@@ -1428,9 +1428,7 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   trigger(options: ITriggerEventData, params: any): Promise<any[]> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return this.instance.trigger(options)(params);
   }
 
@@ -1438,47 +1436,40 @@ export class Client extends ClientJS {
    * Bind discordx events to client
    */
   initEvents(): void {
-    for (const event of this.instance.usedEvents) {
+    for (const { event, once, rest } of this.instance.usedEvents) {
       const trigger = this.instance.trigger({
         client: this,
-        event: event.event,
+        event,
         guards: this.guards,
-        once: event.once,
-        rest: event.rest,
+        once,
+        rest,
       });
 
-      if (!this._listeners.has(event.event)) {
-        this._listeners.set(event.event, []);
+      if (!this._listeners.has(event)) {
+        this._listeners.set(event, []);
       }
 
-      this._listeners
-        .get(event.event)
-        ?.push({ once: event.once, rest: event.rest, trigger });
+      this._listeners.get(event)?.push({ once, rest, trigger });
+      const method = once ? "once" : "on";
 
-      if (event.rest) {
-        event.once
-          ? this.rest.once(event.event as keyof RestEvents, trigger)
-          : this.rest.on(event.event as keyof RestEvents, trigger);
+      if (rest) {
+        this.rest[method](event as keyof RestEvents, trigger);
       } else {
-        event.once
-          ? this.once(event.event, trigger)
-          : this.on(event.event, trigger);
+        this[method](event, trigger);
       }
     }
   }
 
   /**
-   * Unbind all Discordx events initialized by the initEvents method.
+   * Unbind all discordx events initialized by the initEvents method.
    */
   removeEvents(): void {
     this._listeners.forEach((listenerDetails, event) => {
-      listenerDetails.forEach(({ once, rest, trigger }) => {
+      listenerDetails.forEach(({ rest, trigger }) => {
         if (rest) {
-          once
-            ? this.rest.off(event as keyof RestEvents, trigger)
-            : this.rest.removeListener(event as keyof RestEvents, trigger);
+          this.rest.off(event as keyof RestEvents, trigger);
         } else {
-          once ? this.off(event, trigger) : this.removeListener(event, trigger);
+          this.off(event, trigger);
         }
       });
     });

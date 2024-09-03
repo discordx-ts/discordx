@@ -22,10 +22,9 @@ export class DefaultDependencyRegistryEngine
     return DefaultDependencyRegistryEngine._instance;
   }
 
-  public addService<T>(classType: T): void {
-    const clazz = classType as unknown as new () => InstanceOf<T>;
-    const instance = new clazz();
-    this._services.set(clazz, instance);
+  public addService(ServiceConstructor: any): void {
+    const service = new ServiceConstructor();
+    this._services.set(service, ServiceConstructor);
   }
 
   public clearAllServices(): void {

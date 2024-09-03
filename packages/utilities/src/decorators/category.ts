@@ -13,11 +13,11 @@ import {
   Modifier,
 } from "discordx";
 
-export interface ICategory<T = string> {
-  category?: T;
+export interface ICategory {
+  category?: string;
 }
 
-export function Category<T = string>(data: T): ClassMethodDecorator {
+export function Category(category: string): ClassMethodDecorator {
   return function <D>(
     target: Record<string, D>,
     key?: string,
@@ -27,7 +27,7 @@ export function Category<T = string>(data: T): ClassMethodDecorator {
       Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord>(
         (
           original:
-            | ((DApplicationCommand | DSimpleCommand) & ICategory<T>)
+            | ((DApplicationCommand | DSimpleCommand) & ICategory)
             | DDiscord,
         ) => {
           if (original instanceof DDiscord) {
@@ -35,12 +35,12 @@ export function Category<T = string>(data: T): ClassMethodDecorator {
               ...original.applicationCommands,
               ...original.simpleCommands,
             ].forEach(
-              (ob: (DApplicationCommand | DSimpleCommand) & ICategory<T>) => {
-                ob.category = data;
+              (ob: (DApplicationCommand | DSimpleCommand) & ICategory) => {
+                ob.category = category;
               },
             );
           } else {
-            original.category = data;
+            original.category = category;
           }
         },
         DApplicationCommand,

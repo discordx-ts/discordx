@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-lava-player",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "private": false,
   "description": "Fully-featured Discord music player leveraging the power of Lavalink",
   "keywords": [
@@ -106,13 +106,13 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-lava-player"
   },
   "dependencies": {
-    "@discordx/lava-player": "^2.1.2",
-    "@discordx/lava-queue": "^4.0.4",
-    "@discordx/pagination": "^3.5.4"
+    "@discordx/lava-player": "workspace:^",
+    "@discordx/lava-queue": "workspace:^",
+    "@discordx/pagination": "workspace:^"
   },
   "devDependencies": {
-    "discord.js": "^14.15.3",
-    "discordx": "^11.12.0",
+    "discord.js": "^14.16.1",
+    "discordx": "workspace:^",
     "ts-node": "^10.9.2"
   },
   "peerDependencies": {

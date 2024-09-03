@@ -5,11 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { Queue, RepeatMode } from "@discordx/music";
-import type {
-  Message,
-  MessageActionRowComponentBuilder,
-  TextBasedChannel,
-} from "discord.js";
+import type { Message, MessageActionRowComponentBuilder } from "discord.js";
 import {
   ActionRowBuilder,
   ButtonBuilder,
@@ -18,16 +14,16 @@ import {
 } from "discord.js";
 
 import { deleteMessage, fromMS } from "../utils/index.js";
-import type { MyTrack } from "./types.js";
+import type { MyTrack, TrackChannel } from "./types.js";
 
 export class MusicQueue extends Queue<MyTrack> {
-  private _channel: TextBasedChannel | null = null;
+  private _channel: TrackChannel | null = null;
   private _controlTimer: NodeJS.Timeout | null = null;
 
   private lastControlMessage?: Message;
   private lockUpdate = false;
 
-  public setChannel(channel: TextBasedChannel): void {
+  public setChannel(channel: TrackChannel): void {
     this._channel = channel;
   }
 

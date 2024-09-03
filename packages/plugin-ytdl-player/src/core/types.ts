@@ -1,5 +1,5 @@
 import type { Track } from "@discordx/music";
-import type { User } from "discord.js";
+import type { PartialGroupDMChannel, TextBasedChannel, User } from "discord.js";
 
 export interface MyTrack extends Track {
   duration: number;
@@ -7,3 +7,5 @@ export interface MyTrack extends Track {
   title: string;
   user: User;
 }
+
+export type TrackChannel = Exclude<TextBasedChannel, PartialGroupDMChannel>;

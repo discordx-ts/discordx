@@ -80,6 +80,8 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
           : "https://nodejs.org/en/download",
     );
 
+    console.log(err);
+
     return GetPackageManager();
   }
 
@@ -140,5 +142,6 @@ export async function InstallPackage(
     spinner.succeed(chalk.bold("Installed packages"));
   } catch (err) {
     spinner.fail(chalk.bold("Failed to install packages :("));
+    console.log(err);
   }
 }

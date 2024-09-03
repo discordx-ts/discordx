@@ -4,7 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
+
 import WebSocket from "ws";
 
 import { Connection } from "../core/connection.js";

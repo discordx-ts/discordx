@@ -29,20 +29,19 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
     return TypeDiDependencyRegistryEngine._instance;
   }
 
-  public addService<T>(classType: T): void {
-    const clazz = classType as unknown as new () => InstanceOf<T>;
+  public addService(serviceConstructor: any): void {
     if (!this.service) {
       throw new Error("Please set the Service!");
     }
 
-    this._serviceSet.add(classType);
+    this._serviceSet.add(serviceConstructor);
     if (this.useToken) {
       this.service({
         id: TypeDiDependencyRegistryEngine.token,
         multiple: true,
-      })(clazz);
+      })(serviceConstructor);
     } else {
-      this.service()(clazz);
+      this.service()(serviceConstructor);
     }
   }
 

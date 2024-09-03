@@ -52,7 +52,7 @@ export class HttpClient {
     }
 
     const responseData = await this.collectResponseData(message);
-    return this.parseResponseData<T>(responseData);
+    return this.parseResponseData(responseData) as Promise<T>;
   }
 
   private sendRequest(
@@ -103,15 +103,15 @@ export class HttpClient {
     });
   }
 
-  private parseResponseData<T>(data: Buffer): T {
+  private parseResponseData(data: Buffer) {
     if (data.length === 0) {
-      return null as T;
+      return null;
     }
 
     try {
-      return JSON.parse(data.toString()) as T;
+      return JSON.parse(data.toString());
     } catch {
-      return data.toString() as T;
+      return data.toString();
     }
   }
 

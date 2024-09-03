@@ -16,22 +16,30 @@ jobs:
       - name: check out code 🛎
         uses: actions/checkout@main
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@master
+        with:
+          version: 9.9.0
+
       - name: Install Node
         uses: actions/setup-node@main
         with:
-          cache: "npm"
-          node-version: "lts/*"
+          node-version: 20
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
 
       - name: Create Release Pull Request
-        uses: changesets/action@v1
+        uses: changesets/action@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
         with:
           commit: "chore: release packages"
-          publish: npm run release
+          publish: pnpm publish -r
           title: "chore: release packages"

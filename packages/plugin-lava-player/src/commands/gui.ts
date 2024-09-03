@@ -6,7 +6,11 @@
  */
 
 import { RepeatMode } from "@discordx/lava-queue";
-import type { ButtonInteraction, CommandInteraction } from "discord.js";
+import {
+  type ButtonInteraction,
+  type CommandInteraction,
+  PartialGroupDMChannel,
+} from "discord.js";
 import { ButtonComponent, Discord, Slash, SlashGroup } from "discordx";
 
 import { lavaPlayerManager } from "../core/manager.js";
@@ -129,7 +133,11 @@ export class Command {
   @Slash({ description: "Show GUI controls", name: "gui-show" })
   async guiShow(interaction: CommandInteraction): Promise<void> {
     const cmd = await lavaPlayerManager.parseCommand(interaction);
-    if (!cmd || !interaction.channel) {
+    if (
+      !cmd ||
+      !interaction.channel ||
+      interaction.channel instanceof PartialGroupDMChannel
+    ) {
       return;
     }
 
