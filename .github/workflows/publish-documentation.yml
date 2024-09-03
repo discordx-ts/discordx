@@ -37,6 +37,9 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build TypeDoc
         run: pnpm run build:typedoc
 
