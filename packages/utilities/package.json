@@ -48,9 +48,9 @@
   "devDependencies": {
     "@discordx/importer": "workspace:^",
     "@discordx/pagination": "workspace:^",
-    "discord.js": "^14.16.1",
+    "discord.js": "^14.16.2",
     "discordx": "workspace:^",
-    "typescript": "5.4.5"
+    "typescript": "5.6.2"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev",

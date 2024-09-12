@@ -105,8 +105,6 @@ export const TimeFormat = {
    *
    * 24 Hour Clock: 3 years ago
    */
-  StaticRelativeTime: (
-    time: Time,
-    withoutSuffix?: boolean | undefined,
-  ): string => dayjs(time).fromNow(withoutSuffix),
+  StaticRelativeTime: (time: Time, withoutSuffix?: boolean): string =>
+    dayjs(time).fromNow(withoutSuffix),
 };
