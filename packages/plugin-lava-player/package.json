@@ -111,7 +111,7 @@
     "@discordx/pagination": "workspace:^"
   },
   "devDependencies": {
-    "discord.js": "^14.16.1",
+    "discord.js": "^14.16.2",
     "discordx": "workspace:^",
     "ts-node": "^10.9.2"
   },
