@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 /* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
-import { isESM } from "@discordx/importer";
+import { dirname, isESM } from "@discordx/importer";
 import type { Client } from "discord.js";
 import { EventEmitter } from "events";
 import { Worker } from "worker_threads";
@@ -38,10 +38,9 @@ export class Node extends EventEmitter {
   constructor(public client: Client) {
     super();
 
+    const folder = isESM() ? dirname(import.meta.url) : __dirname;
     this.worker = new Worker(
-      `./node_modules/@discordx/music/dist/worker/${
-        isESM() ? "index.mjs" : "index.js"
-      }`,
+      `${folder}/worker/${isESM() ? "index.mjs" : "index.js"}`,
     );
 
     this.setupEventListeners();

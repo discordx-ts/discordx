@@ -1,5 +1,11 @@
 # @discordx/music
 
+## 6.3.0
+
+### Minor Changes
+
+- replace ytdl core
+
 ## 6.2.1
 
 ### Patch Changes
