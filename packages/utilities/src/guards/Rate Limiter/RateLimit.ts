@@ -108,14 +108,14 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
   }
 
   return async function (arg, client, next) {
-    let memberId: string | null | undefined;
-    let guildId: string | null;
+    let memberId: string | null = null;
+    let guildId: string | null = null;
 
     if (arg instanceof SimpleCommandMessage) {
-      memberId = arg.message.member?.id;
+      memberId = arg.message.member?.id ?? null;
       guildId = arg.message.guildId;
-    } else {
-      memberId = arg.member?.user.id;
+    } else if (!arg.isAutocomplete()) {
+      memberId = arg.member?.user.id ?? null;
       guildId = arg.guildId;
     }
 
