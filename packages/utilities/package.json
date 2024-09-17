@@ -1,6 +1,6 @@
 {
   "name": "@discordx/utilities",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "private": false,
   "description": "Utilities package for enhancing discordx functionality",
   "keywords": [
