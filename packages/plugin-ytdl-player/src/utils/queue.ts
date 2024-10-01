@@ -32,7 +32,7 @@ export async function showQueue(
     return;
   }
 
-  if (!queue.queueSize) {
+  if (!queue.size) {
     const pMsg = await interaction.followUp({
       content: `> Playing **${currentTrack.title}**`,
       embeds: currentTrack.thumbnail
@@ -47,12 +47,12 @@ export async function showQueue(
   }
 
   const current = `> Playing **${currentTrack.title}** out of ${String(
-    queue.queueSize + 1,
+    queue.size + 1,
   )}`;
 
   const pageOptions = new PaginationResolver(
     (index, paginator) => {
-      paginator.maxLength = queue.queueSize / 10;
+      paginator.maxLength = queue.size / 10;
       if (index > paginator.maxLength) {
         paginator.currentPage = 0;
       }
@@ -70,17 +70,17 @@ export async function showQueue(
 
       return { content: `${current}\n\`\`\`markdown\n${tracks}\`\`\`` };
     },
-    Math.floor(queue.queueSize / 10),
+    Math.floor(queue.size / 10),
   );
 
   await new Pagination(interaction, pageOptions, {
     enableExit: true,
-    onTimeout: (index, message) => {
+    onTimeout: (_, message) => {
       void deleteMessage(message);
     },
     time: 6e4,
     type:
-      Math.floor(queue.queueSize / 10) <= 5
+      Math.floor(queue.size / 10) <= 5
         ? PaginationType.Button
         : PaginationType.SelectMenu,
   }).send();

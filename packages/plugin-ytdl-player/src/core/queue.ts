@@ -132,9 +132,7 @@ export class MusicQueue extends Queue<MyTrack> {
     const user = currentTrack.user;
     embed.addFields({
       name: `Now Playing${
-        this.queueSize > 2
-          ? `(Total: ${String(this.queueSize)} tracks queued)`
-          : ""
+        this.size > 2 ? `(Total: ${String(this.size)} tracks queued)` : ""
       }`,
       value: `[${currentTrack.title}](${currentTrack.url}) by ${user.toString()}`,
     });
