@@ -1,6 +1,6 @@
 {
   "name": "@discordx/lava-queue",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "private": false,
   "description": "Queue system for @discordx/lava-player",
   "keywords": [

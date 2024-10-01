@@ -136,9 +136,9 @@ export class Queue {
   changeTrackPosition(oldIndex: number, newIndex: number): void {
     if (
       oldIndex < 0 ||
-      oldIndex >= this._tracks.length ||
+      oldIndex >= this.size ||
       newIndex < 0 ||
-      newIndex >= this._tracks.length
+      newIndex >= this.size
     ) {
       throw new Error("Invalid track position");
     }
@@ -163,24 +163,36 @@ export class Queue {
    * @returns The next track that was played or null if the queue is empty.
    */
   async playNext(): Promise<Track | null> {
-    if (this.currentPlaybackTrack) {
-      if (
-        this.repeatMode === RepeatMode.REPEAT_ALL ||
-        (this.repeatMode === RepeatMode.REPEAT_ONE && this._tracks.length === 1)
-      ) {
-        this.addTrack(this.currentPlaybackTrack);
+    /**
+     * If repeat mode is on, process it
+     */
+    if (
+      this._currentPlaybackTrack !== null &&
+      this.repeatMode !== RepeatMode.OFF
+    ) {
+      if (this.repeatMode === RepeatMode.REPEAT_ALL) {
+        this.addTrack(this._currentPlaybackTrack);
+      } else {
+        this.addTrackFirst(this._currentPlaybackTrack);
       }
     }
 
-    const track = this._tracks.shift();
-    if (!track) {
-      this._currentPlaybackTrack = null;
+    /**
+     * Set current track to null
+     */
+    this._currentPlaybackTrack = null;
+
+    /**
+     * Process next track
+     */
+    const nextTrack = this._tracks.shift();
+    if (!nextTrack) {
       return null;
     }
 
-    await this.guildPlayer.update({ track: { encoded: track.encoded } });
-    this._currentPlaybackTrack = track;
-    return track;
+    await this.guildPlayer.update({ track: { encoded: nextTrack.encoded } });
+    this._currentPlaybackTrack = nextTrack;
+    return nextTrack;
   }
 
   /**
@@ -199,7 +211,7 @@ export class Queue {
     // Sort indices in descending order to avoid shifting issues while removing
     indices.sort((a, b) => b - a);
     for (const index of indices) {
-      if (index >= 0 && index < this._tracks.length) {
+      if (index >= 0 && index < this.size) {
         this._tracks.splice(index, 1);
       }
     }

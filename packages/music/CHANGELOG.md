@@ -1,5 +1,11 @@
 # @discordx/music
 
+## 6.3.1
+
+### Patch Changes
+
+- fix: track repeat mode
+
 ## 6.3.0
 
 ### Minor Changes
