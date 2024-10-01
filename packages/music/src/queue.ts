@@ -78,7 +78,7 @@ export class Queue<T extends Track = Track> {
     return this._volume;
   }
 
-  get queueSize(): number {
+  get size(): number {
     return this.tracks.length;
   }
 
@@ -134,9 +134,9 @@ export class Queue<T extends Track = Track> {
   public changeTrackPosition(oldIndex: number, newIndex: number): void {
     if (
       oldIndex < 0 ||
-      oldIndex >= this._tracks.length ||
+      oldIndex >= this.size ||
       newIndex < 0 ||
-      newIndex >= this._tracks.length
+      newIndex >= this.size
     ) {
       throw new Error("Invalid track position");
     }
@@ -191,9 +191,9 @@ export class Queue<T extends Track = Track> {
       this.repeatMode !== RepeatMode.OFF
     ) {
       if (this.repeatMode === RepeatMode.REPEAT_ALL) {
-        this._tracks.push(this._currentPlaybackTrack);
+        this.addTrack(this._currentPlaybackTrack);
       } else {
-        this._tracks.unshift(this._currentPlaybackTrack);
+        this.addTrackFirst(this._currentPlaybackTrack);
       }
     }
 
@@ -231,7 +231,7 @@ export class Queue<T extends Track = Track> {
     // Sort indices in descending order to avoid shifting issues while removing
     indices.sort((a, b) => b - a);
     for (const index of indices) {
-      if (index >= 0 && index < this._tracks.length) {
+      if (index >= 0 && index < this.size) {
         this._tracks.splice(index, 1);
       }
     }
