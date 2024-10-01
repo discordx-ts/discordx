@@ -164,11 +164,10 @@ export class Queue {
    */
   async playNext(): Promise<Track | null> {
     if (this.currentPlaybackTrack) {
-      if (
-        this.repeatMode === RepeatMode.REPEAT_ALL ||
-        (this.repeatMode === RepeatMode.REPEAT_ONE && this._tracks.length === 1)
-      ) {
+      if (this.repeatMode === RepeatMode.REPEAT_ALL) {
         this.addTrack(this.currentPlaybackTrack);
+      } else if (this.repeatMode === RepeatMode.REPEAT_ONE) {
+        this.addTrackFirst(this.currentPlaybackTrack);
       }
     }
 
