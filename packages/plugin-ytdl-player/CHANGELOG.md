@@ -1,5 +1,11 @@
 # @discordx/plugin-ytdl-player
 
+## 2.3.5
+
+### Patch Changes
+
+- update queue
+
 ## 2.3.4
 
 ### Patch Changes
