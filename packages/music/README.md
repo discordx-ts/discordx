@@ -53,7 +53,7 @@ yarn add @discordx/music
 
 # 🤖 Bot Examples
 
-> **[discord-music-bot](https://github.com/discordx-ts/templates/tree/main/4-music-player-ytdl)** from [@samarmeena](https://github.com/samarmeena)
+> **[discord-music-bot](https://github.com/discordx-ts/templates/tree/main/4-music-player-ytdl)** from [@vijayymmeena](https://github.com/vijayymmeena)
 
 **Note:** Create a pull request to include your bot in the example list.
 
@@ -93,7 +93,7 @@ queue.addTrack({
 # 📜 Documentation
 
 - [discordx.js.org](https://discordx.js.org)
-- [Tutorials (dev.to)](https://dev.to/samarmeena/series/14317)
+- [Tutorials (dev.to)](https://dev.to/vijayymmeena/series/14317)
 
 # ☎️ Need help?
 

@@ -175,7 +175,7 @@
 
    END OF TERMS AND CONDITIONS
 
-   Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)
+   Copyright (c) Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)
    Copyright 2019 Owen Calvin
 
    Licensed under the Apache License, Version 2.0 (the "License");

@@ -22,7 +22,7 @@
     "url": "git+https://github.com/discordx-ts/discordx.git"
   },
   "license": "Apache-2.0",
-  "author": "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/samarmeena)",
+  "author": "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)",
   "main": "dist/index.js",
   "type": "module",
   "files": [

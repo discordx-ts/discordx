@@ -52,7 +52,7 @@ yarn add @discordx/internal
 # 📜 Documentation
 
 - [discordx.js.org](https://discordx.js.org)
-- [Tutorials (dev.to)](https://dev.to/samarmeena/series/14317)
+- [Tutorials (dev.to)](https://dev.to/vijayymmeena/series/14317)
 
 # ☎️ Need help?
 
