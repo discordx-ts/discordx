@@ -8,7 +8,7 @@ module.exports = {
   // },
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  organizationName: "samarmeena", // Usually your GitHub org/user name.
+  organizationName: "vijayymmeena", // Usually your GitHub org/user name.
   projectName: "discordx", // Usually your repo name.
   tagline: "Create a discord bot with TypeScript and Decorators!",
   title: "discordx official documentation",

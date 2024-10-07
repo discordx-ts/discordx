@@ -3,7 +3,7 @@ description: Request a new feature
 title: "[Feature]: "
 labels: [enhancement]
 assignees:
-  - samarmeena
+  - vijayymmeena
 body:
   - type: markdown
     attributes:
