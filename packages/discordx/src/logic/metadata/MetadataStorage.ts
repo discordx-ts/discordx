@@ -588,8 +588,6 @@ export class MetadataStorage {
    * @param options - Even data
    */
   trigger(options: ITriggerEventData): (...params: any[]) => any {
-    const responses: any[] = [];
-
     const eventsToExecute = this._events.filter((on) => {
       return (
         on.event === options.event &&
@@ -599,6 +597,7 @@ export class MetadataStorage {
     });
 
     return async (...params: any[]) => {
+      const responses: any[] = [];
       await Promise.all(
         eventsToExecute.map(async (ev) => {
           if (!ev.isBotAllowed(options.client.botId)) {
