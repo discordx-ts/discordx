@@ -1,5 +1,11 @@
 # discordx
 
+## 11.12.2
+
+### Patch Changes
+
+- fix memory leak in event triggers
+
 ## 11.12.1
 
 ### Patch Changes
