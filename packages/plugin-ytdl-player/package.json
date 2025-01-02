@@ -130,8 +130,7 @@
   },
   "devDependencies": {
     "discord.js": "^14.16.2",
-    "discordx": "workspace:^",
-    "ts-node": "^10.9.2"
+    "discordx": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
