@@ -31,7 +31,6 @@ import {
   InteractionType,
 } from "discord.js";
 import escapeRegExp from "lodash/escapeRegExp.js";
-import isArray from "lodash/isArray.js";
 
 import type {
   ApplicationCommandDataEx,
@@ -49,7 +48,6 @@ import type {
   GuardFunction,
   IGuild,
   ILogger,
-  IPrefix,
   IPrefixResolver,
   ISimpleCommandByName,
   ITriggerEventData,
@@ -63,6 +61,7 @@ import {
   SimpleCommandMessage,
   SimpleCommandOptionType,
   SimpleCommandParseType,
+  toStringArray,
 } from "./index.js";
 
 /**
@@ -1179,12 +1178,13 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  async getMessagePrefix(message: Message): Promise<IPrefix> {
+  async getMessagePrefix(message: Message): Promise<string[]> {
     if (typeof this.prefix !== "function") {
-      return isArray(this.prefix) ? [...this.prefix] : [this.prefix];
+      return toStringArray(this.prefix);
     }
 
-    return [...(await this.prefix(message))];
+    const prefix = await this.prefix(message);
+    return toStringArray(prefix);
   }
 
   /**
@@ -1197,15 +1197,19 @@ export class Client extends ClientJS {
    * @returns
    */
   async parseCommand(
-    prefix: IPrefix,
     message: Message,
     caseSensitive = false,
   ): Promise<SimpleCommandParseType | SimpleCommandMessage> {
     /**
+     * Get prefix for message
+     */
+    const prefix = await this.getMessagePrefix(message);
+
+    /**
      * Get a regular expression for the prefix by combining unique simple command prefixes.
      */
     const prefixRegex = RegExp(
-      `^(${[...prefix, ...this.simpleCommandMappedPrefix]
+      `^(${toStringArray(prefix, Array.from(this.simpleCommandMappedPrefix))
         .map((pfx) => escapeRegExp(pfx))
         .join("|")})`,
     );
@@ -1289,18 +1293,9 @@ export class Client extends ClientJS {
     caseSensitive?: boolean,
   ): Promise<unknown> {
     /**
-     * Get prefix for message
-     */
-    const prefix = await this.getMessagePrefix(message);
-
-    /**
      * Parse command
      */
-    const command = await this.parseCommand(
-      prefix,
-      message,
-      caseSensitive ?? false,
-    );
+    const command = await this.parseCommand(message, caseSensitive ?? false);
 
     /**
      * Return if the message is not a command
