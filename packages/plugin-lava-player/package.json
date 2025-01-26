@@ -111,7 +111,7 @@
     "@discordx/pagination": "workspace:^"
   },
   "devDependencies": {
-    "discord.js": "^14.16.2",
+    "discord.js": "^14.17.3",
     "discordx": "workspace:^"
   },
   "peerDependencies": {

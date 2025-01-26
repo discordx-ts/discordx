@@ -40,17 +40,17 @@
     "build": "tsup src/index.ts --format esm --dts"
   },
   "dependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "boxen": "^8.0.1",
-    "chalk": "^5.3.0",
+    "chalk": "^5.4.1",
     "is-installed-globally": "^1.0.0",
-    "ora": "^8.1.0",
+    "ora": "^8.1.1",
     "prompts": "^2.4.2",
     "rimraf": "^6.0.1",
     "tar": "^7.4.3",
-    "typescript": "5.6.2",
+    "typescript": "5.7.3",
     "update-check": "^1.5.4",
-    "validate-npm-package-name": "^5.0.1"
+    "validate-npm-package-name": "^6.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
