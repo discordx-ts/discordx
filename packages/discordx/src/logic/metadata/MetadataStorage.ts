@@ -30,6 +30,7 @@ import {
   DOn,
   DReaction,
   DSimpleCommand,
+  toStringArray,
 } from "../../index.js";
 
 /**
@@ -399,7 +400,7 @@ export class MetadataStorage {
        * Save the customized prefix within the mapped prefix set.
        */
       if (cmd.prefix) {
-        [...cmd.prefix].forEach((pfx) =>
+        toStringArray(cmd.prefix).forEach((pfx) =>
           this._simpleCommandMappedPrefix.add(pfx),
         );
       }

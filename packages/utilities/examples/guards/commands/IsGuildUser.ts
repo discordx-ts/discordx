@@ -32,9 +32,9 @@ export class Example {
     //...
   }
 
-  @SimpleCommand({ name: "hello" })
+  @SimpleCommand({ name: "wave" })
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  hello(command: SimpleCommandMessage) {
+  wave(command: SimpleCommandMessage) {
     //...
   }
 }

@@ -59,7 +59,6 @@ export class Connection<T extends BaseNode = BaseNode> {
 
       let pk: any;
       try {
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         pk = JSON.parse(d.toString());
       } catch (e) {
         this.node.emit("error", e);

@@ -117,19 +117,19 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-ytdl-player"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.9.0",
-    "@discordjs/voice": "^0.17.0",
+    "@discordjs/opus": "^0.10.0",
+    "@discordjs/voice": "^0.18.0",
     "@discordx/importer": "workspace:^",
     "@discordx/music": "workspace:^",
     "@discordx/pagination": "workspace:^",
     "ffmpeg-static": "^5.2.0",
     "isomorphic-unfetch": "^4.0.2",
     "libsodium-wrappers": "^0.7.15",
-    "spotify-url-info": "^3.2.16",
+    "spotify-url-info": "^3.2.18",
     "youtube-sr": "^4.3.11"
   },
   "devDependencies": {
-    "discord.js": "^14.16.2",
+    "discord.js": "^14.17.3",
     "discordx": "workspace:^"
   },
   "publishConfig": {

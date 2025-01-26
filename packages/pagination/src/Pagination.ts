@@ -158,21 +158,26 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       }
 
       // send message
-      const reply =
-        this.sendTo.deferred || this.sendTo.replied
-          ? await this.sendTo.followUp({
-              ...page.newMessage,
-              ephemeral: this.option.ephemeral,
-              fetchReply: true,
-            })
-          : await this.sendTo.reply({
-              ...page.newMessage,
-              ephemeral: this.option.ephemeral,
-              fetchReply: true,
-            });
+      let reply: Message | null = null;
+
+      if (this.sendTo.deferred || this.sendTo.replied) {
+        reply = await this.sendTo.followUp({
+          ...page.newMessage,
+          ephemeral: this.option.ephemeral,
+          fetchReply: true,
+        });
+      } else {
+        const response = await this.sendTo.reply({
+          ...page.newMessage,
+          ephemeral: this.option.ephemeral,
+          withResponse: true,
+        });
+
+        reply = response.resource?.message ?? null;
+      }
 
       // If the message response is not received, throw an error
-      if (!(reply instanceof Message)) {
+      if (!reply) {
         throw Error(
           "Missing Intent: GUILD_MESSAGES\nWithout guild message intent, pagination does not work, Consider adding GUILD_MESSAGES as an intent\nread more at https://discordx.js.org/docs/faq/Errors/Pagination#missing-intent-guild_messages",
         );
