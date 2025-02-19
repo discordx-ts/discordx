@@ -6,11 +6,11 @@
  */
 import type {
   ActionRowBuilder,
-  APIMessageComponentEmoji,
   AttachmentPayload,
   BaseMessageOptions,
   ButtonStyle,
   CommandInteraction,
+  ComponentEmojiResolvable,
   ContextMenuCommandInteraction,
   JSONEncodable,
   Message,
@@ -100,7 +100,7 @@ interface ButtonOptions {
   /**
    * Button emoji
    */
-  emoji?: APIMessageComponentEmoji;
+  emoji?: ComponentEmojiResolvable;
 
   /**
    * Button id
