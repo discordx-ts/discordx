@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 3.5.6
+
+### Patch Changes
+
+- refactor(pagination): emoji support for button
+
 ## 3.5.5
 
 ### Patch Changes
