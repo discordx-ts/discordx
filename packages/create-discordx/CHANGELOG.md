@@ -1,5 +1,11 @@
 # create-discordx
 
+## 1.3.0
+
+### Minor Changes
+
+- added bun as a package manager
+
 ## 1.2.4
 
 ### Patch Changes

@@ -13,6 +13,7 @@ export enum PackageManager {
   npm,
   yarn,
   pnpm,
+  bun,
   none,
 }
 
@@ -31,6 +32,10 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
         {
           title: "pnpm",
           value: PackageManager.pnpm.toString(),
+        },
+        {
+          title: "bun",
+          value: PackageManager.bun.toString(),
         },
         {
           title: "none - do not install packages",
@@ -66,6 +71,10 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
       case PackageManager.pnpm:
         execSync("pnpm --version", { stdio: "ignore" });
         break;
+
+      case PackageManager.bun:
+        execSync("bun --version", { stdio: "ignore" });
+        break;
     }
   } catch (err) {
     console.log(
@@ -77,7 +86,9 @@ export async function GetPackageManager(): Promise<PackageManager | null> {
         ? "https://pnpm.io"
         : PackageManager.yarn === manager
           ? "https://yarnpkg.com"
-          : "https://nodejs.org/en/download",
+          : PackageManager.bun === manager
+            ? "https://bun.sh"
+            : "https://nodejs.org/en/download",
     );
 
     console.log(err);
@@ -137,6 +148,18 @@ export async function InstallPackage(
             resolve(true);
           });
         });
+        break;
+
+      case PackageManager.bun:
+        await new Promise((resolve, reject) => {
+          exec("bun install", { cwd: root }, (err) => {
+            if (err) {
+              reject(err);
+            }
+            resolve(true);
+          });
+        });
+        break;
     }
 
     spinner.succeed(chalk.bold("Installed packages"));
