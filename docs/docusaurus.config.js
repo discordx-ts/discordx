@@ -75,7 +75,7 @@ module.exports = {
         docs: {
           editUrl: "https://github.com/discordx-ts/discordx/edit/main/docs/",
           remarkPlugins: [
-            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true, converters: ['yarn', 'pnpm', 'bun'] }],
           ],
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
