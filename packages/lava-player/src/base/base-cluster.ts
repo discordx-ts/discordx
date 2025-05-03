@@ -61,9 +61,7 @@ export abstract class BaseCluster extends EventEmitter {
 
   public getNode(guildId: string): ClusterNode {
     let node = this.nodes.find((nodeX) => nodeX.guildPlayerStore.has(guildId));
-    if (!node) {
-      node = this.sort().find((nodeX) => this.filter(nodeX, guildId));
-    }
+    node ??= this.sort().find((nodeX) => this.filter(nodeX, guildId));
 
     if (node) {
       return node;

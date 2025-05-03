@@ -21,10 +21,8 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
   private service: typeof Service | undefined;
 
   public static get instance(): TypeDiDependencyRegistryEngine {
-    if (!TypeDiDependencyRegistryEngine._instance) {
-      TypeDiDependencyRegistryEngine._instance =
-        new TypeDiDependencyRegistryEngine();
-    }
+    TypeDiDependencyRegistryEngine._instance ??=
+      new TypeDiDependencyRegistryEngine();
 
     return TypeDiDependencyRegistryEngine._instance;
   }

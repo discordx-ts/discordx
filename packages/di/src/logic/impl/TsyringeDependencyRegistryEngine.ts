@@ -24,11 +24,8 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
   private factory: Factory | null = null;
 
   public static get instance(): TsyringeDependencyRegistryEngine {
-    if (!TsyringeDependencyRegistryEngine._instance) {
-      TsyringeDependencyRegistryEngine._instance =
-        new TsyringeDependencyRegistryEngine();
-    }
-
+    TsyringeDependencyRegistryEngine._instance ??=
+      new TsyringeDependencyRegistryEngine();
     return TsyringeDependencyRegistryEngine._instance;
   }
 

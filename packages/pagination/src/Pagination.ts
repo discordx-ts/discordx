@@ -332,9 +332,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       const finalPage = await this.getPage(this.currentPage);
       if (message.editable && finalPage) {
         // Reset page components
-        if (!finalPage.newMessage.components) {
-          finalPage.newMessage.components = [];
-        }
+        finalPage.newMessage.components ??= [];
 
         // Eliminate the ephemeral pagination error, since direct editing cannot be performed
         if (
