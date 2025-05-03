@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 3.5.7
+
+### Patch Changes
+
+- dep update and eslint
+
 ## 3.5.6
 
 ### Patch Changes

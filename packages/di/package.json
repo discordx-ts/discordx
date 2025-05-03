@@ -1,6 +1,6 @@
 {
   "name": "@discordx/di",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "private": false,
   "description": "dependency injection service with TSyringe support",
   "keywords": [
@@ -48,11 +48,11 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/di"
   },
   "dependencies": {
-    "tsyringe": "^4.8.0",
+    "tsyringe": "^4.10.0",
     "typedi": "^0.10.0"
   },
   "devDependencies": {
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   },
   "engines": {
     "node": ">=16.0.0",

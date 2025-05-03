@@ -1,5 +1,11 @@
 # create-discordx
 
+## 1.3.1
+
+### Patch Changes
+
+- dep update and eslint
+
 ## 1.3.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @discordx/utilities
 
+## 7.0.4
+
+### Patch Changes
+
+- dep update and eslint
+
+- Updated dependencies []:
+  - discordx@11.12.3
+
 ## 7.0.3
 
 ### Patch Changes

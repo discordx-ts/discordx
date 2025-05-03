@@ -89,9 +89,7 @@ export class MetadataStorage {
   }
 
   static get instance(): MetadataStorage {
-    if (!this._instance) {
-      this._instance = new MetadataStorage();
-    }
+    this._instance ??= new MetadataStorage();
     return this._instance;
   }
   static set instance(value: MetadataStorage) {

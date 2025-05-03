@@ -1,5 +1,15 @@
 # discordx
 
+## 11.12.3
+
+### Patch Changes
+
+- dep update and eslint
+
+- Updated dependencies []:
+  - @discordx/internal@1.1.5
+  - @discordx/di@3.3.3
+
 ## 11.12.2
 
 ### Patch Changes

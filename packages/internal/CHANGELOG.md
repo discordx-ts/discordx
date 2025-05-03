@@ -1,5 +1,11 @@
 # @discordx/internal
 
+## 1.1.5
+
+### Patch Changes
+
+- dep update and eslint
+
 ## 1.1.4
 
 ### Patch Changes

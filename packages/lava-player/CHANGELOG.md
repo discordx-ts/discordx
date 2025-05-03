@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.1.4
+
+### Patch Changes
+
+- dep update and eslint
+
 ## 2.1.3
 
 ### Patch Changes

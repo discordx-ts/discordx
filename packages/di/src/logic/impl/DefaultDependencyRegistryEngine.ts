@@ -14,11 +14,8 @@ export class DefaultDependencyRegistryEngine
   private _services = new Map();
 
   public static get instance(): DefaultDependencyRegistryEngine {
-    if (!DefaultDependencyRegistryEngine._instance) {
-      DefaultDependencyRegistryEngine._instance =
-        new DefaultDependencyRegistryEngine();
-    }
-
+    DefaultDependencyRegistryEngine._instance ??=
+      new DefaultDependencyRegistryEngine();
     return DefaultDependencyRegistryEngine._instance;
   }
 

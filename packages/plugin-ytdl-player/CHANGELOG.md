@@ -1,5 +1,16 @@
 # @discordx/plugin-ytdl-player
 
+## 2.3.6
+
+### Patch Changes
+
+- dep update and eslint
+
+- Updated dependencies []:
+  - @discordx/pagination@3.5.7
+  - @discordx/importer@1.3.2
+  - @discordx/music@6.3.2
+
 ## 2.3.5
 
 ### Patch Changes

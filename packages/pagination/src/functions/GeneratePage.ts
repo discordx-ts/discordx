@@ -115,17 +115,9 @@ export function GeneratePage(
       );
 
     // reset message payload additional parameters
-    if (!newMessage.embeds) {
-      newMessage.embeds = [];
-    }
-
-    if (!newMessage.files) {
-      newMessage.files = [];
-    }
-
-    if (!newMessage.attachments) {
-      newMessage.attachments = [];
-    }
+    newMessage.embeds ??= [];
+    newMessage.files ??= [];
+    newMessage.attachments ??= [];
 
     return { newMessage, paginationRow: row };
   }
@@ -180,17 +172,9 @@ export function GeneratePage(
     ]);
 
   // reset message payload additional parameters
-  if (!newMessage.embeds) {
-    newMessage.embeds = [];
-  }
-
-  if (!newMessage.files) {
-    newMessage.files = [];
-  }
-
-  if (!newMessage.attachments) {
-    newMessage.attachments = [];
-  }
+  newMessage.embeds ??= [];
+  newMessage.files ??= [];
+  newMessage.attachments ??= [];
 
   return { newMessage, paginationRow: row };
 }
