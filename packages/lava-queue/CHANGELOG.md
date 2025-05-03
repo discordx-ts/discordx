@@ -1,5 +1,14 @@
 # @discordx/lava-queue
 
+## 4.0.7
+
+### Patch Changes
+
+- dep update and eslint
+
+- Updated dependencies []:
+  - @discordx/lava-player@2.1.4
+
 ## 4.0.6
 
 ### Patch Changes

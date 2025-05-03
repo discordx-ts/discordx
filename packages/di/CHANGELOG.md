@@ -1,5 +1,11 @@
 # @discordx/di
 
+## 3.3.3
+
+### Patch Changes
+
+- dep update and eslint
+
 ## 3.3.2
 
 ### Patch Changes

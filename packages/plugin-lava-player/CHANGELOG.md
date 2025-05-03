@@ -1,5 +1,17 @@
 # @discordx/plugin-lava-player
 
+## 2.5.6
+
+### Patch Changes
+
+- dep update and eslint
+
+- Updated dependencies []:
+  - @discordx/lava-player@2.1.4
+  - @discordx/lava-queue@4.0.7
+  - @discordx/pagination@3.5.7
+  - discordx@11.12.3
+
 ## 2.5.5
 
 ### Patch Changes
