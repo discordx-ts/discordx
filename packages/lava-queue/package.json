@@ -51,9 +51,9 @@
   },
   "devDependencies": {
     "@discordx/lava-player": "workspace:^",
-    "@types/lodash": "^4.17.14",
-    "discord.js": "^14.17.3",
-    "typescript": "5.7.3"
+    "@types/lodash": "^4.17.16",
+    "discord.js": "^14.19.3",
+    "typescript": "5.8.3"
   },
   "peerDependencies": {
     "@discordx/lava-player": ">=2.1.3",

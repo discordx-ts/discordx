@@ -43,10 +43,10 @@
     "build": "tsup src/index.ts --format cjs,esm --dts"
   },
   "dependencies": {
-    "glob": "^11.0.1"
+    "glob": "^11.0.2"
   },
   "devDependencies": {
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   },
   "publishConfig": {
     "access": "public"
