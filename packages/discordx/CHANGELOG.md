@@ -1,5 +1,12 @@
 # discordx
 
+## 11.12.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @discordx/di@3.3.4
+
 ## 11.12.3
 
 ### Patch Changes

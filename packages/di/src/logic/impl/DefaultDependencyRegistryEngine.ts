@@ -19,9 +19,9 @@ export class DefaultDependencyRegistryEngine
     return DefaultDependencyRegistryEngine._instance;
   }
 
-  public addService(ServiceConstructor: any): void {
-    const service = new ServiceConstructor();
-    this._services.set(service, ServiceConstructor);
+  public addService(serviceConstructor: any): void {
+    const service = new serviceConstructor();
+    this._services.set(serviceConstructor, service);
   }
 
   public clearAllServices(): void {

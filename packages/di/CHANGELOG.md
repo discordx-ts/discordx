@@ -1,5 +1,11 @@
 # @discordx/di
 
+## 3.3.4
+
+### Patch Changes
+
+- fix default di add service instance
+
 ## 3.3.3
 
 ### Patch Changes
