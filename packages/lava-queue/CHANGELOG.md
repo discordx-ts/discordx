@@ -1,5 +1,11 @@
 # @discordx/lava-queue
 
+## 4.0.8
+
+### Patch Changes
+
+- fix on finish playback
+
 ## 4.0.7
 
 ### Patch Changes
