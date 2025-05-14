@@ -32,18 +32,17 @@ export class QueueManager {
           return;
         }
 
-        void queue.playNext();
-
         /**
          * Leave the voice channel if it is enabled and there is no next track to play.
          */
-        if (
-          queue.leaveOnFinish &&
-          !queue.currentPlaybackTrack &&
-          !queue.tracks.length
-        ) {
+        if (queue.leaveOnFinish && queue.tracks.length === 0) {
           void queue.guildPlayer.leave();
         }
+
+        /**
+         * Play next track
+         */
+        void queue.playNext();
       }
     });
   }
