@@ -1,6 +1,6 @@
 {
   "name": "@discordx/pagination",
-  "version": "3.5.7",
+  "version": "3.5.8",
   "private": false,
   "description": "Library for creating pagination messages in Discord bots",
   "keywords": [

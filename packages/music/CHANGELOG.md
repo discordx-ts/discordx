@@ -1,5 +1,14 @@
 # @discordx/music
 
+## 6.3.3
+
+### Patch Changes
+
+- Dep update
+
+- Updated dependencies []:
+  - @discordx/importer@1.3.3
+
 ## 6.3.2
 
 ### Patch Changes

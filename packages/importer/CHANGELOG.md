@@ -1,5 +1,11 @@
 # @discordx/importer
 
+## 1.3.3
+
+### Patch Changes
+
+- Dep update
+
 ## 1.3.2
 
 ### Patch Changes
