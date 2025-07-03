@@ -1,6 +1,6 @@
 {
   "name": "discordx",
-  "version": "11.12.4",
+  "version": "11.12.5",
   "private": false,
   "description": "Create a discord bot with TypeScript and Decorators!",
   "keywords": [
@@ -55,12 +55,12 @@
   },
   "devDependencies": {
     "@discordx/importer": "workspace:^",
-    "@types/jest": "^29.5.14",
-    "@types/lodash": "^4.17.16",
-    "discord.js": "^14.19.3",
-    "jest": "^29.7.0",
+    "@types/jest": "^30.0.0",
+    "@types/lodash": "^4.17.20",
+    "discord.js": "^14.21.0",
+    "jest": "^30.0.4",
     "reflect-metadata": "^0.2.2",
-    "ts-jest": "^29.3.2",
+    "ts-jest": "^29.4.0",
     "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.8.3"
   },

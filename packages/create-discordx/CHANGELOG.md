@@ -1,5 +1,11 @@
 # create-discordx
 
+## 1.3.2
+
+### Patch Changes
+
+- Dep update
+
 ## 1.3.1
 
 ### Patch Changes

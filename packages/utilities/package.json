@@ -1,6 +1,6 @@
 {
   "name": "@discordx/utilities",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "private": false,
   "description": "Utilities package for enhancing discordx functionality",
   "keywords": [
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@discordx/importer": "workspace:^",
     "@discordx/pagination": "workspace:^",
-    "discord.js": "^14.19.3",
+    "discord.js": "^14.21.0",
     "discordx": "workspace:^",
     "typescript": "5.8.3"
   },

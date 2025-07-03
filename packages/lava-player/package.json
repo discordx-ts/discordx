@@ -1,6 +1,6 @@
 {
   "name": "@discordx/lava-player",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "private": false,
   "description": "Powerful Lavalink player library written in TypeScript for Node.js",
   "keywords": [
@@ -48,7 +48,7 @@
   "dependencies": {
     "@types/backoff": "^2.5.5",
     "backoff": "^2.5.0",
-    "ws": "^8.18.2"
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/ws": "^8.18.1",
