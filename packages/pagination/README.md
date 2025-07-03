@@ -63,15 +63,10 @@ yarn add @discordx/pagination
 ## Example
 
 ```ts
-import {
-  Pagination,
-  PaginationResolver,
-  PaginationType,
-} from "@discordx/pagination";
+import { Pagination, PaginationResolver } from "@discordx/pagination";
 import type {
   CommandInteraction,
   MessageActionRowComponentBuilder,
-  MessageOptions,
 } from "discord.js";
 import {
   ActionRowBuilder,
@@ -82,37 +77,27 @@ import {
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
-function GeneratePages(limit?: number): MessageOptions[] {
-  const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {
-    return { content: `I am ${i + 1}`, embed: `Demo ${i + 1}` };
-  });
-  return pages.map((page) => {
-    return {
-      content: page.content,
-      embeds: [new MessageEmbed().setTitle(page.embed)],
-    };
-  });
-}
+import { GeneratePages } from "../util/common.js";
 
 @Discord()
 export class Example {
   // example: message
   @On({ event: "messageCreate" })
-  messageCreate([message]: ArgsOf<"messageCreate">): void {
+  async messageCreate([message]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated demo") {
-      new Pagination(message, GeneratePages(), {
-        type: PaginationType.Button,
-      }).send();
+      const pagination = new Pagination(message, GeneratePages());
+      await pagination.send();
     }
   }
 
   // example: any text channel
   @On({ event: "messageCreate" })
-  messageCreateChannel([message]: ArgsOf<"messageCreate">): void {
+  async messageCreateChannel([
+    message,
+  ]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated channel demo") {
-      new Pagination(message.channel, GeneratePages(), {
-        type: PaginationType.Button,
-      }).send();
+      const pagination = new Pagination(message.channel, GeneratePages());
+      await pagination.send();
     }
   }
 
@@ -124,19 +109,32 @@ export class Example {
         // example to replace pagination with another pagination data
         pagination.currentPage = 0; // reset current page, because this is gonna be first page
         pagination.maxLength = 5; // new max length for new pagination
-        pagination.embeds = ["1", "2", "3", "4", "5"]; // page reference can be resolver as well
-        return pagination.embeds[pagination.currentPage] ?? "unknown"; // the first page, must select ourselves
+        pagination.pages = [
+          { content: "1" },
+          { content: "2" },
+          { content: "3" },
+          { content: "4" },
+          { content: "5" },
+        ]; // page reference can be resolver as well
+
+        return (
+          pagination.pages[pagination.currentPage] ?? { content: "unknown" }
+        ); // the first page, must select ourselves
       }
-      return `page v2 ${page}`;
+      return { content: `page v2 ${page}` };
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {
-      onTimeout: () => interaction.deleteReply(),
-      start: {
-        emoji: { name: "🙂" },
+      onTimeout: () => {
+        void interaction.deleteReply().catch(null);
       },
-      time: 5 * 1000,
-      type: PaginationType.Button,
+      buttons: {
+        backward: {
+          emoji: { name: "🙂" },
+        },
+      },
+      time: 60_000,
+      enableExit: true,
     });
 
     await pagination.send();
@@ -144,26 +142,34 @@ export class Example {
 
   // example: simple slash with menu pagination
   @Slash({ description: "Simple slash with menu pagination", name: "demo-b" })
-  demoB(interaction: CommandInteraction): void {
-    new Pagination(interaction, GeneratePages(), {
-      time: 5 * 1000,
-      type: PaginationType.SelectMenu,
-    }).send();
+  async demoB(interaction: CommandInteraction): Promise<void> {
+    const pagination = new Pagination(interaction, GeneratePages(), {
+      time: 60_000,
+    });
+
+    await pagination.send();
   }
 
   // example: simple string array
   @Slash({ description: "Simple string array", name: "demo-c" })
-  demoC(interaction: CommandInteraction): void {
-    new Pagination(
+  async demoC(interaction: CommandInteraction): Promise<void> {
+    const pagination = new Pagination(
       interaction,
-      Array.from(Array(20).keys()).map((i) => i.toString()),
-    ).send();
+      Array.from(Array(200).keys()).map((i) => ({
+        content: (i + 1).toString(),
+      })),
+      {
+        enableExit: true,
+      },
+    );
+
+    await pagination.send();
   }
 
   // example: array of custom message options
   @Slash({ description: "Array of custom message options", name: "demo-d" })
-  demoD(interaction: CommandInteraction): void {
-    new Pagination(interaction, [
+  async demoD(interaction: CommandInteraction): Promise<void> {
+    const pagination = new Pagination(interaction, [
       {
         content: "Page 1",
       },
@@ -186,58 +192,59 @@ export class Example {
         content: "Page 3",
         embeds: [new EmbedBuilder({ title: "It's me embed 3" })],
       },
-    ]).send();
+    ]);
+
+    await pagination.send();
   }
 }
 ```
 
 # Options
 
-| Name         | Type              | Default   | Description                  |
-| ------------ | ----------------- | --------- | ---------------------------- |
-| enableExit   | boolean           | false     | Enable early exit pagination |
-| ephemeral    | boolean           | undefined | Enable ephemeral             |
-| initialPage  | number            | 0         | Initial page                 |
-| onTimeout    | Function          | undefined | Timeout callback             |
-| showStartEnd | boolean \| number | true      | Show start/end               |
-| time         | number            | 3e5       | Timeout for pagination in ms |
-| type         | PaginationType    | BUTTON    | Pagination type              |
+## Basic Options
 
-> When pagination options are not defined, SELECT_MENU will be used if there are more than 20 pages.
+| Name         | Type     | Default   | Description                                     |
+| ------------ | -------- | --------- | ----------------------------------------------- |
+| debug        | boolean  | false     | Enable debug logging                            |
+| enableExit   | boolean  | false     | Enable exit button for early pagination closure |
+| ephemeral    | boolean  | undefined | Set ephemeral response                          |
+| initialPage  | number   | 0         | Initial page number                             |
+| itemsPerPage | number   | undefined | Number of items shown per page in select menu   |
+| onTimeout    | Function | undefined | Callback function when pagination times out     |
 
-## Button Options
+## Button Navigation Options
 
-The following options are only available, if you have set type to `BUTTON`
+The following options are available under the `buttons` configuration:
 
-| Name     | Type          | Description             |
-| -------- | ------------- | ----------------------- |
-| end      | ButtonOptions | End Button options      |
-| exit     | ButtonOptions | Exit Button options     |
-| next     | ButtonOptions | Next Button options     |
-| previous | ButtonOptions | Previous Button options |
-| start    | ButtonOptions | Start Button options    |
+| Name       | Type          | Description                                             |
+| ---------- | ------------- | ------------------------------------------------------- |
+| previous   | ButtonOptions | Previous button configuration                           |
+| backward   | ButtonOptions | Backward button configuration (-10 pages)               |
+| forward    | ButtonOptions | Forward button configuration (+10 pages)                |
+| next       | ButtonOptions | Next button configuration                               |
+| exit       | ButtonOptions | Exit button configuration                               |
+| skipAmount | number        | Number of pages to skip with skip buttons (default: 10) |
 
-## Type: ButtonOptions
+### ButtonOptions Structure
 
-| Name  | Type                                    | Description  |
-| ----- | --------------------------------------- | ------------ |
-| emoji | EmojiIdentifierResolvable               | Button Emoji |
-| id    | string                                  | Button Id    |
-| label | string                                  | Button Label |
-| style | PRIMARY\| SECONDARY \|SUCCESS \| DANGER | Button Style |
+| Name  | Type                             | Description                                        |
+| ----- | -------------------------------- | -------------------------------------------------- |
+| emoji | ComponentEmojiResolvable \| null | Button emoji                                       |
+| id    | string                           | Custom button ID                                   |
+| label | string                           | Button label text                                  |
+| style | ButtonStyle                      | Button style (PRIMARY\|SECONDARY\|SUCCESS\|DANGER) |
 
-## SELECT_MENU Options
+## Select Menu Options
 
-The following options are only available, if you have set type to `SELECT_MENU`
+The following options are available under the `selectMenu` configuration:
 
-| Name         | Type               | Default                    | Description      |
-| ------------ | ------------------ | -------------------------- | ---------------- |
-| labels.end   | string             | `End`                      | label            |
-| labels.exit  | string             | `Exit Pagination`          | label            |
-| labels.start | string             | `Start`                    | label            |
-| menuId       | string             | `discordx@pagination@menu` | Menu custom id   |
-| pageText     | string \| string[] | `Page {page}`              | Menu page text   |
-| placeholder  | string             | `Select page`              | Menu placeholder |
+| Name                   | Type               | Default                    | Description                                                   |
+| ---------------------- | ------------------ | -------------------------- | ------------------------------------------------------------- |
+| labels.start           | string             | "Start"                    | Start label text                                              |
+| labels.end             | string             | "End"                      | End label text                                                |
+| menuId                 | string             | "discordx@pagination@menu" | Custom select menu ID                                         |
+| pageText               | string \| string[] | "Page {page}"              | Page text format (use {page} for page number)                 |
+| rangePlaceholderFormat | string             | undefined                  | Custom range placeholder format (use {start}, {end}, {total}) |
 
 # 📜 Documentation
 
