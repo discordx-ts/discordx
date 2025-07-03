@@ -11,7 +11,7 @@ import type {
   ApplicationCommandData,
   AutocompleteInteraction,
   ButtonInteraction,
-  CommandInteraction,
+  ChatInputCommandInteraction,
   CommandInteractionOption,
   ContextMenuCommandInteraction,
   Interaction,
@@ -923,7 +923,7 @@ export class Client extends ClientJS {
    * @returns
    */
   getApplicationCommandGroupTree(
-    interaction: CommandInteraction | AutocompleteInteraction,
+    interaction: ChatInputCommandInteraction | AutocompleteInteraction,
   ): string[] {
     const tree: string[] = [];
 
@@ -1018,6 +1018,11 @@ export class Client extends ClientJS {
    * @returns
    */
   executeInteraction(interaction: Interaction): Awaited<unknown> {
+    // Skip processing for primary entry point commands
+    if (interaction.isPrimaryEntryPointCommand()) {
+      return null;
+    }
+
     // if interaction is a button
     if (interaction.isButton()) {
       return this.executeComponent(this.buttonComponents, interaction);
@@ -1050,7 +1055,7 @@ export class Client extends ClientJS {
    * @returns
    */
   async executeCommandInteraction(
-    interaction: CommandInteraction | AutocompleteInteraction,
+    interaction: ChatInputCommandInteraction | AutocompleteInteraction,
   ): Promise<unknown> {
     // Get the interaction group tree
     const tree = this.getApplicationCommandGroupTree(interaction);

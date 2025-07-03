@@ -126,10 +126,10 @@
     "isomorphic-unfetch": "^4.0.2",
     "libsodium-wrappers": "^0.7.15",
     "spotify-url-info": "^3.2.18",
-    "youtube-sr": "^4.3.11"
+    "youtube-sr": "^4.3.12"
   },
   "devDependencies": {
-    "discord.js": "^14.19.3",
+    "discord.js": "^14.21.0",
     "discordx": "workspace:^"
   },
   "publishConfig": {
