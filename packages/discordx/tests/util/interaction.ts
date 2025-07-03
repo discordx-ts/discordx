@@ -100,6 +100,7 @@ export enum InteractionType {
   ContextMenu,
   SelectMenu,
   Modal,
+  PrimaryEntryPoint,
 }
 
 export interface FakeInteractionOption {
@@ -127,6 +128,10 @@ export class FakeInteraction {
 
   isCommand() {
     return this.type === InteractionType.Command;
+  }
+
+  isPrimaryEntryPointCommand() {
+    return this.type === InteractionType.PrimaryEntryPoint;
   }
 
   isButton() {

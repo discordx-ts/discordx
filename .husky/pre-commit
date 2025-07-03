@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run prettier
+pnpm run prettier
+pnpm lint
+pnpm build
+pnpm test
