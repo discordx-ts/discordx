@@ -1,5 +1,14 @@
 # @discordx/plugin-ytdl-player
 
+## 2.3.8
+
+### Patch Changes
+
+- pagination upgrade
+
+- Updated dependencies []:
+  - @discordx/pagination@4.0.0
+
 ## 2.3.7
 
 ### Patch Changes

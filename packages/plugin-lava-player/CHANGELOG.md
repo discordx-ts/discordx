@@ -1,5 +1,14 @@
 # @discordx/plugin-lava-player
 
+## 2.5.9
+
+### Patch Changes
+
+- pagination upgrade
+
+- Updated dependencies []:
+  - @discordx/pagination@4.0.0
+
 ## 2.5.8
 
 ### Patch Changes

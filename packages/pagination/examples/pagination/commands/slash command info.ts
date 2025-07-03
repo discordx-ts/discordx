@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Pagination, PaginationType } from "@discordx/pagination";
+import { Pagination } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 import { Discord, MetadataStorage, Slash } from "discordx";
@@ -30,7 +30,6 @@ export class Example {
 
     const pagination = new Pagination(interaction, pages, {
       filter: (interact) => interact.user.id === interaction.user.id,
-      type: PaginationType.Button,
     });
 
     await pagination.send();
