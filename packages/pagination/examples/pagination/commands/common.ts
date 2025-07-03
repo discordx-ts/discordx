@@ -4,11 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import {
-  Pagination,
-  PaginationResolver,
-  PaginationType,
-} from "@discordx/pagination";
+import { Pagination, PaginationResolver } from "@discordx/pagination";
 import type {
   CommandInteraction,
   MessageActionRowComponentBuilder,
@@ -22,7 +18,7 @@ import {
 import type { ArgsOf } from "discordx";
 import { Discord, On, Slash } from "discordx";
 
-import { GeneratePages } from "../util/common functions.js";
+import { GeneratePages } from "../util/common.js";
 
 @Discord()
 export class Example {
@@ -30,10 +26,7 @@ export class Example {
   @On({ event: "messageCreate" })
   async messageCreate([message]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated demo") {
-      const pagination = new Pagination(message, GeneratePages(), {
-        type: PaginationType.Button,
-      });
-
+      const pagination = new Pagination(message, GeneratePages());
       await pagination.send();
     }
   }
@@ -44,10 +37,7 @@ export class Example {
     message,
   ]: ArgsOf<"messageCreate">): Promise<void> {
     if (message.content === "paginated channel demo") {
-      const pagination = new Pagination(message.channel, GeneratePages(), {
-        type: PaginationType.Button,
-      });
-
+      const pagination = new Pagination(message.channel, GeneratePages());
       await pagination.send();
     }
   }
@@ -76,12 +66,16 @@ export class Example {
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {
-      onTimeout: () => void interaction.deleteReply(),
-      start: {
-        emoji: { name: "🙂" },
+      onTimeout: () => {
+        void interaction.deleteReply().catch(null);
       },
-      time: 5 * 1000,
-      type: PaginationType.Button,
+      buttons: {
+        backward: {
+          emoji: { name: "🙂" },
+        },
+      },
+      time: 60_000,
+      enableExit: true,
     });
 
     await pagination.send();
@@ -91,8 +85,7 @@ export class Example {
   @Slash({ description: "Simple slash with menu pagination", name: "demo-b" })
   async demoB(interaction: CommandInteraction): Promise<void> {
     const pagination = new Pagination(interaction, GeneratePages(), {
-      time: 5 * 1000,
-      type: PaginationType.SelectMenu,
+      time: 60_000,
     });
 
     await pagination.send();
@@ -103,7 +96,12 @@ export class Example {
   async demoC(interaction: CommandInteraction): Promise<void> {
     const pagination = new Pagination(
       interaction,
-      Array.from(Array(20).keys()).map((i) => ({ content: i.toString() })),
+      Array.from(Array(200).keys()).map((i) => ({
+        content: (i + 1).toString(),
+      })),
+      {
+        enableExit: true,
+      },
     );
 
     await pagination.send();

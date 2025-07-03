@@ -4,11 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Pagination, PaginationType } from "@discordx/pagination";
+import { Pagination } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
 
-import { GeneratePages } from "../util/common functions.js";
+import { GeneratePages } from "../util/common.js";
 
 @Discord()
 export class Example {
@@ -19,8 +19,9 @@ export class Example {
   })
   async configExample(interaction: CommandInteraction): Promise<void> {
     const pagination = new Pagination(interaction, GeneratePages(), {
-      pageText: "My custom page: {page}, Index: {page}",
-      type: PaginationType.SelectMenu,
+      selectMenu: {
+        pageText: "My custom page: {page}, Index: {page}",
+      },
     });
 
     await pagination.send();

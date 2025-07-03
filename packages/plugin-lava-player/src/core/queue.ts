@@ -5,11 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { fromMS, Queue, RepeatMode } from "@discordx/lava-queue";
-import {
-  Pagination,
-  PaginationResolver,
-  PaginationType,
-} from "@discordx/pagination";
+import { Pagination, PaginationResolver } from "@discordx/pagination";
 import type {
   ButtonInteraction,
   CommandInteraction,
@@ -247,7 +243,6 @@ export class MusicQueue extends Queue {
       "> The queue could not be processed at the moment, please try again later!";
     const nowPlayingMessage = (title: string) => `> Playing **${title}**`;
     const pageTimeoutMessage = 60_000; // 6e4
-    const shortPaginationLimit = 5;
     const deleteDelayMsShort = 3_000; // 3 seconds
     const deleteDelayMsLong = 10_000; // 10 seconds
 
@@ -284,17 +279,12 @@ export class MusicQueue extends Queue {
     }
 
     const totalPages = Math.round(this.size / 10);
-    const isShortPagination = totalPages <= shortPaginationLimit;
 
     const current = currentPlaybackTrackMessage(
       this.currentPlaybackTrack.info.title,
       this.size,
       this.currentPlaybackTrack.info.uri,
     );
-
-    const paginationType = isShortPagination
-      ? PaginationType.Button
-      : PaginationType.SelectMenu;
 
     const pageOptions = new PaginationResolver((index, paginator) => {
       paginator.maxLength = this.size / 10;
@@ -328,7 +318,6 @@ export class MusicQueue extends Queue {
         }
       },
       time: pageTimeoutMessage,
-      type: paginationType,
     });
 
     await pagination.send();

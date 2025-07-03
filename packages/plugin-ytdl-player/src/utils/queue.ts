@@ -5,11 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import {
-  Pagination,
-  PaginationResolver,
-  PaginationType,
-} from "@discordx/pagination";
+import { Pagination, PaginationResolver } from "@discordx/pagination";
 import type { ButtonInteraction, CommandInteraction } from "discord.js";
 import { Message } from "discord.js";
 
@@ -79,9 +75,5 @@ export async function showQueue(
       void deleteMessage(message);
     },
     time: 6e4,
-    type:
-      Math.floor(queue.size / 10) <= 5
-        ? PaginationType.Button
-        : PaginationType.SelectMenu,
   }).send();
 }

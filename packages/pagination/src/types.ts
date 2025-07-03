@@ -8,10 +8,12 @@ import type {
   ActionRowBuilder,
   AttachmentPayload,
   BaseMessageOptions,
+  ButtonInteraction,
   ButtonStyle,
   CommandInteraction,
   ComponentEmojiResolvable,
   ContextMenuCommandInteraction,
+  InteractionCollector,
   JSONEncodable,
   Message,
   MessageActionRowComponentBuilder,
@@ -19,20 +21,22 @@ import type {
   MessageComponentInteraction,
   MessageComponentType,
   PartialGroupDMChannel,
+  StringSelectMenuInteraction,
   TextBasedChannel,
 } from "discord.js";
 
 // By default, five minute.
 export const defaultTime = 3e5;
+export const defaultPerPageItem = 10;
 
 const prefixId = "discordx@pagination@";
 export const defaultIds = {
   buttons: {
-    end: `${prefixId}endButton`,
-    exit: `${prefixId}closeButton`,
-    next: `${prefixId}nextButton`,
-    previous: `${prefixId}previousButton`,
-    start: `${prefixId}startButton`,
+    previous: `${prefixId}previous`,
+    backward: `${prefixId}backward`,
+    forward: `${prefixId}forward`,
+    next: `${prefixId}next`,
+    exit: `${prefixId}exit`,
   },
   menu: `${prefixId}menu`,
 };
@@ -54,12 +58,6 @@ export type PaginationSendTo =
 export enum SelectMenuPageId {
   Start = -1,
   End = -2,
-  Exit = -3,
-}
-
-export enum PaginationType {
-  Button,
-  SelectMenu,
 }
 
 export interface BasicPaginationOptions
@@ -85,22 +83,21 @@ export interface BasicPaginationOptions
   initialPage?: number;
 
   /**
+   * Number of items shown per page in select menu
+   */
+  itemsPerPage?: number;
+
+  /**
    * Pagination timeout callback
    */
   onTimeout?: (page: number, message: Message) => void;
-
-  /**
-   * Show start/end button/option (default: true)
-   * Use number to limit based on minimum pages
-   */
-  showStartEnd?: boolean | number;
 }
 
 export interface ButtonOptions {
   /**
    * Button emoji
    */
-  emoji?: ComponentEmojiResolvable;
+  emoji?: ComponentEmojiResolvable | null;
 
   /**
    * Button id
@@ -118,11 +115,26 @@ export interface ButtonOptions {
   style?: ButtonStyle;
 }
 
-export interface ButtonPaginationOptions extends BasicPaginationOptions {
+export interface NavigationButtonOptions {
   /**
-   * End button options
+   * Previous button options
    */
-  end?: ButtonOptions;
+  previous?: ButtonOptions;
+
+  /**
+   * Backward button options (-10)
+   */
+  backward?: ButtonOptions;
+
+  /**
+   * Forward button options (+10)
+   */
+  forward?: ButtonOptions;
+
+  /**
+   * Next button options
+   */
+  next?: ButtonOptions;
 
   /**
    * Exit button options
@@ -130,33 +142,17 @@ export interface ButtonPaginationOptions extends BasicPaginationOptions {
   exit?: ButtonOptions;
 
   /**
-   * Exit button options
+   * Number of pages to skip with skip buttons (default: 10)
    */
-  next?: ButtonOptions;
-
-  /**
-   * Previous button options
-   */
-  previous?: ButtonOptions;
-
-  /**
-   * Start button options
-   */
-  start?: ButtonOptions;
-
-  /**
-   * select pagination type (default: BUTTON)
-   */
-  type: PaginationType.Button;
+  skipAmount?: number;
 }
 
-export interface SelectMenuPaginationOptions extends BasicPaginationOptions {
+export interface SelectMenuOptions {
   /**
    * Various labels
    */
   labels?: {
     end?: string;
-    exit?: string;
     start?: string;
   };
 
@@ -172,19 +168,23 @@ export interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   pageText?: string | string[];
 
   /**
-   * Set placeholder text
+   * Custom range placeholder format
+   * Use {start}, {end}, and {total} as placeholders
    */
-  placeholder?: string;
-
-  /**
-   * select pagination type (default: BUTTON)
-   */
-  type: PaginationType.SelectMenu;
+  rangePlaceholderFormat?: string;
 }
 
-export type PaginationOptions =
-  | ButtonPaginationOptions
-  | SelectMenuPaginationOptions;
+export interface PaginationOptions extends BasicPaginationOptions {
+  /**
+   * Navigation button configuration
+   */
+  buttons?: NavigationButtonOptions;
+
+  /**
+   * Select menu configuration
+   */
+  selectMenu?: SelectMenuOptions;
+}
 
 export interface IPaginate {
   currentPage: number;
@@ -200,5 +200,10 @@ export interface IPaginate {
 
 export interface IGeneratePage {
   newMessage: BaseMessageOptions;
-  paginationRow: ActionRowBuilder<MessageActionRowComponentBuilder>;
+  components: ActionRowBuilder<MessageActionRowComponentBuilder>[];
+}
+
+export interface PaginationCollectors {
+  buttonCollector: InteractionCollector<ButtonInteraction>;
+  menuCollector: InteractionCollector<StringSelectMenuInteraction>;
 }
