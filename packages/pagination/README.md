@@ -248,13 +248,13 @@ The following options are available under the `buttons` configuration:
 
 The following options are available under the `selectMenu` configuration:
 
-| Name                   | Type               | Default                    | Description                                                   |
-| ---------------------- | ------------------ | -------------------------- | ------------------------------------------------------------- |
-| labels.start           | string             | "Start"                    | Start label text                                              |
-| labels.end             | string             | "End"                      | End label text                                                |
-| menuId                 | string             | "discordx@pagination@menu" | Custom select menu ID                                         |
-| pageText               | string \| string[] | "Page {page}"              | Page text format (use {page} for page number)                 |
-| rangePlaceholderFormat | string             | undefined                  | Custom range placeholder format (use {start}, {end}, {total}) |
+| Name                   | Type               | Default                    | Description                                                         |
+| ---------------------- | ------------------ | -------------------------- | ------------------------------------------------------------------- |
+| labels.start           | string             | "Start"                    | Start label text                                                    |
+| labels.end             | string             | "End"                      | End label text                                                      |
+| menuId                 | string             | "discordx@pagination@menu" | Custom select menu ID                                               |
+| pageText               | string \| string[] | "Page `{page}`"            | Page text format (use `{page}` for page number)                     |
+| rangePlaceholderFormat | string             | undefined                  | Custom range placeholder format (use `{start}`, `{end}`, `{total}`) |
 
 # 📜 Documentation
 
