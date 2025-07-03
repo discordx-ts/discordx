@@ -62,7 +62,7 @@ export enum PaginationType {
   SelectMenu,
 }
 
-interface BasicPaginationOptions
+export interface BasicPaginationOptions
   extends MessageCollectorOptionsParams<MessageComponentType> {
   /**
    * Debug log
@@ -96,7 +96,7 @@ interface BasicPaginationOptions
   showStartEnd?: boolean | number;
 }
 
-interface ButtonOptions {
+export interface ButtonOptions {
   /**
    * Button emoji
    */
@@ -118,7 +118,7 @@ interface ButtonOptions {
   style?: ButtonStyle;
 }
 
-interface ButtonPaginationOptions extends BasicPaginationOptions {
+export interface ButtonPaginationOptions extends BasicPaginationOptions {
   /**
    * End button options
    */
@@ -150,7 +150,7 @@ interface ButtonPaginationOptions extends BasicPaginationOptions {
   type: PaginationType.Button;
 }
 
-interface SelectMenuPaginationOptions extends BasicPaginationOptions {
+export interface SelectMenuPaginationOptions extends BasicPaginationOptions {
   /**
    * Various labels
    */

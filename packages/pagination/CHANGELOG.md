@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 3.6.0
+
+### Minor Changes
+
+- code refactoring
+
 ## 3.5.8
 
 ### Patch Changes
