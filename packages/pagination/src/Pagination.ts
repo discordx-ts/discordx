@@ -589,10 +589,6 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       if (shouldContinue) {
         await this.updatePaginationMessage(interaction);
         resetCollectorTimers();
-      } else {
-        // Stop both collectors when exiting
-        buttonCollector.stop();
-        menuCollector.stop();
       }
     });
 

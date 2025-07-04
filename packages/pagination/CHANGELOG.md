@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 4.0.1
+
+### Patch Changes
+
+- fixes pagination exit on same page selection
+
 ## 4.0.0
 
 ### Major Changes
