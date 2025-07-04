@@ -25,6 +25,7 @@ export class PaginationBuilder {
   private readonly item: PaginationItem;
   private readonly currentPage: number;
   private readonly perPage: number;
+  private readonly skipAmount: number;
   private readonly maxPage: number;
   private readonly config?: PaginationOptions;
 
@@ -40,6 +41,7 @@ export class PaginationBuilder {
     this.maxPage = maxPage;
     this.config = config;
     this.perPage = config?.itemsPerPage ?? defaultPerPageItem;
+    this.skipAmount = config?.buttons?.skipAmount ?? defaultPerPageItem;
   }
 
   private validateInputs(page: number, maxPage: number): void {
@@ -133,7 +135,7 @@ export class PaginationBuilder {
         defaults: {
           emoji: "⏪",
           id: defaultIds.buttons.backward,
-          label: `-${this.perPage.toString()}`,
+          label: `-${this.skipAmount.toString()}`,
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipBackward,
@@ -143,7 +145,7 @@ export class PaginationBuilder {
         defaults: {
           emoji: "⏩",
           id: defaultIds.buttons.forward,
-          label: `+${this.perPage.toString()}`,
+          label: `+${this.skipAmount.toString()}`,
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipForward,

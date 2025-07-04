@@ -96,10 +96,15 @@ export class Example {
   async demoC(interaction: CommandInteraction): Promise<void> {
     const pagination = new Pagination(
       interaction,
-      Array.from(Array(200).keys()).map((i) => ({
+      Array.from(Array(1).keys()).map((i) => ({
         content: (i + 1).toString(),
       })),
       {
+        debug: true,
+        itemsPerPage: 10,
+        buttons: {
+          skipAmount: 50,
+        },
         enableExit: true,
       },
     );
