@@ -13,9 +13,10 @@
     "utilities",
     "ytdl"
   ],
-  "homepage": "https://github.com/discordx-ts/discordx/tree/main/packages/plugin-ytdl-player#readme",
+  "homepage": "https://discordx.js.org",
   "bugs": {
-    "url": "https://github.com/discordx-ts/discordx/issues"
+    "url": "https://github.com/discordx-ts/discordx/issues",
+    "email": "vijayymmeena@gmail.com"
   },
   "repository": {
     "type": "git",
