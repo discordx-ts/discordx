@@ -2,7 +2,7 @@
   "name": "root",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@9.9.0",
+  "packageManager": "pnpm@10.14.0-0+sha512.2cd47a0cbf5f1d1de7693a88307a0ede5be94e0d3b34853d800ee775efbea0650cb562b77605ec80bc8d925f5cd27c4dfe8bb04d3a0b76090784c664450d32d6",
   "workspaces": [
     "packages/*"
   ],
@@ -45,10 +45,10 @@
     "@changesets/cli": "^2.29.5",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-angular": "^19.8.1",
-    "@eslint/js": "^9.30.1",
-    "eslint": "^9.30.1",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-prettier": "^5.5.1",
+    "@eslint/js": "^9.32.0",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
@@ -56,10 +56,10 @@
     "prettier": "^3.6.2",
     "tsup": "^8.5.0",
     "tsx": "^4.20.3",
-    "turbo": "^2.5.4",
-    "typedoc": "^0.28.7",
+    "turbo": "^2.5.5",
+    "typedoc": "^0.28.8",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.35.1"
+    "typescript-eslint": "^8.38.0"
   },
   "engines": {
     "node": ">=16.0.0",

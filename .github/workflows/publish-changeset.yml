@@ -18,13 +18,11 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@master
-        with:
-          version: 9.9.0
 
       - name: Install Node
         uses: actions/setup-node@main
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       - name: Install dependencies
