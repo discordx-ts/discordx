@@ -21,3 +21,4 @@ export * from "./Slash.js";
 export * from "./SlashChoice.js";
 export * from "./SlashGroup.js";
 export * from "./SlashOption.js";
+export * from "./SlashWithAliases.js";

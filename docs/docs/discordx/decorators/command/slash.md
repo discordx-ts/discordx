@@ -7,10 +7,12 @@ Discord has it's own command system now, you can simply declare commands and use
 ## Signature
 
 ```ts
-Slash(options: ApplicationCommandOptions)
+Slash(options: ApplicationCommandOptions<VerifyName<T>, NotEmpty<TD>> | SlashCommandBuilder)
 ```
 
-## Example
+## Examples
+
+### Simple usage
 
 ```ts
 import { Discord, Slash } from "discordx";
@@ -18,6 +20,65 @@ import { Discord, Slash } from "discordx";
 @Discord()
 class Example {
   @Slash({ description: "hello", name: "hello" })
+  hello(interaction: CommandInteraction) {
+    // ...
+  }
+}
+```
+
+### Builders
+
+Discord.js's SlashCommandBuilder can also be used in the decorator to define the command.
+
+```ts
+import { SlashCommandBuilder } from "discord.js";
+import { Discord, Slash } from "discordx";
+
+@Discord()
+class Example {
+  @Slash(
+    new SlashCommandBuilder().setName("hello").setDescription("Say hello!"),
+  )
+  hello(interaction: CommandInteraction) {
+    // ...
+  }
+}
+```
+
+### Aliases
+
+Slash commands can also have aliases using the SlashWithAliases decorator,
+both with the default configuration and builder.
+
+> In these examples, three slash commands will be created: `/hello`, `/hey` and `/hi`.
+
+#### Default configuration
+
+```ts
+import { Discord, SlashWithAliases } from "discordx";
+
+@Discord()
+class Example {
+  @SlashWithAliases({ description: "hello", name: "hello" }, ["hey", "hi"])
+  hello(interaction: CommandInteraction) {
+    // ...
+  }
+}
+```
+
+#### Builder configuration
+
+```ts
+import { SlashCommandBuilder } from "discord.js";
+import { Discord, SlashWithAliases } from "discordx";
+
+const command = new SlashCommandBuilder()
+  .setName("hello")
+  .setDescription("Say hello!");
+
+@Discord()
+class Example {
+  @SlashWithAliases(command, ["hey", "hi"])
   hello(interaction: CommandInteraction) {
     // ...
   }
