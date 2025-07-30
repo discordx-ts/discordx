@@ -1,3 +1,11 @@
 packages:
-  - "packages/*"
-  - "docs"
+  - packages/*
+  - docs
+
+onlyBuiltDependencies:
+  - "@discordjs/opus"
+  - core-js
+  - core-js-pure
+  - esbuild
+  - ffmpeg-static
+  - unrs-resolver
