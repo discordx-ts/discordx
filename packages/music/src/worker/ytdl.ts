@@ -6,7 +6,7 @@
  */
 /* 
  Credits: https://github.com/DevSnowflake/discord-ytdl-core
- Modified by: Vijay Meena <indianoceanroleplay@gmail.com>
+ Modified by: Vijay Meena <vijayymmeena@gmail.com>
  Reason: for @discordx/music
 */
 
