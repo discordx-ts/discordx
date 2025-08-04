@@ -4,11 +4,10 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { MessageActionRowComponentBuilder } from "discord.js";
 import {
-  ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  ComponentType,
   StringSelectMenuBuilder,
 } from "discord.js";
 
@@ -30,18 +29,18 @@ export class PaginationBuilder {
   private readonly config?: PaginationOptions;
 
   constructor(
-    item: PaginationItem,
-    currentPage: number,
-    maxPage: number,
-    config?: PaginationOptions,
+    _item: PaginationItem,
+    _currentPage: number,
+    _maxPage: number,
+    _config?: PaginationOptions,
   ) {
-    this.validateInputs(currentPage, maxPage);
-    this.item = this.prepareMessage(item);
-    this.currentPage = currentPage;
-    this.maxPage = maxPage;
-    this.config = config;
-    this.perPage = config?.itemsPerPage ?? defaultPerPageItem;
-    this.skipAmount = config?.buttons?.skipAmount ?? defaultPerPageItem;
+    this.validateInputs(_currentPage, _maxPage);
+    this.item = this.prepareMessage(_item);
+    this.currentPage = _currentPage;
+    this.maxPage = _maxPage;
+    this.config = _config;
+    this.perPage = _config?.itemsPerPage ?? defaultPerPageItem;
+    this.skipAmount = _config?.buttons?.skipAmount ?? defaultPerPageItem;
   }
 
   private validateInputs(page: number, maxPage: number): void {
@@ -58,9 +57,10 @@ export class PaginationBuilder {
   private prepareMessage(item: PaginationItem): PaginationItem {
     return {
       ...item,
+      attachments: item.attachments ?? [],
+      components: item.components ?? [],
       embeds: item.embeds ?? [],
       files: item.files ?? [],
-      attachments: item.attachments ?? [],
     };
   }
 
@@ -203,17 +203,11 @@ export class PaginationBuilder {
     return button;
   }
 
-  /**
-   * Create navigation button row
-   */
-  private createNavigationButtonRow(): ActionRowBuilder<MessageActionRowComponentBuilder> {
-    const buttons = this.createNavigationButtons();
-    return new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-      buttons,
-    );
+  public getBaseItem(): PaginationItem {
+    return this.item;
   }
 
-  generate() {
+  public getPaginatedItem(): PaginationItem {
     const paginator = createPagination({
       currentPage: this.currentPage,
       totalItems: this.maxPage,
@@ -231,21 +225,32 @@ export class PaginationBuilder {
       .replace("{end}", (paginator.endPage + 1).toString())
       .replace("{total}", paginator.totalItems.toString());
 
-    // Create select menu row
+    // Prepare menu selection
     const options = this.createPageOptions(paginator);
     const menu = new StringSelectMenuBuilder()
       .setCustomId(this.config?.selectMenu?.menuId ?? defaultIds.menu)
       .setPlaceholder(rangePlaceholder)
       .setOptions(options);
 
-    const menuRow =
-      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents([
-        menu,
-      ]);
+    // Prepare buttons
+    const buttons = this.createNavigationButtons();
 
-    // Create navigation buttons row
-    const buttonRow = this.createNavigationButtonRow();
+    // Add pagination row to components
+    const messageComponents = this.item.components ?? [];
+    const components = [...messageComponents];
 
-    return { newMessage: this.item, components: [menuRow, buttonRow] };
+    // Add menu row
+    components.push({
+      components: [menu],
+      type: ComponentType.ActionRow,
+    });
+
+    // Add button row
+    components.push({
+      components: buttons,
+      type: ComponentType.ActionRow,
+    });
+
+    return { ...this.item, components };
   }
 }

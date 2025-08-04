@@ -35,7 +35,7 @@ export class SlashExample {
       },
     ];
 
-    const pagination = new Pagination(interaction, pages);
+    const pagination = new Pagination(interaction, pages, { time: 10000 });
     await pagination.send();
   }
 }

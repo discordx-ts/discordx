@@ -5,8 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type {
-  ActionRowBuilder,
-  AttachmentPayload,
+  Attachment,
   BaseMessageOptions,
   ButtonInteraction,
   ButtonStyle,
@@ -14,12 +13,11 @@ import type {
   ComponentEmojiResolvable,
   ContextMenuCommandInteraction,
   InteractionCollector,
-  JSONEncodable,
   Message,
-  MessageActionRowComponentBuilder,
   MessageCollectorOptionsParams,
   MessageComponentInteraction,
   MessageComponentType,
+  MessageEditAttachmentData,
   PartialGroupDMChannel,
   StringSelectMenuInteraction,
   TextBasedChannel,
@@ -41,9 +39,9 @@ export const defaultIds = {
   menu: `${prefixId}menu`,
 };
 
-export type PaginationItem = BaseMessageOptions & {
-  attachments?: JSONEncodable<AttachmentPayload>[];
-};
+export interface PaginationItem extends BaseMessageOptions {
+  attachments?: (Attachment | MessageEditAttachmentData)[];
+}
 
 export type PaginationInteractions =
   | CommandInteraction
@@ -196,11 +194,6 @@ export interface IPaginate {
   startPage: number;
   totalItems: number;
   totalPages: number;
-}
-
-export interface IGeneratePage {
-  newMessage: BaseMessageOptions;
-  components: ActionRowBuilder<MessageActionRowComponentBuilder>[];
 }
 
 export interface PaginationCollectors {

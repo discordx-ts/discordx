@@ -22,7 +22,6 @@ import cloneDeep from "lodash/cloneDeep.js";
 import { PaginationBuilder } from "./functions/GeneratePage.js";
 import type { PaginationResolver } from "./Resolver.js";
 import type {
-  IGeneratePage,
   PaginationCollectors,
   PaginationInteractions,
   PaginationItem,
@@ -169,36 +168,29 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   /**
    * Get page
    */
-  public getPage = async (page: number): Promise<IGeneratePage | null> => {
+  public getPage = async (page: number): Promise<PaginationBuilder> => {
     if (page < 0 || page >= this.maxLength) {
-      this.debug(
-        `Page ${page.toString()} is out of bounds (0-${String(this.maxLength - 1)})`,
+      throw new Error(
+        `Page ${String(page)} is out of bounds (0-${String(this.maxLength - 1)})`,
       );
-      return null;
     }
 
-    try {
-      const embed = Array.isArray(this.pages)
-        ? cloneDeep<PaginationItem | undefined>(this.pages[page])
-        : await this.pages.resolver(page, this);
+    const embed = Array.isArray(this.pages)
+      ? cloneDeep<PaginationItem | undefined>(this.pages[page])
+      : await this.pages.resolver(page, this);
 
-      if (!embed) {
-        this.debug(`No content found for page ${page.toString()}`);
-        return null;
-      }
-
-      const pagination = new PaginationBuilder(
-        embed,
-        page,
-        this.maxLength,
-        this.config,
-      );
-
-      return pagination.generate();
-    } catch (error) {
-      this.debug(`Error generating page ${page.toString()}: ${String(error)}`);
-      return null;
+    if (!embed) {
+      throw new Error(`No content found for page ${page.toString()}`);
     }
+
+    const pagination = new PaginationBuilder(
+      embed,
+      page,
+      this.maxLength,
+      this.config,
+    );
+
+    return pagination;
   };
 
   /**
@@ -217,8 +209,8 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
     try {
       // Prepare and send initial message
-      const pageData = await this.prepareInitialMessage();
-      const message = await this.sendMessage(pageData);
+      const page = await this.getPage(this.currentPage);
+      const message = await this.sendMessage(page.getPaginatedItem());
 
       // Create and setup collector
       const collectors = this.createCollector(message);
@@ -387,18 +379,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     try {
       await interaction.deferUpdate();
 
-      const currentPage = await this.getPage(this.currentPage);
-      if (!currentPage) {
-        throw new Error("Pagination: out of bound page");
-      }
+      const page = await this.getPage(this.currentPage);
 
-      // Remove pagination components but keep original message components
-      const messageData = {
-        ...currentPage.newMessage,
-        components: currentPage.newMessage.components ?? [],
-      };
-
-      await interaction.editReply(messageData);
+      await interaction.editReply(page.getBaseItem());
       this.stop();
     } catch (error) {
       this.unableToUpdate(error);
@@ -416,56 +399,19 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
       // Get current page data
       const page = await this.getPage(this.currentPage);
-      if (!page) {
-        throw new Error("Pagination: out of bound page");
-      }
-
-      // Add pagination row to components
-      const components = page.newMessage.components
-        ? [...page.newMessage.components, ...page.components]
-        : [...page.components];
-
-      // Add pagination row to components
-      const messageData = {
-        ...page.newMessage,
-        components,
-      };
 
       // Update the message
-      await interaction.editReply(messageData);
+      await interaction.editReply(page.getPaginatedItem());
     } catch (error) {
       this.unableToUpdate(error);
     }
   }
 
   /**
-   * Prepare initial message with pagination components
-   */
-  private async prepareInitialMessage(): Promise<IGeneratePage> {
-    const page = await this.getPage(this.currentPage);
-    if (!page) {
-      throw new Error("Pagination: out of bound page");
-    }
-
-    // Add pagination row to components
-    const components = page.newMessage.components
-      ? [...page.newMessage.components, ...page.components]
-      : [...page.components];
-
-    return {
-      ...page,
-      newMessage: {
-        ...page.newMessage,
-        components,
-      },
-    };
-  }
-
-  /**
    * Send message via interaction (reply or followUp)
    */
   private async sendInteractionMessage(
-    pageData: IGeneratePage,
+    message: PaginationItem,
   ): Promise<Message> {
     const interaction = this.sendTo as PaginationInteractions;
 
@@ -475,7 +421,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     }
 
     const messageOptions = {
-      ...pageData.newMessage,
+      ...message,
       ephemeral: this.config?.ephemeral,
     };
 
@@ -507,9 +453,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
   /**
    * Send message based on sendTo type
    */
-  private async sendMessage(pageData: IGeneratePage): Promise<Message> {
+  private async sendMessage(message: PaginationItem): Promise<Message> {
     if (this.sendTo instanceof Message) {
-      return await this.sendTo.reply(pageData.newMessage);
+      return await this.sendTo.reply(message);
     }
 
     if (
@@ -517,14 +463,14 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       this.sendTo instanceof MessageComponentInteraction ||
       this.sendTo instanceof ContextMenuCommandInteraction
     ) {
-      return await this.sendInteractionMessage(pageData);
+      return await this.sendInteractionMessage(message);
     }
 
     if (this.sendTo.type === ChannelType.GuildStageVoice) {
       throw new Error("Pagination not supported with guild stage channel");
     }
 
-    return await this.sendTo.send(pageData.newMessage);
+    return await this.sendTo.send(message);
   }
 
   //#endregion
@@ -658,20 +604,17 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     if (!this.message) return;
 
     try {
-      const finalPage = await this.getPage(this.currentPage);
-      if (this.message.editable && finalPage) {
-        // Reset page components
-        finalPage.newMessage.components = [];
-
+      const page = await this.getPage(this.currentPage);
+      if (this.message.editable) {
         // Handle ephemeral pagination
         if (
           this.config?.ephemeral &&
           this.sendTo instanceof ChatInputCommandInteraction &&
           !this._isFollowUp
         ) {
-          await this.sendTo.editReply(finalPage.newMessage);
+          await this.sendTo.editReply(page.getBaseItem());
         } else {
-          await this.message.edit(finalPage.newMessage);
+          await this.message.edit(page.getBaseItem());
         }
       }
 
