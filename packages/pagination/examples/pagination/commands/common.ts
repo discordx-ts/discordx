@@ -62,7 +62,7 @@ export class Example {
           pagination.pages[pagination.currentPage] ?? { content: "unknown" }
         ); // the first page, must select ourselves
       }
-      return { content: `page v2 ${page}` };
+      return { content: `page v2 ${page + 1}` };
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {

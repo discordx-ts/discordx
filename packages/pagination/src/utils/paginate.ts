@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { IPaginate } from "../types.js";
+import type { IPaginate } from "../pagination/types.js";
 
 //#region Types and Interfaces
 

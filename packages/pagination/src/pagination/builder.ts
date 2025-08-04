@@ -4,22 +4,21 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { MessageActionRowComponentBuilder } from "discord.js";
 import {
-  ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  ComponentType,
   StringSelectMenuBuilder,
 } from "discord.js";
 
+import { createPagination } from "../utils/index.js";
 import type {
   ButtonOptions,
   IPaginate,
   PaginationItem,
   PaginationOptions,
-} from "../types.js";
-import { defaultIds, defaultPerPageItem, SelectMenuPageId } from "../types.js";
-import { createPagination } from "./Paginate.js";
+} from "./index.js";
+import { defaultIds, defaultPerPageItem, SelectMenuPageId } from "./index.js";
 
 export class PaginationBuilder {
   private readonly item: PaginationItem;
@@ -30,37 +29,45 @@ export class PaginationBuilder {
   private readonly config?: PaginationOptions;
 
   constructor(
-    item: PaginationItem,
-    currentPage: number,
-    maxPage: number,
-    config?: PaginationOptions,
+    _item: PaginationItem,
+    _currentPage: number,
+    _maxPage: number,
+    _config?: PaginationOptions,
   ) {
-    this.validateInputs(currentPage, maxPage);
-    this.item = this.prepareMessage(item);
-    this.currentPage = currentPage;
-    this.maxPage = maxPage;
-    this.config = config;
-    this.perPage = config?.itemsPerPage ?? defaultPerPageItem;
-    this.skipAmount = config?.buttons?.skipAmount ?? defaultPerPageItem;
+    this.item = this.prepareMessage(_item);
+    this.currentPage = _currentPage;
+    this.maxPage = _maxPage;
+    this.config = _config;
+    this.perPage = _config?.itemsPerPage ?? defaultPerPageItem;
+    this.skipAmount = _config?.buttons?.skipAmount ?? defaultPerPageItem;
+    this.validateInputs();
   }
 
-  private validateInputs(page: number, maxPage: number): void {
-    if (page < 0 || page >= maxPage) {
+  private validateInputs(): void {
+    if (this.currentPage < 0 || this.currentPage >= this.maxPage) {
       throw new Error(
-        `Page ${page.toString()} is out of bounds (0-${String(maxPage - 1)})`,
+        `Page ${this.currentPage.toString()} is out of bounds (0-${String(this.maxPage - 1)})`,
       );
     }
-    if (maxPage <= 0) {
+
+    if (this.maxPage <= 0) {
       throw new Error("Maximum pages must be greater than 0");
+    }
+
+    if (this.config?.buttons?.disabled && this.config.selectMenu?.disabled) {
+      throw new Error(
+        "Both navigation buttons and the select menu cannot be disabled at the same time",
+      );
     }
   }
 
   private prepareMessage(item: PaginationItem): PaginationItem {
     return {
       ...item,
+      attachments: item.attachments ?? [],
+      components: item.components ?? [],
       embeds: item.embeds ?? [],
       files: item.files ?? [],
-      attachments: item.attachments ?? [],
     };
   }
 
@@ -135,7 +142,7 @@ export class PaginationBuilder {
         defaults: {
           emoji: "⏪",
           id: defaultIds.buttons.backward,
-          label: `-${this.skipAmount.toString()}`,
+          label: `-${String(Math.min(this.currentPage, this.skipAmount))}`,
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipBackward,
@@ -145,7 +152,7 @@ export class PaginationBuilder {
         defaults: {
           emoji: "⏩",
           id: defaultIds.buttons.forward,
-          label: `+${this.skipAmount.toString()}`,
+          label: `+${String(Math.min(this.maxPage - (this.currentPage + 1), this.skipAmount))}`,
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipForward,
@@ -203,17 +210,11 @@ export class PaginationBuilder {
     return button;
   }
 
-  /**
-   * Create navigation button row
-   */
-  private createNavigationButtonRow(): ActionRowBuilder<MessageActionRowComponentBuilder> {
-    const buttons = this.createNavigationButtons();
-    return new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-      buttons,
-    );
+  public getBaseItem(): PaginationItem {
+    return this.item;
   }
 
-  generate() {
+  public getPaginatedItem(): PaginationItem {
     const paginator = createPagination({
       currentPage: this.currentPage,
       totalItems: this.maxPage,
@@ -231,21 +232,36 @@ export class PaginationBuilder {
       .replace("{end}", (paginator.endPage + 1).toString())
       .replace("{total}", paginator.totalItems.toString());
 
-    // Create select menu row
+    // Prepare menu selection
     const options = this.createPageOptions(paginator);
     const menu = new StringSelectMenuBuilder()
       .setCustomId(this.config?.selectMenu?.menuId ?? defaultIds.menu)
       .setPlaceholder(rangePlaceholder)
       .setOptions(options);
 
-    const menuRow =
-      new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents([
-        menu,
-      ]);
+    // Prepare buttons
+    const buttons = this.createNavigationButtons();
 
-    // Create navigation buttons row
-    const buttonRow = this.createNavigationButtonRow();
+    // Add pagination row to components
+    const messageComponents = this.item.components ?? [];
+    const components = [...messageComponents];
 
-    return { newMessage: this.item, components: [menuRow, buttonRow] };
+    // Add menu row
+    if (!this.config?.selectMenu?.disabled) {
+      components.push({
+        components: [menu],
+        type: ComponentType.ActionRow,
+      });
+    }
+
+    // Add button row
+    if (!this.config?.buttons?.disabled) {
+      components.push({
+        components: buttons,
+        type: ComponentType.ActionRow,
+      });
+    }
+
+    return { ...this.item, components };
   }
 }

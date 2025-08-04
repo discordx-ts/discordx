@@ -4,8 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { Pagination } from "./Pagination.js";
-import type { PaginationItem } from "./types.js";
+import type { Pagination, PaginationItem } from "./index.js";
 
 export type Resolver = (
   page: number,
