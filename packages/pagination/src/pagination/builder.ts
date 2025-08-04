@@ -11,14 +11,14 @@ import {
   StringSelectMenuBuilder,
 } from "discord.js";
 
+import { createPagination } from "../utils/index.js";
 import type {
   ButtonOptions,
   IPaginate,
   PaginationItem,
   PaginationOptions,
-} from "../types.js";
-import { defaultIds, defaultPerPageItem, SelectMenuPageId } from "../types.js";
-import { createPagination } from "./Paginate.js";
+} from "./index.js";
+import { defaultIds, defaultPerPageItem, SelectMenuPageId } from "./index.js";
 
 export class PaginationBuilder {
   private readonly item: PaginationItem;
@@ -34,23 +34,30 @@ export class PaginationBuilder {
     _maxPage: number,
     _config?: PaginationOptions,
   ) {
-    this.validateInputs(_currentPage, _maxPage);
     this.item = this.prepareMessage(_item);
     this.currentPage = _currentPage;
     this.maxPage = _maxPage;
     this.config = _config;
     this.perPage = _config?.itemsPerPage ?? defaultPerPageItem;
     this.skipAmount = _config?.buttons?.skipAmount ?? defaultPerPageItem;
+    this.validateInputs();
   }
 
-  private validateInputs(page: number, maxPage: number): void {
-    if (page < 0 || page >= maxPage) {
+  private validateInputs(): void {
+    if (this.currentPage < 0 || this.currentPage >= this.maxPage) {
       throw new Error(
-        `Page ${page.toString()} is out of bounds (0-${String(maxPage - 1)})`,
+        `Page ${this.currentPage.toString()} is out of bounds (0-${String(this.maxPage - 1)})`,
       );
     }
-    if (maxPage <= 0) {
+
+    if (this.maxPage <= 0) {
       throw new Error("Maximum pages must be greater than 0");
+    }
+
+    if (this.config?.buttons?.disabled && this.config.selectMenu?.disabled) {
+      throw new Error(
+        "Both navigation buttons and the select menu cannot be disabled at the same time",
+      );
     }
   }
 
@@ -145,7 +152,7 @@ export class PaginationBuilder {
         defaults: {
           emoji: "⏩",
           id: defaultIds.buttons.forward,
-          label: `+${String(Math.min(this.maxPage - this.currentPage, this.skipAmount))}`,
+          label: `+${String(Math.min(this.maxPage - (this.currentPage + 1), this.skipAmount))}`,
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipForward,
@@ -240,16 +247,20 @@ export class PaginationBuilder {
     const components = [...messageComponents];
 
     // Add menu row
-    components.push({
-      components: [menu],
-      type: ComponentType.ActionRow,
-    });
+    if (!this.config?.selectMenu?.disabled) {
+      components.push({
+        components: [menu],
+        type: ComponentType.ActionRow,
+      });
+    }
 
     // Add button row
-    components.push({
-      components: buttons,
-      type: ComponentType.ActionRow,
-    });
+    if (!this.config?.buttons?.disabled) {
+      components.push({
+        components: buttons,
+        type: ComponentType.ActionRow,
+      });
+    }
 
     return { ...this.item, components };
   }

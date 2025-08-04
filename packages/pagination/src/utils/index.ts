@@ -4,5 +4,4 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-export * from "./pagination/index.js";
-export * from "./utils/index.js";
+export * from "./paginate.js";

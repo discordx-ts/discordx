@@ -19,21 +19,21 @@ import {
 } from "discord.js";
 import cloneDeep from "lodash/cloneDeep.js";
 
-import { PaginationBuilder } from "./functions/GeneratePage.js";
-import type { PaginationResolver } from "./Resolver.js";
 import type {
   PaginationCollectors,
   PaginationInteractions,
   PaginationItem,
   PaginationOptions,
+  PaginationResolver,
   PaginationSendTo,
-} from "./types.js";
+} from "./index.js";
 import {
   defaultIds,
   defaultPerPageItem,
   defaultTime,
+  PaginationBuilder,
   SelectMenuPageId,
-} from "./types.js";
+} from "./index.js";
 
 export class Pagination<T extends PaginationResolver = PaginationResolver> {
   //#region Properties & Constructor
@@ -175,16 +175,16 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       );
     }
 
-    const embed = Array.isArray(this.pages)
+    const item = Array.isArray(this.pages)
       ? cloneDeep<PaginationItem | undefined>(this.pages[page])
       : await this.pages.resolver(page, this);
 
-    if (!embed) {
+    if (!item) {
       throw new Error(`No content found for page ${page.toString()}`);
     }
 
     const pagination = new PaginationBuilder(
-      embed,
+      item,
       page,
       this.maxLength,
       this.config,
