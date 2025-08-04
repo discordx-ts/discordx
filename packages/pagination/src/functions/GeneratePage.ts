@@ -135,7 +135,7 @@ export class PaginationBuilder {
         defaults: {
           emoji: "⏪",
           id: defaultIds.buttons.backward,
-          label: `-${this.skipAmount.toString()}`,
+          label: `-${String(Math.min(this.currentPage, this.skipAmount))}`,
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipBackward,
@@ -145,7 +145,7 @@ export class PaginationBuilder {
         defaults: {
           emoji: "⏩",
           id: defaultIds.buttons.forward,
-          label: `+${this.skipAmount.toString()}`,
+          label: `+${String(Math.min(this.maxPage - this.currentPage, this.skipAmount))}`,
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipForward,
