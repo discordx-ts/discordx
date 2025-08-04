@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 4.1.0
+
+### Minor Changes
+
+- page generation improvements
+
 ## 4.0.1
 
 ### Patch Changes
