@@ -1,5 +1,14 @@
 # @discordx/plugin-lava-player
 
+## 2.5.10
+
+### Patch Changes
+
+- allow pagination button to be removed
+
+- Updated dependencies []:
+  - @discordx/pagination@4.2.0
+
 ## 2.5.9
 
 ### Patch Changes

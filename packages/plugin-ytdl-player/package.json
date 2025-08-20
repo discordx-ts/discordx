@@ -1,6 +1,6 @@
 {
   "name": "@discordx/plugin-ytdl-player",
-  "version": "2.3.8",
+  "version": "2.3.9",
   "private": false,
   "description": "Fully-featured Discord music player utilizing YTDL",
   "keywords": [

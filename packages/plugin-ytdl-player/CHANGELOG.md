@@ -1,5 +1,14 @@
 # @discordx/plugin-ytdl-player
 
+## 2.3.9
+
+### Patch Changes
+
+- allow pagination button to be removed
+
+- Updated dependencies []:
+  - @discordx/pagination@4.2.0
+
 ## 2.3.8
 
 ### Patch Changes
