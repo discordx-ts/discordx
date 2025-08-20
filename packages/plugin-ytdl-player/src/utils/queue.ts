@@ -70,7 +70,6 @@ export async function showQueue(
   );
 
   await new Pagination(interaction, pageOptions, {
-    enableExit: true,
     onTimeout: (_, message) => {
       void deleteMessage(message);
     },

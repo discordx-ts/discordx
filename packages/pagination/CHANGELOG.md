@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 4.2.0
+
+### Minor Changes
+
+- allow pagination button to be removed
+
 ## 4.1.0
 
 ### Minor Changes

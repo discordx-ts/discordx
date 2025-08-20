@@ -66,8 +66,12 @@ export class Example {
     }, 25);
 
     const pagination = new Pagination(interaction, embedX, {
-      onTimeout: () => {
-        void interaction.deleteReply().catch(null);
+      onTimeout: async () => {
+        try {
+          await interaction.deleteReply();
+        } catch (err) {
+          // ignore
+        }
       },
       buttons: {
         backward: {
@@ -75,7 +79,6 @@ export class Example {
         },
       },
       time: 60_000,
-      enableExit: true,
     });
 
     await pagination.send();
@@ -105,7 +108,6 @@ export class Example {
         buttons: {
           skipAmount: 50,
         },
-        enableExit: true,
       },
     );
 
