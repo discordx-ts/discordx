@@ -588,9 +588,11 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
     const selectedValue = Number(interaction.values[0] ?? 0);
 
-    if (selectedValue === Number(SelectMenuPageId.Start)) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+    if (selectedValue === SelectMenuPageId.Start) {
       return this.navigateToStart();
-    } else if (selectedValue === Number(SelectMenuPageId.End)) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+    } else if (selectedValue === SelectMenuPageId.End) {
       return this.navigateToEnd();
     } else {
       return this.navigateToPage(selectedValue);
