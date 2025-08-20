@@ -105,7 +105,7 @@ export interface ButtonOptions {
   /**
    * Button label
    */
-  label?: string;
+  label?: string | null;
 
   /**
    * Button style

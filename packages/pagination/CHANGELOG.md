@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 4.3.0
+
+### Minor Changes
+
+- pagination button label optional
+
 ## 4.2.0
 
 ### Minor Changes
