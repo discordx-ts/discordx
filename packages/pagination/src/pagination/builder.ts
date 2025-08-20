@@ -207,13 +207,21 @@ export class PaginationBuilder {
 
     const button = new ButtonBuilder()
       .setCustomId(userConfig?.id ?? config.defaults.id)
-      .setLabel(userConfig?.label ?? config.defaults.label)
       .setStyle(userConfig?.style ?? config.defaults.style)
       .setDisabled(config.disabled);
+
+    const label = userConfig?.label ?? config.defaults.label;
+    if (label) {
+      button.setLabel(label);
+    }
 
     const emoji = userConfig?.emoji ?? config.defaults.emoji;
     if (emoji) {
       button.setEmoji(emoji);
+    }
+
+    if (!label || !emoji) {
+      throw Error("Pagination buttons must include either an emoji or a label");
     }
 
     return button;
