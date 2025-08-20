@@ -220,7 +220,7 @@ export class PaginationBuilder {
       button.setEmoji(emoji);
     }
 
-    if (!label || !emoji) {
+    if (!label && !emoji) {
       throw Error("Pagination buttons must include either an emoji or a label");
     }
 
