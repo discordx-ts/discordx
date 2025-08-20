@@ -51,7 +51,7 @@
     "@discordx/pagination": "workspace:^",
     "discord.js": "^14.21.0",
     "discordx": "workspace:^",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev",

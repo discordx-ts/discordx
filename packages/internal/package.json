@@ -48,7 +48,7 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/internal"
   },
   "devDependencies": {
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "engines": {
     "node": ">=16.0.0",
