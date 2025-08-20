@@ -144,7 +144,6 @@ export class Example {
         },
       },
       time: 60_000,
-      enableExit: true,
     });
 
     await pagination.send();
@@ -168,9 +167,6 @@ export class Example {
       Array.from(Array(200).keys()).map((i) => ({
         content: (i + 1).toString(),
       })),
-      {
-        enableExit: true,
-      },
     );
 
     await pagination.send();
@@ -213,14 +209,13 @@ export class Example {
 
 ## Basic Options
 
-| Name         | Type     | Default   | Description                                     |
-| ------------ | -------- | --------- | ----------------------------------------------- |
-| debug        | boolean  | false     | Enable debug logging                            |
-| enableExit   | boolean  | false     | Enable exit button for early pagination closure |
-| ephemeral    | boolean  | undefined | Set ephemeral response                          |
-| initialPage  | number   | 0         | Initial page number                             |
-| itemsPerPage | number   | undefined | Number of items shown per page in select menu   |
-| onTimeout    | Function | undefined | Callback function when pagination times out     |
+| Name         | Type     | Default   | Description                                   |
+| ------------ | -------- | --------- | --------------------------------------------- |
+| debug        | boolean  | false     | Enable debug logging                          |
+| ephemeral    | boolean  | undefined | Set ephemeral response                        |
+| initialPage  | number   | 0         | Initial page number                           |
+| itemsPerPage | number   | undefined | Number of items shown per page in select menu |
+| onTimeout    | Function | undefined | Callback function when pagination times out   |
 
 ## Button Navigation Options
 
@@ -237,12 +232,13 @@ The following options are available under the `buttons` configuration:
 
 ### ButtonOptions Structure
 
-| Name  | Type                             | Description                                        |
-| ----- | -------------------------------- | -------------------------------------------------- |
-| emoji | ComponentEmojiResolvable \| null | Button emoji                                       |
-| id    | string                           | Custom button ID                                   |
-| label | string                           | Button label text                                  |
-| style | ButtonStyle                      | Button style (PRIMARY\|SECONDARY\|SUCCESS\|DANGER) |
+| Name    | Type                             | Description                                        |
+| ------- | -------------------------------- | -------------------------------------------------- |
+| enabled | Boolean                          | Show button in row                                 |
+| emoji   | ComponentEmojiResolvable \| null | Button emoji                                       |
+| id      | string                           | Custom button ID                                   |
+| label   | string                           | Button label text                                  |
+| style   | ButtonStyle                      | Button style (PRIMARY\|SECONDARY\|SUCCESS\|DANGER) |
 
 ## Select Menu Options
 

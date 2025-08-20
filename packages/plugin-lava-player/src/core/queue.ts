@@ -311,7 +311,6 @@ export class MusicQueue extends Queue {
     }, totalPages);
 
     const pagination = new Pagination(interaction, pageOptions, {
-      enableExit: true,
       onTimeout: (_, message) => {
         if (message.deletable) {
           void this.deleteMessage(message);

@@ -136,6 +136,7 @@ export class PaginationBuilder {
           style: ButtonStyle.Secondary,
         },
         disabled: !states.canGoPrevious,
+        enabled: true,
       },
       {
         key: "backward",
@@ -146,6 +147,7 @@ export class PaginationBuilder {
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipBackward,
+        enabled: true,
       },
       {
         key: "forward",
@@ -156,6 +158,7 @@ export class PaginationBuilder {
           style: ButtonStyle.Primary,
         },
         disabled: !states.canSkipForward,
+        enabled: true,
       },
       {
         key: "next",
@@ -166,24 +169,30 @@ export class PaginationBuilder {
           style: ButtonStyle.Secondary,
         },
         disabled: !states.canGoNext,
+        enabled: true,
+      },
+      {
+        key: "exit",
+        defaults: {
+          emoji: "⚔️",
+          id: defaultIds.buttons.exit,
+          label: "Stop",
+          style: ButtonStyle.Danger,
+        },
+        disabled: false,
+        enabled: false,
       },
     ] as const;
 
-    const buttons = buttonConfigs.map((config) => this.createButton(config));
+    const buttons: ButtonBuilder[] = [];
 
-    if (this.config?.enableExit) {
-      buttons.push(
-        this.createButton({
-          key: "exit",
-          defaults: {
-            emoji: "⚔️",
-            id: defaultIds.buttons.exit,
-            label: "Stop",
-            style: ButtonStyle.Danger,
-          },
-          disabled: false,
-        }),
-      );
+    for (const config of buttonConfigs) {
+      const userConfig = this.config?.buttons?.[config.key];
+      const isEnabled = userConfig?.enabled ?? config.enabled;
+
+      if (isEnabled) {
+        buttons.push(this.createButton(config));
+      }
     }
 
     return buttons;
@@ -191,7 +200,7 @@ export class PaginationBuilder {
 
   private createButton(config: {
     key: keyof typeof defaultIds.buttons;
-    defaults: Required<ButtonOptions>;
+    defaults: Required<Omit<ButtonOptions, "enabled">>;
     disabled: boolean;
   }): ButtonBuilder {
     const userConfig = this.config?.buttons?.[config.key];

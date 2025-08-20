@@ -70,7 +70,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    * Validate configuration and throw descriptive errors
    */
   private validateConfiguration(): void {
-    if (this.config?.ephemeral && this.config.enableExit) {
+    if (this.config?.ephemeral && this.config.buttons?.exit?.enabled) {
       throw new Error("Ephemeral pagination does not support exit mode");
     }
 

@@ -66,11 +66,6 @@ export interface BasicPaginationOptions
   debug?: boolean;
 
   /**
-   * Enable exit button, It will close the pagination before timeout
-   */
-  enableExit?: boolean;
-
-  /**
    * Set ephemeral response
    */
   ephemeral?: boolean;
@@ -92,6 +87,11 @@ export interface BasicPaginationOptions
 }
 
 export interface ButtonOptions {
+  /**
+   * Show button in row
+   */
+  enabled?: boolean;
+
   /**
    * Button emoji
    */
