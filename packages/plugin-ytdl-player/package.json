@@ -130,7 +130,7 @@
     "youtube-sr": "^4.3.12"
   },
   "devDependencies": {
-    "discord.js": "^14.21.0",
+    "discord.js": "^14.22.1",
     "discordx": "workspace:^"
   },
   "publishConfig": {
