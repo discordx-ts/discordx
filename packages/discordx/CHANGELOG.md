@@ -1,5 +1,11 @@
 # discordx
 
+## 11.12.6
+
+### Patch Changes
+
+- fix: init command crash due to primary entry point command
+
 ## 11.12.5
 
 ### Patch Changes
