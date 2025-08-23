@@ -766,7 +766,10 @@ export class Client extends ClientJS {
     /**
      * Filter discord global commands only
      */
-    const discordCommands = allDiscordCommands.filter((cmd) => !cmd.guild);
+    const discordCommands = allDiscordCommands.filter(
+      (cmd) =>
+        !cmd.guild && cmd.type !== ApplicationCommandType.PrimaryEntryPoint,
+    );
 
     /**
      * Filter global commands only
