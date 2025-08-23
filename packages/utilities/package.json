@@ -49,7 +49,7 @@
   "devDependencies": {
     "@discordx/importer": "workspace:^",
     "@discordx/pagination": "workspace:^",
-    "discord.js": "^14.21.0",
+    "discord.js": "^14.22.1",
     "discordx": "workspace:^",
     "typescript": "5.9.2"
   },

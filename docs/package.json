@@ -22,7 +22,7 @@
     "@docusaurus/theme-search-algolia": "^3.8.1",
     "@mdx-js/react": "^3.1.0",
     "@svgr/webpack": "^8.1.0",
-    "@types/react": "19.1.10",
+    "@types/react": "19.1.11",
     "ansi-regex": "^6.2.0",
     "clsx": "^2.1.1",
     "file-loader": "^6.2.0",

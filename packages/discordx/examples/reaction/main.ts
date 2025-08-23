@@ -28,7 +28,8 @@ export class Main {
       silent: false,
     });
 
-    this.Client.on("ready", () => {
+    this.Client.on("ready", async () => {
+      await this._client.initApplicationCommands();
       console.log("Bot started...");
     });
 
