@@ -48,12 +48,9 @@ export async function showQueue(
 
   const pageOptions = new PaginationResolver(
     (index, paginator) => {
-      paginator.maxLength = queue.size / 10;
-      if (index > paginator.maxLength) {
-        paginator.currentPage = 0;
-      }
+      paginator.setMaxLength(queue.size / 10);
 
-      const currentPage = paginator.currentPage;
+      const { currentPage } = paginator;
 
       const tracks = queue.tracks
         .slice(currentPage * 10, currentPage * 10 + 10)
