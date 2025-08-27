@@ -38,27 +38,82 @@ import {
 export class Pagination<T extends PaginationResolver = PaginationResolver> {
   //#region Properties & Constructor
 
-  public maxLength: number;
-  public currentPage: number;
-  public collectors?: PaginationCollectors;
+  private _pages: PaginationItem[] | T = [];
+  private _maxLength = 0;
+  private _currentPage = 0;
+  private _collectors?: PaginationCollectors;
 
-  public message?: Message;
+  private _message?: Message;
   private _isSent = false;
   private _isFollowUp = false;
+
+  get message(): Message {
+    if (!this._message) {
+      throw new Error(
+        "Pagination has not sent yet. Please send pagination to retrieve message",
+      );
+    }
+
+    return this._message;
+  }
 
   get isSent(): boolean {
     return this._isSent;
   }
 
-  constructor(
-    public sendTo: PaginationSendTo,
-    public pages: PaginationItem[] | T,
-    public config?: PaginationOptions,
-  ) {
-    this.maxLength = Array.isArray(pages) ? pages.length : pages.maxLength;
-    this.currentPage = config?.initialPage ?? 0;
+  get currentPage(): number {
+    return this._currentPage;
+  }
 
-    // Add validation
+  get maxLength(): number {
+    return this._maxLength;
+  }
+
+  get pages(): PaginationItem[] | T {
+    return this._pages;
+  }
+
+  setCurrentPage(page: number) {
+    if (page < 0 || page >= this._maxLength) {
+      throw new Error(
+        `Page ${page.toString()} is out of bounds. Must be between 0 and ${(this._maxLength - 1).toString()}`,
+      );
+    }
+
+    this._currentPage = page;
+  }
+
+  setMaxLength(length: number): void {
+    if (length <= 0) {
+      throw new Error("Maximum length must be greater than 0");
+    }
+
+    this._maxLength = length;
+
+    // Reset to first page if current page is out of bounds
+    if (this._currentPage >= this._maxLength) {
+      this._currentPage = 0;
+    }
+  }
+
+  setPages(pages: PaginationItem[] | T): void {
+    this._pages = pages;
+    this._maxLength = Array.isArray(pages) ? pages.length : pages.maxLength;
+    // Reset to first page if current page is out of bounds
+    if (this._currentPage >= this._maxLength) {
+      this._currentPage = 0;
+    }
+  }
+
+  constructor(
+    private sendTo: PaginationSendTo,
+    private pageData: PaginationItem[] | T,
+    private config?: PaginationOptions,
+  ) {
+    this._currentPage = config?.initialPage ?? 0;
+    this.setPages(pageData);
+
+    // Validate configuration
     this.validateConfiguration();
   }
 
@@ -215,8 +270,8 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       // Create and setup collector
       const collectors = this.createCollector(message);
 
-      this.collectors = collectors;
-      this.message = message;
+      this._collectors = collectors;
+      this._message = message;
       this._isSent = true;
 
       this.debug(
@@ -236,12 +291,12 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    * Stop the pagination collector
    */
   public stop(): void {
-    if (this.collectors) {
-      if (!this.collectors.buttonCollector.ended) {
-        this.collectors.buttonCollector.stop();
+    if (this._collectors) {
+      if (!this._collectors.buttonCollector.ended) {
+        this._collectors.buttonCollector.stop();
       }
-      if (!this.collectors.menuCollector.ended) {
-        this.collectors.menuCollector.stop();
+      if (!this._collectors.menuCollector.ended) {
+        this._collectors.menuCollector.stop();
       }
       this.debug("Pagination stopped manually");
     }
@@ -267,7 +322,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       return false;
     }
 
-    this.currentPage = page;
+    this.setCurrentPage(page);
     this.debug(`Navigated to page ${page.toString()}`);
     return true;
   }
@@ -281,7 +336,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       return false;
     }
 
-    this.currentPage++;
+    this.setCurrentPage(this.currentPage + 1);
     this.debug(`Navigated to next page: ${this.currentPage.toString()}`);
     return true;
   }
@@ -295,7 +350,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       return false;
     }
 
-    this.currentPage--;
+    this.setCurrentPage(this.currentPage - 1);
     this.debug(`Navigated to previous page: ${this.currentPage.toString()}`);
     return true;
   }
@@ -348,7 +403,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       return false;
     }
 
-    this.currentPage = 0;
+    this.setCurrentPage(0);
     this.debug("Navigated to start page");
     return true;
   }
@@ -363,7 +418,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       return false;
     }
 
-    this.currentPage = lastPage;
+    this.setCurrentPage(lastPage);
     this.debug("Navigated to end page");
     return true;
   }
@@ -603,7 +658,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
    * Handle collector end event
    */
   private async handleCollectorEnd(): Promise<void> {
-    if (!this.message) return;
+    if (!this._message) return;
 
     try {
       const page = await this.getPage(this.currentPage);

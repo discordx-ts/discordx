@@ -287,12 +287,9 @@ export class MusicQueue extends Queue {
     );
 
     const pageOptions = new PaginationResolver((index, paginator) => {
-      paginator.maxLength = this.size / 10;
-      if (index > paginator.maxLength) {
-        paginator.currentPage = 0;
-      }
+      paginator.setMaxLength(this.size / 10);
 
-      const currentPage = paginator.currentPage;
+      const { currentPage } = paginator;
 
       const queue = this.tracks
         .slice(currentPage * 10, currentPage * 10 + 10)

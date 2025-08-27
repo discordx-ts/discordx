@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 4.4.0
+
+### Minor Changes
+
+- refactor(pagination): adapt to builder methods and getter
+
 ## 4.3.0
 
 ### Minor Changes
