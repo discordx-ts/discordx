@@ -1,5 +1,14 @@
 # @discordx/plugin-ytdl-player
 
+## 2.3.10
+
+### Patch Changes
+
+- refactor(pagination): adapt to builder methods and getter
+
+- Updated dependencies []:
+  - @discordx/pagination@4.4.0
+
 ## 2.3.9
 
 ### Patch Changes

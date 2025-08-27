@@ -1,5 +1,14 @@
 # @discordx/plugin-lava-player
 
+## 2.5.11
+
+### Patch Changes
+
+- refactor(pagination): adapt to builder methods and getter
+
+- Updated dependencies []:
+  - @discordx/pagination@4.4.0
+
 ## 2.5.10
 
 ### Patch Changes
