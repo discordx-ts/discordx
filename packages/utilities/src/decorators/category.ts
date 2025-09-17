@@ -46,7 +46,7 @@ export function Category(category: string): ClassMethodDecorator {
         DApplicationCommand,
         DSimpleCommand,
         DDiscord,
-      ).decorateUnknown(target, key, descriptor),
+      ).attachToTarget(target, key, descriptor),
     );
   };
 }

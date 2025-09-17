@@ -57,7 +57,7 @@ export abstract class Method extends Decorator {
     return [
       ...this.discord.guards,
       ...this._guards,
-      DGuard.create(this._method?.bind(this._discord.instance)),
+      DGuard.create(this._methodReference?.bind(this._discord.instance)),
     ];
   }
   set guards(value: DGuard[]) {

@@ -171,7 +171,7 @@ export class DApplicationCommandOption extends Decorator {
     this._channelTypes = data.channelType?.sort();
     this._choices = data.choices ?? [];
     this._description = data.description;
-    this._index = data.index;
+    this._parameterIndex = data.index;
     this._maxValue = data.maxValue;
     this._minValue = data.minValue;
     this._maxLength = data.maxLength;

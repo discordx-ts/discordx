@@ -325,58 +325,21 @@ export class MetadataStorage {
       }
     });
 
-    await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._events);
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._applicationCommandSlashes,
-    );
-
-    await Modifier.applyFromModifierListToList(
+    await Modifier.modify(this._modifiers, this._discords);
+    await Modifier.modify(this._modifiers, this._events);
+    await Modifier.modify(this._modifiers, this._applicationCommandSlashes);
+    await Modifier.modify(
       this._modifiers,
       this._applicationCommandSlashOptions,
     );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._applicationCommandMessages,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._applicationCommandUsers,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._simpleCommands,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._simpleCommandOptions,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._buttonComponents,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._modalComponents,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._reactions,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._selectMenuComponents,
-    );
+    await Modifier.modify(this._modifiers, this._applicationCommandMessages);
+    await Modifier.modify(this._modifiers, this._applicationCommandUsers);
+    await Modifier.modify(this._modifiers, this._simpleCommands);
+    await Modifier.modify(this._modifiers, this._simpleCommandOptions);
+    await Modifier.modify(this._modifiers, this._buttonComponents);
+    await Modifier.modify(this._modifiers, this._modalComponents);
+    await Modifier.modify(this._modifiers, this._reactions);
+    await Modifier.modify(this._modifiers, this._selectMenuComponents);
 
     this._applicationCommandSlashesFlat = this._applicationCommandSlashes;
     this._applicationCommandSlashes = this.groupSlashes();

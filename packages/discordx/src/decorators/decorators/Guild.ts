@@ -80,7 +80,7 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {
         DDiscord,
         DComponent,
         DReaction,
-      ).decorateUnknown(target, key, descriptor),
+      ).attachToTarget(target, key, descriptor),
     );
   };
 }

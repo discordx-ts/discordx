@@ -7,53 +7,57 @@
 import type { Decorator } from "./classes/Decorator.js";
 
 /**
- * Gets the list of decorators linked to a specified decorator.
+ * Finds all decorators that are applied to the same location as a reference decorator.
+ *
+ * Decorators are considered "linked" when they are applied to the same class member:
+ * - Same class and same method/property for method/property decorators
+ * - Same class, same method, and same parameter position for parameter decorators
+ *
  * @example
  * ```typescript
- * @A()
- * @B()
+ * // Method decorators - all linked together
+ * @Slash()
+ * @Permission()
  * method() {}
  * ```
  * @example
  * ```typescript
+ * // Parameter decorators - each parameter position creates separate links
  * method(
- *    @A()
- *    @B()
+ *    @Option()
+ *    @Required()
  *    param: string
  * ) {}
  * ```
  * @example
  * ```typescript
- * @A()
- * @B()
- * class X {}
+ * // Class decorators - linked to the class itself
+ * @Discord()
+ * @Injectable()
+ * class MyBot {}
  * ```
- * @param a - The reference decorator.
- * @param list - The list of decorators to filter.
- * @returns The list of linked decorators.
+ * @param referenceDecorator - The decorator to find linked decorators for.
+ * @param decoratorCollection - The collection of decorators to search through.
+ * @returns Array of decorators that are applied to the same location.
  */
-export function getLinkedObjects<Type extends Decorator>(
-  a: Decorator,
-  list: Type[],
-): Type[] {
-  return list.filter((b) => {
-    let cond = a.from === b.from && a.key === b.key;
+export function getLinkedObjects<TDecorator extends Decorator>(
+  referenceDecorator: Decorator,
+  decoratorCollection: TDecorator[],
+): TDecorator[] {
+  return decoratorCollection.filter((candidateDecorator) => {
+    let isSameLocation =
+      referenceDecorator.from === candidateDecorator.from &&
+      referenceDecorator.key === candidateDecorator.key;
 
-    // do not remove this undefined check, cause unexpected error
-    // such as choices apply on all options
-    if (a.index !== undefined && b.index !== undefined) {
-      cond &&= a.index === b.index;
+    // Ensure parameter decorators only link to decorators on the same parameter position
+    // This prevents parameter decorators from affecting all parameters in a method
+    if (
+      referenceDecorator.index !== undefined &&
+      candidateDecorator.index !== undefined
+    ) {
+      isSameLocation &&= referenceDecorator.index === candidateDecorator.index;
     }
 
-    return cond;
+    return isSameLocation;
   });
-}
-
-/**
- * Determines if the target is a class based on the method descriptor.
- * @param method - The method descriptor.
- * @returns True if the target is a class, false otherwise.
- */
-export function decorateAClass(method?: PropertyDescriptor): boolean {
-  return !method?.value;
 }

@@ -25,7 +25,7 @@ export function Description(description: string): MethodDecoratorEx {
         },
         DApplicationCommand,
         DSimpleCommand,
-      ).decorateUnknown(target, key, descriptor),
+      ).attachToTarget(target, key, descriptor),
     );
   };
 }
