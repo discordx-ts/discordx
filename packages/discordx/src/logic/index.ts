@@ -4,4 +4,5 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
+export * from "./EventManager.js";
 export * from "./metadata/MetadataStorage.js";

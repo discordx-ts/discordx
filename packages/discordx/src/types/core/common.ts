@@ -16,7 +16,6 @@ import type {
   DComponent,
   DReaction,
   DSimpleCommand,
-  GuardFunction,
   SimpleCommandMessage,
 } from "../../index.js";
 
@@ -51,18 +50,4 @@ export type IGuild =
 export interface ISimpleCommandByName {
   command: DSimpleCommand;
   name: string;
-}
-
-export interface ITriggerEventData {
-  client: Client;
-  event: string;
-  guards: GuardFunction[];
-  once: boolean;
-  rest: boolean;
-}
-
-export interface EventListenerDetail {
-  once: boolean;
-  rest: boolean;
-  trigger: (...params: any[]) => any;
 }
