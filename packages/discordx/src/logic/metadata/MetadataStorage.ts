@@ -20,7 +20,6 @@ import type {
   DGuard,
   DSimpleCommandOption,
   ISimpleCommandByName,
-  ITriggerEventData,
 } from "../../index.js";
 import {
   ComponentType,
@@ -30,6 +29,7 @@ import {
   DOn,
   DReaction,
   DSimpleCommand,
+  EventManager,
   toStringArray,
 } from "../../index.js";
 
@@ -47,6 +47,8 @@ export class MetadataStorage {
 
   // events
   private _events: DOn[] = [];
+
+  private _eventManager = new EventManager();
 
   // custom Handlers
   private _buttonComponents: DComponent[] = [];
@@ -160,6 +162,10 @@ export class MetadataStorage {
     return this._events;
   }
 
+  get eventManager(): EventManager {
+    return this._eventManager;
+  }
+
   get isBuilt(): boolean {
     return MetadataStorage._isBuilt;
   }
@@ -260,6 +266,7 @@ export class MetadataStorage {
 
   addOn(on: DOn): void {
     this._events.push(on);
+    this._eventManager.add(on);
   }
 
   addReaction(reaction: DReaction): void {
@@ -325,71 +332,26 @@ export class MetadataStorage {
       }
     });
 
-    await Modifier.applyFromModifierListToList(this._modifiers, this._discords);
-    await Modifier.applyFromModifierListToList(this._modifiers, this._events);
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._applicationCommandSlashes,
-    );
-
-    await Modifier.applyFromModifierListToList(
+    await Modifier.modify(this._modifiers, this._discords);
+    await Modifier.modify(this._modifiers, this._events);
+    await Modifier.modify(this._modifiers, this._applicationCommandSlashes);
+    await Modifier.modify(
       this._modifiers,
       this._applicationCommandSlashOptions,
     );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._applicationCommandMessages,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._applicationCommandUsers,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._simpleCommands,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._simpleCommandOptions,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._buttonComponents,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._modalComponents,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._reactions,
-    );
-
-    await Modifier.applyFromModifierListToList(
-      this._modifiers,
-      this._selectMenuComponents,
-    );
+    await Modifier.modify(this._modifiers, this._applicationCommandMessages);
+    await Modifier.modify(this._modifiers, this._applicationCommandUsers);
+    await Modifier.modify(this._modifiers, this._simpleCommands);
+    await Modifier.modify(this._modifiers, this._simpleCommandOptions);
+    await Modifier.modify(this._modifiers, this._buttonComponents);
+    await Modifier.modify(this._modifiers, this._modalComponents);
+    await Modifier.modify(this._modifiers, this._reactions);
+    await Modifier.modify(this._modifiers, this._selectMenuComponents);
 
     this._applicationCommandSlashesFlat = this._applicationCommandSlashes;
     this._applicationCommandSlashes = this.groupSlashes();
 
     this.buildSimpleCommands();
-
-    // sort events based on priority
-    this._events.sort((a, b) =>
-      `${a.event}__${a.priority.toString()}` >
-      `${b.event}__${b.priority.toString()}`
-        ? 1
-        : -1,
-    );
   }
 
   private buildSimpleCommands(): void {
@@ -579,36 +541,5 @@ export class MetadataStorage {
       ...this._applicationCommandSlashes.filter((s) => !s.group && !s.subgroup),
       ...Array.from(groupedSlashes.values()),
     ];
-  }
-
-  /**
-   * Trigger a discord event
-   *
-   * @param options - Even data
-   */
-  trigger(options: ITriggerEventData): (...params: any[]) => any {
-    const eventsToExecute = this._events.filter((on) => {
-      return (
-        on.event === options.event &&
-        on.once === options.once &&
-        on.rest === options.rest
-      );
-    });
-
-    return async (...params: any[]) => {
-      const responses: any[] = [];
-      await Promise.all(
-        eventsToExecute.map(async (ev) => {
-          if (!ev.isBotAllowed(options.client.botId)) {
-            return;
-          }
-
-          const res = await ev.execute(options.guards, params, options.client);
-          responses.push(res);
-        }),
-      );
-
-      return responses;
-    };
   }
 }

@@ -97,7 +97,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator {
         DComponent,
         DOn,
         DReaction,
-      ).decorateUnknown(target, key, descriptor),
+      ).attachToTarget(target, key, descriptor),
     );
   };
 }

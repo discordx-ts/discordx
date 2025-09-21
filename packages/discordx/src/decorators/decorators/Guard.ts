@@ -37,7 +37,7 @@ export function Guard<Type = any, DataType = any>(
     descriptor?: PropertyDescriptor,
   ) {
     const guards = fns.map((fn) => {
-      return DGuard.create(fn as () => unknown).decorateUnknown(
+      return DGuard.create(fn as () => unknown).attachToTarget(
         target,
         key,
         descriptor,
@@ -55,7 +55,7 @@ export function Guard<Type = any, DataType = any>(
         DOn,
         DDiscord,
         DReaction,
-      ).decorateUnknown(target, key, descriptor),
+      ).attachToTarget(target, key, descriptor),
     );
   };
 }

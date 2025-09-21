@@ -123,7 +123,7 @@ export function SlashGroup<
           },
           DApplicationCommand,
           DDiscord,
-        ).decorateUnknown(target, key, descriptor),
+        ).attachToTarget(target, key, descriptor),
       );
     } else {
       SlashNameValidator(options.name);

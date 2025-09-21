@@ -5,119 +5,135 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { decorateAClass } from "../util.js";
-
 /**
- * Represents a base decorator class.
+ * Base decorator class that tracks metadata about where decorators are applied.
+ *
+ * This class serves as the foundation for all decorator implementations in the framework,
+ * providing a consistent way to track and link decorators across classes, methods, and parameters.
+ *
  * @category Decorator
  */
 export class Decorator {
-  protected _classRef!: Record<string, any>;
-  protected _from!: Record<string, any>;
-  protected _key!: string;
-  protected _method?: Record<string, any>;
-  protected _index?: number;
+  protected _targetClass!: Record<string, any>;
+  protected _sourceClass!: Record<string, any>;
+  protected _propertyName!: string;
+  protected _methodReference?: Record<string, any>;
+  protected _parameterIndex?: number;
 
   /**
-   * Gets the index of the parameter being decorated, if applicable.
+   * The zero-based index of the parameter being decorated (parameter decorators only).
    */
   get index(): number | undefined {
-    return this._index;
+    return this._parameterIndex;
   }
 
   /**
-   * Gets or sets the class reference being decorated.
+   * The class constructor where this decorator was applied.
    */
   get classRef(): Record<string, any> {
-    return this._classRef;
+    return this._targetClass;
   }
   set classRef(value: Record<string, any>) {
-    this._classRef = value;
+    this._targetClass = value;
     this.from = value;
   }
 
   /**
-   * Gets or sets the originating class reference.
+   * The original class where the decoration was first applied.
+   * May differ from `classRef` in inheritance scenarios.
    */
   get from(): Record<string, any> {
-    return this._from;
+    return this._sourceClass;
   }
   set from(value: Record<string, any>) {
-    this._from = value;
+    this._sourceClass = value;
   }
 
   /**
-   * Gets the key of the property or method being decorated.
+   * The name of the property or method being decorated.
    */
   get key(): string {
-    return this._key;
+    return this._propertyName;
   }
 
   /**
-   * Gets the method descriptor if the target is a method.
+   * The actual method function reference (for method decorators).
    */
   get method(): Record<string, any> | undefined {
-    return this._method;
+    return this._methodReference;
   }
 
   /**
-   * Determines if the target is a class.
+   * Determines if this decorator was applied to a class constructor.
    */
   get isClass(): boolean {
-    return !!this._method;
+    return !!this._methodReference;
   }
 
   /**
-   * Decorates an unknown type (class, method, or property).
-   * @param classRef - The class reference.
-   * @param key - The property key.
-   * @param method - The method descriptor.
-   * @param index - The parameter index.
-   * @returns The current instance.
+   * Automatically detects the decoration target type and applies appropriate metadata.
+   *
+   * This method handles the complexity of TypeScript's decorator signatures and
+   * normalizes them into a consistent internal representation.
+   *
+   * @param classConstructor - The class constructor
+   * @param propertyKey - Property/method name (undefined for class decorators)
+   * @param methodDescriptor - Method descriptor (undefined for parameter decorators)
+   * @param parameterIndex - Parameter index (undefined for class/method decorators)
+   * @returns This instance for method chaining
    */
-  decorateUnknown(
-    classRef: Record<string, any>,
-    key?: string,
-    method?: PropertyDescriptor,
-    index?: number,
+  attachToTarget(
+    classConstructor: Record<string, any>,
+    propertyKey?: string,
+    methodDescriptor?: PropertyDescriptor,
+    parameterIndex?: number,
   ): this {
-    const decoratedClass = decorateAClass(method) && index === undefined;
-    const finalClassRef: Record<string, any> = decoratedClass
-      ? classRef
-      : classRef.constructor;
-    const finalKey = decoratedClass ? finalClassRef.name : key;
-    const finalMethod = decoratedClass ? finalClassRef : method?.value;
+    const isClassDecoration =
+      methodDescriptor === undefined && parameterIndex === undefined;
+
+    const resolvedClass: Record<string, any> = isClassDecoration
+      ? classConstructor
+      : classConstructor.constructor;
+
+    const resolvedPropertyName = isClassDecoration
+      ? resolvedClass.name
+      : propertyKey;
+
+    const resolvedMethod = isClassDecoration
+      ? resolvedClass
+      : methodDescriptor?.value;
 
     return this.decorate(
-      finalClassRef,
-      finalKey,
-      finalMethod,
-      finalClassRef,
-      index,
+      resolvedClass,
+      resolvedPropertyName,
+      resolvedMethod,
+      resolvedClass,
+      parameterIndex,
     );
   }
 
   /**
-   * Applies the decoration to the specified target.
-   * @param classRef - The class reference.
-   * @param key - The property key.
-   * @param method - The method descriptor.
-   * @param from - The originating class reference.
-   * @param index - The parameter index.
-   * @returns The current instance.
+   * Manually sets all metadata properties for this decorator.
+   *
+   * @param targetClass - The class being decorated
+   * @param propertyName - The property/method name
+   * @param methodRef - The method function reference
+   * @param sourceClass - The originating class (defaults to targetClass)
+   * @param parameterIndex - The parameter position
+   * @returns This instance for method chaining
    */
   decorate(
-    classRef: Record<string, any>,
-    key: string,
-    method?: Record<string, any>,
-    from?: Record<string, any>,
-    index?: number,
+    targetClass: Record<string, any>,
+    propertyName: string,
+    methodRef?: Record<string, any>,
+    sourceClass?: Record<string, any>,
+    parameterIndex?: number,
   ): this {
-    this._from = from ?? classRef;
-    this._classRef = classRef;
-    this._key = key;
-    this._method = method;
-    this._index = index;
+    this._sourceClass = sourceClass ?? targetClass;
+    this._targetClass = targetClass;
+    this._propertyName = propertyName;
+    this._methodReference = methodRef;
+    this._parameterIndex = parameterIndex;
     return this;
   }
 }

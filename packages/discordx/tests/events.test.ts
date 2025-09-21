@@ -67,11 +67,9 @@ describe("Create on event", () => {
   it("Should create and execute two messages events", async () => {
     const res = await client.trigger(
       {
-        client: client,
-        event: "messageCreate",
-        guards: [],
-        once: false,
-        rest: false,
+        eventName: "messageCreate",
+        isOnce: false,
+        isRest: false,
       },
       "test",
     );
@@ -81,11 +79,9 @@ describe("Create on event", () => {
   it("Should pass through guard", async () => {
     const res = await client.trigger(
       {
-        client: client,
-        event: "messageDelete",
-        guards: [],
-        once: false,
-        rest: false,
+        eventName: "messageDelete",
+        isOnce: false,
+        isRest: false,
       },
       "test",
     );
@@ -94,11 +90,9 @@ describe("Create on event", () => {
 
     const res2 = await client.trigger(
       {
-        client: client,
-        event: "messageDelete",
-        guards: [],
-        once: false,
-        rest: false,
+        eventName: "messageDelete",
+        isOnce: false,
+        isRest: false,
       },
       "hello",
     );
@@ -107,11 +101,9 @@ describe("Create on event", () => {
 
     const res3 = await client.trigger(
       {
-        client: client,
-        event: "messageDelete",
-        guards: [],
-        once: false,
-        rest: false,
+        eventName: "messageDelete",
+        isOnce: false,
+        isRest: false,
       },
       "hello-test",
     );

@@ -20,7 +20,6 @@ import type {
   ModalSubmitInteraction,
   PartialMessageReaction,
   PartialUser,
-  RestEvents,
   Snowflake,
   User,
 } from "discord.js";
@@ -44,13 +43,12 @@ import type {
   DReaction,
   DSimpleCommand,
   DSimpleCommandOption,
-  EventListenerDetail,
+  EventConfig,
   GuardFunction,
   IGuild,
   ILogger,
   IPrefixResolver,
   ISimpleCommandByName,
-  ITriggerEventData,
   SimpleCommandConfig,
 } from "./index.js";
 import {
@@ -78,7 +76,6 @@ export class Client extends ClientJS {
   private _prefix: IPrefixResolver;
   private _simpleCommandConfig?: SimpleCommandConfig;
   private _silent: boolean;
-  private _listeners = new Map<string, EventListenerDetail[]>();
   private _botGuilds: IGuild[] = [];
   private _guards: GuardFunction[] = [];
   private logger: ILogger;
@@ -1431,54 +1428,8 @@ export class Client extends ClientJS {
    *
    * @returns
    */
-  trigger(options: ITriggerEventData, params: any): Promise<any[]> {
-    return this.instance.trigger(options)(params);
-  }
-
-  /**
-   * Bind discordx events to client
-   */
-  initEvents(): void {
-    for (const { event, once, rest } of this.instance.usedEvents) {
-      const trigger = this.instance.trigger({
-        client: this,
-        event,
-        guards: this.guards,
-        once,
-        rest,
-      });
-
-      if (!this._listeners.has(event)) {
-        this._listeners.set(event, []);
-      }
-
-      this._listeners.get(event)?.push({ once, rest, trigger });
-      const method = once ? "once" : "on";
-
-      if (rest) {
-        this.rest[method](event as keyof RestEvents, trigger);
-      } else {
-        this[method](event, trigger);
-      }
-    }
-  }
-
-  /**
-   * Unbind all discordx events initialized by the initEvents method.
-   */
-  removeEvents(): void {
-    this._listeners.forEach((listenerDetails, event) => {
-      listenerDetails.forEach(({ rest, trigger }) => {
-        if (rest) {
-          this.rest.off(event as keyof RestEvents, trigger);
-        } else {
-          this.off(event, trigger);
-        }
-      });
-    });
-
-    // Clear the listeners map after removing all listeners
-    this._listeners.clear();
+  trigger(options: EventConfig, params: any): Promise<any[]> {
+    return this.instance.eventManager.trigger(this, options)(params);
   }
 
   /**
@@ -1495,7 +1446,7 @@ export class Client extends ClientJS {
     await this.instance.build();
 
     // Bind events
-    this.initEvents();
+    this.instance.eventManager.initEvents(this);
 
     // Print logs
     if (!this.silent) {

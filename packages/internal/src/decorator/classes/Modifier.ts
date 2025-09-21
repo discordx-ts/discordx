@@ -7,74 +7,88 @@
 import { getLinkedObjects } from "../util.js";
 import { Decorator } from "./Decorator.js";
 
-export type ModifyFunction<ToModify extends Decorator> = (
-  original: ToModify,
-) => unknown;
+export type ModificationFunction<TTarget extends Decorator> = (
+  targetDecorator: TTarget,
+) => void | Promise<void>;
 
-// Base type for constructors of classes extending Decorator.
-export type Constructor<T extends Decorator> = new (...args: any[]) => T;
+// Constructor type for decorator classes.
+export type DecoratorConstructor<T extends Decorator> = new (
+  ...args: any[]
+) => T;
 
 /**
- * Represents a modifier for decorators.
+ * A powerful system for modifying the behavior of existing decorators without altering their implementation.
+ *
+ * Modifiers allow you to create cross-cutting concerns that can affect multiple decorators
+ * based on their type and location. This enables features like development mode overrides,
+ * logging, validation, and dynamic behavior changes.
+ *
  * @category Internal
  */
-export class Modifier<
-  ToModify extends Decorator = Decorator,
-> extends Decorator {
-  private _toModify: ModifyFunction<ToModify>;
-  private _modifyTypes: Constructor<ToModify>[];
+export class Modifier<TTarget extends Decorator = Decorator> extends Decorator {
+  private _modificationFunction: ModificationFunction<TTarget>;
+  private _applicableDecoratorTypes: DecoratorConstructor<TTarget>[];
 
   /**
-   * Constructor to initialize a modifier.
-   * @param toModify - The function to modify the decorator.
-   * @param modifyTypes - The list of types that can be modified.
+   * Creates a new decorator modifier.
+   * @param modificationFunction - The function that modifies target decorators.
+   * @param applicableDecoratorTypes - The list of decorator types that can be modified.
    */
   constructor(
-    toModify: ModifyFunction<ToModify>,
-    modifyTypes: Constructor<ToModify>[],
+    modificationFunction: ModificationFunction<TTarget>,
+    applicableDecoratorTypes: DecoratorConstructor<TTarget>[],
   ) {
     super();
-    this._toModify = toModify;
-    this._modifyTypes = modifyTypes;
+    this._modificationFunction = modificationFunction;
+    this._applicableDecoratorTypes = applicableDecoratorTypes;
   }
 
   /**
-   * Creates a new modifier instance.
-   * @param toModify - The function to modify the decorator.
-   * @param modifyTypes - The list of types that can be modified.
+   * Factory method for creating modifier instances with better type inference.
+   * @param modificationFunction - The function that performs the modification.
+   * @param applicableDecoratorTypes - The decorator types that can be modified.
    * @returns A new modifier instance.
    */
-  static create<ToModifyEx extends Decorator>(
-    toModify: ModifyFunction<ToModifyEx>,
-    ...modifyTypes: Constructor<ToModifyEx>[]
-  ): Modifier<ToModifyEx> {
-    return new Modifier<ToModifyEx>(toModify, modifyTypes);
+  static create<TModificationTarget extends Decorator>(
+    modificationFunction: ModificationFunction<TModificationTarget>,
+    ...applicableDecoratorTypes: DecoratorConstructor<TModificationTarget>[]
+  ): Modifier<TModificationTarget> {
+    return new Modifier<TModificationTarget>(
+      modificationFunction,
+      applicableDecoratorTypes,
+    );
   }
 
   /**
-   * Applies the modifications from a list of modifiers to a list of decorators.
-   * @param modifiers - The list of modifiers.
-   * @param originals - The list of decorators to modify.
+   * Applies a collection of modifiers to a collection of decorators.
+   *
+   * This is the main entry point for the modification system. It processes all modifiers
+   * and applies them to their applicable decorators in parallel for better performance.
+   *
+   * @param modifierCollection - The collection of modifiers to apply.
+   * @param decoratorCollection - The collection of decorators to potentially modify.
    * @returns A promise that resolves when all modifications are applied.
    */
-  static async applyFromModifierListToList(
-    modifiers: Modifier[],
-    originals: Decorator[],
+  static async modify(
+    modifierCollection: Modifier[],
+    decoratorCollection: Decorator[],
   ): Promise<void> {
     await Promise.all(
-      modifiers.map(async (modifier) => {
-        // Get the list of objects that are linked to the specified modifier
-        let linked = getLinkedObjects(modifier, originals);
+      modifierCollection.map(async (modifier) => {
+        // Find decorators that are in the same location as this modifier
+        let linkedDecorators = getLinkedObjects(modifier, decoratorCollection);
 
-        // Filter the linked objects to match the target types of modification
-        linked = linked.filter((linkedOriginal) =>
-          modifier._modifyTypes.some((type) => linkedOriginal instanceof type),
+        // Filter to only include decorators that this modifier can affect
+        linkedDecorators = linkedDecorators.filter((linkedDecorator) =>
+          modifier._applicableDecoratorTypes.some(
+            (decoratorType) => linkedDecorator instanceof decoratorType,
+          ),
         );
 
-        // Apply the modifications
+        // Apply modifications to all applicable decorators
         await Promise.all(
-          linked.map((linkedOriginal) =>
-            modifier.applyModifications(linkedOriginal),
+          linkedDecorators.map((linkedDecorator) =>
+            modifier.apply(linkedDecorator),
           ),
         );
       }),
@@ -82,11 +96,11 @@ export class Modifier<
   }
 
   /**
-   * Applies modifications to the specified decorator.
-   * @param original - The decorator to modify.
+   * Applies this modifier's function to a specific decorator.
+   * @param targetDecorator - The decorator to modify.
    * @returns The result of the modification function.
    */
-  applyModifications(original: ToModify): unknown {
-    return this._toModify(original);
+  async apply(targetDecorator: TTarget): Promise<void> {
+    await this._modificationFunction(targetDecorator);
   }
 }
