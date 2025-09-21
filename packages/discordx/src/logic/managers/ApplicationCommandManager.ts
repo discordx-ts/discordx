@@ -9,6 +9,7 @@ import {
   ApplicationCommandType,
   type ApplicationCommand,
   type ApplicationCommandData,
+  type Collection,
   type Snowflake,
 } from "discord.js";
 
@@ -177,7 +178,7 @@ export class ApplicationCommandManager {
       commandsToAdd,
       commandsToUpdate,
       commandsToSkip,
-      commandsToDelete: Array.from(commandsToDelete),
+      commandsToDelete,
       retainDeleted,
     });
 
@@ -190,7 +191,7 @@ export class ApplicationCommandManager {
 
   private async categorizeGuildCommands(
     commands: DApplicationCommand[],
-    discordCommands: any,
+    discordCommands: Collection<string, ApplicationCommand>,
     botResolvedGuilds: string[],
   ) {
     const commandsToAdd = commands.filter((command) => {
@@ -251,7 +252,7 @@ export class ApplicationCommandManager {
 
   private categorizeGlobalCommands(
     commands: DApplicationCommand[],
-    discordCommands: any,
+    discordCommands: Collection<string, ApplicationCommand>,
   ) {
     const commandsToAdd = commands.filter((command) => {
       const match = (cmd: ApplicationCommand) =>
@@ -278,13 +279,13 @@ export class ApplicationCommandManager {
       }
     });
 
-    const commandsToDelete = discordCommands.filter(
-      (cmd: ApplicationCommand) => {
+    const commandsToDelete = discordCommands
+      .filter((cmd: ApplicationCommand) => {
         const match = (command: DApplicationCommand) =>
           command.name !== cmd.name || command.type !== cmd.type;
         return commands.every(match);
-      },
-    );
+      })
+      .toJSON();
 
     return {
       commandsToAdd,

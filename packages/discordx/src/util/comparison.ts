@@ -98,15 +98,16 @@ export function isApplicationCommandEqual(
     jsonToString(
       omit(
         commandJson,
-        "id",
         "applicationId",
+        "defaultPermission",
+        "descriptionLocalized",
         "guild",
         "guildId",
-        "version",
-        "descriptionLocalized",
+        "handler",
+        "id",
         "nameLocalized",
         "permissions",
-        "defaultPermission",
+        "version",
       ),
     ),
   );
