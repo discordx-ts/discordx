@@ -1,5 +1,16 @@
 # discordx
 
+## 11.13.0
+
+### Minor Changes
+
+- refactor: various internal code improvement
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @discordx/internal@1.2.0
+
 ## 11.12.6
 
 ### Patch Changes

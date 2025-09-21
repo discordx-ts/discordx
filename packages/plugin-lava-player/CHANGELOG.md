@@ -1,5 +1,12 @@
 # @discordx/plugin-lava-player
 
+## 3.0.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - discordx@11.13.0
+
 ## 2.5.11
 
 ### Patch Changes

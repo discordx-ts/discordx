@@ -2,7 +2,7 @@
   "name": "root",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b",
+  "packageManager": "pnpm@10.17.0+sha512.fce8a3dd29a4ed2ec566fb53efbb04d8c44a0f05bc6f24a73046910fb9c3ce7afa35a0980500668fa3573345bd644644fa98338fa168235c80f4aa17aa17fbef",
   "workspaces": [
     "packages/*"
   ],
@@ -42,11 +42,11 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.29.6",
+    "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-angular": "^19.8.1",
-    "@eslint/js": "^9.34.0",
-    "eslint": "^9.34.0",
+    "@eslint/js": "^9.35.0",
+    "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-simple-import-sort": "^12.1.1",
@@ -55,11 +55,11 @@
     "minipass": "^7.1.2",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0",
-    "tsx": "^4.20.4",
+    "tsx": "^4.20.5",
     "turbo": "^2.5.6",
-    "typedoc": "^0.28.10",
+    "typedoc": "^0.28.12",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "typescript-eslint": "^8.43.0"
   },
   "engines": {
     "node": ">=16.0.0",

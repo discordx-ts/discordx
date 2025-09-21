@@ -1,5 +1,11 @@
 # @discordx/internal
 
+## 1.2.0
+
+### Minor Changes
+
+- refactor: various internal code improvement
+
 ## 1.1.5
 
 ### Patch Changes
