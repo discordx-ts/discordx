@@ -1,5 +1,11 @@
 # discordx
 
+## 11.13.1
+
+### Patch Changes
+
+- fix: init command
+
 ## 11.13.0
 
 ### Minor Changes
