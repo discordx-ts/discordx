@@ -1,6 +1,6 @@
 packages:
   - packages/*
-  - packages/*/examples/*
+  - packages/*/examples/**
   - docs
 
 onlyBuiltDependencies:

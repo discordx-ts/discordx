@@ -33,7 +33,7 @@ export class Example {
   @Slash({ description: "tsyringe" })
   async tsyringe(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
-      const clazz = container.resolve(Example) as Example;
+      const clazz = container.resolve(Example);
       await interaction.reply(
         `${clazz.database.query()}, same class: ${String(clazz === this)}`,
       );

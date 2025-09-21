@@ -39,7 +39,7 @@ export class ExampleToken {
       const allDiscordClasses = container.resolveAll(
         TsyringeDependencyRegistryEngine.token,
       );
-      const clazz = container.resolve(ExampleToken) as ExampleToken;
+      const clazz = container.resolve(ExampleToken);
       const resolvedClassInTokenisedClasses = allDiscordClasses.includes(clazz);
       await interaction.reply(
         `${clazz.database.query()}, same class: ${String(

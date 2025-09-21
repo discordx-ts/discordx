@@ -53,7 +53,7 @@ export class ConstructorInjection {
   @Slash({ description: "typedi" })
   async typedi(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
-      const clazz = Container.get(ConstructorInjection) as ConstructorInjection;
+      const clazz = Container.get(ConstructorInjection);
       await interaction.reply(
         `${clazz.database.query()}, same class: ${String(
           clazz === this,
@@ -88,9 +88,7 @@ export class PropertyInjectionExample {
   })
   async typedi(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === typeDiDependencyRegistryEngine) {
-      const clazz = Container.get(
-        PropertyInjectionExample,
-      ) as PropertyInjectionExample;
+      const clazz = Container.get(PropertyInjectionExample);
       await interaction.reply(
         `${clazz.database.query()}, same class: ${String(
           clazz === this,

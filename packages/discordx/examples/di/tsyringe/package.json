@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "discordx": "workspace:^",
+    "tsyringe": "^4.10.0"
+  }
+}

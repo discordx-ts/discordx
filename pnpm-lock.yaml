@@ -107,9 +107,6 @@ importers:
       react-dom:
         specifier: 19.1.1
         version: 19.1.1(react@19.1.1)
-      trim:
-        specifier: ^1.0.1
-        version: 1.0.1
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -215,6 +212,24 @@ importers:
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
+
+  packages/discordx/examples/di/tsyringe:
+    dependencies:
+      discordx:
+        specifier: workspace:^
+        version: link:../../..
+      tsyringe:
+        specifier: ^4.10.0
+        version: 4.10.0
+
+  packages/discordx/examples/di/typedi:
+    dependencies:
+      discordx:
+        specifier: workspace:^
+        version: link:../../..
+      typedi:
+        specifier: ^0.10.0
+        version: 0.10.0
 
   packages/importer:
     dependencies:
@@ -7384,10 +7399,6 @@ packages:
 
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
-
-  trim@1.0.1:
-    resolution: {integrity: sha512-3JVP2YVqITUisXblCDq/Bi4P9457G/sdEamInkyvCsjbTcXLXIiG7XCb4kGMFWh6JGXesS3TKxOPtrncN/xe8w==}
-    deprecated: Use String.prototype.trim() instead
 
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
@@ -16797,8 +16808,6 @@ snapshots:
   tree-kill@1.2.2: {}
 
   trim-lines@3.0.1: {}
-
-  trim@1.0.1: {}
 
   trough@2.2.0: {}
 
