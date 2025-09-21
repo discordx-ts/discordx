@@ -1,5 +1,11 @@
 # discordx
 
+## 11.13.2
+
+### Patch Changes
+
+- fix(discordx): events methods
+
 ## 11.13.1
 
 ### Patch Changes

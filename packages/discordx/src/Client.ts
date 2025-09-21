@@ -329,6 +329,20 @@ export class Client extends ClientJS {
     return triggerFn(params);
   }
 
+  /**
+   * Bind discordx events to client
+   */
+  initEvents(): void {
+    this.instance.eventManager.initEvents(this);
+  }
+
+  /**
+   * Unbind all discordx events initialized by the initEvents method.
+   */
+  removeEvents(): void {
+    this.instance.eventManager.removeEvents();
+  }
+
   // === Debug ===
   printDebug(): void {
     this.debugManager.printDebug();
