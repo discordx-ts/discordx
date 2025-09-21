@@ -7,7 +7,7 @@ const config = {
   endOfLine: "auto",
   plugins: ["@ianvs/prettier-plugin-sort-imports"],
   importOrder: ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "", "^[./]"],
-  importOrderParserPlugins: ["typescript", "decorators-legacy"],
+  importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
   importOrderTypeScriptVersion: "5.9.2",
 };
 
