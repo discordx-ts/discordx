@@ -332,6 +332,18 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  packages/pagination/examples/pagination:
+    dependencies:
+      '@discordx/importer':
+        specifier: workspace:^
+        version: link:../../../importer
+      '@discordx/pagination':
+        specifier: workspace:^
+        version: link:../..
+      discordx:
+        specifier: workspace:^
+        version: link:../../../discordx
+
   packages/plugin-lava-player:
     dependencies:
       '@discordx/lava-player':
