@@ -1,5 +1,6 @@
 export * from "./ApplicationCommandManager.js";
 export * from "./DebugManager.js";
+export * from "./EventManager.js";
 export * from "./InteractionHandler.js";
 export * from "./ReactionManager.js";
 export * from "./SimpleCommandManager.js";

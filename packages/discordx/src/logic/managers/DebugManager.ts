@@ -12,8 +12,8 @@ import type {
   DApplicationCommandOption,
   DComponent,
   DSimpleCommandOption,
-} from "../index.js";
-import { SimpleCommandOptionType } from "../index.js";
+} from "../../index.js";
+import { SimpleCommandOptionType } from "../../index.js";
 
 export class DebugManager {
   constructor(private client: Client) {}

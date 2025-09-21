@@ -12,7 +12,7 @@ import type {
   User,
 } from "discord.js";
 
-import type { Client, DReaction } from "../index.js";
+import type { Client, DReaction } from "../../index.js";
 
 export class ReactionManager {
   constructor(private client: Client) {}

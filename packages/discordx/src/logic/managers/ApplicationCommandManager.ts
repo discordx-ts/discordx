@@ -16,12 +16,12 @@ import type {
   ApplicationCommandDataEx,
   Client,
   DApplicationCommand,
-} from "../index.js";
+} from "../../index.js";
 import {
   ApplicationCommandMixin,
   isApplicationCommandEqual,
   resolveIGuilds,
-} from "../index.js";
+} from "../../index.js";
 
 export class ApplicationCommandManager {
   constructor(private client: Client) {}

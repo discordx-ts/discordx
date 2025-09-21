@@ -18,18 +18,13 @@ import { Client as ClientJS } from "discord.js";
 
 import {
   ApplicationCommandManager,
-  DebugManager,
-  InteractionHandler,
-  ReactionManager,
-  SimpleCommandManager,
-} from "./client/index.js";
-import {
   type ClientOptions,
   type DApplicationCommand,
   type DApplicationCommandGroup,
   type DApplicationCommandOption,
   type DComponent,
   type DDiscord,
+  DebugManager,
   type DOn,
   type DReaction,
   type DSimpleCommand,
@@ -37,11 +32,14 @@ import {
   type GuardFunction,
   type IGuild,
   type ILogger,
+  InteractionHandler,
   type IPrefixResolver,
   type ISimpleCommandByName,
   MetadataStorage,
+  ReactionManager,
   resolveIGuilds,
   type SimpleCommandConfig,
+  SimpleCommandManager,
   type SimpleCommandMessage,
   type SimpleCommandParseType,
 } from "./index.js";

@@ -5,8 +5,8 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type { Client } from "../Client.js";
-import type { DOn } from "../decorators/index.js";
+import type { Client } from "../../Client.js";
+import type { DOn } from "../../decorators/index.js";
 
 export interface EventConfig {
   eventName: string;
