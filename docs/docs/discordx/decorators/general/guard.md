@@ -20,7 +20,7 @@ The order of execution of the guards is done according to their position in the 
 
 ```typescript
 import { NotBot } from "@discordx/utilities";
-import { Discord, On, Client, Guard } from "discordx";
+import { Client, Discord, Guard, On } from "discordx";
 
 @Discord()
 class Example {
@@ -116,7 +116,7 @@ Guards work like `Koa`'s, it's a function passed in parameter (third parameter i
 **If `next` isn't called the next guard (or the main method) will not be executed**
 
 ```typescript
-import { GuardFunction, ArgsOf } from "discordx";
+import { ArgsOf, GuardFunction } from "discordx";
 
 export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = async (
   [message],
@@ -205,8 +205,9 @@ export const NotBot: GuardFunction<
 ```
 
 ```typescript
-import { Discord, Slash, Client, Guard } from "discordx";
 import { CommandInteraction } from "discord.js";
+import { Client, Discord, Guard, Slash } from "discordx";
+
 import { NotBot } from "./NotBot";
 
 @Discord()

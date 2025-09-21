@@ -6,8 +6,13 @@
  */
 import { RateLimit, TIME_UNIT } from "@discordx/utilities";
 import type { CommandInteraction } from "discord.js";
-import type { SimpleCommandMessage } from "discordx";
-import { Discord, Guard, SimpleCommand, Slash } from "discordx";
+import {
+  Discord,
+  Guard,
+  SimpleCommand,
+  Slash,
+  type SimpleCommandMessage,
+} from "discordx";
 
 @Discord()
 export class RateLimitExample {
@@ -83,19 +88,18 @@ export class RateLimitExample {
     await interaction.reply("It worked!");
   }
 
-  private static getMessage(
-    this: void,
+  private static getMessage = (
     interaction: CommandInteraction,
     timeLeft: number,
-  ): Promise<string> {
+  ): Promise<string> => {
     return Promise.resolve(
       `${
         interaction.commandName
       } will be available again in {time}, this is in ${Math.round(
         timeLeft / 1000,
-      )} seconds`,
+      ).toString()} seconds`,
     );
-  }
+  };
 
   /**
    * Rate limit simple command

@@ -5,8 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { CommandInteraction } from "discord.js";
-import type { ArgsOf } from "discordx";
-import { Discord, Guard, On, Slash } from "discordx";
+import { Discord, Guard, On, Slash, type ArgsOf } from "discordx";
 
 import { ErrorHandler } from "../guards/Error.js";
 import { NotBot } from "../guards/NotBot.js";

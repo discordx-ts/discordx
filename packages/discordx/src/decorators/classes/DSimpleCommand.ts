@@ -6,16 +6,17 @@
  */
 import { ChannelType } from "discord.js";
 
-import type {
-  ArgSplitter,
-  Client,
-  DSimpleCommandOption,
-  IGuild,
-  IPrefix,
-  SimpleCommandMessage,
-  SimpleOptionType,
+import {
+  resolveIGuilds,
+  SimpleCommandOptionType,
+  type ArgSplitter,
+  type Client,
+  type DSimpleCommandOption,
+  type IGuild,
+  type IPrefix,
+  type SimpleCommandMessage,
+  type SimpleOptionType,
 } from "../../index.js";
-import { resolveIGuilds, SimpleCommandOptionType } from "../../index.js";
 import { Method } from "./Method.js";
 
 interface CreateStructure {

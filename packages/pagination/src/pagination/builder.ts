@@ -12,13 +12,15 @@ import {
 } from "discord.js";
 
 import { createPagination } from "../utils/index.js";
-import type {
-  ButtonOptions,
-  IPaginate,
-  PaginationItem,
-  PaginationOptions,
+import {
+  defaultIds,
+  defaultPerPageItem,
+  SelectMenuPageId,
+  type ButtonOptions,
+  type IPaginate,
+  type PaginationItem,
+  type PaginationOptions,
 } from "./index.js";
-import { defaultIds, defaultPerPageItem, SelectMenuPageId } from "./index.js";
 
 export class PaginationBuilder {
   private readonly item: PaginationItem;

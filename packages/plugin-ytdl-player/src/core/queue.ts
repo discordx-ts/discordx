@@ -5,12 +5,13 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { Queue, RepeatMode } from "@discordx/music";
-import type { Message, MessageActionRowComponentBuilder } from "discord.js";
 import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
+  type Message,
+  type MessageActionRowComponentBuilder,
 } from "discord.js";
 
 import { deleteMessage, fromMS } from "../utils/index.js";

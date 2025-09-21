@@ -4,22 +4,23 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { VoiceConnection } from "@discordjs/voice";
+import { parentPort } from "worker_threads";
 import {
   AudioPlayer,
   AudioPlayerStatus,
   createAudioResource,
   StreamType,
+  type VoiceConnection,
 } from "@discordjs/voice";
-import { parentPort } from "worker_threads";
 
-import type {
-  AudioNodeEventPayload,
-  NodeAudioData,
-  NodePlayerOptions,
-  ParentProcessDataPayload,
+import {
+  AudioNodeEvent,
+  ParentProcessEvent,
+  type AudioNodeEventPayload,
+  type NodeAudioData,
+  type NodePlayerOptions,
+  type ParentProcessDataPayload,
 } from "../types/index.js";
-import { AudioNodeEvent, ParentProcessEvent } from "../types/index.js";
 import { ytdl } from "./ytdl.js";
 
 export class AudioNode {

@@ -4,12 +4,13 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { CommandInteraction, ModalSubmitInteraction } from "discord.js";
 import {
   ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
+  type CommandInteraction,
+  type ModalSubmitInteraction,
 } from "discord.js";
 import { Discord, ModalComponent, Slash } from "discordx";
 
@@ -57,7 +58,8 @@ export class Example {
     );
 
     await interaction.reply(
-      `Favorite TV Show: ${favTVShow}, Favorite haiku: ${favHaiku}`,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      `Favorite TV Show: ${favTVShow!}, Favorite haiku: ${favHaiku!}`,
     );
 
     return;

@@ -5,18 +5,15 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { Pagination, PaginationResolver } from "@discordx/pagination";
-import type {
-  CommandInteraction,
-  MessageActionRowComponentBuilder,
-} from "discord.js";
 import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
+  type CommandInteraction,
+  type MessageActionRowComponentBuilder,
 } from "discord.js";
-import type { ArgsOf } from "discordx";
-import { Discord, On, Slash } from "discordx";
+import { Discord, On, Slash, type ArgsOf } from "discordx";
 
 import { GeneratePages } from "../util/common.js";
 
@@ -63,16 +60,12 @@ export class Example {
         return { content: "Pagination updated" };
       }
 
-      return { content: `page v2 ${page + 1}` };
+      return { content: `page v2 ${String(page + 1)}` };
     }, 25);
 
     const pagination = new Pagination(interaction, resolver, {
-      onTimeout: async () => {
-        try {
-          await interaction.deleteReply();
-        } catch (err) {
-          // ignore
-        }
+      onTimeout: () => {
+        interaction.deleteReply().catch(() => null);
       },
       buttons: {
         backward: {

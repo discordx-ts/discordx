@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   baseUrl: "/",

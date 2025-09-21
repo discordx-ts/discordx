@@ -8,17 +8,15 @@ import { EventEmitter } from "events";
 
 import type { BaseNode } from "../base/base-node.js";
 import type { Rest } from "../index.js";
-import type {
-  OPEvent,
-  UpdatePlayer,
-  VoiceServerUpdate,
-  VoiceStateUpdate,
-} from "../types/index.js";
 import {
   EventType,
   OPType,
   PlayerStatus,
   TrackEndReason,
+  type OPEvent,
+  type UpdatePlayer,
+  type VoiceServerUpdate,
+  type VoiceStateUpdate,
 } from "../types/index.js";
 import type { HttpClient } from "./http.js";
 

@@ -33,9 +33,9 @@ export class Example {
   @Slash({ description: "tsyringe" })
   async tsyringe(interaction: CommandInteraction): Promise<void> {
     if (DIService.engine === tsyringeDependencyRegistryEngine) {
-      const clazz = container.resolve(Example);
+      const clazz = container.resolve(Example) as Example;
       await interaction.reply(
-        `${clazz.database.query()}, same class: ${clazz === this}`,
+        `${clazz.database.query()}, same class: ${String(clazz === this)}`,
       );
     } else {
       await interaction.reply("Not using TSyringe");

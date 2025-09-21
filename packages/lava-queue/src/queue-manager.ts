@@ -4,10 +4,14 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { GetPlayer, Node, OPEvent } from "@discordx/lava-player";
-import { EventType, TrackEndReason } from "@discordx/lava-player";
-import type { Snowflake } from "discord.js";
-import { Collection } from "discord.js";
+import {
+  EventType,
+  TrackEndReason,
+  type GetPlayer,
+  type Node,
+  type OPEvent,
+} from "@discordx/lava-player";
+import { Collection, type Snowflake } from "discord.js";
 
 import { Queue } from "./queue.js";
 

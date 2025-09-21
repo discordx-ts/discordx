@@ -6,8 +6,11 @@
  */
 import type { MethodDecoratorEx } from "@discordx/internal";
 
-import type { SimpleCommandOptions } from "../../index.js";
-import { DSimpleCommand, MetadataStorage } from "../../index.js";
+import {
+  DSimpleCommand,
+  MetadataStorage,
+  type SimpleCommandOptions,
+} from "../../index.js";
 
 /**
  * Handle a simple command with a defined name

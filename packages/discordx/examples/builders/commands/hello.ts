@@ -7,8 +7,8 @@
 import {
   SlashCommandBuilder,
   SlashCommandMentionableOption,
-  User,
   type CommandInteraction,
+  type User,
 } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 
@@ -28,6 +28,6 @@ export class Example {
     @SlashOption(user_option) user: User,
     interaction: CommandInteraction,
   ): Promise<void> {
-    await interaction.reply(`:wave: ${user}`);
+    await interaction.reply(`:wave: ${user.toString()}`);
   }
 }

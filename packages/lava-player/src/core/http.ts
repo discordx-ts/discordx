@@ -1,5 +1,9 @@
-import type { IncomingHttpHeaders, IncomingMessage } from "http";
-import { request, STATUS_CODES } from "http";
+import {
+  request,
+  STATUS_CODES,
+  type IncomingHttpHeaders,
+  type IncomingMessage,
+} from "http";
 import { URL } from "url";
 
 export enum RequestType {

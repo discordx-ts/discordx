@@ -5,12 +5,15 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { Pagination } from "@discordx/pagination";
-import type { ICategory } from "@discordx/utilities";
-import { Category, Description } from "@discordx/utilities";
-import type { CommandInteraction } from "discord.js";
-import { EmbedBuilder } from "discord.js";
-import type { DSimpleCommand } from "discordx";
-import { DApplicationCommand, Discord, MetadataStorage, Slash } from "discordx";
+import { Category, Description, type ICategory } from "@discordx/utilities";
+import { EmbedBuilder, type CommandInteraction } from "discord.js";
+import {
+  DApplicationCommand,
+  Discord,
+  MetadataStorage,
+  Slash,
+  type DSimpleCommand,
+} from "discordx";
 
 @Discord()
 @Category("Admin Commands")
@@ -43,7 +46,9 @@ export class SlashExample {
 
     const pages = commands.map((cmd, i) => {
       const embed = new EmbedBuilder()
-        .setFooter({ text: `Page ${i + 1} of ${commands.length}` })
+        .setFooter({
+          text: `Page ${String(i + 1)} of ${commands.length.toString()}`,
+        })
         .setTitle("**Slash command info**")
         .addFields({ name: "Name", value: cmd.name })
         .addFields({ name: "Description", value: cmd.description })

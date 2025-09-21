@@ -5,8 +5,12 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { constructor } from "tsyringe/dist/typings/types/index.js";
-import type { Constructable, Container, Service } from "typedi";
-import { Token } from "typedi";
+import {
+  Token,
+  type Constructable,
+  type Container,
+  type Service,
+} from "typedi";
 
 import type { InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";

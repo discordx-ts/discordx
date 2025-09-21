@@ -5,9 +5,9 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  AutocompleteInteraction,
   SlashCommandBuilder,
   SlashCommandStringOption,
+  type AutocompleteInteraction,
   type CommandInteraction,
 } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
@@ -30,7 +30,7 @@ export class Example {
     interaction: CommandInteraction | AutocompleteInteraction,
   ): Promise<void> {
     if (interaction.isAutocomplete()) {
-      interaction.respond([
+      await interaction.respond([
         { name: "Earth", value: "Earth" },
         { name: "Mars", value: "Mars" },
       ]);

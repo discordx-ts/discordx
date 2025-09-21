@@ -5,6 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import "@discordx/plugin-ytdl-player";
+
 import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 

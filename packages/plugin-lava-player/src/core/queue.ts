@@ -6,19 +6,17 @@
  */
 import { fromMS, Queue, RepeatMode } from "@discordx/lava-queue";
 import { Pagination, PaginationResolver } from "@discordx/pagination";
-import type {
-  ButtonInteraction,
-  CommandInteraction,
-  MessageActionRowComponentBuilder,
-  PartialGroupDMChannel,
-  TextBasedChannel,
-} from "discord.js";
 import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
   Message,
+  type ButtonInteraction,
+  type CommandInteraction,
+  type MessageActionRowComponentBuilder,
+  type PartialGroupDMChannel,
+  type TextBasedChannel,
 } from "discord.js";
 
 export type TrackChannel = Exclude<TextBasedChannel, PartialGroupDMChannel>;

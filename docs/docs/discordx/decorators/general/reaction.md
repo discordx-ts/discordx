@@ -19,8 +19,8 @@ class Example {
 You have to manually execute your reactions by using `client.executeReaction(reaction, user)`
 
 ```ts
-import { Client } from "discordx";
 import { Partials } from "discord.js";
+import { Client } from "discordx";
 
 async function start() {
   const client = new Client({

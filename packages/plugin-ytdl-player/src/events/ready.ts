@@ -6,8 +6,7 @@
  */
 
 import { Node, QueueManager } from "@discordx/music";
-import type { ArgsOf, Client } from "discordx";
-import { Discord, Once } from "discordx";
+import { Discord, Once, type ArgsOf, type Client } from "discordx";
 
 import { musicPlayerManager } from "../core/manager.js";
 

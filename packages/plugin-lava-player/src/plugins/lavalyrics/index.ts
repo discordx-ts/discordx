@@ -7,7 +7,7 @@
 
 import { RequestType } from "@discordx/lava-player";
 import type { Queue } from "@discordx/lava-queue";
-import { type CommandInteraction, EmbedBuilder } from "discord.js";
+import { EmbedBuilder, type CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashGroup } from "discordx";
 
 import { lavaPlayerManager } from "../../core/index.js";

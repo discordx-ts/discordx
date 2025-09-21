@@ -7,15 +7,13 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 import { ApplicationCommandType, SlashCommandBuilder } from "discord.js";
 
-import type {
-  ApplicationCommandOptions,
-  NotEmpty,
-  VerifyName,
-} from "../../index.js";
 import {
   DApplicationCommand,
   MetadataStorage,
   SlashNameValidator,
+  type ApplicationCommandOptions,
+  type NotEmpty,
+  type VerifyName,
 } from "../../index.js";
 
 /**

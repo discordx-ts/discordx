@@ -4,8 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import chalk from "chalk";
 import { exec, execSync } from "child_process";
+import chalk from "chalk";
 import ora from "ora";
 import prompts from "prompts";
 

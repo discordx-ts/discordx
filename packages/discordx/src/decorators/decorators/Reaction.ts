@@ -6,8 +6,7 @@
  */
 import type { MethodDecoratorEx } from "@discordx/internal";
 
-import type { ReactionOptions } from "../../index.js";
-import { MetadataStorage } from "../../index.js";
+import { MetadataStorage, type ReactionOptions } from "../../index.js";
 import { DReaction } from "../classes/DReaction.js";
 
 /**

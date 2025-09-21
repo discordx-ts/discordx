@@ -8,6 +8,7 @@ import { dirname, importx } from "@discordx/importer";
 import { IntentsBitField, Partials } from "discord.js";
 import { Client } from "discordx";
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Main {
   private static _client: Client;
 
@@ -28,9 +29,10 @@ export class Main {
       silent: false,
     });
 
-    this.Client.on("ready", async () => {
-      await this._client.initApplicationCommands();
-      console.log("Bot started...");
+    this.Client.on("ready", () => {
+      void this._client.initApplicationCommands().then(() => {
+        console.log("Bot started...");
+      });
     });
 
     this.Client.on("messageReactionAdd", (reaction, user) => {

@@ -4,15 +4,19 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  BaseMessageOptions,
-  CommandInteraction,
-  Guild,
-  PermissionsString,
+import {
+  GuildMember,
+  type BaseMessageOptions,
+  type CommandInteraction,
+  type Guild,
+  type PermissionsString,
 } from "discord.js";
-import { GuildMember } from "discord.js";
-import type { Client, GuardFunction, Next } from "discordx";
-import { SimpleCommandMessage } from "discordx";
+import {
+  SimpleCommandMessage,
+  type Client,
+  type GuardFunction,
+  type Next,
+} from "discordx";
 
 export type PermissionHandler = CommandInteraction | SimpleCommandMessage;
 

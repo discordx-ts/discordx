@@ -16,6 +16,7 @@ import { container } from "tsyringe";
 // it's important, this done before calling bot.login
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Main {
   private static _client: Client;
 

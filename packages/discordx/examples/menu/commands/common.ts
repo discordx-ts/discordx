@@ -4,12 +4,13 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  CommandInteraction,
-  MessageActionRowComponentBuilder,
-  StringSelectMenuInteraction,
+import {
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
+  type CommandInteraction,
+  type MessageActionRowComponentBuilder,
+  type StringSelectMenuInteraction,
 } from "discord.js";
-import { ActionRowBuilder, StringSelectMenuBuilder } from "discord.js";
 import { Discord, SelectMenuComponent, Slash } from "discordx";
 
 const roles = [
@@ -21,15 +22,16 @@ const roles = [
 @Discord()
 export class Example {
   @SelectMenuComponent({ id: "role-menu" })
-  async handle(interaction: StringSelectMenuInteraction): Promise<unknown> {
+  async handle(interaction: StringSelectMenuInteraction): Promise<void> {
     await interaction.deferReply();
 
     // extract selected value by member
-    const roleValue = interaction.values?.[0];
+    const roleValue = interaction.values[0];
 
     // if value not found
     if (!roleValue) {
-      return interaction.followUp("invalid role id, select again");
+      await interaction.followUp("invalid role id, select again");
+      return;
     }
 
     await interaction.followUp(
@@ -37,11 +39,10 @@ export class Example {
         roles.find((r) => r.value === roleValue)?.label ?? "unknown"
       }`,
     );
-    return;
   }
 
   @Slash({ description: "roles menu", name: "my-roles" })
-  async myRoles(interaction: CommandInteraction): Promise<unknown> {
+  async myRoles(interaction: CommandInteraction): Promise<void> {
     await interaction.deferReply();
 
     // create menu for roles
@@ -60,6 +61,5 @@ export class Example {
       components: [buttonRow],
       content: "select your role!",
     });
-    return;
   }
 }

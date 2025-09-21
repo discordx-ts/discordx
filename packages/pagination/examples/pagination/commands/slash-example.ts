@@ -4,11 +4,10 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { PaginationItem } from "@discordx/pagination";
-import { Pagination } from "@discordx/pagination";
+import fs from "fs/promises";
+import { Pagination, type PaginationItem } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";
-import fs from "fs/promises";
 
 @Discord()
 export class SlashExample {

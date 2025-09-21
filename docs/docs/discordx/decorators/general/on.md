@@ -34,7 +34,7 @@ You also receive other useful arguments after that:
 > You should use JS destructuring for `ArgsOf<"YOUR_EVENT">` like in this example
 
 ```typescript
-import { Discord, On, Client, ArgsOf } from "discordx";
+import { ArgsOf, Client, Discord, On } from "discordx";
 
 @Discord()
 class Example {

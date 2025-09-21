@@ -64,18 +64,15 @@ yarn add @discordx/pagination
 
 ```ts
 import { Pagination, PaginationResolver } from "@discordx/pagination";
-import type {
-  CommandInteraction,
-  MessageActionRowComponentBuilder,
-} from "discord.js";
 import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
+  type CommandInteraction,
+  type MessageActionRowComponentBuilder,
 } from "discord.js";
-import type { ArgsOf } from "discordx";
-import { Discord, On, Slash } from "discordx";
+import { Discord, On, Slash, type ArgsOf } from "discordx";
 
 function GeneratePages(limit?: number): MessageOptions[] {
   const pages = Array.from(Array(limit ?? 20).keys()).map((i) => {

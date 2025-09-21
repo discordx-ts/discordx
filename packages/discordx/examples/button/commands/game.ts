@@ -5,17 +5,15 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { randomInt } from "crypto";
-import type {
-  ButtonInteraction,
-  CommandInteraction,
-  EmojiIdentifierResolvable,
-  MessageActionRowComponentBuilder,
-} from "discord.js";
 import {
   ActionRowBuilder,
   ApplicationCommandOptionType,
   ButtonBuilder,
   ButtonStyle,
+  type ButtonInteraction,
+  type CommandInteraction,
+  type EmojiIdentifierResolvable,
+  type MessageActionRowComponentBuilder,
 } from "discord.js";
 import {
   ButtonComponent,
@@ -26,9 +24,9 @@ import {
 } from "discordx";
 
 enum RPSChoice {
-  Rock,
-  Paper,
-  Scissors,
+  Rock = "Rock",
+  Paper = "Paper",
+  Scissors = "Scissors",
 }
 
 type RPSButtonIdType = `RPS-${RPSChoice}`;
@@ -89,15 +87,15 @@ export class RockPaperScissors {
   private async RPS(
     @SlashChoice(
       {
-        name: RPSChoice[RPSChoice.Rock] ?? "unknown",
+        name: RPSChoice[RPSChoice.Rock],
         value: RPSChoice.Rock,
       },
       {
-        name: RPSChoice[RPSChoice.Paper] ?? "unknown",
+        name: RPSChoice[RPSChoice.Paper],
         value: RPSChoice.Paper,
       },
       {
-        name: RPSChoice[RPSChoice.Scissors] ?? "unknown",
+        name: RPSChoice[RPSChoice.Scissors],
         value: RPSChoice.Scissors,
       },
     )
@@ -234,6 +232,8 @@ export class RockPaperScissors {
         return RPSResult.DRAW;
       }
     }
+
+    throw Error("Not reachable");
   }
 
   private static RPSPlayBot(): RPSProposition {
@@ -259,5 +259,7 @@ export class RockPaperScissors {
           content: `${botChoice.emoji.toString()} ${botChoice.choice} ! Ha... Draw...`,
         };
     }
+
+    throw Error("Not reachable");
   }
 }

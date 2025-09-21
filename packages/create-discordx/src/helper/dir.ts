@@ -4,10 +4,10 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
+import fs from "node:fs";
+import pfs from "node:fs/promises";
+import path from "node:path";
 import chalk from "chalk";
-import fs from "fs";
-import pfs from "fs/promises";
-import path from "path";
 
 /**
  * Make project directory

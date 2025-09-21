@@ -5,22 +5,20 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type {
-  ApplicationCommand,
-  ApplicationCommandData,
-  Snowflake,
+import {
+  ApplicationCommandType,
+  type ApplicationCommand,
+  type ApplicationCommandData,
+  type Snowflake,
 } from "discord.js";
-import { ApplicationCommandType } from "discord.js";
 
-import type {
-  ApplicationCommandDataEx,
-  Client,
-  DApplicationCommand,
-} from "../../index.js";
 import {
   ApplicationCommandMixin,
   isApplicationCommandEqual,
   resolveIGuilds,
+  type ApplicationCommandDataEx,
+  type Client,
+  type DApplicationCommand,
 } from "../../index.js";
 
 export class ApplicationCommandManager {

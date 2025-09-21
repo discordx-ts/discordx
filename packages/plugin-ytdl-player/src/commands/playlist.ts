@@ -5,8 +5,11 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type { CommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType, EmbedBuilder } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  EmbedBuilder,
+  type CommandInteraction,
+} from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 import { YouTube } from "youtube-sr";
 

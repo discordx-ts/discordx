@@ -4,22 +4,20 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  AutocompleteInteraction,
-  ButtonInteraction,
-  Channel,
-  CommandInteraction,
-  GuildMember,
-  MessageActionRowComponentBuilder,
-  Role,
-  User,
-} from "discord.js";
 import {
   ActionRowBuilder,
   ApplicationCommandOptionType,
   ButtonBuilder,
   ButtonStyle,
   InteractionType,
+  type AutocompleteInteraction,
+  type ButtonInteraction,
+  type Channel,
+  type CommandInteraction,
+  type GuildMember,
+  type MessageActionRowComponentBuilder,
+  type Role,
+  type User,
 } from "discord.js";
 import { ButtonComponent, Discord, Slash, SlashOption } from "discordx";
 

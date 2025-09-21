@@ -7,12 +7,12 @@
 import { NotBot } from "@discordx/utilities";
 import { Events } from "discord.js";
 import {
-  ArgsOf,
   Discord,
   Guard,
   On,
   SimpleCommand,
-  SimpleCommandMessage,
+  type ArgsOf,
+  type SimpleCommandMessage,
 } from "discordx";
 
 @Discord()

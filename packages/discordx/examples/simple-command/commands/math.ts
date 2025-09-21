@@ -5,12 +5,12 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { Channel, Role, User } from "discord.js";
-import type { SimpleCommandMessage } from "discordx";
 import {
   Discord,
   SimpleCommand,
   SimpleCommandOption,
   SimpleCommandOptionType,
+  type SimpleCommandMessage,
 } from "discordx";
 
 @Discord()
@@ -68,7 +68,9 @@ export class Example {
         break;
     }
 
-    await command.message.reply(`${num1} ${operation} ${num2} = ${result}`);
+    await command.message.reply(
+      `${num1.toString()} ${operation} ${num2.toString()} = ${result.toString()}`,
+    );
   }
 
   @SimpleCommand({ aliases: ["p-check"], name: "check-permissions" })
@@ -142,7 +144,7 @@ export class Example {
       return;
     }
 
-    await command.message.reply(`${x + y}`);
+    await command.message.reply(String(x + y));
   }
 
   @SimpleCommand({
@@ -169,8 +171,8 @@ export class Example {
     }
 
     await command.message.reply(
-      `ID: ${id}\n` +
-        `Time: ${time} seconds\n` +
+      `ID: ${id.toString()}\n` +
+        `Time: ${time.toString()} seconds\n` +
         `Reason: ${reason}\n` +
         `Type: ${type}`,
     );

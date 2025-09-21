@@ -6,20 +6,18 @@
  */
 
 import { DIService } from "@discordx/di";
-import type {
-  AnySelectMenuInteraction,
-  AutocompleteInteraction,
-  ButtonInteraction,
-  ChatInputCommandInteraction,
-  CommandInteractionOption,
-  ContextMenuCommandInteraction,
-  Interaction,
-  ModalSubmitInteraction,
-} from "discord.js";
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
   InteractionType,
+  type AnySelectMenuInteraction,
+  type AutocompleteInteraction,
+  type ButtonInteraction,
+  type ChatInputCommandInteraction,
+  type CommandInteractionOption,
+  type ContextMenuCommandInteraction,
+  type Interaction,
+  type ModalSubmitInteraction,
 } from "discord.js";
 
 import type { Client, DComponent } from "../../index.js";

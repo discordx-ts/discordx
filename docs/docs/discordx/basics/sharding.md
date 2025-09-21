@@ -75,6 +75,7 @@ Now that we have the main bits of the Sharding class we need to use the discord.
 
 ```typescript
 import { ShardingManager } from "discord.js";
+
 import { environment } from "../../environments/environment";
 
 export class ShardBot {

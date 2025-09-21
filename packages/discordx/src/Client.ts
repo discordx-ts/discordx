@@ -5,26 +5,31 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type {
-  Interaction,
-  Message,
-  MessageReaction,
-  PartialMessageReaction,
-  PartialUser,
-  Snowflake,
-  User,
+import {
+  Client as ClientJS,
+  type Interaction,
+  type Message,
+  type MessageReaction,
+  type PartialMessageReaction,
+  type PartialUser,
+  type Snowflake,
+  type User,
 } from "discord.js";
-import { Client as ClientJS } from "discord.js";
 
 import {
   ApplicationCommandManager,
+  DebugManager,
+  InteractionHandler,
+  MetadataStorage,
+  ReactionManager,
+  resolveIGuilds,
+  SimpleCommandManager,
   type ClientOptions,
   type DApplicationCommand,
   type DApplicationCommandGroup,
   type DApplicationCommandOption,
   type DComponent,
   type DDiscord,
-  DebugManager,
   type DOn,
   type DReaction,
   type DSimpleCommand,
@@ -32,14 +37,9 @@ import {
   type GuardFunction,
   type IGuild,
   type ILogger,
-  InteractionHandler,
   type IPrefixResolver,
   type ISimpleCommandByName,
-  MetadataStorage,
-  ReactionManager,
-  resolveIGuilds,
   type SimpleCommandConfig,
-  SimpleCommandManager,
   type SimpleCommandMessage,
   type SimpleCommandParseType,
 } from "./index.js";

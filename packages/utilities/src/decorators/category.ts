@@ -4,13 +4,13 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ClassMethodDecorator } from "discordx";
 import {
   DApplicationCommand,
   DDiscord,
   DSimpleCommand,
   MetadataStorage,
   Modifier,
+  type ClassMethodDecorator,
 } from "discordx";
 
 export interface ICategory {

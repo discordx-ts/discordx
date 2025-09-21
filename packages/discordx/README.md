@@ -405,7 +405,8 @@ The order of execution of the guards is done according to their position in the 
 Guards can be set for `@Slash`, `@On`, `@Once`, `@Discord` and globally.
 
 ```typescript
-import { Discord, On, Client, Guard } from "discordx";
+import { Client, Discord, Guard, On } from "discordx";
+
 import { NotBot } from "./NotBot";
 
 @Discord()
