@@ -42,6 +42,8 @@ import {
   MetadataStorage,
   resolveIGuilds,
   type SimpleCommandConfig,
+  type SimpleCommandMessage,
+  type SimpleCommandParseType,
 } from "./index.js";
 
 /**
@@ -301,6 +303,13 @@ export class Client extends ClientJS {
   }
 
   // === Simple Command Management ===
+  async parseCommand(
+    message: Message,
+    caseSensitive = false,
+  ): Promise<SimpleCommandParseType | SimpleCommandMessage> {
+    return this.simpleCommandManager.parseCommand(message, caseSensitive);
+  }
+
   async executeCommand(
     message: Message,
     caseSensitive?: boolean,
