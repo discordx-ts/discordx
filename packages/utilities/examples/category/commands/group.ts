@@ -4,11 +4,15 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ICategory } from "@discordx/utilities";
-import { Category } from "@discordx/utilities";
+import { Category, type ICategory } from "@discordx/utilities";
 import type { CommandInteraction } from "discord.js";
-import type { DApplicationCommand } from "discordx";
-import { Discord, MetadataStorage, Slash, SlashGroup } from "discordx";
+import {
+  Discord,
+  MetadataStorage,
+  Slash,
+  SlashGroup,
+  type DApplicationCommand,
+} from "discordx";
 
 @Discord()
 @Category("Admin Commands")
@@ -22,7 +26,7 @@ export class SlashExample {
     MetadataStorage.instance.applicationCommandSlashesFlat.forEach(
       (cmd: DApplicationCommand & ICategory) => {
         void interaction.followUp(
-          `Name: \`${cmd.name}\`, Category: \`${cmd.category}\``,
+          `Name: \`${cmd.name}\`, Category: \`${cmd.category ?? "unknown"}\``,
         );
       },
     );

@@ -4,11 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  MessageContextMenuCommandInteraction,
-  UserContextMenuCommandInteraction,
+import {
+  ApplicationCommandType,
+  type MessageContextMenuCommandInteraction,
+  type UserContextMenuCommandInteraction,
 } from "discord.js";
-import { ApplicationCommandType } from "discord.js";
 import { ContextMenu, Discord } from "discordx";
 
 @Discord()

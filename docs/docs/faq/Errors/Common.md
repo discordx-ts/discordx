@@ -34,8 +34,7 @@ SyntaxError: The requested module 'discordx' does not provide an export named 'A
 Use import type. [Read it in depth](https://devblogs.microsoft.com/typescript/announcing-typescript-3-8-beta/#type-only-imports-exports).
 
 ```ts
-import type { ArgsOf } from "discordx";
-import { Client } from "discordx";
+import { Client, type ArgsOf } from "discordx";
 ```
 
 ---

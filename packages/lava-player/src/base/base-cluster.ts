@@ -6,8 +6,7 @@
  */
 import { EventEmitter } from "events";
 
-import type { ClusterNodeOptions } from "../cluster-node.js";
-import ClusterNode from "../cluster-node.js";
+import ClusterNode, { type ClusterNodeOptions } from "../cluster-node.js";
 import type { GuildPlayer } from "../core/guild-player.js";
 import type { VoiceServerUpdate, VoiceStateUpdate } from "../types/index.js";
 

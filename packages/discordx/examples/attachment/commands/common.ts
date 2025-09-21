@@ -4,8 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { Attachment, CommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  type Attachment,
+  type CommandInteraction,
+} from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 
 @Discord()

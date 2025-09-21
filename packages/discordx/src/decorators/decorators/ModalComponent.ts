@@ -6,8 +6,12 @@
  */
 import type { MethodDecoratorEx } from "@discordx/internal";
 
-import type { ComponentOptions } from "../../index.js";
-import { ComponentType, DComponent, MetadataStorage } from "../../index.js";
+import {
+  ComponentType,
+  DComponent,
+  MetadataStorage,
+  type ComponentOptions,
+} from "../../index.js";
 
 /**
  * Create modal interaction handler

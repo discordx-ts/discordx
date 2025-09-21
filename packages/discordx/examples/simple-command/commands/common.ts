@@ -4,13 +4,13 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { GuildMember, Role, User } from "discord.js";
-import type { SimpleCommandMessage } from "discordx";
+import { GuildMember, type Role, type User } from "discord.js";
 import {
   Discord,
   SimpleCommand,
   SimpleCommandOption,
   SimpleCommandOptionType,
+  type SimpleCommandMessage,
 } from "discordx";
 
 @Discord()
@@ -27,7 +27,7 @@ export class Example {
   ): Promise<void> {
     await command.message.reply(
       state !== undefined
-        ? `State is set to ${state}.`
+        ? `State is set to ${String(state)}.`
         : "Please specify a state.",
     );
   }
@@ -58,14 +58,14 @@ export class Example {
     }
 
     await command.message.reply(
-      `Granting ${role?.name} role to ${user instanceof GuildMember ? user.displayName : user.username}.`,
+      `Granting ${role?.name ?? "unknown"} role to ${user instanceof GuildMember ? user.displayName : user.username}.`,
     );
   }
 
   @SimpleCommand({ name: "display-info" })
   async displayInfo(command: SimpleCommandMessage): Promise<void> {
     await command.message.reply(
-      `Command Prefix: \`\`${command.prefix.toString()}\`\`\nCommand Name: \`\`${command.name}\`\`\nArgument String: \`\`${command.argString}\`\``,
+      `Command Prefix: \`\`${command.prefix}\`\`\nCommand Name: \`\`${command.name}\`\`\nArgument String: \`\`${command.argString}\`\``,
     );
   }
 
@@ -76,6 +76,6 @@ export class Example {
     command: SimpleCommandMessage,
   ): Promise<void> {
     const target = user instanceof GuildMember ? user.displayName : user;
-    await command.message.reply(`Target: ${target?.toString()}`);
+    await command.message.reply(`Target: ${target?.toString() ?? "unknown"}`);
   }
 }

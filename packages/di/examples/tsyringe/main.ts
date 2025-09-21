@@ -24,6 +24,7 @@ class Database {
 }
 
 @injectable()
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Example {
   constructor(database: Database) {
     console.log(database.query());

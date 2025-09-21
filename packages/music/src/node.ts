@@ -5,24 +5,22 @@
  * -------------------------------------------------------------------------------------------------------
  */
 /* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
-import { dirname, isESM } from "@discordx/importer";
-import type { Client } from "discord.js";
 import { EventEmitter } from "events";
 import { Worker } from "worker_threads";
+import { dirname, isESM } from "@discordx/importer";
+import type { Client } from "discord.js";
 
-import type {
-  GuildData,
-  JoinData,
-  ParentProcessDataPayload,
-  PlayData,
-  QueueEventPayloads,
-  SetVolumeData,
-  WorkerDataPayload,
-} from "./types/index.js";
 import {
   ParentProcessEvent,
   QueueEvent,
   WorkerOperation,
+  type GuildData,
+  type JoinData,
+  type ParentProcessDataPayload,
+  type PlayData,
+  type QueueEventPayloads,
+  type SetVolumeData,
+  type WorkerDataPayload,
 } from "./types/index.js";
 
 export interface Node extends EventEmitter {

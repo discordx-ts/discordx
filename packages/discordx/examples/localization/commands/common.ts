@@ -4,8 +4,10 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { CommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  type CommandInteraction,
+} from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 
 @Discord()
@@ -26,6 +28,6 @@ export class Example {
     message: string,
     interaction: CommandInteraction,
   ): Promise<void> {
-    await interaction.reply(`${message}`);
+    await interaction.reply(message);
   }
 }

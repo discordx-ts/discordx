@@ -4,10 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { PermissionHandler } from "@discordx/utilities";
-import { PermissionGuard } from "@discordx/utilities";
-import type { PermissionsString } from "discord.js";
-import { CommandInteraction } from "discord.js";
+import { PermissionGuard, type PermissionHandler } from "@discordx/utilities";
+import { CommandInteraction, type PermissionsString } from "discord.js";
 import { Discord, Guard, Slash } from "discordx";
 
 @Discord()
@@ -64,10 +62,9 @@ export class PermissionGuards {
     await interaction.reply("It worked!");
   }
 
-  private static resolvePermission(
-    this: void,
+  private static resolvePermission = (
     interaction: PermissionHandler,
-  ): Promise<PermissionsString[]> {
+  ): Promise<PermissionsString[]> => {
     if (interaction instanceof CommandInteraction) {
       // if guild id is 123
       if (interaction.guildId === "123") {
@@ -75,5 +72,5 @@ export class PermissionGuards {
       }
     }
     return Promise.resolve(["BanMembers"]);
-  }
+  };
 }

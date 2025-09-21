@@ -4,8 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ArgsOf } from "discordx";
-import { Discord, On } from "discordx";
+import { Discord, On, type ArgsOf } from "discordx";
 
 @Discord()
 export class Example {

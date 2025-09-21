@@ -4,18 +4,23 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  ApplicationCommandType,
-  ChatInputCommandInteraction,
-  InteractionContextType,
-  LocalizationMap,
-  PermissionResolvable,
+import {
+  ApplicationCommandOptionType,
+  ApplicationIntegrationType,
+  type ApplicationCommandType,
+  type ChatInputCommandInteraction,
+  type InteractionContextType,
+  type LocalizationMap,
+  type PermissionResolvable,
 } from "discord.js";
-import { ApplicationIntegrationType } from "discord.js";
-import { ApplicationCommandOptionType } from "discord.js";
 
-import type { ApplicationCommandDataEx, Client, IGuild } from "../../index.js";
-import { DApplicationCommandOption, resolveIGuilds } from "../../index.js";
+import {
+  DApplicationCommandOption,
+  resolveIGuilds,
+  type ApplicationCommandDataEx,
+  type Client,
+  type IGuild,
+} from "../../index.js";
 import { Method } from "./Method.js";
 
 interface CreateStructure {

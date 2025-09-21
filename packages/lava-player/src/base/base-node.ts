@@ -5,7 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { EventEmitter } from "node:events";
-
 import WebSocket from "ws";
 
 import { Connection } from "../core/connection.js";

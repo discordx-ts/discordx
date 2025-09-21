@@ -6,8 +6,12 @@
  */
 import type { MethodDecoratorEx } from "@discordx/internal";
 
-import type { EventOptions, RestEventOptions } from "../../index.js";
-import { DOn, MetadataStorage } from "../../index.js";
+import {
+  DOn,
+  MetadataStorage,
+  type EventOptions,
+  type RestEventOptions,
+} from "../../index.js";
 
 /**
  * Handle discord events with a defined handler

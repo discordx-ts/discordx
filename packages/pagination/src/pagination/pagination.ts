@@ -4,10 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  ButtonInteraction,
-  StringSelectMenuInteraction,
-} from "discord.js";
 import {
   ChannelType,
   ChatInputCommandInteraction,
@@ -16,23 +12,23 @@ import {
   ContextMenuCommandInteraction,
   Message,
   MessageComponentInteraction,
+  type ButtonInteraction,
+  type StringSelectMenuInteraction,
 } from "discord.js";
 import cloneDeep from "lodash/cloneDeep.js";
 
-import type {
-  PaginationCollectors,
-  PaginationInteractions,
-  PaginationItem,
-  PaginationOptions,
-  PaginationResolver,
-  PaginationSendTo,
-} from "./index.js";
 import {
   defaultIds,
   defaultPerPageItem,
   defaultTime,
   PaginationBuilder,
   SelectMenuPageId,
+  type PaginationCollectors,
+  type PaginationInteractions,
+  type PaginationItem,
+  type PaginationOptions,
+  type PaginationResolver,
+  type PaginationSendTo,
 } from "./index.js";
 
 export class Pagination<T extends PaginationResolver = PaginationResolver> {

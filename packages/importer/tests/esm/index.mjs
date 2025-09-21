@@ -1,5 +1,4 @@
 import path from "node:path";
-
 import { dirname, importx, isESM, resolve } from "@discordx/importer";
 
 const __dirname = dirname(import.meta.url);

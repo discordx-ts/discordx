@@ -7,9 +7,9 @@
 
 import { RepeatMode } from "@discordx/lava-queue";
 import {
+  PartialGroupDMChannel,
   type ButtonInteraction,
   type CommandInteraction,
-  PartialGroupDMChannel,
 } from "discord.js";
 import { ButtonComponent, Discord, Slash, SlashGroup } from "discordx";
 

@@ -4,8 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { GuardFunction } from "discordx";
-import { Client, Discord, Guard, On } from "discordx";
+import { Client, Discord, Guard, On, type GuardFunction } from "discordx";
 
 const guard1: GuardFunction = async (
   [message]: [string],

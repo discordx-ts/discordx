@@ -5,9 +5,9 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
+  PlayerStatus,
   type GuildPlayer,
   type Node,
-  PlayerStatus,
   type Track,
   type TrackResponse,
 } from "@discordx/lava-player";

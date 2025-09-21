@@ -36,8 +36,8 @@ In the case of `tsyringeDependencyRegistryEngine` because of how shared containe
 reference from your side.
 
 ```ts title="TSyringe"
-import { container } from "tsyringe";
 import { DIService, tsyringeDependencyRegistryEngine } from "discordx";
+import { container } from "tsyringe";
 
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container); // set the container
 ```
@@ -56,6 +56,7 @@ DIService.engine = typeDiDependencyRegistryEngine
 ```ts title="customEngine"
 import { DIService } from "discordx";
 import { Container } from "typedi";
+
 import { myCustomEngine } from "./MyCustomEngine.js";
 
 DIService.engine = myCustomEngine;
@@ -163,6 +164,7 @@ In order to enable Discord x to use tokenization, you simply need to call `setUs
 
 ```ts title="Tsyringe"
 import { container, instanceCachingFactory } from "tsyringe";
+
 DIService.engine = tsyringeDependencyRegistryEngine
   .setUseTokenization(true)
   .setCashingSingletonFactory(instanceCachingFactory)

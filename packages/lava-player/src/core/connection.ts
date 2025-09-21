@@ -5,8 +5,8 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import backoff from "backoff";
 import type { IncomingMessage } from "http";
+import backoff from "backoff";
 import WebSocket from "ws";
 
 import type { BaseNode } from "../base/base-node.js";

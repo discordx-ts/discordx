@@ -5,13 +5,13 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { Decorator } from "@discordx/internal";
-import type {
-  ApplicationCommandOptionData,
-  ChannelType,
-  ChatInputCommandInteraction,
-  LocalizationMap,
+import {
+  ApplicationCommandOptionType,
+  type ApplicationCommandOptionData,
+  type ChannelType,
+  type ChatInputCommandInteraction,
+  type LocalizationMap,
 } from "discord.js";
-import { ApplicationCommandOptionType } from "discord.js";
 
 import type {
   Awaitable,

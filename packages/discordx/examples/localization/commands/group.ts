@@ -4,8 +4,14 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { CommandInteraction, GuildMember, Role, User } from "discord.js";
-import { ApplicationCommandOptionType, ChannelType } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ChannelType,
+  type CommandInteraction,
+  type GuildMember,
+  type Role,
+  type User,
+} from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 
 @Discord()
@@ -30,7 +36,7 @@ export class Example {
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction,
   ): Promise<void> {
-    await interaction.reply(`${roleOrUser.toString()}`);
+    await interaction.reply(roleOrUser.toString());
   }
 
   @Slash({ description: "voice-channel-x", name: "voice-channel-x" })
@@ -49,7 +55,7 @@ export class Example {
     roleOrUser: GuildMember | User | Role,
     interaction: CommandInteraction,
   ): Promise<void> {
-    await interaction.reply(`${roleOrUser.toString()}`);
+    await interaction.reply(roleOrUser.toString());
   }
 
   @Slash({ description: "add" })

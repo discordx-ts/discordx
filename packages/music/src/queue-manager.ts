@@ -5,8 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { AudioPlayerStatus } from "@discordjs/voice";
-import type { Snowflake } from "discord.js";
-import { Collection } from "discord.js";
+import { Collection, type Snowflake } from "discord.js";
 
 import type { Node } from "./node.js";
 import { Queue } from "./queue.js";

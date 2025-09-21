@@ -4,8 +4,10 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ChatInputCommandInteraction } from "discord.js";
-import { PermissionFlagsBits } from "discord.js";
+import {
+  PermissionFlagsBits,
+  type ChatInputCommandInteraction,
+} from "discord.js";
 import { Discord, Slash } from "discordx";
 
 @Discord()

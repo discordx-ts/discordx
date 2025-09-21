@@ -6,8 +6,11 @@
  */
 
 import { Pagination, PaginationResolver } from "@discordx/pagination";
-import type { ButtonInteraction, CommandInteraction } from "discord.js";
-import { Message } from "discord.js";
+import {
+  Message,
+  type ButtonInteraction,
+  type CommandInteraction,
+} from "discord.js";
 
 import type { MusicQueue } from "../core/index.js";
 import { deleteMessage, fromMS } from "./index.js";

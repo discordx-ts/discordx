@@ -6,8 +6,10 @@
  */
 
 import { fromMS } from "@discordx/lava-queue";
-import type { CommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  type CommandInteraction,
+} from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 
 import { lavaPlayerManager } from "../core/manager.js";

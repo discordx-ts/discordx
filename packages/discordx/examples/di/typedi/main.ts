@@ -15,6 +15,7 @@ DIService.engine = typeDiDependencyRegistryEngine
   .setService(Service)
   .setInjector(Container);
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Main {
   private static _client: Client;
 

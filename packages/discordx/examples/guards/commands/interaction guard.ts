@@ -4,10 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ContextMenuCommandInteraction } from "discord.js";
-import { ApplicationCommandType } from "discord.js";
-import type { GuardFunction } from "discordx";
-import { ContextMenu, Discord, Guard } from "discordx";
+import {
+  ApplicationCommandType,
+  type ContextMenuCommandInteraction,
+} from "discord.js";
+import { ContextMenu, Discord, Guard, type GuardFunction } from "discordx";
 
 export const InteractionGuard: GuardFunction<
   ContextMenuCommandInteraction

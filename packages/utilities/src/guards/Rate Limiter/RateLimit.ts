@@ -8,12 +8,10 @@ import type {
   CommandInteraction,
   MessageComponentInteraction,
 } from "discord.js";
-import type { GuardFunction } from "discordx";
-import { SimpleCommandMessage } from "discordx";
+import { SimpleCommandMessage, type GuardFunction } from "discordx";
 
 import { dayjs } from "../../useful/time-format.js";
-import type { RateLimitOption } from "./index.js";
-import { TIME_UNIT, TimedSet } from "./index.js";
+import { TIME_UNIT, TimedSet, type RateLimitOption } from "./index.js";
 import { TimeOutEntry } from "./logic/index.js";
 
 /**

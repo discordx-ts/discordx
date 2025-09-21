@@ -4,18 +4,20 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { DiscordGatewayAdapterLibraryMethods } from "@discordjs/voice";
-import { joinVoiceChannel } from "@discordjs/voice";
 import { parentPort } from "worker_threads";
+import {
+  joinVoiceChannel,
+  type DiscordGatewayAdapterLibraryMethods,
+} from "@discordjs/voice";
 
-import type {
-  GuildData,
-  JoinData,
-  ParentProcessDataPayload,
-  PlayData,
-  SetVolumeData,
+import {
+  ParentProcessEvent,
+  type GuildData,
+  type JoinData,
+  type ParentProcessDataPayload,
+  type PlayData,
+  type SetVolumeData,
 } from "../types/index.js";
-import { ParentProcessEvent } from "../types/index.js";
 import { AudioNode } from "./audio-node.js";
 
 export class AudioNodeManager {

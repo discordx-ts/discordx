@@ -4,8 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ParameterDecoratorEx } from "@discordx/internal";
-import { Modifier } from "@discordx/internal";
+import { Modifier, type ParameterDecoratorEx } from "@discordx/internal";
 import {
   SlashCommandAttachmentOption,
   SlashCommandBooleanOption,
@@ -18,18 +17,16 @@ import {
   SlashCommandUserOption,
 } from "discord.js";
 
-import type {
-  NotEmpty,
-  SlashOptionOptions,
-  TransformerFunction,
-  VerifyName,
-} from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandOption,
   DApplicationCommandOptionChoice,
   MetadataStorage,
   SlashNameValidator,
+  type NotEmpty,
+  type SlashOptionOptions,
+  type TransformerFunction,
+  type VerifyName,
 } from "../../index.js";
 
 /**

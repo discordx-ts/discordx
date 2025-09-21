@@ -4,9 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { glob } from "glob";
 import path from "path";
 import { fileURLToPath } from "url";
+import { glob } from "glob";
 
 export function isESM(): boolean {
   return import.meta.url ? true : false;

@@ -6,13 +6,14 @@
  */
 
 import type { QueueManager } from "@discordx/lava-queue";
-import type {
-  ButtonInteraction,
-  CommandInteraction,
-  Guild,
-  TextBasedChannel,
+import {
+  GuildMember,
+  PartialGroupDMChannel,
+  type ButtonInteraction,
+  type CommandInteraction,
+  type Guild,
+  type TextBasedChannel,
 } from "discord.js";
-import { GuildMember, PartialGroupDMChannel } from "discord.js";
 
 import { MusicQueue } from "./queue.js";
 

@@ -6,6 +6,7 @@
  */
 import "@discordx/plugin-lava-player";
 import "@discordx/plugin-lava-player/lavalyrics";
+
 import { IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 

@@ -4,8 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { SimpleCommandMessage } from "discordx";
-import { Discord, SimpleCommand } from "discordx";
+import { Discord, SimpleCommand, type SimpleCommandMessage } from "discordx";
 
 @Discord()
 export class Example {

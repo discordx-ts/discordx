@@ -7,13 +7,13 @@
 
 import { ApplicationCommandOptionType } from "discord.js";
 
-import type {
-  Client,
-  DApplicationCommandOption,
-  DComponent,
-  DSimpleCommandOption,
+import {
+  SimpleCommandOptionType,
+  type Client,
+  type DApplicationCommandOption,
+  type DComponent,
+  type DSimpleCommandOption,
 } from "../../index.js";
-import { SimpleCommandOptionType } from "../../index.js";
 
 export class DebugManager {
   constructor(private client: Client) {}

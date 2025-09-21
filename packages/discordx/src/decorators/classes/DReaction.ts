@@ -4,8 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { Client, IGuild } from "../../index.js";
-import { resolveIGuilds } from "../../index.js";
+import { resolveIGuilds, type Client, type IGuild } from "../../index.js";
 import { Method } from "./Method.js";
 
 interface CreateStructure {

@@ -4,12 +4,14 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  ButtonInteraction,
-  CommandInteraction,
-  MessageActionRowComponentBuilder,
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  type ButtonInteraction,
+  type CommandInteraction,
+  type MessageActionRowComponentBuilder,
 } from "discord.js";
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { ButtonComponent, Discord, Slash } from "discordx";
 
 @Discord()

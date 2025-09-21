@@ -4,13 +4,13 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
+import { createWriteStream, promises as fs } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { Readable, Stream } from "node:stream";
+import { promisify } from "node:util";
 import axios from "axios";
-import { createWriteStream, promises as fs } from "fs";
-import { tmpdir } from "os";
-import { join } from "path";
-import { Readable, Stream } from "stream";
 import * as tar from "tar";
-import { promisify } from "util";
 
 /**
  * Get templates list from https://github.com/discordx-ts/templates

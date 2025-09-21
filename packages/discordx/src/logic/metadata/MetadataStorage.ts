@@ -5,8 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { DIService } from "@discordx/di";
-import type { Decorator } from "@discordx/internal";
-import { Modifier } from "@discordx/internal";
+import { Modifier, type Decorator } from "@discordx/internal";
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
@@ -14,13 +13,6 @@ import {
 import findIndex from "lodash/findIndex.js";
 
 import type { Method } from "../../decorators/classes/Method.js";
-import type {
-  DApplicationCommandGroup,
-  DDiscord,
-  DGuard,
-  DSimpleCommandOption,
-  ISimpleCommandByName,
-} from "../../index.js";
 import {
   ComponentType,
   DApplicationCommand,
@@ -31,6 +23,11 @@ import {
   DSimpleCommand,
   EventManager,
   toStringArray,
+  type DApplicationCommandGroup,
+  type DDiscord,
+  type DGuard,
+  type DSimpleCommandOption,
+  type ISimpleCommandByName,
 } from "../../index.js";
 
 /**

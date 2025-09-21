@@ -4,10 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ClassMethodDecorator } from "@discordx/internal";
-import { Modifier } from "@discordx/internal";
+import { Modifier, type ClassMethodDecorator } from "@discordx/internal";
 
-import type { GuardFunction } from "../../index.js";
 import {
   DApplicationCommand,
   DComponent,
@@ -17,6 +15,7 @@ import {
   DReaction,
   DSimpleCommand,
   MetadataStorage,
+  type GuardFunction,
 } from "../../index.js";
 import type { Method } from "../classes/Method.js";
 

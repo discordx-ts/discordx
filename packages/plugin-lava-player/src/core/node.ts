@@ -4,11 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  VoiceServerUpdate,
-  VoiceStateUpdate,
+import {
+  Node,
+  type VoiceServerUpdate,
+  type VoiceStateUpdate,
 } from "@discordx/lava-player";
-import { Node } from "@discordx/lava-player";
 import { GatewayDispatchEvents } from "discord.js";
 import type { Client } from "discordx";
 

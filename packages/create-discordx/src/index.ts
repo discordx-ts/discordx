@@ -6,11 +6,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-
+import { execSync } from "node:child_process";
 import path from "node:path";
-
 import chalk from "chalk";
-import { execSync } from "child_process";
 import ora from "ora";
 import prompts from "prompts";
 

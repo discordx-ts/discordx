@@ -6,8 +6,12 @@
  */
 import { Decorator } from "@discordx/internal";
 
-import type { Awaitable, DDiscord, GuardFunction } from "../../index.js";
-import { DGuard } from "../../index.js";
+import {
+  DGuard,
+  type Awaitable,
+  type DDiscord,
+  type GuardFunction,
+} from "../../index.js";
 
 /**
  * Base class for method decorators that can be executed with guard middleware.

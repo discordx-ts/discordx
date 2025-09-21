@@ -87,6 +87,7 @@ Remember: In esm, `__dirname` is not defined, so here is a workaround
 
 ```ts
 import { dirname, importx } from "@discordx/importer";
+
 const __dirname = dirname(import.meta.url);
 
 importx(`${__dirname}/commands/**.js`).then(() =>
@@ -100,6 +101,7 @@ If you are creating a module or extension of your own library, you can set it to
 
 ```ts
 import { dirname, importx, isESM } from "@discordx/importer";
+
 const folder = isESM() ? dirname(import.meta.url) : __dirname;
 
 importx(`${folder}/commands/**.js`).then(() =>

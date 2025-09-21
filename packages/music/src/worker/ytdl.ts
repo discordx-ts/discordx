@@ -10,9 +10,9 @@
  Reason: for @discordx/music
 */
 
+import type { Duplex, Readable } from "node:stream";
 import ytdl from "@distube/ytdl-core";
 import pkg from "prism-media";
-import type { Duplex, Readable } from "stream";
 
 const { FFmpeg, opus: Opus } = pkg;
 

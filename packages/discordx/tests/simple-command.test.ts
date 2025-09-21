@@ -5,7 +5,6 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type { Message } from "discord.js";
-import type { SimpleCommandMessage } from "discordx";
 import {
   Client,
   Discord,
@@ -14,6 +13,7 @@ import {
   SimpleCommand,
   SimpleCommandOption,
   SimpleCommandOptionType,
+  type SimpleCommandMessage,
 } from "discordx";
 
 interface Data {

@@ -4,7 +4,6 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { APIUser, Guild, User } from "discord.js";
 import {
   ButtonInteraction,
   ChannelSelectMenuInteraction,
@@ -18,9 +17,17 @@ import {
   StringSelectMenuInteraction,
   UserSelectMenuInteraction,
   VoiceState,
+  type APIUser,
+  type Guild,
+  type User,
 } from "discord.js";
-import type { ArgsOf, Awaitable, Client, GuardFunction } from "discordx";
-import { SimpleCommandMessage } from "discordx";
+import {
+  SimpleCommandMessage,
+  type ArgsOf,
+  type Awaitable,
+  type Client,
+  type GuardFunction,
+} from "discordx";
 
 export type IsGuildUserArg =
   | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">

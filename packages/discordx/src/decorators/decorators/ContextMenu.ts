@@ -7,8 +7,11 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 import { ApplicationCommandType } from "discord.js";
 
-import type { ApplicationCommandOptions } from "../../index.js";
-import { DApplicationCommand, MetadataStorage } from "../../index.js";
+import {
+  DApplicationCommand,
+  MetadataStorage,
+  type ApplicationCommandOptions,
+} from "../../index.js";
 import type { NotEmpty } from "../../types/index.js";
 
 /**

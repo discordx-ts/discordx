@@ -4,24 +4,22 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type {
-  ClassDecoratorEx,
-  ClassMethodDecorator,
+import {
+  Modifier,
+  type ClassDecoratorEx,
+  type ClassMethodDecorator,
 } from "@discordx/internal";
-import { Modifier } from "@discordx/internal";
 
-import type {
-  DApplicationCommandOption,
-  NotEmpty,
-  SlashGroupOptions,
-  VerifyName,
-} from "../../index.js";
 import {
   DApplicationCommand,
   DApplicationCommandGroup,
   DDiscord,
   MetadataStorage,
   SlashNameValidator,
+  type DApplicationCommandOption,
+  type NotEmpty,
+  type SlashGroupOptions,
+  type VerifyName,
 } from "../../index.js";
 
 /**

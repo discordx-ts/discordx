@@ -4,14 +4,13 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { ParameterDecoratorEx } from "@discordx/internal";
-import { Modifier } from "@discordx/internal";
+import { Modifier, type ParameterDecoratorEx } from "@discordx/internal";
 
-import type { SimpleCommandOptionOptions } from "../../index.js";
 import {
   DSimpleCommand,
   DSimpleCommandOption,
   MetadataStorage,
+  type SimpleCommandOptionOptions,
 } from "../../index.js";
 
 /**

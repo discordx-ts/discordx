@@ -5,15 +5,15 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import crypto from "crypto";
-import type { Message } from "discord.js";
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, type Message } from "discord.js";
 
-import type {
-  ArgSplitter,
-  DSimpleCommand,
-  SimpleOptionType,
+import {
+  MetadataStorage,
+  SimpleCommandOptionType,
+  type ArgSplitter,
+  type DSimpleCommand,
+  type SimpleOptionType,
 } from "../index.js";
-import { MetadataStorage, SimpleCommandOptionType } from "../index.js";
 
 /**
  * Simple command message
