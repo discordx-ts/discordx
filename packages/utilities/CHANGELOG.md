@@ -1,5 +1,14 @@
 # @discordx/utilities
 
+## 8.0.0
+
+### Patch Changes
+
+- refactor: various internal code improvement
+
+- Updated dependencies []:
+  - discordx@11.13.0
+
 ## 7.0.5
 
 ### Patch Changes
