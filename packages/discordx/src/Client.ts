@@ -61,6 +61,7 @@ export class Client extends ClientJS {
   private _silent: boolean;
   private _botGuilds: IGuild[] = [];
   private _guards: GuardFunction[] = [];
+  private _devs: Snowflake[] = [];
   public logger: ILogger;
 
   // Managers
@@ -90,6 +91,13 @@ export class Client extends ClientJS {
   }
   set guards(value: GuardFunction[]) {
     this._guards = value;
+  }
+
+  get devs(): Snowflake[] {
+    return this._devs;
+  }
+  set devs(value: Snowflake[]) {
+    this._devs = value;
   }
 
   get prefix(): IPrefixResolver {
