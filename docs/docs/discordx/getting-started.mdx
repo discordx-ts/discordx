@@ -165,7 +165,7 @@ const client = new Client({
   silent: false,
 });
 
-client.on("ready", async () => {
+client.on("clientReady", async () => {
   console.log(">> Bot started");
 
   // to create/update/delete discord application commands
