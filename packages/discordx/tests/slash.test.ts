@@ -54,11 +54,11 @@ beforeAll(async () => {
 });
 
 describe("Slash", () => {
-  it("Should create the slash structure", async () => {
+  it("Should create the slash structure", () => {
     expect(client.applicationCommands[0]?.guilds).toEqual(["invalid_id"]);
 
-    const slashesObjects = await Promise.all(
-      client.applicationCommands.map((slash) => slash.toJSON()),
+    const slashesObjects = client.applicationCommands.map((slash) =>
+      slash.toJSON(),
     );
 
     expect(slashesObjects).toEqual([

@@ -34,7 +34,7 @@ export const resolveIGuilds = async (
   guilds: IGuild[],
 ): Promise<string[]> => {
   const guildX = await Promise.all(
-    guilds.map((guild) =>
+    guilds.map(async (guild) =>
       typeof guild === "function" ? guild(client, command) : guild,
     ),
   );

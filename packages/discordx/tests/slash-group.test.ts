@@ -284,9 +284,9 @@ beforeAll(async () => {
   */
 
 describe("Choice", () => {
-  it("Should create the choice structure", async () => {
-    const slashesObjects = await Promise.all(
-      client.applicationCommands.map((slash) => slash.toJSON()),
+  it("Should create the choice structure", () => {
+    const slashesObjects = client.applicationCommands.map((slash) =>
+      slash.toJSON(),
     );
     expect(slashesObjects).toEqual([
       {
