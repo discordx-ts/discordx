@@ -118,7 +118,6 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-ytdl-player"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.10.0",
     "@discordjs/voice": "^0.19.0",
     "@discordx/importer": "workspace:^",
     "@discordx/music": "workspace:^",

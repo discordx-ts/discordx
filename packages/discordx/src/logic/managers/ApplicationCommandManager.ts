@@ -46,7 +46,7 @@ export class ApplicationCommandManager {
   async clearApplicationCommands(...guilds: Snowflake[]): Promise<void> {
     if (guilds.length) {
       await Promise.all(
-        guilds.map((guildId) =>
+        guilds.map(async (guildId) =>
           this.client.guilds.cache.get(guildId)?.commands.set([]),
         ),
       );
