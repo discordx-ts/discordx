@@ -2,7 +2,7 @@
   "name": "root",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.17.0+sha512.fce8a3dd29a4ed2ec566fb53efbb04d8c44a0f05bc6f24a73046910fb9c3ce7afa35a0980500668fa3573345bd644644fa98338fa168235c80f4aa17aa17fbef",
+  "packageManager": "pnpm@10.18.0",
   "workspaces": [
     "packages/*"
   ],
@@ -36,29 +36,29 @@
     "build:typedoc": "turbo run build:typedoc",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "prepare": "npx is-ci || npx husky install",
+    "prepare": "npx is-ci || npx husky",
     "prettier": "prettier --check .",
     "test": "turbo run test"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.7",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-angular": "^19.8.1",
-    "@eslint/js": "^9.35.0",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-angular": "^20.0.0",
+    "@eslint/js": "^9.36.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "eslint-plugin-prettier": "^5.5.4",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
     "minipass": "^7.1.2",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0",
-    "tsx": "^4.20.5",
-    "turbo": "^2.5.6",
-    "typedoc": "^0.28.12",
+    "tsx": "^4.20.6",
+    "turbo": "^2.5.8",
+    "typedoc": "^0.28.13",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.43.0"
+    "typescript-eslint": "^8.45.0"
   },
   "engines": {
     "node": ">=16.0.0",

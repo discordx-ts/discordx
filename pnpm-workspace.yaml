@@ -4,7 +4,6 @@ packages:
   - docs
 
 onlyBuiltDependencies:
-  - "@discordjs/opus"
   - core-js
   - core-js-pure
   - esbuild

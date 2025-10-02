@@ -52,7 +52,6 @@
     "yt-search": "^2.13.1"
   },
   "devDependencies": {
-    "@discordjs/opus": "^0.10.0",
     "@discordjs/voice": "^0.19.0",
     "@discordx/importer": "workspace:^",
     "@types/lodash": "^4.17.20",
