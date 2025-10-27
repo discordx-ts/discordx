@@ -18,6 +18,7 @@ import {
   UserSelectMenuInteraction,
   VoiceState,
   type APIUser,
+  type Events,
   type Guild,
   type User,
 } from "discord.js";
@@ -30,7 +31,9 @@ import {
 } from "discordx";
 
 export type IsGuildUserArg =
-  | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
+  | ArgsOf<
+      Events.MessageCreate | Events.MessageReactionAdd | Events.VoiceStateUpdate
+    >
   | ButtonInteraction
   | ChannelSelectMenuInteraction
   | CommandInteraction

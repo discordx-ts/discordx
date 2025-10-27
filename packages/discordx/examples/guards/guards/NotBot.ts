@@ -17,6 +17,7 @@ import {
   StringSelectMenuInteraction,
   UserSelectMenuInteraction,
   VoiceState,
+  type Events,
 } from "discord.js";
 import {
   SimpleCommandMessage,
@@ -32,7 +33,9 @@ import {
  * @param next
  */
 export const NotBot: GuardFunction<
-  | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
+  | ArgsOf<
+      Events.MessageCreate | Events.MessageReactionAdd | Events.VoiceStateUpdate
+    >
   | ButtonInteraction
   | ChannelSelectMenuInteraction
   | CommandInteraction

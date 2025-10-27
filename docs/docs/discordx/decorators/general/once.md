@@ -5,7 +5,7 @@ It's exactly the same behavior as [@On](./on) but the method is only executed on
 ```typescript
 @Discord()
 class Example {
-  @Once({ event: "messageDelete" })
+  @Once({ event: Events.MessageDelete })
   onMessageDelete() {
     // ...
   }
@@ -33,9 +33,9 @@ You also receive other useful arguments after that:
 ```typescript
 @Discord()
 class Example {
-  @Once({ event: "messageCreate" })
+  @Once({ event: Events.MessageCreate })
   onMessage(
-    [message]: ArgsOf<"messageCreate">, // Type message automatically
+    [message]: ArgsOf<Events.MessageCreate>, // Type message automatically
     client: Client, // Client instance injected here,
     guardPayload: any,
   ) {

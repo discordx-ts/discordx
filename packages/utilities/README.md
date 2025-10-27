@@ -157,7 +157,7 @@ const OwnerOnly: IsGuardUserCallback = ({ client, user }) => {
 @Guard(IsGuildUser(OwnerOnly))
 class Example {
   @On({ event: Events.MessageCreate })
-  message([message]: ArgsOf<"messageCreate">) {
+  message([message]: ArgsOf<Events.MessageCreate>) {
     //...
   }
 
@@ -190,7 +190,7 @@ import {
 @Guard(NotBot)
 class Example {
   @On({ event: Events.MessageCreate })
-  message([message]: ArgsOf<"messageCreate">) {
+  message([message]: ArgsOf<Events.MessageCreate>) {
     //...
   }
 

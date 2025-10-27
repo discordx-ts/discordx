@@ -7,18 +7,18 @@ You can get the list of the events and the payload type in the [**List of events
 ```ts
 @Discord()
 class Example {
-  @On({ event: "messageCreate" })
+  @On({ event: Events.MessageCreate })
   onMessage(
     // The type of message is Message
-    [message]: ArgsOf<"messageCreate">,
+    [message]: ArgsOf<Events.MessageCreate>,
   ) {
     // ...
   }
 
-  @On({ event: "channelUpdate" })
+  @On({ event: Events.ChannelUpdate })
   onMessage(
     // The type of channel1 and channel2 is TextChannel
-    [channel1, channel2]: ArgsOf<"channelUpdate">,
+    [channel1, channel2]: ArgsOf<Events.ChannelUpdate>,
   ) {
     // ...
   }

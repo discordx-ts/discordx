@@ -6,6 +6,7 @@
  */
 
 import { Node, QueueManager } from "@discordx/music";
+import type { Events } from "discord.js";
 import { Discord, Once, type ArgsOf, type Client } from "discordx";
 
 import { musicPlayerManager } from "../core/manager.js";
@@ -13,7 +14,7 @@ import { musicPlayerManager } from "../core/manager.js";
 @Discord()
 export class Command {
   @Once()
-  ready(_: ArgsOf<"ready">, client: Client): void {
+  clientReady(_: ArgsOf<Events.ClientReady>, client: Client): void {
     const node = new Node(client);
     musicPlayerManager.instance = new QueueManager(node);
   }

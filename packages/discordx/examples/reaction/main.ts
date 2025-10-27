@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { dirname, importx } from "@discordx/importer";
-import { IntentsBitField, Partials } from "discord.js";
+import { Events, IntentsBitField, Partials } from "discord.js";
 import { Client } from "discordx";
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -29,13 +29,13 @@ export class Main {
       silent: false,
     });
 
-    this.Client.on("ready", () => {
+    this.Client.on(Events.ClientReady, () => {
       void this._client.initApplicationCommands().then(() => {
         console.log("Bot started...");
       });
     });
 
-    this.Client.on("messageReactionAdd", (reaction, user) => {
+    this.Client.on(Events.MessageReactionAdd, (reaction, user) => {
       void this.Client.executeReaction(reaction, user);
     });
 

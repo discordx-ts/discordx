@@ -9,12 +9,12 @@ It's that simple, when the event is triggered, the method is called:
 ```typescript
 @Discord()
 class Example {
-  @On({ event: "messageCreate" })
+  @On({ event: Events.MessageCreate })
   onMessage() {
     // ...
   }
 
-  @Once({ event: "messageDelete" })
+  @Once({ event: Events.MessageDelete })
   onMessageDelete() {
     // ...
   }
@@ -38,9 +38,9 @@ import { ArgsOf, Client, Discord, On } from "discordx";
 
 @Discord()
 class Example {
-  @On({ event: "messageCreate" })
+  @On({ event: Events.MessageCreate })
   onMessage(
-    [message]: ArgsOf<"messageCreate">, // Type message automatically
+    [message]: ArgsOf<Events.MessageCreate>, // Type message automatically
     client: Client, // Client instance injected here,
     guardPayload: any,
   ) {

@@ -46,11 +46,11 @@ async function start() {
     ],
   });
 
-  client.once("ready", async () => {
+  client.once(Events.ClientReady, async () => {
     await client.initApplicationCommands();
   });
 
-  client.on("interactionCreate", (interaction) => {
+  client.on(Events.InteractionCreate, (interaction) => {
     client.executeInteraction(interaction);
   });
 
@@ -80,7 +80,7 @@ You can remove application commands from the Discord cache by using `client.clea
 > If you do not specify the guild id you operate on global application commands
 
 ```ts
-client.once("ready", async () => {
+client.once(Events.ClientReady, async () => {
   await client.clearApplicationCommands();
   await client.clearApplicationCommands("546281071751331840");
   await client.initApplicationCommands();
@@ -94,7 +94,7 @@ or fetch them by using `client.fetchApplicationCommands(guildId: string)`
 > If you do not specify the guild id you operate on global application commands
 
 ```ts
-client.once("ready", async () => {
+client.once(Events.ClientReady, async () => {
   // ...
   const applicationCommands = await client.fetchApplicationCommands();
 });

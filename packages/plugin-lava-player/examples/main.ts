@@ -7,7 +7,7 @@
 import "@discordx/plugin-lava-player";
 import "@discordx/plugin-lava-player/lavalyrics";
 
-import { IntentsBitField } from "discord.js";
+import { Events, IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -31,13 +31,13 @@ export class Main {
       silent: false,
     });
 
-    this._client.once("ready", () => {
+    this._client.once(Events.ClientReady, () => {
       void this._client.initApplicationCommands();
 
       console.log("Bot started");
     });
 
-    this._client.on("interactionCreate", (interaction) => {
+    this._client.on(Events.InteractionCreate, (interaction) => {
       this._client.executeInteraction(interaction);
     });
 

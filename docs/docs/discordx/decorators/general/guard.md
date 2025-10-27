@@ -24,11 +24,11 @@ import { Client, Discord, Guard, On } from "discordx";
 
 @Discord()
 class Example {
-  @On("messageCreate")
+  @On(Events.MessageCreate)
   @Guard(
     NotBot, // You can use multiple guard functions, they are executed in the same order!
   )
-  async onMessage([message]: ArgsOf<"messageCreate">) {
+  async onMessage([message]: ArgsOf<Events.MessageCreate>) {
     switch (message.content.toLowerCase()) {
       case "hello":
         message.reply("Hello!");
@@ -73,7 +73,7 @@ import {
 @Guard(NotBot)
 class Example {
   @On({ event: Events.MessageCreate })
-  message([message]: ArgsOf<"messageCreate">) {
+  message([message]: ArgsOf<Events.MessageCreate>) {
     //...
   }
 
@@ -118,7 +118,7 @@ Guards work like `Koa`'s, it's a function passed in parameter (third parameter i
 ```typescript
 import { ArgsOf, GuardFunction } from "discordx";
 
-export const NotBot: GuardFunction<ArgsOf<"messageCreate">> = async (
+export const NotBot: GuardFunction<ArgsOf<Events.MessageCreate>> = async (
   [message],
   client,
   next,
@@ -134,7 +134,7 @@ If you have to indicate parameters for a guard function you can simple use the "
 ```typescript
 export function Prefix(text: string, replace: boolean = true) {
   const guard: GuardFunction<
-    ArgsOf<"messageCreate"> | CommandInteraction
+    ArgsOf<Events.MessageCreate> | CommandInteraction
   > = async (arg, client, next) => {
     const argObj = arg instanceof Array ? arg[0] : arg;
     if (argObj instanceof CommandInteraction) {
@@ -161,7 +161,9 @@ As 4th parameter you receive a basic empty object that can be used to transmit d
 
 ```typescript
 export const NotBot: GuardFunction<
-  | ArgsOf<"messageCreate" | "messageReactionAdd" | "voiceStateUpdate">
+  | ArgsOf<
+      Events.MessageCreate | Events.MessageReactionAdd | Events.VoiceStateUpdate
+    >
   | ButtonInteraction
   | ChannelSelectMenuInteraction
   | CommandInteraction
