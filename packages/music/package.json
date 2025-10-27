@@ -56,10 +56,10 @@
     "@discordx/importer": "workspace:^",
     "@types/lodash": "^4.17.20",
     "@types/yt-search": "^2.10.3",
-    "discord.js": "^14.22.1",
+    "discord.js": "^14.24.0",
     "ffmpeg-static": "^5.2.0",
     "libsodium-wrappers": "^0.7.15",
-    "typescript": "5.9.2"
+    "typescript": "5.9.3"
   },
   "peerDependencies": {
     "@discordjs/voice": ">=0.11",
