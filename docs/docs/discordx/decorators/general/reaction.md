@@ -32,7 +32,7 @@ async function start() {
     partials: [Partials.Message, Partials.Channel, Partials.Reaction], // Necessary to receive reactions for uncached messages
   });
 
-  client.on("messageReactionAdd", (reaction, user) => {
+  client.on(Events.MessageReactionAdd, (reaction, user) => {
     client.executeReaction(reaction, user);
   });
 

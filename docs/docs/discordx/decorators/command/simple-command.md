@@ -51,7 +51,7 @@ async function start() {
     ],
   });
 
-  client.on("messageCreate", (message) => {
+  client.on(Events.MessageCreate, (message) => {
     client.executeCommand(message);
   });
 

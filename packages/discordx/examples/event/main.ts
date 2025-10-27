@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { dirname, importx } from "@discordx/importer";
-import { IntentsBitField } from "discord.js";
+import { Events, IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -29,7 +29,7 @@ export class Main {
       silent: false,
     });
 
-    this.Client.on("ready", () => {
+    this.Client.on(Events.ClientReady, () => {
       console.log("Bot started...");
     });
 

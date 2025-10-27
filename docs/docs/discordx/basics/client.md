@@ -17,7 +17,7 @@ const client = new Client({
   silent: false,
 });
 
-client.on("ready", async () => {
+client.on(Events.ClientReady, async () => {
   console.log(">> Bot started");
 
   // to create/update/delete discord application commands
@@ -42,7 +42,7 @@ If an event of your app isn't triggered, you probably missed an **Intent**
 ### Basic intents, just text messages
 
 ```ts
-import { IntentsBitField } from "discord.js";
+import { Events, IntentsBitField } from "discord.js";
 
 const client = new Client({
   botId: "test",
@@ -72,7 +72,7 @@ const client = new Client({
 ### Voice activity intent, the ability to speak
 
 ```ts
-import { IntentsBitField } from "discord.js";
+import { Events, IntentsBitField } from "discord.js";
 
 const client = new Client({
   botId: "test",

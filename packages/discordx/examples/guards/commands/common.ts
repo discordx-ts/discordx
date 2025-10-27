@@ -14,7 +14,7 @@ import { NotBot } from "../guards/NotBot.js";
 export class Example {
   @On()
   @Guard(NotBot)
-  messageCreate([message]: ArgsOf<"messageCreate">): void {
+  messageCreate([message]: ArgsOf<Events.MessageCreate>): void {
     console.log(message.content);
   }
 

@@ -4,6 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
+import { Events } from "discord.js";
 import { Client, Discord, Guard, On, type GuardFunction } from "discordx";
 
 const guard1: GuardFunction = async (
@@ -40,7 +41,7 @@ export class Example {
     return message;
   }
 
-  @On({ event: "messageCreate" })
+  @On({ event: Events.MessageCreate })
   messageCreate2([message]: [string]): string {
     return message;
   }

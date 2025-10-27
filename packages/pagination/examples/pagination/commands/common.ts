@@ -10,6 +10,7 @@ import {
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
+  Events,
   type CommandInteraction,
   type MessageActionRowComponentBuilder,
 } from "discord.js";
@@ -20,8 +21,8 @@ import { GeneratePages } from "../util/common.js";
 @Discord()
 export class Example {
   // example: message
-  @On({ event: "messageCreate" })
-  async messageCreate([message]: ArgsOf<"messageCreate">): Promise<void> {
+  @On({ event: Events.MessageCreate })
+  async messageCreate([message]: ArgsOf<Events.MessageCreate>): Promise<void> {
     if (message.content === "paginated demo") {
       const pagination = new Pagination(message, GeneratePages());
       await pagination.send();
@@ -29,10 +30,10 @@ export class Example {
   }
 
   // example: any text channel
-  @On({ event: "messageCreate" })
+  @On({ event: Events.MessageCreate })
   async messageCreateChannel([
     message,
-  ]: ArgsOf<"messageCreate">): Promise<void> {
+  ]: ArgsOf<Events.MessageCreate>): Promise<void> {
     if (message.content === "paginated channel demo") {
       const pagination = new Pagination(message.channel, GeneratePages());
       await pagination.send();

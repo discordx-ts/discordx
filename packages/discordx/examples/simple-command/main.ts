@@ -35,17 +35,17 @@ export class Main {
       },
     });
 
-    this._client.on("messageCreate", (message) => {
+    this._client.on(Events.MessageCreate, (message) => {
       void this._client.executeCommand(message);
     });
 
-    this._client.once("ready", () => {
+    this._client.once(Events.ClientReady, () => {
       void this._client.initApplicationCommands();
 
       console.log("Bot started");
     });
 
-    this._client.on("interactionCreate", (interaction) => {
+    this._client.on(Events.InteractionCreate, (interaction) => {
       this._client.executeInteraction(interaction);
     });
 

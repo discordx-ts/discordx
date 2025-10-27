@@ -415,7 +415,7 @@ class Example {
   @Guard(
     NotBot, // You can use multiple guard functions, they are executed in the same order!
   )
-  messageCreate([message]: ArgsOf<"messageCreate">) {
+  messageCreate([message]: ArgsOf<Events.MessageCreate>) {
     switch (message.content.toLowerCase()) {
       case "hello":
         message.reply("Hello!");

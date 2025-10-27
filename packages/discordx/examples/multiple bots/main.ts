@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { dirname, importx } from "@discordx/importer";
-import { IntentsBitField } from "discord.js";
+import { Events, IntentsBitField } from "discord.js";
 import { Client, MetadataStorage } from "discordx";
 
 const botA = new Client({
@@ -13,13 +13,13 @@ const botA = new Client({
   intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
 });
 
-botA.once("ready", () => {
+botA.once(Events.ClientReady, () => {
   void botA.initApplicationCommands();
 
   console.log("Bot started");
 });
 
-botA.on("interactionCreate", (interaction) => {
+botA.on(Events.InteractionCreate, (interaction) => {
   botA.executeInteraction(interaction);
 });
 
@@ -29,13 +29,13 @@ const botB = new Client({
   silent: false,
 });
 
-botB.once("ready", () => {
+botB.once(Events.ClientReady, () => {
   void botB.initApplicationCommands();
 
   console.log("Bot started");
 });
 
-botB.on("interactionCreate", (interaction) => {
+botB.on(Events.InteractionCreate, (interaction) => {
   botB.executeInteraction(interaction);
 });
 
