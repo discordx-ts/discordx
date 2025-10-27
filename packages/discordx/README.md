@@ -296,26 +296,26 @@ class Example {
       .setCustomId("AwesomeForm");
 
     // Create text input fields
-    const tvShowInputComponent = new TextInputBuilder()
-      .setCustomId("tvField")
+    const tvShowInputComponent = new LabelBuilder()
       .setLabel("Favorite TV show")
-      .setStyle(TextInputStyle.Short);
+      .setTextInputComponent(
+        new TextInputBuilder()
+          .setCustomId("tvField")
+          .setStyle(TextInputStyle.Short)
+          .setRequired(true),
+      );
 
-    const haikuInputComponent = new TextInputBuilder()
-      .setCustomId("haikuField")
+    const haikuInputComponent = new LabelBuilder()
       .setLabel("Write down your favorite haiku")
-      .setStyle(TextInputStyle.Paragraph);
-
-    const row1 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      tvShowInputComponent,
-    );
-
-    const row2 = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      haikuInputComponent,
-    );
+      .setTextInputComponent(
+        new TextInputBuilder()
+          .setCustomId("haikuField")
+          .setStyle(TextInputStyle.Paragraph)
+          .setRequired(true),
+      );
 
     // Add action rows to form
-    modal.addComponents(row1, row2);
+    modal.addLabelComponents(tvShowInputComponent, haikuInputComponent);
 
     // --- snip ---
 

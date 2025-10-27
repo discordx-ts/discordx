@@ -57,12 +57,12 @@
     "@discordx/importer": "workspace:^",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.20",
-    "discord.js": "^14.22.1",
+    "discord.js": "^14.24.0",
     "jest": "^30.2.0",
     "reflect-metadata": "^0.2.2",
-    "ts-jest": "^29.4.4",
+    "ts-jest": "^29.4.5",
     "ts-jest-resolver": "^2.0.1",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev"
