@@ -6,20 +6,20 @@
  */
 
 import {
-  ApplicationCommandType,
   type ApplicationCommand,
   type ApplicationCommandData,
+  ApplicationCommandType,
   type Collection,
   type Snowflake,
 } from "discord.js";
 
 import {
-  ApplicationCommandMixin,
-  isApplicationCommandEqual,
-  resolveIGuilds,
   type ApplicationCommandDataEx,
+  ApplicationCommandMixin,
   type Client,
   type DApplicationCommand,
+  isApplicationCommandEqual,
+  resolveIGuilds,
 } from "../../index.js";
 
 export class ApplicationCommandManager {
@@ -348,9 +348,13 @@ export class ApplicationCommandManager {
 
     const bulkUpdate: ApplicationCommandDataEx[] = [];
 
-    commandsToSkip.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
-    commandsToAdd.forEach((cmd) => bulkUpdate.push(cmd.toJSON()));
-    commandsToUpdate.forEach((cmd) => bulkUpdate.push(cmd.instance.toJSON()));
+    commandsToSkip.forEach(
+      (cmd) => void bulkUpdate.push(cmd.instance.toJSON()),
+    );
+    commandsToAdd.forEach((cmd) => void bulkUpdate.push(cmd.toJSON()));
+    commandsToUpdate.forEach(
+      (cmd) => void bulkUpdate.push(cmd.instance.toJSON()),
+    );
 
     if (retainDeleted) {
       commandsToDelete.forEach((cmd) => {

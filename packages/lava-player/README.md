@@ -80,7 +80,6 @@ const nodeInstance = new Node({
 });
 
 nodeInstance.connection.ws.on("message", (data) => {
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   const raw = JSON.parse(data.toString()) as OpResponse;
   console.log("ws>>", raw);
 });

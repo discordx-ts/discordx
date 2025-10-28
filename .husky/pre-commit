@@ -1,4 +1,3 @@
-pnpm run prettier
 pnpm lint
 pnpm build
 pnpm test

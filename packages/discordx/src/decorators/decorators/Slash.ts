@@ -8,11 +8,11 @@ import type { MethodDecoratorEx } from "@discordx/internal";
 import { ApplicationCommandType, SlashCommandBuilder } from "discord.js";
 
 import {
+  type ApplicationCommandOptions,
   DApplicationCommand,
   MetadataStorage,
-  SlashNameValidator,
-  type ApplicationCommandOptions,
   type NotEmpty,
+  SlashNameValidator,
   type VerifyName,
 } from "../../index.js";
 
@@ -57,7 +57,7 @@ export function Slash<T extends string, TD extends string>(
     | ApplicationCommandOptions<VerifyName<T>, NotEmpty<TD>>
     | SlashCommandBuilder,
 ): MethodDecoratorEx {
-  return function (target: Record<string, any>, key: string) {
+  return (target, key) => {
     const name = options.name ?? key;
     SlashNameValidator(name);
 
@@ -74,7 +74,6 @@ export function Slash<T extends string, TD extends string>(
         defaultMemberPermissions: options.default_member_permissions,
         description: options.description,
         descriptionLocalizations: options.description_localizations,
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         dmPermission: options.dm_permission ?? true,
         contexts: options.contexts,
         integrationTypes: options.integration_types,

@@ -53,24 +53,25 @@ export type WhitelistWords<S, D extends string> = S extends ""
 
 export type TruncateTo32<T extends string> = T extends ""
   ? unknown
-  : T extends `${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}`
+  : // biome-ignore lint/suspicious/noRedeclare: ignore
+    T extends `${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}`
     ? T extends `${infer F}${R}`
       ? F
       : never
     : T;
 
 export type NotEmptyCheck<T> = T extends "" ? never : T;
-export type NotEmpty<T> =
-  NotEmptyCheck<T> extends never ? "A string of zero length is not allowed" : T;
+export type NotEmpty<T> = NotEmptyCheck<T> extends never
+  ? "A string of zero length is not allowed"
+  : T;
 
 export type VName<S extends string> = NotEmptyCheck<S> &
   Lowercase<S> &
   TruncateTo32<S> &
   ForbidCharacter<S, SpecialCharacters>;
 
-export type VerifyName<T extends string> =
-  T extends VName<T>
-    ? T
-    : VName<T> extends never
-      ? "Name must only be lowercase with no space as per Discord guidelines"
-      : VName<T>;
+export type VerifyName<T extends string> = T extends VName<T>
+  ? T
+  : VName<T> extends never
+    ? "Name must only be lowercase with no space as per Discord guidelines"
+    : VName<T>;

@@ -1,10 +1,10 @@
 import {
-  request,
-  STATUS_CODES,
   type IncomingHttpHeaders,
   type IncomingMessage,
-} from "http";
-import { URL } from "url";
+  request,
+  STATUS_CODES,
+} from "node:http";
+import { URL } from "node:url";
 
 export enum RequestType {
   DELETE = "DELETE",

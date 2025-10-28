@@ -4,16 +4,16 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
 
 import type { BaseNode } from "../base/base-node.js";
 import type { Rest } from "../index.js";
 import {
   EventType,
+  type OPEvent,
   OPType,
   PlayerStatus,
   TrackEndReason,
-  type OPEvent,
   type UpdatePlayer,
   type VoiceServerUpdate,
   type VoiceStateUpdate,

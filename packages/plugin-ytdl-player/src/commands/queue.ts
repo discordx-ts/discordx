@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { type CommandInteraction } from "discord.js";
+import type { CommandInteraction } from "discord.js";
 import { Discord, Slash, SlashGroup } from "discordx";
 
 import { musicPlayerManager } from "../core/index.js";

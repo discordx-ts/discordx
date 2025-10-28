@@ -5,6 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
+  type ButtonInteraction,
   ChannelType,
   ChatInputCommandInteraction,
   CommandInteraction,
@@ -12,7 +13,6 @@ import {
   ContextMenuCommandInteraction,
   Message,
   MessageComponentInteraction,
-  type ButtonInteraction,
   type StringSelectMenuInteraction,
 } from "discord.js";
 import cloneDeep from "lodash/cloneDeep.js";
@@ -22,13 +22,13 @@ import {
   defaultPerPageItem,
   defaultTime,
   PaginationBuilder,
-  SelectMenuPageId,
   type PaginationCollectors,
   type PaginationInteractions,
   type PaginationItem,
   type PaginationOptions,
   type PaginationResolver,
   type PaginationSendTo,
+  SelectMenuPageId,
 } from "./index.js";
 
 export class Pagination<T extends PaginationResolver = PaginationResolver> {
@@ -103,7 +103,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
   constructor(
     private sendTo: PaginationSendTo,
-    private pageData: PaginationItem[] | T,
+    pageData: PaginationItem[] | T,
     private config?: PaginationOptions,
   ) {
     this._currentPage = config?.initialPage ?? 0;
@@ -570,7 +570,6 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     };
 
     // Handle button interactions
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     buttonCollector.on("collect", async (interaction) => {
       const shouldContinue = this.handleButtonInteraction(interaction);
       if (shouldContinue) {
@@ -580,7 +579,6 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
     });
 
     // Handle select menu interactions
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     menuCollector.on("collect", async (interaction) => {
       const shouldContinue = this.handleSelectMenuInteraction(interaction);
       if (shouldContinue) {
@@ -639,10 +637,8 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
     const selectedValue = Number(interaction.values[0] ?? 0);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (selectedValue === SelectMenuPageId.Start) {
       return this.navigateToStart();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     } else if (selectedValue === SelectMenuPageId.End) {
       return this.navigateToEnd();
     } else {

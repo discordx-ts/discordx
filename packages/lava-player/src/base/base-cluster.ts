@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
 
 import ClusterNode, { type ClusterNodeOptions } from "../cluster-node.js";
 import type { GuildPlayer } from "../core/guild-player.js";

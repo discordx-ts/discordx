@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import fs from "fs/promises";
+import fs from "node:fs/promises";
 import { Pagination, type PaginationItem } from "@discordx/pagination";
 import type { CommandInteraction } from "discord.js";
 import { Discord, Slash } from "discordx";

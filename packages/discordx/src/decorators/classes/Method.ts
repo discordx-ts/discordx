@@ -7,9 +7,9 @@
 import { Decorator } from "@discordx/internal";
 
 import {
-  DGuard,
   type Awaitable,
   type DDiscord,
+  DGuard,
   type GuardFunction,
 } from "../../index.js";
 

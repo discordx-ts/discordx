@@ -11,18 +11,19 @@ import {
   Guard,
   Guild,
   SimpleCommand,
+  type SimpleCommandMessage,
   SimpleCommandOption,
   SimpleCommandOptionType,
-  type SimpleCommandMessage,
 } from "discordx";
 
 interface Data {
   passed: boolean;
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 @Guild("693401527494377482")
-@Guard((params, client, next, data) => {
+@Guard((_params, _client, next, data) => {
   data.passed = true;
   return next();
 })
@@ -55,7 +56,7 @@ export class Example {
     y: number,
 
     command: SimpleCommandMessage,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     if (!command.isValid()) {
@@ -83,7 +84,7 @@ export class Example {
     y: string,
 
     command: SimpleCommandMessage,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["!add", [x, y], command, data.passed];
@@ -92,7 +93,7 @@ export class Example {
   @SimpleCommand({ name: "add plus" })
   addExtend(
     command: SimpleCommandMessage,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["!add plus", [], command, data.passed];
@@ -104,7 +105,7 @@ export class Example {
     arg: string,
 
     command: SimpleCommandMessage,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["!add plus second", [arg], command, data.passed];
@@ -130,7 +131,7 @@ export class Example {
     type: string,
 
     command: SimpleCommandMessage,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["!ban", [id, time, reason, type], command, data.passed];
@@ -139,7 +140,7 @@ export class Example {
   @SimpleCommand()
   findSource(
     command: SimpleCommandMessage,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["!findSource", [1], command, data.passed];

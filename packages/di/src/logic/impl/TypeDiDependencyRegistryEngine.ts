@@ -4,15 +4,9 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { constructor } from "tsyringe/dist/typings/types/index.js";
-import {
-  Token,
-  type Constructable,
-  type Container,
-  type Service,
-} from "typedi";
+import { type Container, type Service, Token } from "typedi";
 
-import type { InstanceOf } from "../../index.js";
+import type { Constructable, InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
 
 export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependencyInjector<
@@ -77,7 +71,7 @@ export class TypeDiDependencyRegistryEngine extends AbstractConfigurableDependen
 
     const retSet = new Set<unknown>();
     for (const classRef of this._serviceSet) {
-      retSet.add(this.injector.get(classRef as constructor<unknown>));
+      retSet.add(this.injector.get(classRef as Constructable<unknown>));
     }
 
     return retSet;

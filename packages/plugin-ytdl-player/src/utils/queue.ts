@@ -7,9 +7,9 @@
 
 import { Pagination, PaginationResolver } from "@discordx/pagination";
 import {
-  Message,
   type ButtonInteraction,
   type CommandInteraction,
+  Message,
 } from "discord.js";
 
 import type { MusicQueue } from "../core/index.js";
@@ -50,7 +50,7 @@ export async function showQueue(
   )}`;
 
   const pageOptions = new PaginationResolver(
-    (index, paginator) => {
+    (_index, paginator) => {
       paginator.setMaxLength(queue.size / 10);
 
       const { currentPage } = paginator;

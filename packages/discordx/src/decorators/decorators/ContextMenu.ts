@@ -8,9 +8,9 @@ import type { MethodDecoratorEx } from "@discordx/internal";
 import { ApplicationCommandType } from "discord.js";
 
 import {
+  type ApplicationCommandOptions,
   DApplicationCommand,
   MetadataStorage,
-  type ApplicationCommandOptions,
 } from "../../index.js";
 import type { NotEmpty } from "../../types/index.js";
 
@@ -32,7 +32,7 @@ export function ContextMenu<TName extends string>(
     "description" | "descriptionLocalizations"
   >,
 ): MethodDecoratorEx {
-  return function (target: Record<string, any>, key: string) {
+  return (target, key) => {
     const applicationCommand = DApplicationCommand.create({
       botIds: options.botIds,
       contexts: options.contexts,

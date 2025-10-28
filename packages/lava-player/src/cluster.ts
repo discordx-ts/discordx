@@ -5,8 +5,8 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { BaseCluster } from "./base/base-cluster.js";
-import type { ClusterNodeOptions } from "./cluster-node.js";
 import type ClusterNode from "./cluster-node.js";
+import type { ClusterNodeOptions } from "./cluster-node.js";
 
 export interface ClusterOptions {
   filter?: (node: ClusterNode, guildId: string) => boolean;

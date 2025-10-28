@@ -4,17 +4,17 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { parentPort } from "worker_threads";
+import { parentPort } from "node:worker_threads";
 import {
-  joinVoiceChannel,
   type DiscordGatewayAdapterLibraryMethods,
+  joinVoiceChannel,
 } from "@discordjs/voice";
 
 import {
-  ParentProcessEvent,
   type GuildData,
   type JoinData,
   type ParentProcessDataPayload,
+  ParentProcessEvent,
   type PlayData,
   type SetVolumeData,
 } from "../types/index.js";

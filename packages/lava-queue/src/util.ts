@@ -22,11 +22,13 @@ export function fromMS(duration: number): string {
 }
 
 export function toMS(duration: string): number {
-  const reducer = (prev: number, curr: string, i: number, arr: string[]) => {
-    return prev + parseInt(curr) * Math.pow(60, arr.length - 1 - i);
-  };
+  const parts = duration.split(":").map(parseFloat);
+  if (parts.some(Number.isNaN)) {
+    throw new Error(`Invalid duration format: "${duration}"`);
+  }
 
-  const seconds = duration.split(":").reduceRight(reducer, 0);
-  const milliseconds = seconds * 1e3;
-  return milliseconds;
+  // Calculate total seconds (supports hh:mm:ss, mm:ss, or ss)
+  const seconds = parts.reduce((total, value) => total * 60 + value, 0);
+
+  return Math.round(seconds * 1000);
 }

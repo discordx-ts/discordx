@@ -17,7 +17,7 @@ import type { ApplicationCommandDataEx } from "../types/index.js";
  * @returns
  */
 function jsonToString(obj: unknown): string {
-  return JSON.stringify(obj, (key, value) =>
+  return JSON.stringify(obj, (_key, value) =>
     typeof value === "bigint" ? value.toString() : value,
   );
 }
@@ -34,7 +34,7 @@ export function RecursivelyMatchField(
   keys: string[],
   onMatch: (object: any, key: string) => void,
 ): void {
-  Object.keys(object).forEach(function (k) {
+  Object.keys(object).forEach((k) => {
     if (keys.includes(k)) {
       onMatch(object, k);
     }
@@ -65,7 +65,7 @@ export function isApplicationCommandEqual(
   RecursivelyMatchField(
     commandJson,
     ["descriptionLocalizations", "nameLocalizations"],
-    (object: any, key: string) => {
+    (object, key) => {
       if (object[key] === undefined) {
         object[key] = null;
       }
@@ -76,7 +76,7 @@ export function isApplicationCommandEqual(
   RecursivelyMatchField(
     commandJson,
     ["descriptionLocalized", "nameLocalized", "dmPermission", "nsfw"],
-    (object: any, key: string) => {
+    (object, key) => {
       if (object[key] === null) {
         object[key] = undefined;
       }
@@ -85,13 +85,9 @@ export function isApplicationCommandEqual(
 
   // remove unwanted fields
   if (isGuild) {
-    RecursivelyMatchField(
-      rawData,
-      ["dmPermission"],
-      (object: any, key: string) => {
-        object[key] = undefined;
-      },
-    );
+    RecursivelyMatchField(rawData, ["dmPermission"], (object, key) => {
+      object[key] = undefined;
+    });
   }
 
   const firstJson = JSON.parse(

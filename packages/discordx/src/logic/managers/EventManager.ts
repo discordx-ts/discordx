@@ -34,7 +34,7 @@ export class EventManager {
       });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    // biome-ignore lint/style/noNonNullAssertion: ignore
     const group = this.groups.get(key)!;
     group.handlers.push(event);
 
@@ -62,8 +62,7 @@ export class EventManager {
           try {
             const result = await handler.execute(client.guards, params, client);
             results.push(result);
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          } catch (error) {
+          } catch {
             results.push(null);
           }
         }),
@@ -84,7 +83,6 @@ export class EventManager {
     const group = this.groups.get(key);
 
     if (!group) {
-      // eslint-disable-next-line @typescript-eslint/require-await
       return async () => [];
     }
 

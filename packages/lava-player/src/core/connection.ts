@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import type { IncomingMessage } from "http";
+import type { IncomingMessage } from "node:http";
 import backoff from "backoff";
 import WebSocket from "ws";
 

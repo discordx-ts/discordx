@@ -43,6 +43,7 @@ export interface RestEventOptions {
 /**
  * Guard function
  */
+
 export type GuardFunction<Type = any, DataType = any> = (
   params: Type,
   client: Client,

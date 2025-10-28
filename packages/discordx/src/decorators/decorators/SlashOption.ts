@@ -22,8 +22,8 @@ import {
   DApplicationCommandOption,
   DApplicationCommandOptionChoice,
   MetadataStorage,
-  SlashNameValidator,
   type NotEmpty,
+  SlashNameValidator,
   type SlashOptionOptions,
   type TransformerFunction,
   type VerifyName,
@@ -92,7 +92,7 @@ export function SlashOption<T extends string, TD extends string>(
     | SlashOptionOptions<VerifyName<T>, NotEmpty<TD>>,
   transformer?: TransformerFunction,
 ): ParameterDecoratorEx {
-  return function (target: Record<string, any>, key: string, index: number) {
+  return (target, key, index) => {
     SlashNameValidator(options.name);
 
     let option: DApplicationCommandOption;

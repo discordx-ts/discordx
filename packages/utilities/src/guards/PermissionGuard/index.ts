@@ -5,17 +5,17 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  GuildMember,
   type BaseMessageOptions,
   type CommandInteraction,
   type Guild,
+  GuildMember,
   type PermissionsString,
 } from "discord.js";
 import {
-  SimpleCommandMessage,
   type Client,
   type GuardFunction,
   type Next,
+  SimpleCommandMessage,
 } from "discordx";
 
 export type PermissionHandler = CommandInteraction | SimpleCommandMessage;
@@ -81,7 +81,7 @@ export function PermissionGuard(
     return;
   }
 
-  return async function (arg: PermissionHandler, client: Client, next: Next) {
+  return async (arg: PermissionHandler, _client: Client, next: Next) => {
     let guild: Guild | null = null;
     let callee: GuildMember | null = null;
 

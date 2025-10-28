@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Modifier, type ClassMethodDecorator } from "@discordx/internal";
+import { type ClassMethodDecorator, Modifier } from "@discordx/internal";
 
 import {
   DApplicationCommand,
@@ -14,8 +14,8 @@ import {
   DOn,
   DReaction,
   DSimpleCommand,
-  MetadataStorage,
   type GuardFunction,
+  MetadataStorage,
 } from "../../index.js";
 import type { Method } from "../classes/Method.js";
 
@@ -27,14 +27,15 @@ import type { Method } from "../classes/Method.js";
  *
  * @category Decorator
  */
+
 export function Guard<Type = any, DataType = any>(
   ...fns: GuardFunction<Type, DataType>[]
 ): ClassMethodDecorator {
-  return function (
+  return (
     target: Record<string, any>,
     key?: string,
     descriptor?: PropertyDescriptor,
-  ) {
+  ) => {
     const guards = fns.map((fn) => {
       return DGuard.create(fn as () => unknown).attachToTarget(
         target,

@@ -4,14 +4,14 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { EmbedBuilder, type Message } from "discord.js";
 
 import {
-  MetadataStorage,
-  SimpleCommandOptionType,
   type ArgSplitter,
   type DSimpleCommand,
+  MetadataStorage,
+  SimpleCommandOptionType,
   type SimpleOptionType,
 } from "../index.js";
 

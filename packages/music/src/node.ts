@@ -5,30 +5,24 @@
  * -------------------------------------------------------------------------------------------------------
  */
 /* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
-import { EventEmitter } from "events";
-import { Worker } from "worker_threads";
+
+import { EventEmitter } from "node:events";
+import { Worker } from "node:worker_threads";
 import { dirname, isESM } from "@discordx/importer";
 import type { Client } from "discord.js";
 
 import {
-  ParentProcessEvent,
-  QueueEvent,
-  WorkerOperation,
   type GuildData,
   type JoinData,
   type ParentProcessDataPayload,
+  ParentProcessEvent,
   type PlayData,
+  QueueEvent,
   type QueueEventPayloads,
   type SetVolumeData,
   type WorkerDataPayload,
+  WorkerOperation,
 } from "./types/index.js";
-
-export interface Node extends EventEmitter {
-  on<T extends QueueEvent>(
-    event: T,
-    listener: (payload: QueueEventPayloads[T]) => void,
-  ): this;
-}
 
 export class Node extends EventEmitter {
   private worker: Worker;
@@ -43,6 +37,14 @@ export class Node extends EventEmitter {
 
     this.setupEventListeners();
     this.setupWorkerMessageHandler();
+  }
+
+  on<T extends QueueEvent>(
+    event: T,
+    listener: (payload: QueueEventPayloads[T]) => void,
+  ): this {
+    super.on(event, listener);
+    return this;
   }
 
   private sendOp(payload: WorkerDataPayload): void {

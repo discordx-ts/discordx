@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 
 const packages = [
   "create-discordx",
@@ -16,16 +16,16 @@ const packages = [
 ];
 
 for (const pkg in packages) {
-  const dirPath = "docs/" + packages[pkg];
+  const dirPath = `docs/${packages[pkg]}`;
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath);
   }
 
-  const filePath = dirPath + "/README.md";
+  const filePath = `${dirPath}/README.md`;
   const content = fs.readFileSync(`../packages/${packages[pkg]}/README.md`);
   fs.writeFileSync(
     filePath,
-    "---\ntitle: Readme\nsidebar_position: 0\n---\n\n# &nbsp;\n\n" + content,
+    `---\ntitle: Readme\nsidebar_position: 0\n---\n\n# &nbsp;\n\n${content}`
   );
 }
 

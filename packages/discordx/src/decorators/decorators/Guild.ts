@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Modifier, type ClassMethodDecorator } from "@discordx/internal";
+import { type ClassMethodDecorator, Modifier } from "@discordx/internal";
 
 import {
   DApplicationCommand,
@@ -12,8 +12,8 @@ import {
   DDiscord,
   DReaction,
   DSimpleCommand,
-  MetadataStorage,
   type IGuild,
+  MetadataStorage,
 } from "../../index.js";
 
 /**
@@ -51,11 +51,7 @@ export function Guild(...guildIds: IGuild[]): ClassMethodDecorator;
  * @category Decorator
  */
 export function Guild(...guildIds: IGuild[]): ClassMethodDecorator {
-  return function (
-    target: Record<string, any>,
-    key?: string,
-    descriptor?: PropertyDescriptor,
-  ) {
+  return (target, key, descriptor?: PropertyDescriptor) => {
     MetadataStorage.instance.addModifier(
       Modifier.create<
         DApplicationCommand | DSimpleCommand | DDiscord | DComponent | DReaction

@@ -26,7 +26,7 @@ import {
 export function SimpleCommandOption<T extends string>(
   options: SimpleCommandOptionOptions<T>,
 ): ParameterDecoratorEx {
-  return function (target: Record<string, any>, key: string, index: number) {
+  return (target, key, index) => {
     const option = DSimpleCommandOption.create(options).decorate(
       target.constructor,
       key,
