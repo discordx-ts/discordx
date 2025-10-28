@@ -46,7 +46,7 @@ export function SelectMenuComponent<T extends string>(
 export function SelectMenuComponent(
   options?: ComponentOptions,
 ): MethodDecoratorEx {
-  return function (target: Record<string, any>, key: string) {
+  return (target, key) => {
     const button = DComponent.create({
       botIds: options?.botIds,
       guilds: options?.guilds,

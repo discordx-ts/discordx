@@ -153,9 +153,10 @@ export class DebugManager {
 
       this.client.logger.log(
         `${
-          (option.type === ApplicationCommandOptionType.Subcommand ||
-            option.type === ApplicationCommandOptionType.SubcommandGroup) &&
-          optionIndex !== 0
+          (
+            option.type === ApplicationCommandOptionType.Subcommand ||
+              option.type === ApplicationCommandOptionType.SubcommandGroup
+          ) && optionIndex !== 0
             ? "\n"
             : ""
         }${tab}>> ${option.name}: ${ApplicationCommandOptionType[option.type].toLowerCase()} (${

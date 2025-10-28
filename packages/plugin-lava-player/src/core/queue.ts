@@ -9,11 +9,11 @@ import { Pagination, PaginationResolver } from "@discordx/pagination";
 import {
   ActionRowBuilder,
   ButtonBuilder,
+  type ButtonInteraction,
   ButtonStyle,
+  type CommandInteraction,
   EmbedBuilder,
   Message,
-  type ButtonInteraction,
-  type CommandInteraction,
   type MessageActionRowComponentBuilder,
   type PartialGroupDMChannel,
   type TextBasedChannel,
@@ -146,7 +146,7 @@ export class MusicQueue extends Queue {
       this.size > 2 ? ` (Total: ${String(this.size)} tracks queued)` : "";
 
     embed.addFields({
-      name: "Now Playing" + subText,
+      name: `Now Playing${subText}`,
       value: uriText,
     });
 
@@ -284,7 +284,7 @@ export class MusicQueue extends Queue {
       this.currentPlaybackTrack.info.uri,
     );
 
-    const pageOptions = new PaginationResolver((index, paginator) => {
+    const pageOptions = new PaginationResolver((_index, paginator) => {
       paginator.setMaxLength(this.size / 10);
 
       const { currentPage } = paginator;

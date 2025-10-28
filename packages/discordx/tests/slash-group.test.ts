@@ -8,8 +8,8 @@
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  CommandInteraction,
-  Interaction,
+  type CommandInteraction,
+  type Interaction,
 } from "discord.js";
 import {
   Client,
@@ -41,6 +41,7 @@ enum TextChoices {
   Hello = "Hello",
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 @Guild("693401527494377482")
 @SlashGroup({
@@ -57,7 +58,7 @@ enum TextChoices {
   name: "text",
   root: "testing",
 })
-@Guard((params, client, next, data) => {
+@Guard((_params, _client, next, data) => {
   data.passed = true;
   return next();
 })
@@ -84,7 +85,7 @@ export class Example {
     })
     y: number,
     interaction: CommandInteraction,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["/testing maths add", x + y, interaction, data.passed];
@@ -108,7 +109,7 @@ export class Example {
     })
     y: number,
     interaction: CommandInteraction,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["/testing maths multiply", x * y, interaction, data.passed];
@@ -135,7 +136,7 @@ export class Example {
     })
     text: TextChoices,
     interaction: CommandInteraction,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["/testing text hello", text, interaction, data.passed];
@@ -159,13 +160,14 @@ export class Example {
     })
     text2: string,
     interaction: CommandInteraction,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["/testing hello text", text, text2, interaction, data.passed];
   }
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 @SlashGroup({
   description: "group-test-without-description",
@@ -176,7 +178,7 @@ export class Example {
   name: "line",
   root: "group-test-without-description",
 })
-@Guard((params, client, next, data) => {
+@Guard((_params, _client, next, data) => {
   data.passed = true;
   return next();
 })
@@ -204,13 +206,14 @@ export class Example2 {
     })
     y: number,
     interaction: CommandInteraction,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["/testing line add", x + y, interaction, data.passed];
   }
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 @SlashGroup({ description: "test-x", name: "test-x" })
 @SlashGroup("test-x")
@@ -226,6 +229,7 @@ export class AnotherGroup {
   }
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 @SlashGroup({ description: "add", name: "add", root: "test-x" })
 @SlashGroup("add", "test-x")
@@ -241,6 +245,7 @@ export class Group {
   }
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 @SlashGroup({ description: "test-y", name: "test-y" })
 @SlashGroup({ description: "add", name: "add", root: "test-y" })

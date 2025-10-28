@@ -5,29 +5,29 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
+  type APIUser,
   ButtonInteraction,
   ChannelSelectMenuInteraction,
   CommandInteraction,
   ContextMenuCommandInteraction,
+  type Events,
+  type Guild,
   MentionableSelectMenuInteraction,
   Message,
   MessageReaction,
   ModalSubmitInteraction,
   RoleSelectMenuInteraction,
   StringSelectMenuInteraction,
+  type User,
   UserSelectMenuInteraction,
   VoiceState,
-  type APIUser,
-  type Events,
-  type Guild,
-  type User,
 } from "discord.js";
 import {
-  SimpleCommandMessage,
   type ArgsOf,
   type Awaitable,
   type Client,
   type GuardFunction,
+  SimpleCommandMessage,
 } from "discordx";
 
 export type IsGuildUserArg =
@@ -67,7 +67,7 @@ export const IsGuildUser =
     let guild: Guild | null = null;
     let user: User | APIUser | null = null;
 
-    const argItem = arg instanceof Array ? arg[0] : arg;
+    const argItem = Array.isArray(arg) ? arg[0] : arg;
 
     switch (true) {
       case argItem instanceof CommandInteraction:

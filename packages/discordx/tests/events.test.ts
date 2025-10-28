@@ -5,11 +5,11 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { Events } from "discord.js";
-import { Client, Discord, Guard, On, type GuardFunction } from "discordx";
+import { Client, Discord, Guard, type GuardFunction, On } from "discordx";
 
 const guard1: GuardFunction = async (
   [message]: [string],
-  client,
+  _client,
   next,
   data,
 ) => {
@@ -22,7 +22,7 @@ const guard1: GuardFunction = async (
 
 const guard2: GuardFunction = async (
   _: [string],
-  client,
+  _client,
   next,
   data: { message: string; original: string },
 ) => {
@@ -34,6 +34,7 @@ const guard2: GuardFunction = async (
   }
 };
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 export class Example {
   @On()
@@ -50,7 +51,7 @@ export class Example {
   @Guard(guard1, guard2)
   messageDelete(
     _: [string],
-    client: Client,
+    _client: Client,
     guardParams: { message: string },
   ): void {
     guardParams.message += "-3";

@@ -9,6 +9,7 @@ import {
   ChannelSelectMenuInteraction,
   CommandInteraction,
   ContextMenuCommandInteraction,
+  type Events,
   MentionableSelectMenuInteraction,
   Message,
   MessageReaction,
@@ -17,12 +18,11 @@ import {
   StringSelectMenuInteraction,
   UserSelectMenuInteraction,
   VoiceState,
-  type Events,
 } from "discord.js";
 import {
-  SimpleCommandMessage,
   type ArgsOf,
   type GuardFunction,
+  SimpleCommandMessage,
 } from "discordx";
 
 /**
@@ -46,8 +46,8 @@ export const NotBot: GuardFunction<
   | StringSelectMenuInteraction
   | UserSelectMenuInteraction
   | SimpleCommandMessage
-> = async (arg, client, next, guardData) => {
-  const argObj = arg instanceof Array ? arg[0] : arg;
+> = async (arg, _client, next, guardData) => {
+  const argObj = Array.isArray(arg) ? arg[0] : arg;
   const user =
     argObj instanceof CommandInteraction
       ? argObj.user

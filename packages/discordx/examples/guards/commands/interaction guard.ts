@@ -12,7 +12,7 @@ import { ContextMenu, Discord, Guard, type GuardFunction } from "discordx";
 
 export const InteractionGuard: GuardFunction<
   ContextMenuCommandInteraction
-> = async (interaction, client, next) => {
+> = async (_interaction, _client, next) => {
   await next();
 };
 

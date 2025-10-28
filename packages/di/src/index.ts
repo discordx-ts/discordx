@@ -21,16 +21,20 @@ export const tsyringeDependencyRegistryEngine =
 export const defaultDependencyRegistryEngine =
   DefaultDependencyRegistryEngine.instance;
 
-export type InstanceOf<T> = T extends new (...args: unknown[]) => infer R
+export type InstanceOf<T> = T extends new (
+  ...args: unknown[]
+) => infer R
   ? R
   : unknown;
+
+export declare type Constructable<T> = new (...args: any[]) => T;
 
 /**
  * The dependency injection service creates a single instance of a class and stores it globally using the singleton design pattern
  *
  * @category Internal
  */
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+// biome-ignore lint/complexity/noStaticOnlyClass: ignore
 export class DIService {
   private static _engine: IDependencyRegistryEngine =
     defaultDependencyRegistryEngine;
@@ -47,10 +51,6 @@ export class DIService {
    * @deprecated use DIService.engine instead
    */
   static get instance(): IDependencyRegistryEngine {
-    return this.engine;
-  }
-
-  private constructor() {
-    // empty constructor
+    return DIService.engine;
   }
 }

@@ -54,7 +54,7 @@ export function ButtonComponent<T extends string>(
  * @category Decorator
  */
 export function ButtonComponent(options?: ComponentOptions): MethodDecoratorEx {
-  return function (target: Record<string, any>, key: string) {
+  return (target, key) => {
     const button = DComponent.create({
       botIds: options?.botIds,
       guilds: options?.guilds,

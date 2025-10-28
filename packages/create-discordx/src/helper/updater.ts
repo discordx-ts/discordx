@@ -25,8 +25,7 @@ let update = null;
 
 try {
   update = await checkForUpdate(packageJson);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-} catch (err) {
+} catch {
   console.log(
     boxen("Failed to check for updates", {
       align: "center",

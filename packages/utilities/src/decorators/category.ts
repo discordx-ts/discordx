@@ -5,12 +5,12 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
+  type ClassMethodDecorator,
   DApplicationCommand,
   DDiscord,
   DSimpleCommand,
   MetadataStorage,
   Modifier,
-  type ClassMethodDecorator,
 } from "discordx";
 
 export interface ICategory {
@@ -18,11 +18,7 @@ export interface ICategory {
 }
 
 export function Category(category: string): ClassMethodDecorator {
-  return function <D>(
-    target: Record<string, D>,
-    key?: string,
-    descriptor?: PropertyDescriptor,
-  ) {
+  return (target, key, descriptor?: PropertyDescriptor) => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand | DSimpleCommand | DDiscord>(
         (

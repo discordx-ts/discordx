@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { Modifier, type ClassMethodDecorator } from "@discordx/internal";
+import { type ClassMethodDecorator, Modifier } from "@discordx/internal";
 
 import {
   DApplicationCommand,
@@ -55,11 +55,7 @@ export function Bot(...botIds: string[]): ClassMethodDecorator;
  * @category Decorator
  */
 export function Bot(...botIds: string[]): ClassMethodDecorator {
-  return function (
-    target: Record<string, any>,
-    key?: string,
-    descriptor?: PropertyDescriptor,
-  ) {
+  return (target, key, descriptor) => {
     MetadataStorage.instance.addModifier(
       Modifier.create<
         | DApplicationCommand

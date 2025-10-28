@@ -55,7 +55,7 @@ export function SimpleCommand<T extends string>(
 export function SimpleCommand(
   options?: SimpleCommandOptions,
 ): MethodDecoratorEx {
-  return function (target: Record<string, any>, key: string) {
+  return (target, key) => {
     const cmd = DSimpleCommand.create({
       aliases: options?.aliases,
       argSplitter: options?.argSplitter,

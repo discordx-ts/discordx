@@ -5,12 +5,12 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
+  type CommandInteraction,
   LabelBuilder,
   ModalBuilder,
+  type ModalSubmitInteraction,
   TextInputBuilder,
   TextInputStyle,
-  type CommandInteraction,
-  type ModalSubmitInteraction,
 } from "discord.js";
 import { Discord, ModalComponent, Slash } from "discordx";
 
@@ -58,8 +58,7 @@ export class Example {
     );
 
     await interaction.reply(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      `Favorite TV Show: ${favTVShow!}, Favorite haiku: ${favHaiku!}`,
+      `Favorite TV Show: ${favTVShow ?? "unknown"}, Favorite haiku: ${favHaiku ?? "unknown"}`,
     );
 
     return;

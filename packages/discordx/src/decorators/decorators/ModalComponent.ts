@@ -7,10 +7,10 @@
 import type { MethodDecoratorEx } from "@discordx/internal";
 
 import {
+  type ComponentOptions,
   ComponentType,
   DComponent,
   MetadataStorage,
-  type ComponentOptions,
 } from "../../index.js";
 
 /**
@@ -48,7 +48,7 @@ export function ModalComponent<T extends string>(
  * @category Decorator
  */
 export function ModalComponent(options?: ComponentOptions): MethodDecoratorEx {
-  return function (target: Record<string, any>, key: string) {
+  return (target, key) => {
     const button = DComponent.create({
       botIds: options?.botIds,
       guilds: options?.guilds,

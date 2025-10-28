@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { execSync } from "node:child_process";
-import path from "path";
+import path from "node:path";
 import { rimraf } from "rimraf";
 
 function IsInGitRepository(root: string): boolean {
@@ -15,8 +15,7 @@ function IsInGitRepository(root: string): boolean {
       stdio: "ignore",
     });
     return true;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
+  } catch {
     return false;
   }
 }
@@ -25,8 +24,7 @@ function IsInMercurialRepository(root: string): boolean {
   try {
     execSync("hg --cwd . root", { cwd: root, stdio: "ignore" });
     return true;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (err) {
+  } catch {
     return false;
   }
 }
@@ -50,13 +48,11 @@ export function TryGitInit(root: string): boolean {
     });
 
     return true;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (e) {
+  } catch {
     if (didInit) {
       try {
         rimraf.sync(path.join(root, ".git"));
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
+      } catch {
         // empty statement
       }
     }

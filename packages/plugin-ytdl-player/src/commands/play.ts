@@ -7,13 +7,13 @@
 
 import {
   ApplicationCommandOptionType,
-  EmbedBuilder,
   type CommandInteraction,
+  EmbedBuilder,
 } from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 import { YouTube } from "youtube-sr";
 
-import { type MyTrack } from "../core/index.js";
+import type { MyTrack } from "../core/index.js";
 import { musicPlayerManager } from "../core/manager.js";
 import { fromMS } from "../utils/index.js";
 

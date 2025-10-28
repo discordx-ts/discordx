@@ -9,9 +9,8 @@ import type {
   FactoryFunction,
   InjectionToken,
 } from "tsyringe";
-import type { constructor } from "tsyringe/dist/typings/types/index.js";
 
-import type { InstanceOf } from "../../index.js";
+import type { Constructable, InstanceOf } from "../../index.js";
 import { AbstractConfigurableDependencyInjector } from "../AbstractConfigurableDependencyInjector.js";
 
 type Factory = <T>(factoryFunc: FactoryFunction<T>) => FactoryFunction<T>;
@@ -88,7 +87,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
 
     const retSet = new Set<unknown>();
     for (const classRef of this._serviceSet) {
-      retSet.add(this.injector.resolve(classRef as constructor<unknown>));
+      retSet.add(this.injector.resolve(classRef as InjectionToken<unknown>));
     }
 
     return retSet;
@@ -112,7 +111,7 @@ export class TsyringeDependencyRegistryEngine extends AbstractConfigurableDepend
     }
     return this.factory((c) => {
       if (!c.isRegistered(clazz)) {
-        c.registerSingleton(clazz as constructor<T>);
+        c.registerSingleton(clazz as Constructable<T>);
       }
       return c.resolve(clazz);
     });

@@ -5,20 +5,20 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  Modifier,
   type ClassDecoratorEx,
   type ClassMethodDecorator,
+  Modifier,
 } from "@discordx/internal";
 
 import {
   DApplicationCommand,
   DApplicationCommandGroup,
+  type DApplicationCommandOption,
   DDiscord,
   MetadataStorage,
-  SlashNameValidator,
-  type DApplicationCommandOption,
   type NotEmpty,
   type SlashGroupOptions,
+  SlashNameValidator,
   type VerifyName,
 } from "../../index.js";
 
@@ -99,11 +99,7 @@ export function SlashGroup<
     | SlashGroupOptions<VerifyName<T>, NotEmpty<TD>, VerifyName<TR>>,
   root?: VerifyName<TR>,
 ): ClassMethodDecorator {
-  return function (
-    target: Record<string, any>,
-    key?: string,
-    descriptor?: PropertyDescriptor,
-  ) {
+  return (target, key, descriptor?: PropertyDescriptor) => {
     if (typeof options === "string") {
       // If @SlashGroup decorate a method edit the method and add it to subgroup
       MetadataStorage.instance.addModifier(

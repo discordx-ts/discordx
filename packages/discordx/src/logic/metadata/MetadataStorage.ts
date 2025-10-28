@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { DIService } from "@discordx/di";
-import { Modifier, type Decorator } from "@discordx/internal";
+import { type Decorator, Modifier } from "@discordx/internal";
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
@@ -16,18 +16,18 @@ import type { Method } from "../../decorators/classes/Method.js";
 import {
   ComponentType,
   DApplicationCommand,
+  type DApplicationCommandGroup,
   DApplicationCommandOption,
   DComponent,
+  type DDiscord,
+  type DGuard,
   DOn,
   DReaction,
   DSimpleCommand,
-  EventManager,
-  toStringArray,
-  type DApplicationCommandGroup,
-  type DDiscord,
-  type DGuard,
   type DSimpleCommandOption,
+  EventManager,
   type ISimpleCommandByName,
+  toStringArray,
 } from "../../index.js";
 
 /**
@@ -79,20 +79,20 @@ export class MetadataStorage {
   // static getters
 
   static clear(): void {
-    this._isBuilt = false;
-    this._instance = new MetadataStorage();
+    MetadataStorage._isBuilt = false;
+    MetadataStorage._instance = new MetadataStorage();
   }
 
   static get isBuilt(): boolean {
-    return this._isBuilt;
+    return MetadataStorage._isBuilt;
   }
 
   static get instance(): MetadataStorage {
-    this._instance ??= new MetadataStorage();
-    return this._instance;
+    MetadataStorage._instance ??= new MetadataStorage();
+    return MetadataStorage._instance;
   }
   static set instance(value: MetadataStorage) {
-    this._instance = value;
+    MetadataStorage._instance = value;
   }
 
   // getters
@@ -357,8 +357,8 @@ export class MetadataStorage {
        * Save the customized prefix within the mapped prefix set.
        */
       if (cmd.prefix) {
-        toStringArray(cmd.prefix).forEach((pfx) =>
-          this._simpleCommandMappedPrefix.add(pfx),
+        toStringArray(cmd.prefix).forEach(
+          (pfx) => void this._simpleCommandMappedPrefix.add(pfx),
         );
       }
 
@@ -389,13 +389,11 @@ export class MetadataStorage {
     /**
      * Sort simple commands by name in descending order
      */
-    this._simpleCommandsByName = this._simpleCommandsByName.sort(
-      function (a, b) {
-        // ASC  -> a.length - b.length
-        // DESC -> b.length - a.length
-        return b.name.length - a.name.length;
-      },
-    );
+    this._simpleCommandsByName = this._simpleCommandsByName.sort((a, b) => {
+      // ASC  -> a.length - b.length
+      // DESC -> b.length - a.length
+      return b.name.length - a.name.length;
+    });
   }
 
   private groupSlashes() {

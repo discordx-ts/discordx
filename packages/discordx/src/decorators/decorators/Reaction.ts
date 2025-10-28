@@ -44,7 +44,7 @@ export function Reaction<T extends string>(
  * @category Decorator
  */
 export function Reaction(options?: ReactionOptions): MethodDecoratorEx {
-  return function (target: Record<string, any>, key: string) {
+  return (target, key) => {
     const react = DReaction.create({
       aliases: options?.aliases,
       botIds: options?.botIds,

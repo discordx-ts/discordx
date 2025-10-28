@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { ButtonInteraction, Interaction } from "discord.js";
+import type { ButtonInteraction, Interaction } from "discord.js";
 import { ButtonComponent, Client, Discord, Guard } from "discordx";
 
 import { FakeInteraction, InteractionType } from "./util/interaction.js";
@@ -14,16 +14,17 @@ import { FakeInteraction, InteractionType } from "./util/interaction.js";
     Define test code
 */
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 export class Example {
   @ButtonComponent({ id: "hello" })
-  @Guard((params, client, next, data) => {
+  @Guard((_params, _client, next, data) => {
     data.passed = true;
     return next();
   })
   handler(
-    interaction: ButtonInteraction,
-    client: Client,
+    _interaction: ButtonInteraction,
+    _client: Client,
     data: { passed: boolean },
   ): unknown {
     return [":wave:", data.passed];

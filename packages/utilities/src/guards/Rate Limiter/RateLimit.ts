@@ -8,10 +8,10 @@ import type {
   CommandInteraction,
   MessageComponentInteraction,
 } from "discord.js";
-import { SimpleCommandMessage, type GuardFunction } from "discordx";
+import { type GuardFunction, SimpleCommandMessage } from "discordx";
 
 import { dayjs } from "../../useful/time-format.js";
-import { TIME_UNIT, TimedSet, type RateLimitOption } from "./index.js";
+import { type RateLimitOption, TIME_UNIT, TimedSet } from "./index.js";
 import { TimeOutEntry } from "./logic/index.js";
 
 /**
@@ -105,7 +105,7 @@ export function RateLimit<T extends CommandInteraction | SimpleCommandMessage>(
     }
   }
 
-  return async function (arg, client, next) {
+  return async (arg, _client, next) => {
     let memberId: string | null = null;
     let guildId: string | null = null;
 

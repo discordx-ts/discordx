@@ -8,16 +8,12 @@ import {
   DApplicationCommand,
   DSimpleCommand,
   MetadataStorage,
-  Modifier,
   type MethodDecoratorEx,
+  Modifier,
 } from "discordx";
 
 export function Description(description: string): MethodDecoratorEx {
-  return function <D>(
-    target: Record<string, D>,
-    key?: string,
-    descriptor?: PropertyDescriptor,
-  ) {
+  return (target, key, descriptor?: PropertyDescriptor) => {
     MetadataStorage.instance.addModifier(
       Modifier.create<DApplicationCommand | DSimpleCommand>(
         (original: DApplicationCommand | DSimpleCommand) => {

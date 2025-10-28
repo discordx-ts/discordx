@@ -4,12 +4,11 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  CommandInteraction,
-  Interaction,
+  type CommandInteraction,
+  type Interaction,
 } from "discord.js";
 import { Client, Discord, Guard, Guild, Slash, SlashOption } from "discordx";
 
@@ -23,9 +22,10 @@ interface Data {
   passed: boolean;
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 @Guild("invalid_id")
-@Guard((params, client, next, data) => {
+@Guard((_params, _client, next, data) => {
   data.passed = true;
   return next();
 })
@@ -40,7 +40,7 @@ export class Example3 {
     })
     text: string,
     interaction: CommandInteraction,
-    client: Client,
+    _client: Client,
     data: Data,
   ): unknown {
     return ["/hello", text, interaction, data.passed];

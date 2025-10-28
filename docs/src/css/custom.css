@@ -55,6 +55,7 @@
 pre,
 .codeBlockTitle_BvAR,
 .codeBlockTitle_node_modules-\@docusaurus-theme-classic-lib-next-theme-CodeBlock-styles-module {
+  /* biome-ignore lint/complexity/noImportantStyles: ignore */
   background: var(--ifm-codeblock) !important;
 }
 
@@ -75,6 +76,7 @@ article table thead th {
   text-transform: uppercase;
 }
 
+/* biome-ignore lint/style/noDescendingSpecificity: ignore */
 article table th,
 article table td {
   padding: 6px 10px;

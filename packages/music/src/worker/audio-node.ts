@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { parentPort } from "worker_threads";
+import { parentPort } from "node:worker_threads";
 import {
   AudioPlayer,
   AudioPlayerStatus,
@@ -15,11 +15,11 @@ import {
 
 import {
   AudioNodeEvent,
-  ParentProcessEvent,
   type AudioNodeEventPayload,
   type NodeAudioData,
   type NodePlayerOptions,
   type ParentProcessDataPayload,
+  ParentProcessEvent,
 } from "../types/index.js";
 import { ytdl } from "./ytdl.js";
 

@@ -8,8 +8,8 @@
 import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  CommandInteraction,
-  Interaction,
+  type CommandInteraction,
+  type Interaction,
 } from "discord.js";
 import { Client, Discord, Slash, SlashChoice, SlashOption } from "discordx";
 
@@ -28,6 +28,7 @@ enum TextChoices {
   Hello = "Hello",
 }
 
+// biome-ignore lint/suspicious/noExportsInTest: ignore
 @Discord()
 export class Example {
   @Slash({ description: "hello" })

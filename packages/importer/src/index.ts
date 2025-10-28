@@ -4,12 +4,12 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { glob } from "glob";
 
 export function isESM(): boolean {
-  return import.meta.url ? true : false;
+  return !!import.meta.url;
 }
 
 export function dirname(url: string): string {

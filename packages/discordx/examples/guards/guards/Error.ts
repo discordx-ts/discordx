@@ -9,7 +9,7 @@ import type { GuardFunction } from "discordx";
 
 export const ErrorHandler: GuardFunction<CommandInteraction> = async (
   interaction,
-  client,
+  _client,
   next,
 ) => {
   try {

@@ -4,13 +4,13 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { randomInt } from "crypto";
+import { randomInt } from "node:crypto";
 import {
   ActionRowBuilder,
   ApplicationCommandOptionType,
   ButtonBuilder,
-  ButtonStyle,
   type ButtonInteraction,
+  ButtonStyle,
   type CommandInteraction,
   type EmojiIdentifierResolvable,
   type MessageActionRowComponentBuilder,
@@ -59,13 +59,13 @@ class RPSProposition {
   }
 
   public static nameToClass(choice: RPSChoice) {
-    return this.propositions.find(
+    return RPSProposition.propositions.find(
       (proposition) => choice === proposition.choice,
     );
   }
 
   public static buttonCustomIDToClass(buttonCustomID: string) {
-    return this.propositions.find(
+    return RPSProposition.propositions.find(
       (proposition) => buttonCustomID === proposition.buttonCustomID,
     );
   }
@@ -84,7 +84,7 @@ export class RockPaperScissors {
       "What could be more fun than play Rock Paper Scissors with a bot?",
     name: "rock-paper-scissors",
   })
-  private async RPS(
+  async RPS(
     @SlashChoice(
       {
         name: RPSChoice[RPSChoice.Rock],
@@ -164,7 +164,7 @@ export class RockPaperScissors {
   @ButtonComponent({ id: `RPS-${RPSChoice.Rock}` })
   @ButtonComponent({ id: `RPS-${RPSChoice.Paper}` })
   @ButtonComponent({ id: `RPS-${RPSChoice.Scissors}` })
-  private async RPSButton(interaction: ButtonInteraction) {
+  async RPSButton(interaction: ButtonInteraction) {
     await interaction.deferReply();
 
     const playerChoice = RPSProposition.buttonCustomIDToClass(

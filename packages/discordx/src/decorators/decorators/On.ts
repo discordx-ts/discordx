@@ -8,8 +8,8 @@ import type { MethodDecoratorEx } from "@discordx/internal";
 
 import {
   DOn,
-  MetadataStorage,
   type EventOptions,
+  MetadataStorage,
   type RestEventOptions,
 } from "../../index.js";
 
@@ -24,11 +24,7 @@ import {
  * @category Decorator
  */
 export function On(options?: EventOptions): MethodDecoratorEx {
-  return function (
-    target: Record<string, any>,
-    key: string,
-    descriptor?: PropertyDescriptor,
-  ) {
+  return (target, key, descriptor: PropertyDescriptor) => {
     const clazz = target as unknown as new () => unknown;
     const on = DOn.create({
       botIds: options?.botIds,
@@ -52,12 +48,9 @@ export function On(options?: EventOptions): MethodDecoratorEx {
  *
  * @category Decorator
  */
-On.rest = function (options?: RestEventOptions): MethodDecoratorEx {
-  return function (
-    target: Record<string, any>,
-    key: string,
-    descriptor?: PropertyDescriptor,
-  ) {
+On.rest =
+  (options?: RestEventOptions): MethodDecoratorEx =>
+  (target, key, descriptor?: PropertyDescriptor) => {
     const clazz = target as unknown as new () => unknown;
     const on = DOn.create({
       botIds: options?.botIds,
@@ -69,4 +62,3 @@ On.rest = function (options?: RestEventOptions): MethodDecoratorEx {
 
     MetadataStorage.instance.addOn(on);
   };
-};

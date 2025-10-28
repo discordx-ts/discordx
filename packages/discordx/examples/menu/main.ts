@@ -8,16 +8,12 @@ import { dirname, importx } from "@discordx/importer";
 import { Events, IntentsBitField } from "discord.js";
 import { Client } from "discordx";
 
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+// biome-ignore lint/complexity/noStaticOnlyClass: ignore
 export class Main {
-  private static _client: Client;
-
-  static get Client(): Client {
-    return this._client;
-  }
+  private static client: Client;
 
   static async start(): Promise<void> {
-    this._client = new Client({
+    Main.client = new Client({
       // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [
         IntentsBitField.Flags.Guilds,
@@ -26,14 +22,14 @@ export class Main {
       silent: false,
     });
 
-    this._client.once(Events.ClientReady, () => {
-      void this._client.initApplicationCommands();
+    Main.client.once(Events.ClientReady, () => {
+      void Main.client.initApplicationCommands();
 
       console.log("Bot started");
     });
 
-    this._client.on(Events.InteractionCreate, (interaction) => {
-      this._client.executeInteraction(interaction);
+    Main.client.on(Events.InteractionCreate, (interaction) => {
+      Main.client.executeInteraction(interaction);
     });
 
     await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
@@ -42,7 +38,7 @@ export class Main {
     if (!process.env.BOT_TOKEN) {
       throw Error("Could not find BOT_TOKEN in your environment");
     }
-    await this._client.login(process.env.BOT_TOKEN);
+    await Main.client.login(process.env.BOT_TOKEN);
   }
 }
 
