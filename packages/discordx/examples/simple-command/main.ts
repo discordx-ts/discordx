@@ -10,14 +10,10 @@ import { Client } from "discordx";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: ignore
 export class Main {
-  private static _client: Client;
-
-  static get Client(): Client {
-    return Main._client;
-  }
+  private static client: Client;
 
   static async start(): Promise<void> {
-    Main._client = new Client({
+    Main.client = new Client({
       // (client) => client.guilds.cache.map((guild) => guild.id)],
       intents: [
         IntentsBitField.Flags.Guilds,
@@ -35,18 +31,18 @@ export class Main {
       },
     });
 
-    Main._client.on(Events.MessageCreate, (message) => {
-      void Main._client.executeCommand(message);
+    Main.client.on(Events.MessageCreate, (message) => {
+      void Main.client.executeCommand(message);
     });
 
-    Main._client.once(Events.ClientReady, () => {
-      void Main._client.initApplicationCommands();
+    Main.client.once(Events.ClientReady, () => {
+      void Main.client.initApplicationCommands();
 
       console.log("Bot started");
     });
 
-    Main._client.on(Events.InteractionCreate, (interaction) => {
-      Main._client.executeInteraction(interaction);
+    Main.client.on(Events.InteractionCreate, (interaction) => {
+      Main.client.executeInteraction(interaction);
     });
 
     await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);
@@ -55,7 +51,7 @@ export class Main {
     if (!process.env.BOT_TOKEN) {
       throw Error("Could not find BOT_TOKEN in your environment");
     }
-    await Main._client.login(process.env.BOT_TOKEN);
+    await Main.client.login(process.env.BOT_TOKEN);
   }
 }
 
