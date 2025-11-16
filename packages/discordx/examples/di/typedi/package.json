@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "typedi-example",
   "private": true,
   "dependencies": {
     "discordx": "workspace:^",

@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "tsyringe-example",
   "private": true,
   "dependencies": {
     "discordx": "workspace:^",
