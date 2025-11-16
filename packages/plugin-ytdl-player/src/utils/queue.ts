@@ -51,7 +51,7 @@ export async function showQueue(
 
   const pageOptions = new PaginationResolver(
     (_index, paginator) => {
-      paginator.setMaxLength(queue.size / 10);
+      paginator.setMaxLength(Math.ceil(queue.size / 10));
 
       const { currentPage } = paginator;
 
@@ -66,7 +66,7 @@ export async function showQueue(
 
       return { content: `${current}\n\`\`\`markdown\n${tracks}\`\`\`` };
     },
-    Math.floor(queue.size / 10),
+    Math.ceil(queue.size / 10),
   );
 
   await new Pagination(interaction, pageOptions, {

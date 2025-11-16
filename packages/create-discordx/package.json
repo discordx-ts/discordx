@@ -41,14 +41,14 @@
     "build": "tsup src/index.ts --format esm --dts"
   },
   "dependencies": {
-    "axios": "^1.12.2",
+    "axios": "^1.13.2",
     "boxen": "^8.0.1",
     "chalk": "^5.6.2",
     "is-installed-globally": "^1.0.0",
     "ora": "^9.0.0",
     "prompts": "^2.4.2",
-    "rimraf": "^6.0.1",
-    "tar": "^7.5.1",
+    "rimraf": "^6.1.0",
+    "tar": "^7.5.2",
     "typescript": "5.9.3",
     "update-check": "^1.5.4",
     "validate-npm-package-name": "^7.0.0"

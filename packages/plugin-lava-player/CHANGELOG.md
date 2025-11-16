@@ -1,5 +1,11 @@
 # @discordx/plugin-lava-player
 
+## 3.0.1
+
+### Patch Changes
+
+- fix: correct total page calculation in music queue pagination
+
 ## 3.0.0
 
 ### Patch Changes

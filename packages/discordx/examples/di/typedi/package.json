@@ -1,4 +1,6 @@
 {
+  "name": "typedi-example",
+  "private": true,
   "dependencies": {
     "discordx": "workspace:^",
     "typedi": "^0.10.0"

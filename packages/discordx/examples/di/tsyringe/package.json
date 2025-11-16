@@ -1,4 +1,6 @@
 {
+  "name": "tsyringe-example",
+  "private": true,
   "dependencies": {
     "discordx": "workspace:^",
     "tsyringe": "^4.10.0"

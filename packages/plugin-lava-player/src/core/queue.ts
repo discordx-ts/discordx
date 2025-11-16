@@ -276,34 +276,35 @@ export class MusicQueue extends Queue {
       return;
     }
 
-    const totalPages = Math.round(this.size / 10);
-
     const current = currentPlaybackTrackMessage(
       this.currentPlaybackTrack.info.title,
       this.size,
       this.currentPlaybackTrack.info.uri,
     );
 
-    const pageOptions = new PaginationResolver((_index, paginator) => {
-      paginator.setMaxLength(this.size / 10);
+    const pageOptions = new PaginationResolver(
+      (_index, paginator) => {
+        paginator.setMaxLength(Math.ceil(this.size / 10));
 
-      const { currentPage } = paginator;
+        const { currentPage } = paginator;
 
-      const queue = this.tracks
-        .slice(currentPage * 10, currentPage * 10 + 10)
-        .map((track, _index) => {
-          const index = currentPage * 10 + _index + 1;
-          const trackLength = fromMS(track.info.length);
-          const trackTitle = track.info.uri
-            ? `[${track.info.title}](<${track.info.uri}>)`
-            : track.info.title;
+        const queue = this.tracks
+          .slice(currentPage * 10, currentPage * 10 + 10)
+          .map((track, _index) => {
+            const index = currentPage * 10 + _index + 1;
+            const trackLength = fromMS(track.info.length);
+            const trackTitle = track.info.uri
+              ? `[${track.info.title}](<${track.info.uri}>)`
+              : track.info.title;
 
-          return `${String(index)}. ${trackTitle} (${trackLength})`;
-        })
-        .join("\n\n");
+            return `${String(index)}. ${trackTitle} (${trackLength})`;
+          })
+          .join("\n\n");
 
-      return { content: `${current}\n\n${queue}` };
-    }, totalPages);
+        return { content: `${current}\n\n${queue}` };
+      },
+      Math.ceil(this.size / 10),
+    );
 
     const pagination = new Pagination(interaction, pageOptions, {
       onTimeout: (_, message) => {

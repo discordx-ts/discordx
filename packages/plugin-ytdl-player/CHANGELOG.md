@@ -1,5 +1,11 @@
 # @discordx/plugin-ytdl-player
 
+## 2.3.11
+
+### Patch Changes
+
+- fix: correct total page calculation in music queue pagination
+
 ## 2.3.10
 
 ### Patch Changes
