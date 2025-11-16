@@ -58,7 +58,7 @@ export class MusicQueue extends Queue {
       .setStyle(
         this.repeatMode === RepeatMode.REPEAT_ONE
           ? ButtonStyle.Danger
-          : ButtonStyle.Primary
+          : ButtonStyle.Primary,
       )
       .setCustomId("btn-repeat");
 
@@ -69,7 +69,7 @@ export class MusicQueue extends Queue {
       .setStyle(
         this.repeatMode === RepeatMode.REPEAT_ALL
           ? ButtonStyle.Danger
-          : ButtonStyle.Primary
+          : ButtonStyle.Primary,
       )
       .setCustomId("btn-loop");
 
@@ -78,7 +78,7 @@ export class MusicQueue extends Queue {
         stopButton,
         pauseButton,
         nextButton,
-        repeatButton
+        repeatButton,
       );
 
     const queueButton = new ButtonBuilder()
@@ -103,7 +103,7 @@ export class MusicQueue extends Queue {
         loopButton,
         queueButton,
         mixButton,
-        controlsButton
+        controlsButton,
       );
     return [row1, row2];
   }
@@ -235,7 +235,7 @@ export class MusicQueue extends Queue {
   }
 
   public async view(
-    interaction: ButtonInteraction | CommandInteraction
+    interaction: ButtonInteraction | CommandInteraction,
   ): Promise<void> {
     const queueErrorMessage =
       "> The queue could not be processed at the moment, please try again later!";
@@ -247,7 +247,7 @@ export class MusicQueue extends Queue {
     const currentPlaybackTrackMessage = (
       title: string,
       size: number,
-      uri?: string
+      uri?: string,
     ) => {
       const trackTitle = uri ? `[${title}](<${uri}>)` : title;
       return `> Playing **${trackTitle}** out of ${String(size + 1)}`;
@@ -279,29 +279,32 @@ export class MusicQueue extends Queue {
     const current = currentPlaybackTrackMessage(
       this.currentPlaybackTrack.info.title,
       this.size,
-      this.currentPlaybackTrack.info.uri
+      this.currentPlaybackTrack.info.uri,
     );
 
-    const pageOptions = new PaginationResolver((_index, paginator) => {
-      paginator.setMaxLength(Math.ceil(this.size / 10));
+    const pageOptions = new PaginationResolver(
+      (_index, paginator) => {
+        paginator.setMaxLength(Math.ceil(this.size / 10));
 
-      const { currentPage } = paginator;
+        const { currentPage } = paginator;
 
-      const queue = this.tracks
-        .slice(currentPage * 10, currentPage * 10 + 10)
-        .map((track, _index) => {
-          const index = currentPage * 10 + _index + 1;
-          const trackLength = fromMS(track.info.length);
-          const trackTitle = track.info.uri
-            ? `[${track.info.title}](<${track.info.uri}>)`
-            : track.info.title;
+        const queue = this.tracks
+          .slice(currentPage * 10, currentPage * 10 + 10)
+          .map((track, _index) => {
+            const index = currentPage * 10 + _index + 1;
+            const trackLength = fromMS(track.info.length);
+            const trackTitle = track.info.uri
+              ? `[${track.info.title}](<${track.info.uri}>)`
+              : track.info.title;
 
-          return `${String(index)}. ${trackTitle} (${trackLength})`;
-        })
-        .join("\n\n");
+            return `${String(index)}. ${trackTitle} (${trackLength})`;
+          })
+          .join("\n\n");
 
-      return { content: `${current}\n\n${queue}` };
-    }, Math.ceil(this.size / 10));
+        return { content: `${current}\n\n${queue}` };
+      },
+      Math.ceil(this.size / 10),
+    );
 
     const pagination = new Pagination(interaction, pageOptions, {
       onTimeout: (_, message) => {

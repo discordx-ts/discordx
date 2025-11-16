@@ -17,7 +17,7 @@ import { deleteMessage, fromMS } from "./index.js";
 
 export async function showQueue(
   queue: MusicQueue,
-  interaction: CommandInteraction | ButtonInteraction
+  interaction: CommandInteraction | ButtonInteraction,
 ): Promise<void> {
   const currentTrack = queue.currentPlaybackTrack;
   if (!currentTrack) {
@@ -46,25 +46,28 @@ export async function showQueue(
   }
 
   const current = `> Playing **${currentTrack.title}** out of ${String(
-    queue.size + 1
+    queue.size + 1,
   )}`;
 
-  const pageOptions = new PaginationResolver((_index, paginator) => {
-    paginator.setMaxLength(Math.ceil(queue.size / 10));
+  const pageOptions = new PaginationResolver(
+    (_index, paginator) => {
+      paginator.setMaxLength(Math.ceil(queue.size / 10));
 
-    const { currentPage } = paginator;
+      const { currentPage } = paginator;
 
-    const tracks = queue.tracks
-      .slice(currentPage * 10, currentPage * 10 + 10)
-      .map(
-        (track, index1) =>
-          `${String(currentPage * 10 + index1 + 1)}. ${track.title}` +
-          ` (${fromMS(track.duration)})`
-      )
-      .join("\n\n");
+      const tracks = queue.tracks
+        .slice(currentPage * 10, currentPage * 10 + 10)
+        .map(
+          (track, index1) =>
+            `${String(currentPage * 10 + index1 + 1)}. ${track.title}` +
+            ` (${fromMS(track.duration)})`,
+        )
+        .join("\n\n");
 
-    return { content: `${current}\n\`\`\`markdown\n${tracks}\`\`\`` };
-  }, Math.ceil(queue.size / 10));
+      return { content: `${current}\n\`\`\`markdown\n${tracks}\`\`\`` };
+    },
+    Math.ceil(queue.size / 10),
+  );
 
   await new Pagination(interaction, pageOptions, {
     onTimeout: (_, message) => {
