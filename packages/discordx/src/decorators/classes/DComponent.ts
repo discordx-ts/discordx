@@ -5,10 +5,10 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  resolveIGuilds,
   type Client,
   type ComponentType,
   type IGuild,
+  resolveIGuilds,
 } from "../../index.js";
 import { Method } from "./Method.js";
 

@@ -14,6 +14,37 @@ A slash command can have multiple options (parameters)
 SlashOption(options: SlashOptionOptions);
 ```
 
+## Type safety
+
+Some slash option result types can be complex. Use the `SlashOptionResult` helper utility to ensure correct typings.
+
+> Using `SlashOptionResult[...]` is recommended to stay aligned with runtime behavior.
+
+```ts
+export type SlashOptionResult = {
+  [ApplicationCommandOptionType.Attachment]: Attachment;
+  [ApplicationCommandOptionType.Channel]: Channel;
+  [ApplicationCommandOptionType.String]: string;
+  [ApplicationCommandOptionType.Boolean]: boolean;
+  [ApplicationCommandOptionType.Integer]: number;
+  [ApplicationCommandOptionType.Number]: number;
+
+  [ApplicationCommandOptionType.Mentionable]:
+    | User
+    | Role
+    | GuildMember
+    | APIRole
+    | APIInteractionDataResolvedGuildMember;
+
+  [ApplicationCommandOptionType.Role]: Role | APIRole;
+
+  [ApplicationCommandOptionType.User]:
+    | GuildMember
+    | APIInteractionDataResolvedGuildMember
+    | User;
+};
+```
+
 ## Declare an option
 
 To declare an option you simply use the `@SlashOption` decorator before a method parameter
@@ -37,7 +68,7 @@ class Example {
       type: ApplicationCommandOptionType.Number,
     })
     y: number,
-    interaction: CommandInteraction,
+    interaction: CommandInteraction
   ) {
     interaction.reply(String(x + y));
   }
@@ -68,8 +99,9 @@ const user_option = new SlashCommandMentionableOption()
 export class Example {
   @Slash(cmd)
   async hello(
-    @SlashOption(user_option) user: User,
-    interaction: CommandInteraction,
+    @SlashOption(user_option)
+    user: SlashOptionResult[ApplicationCommandOptionType.User],
+    interaction: CommandInteraction
   ): Promise<void> {
     await interaction.reply(`:wave: ${user}`);
   }
@@ -84,7 +116,7 @@ Act as middleware for your parameters. Take a look at the following example to s
 class Document {
   constructor(
     public input: string,
-    public interaction: ChatInputCommandInteraction,
+    public interaction: ChatInputCommandInteraction
   ) {
     /*
       empty constructor
@@ -97,14 +129,14 @@ class Document {
     */
 
     await this.interaction.followUp(
-      `${this.interaction.user} saved \`${this.input}\` into database`,
+      `${this.interaction.user} saved \`${this.input}\` into database`
     );
   }
 }
 
 function DocumentTransformer(
   input: string,
-  interaction: ChatInputCommandInteraction,
+  interaction: ChatInputCommandInteraction
 ): Document {
   return new Document(input, interaction);
 }
@@ -120,10 +152,10 @@ export class Example {
         required: true,
         type: ApplicationCommandOptionType.String,
       },
-      DocumentTransformer,
+      DocumentTransformer
     )
     doc: Document,
-    interaction: ChatInputCommandInteraction,
+    interaction: ChatInputCommandInteraction
   ): Promise<void> {
     await interaction.deferReply();
     doc.save();
@@ -192,7 +224,7 @@ class Example {
     @SlashOption({
       autocomplete: function (
         this: Example,
-        interaction: AutocompleteInteraction,
+        interaction: AutocompleteInteraction
       ) {
         // The normal function has this (keyword), therefore class reference is available
         console.log(this.myCustomText);
@@ -223,7 +255,7 @@ class Example {
       type: ApplicationCommandOptionType.String,
     })
     searchText3: string,
-    interaction: CommandInteraction | AutocompleteInteraction,
+    interaction: CommandInteraction | AutocompleteInteraction
   ): void {
     // If autocomplete is not handled above, it will be passed to handler (see option-a definition)
     if (interaction.isAutocomplete()) {
@@ -258,7 +290,7 @@ class Example {
       type: ApplicationCommandOptionType.Mentionable,
     })
     mentionable: GuildMember | User | Role,
-    interaction: CommandInteraction,
+    interaction: CommandInteraction
   ) {
     interaction.reply(mentionable.id);
   }

@@ -5,15 +5,22 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import type {
+  APIInteractionDataResolvedGuildMember,
+  APIRole,
   ApplicationCommandOptionData,
   ApplicationCommandOptionType,
   ApplicationCommandType,
   ApplicationIntegrationType,
+  Attachment,
   AutocompleteInteraction,
+  Channel,
   ChannelType,
+  GuildMember,
   InteractionContextType,
   LocalizationMap,
   PermissionResolvable,
+  Role,
+  User,
 } from "discord.js";
 
 import type { DApplicationCommand, IGuild } from "../../index.js";
@@ -177,3 +184,26 @@ export type SlashGroupOptions<
   TD extends string,
   TR extends string,
 > = SlashGroupRoot<T, TD> | SlashGroupSubRoot<T, TD, TR>;
+
+export type SlashOptionResult = {
+  [ApplicationCommandOptionType.Attachment]: Attachment;
+  [ApplicationCommandOptionType.Channel]: Channel;
+  [ApplicationCommandOptionType.String]: string;
+  [ApplicationCommandOptionType.Boolean]: boolean;
+  [ApplicationCommandOptionType.Integer]: number;
+  [ApplicationCommandOptionType.Number]: number;
+
+  [ApplicationCommandOptionType.Mentionable]:
+    | User
+    | Role
+    | GuildMember
+    | APIRole
+    | APIInteractionDataResolvedGuildMember;
+
+  [ApplicationCommandOptionType.Role]: Role | APIRole;
+
+  [ApplicationCommandOptionType.User]:
+    | GuildMember
+    | APIInteractionDataResolvedGuildMember
+    | User;
+};

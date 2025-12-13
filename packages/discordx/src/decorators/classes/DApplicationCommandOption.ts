@@ -6,8 +6,8 @@
  */
 import { Decorator } from "@discordx/internal";
 import {
-  ApplicationCommandOptionType,
   type ApplicationCommandOptionData,
+  ApplicationCommandOptionType,
   type ChannelType,
   type ChatInputCommandInteraction,
   type LocalizationMap,
