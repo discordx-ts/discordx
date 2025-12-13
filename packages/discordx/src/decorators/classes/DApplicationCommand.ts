@@ -6,8 +6,8 @@
  */
 import {
   ApplicationCommandOptionType,
-  ApplicationIntegrationType,
   type ApplicationCommandType,
+  ApplicationIntegrationType,
   type ChatInputCommandInteraction,
   type InteractionContextType,
   type LocalizationMap,
@@ -15,11 +15,11 @@ import {
 } from "discord.js";
 
 import {
-  DApplicationCommandOption,
-  resolveIGuilds,
   type ApplicationCommandDataEx,
   type Client,
+  DApplicationCommandOption,
   type IGuild,
+  resolveIGuilds,
 } from "../../index.js";
 import { Method } from "./Method.js";
 

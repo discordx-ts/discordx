@@ -9,10 +9,10 @@ import type { Message } from "discord.js";
 import escapeRegExp from "lodash/escapeRegExp.js";
 
 import {
+  type Client,
   SimpleCommandMessage,
   SimpleCommandParseType,
   toStringArray,
-  type Client,
 } from "../../index.js";
 
 export class SimpleCommandManager {

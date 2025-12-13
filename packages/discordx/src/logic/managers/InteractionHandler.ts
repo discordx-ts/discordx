@@ -7,16 +7,16 @@
 
 import { DIService } from "@discordx/di";
 import {
+  type AnySelectMenuInteraction,
   ApplicationCommandOptionType,
   ApplicationCommandType,
-  InteractionType,
-  type AnySelectMenuInteraction,
   type AutocompleteInteraction,
   type ButtonInteraction,
   type ChatInputCommandInteraction,
   type CommandInteractionOption,
   type ContextMenuCommandInteraction,
   type Interaction,
+  InteractionType,
   type ModalSubmitInteraction,
 } from "discord.js";
 

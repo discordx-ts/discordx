@@ -7,14 +7,14 @@
 import { ChannelType } from "discord.js";
 
 import {
-  resolveIGuilds,
-  SimpleCommandOptionType,
   type ArgSplitter,
   type Client,
   type DSimpleCommandOption,
   type IGuild,
   type IPrefix,
+  resolveIGuilds,
   type SimpleCommandMessage,
+  SimpleCommandOptionType,
   type SimpleOptionType,
 } from "../../index.js";
 import { Method } from "./Method.js";

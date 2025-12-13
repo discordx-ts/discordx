@@ -8,11 +8,11 @@
 import { ApplicationCommandOptionType } from "discord.js";
 
 import {
-  SimpleCommandOptionType,
   type Client,
   type DApplicationCommandOption,
   type DComponent,
   type DSimpleCommandOption,
+  SimpleCommandOptionType,
 } from "../../index.js";
 
 export class DebugManager {

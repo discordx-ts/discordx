@@ -1,5 +1,11 @@
 # discordx
 
+## 11.13.3
+
+### Patch Changes
+
+- slash option result type helper
+
 ## 11.13.2
 
 ### Patch Changes
