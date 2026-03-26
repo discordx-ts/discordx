@@ -267,6 +267,10 @@ export interface PlayerVoiceState {
    * The Discord voice token to authenticate with
    */
   token: string;
+  /**
+   * The Discord voice channel the bot is connected to
+   */
+  channelId: string;
 }
 
 export interface GetPlayer {

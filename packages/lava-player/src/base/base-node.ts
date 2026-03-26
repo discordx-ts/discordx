@@ -114,7 +114,12 @@ export abstract class BaseNode extends EventEmitter {
   private async _tryConnection(guildId: string): Promise<boolean> {
     const state = this.voiceStates.get(guildId);
     const server = this.voiceServers.get(guildId);
-    if (!state || !server || !this._expectingConnection.has(guildId)) {
+    if (
+      !state ||
+      !server ||
+      !this._expectingConnection.has(guildId) ||
+      !state.channel_id
+    ) {
       return false;
     }
 
@@ -123,6 +128,7 @@ export abstract class BaseNode extends EventEmitter {
         endpoint: server.endpoint,
         sessionId: state.session_id,
         token: server.token,
+        channelId: state.channel_id,
       },
     });
     this._expectingConnection.delete(guildId);
