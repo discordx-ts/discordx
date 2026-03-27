@@ -1,5 +1,11 @@
 # @discordx/lava-player
 
+## 2.2.0
+
+### Minor Changes
+
+- add new required field `channelId` to support [DAVE](https://github.com/lavalink-devs/Lavalink/releases/tag/4.2.0)
+
 ## 2.1.5
 
 ### Patch Changes

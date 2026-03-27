@@ -1,5 +1,13 @@
 # @discordx/plugin-lava-player
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @discordx/lava-player@2.2.0
+  - @discordx/lava-queue@4.0.10
+
 ## 3.0.1
 
 ### Patch Changes
