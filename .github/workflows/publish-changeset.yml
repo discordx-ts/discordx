@@ -22,7 +22,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@main
         with:
-          node-version: 22
+          node-version: 24
           cache: "pnpm"
 
       - name: Install dependencies
@@ -31,13 +31,11 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Create Release Pull Request
+      - name: Publish to npm
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
         with:
-          commit: "chore: release packages"
-          publish: pnpm publish -r
-          title: "chore: release packages"
+          publish: pnpm publish -r --no-git-checks
