@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 4.4.1
+
+### Patch Changes
+
+- [`80c6262`](https://github.com/discordx-ts/discordx/commit/80c6262a77cf9379d2dcef188288c76a589f21c3) Thanks [@Jarva](https://github.com/Jarva)! - preserve null values for emoji and label options on button components
+
 ## 4.4.0
 
 ### Minor Changes
