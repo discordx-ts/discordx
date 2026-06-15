@@ -13,13 +13,13 @@ import {
 
 import { createPagination } from "../utils/index.js";
 import {
+  type ButtonOptions,
   defaultIds,
   defaultPerPageItem,
-  SelectMenuPageId,
-  type ButtonOptions,
   type IPaginate,
   type PaginationItem,
   type PaginationOptions,
+  SelectMenuPageId,
 } from "./index.js";
 
 export class PaginationBuilder {
@@ -212,18 +212,26 @@ export class PaginationBuilder {
       .setStyle(userConfig?.style ?? config.defaults.style)
       .setDisabled(config.disabled);
 
-    const label = userConfig?.label ?? config.defaults.label;
+    const label =
+      userConfig?.label !== undefined
+        ? userConfig.label
+        : config.defaults.label;
+
+    const emoji =
+      userConfig?.emoji !== undefined
+        ? userConfig.emoji
+        : config.defaults.emoji;
+
+    if (!label && !emoji) {
+      throw Error("Pagination buttons must include either an emoji or a label");
+    }
+
     if (label) {
       button.setLabel(label);
     }
 
-    const emoji = userConfig?.emoji ?? config.defaults.emoji;
     if (emoji) {
       button.setEmoji(emoji);
-    }
-
-    if (!label && !emoji) {
-      throw Error("Pagination buttons must include either an emoji or a label");
     }
 
     return button;
