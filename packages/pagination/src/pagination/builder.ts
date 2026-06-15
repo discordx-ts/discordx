@@ -13,13 +13,13 @@ import {
 
 import { createPagination } from "../utils/index.js";
 import {
+  type ButtonOptions,
   defaultIds,
   defaultPerPageItem,
-  SelectMenuPageId,
-  type ButtonOptions,
   type IPaginate,
   type PaginationItem,
   type PaginationOptions,
+  SelectMenuPageId,
 } from "./index.js";
 
 export class PaginationBuilder {
