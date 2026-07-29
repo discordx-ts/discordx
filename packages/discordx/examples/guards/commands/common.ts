@@ -4,8 +4,8 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import type { CommandInteraction } from "discord.js";
-import { Discord, Guard, On, Slash, type ArgsOf } from "discordx";
+import type { CommandInteraction, Events } from "discord.js";
+import { type ArgsOf, Discord, Guard, On, Slash } from "discordx";
 
 import { ErrorHandler } from "../guards/Error.js";
 import { NotBot } from "../guards/NotBot.js";

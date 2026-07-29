@@ -104,7 +104,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-lava-player"
+    "build:typedoc": "pnpx typedoc src/index.ts --out ../../docs/static/api/plugin-lava-player"
   },
   "dependencies": {
     "@discordx/lava-player": "workspace:^",

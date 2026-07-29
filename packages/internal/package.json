@@ -53,7 +53,7 @@
   ],
   "scripts": {
     "build": "tsdown src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/internal"
+    "build:typedoc": "pnpx typedoc src/index.ts --out ../../docs/static/api/internal"
   },
   "devDependencies": {
     "typescript": "7.0.2"

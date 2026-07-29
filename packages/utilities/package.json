@@ -49,7 +49,7 @@
   ],
   "scripts": {
     "build": "tsdown src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/utilities"
+    "build:typedoc": "pnpx typedoc src/index.ts --out ../../docs/static/api/utilities"
   },
   "dependencies": {
     "dayjs": "^1.11.21"
