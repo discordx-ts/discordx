@@ -1,6 +1,6 @@
 ## Summary
 
-Briefly describe the changes made in this PR.
+Briefly describe the changes made in this pull request.
 
 ## Checklist
 
