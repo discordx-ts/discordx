@@ -53,7 +53,7 @@
   ],
   "scripts": {
     "build": "tsdown src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/lava-queue"
+    "build:typedoc": "pnpx typedoc src/index.ts --out ../../docs/static/api/lava-queue"
   },
   "dependencies": {
     "lodash": "^4.18.1"

@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import { dirname, importx } from "@discordx/importer";
-import { IntentsBitField, Partials } from "discord.js";
+import { Events, IntentsBitField, Partials } from "discord.js";
 import { Client } from "discordx";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: ignore

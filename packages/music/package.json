@@ -50,7 +50,7 @@
   ],
   "scripts": {
     "build": "tsdown src/index.ts src/worker/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/music"
+    "build:typedoc": "pnpx typedoc src/index.ts --out ../../docs/static/api/music"
   },
   "dependencies": {
     "@distube/ytdl-core": "^4.16.12",
