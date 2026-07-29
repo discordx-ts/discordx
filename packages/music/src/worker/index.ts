@@ -7,8 +7,8 @@
 import { parentPort } from "node:worker_threads";
 
 import {
-  WorkerOperation,
   type WorkerDataPayload,
+  WorkerOperation,
 } from "../types/communication-worker.js";
 import { AudioNodeManager } from "./audio-node-manager.js";
 

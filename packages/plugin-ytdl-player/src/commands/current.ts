@@ -5,7 +5,7 @@
  * -------------------------------------------------------------------------------------------------------
  */
 
-import { EmbedBuilder, type CommandInteraction } from "discord.js";
+import { type CommandInteraction, EmbedBuilder } from "discord.js";
 import { Discord, Slash, SlashGroup } from "discordx";
 
 import { musicPlayerManager } from "../core/index.js";

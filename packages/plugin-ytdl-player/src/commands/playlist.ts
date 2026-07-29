@@ -7,8 +7,8 @@
 
 import {
   ApplicationCommandOptionType,
-  EmbedBuilder,
   type CommandInteraction,
+  EmbedBuilder,
 } from "discord.js";
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 import { YouTube } from "youtube-sr";

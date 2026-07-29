@@ -6,8 +6,8 @@
  */
 import type { CommandInteraction } from "discord.js";
 import {
-  Discord,
   DIService,
+  Discord,
   Slash,
   typeDiDependencyRegistryEngine,
 } from "discordx";

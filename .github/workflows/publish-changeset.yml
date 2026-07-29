@@ -28,8 +28,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
-        run: pnpm run build
+      - name: Run check
+        run: pnpm check
+
+      - name: Run build
+        run: pnpm build
+
+      - name: Run test
+        run: pnpm test
 
       - name: Publish to npm
         uses: changesets/action@v1

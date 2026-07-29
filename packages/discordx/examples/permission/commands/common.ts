@@ -5,8 +5,8 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  PermissionFlagsBits,
   type ChatInputCommandInteraction,
+  PermissionFlagsBits,
 } from "discord.js";
 import { Discord, Slash } from "discordx";
 

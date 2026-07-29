@@ -7,8 +7,8 @@
 import {
   ActionRowBuilder,
   ButtonBuilder,
-  ButtonStyle,
   type ButtonInteraction,
+  ButtonStyle,
   type CommandInteraction,
   type MessageActionRowComponentBuilder,
 } from "discord.js";

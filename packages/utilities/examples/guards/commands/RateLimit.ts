@@ -10,8 +10,8 @@ import {
   Discord,
   Guard,
   SimpleCommand,
-  Slash,
   type SimpleCommandMessage,
+  Slash,
 } from "discordx";
 
 @Discord()

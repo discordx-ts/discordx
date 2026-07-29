@@ -4,7 +4,7 @@
  * Licensed under the Apache License. See License.txt in the project root for license information.
  * -------------------------------------------------------------------------------------------------------
  */
-import { SlashCommandBuilder, type CommandInteraction } from "discord.js";
+import { type CommandInteraction, SlashCommandBuilder } from "discord.js";
 import { Discord, Slash } from "discordx";
 
 const cmd = new SlashCommandBuilder()

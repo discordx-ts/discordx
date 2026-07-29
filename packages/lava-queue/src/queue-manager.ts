@@ -6,10 +6,10 @@
  */
 import {
   EventType,
-  TrackEndReason,
   type GetPlayer,
   type Node,
   type OPEvent,
+  TrackEndReason,
 } from "@discordx/lava-player";
 import { Collection, type Snowflake } from "discord.js";
 
