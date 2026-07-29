@@ -11,10 +11,10 @@ import {
   CommandInteraction,
   ComponentType,
   ContextMenuCommandInteraction,
+  type InteractionReplyOptions,
   Message,
   MessageComponentInteraction,
   MessageFlags,
-  type InteractionReplyOptions,
   type StringSelectMenuInteraction,
 } from "discord.js";
 import cloneDeep from "lodash/cloneDeep.js";
