@@ -45,11 +45,11 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/pagination"
   },
   "dependencies": {
-    "lodash": "^4.17.23"
+    "lodash": "^4.18.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.24",
-    "discord.js": "^14.25.1",
+    "discord.js": "^14.27.0",
     "typescript": "5.9.3"
   },
   "peerDependencies": {

@@ -44,12 +44,12 @@
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/utilities"
   },
   "dependencies": {
-    "dayjs": "^1.11.20"
+    "dayjs": "^1.11.21"
   },
   "devDependencies": {
     "@discordx/importer": "workspace:^",
     "@discordx/pagination": "workspace:^",
-    "discord.js": "^14.25.1",
+    "discord.js": "^14.27.0",
     "discordx": "workspace:^",
     "typescript": "5.9.3"
   },
