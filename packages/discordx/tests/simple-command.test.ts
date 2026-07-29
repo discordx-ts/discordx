@@ -15,6 +15,7 @@ import {
   SimpleCommandOption,
   SimpleCommandOptionType,
 } from "discordx";
+import { beforeAll, describe, expect, it } from "vitest";
 
 interface Data {
   passed: boolean;

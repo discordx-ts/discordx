@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-    "module": "ESNext",
-    "target": "ESNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
-    "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "skipLibCheck": true
+    "target": "esnext"
   },
   "exclude": ["examples", "dist"]
 }

@@ -11,6 +11,7 @@ import {
   type Interaction,
 } from "discord.js";
 import { Client, Discord, Guard, Guild, Slash, SlashOption } from "discordx";
+import { beforeAll, describe, expect, it } from "vitest";
 
 import {
   FakeInteraction,

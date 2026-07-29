@@ -31,7 +31,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.cjs"
     },
     "./commands#all": {
       "types": "./dist/commands/index.d.ts",
@@ -109,10 +109,11 @@
   "dependencies": {
     "@discordx/lava-player": "workspace:^",
     "@discordx/lava-queue": "workspace:^",
-    "@discordx/pagination": "workspace:^"
+    "@discordx/pagination": "workspace:^",
+    "typescript": "^7.0.2"
   },
   "devDependencies": {
-    "discord.js": "^14.25.1",
+    "discord.js": "^14.27.0",
     "discordx": "workspace:^"
   },
   "peerDependencies": {

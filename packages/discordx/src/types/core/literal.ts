@@ -53,8 +53,7 @@ export type WhitelistWords<S, D extends string> = S extends ""
 
 export type TruncateTo32<T extends string> = T extends ""
   ? unknown
-  : // biome-ignore lint/suspicious/noRedeclare: ignore
-    T extends `${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}`
+  : T extends `${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}${infer R}`
     ? T extends `${infer F}${R}`
       ? F
       : never

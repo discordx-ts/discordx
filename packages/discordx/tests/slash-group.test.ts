@@ -21,6 +21,7 @@ import {
   SlashGroup,
   SlashOption,
 } from "discordx";
+import { beforeAll, describe, expect, it } from "vitest";
 
 import {
   FakeInteraction,
