@@ -3,9 +3,10 @@ packages:
   - packages/*/examples/**
   - docs
 
-onlyBuiltDependencies:
-  - core-js
-  - core-js-pure
-  - esbuild
-  - ffmpeg-static
-  - unrs-resolver
+allowBuilds:
+  "@discordjs/opus": true
+  core-js: true
+  core-js-pure: true
+  esbuild: true
+  ffmpeg-static: true
+  unrs-resolver: true

@@ -7,6 +7,7 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { ButtonInteraction, Interaction } from "discord.js";
 import { ButtonComponent, Client, Discord, Guard } from "discordx";
+import { beforeAll, describe, expect, it } from "vitest";
 
 import { FakeInteraction, InteractionType } from "./util/interaction.js";
 

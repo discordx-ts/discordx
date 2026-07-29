@@ -6,6 +6,7 @@
  */
 import { Events } from "discord.js";
 import { Client, Discord, Guard, type GuardFunction, On } from "discordx";
+import { beforeAll, describe, expect, it } from "vitest";
 
 const guard1: GuardFunction = async (
   [message]: [string],

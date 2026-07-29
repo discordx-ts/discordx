@@ -29,13 +29,21 @@
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)",
     "Victorique Blois <loli@victorique.moe> (https://github.com/VictoriqueMoe)"
   ],
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -45,7 +53,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsdown src/index.ts --format cjs,esm --dts",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/di"
   },
   "dependencies": {
@@ -53,7 +61,7 @@
     "typedi": "^0.10.0"
   },
   "devDependencies": {
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "engines": {
     "node": ">=16.0.0",

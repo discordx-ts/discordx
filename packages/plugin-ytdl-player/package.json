@@ -30,7 +30,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.cjs"
     },
     "./commands#all": {
       "types": "./dist/commands/index.d.ts",
@@ -124,13 +124,14 @@
     "@discordx/pagination": "workspace:^",
     "ffmpeg-static": "^5.3.0",
     "isomorphic-unfetch": "^4.0.2",
-    "libsodium-wrappers": "^0.8.2",
-    "spotify-url-info": "^3.3.0",
+    "libsodium-wrappers": "^0.8.4",
+    "spotify-url-info": "^3.3.1",
     "youtube-sr": "^4.3.12"
   },
   "devDependencies": {
-    "discord.js": "^14.25.1",
-    "discordx": "workspace:^"
+    "discord.js": "^14.27.0",
+    "discordx": "workspace:^",
+    "typescript": "^7.0.2"
   },
   "publishConfig": {
     "access": "public"

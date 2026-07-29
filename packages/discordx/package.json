@@ -28,13 +28,21 @@
     "Owen Calvin <owen.gombas@gmail.com> (https://github.com/OwenCalvin)",
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)"
   ],
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist",
     "CHANGELOG.md",
@@ -44,25 +52,24 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsdown src/index.ts --format cjs,esm --dts",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/discordx",
-    "test": "jest --detectOpenHandles"
+    "test": "vitest"
   },
   "dependencies": {
     "@discordx/di": "workspace:^",
     "@discordx/internal": "workspace:^",
-    "lodash": "^4.17.23"
+    "lodash": "^4.18.1"
   },
   "devDependencies": {
     "@discordx/importer": "workspace:^",
     "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.24",
-    "discord.js": "^14.25.1",
-    "jest": "^30.3.0",
+    "discord.js": "^14.27.0",
+    "jest": "^30.4.2",
     "reflect-metadata": "^0.2.2",
-    "ts-jest": "^29.4.6",
-    "ts-jest-resolver": "^2.0.1",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev"
