@@ -109,7 +109,8 @@
   "dependencies": {
     "@discordx/lava-player": "workspace:^",
     "@discordx/lava-queue": "workspace:^",
-    "@discordx/pagination": "workspace:^"
+    "@discordx/pagination": "workspace:^",
+    "typescript": "^7.0.2"
   },
   "devDependencies": {
     "discord.js": "^14.27.0",

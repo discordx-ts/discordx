@@ -41,7 +41,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts src/worker/index.ts --format cjs,esm --dts",
+    "build": "tsdown src/index.ts src/worker/index.ts --format cjs,esm --dts",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/music"
   },
   "dependencies": {
@@ -59,7 +59,7 @@
     "discord.js": "^14.27.0",
     "ffmpeg-static": "^5.3.0",
     "libsodium-wrappers": "^0.8.4",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "@discordjs/voice": ">=0.11",

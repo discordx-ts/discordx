@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ESNext",
-    "strict": true,
+    "emitDecoratorMetadata": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
     "outDir": "dist",
-    "emitDecoratorMetadata": false,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true
+    "strict": true,
+    "target": "esnext"
   },
   "exclude": ["node_modules", "tests", "examples"]
 }

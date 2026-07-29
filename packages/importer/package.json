@@ -41,14 +41,14 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts"
+    "build": "tsdown src/index.ts --format cjs,esm --dts"
   },
   "dependencies": {
     "glob": "^13.0.6"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "engines": {
     "node": ">=16.0.0",

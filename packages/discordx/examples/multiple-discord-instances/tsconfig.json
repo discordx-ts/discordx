@@ -4,14 +4,14 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noEmit": true,
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
     "rootDir": ".",
     "strict": true,
     "strictNullChecks": true,
-    "target": "ESNext"
+    "target": "esnext"
   }
 }

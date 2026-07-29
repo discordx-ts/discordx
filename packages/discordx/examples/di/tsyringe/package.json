@@ -4,5 +4,8 @@
   "dependencies": {
     "discordx": "workspace:^",
     "tsyringe": "^4.10.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
   }
 }

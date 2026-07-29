@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "outDir": "dist",
     "rootDir": "./",
-    "module": "ESNext",
-    "target": "ESNext",
+    "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "emitDecoratorMetadata": false,
-    "experimentalDecorators": true,
-    "declaration": false,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true
+    "target": "esnext"
   }
 }

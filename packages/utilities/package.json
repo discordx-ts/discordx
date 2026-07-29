@@ -40,7 +40,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsdown src/index.ts --format cjs,esm --dts",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/utilities"
   },
   "dependencies": {
@@ -51,7 +51,7 @@
     "@discordx/pagination": "workspace:^",
     "discord.js": "^14.27.0",
     "discordx": "workspace:^",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev",

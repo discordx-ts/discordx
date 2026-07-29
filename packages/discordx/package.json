@@ -44,9 +44,9 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsdown src/index.ts --format cjs,esm --dts",
     "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/discordx",
-    "test": "jest --detectOpenHandles"
+    "test": "vitest"
   },
   "dependencies": {
     "@discordx/di": "workspace:^",
@@ -60,9 +60,8 @@
     "discord.js": "^14.27.0",
     "jest": "^30.4.2",
     "reflect-metadata": "^0.2.2",
-    "ts-jest": "^29.4.12",
-    "ts-jest-resolver": "^2.0.1",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   },
   "peerDependencies": {
     "discord.js": ">=14 || ^14.0.0-dev"

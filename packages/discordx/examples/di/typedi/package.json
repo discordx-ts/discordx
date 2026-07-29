@@ -4,5 +4,8 @@
   "dependencies": {
     "discordx": "workspace:^",
     "typedi": "^0.10.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
   }
 }
