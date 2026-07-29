@@ -28,6 +28,7 @@
     "Owen Calvin <owen.gombas@gmail.com> (https://github.com/OwenCalvin)",
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)"
   ],
+  "type": "module",
   "exports": {
     ".": {
       "import": {

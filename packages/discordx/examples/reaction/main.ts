@@ -25,14 +25,14 @@ export class Main {
       silent: false,
     });
 
-    Main.Client.on(Events.ClientReady, () => {
+    Main.client.on(Events.ClientReady, () => {
       void Main.client.initApplicationCommands().then(() => {
         console.log("Bot started...");
       });
     });
 
-    Main.Client.on(Events.MessageReactionAdd, (reaction, user) => {
-      void Main.Client.executeReaction(reaction, user);
+    Main.client.on(Events.MessageReactionAdd, (reaction, user) => {
+      void Main.client.executeReaction(reaction, user);
     });
 
     await importx(`${dirname(import.meta.url)}/commands/**/*.{js,ts}`);

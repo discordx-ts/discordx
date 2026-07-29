@@ -27,6 +27,7 @@
   "contributors": [
     "Vijay Meena <vijayymmeena@gmail.com> (https://github.com/vijayymmeena)"
   ],
+  "type": "module",
   "exports": {
     ".": {
       "import": {
