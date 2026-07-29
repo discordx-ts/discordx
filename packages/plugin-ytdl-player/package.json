@@ -30,7 +30,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/index.cjs"
     },
     "./commands#all": {
       "types": "./dist/commands/index.d.ts",

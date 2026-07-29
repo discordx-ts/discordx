@@ -30,6 +30,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.8",
     "react-dom": "19.2.8",
+    "typescript": "^7.0.2",
     "url-loader": "^4.1.1"
   },
   "browserslist": {
@@ -44,8 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "description": "discordx documentation",
-  "devDependencies": {
-    "typescript": "^7.0.2"
-  }
+  "description": "discordx documentation"
 }
