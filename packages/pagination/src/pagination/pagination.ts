@@ -475,9 +475,7 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
 
     const messageOptions: InteractionReplyOptions = {
       ...message,
-      ...(this.config?.ephemeral
-        ? { flags: MessageFlags.Ephemeral } 
-        : {}),
+      ...(this.config?.ephemeral ? { flags: MessageFlags.Ephemeral } : {}),
     };
 
     if (this._isFollowUp) {
