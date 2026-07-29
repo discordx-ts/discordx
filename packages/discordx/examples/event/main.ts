@@ -25,7 +25,7 @@ export class Main {
       silent: false,
     });
 
-    Main.Client.on(Events.ClientReady, () => {
+    Main.client.on(Events.ClientReady, () => {
       console.log("Bot started...");
     });
 

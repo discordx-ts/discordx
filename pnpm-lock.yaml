@@ -148,6 +148,9 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0
     devDependencies:
+      reflect-metadata:
+        specifier: ^0.2.2
+        version: 0.2.2
       typescript:
         specifier: 7.0.2
         version: 7.0.2

@@ -115,7 +115,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/plugin-ytdl-player"
+    "build:typedoc": "pnpx typedoc src/index.ts --out ../../docs/static/api/plugin-ytdl-player"
   },
   "dependencies": {
     "@discordjs/voice": "^0.19.2",

@@ -54,13 +54,14 @@
   ],
   "scripts": {
     "build": "tsdown src/index.ts --format cjs,esm --dts",
-    "build:typedoc": "npx typedoc src/index.ts --out ../../docs/static/api/di"
+    "build:typedoc": "pnpx typedoc src/index.ts --out ../../docs/static/api/di"
   },
   "dependencies": {
     "tsyringe": "^4.10.0",
     "typedi": "^0.10.0"
   },
   "devDependencies": {
+    "reflect-metadata": "^0.2.2",
     "typescript": "7.0.2"
   },
   "engines": {
