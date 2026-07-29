@@ -11,8 +11,10 @@ import {
   CommandInteraction,
   ComponentType,
   ContextMenuCommandInteraction,
+  type InteractionReplyOptions,
   Message,
   MessageComponentInteraction,
+  MessageFlags,
   type StringSelectMenuInteraction,
 } from "discord.js";
 import cloneDeep from "lodash/cloneDeep.js";
@@ -471,9 +473,9 @@ export class Pagination<T extends PaginationResolver = PaginationResolver> {
       this._isFollowUp = true;
     }
 
-    const messageOptions = {
+    const messageOptions: InteractionReplyOptions = {
       ...message,
-      ephemeral: this.config?.ephemeral,
+      ...(this.config?.ephemeral ? { flags: MessageFlags.Ephemeral } : {}),
     };
 
     if (this._isFollowUp) {
