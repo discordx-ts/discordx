@@ -8,7 +8,7 @@
 import { setTimeout as wait } from "node:timers/promises";
 import { QueueManager } from "@discordx/lava-queue";
 import type { Events } from "discord.js";
-import { Discord, Once, type ArgsOf, type Client } from "discordx";
+import { type ArgsOf, type Client, Discord, Once } from "discordx";
 
 import { lavaPlayerManager } from "../core/manager.js";
 import { getNode } from "../core/node.js";

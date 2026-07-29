@@ -6,9 +6,9 @@
  */
 import {
   ActionRowBuilder,
-  StringSelectMenuBuilder,
   type CommandInteraction,
   type MessageActionRowComponentBuilder,
+  StringSelectMenuBuilder,
   type StringSelectMenuInteraction,
 } from "discord.js";
 import { Discord, SelectMenuComponent, Slash } from "discordx";

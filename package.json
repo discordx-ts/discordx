@@ -30,8 +30,8 @@
   "scripts": {
     "build": "turbo run build",
     "build:typedoc": "turbo run build:typedoc",
-    "format": "biome format --write",
-    "lint": "biome lint",
+    "check": "biome check",
+    "fix": "biome check --write",
     "prepare": "husky",
     "prettier": "prettier --check .",
     "test": "turbo run test"

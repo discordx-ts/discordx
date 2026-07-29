@@ -8,9 +8,9 @@ import { GuildMember, type Role, type User } from "discord.js";
 import {
   Discord,
   SimpleCommand,
+  type SimpleCommandMessage,
   SimpleCommandOption,
   SimpleCommandOptionType,
-  type SimpleCommandMessage,
 } from "discordx";
 
 @Discord()

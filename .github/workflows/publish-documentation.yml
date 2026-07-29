@@ -38,12 +38,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build TypeDoc
-        run: pnpm run build:typedoc
+      - name: Run check
+        run: pnpm check
 
-      - name: Build docs
-        run: pnpm run build
-        working-directory: ./docs
+      - name: Run build:typedoc
+        run: pnpm build:typedoc
+
+      - name: Run build
+        run: pnpm build
+
+      - name: Run test
+        run: pnpm test
 
       - name: Add CNAME
         run: echo discordx.js.org > CNAME

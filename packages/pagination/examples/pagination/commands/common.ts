@@ -9,12 +9,12 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  type CommandInteraction,
   EmbedBuilder,
   Events,
-  type CommandInteraction,
   type MessageActionRowComponentBuilder,
 } from "discord.js";
-import { Discord, On, Slash, type ArgsOf } from "discordx";
+import { type ArgsOf, Discord, On, Slash } from "discordx";
 
 import { GeneratePages } from "../util/common.js";
 

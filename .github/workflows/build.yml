@@ -5,8 +5,6 @@ on:
     branches:
       - main
   push:
-    paths-ignore:
-      - "docs/docs/**"
     branches:
       - main
 
@@ -30,11 +28,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
-        run: pnpm run build
+      - name: Run check
+        run: pnpm check
 
-      - name: Run Tests
-        run: pnpm run test
+      - name: Run build:typedoc
+        run: pnpm build:typedoc
 
-      - name: Run Lint
-        run: pnpm run lint
+      - name: Run build
+        run: pnpm build
+
+      - name: Run test
+        run: pnpm test

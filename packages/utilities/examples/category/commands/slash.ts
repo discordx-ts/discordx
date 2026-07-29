@@ -6,13 +6,13 @@
  */
 import { Pagination } from "@discordx/pagination";
 import { Category, Description, type ICategory } from "@discordx/utilities";
-import { EmbedBuilder, type CommandInteraction } from "discord.js";
+import { type CommandInteraction, EmbedBuilder } from "discord.js";
 import {
   DApplicationCommand,
   Discord,
+  type DSimpleCommand,
   MetadataStorage,
   Slash,
-  type DSimpleCommand,
 } from "discordx";
 
 @Discord()
