@@ -5,10 +5,10 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
-  SlashCommandBuilder,
-  SlashCommandStringOption,
   type AutocompleteInteraction,
   type CommandInteraction,
+  SlashCommandBuilder,
+  SlashCommandStringOption,
 } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 

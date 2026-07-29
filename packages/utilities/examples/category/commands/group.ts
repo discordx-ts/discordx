@@ -7,11 +7,11 @@
 import { Category, type ICategory } from "@discordx/utilities";
 import type { CommandInteraction } from "discord.js";
 import {
+  type DApplicationCommand,
   Discord,
   MetadataStorage,
   Slash,
   SlashGroup,
-  type DApplicationCommand,
 } from "discordx";
 
 @Discord()

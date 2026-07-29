@@ -7,11 +7,11 @@
 
 import type { QueueManager } from "@discordx/music";
 import {
-  GuildMember,
-  PartialGroupDMChannel,
   type ButtonInteraction,
   type CommandInteraction,
   type Guild,
+  GuildMember,
+  PartialGroupDMChannel,
   type TextBasedChannel,
 } from "discord.js";
 

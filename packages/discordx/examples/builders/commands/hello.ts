@@ -5,9 +5,9 @@
  * -------------------------------------------------------------------------------------------------------
  */
 import {
+  type CommandInteraction,
   SlashCommandBuilder,
   SlashCommandMentionableOption,
-  type CommandInteraction,
   type User,
 } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
