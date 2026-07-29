@@ -1,5 +1,11 @@
 # @discordx/pagination
 
+## 4.4.2
+
+### Patch Changes
+
+- Replace the deprecated ephemeral interaction response option with MessageFlags.
+
 ## 4.4.1
 
 ### Patch Changes
